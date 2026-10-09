@@ -26,7 +26,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - The background menu omits Customize… in Trash, Recent, and locations without a native path. lgse/strata#754 (unverified)
 - Customize opens with focus on Done, so one Escape closes it. lgse/strata#1433, lgse/strata#1533
 - Closing Customize returns focus to the control that opened it. lgse/strata#1433, lgse/strata#1533
-- With the emoji picker open, Escape closes only the picker; a second Escape closes Customize. lgse/strata#1433, lgse/strata#1533 (unverified)
+- With the emoji picker open, Escape closes only the picker; a second Escape closes Customize. lgse/strata#1433, lgse/strata#1533
 
 ### Choosing a color
 

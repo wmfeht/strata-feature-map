@@ -25,7 +25,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 - Clicking outside the progress dialog leaves the dialog, its progress, and Cancel visible until the operation finishes or cancellation completes. lgse/strata#491
 - Escape in the progress dialog acts as Cancel. lgse/strata#491 (unverified)
 - When the progress dialog closes, keyboard focus goes to the file list's cursor row, not to the widget focused when it opened. lgse/strata#1533
-- An error dialog that opens as the progress dialog closes keeps its own focus, with Close focused. lgse/strata#1533
+- An error dialog that opens as the progress dialog closes keeps its own focus, with Close focused. lgse/strata#1533 (unverified)
 
 ### Transfer progress
 

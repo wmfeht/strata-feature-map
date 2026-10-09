@@ -73,7 +73,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In a Save request, a single-clicked folder becomes the destination without the chooser navigating into it. lgse/strata#892
 - In a Save request, selecting a file copies its name into Name without accepting; selecting a folder leaves Name unchanged. lgse/strata#1138
 - In a Save request, after selecting or activating a file with a non-UTF-8 name, Save with Name unedited opens Replace for that exact file. lgse/strata#1427, lgse/strata#1533
-- Edited Name text is saved literally, so an edited lossy name keeps its U+FFFD characters; retyping the exact lossy text targets the original file again. lgse/strata#1427, lgse/strata#1533
+- In a Save request, edited Name text is saved literally, so an edited lossy name keeps its U+FFFD characters; retyping the exact lossy text targets the original file again. lgse/strata#1427, lgse/strata#1533
 - Saving with a file selected in Recent uses that file's containing folder as the destination. lgse/strata#1138
 - Saving over an existing file opens "Replace existing file?" with Cancel focused; Cancel keeps the chooser open and Replace returns the path. lgse/strata#175, lgse/strata#1311
 - Saving where a folder of the same name exists fails with "A folder named “name” already exists". lgse/strata#175 (unverified)
@@ -95,7 +95,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Requests come from other applications, so strings, globs, and choices are bounded. Filter-list size is not treated as abuse: count and rule budgets warn instead of refusing, since refusal left uploads silently broken (lgse/strata#465, lgse/strata#498).
 - The chooser reuses the browser view, sidebar, and preview drawer. Differences from the main window were treated as bugs and aligned (lgse/strata#384, lgse/strata#1163, lgse/strata#1195).
 - The automatic first-row selection is a keyboard cursor, not a choice. Destination resolution ignores it, because callers such as Chromium persist the returned folder and the error compounds (lgse/strata#1137, lgse/strata#1015).
-- Name holds only lossy UTF-8 text. The chooser records the exact name it filled from the filesystem and uses it while Name still shows that text unchanged (lgse/strata#1427).
+- Name holds only lossy UTF-8 text. The chooser records the exact name it filled from the filesystem and uses it while Name still shows that text unchanged (lgse/strata#1427, lgse/strata#1533).
 - That check compares text, not an edited flag, so an edit that restores the text still targets the original. Rebuilding bytes from an edited name would be guesswork, so edits save literally (lgse/strata#1427).
 - Default-map Enter shares the confirm path of Open and the 10xer map. Routing only activation would still return one file, because List and Icons collapse the selection first (lgse/strata#1426, lgse/strata#1533).
 - `current_file` for a nonexistent file is accepted for Qt interoperability, though the specification describes existing files (lgse/strata#699).

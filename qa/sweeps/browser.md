@@ -234,7 +234,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Open 12 tabs, hold Ctrl+Shift and press 0, drag tab 12 to position 1, press Ctrl+Shift+1; read which tab each step selects.
 - Press Ctrl+W with Properties open, then close every tab from the last one; change Show hidden files with three tabs on one folder and switch through them.
 - Open tabs on `trash:///`, `/`, and a 30-character folder name; press a Columns folder, drag 5 px, release, and read the tab name during and after.
-- Switch to tab 2, open and close Properties, and check that focus lands on tab 2's cursor row.
+- Focus an empty folder's pane in tab 2, fill the folder from a shell, then switch away and back.
 
 ### browser/tabs/session-restore
 

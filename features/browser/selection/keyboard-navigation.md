@@ -50,7 +50,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In Columns, Tab into the strip lands on the active column's cursor without changing the active column. Tab from any column leaves the strip. lgse/strata#1431, lgse/strata#1533
 - In Columns, Shift+Tab from a column goes to its open filter, then its header actions, then the control before the strip. lgse/strata#1431, lgse/strata#1533
 - In Columns, an unreadable folder's Retry button is the next Tab stop inside its column. lgse/strata#1466, lgse/strata#1533
-- Tab from an inline rename field commits the rename and leaves the listing; in Columns it leaves the strip. lgse/strata#1431, lgse/strata#1533 (unverified)
+- Tab from an inline rename field commits the rename and leaves the listing; in Columns it leaves the strip. lgse/strata#1431, lgse/strata#1533
 - In an empty, unreadable, or loading folder, Tab and Shift+Tab leave the focused pane as they leave a listing. Shift+Tab from the footer returns to it. lgse/strata#1466, lgse/strata#1533
 - 10xer mode keeps its own Tab handling. lgse/strata#1431, lgse/strata#1533 (unverified)
 
