@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
 tests: [src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [docs/preview-sandbox.md]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#535, pr: lgse/strata#538}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/portal/window_geometry.rs]
 tests: [src/portal/window_geometry/tests.rs, src/portal/window_geometry/tests/centering.rs]
 related: []

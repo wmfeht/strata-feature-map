@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs]
 tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
 docs: []

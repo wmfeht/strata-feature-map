@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/e2e/scenarios/test_search_filter_sort.py]
 docs: []

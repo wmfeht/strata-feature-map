@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
 related: [preview/preview-panel, browser/selection, operations/rename]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#169, pr: lgse/strata#170}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/assets.rs, src/assets/vector.rs, data/icons/scalable/actions/strata-lang-*.svg]
 tests: [src/assets/tests.rs, src/assets/vector/tests.rs, src/ui/browser/entry/tests.rs]
 related: [browser/view-modes/icons]

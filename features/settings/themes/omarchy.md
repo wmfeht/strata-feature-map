@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1198, pr: lgse/strata#1482}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/theme/omarchy.rs]
 tests: [src/ui/theme/omarchy/tests.rs, src/ui/settings/theme/tests.rs]
 related: []

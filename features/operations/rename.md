@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/e2e/scenarios/test_inline_renaming.py, tests/e2e/scenarios/test_rename_visibility.py, tests/e2e/mutations/rename-caret.patch]
 docs: [docs/keyboard-navigation.md]

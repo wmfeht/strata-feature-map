@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
 related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions]

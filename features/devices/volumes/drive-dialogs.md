@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1293, pr: lgse/strata#1331}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/window/drive_dialogs.rs, src/ui/window/drive_dialogs/**, src/ui/window/drive_ops.rs, src/ui/window/device_labels.rs, src/ui/missing_tools.rs, src/services/package_manager.rs]
 tests: [src/ui/window/drive_dialogs/tests.rs, src/ui/window/drive_ops/tests.rs, src/ui/window/device_labels/tests.rs, src/ui/missing_tools/tests.rs, src/services/package_manager/tests.rs]
 related: [browser/sidebar, operations/progress]

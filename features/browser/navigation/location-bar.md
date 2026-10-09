@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/browser/location.rs, src/ui/browser/location/**]
 tests: [src/ui/browser/location/tests.rs, src/ui/browser/location/completion/tests.rs, src/app/browser/tests/location_input.rs, tests/e2e/scenarios/test_locations.py]
 related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop]

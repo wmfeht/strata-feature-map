@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#935}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/window/volume_password.rs]
 tests: [src/ui/window/volume_password/tests.rs]
 related: [devices/volumes/udiskie-unlock]

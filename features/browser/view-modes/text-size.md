@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#155, pr: lgse/strata#252}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/preferences/text_size.rs]
 tests: [src/ui/preferences/tests/text_size.rs, src/ui/theme/tests/text_size.rs, tests/e2e/scenarios/test_text_size.py]
 docs: [docs/preferences.md]

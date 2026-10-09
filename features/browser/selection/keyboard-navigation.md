@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, tests/e2e/scenarios/test_keyboard_navigation.py]
 related: [browser/sidebar, browser/navigation, integration/10xer-mode]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, tests/e2e/scenarios/test_filter_results.py]
 docs: [docs/keyboard-navigation.md, docs/preferences.md]

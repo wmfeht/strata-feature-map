@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/browser/tab_location/tests.rs, tests/e2e/scenarios/test_tabs.py]
 docs: [docs/keyboard-navigation.md, docs/10xer-mode.md]

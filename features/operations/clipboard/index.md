@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/e2e/scenarios/test_clipboard.py]
 docs: [docs/keyboard-navigation.md]

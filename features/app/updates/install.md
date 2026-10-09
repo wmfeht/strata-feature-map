@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#24, pr: lgse/strata#26}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/services/update_install.rs, src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py]
 tests: [src/services/update_install/tests.rs, src/services/update_install/review_tests.rs, src/services/update_install/archive/tests.rs, src/services/update_install/command/tests.rs, src/services/update_install/download/tests.rs, src/services/update_install/manifest/tests.rs, src/ui/settings/tests/update_dialog.rs, scripts/test_sign_update_manifest.py]
 docs: [docs/signed-updates.md]

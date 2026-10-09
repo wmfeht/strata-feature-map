@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/composition/tenxer_splash.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/composition/tenxer_splash/tests.rs]
 docs: [docs/10xer-mode.md]

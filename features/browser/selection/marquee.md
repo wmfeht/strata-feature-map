@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#189, pr: lgse/strata#203}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/marquee.rs]
 tests: [src/ui/marquee/tests.rs, tests/e2e/scenarios/test_marquee_scrolling.py]
 related: [integration/portal-file-chooser]

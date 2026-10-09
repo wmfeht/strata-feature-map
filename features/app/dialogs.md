@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
 docs: []

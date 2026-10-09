@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
 tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, tests/e2e/scenarios/test_file_providers.py]
 docs: [docs/file-providers.md]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/collection_interaction.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/e2e/scenarios/test_selection.py, tests/e2e/scenarios/test_background_selection.py, tests/e2e/scenarios/test_escape_selection.py, tests/e2e/scenarios/test_preselected_hover.py, tests/e2e/scenarios/test_monitor_selection.py]
 docs: [docs/keyboard-navigation.md]

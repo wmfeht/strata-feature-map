@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1261, pr: lgse/strata#1311}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/window/keyboard/chooser.rs]
 tests: [src/ui/chooser/tests/keyboard.rs]
 docs: [docs/portal-file-chooser.md]

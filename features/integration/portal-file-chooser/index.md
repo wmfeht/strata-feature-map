@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs]
 docs: [docs/portal-file-chooser.md]

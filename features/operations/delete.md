@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/browser/dissolve_delete.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs]
 related: [operations/trash, operations/progress]

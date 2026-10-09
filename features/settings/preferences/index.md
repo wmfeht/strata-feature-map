@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
 docs: [docs/preferences.md]

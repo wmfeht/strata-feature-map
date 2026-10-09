@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: []
 tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs]
 docs: []

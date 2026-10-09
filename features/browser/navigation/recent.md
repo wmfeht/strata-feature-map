@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1082, pr: lgse/strata#1083}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: []
 tests: [src/app/browser/tests/recent.rs, tests/e2e/scenarios/test_recent.py]
 related: [browser/sidebar, integration/open-with, settings/preferences]

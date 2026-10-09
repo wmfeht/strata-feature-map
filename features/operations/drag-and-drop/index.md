@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: []
 tests: [tests/e2e/scenarios/test_drag_and_drop.py, tests/e2e/scenarios/test_drag_animation.py, tests/e2e/scenarios/test_sidebar_file_drops.py, tests/e2e/mutations/drag-and-drop.patch]
 docs: [docs/preferences.md]

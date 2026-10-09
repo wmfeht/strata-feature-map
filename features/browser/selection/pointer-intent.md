@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#517, pr: lgse/strata#522}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/pointer.rs]
 tests: [src/ui/pointer/**, tests/e2e/scenarios/test_pointer_intent.py]
 related: [operations/drag-and-drop, preview/preview-panel, operations/rename]

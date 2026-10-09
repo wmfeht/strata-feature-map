@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [src/ui/preferences/bindings.rs, src/storage.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, tests/e2e/scenarios/test_preferences.py]
 related: []

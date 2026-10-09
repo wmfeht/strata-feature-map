@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: draft
+review: reviewed
 code: [install.sh]
 tests: [scripts/test_installer.py]
 related: [integration/file-manager-interface, integration/portal-file-chooser/setup, devices/volumes/udiskie-unlock]
