@@ -6,30 +6,41 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), or [by PR](index/by-pr.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark not set · 93 features, 0 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark not set · 105 features, 0 reviewed
 
 ## app
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
+| [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `b893886` | 1 |
+| [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `b893886` | 1 |
+| [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `b893886` | 0 |
+| ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | draft | `b893886` | 0 |
+| ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | draft | `b893886` | 0 |
+| [Keyboard shortcut reference and footer](features/app/shortcut-reference.md) | `app/shortcut-reference` | shipped | draft | `b893886` | 0 |
 | [Updates](features/app/updates/index.md) | `app/updates` | shipped | draft | `b893886` | 0 |
 | ↳ [In-place update install](features/app/updates/install.md) | `app/updates/install` | shipped | draft | `b893886` | 0 |
 | ↳ [Package-managed installs](features/app/updates/package-managed.md) | `app/updates/package-managed` | shipped | draft | `b893886` | 0 |
 | ↳ [Release channels](features/app/updates/release-channels.md) | `app/updates/release-channels` | shipped | draft | `b893886` | 0 |
+| [Window chrome and structure](features/app/window.md) | `app/window` | shipped | draft | `b893886` | 1 |
 
 ## browser
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
+| [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `b893886` | 0 |
+| [Directory loading and monitoring](features/browser/directory-monitoring.md) | `browser/directory-monitoring` | shipped | draft | `b893886` | 0 |
+| [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | draft | `b893886` | 1 |
 | [Navigation](features/browser/navigation/index.md) | `browser/navigation` | shipped | draft | `b893886` | 2 |
 | ↳ [Folder jump](features/browser/navigation/folder-jump.md) | `browser/navigation/folder-jump` | shipped | draft | `b893886` | 0 |
 | ↳ [Location bar and breadcrumbs](features/browser/navigation/location-bar.md) | `browser/navigation/location-bar` | shipped | draft | `b893886` | 1 |
 | ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | draft | `b893886` | 0 |
 | ↳ [Startup location arguments](features/browser/navigation/startup-arguments.md) | `browser/navigation/startup-arguments` | shipped | draft | `b893886` | 1 |
-| [Properties dialog](features/browser/properties/index.md) | `browser/properties` | shipped | draft | `b893886` | 1 |
+| [Properties dialog](features/browser/properties/index.md) | `browser/properties` | shipped | draft | `b893886` | 0 |
 | ↳ [Media details in Properties](features/browser/properties/media.md) | `browser/properties/media` | shipped | draft | `b893886` | 0 |
 | ↳ [RAW photo details](features/browser/properties/raw-metadata.md) | `browser/properties/raw-metadata` | shipped | draft | `b893886` | 0 |
 | ↳ [Folder and selection size](features/browser/properties/size.md) | `browser/properties/size` | shipped | draft | `b893886` | 0 |
+| [Scrolling](features/browser/scrolling.md) | `browser/scrolling` | shipped | draft | `b893886` | 0 |
 | [Search](features/browser/search/index.md) | `browser/search` | shipped | draft | `b893886` | 1 |
 | ↳ [Global search exclusions](features/browser/search/exclusions.md) | `browser/search/exclusions` | shipped | draft | `b893886` | 0 |
 | ↳ [Pane filter](features/browser/search/filter.md) | `browser/search/filter` | shipped | draft | `b893886` | 1 |
@@ -106,6 +117,7 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark not set · 9
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | draft | `b893886` | 0 |
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | draft | `b893886` | 0 |
 | ↳ [Restore from Trash](features/operations/trash/restore.md) | `operations/trash/restore` | shipped | draft | `b893886` | 0 |
+| [Undo and redo](features/operations/undo.md) | `operations/undo` | shipped | draft | `b893886` | 0 |
 
 ## preview
 

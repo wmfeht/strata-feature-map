@@ -59,7 +59,6 @@ Replacing a pacman-owned `/usr/bin/strata` fails on permissions, and with enough
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-09-10 | lgse/strata#744 | fix | Let prerelease AUR packages accept their prerelease GitHub releases. |
-| 2026-09-04 | lgse/strata#183 | build | Added the install-source marker and AUR version checks for the `strata-bin` and `strata-rc-bin` packages. |
 | 2026-09-03 | lgse/strata#210 | fix | Gated package-managed notices on the version the configured repository offers. |
 | 2026-09-03 | lgse/strata#196 | feat | Detected pacman-owned binaries and deferred their installs to Omarchy or pacman. |
 

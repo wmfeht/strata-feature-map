@@ -93,7 +93,6 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-09 | lgse/strata#1129 | feat | Applied the new Show close button preference when tab changes move the window-close button. |
 | 2026-10-07 | lgse/strata#1506 | feat | Added Ctrl+Page Up/Down switching and Ctrl+Shift+Page Up/Down reordering, like web browsers. |
 | 2026-10-07 | lgse/strata#1507 | fix | Held the tab name during a pending folder click so it no longer flickers to the parent. |
 | 2026-10-05 | lgse/strata#1484 | feat | Added in-memory tabs with a Material-style strip, shortcuts in both key maps, reordering, and cross-tab drops. |

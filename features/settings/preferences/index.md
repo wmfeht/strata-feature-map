@@ -51,13 +51,6 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - Turning off General → Browsing → Show F1 Shortcuts button hides the footer shortcuts button in every open window; F1 still opens the reference. lgse/strata#1376
 
-### Window buttons
-
-- A fresh profile shows only the close button in the top bar; minimize and maximize are off. lgse/strata#1129
-- Show minimize button, Show maximize button, and Show close button under General → Window buttons update the top bar of every open window immediately. lgse/strata#1129
-- The maximize button maximizes the window; on a maximized window it shows a restore icon labeled Restore window and restores it. lgse/strata#1129
-- Saved window-button choices apply at startup before Settings is opened. lgse/strata#1129
-
 ### Default directory
 
 - With no saved choice, General → Startup → Default directory reads Home directory, and Reset is disabled. lgse/strata#943 (unverified)

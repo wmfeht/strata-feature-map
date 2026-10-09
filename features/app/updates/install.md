@@ -90,7 +90,6 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 | 2026-09-29 | lgse/strata#1330 | fix | Resolved a replaced executable's ` (deleted)` path back to its install path before updating. |
 | 2026-09-09 | lgse/strata#672 | fix | Escaped the install path in the rewritten desktop `Exec=` line. |
 | 2026-09-06 | lgse/strata#475 | fix | Refreshed an opted-in file chooser portal after an in-place update. |
-| 2026-09-03 | lgse/strata#182 | feat | Refreshed an installed desktop entry and icon from the update archive. |
 | 2026-08-30 | lgse/strata#26 | feat | Added in-place installation of an available release with checksum verification and restart. |
 
 ## Known gaps

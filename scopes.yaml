@@ -18,7 +18,7 @@ scopes:
   sidebar: browser/sidebar
   updates: app/updates
   navigation: null
-  window: null
+  window: app/window
   portal: integration/portal-file-chooser
   theme: settings/themes
   keyboard: null
@@ -31,13 +31,13 @@ scopes:
   icons: null
   filter: browser/search/filter
   delete: operations/delete
-  context-menu: null
+  context-menu: browser/context-menu
   archive: operations/archives
   transfer: operations/clipboard
   startup: null
   preferences: settings/preferences
   list: browser/view-modes/list
-  installer: null
+  installer: app/packaging/installer
   desktop: null
   volumes: devices/volumes
   thumbnail: browser/thumbnails
@@ -75,11 +75,11 @@ scopes:
   file-operations: operations/clipboard
   drives: devices/volumes/drive-dialogs
   drag-drop: operations/drag-and-drop
-  dialogs: null
+  dialogs: app/dialogs
   devices: devices/volumes
   dates: settings/preferences/date-format
   cloud: null
   branding: null
   actions: integration/custom-actions
-  a11y: null
+  a11y: app/accessibility
   10xer: integration/10xer-mode

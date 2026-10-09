@@ -6,7 +6,7 @@ branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/browser/preview.rs]
-tests: [tests/e2e/scenarios/test_preview_session.py, tests/e2e/scenarios/test_quick_preview.py, src/ui/preview/tests.rs]
+tests: [tests/e2e/scenarios/test_preview_session.py, src/ui/preview/tests.rs]
 docs: [docs/preview-panel-layout.md]
 related: [preview/quick-preview, browser/view-modes, browser/sidebar]
 ---

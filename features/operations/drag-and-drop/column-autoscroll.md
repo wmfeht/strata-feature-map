@@ -36,7 +36,6 @@ Blank strip space has no drop target, so a drop motion controller on the columns
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-09-23 | lgse/strata#1208 | feat | Highlighted the column under a file drag, including columns revealed by autoscroll. |
 | 2026-09-18 | lgse/strata#1095 | feat | Added horizontal and vertical edge autoscroll during Columns file drags. |
 
 ## Known gaps

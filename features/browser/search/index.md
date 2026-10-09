@@ -76,6 +76,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 | --- | --- | --- | --- |
 | 2026-09-27 | lgse/strata#1287 | fix | Scheduled shallow directories first and pruned Go and Python caches so sibling folders are not starved. |
 | 2026-09-17 | lgse/strata#1066 | feat | Added Open containing folder to results through the result menu and Alt+Enter. |
+| 2026-09-17 | lgse/strata#1105 | fix | Added a folder icon to the reveal shortcut hint in search results. |
 | 2026-09-13 | lgse/strata#953 | fix | Made the first Down advance from the preselected result. |
 | 2026-09-11 | lgse/strata#813 | fix | Folded queries and indexed names with NFC so composed and decomposed names match. |
 | 2026-09-10 | lgse/strata#758 | fix | Shared indexing work across folders and kept the caret in the query during arrow navigation and updates. |

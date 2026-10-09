@@ -80,7 +80,6 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-09-25 | lgse/strata#1219 | feat | Revealed a typed file path inside its parent instead of rejecting it as not a directory. |
-| 2026-09-23 | lgse/strata#1206 | fix | Switched to breadcrumbs before resetting text so the completion popover stops flashing. |
 | 2026-09-23 | lgse/strata#1132 | fix | Gave the entry and its confirm and cancel buttons accessible names. |
 | 2026-09-22 | lgse/strata#388 | feat | Added folder completion under the entry with keyboard selection and Tab completion. |
 | 2026-09-11 | lgse/strata#820 | fix | Moved the crumb scrollbar below the crumbs, added edge fades and a right-click hierarchy menu. |

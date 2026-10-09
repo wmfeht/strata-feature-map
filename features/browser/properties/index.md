@@ -6,7 +6,7 @@ branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/ui/browser/properties.rs]
-tests: [tests/e2e/scenarios/test_dialogs_and_menus.py]
+tests: []
 docs: []
 related: [browser/sidebar, operations/rename, integration/open-with]
 ---
