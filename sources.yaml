@@ -1,0 +1,7 @@
+upstream:
+  repo: lgse/strata
+  branch: main
+fork:
+  repo: wmfeht/strata
+# Last upstream commit the sync has processed. Set at backfill hand-off.
+watermark: null
