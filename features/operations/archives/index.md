@@ -6,7 +6,7 @@ branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
-tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
+tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py, tests/e2e/scenarios/test_dialogs_and_menus.py]
 docs: [docs/archives.md, docs/keyboard-navigation.md]
 related: [integration/10xer-mode, operations/progress, operations/trash]
 ---
@@ -35,7 +35,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Compression runs as a progress card at the bottom right showing Preparing…, then Compressing… with file counts, and browsing stays available. lgse/strata#981, lgse/strata#1393
 - Cancelling compression stops within the current member, then shows the cancellation summary; no partial archive or staging file remains. lgse/strata#410, lgse/strata#981
 - Ctrl+Z after compression moves the new archive to Trash. lgse/strata#1097
-- Closing the Compress dialog with Escape, Cancel, or a backdrop click returns focus to the file list's cursor row. lgse/strata#1533
+- Closing the Compress dialog opened from the item menu with Escape, Cancel, or a backdrop click returns focus to the cursor row. lgse/strata#1533
 
 ### Archive name conflicts
 

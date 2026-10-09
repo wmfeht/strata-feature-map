@@ -26,7 +26,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - In an empty, unreadable, or still-loading directory, the focusable pane is named after the directory. lgse/strata#1533
 - That focused pane is described as "This directory is empty", the error text, or "Loading", matching what it shows. lgse/strata#1533
 - Entries are focusable, and selecting one sets the `selected` state on that entry and on no other. lgse/strata#415
-- View, entry kind, and list descriptions are shown in the interface language. lgse/strata#1519 (unverified)
+- View, entry kind, list, and "Loading" pane descriptions are shown in the interface language. lgse/strata#1519, lgse/strata#1533 (unverified)
 
 ### Chrome, menus, and dialogs
 

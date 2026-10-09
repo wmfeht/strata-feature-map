@@ -39,8 +39,8 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Closing Settings by Escape, Close settings, a click outside the panel, or closing the window discards an unsaved preview and collapses the editor. lgse/strata#1457, lgse/strata#1533
 - Discarding a preview this way re-applies the saved theme in every open window and in windows opened later. lgse/strata#1457, lgse/strata#1533
 - While a preview is active, changing text size, toggling Element glow, or an Omarchy theme change while following Omarchy keeps the preview applied. lgse/strata#1457, lgse/strata#1533
-- Closing Settings in one window leaves a preview started later in another window applied. lgse/strata#1457, lgse/strata#1533
-- Clicking a theme card or toggling Follow Omarchy during a preview ends the preview. lgse/strata#762 (unverified)
+- Cancel, or closing Settings, in one window leaves a preview started later in another window applied. lgse/strata#1533
+- Clicking a theme card or toggling Follow Omarchy during a preview ends the preview. lgse/strata#1457, lgse/strata#1533
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
 - Saving with an empty name, or one with no ASCII letters or digits, shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582

@@ -38,7 +38,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Resize the window across the 900 and 1250 px panel widths at text size 8 and 48, crossed with compact and airy density. Check the navigation, the search popover with a query typed, and dependent rows with arrows.
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
-- Set Default directory, then plain-launch with Restore open tabs on and a `tabs.toml` whose every entry is missing, corrupt, or a camera URI; note where the window opens.
+- With Restore open tabs on and a `tabs.toml` whose every entry is invalid, plain-launch with the Default directory deleted, then with it `chmod 000`.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
 ### settings/preferences/storage
@@ -102,6 +102,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Automatic updates, release channel, and the Updates page → `app`.
 - Window buttons rows and the F1 shortcuts reference → `app`.
 - Restore open tabs under General → Startup and the tab session it controls → `browser`.
-- Focus return after closing dialogs and palettes other than Settings → `app`.
+- Focus return after closing dialogs other than Settings → `app`.
+- Focus return after closing the search palettes → `browser`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
 - Thumbnail workers and thumbnail rendering → `browser`.

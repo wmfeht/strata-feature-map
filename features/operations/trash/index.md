@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/e2e/scenarios/test_entry_management.py]
 docs: [docs/trash-restore-testing.md]
-related: []
+related: [operations/delete, integration/10xer-mode/file-verbs]
 ---
 
 ## Summary
@@ -33,6 +33,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - That dialog adds "This location doesn't support Trash. This item will be permanently deleted." for one item. lgse/strata#1533
 - For several items it reads "These items will be permanently deleted.", and both versions end "This action cannot be undone." lgse/strata#1533
 - That dialog focuses Cancel, still after the size summary loads, so Enter closes it and keeps the files. lgse/strata#1533
+- When the folder's `access::can-trash` value is unknown, or the item's folder is not open, Delete attempts the trash move first. lgse/strata#1533 (unverified)
 - In a read-only folder, where `access::can-trash` and `access::can-delete` are both false, Delete still attempts the trash move and opens no dialog first. lgse/strata#1533
 - When a trash move fails because every failed item's location lacks Trash, the same explained dialog opens with Cancel focused, for only those items. lgse/strata#225, lgse/strata#1425, lgse/strata#1533
 - When some items failed for other reasons, Delete Permanently in the error dialog opens the explained dialog for the trash-unsupported items only. lgse/strata#225, lgse/strata#1533

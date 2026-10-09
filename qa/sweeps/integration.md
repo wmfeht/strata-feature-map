@@ -13,6 +13,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 ## Setup
 
 - `mise run chooser-dev`, or `scripts/portal-test.py <case> --binary target/debug/strata`, gives a private bus and backend with disposable settings. Cases: `single`, `multiple`, `directory`, `filters`, `png`, `save`, `savefiles`; `--view`, `--choices`, `--filter-count N`, `--cancel-after S`, and `--folder` vary them. The client prints the response code and URIs. Never run `--install-portal` against the VM's real session.
+- `open_file_request` in `tests/e2e/harness/portal.py` starts the backend on the E2E private bus and sends one OpenFile request, for scripted keyboard probes under pytest.
 - `python3 -m http.server 8765 --bind 127.0.0.1` over a folder of download fixtures: JPEG, BMP, static and animated WebP and GIF, APNG, a CMYK JPEG, an EXIF-rotated JPEG, a 17-megapixel JPEG, a 33 MiB BMP, a 301 redirect, and a 404. `scripts/portal-test.html` covers frontend routing only when a portal-aware browser is installed on the VM.
 - `busctl --user call org.freedesktop.FileManager1 /org/freedesktop/FileManager1 org.freedesktop.FileManager1 ShowItems ass N <uris> ""` on the private bus. A copy of `data/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the build goes in the throwaway `$XDG_DATA_HOME/dbus-1/services` for activation probes.
 - A fake `xdg-terminal-exec` first on `PATH` that appends its argv and cwd to a log; a second `PATH` without it and without any known emulator; fake `kitty` and `$TERMINAL` scripts that exit 127.

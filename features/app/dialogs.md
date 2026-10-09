@@ -37,7 +37,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 ### Focus after closing
 
-- Closing the last open dialog by any route returns focus to the widget focused before the first one opened, if still on screen. Progress dialogs and Settings are exceptions. lgse/strata#1331, lgse/strata#1533
+- Closing the last open dialog by any route returns focus to the widget focused before the first one opened, if still on screen. Progress dialogs and dialogs chained on them use the progress rule instead (`operations/progress`). lgse/strata#1331, lgse/strata#1533
 - When that widget is gone, such as a closed inline rename editor, focus goes to the active tab's cursor row. In an empty, unreadable, or loading folder it goes to the pane. lgse/strata#1533
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
 
@@ -68,7 +68,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - A chained dialog inherits the original browser focus origin, not the focus inside the dialog before it (lgse/strata#1331).
 - Before lgse/strata#1533 there was no shared close path: some dialogs restored focus, some called `focus_active()` by hand, and the rest did nothing. GTK4 clears window focus when the focused widget in a closing layer hides, so the next Down reached the header (lgse/strata#1430).
 - One restore order serves every dialog: focus taken meanwhile, an explicit restore, the origin if still in the window, then a window fallback. The window and each tab register the active browser as that fallback (lgse/strata#1430, lgse/strata#1533).
-- The search palettes are hidden rather than removed, so they capture the origin on each show and restore it when the hide completes (lgse/strata#1430).
+- Layers that are hidden rather than removed use a visibility-keyed variant: they capture the origin on each show and restore it when the hide completes (lgse/strata#1430).
 - Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533).
 - [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
 

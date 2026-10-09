@@ -3,8 +3,8 @@ title: Restore from Trash
 status: shipped
 origin: {issue: lgse/strata#478, pr: lgse/strata#502}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/adapters/trash_restore.rs]
 tests: [src/adapters/trash_restore/**, src/adapters/local_operations/tests/restore_safety.rs]
 docs: [docs/trash-restore-testing.md]
@@ -41,6 +41,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 ### Execution
 
 - A confirmed restore moves the item to the confirmed path and removes its `.trashinfo`. lgse/strata#502
+- Restoring an item whose name is not valid UTF-8 returns its original name bytes. lgse/strata#1533
 - If the original location changes after confirmation, the restore fails with "no longer matches the confirmed destination" and the payload and metadata stay in Trash. lgse/strata#502
 - If something exists at the destination, the restore fails with "something already exists at the destination" and the item stays in Trash. lgse/strata#502, lgse/strata#1527
 - On filesystems without `RENAME_NOREPLACE`, such as NTFS via ntfs-3g, files and folders restore when the destination is free. lgse/strata#1527

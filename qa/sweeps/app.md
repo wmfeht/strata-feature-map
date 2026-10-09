@@ -34,7 +34,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Tab around the whole window from the sidebar toggle and back; record any control skipped or visited twice, with the sidebar hidden and in an empty directory.
 - Switch the interface language to ja and ko and re-read entry, pane, and view descriptions and the menu-item accelerators.
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
-- Dump the focused node in a `chmod 000` folder, in a folder still loading over a stalled remote mount, and in an empty folder with the interface in ja; read its name and description each time.
+- Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
 
 ### app/dialogs

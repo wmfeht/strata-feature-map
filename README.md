@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `aee7133` · 106 features, 78 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `aee7133` · 106 features, 76 reviewed
 
 ## app
 
@@ -126,8 +126,8 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | [Inline rename](features/operations/rename.md) | `operations/rename` | shipped | draft | `aee7133` | 0 |
 | [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `aee7133` | 1 |
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | reviewed | `b893886` | 0 |
-| ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | reviewed | `b893886` | 0 |
-| ↳ [Restore from Trash](features/operations/trash/restore.md) | `operations/trash/restore` | shipped | reviewed | `b893886` | 0 |
+| ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | draft | `aee7133` | 0 |
+| ↳ [Restore from Trash](features/operations/trash/restore.md) | `operations/trash/restore` | shipped | draft | `aee7133` | 0 |
 | [Undo and redo](features/operations/undo.md) | `operations/undo` | shipped | reviewed | `b893886` | 0 |
 
 ## preview

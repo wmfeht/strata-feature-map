@@ -3,8 +3,8 @@ title: Empty Trash
 status: shipped
 origin: {issue: null, pr: lgse/strata#53}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/adapters/trash.rs]
 tests: [src/adapters/trash/tests.rs]
 related: [browser/properties/size]
@@ -20,6 +20,7 @@ Permanently deleting everything in Trash from the Trash pane header or the sideb
 
 - The pane header shows a trash icon button with tooltip "Empty Trash" only at `trash:///`, not in Trash subfolders or other locations. lgse/strata#53
 - In every view mode, the header button is insensitive while the Trash pane lists 0 items and becomes sensitive when an item appears. lgse/strata#138
+- With `gvfsd` running, a Trash holding only an item whose name is not valid UTF-8 enables the header button. lgse/strata#1533
 - Choosing Empty Trash while the open Trash pane lists 0 items opens no dialog. lgse/strata#138
 - The sidebar Trash menu shows "Empty Trash…" and its separator only after a probe finds an item; an empty Trash or failed probe leaves only Unpin and Properties. lgse/strata#396, lgse/strata#1025
 - The sidebar menu state refreshes after trash, restore, delete, transfer, and cancelled operations, when another application changes `trash:///`, and each time the menu opens. lgse/strata#396

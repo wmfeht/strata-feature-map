@@ -80,14 +80,14 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
 - Delete in a folder whose first listed entry is a symlink into `/dev/shm`, and in a read-only tmpfs mount.
 - Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
-- Under `gvfsd`, restore, re-trash, and permanently delete a non-UTF-8 name from Trash.
-- Compare the restored name bytes with `ls --quoting-style=escape`.
+- Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
 
 ### operations/trash/restore
 
 - Walk the Manual acceptance list in `docs/trash-restore-testing.md`.
+- Restore a non-UTF-8 name under `gvfsd` into a folder holding a similar UTF-8 name; compare bytes with `ls --quoting-style=escape`.
 - Restore after the original directory was renamed, deleted, replaced by a file, or replaced by a symlink pointing elsewhere.
 - Restore a mixed selection where one original lives on an unmounted volume.
 - Restore 200 items at once and cancel midway.

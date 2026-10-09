@@ -51,10 +51,11 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - A resized Miller column or List heading becomes the default for the next chooser, stored apart from browser windows' defaults. lgse/strata#1339
 - The item menu offers Rename, Properties, and, for one previewable file, Quick preview; empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
 - The item menu also offers Compress… for native entries, plus Move to Trash and Permanently delete where the location allows them. lgse/strata#950, lgse/strata#1352
-- With the file view focused, Shift+Delete asks to delete permanently. Delete moves the selection to Trash, unless its folder reports no Trash support. lgse/strata#950, lgse/strata#1533
+- With the file view focused, Shift+Delete asks to delete permanently. Delete moves the selection to Trash, except as below. lgse/strata#950, lgse/strata#1533
 - Where every selected item's open folder reports no Trash support but allows deletion, Delete opens the `operations/trash` explained permanent confirmation instead. lgse/strata#1533
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
-- Escape first dismisses an open menu, dropdown, inline edit, filter (from its field or a focused result), location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285, lgse/strata#1533
+- Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
+- Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533
 - With 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533
 
 ### Accepting

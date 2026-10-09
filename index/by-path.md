@@ -573,6 +573,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/scenarios/test_custom_actions.py` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
 | `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
 | `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/e2e/scenarios/test_drag_and_drop.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/e2e/scenarios/test_drag_animation.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
