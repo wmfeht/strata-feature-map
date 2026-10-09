@@ -337,7 +337,6 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/chooser/tests/filtered_preview.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/image_conversion.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/tests/keyboard.rs` | tests | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/chooser/tests/keyboard.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/sizing.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/collection_edit.rs` | code | [Inline rename](../features/operations/rename.md) | — |
 | `src/ui/collection_interaction.rs` | code | [Selection](../features/browser/selection/index.md) | — |
@@ -572,13 +571,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/scenarios/test_cross_volume_drop.py` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `tests/e2e/scenarios/test_custom_actions.py` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
 | `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
-| `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
-| `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/e2e/scenarios/test_drag_and_drop.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/e2e/scenarios/test_drag_animation.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/e2e/scenarios/test_entry_management.py` | tests | [New Folder and New File](../features/operations/create.md) | — |
-| `tests/e2e/scenarios/test_entry_management.py` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `tests/e2e/scenarios/test_escape_selection.py` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/e2e/scenarios/test_file_manager_interface.py` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
 | `tests/e2e/scenarios/test_file_providers.py` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |

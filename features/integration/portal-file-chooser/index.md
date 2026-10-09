@@ -6,7 +6,7 @@ branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/keyboard.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
 docs: [docs/portal-file-chooser.md]
 related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash]
 ---

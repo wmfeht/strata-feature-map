@@ -6,7 +6,7 @@ branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: draft
 code: [src/ui/browser/customization.rs]
-tests: [src/model/tests.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
+tests: [src/model/tests.rs]
 docs: [docs/preferences.md]
 related: [browser/sidebar, browser/thumbnails, browser/properties, settings/themes/icons, settings/preferences/storage, operations/rename, browser/context-menu]
 ---
