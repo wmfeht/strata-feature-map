@@ -2,6 +2,10 @@
 # matching then refines to the child. null means not yet mapped: its PRs go to
 # triage unless their paths match a node. Seeded from upstream history at
 # b8938864, ordered by commit count.
+#
+# browser, ui, settings, operations, navigation, keyboard, appearance, and icons
+# stay null on purpose. Their PRs land in several areas, so any single target
+# would capture PRs that belong elsewhere; path matching decides instead.
 ignore: [deps, release, e2e, ci, readme, test, triage, logging, style, arch]
 scopes:
   browser: null

@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), or [by PR](index/by-pr.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark not set · 105 features, 105 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` · 105 features, 105 reviewed
 
 ## app
 
