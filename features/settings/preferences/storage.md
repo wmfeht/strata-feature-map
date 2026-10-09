@@ -3,7 +3,7 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: reviewed
 code: [src/ui/preferences/bindings.rs, src/storage.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, tests/e2e/scenarios/test_preferences.py]
@@ -42,7 +42,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preferences.md) carries the lifecycle, the consumer table, and the steps for adding a preference.
+[docs/preferences.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/preferences.md) carries the lifecycle, the consumer table, and the steps for adding a preference.
 
 - One binding call applies the current value at once and then each change, so there is no separate startup initializer to drift from the change handler (lgse/strata#518).
 - Settings only edits preferences. Folder peeking once applied only when the General page was built, so a saved choice was ignored until Settings opened (lgse/strata#515).

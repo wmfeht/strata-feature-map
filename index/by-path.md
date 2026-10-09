@@ -41,8 +41,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/adapters/local_actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/adapters/local_actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `src/adapters/local_files.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_files/camera_photos.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/adapters/local_files/camera_photos/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/adapters/local_files/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/local_files/tests/browse.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_files/tests/trash.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `src/adapters/local_jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/adapters/local_jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
@@ -146,7 +149,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/model/action.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/model/tests.rs` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `src/model/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/model/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/portal.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/portal/dbus.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/portal/dbus/tests.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -317,8 +321,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/properties/media.rs` | code | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/ui/browser/properties/media/tests.rs` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/ui/browser/result_selection.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/browser/tab_location.rs` | code | [Browser tabs](../features/browser/tabs.md) | — |
-| `src/ui/browser/tab_location/tests.rs` | tests | [Browser tabs](../features/browser/tabs.md) | — |
+| `src/ui/browser/tab_location.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `src/ui/browser/tab_location/tests.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `src/ui/browser/tab_stops.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/browser/transfer.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
@@ -374,6 +379,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/missing_tools.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/missing_tools/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/modal.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
@@ -443,6 +449,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/general.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/search.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/search/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `src/ui/settings/tests/dismissal.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/tests/general.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/settings/tests/restart.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/update_dialog.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
@@ -459,6 +466,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/table_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/tabs_session.rs` | code | [Tab session restore](../features/browser/tabs/session-restore.md) | [Browser tabs](../features/browser/tabs/index.md) |
+| `src/ui/tabs_session/tests.rs` | tests | [Tab session restore](../features/browser/tabs/session-restore.md) | [Browser tabs](../features/browser/tabs/index.md) |
 | `src/ui/tenxer_mode.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/terminal.rs` | code | [Open in Terminal](../features/integration/open-with/terminal.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
 | `src/ui/theme.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -491,9 +500,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/composition/search.rs` | code | [Search](../features/browser/search/index.md) | — |
 | `src/ui/window/composition/settings.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/window/composition/settings/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
-| `src/ui/window/composition/tabs.rs` | code | [Browser tabs](../features/browser/tabs.md) | — |
-| `src/ui/window/composition/tabs/**` | code | [Browser tabs](../features/browser/tabs.md) | — |
-| `src/ui/window/composition/tabs/tests.rs` | tests | [Browser tabs](../features/browser/tabs.md) | — |
+| `src/ui/window/composition/tabs.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `src/ui/window/composition/tabs/**` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `src/ui/window/composition/tabs/tests.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tenxer_splash.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/composition/tenxer_splash/tests.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/device_labels.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -527,10 +536,13 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/escape_precedence.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/file_commands.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/file_verbs.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/folder_jump.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/go_prompt.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/mode_exit.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/overlay_focus.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/pane_focus.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/preview_ownership.rs` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/video_clips.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -554,6 +566,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/scenarios/test_background_selection.py` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/e2e/scenarios/test_browser_workers.py` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `tests/e2e/scenarios/test_chooser_image_conversion.py` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `tests/e2e/scenarios/test_chooser_selection.py` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `tests/e2e/scenarios/test_click_modes.py` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/e2e/scenarios/test_clipboard.py` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `tests/e2e/scenarios/test_column_background.py` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -594,7 +607,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/scenarios/test_sidebar_file_drops.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/e2e/scenarios/test_sidebar_reordering.py` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `tests/e2e/scenarios/test_startup_arguments.py` | tests | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |
-| `tests/e2e/scenarios/test_tabs.py` | tests | [Browser tabs](../features/browser/tabs.md) | — |
+| `tests/e2e/scenarios/test_tabs.py` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `tests/e2e/scenarios/test_terminal.py` | tests | [Open in Terminal](../features/integration/open-with/terminal.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
 | `tests/e2e/scenarios/test_text_size.py` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/e2e/scenarios/test_thumbnail_worker_settings.py` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |

@@ -3,11 +3,11 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs]
 tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
-docs: []
+docs: [docs/keyboard-navigation.md]
 related: [operations/clipboard, operations/delete, operations/archives]
 ---
 
@@ -24,6 +24,8 @@ The progress and cancellation UI shared by file operations: the blocking progres
 - The progress dialog's subtitle reads "Cancelling will not undo completed changes". lgse/strata#75
 - Clicking outside the progress dialog leaves the dialog, its progress, and Cancel visible until the operation finishes or cancellation completes. lgse/strata#491
 - Escape in the progress dialog acts as Cancel. lgse/strata#491 (unverified)
+- When the progress dialog closes, keyboard focus goes to the file list's cursor row, not to the widget focused when it opened. lgse/strata#1533
+- An error dialog that opens as the progress dialog closes keeps its own focus, with Close focused. lgse/strata#1533 (unverified)
 
 ### Transfer progress
 
@@ -55,15 +57,17 @@ The modal progress dialog predates the PR history. lgse/strata#398 moved it out 
 - Speed is a weighted average of samples at least 250 ms apart: 60% previous, 40% new (lgse/strata#1278). Transfer redraws are throttled to one per 33 ms (lgse/strata#1266).
 - Stopping Strata's writes does not make earlier writes safe to unplug. A stalled cancel therefore never claims the device is safe, and new file operations are refused until the pending transfer resolves (lgse/strata#1278).
 - Copy, compression, and deletion leave this dialog for the progress dock; other operations keep it (lgse/strata#1393).
+- Closing the dialog skips its opener because the operation changes the listing, so the opener row may be gone or stale (lgse/strata#1430, lgse/strata#1533).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the cursor row after progress closes, and sent docked no-Trash retries to the explained dialog. |
 | 2026-09-07 | lgse/strata#491 | fix | Kept progress and Cancel visible after backdrop clicks until the operation ends. |
 | 2026-09-05 | lgse/strata#369 | fix | Reported live byte progress for copies and moves, pulsing when totals are unknown. |
 | 2026-09-02 | lgse/strata#75 | fix | Replaced task abort with GIO cancellation and reported completed, failed, and unattempted items. |
 
 ## Known gaps
 
-- Closing the progress dialog does not return keyboard focus to the file list; the fix merged after `reviewed_at`. lgse/strata#1430, lgse/strata#1533
+None known.

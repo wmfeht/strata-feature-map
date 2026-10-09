@@ -3,7 +3,7 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: reviewed
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/browser/preview.rs]
 tests: [tests/e2e/scenarios/test_preview_session.py, src/ui/preview/tests.rs]
@@ -61,7 +61,7 @@ How the preview panel shares the window with the file views: its width, the rese
 
 ## Design
 
-[docs/preview-panel-layout.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preview-panel-layout.md) is the contract. Every rule there names its owning test, and geometry is verified by manual captures rather than layout assertions (lgse/strata#1404).
+[docs/preview-panel-layout.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/preview-panel-layout.md) is the contract. Every rule there names its owning test, and geometry is verified by manual captures rather than layout assertions (lgse/strata#1404).
 
 - Finder's column view is the reference. Wide windows give the preview the free space; a fixed width wasted it, and shrinking columns hid filenames (lgse/strata#885).
 - Manual width is window- and session-local, not a saved setting; persistent or per-folder sizing was left for later (lgse/strata#885).

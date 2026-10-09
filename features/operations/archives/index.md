@@ -3,11 +3,11 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
-docs: [docs/archives.md]
+docs: [docs/archives.md, docs/keyboard-navigation.md]
 related: [integration/10xer-mode, operations/progress, operations/trash]
 ---
 
@@ -35,11 +35,13 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Compression runs as a progress card at the bottom right showing Preparing…, then Compressing… with file counts, and browsing stays available. lgse/strata#981, lgse/strata#1393
 - Cancelling compression stops within the current member, then shows the cancellation summary; no partial archive or staging file remains. lgse/strata#410, lgse/strata#981
 - Ctrl+Z after compression moves the new archive to Trash. lgse/strata#1097
+- Closing the Compress dialog opened from the item menu with Escape, Cancel, or a backdrop click returns focus to the cursor row. lgse/strata#1533
 
 ### Archive name conflicts
 
 - When the archive name exists, a "File already exists" prompt offers Cancel, Keep Both, and Replace, with Replace focused. lgse/strata#147, lgse/strata#986
 - Enter activates the focused button; Escape and Cancel leave the existing archive unchanged. lgse/strata#986
+- Escape, Cancel, or X on the "File already exists" prompt returns focus to the listed item that was focused before it. lgse/strata#1533
 - Keep Both creates the next free numbered name, such as `archive (1).zip` or `archive (1).tar.gz`, and selects it. lgse/strata#986
 - Replace moves the existing archive to Trash before publishing; Ctrl+Z returns it. lgse/strata#1097
 - If the existing archive cannot be moved to Trash, Replace fails and the existing archive stays in place. lgse/strata#1097
@@ -52,6 +54,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Extract here and Extract to… appear only for a regular file, or a symlink to one, with a local path and a `.zip`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` extension. lgse/strata#81, lgse/strata#1478
 - A folder named `photos.zip` shows no Extract actions and opens like any folder. lgse/strata#1478
 - Extract here extracts beside the archive, reloads the folder, and selects the result. lgse/strata#81, lgse/strata#494
+- The extracted result that the browser selects keeps keyboard focus after the progress dialog closes, including in Columns. lgse/strata#1533
 - Extract to… opens the floating folder chooser, titled "Extract to", with an "Extract here" button and New Folder. After extraction, the window navigates to the chosen folder and selects the result. lgse/strata#81, lgse/strata#1384
 - Cancelling the Extract to… chooser starts no extraction. lgse/strata#1384
 - Extracting into a folder reached through a symlink writes into the resolved folder. lgse/strata#678
@@ -98,6 +101,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A password failure discards everything written, so the retry publishes under the archive's plain name instead of `stem (1)`. lgse/strata#1499
 - An error that quotes a member name such as `passwords.txt` shows the error dialog, not the password prompt. lgse/strata#750, lgse/strata#1499
 - Damage in an unencrypted member is reported as damage even when a password was given. lgse/strata#1499
+- Closing the Extract password dialog with Cancel or Escape leaves keyboard focus in the file list. lgse/strata#1533 (unverified)
 
 ### Errors and limits
 
@@ -131,6 +135,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the opener after the Compress, Extract password, and archive conflict dialogs close, including on Escape. |
 | 2026-10-05 | lgse/strata#1478 | fix | Staged extraction, kept partial output in the archive folder, restored links and metadata, and gated Extract on regular files. |
 | 2026-09-23 | lgse/strata#1160 | feat | Bundled multi-root extractions under the archive stem for every entry point, like Finder. |
 | 2026-09-23 | lgse/strata#1136 | fix | Removed the empty subfolder left by a failed activation extraction. |

@@ -1,7 +1,7 @@
 ---
 title: Integration sweep
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html]
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py]
 ---
 
 ## Scope
@@ -13,11 +13,13 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 ## Setup
 
 - `mise run chooser-dev`, or `scripts/portal-test.py <case> --binary target/debug/strata`, gives a private bus and backend with disposable settings. Cases: `single`, `multiple`, `directory`, `filters`, `png`, `save`, `savefiles`; `--view`, `--choices`, `--filter-count N`, `--cancel-after S`, and `--folder` vary them. The client prints the response code and URIs. Never run `--install-portal` against the VM's real session.
+- `open_file_request` in `tests/e2e/harness/portal.py` starts the backend on the E2E private bus and sends one OpenFile request, for scripted keyboard probes under pytest.
 - `python3 -m http.server 8765 --bind 127.0.0.1` over a folder of download fixtures: JPEG, BMP, static and animated WebP and GIF, APNG, a CMYK JPEG, an EXIF-rotated JPEG, a 17-megapixel JPEG, a 33 MiB BMP, a 301 redirect, and a 404. `scripts/portal-test.html` covers frontend routing only when a portal-aware browser is installed on the VM.
 - `busctl --user call org.freedesktop.FileManager1 /org/freedesktop/FileManager1 org.freedesktop.FileManager1 ShowItems ass N <uris> ""` on the private bus. A copy of `data/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the build goes in the throwaway `$XDG_DATA_HOME/dbus-1/services` for activation probes.
 - A fake `xdg-terminal-exec` first on `PATH` that appends its argv and cwd to a log; a second `PATH` without it and without any known emulator; fake `kitty` and `$TERMINAL` scripts that exit 127.
 - A fake `.desktop` default handler under `$XDG_DATA_HOME/applications` that logs its argv, in `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
+- A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
@@ -33,6 +35,11 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Send 17 concurrent requests, reuse a handle, and send a 4,097-byte title; then `--filter-count 33`, `129`, and one filter with 1,025 rules.
 - Save into a read-only folder, with an empty name, with `a/b`, and with a suggested name that is an existing folder.
 - Run `--cancel-after 1` while a Replace prompt, a download, and an inline rename are open; read the response code and the `strata-download-*` folder.
+- Under `multiple`, fill two files and press Shift+Enter.
+- Under `multiple`, fill two files, then press Enter on a focused filter result.
+- Under `save`, select a non-UTF-8 file, type a character into Name with real keystrokes, delete it, then Save.
+- Open a Space preview and the filter, press Down onto a result, then press Escape three times; read the response code after each.
+- Press Tab and Shift+Tab around the file list in each view, in an empty folder, with a filter open, and under `save` with Name present.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
 
 ### integration/portal-file-chooser/setup
@@ -70,6 +77,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press Ctrl+Shift+M over a modal, in the location field, in an inline rename, in the sidebar, in Settings, and in a chooser; toggle twice within 1.5 seconds.
 - Toggle the mode with a pane filter, a subfolder Ctrl+F scope, a `v` range, a folder peek, and an open preview active at once; toggle back and compare each pane.
 - With three windows open, toggle in one; read the F1 reference, menu hints, and Open in Terminal accelerator in the others; close one and check again.
+- In Columns, press `g g` and `G` in a newly opened column before any other key, with type grouping on and with hidden files shown.
 - Press `G` in an empty folder, Ctrl+U in a 10k folder, and `h` at `/`. Press `l` on a folder symlink and on a broken symlink, in each view.
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.
 
@@ -94,11 +102,13 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Filter with `!` alone, `'`, `^`, `$`, a 300-character query, with Include subfolders on, and in Trash and Recent; change the theme mid-filter.
 - Search from `/`, from a 100k-file tree with navigation mid-stream, over a symlink loop, and to zero hits followed by `g f`; press Ctrl+1 to Ctrl+3 mid-search.
 - Create and delete files from a shell while an `f` prompt and then an `s` prompt has focus; press Up and Down in each prompt in Icons.
+- With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
 
 ### integration/10xer-mode/file-verbs
 
 - Press `y` then `p` across two windows and after a restart; take the clipboard with `xclip` on the private display, then press `Y` and `p`.
+- Press `d` in the read-only folder, on `s` hits spanning `/dev/shm` and Home, and on `s` hits spanning the read-only folder and `/dev/shm`.
 - Press `d d` on a 10k-item fill, `d` on a range inside Trash, and `D` on `s` hits from several folders. Press `R` on a search selection mixing Trash and non-Trash items.
 - In `create ›` type `name/`, `./x`, `../x`, a 256-byte name, a broken link's name, and `.hidden` with hidden files off; `r` on a non-UTF-8 name, in Recent, and on an `s` hit.
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.

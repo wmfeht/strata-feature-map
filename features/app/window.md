@@ -3,8 +3,8 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs]
 docs: [docs/architecture.md]
@@ -48,7 +48,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ## Design
 
-[docs/architecture.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/architecture.md) carries the window composition and keyboard routing design under "Window composition" and "Window keyboard routing".
+[docs/architecture.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/architecture.md) carries the window composition and keyboard routing design under "Window composition" and "Window keyboard routing".
 
 - The header is a GTK `HeaderBar` with its title buttons hidden. Strata draws Minimize, Maximize, and Close as its own header actions, so their visibility is a preference rather than a window-manager decision (lgse/strata#1100).
 - Tiling window managers make in-app window buttons redundant; stacking desktops expect all three. Always restoring GTK title buttons and detecting the window manager were rejected: the first suits only stacking desktops, the second is brittle and still needs an override (lgse/strata#1100).
@@ -59,6 +59,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - `composition.rs` coordinates the window's parts. Its `layout` module assembles the header, the sidebar, browser, and preview splits, and the shortcut footer. Each tab builds its own Settings layer lazily, once (lgse/strata#580, lgse/strata#1484).
 - `gtk_window_destroy()` frees a window only with its last reference, which its own closures can hold. Key controllers and preference bindings are therefore released on unrealize, not on destroy (lgse/strata#580).
 - Each tab installs one capture-phase key controller on the window, and it acts only while that tab is mapped (lgse/strata#1484). It runs ordered stages: text size, modal and editing ownership, window and file commands, focus traversal, dismissal, then item navigation. `None` tries the next Strata stage; `Some(Propagation::Proceed)` ends dispatch and leaves the key to GTK (lgse/strata#543, lgse/strata#544).
+- In the default map, a Tab stage runs after window commands and before inline editing. Tab from a Columns rename field therefore leaves the strip (lgse/strata#1431, lgse/strata#1533).
 - Editable controls and native single-pane selection must not fall through to browser commands, which is why a stage can hand a key to GTK (lgse/strata#544).
 - The file-manager launch path sets the GLib prgname and X11 program class to the application id. The portal chooser keeps its own id. AT-SPI reports the application under the prgname, so the E2E harness looks for `io.github.lgse.Strata` (lgse/strata#812, lgse/strata#957).
 
@@ -66,6 +67,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Added a default-map Tab stage before inline editing and registered the browser as the window's dialog focus fallback. |
 | 2026-10-09 | lgse/strata#1129 | feat | Added saved Show close, minimize, and maximize button preferences so tiling and stacking desktops each get fitting header buttons. |
 | 2026-09-16 | lgse/strata#957 | fix | Set the prgname and X11 program class to the application id so `WM_CLASS` matches `StartupWMClass`. |
 | 2026-09-08 | lgse/strata#636 | fix | Matched the sidebar toggle icon to the Home icon and removed excess header spacing. |

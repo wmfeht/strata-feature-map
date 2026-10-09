@@ -5,7 +5,8 @@ child feature, each tying shipped behavior and design to the upstream issues
 and PRs that produced it. It answers three questions for a feature: what it
 does today, why it was built that way, and how it got here.
 
-Strata itself is only ever read. Nothing in this repository is written to
+Strata's code is only ever read. The one write to `lgse/strata` is an issue for
+a bug the sync finds that no existing issue covers. Nothing else is written to
 `lgse/strata` or `wmfeht/strata`, and nothing there knows this map exists.
 
 ## Layout
@@ -18,7 +19,7 @@ Strata itself is only ever read. Nothing in this repository is written to
 | `qa/sweeps/<area>.md` | One QA sweep per area: setup, probes per node, hand-offs, triggers. | Backfill, then the bot |
 | `README.md`, `index/*.md` | Generated indexes. Never hand-edit. | `featuremap.py index` |
 | `sources.yaml` | Tracked repositories and the sync watermark. | Backfill sets it, the bot advances it |
-| `scopes.yaml` | Conventional Commit scope to node id. | Backfill, refined during triage |
+| `scopes.yaml` | Conventional Commit scope to node id, plus `fallback` nodes. | Backfill, refined during triage |
 | `data/prs.jsonl` | Extracted upstream PR dataset. | `featuremap.py extract` / `drift` |
 | `scripts/` | Tooling and its unittest coverage. | People |
 
@@ -46,7 +47,7 @@ A node's id is its path under `features/` without `.md` or `/index`, such as
 | --- | --- |
 | Inheritance | Children inherit the parent's `docs` and Design and record only what differs. Everything else is per node. |
 | Behavior | Owned by exactly one node. A parent's Behavior covers only what no child owns. |
-| History | A PR's row goes on the most specific node whose code it touched, never on both a parent and its child. |
+| History | A PR's row goes on the most specific node whose code it touched, never on both a parent and its child. A batch PR that bundles independent fixes gets a row on each node whose code it changed. |
 | Coverage | A parent's effective code and tests are the union of its own and its subtree's. |
 | Staleness | Each node has its own `reviewed_at`. A parent's effective staleness is its oldest descendant's. |
 | Status | Per node. A shipped parent may have an in-progress child. |
@@ -104,8 +105,8 @@ maintained Strata doc when one carries the design, and summarize it here.
 | `origin` | yes | `{issue: <ref>\|null, pr: <ref>\|null}` with at least one set: the issue and PR that introduced the feature. |
 | `branch` | yes | Fork branch while `status: in-progress`, otherwise `null`. |
 | `reviewed_at` | yes | Full 40-character upstream SHA the content was last verified against. |
-| `review` | yes | `draft` or `reviewed`. Only the owner sets `reviewed`. |
-| `code` | yes | Upstream paths or globs (`*`, `**`) owning the feature. A plain path also matches everything under it. Used to map PRs to nodes, so be specific: no shared modules. |
+| `review` | yes | `draft` or `reviewed`. Only the owner sets `reviewed`, or the bot at Sync contract step 6. |
+| `code` | yes | Upstream paths or globs (`*`, `**`) owning the feature. A plain path also matches everything under it. Used to map PRs to nodes, so be specific: no shared modules, except on a `fallback` node. |
 | `tests` | yes | Upstream test files or globs that cover the feature: Rust test modules and E2E scenarios. May be `[]`. |
 | `docs` | no | Maintained upstream docs such as `docs/archives.md`. Children inherit them. |
 | `related` | no | Node ids whose behavior moves when this one changes. |
@@ -209,7 +210,8 @@ On each scheduled run:
    a triage list.
 2. For each affected node, append History rows, edit Behavior only where shipped
    behavior changed, and set `reviewed_at` to the new head. Keep `review` as it
-   is unless content changed; a content change sets `review: draft`.
+   is unless content changed; a content change, a new History row included,
+   sets `review: draft`.
 3. For each affected node, reread its probes in `qa/sweeps/<area>.md`. Add
    probes for new behavior, retire probes for removed behavior, and set the
    sweep's `reviewed_at` to the new head.
@@ -218,11 +220,14 @@ On each scheduled run:
    without any edit; a new area needs `qa/sweeps/<area>.md` in the same PR.
 5. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and
    `check`, and open a PR. A person reviews and merges.
+6. Once the PR's adversarial review passes and the owner has resolved its open
+   questions, set `review: reviewed` on the PR's draft nodes in a follow-up commit.
 
 Rules:
 
 - Append to History; never rewrite earlier rows.
 - Put a History row on the most specific node, never on both a parent and child.
+  A batch PR of independent fixes gets a row on each node whose code it changed.
 - Edit Behavior only when the PR changed shipped behavior, and cite it on the
   changed bullet.
 - Edit Design only with a linked issue or PR that justifies the change.
@@ -232,9 +237,14 @@ Rules:
 - Mark anything inferred rather than sourced `(unverified)`.
 - Never guess a mapping. An unmapped PR stays in triage for a person.
 - Renaming a node renames its probe subheading; `check` reports the stale one.
-- When triage repeatedly shows a shared module no node owns, propose a
-  `triggers` entry in the PR description. Never add one to shorten a plan's
-  unmapped list.
+- A shared module no feature owns belongs to `app/infrastructure`, a `fallback`
+  node in `scopes.yaml`. A PR that also touches other nodes maps past it when
+  those nodes own at least as many of its files. When triage repeatedly shows
+  such a module, propose adding it there, or a `triggers` entry in the PR
+  description. Never add either to shorten a plan's unmapped list.
+- When a PR, issue comment, or the code shows a bug that no issue covers, search
+  `lgse/strata` issues, open and closed, then file one there and cite it in Known
+  gaps. Say "found by code reading" when no source states the bug.
 - Probes never record results, dates, or verdicts.
 - Never open a PR that fails `check`.
 - Imitate the reviewed files. They are the format's reference.

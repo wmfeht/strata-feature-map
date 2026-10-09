@@ -3,11 +3,11 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
-tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
-docs: []
+tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
+docs: [docs/keyboard-navigation.md]
 related: [operations/progress, app/window, settings/preferences]
 ---
 
@@ -34,7 +34,12 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - With focus outside a text field, Enter activates the focused button and toggles a focused checkbox or switch, so Enter with Cancel focused cancels. lgse/strata#1052, lgse/strata#175 (unverified)
 - With focus outside a text field, an unmodified arrow key moves focus to the nearest button, menu button, checkbox, switch, or entry in that direction; Down on a menu button opens its menu. lgse/strata#175 (unverified)
 - While a dialog is open, focus that moves outside it is returned to the dialog's layer, not to a button inside it. lgse/strata#1432
-- After the last of a chain of drive, Properties, or error dialogs closes, focus returns to the widget focused before the first one opened. lgse/strata#1331
+
+### Focus after closing
+
+- Closing the last open dialog by any route returns focus to the widget focused before the first one opened, if still on screen. Progress dialogs and dialogs chained on them use the progress rule instead (`operations/progress`). lgse/strata#1331, lgse/strata#1533
+- When that widget is gone, such as a closed inline rename editor, focus goes to the active tab's cursor row. In an empty, unreadable, or loading folder it goes to the pane. lgse/strata#1533
+- A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
 
 ### Forms
 
@@ -52,7 +57,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 ## Design
 
-Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GTK's default-widget and modality do not apply and Strata supplies both (lgse/strata#439, lgse/strata#1432). [docs/architecture.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/architecture.md) records the split: `ui/modal.rs` owns hosting, animation, and dismissal; each dialog owns its cancel, close, backdrop, and submission policies.
+Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GTK's default-widget and modality do not apply and Strata supplies both (lgse/strata#439, lgse/strata#1432). [docs/architecture.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/architecture.md) records the split: `ui/modal.rs` owns hosting, animation, and dismissal; each dialog owns its cancel, close, backdrop, and submission policies.
 
 - One shell builds every action dialog: header with an accent or danger icon bezel, title, subtitle, close button, body, and Cancel and confirm actions. It replaced one-off widgets and CSS that drifted across themes (lgse/strata#88, lgse/strata#91). The search palette and Settings stay specialized, and native choosers stay native.
 - Animation toggles a `modal-hidden` CSS class: opening removes it 16 ms after mapping, and closing removes the layer 200 ms after adding it. The earlier timer called `allocate()` against GTK's own layout, broke centering, and stacked handlers. A `dismissing` class plus an insensitive layer stops a second dismissal (lgse/strata#112).
@@ -61,11 +66,17 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - Confirmation dialogs set initial focus through one `focus_button` helper. About 12 hand-rolled focus grabs had let an idle callback refocus Cancel in the permanent-delete dialog; Enter confirms and Escape cancels, matching Finder (lgse/strata#1204).
 - `submit_on_enter` walks a form and wires `activate` on each `gtk::Entry` and `gtk::PasswordEntry` to the primary button, standing in for a window default widget. It replaced per-field handlers in Copy to and mount authentication (lgse/strata#439, lgse/strata#464).
 - A chained dialog inherits the original browser focus origin, not the focus inside the dialog before it (lgse/strata#1331).
+- Before lgse/strata#1533 there was no shared close path: some dialogs restored focus, some called `focus_active()` by hand, and the rest did nothing. GTK4 clears window focus when the focused widget in a closing layer hides, so the next Down reached the header (lgse/strata#1430).
+- One restore order serves every dialog: focus taken meanwhile, an explicit restore, the origin if still in the window, then a window fallback. The window and each tab register the active browser as that fallback (lgse/strata#1430, lgse/strata#1533).
+- Layers that are hidden rather than removed use a visibility-keyed variant: they capture the origin on each show and restore it when the hide completes (lgse/strata#1430).
+- Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533).
+- [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Returned focus to a dialog's origin when on screen, otherwise to the cursor row, so closing a dialog no longer leaves nothing focused. |
 | 2026-09-23 | lgse/strata#1206 | fix | Focused the confirm action in dialogs and stopped the path-completion popover flashing. |
 | 2026-09-12 | lgse/strata#909 | fix | Reserved shadow space inside the modal scroller and kept shadow clicks dismissing the dialog. |
 | 2026-09-06 | lgse/strata#464 | fix | Added one Enter-to-submit pattern for single-line fields in modal forms. |

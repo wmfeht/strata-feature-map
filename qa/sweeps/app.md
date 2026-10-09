@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, the sidebar notice, release channels, signed in-place install, and package-managed installs.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, the sidebar notice, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, and directory-load log privacy.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and its update notice as a navigation surface, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -34,6 +34,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Tab around the whole window from the sidebar toggle and back; record any control skipped or visited twice, with the sidebar hidden and in an empty directory.
 - Switch the interface language to ja and ko and re-read entry, pane, and view descriptions and the menu-item accelerators.
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
+- Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
+- Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
 
 ### app/dialogs
 
@@ -42,6 +44,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In the Compress dialog, dirty the name, then clear it, and click the backdrop; repeat with a password typed and deleted.
 - Shrink the window below each dialog's minimum width plus 84 px, then below the dialog's height; scroll inside, press Enter, and resize back.
 - With a dialog open, press Ctrl+K, Ctrl+V, F1, and Ctrl++ in turn and read what each reaches.
+- Open Compress or Properties on a row, delete that row from a shell, then close the dialog; repeat in an empty folder and in a second tab after switching back to it.
+- Open a dialog from a header button, a sidebar row, and the location field; close each by Escape, backdrop, and close button, then press Down and read where focus lands.
+- Run a copy into a read-only folder so an error replaces the progress dialog; close the error and read where focus lands in each mode.
 
 ### app/shortcut-reference
 
@@ -106,6 +111,12 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch with the unreadable marker and with the marker holding `channel = "preview"` and unknown keys; the page must offer no download.
 - Point the AUR check at a package version equal to, below, and above the installed one through the proxy; only the last may show a notice.
 - Click "Open AUR Update" with the helper removed from `PATH` after the page rendered.
+
+### app/infrastructure
+
+- Browse a native folder, Trash, Recent, and the SFTP fixture once at `RUST_LOG=info` and once at `RUST_LOG=strata=debug`; grep both logs for each path, host, and user name.
+- Open `sftp://user:secret@host/dir?token=x#frag` with debug logging on and grep the log for `secret`, `token`, and `frag`.
+- Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 
 ## Hand-offs
 

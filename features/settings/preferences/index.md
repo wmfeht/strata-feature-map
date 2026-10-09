@@ -3,17 +3,17 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
 docs: [docs/preferences.md]
-related: [settings/themes, app/updates, integration/custom-actions, browser/tabs, integration/10xer-mode]
+related: [settings/themes, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
 ---
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows (Appearance, Actions, Updates, search exclusions, thumbnails, desktop integration) belong to their features. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows (Appearance, Actions, Updates, search exclusions, thumbnails, desktop integration, Restore open tabs) belong to their features. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 
@@ -22,6 +22,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Ctrl+, or the header Settings button opens Settings over the blurred window; the first open shows General. lgse/strata#849
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing. lgse/strata#912
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849
+- Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
+- When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
 - The navigation lists General, Appearance, Actions, Updates, and About; choosing one shows that page and its name as the title. lgse/strata#849
 - The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
 - When the panel is narrower than 900 px at the default 13 px text size, the navigation drops its heading and labels and shows icons only. lgse/strata#29, lgse/strata#849 (unverified)
@@ -55,7 +57,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Default directory
 
 - With no saved choice, General → Startup → Default directory reads Home directory, and Reset is disabled. lgse/strata#943 (unverified)
-- Choosing a folder saves it, shows it with `~/` for paths under home, and new windows without an explicit target open there. lgse/strata#943
+- Choosing a folder saves it and shows it with `~/` for paths under home. lgse/strata#943
+- A new window without an explicit target or restored tabs opens at the chosen folder; `browser/tabs/session-restore` owns when tabs restore. lgse/strata#943, lgse/strata#1532
 - Reset restores the home directory as the default. lgse/strata#943
 - If the saved folder no longer exists, a new window opens home and the saved choice is cleared. lgse/strata#943
 
@@ -72,11 +75,13 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work.
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
+- Closing Settings returns focus to the file list, not to the gear or other chrome that opened it. Only a focused filter session gets its field or results back (owner decision, lgse/strata#1430, lgse/strata#1533).
+- Settings is hidden rather than removed, so it captures its focus origin on each show and restores focus when the hide completes. Every close route, and the layer unrealizing with its window, runs the same dismissal hooks (lgse/strata#1430, lgse/strata#1457, lgse/strata#1533).
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
@@ -86,6 +91,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the file-list cursor when Settings closes, so the next key no longer reaches the header. |
 | 2026-10-02 | lgse/strata#1376 | feat | Removed the Keybindings page and moved Show F1 Shortcuts button to General, making F1 the only reference. |
 | 2026-09-15 | lgse/strata#1032 | fix | Kept the sidebar place chips below their description at every width. |
 | 2026-09-14 | lgse/strata#943 | feat | Added the Default directory preference for launches without a target. |
@@ -102,4 +108,3 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - A search that matches only Actions rows hides every navigation entry, and About matches open the Actions page; the fix is unmerged. lgse/strata#1453, lgse/strata#1546
 - Render documents by default is not registered for search, so no query finds it, and it stays visible whenever another Browsing row matches; the fix is unmerged. lgse/strata#1454, lgse/strata#1546
-- Closing Settings with Escape or the close button leaves no widget focused, so the next Down key reaches the header; the fix is unmerged. lgse/strata#1430, lgse/strata#1533

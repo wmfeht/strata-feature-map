@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
@@ -18,6 +18,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/e2e/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
+- A desktop session running `gvfsd` for `trash:///` listings. The E2E container sets `GIO_USE_VFS=local` and cannot browse Trash.
 - Verify every operation on disk with `ls -la`, `stat`, and `cmp`, never in the listing alone. Watch the log for GTK criticals during dialogs and animations.
 - `tests/e2e/mutations/` holds deliberate defects the suite must catch; `./scripts/e2e-mutation-check.sh drag-and-drop` or `rename-caret` is evidence when those areas changed.
 
@@ -75,13 +76,18 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/trash
 
 - Trash from a Ctrl+F result, from a multi-column selection, from a second window viewing the same folder, and look for it in the file chooser, where it must not be offered.
-- Trash an item on `/dev/shm`, follow the permanent-delete fallback, cancel, and confirm the payload still exists.
+- Drop a `/dev/shm` selection on the sidebar Trash row.
+- Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
+- Delete in a folder whose first listed entry is a symlink into `/dev/shm`, and in a read-only tmpfs mount.
+- Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
+- Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
 
 ### operations/trash/restore
 
 - Walk the Manual acceptance list in `docs/trash-restore-testing.md`.
+- Restore a non-UTF-8 name under `gvfsd` into a folder holding a similar UTF-8 name; compare bytes with `ls --quoting-style=escape`.
 - Restore after the original directory was renamed, deleted, replaced by a file, or replaced by a symlink pointing elsewhere.
 - Restore a mixed selection where one original lives on an unmounted volume.
 - Restore 200 items at once and cancel midway.
@@ -98,7 +104,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/delete
 
 - Shift+Delete with no selection in each mode, inside a read-only folder, and on a selection mixing Trash and non-Trash items reached through search.
-- In the confirmation: Escape, backdrop click, Enter, and Tab order; focus must start on the safe action.
+- In the confirmation: Escape, backdrop click, Enter, and Tab order, both after Shift+Delete and after Delete in `/dev/shm`.
 - Delete a 10k-entry folder, cancel at about half, and count what remains.
 
 ### operations/archives
@@ -109,6 +115,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Fill the small tmpfs and extract into it; compare ZIP, 7Z, and TAR behavior at the boundary.
 - Cancel a large extraction at about a third and compare cleanup with `docs/archives.md`.
 - Enter a wrong password three times, then the right one, on `content-encrypted.7z`.
+- Close the Compress dialog with its X, then press Down.
+- Close the conflict prompt opened from a Ctrl+F result, then press Down.
+- Cancel the Extract password dialog with Escape after Extract to…, then press Down.
 
 ### operations/archives/rar
 
@@ -122,6 +131,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Copy the large tree and cancel at once, cancel near the end, and let one run finish; compare partial output with what the dialog claimed.
 - Press Escape on the progress dialog mid-operation; the operation must keep running and stay reachable from the dock.
+- Move the focused large tree to another folder, then press Down once the progress dialog closes.
+- Repeat with a move that ends in an error dialog.
 
 ### operations/progress/dock
 

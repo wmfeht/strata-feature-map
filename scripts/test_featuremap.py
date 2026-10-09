@@ -160,6 +160,7 @@ class CheckTest(unittest.TestCase):
             ({"features/operations/trash/notes.txt": "x"}, "only Markdown files"),
             ({"scopes.yaml": "scopes:\n  trash: operations/gone\n"}, "maps to missing node 'operations/gone'"),
             ({"scopes.yaml": "ignore: [trash]\nscopes:\n  trash: operations/trash\n"}, "both mapped and ignored"),
+            ({"scopes.yaml": "fallback: [app/gone]\nscopes:\n  trash: operations/trash\n"}, "fallback names missing node 'app/gone'"),
             ({"sources.yaml": "upstream: {repo: lgse/strata}\nwatermark: abc\n"}, "watermark must be null"),
         ]
         for files, expected in cases:
@@ -325,6 +326,25 @@ class AssignTest(unittest.TestCase):
             with self.subTest(scope=scope, files=files):
                 result = fm.assign(self.tree, self.scopes, {"scope": scope, "files": files})
                 self.assertEqual(result.node, expected, result.reason)
+
+    def test_fallback_node_yields_to_nodes_owning_as_many_files(self):
+        self.fixture.write("features/app/infrastructure.md", feature(
+            {"code": ["src/model.rs", "src/model.rs.in"], "tests": []},
+            {"Behavior": "- Model. lgse/strata#5", "History": HISTORY}))
+        self.fixture.write("scopes.yaml", "fallback: [app/infrastructure]\nscopes:\n  trash: operations/trash\n")
+        tree = fm.load_tree(self.fixture.root)
+        scopes = fm.load_scopes(self.fixture.root)
+        cases = [
+            (None, ["src/model.rs"], "app/infrastructure"),
+            (None, ["src/model.rs", "src/ui/tabs.rs"], "browser/tabs"),
+            ("trash", ["src/model.rs"], "operations/trash"),
+            (None, ["src/model.rs", "src/model.rs.in", "src/ui/tabs.rs"], None),
+        ]
+        for scope, files, expected in cases:
+            with self.subTest(scope=scope, files=files):
+                result = fm.assign(tree, scopes, {"scope": scope, "files": files})
+                self.assertEqual(result.node, expected, result.reason)
+                self.assertIn("app/infrastructure", result.affected)
 
     def test_affected_lists_every_touched_node(self):
         result = fm.assign(self.tree, self.scopes, {"scope": "deps", "files": ["src/trash.rs", "src/ui/tabs.rs"]})

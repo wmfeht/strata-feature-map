@@ -3,8 +3,8 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/e2e/scenarios/test_view_switching.py, src/ui/loading_skeleton/delay/tests.rs]
 docs: [docs/architecture.md]
@@ -40,6 +40,12 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - A directory that loads within 150 ms shows no loading skeleton; a slower load shows a skeleton shaped like the current view. lgse/strata#343, lgse/strata#584
 - Skeletons cannot be selected or clicked, and loaded content, empty states, and errors replace them. lgse/strata#343
 - A pending skeleton never appears after the load finishes, fails, or navigates away. lgse/strata#584
+- Entering an empty, unreadable, or still-loading folder gives keyboard focus to the pane itself. lgse/strata#1466, lgse/strata#1533
+- The focused pane draws a 2 px accent focus ring only while GTK shows focus, as after keyboard input. lgse/strata#1466, lgse/strata#1533 (unverified)
+- When entries appear in a folder whose pane held focus, focus moves to the keyboard cursor row. lgse/strata#1466, lgse/strata#1533
+- F5 or auto-refresh keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533
+- Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
+- While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
 - Long filenames are middle-ellipsized in Columns rows and headings, Icons captions, and the List Name column, so the extension stays visible. lgse/strata#1143
 
 ## Design
@@ -51,6 +57,8 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 - lgse/strata#266 rebuilt the target before showing it to avoid a blank frame. lgse/strata#310 shows it first, because a ListView rebuilt while hidden measured a one-row viewport.
 - Icons and List map displayed positions to source entries through `SourceIndexMap` in O(1), so activation, drag, and selection hit the clicked entry after filtering or sorting (lgse/strata#305).
 - The pane filter query is window-local: it is carried across a switch but never saved (lgse/strata#851).
+- An empty, unreadable, or loading folder focuses the existing page stack rather than its status label. Up, Delete, and the context menu already key off that stack. It is focusable only off the content page, so populated listings gain no unnamed Tab stop (lgse/strata#1466).
+- GTK moves focus off a removed or hidden row at the next paint. The pane settles focus first, so a reload never sends it out of the listing (lgse/strata#1466, lgse/strata#1533).
 - The skeleton waits a 150 ms grace period because fast loads flashed it for a few frames; showing nothing or a spinner was rejected (lgse/strata#283). Skeletons mirror each mode's loaded layout and density (lgse/strata#336).
 
 ## History
@@ -75,5 +83,4 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 ## Known gaps
 
-- Switching modes while typing in the pane filter keeps the query but drops keyboard focus. lgse/strata#1441, lgse/strata#1533
-- F5 and auto-refresh in Icons and List reset the keyboard cursor and scroll position and drop focus. lgse/strata#1434, lgse/strata#1544
+- F5 and auto-refresh in Icons and List reset the keyboard cursor and scroll position. lgse/strata#1434, lgse/strata#1544

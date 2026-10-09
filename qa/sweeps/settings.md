@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
 ---
@@ -32,10 +32,13 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ### settings/preferences
 
-- Open Settings in both windows, close one with a backdrop click and the other with Escape, reopen each; note which page shows and where focus lands.
+- Open Settings in both windows, close one with a backdrop click and the other with Escape, reopen each; note which page shows.
+- Open Settings from the gear and close it by backdrop click with the cursor folder empty, still loading, and deleted from a terminal meanwhile; press Down after each.
+- Focus a filter result, open Settings with the gear, and press Escape; repeat with the filter field focused but empty, and with the filter in a non-active Columns pane.
 - Resize the window across the 900 and 1250 px panel widths at text size 8 and 48, crossed with compact and airy density. Check the navigation, the search popover with a query typed, and dependent rows with arrows.
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
+- With Restore open tabs on and a `tabs.toml` whose every entry is invalid, plain-launch with the Default directory deleted, then with it `chmod 000`.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
 ### settings/preferences/storage
@@ -66,7 +69,11 @@ For every control this sweep proves the binding: the file changes, the other win
 
 - Apply `extreme.toml` and walk the screenshot set in all three modes, the sidebar, footer, search palette, file chooser, progress dialog, scrollbars, and loading skeletons; any pixel not red or white is a lead.
 - Drop `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, a 0-byte file, a `chmod 000` file, a `.TOML` extension, and a 1 MB file into the themes directory. Do it while running and again before launch; count the cards and read the log.
-- In the editor, save a 300-character name, a name equal to a bundled theme, `../escape`, and an emoji-only name. Then open the editor in both windows at once, change swatches in each, and close Settings in A mid-edit.
+- In the editor, save a 300-character name, a name equal to a bundled theme, `../escape`, and an emoji-only name.
+- Open the editor in both windows, change swatches in A, then in B, then in A again; close Settings in B, then A, and open a third window. Repeat closing A first.
+- Mid-preview, change text size with the keyboard, toggle Element glow from window B, change `xft-dpi`, and rewrite `colors.toml` while following Omarchy; then Cancel and compare every window.
+- Mid-preview, close the window with the compositor's close shortcut, quit the last window, and close a window that never opened Settings; relaunch and read the theme.
+- Mid-preview, click the selected card, another card, and Follow Omarchy; then press Cancel and Add theme and read the swatches.
 - Write a custom theme with background luminance near 0.4 (`#9a9a9a` and `#a0a0a0`) and check its Light/Dark filing with search and filter combined.
 - Cross Element glow, Reduce motion, and `gtk-enable-animations` off and on; then choose Cairo with `GSK_RENDERER=` exported empty and press Restart now from window B.
 
@@ -94,5 +101,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - 10xer mode toggle and custom actions pages → `integration`.
 - Automatic updates, release channel, and the Updates page → `app`.
 - Window buttons rows and the F1 shortcuts reference → `app`.
+- Restore open tabs under General → Startup and the tab session it controls → `browser`.
+- Focus return after closing dialogs other than Settings → `app`.
+- Focus return after closing the search palettes → `browser`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
 - Thumbnail workers and thumbnail rendering → `browser`.

@@ -3,8 +3,8 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/navigation.rs]
 tests: []
 docs: [docs/keyboard-navigation.md]
@@ -46,6 +46,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 - Back, Forward, and Up restore the selection, keyboard cursor, and scroll position of each of the last 128 folders left in List, once its entries load. lgse/strata#893
 - Pressing Down after a restore moves from the restored row, not the first row. lgse/strata#893
+- Back, Forward, or Up into a remembered folder that is now empty gives keyboard focus to the pane, not the hidden list. lgse/strata#1466, lgse/strata#1533 (unverified)
 - Opening a remembered folder another way, such as double-clicking it, also restores its position. lgse/strata#893 (unverified)
 - A restored selection does not make Ctrl+V paste into the selected folder until the user selects it explicitly. lgse/strata#893
 - Opening a typed file path, a Ctrl+K result, Open file location, or a FileManager1 request selects that target instead of the remembered position. lgse/strata#1499
@@ -72,6 +73,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Focused the pane instead of the hidden list when history returns to an empty folder. |
 | 2026-09-19 | lgse/strata#1116 | fix | Made double-click autofit work on List heading resize edges. |
 | 2026-09-12 | lgse/strata#893 | feat | Restored selection, cursor, and scroll position when returning to a List folder. |
 | 2026-09-08 | lgse/strata#608 | refactor | Moved List item setup, binding, and thumbnail cancellation into a factory module. |
