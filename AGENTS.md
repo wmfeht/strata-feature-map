@@ -239,9 +239,9 @@ Rules:
 - Renaming a node renames its probe subheading; `check` reports the stale one.
 - A shared module no feature owns belongs to `app/infrastructure`, a `fallback`
   node in `scopes.yaml`. A PR that also touches other nodes maps past it when
-  those nodes own at least as many of its files. When triage repeatedly shows such a module, propose adding it there, or a
-  `triggers` entry in the PR description. Never add either to shorten a plan's
-  unmapped list.
+  those nodes own at least as many of its files. When triage repeatedly shows
+  such a module, propose adding it there, or a `triggers` entry in the PR
+  description. Never add either to shorten a plan's unmapped list.
 - When a PR, issue comment, or the code shows a bug that no issue covers, search
   `lgse/strata` issues, open and closed, then file one there and cite it in Known
   gaps. Say "found by code reading" when no source states the bug.

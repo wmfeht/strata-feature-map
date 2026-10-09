@@ -327,7 +327,7 @@ class AssignTest(unittest.TestCase):
                 result = fm.assign(self.tree, self.scopes, {"scope": scope, "files": files})
                 self.assertEqual(result.node, expected, result.reason)
 
-    def test_fallback_node_yields_to_any_other_node(self):
+    def test_fallback_node_yields_to_nodes_owning_as_many_files(self):
         self.fixture.write("features/app/infrastructure.md", feature(
             {"code": ["src/model.rs", "src/model.rs.in"], "tests": []},
             {"Behavior": "- Model. lgse/strata#5", "History": HISTORY}))

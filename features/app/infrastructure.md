@@ -40,7 +40,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - Desktop logs and journals can retain usernames, project names, and mounted locations, so browsed locations need an explicit diagnostic opt-in (lgse/strata#14, lgse/strata#27).
 - `Location` display and diagnostic paths once parsed strictly and showed `<invalid-uri>` for non-UTF-8 names in the path bar and Properties. They now share the GIO conversion's parse flags (lgse/strata#1424, lgse/strata#1533).
 - Display tries the decoded form first, so valid names such as `smb://host/café` still display decoded (lgse/strata#1533).
-- Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited (lgse/strata#1424, lgse/strata#1533).
+- Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited. Plain `UriFlags::ENCODED` was rejected because it stops userinfo decoding (lgse/strata#1424, lgse/strata#1533).
 - The directory loader dropped unconvertible entries without a trace. Logging each skip keeps a future conversion failure visible (lgse/strata#1424, lgse/strata#1533).
 
 ## History
