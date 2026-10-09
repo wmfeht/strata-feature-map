@@ -29,10 +29,10 @@ A plain launch reopens the previous session's tab locations in strip order, with
 ### Restoring
 
 - Launching `strata` with no arguments reopens the saved tabs in order, with the saved active tab selected. This needs a saved session and the toggle on. lgse/strata#1531, lgse/strata#1532
-- A folder or file argument, a FileManager1 reveal request, or `--unlock-volume` skips restore, and the next plain launch still restores the earlier session. lgse/strata#1532
+- A folder or file argument, a FileManager1 reveal request, or `--unlock-volume` skips restore. The next plain launch still restores the earlier session. lgse/strata#1532
 - A saved local folder that no longer exists, or a relative path, is skipped; the other tabs still open. lgse/strata#1532
 - Trashed-item children (`trash:///x`) and non-root Recent entries (`recent:///x`) are skipped, while `trash:///` and `recent:///` restore. lgse/strata#1532
-- Camera roots such as `gphoto2://` are skipped, and so is every scheme other than `smb`, `sftp`, `ftp`, `ftps`, `dav`, `davs`, `trash`, `network`, and `recent`. lgse/strata#1532 (unverified)
+- Camera roots such as `gphoto2://` are skipped. So is every scheme other than `smb`, `sftp`, `ftp`, `ftps`, `dav`, `davs`, `trash`, `network`, and `recent`. lgse/strata#1532 (unverified)
 - When a skipped entry precedes the active tab, the restored selection still lands on the saved active location. lgse/strata#1532
 - When the saved active entry is itself skipped, the nearest kept tab to its left is selected, or the first restored tab when none is to its left. lgse/strata#1532 (unverified)
 - An active index beyond the last restorable tab selects the last restored tab. lgse/strata#1532 (unverified)
@@ -52,7 +52,7 @@ Issue lgse/strata#1531 asked for the working set to survive restarts. It rejecte
 - Restore runs only on a plain launch. Explicit targets keep their behavior and never overwrite the session, so Open file location cannot clobber saved tabs (lgse/strata#1531, lgse/strata#1532).
 - Locations are validated on load. Invalid, credential-bearing, and transient ones are skipped, with a fallback to the default directory (lgse/strata#1531).
 - Credential-bearing URIs are filtered before the write as well as on load, so secrets never reach disk (lgse/strata#1532). Typed and argument URIs already lose their credentials, so this guard is not reachable from the interface (unverified).
-- The session is a separate store from settings.toml, written with the same atomic temp-and-rename helper (lgse/strata#1532, `docs/preferences.md`).
+- The session is a separate store from settings.toml, written with the same atomic temp-and-rename helper (lgse/strata#1532, `docs/preferences.md`) (unverified).
 - Saving hooks the existing add, select, close, reorder, and navigation paths, so the close guards are unchanged (lgse/strata#1531).
 - The store carries `version = 1`; another version restores nothing (lgse/strata#1532).
 

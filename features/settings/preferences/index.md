@@ -58,7 +58,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - With no saved choice, General → Startup → Default directory reads Home directory, and Reset is disabled. lgse/strata#943 (unverified)
 - Choosing a folder saves it and shows it with `~/` for paths under home. lgse/strata#943
-- New windows without an explicit target open at the chosen folder when Restore open tabs is off or no saved tab is restorable. lgse/strata#943, lgse/strata#1532
+- A new window without an explicit target or restored tabs opens at the chosen folder; `browser/tabs/session-restore` owns when tabs restore. lgse/strata#943, lgse/strata#1532
 - Reset restores the home directory as the default. lgse/strata#943
 - If the saved folder no longer exists, a new window opens home and the saved choice is cleared. lgse/strata#943
 

@@ -40,7 +40,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - A directory that loads within 150 ms shows no loading skeleton; a slower load shows a skeleton shaped like the current view. lgse/strata#343, lgse/strata#584
 - Skeletons cannot be selected or clicked, and loaded content, empty states, and errors replace them. lgse/strata#343
 - A pending skeleton never appears after the load finishes, fails, or navigates away. lgse/strata#584
-- Entering an empty, unreadable, or still-loading folder by keyboard or pointer gives keyboard focus to the pane itself. lgse/strata#1466, lgse/strata#1533
+- Entering an empty, unreadable, or still-loading folder gives keyboard focus to the pane itself. lgse/strata#1466, lgse/strata#1533
 - The focused pane draws a 2 px accent focus ring only while GTK shows focus, as after keyboard input. lgse/strata#1466, lgse/strata#1533 (unverified)
 - When entries appear in a folder whose pane held focus, focus moves to the keyboard cursor row. lgse/strata#1466, lgse/strata#1533
 - F5 or auto-refresh keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533

@@ -151,7 +151,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Open a filter in column 2, press Ctrl+1, Ctrl+2, Ctrl+3, click column 1's background, then Ctrl+F in column 4.
 - With Include subfolders off in one window and on in another, toggle it while a search is running in each.
 - Rename a result to a non-matching name, undo, then delete a result externally; press Space on a folder result and Up past the first result.
-- Press Escape on a focused result at `trash:///`, `recent:///`, an `sftp://` share, and in Columns with Include subfolders off. Repeat on a multi-selection of results.
+- Select several results at `trash:///`, `recent:///`, and an `sftp://` share, then press Escape on one of them.
 - Type a query, focus a result, open Appearance, and switch view twice without closing the menu. Then switch from the menu with an empty, open filter.
 - Press Ctrl+F at once on opening `100000` in each view and type. Press Ctrl+A and Backspace before and after the load ends; repeat with 10xer `f`.
 
@@ -234,7 +234,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Open 12 tabs, hold Ctrl+Shift and press 0, drag tab 12 to position 1, press Ctrl+Shift+1; read which tab each step selects.
 - Press Ctrl+W with Properties open, then close every tab from the last one; change Show hidden files with three tabs on one folder and switch through them.
 - Open tabs on `trash:///`, `/`, and a 30-character folder name; press a Columns folder, drag 5 px, release, and read the tab name during and after.
-- Focus an empty folder's pane in tab 1, add a file there externally, and switch to tab 2 and back. Then close a dialog opened in tab 2 after switching tabs.
+- Switch to tab 2, open and close Properties, and check that focus lands on tab 2's cursor row.
 
 ### browser/tabs/session-restore
 
@@ -244,7 +244,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Open a tab on the non-UTF-8 folder beside two other tabs, select it, quit, and relaunch.
 - Replace `tabs.toml` with a symlink to another file and with a directory, then change a tab; make `$XDG_CONFIG_HOME/strata` read-only.
 - Turn Restore open tabs off in one window's Settings while a second window changes tabs, then on again, and quit.
-- Close tabs down to one, then close the window; launch with `strata --unlock-volume` and with a folder argument, add tabs there, and relaunch plainly.
+- Close tabs down to one, then close the window, and relaunch plainly.
+- Open a window through a FileManager1 `ShowItems` call, add tabs there, quit, and relaunch plainly.
 
 ## Hand-offs
 
