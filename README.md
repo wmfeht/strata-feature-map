@@ -4,11 +4,13 @@
 
 One Markdown file per Strata feature, tying shipped behavior and design to the upstream issues and PRs that produced it. [AGENTS.md](AGENTS.md) holds the schema and the rules for editing it.
 
-Look features up [by area](index/by-area.md), [by path](index/by-path.md), or [by PR](index/by-pr.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet.
+Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
 Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` · 105 features, 105 reviewed
 
 ## app
+
+QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
@@ -25,6 +27,8 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` ·
 | [Window chrome and structure](features/app/window.md) | `app/window` | shipped | reviewed | `b893886` | 1 |
 
 ## browser
+
+QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
@@ -64,6 +68,8 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` ·
 
 ## devices
 
+QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
+
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | reviewed | `b893886` | 1 |
@@ -74,6 +80,8 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` ·
 | ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | reviewed | `b893886` | 1 |
 
 ## integration
+
+QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
@@ -95,6 +103,8 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` ·
 | ↳ [Chooser window size and placement](features/integration/portal-file-chooser/window-placement.md) | `integration/portal-file-chooser/window-placement` | shipped | reviewed | `b893886` | 0 |
 
 ## operations
+
+QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
@@ -121,6 +131,8 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` ·
 
 ## preview
 
+QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
+
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | reviewed | `b893886` | 1 |
@@ -135,6 +147,8 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` ·
 
 ## remote
 
+QA sweep: [`qa/sweeps/remote.md`](qa/sweeps/remote.md)
+
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Remote locations and file providers](features/remote/file-providers/index.md) | `remote/file-providers` | shipped | reviewed | `b893886` | 1 |
@@ -142,6 +156,8 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b893886` ·
 | ↳ [Network locations (SMB, SFTP)](features/remote/file-providers/network-locations.md) | `remote/file-providers/network-locations` | shipped | reviewed | `b893886` | 1 |
 
 ## settings
+
+QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |

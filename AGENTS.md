@@ -14,6 +14,8 @@ Strata itself is only ever read. Nothing in this repository is written to
 | --- | --- | --- |
 | `features/<area>/<feature>.md` | A leaf node. | Backfill, then the bot |
 | `features/<area>/<feature>/index.md` + `<child>.md` | A node with children: `index.md` is the parent. | Backfill, then the bot |
+| `qa/README.md` | The QA sweep plan: environment, full and targeted sweeps, report template. | People |
+| `qa/sweeps/<area>.md` | One QA sweep per area: setup, probes per node, hand-offs, triggers. | Backfill, then the bot |
 | `README.md`, `index/*.md` | Generated indexes. Never hand-edit. | `featuremap.py index` |
 | `sources.yaml` | Tracked repositories and the sync watermark. | Backfill sets it, the bot advances it |
 | `scopes.yaml` | Conventional Commit scope to node id. | Backfill, refined during triage |
@@ -21,7 +23,9 @@ Strata itself is only ever read. Nothing in this repository is written to
 | `scripts/` | Tooling and its unittest coverage. | People |
 
 Nothing else belongs in the repository: no test results, CI status, review
-history, release notes, or task checklists. Those live in issues and PRs.
+history, release notes, QA reports or plans, or task checklists. Those live in
+issues and PRs, or outside the repository. Sweeps say how to test, never what a
+run found.
 
 ## Feature tree
 
@@ -142,6 +146,44 @@ Every `code`, `tests`, and `docs` entry must exist in upstream at `reviewed_at`.
   name will do.
 - Never record test results, CI status, release notes, or review discussion.
 
+## QA sweeps
+
+A sweep is one QA agent's brief for an area. `qa/sweeps/<area>.md` owns every
+node under `features/<area>/`; `check` fails on an area without a sweep or a
+sweep without an area. `qa/README.md` says how to run one.
+
+YAML front matter, then exactly these four `##` sections in this order.
+
+| Field | Required | Value |
+| --- | --- | --- |
+| `title` | yes | Human name of the sweep. |
+| `reviewed_at` | yes | Full 40-character upstream SHA the probes were last verified against. |
+| `triggers` | no | Upstream globs for shared modules no node owns. A PR touching one forces the sweep into every targeted plan. |
+| `tools` | no | Upstream docs, scripts, and fixtures the sweep relies on. |
+
+Every `triggers` and `tools` entry must exist in upstream at `reviewed_at`. A
+trigger that a node's `code` already covers is a warning: drop it.
+
+- **Scope.** Prose: what the sweep exercises, by top-level feature, and what it
+  leaves to other sweeps.
+- **Setup.** Fixtures, mounts, environment, and tools beyond the common
+  environment in `qa/README.md`.
+- **Probes.** `- ` bullets under `### <node id>` subheadings naming nodes in the
+  area. Bullets before the first subheading apply to the whole sweep. A probe
+  names an input, state, or combination to exercise that the node's tests skip;
+  the node's Behavior says what must be true. Probes carry no citations and never
+  restate a Behavior bullet.
+- **Hand-offs.** `- <what> → `<area>`` for behavior a tester meets here that
+  another sweep owns, or `None.`
+
+A node without probes is fine; its Behavior is its whole checklist. `index/qa.md`
+lists those nodes and the nodes with no E2E scenario.
+
+`featuremap.py qa` turns a PR, a diff, a node, or a sweep into a plan: primary
+nodes from the changed paths, then tier 1 (ancestors and descendants), tier 2
+(`related`), tier 3 (nodes listing a primary as `related`), plus sweeps whose
+triggers fired. Plans and reports are output; they never enter this repository.
+
 ## Tooling
 
 `scripts/featuremap.py` runs through `uv`, which supplies PyYAML.
@@ -149,9 +191,10 @@ Every `code`, `tests`, and `docs` entry must exist in upstream at `reviewed_at`.
 | Command | Purpose |
 | --- | --- |
 | `scripts/featuremap.py extract` | Pull every merged upstream PR into `data/prs.jsonl`. |
-| `scripts/featuremap.py index` | Regenerate `README.md` and `index/`. |
-| `scripts/featuremap.py check` | Validate the tree. `--offline` skips the upstream path check. |
+| `scripts/featuremap.py index` | Regenerate `README.md` and `index/`, including `index/qa.md`. |
+| `scripts/featuremap.py check` | Validate the tree and the sweeps. `--offline` skips the upstream path check. |
 | `scripts/featuremap.py drift` | Extract PRs after the watermark, map them, and print the drift report. |
+| `scripts/featuremap.py qa --pr N \| --files F \| --node ID \| --sweep AREA \| --all` | Render a QA plan to stdout or `--out`. `--tier 1..3` bounds the radius. |
 
 The upstream check uses a blobless bare clone in `.cache/upstream.git`, or the
 clone named by `FEATUREMAP_UPSTREAM`. Run `index` then `check` before every
@@ -167,9 +210,13 @@ On each scheduled run:
 2. For each affected node, append History rows, edit Behavior only where shipped
    behavior changed, and set `reviewed_at` to the new head. Keep `review` as it
    is unless content changed; a content change sets `review: draft`.
-3. For each triage PR you can source, propose a new node. Otherwise leave it in
-   the PR description for a person.
-4. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and
+3. For each affected node, reread its probes in `qa/sweeps/<area>.md`. Add
+   probes for new behavior, retire probes for removed behavior, and set the
+   sweep's `reviewed_at` to the new head.
+4. For each triage PR you can source, propose a new node. Otherwise leave it in
+   the PR description for a person. A new node is owned by its area's sweep
+   without any edit; a new area needs `qa/sweeps/<area>.md` in the same PR.
+5. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and
    `check`, and open a PR. A person reviews and merges.
 
 Rules:
@@ -184,5 +231,10 @@ Rules:
   in the PR description rather than creating it.
 - Mark anything inferred rather than sourced `(unverified)`.
 - Never guess a mapping. An unmapped PR stays in triage for a person.
+- Renaming a node renames its probe subheading; `check` reports the stale one.
+- When triage repeatedly shows a shared module no node owns, propose a
+  `triggers` entry in the PR description. Never add one to shorten a plan's
+  unmapped list.
+- Probes never record results, dates, or verdicts.
 - Never open a PR that fails `check`.
 - Imitate the reviewed files. They are the format's reference.
