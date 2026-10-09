@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: draft
-code: [src/ui/browser/find.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
+code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs]
 related: [browser/search]
 ---
@@ -78,6 +78,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Added the shared check that counts a focused pane-filter result as filter focus; footer `f` filters keep their own Escape order. |
 | 2026-10-03 | lgse/strata#1403 | feat | Made `s` and `f` match fuzzy fzf-style terms with frecency ranking, and shared the matcher with the folder picker. |
 | 2026-09-27 | lgse/strata#1297 | feat | Added footer find, filter, and a current-tree recursive name search. |
 

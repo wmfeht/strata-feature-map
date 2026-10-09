@@ -731,6 +731,18 @@ def common_prefix(ids: list[str]) -> str:
     return "/".join(common)
 
 
+def yield_fallback(tree: Tree, scopes: Scopes, pool: list[str], files: list[str]) -> list[str]:
+    """Drop fallback nodes when other nodes in the pool own at least as many of the files."""
+    others = [n for n in pool if n not in scopes.fallback]
+    if not others or len(others) == len(pool):
+        return pool
+
+    def owned(ids: list[str]) -> int:
+        return sum(1 for f in files if any(matches(p, f) for n in ids for p in tree.nodes[n].patterns()))
+
+    return others if owned(others) >= owned([n for n in pool if n in scopes.fallback]) else pool
+
+
 def assign(tree: Tree, scopes: Scopes, pr: dict) -> Assignment:
     """Scope picks the subtree, touched paths pick the most specific node in it."""
     hits = touched(tree, pr.get("files") or [])
@@ -742,8 +754,7 @@ def assign(tree: Tree, scopes: Scopes, pr: dict) -> Assignment:
     if target and target not in tree.nodes:
         return Assignment(None, f"scope '{scope}' maps to missing node '{target}'", affected)
     pool = [n for n in affected if not target or n == target or n.startswith(target + "/")]
-    if any(n not in scopes.fallback for n in pool):
-        pool = [n for n in pool if n not in scopes.fallback]
+    pool = yield_fallback(tree, scopes, pool, pr.get("files") or [])
     leaves = [n for n in pool if not any(o.startswith(n + "/") for o in pool)]
     if len(leaves) == 1:
         return Assignment(leaves[0], "scope and paths" if target else "paths", affected)

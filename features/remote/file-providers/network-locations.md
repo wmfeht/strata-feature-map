@@ -72,7 +72,6 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - A location reporting "not mounted" uses `mount_enclosing_volume`; a GVfs mountable entry uses `mount_mountable`. The two are not interchangeable (lgse/strata#31).
 - GIO URIs are parsed and rebuilt with GLib's encoded path, query, and fragment flags, so non-UTF-8 names survive. Userinfo stays decoded, so credential detection is unchanged (lgse/strata#1424).
 - The location identity is GIO's normalized percent-encoded URI, such as `smb://host/caf%C3%A9`, matching `gio::File::uri()` and `Location::child`. `%2F` no longer collapses into `/`. The owner accepted this identity change (lgse/strata#1424, lgse/strata#1533).
-- Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited. Plain `UriFlags::ENCODED` was rejected because it stops userinfo decoding (lgse/strata#1424, lgse/strata#1533).
 - Strata stores no secrets. Credentials go into the mount operation, and Until logout or Forever hands saving to the backend and keyring (lgse/strata#20, lgse/strata#145).
 - Strata suppresses GtkMountOperation's password dialog and shows its own. The safe `gio` bindings cannot marshal `ask-question` choices, so trust questions first used GTK's native dialog (lgse/strata#353).
 - SFTP host-key questions moved to a Strata dialog at the owner's request. It keeps every backend choice and index; other schemes keep the native dialog (lgse/strata#233).

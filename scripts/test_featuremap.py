@@ -329,7 +329,7 @@ class AssignTest(unittest.TestCase):
 
     def test_fallback_node_yields_to_any_other_node(self):
         self.fixture.write("features/app/infrastructure.md", feature(
-            {"code": ["src/model.rs"], "tests": []},
+            {"code": ["src/model.rs", "src/model.rs.in"], "tests": []},
             {"Behavior": "- Model. lgse/strata#5", "History": HISTORY}))
         self.fixture.write("scopes.yaml", "fallback: [app/infrastructure]\nscopes:\n  trash: operations/trash\n")
         tree = fm.load_tree(self.fixture.root)
@@ -338,6 +338,7 @@ class AssignTest(unittest.TestCase):
             (None, ["src/model.rs"], "app/infrastructure"),
             (None, ["src/model.rs", "src/ui/tabs.rs"], "browser/tabs"),
             ("trash", ["src/model.rs"], "operations/trash"),
+            (None, ["src/model.rs", "src/model.rs.in", "src/ui/tabs.rs"], None),
         ]
         for scope, files, expected in cases:
             with self.subTest(scope=scope, files=files):

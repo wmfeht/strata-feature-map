@@ -105,8 +105,8 @@ maintained Strata doc when one carries the design, and summarize it here.
 | `origin` | yes | `{issue: <ref>\|null, pr: <ref>\|null}` with at least one set: the issue and PR that introduced the feature. |
 | `branch` | yes | Fork branch while `status: in-progress`, otherwise `null`. |
 | `reviewed_at` | yes | Full 40-character upstream SHA the content was last verified against. |
-| `review` | yes | `draft` or `reviewed`. The bot sets `reviewed` only after its adversarial review passes and the owner has resolved the PR's open questions. |
-| `code` | yes | Upstream paths or globs (`*`, `**`) owning the feature. A plain path also matches everything under it. Used to map PRs to nodes, so be specific: no shared modules, except on `app/infrastructure`. |
+| `review` | yes | `draft` or `reviewed`. Only the owner sets `reviewed`, or the bot at Sync contract step 6. |
+| `code` | yes | Upstream paths or globs (`*`, `**`) owning the feature. A plain path also matches everything under it. Used to map PRs to nodes, so be specific: no shared modules, except on a `fallback` node. |
 | `tests` | yes | Upstream test files or globs that cover the feature: Rust test modules and E2E scenarios. May be `[]`. |
 | `docs` | no | Maintained upstream docs such as `docs/archives.md`. Children inherit them. |
 | `related` | no | Node ids whose behavior moves when this one changes. |
@@ -220,6 +220,8 @@ On each scheduled run:
    without any edit; a new area needs `qa/sweeps/<area>.md` in the same PR.
 5. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and
    `check`, and open a PR. A person reviews and merges.
+6. Once the PR's adversarial review passes and the owner has resolved its open
+   questions, set `review: reviewed` on the PR's draft nodes in a follow-up commit.
 
 Rules:
 
@@ -235,9 +237,9 @@ Rules:
 - Mark anything inferred rather than sourced `(unverified)`.
 - Never guess a mapping. An unmapped PR stays in triage for a person.
 - Renaming a node renames its probe subheading; `check` reports the stale one.
-- A shared module no feature owns belongs to `app/infrastructure`. It is a
-  `fallback` node in `scopes.yaml`: a PR maps there only when it touches no other
-  node. When triage repeatedly shows such a module, propose adding it there, or a
+- A shared module no feature owns belongs to `app/infrastructure`, a `fallback`
+  node in `scopes.yaml`. A PR that also touches other nodes maps past it when
+  those nodes own at least as many of its files. When triage repeatedly shows such a module, propose adding it there, or a
   `triggers` entry in the PR description. Never add either to shorten a plan's
   unmapped list.
 - When a PR, issue comment, or the code shows a bug that no issue covers, search

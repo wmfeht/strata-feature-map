@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: draft
-code: [src/ui/inline_search.rs, src/ui/browser/listing_filter.rs, src/ui/inline_search/**, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
+code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/e2e/scenarios/test_filter_results.py]
 docs: [docs/keyboard-navigation.md, docs/preferences.md]
 related: [integration/10xer-mode, browser/view-modes, preview/quick-preview, browser/thumbnails]
@@ -96,7 +96,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-09 | lgse/strata#1533 | fix | Added a shared check for whether the field or its results hold focus, and kept that focus on Escape, view switches, and loads. |
+| 2026-10-09 | lgse/strata#1533 | fix | Kept focus with the filter on Escape from a result, across view switches, and through background loads. |
 | 2026-09-21 | lgse/strata#1155 | fix | Replaced the separate filtered view with a shared collection and kept matching renamed results searchable. |
 | 2026-09-16 | lgse/strata#1041 | feat | Added Open file location to file results so a match can be opened in place. |
 | 2026-09-15 | lgse/strata#1018 | fix | Restored drag, multi-selection, marquee, and clipboard actions on filtered results. |
@@ -121,7 +121,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 ## Known gaps
 
 - In Columns, `/` or Ctrl+F from a focused result does not return focus to the filter field. lgse/strata#1226
-- In List and Icons, F5 with the filter field focused moves focus to a hidden row behind the results; the fix is unmerged. lgse/strata#1434, lgse/strata#1544
+- In List and Icons, F5 with the filter field focused moves focus to a hidden row behind the results. lgse/strata#1434, lgse/strata#1544
 - In Columns, when filter results replace the rows, refocusing the listing focuses the column list rather than the results' cursor row. lgse/strata#1533
 - In Icons and List, Tab from a filter result walks every result instead of leaving the results. lgse/strata#1533
 - The filter cannot search file contents. lgse/strata#1211
