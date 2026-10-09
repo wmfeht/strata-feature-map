@@ -121,7 +121,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 ## Known gaps
 
 - In Columns, `/` or Ctrl+F from a focused result does not return focus to the filter field. lgse/strata#1226
-- In List and Icons, F5 with the filter field focused moves focus to a hidden row behind the results. lgse/strata#1533
+- In List and Icons, F5 with the filter field focused moves focus to a hidden row behind the results; the fix is unmerged. lgse/strata#1434, lgse/strata#1544
 - In Columns, when filter results replace the rows, refocusing the listing focuses the column list rather than the results' cursor row. lgse/strata#1533
 - In Icons and List, Tab from a filter result walks every result instead of leaving the results. lgse/strata#1533
 - The filter cannot search file contents. lgse/strata#1211

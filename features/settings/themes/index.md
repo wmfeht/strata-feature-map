@@ -41,6 +41,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - While a preview is active, changing text size, toggling Element glow, or an Omarchy theme change while following Omarchy keeps the preview applied. lgse/strata#1457, lgse/strata#1533
 - Cancel, or closing Settings, in one window leaves a preview started later in another window applied. lgse/strata#1533
 - Clicking a theme card or toggling Follow Omarchy during a preview ends the preview. lgse/strata#1457, lgse/strata#1533
+- When followed Omarchy state disappears during a preview, the preview ends and the selected built-in theme applies. lgse/strata#1457, lgse/strata#1533
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
 - Saving with an empty name, or one with no ASCII letters or digits, shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
@@ -101,6 +102,5 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 ## Known gaps
 
-- Omarchy becoming unavailable while it is followed drops an active preview. lgse/strata#1533
 - docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
 - The interface font is fixed to JetBrains Mono. lgse/strata#1217
