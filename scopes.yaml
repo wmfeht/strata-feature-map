@@ -6,6 +6,10 @@
 # browser, ui, settings, operations, navigation, keyboard, appearance, and icons
 # stay null on purpose. Their PRs land in several areas, so any single target
 # would capture PRs that belong elsewhere; path matching decides instead.
+#
+# fallback nodes own shared modules no feature owns. A PR maps to one only
+# when its paths touch no other node.
+fallback: [app/infrastructure]
 ignore: [deps, release, e2e, ci, readme, test, triage, logging, style, arch]
 scopes:
   browser: null

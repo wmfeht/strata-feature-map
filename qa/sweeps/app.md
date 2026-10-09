@@ -7,7 +7,7 @@ tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-up
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, the sidebar notice, release channels, signed in-place install, and package-managed installs.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, the sidebar notice, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, and directory-load log privacy.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and its update notice as a navigation surface, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -111,6 +111,12 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch with the unreadable marker and with the marker holding `channel = "preview"` and unknown keys; the page must offer no download.
 - Point the AUR check at a package version equal to, below, and above the installed one through the proxy; only the last may show a notice.
 - Click "Open AUR Update" with the helper removed from `PATH` after the page rendered.
+
+### app/infrastructure
+
+- Browse a native folder, Trash, Recent, and the SFTP fixture once at `RUST_LOG=info` and once at `RUST_LOG=strata=debug`; grep both logs for each path, host, and user name.
+- Open `sftp://user:secret@host/dir?token=x#frag` with debug logging on and grep the log for `secret`, `token`, and `frag`.
+- Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 
 ## Hand-offs
 

@@ -53,3 +53,4 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Preview panel and quick preview of remote files, and thumbnails on remote entries → `preview`.
 - Mounting, unmounting, and ejecting local volumes and removable media → `devices`.
 - Thumbnail rendering that provider badges share, and search inside a remote location → `browser`.
+- How a non-UTF-8 or `%2F` URI displays, skipped-entry warnings, and directory-load log redaction → `app`.

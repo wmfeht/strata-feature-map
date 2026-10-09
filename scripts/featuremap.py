@@ -104,6 +104,7 @@ class Tree:
 class Scopes:
     mapping: dict[str, str | None]
     ignore: set[str]
+    fallback: set[str] = field(default_factory=set)
 
 
 @dataclass
@@ -191,7 +192,8 @@ def load_sources(root: Path) -> dict:
 def load_scopes(root: Path) -> Scopes:
     data = load_yaml(root / "scopes.yaml")
     mapping = {str(k): v for k, v in (data.get("scopes") or {}).items()}
-    return Scopes(mapping, {str(s) for s in data.get("ignore") or []})
+    fallback = {str(n) for n in data.get("fallback") or []}
+    return Scopes(mapping, {str(s) for s in data.get("ignore") or []}, fallback)
 
 
 def load_dataset(root: Path) -> dict[int, dict]:
@@ -592,6 +594,9 @@ def check(root: Path, lister=None) -> list[Issue]:
             issues.append(Issue("error", "scopes.yaml", f"scope '{scope}' maps to missing node '{target}'"))
         if scope in scopes.ignore:
             issues.append(Issue("error", "scopes.yaml", f"scope '{scope}' is both mapped and ignored"))
+    for node_id in sorted(scopes.fallback):
+        if node_id not in tree.nodes:
+            issues.append(Issue("error", "scopes.yaml", f"fallback names missing node '{node_id}'"))
     for node_id in tree.ordered():
         node = tree.nodes[node_id]
         issues += [Issue("error", node.path, m) for m in tree_problems(tree, node)]
@@ -737,6 +742,8 @@ def assign(tree: Tree, scopes: Scopes, pr: dict) -> Assignment:
     if target and target not in tree.nodes:
         return Assignment(None, f"scope '{scope}' maps to missing node '{target}'", affected)
     pool = [n for n in affected if not target or n == target or n.startswith(target + "/")]
+    if any(n not in scopes.fallback for n in pool):
+        pool = [n for n in pool if n not in scopes.fallback]
     leaves = [n for n in pool if not any(o.startswith(n + "/") for o in pool)]
     if len(leaves) == 1:
         return Assignment(leaves[0], "scope and paths" if target else "paths", affected)

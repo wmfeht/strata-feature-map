@@ -6,7 +6,7 @@ One sweep per area owns every node under it. [qa/README.md](../qa/README.md) say
 
 ## [App sweep](../qa/sweeps/app.md) `app`
 
-reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 11 nodes, 11 with probes
+reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 12 nodes, 12 with probes
 
 - Triggers: [`src/ui/window.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/window.rs), [`src/ui/window/keyboard/items.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/window/keyboard/items.rs), [`src/ui/frame.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/frame.rs), [`src/ui/motion.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/motion.rs), [`src/style.css`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/style.css), [`src/ui/input_ownership.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/input_ownership.rs)
 - Tools: [`scripts/test_installer.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/scripts/test_installer.py), [`install.sh`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/install.sh), [`docs/packaging.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/packaging.md), [`docs/signed-updates.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/signed-updates.md), [`docs/keyboard-navigation.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/keyboard-navigation.md)
@@ -16,6 +16,7 @@ reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af
 | --- | --- | --- | --- | --- |
 | [Accessibility](../features/app/accessibility.md) `app/accessibility` | 7 | [`tests/e2e/scenarios/test_accessibility.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_accessibility.py) | 1 | [`docs/e2e-testing.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/e2e-testing.md) |
 | [Modal dialogs](../features/app/dialogs.md) `app/dialogs` | 8 | [`tests/e2e/scenarios/test_dialogs_and_menus.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_dialogs_and_menus.py) | 3 | [`docs/keyboard-navigation.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/keyboard-navigation.md) |
+| [Shared location model and listing adapter](../features/app/infrastructure.md) `app/infrastructure` | 3 | — | 2 | [`docs/performance-baseline.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/performance-baseline.md) |
 | [Packaging and installation](../features/app/packaging/index.md) `app/packaging` | 3 | — | 1 | [`docs/packaging.md`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/packaging.md) |
 | ↳ [AUR packages](../features/app/packaging/aur.md) `app/packaging/aur` | 3 | — | 1 | [`docs/packaging.md`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/packaging.md) (inherited) |
 | ↳ [Release installer](../features/app/packaging/installer.md) `app/packaging/installer` | 4 | — | 1 | [`docs/packaging.md`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/packaging.md) (inherited) |
@@ -168,7 +169,7 @@ reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af
 reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 3 nodes, 2 with probes
 
 - Tools: [`docs/file-providers.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/file-providers.md), [`docs/remote-sftp.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/remote-sftp.md), [`scripts/sftp-fixture.sh`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/scripts/sftp-fixture.sh)
-- Hand-offs: Sidebar Network place, DEVICES rows, pins, and the location field's parsing and history → [`browser`](../qa/sweeps/browser.md); Copy, move, paste, rename, and delete with a remote folder as source or target → [`operations`](../qa/sweeps/operations.md); Preview panel and quick preview of remote files, and thumbnails on remote entries → [`preview`](../qa/sweeps/preview.md); Mounting, unmounting, and ejecting local volumes and removable media → [`devices`](../qa/sweeps/devices.md); Thumbnail rendering that provider badges share, and search inside a remote location → [`browser`](../qa/sweeps/browser.md)
+- Hand-offs: Sidebar Network place, DEVICES rows, pins, and the location field's parsing and history → [`browser`](../qa/sweeps/browser.md); Copy, move, paste, rename, and delete with a remote folder as source or target → [`operations`](../qa/sweeps/operations.md); Preview panel and quick preview of remote files, and thumbnails on remote entries → [`preview`](../qa/sweeps/preview.md); Mounting, unmounting, and ejecting local volumes and removable media → [`devices`](../qa/sweeps/devices.md); Thumbnail rendering that provider badges share, and search inside a remote location → [`browser`](../qa/sweeps/browser.md); How a non-UTF-8 or `%2F` URI displays, skipped-entry warnings, and directory-load log redaction → [`app`](../qa/sweeps/app.md)
 
 | Node | Probes | E2E scenarios | Other tests | Docs |
 | --- | --- | --- | --- | --- |
@@ -200,10 +201,11 @@ Their Behavior bullets are the whole checklist.
 
 - [Remote locations and file providers](../features/remote/file-providers/index.md) `remote/file-providers`
 
-## Nodes without E2E scenarios (59)
+## Nodes without E2E scenarios (60)
 
 Neither the node nor its subtree cites a `tests/e2e/` scenario, so QA here is manual or Rust-level.
 
+- [Shared location model and listing adapter](../features/app/infrastructure.md) `app/infrastructure`
 - [Packaging and installation](../features/app/packaging/index.md) `app/packaging`
 - [AUR packages](../features/app/packaging/aur.md) `app/packaging/aur`
 - [Release installer](../features/app/packaging/installer.md) `app/packaging/installer`

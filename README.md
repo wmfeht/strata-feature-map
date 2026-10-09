@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `aee7133` · 106 features, 76 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `aee7133` · 107 features, 75 reviewed
 
 ## app
 
@@ -16,6 +16,7 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `aee7133` | 0 |
 | [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `aee7133` | 0 |
+| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `aee7133` | 0 |
 | [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | reviewed | `b893886` | 0 |
 | ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | reviewed | `b893886` | 0 |
@@ -91,7 +92,7 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `aee7133` | 0 |
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places.md) | `integration/10xer-mode/places` | shipped | reviewed | `b893886` | 0 |
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | reviewed | `b893886` | 0 |
-| ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | reviewed | `aee7133` | 0 |
+| ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | draft | `aee7133` | 0 |
 | [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | reviewed | `b893886` | 0 |
 | [FileManager1 D-Bus interface](features/integration/file-manager-interface.md) | `integration/file-manager-interface` | shipped | reviewed | `aee7133` | 0 |
 | [Opening files and Open With](features/integration/open-with/index.md) | `integration/open-with` | shipped | reviewed | `b893886` | 0 |

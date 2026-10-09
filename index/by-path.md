@@ -41,8 +41,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/adapters/local_actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/adapters/local_actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `src/adapters/local_files.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_files/camera_photos.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/adapters/local_files/camera_photos/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/adapters/local_files/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/local_files/tests/browse.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_files/tests/trash.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `src/adapters/local_jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/adapters/local_jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
@@ -146,6 +149,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/model/action.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `src/model/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/model/tests.rs` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
 | `src/portal.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/portal/dbus.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -297,7 +301,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/fly_to_trash.rs` | code | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/fly_to_trash/tests.rs` | tests | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/inline_edit.rs` | code | [Inline rename](../features/operations/rename.md) | — |
-| `src/ui/browser/listing_filter.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/browser/listing_filter.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/listing_search.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/location.rs` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/ui/browser/location/**` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
@@ -375,6 +379,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/missing_tools.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/missing_tools/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/modal.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
