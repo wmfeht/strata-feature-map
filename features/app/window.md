@@ -3,7 +3,7 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: reviewed
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs]
@@ -48,7 +48,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ## Design
 
-[docs/architecture.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/architecture.md) carries the window composition and keyboard routing design under "Window composition" and "Window keyboard routing".
+[docs/architecture.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/architecture.md) carries the window composition and keyboard routing design under "Window composition" and "Window keyboard routing".
 
 - The header is a GTK `HeaderBar` with its title buttons hidden. Strata draws Minimize, Maximize, and Close as its own header actions, so their visibility is a preference rather than a window-manager decision (lgse/strata#1100).
 - Tiling window managers make in-app window buttons redundant; stacking desktops expect all three. Always restoring GTK title buttons and detecting the window manager were rejected: the first suits only stacking desktops, the second is brittle and still needs an override (lgse/strata#1100).

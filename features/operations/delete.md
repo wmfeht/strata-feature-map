@@ -3,8 +3,8 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/browser/dissolve_delete.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs]
 related: [operations/trash, operations/progress]
@@ -18,7 +18,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 
 ### Entry points
 
-- Shift+Delete on a selection outside Trash opens the permanent-delete confirmation; Delete without Shift moves to Trash instead. lgse/strata#164
+- Shift+Delete on a selection outside Trash opens the permanent-delete confirmation; Delete without Shift follows Trash's rules instead. lgse/strata#164, lgse/strata#1533
 - Outside Trash, the item menu shows "Permanently delete" with a Shift+Del hint below Move to Trash, for single and multiple selections. lgse/strata#164
 - The menu hides "Permanently delete" when `access::can-delete` reports false for the folder's contents, and shows it when the query is unresolved. lgse/strata#361
 - In a folder without write permission, such as after `chmod 555`, neither Move to Trash nor Permanently delete appears in the item menu. lgse/strata#361
@@ -34,7 +34,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - While the total calculates, a spinner shows beside the subtitle "N files", "N folders", or, for a mixed selection, "N items". lgse/strata#1134 (unverified)
 - When the walk finishes, the spinner hides and the subtitle reads "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134
 - When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
-- The confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266
+- After Shift+Delete or Permanently delete, the confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266, lgse/strata#1533
 - Left or `h` focuses Cancel and Right or `l` focuses confirm; Enter and keypad Enter activate the focused button. lgse/strata#1052
 - With Cancel or Close focused, Enter dismisses the dialog and the files stay. lgse/strata#1052
 - Escape, Cancel, or Close dismiss the dialog without deleting anything. lgse/strata#1052, lgse/strata#1206
@@ -66,7 +66,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 - Menu visibility mirrors Move to Trash: one `access::can-delete` query per directory load, and an unresolved query keeps the item (lgse/strata#361). Only the menu is gated; keyboard and other paths are left to lgse/strata#66.
 - The confirmation renders at most 50 rows because one GTK row per item on the main thread froze the UI at 1000 items (lgse/strata#622, lgse/strata#703).
 - A selected folder hides its nested contents behind one "Folder" row. The subtitle therefore reuses Empty Trash's bounded directory summary and reports a lower bound when truncated (lgse/strata#900, lgse/strata#1134).
-- Confirm takes initial focus, matching Finder, so Enter confirms and Escape cancels (lgse/strata#1204). Enter honors the focused button because always confirming was a data-loss path (lgse/strata#854).
+- Confirm takes initial focus, matching Finder, so Enter confirms and Escape cancels (lgse/strata#1204). The Trash-unavailable variant focuses Cancel instead, because the user asked for Trash (lgse/strata#1425). Enter honors the focused button because always confirming was a data-loss path (lgse/strata#854).
 - Local deletion walks descriptor-relative from each open directory with `openat2` and `RESOLVE_BENEATH | RESOLVE_NO_SYMLINKS | RESOLVE_NO_MAGICLINKS`. Each entry's type is re-read before recursing or unlinking, never trusted from the listing (lgse/strata#8, lgse/strata#253).
 - The parent of a selected item resolves with `openat2(IN_ROOT | NO_MAGICLINKS)` so directory aliases work, while traversal inside the tree stays no-follow (lgse/strata#477).
 - Remote GVfs locations have no descriptor to walk, so they keep GIO's path-based delete and claim no equivalent guarantee (lgse/strata#253).

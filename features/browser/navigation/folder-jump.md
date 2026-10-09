@@ -3,8 +3,8 @@ title: Folder jump
 status: shipped
 origin: {issue: lgse/strata#276, pr: lgse/strata#959}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/services/navigation_history.rs]
 tests: [src/services/navigation_history/tests.rs]
 related: [browser/search, integration/10xer-mode]
@@ -29,6 +29,7 @@ A keyboard palette, Ctrl+Shift+K, that reopens folders previously visited in Str
 - Before any folder is recorded, the palette shows "No folder history yet". lgse/strata#959 (unverified)
 - A query that matches no visited folder shows "No matching folders". lgse/strata#959 (unverified)
 - Pressing Ctrl+Shift+K while the search palette is open closes it. lgse/strata#959 (unverified)
+- Closing the palette with Escape returns focus to the control that opened it, such as the file list's cursor row. lgse/strata#1430, lgse/strata#1533
 
 ## Design
 

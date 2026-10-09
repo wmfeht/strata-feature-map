@@ -3,8 +3,8 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/composition/tenxer_splash.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/composition/tenxer_splash/tests.rs]
 docs: [docs/10xer-mode.md]
@@ -53,6 +53,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 ### Movement
 
 - In List and Columns, `j`/`k`, Up/Down, Home, End, and `G` move the cursor in displayed order, including sorted and type-grouped lists. lgse/strata#1273
+- In Columns, `g g` and `G` in a column with no cursor land on its first and last entry. lgse/strata#1447, lgse/strata#1533
 - Ctrl+U/Ctrl+D move half a page, and Ctrl+B/Ctrl+F or Page Up/Page Down a full page, without filtering, toggling the sidebar, or duplicating. lgse/strata#1273
 - In List and Columns, `l` or Right enters a directory and never launches a file; `h` or Left opens the parent. lgse/strata#1273
 - Enter and `o` open the focused item, including files. lgse/strata#1273
@@ -95,7 +96,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ## Design
 
-[docs/10xer-mode.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/10xer-mode.md) is the target product specification and keymap contract; each PR updates it as keys ship.
+[docs/10xer-mode.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/10xer-mode.md) is the target product specification and keymap contract; each PR updates it as keys ship.
 
 - Keyboard browsing shared the default map with type-to-search and dense pane controls. Yazi- and Ranger-style users needed an explicit opt-in map instead (lgse/strata#1152).
 - The scope is not full Yazi compatibility: no content search (`S`), zoxide integration, keybinding editor, or live cross-process preference sync (lgse/strata#1152).
@@ -122,4 +123,4 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ## Known gaps
 
-- In Columns, `g g` or `G` from a column with no cursor can land on the wrong end; the fix merged after `reviewed_at`. lgse/strata#1447, lgse/strata#1533
+None known.

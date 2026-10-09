@@ -3,8 +3,8 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/browser/location.rs, src/ui/browser/location/**]
 tests: [src/ui/browser/location/tests.rs, src/ui/browser/location/completion/tests.rs, src/app/browser/tests/location_input.rs, tests/e2e/scenarios/test_locations.py]
 related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop]
@@ -35,6 +35,8 @@ The header control that shows the active location as breadcrumbs and switches to
 - A URI scheme other than smb, sftp, ftp, ftps, dav, davs, trash, network, or recent is rejected with "The <scheme>:// scheme isn't supported." and a list that omits trash and network. lgse/strata#20 (unverified)
 - Submitting `smb://alice:secret@host/share` or `smb://alice;password=secret@host/share` shows `smb://alice@host/share` in the entry while mounting and uses the password for that one attempt. lgse/strata#145
 - A typed password is never saved; failed credentials open the normal sign-in dialog. lgse/strata#145
+- Submitting a non-ASCII URI such as `smb://host/café` keeps the decoded text in the entry while mounting. lgse/strata#1424, lgse/strata#1533
+- A submitted `smb://host/share/café x` is stored as `smb://host/share/caf%C3%A9%20x`, so creating or deleting an entry there refreshes the open column. lgse/strata#1424, lgse/strata#1533
 - A path naming a file opens its parent folder with that file selected, in the main window and the portal file chooser. lgse/strata#1219
 - If that parent is already open, the file is selected in place, after a refresh when the file is new. lgse/strata#1219
 - A hidden file target turns on hidden files so the selection is visible. lgse/strata#1219
@@ -70,8 +72,9 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - An outside click cancels rather than commits, because a half-typed or invalid path would navigate unexpectedly (lgse/strata#246).
 - Every area showing the text cursor must start editing, so the edit target is the whole bar except crumb and copy-path buttons (lgse/strata#288).
 - `~` expands only for the current user before absolute-path validation; other `~` forms stay errors (lgse/strata#149).
-- UNC and SCP shorthand are refused rather than guessed, so a typed URI is always kept verbatim (lgse/strata#20).
-- URI credentials are parsed with GLib's password and auth-parameter flags. They leave the text at once, reach only the pending mount with saving disabled, and are then discarded (lgse/strata#111, lgse/strata#145).
+- UNC and SCP shorthand are refused rather than guessed, so a typed URI is never rewritten into another scheme (lgse/strata#20).
+- A typed URI is stored in GIO's percent-encoded form, the identity its listed children use, while the entry shows the decoded text (lgse/strata#1424, lgse/strata#1533).
+- URI credentials are parsed with GLib's password and auth-parameter flags, plus the encoded path, query, and fragment flags; user info stays decoded so credential detection is unchanged (lgse/strata#1424). They leave the text at once, reach only the pending mount with saving disabled, and are then discarded (lgse/strata#111, lgse/strata#145).
 - A file path reuses validation: `NotDirectory` sends the parent through navigation with the file as a pending reveal, matching GTK and KDE choosers (lgse/strata#1139, lgse/strata#1219).
 - Completion reads the local folder directly, scanning at most 10,000 entries and listing at most 50 folders (lgse/strata#388).
 - Every exit path switches the stack to the breadcrumbs before resetting the text, so the entry's `changed` signal cannot reopen the popover (lgse/strata#1205).
@@ -81,6 +84,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Stored typed remote URIs in GIO's percent-encoded form so they match their listed children, keeping decoded text in the entry. |
 | 2026-09-25 | lgse/strata#1219 | feat | Revealed a typed file path inside its parent instead of rejecting it as not a directory. |
 | 2026-09-23 | lgse/strata#1132 | fix | Gave the entry and its confirm and cancel buttons accessible names. |
 | 2026-09-22 | lgse/strata#388 | feat | Added folder completion under the entry with keyboard selection and Tab completion. |

@@ -3,8 +3,8 @@ title: Recent
 status: shipped
 origin: {issue: lgse/strata#1082, pr: lgse/strata#1083}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: []
 tests: [src/app/browser/tests/recent.rs, tests/e2e/scenarios/test_recent.py]
 related: [browser/sidebar, integration/open-with, settings/preferences]
@@ -27,6 +27,7 @@ The `recent:///` collection of recently used files, read from the desktop's GTK 
 - Recent lists files with the most recently used first, sorted by Recency with folders-first off. lgse/strata#1083
 - In Recent, the sort menu hides the Folders first option. lgse/strata#1083 (unverified)
 - A history entry whose target file is missing or unreadable is skipped, not listed. lgse/strata#1150
+- An entry whose name is not valid UTF-8 is listed. lgse/strata#1424, lgse/strata#1533
 - The Recency sort key is offered only in Recent, in both directions. lgse/strata#1083
 - Changing the sort in Recent does not change the sort of ordinary folders. lgse/strata#1083
 - An open Recent view reloads when the desktop's recent history changes. lgse/strata#1083
@@ -66,5 +67,4 @@ Recent uses the platform's recent-file infrastructure instead of a Strata-specif
 ## Known gaps
 
 - Recent has no Open Full Path action that opens a row's whole folder hierarchy as columns. lgse/strata#1475
-- Recent entries whose names are not valid UTF-8 are not listed; the fix merged after this snapshot. lgse/strata#1424, lgse/strata#1533
 - Renaming or moving a file in Strata does not update its recent-history URI, so it drops out of Recent. lgse/strata#1150

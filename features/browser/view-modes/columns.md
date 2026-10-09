@@ -3,8 +3,8 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
 related: [preview/preview-panel, browser/selection, operations/rename]
@@ -22,6 +22,9 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Each column after the first has a "Close this pane" X button that closes it. lgse/strata#171
 - With Mirror columns selection on, the default, Up or Down onto a folder shows its contents in the next column without moving focus. lgse/strata#1179
 - Up or Down onto a previewable file opens Quick Preview when single-click previews are on; onto any other file it closes the child column. lgse/strata#1179
+- Page Up, Page Down, Home, End, keypad Home and End, and Ctrl+Up or Ctrl+Down mirror the new cursor like Up or Down, including after pointer input. lgse/strata#1447, lgse/strata#1533
+- End onto a plain file closes the stale child column, and the breadcrumb follows the cursor. lgse/strata#1447, lgse/strata#1533
+- Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
 
 ### Column header
@@ -31,6 +34,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - While an item or background context menu is open in a column, that column keeps the header actions even when the pointer moves over another column. lgse/strata#555
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
+- A dialog, popover, or focused filter field that opens before a rebuilt column's deferred refocus keeps keyboard focus. lgse/strata#1430, lgse/strata#1441, lgse/strata#1533
 
 ### Open-path marker
 
@@ -62,6 +66,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Header actions follow the latest input target to remove repeated icons. The header keeps a hidden page of the same size, so columns do not resize as the target moves (lgse/strata#552, lgse/strata#555).
 - Selection mirroring follows Finder's column view. The 75 ms timer re-checks focus when it fires, so a stale selection or an explicit close cannot reopen a column (lgse/strata#1178).
 - Background focus fires on click release and is grouped with marquee selection, so neither gesture swallows the other (lgse/strata#523).
+- Home and End go through Strata's own jump, like Ctrl+Up and Ctrl+Down. GTK's native keys emit only a selection echo the mirror ignores, and mirroring that echo risked the reopen loops lgse/strata#1179 avoided (lgse/strata#1447).
 - Horizontal scroll is routed in the capture phase because nested vertical listings consume horizontal events (lgse/strata#1124).
 - Autofit is detected as two drag starts on the same edge within 400 ms. A separate click gesture would compete with the drag for the event (lgse/strata#114).
 - Saved widths are unscaled by text size, so text-size changes scale them without compounding. Browser and chooser defaults are independent (lgse/strata#1338).
@@ -71,6 +76,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Mirrored Home and End, made the strip one Tab stop, and gave empty columns a focusable surface. |
 | 2026-09-24 | lgse/strata#1215 | fix | Removed the bottom gap and the per-column paste footer. |
 | 2026-09-23 | lgse/strata#1179 | feat | Mirrored keyboard selection into the next column, as in Finder. |
 | 2026-09-18 | lgse/strata#1125 | fix | Routed horizontal and Shift+wheel scrolling to the column strip. |
@@ -87,7 +93,6 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 ## Known gaps
 
-- Home and End move the cursor without updating the mirrored child column; the fix is unmerged. lgse/strata#1447, lgse/strata#1533
 - Back, Up, or a breadcrumb return to the first column selects its first entry instead of the folder you came from; the fix is unmerged. lgse/strata#1437, lgse/strata#1544
 - Double-click autofit has no upper bound, and the fitted width becomes the saved default. lgse/strata#1448
 - Closing a column and autofit change width without animation, and keyboard moves between columns shift the open preview panel. lgse/strata#1513

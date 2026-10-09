@@ -3,7 +3,7 @@ title: udiskie unlock handler
 status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: reviewed
 code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
 tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
@@ -54,7 +54,7 @@ An opt-in integration that makes udiskie open Strata's passphrase prompt when an
 
 ## Design
 
-The README section "Unlock encrypted volumes on Omarchy" documents setup and restore. [docs/preferences.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preferences.md) records that the integration is not a Strata preference. [docs/packaging.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/packaging.md) forbids packages from running the install flag.
+The README section "Unlock encrypted volumes on Omarchy" documents setup and restore. [docs/preferences.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/preferences.md) records that the integration is not a Strata preference. [docs/packaging.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/packaging.md) forbids packages from running the install flag.
 
 - On Omarchy, plugging in a LUKS drive raised another program's prompt, not Strata's (lgse/strata#537). Disabling the user's automounter was ruled out, so udiskie hands encrypted `device_added` events to Strata and stops automounting LUKS (lgse/strata#1047).
 - The hook is classified before GTK starts and execs `--unlock-volume`, so non-crypto events never open a window (lgse/strata#1047).

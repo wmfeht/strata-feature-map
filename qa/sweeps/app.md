@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md]
 ---
@@ -34,6 +34,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Tab around the whole window from the sidebar toggle and back; record any control skipped or visited twice, with the sidebar hidden and in an empty directory.
 - Switch the interface language to ja and ko and re-read entry, pane, and view descriptions and the menu-item accelerators.
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
+- Dump the focused node in a `chmod 000` folder, in a folder still loading over a stalled remote mount, and in an empty folder with the interface in ja; read its name and description each time.
+- With an empty folder's pane focused, create a file in it from a shell, then delete it again; read which node holds focus and whether the pane keeps its name.
 
 ### app/dialogs
 
@@ -42,6 +44,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In the Compress dialog, dirty the name, then clear it, and click the backdrop; repeat with a password typed and deleted.
 - Shrink the window below each dialog's minimum width plus 84 px, then below the dialog's height; scroll inside, press Enter, and resize back.
 - With a dialog open, press Ctrl+K, Ctrl+V, F1, and Ctrl++ in turn and read what each reaches.
+- Open Compress or Properties on a row, delete that row from a shell, then close the dialog; repeat in an empty folder and in a second tab after switching back to it.
+- Open a dialog from a header button, a sidebar row, and the location field; close each by Escape, backdrop, and close button, then press Down and read where focus lands.
+- Run a copy into a read-only folder so an error replaces the progress dialog; close the error and read where focus lands in each mode.
 
 ### app/shortcut-reference
 

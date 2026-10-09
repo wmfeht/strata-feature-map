@@ -3,10 +3,10 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
-tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
+tests: [src/adapters/gio_location/tests.rs, src/adapters/local_files/tests/browse.rs, src/services/file_source/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
 docs: [docs/remote-sftp.md]
 related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins]
 ---
@@ -57,6 +57,11 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Entries of a mounted GVfs location keep their `smb://`-style URI and never show the `/run/user/$UID/gvfs/…` FUSE path. lgse/strata#31
 - At `smb://host/`, activating a share by mouse or keyboard in Columns, List, or Icons mounts it if needed and opens its contents. lgse/strata#990
 - Column headings, peek headings, and window titles show percent-decoded remote names, such as "My Share" for `My%20Share`. lgse/strata#740
+- A remote entry whose name is not valid UTF-8, such as `\xff name` over SFTP, is listed with the location `sftp://host/share/%FF%20name`. lgse/strata#1533
+- A GVfs location for a non-ASCII name is stored in GIO's encoded form, such as `smb://host/caf%C3%A9`, and `%2F` stays part of the name. lgse/strata#1533
+- Displayed paths decode valid UTF-8 names, show names that are not valid UTF-8 percent-encoded, and always show `%2F` as `%2F`. lgse/strata#1533 (unverified)
+- A remote URI with credentials, such as `sftp://user%3Asecret@host/caf%E9%20x.txt`, still has the password stripped and keeps its encoded path. lgse/strata#1533
+- A remote entry that still cannot be converted logs a warning with only the request id and backend name, and the details only at DEBUG. lgse/strata#1533
 - Ejecting or unmounting a non-SMB remote mount, such as SFTP, from its DEVICES row while browsing inside it returns the browser to Home. lgse/strata#352, lgse/strata#296
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
@@ -64,11 +69,14 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 ## Design
 
-[docs/remote-sftp.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/remote-sftp.md) carries the SFTP address forms, authentication cases, the disposable OpenSSH fixture, and the manual test matrix.
+[docs/remote-sftp.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/remote-sftp.md) carries the SFTP address forms, authentication cases, the disposable OpenSSH fixture, and the manual test matrix.
 
 - Remote locations stay URI-native. A GVfs backend also exposes a FUSE path, so a `gio::File` yields a native path only when GIO reports it native (lgse/strata#5, lgse/strata#31).
 - Access is protocol-agnostic through GIO/GVfs. Only SMB and SFTP are verified end to end; FTP, FTPS, WebDAV, and DAVS are accepted untested (lgse/strata#20, lgse/strata#64).
 - A location reporting "not mounted" uses `mount_enclosing_volume`; a GVfs mountable entry uses `mount_mountable`. The two are not interchangeable (lgse/strata#31).
+- GIO URIs are parsed and rebuilt with GLib's encoded path, query, and fragment flags, so non-UTF-8 names survive. Userinfo stays decoded, so credential detection is unchanged (lgse/strata#1424).
+- The location identity is GIO's normalized percent-encoded URI, so listings, monitor events, and typed input compare equal. The owner accepted this identity change (lgse/strata#1424, lgse/strata#1533).
+- Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited. Plain `UriFlags::ENCODED` was rejected because it stops userinfo decoding (lgse/strata#1424).
 - Strata stores no secrets. Credentials go into the mount operation, and Until logout or Forever hands saving to the backend and keyring (lgse/strata#20, lgse/strata#145).
 - Strata suppresses GtkMountOperation's password dialog and shows its own. The safe `gio` bindings cannot marshal `ask-question` choices, so trust questions first used GTK's native dialog (lgse/strata#353).
 - SFTP host-key questions moved to a Strata dialog at the owner's request. It keeps every backend choice and index; other schemes keep the native dialog (lgse/strata#233).
@@ -81,6 +89,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Kept GIO's percent-encoding in URI locations so names that are not valid UTF-8 are listed and `%2F` stays a name. |
 | 2026-09-29 | lgse/strata#233 | feat | Completed SFTP: scheme-specific sign-in fields, a Strata host-key dialog, actionable failures, sanitized logs, and a test fixture. |
 | 2026-09-14 | lgse/strata#990 | fix | Opened SMB share-list shortcuts as folders, mounting the share, in every view. |
 | 2026-09-10 | lgse/strata#740 | fix | Showed percent-decoded names for remote locations. |
@@ -98,4 +107,3 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - SMB rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62
 - Mutating actions on remote locations are not gated by the backend's capabilities. lgse/strata#66
 - Recursive search cannot search a remote share and falls back to Home. lgse/strata#87
-- Remote entries whose names percent-encode invalid UTF-8 are dropped from listings; lgse/strata#1533 fixes this after `reviewed_at`. lgse/strata#1424, lgse/strata#1533

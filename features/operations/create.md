@@ -3,7 +3,7 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: reviewed
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]

@@ -3,7 +3,7 @@ title: Startup location arguments
 status: shipped
 origin: {issue: lgse/strata#649, pr: lgse/strata#673}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: reviewed
 code: [src/ui/window/open_argument.rs]
 tests: [src/ui/window/open_argument/tests.rs, tests/e2e/scenarios/test_startup_arguments.py]

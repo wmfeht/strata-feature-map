@@ -3,8 +3,8 @@ title: Scrolling
 status: shipped
 origin: {issue: lgse/strata#293, pr: lgse/strata#311}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+review: draft
 code: [src/ui/scrolling.rs, src/ui/scrolling/popover.rs]
 tests: [src/ui/scrolling/popover/tests.rs, tests/e2e/scenarios/test_popover_scrolling.py, tests/e2e/mutations/popover-scrolling.patch]
 related: [browser/view-modes, browser/view-modes/columns, browser/view-modes/text-size, browser/selection, operations/drag-and-drop/column-autoscroll]
@@ -12,7 +12,7 @@ related: [browser/view-modes, browser/view-modes/columns, browser/view-modes/tex
 
 ## Summary
 
-Fast ways through long listings in Columns, Icons, and List: middle-click autoscroll, Page Up/Down paging, and Ctrl+Up/Down jumps to either end. Also covers the app's overlay scrollbars and how wheel and touchpad events reach the right scroller.
+Fast ways through long listings in Columns, Icons, and List: middle-click autoscroll, Page Up/Down paging, and Ctrl+Up/Down or Home/End jumps to either end. Also covers the app's overlay scrollbars and how wheel and touchpad events reach the right scroller.
 
 ## Behavior
 
@@ -39,6 +39,11 @@ Fast ways through long listings in Columns, Icons, and List: middle-click autosc
 - Ctrl+Up and Ctrl+Down select the first or last entry of the focused pane or column and scroll to that edge. lgse/strata#362
 - Ctrl+Up and Ctrl+Down skip hidden entries unless hidden files are shown. lgse/strata#362
 - Ctrl+Up or Ctrl+Down with Shift, Alt, or Super added does not jump. lgse/strata#362 (unverified)
+- In the default key map, Home, End, keypad Home, and keypad End on a focused listing jump to the first or last entry like Ctrl+Up and Ctrl+Down. lgse/strata#1447, lgse/strata#1533
+- Shift+Home and Shift+End extend the selection range instead of jumping. lgse/strata#1447, lgse/strata#1533
+- Plain Home or End with several entries selected leaves only the target entry selected. lgse/strata#1447, lgse/strata#1533 (unverified)
+- With no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
+- In Columns, Ctrl+Up, Ctrl+Down, Home, and End also jump while focus is on a column's list rather than a row. lgse/strata#1447, lgse/strata#1533
 
 ### Scrollbars
 
@@ -66,7 +71,7 @@ Issue lgse/strata#293 asked for fast movement through large folders. Raising whe
 - A press is claimed only when the listing can scroll, so a listing that fits keeps the middle click for other handlers (lgse/strata#311).
 - Autoscroll state once held its scroller strongly, a cycle that kept every retired listing alive. After 60 folder switches, loads grew from about 75 ms to 290 ms, so it now holds weak references (lgse/strata#1185, lgse/strata#1187).
 - Icons pages scroll the viewport by pixels. GridView's `scroll_to` uses estimated cell sizes that lag behind a resize or preview split (lgse/strata#373). List and Columns scroll to the selected item.
-- Ctrl+Up/Down was chosen over Home/End, which clashed with Alt+Home and text-field editing, and over Vim-style `gg`/`G`, which needed chord handling Strata lacked then (lgse/strata#357).
+- Ctrl+Up/Down was chosen over Home/End, which clashed with Alt+Home and text-field editing, and over Vim-style `gg`/`G`, which needed chord handling Strata lacked then (lgse/strata#357). Plain Home and End later joined them, handled by Strata in every view like Ctrl+Up/Down (lgse/strata#1447).
 - lgse/strata#311 widened file-view scrollbar troughs to 14 px while keeping a 3 px visible bar. lgse/strata#1208 then made the path-bar overlay indicator the one style everywhere, removing the fixed-scrollbar opt-outs. Always-visible fixed bars with unified colors were rejected (lgse/strata#1141).
 - lgse/strata#1484 gave Icons and List back a wider vertical grab target than the shared 4 px bar.
 - The window-level Ctrl+wheel text zoom controller runs in the capture phase. GTK's `DISCRETE` flag masked the horizontal axis and claimed sub-step smooth deltas, so touchpad scrolling never reached descendant scrollers (lgse/strata#1124). The controller now accumulates deltas itself and passes events on unless Ctrl zoom applies (lgse/strata#1140).
