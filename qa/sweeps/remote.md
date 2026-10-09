@@ -34,7 +34,6 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Have the fixture's `sshd` refuse, drop the TCP connection after the banner, and hang without a banner; read the message each produces and how long each takes.
 - Open `smb://host/` for a server exposing a share with `%20`, a Unicode name, and an `IPC$`-style hidden share; activate each and look for FUSE paths.
 - On the SFTP fixture, create `$(printf 'caf\xe9')`, a file named `a%2Fb`, and `café`; open, rename, and delete each, then read the location field, breadcrumbs, window title, and Properties.
-- Type `sftp://host/share/café` into the location field, create and delete a file there from a shell, and watch whether the open column refreshes.
 - Drop files onto a remote folder in the file pane and onto its DEVICES row, then search with Ctrl+F inside the remote folder with Include subfolders on and read what the UI says.
 - Start Strata with `gvfsd` stopped and D-Bus activation masked, then with `gvfsd` running but `gvfsd-sftp` removed; compare startup time and the two failure texts.
 

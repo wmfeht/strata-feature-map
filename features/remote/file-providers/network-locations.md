@@ -6,7 +6,7 @@ branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
-tests: [src/adapters/gio_location/tests.rs, src/adapters/local_files/tests/browse.rs, src/services/file_source/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
+tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
 docs: [docs/remote-sftp.md]
 related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins]
 ---
@@ -59,8 +59,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Column headings, peek headings, and window titles show percent-decoded remote names, such as "My Share" for `My%20Share`. lgse/strata#740
 - A remote entry whose name is not valid UTF-8, such as `\xff name` over SFTP, is listed with the location `sftp://host/share/%FF%20name`. lgse/strata#1533
 - A GVfs location for a non-ASCII name is stored in GIO's encoded form, such as `smb://host/caf%C3%A9`, and `%2F` stays part of the name. lgse/strata#1533
-- Displayed paths decode valid UTF-8 names, show names that are not valid UTF-8 percent-encoded, and always show `%2F` as `%2F`. lgse/strata#1533 (unverified)
-- A remote URI with credentials, such as `sftp://user%3Asecret@host/caf%E9%20x.txt`, still has the password stripped and keeps its encoded path. lgse/strata#1533
+- A displayed remote URI is decoded only when its whole path is valid UTF-8 and has no `%2F`. Otherwise the whole path shows percent-encoded, such as `trash:///caf%E9.txt`. lgse/strata#1533 (unverified)
 - A remote entry that still cannot be converted logs a warning with only the request id and backend name, and the details only at DEBUG. lgse/strata#1533
 - Ejecting or unmounting a non-SMB remote mount, such as SFTP, from its DEVICES row while browsing inside it returns the browser to Home. lgse/strata#352, lgse/strata#296
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
@@ -75,8 +74,8 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Access is protocol-agnostic through GIO/GVfs. Only SMB and SFTP are verified end to end; FTP, FTPS, WebDAV, and DAVS are accepted untested (lgse/strata#20, lgse/strata#64).
 - A location reporting "not mounted" uses `mount_enclosing_volume`; a GVfs mountable entry uses `mount_mountable`. The two are not interchangeable (lgse/strata#31).
 - GIO URIs are parsed and rebuilt with GLib's encoded path, query, and fragment flags, so non-UTF-8 names survive. Userinfo stays decoded, so credential detection is unchanged (lgse/strata#1424).
-- The location identity is GIO's normalized percent-encoded URI, so listings, monitor events, and typed input compare equal. The owner accepted this identity change (lgse/strata#1424, lgse/strata#1533).
-- Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited. Plain `UriFlags::ENCODED` was rejected because it stops userinfo decoding (lgse/strata#1424).
+- The location identity is GIO's normalized percent-encoded URI, so listings and monitor events compare equal. The owner accepted this identity change (lgse/strata#1424, lgse/strata#1533).
+- Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited. Plain `UriFlags::ENCODED` was rejected because it stops userinfo decoding (lgse/strata#1424, lgse/strata#1533).
 - Strata stores no secrets. Credentials go into the mount operation, and Until logout or Forever hands saving to the backend and keyring (lgse/strata#20, lgse/strata#145).
 - Strata suppresses GtkMountOperation's password dialog and shows its own. The safe `gio` bindings cannot marshal `ask-question` choices, so trust questions first used GTK's native dialog (lgse/strata#353).
 - SFTP host-key questions moved to a Strata dialog at the owner's request. It keeps every backend choice and index; other schemes keep the native dialog (lgse/strata#233).

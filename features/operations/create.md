@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+review: draft
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
 docs: [docs/keyboard-navigation.md]
@@ -37,6 +37,7 @@ Creating an empty file or folder in the current directory from the background me
 - Enter or a click outside the field commits a valid name; a click inside the field keeps editing, and leading and trailing spaces are kept. lgse/strata#567
 - Escape, an empty name, or an invalid name such as `bad/name` closes the editor and keeps the item under its default name. lgse/strata#567
 - A name already in use shows "Unable to rename item"; after Close, the existing item and the new default item are unchanged. lgse/strata#567, lgse/strata#760
+- Closing that dialog after New Folder or New File returns keyboard focus to the file list. lgse/strata#1533
 - Going Home or Back before the editor opens leaves the item named by default and opens no late editor. lgse/strata#760
 - If the created row is not listed within 5 seconds, no editor opens. lgse/strata#567 (unverified)
 - On GTK 4.14 in Columns, a new file that sorts after 2,000 entries still gets its editor. lgse/strata#635

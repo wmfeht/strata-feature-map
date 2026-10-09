@@ -18,7 +18,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 
 ### Entry points
 
-- Shift+Delete on a selection outside Trash opens the permanent-delete confirmation; Delete without Shift follows Trash's rules instead. lgse/strata#164, lgse/strata#1533
+- Shift+Delete on a selection outside Trash opens the permanent-delete confirmation; Delete without Shift moves to Trash, or opens the explained confirmation where Trash is unsupported (`operations/trash`). lgse/strata#164, lgse/strata#1533
 - Outside Trash, the item menu shows "Permanently delete" with a Shift+Del hint below Move to Trash, for single and multiple selections. lgse/strata#164
 - The menu hides "Permanently delete" when `access::can-delete` reports false for the folder's contents, and shows it when the query is unresolved. lgse/strata#361
 - In a folder without write permission, such as after `chmod 555`, neither Move to Trash nor Permanently delete appears in the item menu. lgse/strata#361

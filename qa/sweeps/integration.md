@@ -18,7 +18,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A fake `xdg-terminal-exec` first on `PATH` that appends its argv and cwd to a log; a second `PATH` without it and without any known emulator; fake `kitty` and `$TERMINAL` scripts that exit 127.
 - A fake `.desktop` default handler under `$XDG_DATA_HOME/applications` that logs its argv, in `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
-- A folder under `/dev/shm`, whose listing reports no Trash support, beside a regular Home folder.
+- A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
@@ -34,8 +34,9 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Send 17 concurrent requests, reuse a handle, and send a 4,097-byte title; then `--filter-count 33`, `129`, and one filter with 1,025 rules.
 - Save into a read-only folder, with an empty name, with `a/b`, and with a suggested name that is an existing folder.
 - Run `--cancel-after 1` while a Replace prompt, a download, and an inline rename are open; read the response code and the `strata-download-*` folder.
-- Under `multiple`, fill two files and press Enter in Icons, on a focused filter result, with Shift held, and after Ctrl+A over a folder and files.
-- Under `save`, select a non-UTF-8 file, type a character into Name and delete it, then Save; repeat after selecting two files whose names render alike.
+- Under `multiple`, fill two files and press Shift+Enter.
+- Under `multiple`, fill two files, then press Enter on a focused filter result.
+- Under `save`, select a non-UTF-8 file, type a character into Name with real keystrokes, delete it, then Save.
 - Open a Space preview and the filter, press Down onto a result, then press Escape three times; read the response code after each.
 - Press Tab and Shift+Tab around the file list in each view, in an empty folder, with a filter open, and under `save` with Name present.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
@@ -106,7 +107,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 ### integration/10xer-mode/file-verbs
 
 - Press `y` then `p` across two windows and after a restart; take the clipboard with `xclip` on the private display, then press `Y` and `p`.
-- In the `/dev/shm` folder press `d`, then `d`, Enter, Esc, and `y`; repeat on `s` hits spanning it and Home, and on a `v` range.
+- Press `d` in the read-only folder, on `s` hits spanning `/dev/shm` and Home, and on `s` hits spanning the read-only folder and `/dev/shm`.
 - Press `d d` on a 10k-item fill, `d` on a range inside Trash, and `D` on `s` hits from several folders. Press `R` on a search selection mixing Trash and non-Trash items.
 - In `create ›` type `name/`, `./x`, `../x`, a 256-byte name, a broken link's name, and `.hidden` with hidden files off; `r` on a non-UTF-8 name, in Recent, and on an `s` hit.
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.

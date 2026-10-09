@@ -63,7 +63,7 @@ The modal progress dialog predates the PR history. lgse/strata#398 moved it out 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the cursor row when the progress dialog closes, and routed docked Trash-unsupported retries to the explained dialog. |
+| 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the cursor row after progress closes, and sent docked no-Trash retries to the explained dialog. |
 | 2026-09-07 | lgse/strata#491 | fix | Kept progress and Cancel visible after backdrop clicks until the operation ends. |
 | 2026-09-05 | lgse/strata#369 | fix | Reported live byte progress for copies and moves, pulsing when totals are unknown. |
 | 2026-09-02 | lgse/strata#75 | fix | Replaced task abort with GIO cancellation and reported completed, failed, and unattempted items. |

@@ -23,9 +23,8 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - A symbolic link is described as "Folder link" or "File link", a dangling link as "Broken link", and any other file type as "Other". lgse/strata#415 (unverified)
 - Each pane is a group named after its directory and described as "Columns view", "Icons view", or "List view". lgse/strata#415
 - The entry list inside a pane is named after its directory and described as "Files". lgse/strata#415
-- In an empty, unreadable, or still-loading directory, the pane takes focus, is named after the directory, and draws the accent focus ring. lgse/strata#1533
+- In an empty, unreadable, or still-loading directory, the focusable pane is named after the directory. lgse/strata#1533
 - That focused pane is described as "This directory is empty", the error text, or "Loading", matching what it shows. lgse/strata#1533
-- While a directory shows entries, the pane itself is not a Tab stop, so no unnamed stop sits before the entries. lgse/strata#1533 (unverified)
 - Entries are focusable, and selecting one sets the `selected` state on that entry and on no other. lgse/strata#415
 - View, entry kind, and list descriptions are shown in the interface language. lgse/strata#1519 (unverified)
 
@@ -52,7 +51,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - An entry's name and description sit on the list item, not the row content, because the item carries the `list item` or `table cell` role and the selected and focused states (lgse/strata#415).
 - Panes use the group role because GTK drops a label set on a plain `GtkBox`, whose generic role ARIA forbids naming (lgse/strata#415).
 - The pane, not the entry list, carries the directory and view, because an empty directory replaces the list with a placeholder (lgse/strata#415).
-- An empty, unreadable, or loading pane focuses its existing page stack rather than the status label, because Up, Delete, and the context menu already key off it. The stack is named and focusable only off the content page (lgse/strata#1466, lgse/strata#1431).
+- The focusable pane of an empty, unreadable, or loading directory carries the directory as its name and the shown status as its description (lgse/strata#1466).
 - Menu accelerators go in the description so the shortcut text is not read as part of the item's name (lgse/strata#415).
 - Tooltips are not a reliable name source. One field exposed its tooltip as its name (lgse/strata#811), while tooltip-only location controls had no name (lgse/strata#1131). Controls get explicit names instead (lgse/strata#1132).
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).

@@ -22,8 +22,9 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Each column after the first has a "Close this pane" X button that closes it. lgse/strata#171
 - With Mirror columns selection on, the default, Up or Down onto a folder shows its contents in the next column without moving focus. lgse/strata#1179
 - Up or Down onto a previewable file opens Quick Preview when single-click previews are on; onto any other file it closes the child column. lgse/strata#1179
-- Page Up, Page Down, Home, End, keypad Home and End, and Ctrl+Up or Ctrl+Down mirror the new cursor like Up or Down, including after pointer input. lgse/strata#1447, lgse/strata#1533
+- Page Up, Page Down, Home, End, and Ctrl+Up or Ctrl+Down mirror the new cursor like Up or Down. Keypad Home and End do too, including after pointer input. lgse/strata#1447, lgse/strata#1533
 - End onto a plain file closes the stale child column, and the breadcrumb follows the cursor. lgse/strata#1447, lgse/strata#1533
+- In a column with no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
 

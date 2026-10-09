@@ -23,7 +23,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing. lgse/strata#912
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
-- When a pane-filter field or filter result had focus as Settings opened, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
+- When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
 - The navigation lists General, Appearance, Actions, Updates, and About; choosing one shows that page and its name as the title. lgse/strata#849
 - The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
 - When the panel is narrower than 900 px at the default 13 px text size, the navigation drops its heading and labels and shows icons only. lgse/strata#29, lgse/strata#849 (unverified)
@@ -57,7 +57,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Default directory
 
 - With no saved choice, General → Startup → Default directory reads Home directory, and Reset is disabled. lgse/strata#943 (unverified)
-- Choosing a folder saves it, shows it with `~/` for paths under home, and new windows without an explicit target open there when Restore open tabs is off or no saved tab is restorable. lgse/strata#943, lgse/strata#1532
+- Choosing a folder saves it and shows it with `~/` for paths under home. lgse/strata#943
+- New windows without an explicit target open at the chosen folder when Restore open tabs is off or no saved tab is restorable. lgse/strata#943, lgse/strata#1532
 - Reset restores the home directory as the default. lgse/strata#943
 - If the saved folder no longer exists, a new window opens home and the saved choice is cleared. lgse/strata#943
 

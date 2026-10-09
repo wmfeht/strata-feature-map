@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `aee7133` · 106 features, 81 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `aee7133` · 106 features, 78 reviewed
 
 ## app
 
@@ -24,7 +24,7 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | ↳ [In-place update install](features/app/updates/install.md) | `app/updates/install` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Package-managed installs](features/app/updates/package-managed.md) | `app/updates/package-managed` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Release channels](features/app/updates/release-channels.md) | `app/updates/release-channels` | shipped | reviewed | `b893886` | 0 |
-| [Window chrome and structure](features/app/window.md) | `app/window` | shipped | reviewed | `aee7133` | 0 |
+| [Window chrome and structure](features/app/window.md) | `app/window` | shipped | draft | `aee7133` | 0 |
 
 ## browser
 
@@ -115,7 +115,7 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | reviewed | `b893886` | 0 |
-| [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | reviewed | `aee7133` | 0 |
+| [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `aee7133` | 0 |
 | [Permanent deletion](features/operations/delete.md) | `operations/delete` | shipped | draft | `aee7133` | 0 |
 | [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Columns drag autoscroll](features/operations/drag-and-drop/column-autoscroll.md) | `operations/drag-and-drop/column-autoscroll` | shipped | reviewed | `b893886` | 0 |
@@ -123,7 +123,7 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | draft | `aee7133` | 1 |
 | ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | reviewed | `aee7133` | 0 |
 | ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | reviewed | `b893886` | 0 |
-| [Inline rename](features/operations/rename.md) | `operations/rename` | shipped | reviewed | `aee7133` | 0 |
+| [Inline rename](features/operations/rename.md) | `operations/rename` | shipped | draft | `aee7133` | 0 |
 | [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `aee7133` | 1 |
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | reviewed | `b893886` | 0 |

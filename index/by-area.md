@@ -115,7 +115,7 @@ The Stable, Preview, and Nightly update channels, release ordering, and the Retu
 
 ### [Window chrome and structure](../features/app/window.md) `app/window`
 
-shipped · reviewed · reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 0 PRs since · origin pr [lgse/strata#580](https://github.com/lgse/strata/issues/580)
+shipped · draft · reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 0 PRs since · origin pr [lgse/strata#580](https://github.com/lgse/strata/issues/580)
 
 The browser window's frame and skeleton: the header with its window buttons, the X11 window identity, the composition of header, sidebar, panes, preview, and footer, and the capture-phase keyboard dispatcher that routes keys to them. Features plugged into the window, such as tabs, the sidebar, and 10xer mode, own their own behavior.
 
@@ -695,7 +695,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Code: [`src/portal.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/portal.rs), [`src/portal/dbus.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/portal/dbus.rs), [`src/ui/chooser.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/chooser.rs), [`src/ui/browser/chooser_context.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/browser/chooser_context.rs)
 - Tests: [`src/portal/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/portal/tests.rs), [`src/portal/dbus/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/portal/dbus/tests.rs), [`src/ui/chooser/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/chooser/tests.rs), [`src/ui/chooser/tests/acceptance.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/chooser/tests/acceptance.rs), [`src/ui/chooser/tests/column_widths.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/chooser/tests/column_widths.rs), [`src/ui/chooser/tests/filtered_preview.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/chooser/tests/filtered_preview.rs), [`src/ui/chooser/tests/keyboard.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/chooser/tests/keyboard.rs), [`src/ui/chooser/tests/sizing.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/chooser/tests/sizing.rs), [`tests/e2e/scenarios/test_chooser_selection.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_chooser_selection.py)
 - Docs: [`docs/portal-file-chooser.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/portal-file-chooser.md)
-- Related: [10xer mode](../features/integration/10xer-mode/index.md), [Copy, cut, and paste](../features/operations/clipboard/index.md), [Archives](../features/operations/archives/index.md)
+- Related: [10xer mode](../features/integration/10xer-mode/index.md), [Copy, cut, and paste](../features/operations/clipboard/index.md), [Archives](../features/operations/archives/index.md), [Trash](../features/operations/trash/index.md)
 - Children: [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md), [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md), [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md), [Chooser window size and placement](../features/integration/portal-file-chooser/window-placement.md)
 
 ### [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) `integration/portal-file-chooser/image-conversion`
@@ -811,7 +811,7 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 
 ### [New Folder and New File](../features/operations/create.md) `operations/create`
 
-shipped · reviewed · reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 0 PRs since · origin pr [lgse/strata#4](https://github.com/lgse/strata/issues/4)
+shipped · draft · reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 0 PRs since · origin pr [lgse/strata#4](https://github.com/lgse/strata/issues/4)
 
 Creating an empty file or folder in the current directory from the background menu or Ctrl+Shift+N, then naming it in place. It also covers New Folder with Selection, which groups selected items into a new folder. The file chooser's header button reuses this flow, and the 10xer footer create prompt reuses the creation operation; both are described in their own nodes.
 
@@ -897,12 +897,12 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 
 ### [Inline rename](../features/operations/rename.md) `operations/rename`
 
-shipped · reviewed · reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 0 PRs since · origin pr [lgse/strata#115](https://github.com/lgse/strata/issues/115)
+shipped · draft · reviewed at [`aee7133`](https://github.com/lgse/strata/tree/aee71335dfecd059b9af23efeac2ed52c43e3b19) · 0 PRs since · origin pr [lgse/strata#115](https://github.com/lgse/strata/issues/115)
 
 Renaming one file or folder in place, in Columns, List, and Icons, from the keyboard, a menu, or a slow second click. Covers the editor's validation, how it commits or cancels, Undo, and keeping the edited and renamed row inside the viewport.
 
 - Code: [`src/ui/browser/inline_edit.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/browser/inline_edit.rs), [`src/ui/collection_edit.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/ui/collection_edit.rs)
-- Tests: [`tests/e2e/scenarios/test_inline_renaming.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_inline_renaming.py), [`tests/e2e/scenarios/test_rename_visibility.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_rename_visibility.py), [`tests/e2e/mutations/rename-caret.patch`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/mutations/rename-caret.patch)
+- Tests: [`tests/e2e/scenarios/test_inline_renaming.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_inline_renaming.py), [`tests/e2e/scenarios/test_dialogs_and_menus.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_dialogs_and_menus.py), [`tests/e2e/scenarios/test_rename_visibility.py`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/scenarios/test_rename_visibility.py), [`tests/e2e/mutations/rename-caret.patch`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/tests/e2e/mutations/rename-caret.patch)
 - Docs: [`docs/keyboard-navigation.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/keyboard-navigation.md)
 - Related: [New Folder and New File](../features/operations/create.md), [Selection](../features/browser/selection/index.md), [Trash](../features/operations/trash/index.md)
 
@@ -1089,7 +1089,7 @@ shipped · draft · reviewed at [`aee7133`](https://github.com/lgse/strata/tree/
 Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native folders. Covers mounting on demand, the sign-in and SSH host-key dialogs, and connection failure messages. It also covers the sidebar's Network place and SMB share rows, SMB share lists, and progressive remote loading. Typed-address parsing belongs to `browser/navigation/location-bar`.
 
 - Code: [`src/adapters/gio_location.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/adapters/gio_location.rs), [`src/app/browser/remote.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/app/browser/remote.rs)
-- Tests: [`src/adapters/gio_location/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/adapters/gio_location/tests.rs), [`src/adapters/local_files/tests/browse.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/adapters/local_files/tests/browse.rs), [`src/services/file_source/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/services/file_source/tests.rs), [`src/app/browser/remote/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/app/browser/remote/tests.rs), [`scripts/sftp-fixture.sh`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/scripts/sftp-fixture.sh)
+- Tests: [`src/adapters/gio_location/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/adapters/gio_location/tests.rs), [`src/app/browser/remote/tests.rs`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/src/app/browser/remote/tests.rs), [`scripts/sftp-fixture.sh`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/scripts/sftp-fixture.sh)
 - Docs: [`docs/remote-sftp.md`](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/remote-sftp.md)
 - Related: [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md), [Devices and volumes](../features/devices/volumes/index.md), [Pinned folders](../features/browser/sidebar/pins.md)
 

@@ -4,9 +4,9 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
 reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
-tests: [tests/e2e/scenarios/test_inline_renaming.py, tests/e2e/scenarios/test_rename_visibility.py, tests/e2e/mutations/rename-caret.patch]
+tests: [tests/e2e/scenarios/test_inline_renaming.py, tests/e2e/scenarios/test_dialogs_and_menus.py, tests/e2e/scenarios/test_rename_visibility.py, tests/e2e/mutations/rename-caret.patch]
 docs: [docs/keyboard-navigation.md]
 related: [operations/create, browser/selection, operations/trash]
 ---
@@ -56,6 +56,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - A click-away onto a sidebar place or another folder commits the rename and still navigates there. lgse/strata#619
 - The committed name shows at once and does not flash back to the old name while the listing refreshes. lgse/strata#619
 - When the rename fails, an "Unable to rename item" dialog explains why and the old name returns. lgse/strata#619
+- After a rename onto an existing name, Escape on that dialog returns focus to the old-name row. Up then moves the cursor. lgse/strata#1533
 - Renaming onto an existing name overwrites nothing and reports "“name” already exists". lgse/strata#567 (unverified)
 - Renaming a folder whose child columns are open keeps them open under the new path. lgse/strata#760
 - Ctrl+Z after a rename restores the original name, keeping current contents and permissions. lgse/strata#1061

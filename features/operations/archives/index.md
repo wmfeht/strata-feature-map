@@ -35,7 +35,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Compression runs as a progress card at the bottom right showing Preparing…, then Compressing… with file counts, and browsing stays available. lgse/strata#981, lgse/strata#1393
 - Cancelling compression stops within the current member, then shows the cancellation summary; no partial archive or staging file remains. lgse/strata#410, lgse/strata#981
 - Ctrl+Z after compression moves the new archive to Trash. lgse/strata#1097
-- Closing the Compress dialog with Escape, Cancel, or a backdrop click returns focus to the item that opened it. lgse/strata#1533
+- Closing the Compress dialog with Escape, Cancel, or a backdrop click returns focus to the file list's cursor row. lgse/strata#1533
 
 ### Archive name conflicts
 

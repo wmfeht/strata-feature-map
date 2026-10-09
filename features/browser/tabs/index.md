@@ -38,7 +38,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Badges hide when Ctrl or Shift is released or the window loses focus. lgse/strata#1484 (unverified)
 - Keypad Page Up and Page Down work like Page Up and Page Down, and Caps Lock does not block the shortcuts. lgse/strata#1506
 - Page Up and Page Down tab shortcuts with Alt, Super, Meta, or Hyper added do nothing to tabs. lgse/strata#1506
-- Selecting a tab returns focus to the widget it last focused, or to its file view's cursor when that widget is gone or can no longer take focus. lgse/strata#1484, lgse/strata#1533 (unverified)
+- Selecting a tab returns focus to the widget it last focused. When that widget is gone or can no longer take focus, its file view's cursor gets it. lgse/strata#1484, lgse/strata#1533 (unverified)
 - While a modal dialog is open, tab shortcuts and the New tab button do not create, switch, close, or move tabs. lgse/strata#1506
 
 ### Reordering

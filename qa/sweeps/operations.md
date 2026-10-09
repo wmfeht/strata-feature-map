@@ -76,10 +76,12 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/trash
 
 - Trash from a Ctrl+F result, from a multi-column selection, from a second window viewing the same folder, and look for it in the file chooser, where it must not be offered.
-- Delete from `/dev/shm` by a drop on the sidebar Trash row, and from a Ctrl+K selection mixing `/dev/shm` and home items whose folders are not open.
+- Drop a `/dev/shm` selection on the sidebar Trash row.
+- Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
 - Delete in a folder whose first listed entry is a symlink into `/dev/shm`, and in a read-only tmpfs mount.
-- Dismiss each no-Trash dialog by Enter, Escape, and backdrop click, then confirm the payload still exists on disk.
-- Restore, re-trash, and permanently delete a non-UTF-8 name from Trash under `gvfsd`; compare name bytes with `ls --quoting-style=escape`.
+- Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
+- Under `gvfsd`, restore, re-trash, and permanently delete a non-UTF-8 name from Trash.
+- Compare the restored name bytes with `ls --quoting-style=escape`.
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
 
@@ -113,7 +115,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Fill the small tmpfs and extract into it; compare ZIP, 7Z, and TAR behavior at the boundary.
 - Cancel a large extraction at about a third and compare cleanup with `docs/archives.md`.
 - Enter a wrong password three times, then the right one, on `content-encrypted.7z`.
-- Close the Compress dialog with its X, and the conflict prompt opened from a Ctrl+F result, then press Down; the cursor must move in the listing.
+- Close the Compress dialog with its X, then press Down.
+- Close the conflict prompt opened from a Ctrl+F result, then press Down.
 - Cancel the Extract password dialog with Escape after Extract to…, then press Down.
 
 ### operations/archives/rar
@@ -128,7 +131,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Copy the large tree and cancel at once, cancel near the end, and let one run finish; compare partial output with what the dialog claimed.
 - Press Escape on the progress dialog mid-operation; the operation must keep running and stay reachable from the dock.
-- Move the focused large tree to another folder, press Down once the progress dialog closes, then repeat with a move that ends in an error dialog.
+- Move the focused large tree to another folder, then press Down once the progress dialog closes.
+- Repeat with a move that ends in an error dialog.
 
 ### operations/progress/dock
 

@@ -25,7 +25,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - In Columns, Customize… from the background of a non-active ancestor column customizes that ancestor, not the active descendant. lgse/strata#754
 - The background menu omits Customize… in Trash, Recent, and locations without a native path. lgse/strata#754 (unverified)
 - Customize opens with focus on Done, so one Escape closes it. lgse/strata#1433, lgse/strata#1533
-- Closing Customize returns focus to the row that opened it from the item menu, or to the pane from the background menu. lgse/strata#1433, lgse/strata#1533
+- Closing Customize returns focus to the control that opened it. lgse/strata#1433, lgse/strata#1533
 - With the emoji picker open, Escape closes only the picker; a second Escape closes Customize. lgse/strata#1433, lgse/strata#1533 (unverified)
 
 ### Choosing a color

@@ -45,7 +45,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Hold Down for two seconds in `100000`; when it stops, focus, selection, scroll position, and preview must name the same entry.
 - Size the window so the last Icons row holds one tile; press Down from the row above, then Right and Left at both edges.
 - With Type to search off press `h` in the sidebar, the pane header, and the location entry; then toggle Keep arrows with Ctrl+\ while the header has focus and press Down.
-- In Columns with column 3 active, hover column 1 and Tab in from the header; then Shift+Tab out with a filter open in column 2 and with none.
+- In Columns with column 3 active, hover column 1 and Tab in from the header. Then Shift+Tab out with a filter open in column 2, and with none.
 - Tab and Shift+Tab around a listing with the preview panel open, closed, and showing a video; then from the unreadable folder's Retry button.
 - Start a rename in Columns and press Shift+Tab; then Tab out of a rename whose name collides with a sibling.
 
@@ -68,7 +68,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Switch with 500 entries Shift-selected, then with a filter open; compare the selection count and query after each switch.
 - Write `browser_mode = "grid"`, then `"explorer"`, then `"tiles"` in settings.toml; start and note the view and the Appearance icon.
 - Focus the last row of a folder and delete every entry externally; then add one back. Repeat in the unreadable folder after `chmod 755` and F5.
-- Press F5 in `100000` with the cursor on entry 5000, and in a folder that loads within 150 ms; watch where focus sits during and after.
+- Press F5 in `100000` with the cursor on entry 5000, then in a folder that loads within 150 ms. Watch where focus sits during and after.
 
 ### browser/view-modes/columns
 
@@ -76,7 +76,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Hold Down across a folder, a PDF, and a plain file with single-click previews on; time the child column against 75 ms.
 - Drag a column edge below 300 px, autofit a column holding the 255-byte name, restart, and read `browser_column_width`.
 - Open a context menu in column 2, move the pointer to column 4, press Escape; check which header shows its actions.
-- With Mirror columns selection off, then on, press Home on a folder, End on a PDF, Shift+Home, and keypad End with Num Lock on and off.
+- With Mirror columns selection off, then on, press Home on a folder, End on a PDF, and Shift+Home. Then press keypad End with Num Lock on and off.
 - Click a row in column 1, then press Ctrl+Down in column 2 without moving the pointer; then press End while Properties opens.
 
 ### browser/view-modes/icons
@@ -119,7 +119,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Tab-complete in `1000` with hidden files off, then on; click a crumb while the popover is open, and press Escape on a highlighted suggestion.
 - Type the path of a file in the open folder, of a dot-file, of a file inside the unreadable folder, and of the non-UTF-8 name.
 - Open a 200-level `deep` folder; scroll the overflowing crumbs with the wheel and open the hierarchy menu from the last crumb.
-- Type `smb://host/my share`, `smb://alice:pw@host/café`, and `sftp://host/a%2Fb` while the share is unmounted; read the entry during the mount and the crumbs after.
+- Type `smb://host/my share`, `smb://alice:pw@host/café`, and `sftp://host/a%2Fb` while the share is unmounted. Read the entry during the mount and the crumbs after.
+- Type `sftp://host/share/caf%E9` and `smb://host/share/x%2Fy` for existing remote names, then create and delete an entry in each opened folder.
 
 ### browser/navigation/recent
 
@@ -150,9 +151,9 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Open a filter in column 2, press Ctrl+1, Ctrl+2, Ctrl+3, click column 1's background, then Ctrl+F in column 4.
 - With Include subfolders off in one window and on in another, toggle it while a search is running in each.
 - Rename a result to a non-matching name, undo, then delete a result externally; press Space on a folder result and Up past the first result.
-- Press Escape on a focused result at `trash:///`, `recent:///`, an `sftp://` share, and in Columns with Include subfolders off; then on a multi-selection of results.
-- Type a query, focus a result, open Appearance and switch view twice without closing the menu; then switch from the menu with an empty, open filter.
-- Press Ctrl+F at once on opening `100000` in each view, type, and press Ctrl+A and Backspace before and after the load ends; repeat with 10xer `f`.
+- Press Escape on a focused result at `trash:///`, `recent:///`, an `sftp://` share, and in Columns with Include subfolders off. Repeat on a multi-selection of results.
+- Type a query, focus a result, open Appearance, and switch view twice without closing the menu. Then switch from the menu with an empty, open filter.
+- Press Ctrl+F at once on opening `100000` in each view and type. Press Ctrl+A and Backspace before and after the load ends; repeat with 10xer `f`.
 
 ### browser/sidebar
 
@@ -219,27 +220,28 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Customize a folder, rename it externally, and create a new folder at the old name; then pick a custom color and press Escape at each step, reading settings.toml.
 - Write `emoji:` with a 70-byte string and an unknown icon name into `[custom_icons]`; start, then switch theme with the folder visible in two windows.
-- Close the custom color dialog by a click outside it, then Customize by a click outside it; delete the item externally while Customize is open and press Escape.
+- Close the custom color dialog by a click outside it, then Customize the same way. Delete the item externally while Customize is open and press Escape.
 
 ### browser/scrolling
 
 - Middle-click in `100000`, move 10 px, 50 px, and 300 px; press Escape with a 10xer chord armed, then click a folder row.
 - Page Down through Icons with the preview panel open, close it, Page Up; then Ctrl+Down with hidden files off where the last ten entries are dot-files.
 - Open Sort by, then wheel over the sidebar, the header, and the second window's listing; middle-click a filter field holding a primary selection.
-- Press Home and End with hidden files off where the first and last entries are dot-files, in filter results, and right after a folder opens before any row is focused.
+- Press Home and End with hidden files off where the first and last entries are dot-files. Repeat in filter results and right after a folder opens.
 
 ### browser/tabs
 
 - Open 12 tabs, hold Ctrl+Shift and press 0, drag tab 12 to position 1, press Ctrl+Shift+1; read which tab each step selects.
 - Press Ctrl+W with Properties open, then close every tab from the last one; change Show hidden files with three tabs on one folder and switch through them.
 - Open tabs on `trash:///`, `/`, and a 30-character folder name; press a Columns folder, drag 5 px, release, and read the tab name during and after.
-- Focus an empty folder's pane in tab 1, add a file there externally, switch to tab 2 and back; then close a dialog opened in tab 2 after switching tabs.
+- Focus an empty folder's pane in tab 1, add a file there externally, and switch to tab 2 and back. Then close a dialog opened in tab 2 after switching tabs.
 
 ### browser/tabs/session-restore
 
 - Save tabs on `sftp://host/x`, `smb://user@host/share`, `trash:///`, a folder deleted before relaunch, and the `chmod 000` folder; relaunch and read `tabs.toml` before and after.
 - Run plain `strata` while a window is already open; count tabs in the new window, then change tabs in each window and quit both.
-- Hand-edit `tabs.toml` with `version = 2`, `active = 99`, 40 entries, an unknown `kind`, and duplicate entries; relaunch after each.
+- Hand-edit `tabs.toml` with 40 entries, an unknown `kind`, and duplicate entries; relaunch after each.
+- Open a tab on the non-UTF-8 folder beside two other tabs, select it, quit, and relaunch.
 - Replace `tabs.toml` with a symlink to another file and with a directory, then change a tab; make `$XDG_CONFIG_HOME/strata` read-only.
 - Turn Restore open tabs off in one window's Settings while a second window changes tabs, then on again, and quit.
 - Close tabs down to one, then close the window; launch with `strata --unlock-volume` and with a folder argument, add tabs there, and relaunch plainly.

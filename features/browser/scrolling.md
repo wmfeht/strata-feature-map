@@ -39,10 +39,9 @@ Fast ways through long listings in Columns, Icons, and List: middle-click autosc
 - Ctrl+Up and Ctrl+Down select the first or last entry of the focused pane or column and scroll to that edge. lgse/strata#362
 - Ctrl+Up and Ctrl+Down skip hidden entries unless hidden files are shown. lgse/strata#362
 - Ctrl+Up or Ctrl+Down with Shift, Alt, or Super added does not jump. lgse/strata#362 (unverified)
-- In the default key map, Home, End, keypad Home, and keypad End on a focused listing jump to the first or last entry like Ctrl+Up and Ctrl+Down. lgse/strata#1447, lgse/strata#1533
+- In the default key map, Home and End on a focused listing jump to the first or last entry like Ctrl+Up and Ctrl+Down. Keypad Home and End do the same. lgse/strata#1447, lgse/strata#1533
 - Shift+Home and Shift+End extend the selection range instead of jumping. lgse/strata#1447, lgse/strata#1533
 - Plain Home or End with several entries selected leaves only the target entry selected. lgse/strata#1447, lgse/strata#1533 (unverified)
-- With no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
 - In Columns, Ctrl+Up, Ctrl+Down, Home, and End also jump while focus is on a column's list rather than a row. lgse/strata#1447, lgse/strata#1533
 
 ### Scrollbars

@@ -8,7 +8,7 @@ review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/keyboard.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
 docs: [docs/portal-file-chooser.md]
-related: [integration/10xer-mode, operations/clipboard, operations/archives]
+related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash]
 ---
 
 ## Summary
@@ -51,10 +51,11 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - A resized Miller column or List heading becomes the default for the next chooser, stored apart from browser windows' defaults. lgse/strata#1339
 - The item menu offers Rename, Properties, and, for one previewable file, Quick preview; empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
 - The item menu also offers Compress… for native entries, plus Move to Trash and Permanently delete where the location allows them. lgse/strata#950, lgse/strata#1352
-- With the file view focused, Delete moves the selection to Trash and Shift+Delete asks to delete permanently. lgse/strata#950
+- With the file view focused, Shift+Delete asks to delete permanently. Delete moves the selection to Trash, unless its folder reports no Trash support. lgse/strata#950, lgse/strata#1533
+- Where every selected item's open folder reports no Trash support but allows deletion, Delete opens the `operations/trash` explained permanent confirmation instead. lgse/strata#1533
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
 - Escape first dismisses an open menu, dropdown, inline edit, filter (from its field or a focused result), location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285, lgse/strata#1533
-- With the 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533
+- With 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533
 
 ### Accepting
 
@@ -66,7 +67,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In a multiple-selection Open request with files selected, Enter or Shift+Enter on a focused file returns every selected file, in every view. lgse/strata#1426, lgse/strata#1533
 - In a multiple-selection Open request, Enter on a focused file outside the selection returns the selection, not the focused file. lgse/strata#1426, lgse/strata#1533
 - In a multiple-selection Open request, Enter on a focused folder opens it, even with files selected. lgse/strata#1426, lgse/strata#1533
-- In a multiple-selection Open request, Enter on a selection of a folder and files returns only the files. lgse/strata#1533 (unverified)
+- In a multiple-selection Open request, Enter with a file focused on a selection of a folder and files returns only the files. lgse/strata#1533 (unverified)
 - In a Save request, accepting without clicking a row saves into the displayed folder, not its first subfolder. lgse/strata#1138
 - In a Save request, a single-clicked folder becomes the destination without the chooser navigating into it. lgse/strata#892
 - In a Save request, selecting a file copies its name into Name without accepting; selecting a folder leaves Name unchanged. lgse/strata#1138
@@ -96,7 +97,6 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Name holds only lossy UTF-8 text. The chooser records the exact name it filled from the filesystem and uses it while Name still shows that text unchanged (lgse/strata#1427).
 - That check compares text, not an edited flag, so an edit that restores the text still targets the original. Rebuilding bytes from an edited name would be guesswork, so edits save literally (lgse/strata#1427).
 - Default-map Enter shares the confirm path of Open and the 10xer map. Routing only activation would still return one file, because List and Icons collapse the selection first (lgse/strata#1426, lgse/strata#1533).
-- Escape dismisses a filter before the preview and before cancelling, whether its field or a result has focus (lgse/strata#1440, lgse/strata#1533).
 - `current_file` for a nonexistent file is accepted for Qt interoperability, though the specification describes existing files (lgse/strata#699).
 - The backend is D-Bus activated and exits when idle. A request arriving during shutdown is refused rather than raced (lgse/strata#1200).
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
@@ -106,7 +106,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-09 | lgse/strata#1533 | fix | Returned the whole selection on Enter, saved to exact non-UTF-8 names, kept requests open on Escape from filter results, and made the list one Tab stop. |
+| 2026-10-09 | lgse/strata#1533 | fix | Returned the whole selection on Enter, kept exact non-UTF-8 Save names, and kept requests open on filter Escape. |
 | 2026-10-02 | lgse/strata#1384 | feat | Replaced the separate destination picker with the floating folder chooser for Move, Copy, Extract, and Send to. |
 | 2026-10-01 | lgse/strata#1352 | feat | Offered Compress… for native entries in the chooser item menu. |
 | 2026-09-30 | lgse/strata#1339 | fix | Saved resized Miller columns and List headings as chooser defaults, separate from browser defaults. |

@@ -44,14 +44,14 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 
 ### Tab stops
 
-- In the default key map, Tab from a focused row in Columns, Icons, or List leaves the listing in one press for the next control, such as F1 Shortcuts. lgse/strata#1431, lgse/strata#1533
+- In the default key map, Tab from a focused row in any view leaves the listing in one press. Focus goes to the next control, such as F1 Shortcuts. lgse/strata#1431, lgse/strata#1533
 - Tab or Shift+Tab into a listing lands on the keyboard cursor row, so Enter, Space, and Ctrl+C act on the row showing focus. lgse/strata#1431, lgse/strata#1533
-- Shift+Tab from a row goes to the control before the rows: the List sort headings, then an open filter, the pane header actions, and the sidebar. lgse/strata#1431, lgse/strata#1533
-- In Columns, Tab into the strip lands on the active column's cursor without changing the active column, and Tab from any column leaves the strip. lgse/strata#1431, lgse/strata#1533
+- Shift+Tab from a row goes to the control before the rows. In List that is the sort headings; then come an open filter, the header actions, and the sidebar. lgse/strata#1431, lgse/strata#1533
+- In Columns, Tab into the strip lands on the active column's cursor without changing the active column. Tab from any column leaves the strip. lgse/strata#1431, lgse/strata#1533
 - In Columns, Shift+Tab from a column goes to its open filter, then its header actions, then the control before the strip. lgse/strata#1431, lgse/strata#1533
 - In Columns, an unreadable folder's Retry button is the next Tab stop inside its column. lgse/strata#1466, lgse/strata#1533
 - Tab from an inline rename field commits the rename and leaves the listing; in Columns it leaves the strip. lgse/strata#1431, lgse/strata#1533 (unverified)
-- In an empty, unreadable, or loading folder, Tab and Shift+Tab leave the focused pane as they leave a listing, and Shift+Tab from the footer returns to it. lgse/strata#1466, lgse/strata#1533
+- In an empty, unreadable, or loading folder, Tab and Shift+Tab leave the focused pane as they leave a listing. Shift+Tab from the footer returns to it. lgse/strata#1466, lgse/strata#1533
 - 10xer mode keeps its own Tab handling. lgse/strata#1431, lgse/strata#1533 (unverified)
 
 ### Keep arrows in file list

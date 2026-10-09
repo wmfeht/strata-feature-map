@@ -25,14 +25,14 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - With **Type to search** on, `/` in a file view opens an empty filter without inserting `/`. lgse/strata#416
 - Space in a file view opens quick preview, not the filter. lgse/strata#416
 - Escape in the filter field, or clearing the query, restores the normal listing; hidden files stay hidden. lgse/strata#307, lgse/strata#310
-- Escape on a focused result closes the filter, shows the full listing at once, and focuses the directory's cursor row with the directory's own selection. lgse/strata#1440, lgse/strata#1533
-- Where the filter narrows rows in place, such as Trash, Recent, network locations, or Columns with Include subfolders off, Escape on a focused narrowed row also closes it. lgse/strata#1440, lgse/strata#1533
-- With a result focused and its quick preview open, the first Escape closes the filter and leaves the preview open; a second Escape closes the preview. lgse/strata#1440, lgse/strata#1533
+- Escape on a focused result closes the filter and shows the full listing at once. Focus goes to the directory's cursor row, with the directory's own selection. lgse/strata#1440, lgse/strata#1533
+- Escape on a focused row also closes a filter that narrows rows in place. That covers Trash, Recent, network locations, and Columns with Include subfolders off. lgse/strata#1440, lgse/strata#1533
+- With a result focused and its quick preview open, the first Escape closes only the filter. A second Escape closes the preview. lgse/strata#1440, lgse/strata#1533
 - Switching between Columns, Icons, and List keeps the query, the open filter field, and the narrowed listing. lgse/strata#925
 - Ctrl+1, Ctrl+2, or Ctrl+3 with the filter field focused keeps focus in the field with the caret after the query; Down then reaches a result. lgse/strata#1441, lgse/strata#1533
 - Ctrl+1, Ctrl+2, or Ctrl+3 with a result focused moves focus to the carried-over results once they show. lgse/strata#1441, lgse/strata#1533
 - Switching view from the View menu with a query typed gives the results focus once they show. lgse/strata#1441, lgse/strata#1533
-- Ctrl+F pressed while a large Icons or List folder is still loading keeps focus in the field when the load completes, so Ctrl+A and Backspace edit the query. lgse/strata#1444, lgse/strata#1533
+- Press Ctrl+F while a large Icons or List folder is loading. When the load completes, focus stays in the field, so Ctrl+A and Backspace edit the query. lgse/strata#1444, lgse/strata#1533
 - In Columns, opening a filter in one column closes and clears any other column's filter. lgse/strata#887
 - In Columns, a click outside the filtered column closes and clears its filter; a click inside that column keeps it. lgse/strata#887
 - In Columns, moving focus out of the filtered column closes the filter; focus in its own results, a popover, or a dialog keeps it. lgse/strata#896
@@ -87,7 +87,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - Results are pruned by checking that each path still exists, rather than tracking each operation's old and new paths (lgse/strata#800).
 - Filtered results ignore the click-count and preview preferences, which keep governing unfiltered rows (lgse/strata#681, lgse/strata#697).
 - Columns dismisses on any outside click through one window-level gesture, because focus stays in the entry when non-focusable widgets are clicked (lgse/strata#887).
-- The field and its results together count as the filter owning focus, so Escape, view switches, and loads treat a focused result like the field. Backspace dismissal stays field-only (lgse/strata#1440).
+- The field and its results together count as the filter owning focus. Escape, view switches, and loads therefore treat a focused result like the field. Backspace dismissal stays field-only (lgse/strata#1440).
 - Escape dismisses the filter before closing quick preview, the same order as in the field, the file chooser, and 10xer `f` results (lgse/strata#1440, lgse/strata#1533).
 - A background load or live change refocuses the listing only when the listing itself held focus, never the filter field or its results (lgse/strata#1444, lgse/strata#1533).
 - 10xer mode drives this same field for its **f** filter and **s** search with fzf-style path terms, overriding the subfolder preference without saving it (lgse/strata#1297, lgse/strata#1403).

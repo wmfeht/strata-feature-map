@@ -39,8 +39,8 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Closing Settings by Escape, Close settings, a click outside the panel, or closing the window discards an unsaved preview and collapses the editor. lgse/strata#1457, lgse/strata#1533
 - Discarding a preview this way re-applies the saved theme in every open window and in windows opened later. lgse/strata#1457, lgse/strata#1533
 - While a preview is active, changing text size, toggling Element glow, or an Omarchy theme change while following Omarchy keeps the preview applied. lgse/strata#1457, lgse/strata#1533
-- Closing Settings in a window whose editor changed no color leaves another window's preview applied. lgse/strata#1457, lgse/strata#1533
-- Clicking a theme card or toggling Follow Omarchy during a preview ends the preview. lgse/strata#1533 (unverified)
+- Closing Settings in one window leaves a preview started later in another window applied. lgse/strata#1457, lgse/strata#1533
+- Clicking a theme card or toggling Follow Omarchy during a preview ends the preview. lgse/strata#762 (unverified)
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
 - Saving with an empty name, or one with no ASCII letters or digits, shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
@@ -78,7 +78,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - The token provider sits above GTK theme priority, so GTK themes cannot shadow it, while user CSS keeps GTK's higher user priority by design. The `@strata_*` namespace hardens against name collisions; the trigger reported in lgse/strata#1096 was not reproduced (lgse/strata#1412).
 - Tokyo Night became the default at the maintainer's request; Azure Glow stayed the missing-theme fallback (lgse/strata#541, lgse/strata#542).
 - The editor preview is process-wide: one style provider serves every window. The manager stores the preview tokens, so appearance refreshes re-apply the preview rather than the saved theme (lgse/strata#1457, lgse/strata#1533).
-- Settings discards the preview through dismissal hooks on every close route and when its layer unrealizes, because a closed window never runs the hide path (lgse/strata#1457, lgse/strata#1533).
+- Every Settings close route, and the layer unrealizing, runs a hook that discards the preview. A closed window never runs `hide` (lgse/strata#1457, lgse/strata#1533).
 - Each preview carries a generation number, so an editor cancels only the preview it started, never a newer one from another window (lgse/strata#1533).
 - Glow got its own switch because changing themes could not tone down dialog glow (lgse/strata#919).
 - GTK's GL and Vulkan renderers lose a top glyph pixel at some scales (GTK issue 8395). Cairo avoids it but costs CPU and is inherited by launched apps, so it stays opt-in (lgse/strata#1216, lgse/strata#1218).

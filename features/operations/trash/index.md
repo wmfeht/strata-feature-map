@@ -19,21 +19,23 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 
 ### Moving to Trash
 
-- Delete without Shift on a selection outside Trash moves it to Trash with no confirmation dialog, unless its folder reports no Trash support. lgse/strata#228, lgse/strata#1533
+- Delete without Shift on a selection outside Trash moves it to Trash with no confirmation dialog, except in the no-Trash folders below. lgse/strata#228, lgse/strata#1533
 - Ctrl+Z after Move to Trash returns the items to their original locations, including when pressed in another Strata window. lgse/strata#228
-- Dropping files onto the sidebar Trash row moves them to Trash, and Ctrl+Z returns them, unless their folder reports no Trash support. lgse/strata#626, lgse/strata#836, lgse/strata#1533
+- Dropping files onto the sidebar Trash row moves them to Trash, and Ctrl+Z returns them, except from the no-Trash folders below. lgse/strata#626, lgse/strata#836, lgse/strata#1533
 - Delete on a selected Ctrl+F filter result moves that result to Trash and leaves the hidden directory selection untouched. lgse/strata#915
 
 ### Locations without Trash
 
 - Outside Trash, the item context menu hides Move to Trash when the folder's listing reports `access::can-trash` false, and shows it when the value is unknown. lgse/strata#314
-- Delete, or a drop on the sidebar Trash row, opens "Permanently delete N items?" at once when every item's open folder reports `access::can-trash` false and `access::can-delete` true, such as `/dev/shm`. lgse/strata#1533
-- In that case no trash move is attempted and no fly-to-Trash animation plays. lgse/strata#1533
-- That dialog adds "This location doesn't support Trash. This item will be permanently deleted. This action cannot be undone.", with "These items" for several. lgse/strata#1533
+- A no-Trash folder is an open folder reporting `access::can-trash` false and `access::can-delete` true, such as `/dev/shm`. lgse/strata#1533
+- Delete, or a drop on the sidebar Trash row, opens "Permanently delete N items?" at once when every item is in a no-Trash folder. lgse/strata#1533
+- In that case no trash move is attempted, so nothing reaches the Trash. lgse/strata#1533
+- That dialog adds "This location doesn't support Trash. This item will be permanently deleted." for one item. lgse/strata#1533
+- For several items it reads "These items will be permanently deleted.", and both versions end "This action cannot be undone." lgse/strata#1533
 - That dialog focuses Cancel, still after the size summary loads, so Enter closes it and keeps the files. lgse/strata#1533
 - In a read-only folder, where `access::can-trash` and `access::can-delete` are both false, Delete still attempts the trash move and opens no dialog first. lgse/strata#1533
 - When a trash move fails because every failed item's location lacks Trash, the same explained dialog opens with Cancel focused, for only those items. lgse/strata#225, lgse/strata#1425, lgse/strata#1533
-- When some items failed for other reasons, the error dialog's Delete Permanently opens the explained, Cancel-focused dialog for only the trash-unsupported items. lgse/strata#225, lgse/strata#1533
+- When some items failed for other reasons, Delete Permanently in the error dialog opens the explained dialog for the trash-unsupported items only. lgse/strata#225, lgse/strata#1533
 - Both fallbacks apply to docked deletions as well as foreground ones. lgse/strata#1533
 
 ### Browsing Trash
@@ -44,7 +46,8 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - Items inside a trashed folder cannot be cut, moved, deleted, or restored from the menu or keyboard. lgse/strata#499
 - Images in Trash show thumbnails rendered from their local Trash storage; folders and unsupported files keep their type icons. lgse/strata#419
 - An open Trash pane adds items trashed by other applications and removes items restored or purged elsewhere, without F5. lgse/strata#463
-- With `gvfsd` running, a trashed file whose name is not valid UTF-8, such as byte `\xe9`, is listed as `caf�.txt (invalid encoding)` and counted in the footer. lgse/strata#1533
+- With `gvfsd` running, Trash lists a file whose name holds byte `\xe9` as `caf�.txt (invalid encoding)`. lgse/strata#1533
+- The footer counts such an item. lgse/strata#1533
 - The path bar and Properties show such an item's percent-encoded URI, such as `trash:///caf%E9.txt`. lgse/strata#1533
 
 ## Design
@@ -53,8 +56,8 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 - A Trash item keeps its `trash:///` location for navigation, restore, and deletion. GVfs's `standard::target-uri` native path is carried separately, for thumbnails and as the physical restore source. Remote target URIs are rejected (lgse/strata#417).
 - Move to Trash visibility comes from `access::can-trash` on one listed entry per directory load, not on the folder: `$HOME` cannot itself be trashed but its entries can. An unknown value keeps the item visible so the only delete path never disappears; the trash-unsupported failure then offers permanent deletion (lgse/strata#314, lgse/strata#284, lgse/strata#179).
-- The trash-unsupported fallback reused the Shift+Delete dialog. Following lgse/strata#66's rule never to silently substitute permanent deletion, it now explains the missing Trash and focuses Cancel, because the user asked for Trash (lgse/strata#1425).
-- The up-front check uses the same `access::can-trash` signal as the menu and runs on every route, including drag-to-Trash, by owner decision. It requires `access::can-delete` true, so read-only folders still report "Permission denied" (lgse/strata#179, lgse/strata#1533).
+- The trash-unsupported fallback reused the Shift+Delete dialog. lgse/strata#66 forbids silently substituting permanent deletion for Trash. The dialog now explains the missing Trash and focuses Cancel, because the user asked for Trash (lgse/strata#1425).
+- The up-front check uses the menu's `access::can-trash` signal. By owner decision it runs on every route, including drag-to-Trash. It requires `access::can-delete` true, so read-only folders still report "Permission denied" (lgse/strata#179, lgse/strata#1533).
 - Every selected entry is checked, because a search-result selection can span locations (lgse/strata#1425).
 - GVfs can move or delete whole trashed items but not their children, so actions on nested Trash children are hidden rather than left to fail (lgse/strata#433).
 - Undo finds the trashed items through home-trash `.trashinfo` metadata before `trash:///`, because GVfs can miss an item re-trashed under the same name (lgse/strata#228).
@@ -64,7 +67,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-09 | lgse/strata#1533 | fix | Explained a missing Trash with Cancel focused, before and after a trash attempt, and listed Trash items with non-UTF-8 names. |
+| 2026-10-09 | lgse/strata#1533 | fix | Explained a missing Trash with Cancel focused, and listed Trash items with non-UTF-8 names. |
 | 2026-09-14 | lgse/strata#915 | fix | Let Delete reach Move to Trash when a filter result is selected. |
 | 2026-09-07 | lgse/strata#499 | fix | Hid Trash actions GVfs cannot perform and blocked mutations of nested trashed items. |
 | 2026-09-06 | lgse/strata#463 | fix | Monitored `trash:///` through GIO so an open Trash pane follows external changes. |
@@ -75,4 +78,4 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 ## Known gaps
 
-- A first listed entry that is a symlink into tmpfs can make a whole folder report no Trash support, so Delete asks to delete permanently. lgse/strata#1533
+- A first listed entry that symlinks into tmpfs makes its whole folder report no Trash, so Delete asks to delete permanently. lgse/strata#1533
