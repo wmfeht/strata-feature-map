@@ -7,7 +7,7 @@ reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**]
 tests: [src/ui/icons_cell/tests.rs]
-related: [browser/thumbnails]
+related: [browser/thumbnails, operations/rename]
 ---
 
 ## Summary
@@ -34,20 +34,18 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 
 ### Thumbnail size
 
-- The pane header's Thumbnail size popover holds a slider from 32 to 256 px, default 64, labelled with the current value. lgse/strata#328, lgse/strata#805, lgse/strata#1133
-- A wheel notch over the slider moves it 1 px; a wheel tick over the listing closes the popover and scrolls the grid, and over the sidebar it only closes. lgse/strata#328
+- The pane header's Thumbnail size popover holds a slider from 32 to 256 px, default 64, labelled with the current value, such as "64 px". lgse/strata#328, lgse/strata#805, lgse/strata#1133
+- A wheel notch over the slider moves it 1 px; a wheel tick over the listing closes the popover and scrolls the grid, and over the sidebar or other chrome it only closes. lgse/strata#328
 - Moving the slider scales existing thumbnails in place without flashing generic icons. lgse/strata#328
 - The size is saved as `icons_thumbnail_size` and used from the first frame after restart; other windows' Icons panes follow a change. lgse/strata#1133
 
-### Scrolling and rename
+### Scrolling
 
-- While the scrollbar thumb moves, tiles update only their names; thumbnails, cut styling, and details fill in 80 ms after it stops. lgse/strata#328
-- Renaming an item keeps focus on it and scrolls it into view only if its new name sorts offscreen. lgse/strata#1148
-- Renaming a file without changing its size, modification time, or extension keeps its thumbnail and details. lgse/strata#1148
+- Tiles bound mid-scroll set their name and request thumbnail and details at once; cut styling and accessible descriptions refresh on the next frame. lgse/strata#328, lgse/strata#1081 (unverified)
 
 ## Design
 
-GTK's GridView estimates layout from cell sizes, so flexible image and label cards made large folders hitch. Tiles therefore use a fixed `ThumbnailSlot` and a `GtkInscription` caption, and create the rename field only when needed (lgse/strata#322, lgse/strata#509).
+GTK's GridView estimates layout from cell sizes, so flexible image and label cards made large folders hitch. Tiles therefore use a fixed `ThumbnailSlot` and a `GtkInscription` caption (lgse/strata#322, lgse/strata#509). Cards are built without a rename field, but the grid factory adds a hidden one at setup (lgse/strata#1174).
 
 - The column cap is pinned on the next idle, because GridView ignores a resize queued during its own allocation, so a grow would keep the old cap (lgse/strata#510).
 - Grouping per file type first stacked one GridView per type, which made rows viewport-tall and could abort GTK (lgse/strata#372). One GridView with a sticky heading followed (lgse/strata#373), then grouping became List-only (lgse/strata#509).

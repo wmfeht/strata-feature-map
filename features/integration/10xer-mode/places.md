@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
-code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs]
+code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
 related: [browser/sidebar, browser/navigation]
 ---
@@ -19,38 +19,42 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 ### The `g` chord
 
 - `g` arms a chord: the footer shows a `g-` pill with a panel listing each valid second key, and the panel never takes focus. lgse/strata#1296, lgse/strata#1304
-- While `g` is armed, the sidebar shows keycaps on Home, Downloads, Documents, Pictures, Videos, Trash, Network, Recent, and visible pins. lgse/strata#1296
+- While `g` is armed, the sidebar shows keycaps on Home, Downloads, Documents, Music, Pictures, Videos, Trash, Network, Recent, and visible pins. lgse/strata#1296, lgse/strata#1342
 - `g g` moves to the first item. lgse/strata#1296
 - `g h`, `g c`, `g d`, `g t`, `g n`, `g r`, `g k`, `g p`, and `g v` open Home, `~/.config`, Downloads, Trash, Network, Recent, Documents, Pictures, and Videos. lgse/strata#1296
 - `g m` opens the XDG Music folder. lgse/strata#1342
 - A missing user folder flashes `No Downloads folder`, `No Documents folder`, `No Pictures folder`, or `No Videos folder` and stays put. lgse/strata#1296
+- A missing Music folder flashes `No Music folder`, and a missing `~/.config` flashes `No .config folder`; neither navigates. lgse/strata#1296, lgse/strata#1342 (unverified)
 - `g 1` to `g 9` open the visible PINNED rows in sidebar order, skipping bookmarks that are standard places; a missing pin flashes `No pin N`. lgse/strata#1296
 - Esc cancels an armed chord, and any other unknown second key cancels it with `Unknown chord`. lgse/strata#1296
 - Opening Settings, leaving the mode, or closing the window drops an armed chord. lgse/strata#1296
 
 ### Pins
 
-- `g +` or keypad `+` pins the folder under the cursor, or the current folder from a file. It flashes `Pinned “Name” as g N`. lgse/strata#1340
-- `g -` or keypad `-` unpins it and flashes `Unpinned “Name”`; pinning twice flashes `“Name” is already pinned`. lgse/strata#1340
+- `g +`, or `g` then keypad `+`, pins the folder under the cursor, or the current folder from a file. It flashes `Pinned “Name” as g N`. lgse/strata#1340
+- A new pin outside the first nine visible pins flashes `Pinned “Name”` with no digit. lgse/strata#1340 (unverified)
+- `g -`, or `g` then keypad `-`, unpins it and flashes `Unpinned “Name”`; pinning twice flashes `“Name” is already pinned`. lgse/strata#1340
+- `g -` on a folder that is not pinned flashes `“Name” isn’t pinned`. lgse/strata#1340 (unverified)
 - Standard places and Trash flash `Can’t pin “Name”`. lgse/strata#1340
 
 ### `go ›`
 
 - `g Space` opens a footer `go ›` prompt; typing never navigates. lgse/strata#1302
-- Enter submits through location-bar navigation: absolute, `~`, and relative paths work, with `.` and `..` resolved like `cd`. lgse/strata#1302
+- Enter on a typed path that exists submits it through location-bar navigation: absolute, `~`, and relative paths work, with `.` and `..` resolved like `cd`. lgse/strata#1302, lgse/strata#1403
 - A path naming a file opens its folder with that file selected. lgse/strata#1302, lgse/strata#1403
 - A URI is submitted unchanged, and a password typed in it moves into the mount operation instead of the location. lgse/strata#1302
-- A missing or unreachable destination shows the location bar's error and keeps the current folder open. lgse/strata#1302
+- A missing or unreachable path that matches no folder shows the location bar's error and keeps the current folder open. lgse/strata#1302, lgse/strata#1403
 - The entry is cleared on submit, Esc, focus loss, a replacing prompt, and mode exit, and it keeps no undo history. lgse/strata#1302
-- Text that looks like a URI (`scheme://`, `//host`, `\\host`, `user@host:`) lists no folders and is never searched, mounted, or probed before Enter. lgse/strata#1302, lgse/strata#1403
+- Text that looks like a URI (`scheme://`, a location-bar scheme such as `smb:`, `//host`, `\\host`, `user@host:`) lists no folders and is never searched, mounted, or probed before Enter. lgse/strata#1302, lgse/strata#1403
 
 ### `z` and `Z`
 
 - `z` opens `jump ›` and Shift+Z opens `recent ›`, both listing folders from Strata's own navigation history above the footer. lgse/strata#1304
-- `z` ranks folders whose names match first, then by how often and how recently each was opened; `Z` keeps last-visit order. lgse/strata#1304, lgse/strata#1403
+- `z` ranks folders whose names match first, an exact name first, then by how often and how recently each was opened; `Z` keeps last-visit order. lgse/strata#1304, lgse/strata#1403
 - Both match each folder's full path with fuzzy terms in any order, so `z dev str` finds `~/dev/strata`. lgse/strata#1403
 - The folder already open is left out, and the first candidate is chosen, including for empty input. lgse/strata#1304
-- Up/Down choose another candidate, wrapping, while the entry keeps focus; Enter or a click opens the chosen folder once. lgse/strata#1304
+- Up/Down choose another candidate, wrapping, while the entry keeps focus, and the footer shows the position, such as `2 of 5`. lgse/strata#1304
+- Enter or a click opens the chosen folder once. lgse/strata#1304
 - A miss shows `No matching folders`, and Enter then leaves the prompt open without navigating. lgse/strata#1304
 - Esc, focus loss, a replacing prompt, a clicked listing row, and leaving the mode close the prompt without opening a candidate. lgse/strata#1304
 
@@ -59,11 +63,15 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - In `go ›`, `move to ›`, `copy to ›`, and `extract to ›`, typing lists up to 100 matching folders below the open folder. lgse/strata#1403
 - A folder the whole query names exactly, by path and then by name, is listed first. lgse/strata#1403
 - Text starting with `/`, `~`, `./`, or `../` searches below the folder it names, and the rest is the query, so `~/dev/str` searches `~/dev`. lgse/strata#1403
-- A typed path ending in `/`, such as `/etc/`, lists that folder first, then the folders below it, most visited first. lgse/strata#1403
+- A typed path ending in `/`, such as `/etc/`, lists that folder first, then the folders below it, most visited first and then shallowest. lgse/strata#1403
+- A search below a typed path starts once typing pauses. lgse/strata#1403
+- Hidden folders are listed when the listing shows hidden files or a query term starts with `.`, so `.alc` finds `.alcove`. lgse/strata#1302, lgse/strata#1403 (unverified)
+- Up and Down choose a candidate, and results that arrive later keep that choice. lgse/strata#1403
 - Tab writes the chosen folder into the prompt as `./…/`, `~/…/`, or an absolute path, and never acts on it. lgse/strata#1403
 - Enter on a typed path that exists acts on it at once; otherwise Enter waits for the search to finish. lgse/strata#1403
 - A search from `/` skips `/proc`, `/sys`, and `/dev`. lgse/strata#1403
 - Text with a colon that is not a URI, such as `10:30`, is an ordinary query. lgse/strata#1403
+- With no local folder open, such as in Network, text that is not a full path shows `Type a full path here`. lgse/strata#1403 (unverified)
 - In `go ›`, a URI or a path that matches no folder still opens through location-bar navigation. lgse/strata#1403
 
 ## Design

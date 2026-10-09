@@ -22,7 +22,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A non-executable extensionless dotfile such as `.steampath` previews as plain text; an executable one does not use this fallback. lgse/strata#224
 - A file whose name gives an uncertain type, such as `some notes`, opens in the preview; text content shows as text and other content shows "No visual preview". lgse/strata#965
 - `.yaml`, `.yml`, and other `text/plain` subtypes preview as highlighted text with their type label, not "No visual preview". lgse/strata#1228
-- On remote locations, PDFs, animated GIFs, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
+- On remote locations, PDFs, GIF images, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
 - 3D models, comic covers, workbooks, and DOCX preview only from local files. lgse/strata#1276, lgse/strata#1325 (unverified)
 
 ### Text
@@ -34,28 +34,31 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 - Still images on GIO locations, including phone cameras, preview after the original streams to a private temporary file. lgse/strata#834
 - A remote image over 64 MiB or a transfer over 30 seconds fails with an explanatory message. lgse/strata#834
-- With four remote previews already transferring, another fails with "Too many remote previews are active; try again shortly". lgse/strata#834
+- With four remote previews already transferring or decoding, another fails with "Too many remote previews are active; try again shortly". lgse/strata#834
 - Changing selection or closing the preview cancels a remote transfer. lgse/strata#834
 - Remote MOV and MP4 files up to 256 MiB play only after the download completes, within a 60-second deadline. lgse/strata#834
 - PDF pages render at the preview's width, one at a time, and pages scrolled out of view before rendering are cancelled. lgse/strata#898
 - Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
 - In a PDF, double-click selects a word, triple-click a line, Shift+click extends across pages, and Ctrl+A selects all loaded pages. lgse/strata#1223
 - Dragging on a PDF margin or a page without a text layer, such as a scan, pans instead of selecting. lgse/strata#1223
+- Ctrl+wheel over a PDF zooms its pages between 1× and 4× its fitted width, and Ctrl+0 resets the zoom. lgse/strata#1069 (unverified)
 
 ### Models and covers
 
 - An STL file renders at a fixed three-quarter angle, tinted with the theme accent; changing the theme re-renders the open preview. lgse/strata#1276
 - A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
 - A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
-- A model split across parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
+- A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
 - A model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276
-- While a model renders, the drawer shows "Reading model…", the triangle count being rendered, then "Finishing preview…". lgse/strata#1276
+- While a model loads, the drawer shows "Reading model…", "Rendering N triangles…", then "Finishing preview…"; embedded images show "Reading thumbnail…" instead of the count. lgse/strata#1276
 - CBZ and CBR files show their first naturally ordered image, and EPUB files their declared cover; a file without one shows an error. lgse/strata#1325
 
 ### Printing
 
-- **Print** in the preview header and the item menu opens the system print dialog for the previewed file. lgse/strata#286
+- **Print** in the preview header and the item menu opens the system print dialog for that file. lgse/strata#286
 - Print on an extensionless file the loader cannot render shows "This file type cannot be printed." lgse/strata#965
+- Printing a PDF shows "Preparing PDF" with page progress while every page renders; Cancel or Escape stops it. lgse/strata#286 (unverified)
+- Printing a text file over 16 MiB shows "This text file is too large to print safely." lgse/strata#286 (unverified)
 
 ## Design
 
@@ -66,9 +69,9 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
 - PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
-- Models, PDFs, workbooks, and DOCX share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276).
+- Models, PDFs, workbooks, and DOCX share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
 - PDFs render in the sandbox, so the text layer travels with each page as a bounded sidecar to the PNG (lgse/strata#1220, lgse/strata#1223).
-- Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs wait for a shared snapshot to avoid one download per page (lgse/strata#833).
+- Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833).
 - 3MF and FreeCAD prefer embedded thumbnails at the owner's request; geometry is the fallback (lgse/strata#1225).
 - The stream-copy video and native GIF paths from lgse/strata#318 were replaced by sandboxed streaming (lgse/strata#839).
 
@@ -91,4 +94,4 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Images cannot be rotated in the preview; the change is unmerged. lgse/strata#987, lgse/strata#1388
 - A click on empty space or a disabled control in the preview pane deselects the file and blanks the preview; the fix is unmerged. lgse/strata#1450, lgse/strata#1546
 - A growing log file does not update while previewed. lgse/strata#847
-- Remote PDFs, animated GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
+- Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833

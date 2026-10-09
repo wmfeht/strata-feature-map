@@ -34,7 +34,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - While the mode is on, List and Icons hide their pane header with back, forward, and up buttons; List keeps its column headings. lgse/strata#1304
 - Turning the mode on hides an open pane filter, and turning it off shows that filter again. lgse/strata#1267
 - The footer shows a `10X` pill in its far right corner while the mode is on, and the footer height does not change. lgse/strata#1304, lgse/strata#1393
-- While the mode is on, the 10xer mode Settings row and the F1 reference show "(experimental feature, under active development)". lgse/strata#1272
+- While the mode is on, the 10xer mode Settings row shows "(experimental feature, under active development)" under its subtitle. lgse/strata#1272
 - The `10X` pill's accessible name is "10xer mode (experimental feature, under active development)". lgse/strata#1272 (unverified)
 - While the mode is on, the Type to search, Keep arrows in file list, and Include subfolders rows stay editable. They read "Not used in 10xer mode." lgse/strata#1267, lgse/strata#1403
 - Mirror columns selection and Single-click previews apply to the Columns cursor while the mode is on. lgse/strata#1340
@@ -70,10 +70,10 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ### Selection
 
-- Space adds the focused item to the selection and moves the cursor down, without previewing and without using the hovered row. lgse/strata#1291
+- Space toggles the focused item in the selection and moves the cursor down, without previewing and without using the hovered row. lgse/strata#1291, wmfeht/strata#41
 - Ctrl+A selects every item in the focused pane, and Ctrl+R inverts that pane's selection instead of renaming. lgse/strata#1291
 - After Space, Ctrl+A, or Ctrl+R, Home, End, and paging move the cursor and keep the selection. lgse/strata#1291
-- `v` starts a range from the cursor and `V` starts an unselect range; the footer shows `VISUAL` or `UNSET` while it is active. lgse/strata#1291 (unverified)
+- `v` starts a range from the cursor and `V` starts an unselect range; the footer shows `VISUAL` or `UNSET` while it is active. lgse/strata#1291, wmfeht/strata#42 (unverified)
 - `v` and `V` are the only range keys: Shift+arrows do nothing in the listing, and paging extends an active range. lgse/strata#1340
 - In Columns, mirroring waits while a `v` or `V` range is active, so walking the range opens or closes no column. lgse/strata#1340
 - In an empty folder, Space, `v`, `V`, Ctrl+A, and Ctrl+R flash `Nothing to select`. lgse/strata#1291

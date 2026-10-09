@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/e2e/scenarios/test_inline_renaming.py, tests/e2e/scenarios/test_rename_visibility.py, tests/e2e/mutations/rename-caret.patch]
 docs: [docs/keyboard-navigation.md]
-related: [operations/create, browser/selection]
+related: [operations/create, browser/selection, operations/trash]
 ---
 
 ## Summary
@@ -19,15 +19,16 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ### Starting a rename
 
-- F2 or Ctrl+R on the focused item opens an inline name editor; Ctrl+R no longer refreshes, F5 does. lgse/strata#393
-- Ctrl+R with Alt, Shift, or Super also held starts no rename. lgse/strata#393
-- While a text field has focus, F2 and Ctrl+R go to the field and start no second rename. lgse/strata#393
+- Outside 10xer mode, F2 or Ctrl+R on the focused item opens an inline name editor; Ctrl+R no longer refreshes, F5 does. lgse/strata#393, lgse/strata#1308
+- F2 or Ctrl+R with Alt, Shift, or Super also held starts no rename, and neither does Ctrl+F2. lgse/strata#393
+- While a text field other than the pane filter has focus, F2 and Ctrl+R go to the field and start no second rename. lgse/strata#393
+- With the pane filter focused, F2 or Ctrl+R opens the editor on the focused item. lgse/strata#393 (unverified)
 - Choosing Rename from an item's context menu selects that item and opens its editor. lgse/strata#115 (unverified)
-- Items in Trash have no Rename in the context menu. lgse/strata#499
 - In the file chooser, the item menu's Rename and F2 open the same inline editor. lgse/strata#175, lgse/strata#393
 - Properties' Rename button closes Properties and opens the inline editor, including for a filter result. lgse/strata#1155
 - Clicking the name text of the only selected item again, after the double-click interval, opens the editor. lgse/strata#1042, lgse/strata#1265
-- A quick double-click opens the item instead; a drag, a selection change, or Escape before the interval cancels the pending rename. lgse/strata#1042
+- A quick double-click opens the item instead; another click, a drag, any key press, or a selection change before the interval cancels the pending rename. lgse/strata#1042
+- With Double click mode set, clicking a folder, pausing, then double-clicking it opens the folder and leaves no rename editor. lgse/strata#1265
 - A slow click on the icon, row padding, another List column, or a chevron does not rename; in Icons only the caption band does. lgse/strata#1265
 - Slow-click rename does not arm in file choosers, in Trash, with more than one item selected, or with a modifier held. lgse/strata#1042
 - In Columns, clicking the name of the folder whose child column is open opens its editor instead of collapsing the column. lgse/strata#1265
@@ -37,9 +38,9 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - A file's editor opens with the name before the last `.` selected; a folder's opens with the whole name selected. lgse/strata#567, lgse/strata#710
 - A name whose only `.` is its first character, such as `.bashrc`, opens fully selected. lgse/strata#567 (unverified)
 - Ctrl+A in the editor selects only the field's text; the pane selection stays on the edited item. lgse/strata#749
-- Ctrl+1, Ctrl+2, Ctrl+3, and Ctrl+K reach the editor instead of switching view mode or opening global search. lgse/strata#914
-- Typing a name containing `/` puts the field in the error style with the reason "Names cannot contain /". lgse/strata#445
-- `.` or `..` shows "That name is reserved", and a spaces-only name shows "Enter a name". lgse/strata#445 (unverified)
+- Ctrl+1, Ctrl+2, and Ctrl+3 reach the editor instead of switching view mode. lgse/strata#914
+- Typing a name containing `/` puts the field in the error style and sets its accessible description to "Names cannot contain /"; no tooltip shows. lgse/strata#445, lgse/strata#1359
+- For `.` or `..` the description is "That name is reserved", and for a whitespace-only name "Enter a name". lgse/strata#445 (unverified)
 - An empty field is not styled as an error. lgse/strata#30
 - In Columns, the row's size badge is hidden while editing and returns when the editor closes. lgse/strata#443
 - With a long name in a narrow Columns view, End, typing, and arrow keys keep the caret and extension visible. lgse/strata#591
@@ -104,5 +105,6 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 ## Known gaps
 
 - F5 while editing discards the typed name, and in Columns F2 then does nothing on that item; the fix is unmerged. lgse/strata#1438, lgse/strata#1546
+- Ctrl+K while editing still opens global search: its application accelerator bypasses the editor's key ownership. lgse/strata#1432, lgse/strata#1546
 - Folder colors and custom icons stay on the old path after a rename; the fix is unmerged. lgse/strata#1452, lgse/strata#1546
 - Typing `docs/note.txt` as a new file's name is rejected instead of creating the folder; the feature is unmerged. lgse/strata#1511, lgse/strata#1512

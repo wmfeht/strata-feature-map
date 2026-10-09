@@ -31,9 +31,9 @@ The header control that shows the active location as breadcrumbs and switches to
 - `~` opens the home folder and `~/Documents` opens home's Documents, with leading and trailing spaces ignored. lgse/strata#242
 - `~other-user/Documents` is rejected with "Only ~ and ~/ paths are supported for the current user's home directory." lgse/strata#242
 - A relative path such as `Documents` is rejected with "Enter an absolute path." lgse/strata#242 (unverified)
-- UNC paths (`\\host\share`, `//host/share`) and SCP addresses (`user@host:path`) are rejected with a message suggesting `smb://` or `sftp://` URIs. lgse/strata#20
-- A URI scheme other than smb, sftp, ftp, ftps, dav, davs, trash, network, or recent is rejected and the message lists the supported ones. lgse/strata#20 (unverified)
-- Typing `smb://alice:secret@host/share` or `smb://alice;password=secret@host/share` changes the entry to `smb://alice@host/share` and uses the password for that one connection attempt. lgse/strata#145
+- UNC paths (`\\host\share`, `//host/share`) and SCP addresses (`user@host:path`) are rejected with a message suggesting `smb://`, `sftp://`, `ftp://`, or `dav://` URIs. lgse/strata#20
+- A URI scheme other than smb, sftp, ftp, ftps, dav, davs, trash, network, or recent is rejected with "The <scheme>:// scheme isn't supported." and a list that omits trash and network. lgse/strata#20 (unverified)
+- Submitting `smb://alice:secret@host/share` or `smb://alice;password=secret@host/share` shows `smb://alice@host/share` in the entry while mounting and uses the password for that one attempt. lgse/strata#145
 - A typed password is never saved; failed credentials open the normal sign-in dialog. lgse/strata#145
 - A path naming a file opens its parent folder with that file selected, in the main window and the portal file chooser. lgse/strata#1219
 - If that parent is already open, the file is selected in place, after a refresh when the file is new. lgse/strata#1219
@@ -42,12 +42,13 @@ The header control that shows the active location as breadcrumbs and switches to
 
 ### Path completion
 
-- While editing, a popover under the entry, matching its width, lists child folders matching the typed absolute, `~/`, or relative path. lgse/strata#388
+- While editing, a popover under the entry, matching its width, lists child folders whose names start with the typed absolute, `~/`, or relative path, ignoring case. lgse/strata#388
 - A relative prefix completes against the current folder and inserts the folder's absolute path. lgse/strata#388 (unverified)
 - Down and Up move through suggestions, wrapping at the ends, and Page Down and Page Up move by 5. lgse/strata#388 (unverified)
-- Tab inserts the highlighted suggestion, the only suggestion, or the longest common prefix, then closes the popover; Down reopens it. lgse/strata#388
+- Tab inserts the highlighted suggestion, the only suggestion, or a longer common prefix and closes the popover; Down reopens it. lgse/strata#388
+- When Tab has nothing longer to insert, it highlights the next suggestion instead. lgse/strata#388 (unverified)
 - Enter on a highlighted suggestion opens that folder. lgse/strata#388
-- Escape with the popover open closes only the popover; a second Escape cancels the edit. lgse/strata#388 (unverified)
+- Escape cancels the edit even while suggestions are showing, closing the popover with it. lgse/strata#1206 (unverified)
 - Hidden folders are suggested only when hidden files are shown or the typed name starts with `.`. lgse/strata#388 (unverified)
 - The popover does not appear while the breadcrumbs are showing. lgse/strata#388
 - Closing and reopening the editor shows no stale or flashing suggestion list. lgse/strata#1206
@@ -55,18 +56,19 @@ The header control that shows the active location as breadcrumbs and switches to
 ### Breadcrumbs
 
 - Each ancestor crumb is a button that opens that folder. lgse/strata#316
-- Right-clicking the breadcrumb bar opens a menu of the current folder and its ancestors; choosing one opens it. lgse/strata#820
+- Right-clicking the breadcrumb bar opens a menu of the current folder and its ancestors, current first; choosing one opens it. lgse/strata#820
 - For paths under home, the crumbs and the hierarchy menu start at `~`. lgse/strata#820 (unverified)
 - When crumbs overflow, the wheel scrolls them horizontally and edge fades mark the hidden part. lgse/strata#820
 - The overflow scrollbar sits in its own row below the crumbs, hidden at rest and shown on hover or scroll, never covering labels. lgse/strata#820
 - Crumb labels longer than 32 characters are shortened in the middle. lgse/strata#1143
+- The current crumb's Copy path button copies the path and shows a check and "Path copied" for 2 seconds. lgse/strata#316 (unverified)
 
 ## Design
 
 The breadcrumbs and the entry are two pages of one stack; the entry is transient chrome.
 
 - An outside click cancels rather than commits, because a half-typed or invalid path would navigate unexpectedly (lgse/strata#246).
-- Every area showing the text cursor must start editing, so the edit target is the whole bar except crumb buttons (lgse/strata#288).
+- Every area showing the text cursor must start editing, so the edit target is the whole bar except crumb and copy-path buttons (lgse/strata#288).
 - `~` expands only for the current user before absolute-path validation; other `~` forms stay errors (lgse/strata#149).
 - UNC and SCP shorthand are refused rather than guessed, so a typed URI is always kept verbatim (lgse/strata#20).
 - URI credentials are parsed with GLib's password and auth-parameter flags. They leave the text at once, reach only the pending mount with saving disabled, and are then discarded (lgse/strata#111, lgse/strata#145).

@@ -5,15 +5,15 @@ origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
-code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs]
-tests: [src/ui/thumbnail/viewport/tests.rs]
+code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
+tests: [src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [docs/preview-sandbox.md]
-related: [operations/trash, browser/view-modes, browser/search]
+related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera]
 ---
 
 ## Summary
 
-Image previews in place of file icons in Columns, List, Icons, folder peeks, and search results. Every decode runs in the sandbox, visible rows first. Children: `browser/thumbnails/cache` (the freedesktop disk cache) and `browser/thumbnails/workers` (the sandbox worker pool and its Thumbnail workers setting).
+Image previews in place of file icons in Columns, List, Icons, folder peeks, and search results. Every decode runs in the sandbox, visible rows first. Children: `browser/thumbnails/cache` (the freedesktop disk cache) and `browser/thumbnails/workers` (the sandbox worker pool and its Thumbnail workers setting). Camera photo thumbnails belong to `devices/volumes/camera`.
 
 ## Behavior
 
@@ -22,28 +22,27 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - A file shows its type icon while its thumbnail loads, and keeps it when rendering fails or the type is unsupported. lgse/strata#43
 - Folders never get thumbnails and keep their folder icon. lgse/strata#43
 - A file or folder with a custom icon shows that icon instead of a thumbnail. lgse/strata#294 (unverified)
-- Folder peek popover rows and search dialog result rows show thumbnails beside the name. lgse/strata#43
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
-- Renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
+- Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
 - A fresh image decode fills the item's Icons caption with its source dimensions, such as `320×180`. lgse/strata#1081
 
 ### Formats
 
 - PNG, JPEG, WebP, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails, provided a decoder for the format is installed. lgse/strata#881, lgse/strata#969
-- SVG files get thumbnails without the gdk-pixbuf SVG loader installed; `.svgz` files keep their icon. lgse/strata#881, lgse/strata#1222 (unverified)
+- SVG files get thumbnails without a gdk-pixbuf SVG loader: pooled workers render them with resvg, the one-shot fallback with ImageMagick. lgse/strata#881, lgse/strata#1222
+- `.svgz` files keep their icon, since the thumbnail extension list omits them. lgse/strata#881 (unverified)
 - Camera RAW files, such as `.ARW`, use the embedded camera preview before ImageMagick or gdk-pixbuf. lgse/strata#199
-- PDF files and MP4, MKV, WebM, MOV, AVI, M4V, MPEG, and OGV videos get thumbnails. lgse/strata#57, lgse/strata#274 (unverified)
-- MP3, FLAC, M4A, M4B, MKA, AIFF, and WMA files with embedded cover art show the art at its aspect ratio; files without art keep the audio icon. lgse/strata#1162
+- PDF files and MP4, MKV, WebM, MOV, AVI, M4V, MPEG, MPG, and OGV videos get thumbnails. lgse/strata#57, lgse/strata#274 (unverified)
+- MP3, FLAC, M4A, M4B, MKA, AIFF, AIF, and WMA files with embedded cover art show the art at its aspect ratio; files without art keep the audio icon. lgse/strata#1162
 - Ogg, Opus, and WAV files never get album-art thumbnails. lgse/strata#1162
 - An `.AppImage` shows its embedded `.DirIcon`, else the root `.desktop` entry's `Icon=` image; without `unsquashfs` or an icon it keeps the generic icon. lgse/strata#1077
-- 3MF and FreeCAD files show one usable embedded PNG; STL files and models without one keep their icon. lgse/strata#1276
+- 3MF and FreeCAD files with exactly one usable embedded PNG show it; STL files and models with none or several keep their icon. lgse/strata#1276
 - CBZ and CBR files show their first image in natural order, and EPUB files their declared cover; missing or damaged covers keep the icon. lgse/strata#1325
 
-### Remote and camera files
+### Remote files
 
 - Files on a GVfs share with a `gvfsd-fuse` mirror, such as `smb://`, get thumbnails after metadata loads; the location still shows the remote URI. lgse/strata#1080
 - Files on a GVfs location without a local mirror keep their type icons. lgse/strata#1080
-- Camera photos over gphoto2 show the device's own preview, limited to 1 MiB and 15 seconds; Strata never downloads the full photo for a thumbnail. lgse/strata#834 (unverified)
 
 ### Scheduling
 
@@ -56,14 +55,14 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 
 Codecs read attacker-controlled bytes merely by a file becoming visible, so no decoder runs in the Strata process (lgse/strata#6). Thumbnails are decoration after first paint: names and fallback icons paint on bind, and thumbnails never delay the listing (lgse/strata#516). [docs/preview-sandbox.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preview-sandbox.md) carries the sandbox, limits, and scheduling model.
 
-- Kinds are chosen by file extension. New formats are added to that list and reuse an existing renderer rather than adding an extraction path (lgse/strata#969, lgse/strata#1162).
+- Kinds are chosen by file extension. HEIC, AVIF, JPEG XL, and audio art joined that list by reusing existing renderers (lgse/strata#969, lgse/strata#1162). AppImage, model, and cover kinds added sandboxed extractors (lgse/strata#1077, lgse/strata#1276, lgse/strata#1325).
 - Strata does not run external freedesktop `.thumbnailer` entries or Tumbler; each provider runs inside its own sandbox (lgse/strata#516, lgse/strata#1275).
 - RAW thumbnails take the embedded camera JPEG first, since ImageMagick demosaics; the median fell from 550 ms to 16 ms per file (lgse/strata#199). Quick Preview keeps the demosaic-first order.
 - Ogg, Opus, and WAV keep cover art in tags for which FFmpeg exposes no stream, so including them would start a decoder per song that cannot succeed (lgse/strata#1162).
 - The in-memory cache keys by path, modification time, size, and the canonical 256 px edge. All views and icon sizes share one texture; it holds at most 256 entries and 64 MiB (lgse/strata#1081).
 - Failures are cached for 30 seconds to stop retry loops on malformed files, and identical requests share one job (lgse/strata#57).
 - Requests rank visible, then overscan, then offscreen. Offscreen work is demoted rather than run (lgse/strata#274). Ranking runs from idle or the frame clock, never inside GTK bind or layout callbacks (lgse/strata#1081).
-- RAW, PDF, video, model, and cover jobs never take every render slot, so ordinary images keep moving (lgse/strata#1081).
+- With two or more workers, RAW, PDF, video, audio-art, model, and cover jobs leave one render slot free for ordinary images (lgse/strata#1081).
 - A GVfs FUSE path is a render input only; navigation and identity keep the URI (lgse/strata#1080).
 
 ## History

@@ -23,8 +23,8 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A failed write leaves the previous `settings.toml` intact and removes the temporary file. lgse/strata#39
 - A `settings.toml` that is a symlink or not a regular file is never replaced, and the symlink target is not touched. lgse/strata#39
 - A change whose save fails still applies in memory and is retried on the next save. lgse/strata#518
-- Setting a preference to its current value writes nothing and notifies no consumer. lgse/strata#518
-- Opening Settings or switching its pages writes nothing to `settings.toml`. lgse/strata#518
+- Setting a preference to its current value notifies no consumer, and writes nothing unless an earlier save failed. lgse/strata#518
+- Opening Settings writes nothing to `settings.toml`. lgse/strata#518
 
 ### Loading and recovery
 
@@ -54,7 +54,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - Writes are atomic and refuse a substituted final-component symlink, because direct writes left truncated files and followed symlinks (lgse/strata#15).
 - A malformed entry is salvaged key by key instead of resetting the file, which had silently lost every customization on the next save (lgse/strata#646).
 - A syntax error is preserved rather than repaired. No backup or recovery UI was added; saving stops until restart (lgse/strata#721, lgse/strata#728).
-- Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field.
+- Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field (lgse/strata#518).
 
 ## History
 

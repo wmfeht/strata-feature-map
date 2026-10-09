@@ -19,11 +19,11 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 
 ### Checking
 
-- With "Check for updates automatically" on, a check starts after a window's first themed frame, at most once per 24 hours per process. lgse/strata#944, lgse/strata#326
+- With "Check for updates automatically" on, a window's first themed frame starts a check unless one completed in this process within 24 hours. lgse/strata#944, lgse/strata#326
 - Automatic checks are on in a new profile. lgse/strata#1461
-- Opening Settings → Updates starts an automatic check when one is due. lgse/strata#944
+- The first visit to Settings → Updates in a window starts an automatic check when one is due. lgse/strata#944
 - The first automatic check of a session ignores the on-disk cache. lgse/strata#326
-- Later automatic checks reuse a cached result younger than 6 hours for the same channel from `~/.cache/strata/update-check.toml`. lgse/strata#197
+- Later automatic checks, and the check run by turning automatic checks on, reuse a cached result under 6 hours old for the same channel from `~/.cache/strata/update-check.toml`. lgse/strata#197, lgse/strata#326
 - Check now always queries GitHub, regardless of the cache. lgse/strata#197
 - A check sends the cached ETag in `If-None-Match` and reuses the cached release list on `304 Not Modified`. lgse/strata#197
 - A GitHub 403 or 429 reports "GitHub API rate limit reached"; other statuses report "GitHub API returned HTTP N". lgse/strata#51
@@ -43,7 +43,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - Installed-release notes are fetched once per tag and kept in `~/.cache/strata/release-notes.toml`. lgse/strata#197
 - Without a GitHub release for the installed tag, the expander reads "Release notes are unavailable because this version’s tag was not found." and links to GitHub. lgse/strata#51
 - A release with empty notes shows "No release notes were provided for this release." lgse/strata#51
-- Notes render headings, paragraphs, lists, code, and rules; images, tables, and block quotes are omitted. lgse/strata#51 (unverified)
+- Notes render headings, paragraphs, lists, code, and rules; images, tables, and block quotes are omitted. lgse/strata#51, lgse/strata#48 (unverified)
 
 ### Sidebar notice
 
@@ -55,7 +55,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 
 ### Update dialog
 
-- The dialog is titled "Strata vX is available" and shows "Installed vA → Available vB". lgse/strata#51
+- The dialog is titled "Strata vX is available" and shows "Installed vA  →  Available vB". lgse/strata#51
 - The release's notes appear under "What’s new" in a scrolling area above the Download update button, with a "View release on GitHub" link. lgse/strata#51
 - Empty notes read "No release notes were provided. Review this release on GitHub before continuing." lgse/strata#51
 

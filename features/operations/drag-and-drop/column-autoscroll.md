@@ -17,10 +17,12 @@ Edge autoscrolling while a file drag is held over Columns view, so off-screen co
 ## Behavior
 
 - Holding a file drag within 44 px of the column strip's left or right edge scrolls the columns toward that edge. lgse/strata#1095
-- Holding a file drag within 44 px of a column listing's top or bottom edge scrolls that listing. lgse/strata#1095
-- Scrolling speeds up closer to the edge and over 350 ms of dwell, to at most 720 px/s horizontally and 520 px/s vertically. lgse/strata#1095 (unverified)
-- Autoscroll stops when the drag leaves the strip or ends. lgse/strata#1095 (unverified)
-- The column under a held file drag shows an accent drop highlight, including a column just revealed by autoscroll. lgse/strata#1208
+- Holding a file drag within 44 px of the top or bottom edge of the listing under the pointer scrolls that listing. lgse/strata#1095
+- Only drags offering a file list or `text/uri-list` autoscroll or highlight a column. lgse/strata#1095 (unverified)
+- Scroll speed peaks within 16 px of the edge, at 720 px/s horizontally and 520 px/s vertically. lgse/strata#1095 (unverified)
+- Scrolling starts at 35% of that speed and reaches full speed after 350 ms in the same direction. lgse/strata#1095 (unverified)
+- Autoscroll stops when the drag leaves the strip, drops, or ends, or the content cannot scroll further. lgse/strata#1095 (unverified)
+- The column under a held file drag shows an accent wash and ring, including a column just revealed by autoscroll. lgse/strata#1208
 - The highlight stays while autoscroll is at its limit and clears when the drag leaves the column. lgse/strata#1208
 - Dropping onto a partially visible column moves the file there, and the strip does not scroll back to the source column. lgse/strata#1095
 

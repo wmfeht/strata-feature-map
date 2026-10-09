@@ -25,7 +25,8 @@ An opt-in integration that makes udiskie open Strata's passphrase prompt when an
 - If the volume has not appeared after 1 second, the window shows "Waiting for encrypted volume…" with Cancel. lgse/strata#1047 (unverified)
 - If no matching volume appears within 8 seconds, the window shows "The encrypted volume was not found". lgse/strata#1047 (unverified)
 - A matching volume that is not encrypted shows "This is not an encrypted volume". lgse/strata#1047 (unverified)
-- An operand that is neither an absolute path nor a LUKS UUID, or one combined with file arguments, is rejected. lgse/strata#1047 (unverified)
+- An operand that neither starts with `/` nor parses as a LUKS UUID fails with "invalid --unlock-volume operand". lgse/strata#1047 (unverified)
+- `--unlock-volume` combined with file arguments fails with "cannot combine --unlock-volume with file arguments". lgse/strata#1047 (unverified)
 
 ### Install and restore
 
@@ -33,16 +34,22 @@ An opt-in integration that makes udiskie open Strata's passphrase prompt when an
 - Plugging in a locked LUKS volume after setup opens Strata's themed password prompt, not udiskie's dialog. lgse/strata#1047
 - `strata --install-udiskie-unlock` rewrites `~/.config/udiskie/config.yml` with a managed header, a Strata `event_hook`, `password_prompt: false`, and a rule turning off LUKS automount. lgse/strata#1047
 - Install records restore state under `~/.local/share/strata/udiskie-install/` and restarts udiskie. lgse/strata#1047
+- When only `~/.config/udiskie/config.json` exists, install converts it to `config.yml` and removes it; uninstall writes it back as JSON. lgse/strata#1047 (unverified)
+- When no udiskie process is running, install starts `udiskie --automount --no-notify --no-tray`; uninstall restarts udiskie only if it is running. lgse/strata#1047 (unverified)
 - `strata --uninstall-udiskie-unlock` restores the previous udiskie configuration and removes the restore state. lgse/strata#1047
 - If udiskie cannot be restarted, the command reports "Saved the udiskie configuration. Restart udiskie or log out for it to take effect." lgse/strata#1047 (unverified)
 - Install refuses to edit a configuration whose `program_options` is not a mapping or whose `device_config` is not a sequence. lgse/strata#1047 (unverified)
+- Install and uninstall refuse a `config.yml` that is a symlink or other non-regular file, reporting "Refusing to replace non-regular udiskie configuration". lgse/strata#1047 (unverified)
 - Neither command installs or removes the `udiskie` package. lgse/strata#1047
 
 ### Settings and installer
 
 - Settings → General → Desktop integration shows "Unlock encrypted volumes" only when Omarchy is detected and `udiskie` is on `PATH`. lgse/strata#1047
 - The row's Use Strata button installs the integration and Restore default removes it. lgse/strata#1047
+- Use Strata shows only while the integration is not configured; Restore default shows only while restore state or a Strata-managed config exists. lgse/strata#1047 (unverified)
 - `install.sh` offers the step on Omarchy 3 or 4 with default No, and on generic Arch only when `udiskie` is on `PATH`. lgse/strata#1047
+- On Omarchy without `udiskie` on `PATH`, `install.sh` warns and skips the step; `--with-udiskie-unlock` makes it abort instead. lgse/strata#1047 (unverified)
+- `install.sh` skips the step when the release archive lacks the `udiskie/unlock` marker; with `--with-udiskie-unlock` it aborts. lgse/strata#1047 (unverified)
 - `install.sh --non-interactive` leaves the step declined unless `--with-udiskie-unlock` is passed. lgse/strata#1047
 
 ## Design
@@ -51,7 +58,7 @@ The README section "Unlock encrypted volumes on Omarchy" documents setup and res
 
 - On Omarchy, plugging in a LUKS drive raised another program's prompt, not Strata's (lgse/strata#537). Disabling the user's automounter was ruled out, so udiskie hands encrypted `device_added` events to Strata and stops automounting LUKS (lgse/strata#1047).
 - The hook is classified before GTK starts and execs `--unlock-volume`, so non-crypto events never open a window (lgse/strata#1047).
-- The integration edits udiskie's file, not Strata preferences. Install keeps the previous `event_hook` and `password_prompt` values so restore is exact (lgse/strata#1047).
+- The integration edits udiskie's file, not Strata preferences. Install records the previous `event_hook` and `password_prompt` values and whether it added the LUKS rule, so restore reverts only those keys (lgse/strata#1047).
 - Settings is gated to Omarchy; the CLI flags are unattended and not gated (lgse/strata#1047).
 
 ## History

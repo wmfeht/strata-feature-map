@@ -6,7 +6,7 @@ branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs]
-tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs]
+tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
 docs: []
 related: [operations/clipboard, operations/delete, operations/archives]
 ---
@@ -23,7 +23,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 - An operation on 16 or more items, or with an unknown item count, shows its progress dialog immediately. lgse/strata#228
 - The progress dialog's subtitle reads "Cancelling will not undo completed changes". lgse/strata#75
 - Clicking outside the progress dialog leaves the dialog, its progress, and Cancel visible until the operation finishes or cancellation completes. lgse/strata#491
-- Escape in the progress dialog acts as Cancel. lgse/strata#491
+- Escape in the progress dialog acts as Cancel. lgse/strata#491 (unverified)
 
 ### Transfer progress
 
@@ -53,7 +53,7 @@ The modal progress dialog predates the PR history. lgse/strata#398 moved it out 
 - Progress is owned by the operation until a terminal event. Click-away dismissal had hidden a running operation and its only Cancel (lgse/strata#250, lgse/strata#412, lgse/strata#491).
 - Byte progress comes from GIO callbacks. When totals are unknown the bar pulses rather than showing an invented fraction (lgse/strata#249, lgse/strata#369).
 - Speed is a weighted average of samples at least 250 ms apart: 60% previous, 40% new (lgse/strata#1278). Transfer redraws are throttled to one per 33 ms (lgse/strata#1266).
-- Stopping Strata's writes does not make earlier writes safe to unplug. A stalled cancel therefore never claims the device is safe, and new operations wait until the pending transfer resolves (lgse/strata#1278).
+- Stopping Strata's writes does not make earlier writes safe to unplug. A stalled cancel therefore never claims the device is safe, and new file operations are refused until the pending transfer resolves (lgse/strata#1278).
 - Copy, compression, and deletion leave this dialog for the progress dock; other operations keep it (lgse/strata#1393).
 
 ## History
@@ -66,4 +66,4 @@ The modal progress dialog predates the PR history. lgse/strata#398 moved it out 
 
 ## Known gaps
 
-- Closing the progress dialog does not return keyboard focus to the file list; the fix is unmerged. lgse/strata#1430, lgse/strata#1533
+- Closing the progress dialog does not return keyboard focus to the file list; the fix merged after `reviewed_at`. lgse/strata#1430, lgse/strata#1533

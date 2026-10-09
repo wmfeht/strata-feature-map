@@ -22,8 +22,9 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - `strata --portal` serves `org.freedesktop.impl.portal.FileChooser` version 4 on the bus name `org.freedesktop.impl.portal.desktop.strata`, handling OpenFile, SaveFile, and SaveFiles. lgse/strata#175
 - A request with an empty title is titled "Open Files", "Save File", or "Save Files"; a missing accept label becomes Open or Save. lgse/strata#175 (unverified)
 - A 17th concurrent request, a reused request handle, or a request string over 4,096 bytes fails with a portal error and no window. lgse/strata#175 (unverified)
-- A request with more than 32 file filters, or one filter with more than 100 rules, opens the chooser; oversized lists only log a warning. lgse/strata#466, lgse/strata#504
-- A glob rule with more than 2 wildcard groups or over 256 bytes, or more than 16 choices, still fails the request. lgse/strata#466 (unverified)
+- A request with more than 32 file filters, or one filter with more than 100 rules, opens the chooser instead of failing. lgse/strata#466, lgse/strata#504
+- More than 128 filters, or more than 1,024 rules across all filters, logs a warning and still opens the chooser. lgse/strata#466, lgse/strata#504 (unverified)
+- A glob rule with more than 2 wildcard groups or over 256 bytes, or more than 16 choices, still fails the request. lgse/strata#466, lgse/strata#504 (unverified)
 - A long filter list scrolls inside its dropdown, which opens toward the side of the button with more room. lgse/strata#504
 - Caller choices appear as checkboxes and dropdowns beside the filter, and the selected values are returned with the result. lgse/strata#175
 - `Request.Close` from the caller closes the chooser and the request returns response 1. lgse/strata#175
@@ -38,25 +39,25 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Entering a remote URI in the address bar shows "The system file chooser supports local files and folders only." lgse/strata#175
 - Folder-only requests hide regular files in folder listings and in recursive filter results. lgse/strata#1155
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
-- Mounted local drives appear under Devices in the chooser sidebar; network shares do not. lgse/strata#1070
+- Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not. lgse/strata#1070
 - Recent appears in the chooser sidebar when enabled in sidebar preferences and supported by the desktop, listing only local targets. lgse/strata#1138
 - Ctrl+1, Ctrl+2, and Ctrl+3 switch the chooser to Columns, Icons, and List. lgse/strata#877
-- With the file view focused, typing a printable character opens the filter seeded with it, and `/` opens an empty filter. lgse/strata#1164
+- With the file view focused and type-to-search on (the default), a printable character opens the filter seeded with it; `/` opens an empty filter. lgse/strata#1164
 - Ctrl+click on a file focuses the item just toggled, so the preview follows it. lgse/strata#1164
 - Dragging from blank space draws a marquee only in multiple-selection requests; a blank click clears the selection in every request. lgse/strata#1164
 - With folders set to single-click in Icons or List, a single click on a folder opens it; a single click on a file only selects it. lgse/strata#1196
 - With the single-click preview preference on, clicking a previewable file opens the shared preview pane; Space toggles it. lgse/strata#385
 - Dragging a Miller column's right edge resizes it, and double-clicking the edge fits it to its content. lgse/strata#1315
 - A resized Miller column or List heading becomes the default for the next chooser, stored apart from browser windows' defaults. lgse/strata#1339
-- The item menu offers Rename, Quick preview, and Properties, and empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
+- The item menu offers Rename, Properties, and, for one previewable file, Quick preview; empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
 - The item menu also offers Compress… for native entries, plus Move to Trash and Permanently delete where the location allows them. lgse/strata#950, lgse/strata#1352
-- Delete moves the selection to Trash and Shift+Delete asks to delete permanently; in Trash the menu shows only Permanently delete. lgse/strata#950
+- With the file view focused, Delete moves the selection to Trash and Shift+Delete asks to delete permanently. lgse/strata#950
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
 - Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
 
 ### Accepting
 
-- In a single-selection Open request with several items selected, Open shows "Choose one item" and stays open. lgse/strata#175 (unverified)
+- In a single-selection request, selecting another item replaces the selection, so Open returns one item. lgse/strata#175 (unverified)
 - File Open requests show an "Open files read-only" checkbox; checking it returns `writable` false. lgse/strata#175 (unverified)
 - In Columns, a selected filter result in a column other than the active one is returned on Open, not "Choose a file". lgse/strata#1004
 - In a folder request, accepting with only the automatic first-row selection returns the displayed folder; an explicitly selected child returns that child. lgse/strata#1016
@@ -70,11 +71,12 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 ### Destination choosers
 
-- Move to…, Copy to…, Extract to…, and Send to → Choose folder open a folder chooser as a floating modal window over the originating window. lgse/strata#1384
+- Move to…, Copy to…, Extract to…, and Send to… → device → Choose folder… open a folder chooser as a floating modal window over the originating window. lgse/strata#1384
 - Invoking another destination command while one is open presents the existing chooser instead of opening a second. lgse/strata#1384 (unverified)
 - Closing the originating window closes its chooser; Cancel leaves the files and the window's location unchanged. lgse/strata#1384
 - For Send to, the sidebar is hidden and navigating outside the device shows "Choose an existing folder inside this removable device." lgse/strata#1384
-- New destinations are created with New Folder; Enter in the path entry navigates, and Ctrl+Enter or the action button confirms. lgse/strata#1384
+- Move to, Copy to, and Extract to offer New Folder. Enter in the path entry navigates; Ctrl+Enter in the file list or the action button confirms. lgse/strata#1384
+- Send to disables New Folder in the menu, the toolbar, and Ctrl+Shift+N. lgse/strata#1384 (unverified)
 
 ## Design
 
@@ -117,5 +119,5 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 ## Known gaps
 
 - Remote locations such as `smb://` cannot be browsed or returned, even when GVfs exposes a local FUSE path. lgse/strata#176
-- In a multiple-selection Open request, Enter returns only the focused file instead of the selection; the fix is unmerged. lgse/strata#1426, lgse/strata#1533
-- In a Save request, clicking a file whose name is not valid UTF-8 saves to a lossy copy of the name without the Replace prompt; the fix is unmerged. lgse/strata#1427, lgse/strata#1533
+- In a multiple-selection Open request, Enter returns only the focused file instead of the selection; fixed upstream after this snapshot. lgse/strata#1426, lgse/strata#1533
+- In a Save request, clicking a file whose name is not valid UTF-8 saves to a lossy copy of the name without the Replace prompt; fixed upstream after this snapshot. lgse/strata#1427, lgse/strata#1533

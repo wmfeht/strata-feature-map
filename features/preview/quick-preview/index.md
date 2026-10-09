@@ -13,7 +13,7 @@ related: [preview/preview-panel, integration/10xer-mode, browser/search, browser
 
 ## Summary
 
-Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers which pane owns the keys while a preview is open. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
+Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers default-keymap key ownership while a preview is open; 10xer preview keys belong to `integration/10xer-mode/preview-keys`. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
 
 ## Behavior
 
@@ -24,16 +24,14 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 - Space on an unsupported file opens no preview. lgse/strata#416
 - Space on a selected folder enters it in every view without opening or loading the preview. lgse/strata#1231
 - The item menu shows Quick preview only for files the preview supports. lgse/strata#385 (unverified)
-- With Single-click file previews on, the default, selecting a supported file opens its preview without Space. lgse/strata#385 (unverified)
-- After the preview is closed with Space, `i`, Esc, the close button, or Appearance → Preview panel, automatic previews stay closed until it is opened explicitly. lgse/strata#1405
-- Marquee selection never opens or retargets the preview; a later keyboard selection still does. lgse/strata#1122
+- With Single-click file previews on, the default, a single click on a supported file opens its preview without Space. lgse/strata#385 (unverified)
 
 ### Following the selection
 
 - With the preview open, moving the selection to another supported file by keyboard or pointer shows that file, in every view. lgse/strata#614
 - Shift+arrow extends the selection without collapsing it, and the preview shows the newly focused file. lgse/strata#614
 - Focusing a folder hides the preview in Columns and List and shows "No preview for this selection" in Icons; focusing a supported file again resumes it. lgse/strata#614, lgse/strata#1405 (unverified)
-- Deleting the previewed file closes the preview, whether Strata or another process deleted it. lgse/strata#135, lgse/strata#884
+- Deleting the previewed file, in Strata or by another process, retargets the preview to the newly focused supported file, or closes it when there is none. lgse/strata#135, lgse/strata#884
 - Deleting a file other than the previewed one leaves the preview on its file. lgse/strata#135
 
 ### Filter results
@@ -45,18 +43,13 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 ### Keyboard ownership
 
 - With the caret in preview text, Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+D, and Delete act on the text, not on files. lgse/strata#670
-- From the List or Columns listing, Right moves focus into an open preview, and the preview header gains an accent top border while it holds focus. lgse/strata#1343
-- In 10xer mode, `i` on a file toggles its preview and leaves focus in the listing; `j` and `k` move the cursor and the preview follows. lgse/strata#1295
-- In 10xer mode, `l` or Right on a previewable file in List or Columns opens the drawer and moves the keys into it; a further `l` or Enter does not open the file. lgse/strata#1295
-- In 10xer mode, `h`, Left, or Shift+Tab inside the preview returns to the same cursor with the drawer still open; Esc or `i` closes the drawer. lgse/strata#1295
-- In 10xer mode, `l` on a file Strata cannot preview shows "Nothing to preview" in the footer. lgse/strata#1295
-- In 10xer mode, `J` and `K` scroll an open preview without moving focus into it. lgse/strata#1295
+- With a file focused in List or Columns and the preview open, Right moves focus into the preview. Its header shows an accent top border while it holds focus. lgse/strata#1343
 
 ## Design
 
 [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/keyboard-navigation.md) carries the Space, filter, and preview key rules. Quick preview only decides the drawer's target; `preview/preview-panel` decides its size and contents.
 
-- Requests are explicit (Space, the menu item, `i`, entering with `l`) or automatic (single-click previews, Columns mirroring). Only automatic requests respect a dismissal (lgse/strata#1405).
+- Requests are explicit (Space, the menu item, a single-click preview, `i`, entering with `l`) or automatic (Columns keyboard mirroring). Only automatic requests respect a dismissal (lgse/strata#1179, lgse/strata#1405).
 - Following is debounced by 75 ms, so held arrow keys load only the file where the cursor lands (lgse/strata#1179).
 - Native selection changes notify the preview without reapplying GTK selection or moving focus, so multi-selection survives (lgse/strata#614).
 - Deletions are detected from model splices rather than focus events. A focus event would grab keyboard focus on background monitor changes (lgse/strata#884).

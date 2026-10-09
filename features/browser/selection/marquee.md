@@ -21,7 +21,10 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 - A drag from blank pane space draws a band from the press point and selects every entry it crosses. lgse/strata#203
 - A drag from blank sidebar space, below the last place, selects in the pane nearest the sidebar: the Icons or List pane, or the first open column. lgse/strata#203
 - A drag from blank space in a pane header, List's heading strip, a Columns header, or beside the last column starts a marquee. lgse/strata#203
-- A press on a button, entry, slider, scrollbar, or sidebar place keeps that control's own behavior and starts no marquee. lgse/strata#203
+- A drag from blank preview pane space selects in the pane nearest it: the last open column, or the Icons or List pane. lgse/strata#1164 (unverified)
+- In Icons and List with recursive search results showing, a drag from blank sidebar or preview space selects in the results. lgse/strata#1164
+- A press on a button, text entry, label, image, slider, scrollbar, or sidebar place keeps that control's own behavior and starts no marquee. lgse/strata#203, lgse/strata#1164
+- In Columns, a click on a folder in a clipped parent column navigates even when the column scrolls into view under the pointer. lgse/strata#1502
 - A drag from a pane corner at text sizes 13 and 28 selects files and leaves the sidebar width unchanged. lgse/strata#838
 - During a sidebar-started marquee, the target pane takes keyboard focus, so Ctrl+C copies the marqueed files. lgse/strata#838
 - Taking that focus keeps a scrolled list's position rather than jumping to an off-screen cursor. lgse/strata#838
@@ -52,7 +55,8 @@ One shared module replaced separate Columns and Icons/List implementations so ch
 - Row geometry is kept after virtualization unbinds a row, so scrolling back or retracting still resolves hits on rows no longer bound (lgse/strata#522).
 - Auto-scroll starts within 28 px of an edge and steps up to 24 px every 16 ms. Axes that cannot scroll contribute nothing (lgse/strata#203).
 - A selection-update flag marks marquee changes so the preview ignores them while keyboard and explicit previews still work (lgse/strata#1122).
-- Rejected: a modifier on rows (conflicts with file drag) and permanent blank space in the viewport (wastes space) (lgse/strata#189).
+- Rejected as the way in: a required modifier on rows (less discoverable, conflicts with file drag) and permanent blank space in the viewport (wastes space) (lgse/strata#189). Alt remains an optional override.
+- A press records its position in surface coordinates, so a column scrolling under a still pointer does not count as drag motion (lgse/strata#1502).
 
 ## History
 

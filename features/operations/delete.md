@@ -20,18 +20,19 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 
 - Shift+Delete on a selection outside Trash opens the permanent-delete confirmation; Delete without Shift moves to Trash instead. lgse/strata#164
 - Outside Trash, the item menu shows "Permanently delete" with a Shift+Del hint below Move to Trash, for single and multiple selections. lgse/strata#164
-- The menu hides "Permanently delete" when the folder reports `access::can-delete` false, and shows it when the query is unresolved. lgse/strata#361
+- The menu hides "Permanently delete" when `access::can-delete` reports false for the folder's contents, and shows it when the query is unresolved. lgse/strata#361
 - In a folder without write permission, such as after `chmod 555`, neither Move to Trash nor Permanently delete appears in the item menu. lgse/strata#361
 - Shift+Delete does nothing while the filter entry or a text widget, such as quick preview text, has focus. lgse/strata#670
-- Shift+Delete works while focus is outside the file list, such as on a header button, as long as items are selected. lgse/strata#136 (unverified)
+- Outside 10xer mode, Shift+Delete works while focus is outside the file list, such as on a header button, as long as items are selected. lgse/strata#136 (unverified)
 - In Columns view, Shift+Delete with no selection targets the cursor row, or the open folder when its column has neither fill nor cursor. lgse/strata#90, lgse/strata#1486
 
 ### Confirmation
 
 - The dialog is titled "Permanently delete N items?" and its danger-styled button reads "Permanently delete N items". lgse/strata#164
-- It lists each item with its icon, name, and size, or "Folder" for folders, scrolling past 10 rows. lgse/strata#1134 (unverified)
+- It lists each item with its icon, name, and size, "—" when the size is unknown, or "Folder" for folders, scrolling past 10 items. lgse/strata#1134 (unverified)
 - It renders at most 50 rows and adds "… and N more items"; confirming still deletes every selected item. lgse/strata#703
-- The subtitle shows "Calculating total size…", then "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134
+- While the total calculates, a spinner shows beside the subtitle "N files", "N folders", or, for a mixed selection, "N items". lgse/strata#1134 (unverified)
+- When the walk finishes, the spinner hides and the subtitle reads "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134
 - When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
 - The confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266
 - Left or `h` focuses Cancel and Right or `l` focuses confirm; Enter and keypad Enter activate the focused button. lgse/strata#1052
@@ -44,8 +45,9 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - A selected symlink to a folder is removed as a symlink; the folder it points to keeps its contents. lgse/strata#253
 - Deleting through a parent path that contains a symlink, such as a folder alias, succeeds and leaves the alias in place. lgse/strata#477
 - If a folder in the tree is moved while it is being deleted, deletion stops with an error instead of following it. lgse/strata#869
-- When some items cannot be deleted, the rest are still deleted and a dialog lists up to 8 errors plus a count of the others. lgse/strata#72 (unverified)
-- Ctrl+Z after a permanent delete does not restore it; it still undoes the last Move to Trash. lgse/strata#228 (unverified)
+- When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
+- That dialog lists the first 8 errors as "name: reason" and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
+- Ctrl+Z after a permanent delete does not restore the items; it undoes the undoable operation before it, such as a Move to Trash. lgse/strata#228 (unverified)
 
 ### Dissolve animation
 
@@ -90,6 +92,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 | 2026-09-04 | lgse/strata#253 | fix | Deleted local trees descriptor-relative so symlink swaps cannot redirect deletion. |
 | 2026-09-02 | lgse/strata#164 | feat | Added a Permanently delete item to the item menu outside Trash. |
 | 2026-09-01 | lgse/strata#90 | fix | Targeted the entered folder when its column has no selection, so Delete no longer silently does nothing. |
+| 2026-09-01 | lgse/strata#136 | fix | Let Delete and Shift+Delete reach the confirmation when focus is outside the file list. |
 
 ## Known gaps
 

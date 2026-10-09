@@ -20,7 +20,8 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 
 - Copying, compressing, and deleting, to Trash or permanently, show a card in the bottom-right corner instead of a progress dialog, and the window stays usable. lgse/strata#1393
 - Moving, extracting, restoring, emptying Trash, and undo or redo keep the blocking progress dialog. lgse/strata#1393 (unverified)
-- A card shows the operation title, the current file or first item name, files done of total, the destination, the speed or status, and a progress bar. lgse/strata#1393
+- A card shows the operation title, percentage, current file or first item name, destination, speed or status, and a progress bar. lgse/strata#1393
+- A docked copy also shows files done of total; a compression card names the archive instead of the first item. lgse/strata#1393 (unverified)
 - The destination reads "→ <path>" for a folder, "→ Trash" for Move to Trash, and "Permanent deletion" for permanent deletion. lgse/strata#1393 (unverified)
 - Long file names, statuses, and destinations wrap instead of being cut off. lgse/strata#1393
 - Several cards stack and update independently; the stack scrolls once it reaches 320 px. lgse/strata#1393 (unverified)
@@ -29,11 +30,12 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 ### Cancellation
 
 - A card's X cancels only that card's operation; other cards and the foreground operation continue. lgse/strata#1393
-- After X, the card shows its cancelling state and X is disabled, so a second click sends nothing. lgse/strata#1393 (unverified)
+- After X, the card retitles to "Cancelling transfer…" for a copy or "Cancelling operation…" otherwise, and X is disabled. lgse/strata#1393 (unverified)
 - Cancelling a docked transfer shows "Device may still be writing. Do not unplug until the operation stops." inside the card, with no banner or Return to browser action. lgse/strata#1393
 - When a docked operation is cancelled, its card closes and an "Operation cancelled" dialog gives the completed, failed, and not-attempted counts. lgse/strata#1393 (unverified)
 - When a docked operation fails, its card closes and an "Unable to complete operation" dialog shows the error. lgse/strata#1393 (unverified)
-- Closing a tab or window that has docked operations running shows "File operations are still active" and leaves it open. lgse/strata#1393
+- Choosing Delete Permanently after a docked deletion partly fails, while another operation runs, shows "Another operation is active" and deletes nothing more. lgse/strata#1393 (unverified)
+- Closing a tab with a docked operation running, or the window while any tab has one, shows "File operations are still active" and closes nothing. lgse/strata#1393, lgse/strata#1484
 
 ### Completion
 
@@ -42,7 +44,7 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 - Hovering or focusing a completed card pauses its countdown and shows "paused"; leaving resumes the remaining time. lgse/strata#1393
 - The pin button, "Keep notification", keeps a completed card open and shows "pinned" until it is dismissed. lgse/strata#1393
 - Complete or X on a completed card dismisses only that card and leaves running cards unaffected. lgse/strata#1393
-- A docked permanent deletion still plays its dissolve when it finishes, while the "Deletion complete" card stays. lgse/strata#1490
+- If another operation starts before a docked copy or compression finishes, the finished one does not reveal or select its result. lgse/strata#1393 (unverified)
 
 ## Design
 

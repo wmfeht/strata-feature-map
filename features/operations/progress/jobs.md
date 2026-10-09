@@ -24,7 +24,7 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 - With `on_error = "stop"`, a per-item job ends at its first failure; otherwise it continues and reports how many items failed. lgse/strata#1085
 - An invocation succeeds only when its process exits with status 0; a reported 100% does not count as success. lgse/strata#1085
 - Up to 20 finished jobs are kept; the oldest finished jobs are evicted first, and active jobs are never evicted. lgse/strata#1085 (unverified)
-- Each job keeps the newest 64 KiB of captured output. lgse/strata#1085 (unverified)
+- Each invocation keeps the newest 8 KiB of its output, prefixed with "…" when trimmed; a job keeps the newest 64 KiB across invocations. lgse/strata#1085 (unverified)
 
 ### Cancellation
 
@@ -35,16 +35,17 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 
 ### Dashboard
 
-- The footer shows a Jobs button only when jobs exist: it reads the running and queued counts, otherwise the finished count, with "failures" when any failed. lgse/strata#1085
+- The footer shows a Jobs button only when jobs exist: it reads "2 jobs running · 1 queued", otherwise "3 jobs finished", with "· failures" when any failed. lgse/strata#1085
 - Launching an action opens Jobs in the launching window with the new job first. lgse/strata#1085
 - Minimize, Escape, or a click outside hides the dashboard without cancelling jobs; progress updates do not reopen it. lgse/strata#1085
 - A row shows the action name and icon, a status with elapsed time ("Running for", "Done in", "Failed after", "Cancelled after"), item counts, and the invoking folder. lgse/strata#1085
-- A job whose script reports no progress shows a pulsing bar instead of a percentage. lgse/strata#1085
+- An active whole-selection job whose script reports no total shows a pulsing progress bar instead of a percentage. lgse/strata#1085
+- An active per-item job's bar fills by completed items plus the current item's reported fraction. lgse/strata#1085 (unverified)
 - Details expands a job's captured output and Hide collapses it; a job with no output shows "No output yet.". lgse/strata#1085
 - Details on a running job shows output as it arrives, follows the bottom until scrolled up, and follows again once scrolled back down. lgse/strata#1274
 - Terminal colour and control sequences are stripped from the shown output. lgse/strata#1274
 - Dismiss removes one finished job; Clear finished removes every finished job and leaves active ones. lgse/strata#1085
-- The dashboard lists at most 12 jobs and states how many older jobs are hidden. lgse/strata#1085 (unverified)
+- The dashboard lists at most 12 jobs, then shows "<n> older jobs are hidden". lgse/strata#1085 (unverified)
 
 ## Design
 

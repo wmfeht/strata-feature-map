@@ -26,15 +26,20 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 ### Progress and cancellation
 
 - The row reads "Downloading update… N%", then "Verifying update…", "Installing update…", and "Finalizing update…", with its button reading Cancel. lgse/strata#26, lgse/strata#1499
-- Cancel during a download stops it within about a second, shows "Update cancelled", and leaves the installed binary unchanged. lgse/strata#506, lgse/strata#1499
+- Before the archive download, the row and dialog show "Verifying update…" while the signed manifest is fetched. lgse/strata#506 (unverified)
+- In Finalizing, the row's Cancel button is disabled. lgse/strata#1499
+- Cancel on the row during a download stops it within about a second, shows "Update cancelled", and leaves the installed binary unchanged. lgse/strata#506, lgse/strata#1499
 - In the dialog, Cancel, the close button, Escape, and a backdrop click each cancel a running download and close the dialog. lgse/strata#1499
 - Once replacement is committed, the dialog shows "Finalizing update…" and cannot be dismissed until the install ends. lgse/strata#1499
 - After a failure, cancellation, or completed install, every dialog dismisser closes the dialog. lgse/strata#1499
-- A failed install shows "Couldn’t install update:" with the reason, and the dialog's button becomes Close. lgse/strata#506 (unverified)
+- A failed install in the dialog shows "Couldn’t install update: <reason>", and its button becomes Close. lgse/strata#506 (unverified)
+- A failed install on the row shows "Couldn't install update: <reason>", and its button becomes Check now. lgse/strata#506 (unverified)
 
 ### Download limits
 
-- A download fails as stalled after 30 seconds to connect, 60 seconds without a response, or 30 seconds without bytes; there is no total time limit. lgse/strata#1499
+- A download fails after 30 seconds to connect, 60 seconds without a response, or 30 seconds without bytes; there is no total time limit. lgse/strata#1499
+- A connect timeout reads "Could not reach the download server — check your connection and try again". lgse/strata#1499 (unverified)
+- A response or idle timeout reads "The download stalled — check your connection and try again". lgse/strata#1499 (unverified)
 - An archive larger than its signed size stops with "The update is larger than expected and was not installed"; signed sizes are capped at 128 MiB. lgse/strata#506
 
 ### Signed manifest
@@ -49,15 +54,18 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 
 ### Extraction and replacement
 
-- Archives with links, devices, absolute or `..` paths, over 512 entries, or a second top-level directory are rejected. lgse/strata#506
+- Archives with links, devices, FIFOs, GNU or PAX extension records, absolute or `..` paths, over 512 entries, or a second top-level directory are rejected. lgse/strata#506
+- Archives with a file over 256 MiB, or over 512 MiB extracted in total, are rejected. lgse/strata#506 (unverified)
 - The extracted package directory must match the selected asset name, and must contain `strata` and `SOURCE_COMMIT`. lgse/strata#506
-- A staged binary failing a 2-second headless probe run fails with "The downloaded update does not run on this system". lgse/strata#506 (unverified)
+- A staged binary whose headless `--gvfs-probe` run exits non-zero fails with "The downloaded update does not run on this system". lgse/strata#506 (unverified)
+- A probe still running after 2 seconds fails with "Update verification timed out". lgse/strata#506 (unverified)
 - The previous binary is kept as `.strata-update-rollback` beside it and restored if the replaced binary fails the same probe. lgse/strata#506
 - An install run from an instance whose binary was already replaced writes the install path, not a file named `strata (deleted)`. lgse/strata#1330
 
 ### After replacement
 
-- An installed `~/.local/share/applications/io.github.lgse.Strata.desktop` and icon are rewritten from the archive; absent ones are not created. lgse/strata#182
+- When `~/.local/share/applications/io.github.lgse.Strata.desktop` exists, it and `~/.local/share/icons/hicolor/scalable/apps/io.github.lgse.Strata.svg` are rewritten from the archive. lgse/strata#182
+- Without that desktop entry, neither the entry nor the icon is written. lgse/strata#182
 - The rewritten `Exec=` points at the install path, quotes reserved characters, doubles `%`, and keeps the `%U` field code. lgse/strata#182, lgse/strata#672
 - When Strata is the opted-in file chooser, its portal is refreshed so the next dialog runs the new binary. lgse/strata#475
 - Other Strata windows and chooser processes running the old binary for the same user receive SIGTERM, then SIGKILL after 5 seconds. lgse/strata#1201

@@ -31,7 +31,8 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - Clicking a mounted volume's row navigates to its mount root. lgse/strata#536 (unverified)
 - Clicking an unmounted volume mounts it, then navigates into the mount. lgse/strata#493, lgse/strata#536
 - The row menu offers Mount for an unmounted volume on a removable drive that reports `can_mount`. lgse/strata#1331 (unverified)
-- A cancelled mount shows no error; any other failure shows "Unable to mount volume" with the GIO error text. lgse/strata#493 (unverified)
+- Cancelling a mount's authentication prompt shows no error. lgse/strata#493
+- A mount failure other than cancellation, a rejected passphrase, or an in-flight mount shows "Unable to mount volume" with the GIO error text. lgse/strata#493 (unverified)
 - When another process is already mounting the volume, Strata shows "Connecting…" and waits up to 8 seconds without cancelling that job, then opens the mount. lgse/strata#935 (unverified)
 - If that wait ends with the volume still unmounted, Strata starts its own mount once. lgse/strata#935 (unverified)
 

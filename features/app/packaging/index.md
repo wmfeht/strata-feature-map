@@ -20,12 +20,13 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 ### Desktop entry and icon
 
 - `io.github.lgse.Strata.desktop` sets `Icon=io.github.lgse.Strata` and `StartupWMClass=io.github.lgse.Strata`, matching the GTK application ID. lgse/strata#182
-- The entry declares `MimeType=inode/directory` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler. lgse/strata#182
-- The entry's `Exec=strata %U` is rewritten to the absolute binary path by every install path that installs it. lgse/strata#182
-- The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, de, es, ja, pt_BR, ko, vi, it, and ru. lgse/strata#1519
+- The entry declares `MimeType=inode/directory;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler. lgse/strata#182
+- The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, de, es, ja, pt_BR, ko, vi, it, and ru. lgse/strata#1519 (unverified)
 - The application icon is bundled in the GResource and set as GTK's default window icon name. lgse/strata#182
 - Release archives contain `io.github.lgse.Strata.desktop` and `io.github.lgse.Strata.svg` beside the `strata` binary. lgse/strata#182
-- `mise run install-local` installs the binary, icon, and entry under `~/.local`; `mise run uninstall-local` removes them. lgse/strata#182, lgse/strata#663
+- By default, `mise run install-local` installs the binary to `~/.local/bin`, the icon under `~/.local/share/icons/hicolor`, and the entry under `~/.local/share/applications`. lgse/strata#182, lgse/strata#663
+- The entry ships with `Exec=strata %U`; `mise run install-local` rewrites it to the installed binary's absolute path. lgse/strata#182, lgse/strata#663
+- `mise run uninstall-local` removes the binary, entry, and icon. lgse/strata#182, lgse/strata#663
 
 ### Version
 

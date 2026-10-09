@@ -16,14 +16,17 @@ Persisting rendered thumbnails in the freedesktop shared cache, `$XDG_CACHE_HOME
 
 ## Behavior
 
-- After rendering a local file with a known modification time, Strata writes `thumbnails/large/<MD5 of the file URI>.png` under `$XDG_CACHE_HOME`, or `~/.cache` when it is unset. lgse/strata#274
+- After rendering a local file with a known modification time, Strata writes `thumbnails/large/<MD5 of the file URI>.png` under `$XDG_CACHE_HOME`, or `$HOME/.cache` when it is unset or empty. lgse/strata#274
 - The stored PNG has a 256 px long edge and `Thumb::URI` and `Thumb::MTime` tags, whatever icon size the view used. lgse/strata#274
-- Revisiting a folder shows thumbnails from the disk cache without decoding the files again. lgse/strata#274
+- After a restart, revisiting a folder shows thumbnails from the disk cache without rendering the files again. lgse/strata#274
 - An entry written by another application is used when its `Thumb::URI` and `Thumb::MTime` match the file. lgse/strata#274 (unverified)
-- An entry whose `Thumb::MTime` differs from the file's modification time is ignored and the file is rendered again. lgse/strata#274 (unverified)
-- An entry that is a symlink, a FIFO, larger than 2 MiB, or wider or taller than 512 px is treated as a miss. lgse/strata#274 (unverified)
-- Failed renders and camera photos are never written to the disk cache. lgse/strata#274 (unverified)
+- An entry whose `Thumb::URI` or `Thumb::MTime` differs from the file's URI or modification time is ignored and the file is rendered again. lgse/strata#274 (unverified)
+- An entry that is a symlink, a FIFO, larger than 2 MiB, not a PNG, zero-sized, or wider or taller than 512 px is treated as a miss. lgse/strata#274 (unverified)
+- Failed renders are never written to the disk cache. lgse/strata#274 (unverified)
+- Files on a gphoto2 camera are neither looked up in nor written to the disk cache. lgse/strata#274 (unverified)
 - Strata creates the `large` directory with mode 0700, and resets an existing directory to 0700 before writing. lgse/strata#274 (unverified)
+- Entries are written atomically with mode 0600; a symlink at the entry path is left in place and its target is not modified. lgse/strata#274 (unverified)
+- Rendering an image, or page 1 of a PDF, in the preview panel also writes the 256 px entry for a local file. lgse/strata#318 (unverified)
 
 ## Design
 

@@ -28,12 +28,13 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 - Ctrl+F filter results, with Include subfolders on or off, can be dragged singly or as a selected group. lgse/strata#1018
 - In Columns, a press-and-move on a filter result starts a drag instead of opening the file. lgse/strata#753
 - Dragging the preview header or an image preview drags the previewed file. lgse/strata#292
+- Dragging a video or animated-media preview also drags the previewed file. lgse/strata#292 (unverified)
 
 ### Drag feedback
 
 - A single-item drag shows the item's file or folder icon instead of its name. lgse/strata#1487
 - A multi-item drag shows stacked icons with an accent badge giving the item count. lgse/strata#1487 (unverified)
-- A folder row, sidebar row, or breadcrumb under a file drag is outlined with the selection border and corner geometry. lgse/strata#1487
+- A folder row, Icons card, or sidebar row under a file drag is outlined with the selection border and corner geometry. lgse/strata#1487
 - Starting a drag closes any open folder peek, and cancelling a drag over a folder leaves that folder unopened. lgse/strata#630
 - In Columns, after a drag ends by Escape, release outside the window, copy, move, no-op, or failed transfer, the source label stays in place and its dimming clears within 240 ms. lgse/strata#637
 
@@ -41,7 +42,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 
 - Dropping onto a folder row in Columns, List, or Icons transfers the dragged items into that folder. lgse/strata#587
 - Dropping onto the background of a pane or column showing another folder transfers into that folder. lgse/strata#587 (unverified)
-- Sidebar Home, standard places, pinned folders, and mounted native devices accept file drops from every view; Network and other URI locations do not. lgse/strata#350
+- Sidebar Home, standard places, pinned folders, and mounted native devices accept file drops from every view; Network and other URI locations except Trash do not. lgse/strata#350, lgse/strata#626
 - Parent breadcrumbs accept file drops. lgse/strata#1487
 - Folder rows and panes for Trash and Recent accept no file drops. lgse/strata#350 (unverified)
 - Dropping a folder onto itself or its descendants, or items onto their own folder, transfers nothing and opens no progress dialog. lgse/strata#587

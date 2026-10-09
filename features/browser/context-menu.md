@@ -32,7 +32,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Keyboard navigation
 
 - A menu opens with keyboard focus on its first visible action; focus stays there while Open With lookup finishes, even with the pointer resting over the menu. lgse/strata#1155
-- Up and Down move between enabled actions, skipping separators; Home and End jump to the first and last action. lgse/strata#666
+- Up and Down move between enabled actions, skipping separators and wrapping at either end; Home and End jump to the first and last action. lgse/strata#666
 - Enter or Space activates the focused action and closes the menu. lgse/strata#666
 - Escape closes the menu, keeps the selection, and returns focus to the entry or pane that opened it. lgse/strata#666
 - Ctrl+A while a menu is open leaves the menu open. lgse/strata#666 (unverified)
@@ -43,12 +43,14 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Contents and grouping
 
 - A single item's menu opens with a header showing its name and compact path, middle-ellipsized at 30 characters. lgse/strata#1143 (unverified)
-- A multi-selection header reads "N items selected" above the first three names, followed by ", …" when there are more. lgse/strata#75 (unverified)
+- A multi-selection header reads "N items selected" above the first three names, followed by ", …" when there are more, cut to 30 characters. lgse/strata#1143 (unverified)
+- When shown, New Folder with Selection sits alone at the top of the item and multi-selection menus, above the opening group. lgse/strata#1349
 - A regular file's menu groups Open, Open With…, Quick preview, Print; then Cut, Copy, Duplicate, Rename; then Move to…, Copy to…. lgse/strata#1210
 - After those come Compress… alone; then Customize…, Copy path, Copy name, Properties; then Move to Trash and Permanently delete. lgse/strata#1210
 - A folder's menu adds Open in Terminal to the opening group and Pin to sidebar before Customize…. lgse/strata#1210
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
+- When every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
 - Custom action rows appear after the opening group and before Cut. lgse/strata#1085 (unverified)
 - Actions hidden for the current target leave no empty group or doubled separator. lgse/strata#1210

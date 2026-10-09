@@ -5,7 +5,7 @@ origin: {issue: null, pr: lgse/strata#180}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
-code: [src/util/mod.rs]
+code: [src/util/mod.rs, data/locales/dates.json]
 tests: [src/util/tests.rs]
 related: [browser/properties]
 ---
@@ -18,20 +18,22 @@ How file modification times read in lists and previews, and the Modified date fo
 
 ### Choosing a format
 
-- General → Date & time → Modified date format offers Relative, the default, ISO 8601, and Long; each choice shows an example for five minutes ago. lgse/strata#1102
+- General → DATE & TIME → Modified date format offers Relative, the default, ISO 8601, and Long; each choice shows a live example. lgse/strata#1102
+- Each example renders a time five minutes before the menu opens, so Relative reads "5m ago". lgse/strata#1102 (unverified)
 - ISO 8601 renders `2026-09-17 14:30` and Long renders "September 17, 2026, 14:30". lgse/strata#1102
 - Changing the format re-renders open modified-time labels in every window without reloading. lgse/strata#1102
-- The choice is saved as `date_format`; `relative`, `iso`, and `long` load, and an unknown value loads as Relative. lgse/strata#1102 (unverified)
+- The choice is saved as `date_format`. lgse/strata#1102
+- Saved values are `relative`, `iso`, and `long`; loading ignores case and whitespace, also accepts `iso8601` and `iso-8601`, and reads unknown values as Relative. lgse/strata#1102 (unverified)
 
 ### Relative labels
 
 - A time under a minute ago, or up to a minute in the future, reads "Just now". lgse/strata#1102
-- A time further in the future shows the absolute date and time. lgse/strata#1102 (unverified)
+- A time more than a minute in the future shows the ISO 8601 form, such as `2026-09-17 14:30`. lgse/strata#1102 (unverified)
 - Under an hour reads whole minutes, such as "5m ago", and under 24 elapsed hours whole hours, such as "3h ago", even across midnight. lgse/strata#1102, lgse/strata#1264
 - Past 24 hours, one to six local calendar days ago reads the full weekday name, such as "Monday". lgse/strata#741, lgse/strata#1264
-- Seven to thirty calendar days ago reads whole weeks, such as "2w ago". lgse/strata#1264
-- Older times read "Sep 1, 23:30" in the current year and "Sep 1, 2025" in earlier years. lgse/strata#1264
-- On a daylight-saving fall-back day, a time earlier that day can read "24h ago". lgse/strata#1264
+- Seven to thirty calendar days ago reads whole weeks, from "1w ago" to "4w ago". lgse/strata#1264 (unverified)
+- Older times read "Sep 1, 23:30" in the current year and "Sep 1, 2025" in earlier years. lgse/strata#180, lgse/strata#1264
+- On a daylight-saving fall-back day, a time earlier that day can read "24h ago". lgse/strata#1264 (unverified)
 - Relative labels refresh every 30 seconds while shown. lgse/strata#1102 (unverified)
 - Month and weekday names follow Strata's interface language, not the system locale. lgse/strata#1519
 

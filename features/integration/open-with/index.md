@@ -24,16 +24,17 @@ Opening files in their default application, choosing another application from th
 - Activating a file with no default application opens the Open With chooser for it instead of an error. lgse/strata#1012
 - When that chooser has no application to offer, it shows "No application is registered for this file" with Open disabled. lgse/strata#1012
 - Closing the fallback chooser returns focus to the activated entry. lgse/strata#1012
-- Activating an item in Trash shows "Items in Trash cannot be opened" and launches nothing. lgse/strata#995
-- A file with no local path, such as a GVfs location without a FUSE path, opens only with a default that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
+- Activating an item in Trash shows "Unable to open item" with "Items in Trash cannot be opened" and launches nothing. lgse/strata#995
+- A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
-- When the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer, including their Flatpaks, start at the preview's position. lgse/strata#1474
+- When the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474
+- The mpv, VLC, and Celluloid Flatpaks also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474 (unverified)
 
 ### Running programs
 
 - Activating a local regular file with an execute bit and no default application asks "Run this program?" instead of opening the chooser. lgse/strata#461, lgse/strata#1012
-- The confirmation is danger-toned, names the file, warns "Only run programs you trust.", and focuses Run. lgse/strata#461, lgse/strata#1206
+- The confirmation is danger-toned, names the file, reads "“%{name}” is an executable file. Only run programs you trust.", and focuses Run. lgse/strata#461, lgse/strata#1206
 - Cancel in the confirmation runs nothing. lgse/strata#948
 - Run starts the program in its own folder with its standard streams discarded. lgse/strata#461
 - The item menu shows Run for exactly one local executable file, or a symlink to one, outside Trash, including search results. lgse/strata#948

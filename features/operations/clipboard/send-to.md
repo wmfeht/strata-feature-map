@@ -16,12 +16,16 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 
 ## Behavior
 
-- The item menu's Send to… submenu lists mounted, writable removable devices, sorted by name, and is absent when none is mounted. lgse/strata#1278
-- Each device submenu offers Drive root, up to 3 recent folders marked "(recent)", and Choose folder…. lgse/strata#1278
+- The item menu shows Send to… only when items are selected and a mounted, writable, local removable device exists. lgse/strata#1278, lgse/strata#1393
+- Device rows are sorted by name, ignoring case; devices sharing one identity are left out. lgse/strata#1278 (unverified)
+- Each device submenu offers Drive root, up to 3 recent folders labeled "<folder> (recent)", and Choose folder…. lgse/strata#1278
+- A recent folder that no longer exists on the device is left out of its submenu. lgse/strata#1278 (unverified)
 - Sending copies the selection, never moves it, and leaves the browser in its current folder. lgse/strata#1278
 - Choose folder… opens a floating chooser titled "Send to folder" whose navigation stays inside the device. lgse/strata#1384
-- A folder chosen there becomes a recent destination for that device. lgse/strata#1278
-- If the device is gone when a destination is chosen, "Destination unavailable" appears and nothing is copied. lgse/strata#1278
+- The Send to folder chooser hides the sidebar, confirms with "Copy here", and offers no New Folder. lgse/strata#1384 (unverified)
+- A subfolder chosen there becomes a recent destination for that device. lgse/strata#1278
+- Sending to a folder moves it to the top of the recent list; the drive root never becomes a recent entry. lgse/strata#1278 (unverified)
+- If the device is gone when a destination is activated or the chooser confirms, "Destination unavailable" appears and nothing is copied. lgse/strata#1278, lgse/strata#1384
 - A send that finishes before progress appears shows "Copied to <device>" or "N items copied to <device>" for 2 seconds. lgse/strata#1278 (unverified)
 - An open Send to… menu updates as devices mount and unmount. lgse/strata#1393
 

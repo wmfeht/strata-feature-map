@@ -33,9 +33,9 @@ The Name field in file-open choosers. Typing an existing filename opens it, and 
 - Escape or the cancel button stops the download and leaves the chooser open for another name or URL. lgse/strata#1285
 - A URL that answers with a redirect fails with "The URL redirects elsewhere; paste the direct file URL instead". lgse/strata#1285
 - A URL with credentials before the host is not downloaded. lgse/strata#1285
-- A failed download shows its error in the action bar, and the request stays open. lgse/strata#1285
+- A network or HTTP failure, such as a 404, shows "Could not download the file: %{error}" in the action bar, and the request stays open. lgse/strata#1285
 - A download whose name the selected filter rejects shows "The file does not match the selected filter" and is not returned. lgse/strata#1285
-- Pressing Open again on the same URL reuses the earlier download instead of fetching again. lgse/strata#1387
+- Submitting the same URL again in the same chooser reuses the earlier download, while its file still exists, instead of fetching again. lgse/strata#1387
 - `strata-download-*` folders older than 24 hours are deleted when the portal starts and when a download begins. lgse/strata#1285
 - Folder, SaveFile, and SaveFiles requests do not download URLs, and the address bar and Ctrl+V never start a download. lgse/strata#1285
 
@@ -47,7 +47,7 @@ The Windows common dialog accepts a pasted file URL and hands the application a 
 - Each download gets its own temporary folder, so names never collide. A shared cache was rejected for simpler cleanup (lgse/strata#1279).
 - Files outlive the chooser because the caller opens them after the request completes. A one-day sweep removes them instead (lgse/strata#1285).
 - Redirects are refused so a remote server cannot point the portal at host-only services (lgse/strata#1285).
-- Server-provided names are reduced to a single safe component of at most 255 bytes, keeping the extension (lgse/strata#1285).
+- Server-provided names are reduced to a single safe component of at most 255 bytes, keeping an extension of up to 20 bytes (lgse/strata#1285).
 - URLs enter only through Name. The address bar stays navigation-only, and the interaction was moved there at the owner's request (lgse/strata#1285).
 
 ## History

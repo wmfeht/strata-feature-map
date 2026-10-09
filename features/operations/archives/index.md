@@ -25,11 +25,12 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A name such as `../outside` is rejected in the dialog and nothing is written outside the shown folder. lgse/strata#147
 - Protection (No password / Password protected) shows only for ZIP and 7Z; switching to TAR or TAR.GZ hides it and resets it to No password. lgse/strata#81, lgse/strata#745
 - Password protected with an empty password shows "Password required"; differing fields show "Passwords do not match"; no archive is written. lgse/strata#81, lgse/strata#745
-- A password-protected 7Z of 4 MiB of zeros is under 1 KiB, about the size of the unprotected one, and its member names are unreadable without the password. lgse/strata#745
+- A password-protected 7Z of 4 MiB of zeros packs to hundreds of bytes, like the unprotected one, and lists no member names without the password. lgse/strata#745
 - Compressing a symlink stores the link in ZIP and TAR without the target's contents. lgse/strata#407
 - Compressing a symlink to 7Z fails with "7z compression does not support symbolic links: <path>. Use ZIP or TAR instead." and leaves no archive. lgse/strata#407
 - A file whose name is not valid UTF-8 fails ZIP and 7Z with an error naming it and suggesting TAR; TAR stores the original bytes. lgse/strata#679
-- ZIP members store each source's modification time and Unix mode; 7Z stores the mode. lgse/strata#1478
+- ZIP members store each source's modification time and Unix mode. lgse/strata#1478
+- 7Z members store each source's Unix mode and its modification, creation, and access times. lgse/strata#1478 (unverified)
 - The new archive appears only when encoding finishes, then is selected and scrolled into view in every view mode. lgse/strata#147, lgse/strata#616
 - Compression runs as a progress card at the bottom right showing Preparing…, then Compressing… with file counts, and browsing stays available. lgse/strata#981, lgse/strata#1393
 - Cancelling compression stops within the current member, then shows the cancellation summary; no partial archive or staging file remains. lgse/strata#410, lgse/strata#981
@@ -43,14 +44,15 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Replace moves the existing archive to Trash before publishing; Ctrl+Z returns it. lgse/strata#1097
 - If the existing archive cannot be moved to Trash, Replace fails and the existing archive stays in place. lgse/strata#1097
 - Replace keeps the replaced archive's permission bits on the new archive. lgse/strata#410
-- A failed or cancelled Replace leaves the existing archive intact. lgse/strata#147, lgse/strata#981
+- Cancelling, or an encoding failure, during Replace leaves the existing archive in place. lgse/strata#147, lgse/strata#981
+- If publishing fails after Replace moved the existing archive, the error says the original is in Trash. lgse/strata#1097 (unverified)
 
 ### Extracting
 
 - Extract here and Extract to… appear only for a regular file, or a symlink to one, with a local path and a `.zip`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` extension. lgse/strata#81, lgse/strata#1478
 - A folder named `photos.zip` shows no Extract actions and opens like any folder. lgse/strata#1478
 - Extract here extracts beside the archive, reloads the folder, and selects the result. lgse/strata#81, lgse/strata#494
-- Extract to… opens the floating folder chooser, titled "Extract to", with New Folder; after extraction the window navigates to the chosen folder and selects the result. lgse/strata#81, lgse/strata#1384
+- Extract to… opens the floating folder chooser, titled "Extract to", with an "Extract here" button and New Folder. After extraction, the window navigates to the chosen folder and selects the result. lgse/strata#81, lgse/strata#1384
 - Cancelling the Extract to… chooser starts no extraction. lgse/strata#1384
 - Extracting into a folder reached through a symlink writes into the resolved folder. lgse/strata#678
 - Extraction shows Processing archive… with completed-file counts in a foreground progress dialog. lgse/strata#81, lgse/strata#1393 (unverified)
@@ -83,7 +85,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - An absolute member path or a member written through an existing symlink fails the extraction without writing outside the destination. lgse/strata#116, lgse/strata#1478
 - Symlink members are recreated with their stored targets, including absolute ones. lgse/strata#1478
 - A TAR hard link links to the earlier member of that name; a hard link to a member not extracted fails the extraction. lgse/strata#1478
-- FIFO and device members fail the extraction with a message naming the member. lgse/strata#1478
+- A TAR FIFO or device member fails the extraction with a message naming the member. lgse/strata#1478
 - Each member gets its stored mode, masked by the umask with setuid, setgid, and sticky removed, and its stored modification time. lgse/strata#1478
 - On FAT and exFAT, modes and times are skipped without error, but an archive containing links fails, naming the member. lgse/strata#1478
 
@@ -92,7 +94,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Extracting a password-protected ZIP or 7Z first runs without a password, then opens the Extract password dialog. lgse/strata#81, lgse/strata#1499
 - Submitting an empty password keeps the dialog open with "Enter a password". lgse/strata#793
 - A wrong password reopens the dialog with "Invalid password", including for plain-header 7Z and ZipCrypto archives whose wrong password fails a checksum. lgse/strata#751, lgse/strata#793, lgse/strata#798
-- Cancelling the password dialog after Extract to… leaves no empty destination folder and does not redirect the next completion. lgse/strata#827
+- Cancelling the password dialog after Extract to… leaves nothing in the chosen folder and does not redirect the next completion. lgse/strata#827, lgse/strata#1499
 - A password failure discards everything written, so the retry publishes under the archive's plain name instead of `stem (1)`. lgse/strata#1499
 - An error that quotes a member name such as `passwords.txt` shows the error dialog, not the password prompt. lgse/strata#750, lgse/strata#1499
 - Damage in an unencrypted member is reported as damage even when a password was given. lgse/strata#1499
@@ -162,5 +164,5 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 ## Known gaps
 
-- A failed Extract to…, such as into a read-only folder, leaves a pending navigation that a later Compress or Extract completion follows. lgse/strata#864
+- A failed Extract to…, such as into a read-only folder, leaves a pending navigation that the next Extract completion follows. lgse/strata#864
 - There is no option to delete the archive after a successful extraction. lgse/strata#759

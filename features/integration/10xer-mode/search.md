@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
-code: [src/ui/browser/find.rs, src/ui/browser/listing_search.rs, src/services/path_match.rs]
+code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs]
 related: [browser/search]
 ---
@@ -18,24 +18,34 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 
 ### Find
 
-- `/` and `?` open a footer find prompt. It moves the cursor to the next or previous name containing the text, ignoring case and wrapping. lgse/strata#1297 (unverified)
-- After Enter, the matched substrings stay highlighted in the theme accent and no rows hide; Esc from the listing removes the highlights. lgse/strata#1297 (unverified)
-- `n` repeats the last find in its direction and `N` reverses it; a miss flashes `No matches for “…”` and leaves the cursor in place. lgse/strata#1297 (unverified)
+- `/` and `?` open a footer find prompt; Enter moves the cursor to the next or previous name containing the text. lgse/strata#1297, lgse/strata#1244
+- Find ignores case, searches in display order from the cursor, and wraps at either end. lgse/strata#1297 (unverified)
+- After Enter, matching substrings stay highlighted in Columns, Icons, and List and no rows hide; Esc from the listing removes the highlights. lgse/strata#1297, lgse/strata#1244
+- Find highlights draw the match on the theme accent and recolor on a live theme change. lgse/strata#1297 (unverified)
+- Enter on an empty find prompt changes nothing; Esc from the prompt cancels without leaving highlights. lgse/strata#1297, lgse/strata#1244
+- `n` repeats the last find in its direction and `N` reverses it; a miss flashes `No matches for “…”` and leaves the cursor in place. lgse/strata#1297, lgse/strata#1244
+- `n` or `N` with no earlier find flashes `No previous find`. lgse/strata#1297 (unverified)
+- In the `/`, `?`, `f`, and `s` prompts, Up and Down move the listing cursor while the prompt keeps focus. lgse/strata#1297, lgse/strata#1244
 
 ### Filter
 
-- `f` opens a `filter:` prompt that hides non-matching items of the current folder as you type. lgse/strata#1297 (unverified)
-- Enter commits the filter and focuses the first result without opening it; Esc from the prompt or the listing clears it. lgse/strata#1297 (unverified)
-- `f` matches only the folder's own items, even with Include subfolders on, so `rep md` keeps `gamma-report.md`. lgse/strata#1403
-- Entering or leaving the mode re-runs an active filter in the new scope. lgse/strata#1403
+- `f` opens a `filter:` prompt that hides non-matching items of the current folder as you type. lgse/strata#1297, lgse/strata#1245
+- Enter commits the filter and focuses the first result without opening it; empty Enter, Esc from the prompt, or Esc from the listing clears it. lgse/strata#1297, lgse/strata#1245
+- Pressing `f` again pre-fills the current filter query. lgse/strata#1297, lgse/strata#1245
+- While an `f` filter is active, the footer shows `filter: …` and the displayed result count, including zero. lgse/strata#1297, lgse/strata#1245
+- `f` uses the same fuzzy terms as `s` but matches only the folder's own items, even with Include subfolders on, so `rep md` keeps `gamma-report.md`. lgse/strata#1403
+- Turning the mode on re-runs an open Ctrl+F filter with `f` matching, and turning it off re-runs it with default matching. lgse/strata#1403
+- Leaving the mode clears the find, every `f` filter, and an `s` search in every window. lgse/strata#1244, lgse/strata#1297 (unverified)
 
 ### Search
 
 - `s` opens a `search:` prompt that searches paths below the current folder, even with Include subfolders off, and shows at most 100 hits. lgse/strata#1297
 - Each space-separated term must fuzzily match the path, in any order, so `git trading readme` finds `git/trading/README.md`. lgse/strata#1403
 - Terms accept `'exact`, `^prefix`, `suffix$`, and `!excluded`. lgse/strata#1403
-- Hits whose names match more terms rank first, then closer matches, then hits in folders visited often and recently. lgse/strata#1403
-- The matched characters of each hit's name are highlighted in the theme accent and follow live theme changes. lgse/strata#1403
+- Wildcard filter patterns do not apply in `f` or `s`. lgse/strata#1403
+- Hits whose names match more terms rank first, then by match quality; among similar matches, hits in folders visited often and recently rank higher. lgse/strata#1403
+- The characters each `s` hit's or `f` item's name matched are highlighted in the theme accent and follow live theme changes. lgse/strata#1403
+- While find highlights show, they replace the `f` and `s` match highlights. lgse/strata#1403
 - The footer shows `search: …`, the hit count including zero, and the hit under the cursor as a path relative to the searched folder. lgse/strata#1297
 - Enter applies the query and focuses the first hit without opening it; a second Enter opens the hit. lgse/strata#1297
 - Esc from a nonempty prompt keeps the hits; Esc from an empty prompt cancels. lgse/strata#1297
@@ -55,11 +65,13 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 
 ## Design
 
-- `s` borrows the focused listing's filter with subfolders forced on. The filter's name rules, 100-hit cap, and stale-work cancellation therefore govern search (lgse/strata#1297).
+- `s` borrows the focused listing's filter with subfolders forced on. The filter's 100-hit cap and stale-work cancellation therefore govern search (lgse/strata#1297).
+- Forcing the scope switches matching from the filter's name rules to fuzzy path terms (lgse/strata#1403).
 - The saved Include subfolders preference is never changed by `s`, and an earlier `f` filter survives it (lgse/strata#1297).
 - Searching stays inside the current folder tree; content search is out of scope (lgse/strata#1152).
 - Plain recursive name search did not let users narrow by folder names. Fuzzy path terms, as in fzf, do (lgse/strata#1380).
 - Matching uses the MIT `frizbee` crate behind `services::path_match`, which handles Unicode folding, term parsing, ranking tiers, and frecency bias (lgse/strata#1403).
+- Frecency adds a capped bias, so it reorders only similar matches and never lifts a hit above one whose name matches more terms (lgse/strata#1403).
 - Outside the mode, global search and the default Ctrl+F filter keep their own matching (lgse/strata#1403).
 
 ## History

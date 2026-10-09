@@ -19,26 +19,30 @@ Extraction-only support for `.rar` archives through UnRAR, run in a sandboxed he
 - In a default build, a `.rar` file shows Extract here and Extract to…, and Enter or double-click extracts it. lgse/strata#832
 - RAR output follows the same single-root, bundled-folder, and conflict rules as other formats. lgse/strata#1160, lgse/strata#1478
 - A RAR with encrypted contents or encrypted headers opens the Extract password dialog; a wrong password reopens it with "Invalid password". lgse/strata#832, lgse/strata#1499
-- A corrupt RAR fails with an error and does not open the password dialog. lgse/strata#832 (unverified)
+- A damaged unencrypted RAR fails with "This file is not a valid archive or is damaged." and opens no password dialog. lgse/strata#832, lgse/strata#1499
 - RAR members get their stored mode and modification time. lgse/strata#1478
+- A RAR member stored without Unix file-type bits, such as one archived on Windows, keeps default permissions. lgse/strata#1478 (unverified)
 - RAR symlink and hard-link members extract as regular files. lgse/strata#1478
 - The Compress dialog offers no RAR format. lgse/strata#832
 - Cancelling a RAR extraction kills the helper process and reports the operation as cancelled. lgse/strata#1229
 - A helper that sends no data for 30 seconds fails the extraction. lgse/strata#1229 (unverified)
-- In a build without the `rar` feature, `.rar` files show no Extract actions and activation opens them externally. lgse/strata#1344 (unverified)
+- A member that continues into another volume of a multi-volume RAR fails with "The next RAR volume is missing". lgse/strata#832, lgse/strata#1229 (unverified)
+- A RAR whose dictionary exceeds UnRAR's memory limit fails with "RAR dictionary exceeds the decoder's memory limit". lgse/strata#832 (unverified)
+- In a build without the `rar` feature, `.rar` files show no Extract here or Extract to… actions. lgse/strata#1344
+- In a build without the `rar` feature, Enter or double-click on a `.rar` file opens it externally. lgse/strata#1344 (unverified)
 
 ## Design
 
 UnRAR's C parser handles attacker-controlled bytes, so it runs outside the main process (lgse/strata#1046, lgse/strata#1229).
 
-- The parent runs `strata --preview-helper extract-rar` in bubblewrap with the archive bound read-only and no writable mount. `prlimit --fsize=0` blocks file writes. Bytes leave only through the child's stdout.
+- The parent runs `strata --preview-helper extract-rar` in bubblewrap with the archive bound read-only and no writable mount. `prlimit --fsize=0` blocks file writes. Bytes leave only through the child's stdout. A password reaches the child on stdin, never on argv (lgse/strata#1229).
 - Members travel over a framed wire protocol, now `STRRAR03`: a header, the declared byte count, then a per-member result. The protocol carries structured password failures and member metadata (lgse/strata#1478, lgse/strata#1499).
 - The parent feeds members to the shared extraction session, so destination confinement is the same code as ZIP, TAR, and 7z (lgse/strata#1229).
 - UnRAR is called with `RAR_TEST` and null destinations, so it never writes files itself (lgse/strata#1046).
 - The child gets a 120 s CPU limit instead of the 10 s preview limit, since bulk extraction is larger than a thumbnail (lgse/strata#1229).
 - The child cannot see the cancellation flag, so the parent kills it (lgse/strata#1229).
 - The sandbox runs in UTC, so RAR 1.5–4 DOS times are converted in the parent's time zone. `unrar_sys` 0.5.8 misaligns `HeaderDataEx`, so the helper reads mtimes at UnRAR's real offsets behind a compile-time assert (lgse/strata#1478).
-- RAR support is a default-on Cargo feature. Distros such as nixpkgs and Debian cannot ship UnRAR as free software; calling an external `unrar` binary was rejected because it complicates the sandbox (lgse/strata#1327, lgse/strata#1344).
+- RAR support is a default-on Cargo feature. Distros such as nixpkgs and Debian cannot ship UnRAR as free software; calling an external `unrar` binary was rejected because it adds a runtime dependency and complicates the sandbox (lgse/strata#1327, lgse/strata#1344).
 
 ## History
 
@@ -50,4 +54,4 @@ UnRAR's C parser handles attacker-controlled bytes, so it runs outside the main 
 
 ## Known gaps
 
-- RAR symlinks and hard links extract as regular files; the link follow-up from the link extraction work is not done. lgse/strata#1421
+- RAR symlinks and hard links extract as regular files; the link follow-up from the link extraction work is not done. lgse/strata#1421, lgse/strata#1478

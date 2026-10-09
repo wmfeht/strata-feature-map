@@ -6,14 +6,14 @@ branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
-tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py]
+tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
 docs: [docs/keyboard-navigation.md]
 related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser]
 ---
 
 ## Summary
 
-Creating an empty file or folder in the current directory from the background menu or Ctrl+Shift+N, then naming it in place. It also covers New Folder with Selection, which groups selected items into a new folder. The 10xer footer create prompt and the file chooser's header button reuse this flow and are described in their own nodes.
+Creating an empty file or folder in the current directory from the background menu or Ctrl+Shift+N, then naming it in place. It also covers New Folder with Selection, which groups selected items into a new folder. The file chooser's header button reuses this flow, and the 10xer footer create prompt reuses the creation operation; both are described in their own nodes.
 
 ## Behavior
 
@@ -46,7 +46,7 @@ Creating an empty file or folder in the current directory from the background me
 - In Columns, a new folder opens as the child column, replacing any stale child, and the breadcrumb follows it. lgse/strata#760
 - In Columns, a new file closes stale child columns, returns the breadcrumb to the parent, and does not open the file. lgse/strata#760
 - In Columns, after Enter renames a new folder, the child column header shows the new name and F2 reopens the editor on the same parent item. lgse/strata#760
-- Clicking a sibling to end the edit commits the name and leaves the sibling selected as the F2 target. lgse/strata#760
+- In Columns, clicking a sibling to end the edit commits the name and leaves the sibling selected as the F2 target. lgse/strata#760
 - In List and Icons, the view stays in the parent directory and selects the new item without opening it. lgse/strata#760
 - In a 420-pixel-wide Columns window, the new folder's editor stays within the window. lgse/strata#760
 

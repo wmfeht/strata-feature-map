@@ -13,33 +13,34 @@ related: [settings/themes, app/updates, integration/custom-actions, browser/tabs
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, window buttons, default directory, and the hidden-files toggle. Feature pages and rows (Appearance, Actions, Updates, search exclusions, thumbnails, desktop integration) belong to their features. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows (Appearance, Actions, Updates, search exclusions, thumbnails, desktop integration) belong to their features. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 
 ### Opening and closing
 
-- Ctrl+, or the header Settings button opens Settings over the blurred window, showing General first. lgse/strata#849
+- Ctrl+, or the header Settings button opens Settings over the blurred window; the first open shows General. lgse/strata#849
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing. lgse/strata#912
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849
 - The navigation lists General, Appearance, Actions, Updates, and About; choosing one shows that page and its name as the title. lgse/strata#849
-- The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29
+- The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
 - When the panel is narrower than 900 px at the default 13 px text size, the navigation drops its heading and labels and shows icons only. lgse/strata#29, lgse/strata#849 (unverified)
 - The Items shown in sidebar chips stay below their title and description at every panel width. lgse/strata#1032
-- As the panel narrows, a row's description wraps before its control moves below it, and dependency arrows stay beside their headings. lgse/strata#924
+- When the panel is narrower than 1250 px at the default text size, a row's control moves below its title and description; switches stay beside it. lgse/strata#849, lgse/strata#924 (unverified)
+- When a dependent row's control stacks below it, the row's dependency arrow stays beside its heading. lgse/strata#924
 - Settings has no Keybindings page; the F1 reference is the only keybinding list. lgse/strata#1376
 
 ### Settings search
 
 - Typing in Search settings shows only matching rows, hides navigation entries for pages without matches, and opens the best-matching page. lgse/strata#849
 - Queries match row titles and aliases, so "font size" finds Text size. lgse/strata#849
-- Query words of four or more letters tolerate one typo, six or more two, so "tezt size" finds Text size. lgse/strata#849
+- Query words of four or more letters tolerate one typo, six or more two, so "tezt size" finds Text size. lgse/strata#849 (unverified)
 - Queries also match a row's translated title and the current language's keywords. lgse/strata#1519
 - A query with no match shows "No settings match your search." under the title Search results. lgse/strata#849
 - Escape in a non-empty search field clears the query and restores every row; the next Escape closes Settings. lgse/strata#849
 - Searching changes no saved preference. lgse/strata#849
 - Searching "keybindings" finds Show F1 Shortcuts button. lgse/strata#1376
-- In that compact layout the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
+- With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
 
 ### About
@@ -78,7 +79,6 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
-- Window-button visibility is a user choice. Detecting the window manager was rejected as brittle. Close-only stays the default so tiling setups are unchanged (lgse/strata#1100).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 
@@ -101,5 +101,5 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ## Known gaps
 
 - A search that matches only Actions rows hides every navigation entry, and About matches open the Actions page; the fix is unmerged. lgse/strata#1453, lgse/strata#1546
-- Render documents by default is not registered for search, so no query finds it and it stays visible on every General result; the fix is unmerged. lgse/strata#1454, lgse/strata#1546
+- Render documents by default is not registered for search, so no query finds it, and it stays visible whenever another Browsing row matches; the fix is unmerged. lgse/strata#1454, lgse/strata#1546
 - Closing Settings with Escape or the close button leaves no widget focused, so the next Down key reaches the header; the fix is unmerged. lgse/strata#1430, lgse/strata#1533

@@ -18,7 +18,8 @@ Fast ways through long listings in Columns, Icons, and List: middle-click autosc
 
 ### Middle-click autoscroll
 
-- Middle-clicking a Columns, Icons, or List listing that can scroll starts autoscroll, marks the press point with a round anchor, and shows the all-scroll cursor. lgse/strata#311
+- Middle-clicking a Columns, Icons, or List listing that can scroll starts autoscroll and marks the press point with a round anchor. lgse/strata#311
+- While autoscroll runs, the pointer over that listing shows the all-scroll cursor. lgse/strata#311 (unverified)
 - Moving the pointer away from the anchor scrolls toward it, faster the further away, on both axes the listing can scroll. lgse/strata#311
 - The pointer must move more than 12 px from the anchor before scrolling starts; speed reaches 32 px per 16 ms frame at 232 px. lgse/strata#311 (unverified)
 - Escape, or another click with any button anywhere in the window, stops autoscroll. lgse/strata#311
@@ -26,23 +27,23 @@ Fast ways through long listings in Columns, Icons, and List: middle-click autosc
 - Middle-clicking a listing that fits its viewport starts no autoscroll. lgse/strata#311 (unverified)
 - Middle-clicking a text field, such as the filter field, pastes as usual and starts no autoscroll. lgse/strata#311
 - Mouse buttons 8 and 9 still go back and forward in history. lgse/strata#311
-- Navigating away from, hiding, or closing a listing while it autoscrolls stops the autoscroll and removes the anchor. lgse/strata#1187 (unverified)
-- Escape while autoscroll runs stops only the autoscroll and cancels an armed 10xer chord. lgse/strata#1296
+- Navigating away from, hiding, or closing a listing while it autoscrolls stops the autoscroll and hides the anchor. lgse/strata#311, lgse/strata#1187 (unverified)
+- Escape while autoscroll runs stops only the autoscroll and cancels an armed 10xer chord. lgse/strata#1296, lgse/strata#1307 (unverified)
 
 ### Paging and jumps
 
 - Page Up and Page Down, including the keypad keys, move the focus and selection by one page in the focused listing; in Columns only the focused column moves. lgse/strata#311
 - A page is the number of rows that fit the viewport minus one, kept as overlap; in Icons it is those rows times the tiles per row. lgse/strata#311
 - Paging stops at the first and last entry and keeps the selected item in view. lgse/strata#311
-- In Icons the tiles per row follow the current width, so opening the preview or changing thumbnail size changes the next page at once. lgse/strata#373
+- In Icons the tiles per row follow the current width, so opening the preview or changing thumbnail size changes the next page at once. lgse/strata#373 (unverified)
 - Ctrl+Up and Ctrl+Down select the first or last entry of the focused pane or column and scroll to that edge. lgse/strata#362
 - Ctrl+Up and Ctrl+Down skip hidden entries unless hidden files are shown. lgse/strata#362
 - Ctrl+Up or Ctrl+Down with Shift, Alt, or Super added does not jump. lgse/strata#362 (unverified)
 
 ### Scrollbars
 
-- Scrollbars across the app overlay their content with a 4 px accent thumb, at least 32 px long, on a faint rounded trough. lgse/strata#1208
-- Scrollbars fade in on hover or scrolling and stay hidden at rest; the trough darkens on hover and while dragging. lgse/strata#1208
+- Scrollbars across the app overlay their content with a 4 px accent thumb, at least 32 px long, on a faint rounded trough. lgse/strata#1141, lgse/strata#1208
+- Scrollbars fade in on hover or scrolling and stay hidden at rest; the trough strengthens on hover and while dragging. lgse/strata#1141, lgse/strata#1208
 - The vertical scrollbar of an Icons or List listing is 9 px wide, with a 7 px fully rounded thumb on a fainter trough. lgse/strata#1484
 - The List vertical scrollbar has no gaps at its ends. lgse/strata#1484
 
@@ -50,8 +51,10 @@ Fast ways through long listings in Columns, Icons, and List: middle-click autosc
 
 - A two-finger horizontal touchpad swipe over Columns scrolls the column strip. lgse/strata#1140
 - Vertical touchpad scrolling in listings moves smoothly instead of in wheel-sized steps. lgse/strata#1140
-- The Thumbnail size panel in Icons closes on a wheel tick outside it, like Sort by and Appearance. lgse/strata#328, lgse/strata#590
-- A wheel tick that closes a panel scrolls the listing under the pointer by the step a wheel notch normally moves it. lgse/strata#590 (unverified)
+- A wheel tick outside an open Sort by, Appearance, or Icons Thumbnail size panel closes it. lgse/strata#328, lgse/strata#590
+- Wheel scrolling inside an open panel keeps it open. lgse/strata#590
+- The tick that closes a panel also scrolls the listing under the pointer, and no other; over the sidebar or chrome it only closes the panel. lgse/strata#328, lgse/strata#590
+- That forwarded tick moves the listing by the step a wheel notch normally moves it. lgse/strata#590 (unverified)
 - Shift+wheel outside an open panel closes it and scrolls the pointed listing horizontally. lgse/strata#590 (unverified)
 
 ## Design
@@ -64,7 +67,7 @@ Issue lgse/strata#293 asked for fast movement through large folders. Raising whe
 - Autoscroll state once held its scroller strongly, a cycle that kept every retired listing alive. After 60 folder switches, loads grew from about 75 ms to 290 ms, so it now holds weak references (lgse/strata#1185, lgse/strata#1187).
 - Icons pages scroll the viewport by pixels. GridView's `scroll_to` uses estimated cell sizes that lag behind a resize or preview split (lgse/strata#373). List and Columns scroll to the selected item.
 - Ctrl+Up/Down was chosen over Home/End, which clashed with Alt+Home and text-field editing, and over Vim-style `gg`/`G`, which needed chord handling Strata lacked then (lgse/strata#357).
-- lgse/strata#311 widened file-view scrollbar troughs to 14 px while keeping a 3 px visible bar. lgse/strata#1141 then made the path-bar overlay indicator the one style everywhere, removing the fixed-scrollbar opt-outs. Always-visible fixed bars with unified colors were rejected (lgse/strata#1208).
+- lgse/strata#311 widened file-view scrollbar troughs to 14 px while keeping a 3 px visible bar. lgse/strata#1208 then made the path-bar overlay indicator the one style everywhere, removing the fixed-scrollbar opt-outs. Always-visible fixed bars with unified colors were rejected (lgse/strata#1141).
 - lgse/strata#1484 gave Icons and List back a wider vertical grab target than the shared 4 px bar.
 - The window-level Ctrl+wheel text zoom controller runs in the capture phase. GTK's `DISCRETE` flag masked the horizontal axis and claimed sub-step smooth deltas, so touchpad scrolling never reached descendant scrollers (lgse/strata#1124). The controller now accumulates deltas itself and passes events on unless Ctrl zoom applies (lgse/strata#1140).
 - Outside wheel events can target the parent surface instead of the popup, depending on the display backend and GTK version. A panel therefore adds a capture wheel controller to its window while mapped (lgse/strata#590).

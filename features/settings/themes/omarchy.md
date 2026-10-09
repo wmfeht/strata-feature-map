@@ -20,9 +20,9 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 
 - Follow Omarchy is shown only when `~/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` exist with valid `background`, `foreground`, and `accent` colors. lgse/strata#958, lgse/strata#1482 (unverified)
 - On first launch with no `settings.toml` and a valid Quattro state, Strata follows Omarchy. lgse/strata#542
-- While following, the theme library is insensitive and Current theme reads "Managed by Omarchy. Turn off Follow Omarchy to pick a theme manually." lgse/strata#849 (unverified)
+- While following, the theme library is insensitive and the Current theme description reads "Managed by Omarchy. Turn off Follow Omarchy to pick a theme manually." lgse/strata#849 (unverified)
 - Switching the Omarchy theme or editing `colors.toml` re-applies the palette in every window without restart. lgse/strata#1482
-- Deleting `~/.local/state/omarchy` while Strata runs hides Follow Omarchy, restores the selected built-in theme, and saves `mode = "theme"`. lgse/strata#958
+- Deleting `~/.local/state/omarchy` while Strata runs hides Follow Omarchy, restores the previously selected theme, and saves `mode = "theme"`. lgse/strata#958
 - Omarchy's own theme switch, which briefly removes `current/theme`, does not turn following off. lgse/strata#958
 - Code previews take keyword, string, constant, type, and preprocessor colors from Quattro's `magenta`, `green`, `orange`, `cyan`, and `yellow`. lgse/strata#762
 - Without the named colors, `color5`, `color2`, `color9`, and `color3` supply keywords, strings, constants, and types. lgse/strata#762
@@ -45,7 +45,7 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 
 - Only Quattro's current-theme state is read. Legacy Omarchy layouts and alacritty color extraction are intentionally unsupported.
 - Tokens derive from Quattro's `background`, `foreground`, `accent`, `selection`, `color8`, and `color1`; surfaces blend the background toward `color8`.
-- Availability is re-checked by the state monitor rather than sampled at startup. The check accepts `current` plus `theme.name` so Omarchy's staged switch does not flicker following off (lgse/strata#857, lgse/strata#958).
+- Availability is sampled at startup and re-checked by the state monitor on each change. The re-check accepts `current` plus `theme.name` so Omarchy's staged switch does not flicker following off (lgse/strata#857, lgse/strata#958).
 - Variants exist because terminals and Btop draw near-black backgrounds while Strata's mapping drew lighter surfaces from the same palette (lgse/strata#1198).
 - Darker uses the terminal background, not ANSI `color8`, because bright gray washed out every surface (lgse/strata#1482).
 - Variants keep hues and move only luminance toward black or white, stepping each foreground until its contrast target is met (lgse/strata#1482).

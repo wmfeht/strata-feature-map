@@ -7,7 +7,7 @@ reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
-related: [preview/preview-panel, browser/selection]
+related: [preview/preview-panel, browser/selection, operations/rename]
 ---
 
 ## Summary
@@ -19,7 +19,6 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 ### Opening and closing columns
 
 - With default click settings, a single click on a folder opens it as the next column. lgse/strata#171
-- Clicking the name of a folder whose column is already open starts slow-click rename instead of closing its column. lgse/strata#1265
 - Each column after the first has a "Close this pane" X button that closes it. lgse/strata#171
 - With Mirror columns selection on, the default, Up or Down onto a folder shows its contents in the next column without moving focus. lgse/strata#1179
 - Up or Down onto a previewable file opens Quick Preview when single-click previews are on; onto any other file it closes the child column. lgse/strata#1179
@@ -33,13 +32,20 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
 
+### Open-path marker
+
+- The row of the folder whose column is active gets a strong accent fill; older folders on the open path get a faint one. lgse/strata#1265
+- Clicking empty space in a column after the first pulses its parent folder's row for 420 ms. lgse/strata#1265 (unverified)
+
 ### Background clicks and scrolling
 
-- Clicking empty space in an inactive column focuses that column and scrolls it into view. lgse/strata#523
-- Clicking empty space in the active column clears its selection and closes deeper columns. lgse/strata#1265
-- Clicking empty space in a column keeps that column's vertical scroll position. lgse/strata#1084
+- Clicking empty space in an inactive column closes deeper columns, focuses and reveals that column, and selects its first visible entry. lgse/strata#523, lgse/strata#1164, lgse/strata#1265
+- Clicking empty space in the active column clears the selection in every column and closes deeper columns. lgse/strata#522, lgse/strata#1265
+- Clicking the blank strip right of the last column clears the selection. lgse/strata#522
+- Clicking a column heading focuses that column without changing its selection or closing its child column. lgse/strata#523
+- Clicking empty space in a column keeps that column's vertical scroll position instead of returning to the selected row. lgse/strata#1084
 - Shift+wheel over a listing scrolls the column strip horizontally; vertical wheel ticks scroll only the listing. lgse/strata#1125
-- Horizontal touchpad gestures over a listing scroll the column strip. lgse/strata#1125 (unverified)
+- Horizontal touchpad gestures over a listing scroll the column strip. lgse/strata#1125
 - Columns fill the strip's full height with no per-column paste footer; the paste destination column is marked by its header. lgse/strata#1215
 - The horizontal scrollbar shows no contrasting square at its leading edge. lgse/strata#696, lgse/strata#702
 
@@ -82,7 +88,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 ## Known gaps
 
 - Home and End move the cursor without updating the mirrored child column; the fix is unmerged. lgse/strata#1447, lgse/strata#1533
-- Back, Up, or a breadcrumb return to a parent selects its first entry instead of the folder you came from; the fix is unmerged. lgse/strata#1437, lgse/strata#1544
+- Back, Up, or a breadcrumb return to the first column selects its first entry instead of the folder you came from; the fix is unmerged. lgse/strata#1437, lgse/strata#1544
 - Double-click autofit has no upper bound, and the fitted width becomes the saved default. lgse/strata#1448
 - Closing a column and autofit change width without animation, and keyboard moves between columns shift the open preview panel. lgse/strata#1513
 - There is no modifier to resize every visible column at once and no default-width setting. lgse/strata#1112

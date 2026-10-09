@@ -18,18 +18,18 @@ An opt-in conversion to PNG for images downloaded through the chooser's Name fie
 
 ### Detection
 
-- A downloaded JPEG, BMP, single-frame GIF, or static WebP that the selected filter rejects, while it accepts PNG, opens "Convert image to PNG?" with Convert to PNG and Cancel. lgse/strata#1387
+- A downloaded JPEG, BMP, single-frame GIF, or static WebP that the selected filter rejects, while it accepts PNG, is checked in the sandbox, then opens "Convert image to PNG?" with Convert to PNG and Cancel. lgse/strata#1387
 - The format is detected from file contents, not the URL extension or HTTP content type. lgse/strata#1387
 - A file starting with `BM` counts as BMP only with zero reserved bytes and a DIB header size of 12, 40, 52, 56, 108, or 124. lgse/strata#1387
 - A supported image with the wrong extension is renamed to that format's extension when the renamed file passes the filter, without conversion. lgse/strata#1387
 - When neither the detected format's name nor a PNG name passes the filter, the ordinary filename filter decides, under the server-provided name. lgse/strata#1387
-- PNG bytes, including APNG and corrupt data with a PNG signature, are returned without conversion or sandbox validation. lgse/strata#1387
-- A `.png` download whose bytes are not a supported image shows "This download is not a supported image" under a PNG-only filter. lgse/strata#1387
+- PNG bytes that the filter accepts under a PNG name, including APNG and corrupt data with a PNG signature, are returned without conversion or sandbox validation. lgse/strata#1387
+- A `.png` download whose bytes are not a supported image shows "This download is not a supported image. Choose a JPEG, BMP, static WebP, GIF or PNG image." under a filter that accepts PNG but not JPEG. lgse/strata#1387
 
 ### Conversion
 
 - Convert to PNG returns a PNG with the original dimensions, transparency, orientation, and compatible colour profile. lgse/strata#1387
-- Animated GIF or WebP fails with "Animated images cannot be converted to PNG. Choose a static image instead." lgse/strata#1387
+- An animated GIF or WebP shows "Animated images cannot be converted to PNG. Choose a static image instead." during the check, without the conversion prompt. lgse/strata#1387
 - An embedded ICC profile whose colour space does not match the decoded image aborts conversion; an unprofiled CMYK JPEG converts from the decoder's RGB output. lgse/strata#1387
 - Inputs over 32 MiB or 16 megapixels, or a PNG output over 32 MiB, fail with the limit named in the error. lgse/strata#1387
 - Cancel, Escape, or a failed conversion leaves the chooser open and returns nothing. lgse/strata#1387

@@ -36,7 +36,8 @@ Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GT
 
 - With `io.github.lgse.Strata.FileManager1.service` in `~/.local/share/dbus-1/services`, a `ShowItems` call while Strata is not running starts `strata --gapplication-service` and opens the reveal window. lgse/strata#317
 - When another file manager already owns `org.freedesktop.FileManager1`, Strata does not take the name and calls keep reaching that owner. lgse/strata#317 (unverified)
-- The interactive installer asks about "Open file location" separately from the folder association. lgse/strata#317
+- When the folder-association question is declined, the interactive installer asks 'Use Strata for "Open file location" from other applications?' separately. lgse/strata#317
+- Accepting the folder-association question installs the service without asking. lgse/strata#317
 - `install.sh --with-file-manager` installs the service unattended with `Exec=` pointing at the installed binary; `--with-folder-association` implies it. lgse/strata#317
 - The installer and `mise run install-file-manager` refuse to install when another per-user service in that directory names `org.freedesktop.FileManager1`. lgse/strata#317, lgse/strata#663
 - `mise run uninstall-file-manager` removes the per-user service. lgse/strata#663

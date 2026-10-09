@@ -25,11 +25,11 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 
 ### Unlocking
 
-- Clicking a locked row, its lock button, or Unlock opens the themed "Authenticate to access this volume or location" prompt with a Passphrase field and a password-storage choice. lgse/strata#493, lgse/strata#935
+- Clicking a locked row, its lock button, or Unlock opens the themed "Passphrase required" prompt with a Passphrase field and a "Password storage" choice. lgse/strata#493, lgse/strata#935
 - Cancel in the prompt closes it with no error and keeps the current folder. lgse/strata#493
 - A rejected passphrase reopens the prompt with a retry message instead of an error dialog. lgse/strata#493
 - A correct passphrase unlocks and mounts the volume, then navigates into it. lgse/strata#493
-- 350 ms after the unlock starts, an "Unlocking volume" overlay appears; Hide, Close, or Escape dismiss it and unlocking continues. lgse/strata#935 (unverified)
+- An "Unlocking volume" overlay appears once the passphrase is submitted, or 350 ms after unlock starts with no prompt; Hide, Close, or Escape dismiss it and unlocking continues. lgse/strata#935 (unverified)
 - If that overlay was hidden, completion does not navigate away from the current folder. lgse/strata#935
 - If the pane is already inside the volume's mount when unlock completes, the folder reloads without F5. lgse/strata#935
 - After unlock, Strata opens only the volume matching the unlocked device's GIO object or LUKS UUID, not another encrypted partition on the same drive. lgse/strata#935
@@ -40,6 +40,7 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - When the volume's passphrase is saved, Lock first asks "Forget saved password?"; Cancel or Escape leaves both the password and the mount. lgse/strata#935
 - "Forget and lock" deletes the saved passphrase, then locks. lgse/strata#935
 - If the keyring needs a confirmation Strata cannot display, Lock stops with "Couldn't forget the saved password" and asks the user to remove it in the password manager. lgse/strata#935
+- If the saved passphrase is in a locked keyring, "Forget and lock" stops with "Couldn't forget the saved password" and asks the user to unlock the keyring. lgse/strata#935 (unverified)
 - Lock on an unlocked but unmounted volume with no stop operation shows "Unable to lock device" and keeps the saved passphrase. lgse/strata#935
 - A successful Lock never shows "Safe to remove". lgse/strata#1193
 

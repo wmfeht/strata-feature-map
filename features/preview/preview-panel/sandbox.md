@@ -6,7 +6,7 @@ branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs]
-tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs]
+tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/trusted_command/tests.rs]
 docs: [docs/preview-sandbox.md]
 related: [preview/preview-panel/media, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives]
 ---
@@ -19,19 +19,19 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ### Launching the sandbox
 
-- Strata starts `bwrap` from an absolute path under admin-managed system directories; a `bwrap` found only through inherited `PATH`, such as in `~/.local/bin`, is never executed. lgse/strata#1055
+- Strata runs `bwrap` only from `/run/wrappers/bin`, `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin`, or the NixOS and Guix system profiles, never from `PATH`. lgse/strata#1055
 - A search hit whose canonical target lies outside FHS, `/run/wrappers/bin`, `/nix/store`, or `/gnu/store` is rejected, and previews fail closed. lgse/strata#1055
-- When bubblewrap cannot start, the preview shows "Preview unavailable" and Strata never decodes the file outside the sandbox. lgse/strata#17, lgse/strata#1503
+- When bubblewrap is missing or cannot start, a native-format preview shows "Preview unavailable" and the file is never decoded outside the sandbox. lgse/strata#17, lgse/strata#1503
 - Builds compiled with `STRATA_SANDBOX_PATH`, `STRATA_SANDBOX_ROOT`, `STRATA_SANDBOX_PRLIMIT`, or `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` use those paths inside the sandbox; setting them at launch has no effect. lgse/strata#1357
 - Without those build variables, helpers run with `PATH=/usr/bin`, a read-only `/usr`, and `/usr/bin/prlimit`. lgse/strata#1357
 
 ### Isolation and limits
 
-- A helper sees one read-only input file, a private output directory, a 512 MiB private `/tmp`, an empty environment, and no network, home, session bus, or display. lgse/strata#17
-- Image, PDF, and document helpers run under a 2 GiB address-space limit, a 10-second CPU limit, a 512 MiB file-size limit, and a 12-second wall deadline. lgse/strata#17, lgse/strata#55
-- Image inputs over 512 MiB are rejected before a renderer starts. lgse/strata#17 (unverified)
+- A helper sees one read-only input file, a private output directory, a 512 MiB private `/tmp`, a cleared environment with `HOME=/nonexistent`, and no network, session bus, or display. lgse/strata#17
+- Image, RAW, and PDF helpers run under a 2 GiB address-space limit, a 10-second CPU limit, a 512 MiB file-size limit, and a 12-second wall deadline. lgse/strata#17, lgse/strata#45, lgse/strata#55
+- An image, RAW, or PDF preview input over 512 MiB fails with "Preview input exceeds the supported size limit" before any renderer starts. lgse/strata#17 (unverified)
 - Changing selection or closing the preview kills the helper's whole process tree. lgse/strata#17
-- An image or PDF helper receives no GPU device and no `/sys` mount. lgse/strata#17, lgse/strata#45 (unverified)
+- An image or PDF helper receives no GPU device and no `/sys` mount. lgse/strata#17, lgse/strata#45
 
 ### Decoding
 
@@ -40,17 +40,17 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - The input keeps a sanitized extension of 1 to 8 ASCII alphanumerics, such as `/input.ARW`, so Sony ARW files render; other names become `/input`. lgse/strata#166
 - A RAW preview that GDK Pixbuf cannot decode falls back to ImageMagick, then to the embedded camera JPEG via `dcraw` or `simple_dcraw`. lgse/strata#166
 - An image over the decoded-frame budget (about 134 MP RGBA) renders its embedded EXIF thumbnail when it has one, and otherwise fails without killing any process. lgse/strata#1277
-- SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with external resources disabled. lgse/strata#1222
+- SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
 
 ### Output validation
 
-- A renderer output that is a symlink, FIFO, directory, empty file, or over 32 MiB is rejected; a symlinked `result.meta` falls back to page `(0, 0)`. lgse/strata#669
-- Only bounded PNG output is accepted from image renderers; compressed media output is rejected. lgse/strata#17 (unverified)
+- An image renderer output that is a symlink, FIFO, directory, empty file, or over 32 MiB is rejected; a symlinked `result.meta` falls back to page `(0, 0)`. lgse/strata#669
+- An image renderer must return a PNG within the operation's bounds, 800×800 for a still preview and 256×256 for a thumbnail; other output is rejected. lgse/strata#17 (unverified)
 
 ### Pooled preview worker
 
 - Still-image previews, Markdown images, Mermaid diagrams, and equations run on a preview pool separate from the thumbnail pool, so a thumbnail backlog does not delay a Space preview. lgse/strata#1222
-- After the first preview starts a supervisor, further image previews within its 60-second idle timeout reuse it instead of starting another bubblewrap instance. lgse/strata#1222
+- With Landlock ABI 3, an image preview within 60 seconds of the previous one reuses its supervisor rather than starting another bubblewrap. lgse/strata#1222
 - A preview render is never served from a cached 256-pixel thumbnail of the same file. lgse/strata#1222
 
 ## Design

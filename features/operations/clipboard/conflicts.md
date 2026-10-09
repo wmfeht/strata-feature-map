@@ -19,21 +19,21 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 ### Dialog
 
 - Pasting into a folder that already holds an item of the same name opens "File already exists", naming the item and the folder. lgse/strata#708
-- Replace has focus when the dialog opens, and Enter activates the focused button. lgse/strata#1206, lgse/strata#1052
+- When Ctrl+V, a drop, or Move to… opens the dialog, Replace has focus. Enter or keypad Enter activates the focused button. lgse/strata#1206, lgse/strata#1052
 - Cancel, Escape, and the header X abandon the whole paste, and no file is written. lgse/strata#448, lgse/strata#708
 - Skip appears only when other items are accepted or further conflicts remain; it keeps the existing item and transfers the rest. lgse/strata#708
-- Apply to All appears only while further conflicts remain, and applies the chosen action to all of them. lgse/strata#708
-- A drag-and-drop transfer onto a taken name shows the same dialog. lgse/strata#599 (unverified)
+- The Apply to All checkbox appears only while further conflicts remain; when checked, the chosen action applies to all of them. lgse/strata#708
+- Dragging a move onto a folder that holds a taken name shows the same dialog without Keep Both. lgse/strata#599
+- Dragging a copy onto a folder that holds a taken name shows the same dialog with Keep Both. lgse/strata#599 (unverified)
 
 ### Choices
 
 - Replace overwrites only the chosen destination. lgse/strata#708
-- Keep Both, offered for copies, creates `name (1).ext` beside the existing item and leaves it untouched. lgse/strata#599
+- Keep Both, offered for copies, creates the first free `name (N).ext` beside the existing item and leaves it untouched. lgse/strata#599
 - Conflicts during a cut-paste or Move to… offer no Keep Both. lgse/strata#599
 - Merge appears only when copying a folder onto a folder; moves and file conflicts never offer it. lgse/strata#1092
 - Merge adds the incoming contents, keeps destination-only items, and overwrites same-named files with the incoming copies. lgse/strata#1092
 - Merge with Apply to All merges the remaining folder pairs and still asks about each file conflict. lgse/strata#1092 (unverified)
-- Copying an item onto itself and choosing Replace does nothing. lgse/strata#708
 
 ### Undo
 
@@ -47,6 +47,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - A failed, cancelled, or disk-full Replace leaves the existing destination unchanged and removes the partial copy. lgse/strata#25
 - An item that appears at the destination after the dialog is answered is not overwritten. lgse/strata#25, lgse/strata#1097
 - Replacing a folder swaps the whole folder; none of its old contents remain. lgse/strata#25
+- Replace onto a destination without a local path fails with "Safe replacement is unavailable at this destination" and keeps the existing item. lgse/strata#25
 
 ## Design
 
@@ -57,7 +58,7 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 - Keep Both is copy-only, because move undo and reveal assume a move never renames its destination (lgse/strata#599).
 - Merge is copy-only, because undoing a merged move cannot tell which destination contents the source owned (lgse/strata#1092).
 - Incoming-wins merging with Trash staging was chosen over per-file prompts or Finder's newer-wins, to keep it predictable and undoable (lgse/strata#1091).
-- Same-folder paste never prompts, so pasting where an item already lives stays non-destructive (lgse/strata#395, lgse/strata#708).
+- Same-folder paste never prompts, so pasting where an item already lives stays non-destructive. The engine also treats Replace of an item onto itself as a no-op (lgse/strata#395, lgse/strata#708).
 
 ## History
 

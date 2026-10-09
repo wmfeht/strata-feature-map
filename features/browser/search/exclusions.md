@@ -21,17 +21,18 @@ User-defined folder names and directory paths that Ctrl+K global search skips wh
 
 - The row shows a text field, **Browse…** and **Add** buttons, and a scrollable list of saved exclusions below them. lgse/strata#1064
 - Pressing Enter in the field, or clicking **Add**, saves the rule and clears the field. lgse/strata#1064
-- **Browse…** opens a folder chooser and puts the chosen path, with Home shortened to `~`, in the field without saving it. lgse/strata#1064
-- Each saved rule shows its text, a "Folder name" or "Directory" label, and a remove button that deletes it. lgse/strata#1064
-- With no rules, the list says common tool caches such as `.venv`, `node_modules`, and `target` are excluded automatically. lgse/strata#1064
+- **Browse…** opens a folder chooser and puts the chosen path, with Home shortened to `~`, in the field without saving it. lgse/strata#1064 (unverified)
+- Each saved rule shows its text, a "Folder name" or "Directory" label, and a remove button that deletes it. lgse/strata#1064 (unverified)
+- With no rules, the list shows "No custom exclusions added. Common tool caches (.venv, node_modules, target, etc.) are excluded automatically." lgse/strata#1064 (unverified)
 - With two Settings windows open, an add or remove in one updates the other without erasing its draft. lgse/strata#1064
 - Rules persist after Settings is closed and reopened. lgse/strata#1064
+- A rule is saved normalized: `~/LargeData/` is listed as the full path, such as `/home/user/LargeData`. lgse/strata#1064 (unverified)
 
 ### Validation
 
 - An empty entry shows "Enter a folder name or directory path." lgse/strata#1064
 - `/`, `~`, or the full Home path shows "Cannot exclude root or entire home directory." lgse/strata#1064
-- A path containing `/` that starts with neither `/` nor `~/` shows "Directory paths must start with / or ~/". lgse/strata#1064
+- A rule containing `/` or starting with `~`, but starting with neither `/` nor `~/`, such as `project/build` or `~user/dir`, shows "Directory paths must start with / or ~/". lgse/strata#1064
 - A path containing a `..` component shows "Directory paths cannot contain .." lgse/strata#1064
 - `.` or `..` as a folder name shows "Enter a folder name, not . or .." lgse/strata#1064 (unverified)
 - A rule equal to a saved one, ignoring case for folder names, shows "This exclusion has already been added." lgse/strata#1064
@@ -43,7 +44,7 @@ User-defined folder names and directory paths that Ctrl+K global search skips wh
 - A rule starting with `/` or `~/` hides only that subtree, matched case-sensitively by whole path components. lgse/strata#1064
 - Each opening of Ctrl+K reads the current rules, including before Settings has been opened; an open search keeps its rules until reopened. lgse/strata#1064
 - Removing a rule and reopening Ctrl+K finds files in that subtree again. lgse/strata#1064
-- Pane filters, destination pickers, and folder history search ignore the rules. lgse/strata#1064
+- Pane filters, 10xer path search, folder-history search, and destination pickers ignore the rules. lgse/strata#1064
 - Invalid rules in the saved preferences are ignored. lgse/strata#1064
 
 ## Design

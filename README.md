@@ -58,7 +58,7 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark not set · 1
 | [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `b893886` | 1 |
 | ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `b893886` | 1 |
 | ↳ [Icons view](features/browser/view-modes/icons.md) | `browser/view-modes/icons` | shipped | draft | `b893886` | 0 |
-| ↳ [List view](features/browser/view-modes/list.md) | `browser/view-modes/list` | shipped | draft | `b893886` | 0 |
+| ↳ [List view](features/browser/view-modes/list.md) | `browser/view-modes/list` | shipped | draft | `b893886` | 1 |
 | ↳ [Sorting](features/browser/view-modes/sorting.md) | `browser/view-modes/sorting` | shipped | draft | `b893886` | 0 |
 | ↳ [Text size](features/browser/view-modes/text-size.md) | `browser/view-modes/text-size` | shipped | draft | `b893886` | 0 |
 
@@ -82,7 +82,7 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark not set · 1
 | ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `b893886` | 1 |
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places.md) | `integration/10xer-mode/places` | shipped | draft | `b893886` | 0 |
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | draft | `b893886` | 0 |
-| ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | draft | `b893886` | 0 |
+| ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | draft | `b893886` | 1 |
 | [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | draft | `b893886` | 0 |
 | [FileManager1 D-Bus interface](features/integration/file-manager-interface.md) | `integration/file-manager-interface` | shipped | draft | `b893886` | 0 |
 | [Opening files and Open With](features/integration/open-with/index.md) | `integration/open-with` | shipped | draft | `b893886` | 0 |
@@ -104,7 +104,7 @@ Upstream [lgse/strata](https://github.com/lgse/strata) · watermark not set · 1
 | [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | draft | `b893886` | 0 |
 | ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `b893886` | 0 |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | draft | `b893886` | 0 |
-| [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `b893886` | 0 |
+| [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `b893886` | 1 |
 | [Permanent deletion](features/operations/delete.md) | `operations/delete` | shipped | draft | `b893886` | 0 |
 | [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | draft | `b893886` | 0 |
 | ↳ [Columns drag autoscroll](features/operations/drag-and-drop/column-autoscroll.md) | `operations/drag-and-drop/column-autoscroll` | shipped | draft | `b893886` | 0 |

@@ -18,11 +18,12 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 ### Pinning and unpinning
 
-- The folder context menu shows Pin to sidebar for folders outside Trash. It is insensitive for pinned folders, Home, and standard folders. lgse/strata#67, lgse/strata#457 (unverified)
-- Properties for a folder shows Pin, or Unpin once it is pinned; Unpin removes the sidebar row. lgse/strata#457
+- With one folder outside Trash selected, the item context menu shows Pin to sidebar. It is insensitive for pinned folders, Home, and standard folders. lgse/strata#67, lgse/strata#457 (unverified)
+- Properties for a folder shows Pin, or Unpin once it is pinned. Either action updates the sidebar and closes the dialog. lgse/strata#457
 - Properties shows no pin control for files, Trash, or Home and the standard folders. lgse/strata#457
 - Right-clicking a pinned row offers Unpin and Properties, plus Customize… for a local folder. lgse/strata#457, lgse/strata#1370
-- Clicking a pinned remote location that is not mounted, such as an SMB share, mounts it and then opens it. lgse/strata#67 (unverified)
+- With the file list focused and Type to search off, `p` or `P` pins the focused folder; files, Trash, and pinned or standard folders are ignored. lgse/strata#230 (unverified)
+- Clicking a pinned remote location that is not mounted, such as an SMB share, mounts it and then opens it. lgse/strata#67
 
 ### Display and order
 
@@ -35,7 +36,9 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 - Every pin, unpin, or reorder re-reads the bookmarks file first, so pins made in another Strata window or by Nautilus survive. lgse/strata#674
 - When the bookmarks file cannot be read or saved, an "Unable to update pinned folders" dialog appears and the shown pins stay unchanged. lgse/strata#674
-- A label with invalid UTF-8 is shown with U+FFFD; only a line whose URI is invalid UTF-8 is skipped, and CRLF line endings are accepted. lgse/strata#713
+- A label with invalid UTF-8 is shown with U+FFFD, a line whose URI is invalid UTF-8 is skipped, and CRLF line endings are accepted. lgse/strata#713
+- A line whose URI cannot be parsed, or that repeats an earlier location, is also skipped. lgse/strata#713 (unverified)
+- A pin, unpin, or reorder rewrites the file from the parsed list. Skipped lines are dropped, and unlabelled bookmarks gain the folder name as label. lgse/strata#674 (unverified)
 - A bookmark URI with a password or authentication parameters is kept with its username only, on load and on save. lgse/strata#145
 
 ### Deleted folders
@@ -69,5 +72,5 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 ## Known gaps
 
-- A pin made in one window appears in other open windows only after their next pin change; there is no live file monitor. lgse/strata#647, lgse/strata#674
+- A pin made in one window appears in other open windows only after they change a pin or Strata deletes an item; there is no file monitor. lgse/strata#647, lgse/strata#674
 - When deleting a parent fails after removing some children, pins to those removed children are kept. lgse/strata#1372

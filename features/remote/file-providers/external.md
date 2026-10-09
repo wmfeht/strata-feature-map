@@ -20,7 +20,7 @@ Opt-in, trusted programs that add live status badges and state-dependent context
 ### Registration
 
 - A provider registers as `<id>/provider.json` under `$XDG_CONFIG_HOME/strata/providers/`, default `~/.config/strata/providers/`, and loads at startup; edits and removals apply on restart. lgse/strata#1385
-- A registration whose directory, manifest, or icon is a symlink, is group- or world-writable, or is owned by neither the user nor root is rejected. lgse/strata#1385
+- A registration whose directory, manifest, or icon is a symlink, is group- or world-writable, or is owned by neither the user nor root is rejected. The executable gets the same ownership and permission check after its symlinks are resolved. lgse/strata#1385
 - A manifest whose `id` differs from its directory name, or whose command does not start with an absolute executable, is rejected; no shell or PATH lookup runs. lgse/strata#1385
 - At most 8 providers load, from at most 64 directory entries, one child process each. lgse/strata#1385
 - Icons are PNG files beside the manifest, at most 16, each at most 64 KiB and 256×256. lgse/strata#1385
@@ -49,13 +49,15 @@ Opt-in, trusted programs that add live status badges and state-dependent context
 - If the provider disconnects after an action was sent, the dialog says it may already have been accepted; an unsent action says it was not sent. lgse/strata#1385
 - When the provider's queue is full, the dialog says the provider is busy or unavailable and the action was not sent. lgse/strata#1385
 - No action is retried automatically, including after a lost reply. lgse/strata#1385
+- After an activation reply, Strata re-queries that provider's visible badges and open menus. lgse/strata#1385 (unverified)
 
 ### Freshness and failures
 
 - An `invalidate` event refreshes the affected badges and menus; unchanged answers stay visible meanwhile. lgse/strata#1385
 - Answers refresh after 5 seconds and expire after 15 seconds if not replaced. lgse/strata#1385
 - A reply older than an overlapping invalidation's `revision` is rejected. lgse/strata#1385
-- A request unanswered for 8 seconds, an invalid frame, or excess output disconnects the provider, withdraws its badges and actions, and restarts it after 2 seconds. lgse/strata#1385
+- A request unanswered for 8 seconds, an invalid frame, or a reply frame over 1 MiB disconnects the provider and withdraws its badges and actions. lgse/strata#1385
+- After a disconnect, the provider restarts on its next request once a 2-second backoff has passed. lgse/strata#1385
 - A method `error` reply withdraws that presentation without disconnecting the provider. lgse/strata#1385
 
 ## Design

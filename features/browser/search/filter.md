@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, tests/e2e/scenarios/test_filter_results.py]
 docs: [docs/keyboard-navigation.md, docs/preferences.md]
-related: [integration/10xer-mode, browser/view-modes, preview/quick-preview]
+related: [integration/10xer-mode, browser/view-modes, preview/quick-preview, browser/thumbnails]
 ---
 
 ## Summary
@@ -22,13 +22,13 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Ctrl+F, or the pane's filter button, reveals the filter field for the focused pane. lgse/strata#307, lgse/strata#389
 - With **Type to search** on, typing a printable character in a file view opens the filter with that character as the query. lgse/strata#307
 - **Type to search** is on unless the user turned it off. lgse/strata#387
-- `/` in a file view opens an empty filter without inserting `/`. lgse/strata#416
+- With **Type to search** on, `/` in a file view opens an empty filter without inserting `/`. lgse/strata#416
 - Space in a file view opens quick preview, not the filter. lgse/strata#416
-- Escape or clearing the query restores the normal listing; hidden files stay hidden. lgse/strata#307, lgse/strata#310
+- Escape in the filter field, or clearing the query, restores the normal listing; hidden files stay hidden. lgse/strata#307, lgse/strata#310
 - Switching between Columns, Icons, and List keeps the query, the open filter field, and the narrowed listing. lgse/strata#925
 - In Columns, opening a filter in one column closes and clears any other column's filter. lgse/strata#887
-- In Columns, a click outside the filter field and its button closes and clears the filter. lgse/strata#887
-- In Columns, moving focus into another column closes the filter; moving into its own results or a result dialog keeps it. lgse/strata#896
+- In Columns, a click outside the filtered column closes and clears its filter; a click inside that column keeps it. lgse/strata#887
+- In Columns, moving focus out of the filtered column closes the filter; focus in its own results, a popover, or a dialog keeps it. lgse/strata#896
 
 ### Matching
 
@@ -61,7 +61,6 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Right-click on empty result space still opens the background menu with New Folder and New File. lgse/strata#639
 - A single file result's menu offers **Open file location**, which opens its folder with the file selected. lgse/strata#1041
 - A result renamed, deleted, or moved through its menu leaves the results; a rename that still matches stays at its real parent. lgse/strata#800, lgse/strata#1155
-- Image results show thumbnails, and they stay rendered as the query changes. lgse/strata#548, lgse/strata#639
 - As results update, rows still matching keep their widgets, thumbnails, and selection, without flashing. lgse/strata#639, lgse/strata#778
 - When the selected result disappears, the next result, or the last remaining one, is selected. lgse/strata#639
 - Icons shows results as an icon grid and List as rows. lgse/strata#1155
@@ -77,11 +76,11 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - The directory-only index reuses the GIO listing's symlink and `.hidden` rules so filter results match the visible listing (lgse/strata#692, lgse/strata#752).
 - Results are reconciled by full path, so progressive updates keep rows, thumbnails, focus, and selection (lgse/strata#620, lgse/strata#639, lgse/strata#719).
 - Icons and List share one result collection with view-specific presentation; Columns keeps its native collection (lgse/strata#1155, lgse/strata#1167).
-- Scope changes and query edits cancel the old search session, so a stale worker cannot update a rebuilt view (lgse/strata#602, lgse/strata#1174).
+- Scope changes cancel the old search session, and a session drops batches for any query but the current one, so a stale worker cannot update a rebuilt view (lgse/strata#602, lgse/strata#1174).
 - Results are pruned by checking that each path still exists, rather than tracking each operation's old and new paths (lgse/strata#800).
 - Filtered results ignore the click-count and preview preferences, which keep governing unfiltered rows (lgse/strata#681, lgse/strata#697).
 - Columns dismisses on any outside click through one window-level gesture, because focus stays in the entry when non-focusable widgets are clicked (lgse/strata#887).
-- 10xer mode drives this same field for its **f** filter and **s** search, overriding the subfolder preference without saving it (lgse/strata#1297).
+- 10xer mode drives this same field for its **f** filter and **s** search with fzf-style path terms, overriding the subfolder preference without saving it (lgse/strata#1297, lgse/strata#1403).
 
 ## History
 
@@ -110,7 +109,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 ## Known gaps
 
-- Escape with a result focused does not dismiss the filter in one press; the fix is unmerged. lgse/strata#1440, lgse/strata#1533
-- Switching view mode does not keep keyboard focus in the filter field; the fix is unmerged. lgse/strata#1441, lgse/strata#1533
-- Ctrl+F during a very large Icons load loses focus to the loading listing; the fix is unmerged. lgse/strata#1444, lgse/strata#1533
+- Escape with a result focused does not dismiss the filter in one press; the fix landed after this snapshot. lgse/strata#1440, lgse/strata#1533
+- Switching view mode does not keep keyboard focus in the filter field; the fix landed after this snapshot. lgse/strata#1441, lgse/strata#1533
+- Ctrl+F during a very large Icons load loses focus to the loading listing; the fix landed after this snapshot. lgse/strata#1444, lgse/strata#1533
 - The filter cannot search file contents. lgse/strata#1211

@@ -35,7 +35,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
 - Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
-- Saving with an empty name shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
+- Saving with an empty name, or one with no ASCII letters or digits, shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
 
 ### Syntax colors
@@ -43,7 +43,8 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Code previews color keywords, strings, constants, types, and preprocessor directives from the active theme; all 95 bundled themes define these five colors. lgse/strata#762
 - In a custom file, each `syntax_*` key overrides one role; an omitted key keeps its color derived from accent and text. lgse/strata#762
 - Comments use the dim text color and Markdown headings use the accent color. lgse/strata#762
-- Themes saved by the editor, which stores `rgb()` values, keep syntax colors in code previews. lgse/strata#742
+- A custom theme whose colors are written as `rgb()`, short hex, or color names keeps syntax colors in code previews. lgse/strata#742
+- The editor saves each picked color as `#rrggbb`. lgse/strata#742 (unverified)
 
 ### Styling and effects
 
@@ -54,7 +55,9 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Turning Element glow off removes that glow in every window at once, keeps focus outlines and depth shadows, and persists across restart. lgse/strata#920
 - Interface renderer offers GTK default and Cairo; choosing a value other than the startup one shows Restart now. lgse/strata#1218
 - After restart, Cairo renders the interface; an explicit `GSK_RENDERER` environment variable overrides the saved choice. lgse/strata#1218
-- With Reduce motion on, sidebar, column, and preview animations do not play; the desktop's reduced-motion preference has no effect. lgse/strata#458
+- With Reduce motion on, sidebar, column, and preview animations do not play. lgse/strata#458
+- Strata's stylesheet has no `prefers-reduced-motion` rule, so that desktop media preference does not shorten CSS transitions. lgse/strata#458
+- With GTK's `gtk-enable-animations` set to false, the same animations do not play even when Reduce motion is off. lgse/strata#458 (unverified)
 
 ## Design
 
@@ -63,13 +66,13 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
 - Base16 slots map `base00` background, `base01` surface, `base05` text, `base0D` accent, `base08` danger, `base02` muted and highlight, `base03` border, `base04` dim text (lgse/strata#96).
-- Syntax palettes map `base0E` keywords, `base0B` strings, `base09` constants, `base0A` types, and `base0C` preprocessor. Azure Glow and Omarchy Light use curated palettes (lgse/strata#762, lgse/strata#1104).
+- Syntax palettes map `base0E` keywords, `base0B` strings, `base09` constants, `base0A` types, and `base0C` preprocessor. Catppuccin and Tokyo Night use the pinned `catppuccin-mocha` and `tokyo-night-dark` palettes. Azure Glow and Omarchy Light use curated palettes (lgse/strata#762, lgse/strata#1104).
 - Colors are parsed through `gdk::RGBA`, so hex, short hex, `rgb()`, and names all work. Hand-rolled hex parsing had misfiled light themes and dropped syntax colors (lgse/strata#655, lgse/strata#742).
 - The token provider sits above GTK theme priority, so GTK themes cannot shadow it, while user CSS keeps GTK's higher user priority by design. The `@strata_*` namespace hardens against name collisions; the trigger reported in lgse/strata#1096 was not reproduced (lgse/strata#1412).
 - Tokyo Night became the default at the maintainer's request; Azure Glow stayed the missing-theme fallback (lgse/strata#541, lgse/strata#542).
 - Glow got its own switch because changing themes could not tone down dialog glow (lgse/strata#919).
 - GTK's GL and Vulkan renderers lose a top glyph pixel at some scales (GTK issue 8395). Cairo avoids it but costs CPU and is inherited by launched apps, so it stays opt-in (lgse/strata#1216, lgse/strata#1218).
-- The `@media (prefers-reduced-motion)` rule was removed because GTK before 4.20 rejects `@media`. Reduced motion now flows only through Strata's setting (lgse/strata#436, lgse/strata#458).
+- The `@media (prefers-reduced-motion)` rule was removed because GTK before 4.20 rejects `@media`. Reduced motion now flows through Strata's setting, not a CSS media query (lgse/strata#436, lgse/strata#458).
 
 ## History
 
@@ -87,6 +90,6 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 ## Known gaps
 
-- Closing Settings while the editor previews unsaved colors leaves the preview applied; the fix is unmerged. lgse/strata#1457, lgse/strata#1533
+- Closing Settings while the editor previews unsaved colors leaves the preview applied; the fix landed after `reviewed_at`. lgse/strata#1457, lgse/strata#1533
 - docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
 - The interface font is fixed to JetBrains Mono. lgse/strata#1217

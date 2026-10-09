@@ -13,7 +13,7 @@ related: [browser/navigation, devices/volumes, integration/10xer-mode]
 
 ## Summary
 
-Ctrl+K global search finds files and folders by fuzzy name or path across Home and mounted local drives, from any folder. It runs on a bounded in-memory index that the pane filter also uses. Children: `browser/search/filter` (the Ctrl+F pane filter) and `browser/search/exclusions` (user-defined global search exclusions).
+Ctrl+K global search finds files and folders by fuzzy name or path across Home and mounted local drives, from any folder. It runs on a bounded in-memory index built by the same service as the pane filter. Children: `browser/search/filter` (the Ctrl+F pane filter) and `browser/search/exclusions` (user-defined global search exclusions).
 
 ## Behavior
 
@@ -23,21 +23,22 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Search covers Home and every mounted local drive, regardless of the open folder. lgse/strata#222, lgse/strata#493
 - An ejected drive's results are gone the next time search opens. lgse/strata#493
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
-- With no local search location available, the dialog shows "No local search locations available." and the field is insensitive. lgse/strata#493
-- An empty query shows "Type to search Home and mounted local drives". lgse/strata#493
+- A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
+- On open, the empty query shows "Type to search Home and mounted local drives"; clearing a typed query adds "Fuzzy matching · try a name or path fragment". lgse/strata#493 (unverified)
 
 ### Matching and results
 
-- A query matches names and paths fuzzily: `cat-01` also returns `bucket-01` and `file-01-*`. lgse/strata#758
+- A query also matches paths that contain its characters in order: `cat-01` matches `bucket-cat/file-01-noise.jpg`, below `cat-01-photo.jpg`. lgse/strata#695, lgse/strata#758
 - Name matches rank above path-only matches, and a shallower duplicate ranks above a deeper one. lgse/strata#307, lgse/strata#493 (unverified)
 - A contiguous match of accented or CJK characters ranks above the same characters separated by `_`. lgse/strata#739
 - An NFC query such as `résumé` matches an NFD filename, and an NFD query matches an NFC filename. lgse/strata#813
 - Dotfiles are indexed only while hidden files are shown. lgse/strata#376
-- Generated trees such as `node_modules/`, `target/`, `.venv/`, `.cache/`, `go/pkg/mod/`, and `__pycache__/` are skipped; `.cargo/config.toml` stays searchable. lgse/strata#473, lgse/strata#1287
+- Generated trees such as `node_modules/`, `target/`, `.venv/`, `.cache/`, `go/pkg/mod/`, and `__pycache__/` are skipped; with hidden files shown, `.cargo/config.toml` stays searchable. lgse/strata#473, lgse/strata#1287
+- Paths excluded by a `.gitignore` or `.ignore` file are not indexed. lgse/strata#758 (unverified)
 - At most 100 results are shown, best first. lgse/strata#473
 - Each result shows its name, its full path, and a thumbnail for images. lgse/strata#493, lgse/strata#548
 - A spinner shows in the search bar while indexing runs. lgse/strata#72 (unverified)
-- When indexing stops early, the footer shows "Partial results"; its description names each cause, such as "some folders could not be read". lgse/strata#72, lgse/strata#493
+- When indexing stops early, the footer shows "Partial results"; its description names each cause, such as "some folders could not be read". lgse/strata#72, lgse/strata#493, lgse/strata#1066
 - A small tree with one unreadable folder reports the unreadable folder, not an entry limit. lgse/strata#493
 - While indexing adds results, the highlighted result stays selected by path and unchanged rows are not rebuilt. lgse/strata#758
 
@@ -48,7 +49,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Enter or a single click on a result opens it and closes search. lgse/strata#177, lgse/strata#758
 - Opening a folder result navigates into that folder. lgse/strata#177 (unverified)
 - Opening a file result reveals it selected in its folder and opens quick preview. lgse/strata#1499
-- With **Open search results directly** on, opening a file result launches it instead of previewing it. lgse/strata#144 (unverified)
+- With **Open search results directly** on, opening a file result launches it instead of previewing it, and still reveals it in its folder. lgse/strata#144 (unverified)
 - Alt+Enter, or right-click → **Open containing folder**, closes search and opens the result's parent with the result selected and focused. lgse/strata#1066
 - For a folder result, **Open containing folder** selects the folder in its parent rather than opening it. lgse/strata#1066
 - Escape, or a click outside the dialog panel, closes search. lgse/strata#112 (unverified)
@@ -63,7 +64,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 - Raising the cap to 400,000 entries was rejected because it roughly doubles worst-case memory and query work (lgse/strata#471).
 - Concurrent sessions with the same roots, hidden-file setting, scope, and exclusions share one index snapshot. Only the best 100 matches are kept, in a bounded heap (lgse/strata#473).
 - Roots share one entry budget and take turns, so a large Home cannot starve a drive (lgse/strata#493). Folders share indexing work so a dense subtree cannot exhaust the budget first (lgse/strata#758).
-- Shallower directories are scheduled first, so sibling folders are found before deep subtrees (lgse/strata#1286, lgse/strata#1287).
+- Among directories with equal pending work, shallower ones are scheduled first, so sibling folders are found before deep subtrees (lgse/strata#1286, lgse/strata#1287).
 - Generated trees are pruned by glob rather than whole dot-directories, so tool configuration stays searchable (lgse/strata#471, lgse/strata#473).
 - The index is not a snapshot. Concurrent filesystem changes can cause transient omissions (lgse/strata#758).
 - Unreadable folders are reported apart from size limits, because a walker error had been described as a very large tree (lgse/strata#431).
@@ -90,4 +91,4 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 - Remote shares such as SMB are not searched. lgse/strata#87
 - Whether global search scans mounts the volume monitor hides, such as a cache subvolume, is undecided. lgse/strata#533
-- Closing Ctrl+K does not return focus to the file list; the fix is unmerged. lgse/strata#1430, lgse/strata#1533
+- Closing Ctrl+K with Escape, Ctrl+K, or a backdrop click leaves no widget focused instead of the file list; the fix is unmerged. lgse/strata#1430, lgse/strata#1533

@@ -13,7 +13,7 @@ related: [operations/drag-and-drop, operations/progress, operations/trash, integ
 
 ## Summary
 
-Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…, and the copy engine behind them. It also covers copying paths, names, and pasted images. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
+Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…, and the copy engine behind them. It also covers copying paths, names, and pasted images. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
 
 ## Behavior
 
@@ -21,16 +21,14 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 - Ctrl+C or the item menu's Copy puts the selection on the clipboard as a file list; pasting copies it and leaves the sources in place. lgse/strata#289
 - Ctrl+X or the item menu's Cut leaves the selection in place until a paste moves it. lgse/strata#289
-- Cut items show a scissors icon in place of their icon or thumbnail, at full opacity, in Columns, Icons, and List. lgse/strata#927
+- Cut items show a scissors icon in place of their icon or thumbnail and are drawn at 65% opacity, in Columns, Icons, and List. lgse/strata#927, lgse/strata#1018
 - Copied items show a copy icon in place of their icon or thumbnail; scissors wins when both apply. lgse/strata#1306
 - A cut in one Strata window pastes as a move in another window. lgse/strata#289
 - A cut still pastes as a move when the clipboard returns the file as a `file://` URI instead of a native path. lgse/strata#289
-- When another application takes the clipboard, copy and cut marks clear in every window. lgse/strata#1306 (unverified)
+- When another application takes the clipboard, copy and cut marks clear in every window. lgse/strata#1306
 - With a Ctrl+F filter open, Ctrl+C and Ctrl+X act on the selected results, and cut results show scissors in every window. lgse/strata#1018
 - In Columns, Ctrl+C or Ctrl+X with nothing selected in the focused column acts on the folder that column shows. lgse/strata#1092
 - With the caret in a text widget, such as preview text, Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+D, and Ctrl+A act on the text. lgse/strata#670
-- The footer shows a "Files on clipboard" badge while the clipboard holds a non-empty file list, including one from another application. lgse/strata#358, lgse/strata#499
-- The badge stays visible when keybinding hints are hidden. lgse/strata#1018
 
 ### Paste destination
 
@@ -53,7 +51,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### Paths, names, and images
 
-- `y` or Copy path copies the shell-escaped native path; folders get a trailing `/`, and URIs are copied unescaped. lgse/strata#230
+- Outside 10xer mode, `y` or Copy path copies the shell-escaped native path; folders get a trailing `/`, and URIs are copied unescaped. lgse/strata#230, lgse/strata#1306
 - With several items selected, Copy paths copies one path per line. lgse/strata#230 (unverified)
 - Copy name and Copy names copy the display names, one per line. lgse/strata#704
 - Pasting while the clipboard holds an image and no files writes `image.png`, then `image (1).png`, into a local destination. lgse/strata#882
@@ -81,7 +79,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Copying a folder that contains a FIFO or other special file fails promptly with an error naming that entry. lgse/strata#707
 - On FAT, vfat, and exFAT destinations, `" * / : < > ? \ |` and control characters become `_`, and trailing dots and spaces are trimmed. lgse/strata#1126
 - Names that collide after that sanitizing get a numbered suffix instead of overwriting each other. lgse/strata#1126
-- Copying a file over 4 GiB to a FAT32 drive fails before copying, with a message suggesting exFAT. lgse/strata#1278
+- Copying a file of 4 GiB or larger to a FAT32 drive fails before copying, with a message suggesting exFAT. lgse/strata#1278
 - Copies onto NTFS through ntfs-3g and other FUSE mounts without `RENAME_NOREPLACE` complete without an "Invalid argument" error. lgse/strata#1515
 - Copying or moving an item out of Trash that came from another drive creates it under its own leaf name. lgse/strata#1524
 - Moving a folder into itself or a descendant, including through a symlink alias, does nothing and leaves the source untouched. lgse/strata#1537
@@ -131,5 +129,5 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 
 ## Known gaps
 
-- Cut intent is not exchanged through `x-special/gnome-copied-files`, so cuts between Strata and other file managers paste as copies. lgse/strata#287
+- Cut intent is not exchanged through `x-special/gnome-copied-files`, so cuts between Strata and other file managers paste as copies. lgse/strata#289
 - On NFS, same-share moves fall back to copy and delete, and replacing where Trash is unsupported may still fail. lgse/strata#1530

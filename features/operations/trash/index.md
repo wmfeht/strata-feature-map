@@ -23,13 +23,13 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - Ctrl+Z after Move to Trash returns the items to their original locations, including when pressed in another Strata window. lgse/strata#228
 - Dropping files onto the sidebar Trash row moves them to Trash, and Ctrl+Z returns them. lgse/strata#626, lgse/strata#836
 - Delete on a selected Ctrl+F filter result moves that result to Trash and leaves the hidden directory selection untouched. lgse/strata#915
-- The item context menu hides Move to Trash when the folder reports `access::can-trash` false, and shows it when the query is unresolved. lgse/strata#314
-- When every failed item failed because its location lacks Trash, Strata opens the permanent-delete confirmation for only those items. lgse/strata#225 (unverified)
+- Outside Trash, the item context menu hides Move to Trash when the folder's listing reports `access::can-trash` false, and shows it when the value is unknown. lgse/strata#314
+- When every failed item failed because its location lacks Trash, Strata opens the permanent-delete confirmation for only those items. lgse/strata#225, lgse/strata#1425
 - When some items failed for other reasons, the error dialog shows a Delete Permanently button that confirms only the trash-unsupported items. lgse/strata#225
 
 ### Browsing Trash
 
-- In Trash, Delete and the item menu's "Permanently delete" ask for permanent-deletion confirmation instead of moving to Trash. lgse/strata#499 (unverified)
+- In Trash, Delete and the item menu's "Permanently delete" ask for permanent-deletion confirmation instead of moving to Trash. lgse/strata#361, lgse/strata#499 (unverified)
 - Trash menus omit Rename, Compress, New Folder, New File, and paste destinations. lgse/strata#499
 - Top-level Trash items keep Restore, Cut, Move to…, Copy, and permanent deletion in their menus. lgse/strata#499
 - Items inside a trashed folder cannot be cut, moved, deleted, or restored from the menu or keyboard. lgse/strata#499
@@ -41,10 +41,10 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmation; permanent deletion keeps its confirmation (lgse/strata#205).
 
 - A Trash item keeps its `trash:///` location for navigation, restore, and deletion. GVfs's `standard::target-uri` native path is carried separately, for thumbnails and as the physical restore source. Remote target URIs are rejected (lgse/strata#417).
-- Move to Trash visibility comes from one `access::can-trash` query per directory load. An unresolved query keeps the item visible so the only delete path never disappears; the trash-unsupported failure then offers permanent deletion (lgse/strata#284, lgse/strata#179).
+- Move to Trash visibility comes from `access::can-trash` on one listed entry per directory load, not on the folder: `$HOME` cannot itself be trashed but its entries can. An unknown value keeps the item visible so the only delete path never disappears; the trash-unsupported failure then offers permanent deletion (lgse/strata#314, lgse/strata#284, lgse/strata#179).
 - GVfs can move or delete whole trashed items but not their children, so actions on nested Trash children are hidden rather than left to fail (lgse/strata#433).
 - Undo finds the trashed items through home-trash `.trashinfo` metadata before `trash:///`, because GVfs can miss an item re-trashed under the same name (lgse/strata#228).
-- URI locations are monitored through GIO, so `trash:///` receives `gvfsd-trash` change events; events about the watched root itself are dropped (lgse/strata#432).
+- URI locations are monitored through GIO, so `trash:///` receives `gvfsd-trash` change events; events about the watched root itself are dropped, except its removal (lgse/strata#432, lgse/strata#463).
 
 ## History
 
@@ -60,5 +60,5 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 ## Known gaps
 
-- Where Trash is unsupported, Delete opens the permanent-delete confirmation with the destructive button focused and no explanation; the fix is unmerged. lgse/strata#1425, lgse/strata#1533
-- Trashed items whose names are not valid UTF-8 are not listed in Trash, so they cannot be restored or deleted from Strata; the fix is unmerged. lgse/strata#1424, lgse/strata#1533
+- Where Trash is unsupported, Delete opens the permanent-delete confirmation with the destructive button focused and no explanation; lgse/strata#1533 fixes it after `reviewed_at`. lgse/strata#1425, lgse/strata#1533
+- Trashed items whose names are not valid UTF-8 are not listed in Trash, so they cannot be restored or deleted from Strata; lgse/strata#1533 fixes it after `reviewed_at`. lgse/strata#1424, lgse/strata#1533

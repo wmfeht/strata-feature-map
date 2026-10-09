@@ -5,9 +5,9 @@ origin: {issue: null, pr: lgse/strata#383}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
-code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
+code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/e2e/scenarios/test_view_switching.py, src/ui/loading_skeleton/delay/tests.rs]
-docs: []
+docs: [docs/architecture.md]
 related: [browser/search, preview/preview-panel]
 ---
 
@@ -19,7 +19,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 ### Switching
 
-- Appearance → View lists Columns, Icons, and List; choosing one switches the window's view and closes the menu. lgse/strata#383, lgse/strata#168
+- The Appearance menu's VIEW section lists Columns, Icons, and List; choosing one switches the view and closes the menu. lgse/strata#383, lgse/strata#168
 - Ctrl+1, Ctrl+2, and Ctrl+3 switch to Columns, Icons, and List, including while typing in the pane filter. lgse/strata#531, lgse/strata#925
 - The portal file chooser accepts the same Ctrl+1, Ctrl+2, and Ctrl+3 shortcuts. lgse/strata#877
 - The Appearance button shows the current mode's icon, and the menu checks the current mode, after both menu and keyboard switches. lgse/strata#531
@@ -31,7 +31,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 ### Appearance menu
 
-- Appearance → Density offers Compact, the default, and Airy; the choice is saved. lgse/strata#168 (unverified)
+- The Appearance menu's DENSITY section offers Compact, the default, and Airy; the choice is saved. lgse/strata#168 (unverified)
 - With Sort by or Appearance open, a wheel tick outside it closes it and scrolls only the listing under the pointer; over the sidebar or other chrome it only closes. lgse/strata#590
 - Wheel ticks inside an open Sort by or Appearance panel keep it open. lgse/strata#590
 
@@ -75,5 +75,5 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 ## Known gaps
 
-- Switching modes while typing in the pane filter keeps the query but drops keyboard focus; the fix is unmerged. lgse/strata#1441, lgse/strata#1533
-- F5 and auto-refresh in Icons and List reset the keyboard cursor and scroll position and drop focus; the fix is unmerged. lgse/strata#1434, lgse/strata#1544
+- Switching modes while typing in the pane filter keeps the query but drops keyboard focus. lgse/strata#1441, lgse/strata#1533
+- F5 and auto-refresh in Icons and List reset the keyboard cursor and scroll position and drop focus. lgse/strata#1434, lgse/strata#1544

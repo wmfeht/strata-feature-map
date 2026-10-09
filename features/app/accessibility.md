@@ -20,17 +20,18 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 ### Browser listing
 
 - In every view, each entry is named with its display name and described as "Folder" or "File". lgse/strata#415
-- A symbolic link is described as "Folder link" or "File link", and a dangling link as "Broken link". lgse/strata#415 (unverified)
+- A symbolic link is described as "Folder link" or "File link", a dangling link as "Broken link", and any other file type as "Other". lgse/strata#415 (unverified)
 - Each pane is a group named after its directory and described as "Columns view", "Icons view", or "List view". lgse/strata#415
 - The entry list inside a pane is named after its directory and described as "Files". lgse/strata#415
 - Entries are focusable, and selecting one sets the `selected` state on that entry and on no other. lgse/strata#415
-- View, entry kind, and list descriptions are shown in the interface language. lgse/strata#1519
+- View, entry kind, and list descriptions are shown in the interface language. lgse/strata#1519 (unverified)
 
 ### Chrome, menus, and dialogs
 
-- The window exposes buttons named "Search (Ctrl+K)", "Appearance", "Settings", "Close window", and "Toggle sidebar (Ctrl+B)". lgse/strata#415
+- With default preferences, the window exposes buttons named "Search (Ctrl+K)", "Appearance", "Settings", "Close window", and "Toggle sidebar (Ctrl+B)". lgse/strata#415
 - Pressing Tab repeatedly from the window's first control reaches the file listing. lgse/strata#415
-- Items in Strata's custom menus have the menu item role, are named after the action, and carry the accelerator in their description. lgse/strata#415
+- Items in the file, folder, and sidebar right-click menus have the menu item role and are named after the action. lgse/strata#415
+- A right-click menu item with a keyboard shortcut carries the shortcut in its accessible description, not its name. lgse/strata#415
 - Strata's modal dialogs have the dialog role and are named after their title. lgse/strata#415
 
 ### Tooltips
@@ -52,7 +53,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - Tooltips are not a reliable name source. One field exposed its tooltip as its name (lgse/strata#811), while tooltip-only location controls had no name (lgse/strata#1131). Controls get explicit names instead (lgse/strata#1132).
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
-- E2E checks that read names or descriptions from tooltips were moved to explicit accessible metadata in the same change (lgse/strata#1337).
+- lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
 
 ## History
 
@@ -63,5 +64,5 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 ## Known gaps
 
 - Appearance options, Properties permission bits, and Settings choice buttons expose no checked or pressed state or current value; the fix is unmerged. lgse/strata#1467, lgse/strata#1544
-- In an empty directory no widget reports focus and Tab does nothing; the fix is unmerged. lgse/strata#1466, lgse/strata#1533
+- In an empty directory no widget reports focus and Tab does nothing; the fix in lgse/strata#1533 merged after this snapshot. lgse/strata#1466, lgse/strata#1533
 - The Ctrl+F pane filter field has no accessible name; the issue was closed without a fix. lgse/strata#810

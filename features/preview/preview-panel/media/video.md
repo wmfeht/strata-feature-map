@@ -24,16 +24,19 @@ The now-playing view for video files: the frame, a header with technical badges,
 - Clicking the frame toggles playback. lgse/strata#1474
 - With **Element glow** on and a GPU renderer, the frame's edge colors bleed into a 24 px band around it; it is off under reduced motion or Cairo and frozen while paused. lgse/strata#1474
 
-### Badges
+### Header and badges
 
+- The header shows the file's position among the listing's videos, such as "2 of 5 in folder", or "in results" while search results replace the listing. lgse/strata#1474
+- A playback error shows its title and detail inside the view; play is disabled and previous and next stay usable. lgse/strata#1474
 - Badges under the title show resolution class (SD to 8K), HDR10 or HLG, bit depth, rounded frame rate, video codec, and audio codec with channel layout. lgse/strata#1474
-- A captions badge counts embedded subtitle tracks plus sidecars named after the video, such as `clip.srt` or `clip.en.vtt`; subtitles are never drawn on the frame. lgse/strata#1474
+- A captions badge, "CC" or "CC ×N", counts embedded subtitle tracks plus `srt`, `vtt`, `ass`, `ssa`, or `sub` sidecars named after the video, such as `clip.en.vtt`. lgse/strata#1474
+- Subtitles are never drawn on the frame. lgse/strata#1474
 - Until the probe answers, empty pills hold the row; a failed probe leaves it empty. lgse/strata#1474
 
 ### Timeline
 
 - The timeline is the audio waveform slider, with chapter starts as ticks. lgse/strata#1474
-- Hovering or dragging the timeline shows a bubble with the nearest keyframe cell, its time, and the chapter title. lgse/strata#1474
+- Hovering or dragging the timeline shows a bubble with the nearest storyboard cell, the pointer's time, and that time's chapter title. lgse/strata#1474
 - During a seek, the nearest storyboard cell covers the old frame until the new one is decoded. lgse/strata#1474
 - Clips under four seconds, animations, attached pictures, raw elementary streams, and unknown durations have no storyboard. lgse/strata#1474
 
@@ -51,7 +54,7 @@ The now-playing view for video files: the frame, a header with technical badges,
 - Every media stream waits 50 ms before starting its sandbox session, so a selection that moves on within that window spawns no decoder (lgse/strata#1474).
 - Badges reuse the bounded `media-metadata` `ffprobe` operation that File Properties uses. Results are cached for 12 files and the sidecar scan runs off the GTK thread (lgse/strata#1474).
 - Storyboards run one software `ffmpeg` per keyframe cell rather than a single-pass sprite sheet, so cost scales with the 8 to 48 cells, not file length. VA-API per cell was slower because each process initializes the device (lgse/strata#1417).
-- Cells arrive in binary-subdivision order as raw RGBA in `STRSTB01` records the parent validates. Boards are cached in memory for 8 clips, at most about 14 MB (lgse/strata#1474).
+- Cells arrive in binary-subdivision order as raw RGBA in `STRSTB01` records the parent validates. Boards are cached in memory for 8 clips, about 14 MB for 16:9 video (lgse/strata#1474).
 - The storyboard and the waveform share one niceness-10 background slot; the bounded storyboard goes first so scrubbing never waits on the length-proportional audio decode (lgse/strata#1474).
 - Ambient light samples a 6×4 grid at most ten times a second and lets the GPU scale it. Blur-based glow was rejected for cost (lgse/strata#1417).
 - Subtitle rendering was rejected because it needs libass in the sandbox and a re-decode. Position handoff uses each player's start flag, because URI fragments cannot pass through `gio::AppInfo::launch` (lgse/strata#1417).

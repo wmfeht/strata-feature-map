@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/browser/tab_location/tests.rs, tests/e2e/scenarios/test_tabs.py]
 docs: [docs/keyboard-navigation.md, docs/10xer-mode.md]
-related: [integration/10xer-mode, operations/drag-and-drop]
+related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock]
 ---
 
 ## Summary
@@ -22,11 +22,10 @@ In-memory tabs within one Strata window, each holding its own browsing context. 
 - Ctrl+T, the New tab (+) button, or 10xer `t` then `n` opens a tab at the active tab's location and selects it. lgse/strata#1484
 - A new tab is added at the right end of the strip. lgse/strata#1484 (unverified)
 - Each tab keeps its own location, selection, navigation history, preview, and search state when another tab is selected. lgse/strata#1484
-- Changing Show hidden files updates the listings of hidden tabs and of tabs opened later. lgse/strata#1484 (unverified)
+- Changing Show hidden files updates the listings of hidden tabs and of tabs opened later. lgse/strata#108, lgse/strata#1484
 - Ctrl+W, a tab's X button, or 10xer `t` then `x` closes that tab; closing the last tab closes the window. lgse/strata#1484
 - Middle-clicking a tab closes it. lgse/strata#1484 (unverified)
 - Closing the active tab selects its right neighbour, or its left neighbour when it was last. lgse/strata#1484 (unverified)
-- Closing a tab with a file operation running, or the window while any tab has one, shows "File operations are still active" and closes nothing. lgse/strata#1484
 
 ### Switching
 
@@ -57,7 +56,8 @@ In-memory tabs within one Strata window, each holding its own browsing context. 
 - With Show close button off, the window-close button stays hidden while tabs are opened, selected, and closed. lgse/strata#1129
 - A 3 px accent underline slides to the selected tab, and jumps without sliding when animations are disabled. lgse/strata#1484
 - When the strip is wider than the window, the wheel scrolls it horizontally and no scrollbar is shown. lgse/strata#1484
-- Selecting a tab scrolls it into view; selecting the last tab also reveals the New tab button. lgse/strata#1484
+- Selecting a tab scrolls it into view. lgse/strata#1484
+- Selecting the last tab also scrolls the New tab button into view. lgse/strata#1484 (unverified)
 - Hovering an inactive tab accents its label; its X turns accent only while the pointer is over the X itself. lgse/strata#1484
 
 ### Tab names
@@ -71,7 +71,7 @@ In-memory tabs within one Strata window, each holding its own browsing context. 
 
 ### File drops
 
-- Dropping files on another tab moves them into that tab's current directory; holding Ctrl copies them. lgse/strata#1484
+- Dropping files on another tab transfers them into that tab's current directory: a same-volume drop moves, and holding Ctrl copies. lgse/strata#1484
 - Holding a file drag over a tab for 450 ms selects it, so the drop can land on a folder in its listing. lgse/strata#1484
 - A tab under a file drag accents its label and shows no drop outline. lgse/strata#1484
 
@@ -84,7 +84,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - Tab shortcuts run in a capture-phase window controller, and each tab's key handling skips them. They therefore work from text fields and in both key maps (lgse/strata#1484, lgse/strata#1506).
 - Ctrl+T previously opened a terminal (lgse/strata#161). That moved to Ctrl+Alt+T, and 10xer keeps `;` then `t` (lgse/strata#1484).
 - Ctrl+Page Up and Page Down match web browsers and stay Ctrl-only, like Strata's other Linux shortcuts (lgse/strata#1505). Switching wraps like Ctrl+Tab; moving stops at the edges (lgse/strata#1506).
-- A reorder drag carries a random per-window token, so only this window's tab drags reorder and file drags never do (lgse/strata#1506).
+- A reorder drag carries a random per-window token, so only this window's tab drags reorder and file drags never do (lgse/strata#1484).
 - One close guard checks every tab, so a background operation in a hidden tab still blocks closing the window (lgse/strata#1484).
 - Closing a tab disposes its content and releases its observers (lgse/strata#108, lgse/strata#1484).
 - The name hold tracks navigation settlement explicitly rather than using a timer. Cancelled, refused, and same-directory navigation release it, and an older validation completion cannot release a newer click (lgse/strata#1507).

@@ -20,20 +20,26 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 ### Listing
 
 - Previewing a `.zip`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` shows its members as a folder tree starting at "Contents", with folder names ending in `/`. lgse/strata#1090 (unverified)
-- File rows show their size; folder rows show a chevron and open on activation. lgse/strata#1090 (unverified)
+- Each folder lists its subfolders first, then its files, each in case-insensitive name order. lgse/strata#1090 (unverified)
+- File rows show their size; folder rows show a chevron and open on a single click. lgse/strata#1090 (unverified)
+- A breadcrumb row starts at "Contents"; clicking a crumb, or the back arrow "Go up one level", returns to that level. lgse/strata#1090 (unverified)
+- An empty archive folder shows "This folder is empty". lgse/strata#1090 (unverified)
 - Previewing an archive never writes files to disk or opens member files. lgse/strata#1090, lgse/strata#1343
 - An encrypted ZIP or a 7z with encrypted headers shows "Password-protected archive" with a password field and Unlock button. lgse/strata#1090
 - A wrong password keeps the prompt open with "The password is incorrect."; the correct password shows the member tree. lgse/strata#1090
 - A 7z with readable headers and encrypted contents lists its members without a password. lgse/strata#1090
 - A malformed or truncated archive shows "Preview unavailable" with "This file is not a valid archive or is damaged." lgse/strata#1090 (unverified)
 - A ZIP with duplicate member names shows "This archive format is not supported for preview." instead of a partial tree. lgse/strata#1090
-- An archive with 20,000 or more entries, or a TAR.GZ over 1 GiB compressed or decompressed, shows "Archive too large to preview." lgse/strata#1090 (unverified)
+- An archive with more than 20,000 entries, or a TAR.GZ over 1 GiB compressed or decompressed, shows "Archive too large to preview." lgse/strata#1090 (unverified)
+- A member name over 16 KiB or 4,096 path levels also shows "Archive too large to preview." lgse/strata#1090 (unverified)
 
 ### Keyboard
 
-- Space on an archive opens Quick Look with the first member highlighted. lgse/strata#1192
-- Inside the preview, Up/Down and k/j move the highlight; Right, l, and Enter open a folder; Left and h go to the parent. lgse/strata#1192
+- With the preview closed, Space on an archive opens it with the first member highlighted and focused. lgse/strata#1192
+- Inside the preview, Up/Down move the highlight, Right and Enter open a folder, and Left goes to the parent. lgse/strata#1192
+- With Type to search off, h, j, k, and l act as Left, Down, Up, and Right inside the preview. lgse/strata#1192 (unverified)
 - Right or Enter on a member file does nothing. lgse/strata#1343
+- Space inside the archive tree closes the preview. lgse/strata#1192 (unverified)
 - Keyboard movement never reaches the Close Preview button or F1, and only the current member is outlined. lgse/strata#1203
 - In List and Columns, Right from the listing enters an open archive preview. lgse/strata#1343
 - Left at the archive root returns focus to the listing without closing the preview; Up/Down then move through listing items. lgse/strata#1343
@@ -41,7 +47,7 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 - While the preview owns focus, its header shows the accent top border instead of the Miller column. lgse/strata#1343
 - In Columns, moving onto an archive shows its contents with no member selected, and Up/Down keep moving through the column. lgse/strata#1371
 - In Columns, Right, Enter, or Space on the archive enters the preview and selects its first member, even with automatic previews off. lgse/strata#1371
-- Escape from an entered archive preview in Columns returns to the archive in the parent column. lgse/strata#1371
+- Escape from an entered archive preview in Columns closes the preview and returns focus to the archive in the parent column. lgse/strata#1371
 - Closing the preview leaves the archive selected in the listing. lgse/strata#1192
 
 ## Design

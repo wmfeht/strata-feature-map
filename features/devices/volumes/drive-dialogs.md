@@ -19,30 +19,33 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 ### Properties
 
 - Properties opens from the menu of a volume or a mount-only entry, including fixed storage. lgse/strata#1393
-- It lists System name, Strata label, Device, Filesystem, Mount point, Status, Capacity, Used, and Free. lgse/strata#1331, lgse/strata#1393
+- It lists System name, Strata label, Device, Filesystem, and Status; a mounted volume adds Mount point, Capacity, Used, and Free. lgse/strata#1331, lgse/strata#1393
 - For an unmounted volume it shows "Not mounted", the device size when known, and "Unavailable (not mounted)" for Used, without mounting. lgse/strata#1393
 - The footer offers Set label, Eject, and Format; Format appears only for removable drives. lgse/strata#1331, lgse/strata#1393
-- The footer's Eject is insensitive when the row has no Eject or Unmount action. lgse/strata#1393 (unverified)
+- The footer shows Eject for a removable drive or a row with Eject or Unmount; it is insensitive without either action. lgse/strata#1393 (unverified)
 
 ### Set label
 
 - Set label… saves a display label in Strata preferences; the filesystem label and mount state stay unchanged. lgse/strata#1393
 - A saved label replaces the row name in Devices in every open window and in Properties. lgse/strata#1393
 - Saving an empty label restores the system name. lgse/strata#1393
-- A label over 255 characters or containing a control character is rejected inline. lgse/strata#1393 (unverified)
+- The label field stops at 255 characters; a control character shows "Labels cannot contain control characters." inline and disables Save label. lgse/strata#1393 (unverified)
+- Save label is disabled while the text matches the saved label. lgse/strata#1393 (unverified)
 - Set label is offered only for devices with a volume UUID or a mount root URI. lgse/strata#1393 (unverified)
 
 ### Format
 
 - Format… appears only for volumes on a removable drive; fixed disks and network shares never offer it. lgse/strata#1331, lgse/strata#1393
-- If `mkfs.fat`, `mkfs.ntfs`/`mkntfs`, or `mkfs.exfat` is missing, Format opens "Missing tools" with an install command for pacman, apt, dnf, or zypper, before unmounting anything. lgse/strata#1331
+- If `mkfs.fat`, `mkfs.ntfs`/`mkntfs`, or `mkfs.exfat` is missing, Format opens "Missing tools" before unmounting anything. lgse/strata#1331
+- Missing tools shows a copyable pacman, apt, dnf, or zypper install command, or generic guidance on an unrecognized distribution. lgse/strata#1331
 - On Arch and Omarchy the suggested NTFS package is `ntfsprogs`. lgse/strata#1331
 - The Format Drive dialog offers FAT32, NTFS, and exFAT, preselects the current filesystem marked "(current)", and checks Quick format. lgse/strata#1331, lgse/strata#1393
-- A label over 11 characters on FAT32 or 32 on NTFS and exFAT, or with a character the filesystem forbids, is rejected before unmounting. lgse/strata#1393
+- The label field stops at 11 characters on FAT32 and 32 on NTFS and exFAT. lgse/strata#1393 (unverified)
+- A label with a character the filesystem forbids fails with "Invalid label: …" before unmounting. lgse/strata#1393
 - Continue shows a summary and "This permanently erases ALL DATA on this volume. This cannot be undone."; formatting starts only when Format is pressed. lgse/strata#1331
 - Cancel before Format changes nothing. lgse/strata#1331
 - Format unmounts a mounted volume first; dismissing the authorization prompt shows no error. lgse/strata#1331
-- Any other failure shows "Unable to update NAME" with the error. lgse/strata#1331 (unverified)
+- Any other failure shows "Unable to update NAME (DEVICE)" with the error. lgse/strata#1331 (unverified)
 - While formatting, a progress card reads "Formatting drive" and "Do not unplug until formatting finishes." and offers no cancel. lgse/strata#1393
 - Success shows "Format complete" and "The drive was formatted successfully." lgse/strata#1331, lgse/strata#1393
 - Closing the window while formatting is blocked with "Drive formatting is still active". lgse/strata#1393
@@ -55,7 +58,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 - Actions are volume-level only. Whole-disk and partition-table changes are out of scope, and destructive actions are never offered for network shares or internal volumes (lgse/strata#1293).
 - lgse/strata#1331 shipped Rename as a filesystem relabel. lgse/strata#1393 replaced it with a Strata display label keyed by volume UUID or mount root URI, which never mounts, unmounts, or edits system configuration.
-- Formatting calls UDisks2 `Block.Format` with `update-partition-type`, so the partition type and the reprobe change together. Quick format skips zeroing; FAT32 passes `-F 32` (lgse/strata#1331).
+- lgse/strata#1331 ran mkfs tools through `pkexec`. lgse/strata#1393 replaced that with UDisks2 `Block.Format` and `update-partition-type`, so the partition type and reprobe change together. Quick format skips zeroing; FAT32 passes `-F 32`.
 - Progress is indeterminate because the supported tools report no consistent percentage (lgse/strata#1331).
 - Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393).
 

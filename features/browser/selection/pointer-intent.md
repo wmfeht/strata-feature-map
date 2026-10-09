@@ -22,7 +22,7 @@ How a press on an entry is read in Columns, Icons, and List: as a click, a file 
 - On an unselected entry, a drag from blank row space beside the filename starts a marquee. lgse/strata#522, lgse/strata#1336
 - In Icons, the gutter beside the thumbnail inside a card is blank space for marquee. lgse/strata#522
 - On a selected entry, a drag from blank row or card space starts a file drag of the selection. lgse/strata#1336
-- In List, only space beside the filename inside the Name column is blank; other column cells count as item content. lgse/strata#838 (unverified)
+- In List, unused Name-column space and its row padding are blank; other column cells count as item content. lgse/strata#838
 - Ctrl+click and Shift+click on blank row space still toggle and range. lgse/strata#522
 
 ### Clicks and previews
@@ -35,7 +35,7 @@ How a press on an entry is read in Columns, Icons, and List: as a click, a file 
 ### Drag selection
 
 - Pressing and dragging an unselected entry selects it on press and deselects the previous selection. lgse/strata#789
-- Pressing an entry inside a multi-selection keeps the group, so the drag carries every selected entry. lgse/strata#789
+- Pressing an entry inside a multi-selection without Ctrl or Shift keeps the group, so the drag carries every selected entry. lgse/strata#789
 - Ctrl-drag from an entry's icon or name copies it and adds it to the selection. lgse/strata#623
 - Shift-drag from an entry's icon or name moves it. lgse/strata#623
 

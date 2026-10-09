@@ -22,13 +22,13 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - Run interactively without a readable and writable `/dev/tty`, it exits with "This interactive installer needs a terminal." lgse/strata#330 (unverified)
 - A machine other than x86_64 or aarch64 exits with "Strata has no prebuilt release for <machine>." lgse/strata#330
 - glibc older than 2.39 exits with "Strata requires glibc 2.39 or newer (found <version>)." lgse/strata#330
-- Before installing, it prints the distribution ID, release target, glibc version, and the Omarchy major or "Omarchy: not detected". lgse/strata#330
-- The Omarchy major comes from `omarchy version`, then `/usr/share/omarchy/version`, then `~/.local/share/omarchy/version`, using the first whole `3.N` or `4.N` token. lgse/strata#743
+- Before installing, it prints "Linux distribution:", "Architecture:" (the release target triple), "glibc:", and "Omarchy: major version N" or "Omarchy: not detected". lgse/strata#330
+- The Omarchy major is the first `3.N` or `4.N` token, not after a digit or dot, in `omarchy version`, `/usr/share/omarchy/version`, then `~/.local/share/omarchy/version`. lgse/strata#743
 - `omarchy version` output of `dev (b280f130)` or `Omarchy 2.3.1` is not detected as Omarchy 3. lgse/strata#743
 
 ### Dependencies
 
-- On Arch, an `ID_LIKE` containing `arch`, or Omarchy, missing required packages are listed and installed with `sudo pacman -S --needed` after a [Y/n] prompt. lgse/strata#330
+- On Arch, an `ID_LIKE` containing `arch`, or Omarchy, missing required packages are listed and installed with `sudo pacman -S --needed` after "Install these packages with sudo pacman?" [Y/n]. lgse/strata#330
 - Under `curl … | bash`, pacman's own confirmation reads from the terminal rather than the script pipe. lgse/strata#748
 - On those systems it asks separately whether to install SMB support (`gvfs-smb`) and RAW support (`imagemagick`, `libraw`, `dcraw`), both defaulting to No. lgse/strata#332
 - On other distributions it lists the required libraries, including the GVfs UDisks2 volume monitor, and exits unless the user confirms they are installed. lgse/strata#330, lgse/strata#536
@@ -45,7 +45,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 - The binary is installed to `~/.local/bin/strata`. lgse/strata#330
 - When that file exists, the interactive installer asks "Replace the existing …?" with default No; the unattended installer exits instead. lgse/strata#332 (unverified)
-- The summary prints the installed version, the archive's source commit, and a warning when `~/.local/bin` is not on `PATH`. lgse/strata#330 (unverified)
+- The summary prints the installed version, the archive's `SOURCE_COMMIT` when present, the binary path, and a warning when `~/.local/bin` is not on `PATH`. lgse/strata#330 (unverified)
 
 ### Desktop entry and folder association
 
@@ -57,6 +57,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 ### Omarchy keybinds
 
 - "Replace Omarchy's Nautilus file-manager keybinds with Strata?" defaults to No. lgse/strata#330
+- The interactive installer asks that question even when Omarchy is not detected; answering Yes then exits with an error. lgse/strata#330 (unverified)
 - Accepting appends a marked block that rebinds Super+Shift+F and Super+Alt+Shift+F to Strata, in `~/.config/hypr/bindings.conf` on Omarchy 3 or `bindings.lua` on Omarchy 4. lgse/strata#330, lgse/strata#743
 - An existing bindings file is backed up as `<file>.bak.<timestamp>` before the block is appended. lgse/strata#330
 - When `hyprctl configerrors` reports errors after reload, the previous file is restored and the installer exits with Hyprland's errors. lgse/strata#330
@@ -70,7 +71,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - `--with-folder-association` also selects `--with-desktop-entry` and `--with-file-manager`. lgse/strata#332, lgse/strata#317
 - Unattended package installs run `sudo -n pacman --noconfirm`; when that fails, the error says passwordless sudo or cached credentials may be required. lgse/strata#332
 - Unattended mode on a non-Arch system exits with "Non-interactive dependency installation currently supports Arch-based systems only." lgse/strata#332 (unverified)
-- `--with-omarchy-keybinds` without Omarchy 3 or 4 exits with an error. lgse/strata#332 (unverified)
+- `--with-omarchy-keybinds` without Omarchy 3 or 4 exits with "--with-omarchy-keybinds requires Omarchy 3 or 4." lgse/strata#332 (unverified)
 - `--help` prints the options; an unknown option exits with "Unknown option: <option> (run with --help for usage)." lgse/strata#332 (unverified)
 
 ## Design

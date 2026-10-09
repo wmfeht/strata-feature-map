@@ -23,14 +23,17 @@ Opening a phone or camera's gphoto2 entry in Devices as one flat, progressive Ph
 - `.AAE` sidecars and other formats are hidden from Photos and left untouched on the device. lgse/strata#834
 - Files with the same name stay separate rows, each with its original URI. lgse/strata#834
 - Discovery skips symlinks and visits newer date-named folders first. lgse/strata#834
+- Files inside a hidden folder count as hidden and follow the show-hidden-files setting. lgse/strata#834 (unverified)
 - Rows appear in batches; the scan has no deadline or entry limit and runs until it finishes, the user navigates away or refreshes, or the device errors. lgse/strata#834
 - Android MTP and iPhone AFC entries keep normal folder browsing. lgse/strata#834
+- Deleting a photo removes only that row; a same-named photo from another folder stays listed. lgse/strata#834 (unverified)
 
 ### Order
 
 - Photos sorts by Device order by default: batches append in discovery order with no final re-sort. lgse/strata#1029
 - Choosing Name or Modified sorts the listing; choosing Device order again reloads it in discovery order. lgse/strata#1029
 - Device order is offered in the sort menu only at a camera root. lgse/strata#1029 (unverified)
+- In Device order the sort-direction button is disabled, with the tooltip "Device order follows discovery; choose a sort field to reverse its direction". lgse/strata#1029 (unverified)
 - The selected photo stays selected while new batches arrive. lgse/strata#1029
 - In List view, file-type grouping stays off while loading and in Device order; the saved grouping setting is kept. lgse/strata#834, lgse/strata#1029
 
@@ -38,10 +41,10 @@ Opening a phone or camera's gphoto2 entry in Devices as one flat, progressive Ph
 
 - Thumbnails come from the camera's own preview, limited to 1 MiB and 15 seconds; on failure the file icon stays and the original is not downloaded. lgse/strata#834
 - Camera thumbnails are cached only in memory. lgse/strata#834
-- Thumbnails appear during the scan: after each batch the scan pauses up to 2 seconds for visible thumbnails. lgse/strata#1021
+- Thumbnails appear during the scan: after each batch the scan waits 200 ms, then up to 2 seconds for visible thumbnails. lgse/strata#1021
 - Visible thumbnails load top-to-bottom, left-to-right, and are reprioritized after scrolling. lgse/strata#1021
 - An untouched viewport at the top stays at the top as batches arrive; after the user scrolls, normal anchoring applies. lgse/strata#1021
-- During loading, background selection updates do not scroll Columns view to the selected photo. lgse/strata#1021
+- During loading, background selection updates do not scroll List, Icons, or Columns view to the selected photo. lgse/strata#1021
 
 ## Design
 

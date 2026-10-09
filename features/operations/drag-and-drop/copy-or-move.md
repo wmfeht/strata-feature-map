@@ -22,14 +22,14 @@ How a drop chooses between copying and moving. Plain drops on the same filesyste
 - Holding Ctrl at the drop copies and holding Shift moves, on the same or another device. lgse/strata#502
 - Settings → General → File transfers → Drag & drop to another device offers Always copy, Always move, and Always ask; Always ask is the default. lgse/strata#502
 - With Always copy, a plain drop onto another device copies without a dialog and keeps the source. lgse/strata#502
-- With Always move, a plain drop onto another device moves without a dialog. lgse/strata#502 (unverified)
-- The drag cursor shows copy or move for the hovered destination before release. lgse/strata#502 (unverified)
+- With Always move, a plain drop onto another device moves without a dialog. lgse/strata#502
+- The drag cursor shows copy or move for the hovered destination before release. lgse/strata#248, lgse/strata#502
 - When the dragging application does not offer move, the drop copies. lgse/strata#502 (unverified)
 
 ### Copy or move dialog
 
 - With Always ask, a plain drop onto another device opens "Copy or move?" naming the item count and destination, with Copy focused. lgse/strata#502
-- The dialog states "The destination is on a different device.", or that Strata could not determine it when the lookup did not resolve. lgse/strata#502
+- The dialog states "The destination is on a different device.", or "Strata could not determine whether the destination is on the same device." when the lookup did not resolve. lgse/strata#502
 - Enter activates the focused Copy, Move, or Cancel button. lgse/strata#502
 - Cancel, Escape, or the close button transfers nothing. lgse/strata#502
 - Copy keeps the source; Move removes it after the transfer. lgse/strata#502
@@ -38,14 +38,15 @@ How a drop chooses between copying and moving. Plain drops on the same filesyste
 
 - A folder reached through a symlink alias of a network mount counts as the same volume as the mount, so plain drops between them move. lgse/strata#761
 - Hovering a drag over a destination beneath an autofs mount does not block the UI; its volume is looked up asynchronously. lgse/strata#846
-- A volume lookup that has not resolved within 2 seconds is treated as a drop onto another device. lgse/strata#502 (unverified)
+- A drop released while the volume lookup is still pending follows the cross-device strategy. lgse/strata#502
+- A volume lookup still unresolved after 2 seconds counts as unknown, so the drop follows the cross-device strategy. lgse/strata#502
 
 ## Design
 
 Moving across devices silently removes the only copy from a USB stick or network share, so a cross-device drop needs a safer default (lgse/strata#248). Always moving, always prompting, and copying on the same volume were each rejected there. lgse/strata#502 shipped Always ask as the default with a configurable strategy, superseding lgse/strata#338.
 
 - A volume is a GIO `id::filesystem` plus the URI scheme. Native paths, including network mounts and their symlink aliases, share the `file` namespace; other URI backends stay distinct (lgse/strata#734, lgse/strata#761).
-- The destination is compared with each source's parent folder. Any unresolved identity makes the relation unknown, which follows the cross-device strategy but is never described as a confirmed device difference (lgse/strata#502).
+- The destination is compared with each source's parent folder, or with the source itself when it is a mount point. Any unresolved identity makes the relation unknown, which follows the cross-device strategy but is never described as a confirmed device difference (lgse/strata#502).
 - Blocking risk is kept separate from identity. Ordinary local paths resolve on the GTK thread; remote, symlinked, and autofs paths are queried asynchronously with a 2-second timeout (lgse/strata#732, lgse/strata#846).
 - The timeout exists because cancelling cannot unblock a stat already stuck on a dead mount. Autofs scheduling alone never declares two filesystems different (lgse/strata#846).
 - One classification per hovered destination drives both the cursor and the committed transfer, so the dialog matches the feedback shown (lgse/strata#502).

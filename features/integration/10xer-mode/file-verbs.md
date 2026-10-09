@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
-code: [src/ui/window/keyboard/files.rs]
+code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
 related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions]
 ---
@@ -28,7 +28,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - Ctrl+C and Ctrl+X keep their default behavior and set the same marks; the marks go away when another application takes the clipboard. lgse/strata#1306
 - `Y` and `X` clear the marks and release the clipboard only while Strata still owns it. lgse/strata#1306
 - `p` pastes into the same folder as Ctrl+V and focuses Keep Both on conflicts when offered (copies only); otherwise Replace is focused. lgse/strata#1306
-- `P` and Ctrl+V paste with Replace focused on conflicts; an empty clipboard flashes `Nothing to paste`. lgse/strata#1306
+- `P` and Ctrl+V paste with Replace focused on conflicts. `p` or `P` with an empty clipboard flashes `Nothing to paste`. lgse/strata#1306
 - `c c` and `c n` copy the targets' paths or names through a `c-` chord; `Y` no longer copies a path. lgse/strata#1306
 
 ### Delete and restore
@@ -36,6 +36,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `d` and Delete ask before moving to Trash, and a second `d` confirms that dialog. lgse/strata#1306, lgse/strata#1340
 - `D`, Shift+Delete, and `d` inside Trash open the permanent-delete confirmation with Permanently delete focused, and `d` there does not confirm. lgse/strata#1340, lgse/strata#1508
 - In Columns, `d` on an open folder whose empty child column has focus asks to trash that folder instead of flashing `Nothing to delete`. lgse/strata#1508
+- While an `f` or `s` result list shows no hits, `d` and `D` flash `Nothing to delete` and leave the open folder alone. lgse/strata#1508 (unverified)
 - After `d` or `M`, the next item receives the cursor without joining the fill. lgse/strata#1340
 - `R` restores the targets from Trash through the usual confirmation; outside Trash it flashes `Only items in Trash can be restored`. lgse/strata#1340
 
@@ -53,7 +54,8 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `M` and `C` open `move to ›` and `copy to ›` for the targets captured when the prompt opens. lgse/strata#1340
 - Enter moves or copies into the chosen folder and stays in the current folder; conflicts ask as `p` does. lgse/strata#1340
-- An invalid destination keeps the prompt open with its reason: `No such folder`, `Not a folder`, `Only local folders can be chosen`, or `Can’t put a folder inside itself`. lgse/strata#1340
+- An invalid destination keeps the prompt open with its reason: `No such folder`, `Not a folder`, `Only local folders can be chosen`, `Only ~ and ~/ are supported`, or `Can’t put a folder inside itself`. lgse/strata#1340
+- `M` into the folder that already holds every target keeps the prompt open with `Already in this folder`. lgse/strata#1340 (unverified)
 - The `M` and `C` lists never show the folders being sent, and `M` skips the folder the items are already in. lgse/strata#1403
 
 ### Listing commands
@@ -74,8 +76,10 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - If the targets or the action list changed since `;`, the digit flashes `Selection changed` or `Actions changed` and runs nothing. lgse/strata#1308
 - A confirming action asks first, and a run appears in Jobs as from the context menu. lgse/strata#1308
 - `; t` opens a terminal in the keyboard-focused folder. lgse/strata#1340
+- `; t` in Trash or a non-local folder flashes `Can’t open a terminal here` and opens no dialog. lgse/strata#1340 (unverified)
 - `; c` opens the Compress dialog for the targets. lgse/strata#1340
 - `; e` extracts one archive beside itself and selects the result; `; E` extracts it to a folder typed in `extract to ›`. lgse/strata#1340
+- `; e` and `; E` flash `Not an archive` for a non-archive or a folder named like one, and `Extract one archive at a time` for several targets. lgse/strata#1340, lgse/strata#1478 (unverified)
 - The context menu shows `r` for Rename and Shift+M, Shift+C, and Shift+R beside Move to…, Copy to…, and Restore. lgse/strata#1308, lgse/strata#1340
 
 ## Design

@@ -6,7 +6,7 @@ branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs]
-tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs]
+tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs]
 docs: [docs/performance-baseline.md]
 related: [browser/selection, browser/view-modes, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations]
 ---
@@ -19,9 +19,10 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 ### Loading
 
-- A folder load stops at 100,000 entries or 10 seconds; the pane header then shows a warning icon described "This directory has more entries than could be loaded; showing a partial listing." lgse/strata#154
+- A folder load, other than a camera photo library, stops at 100,000 entries or 10 seconds. The pane header then shows a warning icon described "This directory has more entries than could be loaded; showing a partial listing." lgse/strata#154, lgse/strata#834
 - Refreshing or navigating away while a folder is loading discards the rows still arriving for the old request; they never appear in the new listing. lgse/strata#593
 - A load that fails discards its staged rows and shows the error instead of a partial listing. lgse/strata#593 (unverified)
+- Sorted by Size or Modified, a folder reads sizes and dates during the load; sorted otherwise, it lists names first and fills them for visible rows. lgse/strata#274 (unverified)
 - An SMB or other GVfs folder whose entries lack `standard::is-hidden` or `standard::is-symlink` loads them as not hidden and not symlinks, without GLib critical warnings. lgse/strata#74
 - Alternating dozens of times between a folder of several hundred files and a small folder keeps load time flat instead of slowing with each switch. lgse/strata#1187, lgse/strata#1353
 
@@ -67,7 +68,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Publication tails run at idle priority 130, after GDK redraw (120) and before default idle (200), within 8 ms slices. Chunks start at 512 rows and adapt between 128 and 2,048 against a 12 ms budget (lgse/strata#601).
 - Before a live change or operation batch splices rows, any unpublished tail is drained, so positional updates always land on rows the view already has (lgse/strata#1037).
 - Monitor events are debounced for 100 ms and keyed by location. A burst past the cap collapses to one rescan rather than thousands of splices (lgse/strata#75); lgse/strata#1266 raised the cap from 256 to 4,096.
-- Background changes emit selection updates without taking focus, so scrolling is not reset by a busy folder such as `/tmp` (lgse/strata#767, lgse/strata#803).
+- Background changes emit only row splices, so a busy folder such as `/tmp` does not reset scrolling (lgse/strata#767, lgse/strata#803). A focus update follows only when the focused entry was removed or nothing stays selected (lgse/strata#1043).
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
 - After Strata's own operations, native folders rely on their monitor and only non-native locations reload, avoiding needless reloads (lgse/strata#1035).
 - Auto-refresh exists because monitors can miss changes on network shares or after errors (lgse/strata#172). It defaults to Off.

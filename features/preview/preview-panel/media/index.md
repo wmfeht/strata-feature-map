@@ -21,38 +21,39 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 
 - Previews play the whole source with no 30-second cap; files without a reported duration play to their end with seeking disabled until it is known. lgse/strata#888
 - Animated GIFs play and loop instead of showing their first frame. lgse/strata#119
-- Audio-only files such as a mono `.ogg` play instead of failing with "Unable to normalize media preview". lgse/strata#817
+- Audio-only files with no video stream, such as a mono `.ogg`, play their audio instead of failing. lgse/strata#817
 - Raw H.264 and HEVC elementary streams, such as a bare `.h264` file, play from the start and seek, even without the extension. lgse/strata#1346
 - Video decodes at the pane's size times display scale, capped at 1280 px on either axis and never enlarged beyond the source. lgse/strata#823, lgse/strata#839
 - Growing the pane restarts decoding at the current position only when the frame would grow by 8% or more; shrinking never restarts. lgse/strata#839 (unverified)
 - Mute and volume are saved and apply live to every open player. lgse/strata#167, lgse/strata#839
 - The volume and seek sliders show no focus border when clicked. lgse/strata#962
+- In the default key map, Ctrl+Alt+Space plays or pauses, Ctrl+Alt+Left/Right seek 5 s, Ctrl+Alt+Up/Down change volume by 10%, and Ctrl+Alt+M mutes. lgse/strata#888 (unverified)
 
 ### Autoplay
 
 - With **Autoplay media previews** off, the default, a selected media file shows paused with a play control. lgse/strata#1106
 - With autoplay on, video fades its sound in over 1 s from the first frame and audio over 0.5 s; the saved volume is not changed. lgse/strata#1474
-- Clips shorter than 10 s start at full volume, a muted state skips the fade, and any play, pause, seek, or volume input ends it. lgse/strata#1474
+- Clips shorter than 10 s start at full volume, a muted state skips the fade, and any play, pause, seek, volume, or mute input ends it. lgse/strata#1474
 - A preview hidden by a narrow window resumes playing when shown again if it was playing, whatever the autoplay setting. lgse/strata#1106
 
 ### Seeking and recovery
 
 - An isolated seek restarts at once with the slider at the target; seeks within 200 ms coalesce to the settled position. lgse/strata#1314
-- A playback stall mid-play, such as a frozen audio clock or decoder failure, restarts at the last position up to 3 times before showing the error. lgse/strata#1314
+- A playback stall mid-play, such as a frozen audio clock or decoder failure, restarts at the last position up to 3 consecutive times without progress, then shows the last error. lgse/strata#1314
 - A video closed after more than 1 s and before its end reopens at that position in the same session. lgse/strata#1314
 - On a sink whose start-up delay exceeds 130 ms, such as Bluetooth A2DP over PipeWire-Pulse, audio plays through without stalling at 0:00. lgse/strata#1411
 - After a start, seek, or resume, the playhead waits for the audio sink instead of advancing and snapping back. lgse/strata#1411
 
 ### Resources and limits
 
-- At most four media previews per process own decoders; a fifth reports busy without interrupting the others. lgse/strata#839
+- At most four media previews per process own decoders. A fifth shows "Media previews are busy (four active players). Pause or close another preview and retry." and the others keep playing. lgse/strata#839
 - A player paused for 30 seconds releases its decoder and audio output but keeps its frame and position. lgse/strata#839
 - Changing selection or closing the preview stops the decoder and its sandbox. lgse/strata#839, lgse/strata#765
-- Malformed or truncated decoder output fails the preview; there is no unsandboxed fallback. lgse/strata#839
+- Malformed or truncated decoder output is rejected as a decoder failure, never shown; there is no unsandboxed fallback. lgse/strata#839
 
 ### Hardware acceleration
 
-- **Hardware-accelerated video previews** with Automatic tries VA-API, then Vulkan, then software; a failed hardware attempt before output falls back to software. lgse/strata#45, lgse/strata#139
+- With **Hardware-accelerated video previews** on and **Decoding backend** set to Automatic, decoding tries VA-API, then Vulkan, then software; a hardware attempt that fails before its first frame falls back to software. lgse/strata#45, lgse/strata#139
 - With no saved choice, a system with an AMD Polaris 10, 11, or 12 GPU decodes in software; the user can still opt in. lgse/strata#139
 - Software decoding receives no GPU device and no `/sys`. lgse/strata#139
 - Changing the acceleration setting applies to the next preview without interrupting the current one. lgse/strata#139
@@ -66,9 +67,10 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Incremental decoding replaced that: no re-encode, no second decode, and a first frame in about 1 s instead of 3.3 s (lgse/strata#839).
 - The `STRRAW01` wire is untrusted. The parent checks dimensions, strides, tick sequence, and payload lengths before allocating, and EOF without an end record is failure (lgse/strata#839).
 - Queues are bounded: three records, three presented frames, and 66 audio blocks. Audio runs 2 s ahead inside the records so slow sinks are primed without pinning frames (lgse/strata#1411).
-- Media helpers have no address-space or file-size limit, because GPU drivers create large sparse objects; Intel Vulkan's 1 GiB object hit `SIGXFSZ` (lgse/strata#128). Per-record sizes and progress deadlines bound work instead.
+- Media helpers run outside the driver-wide CPU, address-space, and file-size limits; Intel Vulkan's 1 GiB object hit the inherited `RLIMIT_FSIZE` (lgse/strata#128). Per-record sizes, queue limits, and progress deadlines bound work instead.
+- Each FFmpeg process disables core dumps and caps files and single allocations at 512 MiB. Software decoders also get a 2 GiB address-space limit; hardware decoders are exempt because drivers reserve large virtual ranges (docs/preview-sandbox.md, "Isolation and hardware policy").
 - Polaris defaults to software because explicit VA-API still hung after 16-pixel alignment; the hang is in VCE encode, not the file (lgse/strata#127).
-- Raw elementary streams have no timestamps, so any input `-ss` drops every frame. Detection uses the probed demuxer, never the extension (lgse/strata#1333).
+- Raw elementary streams have no timestamps, so any input `-ss` drops every frame. Their positive seeks use output-side `-ss`, which decodes and discards the prefix (lgse/strata#1346). Detection uses the probed demuxer, never the extension (lgse/strata#1333).
 - The autoplay fade multiplies a gain on the GStreamer `volume` element, so no audio is processed in Strata and the saved volume is untouched (lgse/strata#1417).
 - The `packaging/media-runtime` patch kit pins a GStreamer worker-finalization fix and probes. It does not change the shipped binary (lgse/strata#779). The GTK context patch was retired once upstream merged it (lgse/strata#830).
 

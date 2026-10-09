@@ -28,8 +28,8 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 - With Single set, one click on a folder opens it. lgse/strata#220
 - With Double set, one click on a folder only selects it. lgse/strata#220
 - With Double set, two clicks slower than the double-click interval select without opening. lgse/strata#220 (unverified)
-- A double-click after an earlier click opens the folder and leaves no rename editor. lgse/strata#1265
-- In Columns, one click on a folder in a partly hidden parent column opens it, even if the column scrolls during the press. lgse/strata#1502
+- With Single set, Ctrl+click or Shift+click on an entry changes the selection without opening it. lgse/strata#220, lgse/strata#203
+- With Single set in Columns, one click on a folder in a partly hidden parent column opens it, even if the column scrolls during the press. lgse/strata#1502
 - Arrow keys select entries without opening them in single-click mode. lgse/strata#220 (unverified)
 
 ### Selection after opening
@@ -40,7 +40,7 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 
 ## Design
 
-List opened files on the click meant to select them. Per-view, per-kind counts were chosen over a global double-click switch, which could not separate files from folders (lgse/strata#213).
+List view, then called Explorer, opened files on the single click meant to select them (lgse/strata#213). Per-view, per-kind counts were chosen over a global double-click switch, which could not separate files from folders (lgse/strata#213).
 
 - GTK's `single_click_activate` also selects rows on hover, which collapsed Ctrl+click, Shift+click, and marquee selections. List therefore stopped using it (lgse/strata#203).
 - Pointer folder opening leaves children unselected so the opened folder itself can be chosen, for example in a folder chooser. Keyboard opening selects the first entry so arrows continue (lgse/strata#714).

@@ -7,7 +7,8 @@ reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/services/install_source.rs]
 tests: [src/services/install_source/tests.rs]
-related: []
+docs: [docs/packaging.md]
+related: [app/packaging/aur]
 ---
 
 ## Summary
@@ -30,13 +31,14 @@ Update checks and actions for Strata installed by a package manager: the officia
 - Another pacman install reads the version its configured sync databases offer. lgse/strata#210
 - A notice appears only when the repository version is newer than the installed one, with that exact GitHub release's notes. lgse/strata#210
 - A GitHub release the repository does not carry yet produces no notice. lgse/strata#210
-- A prerelease package accepts a GitHub release flagged prerelease; a stable package requires a stable release. lgse/strata#744
+- When the repository version is a prerelease, a matching GitHub release flagged prerelease is accepted; a stable version requires a stable release. lgse/strata#744
 
 ### Settings and actions
 
-- Settings → Updates shows a "Package-managed installation" row naming the manager, package, tracked channel, and how to update. lgse/strata#183
+- With a marker, Settings → Updates shows a "Package-managed installation" row naming the manager, package, tracked channel, update instruction, and alternate package. lgse/strata#183
 - The status line appends "Managed by Omarchy", "Managed by pacman", or "Managed by" the marker's manager. lgse/strata#196, lgse/strata#183
 - With a marker, the Release channel menu is disabled and follows the marker's channel, mapping `rc` and `preview` to Preview. lgse/strata#183
+- Without a marker, an Omarchy or pacman install hides the Release channel row. lgse/strata#196 (unverified)
 - No package-managed install offers an in-app download, and the installer refuses one before downloading. lgse/strata#196
 - With an update available, an Omarchy install offers "Open Omarchy Update", which runs `omarchy update` in the configured terminal. lgse/strata#196
 - An AUR install offers "Open AUR Update", running `<helper> -Syu <package>` in a terminal, when a marker-listed helper is on `PATH`. lgse/strata#183 (unverified)
@@ -47,11 +49,14 @@ Update checks and actions for Strata installed by a package manager: the officia
 
 Replacing a pacman-owned `/usr/bin/strata` fails on permissions, and with enough privilege would desynchronize pacman's database (lgse/strata#195).
 
+[docs/packaging.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/packaging.md) carries the marker format and why it names helpers instead of an update command.
+
 - Ownership comes from querying pacman, not from a `/usr/bin` heuristic that misclassifies manual installs (lgse/strata#195).
 - Checks and release notes stay; only installation defers. Letting replacement fail late, or disabling checks, were rejected (lgse/strata#195).
 - The repository, not GitHub, decides availability, so a notice never promises an update the package manager cannot install yet (lgse/strata#209).
 - Omarchy's live database is read instead of pacman's cache, because the same `omarchy update` that installs Strata refreshes that cache (lgse/strata#210).
 - The marker is scoped to the official AUR packages, locks the shown channel to the package, and tolerates unknown keys for older binaries (lgse/strata#183).
+- The AUR marker lists helpers instead of an `update_command`, because pacman cannot update an AUR package (lgse/strata#183, docs/packaging.md).
 - Detection fails safe: an unreadable marker or a failed ownership query keeps in-place replacement off (lgse/strata#183, lgse/strata#196).
 
 ## History

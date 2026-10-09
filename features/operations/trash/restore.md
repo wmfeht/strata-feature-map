@@ -32,10 +32,10 @@ Returning trashed items to their original locations, from the Restore menu item 
 - A home-trash item whose original path is on another filesystem, such as `/dev/shm`, is refused with the same "outside the trash volume" message. lgse/strata#776
 - A destination across a bind mount or subvolume on the same filesystem is refused with "crosses a bind mount or subvolume boundary". lgse/strata#502, lgse/strata#776
 - A `Path=` containing a `..` component, plain or percent-encoded, is refused with "The original location is invalid". lgse/strata#502
-- A destination inside the trash directory, including anywhere in a shared `.Trash` tree, is refused. lgse/strata#502
+- A destination inside the trash directory, including anywhere in a shared `.Trash` tree, is refused with "The original location must not be inside the trash directory". lgse/strata#502
 - A destination whose parent folder no longer exists is refused at lookup with "The original location's parent folder no longer exists". lgse/strata#777
-- A destination whose parent is a symlink is refused, even when the symlink stays on the same volume. lgse/strata#913
-- A shared `.Trash/$uid` is used only when `.Trash` is a real directory with the sticky bit set. lgse/strata#502 (unverified)
+- A destination whose parent is a symlink is refused with "The original location's parent is a symlink and cannot be restored.", even on the same volume. lgse/strata#913
+- When GVfs gives no physical path, the item search includes a shared `.Trash/$uid` only if `.Trash` is a real, sticky directory. lgse/strata#502 (unverified)
 - A relative `Path=` in volume trash resolves against the volume top directory, including the shared `.Trash/$uid` layout. lgse/strata#502
 
 ### Execution
