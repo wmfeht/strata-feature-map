@@ -5,8 +5,8 @@ origin: {issue: null, pr: lgse/strata#383}
 branch: null
 reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
-code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
-tests: [tests/e2e/scenarios/test_view_switching.py, src/ui/loading_skeleton/delay/tests.rs]
+code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser_modes/navigation.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
+tests: [tests/e2e/scenarios/test_view_switching.py, src/ui/loading_skeleton/delay/tests.rs, src/ui/window/tests/keyboard_dispatch/reload_cursor.rs]
 docs: [docs/architecture.md, docs/keyboard-navigation.md]
 related: [browser/search, preview/preview-panel]
 ---
@@ -53,8 +53,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 ### Returning to a folder
 
 - In Icons and List, returning to one of the last 128 folders left restores its selection, cursor, range anchor, and scroll position after loading. lgse/strata#893, lgse/strata#1436, lgse/strata#1544
-- Back, Forward, Alt+Up, Backspace, a breadcrumb, and a path typed after Ctrl+L all restore it; Icons selected the first item before. lgse/strata#1436, lgse/strata#1544
-- Opening a remembered folder another way, such as a sidebar place or a double-click, also restores its position. lgse/strata#893, lgse/strata#1544 (unverified)
+- Back, Forward, Alt+Up, Backspace, a breadcrumb, and a path typed after Ctrl+L all restore it. lgse/strata#1436, lgse/strata#1544
+- Opening a remembered folder another way, such as a sidebar place by click or Enter, or a double-click, also restores its position. lgse/strata#893, lgse/strata#1544 (unverified)
 - Pressing Down after a restore moves from the restored row, not the first row. lgse/strata#893, lgse/strata#1544
 - Selection, cursor, and anchor carry between Icons and List: a folder left in Icons and reopened in List has the same entries selected. lgse/strata#1436, lgse/strata#1544
 - The exact scroll offset returns only in the view the folder was left in, and for Icons only at the same grid width. Otherwise the view scrolls the cursor into view. lgse/strata#1436, lgse/strata#1544
@@ -75,8 +75,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 - In Icons and List, F5, the Refresh button, auto-refresh, or a rescan after over 4,096 queued changes keeps the cursor row, selection, and scroll offset. lgse/strata#1434, lgse/strata#1544
 - After End then F5, the last row keeps the cursor at the same position on screen, and Left or Up moves from it. lgse/strata#1434, lgse/strata#1544
-- A refresh keeps focus on a focused row, or in a focused Ctrl+F field with its query, including through a slow reload. lgse/strata#1434, lgse/strata#1544
-- Typing in the Ctrl+F field during that reload does not stop focus returning to it; Tab, a click, a scroll, or a touch does. lgse/strata#1544
+- A refresh keeps focus on a focused row, or in a focused Ctrl+F field with its query. That holds through a slow reload. lgse/strata#1434, lgse/strata#1544
+- Typing in the Ctrl+F field during that reload does not stop focus returning to it. Tab, Escape, or pointer input does. lgse/strata#1544
 - Escape that closes the filter during the reload sends focus to the listing instead. lgse/strata#1544
 - A refresh or restore never takes focus from the sidebar, the location entry, or a dialog. lgse/strata#1434, lgse/strata#1544
 - With a filter result focused, a refresh restores the viewport and leaves focus to the filter. lgse/strata#1544 (unverified)
@@ -105,6 +105,7 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Restored Icons positions on return, kept cursor, viewport, and focus through reloads, decided focus by route, and exposed menu roles. |
 | 2026-09-22 | lgse/strata#1188 | perf | Cached directory counts and released inactive models and reload buffers across modes. |
 | 2026-09-22 | lgse/strata#1174 | refactor | Shared pointer selection, search sessions, and rename leases across the three modes. |
 | 2026-09-19 | lgse/strata#1143 | fix | Middle-ellipsized filenames in every view so extensions stay visible. |

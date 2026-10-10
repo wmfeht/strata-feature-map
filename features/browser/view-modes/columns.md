@@ -43,6 +43,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - While an item or background context menu is open in a column, that column keeps the header actions even when the pointer moves over another column. lgse/strata#555
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
+- F5 or auto-refresh keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544
 - A dialog, popover, or focused filter field that opens before a rebuilt column's deferred refocus keeps keyboard focus. lgse/strata#1430, lgse/strata#1441, lgse/strata#1533
 
 ### Open-path marker

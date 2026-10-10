@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
 reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
-code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/navigation.rs]
+code: [src/ui/browser_modes/list_factory.rs]
 tests: []
 related: [browser/navigation]
 ---
@@ -61,7 +61,6 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-10 | lgse/strata#1544 | fix | Extended List's position history to Icons and reloads, so returns and refreshes keep cursor, viewport, and focus. |
 | 2026-10-09 | lgse/strata#1533 | fix | Focused the pane instead of the hidden list when history returns to an empty folder. |
 | 2026-09-19 | lgse/strata#1116 | fix | Made double-click autofit work on List heading resize edges. |
 | 2026-09-12 | lgse/strata#893 | feat | Restored selection, cursor, and scroll position when returning to a List folder. |

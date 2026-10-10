@@ -77,7 +77,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - After Strata's own operations, native folders rely on their monitor and only non-native locations reload, avoiding needless reloads (lgse/strata#1035).
 - Auto-refresh exists because monitors can miss changes on network shares or after errors (lgse/strata#172). It defaults to Off.
 - An unlisted interval rounds up rather than down or to Off: auto-refresh stays on and never runs more often than every 60 s. The preference store normalizes it, not the timer (lgse/strata#1456).
-- Each live change, F5, and reload asks the search service to rescan indexes listing that folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544).
+- Each live change other than a rescan, F5, and reload asks the search service to rescan indexes listing a local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544).
 - lgse/strata#173 also bound Ctrl+R to refresh. lgse/strata#393 gave Ctrl+R to Rename, leaving F5 as the only refresh key.
 - Retired views once stayed alive through autoscroll, menu, and preference-listener cycles, so each folder switch added work (lgse/strata#1185, lgse/strata#1187, lgse/strata#1353).
 

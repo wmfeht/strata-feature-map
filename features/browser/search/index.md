@@ -44,10 +44,12 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 
 ### Outside changes
 
-- A file another program creates, deletes, or renames in a watched folder rescans every index whose walk lists that folder. lgse/strata#1439, lgse/strata#1544
+- A file another program creates, deletes, or renames in a watched local folder rescans every index whose walk lists that folder. lgse/strata#1439, lgse/strata#1544
+- Changes in Recent or in non-native locations such as SFTP folders trigger no rescan. lgse/strata#1544 (unverified)
 - A burst of such changes during a walk does not cancel it; one more walk follows after it publishes. lgse/strata#1439, lgse/strata#1544
 - Rescans of one index for outside changes start at least 1 second apart, and every session sharing the index gets the new results. lgse/strata#1439, lgse/strata#1544
-- A change in a folder the walk skips triggers no rescan. Skipped are generated trees such as `target/`, exclusions, hidden folders while hidden files are off, and depth 64 or more. lgse/strata#1544
+- A change in a folder the walk skips, such as `target/`, `node_modules/`, an exclusion, or a hidden folder, triggers no rescan. lgse/strata#1544
+- Hidden folders are skipped only while hidden files are off, and folders 64 or more levels deep are skipped too. lgse/strata#1544 (unverified)
 - For an index built without subfolders, only a change in its root folder triggers a rescan. lgse/strata#1544 (unverified)
 - When another program moves a folder that is an index root or contains one, those indexes move to the new path and restart. lgse/strata#1544 (unverified)
 - While Ctrl+K is open, a change in a watched folder under its roots triggers a full Ctrl+K rescan, at most once a second. lgse/strata#1544
@@ -82,7 +84,6 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 - An outside change refreshes the shared index rather than restarting one session. Another pane sharing the index would otherwise keep the stale snapshot (lgse/strata#1439).
 - Refreshes for outside changes coalesce to about one walk per second per index. A constantly changing folder, such as build output, cannot run walks back to back (lgse/strata#1439, lgse/strata#1544).
 - The pruned-folder check caches its glob set per root; rebuilding it per change stalled the window for up to 1.8 s during bursts (lgse/strata#1544).
-- A root rename or move still cancels and restarts the walk, because the roots themselves changed (lgse/strata#1544).
 - Unreadable folders are reported apart from size limits, because a walker error had been described as a very large tree (lgse/strata#431).
 - Queries and indexed names are folded with lowercase and NFC, with an ASCII fast path (lgse/strata#809, lgse/strata#813).
 - Ctrl+Shift+K reuses this dialog to rank visited folders; that folder jump belongs to `browser/navigation`.

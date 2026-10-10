@@ -331,7 +331,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser_modes.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser_modes/events.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser_modes/list_factory.rs` | code | [List view](../features/browser/view-modes/list.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/browser_modes/navigation.rs` | code | [List view](../features/browser/view-modes/list.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser_modes/navigation.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/chooser.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/download.rs` | code | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
@@ -546,6 +546,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/pane_focus.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/preview_ownership.rs` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/reload_cursor.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/video_clips.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/tests/keyboard_policy.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/window/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |

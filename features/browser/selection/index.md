@@ -60,9 +60,9 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - Deleting the focused entry, in Strata or externally, focuses the next visible entry, else the previous visible one, and the preview follows. lgse/strata#1043, lgse/strata#1415
 - Deleting the last visible entry clears focus and selection. lgse/strata#1043, lgse/strata#1415
 - Background changes to an open directory keep the selection and scroll position and do not take focus. lgse/strata#803
-- When a reload drops the cursor's entry, as after an outside delete, the cursor moves to the entry now at its old index. That entry is not selected. lgse/strata#1434, lgse/strata#1544
-- When that entry was last, the cursor moves to the previous visible entry instead. lgse/strata#1434, lgse/strata#1544
-- In Columns, a column whose child column is open keeps no cursor through a reload, so no neighbour takes it. lgse/strata#1544 (unverified)
+- When a reload drops the cursor's entry, as after a delete on a remote share, the cursor moves to the first visible entry at or after its old index. That entry is not selected. lgse/strata#1434, lgse/strata#1544
+- When no visible entry follows, the cursor moves to the previous visible entry instead. lgse/strata#1434, lgse/strata#1544
+- In Columns, when a reload drops the cursor's entry in a column whose child column is open, no neighbour takes the cursor. lgse/strata#1544 (unverified)
 
 ### Hover
 

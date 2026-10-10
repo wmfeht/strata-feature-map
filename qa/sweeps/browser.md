@@ -21,7 +21,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
-- `tests/e2e/mutations/` holds the `click-modes`, `filter-results`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
+- `tests/e2e/mutations/` holds the `click-modes`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
 
 ## Probes
 
@@ -34,15 +34,14 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Escape with a rename editor open in one column and a multi-selection in another, then again; note what each press clears.
 - Delete the focused entry externally with hidden files off when the next entries are dot-files; check where focus lands and what the preview shows.
 - Press F5 during a `100000` load, then after a sort change, each with 20 entries selected across the viewport.
-- With hidden files off, put the cursor on the last entry and delete the last three from a shell; dot-files precede them. Then F5.
-- In Columns, open a folder's child column, delete the folder's next sibling from a shell, and press F5 on the parent column.
+- On an `sftp://` share with hidden files off, put the cursor on the last entry and delete the last three server-side; dot-files precede them. Then F5.
+- On an `sftp://` share in Columns, open the cursor folder's child column, delete that folder server-side, and press F5.
 
 ### browser/selection/click-modes
 
 - Set Single for folders in Columns only; double-click a folder in Icons and List and single-click one in Columns; nothing may open twice.
 - Two clicks on a file spanning the double-click interval with single-click previews on, then off.
 - Change the file click count from a second window's Settings while a folder is open in the first; click without restarting.
-- Leave a folder in Icons with three entries selected, then click and Enter its sidebar place; repeat in Columns and after 130 other folders.
 
 ### browser/selection/keyboard-navigation
 
@@ -81,6 +80,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Back in `100000` and, before the restore settles, press Down, wheel-scroll, press Ctrl+2, or re-sort by Size.
 - Press Alt+Left with the location entry open, with Properties open, and with a filter result focused; then click a breadcrumb with the sidebar focused.
 - Let an auto-refresh tick land in a background tab and while a rename is open in the active tab; switch tabs afterwards.
+- Leave a folder in Icons with three entries selected, then click and Enter its sidebar place; repeat in Columns and after 130 other folders.
 
 ### browser/view-modes/columns
 
@@ -173,8 +173,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Select several results at `trash:///`, `recent:///`, and an `sftp://` share, then press Escape on one of them.
 - Type a query, focus a result, open Appearance, and switch view twice without closing the menu. Then switch from the menu with an empty, open filter.
 - Press Ctrl+F at once on opening `100000` in each view and type. Press Ctrl+A and Backspace before and after the load ends; repeat with 10xer `f`.
-- With a filter in Columns column 3, create matches in column 1's folder, `target/`, a dot-folder with hidden files off then on, and three levels down.
-- Create 500 matching files at once during a `100000` walk, then delete the focused hit; repeat with Include subfolders off.
+- With a filter in Columns column 3, create matches in column 1's folder, `target/`, and three levels down. Repeat in a dot-folder with hidden files off, then on.
+- Create 500 matching files at once during a `100000` walk, then delete the focused hit from a shell; repeat with Include subfolders off.
 - Delete the cursor entry from a shell while a 2,000-file copy into the folder runs, with the filter field focused, then a result.
 
 ### browser/sidebar

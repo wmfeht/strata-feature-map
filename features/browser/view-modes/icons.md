@@ -50,7 +50,8 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 - After a rename commits, the tooltip shows the new name; while the rename field is open, none appears. lgse/strata#1553
 - Ctrl+F results shown in Icons use the same cards and show the same tooltip. lgse/strata#1553
 - Keyboard focus on a card shows no name tooltip. lgse/strata#1553 (unverified)
-- Columns and List show no name tooltips. lgse/strata#1553
+- Columns shows no name tooltips. lgse/strata#1553
+- List shows no name tooltips either. lgse/strata#1553 (unverified)
 
 ### Scrolling
 

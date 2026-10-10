@@ -38,6 +38,7 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - When the bookmarks file cannot be read or saved, an "Unable to update pinned folders" dialog appears and the shown pins stay unchanged. lgse/strata#674
 - With `gtk-3.0/bookmarks` a user-owned symlink, as from a dotfiles manager, a pin, unpin, or reorder writes the link's target and keeps the link. lgse/strata#1455, lgse/strata#1544
 - A dangling link, or one owned by another user, still shows "Unable to update pinned folders" and leaves the file unchanged. lgse/strata#1544 (unverified)
+- That dialog's detail now gives the refusal reason, such as a link to a missing target, rather than the raw error. lgse/strata#1544 (unverified)
 - A label with invalid UTF-8 is shown with U+FFFD, a line whose URI is invalid UTF-8 is skipped, and CRLF line endings are accepted. lgse/strata#713
 - A line whose URI cannot be parsed, or that repeats an earlier location, is also skipped. lgse/strata#713 (unverified)
 - A pin, unpin, or reorder rewrites the file from the parsed list. Skipped lines are dropped, and unlabelled bookmarks gain the folder name as label. lgse/strata#674 (unverified)
