@@ -3,8 +3,8 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
 related: [integration/file-manager-interface, settings/preferences, app/updates]
@@ -37,6 +37,13 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Complete setup installs the portal, sets `io.github.lgse.Strata.desktop` as the `inode/directory` handler, and installs the per-user FileManager1 service. lgse/strata#947
 - On Omarchy 3 or 4, Complete setup also binds Super+Shift+F and Super+Alt+Shift+F to Strata in `$XDG_CONFIG_HOME/hypr/bindings.conf`, or `bindings.lua` on Omarchy 4. lgse/strata#947 (unverified)
 - When `hyprctl configerrors` reports errors after the shortcut edit, Complete setup restores the previous bindings file and keeps a `strata-keybind-backup-` copy. lgse/strata#947 (unverified)
+- When `bindings.conf` or `bindings.lua` is a user-owned symlink, Complete setup and Restore default write its target and keep the link. lgse/strata#1455, lgse/strata#1544
+- When the reload then reports errors, the rollback also writes through the link and keeps it. lgse/strata#1544 (unverified)
+- Complete setup and Restore default keep an existing bindings file's permission bits, so a `0644` file stays `0644`. lgse/strata#1544
+- With a dangling `bindings.conf` or `bindings.lua` link, Complete setup fails with an error naming the missing target and leaves no target written. lgse/strata#1544 (unverified)
+- With a dangling bindings link, Restore default leaves the shortcuts and the link unchanged. lgse/strata#1544 (unverified)
+- A bindings link, or a target reached through one, owned by another user makes Complete setup and Restore default fail, leaving the target unchanged. lgse/strata#1544 (unverified)
+- With a symlinked bindings file, the `strata-keybind-backup-` copy is created in the link's directory. lgse/strata#1544 (unverified)
 - Complete setup is hidden once every line is configured, and Restore default appears while any part is installed. lgse/strata#947 (unverified)
 - Complete setup fails with "Another per-user FileManager1 provider is already installed" when another user service owns that name. lgse/strata#947 (unverified)
 - Restore default removes the FileManager1 service and portal, and returns `inode/directory` to the recorded handler, or Nautilus when none was recorded. lgse/strata#947
@@ -59,12 +66,14 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Open and Save dialogs, folder opening, and Reveal are separate XDG mechanisms. Users enabling the chooser expected Reveal to follow (lgse/strata#632).
 - lgse/strata#632 proposed independent controls. The owner chose one combined opt-in instead, so one row sets all three (lgse/strata#947).
 - The first-launch offer and the Configure… dialog were replaced by the inline status list in lgse/strata#947. No launch path reads the `portal-opt-in-v1` marker since then.
+- Bindings writes follow the config-file symlink rules in `settings/preferences/storage`; before, a symlinked bindings file was refused (lgse/strata#1455, lgse/strata#1544).
 - A stale backend is detected by comparing the running process's executable inode with the installed file. A backend from another Strata installation is left alone (lgse/strata#474).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Made Complete setup, Restore default, and rollback write Omarchy bindings through a symlinked bindings file instead of refusing it. |
 | 2026-09-14 | lgse/strata#947 | feat | Made System file manager also set the folder handler, FileManager1 service, and Omarchy shortcuts. |
 
 ## Known gaps

@@ -3,7 +3,7 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/e2e/scenarios/test_accessibility.py]
@@ -13,7 +13,7 @@ related: [browser/navigation/location-bar, browser/sidebar, settings/preferences
 
 ## Summary
 
-App-wide accessible semantics for screen readers and AT-SPI automation: the names, descriptions, and roles of panes, entry lists, entries, menus, and dialogs, plus the rule that only icon-only buttons show tooltips. Accessible labels specific to one feature stay with that feature.
+App-wide accessible semantics for screen readers and AT-SPI automation. It covers the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs. It also owns the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
 
 ## Behavior
 
@@ -38,14 +38,14 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 
 ### Tooltips
 
-- Hovering a labelled button, menu item, label, entry, file row, breadcrumb, or status indicator shows no tooltip. lgse/strata#1359
+- Hovering a labelled button, menu item, label, entry, file row, breadcrumb, or status indicator shows no tooltip. The one exception is a truncated name on an Icons-view card (`browser/view-modes/icons`). lgse/strata#1359, lgse/strata#1553
 - Hovering an icon-only button shows its tooltip, such as "Toggle sidebar (Ctrl+B)" on the header sidebar toggle. lgse/strata#1359
 - In the collapsed sidebar rail, each row shows its name as a tooltip; expanding the sidebar removes those tooltips. lgse/strata#1359
 - Text that tooltips carried before, such as a sidebar place's or breadcrumb's full path, is now the control's accessible description. lgse/strata#1359
 
 ## Design
 
-[docs/e2e-testing.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/e2e-testing.md) ("Accessible names are product surface") states the contract this node owns.
+[docs/e2e-testing.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/e2e-testing.md) ("Accessible names are product surface") states the contract this node owns.
 
 - The E2E harness locates controls only by accessible role and name. When it cannot identify a control, the fix is to name it in the application, never a test-only API (lgse/strata#341).
 - An entry's name and description sit on the list item, not the row content, because the item carries the `list item` or `table cell` role and the selected and focused states (lgse/strata#415).
@@ -57,15 +57,18 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
+- Exclusive choices are radio menu items and on/off options are check menu items, because screen readers announce their checked state (lgse/strata#1467, lgse/strata#1544).
+- Chosen states are product surface too: E2E checks read `checked` or `pressed` from AT-SPI and never infer them from check-icon children (lgse/strata#1544).
+- A menu option's `checked` state mirrors its check icon's own visibility, because a closed popover hides every option's ancestors (lgse/strata#1544, unverified).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Added checked and pressed state helpers, and a sync that keeps a menu option's checked state equal to its check icon. |
 | 2026-10-09 | lgse/strata#1533 | fix | Named and described the focusable pane of an empty, unreadable, or loading directory so focus is never lost there. |
 | 2026-10-01 | lgse/strata#1359 | fix | Limited tooltips to icon-only buttons and moved tooltip text into accessible descriptions. |
 
 ## Known gaps
 
-- Appearance options, Properties permission bits, and Settings choice buttons expose no checked or pressed state or current value; the fix is unmerged. lgse/strata#1467, lgse/strata#1544
 - The Ctrl+F pane filter field has no accessible name; the issue was closed without a fix. lgse/strata#810

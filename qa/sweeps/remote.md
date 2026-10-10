@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh]
 ---
 
@@ -29,6 +29,8 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 ### remote/file-providers/network-locations
 
 - Cut the network while a 20k-entry share is still filling; then restore it, press F5, and compare row counts with `ls` on the server.
+- On the SFTP fixture, delete the cursor file from the server. Press F5 with focus in a Ctrl+F field, in an open dialog, and in the location entry.
+- Repeat in Columns with a child column open.
 - Cancel a password prompt from a Columns descent two levels deep, from a sidebar DEVICES row, and from a pin; check back history and the sidebar row afterwards.
 - Leave the sign-in dialog open for ten minutes, then submit; then submit a correct password while the server is stopped.
 - Have the fixture's `sshd` refuse, drop the TCP connection after the banner, and hang without a banner; read the message each produces and how long each takes.

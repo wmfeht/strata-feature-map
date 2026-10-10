@@ -3,10 +3,10 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: reviewed
-code: [src/i18n.rs]
-tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs, src/ui/settings/tests/general.rs]
+code: [src/i18n.rs, data/locales/counts.json]
+tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs]
 docs: [docs/internationalization.md]
 related: []
 ---
@@ -44,7 +44,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 ## Design
 
-[docs/internationalization.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/internationalization.md) carries the catalog layout and the rules for adding text.
+[docs/internationalization.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/internationalization.md) carries the catalog layout and the rules for adding text.
 
 - Changes apply on restart, approved by the owner instead of live relocalization (lgse/strata#1517, lgse/strata#1519). A language change never rebuilds an active browser or resets its navigation, selection, filters, or operations (docs/preferences.md).
 - Catalogs are compiled into the binary by `build.rs` with `rust-i18n`, so no system locale packages are needed. Japanese and Korean still need installed CJK fonts (lgse/strata#1519).

@@ -3,8 +3,8 @@ title: Pinned folders
 status: shipped
 origin: {issue: null, pr: lgse/strata#67}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs]
 tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs]
 related: [operations/trash, operations/delete, browser/properties, integration/10xer-mode]
@@ -36,6 +36,9 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 - Every pin, unpin, or reorder re-reads the bookmarks file first, so pins made in another Strata window or by Nautilus survive. lgse/strata#674
 - When the bookmarks file cannot be read or saved, an "Unable to update pinned folders" dialog appears and the shown pins stay unchanged. lgse/strata#674
+- With `gtk-3.0/bookmarks` a user-owned symlink, as from a dotfiles manager, a pin, unpin, or reorder writes the link's target and keeps the link. lgse/strata#1455, lgse/strata#1544
+- A dangling link, or one owned by another user, still shows "Unable to update pinned folders" and leaves the file unchanged. lgse/strata#1544 (unverified)
+- The dialog's detail gives the localized refusal reason, such as a link to a missing target, rather than the raw error. lgse/strata#1544 (unverified)
 - A label with invalid UTF-8 is shown with U+FFFD, a line whose URI is invalid UTF-8 is skipped, and CRLF line endings are accepted. lgse/strata#713
 - A line whose URI cannot be parsed, or that repeats an earlier location, is also skipped. lgse/strata#713 (unverified)
 - A pin, unpin, or reorder rewrites the file from the parsed list. Skipped lines are dropped, and unlabelled bookmarks gain the folder name as label. lgse/strata#674 (unverified)
@@ -51,7 +54,8 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 ## Design
 
-- Pins live in GTK's bookmarks file, not in Strata's preferences, so other GTK applications share them ([docs/preferences.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preferences.md)).
+- Pins live in GTK's bookmarks file, not in Strata's preferences, so other GTK applications share them ([docs/preferences.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/preferences.md)).
+- Saves follow the config-file symlink rules in `settings/preferences/storage`; before, any symlinked bookmarks file was refused (lgse/strata#1455, lgse/strata#1544).
 - Each window used to rewrite the whole file from its startup snapshot, deleting pins made elsewhere (lgse/strata#647). Mutations now read the file, apply the change, save atomically, and adopt the result only after the save succeeds (lgse/strata#674). This preserves sequential edits, not simultaneous ones.
 - Reading with `read_to_string` turned one bad byte into an empty list that the next pin overwrote, so the file is parsed as bytes (lgse/strata#648, lgse/strata#713).
 - A pinned row's drag payload is `pinned:<index>` into the stored list. The prefix keeps pins and built-in places apart, and the index keeps hidden standard-folder bookmarks in place (lgse/strata#202).

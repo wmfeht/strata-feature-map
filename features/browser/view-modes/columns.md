@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
@@ -27,6 +27,18 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - In a column with no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
+
+### Returning to an ancestor
+
+- Back, Forward, or Alt+Up to an ancestor selects the folder you came from, at any depth, with the cursor on it. lgse/strata#1437, lgse/strata#1544
+- The came-from folder's own column stays closed; Alt+Left from `documents/b2` selects `b2` with no `b2` column. lgse/strata#1437, lgse/strata#1544
+- When the came-from folder is gone, or hidden with hidden files off, the first visible entry is selected once the listing completes. Hidden files stay off and no error shows. lgse/strata#1437, lgse/strata#1544
+- Back to a folder that is not an ancestor selects its first entry. lgse/strata#1437, lgse/strata#1544
+- A sidebar place that is an ancestor of the current folder does not select the came-from folder. lgse/strata#1437 (unverified)
+
+### Refreshing
+
+- F5 or auto-refresh keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544
 
 ### Column header
 
@@ -65,6 +77,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger, and lf. The X button was kept for discoverability, and Enter does not close a column because Backspace and Escape already do (lgse/strata#140).
 
 - Header actions follow the latest input target to remove repeated icons. The header keeps a hidden page of the same size, so columns do not resize as the target moves (lgse/strata#552, lgse/strata#555).
+- The came-from folder is derived from the ancestor chain of the current path, not stored per folder. It is selected without mirroring, so its column stays closed, and a missing one falls back quietly (lgse/strata#1437).
 - Selection mirroring follows Finder's column view. The 75 ms timer re-checks focus when it fires, so a stale selection or an explicit close cannot reopen a column (lgse/strata#1178).
 - Background focus fires on click release and is grouped with marquee selection, so neither gesture swallows the other (lgse/strata#523).
 - Home and End go through Strata's own jump, like Ctrl+Up and Ctrl+Down. GTK's native keys emit only a selection echo the mirror ignores, and mirroring that echo risked the reopen loops lgse/strata#1179 avoided (lgse/strata#1447).
@@ -94,7 +107,6 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 ## Known gaps
 
-- Back, Up, or a breadcrumb return to the first column selects its first entry instead of the folder you came from; the fix is unmerged. lgse/strata#1437, lgse/strata#1544
 - Double-click autofit has no upper bound, and the fitted width becomes the saved default. lgse/strata#1448
 - Closing a column and autofit change width without animation, and keyboard moves between columns shift the open preview panel. lgse/strata#1513
 - There is no modifier to resize every visible column at once and no default-width setting. lgse/strata#1112

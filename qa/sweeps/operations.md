@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
@@ -45,6 +45,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Cut, then navigate away, switch mode, restart Strata, and paste in a second window; cut styling must clear on completion and on cancel.
 - Paste with the pointer parked over a different column than the keyboard cursor; the destination footer names the folder that receives the files.
+- Copy a file, delete or hide the current folder from a shell, press Alt+Up in Icons and List, then Ctrl+V.
 - Copy name and Copy path for a multi-selection with non-UTF-8 and space-containing names; paste into a terminal and compare bytes.
 - Paste an image copied from a browser, and paste into a read-only folder.
 - Move to… and Copy to…: reach the destination through the dialog's search, pick Trash, pick a remote location, and pick the source folder itself.

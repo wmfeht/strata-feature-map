@@ -6,8 +6,9 @@ and PRs that produced it. It answers three questions for a feature: what it
 does today, why it was built that way, and how it got here.
 
 Strata's code is only ever read. The one write to `lgse/strata` is an issue for
-a bug the sync finds that no existing issue covers. Nothing else is written to
-`lgse/strata` or `wmfeht/strata`, and nothing there knows this map exists.
+a bug the sync finds that no existing issue covers, filed only when a person asks.
+Nothing else is written to `lgse/strata` or `wmfeht/strata`, and nothing there
+knows this map exists.
 
 ## Layout
 
@@ -243,8 +244,9 @@ Rules:
   such a module, propose adding it there, or a `triggers` entry in the PR
   description. Never add either to shorten a plan's unmapped list.
 - When a PR, issue comment, or the code shows a bug that no issue covers, search
-  `lgse/strata` issues, open and closed, then file one there and cite it in Known
-  gaps. Say "found by code reading" when no source states the bug.
+  `lgse/strata` issues, open and closed, and list it in the PR description. File
+  an issue there only when a person asks, then cite it in Known gaps. Say "found
+  by code reading" when no source states the bug.
 - Probes never record results, dates, or verdicts.
 - Never open a PR that fails `check`.
 - Imitate the reviewed files. They are the format's reference.

@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs]
@@ -43,6 +43,8 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Clicking a theme card or toggling Follow Omarchy during a preview ends the preview. lgse/strata#1457, lgse/strata#1533
 - When followed Omarchy state disappears during a preview, the preview ends and the selected built-in theme applies. lgse/strata#1457, lgse/strata#1533
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
+- Saving never overwrites a file in `~/.config/strata/themes`. When `<id>.toml` exists, even invalid or a dangling link, the theme saves as the next free `<id>-N.toml`. lgse/strata#1455, lgse/strata#1544
+- A new theme file is created owner-only, mode 0600. lgse/strata#39, lgse/strata#1544
 - Saving with an empty name, or one with no ASCII letters or digits, shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
 
@@ -69,7 +71,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration.
+[docs/themes.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -81,6 +83,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - The editor preview is process-wide: one style provider serves every window. The manager stores the preview tokens, so appearance refreshes re-apply the preview rather than the saved theme (lgse/strata#1457, lgse/strata#1533).
 - Every Settings close route, and the layer unrealizing, runs a hook that discards the preview. A closed window never runs `hide` (lgse/strata#1457, lgse/strata#1533).
 - Each preview carries a generation number, so an editor cancels only the preview it started, never a newer one from another window (lgse/strata#1533).
+- Theme files may be dotfile symlinks. A file that failed to load may be a broken dotfile the user still wants, so saving never replaces an existing file (lgse/strata#1455, lgse/strata#1544).
 - Glow got its own switch because changing themes could not tone down dialog glow (lgse/strata#919).
 - GTK's GL and Vulkan renderers lose a top glyph pixel at some scales (GTK issue 8395). Cairo avoids it but costs CPU and is inherited by launched apps, so it stays opt-in (lgse/strata#1216, lgse/strata#1218).
 - The `@media (prefers-reduced-motion)` rule was removed because GTK before 4.20 rejects `@media`. Reduced motion now flows through Strata's setting, not a CSS media query (lgse/strata#436, lgse/strata#458).
@@ -89,6 +92,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Saved custom themes under a free file name so an existing theme file is never overwritten. |
 | 2026-10-09 | lgse/strata#1533 | fix | Discarded unsaved editor previews on every Settings close route and kept them through appearance refreshes. |
 | 2026-10-05 | lgse/strata#1412 | fix | Renamed CSS color tokens to `@strata_*` to avoid collisions with other stylesheets. |
 | 2026-09-24 | lgse/strata#1218 | fix | Added an opt-in Cairo interface renderer for GTK glyph artifacts, applied on restart. |
@@ -104,3 +108,4 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 - docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
 - The interface font is fixed to JetBrains Mono. lgse/strata#1217
+- Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544

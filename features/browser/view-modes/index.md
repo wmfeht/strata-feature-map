@@ -3,17 +3,17 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/e2e/scenarios/test_view_switching.py, src/ui/loading_skeleton/delay/tests.rs]
-docs: [docs/architecture.md]
+docs: [docs/architecture.md, docs/keyboard-navigation.md]
 related: [browser/search, preview/preview-panel]
 ---
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/text-size` (interface text size).
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), and `browser/view-modes/sorting` (sort fields, order, and persistence). `browser/view-modes/text-size` covers interface text size, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
 ## Behavior
 
@@ -32,6 +32,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 ### Appearance menu
 
 - The Appearance menu's DENSITY section offers Compact, the default, and Airy; the choice is saved. lgse/strata#168 (unverified)
+- Columns, Icons, List, Compact, and Airy are radio menu items, and Group by file type is a check menu item. lgse/strata#1467, lgse/strata#1544
+- Each option's accessible checked state matches its check icon, including after Ctrl+1 to Ctrl+3 and switches in other windows. lgse/strata#1467, lgse/strata#1544
 - With Sort by or Appearance open, a wheel tick outside it closes it and scrolls only the listing under the pointer; over the sidebar or other chrome it only closes. lgse/strata#590
 - Wheel ticks inside an open Sort by or Appearance panel keep it open. lgse/strata#590
 
@@ -65,6 +67,7 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Restored Icons positions on return, kept cursor, viewport, and focus through reloads, and exposed menu roles. |
 | 2026-09-22 | lgse/strata#1188 | perf | Cached directory counts and released inactive models and reload buffers across modes. |
 | 2026-09-22 | lgse/strata#1174 | refactor | Shared pointer selection, search sessions, and rename leases across the three modes. |
 | 2026-09-19 | lgse/strata#1143 | fix | Middle-ellipsized filenames in every view so extensions stay visible. |
@@ -83,4 +86,4 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 ## Known gaps
 
-- F5 and auto-refresh in Icons and List reset the keyboard cursor and scroll position. lgse/strata#1434, lgse/strata#1544
+None known.

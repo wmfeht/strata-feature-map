@@ -3,12 +3,12 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs]
 docs: [docs/performance-baseline.md]
-related: [browser/selection, browser/view-modes, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations]
+related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations]
 ---
 
 ## Summary
@@ -49,6 +49,9 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Each pane header has a Refresh button, tooltip "Refresh (F5)", that reloads only that pane. lgse/strata#173 (unverified)
 - Settings → General → Performance → "Auto-refresh folder" offers Off, 1 min, 5 min, and 10 min, saved as `auto_refresh_interval` = 0, 60, 300, or 600. lgse/strata#173
 - With an interval set, each tick runs the same reload as F5; Off stops the timer. lgse/strata#173
+- On load, a hand-written `auto_refresh_interval` other than 0, 60, 300, or 600 rounds up to the next choice. 1 becomes 60, 61 becomes 300, and 3600 becomes 600. lgse/strata#1456, lgse/strata#1544
+- Settings then shows that choice, such as "1 min" for 1, and the timer runs at it. lgse/strata#1456, lgse/strata#1544
+- The rounded value reaches `settings.toml` on the next save, not at startup. lgse/strata#1456, lgse/strata#1544
 - An auto-refresh tick is skipped while a new item is being named or a rename is in progress. lgse/strata#567 (unverified)
 
 ### Changes from Strata's own operations
@@ -56,12 +59,13 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - While a delete, restore, copy, or move runs, monitor changes for open folders are held back instead of applied one by one. lgse/strata#1036
 - Once 512 changes are held, the next progress update applies them, so completed files appear during a bulk transfer without a reload. lgse/strata#1266 (unverified)
 - When the operation finishes, the held changes apply in one batch per folder, parent folders before their children. lgse/strata#1036
+- Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544 (unverified)
 - If a monitor asked for a full reload during the operation, that folder reloads after the progress dialog closes, keeping its rows on screen until the new listing replaces them. lgse/strata#1266, lgse/strata#1036
 - Non-native locations, such as SFTP folders, reload after a rename, create, or paste that touches them. lgse/strata#1035 (unverified)
 
 ## Design
 
-Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
+Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
 
 - An unbounded load of 200,000 entries froze the UI for minutes (lgse/strata#137). The 100,000-entry and 10-second caps match the published baseline, past which per-batch merging stops feeling responsive (lgse/strata#154).
 - Native folders are enumerated off the GTK thread, staged, and published after redraw in bounded slices; remote folders keep a first-batch-then-coalesced path (lgse/strata#274, lgse/strata#593).
@@ -72,6 +76,8 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
 - After Strata's own operations, native folders rely on their monitor and only non-native locations reload, avoiding needless reloads (lgse/strata#1035).
 - Auto-refresh exists because monitors can miss changes on network shares or after errors (lgse/strata#172). It defaults to Off.
+- An unlisted interval rounds up rather than down or to Off: auto-refresh stays on and never runs more often than every 60 s. The preference store normalizes it, not the timer (lgse/strata#1456).
+- Every live change and every reload (F5, auto-refresh, rescan) asks the search service to rescan indexes listing that local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544).
 - lgse/strata#173 also bound Ctrl+R to refresh. lgse/strata#393 gave Ctrl+R to Rename, leaving F5 as the only refresh key.
 - Retired views once stayed alive through autoscroll, menu, and preference-listener cycles, so each folder switch added work (lgse/strata#1185, lgse/strata#1187, lgse/strata#1353).
 
@@ -79,6 +85,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Refreshed search indexes on outside changes and kept a focused filter's focus through live and held changes. |
 | 2026-09-16 | lgse/strata#1054 | refactor | Separated deferred metadata, sort, and publication cleanup; released a borrow that panicked when a sorting column closed. |
 | 2026-09-15 | lgse/strata#1037 | refactor | Separated live directory-change routing into staging, queueing, path reconciliation, and publication. |
 | 2026-09-15 | lgse/strata#1036 | refactor | Separated the deferred file-operation update policy from state updates and publication. |
@@ -92,6 +99,4 @@ Loading and file monitoring predate the PR history; the original monitor already
 
 ## Known gaps
 
-- An `auto_refresh_interval` other than 0, 60, 300, or 600 runs its timer while Settings shows "Off"; the fix is unmerged. lgse/strata#1456, lgse/strata#1544
-- A pane filter's results do not follow files created or deleted outside Strata; the fix is unmerged. lgse/strata#1439, lgse/strata#1544
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902

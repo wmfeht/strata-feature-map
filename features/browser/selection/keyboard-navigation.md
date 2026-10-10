@@ -3,7 +3,7 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/e2e/scenarios/test_keyboard_navigation.py]
@@ -25,7 +25,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In Columns, Right on a focused file does not open it; Enter opens it. lgse/strata#358
 - With Type to search off, `h`, `j`, `k`, and `l` act as Left, Down, Up, and Right in every view and the file chooser. lgse/strata#555
 - With Type to search on, `h`, `j`, `k`, and `l` pressed in the file list start a search instead of moving. lgse/strata#555 (unverified)
-- After Enter on a sidebar place in Icons, the opened folder's first item has focus and selection, so the next arrow or Enter acts on files. lgse/strata#374, lgse/strata#379
+- Enter on a sidebar place in Icons gives the opened folder's first item focus and selection. A remembered folder restores its cursor instead. lgse/strata#374, lgse/strata#379, lgse/strata#1544 (unverified)
 
 ### Leaving the file list
 
@@ -64,7 +64,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 
 ## Design
 
-[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/keyboard-navigation.md) carries the rules under "Arrows, the header, and the sidebar", including Tab stops.
+[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) carries the rules under "Arrows, the header, and the sidebar", including Tab stops.
 
 Strata is positioned as keyboard-first; a Yazi user reported needing the trackpad and losing focus to the sidebar (lgse/strata#291). Navigation then moved plain arrows to interface regions and left history to Alt+Left, Alt+Right, and Alt+Up (lgse/strata#358).
 

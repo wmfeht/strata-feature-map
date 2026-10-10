@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md]
 ---
@@ -36,6 +36,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
+- Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 
 ### app/dialogs
 
@@ -47,6 +48,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open Compress or Properties on a row, delete that row from a shell, then close the dialog; repeat in an empty folder and in a second tab after switching back to it.
 - Open a dialog from a header button, a sidebar row, and the location field; close each by Escape, backdrop, and close button, then press Down and read where focus lands.
 - Run a copy into a read-only folder so an error replaces the progress dialog; close the error and read where focus lands in each mode.
+- From Settings, open the action editor; close it by Escape, Enter, backdrop, and close button, and read where focus lands and whether a focus ring shows.
+- Open the action editor from an action row in Settings and save an edit so the row re-renders. Then press Tab.
+- In Settings → Actions, remove a custom action's folder from a shell, delete its row, confirm, close the error by mouse, and read focus and ring.
+- Close a dialog by keyboard, switch to a second window before the 200 ms close animation ends, then return and read the ring.
 
 ### app/shortcut-reference
 
@@ -127,5 +132,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.
 - 10xer-mode key variants and footer prompts → `integration`.
+- Chosen states of sort options and Appearance options other than Hidden files, after changes made while their menus are closed → `browser`.
+- Chosen states of Settings choice options and the Hidden files option → `settings`.
 - The contents and outcome of operation dialogs such as paste conflicts, Compress, and progress → `operations`.
 - The mount authentication dialog and remote paths in the search palette → `remote`.

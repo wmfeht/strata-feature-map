@@ -3,8 +3,8 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/ui/collection_interaction.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/e2e/scenarios/test_selection.py, tests/e2e/scenarios/test_background_selection.py, tests/e2e/scenarios/test_escape_selection.py, tests/e2e/scenarios/test_preselected_hover.py, tests/e2e/scenarios/test_monitor_selection.py]
 docs: [docs/keyboard-navigation.md]
@@ -60,6 +60,9 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - Deleting the focused entry, in Strata or externally, focuses the next visible entry, else the previous visible one, and the preview follows. lgse/strata#1043, lgse/strata#1415
 - Deleting the last visible entry clears focus and selection. lgse/strata#1043, lgse/strata#1415
 - Background changes to an open directory keep the selection and scroll position and do not take focus. lgse/strata#803
+- A reload can drop the cursor's entry, as after a delete on a remote share. The cursor then moves to the first visible entry at or after its old index, unselected. lgse/strata#1434, lgse/strata#1544
+- When no visible entry follows, the cursor moves to the previous visible entry instead. lgse/strata#1434, lgse/strata#1544
+- In Columns, when a reload drops the cursor's entry in a column whose child column is open, no neighbour takes the cursor. lgse/strata#1544 (unverified)
 
 ### Hover
 
@@ -69,7 +72,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 ## Design
 
-[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/keyboard-navigation.md) describes selection, the keyboard cursor, and the open-path marker as three separate signals (lgse/strata#358).
+[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) describes selection, the keyboard cursor, and the open-path marker as three separate signals (lgse/strata#358).
 
 - Each directory has one range anchor, held in navigation state as a location. Pointer and keyboard share it, so it survives pane rebuilds and re-sorts (lgse/strata#526).
 - Pointer selection decisions run on displayed positions in one shared module for all views and the chooser. Views translate the result to source entries (lgse/strata#1174).
@@ -77,6 +80,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - A plain press on an entry inside a multi-selection keeps the group, so the press can drag every selected entry (lgse/strata#1174).
 - Escape was chosen over clicking empty space, which a full pane lacks, and over a dedicated shortcut. Transient surfaces keep precedence (lgse/strata#528).
 - Refresh snapshots selected locations and re-applies them after GTK reconnects its selection model (lgse/strata#922).
+- After a reload the neighbour takes the cursor, not the selection, matching deletes and lgse/strata#1410 (lgse/strata#1434, lgse/strata#1544).
 - The replacement after a removal skips hidden entries. Monitor updates and batched operation updates share this rule (lgse/strata#1415).
 
 ## History
@@ -97,5 +101,4 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 ## Known gaps
 
 - A plain click on empty preview pane space deselects the previewed file and blanks the preview; the fix is unmerged. lgse/strata#1450, lgse/strata#1546
-- In List and Icons, F5 and large external change bursts move the keyboard cursor to the first entry; the fix is unmerged. lgse/strata#1434, lgse/strata#1544
 - docs/keyboard-navigation.md says blank-column presses keep descendants and wait for marquee intent; the code clears on press and closes deeper columns. lgse/strata#1164, lgse/strata#1265

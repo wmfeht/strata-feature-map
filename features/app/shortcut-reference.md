@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: reviewed
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]

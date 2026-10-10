@@ -3,7 +3,7 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
@@ -78,12 +78,14 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Some GVfs SMB versions report rejected credentials as a generic failure, so failure messages are matched for authentication text. Host-key failures are excluded, so they never reopen sign-in (lgse/strata#31, lgse/strata#233).
 - `gvfsd-smb-browse` lists shares as shortcut entries whose destination is `standard::target-uri`. The first directory batch requests that attribute, and shortcut and mountable entries open as folders (lgse/strata#960, lgse/strata#990).
 - Remote loads publish their first batch at once. Later batches queue per column and flush every 50 ms or at 2,048 entries, at most 512 rows per drain; finish and failure wait for the queue (lgse/strata#274, lgse/strata#661).
+- A remote load publishes the fallback cursor after its last batch drains. It is marked as a background load, so a view takes focus only when nothing else in the window holds it (lgse/strata#1544).
 - The `gvfsd` probe runs in a subprocess before GTK starts. A timeout restarts with `GIO_USE_VFS=local` and `GIO_USE_VOLUME_MONITOR=unix`; a healthy result is cached per `gvfsd` process set (lgse/strata#52, lgse/strata#56, lgse/strata#274).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Published the neighbour cursor after a remote reload removes the cursor file, without taking focus from outside the pane. |
 | 2026-10-09 | lgse/strata#1533 | fix | Kept GIO's percent-encoding in URI locations so names that are not valid UTF-8 are listed and `%2F` stays a name. |
 | 2026-09-29 | lgse/strata#233 | feat | Completed SFTP: scheme-specific sign-in fields, a Strata host-key dialog, actionable failures, sanitized logs, and a test fixture. |
 | 2026-09-14 | lgse/strata#990 | fix | Opened SMB share-list shortcuts as folders, mounting the share, in every view. |
