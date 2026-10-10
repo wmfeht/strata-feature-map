@@ -79,7 +79,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-10 | lgse/strata#1544 | fix | Kept focus in a focused `f` or `s` prompt when files change outside Strata. |
+| 2026-10-10 | lgse/strata#1544 | fix | Added the shared outside-change focus check, which keeps focus in a focused pane filter or `f`/`s` prompt. |
 | 2026-10-09 | lgse/strata#1533 | fix | Added the shared check that counts a focused pane-filter result as filter focus; footer `f` filters keep their own Escape order. |
 | 2026-10-03 | lgse/strata#1403 | feat | Made `s` and `f` match fuzzy fzf-style terms with frecency ranking, and shared the matcher with the folder picker. |
 | 2026-09-27 | lgse/strata#1297 | feat | Added footer find, filter, and a current-tree recursive name search. |

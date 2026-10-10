@@ -38,11 +38,11 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - On Omarchy 3 or 4, Complete setup also binds Super+Shift+F and Super+Alt+Shift+F to Strata in `$XDG_CONFIG_HOME/hypr/bindings.conf`, or `bindings.lua` on Omarchy 4. lgse/strata#947 (unverified)
 - When `hyprctl configerrors` reports errors after the shortcut edit, Complete setup restores the previous bindings file and keeps a `strata-keybind-backup-` copy. lgse/strata#947 (unverified)
 - When `bindings.conf` or `bindings.lua` is a user-owned symlink, Complete setup and Restore default write its target and keep the link. lgse/strata#1455, lgse/strata#1544
-- When the reload then reports errors, the restore also writes through the link and keeps it. lgse/strata#1544 (unverified)
+- When the reload then reports errors, the rollback also writes through the link and keeps it. lgse/strata#1544 (unverified)
 - Complete setup and Restore default keep an existing bindings file's permission bits, so a `0644` file stays `0644`. lgse/strata#1544
-- With a dangling `bindings.conf` or `bindings.lua` link, Complete setup fails with an error naming the missing target. lgse/strata#1544 (unverified)
+- With a dangling `bindings.conf` or `bindings.lua` link, Complete setup fails with an error naming the missing target and leaves no target written. lgse/strata#1544 (unverified)
 - With a dangling bindings link, Restore default leaves the shortcuts and the link unchanged. lgse/strata#1544 (unverified)
-- A bindings link owned by another user makes Complete setup and Restore default fail without writing. lgse/strata#1544 (unverified)
+- A bindings link, or a target reached through one, owned by another user makes Complete setup and Restore default fail, leaving the target unchanged. lgse/strata#1544 (unverified)
 - With a symlinked bindings file, the `strata-keybind-backup-` copy is created in the link's directory. lgse/strata#1544 (unverified)
 - Complete setup is hidden once every line is configured, and Restore default appears while any part is installed. lgse/strata#947 (unverified)
 - Complete setup fails with "Another per-user FileManager1 provider is already installed" when another user service owns that name. lgse/strata#947 (unverified)
@@ -66,6 +66,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Open and Save dialogs, folder opening, and Reveal are separate XDG mechanisms. Users enabling the chooser expected Reveal to follow (lgse/strata#632).
 - lgse/strata#632 proposed independent controls. The owner chose one combined opt-in instead, so one row sets all three (lgse/strata#947).
 - The first-launch offer and the Configure… dialog were replaced by the inline status list in lgse/strata#947. No launch path reads the `portal-opt-in-v1` marker since then.
+- Bindings writes follow the config-file symlink rules in `settings/preferences/storage`; before, a symlinked bindings file was refused (lgse/strata#1455, lgse/strata#1544).
 - A stale backend is detected by comparing the running process's executable inode with the installed file. A backend from another Strata installation is left alone (lgse/strata#474).
 
 ## History

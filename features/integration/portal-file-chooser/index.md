@@ -27,7 +27,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - A glob rule with more than 2 wildcard groups or over 256 bytes, or more than 16 choices, still fails the request. lgse/strata#466, lgse/strata#504 (unverified)
 - A long filter list scrolls inside its dropdown, which opens toward the side of the button with more room. lgse/strata#504
 - Caller choices appear as checkboxes and dropdowns beside the filter, and the selected values are returned with the result. lgse/strata#175
-- Options in the file-type filter and caller choice dropdowns are radio menu items, and the selected option reports the checked state. lgse/strata#1467, lgse/strata#1544 (unverified)
+- Options in the file-type filter and caller choice dropdowns are radio menu items, and the selected option reports the checked state. lgse/strata#1467, lgse/strata#1544
 - `Request.Close` from the caller closes the chooser and the request returns response 1. lgse/strata#175
 - Without a usable folder hint, Open, SaveFile, and SaveFiles start in `XDG_DOWNLOAD_DIR`, or Home when it is undefined. lgse/strata#993
 - A folder hint that is relative, inaccessible, or unanswered within 3 seconds falls back to the same default folder. lgse/strata#993 (unverified)
