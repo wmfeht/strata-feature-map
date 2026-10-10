@@ -3,8 +3,8 @@ title: Icons view
 status: shipped
 origin: {issue: lgse/strata#322, pr: lgse/strata#328}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**]
 tests: [src/ui/icons_cell/tests.rs]
 related: [browser/thumbnails, operations/rename]
@@ -39,6 +39,19 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 - Moving the slider scales existing thumbnails in place without flashing generic icons. lgse/strata#328
 - The size is saved as `icons_thumbnail_size` and used from the first frame after restart; other windows' Icons panes follow a change. lgse/strata#1133
 
+### Name tooltip
+
+- Resting the pointer about a second (900 ms) on a card whose name is middle-ellipsized shows the full name in a tooltip. lgse/strata#1553
+- A name that fits in its two caption lines shows no tooltip. lgse/strata#1553
+- The tooltip appears only over the card's thumbnail or caption, not its padding. lgse/strata#1553
+- Over the caption, only the name and details text count, not blank space beside a short centered name. lgse/strata#1553 (unverified)
+- Moving more than 4 px, leaving the card, or pressing a mouse button restarts the wait. Sweeping across the grid shows no tooltips. lgse/strata#1553
+- After a click with no further pointer movement, that card shows no tooltip. lgse/strata#1553 (unverified)
+- After a rename commits, the tooltip shows the new name; while the rename field is open, none appears. lgse/strata#1553
+- Ctrl+F results shown in Icons use the same cards and show the same tooltip. lgse/strata#1553
+- Keyboard focus on a card shows no name tooltip. lgse/strata#1553 (unverified)
+- Columns and List show no name tooltips. lgse/strata#1553
+
 ### Scrolling
 
 - Tiles bound mid-scroll set their name and request thumbnail and details at once; cut styling and accessible descriptions refresh on the next frame. lgse/strata#328, lgse/strata#1081 (unverified)
@@ -53,11 +66,16 @@ GTK's GridView estimates layout from cell sizes, so flexible image and label car
 - Visible requests displace queued offscreen work in the 1,024-entry metadata backlog instead of raising the limit (lgse/strata#1146).
 - The slider's long-press fine-tune is removed because it snapped the thumb to 64 and 256 (lgse/strata#328).
 - Tile proportions follow Finder and Windows Explorer: compact by default, Airy modestly roomier (lgse/strata#737).
+- Middle ellipsis hides the part of names like `2026-10-07-release-candidate-build-final-v3.tar.gz` that tells them apart. Wider cards, a smaller font, end ellipsis, and a status-bar name were rejected (lgse/strata#1522).
+- Cards run their own rest timer. GTK4's hover delay drops to 60 ms once any tooltip shows, which would flash names card by card while sweeping the grid (lgse/strata#1553).
+- Upstream AGENTS.md allows tooltips only on icon-only buttons. The owner approved this exception for Icons names on condition of a longer delay than GTK's default (lgse/strata#1553).
+- The tooltip reads the caption when GTK asks for it, so it follows a pending rename (lgse/strata#1553).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1553 | feat | Showed the full name in a tooltip after the pointer rests on a card whose name is truncated. |
 | 2026-09-19 | lgse/strata#1133 | feat | Saved the thumbnail size across restarts and synced it between windows. |
 | 2026-09-19 | lgse/strata#1148 | fix | Reserved the details line, resumed fills after fast scrolls, and kept focus on renamed items. |
 | 2026-09-15 | lgse/strata#998 | feat | Streamed size, dimensions, duration, and item counts into tiles and limited hover to tile content. |
@@ -70,4 +88,4 @@ GTK's GridView estimates layout from cell sizes, so flexible image and label car
 
 ## Known gaps
 
-- Returning to an Icons folder with Back, Up, or a breadcrumb selects the first item, not the one you left, although docs/keyboard-navigation.md says Icons restores it; the fix is unmerged. lgse/strata#1436, lgse/strata#1544
+None known.

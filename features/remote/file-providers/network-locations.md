@@ -3,7 +3,7 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
@@ -61,6 +61,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Ejecting or unmounting a non-SMB remote mount, such as SFTP, from its DEVICES row while browsing inside it returns the browser to Home. lgse/strata#352, lgse/strata#296
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
+- With focus in the sidebar or location entry, F5 on a remote folder whose cursor file was deleted elsewhere moves the cursor to a neighbour and leaves focus there, in Columns, Icons, and List. lgse/strata#1434, lgse/strata#1544
 - When `gvfsd` does not answer a 2-second startup probe, the window still opens, using local file and volume support for that session. lgse/strata#56
 
 ## Design
@@ -84,6 +85,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Published the neighbour cursor after a remote reload removes the cursor file, without taking focus from outside the pane. |
 | 2026-10-09 | lgse/strata#1533 | fix | Kept GIO's percent-encoding in URI locations so names that are not valid UTF-8 are listed and `%2F` stays a name. |
 | 2026-09-29 | lgse/strata#233 | feat | Completed SFTP: scheme-specific sign-in fields, a Strata host-key dialog, actionable failures, sanitized logs, and a test fixture. |
 | 2026-09-14 | lgse/strata#990 | fix | Opened SMB share-list shortcuts as folders, mounting the share, in every view. |

@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md]
 ---
@@ -36,6 +36,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
+- With the Appearance menu, a sort menu, and a Settings choice menu each closed, change the choice by shortcut, from a second window, and by hand-editing `settings.toml`; reopen each menu and dump every option's role and `checked` state.
+- Toggle Properties permission bits on a file you own, on a read-only mount, and on a file owned by root; dump each bit's `pressed` state after every click.
+- Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 
 ### app/dialogs
 
@@ -47,6 +50,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open Compress or Properties on a row, delete that row from a shell, then close the dialog; repeat in an empty folder and in a second tab after switching back to it.
 - Open a dialog from a header button, a sidebar row, and the location field; close each by Escape, backdrop, and close button, then press Down and read where focus lands.
 - Run a copy into a read-only folder so an error replaces the progress dialog; close the error and read where focus lands in each mode.
+- From Settings, open the action editor, a delete confirmation, and an error over it; close each by Escape, Enter, backdrop, and close button, and read where focus lands and whether a focus ring shows.
+- Open a dialog over Settings from an action row, edit or delete that action so the row re-renders, close the dialog by keyboard, then press Tab.
+- Confirm a delete over Settings into a failure error, close the error by mouse, then repeat by keyboard; read focus and ring each time.
+- Close a dialog by keyboard while a second window has focus, then return to the first window and read the ring.
 
 ### app/shortcut-reference
 

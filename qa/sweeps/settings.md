@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
 ---
@@ -19,6 +19,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
 - Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, and all four empty. Install a CJK font for the ja and ko runs; none of the ten languages is right-to-left.
+- A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
 
@@ -28,6 +29,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Launch on the fully seeded file and verify each value in the first window before Settings is opened, including lazily built Icons and List panes.
 - Flip the same switch in both windows in opposite directions within a second, ten times; both controls and the file must agree at the end.
 - Traverse every page with Tab and arrows only; each control's accessible name must match its label in English and in Japanese.
+- Read each choice button and option over AT-SPI after changing it from window B, after a hand-edited seed, and under Japanese.
 - Watch the log while Appearance, Actions, and Updates build on first selection, and while a search query hits a page that has not built yet.
 
 ### settings/preferences
@@ -44,7 +46,13 @@ For every control this sweep proves the binding: the file changes, the other win
 ### settings/preferences/storage
 
 - Hand-edit while running: `show_hidden = "yes"`, a deleted `theme` key, an unknown key, a trailing `[` on the last line. Restart after each, read the log, change one preference, and diff the file.
-- Replace `settings.toml` with a symlink, a directory, and a 0600 file in a `chmod 555` directory; change a preference and `ls -la` for leftover temporary files.
+- Replace `settings.toml` with a directory, and with a 0600 file in a `chmod 555` directory; change a preference and `ls -la` for leftover temporary files.
+- Symlink `settings.toml` into `/dev/shm`, through a relative chain of three links, into a `chmod 555` target folder, and to a hard-linked file; change a preference, restart, and `ls -li` every link and target.
+- Swap the symlink for one to another file while Strata runs, and make the whole `~/.config/strata` a symlink as well; change a preference and read both files.
+- Make the target 0644 with an ACL entry, then 0400; change a preference and compare `getfacl` and `stat` before and after.
+- With saves failing, toggle switches by keyboard in window A while B is focused, with Properties open, and during an Omarchy theme change. Count dialogs, then `chmod 755` and fail again.
+- Seed a broken `settings.toml`, then make the first change from the file chooser, from window B while A is focused, and from a second Settings page. Count dialogs per session.
+- Run the failing-save cases under `language = "ja"` and `"de"` with a 200-character path; check the dialog text wraps and the path stays whole.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
@@ -64,12 +72,15 @@ For every control this sweep proves the binding: the file changes, the other win
 - Change the format in window A while window B is idle for two minutes; watch the 30 s refresh relabel the 59 s and 59 min files.
 - Cross each format with ja, de, and ru: month and weekday names, Long format word order, and the separator in `2026-09-17 14:30`.
 - Seed `date_format = " ISO-8601 "`, `"LONG"`, and `"yesterday"`; read the menu and the file after one change.
+- Keep the format menu open across a minute boundary, then change the language and restart; read each option's AT-SPI description against its visible example.
 
 ### settings/themes
 
 - Apply `extreme.toml` and walk the screenshot set in all three modes, the sidebar, footer, search palette, file chooser, progress dialog, scrollbars, and loading skeletons; any pixel not red or white is a lead.
 - Drop `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, a 0-byte file, a `chmod 000` file, a `.TOML` extension, and a 1 MB file into the themes directory. Do it while running and again before launch; count the cards and read the log.
 - In the editor, save a 300-character name, a name equal to a bundled theme, `../escape`, and an emoji-only name.
+- Save a theme while its `<id>.toml` is a directory, a `chmod 000` file, and a link to `/dev/shm`; also with `<id>-2.toml` to `<id>-9.toml` present. List the folder after each.
+- Make the themes folder a symlink, then `chmod 555` it, and save a theme; read the editor's error and the folder.
 - Open the editor in both windows, change swatches in A, then in B, then in A again; close Settings in B, then A, and open a third window. Repeat closing A first.
 - Mid-preview, change text size with the keyboard, toggle Element glow from window B, change `xft-dpi`, and rewrite `colors.toml` while following Omarchy; then Cancel and compare every window.
 - Mid-preview, close the window with the compositor's close shortcut, quit the last window, and close a window that never opened Settings; relaunch and read the theme.

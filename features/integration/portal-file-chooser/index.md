@@ -3,7 +3,7 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
@@ -27,6 +27,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - A glob rule with more than 2 wildcard groups or over 256 bytes, or more than 16 choices, still fails the request. lgse/strata#466, lgse/strata#504 (unverified)
 - A long filter list scrolls inside its dropdown, which opens toward the side of the button with more room. lgse/strata#504
 - Caller choices appear as checkboxes and dropdowns beside the filter, and the selected values are returned with the result. lgse/strata#175
+- Options in the file-type filter and caller choice dropdowns are radio menu items, and the selected option reports the checked state. lgse/strata#1467, lgse/strata#1544 (unverified)
 - `Request.Close` from the caller closes the chooser and the request returns response 1. lgse/strata#175
 - Without a usable folder hint, Open, SaveFile, and SaveFiles start in `XDG_DOWNLOAD_DIR`, or Home when it is undefined. lgse/strata#993
 - A folder hint that is relative, inaccessible, or unanswered within 3 seconds falls back to the same default folder. lgse/strata#993 (unverified)

@@ -3,8 +3,8 @@ title: Properties dialog
 status: shipped
 origin: {issue: lgse/strata#71, pr: lgse/strata#243}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/ui/browser/properties.rs]
 tests: []
 docs: []
@@ -40,6 +40,8 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - The PERMISSIONS header shows the mode in symbolic and octal form, such as `-rw-r--r--  644`. lgse/strata#243
 - The Owner and Group rows show the owning user and group names, or "—" when GIO reports none. lgse/strata#243 (unverified)
 - Owner, Group, and Others rows each have read, write, and execute buttons; clicking one toggles that bit. lgse/strata#243
+- Each bit is a toggle button named "Owner read", "Owner write", and so on through "Others execute"; its description stays "Toggle owner read permission" and so on. lgse/strata#1467, lgse/strata#1544
+- A bit's pressed state follows the requested mode once clicked, and rolls back with the mode if the change fails. lgse/strata#1467, lgse/strata#1544
 - A permission button reads "r", "w", or "x" when its bit is set and "—" when clear. lgse/strata#243 (unverified)
 - For files, checking "Allow executing file as a program (+x)" turns mode `644` into `755`. lgse/strata#243
 - The execute checkbox is checked when any execute bit is set; unchecking it clears all three. lgse/strata#243 (unverified)
@@ -65,6 +67,7 @@ The dialog is a modal layer over the blurred window, built once and filled in by
 
 - Pin is hidden, not insensitive, wherever pinning cannot apply. An insensitive Pin was unreadable in themes that dim insensitive labels, so unpinning looked impossible (lgse/strata#438, lgse/strata#457).
 - Permission edits are optimistic: the grid updates at once and rolls back with an error dialog if GIO rejects `unix::mode`. One change runs at a time (lgse/strata#243).
+- The bits stay plain buttons with the toggle-button role, so GTK cannot flip their pressed state before the asynchronous chmod finishes (lgse/strata#1467).
 - Lists may show relative dates, but Properties always shows an absolute Modified timestamp (lgse/strata#1264). The formats belong to `settings/preferences/date-format`.
 - Narrow or scaled windows constrain the dialog to the available space, so actions stack rather than overflow (lgse/strata#1155).
 - Permissions, Rename, and media details stay single-item; two or more selected items get the compact summary in `browser/properties/size` (lgse/strata#1099).
@@ -73,6 +76,7 @@ The dialog is a modal layer over the blurred window, built once and filled in by
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Exposed permission bits as named toggle buttons whose pressed state follows the requested mode. |
 | 2026-09-04 | lgse/strata#243 | feat | Made the permission grid editable and added an execute checkbox for files. |
 
 ## Known gaps

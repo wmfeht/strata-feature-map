@@ -3,7 +3,7 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
@@ -40,6 +40,11 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Closing the last open dialog by any route returns focus to the widget focused before the first one opened, if still on screen. Progress dialogs and dialogs chained on them use the progress rule instead (`operations/progress`). lgse/strata#1331, lgse/strata#1533
 - When that widget is gone, such as a closed inline rename editor, focus goes to the active tab's cursor row. In an empty, unreadable, or loading folder it goes to the pane. lgse/strata#1533
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
+- Closing a dialog over a modal that stays open, such as the action editor over Settings, returns focus to the control in that modal that opened it. lgse/strata#1544
+- When that opener is gone, such as an action row the dialog re-rendered, focus goes to the first focusable control in the remaining modal. lgse/strata#1544 (unverified)
+- A dialog that opens as another closes, such as an error after a failed delete confirmation, returns focus to the first dialog's opener when it closes. lgse/strata#1544 (unverified)
+- Closing a dialog or overlay with Escape or Enter keeps the focus ring visible on the widget that receives focus. lgse/strata#1544
+- A dialog chained on a closing one opens focused without a focus ring. lgse/strata#1544 (unverified)
 
 ### Forms
 
@@ -47,6 +52,11 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Enter in a form field does nothing while the primary button is disabled. lgse/strata#464
 - Enter with an invalid Compress name such as `../escape` keeps the dialog open and writes no archive. lgse/strata#464
 - Enter in a multi-line text field inserts a newline instead of submitting. lgse/strata#464
+
+### Menu options
+
+- A single-choice popover option from the shared menu option, such as a sort order or a Settings choice, has the radio menu item role and is `checked` while chosen. lgse/strata#1544
+- The shared on/off menu option, used for "Folders first", has the check menu item role and is `checked` while on. lgse/strata#1544
 
 ### Layout
 
@@ -57,7 +67,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 ## Design
 
-Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GTK's default-widget and modality do not apply and Strata supplies both (lgse/strata#439, lgse/strata#1432). [docs/architecture.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/architecture.md) records the split: `ui/modal.rs` owns hosting, animation, and dismissal; each dialog owns its cancel, close, backdrop, and submission policies.
+Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GTK's default-widget and modality do not apply and Strata supplies both (lgse/strata#439, lgse/strata#1432). [docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) records the split: `ui/modal.rs` owns hosting, animation, and dismissal; each dialog owns its cancel, close, backdrop, and submission policies.
 
 - One shell builds every action dialog: header with an accent or danger icon bezel, title, subtitle, close button, body, and Cancel and confirm actions. It replaced one-off widgets and CSS that drifted across themes (lgse/strata#88, lgse/strata#91). The search palette and Settings stay specialized, and native choosers stay native.
 - Animation toggles a `modal-hidden` CSS class: opening removes it 16 ms after mapping, and closing removes the layer 200 ms after adding it. The earlier timer called `allocate()` against GTK's own layout, broke centering, and stacked handlers. A `dismissing` class plus an insensitive layer stops a second dismissal (lgse/strata#112).
@@ -70,12 +80,15 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - One restore order serves every dialog: focus taken meanwhile, an explicit restore, the origin if still in the window, then a window fallback. The window and each tab register the active browser as that fallback (lgse/strata#1430, lgse/strata#1533).
 - Layers that are hidden rather than removed use a visibility-keyed variant: they capture the origin on each show and restore it when the hide completes (lgse/strata#1430).
 - Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533).
-- [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
+- A layer closed while another modal stays open restores focus inside that modal; the window restore order applies only once no modal is left. A layer opened while another closes takes over the closing layer's opener (lgse/strata#1544).
+- Disabling the focused control on a keyboard dismissal makes GTK hide focus rings on the key release. The layer records whether rings showed before that and re-shows them once focus is back (lgse/strata#1544).
+- [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Returned focus to a dialog's opener inside a modal that stays open, kept the focus ring after keyboard closes, and gave menu options radio and checkbox roles. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to a dialog's origin when on screen, otherwise to the cursor row, so closing a dialog no longer leaves nothing focused. |
 | 2026-09-23 | lgse/strata#1206 | fix | Focused the confirm action in dialogs and stopped the path-completion popover flashing. |
 | 2026-09-12 | lgse/strata#909 | fix | Reserved shadow space inside the modal scroller and kept shadow clicks dismissing the dialog. |
@@ -88,4 +101,3 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 ## Known gaps
 
 - Ctrl+K and Ctrl+Shift+K open the search palette beneath an open dialog and take its focus; the fix is planned, not merged. lgse/strata#1432, lgse/strata#1546
-- A dialog closed over another dialog does not return focus to its opener, and a keyboard-closed dialog loses the focus ring; the fix is unmerged. lgse/strata#1544

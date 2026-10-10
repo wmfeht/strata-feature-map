@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/e2e/scenarios/test_filter_results.py]
@@ -56,6 +56,15 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - At Trash, network, and other non-local locations, the filter narrows the loaded entries without searching subfolders. lgse/strata#995
 - Results stop at 100; the status reads "Searching…", "No matching files", or the partial-search reason. lgse/strata#989 (unverified)
 
+### Live updates
+
+- With a filter open, a match another program creates or renames in a watched folder appears in the results within about a second. lgse/strata#1439, lgse/strata#1544
+- Watched folders are the open folder and, in Columns, every open column. lgse/strata#1439, lgse/strata#1544
+- A matching file another program deletes leaves the results as soon as the listing drops it, before the rescan finishes. lgse/strata#1439, lgse/strata#1544
+- In Columns, Enter therefore never opens a deleted hit with "Unable to open file"; in List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
+- With Include subfolders on, a change below the watched folders shows only after F5, auto-refresh, a monitor rescan, or reopening the filter. lgse/strata#1439, lgse/strata#1544
+- When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544
+
 ### Results
 
 - Down from the field focuses the selected or first result; Up from the first result returns to the field with the query kept. lgse/strata#995, lgse/strata#1018
@@ -85,11 +94,14 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - Icons and List share one result collection with view-specific presentation; Columns keeps its native collection (lgse/strata#1155, lgse/strata#1167).
 - Scope changes cancel the old search session, and a session drops batches for any query but the current one, so a stale worker cannot update a rebuilt view (lgse/strata#602, lgse/strata#1174).
 - Results are pruned by checking that each path still exists, rather than tracking each operation's old and new paths (lgse/strata#800).
+- The same check runs whenever a listing splice removes rows, whoever removed them, so outside deletions leave before the rescan. It costs at most 100 stat calls (lgse/strata#1439, lgse/strata#1544).
+- Changes below the watched folders appear only on refresh. The GIO monitor watches only open folders, and recursive watching hits inotify limits (lgse/strata#1439).
 - Filtered results ignore the click-count and preview preferences, which keep governing unfiltered rows (lgse/strata#681, lgse/strata#697).
 - Columns dismisses on any outside click through one window-level gesture, because focus stays in the entry when non-focusable widgets are clicked (lgse/strata#887).
 - The field and its results together count as the filter owning focus. Escape, view switches, and loads therefore treat a focused result like the field. Backspace dismissal stays field-only (lgse/strata#1440).
 - Escape dismisses the filter before closing quick preview, the same order as in the field, the file chooser, and 10xer `f` results (lgse/strata#1440, lgse/strata#1533).
 - A background load or live change refocuses the listing only when the listing itself held focus, never the filter field or its results (lgse/strata#1444, lgse/strata#1533).
+- An outside deletion of the cursor entry follows that rule too. Before, List and Icons left nothing focused and Columns refocused the stale row (lgse/strata#1439, lgse/strata#1544).
 - 10xer mode drives this same field for its **f** filter and **s** search with fzf-style path terms, overriding the subfolder preference without saving it (lgse/strata#1297, lgse/strata#1403).
 
 ## History
@@ -121,7 +133,8 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 ## Known gaps
 
 - In Columns, `/` or Ctrl+F from a focused result does not return focus to the filter field. lgse/strata#1226
-- In List and Icons, F5 with the filter field focused moves focus to a hidden row behind the results. lgse/strata#1434, lgse/strata#1544
+- In List and Icons, a reload briefly hides the filter field, so a character typed in that instant can be dropped. lgse/strata#1544
+- In List and Icons, deleting a focused hit in the app leaves nothing focused. Renaming a hit moves focus to the hit now in its slot. lgse/strata#1544
 - In Columns, when filter results replace the rows, refocusing the listing focuses the column list rather than the results' cursor row. lgse/strata#1533
 - In Icons and List, Tab from a filter result walks every result instead of leaving the results. lgse/strata#1533
 - The filter cannot search file contents. lgse/strata#1211

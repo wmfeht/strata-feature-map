@@ -3,8 +3,8 @@ title: Click modes
 status: shipped
 origin: {issue: lgse/strata#213, pr: lgse/strata#220}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: []
 tests: [tests/e2e/scenarios/test_click_modes.py]
 related: [preview/quick-preview, operations/rename, browser/sidebar]
@@ -37,6 +37,7 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 - Opening a folder with the pointer leaves its entries unselected. lgse/strata#715
 - Opening a folder with Enter selects its first entry. lgse/strata#715
 - Clicking a sidebar place selects nothing in the new listing; Enter on a sidebar place selects the first entry. lgse/strata#715
+- In Icons and List, a sidebar place for a folder left earlier restores its saved selection instead. lgse/strata#1544 (unverified)
 
 ## Design
 

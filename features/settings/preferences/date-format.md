@@ -3,8 +3,8 @@ title: Modified date format
 status: shipped
 origin: {issue: null, pr: lgse/strata#180}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/util/mod.rs, data/locales/dates.json]
 tests: [src/util/tests.rs]
 related: [browser/properties]
@@ -20,6 +20,8 @@ How file modification times read in lists and previews, and the Modified date fo
 
 - General → DATE & TIME → Modified date format offers Relative, the default, ISO 8601, and Long; each choice shows a live example. lgse/strata#1102
 - Each example renders a time five minutes before the menu opens, so Relative reads "5m ago". lgse/strata#1102 (unverified)
+- Relative, ISO 8601, and Long are radio menu items named after the format; only the chosen one is checked. lgse/strata#1467, lgse/strata#1544
+- Each option's accessible description is its live example date. lgse/strata#1544 (unverified)
 - ISO 8601 renders `2026-09-17 14:30` and Long renders "September 17, 2026, 14:30". lgse/strata#1102
 - Changing the format re-renders open modified-time labels in every window without reloading. lgse/strata#1102
 - The choice is saved as `date_format`. lgse/strata#1102

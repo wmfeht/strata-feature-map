@@ -3,7 +3,7 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/browser/location.rs, src/ui/browser/location/**]
 tests: [src/ui/browser/location/tests.rs, src/ui/browser/location/completion/tests.rs, src/app/browser/tests/location_input.rs, tests/e2e/scenarios/test_locations.py]
@@ -58,6 +58,7 @@ The header control that shows the active location as breadcrumbs and switches to
 ### Breadcrumbs
 
 - Each ancestor crumb is a button that opens that folder. lgse/strata#316
+- Clicking an ancestor crumb, or choosing an ancestor in the hierarchy menu, selects the folder on the path you came from. In Icons and List a remembered position wins. lgse/strata#1437, lgse/strata#1544
 - Right-clicking the breadcrumb bar opens a menu of the current folder and its ancestors, current first; choosing one opens it. lgse/strata#820
 - For paths under home, the crumbs and the hierarchy menu start at `~`. lgse/strata#820 (unverified)
 - When crumbs overflow, the wheel scrolls them horizontally and edge fades mark the hidden part. lgse/strata#820
@@ -84,6 +85,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Made crumbs and the hierarchy menu select the folder you came from when they open an ancestor. |
 | 2026-10-09 | lgse/strata#1533 | fix | Stored typed remote URIs in GIO's percent-encoded form so they match their listed children, keeping decoded text in the entry. |
 | 2026-09-25 | lgse/strata#1219 | feat | Revealed a typed file path inside its parent instead of rejecting it as not a directory. |
 | 2026-09-23 | lgse/strata#1132 | fix | Gave the entry and its confirm and cancel buttons accessible names. |

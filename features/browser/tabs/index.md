@@ -3,7 +3,7 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/browser/tab_location/tests.rs, tests/e2e/scenarios/test_tabs.py]
@@ -93,6 +93,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Registered each tab window for the notice shown when settings cannot be saved. |
 | 2026-10-09 | lgse/strata#1533 | fix | Fell back to the file view's cursor when a tab's saved focus can no longer take it, and registered the active tab as the dialog focus fallback. |
 | 2026-10-07 | lgse/strata#1506 | feat | Added Ctrl+Page Up/Down switching and Ctrl+Shift+Page Up/Down reordering, like web browsers. |
 | 2026-10-07 | lgse/strata#1507 | fix | Held the tab name during a pending folder click so it no longer flickers to the parent. |

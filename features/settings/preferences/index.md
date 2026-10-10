@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
@@ -31,6 +31,13 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - When the panel is narrower than 1250 px at the default text size, a row's control moves below its title and description; switches stay beside it. lgse/strata#849, lgse/strata#924 (unverified)
 - When a dependent row's control stacks below it, the row's dependency arrow stays beside its heading. lgse/strata#924
 - Settings has no Keybindings page; the F1 reference is the only keybinding list. lgse/strata#1376
+
+### Choice menus
+
+- A Settings choice button, such as Auto-refresh folder, is named after its row title and described by its shown value, such as "5 min". lgse/strata#1467, lgse/strata#1544
+- Choosing another value updates the button's description at once, also in other windows. lgse/strata#1544 (unverified)
+- Each option in a Settings choice menu is a radio menu item whose checked state matches its check icon. lgse/strata#1467, lgse/strata#1544
+- The Decoding backend button is named "Video preview hardware backend", not its row title. lgse/strata#1544 (unverified)
 
 ### Settings search
 
@@ -67,6 +74,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Ctrl+H or Ctrl+. toggles hidden files. lgse/strata#240
 - Ctrl+Shift or Ctrl+Alt with H or . does not toggle hidden files. lgse/strata#240 (unverified)
 - The Appearance menu's Hidden files row shows the `Ctrl + H` hint and an eye icon reflecting the current state. lgse/strata#240
+- That row is a check menu item described as "Ctrl + H"; its checked state follows Ctrl+H and other windows. lgse/strata#1467, lgse/strata#1544
 - The folder-background context menu offers Show Hidden Files or Hide Hidden Files, matching the current state. lgse/strata#240
 - Toggling shows or hides hidden entries in every open column without reloading the directories. lgse/strata#201
 - The choice is saved as `show_hidden` and restored on the next launch. lgse/strata#144
@@ -75,13 +83,14 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work.
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
 - Closing Settings returns focus to the file list, not to the gear or other chrome that opened it. Only a focused filter session gets its field or results back (owner decision, lgse/strata#1430, lgse/strata#1533).
 - Settings is hidden rather than removed, so it captures its focus origin on each show and restores focus when the hide completes. Every close route, and the layer unrealizing with its window, runs the same dismissal hooks (lgse/strata#1430, lgse/strata#1457, lgse/strata#1533).
+- A choice button's value goes in its description, so its name stays stable for E2E locators and Settings search. Options are radio menu items so screen readers announce the chosen one (lgse/strata#1467, lgse/strata#1544).
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).

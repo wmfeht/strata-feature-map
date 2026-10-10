@@ -3,8 +3,8 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/e2e/scenarios/test_clipboard.py]
 docs: [docs/keyboard-navigation.md]
@@ -35,7 +35,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Ctrl+V with exactly one folder explicitly selected pastes into that folder. lgse/strata#454
 - With a file, several items, or nothing selected, Ctrl+V pastes into the destination column. lgse/strata#454
 - The destination column follows the last pointer or keyboard navigation; pressing Ctrl+V does not change it. lgse/strata#358
-- After going to a parent folder in Icons or List, Ctrl+V pastes into the parent, not its auto-selected first folder. lgse/strata#485
+- After going to a parent folder in Icons or List, the folder you came from is auto-selected, and Ctrl+V pastes into the parent, not into it. lgse/strata#485, lgse/strata#1436, lgse/strata#1544
 - Ctrl+V while viewing Recent does nothing. lgse/strata#1083
 - After a paste, the destination is shown with the pasted items selected; a pasted-into folder in Columns opens and keeps focus. lgse/strata#524
 - Completing a cut-paste removes the moved items from the clipboard; text copied after the cut stays on the clipboard. lgse/strata#1265

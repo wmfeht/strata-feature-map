@@ -3,17 +3,16 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/navigation.rs]
 tests: []
-docs: [docs/keyboard-navigation.md]
 related: [browser/navigation]
 ---
 
 ## Summary
 
-A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer.
+A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer. Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes`.
 
 ## Behavior
 
@@ -42,15 +41,6 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - The setting is saved across restarts. lgse/strata#235
 - Grouping is not applied in Recent or in a Camera Photos library while it loads or uses Device order. lgse/strata#1029 (unverified)
 
-### Returning to a folder
-
-- Back, Forward, and Up restore the selection, keyboard cursor, and scroll position of each of the last 128 folders left in List, once its entries load. lgse/strata#893
-- Pressing Down after a restore moves from the restored row, not the first row. lgse/strata#893
-- Back, Forward, or Up into a remembered folder that is now empty gives keyboard focus to the pane, not the hidden list. lgse/strata#1466, lgse/strata#1533 (unverified)
-- Opening a remembered folder another way, such as double-clicking it, also restores its position. lgse/strata#893 (unverified)
-- A restored selection does not make Ctrl+V paste into the selected folder until the user selects it explicitly. lgse/strata#893
-- Opening a typed file path, a Ctrl+K result, Open file location, or a FileManager1 request selects that target instead of the remembered position. lgse/strata#1499
-
 ### Rows
 
 - A click selects the row whose hover highlight is shown; no strip between rows highlights one row but selects another. lgse/strata#327
@@ -64,8 +54,6 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 - Grouping uses list-view sections, so one selection, keyboard navigation, and marquee span every group (lgse/strata#235). Icons lost grouping because grouped grids inflated cards and could abort GTK (lgse/strata#372, lgse/strata#509).
 - Autofit measures each cell with its fixed width and one-character label cap lifted; with them in place the measurement returned the current width (lgse/strata#1115).
 - Scroll deferral began as the Icons 80 ms settle (lgse/strata#368, lgse/strata#371). lgse/strata#1081 replaced the fixed wait with the next GTK frame, so continuous scrolling does not postpone updates.
-- Restoring matches entries by location, not row number, so a deleted entry is never selected; a restored selection does not redirect paste until it is selected again (lgse/strata#893).
-- An explicit target beats the remembered position because the user named it (lgse/strata#1499).
 - Mode's default width is 160 px so the octal value fits at every text size (lgse/strata#435).
 - Saved widths are unscaled by text size, and browser and chooser widths are independent (lgse/strata#1338).
 
@@ -73,6 +61,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Extended List's position history to Icons and reloads, so returns and refreshes keep cursor, viewport, and focus. |
 | 2026-10-09 | lgse/strata#1533 | fix | Focused the pane instead of the hidden list when history returns to an empty folder. |
 | 2026-09-19 | lgse/strata#1116 | fix | Made double-click autofit work on List heading resize edges. |
 | 2026-09-12 | lgse/strata#893 | feat | Restored selection, cursor, and scroll position when returning to a List folder. |

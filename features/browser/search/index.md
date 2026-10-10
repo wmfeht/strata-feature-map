@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/e2e/scenarios/test_search_filter_sort.py]
@@ -42,6 +42,16 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - A small tree with one unreadable folder reports the unreadable folder, not an entry limit. lgse/strata#493
 - While indexing adds results, the highlighted result stays selected by path and unchanged rows are not rebuilt. lgse/strata#758
 
+### Outside changes
+
+- A file another program creates, deletes, or renames in a watched folder rescans every index whose walk lists that folder. lgse/strata#1439, lgse/strata#1544
+- A burst of such changes during a walk does not cancel it; one more walk follows after it publishes. lgse/strata#1439, lgse/strata#1544
+- Rescans of one index for outside changes start at least 1 second apart, and every session sharing the index gets the new results. lgse/strata#1439, lgse/strata#1544
+- A change in a folder the walk skips triggers no rescan. Skipped are generated trees such as `target/`, exclusions, hidden folders while hidden files are off, and depth 64 or more. lgse/strata#1544
+- For an index built without subfolders, only a change in its root folder triggers a rescan. lgse/strata#1544 (unverified)
+- When another program moves a folder that is an index root or contains one, those indexes move to the new path and restart. lgse/strata#1544 (unverified)
+- While Ctrl+K is open, a change in a watched folder under its roots triggers a full Ctrl+K rescan, at most once a second. lgse/strata#1544
+
 ### Keyboard and activation
 
 - Up and Down move the highlight while the caret stays in the query field; typing edits the query. lgse/strata#758
@@ -69,6 +79,10 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 - Among directories with equal pending work, shallower ones are scheduled first, so sibling folders are found before deep subtrees (lgse/strata#1286, lgse/strata#1287).
 - Generated trees are pruned by glob rather than whole dot-directories, so tool configuration stays searchable (lgse/strata#471, lgse/strata#473).
 - The index is not a snapshot. Concurrent filesystem changes can cause transient omissions (lgse/strata#758).
+- An outside change refreshes the shared index rather than restarting one session. Another pane sharing the index would otherwise keep the stale snapshot (lgse/strata#1439).
+- Refreshes for outside changes coalesce to about one walk per second per index. A constantly changing folder, such as build output, cannot run walks back to back (lgse/strata#1439, lgse/strata#1544).
+- The pruned-folder check caches its glob set per root; rebuilding it per change stalled the window for up to 1.8 s during bursts (lgse/strata#1544).
+- A root rename or move still cancels and restarts the walk, because the roots themselves changed (lgse/strata#1544).
 - Unreadable folders are reported apart from size limits, because a walker error had been described as a very large tree (lgse/strata#431).
 - Queries and indexed names are folded with lowercase and NFC, with an ASCII fast path (lgse/strata#809, lgse/strata#813).
 - Ctrl+Shift+K reuses this dialog to rank visited folders; that folder jump belongs to `browser/navigation`.
@@ -77,6 +91,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1544 | fix | Rescanned indexes listing a folder changed outside the app, coalescing bursts and skipping pruned folders. |
 | 2026-09-27 | lgse/strata#1287 | fix | Scheduled shallow directories first and pruned Go and Python caches so sibling folders are not starved. |
 | 2026-09-17 | lgse/strata#1066 | feat | Added Open containing folder to results through the result menu and Alt+Enter. |
 | 2026-09-17 | lgse/strata#1105 | fix | Added a folder icon to the reveal shortcut hint in search results. |
