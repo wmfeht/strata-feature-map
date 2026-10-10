@@ -40,10 +40,12 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Closing the last open dialog by any route returns focus to the widget focused before the first one opened, if still on screen. Progress dialogs and dialogs chained on them use the progress rule instead (`operations/progress`). lgse/strata#1331, lgse/strata#1533
 - When that widget is gone, such as a closed inline rename editor, focus goes to the active tab's cursor row. In an empty, unreadable, or loading folder it goes to the pane. lgse/strata#1533
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
-- Closing a dialog over a modal that stays open, such as the action editor over Settings, returns focus to the control in that modal that opened it. lgse/strata#1544
+- Closing a dialog over a modal that stays open, such as the action editor over Settings, refocuses its opener there. lgse/strata#1544
 - When that opener is gone, such as an action row the dialog re-rendered, focus goes to the first focusable control in the remaining modal. lgse/strata#1544 (unverified)
 - A dialog that opens as another closes over a modal that stays open, such as Settings, returns focus to the first dialog's opener. lgse/strata#1544 (unverified)
-- If focus rings showed when a dialog or overlay began closing, they show again on the widget that receives focus. lgse/strata#1544
+- A dialog closed from the keyboard keeps the focus ring where focus lands once the last modal closes. lgse/strata#1544
+- It also keeps the ring when focus returns into a modal that stays open. lgse/strata#1544
+- A dialog chained on the closing one opens without a ring. lgse/strata#1544 (unverified)
 
 ### Forms
 
@@ -82,7 +84,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-10 | lgse/strata#1544 | fix | Returned focus to a dialog's opener inside a modal that stays open, kept the focus ring after keyboard closes, and gave menu options radio and checkbox roles. |
+| 2026-10-10 | lgse/strata#1544 | fix | Refocused a dialog's opener inside a modal left open, kept focus rings after keyboard closes, and gave menu options radio and checkbox roles. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to a dialog's origin when on screen, otherwise to the cursor row, so closing a dialog no longer leaves nothing focused. |
 | 2026-09-23 | lgse/strata#1206 | fix | Focused the confirm action in dialogs and stopped the path-completion popover flashing. |
 | 2026-09-12 | lgse/strata#909 | fix | Reserved shadow space inside the modal scroller and kept shadow clicks dismissing the dialog. |

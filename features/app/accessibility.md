@@ -13,7 +13,7 @@ related: [browser/navigation/location-bar, browser/sidebar, settings/preferences
 
 ## Summary
 
-App-wide accessible semantics for screen readers and AT-SPI automation: the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs, plus the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
+App-wide accessible semantics for screen readers and AT-SPI automation. It covers the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs. It also owns the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
 
 ## Behavior
 
@@ -57,7 +57,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
-- The owner approved one exception: Icons-view cards show a truncated name as a tooltip, on condition of a longer delay than GTK's default (lgse/strata#1553).
+- Icons-view card names are the one approved exception (`browser/view-modes/icons`, lgse/strata#1553).
 - Exclusive choices are radio menu items and on/off options are check menu items, because screen readers announce their checked state (lgse/strata#1467, lgse/strata#1544).
 - Chosen states are product surface too: E2E checks read `checked` or `pressed` from AT-SPI and never infer them from check-icon children (lgse/strata#1544).
 - A menu option's `checked` state mirrors its check icon's own visibility, because a closed popover hides every option's ancestors (lgse/strata#1544, unverified).
@@ -66,7 +66,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-10 | lgse/strata#1544 | fix | Added shared checked and pressed state helpers that mirror an option's check mark, so chosen options reach screen readers. |
+| 2026-10-10 | lgse/strata#1544 | fix | Added checked and pressed state helpers, and a sync that keeps a menu option's checked state equal to its check icon. |
 | 2026-10-09 | lgse/strata#1533 | fix | Named and described the focusable pane of an empty, unreadable, or loading directory so focus is never lost there. |
 | 2026-10-01 | lgse/strata#1359 | fix | Limited tooltips to icon-only buttons and moved tooltip text into accessible descriptions. |
 

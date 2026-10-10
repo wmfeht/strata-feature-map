@@ -48,10 +48,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open Compress or Properties on a row, delete that row from a shell, then close the dialog; repeat in an empty folder and in a second tab after switching back to it.
 - Open a dialog from a header button, a sidebar row, and the location field; close each by Escape, backdrop, and close button, then press Down and read where focus lands.
 - Run a copy into a read-only folder so an error replaces the progress dialog; close the error and read where focus lands in each mode.
-- From Settings, open the action editor, a delete confirmation, and an error over it; close each by Escape, Enter, backdrop, and close button, and read where focus lands and whether a focus ring shows.
-- Open a dialog over Settings from an action row, edit or delete that action so the row re-renders, close the dialog by keyboard, then press Tab.
-- Confirm a delete over Settings into a failure error, close the error by mouse, then repeat by keyboard; read focus and ring each time.
-- Close a dialog by keyboard while a second window has focus, then return to the first window and read the ring.
+- From Settings, open the action editor; close it by Escape, Enter, backdrop, and close button, and read where focus lands and whether a focus ring shows.
+- Open the action editor from an action row in Settings and save an edit so the row re-renders. Then press Tab.
+- Confirm a delete over Settings into a failure error, close the error by mouse, and read focus and ring.
+- Close a dialog by keyboard, switch to a second window before the 200 ms close animation ends, then return and read the ring.
 
 ### app/shortcut-reference
 
