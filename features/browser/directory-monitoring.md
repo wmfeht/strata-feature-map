@@ -59,7 +59,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - While a delete, restore, copy, or move runs, monitor changes for open folders are held back instead of applied one by one. lgse/strata#1036
 - Once 512 changes are held, the next progress update applies them, so completed files appear during a bulk transfer without a reload. lgse/strata#1266 (unverified)
 - When the operation finishes, the held changes apply in one batch per folder, parent folders before their children. lgse/strata#1036
-- Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results, as for any outside change. lgse/strata#1439, lgse/strata#1544
+- Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544
 - If a monitor asked for a full reload during the operation, that folder reloads after the progress dialog closes, keeping its rows on screen until the new listing replaces them. lgse/strata#1266, lgse/strata#1036
 - Non-native locations, such as SFTP folders, reload after a rename, create, or paste that touches them. lgse/strata#1035 (unverified)
 
@@ -77,7 +77,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - After Strata's own operations, native folders rely on their monitor and only non-native locations reload, avoiding needless reloads (lgse/strata#1035).
 - Auto-refresh exists because monitors can miss changes on network shares or after errors (lgse/strata#172). It defaults to Off.
 - An unlisted interval rounds up rather than down or to Off: auto-refresh stays on and never runs more often than every 60 s. The preference store normalizes it, not the timer (lgse/strata#1456).
-- Each live change other than a rescan, F5, and reload asks the search service to rescan indexes listing a local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544).
+- Every live change and every reload (F5, auto-refresh, rescan) asks the search service to rescan indexes listing that local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544).
 - lgse/strata#173 also bound Ctrl+R to refresh. lgse/strata#393 gave Ctrl+R to Rename, leaving F5 as the only refresh key.
 - Retired views once stayed alive through autoscroll, menu, and preference-listener cycles, so each folder switch added work (lgse/strata#1185, lgse/strata#1187, lgse/strata#1353).
 

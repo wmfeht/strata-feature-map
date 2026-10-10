@@ -51,7 +51,8 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - A change in a folder the walk skips, such as `target/`, `node_modules/`, an exclusion, or a hidden folder, triggers no rescan. lgse/strata#1544
 - Hidden folders are skipped only while hidden files are off, and folders 64 or more levels deep are skipped too. lgse/strata#1544 (unverified)
 - For an index built without subfolders, only a change in its root folder triggers a rescan. lgse/strata#1544 (unverified)
-- When another program moves a folder that is an index root or contains one, those indexes move to the new path and restart. lgse/strata#1544 (unverified)
+- When another program moves a folder within a watched folder, and that folder is an index root or contains one, those indexes move to the new path and restart. lgse/strata#1544 (unverified)
+- F5, auto-refresh, and a monitor rescan also rescan every index listing that folder, coalesced the same way. lgse/strata#1544 (unverified)
 - While Ctrl+K is open, a change in a watched folder under its roots triggers a full Ctrl+K rescan, at most once a second. lgse/strata#1544
 
 ### Keyboard and activation

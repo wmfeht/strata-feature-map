@@ -59,9 +59,9 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 ### Live updates
 
 - With a filter open, a match another program creates or renames in a watched folder appears in the results within about a second. lgse/strata#1439, lgse/strata#1544
-- Watched folders are the open folder and, in Columns, every open column. lgse/strata#1439, lgse/strata#1544
+- Watched folders are the filtered folder and, with Include subfolders on in Columns, the open columns below it. lgse/strata#1439, lgse/strata#1544
 - A matching file another program deletes leaves the results as soon as the listing drops it, before the rescan finishes. lgse/strata#1439, lgse/strata#1544
-- In Columns, Enter therefore never opens a deleted hit with "Unable to open file"; in List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
+- In Columns, Enter on such a hit no longer shows "Unable to open file". In List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
 - With Include subfolders on, a change below the watched folders shows only after F5, auto-refresh, a monitor rescan, or reopening the filter. lgse/strata#1439, lgse/strata#1544
 - When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544
 

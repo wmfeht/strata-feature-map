@@ -33,8 +33,12 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Back, Forward, or Alt+Up to an ancestor selects the folder you came from, at any depth, with the cursor on it. lgse/strata#1437, lgse/strata#1544
 - The came-from folder's own column stays closed; Alt+Left from `documents/b2` selects `b2` with no `b2` column. lgse/strata#1437, lgse/strata#1544
 - When the came-from folder is gone, or hidden with hidden files off, the first visible entry is selected once the listing completes. Hidden files stay off and no error shows. lgse/strata#1437, lgse/strata#1544
-- Back to a folder that is not an ancestor selects its first entry. lgse/strata#1544
-- A sidebar place that is an ancestor of the current folder selects its first entry, not the came-from folder. lgse/strata#1437 (unverified)
+- Back to a folder that is not an ancestor selects its first entry. lgse/strata#1437, lgse/strata#1544
+- A sidebar place that is an ancestor of the current folder does not select the came-from folder. lgse/strata#1437 (unverified)
+
+### Refreshing
+
+- F5 or auto-refresh keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544
 
 ### Column header
 
@@ -43,7 +47,6 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - While an item or background context menu is open in a column, that column keeps the header actions even when the pointer moves over another column. lgse/strata#555
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
-- F5 or auto-refresh keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544
 - A dialog, popover, or focused filter field that opens before a rebuilt column's deferred refocus keeps keyboard focus. lgse/strata#1430, lgse/strata#1441, lgse/strata#1533
 
 ### Open-path marker

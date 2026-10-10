@@ -156,8 +156,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Search `résumé` typed in NFD, `.cargo`, `level-255`, `/`, and a query ending in a space; then add a `.gitignore` excluding a folder and reopen.
 - Press Alt+Enter on a result while a Trash view is open, then while a filter is open; press Ctrl+K with the location entry and a rename editor open.
 - Open Ctrl+K from the sidebar, the filter field, and an empty folder, close it by a click outside the panel, and press Down.
-- With Ctrl+K open on a query, `touch` a file in a watched Home subfolder every 100 ms for 10 s; type meanwhile and watch the highlight.
-- With a filter open in one window, `mv` its folder from a shell, then `mv` a parent of it; read the results and the breadcrumb in each window.
+- With a Ctrl+K query open, `touch` a file in a watched Home subfolder every 100 ms for 10 s. Type meanwhile and watch the highlight.
+- Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 
 ### browser/search/exclusions
 
@@ -188,7 +188,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Edit the bookmarks file externally with a CRLF line, a duplicate, a `file:///home/<user>` line, and `smb://u:p@h/s`; pin a folder and diff the file.
 - Pin a folder, `chmod 444` the bookmarks file, unpin; then pin a folder on `/dev/shm`, trash it from the other window, and press Ctrl+Z.
 - With Type to search off press `p` on a file, a pinned folder, a standard folder, and a folder inside Trash.
-- Make the bookmarks file a chain of 8, then 9 links, a root-owned target, a dangling link, and a relative link. Pin, then read `ls -l`.
+- With the bookmarks file symlinked, delete a pinned folder from the other window; read `ls -l` and the file.
 
 ### browser/thumbnails
 
@@ -208,10 +208,9 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 ### browser/properties
 
-- Open Properties on a file you cannot chmod, on the broken symlink, and on the 255-byte name; toggle a permission bit and press Escape before it applies.
+- Open Properties on a file you cannot chmod, the broken symlink, and the 255-byte name. Toggle a bit, press Escape before it applies, and read AT-SPI states.
 - Press Alt+Enter with nothing selected, with the sidebar focused, and in Recent; set each date format and reread MODIFIED.
 - Copy path for a name holding `'` and a space, and for a file in `trash:///`; paste each in a shell.
-- With an AT-SPI inspector, toggle a bit on a file you cannot chmod and read its pressed state before and after the error; then open the broken symlink.
 
 ### browser/properties/media
 

@@ -36,7 +36,7 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 
 - Opening a folder with the pointer leaves its entries unselected. lgse/strata#715
 - Opening a folder with Enter selects its first entry. lgse/strata#715
-- Clicking a sidebar place for a folder not visited before selects nothing in the new listing; Enter on one selects the first entry. lgse/strata#715
+- Clicking a sidebar place for a folder not remembered by Icons or List selects nothing in the new listing; Enter on one selects the first entry. lgse/strata#715
 
 ## Design
 

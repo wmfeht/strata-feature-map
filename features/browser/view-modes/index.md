@@ -54,13 +54,12 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 - In Icons and List, returning to one of the last 128 folders left restores its selection, cursor, range anchor, and scroll position after loading. lgse/strata#893, lgse/strata#1436, lgse/strata#1544
 - Back, Forward, Alt+Up, Backspace, a breadcrumb, and a path typed after Ctrl+L all restore it. lgse/strata#1436, lgse/strata#1544
-- Opening a remembered folder another way, such as a sidebar place by click or Enter, or a double-click, also restores its position. lgse/strata#893, lgse/strata#1544 (unverified)
+- Opening a remembered folder another way, such as a sidebar place or a double-click, also restores its position. lgse/strata#893, lgse/strata#1544 (unverified)
 - Pressing Down after a restore moves from the restored row, not the first row. lgse/strata#893, lgse/strata#1544
 - Selection, cursor, and anchor carry between Icons and List: a folder left in Icons and reopened in List has the same entries selected. lgse/strata#1436, lgse/strata#1544
 - The exact scroll offset returns only in the view the folder was left in, and for Icons only at the same grid width. Otherwise the view scrolls the cursor into view. lgse/strata#1436, lgse/strata#1544
 - With no remembered position, returning to an ancestor selects the folder you came from, as Columns does. lgse/strata#1437, lgse/strata#1544
 - Back, Forward, or Up into a remembered folder that is now empty gives keyboard focus to the pane, not the hidden list. lgse/strata#1466, lgse/strata#1533 (unverified)
-- A restored selection does not make Ctrl+V paste into the selected folder until the user selects it explicitly. lgse/strata#893
 - Opening a typed file path, a Ctrl+K result, Open file location, or a FileManager1 request selects that target instead of the remembered position. lgse/strata#1499
 - A click, scroll, or key press in the pane before a restore settles cancels it. So do a view switch and a failed load. lgse/strata#893, lgse/strata#1544 (unverified)
 
@@ -75,10 +74,10 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 - In Icons and List, F5, the Refresh button, auto-refresh, or a rescan after over 4,096 queued changes keeps the cursor row, selection, and scroll offset. lgse/strata#1434, lgse/strata#1544
 - After End then F5, the last row keeps the cursor at the same position on screen, and Left or Up moves from it. lgse/strata#1434, lgse/strata#1544
-- A refresh keeps focus on a focused row, or in a focused Ctrl+F field with its query. That holds through a slow reload. lgse/strata#1434, lgse/strata#1544
+- In Icons and List, a refresh keeps focus on a focused row, or in a focused Ctrl+F field with its query. That holds through a slow reload. lgse/strata#1434, lgse/strata#1544
 - Typing in the Ctrl+F field during that reload does not stop focus returning to it. Tab, Escape, or pointer input does. lgse/strata#1544
 - Escape that closes the filter during the reload sends focus to the listing instead. lgse/strata#1544
-- A refresh or restore never takes focus from the sidebar, the location entry, or a dialog. lgse/strata#1434, lgse/strata#1544
+- A refresh never takes focus from the sidebar, the location entry, or a dialog. lgse/strata#1434, lgse/strata#1544
 - With a filter result focused, a refresh restores the viewport and leaves focus to the filter. lgse/strata#1544 (unverified)
 
 ## Design

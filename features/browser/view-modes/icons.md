@@ -45,13 +45,11 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 - A name that fits in its two caption lines shows no tooltip. lgse/strata#1553
 - The tooltip appears only over the card's thumbnail or caption, not its padding. lgse/strata#1553
 - Over the caption, only the name and details text count, not blank space beside a short centered name. lgse/strata#1553 (unverified)
-- Moving more than 4 px, leaving the card, or pressing a mouse button restarts the wait. Sweeping across the grid shows no tooltips. lgse/strata#1553
-- After a click with no further pointer movement, that card shows no tooltip. lgse/strata#1553 (unverified)
+- Moving more than 4 px or leaving the card restarts the wait. Sweeping across the grid shows no tooltips. lgse/strata#1553
+- Pressing a mouse button cancels the wait until the pointer moves again, so a click then holding still shows no tooltip. lgse/strata#1553 (unverified)
 - After a rename commits, the tooltip shows the new name; while the rename field is open, none appears. lgse/strata#1553
 - Ctrl+F results shown in Icons use the same cards and show the same tooltip. lgse/strata#1553
 - Keyboard focus on a card shows no name tooltip. lgse/strata#1553 (unverified)
-- Columns shows no name tooltips. lgse/strata#1553
-- List shows no name tooltips either. lgse/strata#1553 (unverified)
 
 ### Scrolling
 

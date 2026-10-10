@@ -40,7 +40,7 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - The PERMISSIONS header shows the mode in symbolic and octal form, such as `-rw-r--r--  644`. lgse/strata#243
 - The Owner and Group rows show the owning user and group names, or "—" when GIO reports none. lgse/strata#243 (unverified)
 - Owner, Group, and Others rows each have read, write, and execute buttons; clicking one toggles that bit. lgse/strata#243
-- Each bit is a toggle button named "Owner read", "Owner write", and so on through "Others execute"; its description stays "Toggle owner read permission" and so on. lgse/strata#1467, lgse/strata#1544
+- Each bit exposes the toggle-button role, named "Owner read" through "Others execute". Its description stays "Toggle owner read permission" and so on. lgse/strata#1467, lgse/strata#1544
 - A bit's pressed state follows the requested mode once clicked, and rolls back with the mode if the change fails. lgse/strata#1467, lgse/strata#1544
 - A permission button reads "r", "w", or "x" when its bit is set and "—" when clear. lgse/strata#243 (unverified)
 - For files, checking "Allow executing file as a program (+x)" turns mode `644` into `755`. lgse/strata#243
