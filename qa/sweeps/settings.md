@@ -1,7 +1,7 @@
 ---
 title: Settings sweep
 reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
-triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**]
+triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
 ---
 
