@@ -46,7 +46,7 @@ For every control this sweep proves the binding: the file changes, the other win
 ### settings/preferences/storage
 
 - Hand-edit while running: `show_hidden = "yes"`, a deleted `theme` key, an unknown key, a trailing `[` on the last line. Restart after each, read the log, change one preference, and diff the file.
-- Replace `settings.toml` with a directory, and with a 0600 file in a `chmod 555` directory; change a preference and `ls -la` for leftover temporary files.
+- Replace `settings.toml` with a FIFO, and with a 0600 file in a `chmod 555` directory; change a preference and `ls -la` for leftover temporary files.
 - Symlink `settings.toml` into `/dev/shm`, through a relative chain of three links, into a `chmod 555` target folder, and to a hard-linked file; change a preference, restart, and `ls -li` every link and target.
 - Swap the symlink for one to another file while Strata runs, and make the whole `~/.config/strata` a symlink as well; change a preference and read both files.
 - Make the target 0644 with an ACL entry, then 0400; change a preference and compare `getfacl` and `stat` before and after.

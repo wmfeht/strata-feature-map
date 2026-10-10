@@ -37,7 +37,6 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A Settings choice button, such as Auto-refresh folder, is named after its row title and described by its shown value, such as "5 min". lgse/strata#1467, lgse/strata#1544
 - Choosing another value updates the button's description at once, also in other windows. lgse/strata#1544 (unverified)
 - Each option in a Settings choice menu is a radio menu item whose checked state matches its check icon. lgse/strata#1467, lgse/strata#1544
-- The Decoding backend button is named "Video preview hardware backend", not its row title. lgse/strata#1544 (unverified)
 
 ### Settings search
 

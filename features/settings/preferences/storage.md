@@ -33,12 +33,12 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A relative link resolves against the link's own directory, and a chain of links resolves to its final file. lgse/strata#1544 (unverified)
 - A chain of up to 8 links is written through; a 9th link is refused and nothing is written. lgse/strata#1544
 - A link loop is refused like a chain longer than 8 links, and nothing is written. lgse/strata#1544 (unverified)
+- A `settings.toml` that is a directory or other non-regular file, not a link, is refused, and nothing is written. lgse/strata#39, lgse/strata#1544
 - A dangling link or a link to a directory is refused, and nothing is written. lgse/strata#1544
-- A link owned by another user, or a file reached through a link that another user owns, is refused. lgse/strata#1544
+- A link owned by another user, or a target file another user owns, is refused. lgse/strata#1544
 - A plain, unlinked `settings.toml` owned by another user is not checked for ownership. lgse/strata#1544 (unverified)
 - When the target's directory is not writable, the save fails and its reason names the target, not the link. lgse/strata#1544 (unverified)
 - Refusal reasons read, for example, "The symlink “<link>” points to a missing target “<target>”" or "The symlink “<path>” belongs to another user". lgse/strata#1544 (unverified)
-- Tab session, recent apps, thumbnail cache, navigation history, update-check state, and custom actions still refuse a symlinked destination and leave its target untouched. lgse/strata#39, lgse/strata#1544
 
 ### Save notices
 
