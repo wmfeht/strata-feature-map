@@ -57,7 +57,6 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
-- Icons-view card names are the one approved exception (`browser/view-modes/icons`, lgse/strata#1553).
 - Exclusive choices are radio menu items and on/off options are check menu items, because screen readers announce their checked state (lgse/strata#1467, lgse/strata#1544).
 - Chosen states are product surface too: E2E checks read `checked` or `pressed` from AT-SPI and never infer them from check-icon children (lgse/strata#1544).
 - A menu option's `checked` state mirrors its check icon's own visibility, because a closed popover hides every option's ancestors (lgse/strata#1544, unverified).

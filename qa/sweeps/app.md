@@ -50,7 +50,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run a copy into a read-only folder so an error replaces the progress dialog; close the error and read where focus lands in each mode.
 - From Settings, open the action editor; close it by Escape, Enter, backdrop, and close button, and read where focus lands and whether a focus ring shows.
 - Open the action editor from an action row in Settings and save an edit so the row re-renders. Then press Tab.
-- Confirm a delete over Settings into a failure error, close the error by mouse, and read focus and ring.
+- In Settings → Actions, remove a custom action's folder from a shell, delete its row, confirm, close the error by mouse, and read focus and ring.
 - Close a dialog by keyboard, switch to a second window before the 200 ms close animation ends, then return and read the ring.
 
 ### app/shortcut-reference
@@ -132,7 +132,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.
 - 10xer-mode key variants and footer prompts → `integration`.
-- Chosen states of Appearance and sort options after changes made while their menus are closed → `browser`.
-- Chosen states of Settings choice options → `settings`.
+- Chosen states of sort options and Appearance options other than Hidden files, after changes made while their menus are closed → `browser`.
+- Chosen states of Settings choice options and the Hidden files option → `settings`.
 - The contents and outcome of operation dialogs such as paste conflicts, Compress, and progress → `operations`.
 - The mount authentication dialog and remote paths in the search palette → `remote`.

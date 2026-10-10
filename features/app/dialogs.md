@@ -42,10 +42,10 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
 - Closing a dialog over a modal that stays open, such as the action editor over Settings, refocuses its opener there. lgse/strata#1544
 - When that opener is gone, such as an action row the dialog re-rendered, focus goes to the first focusable control in the remaining modal. lgse/strata#1544 (unverified)
-- A dialog that opens as another closes over a modal that stays open, such as Settings, returns focus to the first dialog's opener. lgse/strata#1544 (unverified)
+- When a custom action's delete fails in Settings, closing the resulting error returns focus to that action's Delete button. lgse/strata#1544 (unverified)
 - A dialog closed from the keyboard keeps the focus ring where focus lands once the last modal closes. lgse/strata#1544
-- It also keeps the ring when focus returns into a modal that stays open. lgse/strata#1544
-- A dialog chained on the closing one opens without a ring. lgse/strata#1544 (unverified)
+- A dialog closed from the keyboard over a modal that stays open, such as Settings, keeps the ring on the control that gets focus. lgse/strata#1544
+- Closing a dialog by keyboard as a dialog chained on it opens leaves focus on the chained dialog's default button. That button shows no focus ring. lgse/strata#1206, lgse/strata#1544 (unverified)
 
 ### Forms
 
@@ -76,8 +76,8 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - One restore order serves every dialog: focus taken meanwhile, an explicit restore, the origin if still in the window, then a window fallback. The window and each tab register the active browser as that fallback (lgse/strata#1430, lgse/strata#1533).
 - Layers that are hidden rather than removed use a visibility-keyed variant: they capture the origin on each show and restore it when the hide completes (lgse/strata#1430).
 - Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533).
-- A layer closed while another modal stays open restores focus inside that modal; the window restore order applies only once no modal is left. A layer opened while another closes takes over the closing layer's opener (lgse/strata#1544).
-- Disabling the focused control on a keyboard dismissal makes GTK hide focus rings on the key release. The layer records whether rings showed before that and re-shows them once focus is back (lgse/strata#1544).
+- A layer closed while another modal stays open restores focus inside that modal; the window restore order applies only once no modal is left. A layer opened while another closes takes over the closing layer's opener (lgse/strata#1544, unverified).
+- Disabling the focused control on a keyboard dismissal makes GTK hide focus rings on the key release. The layer records whether rings showed before that and re-shows them once focus is back (lgse/strata#1544, unverified).
 - [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
 
 ## History
