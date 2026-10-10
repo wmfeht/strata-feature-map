@@ -26,6 +26,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - `n` repeats the last find in its direction and `N` reverses it; a miss flashes `No matches for “…”` and leaves the cursor in place. lgse/strata#1297, lgse/strata#1244
 - `n` or `N` with no earlier find flashes `No previous find`. lgse/strata#1297 (unverified)
 - In the `/`, `?`, `f`, and `s` prompts, Up and Down move the listing cursor while the prompt keeps focus. lgse/strata#1297, lgse/strata#1244
+- When another program deletes the cursor's file while the `f` or `s` prompt has focus, focus stays in the prompt. lgse/strata#1439, lgse/strata#1544
 
 ### Filter
 
@@ -36,7 +37,6 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - `f` uses the same fuzzy terms as `s` but matches only the folder's own items, even with Include subfolders on, so `rep md` keeps `gamma-report.md`. lgse/strata#1403
 - Turning the mode on re-runs an open Ctrl+F filter with `f` matching, and turning it off re-runs it with default matching. lgse/strata#1403
 - Leaving the mode clears the find, every `f` filter, and an `s` search in every window. lgse/strata#1244, lgse/strata#1297 (unverified)
-- When another program deletes the cursor's file while the `f` or `s` prompt has focus, focus stays in the prompt. lgse/strata#1439, lgse/strata#1544
 
 ### Search
 

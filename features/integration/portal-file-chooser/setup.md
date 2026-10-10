@@ -39,6 +39,10 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - When `hyprctl configerrors` reports errors after the shortcut edit, Complete setup restores the previous bindings file and keeps a `strata-keybind-backup-` copy. lgse/strata#947 (unverified)
 - When `bindings.conf` or `bindings.lua` is a user-owned symlink, Complete setup and Restore default write its target and keep the link. lgse/strata#1455, lgse/strata#1544
 - When the reload then reports errors, the restore also writes through the link and keeps it. lgse/strata#1544 (unverified)
+- Complete setup and Restore default keep an existing bindings file's permission bits, so a `0644` file stays `0644`. lgse/strata#1544
+- With a dangling `bindings.conf` or `bindings.lua` link, Complete setup fails with an error naming the missing target. lgse/strata#1544 (unverified)
+- With a dangling bindings link, Restore default leaves the shortcuts and the link unchanged. lgse/strata#1544 (unverified)
+- A bindings link owned by another user makes Complete setup and Restore default fail without writing. lgse/strata#1544 (unverified)
 - With a symlinked bindings file, the `strata-keybind-backup-` copy is created in the link's directory. lgse/strata#1544 (unverified)
 - Complete setup is hidden once every line is configured, and Restore default appears while any part is installed. lgse/strata#947 (unverified)
 - Complete setup fails with "Another per-user FileManager1 provider is already installed" when another user service owns that name. lgse/strata#947 (unverified)

@@ -40,7 +40,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `save`, select a non-UTF-8 file, type a character into Name with real keystrokes, delete it, then Save.
 - Open a Space preview and the filter, press Down onto a result, then press Escape three times; read the response code after each.
 - Press Tab and Shift+Tab around the file list in each view, in an empty folder, with a filter open, and under `save` with Name present.
-- Read each filter and choice dropdown option's role and state in Accerciser. Choose by pointer, by keyboard, and with a label over 48 characters.
+- Choose a filter and a choice option by pointer and by keyboard, with a label over 48 characters, then reopen the dropdown.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
 
 ### integration/portal-file-chooser/setup
@@ -50,7 +50,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Complete setup with a foreign per-user FileManager1 service present, then Restore default with no Nautilus on `PATH` and no recorded handler; read each message.
 - Run Complete setup twice and Restore default twice; diff the data and config directories between the two runs of each.
 - On an Omarchy VM, edit the Strata shortcut block by hand before Restore default, and break `bindings.conf` before Complete setup; skip elsewhere.
-- On an Omarchy VM, make `bindings.conf` a relative link, a two-link chain, a dangling link, and a link from a read-only directory. Run Complete setup with and without a broken target. Read the link, target, and backup location.
+- On an Omarchy VM, make `bindings.conf` a relative link, a two-link chain, a dangling link, and a link from a read-only directory. Run Complete setup with a target that fails `hyprctl configerrors`. Read the link, target, and backup location.
 
 ### integration/portal-file-chooser/url-download
 
