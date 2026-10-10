@@ -451,7 +451,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/search.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/search/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/dismissal.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
-| `src/ui/settings/tests/general.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/ui/settings/tests/general.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/restart.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/update_dialog.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `src/ui/settings/tests/updates.rs` | tests | [Updates](../features/app/updates/index.md) | — |
