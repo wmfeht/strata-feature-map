@@ -173,7 +173,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 
 shipped · draft · reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1) · ? PRs since · origin issue [lgse/strata#70](https://github.com/lgse/strata/issues/70), pr [lgse/strata#118](https://github.com/lgse/strata/issues/118)
 
-Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), and `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders). Restoring an Icons or List folder's position on return belongs to `browser/view-modes`, and selecting the folder you came from in Columns to `browser/view-modes/columns`.
+Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), and `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders). Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`, and selecting the folder you came from in Columns to `browser/view-modes/columns`.
 
 - Code: [`src/ui/window/composition/input.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/window/composition/input.rs)
 - Tests: [`src/app/browser/tests/navigation.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/app/browser/tests/navigation.rs)
@@ -447,13 +447,13 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 
 shipped · draft · reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1) · ? PRs since · origin pr [lgse/strata#383](https://github.com/lgse/strata/issues/383)
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/text-size` (interface text size). Restoring the position on return and refresh in Icons and List is shared by both views and lives here.
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), `browser/view-modes/sorting` (sort fields, order, and persistence), `browser/view-modes/text-size` (interface text size), and `browser/view-modes/position-restore` (the Icons and List position on return and refresh).
 
-- Code: [`src/ui/browser_modes.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser_modes.rs), [`src/ui/browser_modes/events.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser_modes/events.rs), [`src/ui/browser_modes/navigation.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser_modes/navigation.rs), [`src/ui/browser/pane_header.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser/pane_header.rs), [`src/ui/browser/presentation.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser/presentation.rs), [`src/ui/loading_skeleton.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/loading_skeleton.rs), [`src/ui/loading_skeleton/**`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/loading_skeleton)
-- Tests: [`tests/e2e/scenarios/test_view_switching.py`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/tests/e2e/scenarios/test_view_switching.py), [`src/ui/loading_skeleton/delay/tests.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/loading_skeleton/delay/tests.rs), [`src/ui/window/tests/keyboard_dispatch/reload_cursor.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/window/tests/keyboard_dispatch/reload_cursor.rs)
+- Code: [`src/ui/browser_modes.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser_modes.rs), [`src/ui/browser_modes/events.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser_modes/events.rs), [`src/ui/browser/pane_header.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser/pane_header.rs), [`src/ui/browser/presentation.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser/presentation.rs), [`src/ui/loading_skeleton.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/loading_skeleton.rs), [`src/ui/loading_skeleton/**`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/loading_skeleton)
+- Tests: [`tests/e2e/scenarios/test_view_switching.py`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/tests/e2e/scenarios/test_view_switching.py), [`src/ui/loading_skeleton/delay/tests.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/loading_skeleton/delay/tests.rs)
 - Docs: [`docs/architecture.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md), [`docs/keyboard-navigation.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md)
 - Related: [Search](../features/browser/search/index.md), [Preview panel](../features/preview/preview-panel/index.md)
-- Children: [Columns view](../features/browser/view-modes/columns.md), [Icons view](../features/browser/view-modes/icons.md), [List view](../features/browser/view-modes/list.md), [Sorting](../features/browser/view-modes/sorting.md), [Text size](../features/browser/view-modes/text-size.md)
+- Children: [Columns view](../features/browser/view-modes/columns.md), [Icons view](../features/browser/view-modes/icons.md), [List view](../features/browser/view-modes/list.md), [Position restore on return and refresh](../features/browser/view-modes/position-restore.md), [Sorting](../features/browser/view-modes/sorting.md), [Text size](../features/browser/view-modes/text-size.md)
 
 ### [Columns view](../features/browser/view-modes/columns.md) `browser/view-modes/columns`
 
@@ -481,11 +481,22 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 
 shipped · draft · reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1) · ? PRs since · origin issue [lgse/strata#188](https://github.com/lgse/strata/issues/188), pr [lgse/strata#191](https://github.com/lgse/strata/issues/191)
 
-A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer. Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes`.
+A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer. Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
 
 - Code: [`src/ui/browser_modes/list_factory.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser_modes/list_factory.rs)
 - Docs: [`docs/architecture.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) (inherited), [`docs/keyboard-navigation.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) (inherited)
 - Related: [Navigation](../features/browser/navigation/index.md)
+
+### [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) `browser/view-modes/position-restore`
+
+shipped · draft · reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1) · ? PRs since · origin issue [lgse/strata#868](https://github.com/lgse/strata/issues/868), pr [lgse/strata#893](https://github.com/lgse/strata/issues/893)
+
+Icons and List remember each folder's selection, cursor, and scroll position, and restore them on return and through a refresh. It is for users moving through long folders who expect to continue from where they left off. Columns' came-from selection belongs to `browser/view-modes/columns`.
+
+- Code: [`src/ui/browser_modes/navigation.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/browser_modes/navigation.rs)
+- Tests: [`src/ui/window/tests/keyboard_dispatch/reload_cursor.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/window/tests/keyboard_dispatch/reload_cursor.rs)
+- Docs: [`docs/architecture.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) (inherited), [`docs/keyboard-navigation.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) (inherited)
+- Related: [Copy, cut, and paste](../features/operations/clipboard/index.md)
 
 ### [Sorting](../features/browser/view-modes/sorting.md) `browser/view-modes/sorting`
 

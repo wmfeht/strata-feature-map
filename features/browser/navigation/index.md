@@ -13,7 +13,7 @@ related: [browser/tabs, browser/view-modes, integration/10xer-mode]
 
 ## Summary
 
-Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), and `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders). Restoring an Icons or List folder's position on return belongs to `browser/view-modes`, and selecting the folder you came from in Columns to `browser/view-modes/columns`.
+Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), and `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders). Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`, and selecting the folder you came from in Columns to `browser/view-modes/columns`.
 
 ## Behavior
 
