@@ -33,7 +33,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 - The Appearance menu's DENSITY section offers Compact, the default, and Airy; the choice is saved. lgse/strata#168 (unverified)
 - Columns, Icons, List, Compact, and Airy are radio menu items, and Group by file type is a check menu item. lgse/strata#1467, lgse/strata#1544
-- The checked view option follows Ctrl+1, Ctrl+2, Ctrl+3, and switches made in other windows. lgse/strata#1467, lgse/strata#1544
+- Each option's accessible checked state matches its check icon, including after Ctrl+1 to Ctrl+3 and switches in other windows. lgse/strata#1467, lgse/strata#1544
 - With Sort by or Appearance open, a wheel tick outside it closes it and scrolls only the listing under the pointer; over the sidebar or other chrome it only closes. lgse/strata#590
 - Wheel ticks inside an open Sort by or Appearance panel keep it open. lgse/strata#590
 
@@ -65,14 +65,14 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 ### Focus on return
 
-- In Icons and List, Back, Forward, and Up focus the restored listing only when focus was in the pane left, its Ctrl+F field included, or nowhere. lgse/strata#1436, lgse/strata#1544
+- In Icons and List, Back, Forward, and Up focus the restored listing only if focus was in the pane left or nowhere. Its Ctrl+F field counts as the pane. lgse/strata#1436, lgse/strata#1544
 - Back from the pane header's Back button keeps focus on the button; with the sidebar focused, focus stays in the sidebar. lgse/strata#1436, lgse/strata#1544
-- Sidebar places, breadcrumbs, and typed paths always focus the new listing, as on a first visit. lgse/strata#1544
-- A pane in a hidden tab, or in a window with a rename open, never takes focus when its restore applies. lgse/strata#1544 (unverified)
+- Sidebar places, breadcrumbs, and typed paths focus the new listing, as on a first visit. lgse/strata#1544
+- A pane in a hidden tab, or while a rename is open in that pane, never takes focus when its restore applies. lgse/strata#1544 (unverified)
 
 ### Refreshing
 
-- In Icons and List, F5, the Refresh button, auto-refresh, or a rescan after over 4,096 queued changes keeps the cursor row, selection, and scroll offset. lgse/strata#1434, lgse/strata#1544
+- In Icons and List, F5, the Refresh button, auto-refresh, or a rescan past 4,096 queued changes keeps the cursor row, selection, and scroll offset. lgse/strata#1434, lgse/strata#1544
 - After End then F5, the last row keeps the cursor at the same position on screen, and Left or Up moves from it. lgse/strata#1434, lgse/strata#1544
 - In Icons and List, a refresh keeps focus on a focused row, or in a focused Ctrl+F field with its query. That holds through a slow reload. lgse/strata#1434, lgse/strata#1544
 - Typing in the Ctrl+F field during that reload does not stop focus returning to it. Tab, Escape, or pointer input does. lgse/strata#1544
@@ -93,18 +93,19 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 - GTK moves focus off a removed or hidden row at the next paint. The pane settles focus first, so a reload never sends it out of the listing (lgse/strata#1466, lgse/strata#1533).
 - Icons and List share one history of positions keyed by folder. Scroll offsets mean different things per view, and an Icons grid of another width wraps differently. The offset is reused only in the same view and width (lgse/strata#1436).
 - lgse/strata#893 built the restore for List only; lgse/strata#1267 then described it for Icons and List without code (lgse/strata#1436).
-- Restoring matches entries by location, not row number, so a deleted entry is never selected; a restored selection does not redirect paste until it is selected again (lgse/strata#893).
+- Restoring matches entries by location, not row number, so a deleted entry is never selected (lgse/strata#893). Where Ctrl+V pastes after a restore belongs to `operations/clipboard`.
 - An explicit target beats the remembered position because the user named it (lgse/strata#1499).
 - Focus follows the route. A sidebar place, breadcrumb, or typed path is an explicit visit and focuses the listing. History keys leave focus outside the pane where it is (lgse/strata#1544).
-- A reload used to switch the pane to its pending page, which unmapped the rows and reset GTK's cursor, scroll, and focus. The model keeps the selection by identity, and the view restores viewport and focus (lgse/strata#1434).
+- A reload switches the pane to its pending page and empties the model. That unmaps the rows and resets GTK's cursor, scroll, and focus. The model keeps the selection by identity, and the view restores viewport and focus after the load (lgse/strata#1434, lgse/strata#1544).
 - Views capture the outgoing position on `NavigationStarting` and `ColumnReloading`, before the model changes ([docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md), lgse/strata#1544).
+- [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) carries the "Returning to a visited directory" and "Refreshing a directory" rules.
 - The skeleton waits a 150 ms grace period because fast loads flashed it for a few frames; showing nothing or a spinner was rejected (lgse/strata#283). Skeletons mirror each mode's loaded layout and density (lgse/strata#336).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-10 | lgse/strata#1544 | fix | Restored Icons positions on return, kept cursor, viewport, and focus through reloads, decided focus by route, and exposed menu roles. |
+| 2026-10-10 | lgse/strata#1544 | fix | Restored Icons positions on return, kept cursor, viewport, and focus through reloads, and exposed menu roles. |
 | 2026-09-22 | lgse/strata#1188 | perf | Cached directory counts and released inactive models and reload buffers across modes. |
 | 2026-09-22 | lgse/strata#1174 | refactor | Shared pointer selection, search sessions, and rename leases across the three modes. |
 | 2026-09-19 | lgse/strata#1143 | fix | Middle-ellipsized filenames in every view so extensions stay visible. |

@@ -73,14 +73,15 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Focus the last row of a folder and delete every entry externally; then add one back. Repeat in the unreadable folder after `chmod 755` and F5.
 - Press F5 in `100000` with the cursor on entry 5000, then in a folder that loads within 150 ms. Watch where focus sits during and after.
 - Repeat that F5 with focus on the sidebar, the location entry, a filter result, Properties, and the Ctrl+F field holding a query.
-- Press F5 in `100000` with the Ctrl+F field focused and type three characters during the reload; repeat pressing Escape, then Tab, mid-reload.
+- Press F5 in `100000` with the Ctrl+F field focused, then press Shift+Tab or click in the field mid-reload.
 - Leave 130 folders in List, return to the first with Back; then return to a folder that was renamed externally and to one with a filter open. Repeat in Icons.
 - Leave a folder, empty it externally, and return with Back, then with Alt+Up from a child that was deleted.
-- Leave a folder in Icons scrolled halfway, widen the window by 1 px, then 100 px, and press Alt+Left each time; then leave in Icons and return in List.
+- Leave a folder in Icons scrolled halfway, widen the window by 1 px, then 100 px, and press Alt+Left each time. Then leave in Icons and return in List.
 - Press Back in `100000` and, before the restore settles, press Down, wheel-scroll, press Ctrl+2, or re-sort by Size.
 - Press Alt+Left with the location entry open, with Properties open, and with a filter result focused; then click a breadcrumb with the sidebar focused.
-- Let an auto-refresh tick land in a background tab and while a rename is open in the active tab; switch tabs afterwards.
+- Let an auto-refresh tick land in a background tab, then switch to it. Press F5 with a rename open in Icons, then in List.
 - Leave a folder in Icons with three entries selected, then click and Enter its sidebar place; repeat in Columns and after 130 other folders.
+- With the Appearance menu closed, press Ctrl+2 or switch the mode in a second window. Then open Appearance and read each option's checked state.
 
 ### browser/view-modes/columns
 
@@ -97,9 +98,9 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Set the slider to 32 then 256 px in `100000`, scroll fast and stop; count tiles with missing details after two seconds.
 - Resize the sidebar and preview panel while details stream in; open the same folder in a second window and move one slider.
-- Rest on a truncated card and drift 4 px, then 5 px; rest on the thumbnail frame's margin, the details text, and the blank caption beside a short name.
-- Rest on a name at the two-line boundary at 32 px and 256 px thumbnails, then at text size 28; then Tab to the card and wait.
-- Click a truncated card and hold still; then wheel-scroll the grid with the pointer resting on a card.
+- Rest on a truncated card and drift 4 px, then 5 px. Rest on the thumbnail frame's margin, the details text, and blank space beside a short details line.
+- Rest on a name at the two-line boundary at 32 px and 256 px thumbnails, then at text size 28. Then Tab to the card and wait.
+- Wheel-scroll the grid with the pointer resting on a card.
 
 ### browser/view-modes/list
 
@@ -111,7 +112,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Sort `a1`, `A1`, `a01`, `a10`, `a2`, `é`, `E`, and the non-UTF-8 name by Name in both directions; then by Modified with two files sharing an mtime.
 - Choose Size in `100000` while it loads; watch the pane state until the rows settle.
 - Set a sort in column 3, then open a new column from column 1; compare the sort in every column and after a restart.
-- Open SORT BY in Recent and in a Camera Photos library and read each option's role and checked state; then change the sort from a second pane.
+- Open SORT BY in Recent and in a Camera Photos library and read each option's role and checked state. Then change the sort from a second pane.
 
 ### browser/view-modes/text-size
 

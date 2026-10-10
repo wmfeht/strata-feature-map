@@ -25,7 +25,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In Columns, Right on a focused file does not open it; Enter opens it. lgse/strata#358
 - With Type to search off, `h`, `j`, `k`, and `l` act as Left, Down, Up, and Right in every view and the file chooser. lgse/strata#555
 - With Type to search on, `h`, `j`, `k`, and `l` pressed in the file list start a search instead of moving. lgse/strata#555 (unverified)
-- Enter on a sidebar place in Icons, for a folder not remembered by Icons or List, gives its first item focus and selection. lgse/strata#374, lgse/strata#379
+- Enter on a sidebar place in Icons gives the opened folder's first item focus and selection. A remembered folder restores its cursor instead. lgse/strata#374, lgse/strata#379, lgse/strata#1544 (unverified)
 
 ### Leaving the file list
 

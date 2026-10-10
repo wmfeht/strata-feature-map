@@ -61,7 +61,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - With a filter open, a match another program creates or renames in a watched folder appears in the results within about a second. lgse/strata#1439, lgse/strata#1544
 - Watched folders are the filtered folder and, with Include subfolders on in Columns, the open columns below it. lgse/strata#1439, lgse/strata#1544
 - A matching file another program deletes leaves the results as soon as the listing drops it, before the rescan finishes. lgse/strata#1439, lgse/strata#1544
-- In Columns, Enter on such a hit no longer shows "Unable to open file". In List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
+- In Columns, Enter after Down opens a remaining hit, with no "Unable to open file" dialog. In List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
 - With Include subfolders on, a change below the watched folders shows only after F5, auto-refresh, a monitor rescan, or reopening the filter. lgse/strata#1439, lgse/strata#1544
 - When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544
 
@@ -101,7 +101,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - The field and its results together count as the filter owning focus. Escape, view switches, and loads therefore treat a focused result like the field. Backspace dismissal stays field-only (lgse/strata#1440).
 - Escape dismisses the filter before closing quick preview, the same order as in the field, the file chooser, and 10xer `f` results (lgse/strata#1440, lgse/strata#1533).
 - A background load or live change refocuses the listing only when the listing itself held focus, never the filter field or its results (lgse/strata#1444, lgse/strata#1533).
-- An outside deletion of the cursor entry follows that rule too. Before, List and Icons left nothing focused and Columns refocused the stale row (lgse/strata#1439, lgse/strata#1544).
+- An outside deletion of the cursor entry follows that rule too. Before, deleting the cursor item outside the app left nothing focused (lgse/strata#1439, lgse/strata#1544).
 - 10xer mode drives this same field for its **f** filter and **s** search with fzf-style path terms, overriding the subfolder preference without saving it (lgse/strata#1297, lgse/strata#1403).
 
 ## History

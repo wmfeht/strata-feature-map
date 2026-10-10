@@ -44,7 +44,7 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 - Resting the pointer about a second (900 ms) on a card whose name is middle-ellipsized shows the full name in a tooltip. lgse/strata#1553
 - A name that fits in its two caption lines shows no tooltip. lgse/strata#1553
 - The tooltip appears only over the card's thumbnail or caption, not its padding. lgse/strata#1553
-- Over the caption, only the name and details text count, not blank space beside a short centered name. lgse/strata#1553 (unverified)
+- Over the caption, only the name's text box and the details text count, not blank space beside a short centered name. lgse/strata#1553 (unverified)
 - Moving more than 4 px or leaving the card restarts the wait. Sweeping across the grid shows no tooltips. lgse/strata#1553
 - Pressing a mouse button cancels the wait until the pointer moves again, so a click then holding still shows no tooltip. lgse/strata#1553 (unverified)
 - After a rename commits, the tooltip shows the new name; while the rename field is open, none appears. lgse/strata#1553

@@ -59,7 +59,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - While a delete, restore, copy, or move runs, monitor changes for open folders are held back instead of applied one by one. lgse/strata#1036
 - Once 512 changes are held, the next progress update applies them, so completed files appear during a bulk transfer without a reload. lgse/strata#1266 (unverified)
 - When the operation finishes, the held changes apply in one batch per folder, parent folders before their children. lgse/strata#1036
-- Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544
+- Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544 (unverified)
 - If a monitor asked for a full reload during the operation, that folder reloads after the progress dialog closes, keeping its rows on screen until the new listing replaces them. lgse/strata#1266, lgse/strata#1036
 - Non-native locations, such as SFTP folders, reload after a rename, create, or paste that touches them. lgse/strata#1035 (unverified)
 

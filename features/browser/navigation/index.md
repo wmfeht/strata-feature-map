@@ -20,7 +20,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 ### Back, Forward, and Parent
 
 - Alt+Left, Alt+Right, and Alt+Up go Back, Forward, and to the parent folder in every view mode and key map. lgse/strata#358
-- Backspace in Columns closes the focused nested column and its descendants; from the root column it opens the filesystem parent with the root column's folder selected. lgse/strata#58, lgse/strata#1437, lgse/strata#1544
+- Backspace in Columns closes the focused nested column and its descendants. From the root column it opens the parent folder, selecting the root column's folder. lgse/strata#58, lgse/strata#1437, lgse/strata#1544
 - Backspace in List and Icons opens the parent folder. lgse/strata#485
 - List and Icons pane headers show Back, Forward, and Parent folder buttons, each insensitive when its target is unavailable. lgse/strata#485 (unverified)
 - In 10xer mode, List and Icons hide the pane header with the Back, Forward, and Parent buttons. lgse/strata#1304
