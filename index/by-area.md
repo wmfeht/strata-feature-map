@@ -8,7 +8,7 @@
 
 shipped · draft · reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1) · ? PRs since · origin issue [lgse/strata#341](https://github.com/lgse/strata/issues/341), pr [lgse/strata#415](https://github.com/lgse/strata/issues/415)
 
-App-wide accessible semantics for screen readers and AT-SPI automation: the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs, plus the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
+App-wide accessible semantics for screen readers and AT-SPI automation. It covers the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs. It also owns the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
 
 - Code: [`src/ui/accessibility.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/accessibility.rs)
 - Tests: [`src/ui/accessibility/tests.rs`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/src/ui/accessibility/tests.rs), [`tests/e2e/scenarios/test_accessibility.py`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/tests/e2e/scenarios/test_accessibility.py)

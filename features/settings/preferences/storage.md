@@ -82,8 +82,8 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - The temporary file is created in the target's directory, so the rename never crosses filesystems. The regular-file check repeats on the target before the rename, which never follows a link (lgse/strata#1455).
 - Existing permission bits are kept because replacing a 0644 dotfile would silently make it 0600 (lgse/strata#1455).
 - A malformed entry is salvaged key by key instead of resetting the file, which had silently lost every customization on the next save (lgse/strata#646).
-- A syntax error is preserved rather than repaired; saving stops until restart (lgse/strata#721, lgse/strata#728). No backup or recovery UI exists; a dialog at the first change says so (lgse/strata#1455, lgse/strata#1544).
-- A failed save was only logged, so changes were lost without notice. One notice per failure streak covers persistent write failures and the unreadable file (lgse/strata#721, lgse/strata#1455).
+- A syntax error is preserved rather than repaired; saving stops until restart (lgse/strata#721, lgse/strata#728). No backup or recovery UI exists; a dialog at the first change says saving is off until restart (lgse/strata#1455, lgse/strata#1544).
+- A failed save was only logged, so changes were lost without notice. One notice per failure streak covers write failures; the unreadable file gets one notice per session (lgse/strata#1455, lgse/strata#1544).
 - The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/preferences.md), lgse/strata#1544).
 - Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field (lgse/strata#518).
 

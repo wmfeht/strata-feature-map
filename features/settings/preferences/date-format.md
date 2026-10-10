@@ -20,8 +20,7 @@ How file modification times read in lists and previews, and the Modified date fo
 
 - General → DATE & TIME → Modified date format offers Relative, the default, ISO 8601, and Long; each choice shows a live example. lgse/strata#1102
 - Each example renders a time five minutes before the menu opens, so Relative reads "5m ago". lgse/strata#1102 (unverified)
-- Relative, ISO 8601, and Long are radio menu items named after the format; only the chosen one is checked. lgse/strata#1467, lgse/strata#1544
-- Each option's accessible description is its live example date. lgse/strata#1544 (unverified)
+- Each option is named after its format alone; its accessible description is its live example date. lgse/strata#1544 (unverified)
 - ISO 8601 renders `2026-09-17 14:30` and Long renders "September 17, 2026, 14:30". lgse/strata#1102
 - Changing the format re-renders open modified-time labels in every window without reloading. lgse/strata#1102
 - The choice is saved as `date_format`. lgse/strata#1102

@@ -28,7 +28,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - For each General and Appearance control: change it, read `settings.toml`, check window B without reopening Settings, restart, then reset; record the key and value written.
 - Launch on the fully seeded file and verify each value in the first window before Settings is opened, including lazily built Icons and List panes.
 - Flip the same switch in both windows in opposite directions within a second, ten times; both controls and the file must agree at the end.
-- Traverse every page with Tab and arrows only; each control's accessible name must match its label in English and in Japanese.
+- Traverse every page with Tab and arrows only; each control's accessible name must match its row label in English and in Japanese. Choice buttons carry the shown value as description.
 - Read each choice button and option over AT-SPI after changing it from window B, after a hand-edited seed, and under Japanese.
 - Watch the log while Appearance, Actions, and Updates build on first selection, and while a search query hits a page that has not built yet.
 
