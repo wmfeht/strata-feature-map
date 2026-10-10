@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/window/composition/input.rs]
 tests: [src/app/browser/tests/navigation.rs]
 docs: [docs/keyboard-navigation.md]
-related: [browser/tabs, browser/view-modes, integration/10xer-mode]
+related: [browser/tabs, browser/view-modes, browser/view-modes/position-restore, integration/10xer-mode]
 ---
 
 ## Summary

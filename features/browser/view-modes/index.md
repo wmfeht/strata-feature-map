@@ -13,7 +13,7 @@ related: [browser/search, preview/preview-panel]
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), `browser/view-modes/sorting` (sort fields, order, and persistence), `browser/view-modes/text-size` (interface text size), and `browser/view-modes/position-restore` (the Icons and List position on return and refresh).
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), and `browser/view-modes/sorting` (sort fields, order, and persistence). `browser/view-modes/text-size` covers interface text size, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
 ## Behavior
 

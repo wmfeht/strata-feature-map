@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
 reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: reviewed
-code: [src/i18n.rs]
+code: [src/i18n.rs, data/locales/counts.json]
 tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs]
 docs: [docs/internationalization.md]
 related: []
