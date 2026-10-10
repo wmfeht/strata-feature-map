@@ -36,9 +36,9 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A `settings.toml` that is a directory or other non-regular file, not a link, is refused, and nothing is written. lgse/strata#39, lgse/strata#1544
 - A dangling link or a link to a directory is refused, and nothing is written. lgse/strata#1544
 - A link owned by another user, or a target file another user owns, is refused. lgse/strata#1544
-- A plain, unlinked `settings.toml` owned by another user is not checked for ownership. lgse/strata#1544 (unverified)
+- A plain, unlinked `settings.toml` owned by another user, in a writable folder, is replaced by a user-owned file with the same permission bits. lgse/strata#1544 (unverified)
 - When the target's directory is not writable, the save fails and its reason names the target, not the link. lgse/strata#1544 (unverified)
-- Refusal reasons read, for example, "The symlink “<link>” points to a missing target “<target>”" or "The symlink “<path>” belongs to another user". lgse/strata#1544 (unverified)
+- The "Settings can't be saved" detail gives the refusal reason, such as "The symlink “<link>” points to a missing target “<target>”" or "The symlink “<path>” belongs to another user". lgse/strata#1544 (unverified)
 
 ### Save notices
 

@@ -44,7 +44,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - When followed Omarchy state disappears during a preview, the preview ends and the selected built-in theme applies. lgse/strata#1457, lgse/strata#1533
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
 - Saving never overwrites a file in `~/.config/strata/themes`. When `<id>.toml` exists, even invalid or a dangling link, the theme saves as the next free `<id>-N.toml`. lgse/strata#1455, lgse/strata#1544
-- A new theme file is created owner-only, mode 0600. lgse/strata#1544 (unverified)
+- A new theme file is created owner-only, mode 0600. lgse/strata#39, lgse/strata#1544
 - Saving with an empty name, or one with no ASCII letters or digits, shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
 
