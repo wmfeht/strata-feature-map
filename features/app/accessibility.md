@@ -13,7 +13,7 @@ related: [browser/navigation/location-bar, browser/sidebar, settings/preferences
 
 ## Summary
 
-App-wide accessible semantics for screen readers and AT-SPI automation: the names, descriptions, and roles of panes, entry lists, entries, menus, and dialogs, plus the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
+App-wide accessible semantics for screen readers and AT-SPI automation: the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs, plus the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
 
 ## Behavior
 
@@ -35,11 +35,6 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - Items in the file, folder, and sidebar right-click menus have the menu item role and are named after the action. lgse/strata#415
 - A right-click menu item with a keyboard shortcut carries the shortcut in its accessible description, not its name. lgse/strata#415
 - Strata's modal dialogs have the dialog role and are named after their title. lgse/strata#415
-
-### Chosen states
-
-- A control that holds a chosen state exposes it over AT-SPI: `checked` on check and radio menu items, `pressed` on toggle buttons. lgse/strata#1467, lgse/strata#1544
-- A menu option's `checked` state follows its check mark, including when a shortcut or another window changes the choice while the menu is closed. lgse/strata#1544 (unverified)
 
 ### Tooltips
 
@@ -65,6 +60,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation: the name
 - The owner approved one exception: Icons-view cards show a truncated name as a tooltip, on condition of a longer delay than GTK's default (lgse/strata#1553).
 - Exclusive choices are radio menu items and on/off options are check menu items, because screen readers announce their checked state (lgse/strata#1467, lgse/strata#1544).
 - Chosen states are product surface too: E2E checks read `checked` or `pressed` from AT-SPI and never infer them from check-icon children (lgse/strata#1544).
+- A menu option's `checked` state mirrors its check icon's own visibility, because a closed popover hides every option's ancestors (lgse/strata#1544, unverified).
 
 ## History
 

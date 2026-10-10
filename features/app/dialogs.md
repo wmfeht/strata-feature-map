@@ -42,9 +42,8 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
 - Closing a dialog over a modal that stays open, such as the action editor over Settings, returns focus to the control in that modal that opened it. lgse/strata#1544
 - When that opener is gone, such as an action row the dialog re-rendered, focus goes to the first focusable control in the remaining modal. lgse/strata#1544 (unverified)
-- A dialog that opens as another closes, such as an error after a failed delete confirmation, returns focus to the first dialog's opener when it closes. lgse/strata#1544 (unverified)
-- Closing a dialog or overlay with Escape or Enter keeps the focus ring visible on the widget that receives focus. lgse/strata#1544
-- A dialog chained on a closing one opens focused without a focus ring. lgse/strata#1544 (unverified)
+- A dialog that opens as another closes over a modal that stays open, such as Settings, returns focus to the first dialog's opener. lgse/strata#1544 (unverified)
+- If focus rings showed when a dialog or overlay began closing, they show again on the widget that receives focus. lgse/strata#1544
 
 ### Forms
 
@@ -52,11 +51,6 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Enter in a form field does nothing while the primary button is disabled. lgse/strata#464
 - Enter with an invalid Compress name such as `../escape` keeps the dialog open and writes no archive. lgse/strata#464
 - Enter in a multi-line text field inserts a newline instead of submitting. lgse/strata#464
-
-### Menu options
-
-- A single-choice popover option from the shared menu option, such as a sort order or a Settings choice, has the radio menu item role and is `checked` while chosen. lgse/strata#1544
-- The shared on/off menu option, used for "Folders first", has the check menu item role and is `checked` while on. lgse/strata#1544
 
 ### Layout
 

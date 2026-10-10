@@ -36,8 +36,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
-- With the Appearance menu, a sort menu, and a Settings choice menu each closed, change the choice by shortcut, from a second window, and by hand-editing `settings.toml`; reopen each menu and dump every option's role and `checked` state.
-- Toggle Properties permission bits on a file you own, on a read-only mount, and on a file owned by root; dump each bit's `pressed` state after every click.
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 
 ### app/dialogs
@@ -134,5 +132,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.
 - 10xer-mode key variants and footer prompts → `integration`.
+- Chosen states of Appearance and sort options after changes made while their menus are closed → `browser`.
+- Chosen states of Settings choice options → `settings`.
 - The contents and outcome of operation dialogs such as paste conflicts, Compress, and progress → `operations`.
 - The mount authentication dialog and remote paths in the search palette → `remote`.
