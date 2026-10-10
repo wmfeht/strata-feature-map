@@ -175,7 +175,7 @@ reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33f
 | --- | --- | --- | --- | --- |
 | [Remote locations and file providers](../features/remote/file-providers/index.md) `remote/file-providers` | 0 | — | 0 | — |
 | ↳ [External file providers](../features/remote/file-providers/external.md) `remote/file-providers/external` | 6 | [`tests/e2e/scenarios/test_file_providers.py`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/tests/e2e/scenarios/test_file_providers.py) | 3 | [`docs/file-providers.md`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/file-providers.md) |
-| ↳ [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) `remote/file-providers/network-locations` | 9 | — | 3 | [`docs/remote-sftp.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/remote-sftp.md) |
+| ↳ [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) `remote/file-providers/network-locations` | 10 | — | 3 | [`docs/remote-sftp.md`](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/remote-sftp.md) |
 
 ## [Settings sweep](../qa/sweeps/settings.md) `settings`
 

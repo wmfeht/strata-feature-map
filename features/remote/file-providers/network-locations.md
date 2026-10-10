@@ -61,7 +61,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Ejecting or unmounting a non-SMB remote mount, such as SFTP, from its DEVICES row while browsing inside it returns the browser to Home. lgse/strata#352, lgse/strata#296
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
-- With focus in the sidebar or location entry, F5 on a remote folder whose cursor file was deleted elsewhere moves the cursor to a neighbour and leaves focus there, in Columns, Icons, and List. lgse/strata#1434, lgse/strata#1544
+- On a remote folder, F5 after the cursor file was deleted on the server moves the cursor to its neighbour. Focus stays in the sidebar. lgse/strata#1434, lgse/strata#1544
 - When `gvfsd` does not answer a 2-second startup probe, the window still opens, using local file and volume support for that session. lgse/strata#56
 
 ## Design

@@ -37,8 +37,8 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Complete setup installs the portal, sets `io.github.lgse.Strata.desktop` as the `inode/directory` handler, and installs the per-user FileManager1 service. lgse/strata#947
 - On Omarchy 3 or 4, Complete setup also binds Super+Shift+F and Super+Alt+Shift+F to Strata in `$XDG_CONFIG_HOME/hypr/bindings.conf`, or `bindings.lua` on Omarchy 4. lgse/strata#947 (unverified)
 - When `hyprctl configerrors` reports errors after the shortcut edit, Complete setup restores the previous bindings file and keeps a `strata-keybind-backup-` copy. lgse/strata#947 (unverified)
-- When `bindings.conf` or `bindings.lua` is a user-owned symlink, Complete setup writes the shortcuts to its target and keeps the link. lgse/strata#1455, lgse/strata#1544
-- When the reload then reports errors, the restore also writes through the link and keeps it. lgse/strata#1544
+- When `bindings.conf` or `bindings.lua` is a user-owned symlink, Complete setup and Restore default write its target and keep the link. lgse/strata#1455, lgse/strata#1544
+- When the reload then reports errors, the restore also writes through the link and keeps it. lgse/strata#1544 (unverified)
 - With a symlinked bindings file, the `strata-keybind-backup-` copy is created in the link's directory. lgse/strata#1544 (unverified)
 - Complete setup is hidden once every line is configured, and Restore default appears while any part is installed. lgse/strata#947 (unverified)
 - Complete setup fails with "Another per-user FileManager1 provider is already installed" when another user service owns that name. lgse/strata#947 (unverified)
@@ -68,7 +68,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-10 | lgse/strata#1544 | fix | Wrote Omarchy shortcut bindings and their rollback through a symlinked bindings file instead of refusing it. |
+| 2026-10-10 | lgse/strata#1544 | fix | Made Complete setup, Restore default, and rollback write Omarchy bindings through a symlinked bindings file instead of refusing it. |
 | 2026-09-14 | lgse/strata#947 | feat | Made System file manager also set the folder handler, FileManager1 service, and Omarchy shortcuts. |
 
 ## Known gaps

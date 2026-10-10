@@ -40,7 +40,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `save`, select a non-UTF-8 file, type a character into Name with real keystrokes, delete it, then Save.
 - Open a Space preview and the filter, press Down onto a result, then press Escape three times; read the response code after each.
 - Press Tab and Shift+Tab around the file list in each view, in an empty folder, with a filter open, and under `save` with Name present.
-- Read each filter and choice dropdown option's role and state in Accerciser after choosing by pointer, by keyboard, and with a label over 48 characters.
+- Read each filter and choice dropdown option's role and state in Accerciser. Choose by pointer, by keyboard, and with a label over 48 characters.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
 
 ### integration/portal-file-chooser/setup
@@ -50,7 +50,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Complete setup with a foreign per-user FileManager1 service present, then Restore default with no Nautilus on `PATH` and no recorded handler; read each message.
 - Run Complete setup twice and Restore default twice; diff the data and config directories between the two runs of each.
 - On an Omarchy VM, edit the Strata shortcut block by hand before Restore default, and break `bindings.conf` before Complete setup; skip elsewhere.
-- On an Omarchy VM, make `bindings.conf` a relative link, a two-link chain, a dangling link, and a link from a read-only directory; run Complete setup with and without a broken target, then read the link, target, and backup location.
+- On an Omarchy VM, make `bindings.conf` a relative link, a two-link chain, a dangling link, and a link from a read-only directory. Run Complete setup with and without a broken target. Read the link, target, and backup location.
 
 ### integration/portal-file-chooser/url-download
 
@@ -104,7 +104,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Filter with `!` alone, `'`, `^`, `$`, a 300-character query, with Include subfolders on, and in Trash and Recent; change the theme mid-filter.
 - Search from `/`, from a 100k-file tree with navigation mid-stream, over a symlink loop, and to zero hits followed by `g f`; press Ctrl+1 to Ctrl+3 mid-search.
 - Create files and rename the cursor file from a shell while an `f` prompt and then an `s` prompt has focus; press Up and Down in each prompt in Icons.
-- Delete the cursor file from a shell while the `s` stream is still running, and while an `f` prompt has focus in Columns with a child column open.
+- Delete the cursor file from a shell while the `s` stream is still running. Repeat while an `f` prompt has focus in Columns with a child column open.
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
 

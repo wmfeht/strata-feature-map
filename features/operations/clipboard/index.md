@@ -35,7 +35,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Ctrl+V with exactly one folder explicitly selected pastes into that folder. lgse/strata#454
 - With a file, several items, or nothing selected, Ctrl+V pastes into the destination column. lgse/strata#454
 - The destination column follows the last pointer or keyboard navigation; pressing Ctrl+V does not change it. lgse/strata#358
-- After going to a parent folder in Icons or List, the folder you came from is auto-selected, and Ctrl+V pastes into the parent, not into it. lgse/strata#485, lgse/strata#1436, lgse/strata#1544
+- After going to a parent folder, Ctrl+V pastes into the parent, not into the restored or auto-selected folder. lgse/strata#485, lgse/strata#1436, lgse/strata#1544
 - Ctrl+V while viewing Recent does nothing. lgse/strata#1083
 - After a paste, the destination is shown with the pasted items selected; a pasted-into folder in Columns opens and keeps focus. lgse/strata#524
 - Completing a cut-paste removes the moved items from the clipboard; text copied after the cut stays on the clipboard. lgse/strata#1265
