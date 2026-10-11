@@ -29,7 +29,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 - Text previews show at most the first 1 MiB of the file. lgse/strata#89
 - **Toggle word wrap** in the header wraps text previews; the choice defaults to off, applies in every open window, and survives restart. lgse/strata#921
-- Text with a recognized language, or plain text within 128 KiB, 512 lines, and 2 KiB per line, opens in a source view. lgse/strata#762 (unverified)
+- Text with a recognized language, or plain text within 128 KiB, 512 lines, and 2 KiB per line, opens in a source view. lgse/strata#187, lgse/strata#762
 - That source view shows a caret. lgse/strata#1559, lgse/strata#1557
 - In that source view, Shift+arrow keys select text and Ctrl+C copies it; the file stays read-only. lgse/strata#1559, lgse/strata#1557
 
@@ -40,7 +40,8 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - With four remote previews already transferring or decoding, another fails with "Too many remote previews are active; try again shortly". lgse/strata#834
 - Changing selection or closing the preview cancels a remote transfer. lgse/strata#834
 - Remote MOV and MP4 files up to 256 MiB play only after the download completes, within a 60-second deadline. lgse/strata#834
-- PDF pages render at the preview pane's width, at most 1280 px, one page at a time across previews; queued pages that leave the view are cancelled. lgse/strata#898, lgse/strata#823
+- PDF pages render at the preview pane's width, at most 1280 px, one page at a time across previews. lgse/strata#898, lgse/strata#823
+- Queued PDF pages that leave the view are cancelled before rendering. lgse/strata#898
 - Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
 - In a PDF, double-click selects a word, triple-click a line, Shift+click extends across pages, and Ctrl+A selects all loaded pages. lgse/strata#1223
 - Dragging on a PDF margin or a page without a text layer, such as a scan, pans instead of selecting. lgse/strata#1223

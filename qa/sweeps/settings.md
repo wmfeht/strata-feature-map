@@ -58,7 +58,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Run the failing-save cases under `language = "ja"` and `"de"` with a 200-character path; check the dialog text wraps and the path stays whole.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
-- In two windows, sort a local folder and the Trash differently in each; switch Remember sort and icon size per folder off and repeat, then restart and read each window's sort.
+- In two windows, sort the Trash and an SFTP folder differently in each. Read each window's sort, then restart and read them again.
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
 
 ### settings/preferences/language
@@ -91,7 +91,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Mid-preview, close the window with the compositor's close shortcut, quit the last window, and close a window that never opened Settings; relaunch and read the theme.
 - Under `extreme.toml`, open a swatch's color chooser and switch to its custom editor. Change the theme from window B while it is open, then press Tab through every control.
 - Mid-preview, click the selected card, another card, and Follow Omarchy; then press Cancel and Add theme and read the swatches.
-- Seed custom themes whose `accent` is 9-digit hex, 12-digit hex, `#4fd6ff80`, and `rgba(79,214,255,0.5)`; apply each and compare icons, focus outlines, and editor swatches, then diff the file.
+- Apply a custom theme with a translucent `accent` such as `rgba(79,214,255,0.5)`; compare focus outlines and the editor swatches seeded from it.
 - Apply Material Lighter and Material Vivid and screenshot a selected row, a hovered row, the footer, dim column details, and a disabled menu item.
 - Write a custom theme with background luminance near 0.4 (`#9a9a9a` and `#a0a0a0`) and check its Light/Dark filing with search and filter combined.
 - Cross Element glow, Reduce motion, and `gtk-enable-animations` off and on; then choose Cairo with `GSK_RENDERER=` exported empty and press Restart now from window B.

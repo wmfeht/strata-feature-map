@@ -42,7 +42,6 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press Tab and Shift+Tab around the file list in each view, in an empty folder, with a filter open, and under `save` with Name present.
 - Choose a filter and a choice option by pointer and by keyboard, with a label over 48 characters, then reopen the dropdown.
 - Rename the open folder from a shell while Name holds an edited name, then delete it while a download runs; read the location and Name.
-- Click blank preview space after a Ctrl+click toggle, on a disabled transport button, and in the empty Columns preview slot, in `single` and `multiple`.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
 
 ### integration/portal-file-chooser/setup
@@ -91,7 +90,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
-- Press `/` and keypad `/` in a PDF, an image, an archive tree, a media preview, a CSV shown as a table, and a document still loading. Read which prompt opens and whether the drawer stays.
+- Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
 ### integration/10xer-mode/places

@@ -62,6 +62,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Ctrl+A in `100000`, then draw a small Ctrl+Alt marquee in Icons and List; compare the footer count with the rows crossed.
 - Plain-click blank preview space while a PDF shows, while the placeholder shows, and while the drawer slides in; then drag from there into the listing.
 - Click a disabled header button and the gap between the preview header's icon and name. Repeat in the file chooser.
+- In the file chooser, Ctrl+click blank preview space with a file previewed, then plain-click the empty Columns preview slot. Repeat for a `single` and a `multiple` request.
 
 ### browser/selection/pointer-intent
 

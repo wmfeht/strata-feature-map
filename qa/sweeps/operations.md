@@ -139,7 +139,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Open a 50k-member archive, a password-protected one, and an archive inside an archive; drive the listing with the keyboard only.
 - Mix pointer and keys: hover across rows then press Right, and click a row then press Up.
 - Shift+click two members, and double-click a folder in a long list scrolled halfway.
-- Click a row at its bottom edge, and in a long list scrolled halfway.
+- Click a row at its bottom edge.
 
 ### operations/progress
 

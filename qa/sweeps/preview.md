@@ -75,9 +75,11 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Start five players across two windows, pause one for 31 s, retry the fifth, then close a window holding two players.
 - Run `automatic`, `vaapi`, `vulkan`, and acceleration off on the 4K HEVC 10-bit file; switch the setting mid-play and count ffmpeg processes per player.
 - With autoplay on, select a 9 s clip, an 11 s clip, and a muted state; seek during the fade; let a 40 s GIF loop twice with four players active.
-- With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end; type `G` with Caps Lock on.
+- With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
+- With the timeline focused, type `G` with Caps Lock on.
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
-- Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4; scroll the fallback seek slider with a touchpad.
+- Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
+- Scroll the fallback seek slider with a touchpad.
 
 ### preview/preview-panel/media/audio
 

@@ -63,7 +63,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 ### Synchronization
 
 - Changing a preference in one window updates the matching Settings controls and behavior in every open window of the same process. lgse/strata#518
-- Location, selection, history, the sort of folders that are not remembered, and the filter query stay local to their window. lgse/strata#518, lgse/strata#1565
+- Location, selection, history, the filter query, and the sort of a folder Strata never remembers stay local to their window. Trash and remote shares are such folders. lgse/strata#518, lgse/strata#1565
 
 ## Design
 

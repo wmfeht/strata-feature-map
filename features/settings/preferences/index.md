@@ -13,7 +13,7 @@ related: [settings/themes, app/updates, integration/custom-actions, browser/tabs
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows (Appearance, Actions, Updates, search exclusions, thumbnails, desktop integration, Restore open tabs, Remember sort and icon size per folder) belong to their features. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Updates, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 

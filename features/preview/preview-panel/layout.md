@@ -37,14 +37,16 @@ How the preview panel shares the window with the file views: its width, the rese
 
 ### Divider and resize edge
 
-- At the column–preview boundary, the 6 px inside the preview's left edge move the divider; the column's last 6 px, except the 1 px line, resize the column. lgse/strata#1539
+- At the column–preview boundary, the 6 px inside the preview's left edge move the divider. lgse/strata#1539
+- At that boundary, the column's last 6 px, except the 1 px line, resize the column. lgse/strata#1539
 - Hovering the grip or divider line lights the line and tints the grip; after 400 ms, "Preview panel minimum width" appears. lgse/strata#1539
 - Crossing between the divider line and the grip keeps the caption; pressing hides it in favor of the outline. lgse/strata#1539
 - With the preview hidden, such as with a folder selected, the grip and the divider's resize cursor are absent and only the column resizes. lgse/strata#1539
 
 ### Drawer motion
 
-- In Icons, List, and Columns with **Appearance → Preview panel** off, the drawer slides open and closed over 260 ms; a reserved Columns slot never slides. lgse/strata#1539
+- In Icons, List, and Columns with **Appearance → Preview panel** off, the drawer slides open and closed over 260 ms. lgse/strata#1539
+- A reserved Columns slot never slides. lgse/strata#1539
 - Closing the preview mid-slide returns keyboard focus to the files at once; only content teardown waits for the slide. lgse/strata#1539
 - Reopening the preview during its slide-out, such as Space twice quickly in List, turns the drawer back from its current position. lgse/strata#1539
 

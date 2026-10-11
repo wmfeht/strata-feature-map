@@ -26,7 +26,8 @@ A find bar below the preview header that searches the text loaded in the open pr
 - In the default key map, Ctrl+F with focus in the preview opens the find bar with the entry focused and the previous query selected. lgse/strata#1559, lgse/strata#1558
 - With focus in the file listing, Ctrl+F still opens the filename filter, not preview find. lgse/strata#1559, lgse/strata#1558
 - In 10xer mode, `/` or keypad `/` with a searchable preview owning the keys opens find. lgse/strata#1559
-- Escape, or the **Close find** button, hides the bar and returns keys to the document; the preview stays open and the selected match stays selected for Ctrl+C. lgse/strata#1559
+- Escape, or the **Close find** button, hides the bar and returns keys to the document. lgse/strata#1559
+- After closing find, the preview stays open and the selected match stays selected for Ctrl+C. lgse/strata#1559
 
 ### Searching
 
