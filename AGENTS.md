@@ -106,7 +106,7 @@ maintained Strata doc when one carries the design, and summarize it here.
 | `origin` | yes | `{issue: <ref>\|null, pr: <ref>\|null}` with at least one set: the issue and PR that introduced the feature. |
 | `branch` | yes | Fork branch while `status: in-progress`, otherwise `null`. |
 | `reviewed_at` | yes | Full 40-character upstream SHA the content was last verified against. |
-| `review` | yes | `draft` or `reviewed`. Only the owner sets `reviewed`, or the bot at Sync contract step 6. |
+| `review` | yes | `draft` or `reviewed`. Only the owner sets `reviewed`, or the bot at Sync contract step 7. |
 | `code` | yes | Upstream paths or globs (`*`, `**`) owning the feature. A plain path also matches everything under it. Used to map PRs to nodes, so be specific: no shared modules, except on a `fallback` node. |
 | `tests` | yes | Upstream test files or globs that cover the feature: Rust test modules and E2E scenarios. May be `[]`. |
 | `docs` | no | Maintained upstream docs such as `docs/archives.md`. Children inherit them. |
@@ -219,9 +219,11 @@ On each scheduled run:
 4. For each triage PR you can source, propose a new node. Otherwise leave it in
    the PR description for a person. A new node is owned by its area's sweep
    without any edit; a new area needs `qa/sweeps/<area>.md` in the same PR.
-5. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and
+5. For each synced PR, run `qa --pr N` and give every file under "Unmapped
+   changes" an owner in the same PR (see the ownership rule below).
+6. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and
    `check`, and open a PR. A person reviews and merges.
-6. Once the PR's adversarial review passes and the owner has resolved its open
+7. Once the PR's adversarial review passes and the owner has resolved its open
    questions, set `review: reviewed` on the PR's draft nodes in a follow-up commit.
 
 Rules:
@@ -240,9 +242,19 @@ Rules:
 - Renaming a node renames its probe subheading; `check` reports the stale one.
 - A shared module no feature owns belongs to `app/infrastructure`, a `fallback`
   node in `scopes.yaml`. A PR that also touches other nodes maps past it when
-  those nodes own at least as many of its files. When triage repeatedly shows
-  such a module, propose adding it there, or a `triggers` entry in the PR
-  description. Never add either to shorten a plan's unmapped list.
+  those nodes own at least as many of its files.
+- Every upstream file a synced PR changes needs an owner. Assign each unmapped
+  file to the first that fits:
+  1. The node whose behavior it implements: `code` for source, `tests` for a test
+     file or fixture.
+  2. A new node, when the file carries a feature of its own that passes the Nest
+     rule.
+  3. `app/infrastructure`, for a shared module, a module root, test support, or a
+     repository file no feature owns.
+  4. A sweep `triggers` entry, for the tests of a module that is already a
+     trigger.
+  Name each assignment and its reason in the PR description. Never give a file to
+  a node whose behavior it does not implement just to empty the list.
 - When a PR, issue comment, or the code shows a bug that no issue covers, search
   `lgse/strata` issues, open and closed, and list it in the PR description. File
   an issue there only when a person asks, then cite it in Known gaps. Say "found

@@ -8,6 +8,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | --- | --- | --- | --- |
 | `.github/workflows/packaging.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `.github/workflows/publish-aur.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
+| `README.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `THIRD_PARTY_LICENSES.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `data/icons/scalable/actions/strata-lang-*.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/apps/io.github.lgse.Strata.svg` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
@@ -91,11 +93,15 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_preview/tests/cover_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/tests/model_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/tests/remote_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/adapters/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/trash.rs` | code | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/trash/tests.rs` | tests | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/trash_restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/trash_restore/**` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/volume.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `src/adapters/volume/mount_snapshot.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/volume/mounts.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/volume/mounts/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/volume/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/adapters/volume/tests/lookup_regressions.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/app/browser/deferred.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
@@ -132,6 +138,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/tests/staging.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
 | `src/app/browser/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
 | `src/app/browser/tests/undo_refresh.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
+| `src/app/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/app/navigation/selection.rs` | code | [Selection](../features/browser/selection/index.md) | — |
 | `src/app/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/app/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/assets.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
@@ -141,6 +149,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/main.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/media/peaks` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/media/peaks.rs` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -227,6 +236,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/install_source/tests.rs` | tests | [Package-managed installs](../features/app/updates/package-managed.md) | [Updates](../features/app/updates/index.md) |
 | `src/services/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/services/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/model_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
@@ -270,6 +280,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/update_install/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `src/storage.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/storage/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/test_support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/tests.rs` | tests | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `src/trusted_command/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/accessibility.rs` | code | [Accessibility](../features/app/accessibility.md) | — |
@@ -337,6 +349,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser_modes/events.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser_modes/list_factory.rs` | code | [List view](../features/browser/view-modes/list.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/navigation.rs` | code | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser_modes/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/chooser.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/download.rs` | code | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
@@ -408,6 +421,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/tests/preferences.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/text_size.rs` | code | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/preferences/trashed.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/archive.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `src/ui/preview/audio` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -445,6 +459,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/raw_details/tests.rs` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/ui/recent_apps` | code | [Recently used applications](../features/integration/open-with/recent-apps.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
 | `src/ui/recent_apps/tests.rs` | tests | [Recently used applications](../features/integration/open-with/recent-apps.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
+| `src/ui/resize_feedback.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/scrolling.rs` | code | [Scrolling](../features/browser/scrolling.md) | — |
 | `src/ui/scrolling/popover.rs` | code | [Scrolling](../features/browser/scrolling.md) | — |
 | `src/ui/scrolling/popover/tests.rs` | tests | [Scrolling](../features/browser/scrolling.md) | — |
@@ -465,6 +480,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/general.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/search.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/search/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `src/ui/settings/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/dismissal.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/tests/general.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/restart.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
@@ -578,6 +594,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/volume_password/tests.rs` | tests | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/util/mod.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/util/tests.rs` | tests | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `tests/e2e/baselines/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/e2e/harness/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/e2e/mutations/drag-and-drop.patch` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/e2e/mutations/popover-scrolling.patch` | tests | [Scrolling](../features/browser/scrolling.md) | — |
 | `tests/e2e/mutations/rename-caret.patch` | tests | [Inline rename](../features/operations/rename.md) | — |

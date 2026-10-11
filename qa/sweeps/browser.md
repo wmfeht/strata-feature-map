@@ -1,7 +1,7 @@
 ---
 title: Browser sweep
 reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
-triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/navigation.rs]
+triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/preferences.md, tests/e2e/mutations]
 ---
 

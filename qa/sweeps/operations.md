@@ -1,7 +1,7 @@
 ---
 title: Operations sweep
 reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
-triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs]
+triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
 

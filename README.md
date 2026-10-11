@@ -16,7 +16,7 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `72b840e` | ? |
 | [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `442d325` | ? |
-| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `aee7133` | 0 |
+| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `442d325` | ? |
 | [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | reviewed | `b893886` | 0 |
 | ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | reviewed | `b893886` | 0 |
