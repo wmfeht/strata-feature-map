@@ -41,9 +41,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
 - With Restore open tabs on and a `tabs.toml` whose every entry is invalid, plain-launch with the Default directory deleted, then with it `chmod 000`.
-- With icon-only navigation and before Actions, Updates, or About has been built, search "license", "custom actions", "markdown", and "preview"; read the opened page, its title, and the visible navigation entries.
+- With icon-only navigation and before Actions or Updates has been built, search "license", "custom actions", "markdown", and "preview". Read the opened page, its title, and the visible navigation entries.
 - Repeat those searches under `language = "ja"` with the Japanese keywords, and with no custom actions installed but one broken action file present.
-- Flip Show sizes in Columns view in window A while window B shows List, while B has the Appearance menu open, and while B has Settings open on General.
+- Flip Show sizes in Columns view in window A three times. Window B shows List, then has the Appearance menu open, then has Settings open on General.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
 ### settings/preferences/storage
@@ -84,11 +84,12 @@ For every control this sweep proves the binding: the file changes, the other win
 - Drop `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, a 0-byte file, a `chmod 000` file, a `.TOML` extension, and a 1 MB file into the themes directory. Do it while running and again before launch; count the cards and read the log.
 - In the editor, save a 300-character name, a name equal to a bundled theme, `../escape`, and an emoji-only name.
 - Save a theme while its `<id>.toml` is a directory, a `chmod 000` file, and a link to `/dev/shm`; also with `<id>-2.toml` to `<id>-9.toml` present. List the folder after each.
-- Save names that slug to nothing (`日本語`, `!!!`, ` - `) three times, then once while `custom-theme.toml` is a dangling link and once while it is a directory; list the folder and read each card's name.
+- Save names that slug to nothing (`日本語`, `!!!`, ` - `) three times. Repeat with `custom-theme.toml` as a dangling link, then as a directory; list the folder and read each card's name.
 - Make the themes folder a symlink, then `chmod 555` it, and save a theme; read the editor's error and the folder.
 - Open the editor in both windows, change swatches in A, then in B, then in A again; close Settings in B, then A, and open a third window. Repeat closing A first.
 - Mid-preview, change text size with the keyboard, toggle Element glow from window B, change `xft-dpi`, and rewrite `colors.toml` while following Omarchy; then Cancel and compare every window.
 - Mid-preview, close the window with the compositor's close shortcut, quit the last window, and close a window that never opened Settings; relaunch and read the theme.
+- Under `extreme.toml`, open a swatch's color chooser and switch to its custom editor. Change the theme from window B while it is open, then press Tab through every control.
 - Mid-preview, click the selected card, another card, and Follow Omarchy; then press Cancel and Add theme and read the swatches.
 - Seed custom themes whose `accent` is 9-digit hex, 12-digit hex, `#4fd6ff80`, and `rgba(79,214,255,0.5)`; apply each and compare icons, focus outlines, and editor swatches, then diff the file.
 - Apply Material Lighter and Material Vivid and screenshot a selected row, a hovered row, the footer, dim column details, and a disabled menu item.
@@ -101,7 +102,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under `extreme.toml`, open the item menu on a Trash entry and the Empty Trash dialog; the destructive icon must take the danger color, not the accent.
 - Fill a folder with 300 distinct extensions and language files, scroll to the end and back in Icons and List; watch for icon flashes and criticals as the cache evicts.
 - Name files `Makefile`, `makefile`, `Dockerfile.dev`, `main.RS`, `.rs`, and a directory `lib.rs`; compare the icon in the listing and in a Ctrl+F result.
-- Put a folder beside Rust, Go, JS, C#, and Java files in List and in Icons at 16, 64, 128, and 256 px, at text size 8 and 48 and under `GDK_SCALE=2`; compare stroke weight and edge clipping.
+- Put a folder beside Rust, Go, JS, C#, and Java files in List and in Icons at 16, 64, 128, and 256 px. Repeat at text size 8 and 48 and under `GDK_SCALE=2`; compare stroke weight and edge clipping.
 - Collapse and expand the sidebar after a theme change; icons in collapsed rows must match the expanded ones.
 
 ### settings/themes/omarchy

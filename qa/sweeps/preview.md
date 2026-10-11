@@ -34,8 +34,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Open the 2000-page PDF, press End, scroll back fast, Ctrl+A then Ctrl+C, then Print and cancel near page 500.
 - Toggle word wrap on the 20 MiB single-line file in one window while the other shows the 2 MiB text file; check the 1 MiB cap in both.
 - Preview the 200 MP PNG with and without an EXIF thumbnail, a 3MF with two usable PNGs, and a CBZ whose first entry is a folder.
-- In a small source preview, place the caret, type letters, Backspace, Ctrl+V, and Ctrl+X, then Shift+Down past the last line and Ctrl+C.
-- Preview the 2000-page PDF in a 3000 px wide preview at 2× scaling; Ctrl+wheel to 4×, then narrow the window below 1280 px.
+- In a 600-line `.rs` preview and a 2 KiB-line plain-text file, place the caret, type letters, Backspace, Ctrl+V, and Ctrl+X, then Shift+Down past the last line and Ctrl+C.
 
 ### preview/preview-panel/layout
 
@@ -44,6 +43,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Drag the divider below 300 px and past the window edge, and resize the window mid-drag.
 - Narrow the window until a playing video hides, wait 35 s, widen; check frame, position, and sound.
 - Toggle Appearance → Preview panel off and on ten times with overflowing columns; the scrollbar extent must match the real columns each time.
+- Preview the 2000-page PDF in a 3000 px wide preview at 2× scaling; Ctrl+wheel to 4×, then narrow the window below 1280 px.
 - In Icons and List, rest on the divider grip and drag it; compare the caption and outline with what the drag changes.
 - Move the pointer pixel by pixel from 7 px left to 7 px right of the column–preview line at 1× and 2× scaling, pressing at each step.
 - Press Space twice within 260 ms in List, then close mid-slide in the file chooser and press Escape twice.
@@ -61,10 +61,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 ### preview/preview-panel/find
 
-- Search a query spanning two virtual rows, one at 256 characters, Turkish `İ`, German `ß`, and a lone combining accent.
+- Search a query spanning two virtual rows, one at 256 characters, German `ß`, and a lone combining accent.
 - With find open, switch to Rendered on a table-only Markdown file and on a CSV, then switch back to Source.
 - Search a large text file while it still loads, then Escape and reopen find before loading ends.
-- In 10xer, type `/` inside the find field, then press `/` in a PDF, an image, and an archive preview.
+- In 10xer, press `/` in a small source, a large plain-text, and a rendered DOCX preview, then type `/` inside the find field.
 - Open find in two windows on the same file with different queries; close the drawer in one.
 
 ### preview/preview-panel/media

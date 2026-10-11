@@ -61,7 +61,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Alt-drag from an entry inside a multi-selection, and Ctrl-marquee across a Shift range, releasing outside the window.
 - Press Ctrl+A in `100000`, then draw a small Ctrl+Alt marquee in Icons and List; compare the footer count with the rows crossed.
 - Plain-click blank preview space while a PDF shows, while the placeholder shows, and while the drawer slides in; then drag from there into the listing.
-- Click Next audio file on the last track, a disabled header button, and the gap between the preview header's icon and name; repeat in the file chooser.
+- Click Next audio file on the last track, a disabled header button, and the gap between the preview header's icon and name. Repeat in the file chooser.
 
 ### browser/selection/pointer-intent
 
@@ -87,7 +87,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Click a row in column 1, then press Ctrl+Down in column 2 without moving the pointer; then press End while Properties opens.
 - Open `deep` to column 8, press Alt+Left, Alt+Right, Alt+Up, and click the third crumb; then dot-rename the came-from folder from a shell and press Back.
 - Return to an ancestor with a pending FileManager1 reveal in it, and while the ancestor fails to load after `chmod 000`.
-- Autofit the 255-byte name with the sidebar railed, then expanded, and with the preview open; drag an edge past the window edge, then press Escape mid-drag.
+- Autofit the 255-byte name with the sidebar railed, then expanded, and with the preview open. Drag an edge past the window edge, then press Escape mid-drag.
 - Set `browser_column_width = 5000` with text size 28, launch, then return to 13; shrink the window to 400 px and drag an edge.
 - Double-click a closed folder in a clipped parent while the strip scrolls under the first press; repeat holding Ctrl on the second press.
 - Close a column and click the next one within 220 ms; drop a file on a closing column; switch to Icons mid-close.
@@ -283,7 +283,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Customize a folder, rename it externally, and create a new folder at the old name; then pick a custom color and press Escape at each step, reading settings.toml.
 - Write `emoji:` with a 70-byte string and an unknown icon name into `[custom_icons]`; start, then switch theme with the folder visible in two windows.
 - Close the custom color dialog by a click outside it, then Customize the same way. Delete the item externally while Customize is open and press Escape.
-- Customize a folder, move it with Keep both, undo, and redo; then trash it, trash a new folder from the same path, and Put back both.
+- Customize a folder, move it with Keep both, undo, and redo. Then trash it, trash a new folder from the same path, and Put back both.
 - Replace a customized folder by a copy, Merge one into a customized folder, and move one to an `sftp://` share; read settings.toml after each.
 
 ### browser/scrolling
@@ -300,8 +300,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Ctrl+W with Properties open, then close every tab from the last one; change Show hidden files with three tabs on one folder and switch through them.
 - Open tabs on `trash:///`, `/`, and a 30-character folder name; press a Columns folder, drag 5 px, release, and read the tab name during and after.
 - Focus an empty folder's pane in tab 2, fill the folder from a shell, then switch away and back.
-- Middle-click a folder in the file chooser and on a Ctrl+F result; double middle-click; Ctrl+Shift+middle-click; then press Ctrl+Shift+Enter in both key maps.
-- Choose Open in… → New Window on three folders and two files, in Trash and Recent; open a new tab on the unreadable folder and an unmounted `sftp://` pin.
+- Middle-click a folder in the file chooser and on a Ctrl+F result, then double middle-click and Ctrl+Shift+middle-click. Press Ctrl+Shift+Enter in both key maps.
+- Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
 
 ### browser/tabs/session-restore
 

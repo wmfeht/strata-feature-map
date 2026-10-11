@@ -33,7 +33,8 @@ Strata's bundled interface and file-type icons, tinted with the active theme's c
 
 ### File-type icons
 
-- Source files in 42 languages, such as `.rs`, `.py`, `.go`, `.java`, and `.kt`, show a language glyph drawn as an unfilled accent outline with round caps and joins. lgse/strata#1529, lgse/strata#1561
+- Source files in 42 languages, such as `.rs`, `.py`, `.go`, `.java`, and `.kt`, show a language glyph drawn as an unfilled accent outline. lgse/strata#1529, lgse/strata#1561
+- Language glyph outlines have round caps and joins. lgse/strata#1561
 - A language glyph's outline has the same stroke weight as the folder icon beside it, in List rows and in the Icons view. lgse/strata#1561
 - Outline strokes at a glyph's edge, as on the Rust, JS, and TS marks, draw in full without clipping. lgse/strata#1561
 - `.java` files show the Devicon Java cup-and-steam mark. lgse/strata#1561

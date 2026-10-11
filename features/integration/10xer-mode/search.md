@@ -34,7 +34,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - Enter commits the filter and focuses the first result without opening it; empty Enter, Esc from the prompt, or Esc from the listing clears it. lgse/strata#1297, lgse/strata#1245
 - Pressing `f` again pre-fills the current filter query. lgse/strata#1297, lgse/strata#1245
 - While an `f` filter is active, the footer shows `filter: …` and the displayed result count, including zero. lgse/strata#1297, lgse/strata#1245
-- Until a typed `f` query applies or an `s` search delivers its first hits, the footer count keeps describing the folder instead of reading `0 items`. lgse/strata#1554, lgse/strata#1442 (unverified)
+- Until a typed `f` query applies or an `s` search returns hits, the footer count describes the folder, not `0 items`. lgse/strata#1554, lgse/strata#1442 (unverified)
 - `f` uses the same fuzzy terms as `s` but matches only the folder's own items, even with Include subfolders on, so `rep md` keeps `gamma-report.md`. lgse/strata#1403
 - Turning the mode on re-runs an open Ctrl+F filter with `f` matching, and turning it off re-runs it with default matching. lgse/strata#1403
 - Leaving the mode clears the find, every `f` filter, and an `s` search in every window. lgse/strata#1244, lgse/strata#1297 (unverified)

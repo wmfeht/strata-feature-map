@@ -33,8 +33,8 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - With reduced motion or animations off, a closing column is removed at once. lgse/strata#1539
 - A closing column takes no clicks, hovers, or drops while it leaves. lgse/strata#1539
 - Opening another location, rebuilding the strip, or switching away from Columns replaces the columns with no exit animation. lgse/strata#1539
-- Moving the focused, open folder to Trash with the mouse opens the folder that takes its place in the listing. lgse/strata#1497, lgse/strata#1539
-- That replacement is mirrored only with Mirror columns selection on. lgse/strata#1539 (unverified)
+- Deleting the focused, open folder, by mouse or keyboard, reveals the entry that takes its place, folder or file, and mirrors it. lgse/strata#1497, lgse/strata#1539
+- That mirroring needs Mirror columns selection on; with it off, the replacement is only revealed. lgse/strata#1539 (unverified)
 - A keyboard move reveals a column clipped by up to 4 px fully and leaves an already visible column in place. lgse/strata#1513, lgse/strata#1539
 - A column wider than the viewport that already fills it stays in place; a partly off-screen one scrolls to its left edge. lgse/strata#1539
 - With Mirror columns selection on, the default, Up or Down onto a folder shows its contents in the next column without moving focus. lgse/strata#1179
@@ -105,7 +105,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 - Hovering or selecting a folder row, or a folder on the open path, shows "No items" or "N items" in the right-side badge. lgse/strata#1564
 - Files show their size in the same badge. lgse/strata#1564
-- With Show sizes in Columns view off, saved as `columns_show_sizes = false`, the badge stays hidden for files and folders in every open window. lgse/strata#1564
+- With Show sizes in Columns view off, the badge stays hidden for files and folders in every open window. lgse/strata#1564
 - With the setting off, Columns requests no folder counts. Turning it on fills counts for folder rows already shown. lgse/strata#1564
 - A count that arrives after the setting is turned off leaves the badge hidden. lgse/strata#1564
 - While a row is being renamed its badge stays hidden; after the rename ends it returns only with the setting on. lgse/strata#1564
@@ -166,6 +166,4 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 ## Known gaps
 
-- With the sidebar railed in a narrow window, columns stop short of the window edge by the width the rail gives up. lgse/strata#1570
-- When the area is narrower than 300 px after a window shrink, dragged and autofitted columns still keep a 300 px minimum. lgse/strata#1570
 - There is no modifier to resize every visible column at once and no default-width setting. lgse/strata#1112

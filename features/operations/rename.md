@@ -42,7 +42,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Typing a name containing `/` puts the field in the error style and sets its accessible description to "Names cannot contain /"; no tooltip shows. lgse/strata#445, lgse/strata#1359
 - For `.` or `..` the description is "That name is reserved", and for a whitespace-only name "Enter a name". lgse/strata#445 (unverified)
 - An empty field is not styled as an error. lgse/strata#30
-- In Columns, the row's size badge is hidden while editing and returns when the editor closes. lgse/strata#443
+- In Columns, the row's size badge is hidden while editing. When the editor closes, it returns only with Show sizes in Columns view on and a size to show. lgse/strata#443, lgse/strata#1564
 - With a long name in a narrow Columns view, End, typing, and arrow keys keep the caret and extension visible. lgse/strata#591
 - Editor text is centered in Icons and left-aligned in List and Columns. lgse/strata#1155
 
@@ -92,6 +92,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1564 | feat | Restored the Columns size badge after a rename only when Show sizes in Columns view is on. |
 | 2026-10-10 | lgse/strata#1554 | fix | Finished renames to a dot name with hidden files off; they had blocked the next rename. |
 | 2026-09-16 | lgse/strata#1061 | feat | Added single-item rename to the global Undo history. |
 | 2026-09-16 | lgse/strata#1042 | feat | Added slow-click rename of an already-selected item in all views, following Finder and Explorer. |

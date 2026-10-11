@@ -104,6 +104,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-10-10 | lgse/strata#1554 | fix | Followed an open folder renamed outside Strata, and left one deleted or moved for its nearest existing ancestor. |
+| 2026-10-10 | lgse/strata#1539 | fix | Flagged a focus change caused by the focused entry's removal, so Columns can mirror the replacement. |
 | 2026-10-10 | lgse/strata#1544 | fix | Refreshed search indexes on outside changes and kept a focused filter's focus through live and held changes. |
 | 2026-09-16 | lgse/strata#1054 | refactor | Separated deferred metadata, sort, and publication cleanup; released a borrow that panicked when a sorting column closed. |
 | 2026-09-15 | lgse/strata#1037 | refactor | Separated live directory-change routing into staging, queueing, path reconciliation, and publication. |
@@ -119,4 +120,3 @@ Loading and file monitoring predate the PR history; the original monitor already
 ## Known gaps
 
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902
-- A rename under an execute-only parent, or on a backend without inode identity such as GVfs, is treated as a deletion. lgse/strata#1554

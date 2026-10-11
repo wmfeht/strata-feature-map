@@ -53,11 +53,11 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 
 - After a successful permanent delete, the deleted rows that were visible when it began break into fragments that scatter and fade. lgse/strata#626, lgse/strata#899
 - A permanent delete that succeeds before its progress card appears dissolves its rows, and no card appears. lgse/strata#1562
-- A permanent delete still running when its card appears, after 350 ms or at once for 16 or more items, plays no dissolve. lgse/strata#1562
+- A permanent delete still running when its card appears, after 350 ms or at once for 16 or more items, plays no dissolve. lgse/strata#1562 (unverified)
 - While a permanent delete runs in Columns, List, or Icons, clicks reach the file view and navigating to another folder works. lgse/strata#1562
-- A foreground copy that fails while a quick permanent delete runs leaves that delete's dissolve to play. lgse/strata#1539, lgse/strata#1562
+- A foreground operation, such as a move, that fails while a quick permanent delete runs leaves that delete's dissolve to play. lgse/strata#1539, lgse/strata#1562 (unverified)
 - When a second quick permanent delete finishes while the first dissolve plays, it plays no dissolve, and the view takes clicks again afterwards. lgse/strata#1562 (unverified)
-- Surviving rows stay in place until the dissolve finishes, then move into their new positions. lgse/strata#931
+- During the dissolve, surviving rows show at their pre-delete positions, then appear at their new positions. lgse/strata#931, lgse/strata#1562 (unverified)
 - "This directory is empty" stays hidden until the dissolve finishes when every item was deleted. lgse/strata#910
 - A failed, partial, or cancelled deletion plays no dissolve. lgse/strata#899, lgse/strata#1490
 - With animations disabled, no dissolve plays and the updated listing appears at once. lgse/strata#899, lgse/strata#931

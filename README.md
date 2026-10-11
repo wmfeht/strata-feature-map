@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `442d325` · 110 features, 43 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `442d325` · 110 features, 40 reviewed
 
 ## app
 
@@ -46,19 +46,19 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [RAW photo details](features/browser/properties/raw-metadata.md) | `browser/properties/raw-metadata` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Folder and selection size](features/browser/properties/size.md) | `browser/properties/size` | shipped | reviewed | `b893886` | 0 |
 | [Scrolling](features/browser/scrolling.md) | `browser/scrolling` | shipped | draft | `442d325` | ? |
-| [Search](features/browser/search/index.md) | `browser/search` | shipped | draft | `72b840e` | ? |
+| [Search](features/browser/search/index.md) | `browser/search` | shipped | draft | `442d325` | ? |
 | ↳ [Global search exclusions](features/browser/search/exclusions.md) | `browser/search/exclusions` | shipped | reviewed | `b893886` | 0 |
-| ↳ [Pane filter](features/browser/search/filter.md) | `browser/search/filter` | shipped | draft | `72b840e` | ? |
+| ↳ [Pane filter](features/browser/search/filter.md) | `browser/search/filter` | shipped | draft | `442d325` | ? |
 | [Selection](features/browser/selection/index.md) | `browser/selection` | shipped | draft | `442d325` | ? |
 | ↳ [Click modes](features/browser/selection/click-modes.md) | `browser/selection/click-modes` | shipped | draft | `442d325` | ? |
 | ↳ [Keyboard navigation in views](features/browser/selection/keyboard-navigation.md) | `browser/selection/keyboard-navigation` | shipped | draft | `72b840e` | ? |
 | ↳ [Marquee selection](features/browser/selection/marquee.md) | `browser/selection/marquee` | shipped | draft | `442d325` | ? |
-| ↳ [Pointer intent](features/browser/selection/pointer-intent.md) | `browser/selection/pointer-intent` | shipped | draft | `442d325` | ? |
+| ↳ [Pointer intent](features/browser/selection/pointer-intent.md) | `browser/selection/pointer-intent` | shipped | reviewed | `b893886` | 0 |
 | [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `442d325` | ? |
 | ↳ [Pinned folders](features/browser/sidebar/pins.md) | `browser/sidebar/pins` | shipped | draft | `72b840e` | ? |
 | [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `442d325` | ? |
 | ↳ [Tab session restore](features/browser/tabs/session-restore.md) | `browser/tabs/session-restore` | shipped | draft | `aee7133` | 0 |
-| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | reviewed | `b893886` | 0 |
+| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | draft | `442d325` | ? |
 | ↳ [Thumbnail disk cache](features/browser/thumbnails/cache.md) | `browser/thumbnails/cache` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Thumbnail workers](features/browser/thumbnails/workers.md) | `browser/thumbnails/workers` | shipped | reviewed | `b893886` | 0 |
 | [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `442d325` | ? |
@@ -95,12 +95,12 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places.md) | `integration/10xer-mode/places` | shipped | draft | `442d325` | ? |
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | draft | `442d325` | ? |
 | ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | draft | `442d325` | ? |
-| [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | reviewed | `b893886` | 0 |
+| [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | draft | `442d325` | ? |
 | [FileManager1 D-Bus interface](features/integration/file-manager-interface.md) | `integration/file-manager-interface` | shipped | reviewed | `aee7133` | 0 |
 | [Opening files and Open With](features/integration/open-with/index.md) | `integration/open-with` | shipped | reviewed | `b893886` | ? |
 | ↳ [Recently used applications](features/integration/open-with/recent-apps.md) | `integration/open-with/recent-apps` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Open in Terminal](features/integration/open-with/terminal.md) | `integration/open-with/terminal` | shipped | draft | `442d325` | ? |
-| [System file chooser](features/integration/portal-file-chooser/index.md) | `integration/portal-file-chooser` | shipped | draft | `72b840e` | ? |
+| [System file chooser](features/integration/portal-file-chooser/index.md) | `integration/portal-file-chooser` | shipped | draft | `442d325` | ? |
 | ↳ [Chooser PNG conversion](features/integration/portal-file-chooser/image-conversion.md) | `integration/portal-file-chooser/image-conversion` | shipped | reviewed | `aee7133` | 0 |
 | ↳ [File chooser and file manager setup](features/integration/portal-file-chooser/setup.md) | `integration/portal-file-chooser/setup` | shipped | draft | `72b840e` | ? |
 | ↳ [Name field filenames and URL downloads](features/integration/portal-file-chooser/url-download.md) | `integration/portal-file-chooser/url-download` | shipped | reviewed | `b893886` | 0 |
@@ -127,11 +127,11 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | draft | `442d325` | ? |
 | ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | reviewed | `b893886` | 0 |
 | [Inline rename](features/operations/rename.md) | `operations/rename` | shipped | draft | `442d325` | ? |
-| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `aee7133` | ? |
+| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `442d325` | ? |
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | draft | `442d325` | ? |
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | draft | `aee7133` | 0 |
 | ↳ [Restore from Trash](features/operations/trash/restore.md) | `operations/trash/restore` | shipped | draft | `aee7133` | 0 |
-| [Undo and redo](features/operations/undo.md) | `operations/undo` | shipped | reviewed | `b893886` | 0 |
+| [Undo and redo](features/operations/undo.md) | `operations/undo` | shipped | draft | `442d325` | ? |
 
 ## preview
 
@@ -144,7 +144,7 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 | ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | draft | `442d325` | ? |
 | ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `442d325` | ? |
 | ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `442d325` | ? |
-| &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | reviewed | `b893886` | 0 |
+| &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | draft | `442d325` | ? |
 | &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | reviewed | `b893886` | 0 |
 | [Quick preview](features/preview/quick-preview/index.md) | `preview/quick-preview` | shipped | draft | `442d325` | ? |

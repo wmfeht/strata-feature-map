@@ -65,6 +65,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - A keyboard sort keeps the cursor on the same item and leaves other Miller columns in their order. lgse/strata#1308
 - With Remember sort and icon size per folder on, a keyboard sort is remembered for that folder and leaves the default sort unchanged. lgse/strata#1565, lgse/strata#1563
 - With Remember sort and icon size per folder off, a keyboard sort becomes the default sort. lgse/strata#1308, lgse/strata#1565
+- With that switch on, a keyboard sort in Trash or a remote folder changes only that column and leaves the default sort unchanged. lgse/strata#1565 (unverified)
 - After a keyboard sort, a List heading click reverses the sort that is applied. lgse/strata#1308
 - `, n` and `, t` cancel with `Unknown chord`. lgse/strata#1308
 - `.`, Ctrl+H, and Ctrl+. toggle the saved hidden-files preference in every window, including over `f` results. lgse/strata#1308
@@ -106,4 +107,4 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 ## Known gaps
 
-- In Columns, deleting a directory whose child column is open closes the preview without previewing the next entry. lgse/strata#1497
+None known.

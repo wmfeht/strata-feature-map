@@ -40,6 +40,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Rename to a name differing only by case, to an existing name, to a name containing `/`, and to a 255-byte name, in each mode.
 - Rename an item at the edge of the viewport, in a column narrower than the name, and while a filter is active.
 - Rename an image while its thumbnail is still loading; the thumbnail must follow the new name.
+- In Columns, toggle Show sizes in Columns view while a rename editor is open, then commit and cancel.
 - With hidden files off, rename a file and a folder to dot names in each mode. Then create a file there from a shell, and repeat with hidden files on.
 
 ### operations/clipboard
@@ -66,8 +67,6 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Hover a folder until it spring-loads, move away before it opens, then let it open and press Escape mid-drag.
 - Start a drag in Icons from caption whitespace and from tile content, and in List from an unselected row.
 - Start a multi-selection drag in the large fixture folder in List, Icons, and Columns, and hover several folders before dropping.
-- In Columns, select a file in an open child column, then drag the selected parent folder.
-- Drag from a Ctrl+F result and cancel, then drop a file list from another application.
 
 ### operations/drag-and-drop/column-autoscroll
 
@@ -106,14 +105,14 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/trash/animation
 
 - Trash with reduce motion on and off, with the sidebar hidden, and with the Trash row scrolled out of view; the animation must never delay the operation or move focus.
-- Move to Trash 15 items, then 16, then a folder that takes about 350 ms; switch tabs during a quick one.
+- Move to Trash 15 items, then a folder that takes about 350 ms; switch tabs during a quick one.
 
 ### operations/delete
 
 - Shift+Delete with no selection in each mode, inside a read-only folder, and on a selection mixing Trash and non-Trash items reached through search.
 - In the confirmation: Escape, backdrop click, Enter, and Tab order, both after Shift+Delete and after Delete in `/dev/shm`.
 - Delete a 10k-entry folder, cancel at about half, and count what remains.
-- Shift+Delete 15 items, then 16, then a folder that takes about 350 ms; switch tabs or view mode during a quick one.
+- Shift+Delete 15 items, then a folder that takes about 350 ms; switch tabs or view mode during a quick one.
 - Shift+Delete 1 to 15 rows above other rows in each mode and watch whether deleted rows vanish and reappear before the dissolve.
 - Start a second Shift+Delete while the first dissolve plays, then click a row.
 
@@ -153,7 +152,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Run three operations at once from two windows, cancel one from the other window, and eject a device mid-copy.
 - Read each card's footer during a copy, a compression, a cancelled compression, a deletion, and a drive format.
-- Cancel a running deletion with X and click into the file view before the cancellation dialog appears.
+- Cancel a slow deletion on a stalled device with X, then click rows and navigate with the pointer while cancellation is pending.
 
 ### operations/progress/jobs
 

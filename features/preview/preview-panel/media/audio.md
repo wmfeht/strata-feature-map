@@ -3,8 +3,8 @@ title: Audio previews
 status: shipped
 origin: {issue: lgse/strata#1288, pr: lgse/strata#1289}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/preview/audio.rs, src/ui/preview/audio, src/ui/preview/waveform.rs, src/ui/preview/waveform, src/media/peaks.rs, src/media/peaks]
 tests: [src/ui/preview/audio/tests.rs, src/ui/preview/audio/analysis/tests.rs, src/ui/preview/audio/details/tests.rs, src/ui/preview/tests/audio.rs, src/ui/preview/waveform/tests.rs, src/media/peaks/tests.rs, src/ui/window/tests/keyboard_dispatch/audio_tracks.rs]
 related: [preview/preview-panel/media/video, browser/search, integration/10xer-mode]
@@ -66,6 +66,7 @@ Each part is sandboxed or derived from already validated data. "Audio previews" 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Stepped the volume and fallback seek sliders and added paging, jump, and volume keys to the media timeline. |
 | 2026-10-03 | lgse/strata#1289 | feat | Added the now-playing audio view with art, tags, spectrum, waveform scrubber, and track stepping. |
 
 ## Known gaps

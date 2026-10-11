@@ -17,8 +17,8 @@ File icons that fly between their rows and the sidebar Trash button, on Move to 
 ## Behavior
 
 - A Move to Trash that succeeds before its progress card appears flies its icons from their rows into the sidebar Trash button. lgse/strata#626, lgse/strata#1562
-- A Move to Trash still running when its card appears, after 350 ms or at once for 16 or more items, never flies. lgse/strata#1562
-- A quick Move to Trash that fails, partly fails, or is cancelled plays no flight. lgse/strata#1562 (unverified)
+- A Move to Trash still running when its card appears, after 350 ms or at once for 16 or more items, never flies. lgse/strata#1562 (unverified)
+- A quick Move to Trash that fails, partly fails, or is cancelled plays no flight. lgse/strata#1562
 - When a restore fails, no flight plays. lgse/strata#1266 (unverified)
 - Restoring while viewing Trash lifts the icons off their rows and launches them upward with a burst. lgse/strata#1119
 - Restoring into a normal folder, including Ctrl+Z, flies icons from the Trash button onto the restored rows. lgse/strata#1119

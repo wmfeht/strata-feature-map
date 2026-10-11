@@ -84,6 +84,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | refactor | Shared the closing-layer check so window accelerators skip a dialog that is animating closed. |
 | 2026-10-10 | lgse/strata#1544 | fix | Refocused a dialog's opener inside a modal left open, kept focus rings after keyboard closes, and gave menu options radio and checkbox roles. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to a dialog's origin when on screen, otherwise to the cursor row, so closing a dialog no longer leaves nothing focused. |
 | 2026-09-23 | lgse/strata#1206 | fix | Focused the confirm action in dialogs and stopped the path-completion popover flashing. |

@@ -3,7 +3,7 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
@@ -41,11 +41,13 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Folder-only requests hide regular files in folder listings and in recursive filter results. lgse/strata#1155
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
 - Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not. lgse/strata#1070
+- The chooser follows an open folder that another program renames, moves, or deletes, as browser windows do. lgse/strata#1554, lgse/strata#1435 (unverified)
 - Recent appears in the chooser sidebar when enabled in sidebar preferences and supported by the desktop, listing only local targets. lgse/strata#1138
 - Ctrl+1, Ctrl+2, and Ctrl+3 switch the chooser to Columns, Icons, and List. lgse/strata#877
 - With the file view focused and type-to-search on (the default), a printable character opens the filter seeded with it; `/` opens an empty filter. lgse/strata#1164
 - Ctrl+click on a file focuses the item just toggled, so the preview follows it. lgse/strata#1164
-- Dragging from blank space draws a marquee only in multiple-selection requests; a blank click clears the selection in every request. lgse/strata#1164
+- Dragging from blank space draws a marquee only in multiple-selection requests; a blank click in the file list or sidebar clears the selection in every request. lgse/strata#1164
+- A plain click on blank space in a preview that shows something keeps the selection. lgse/strata#1570, lgse/strata#1450
 - With folders set to single-click in Icons or List, a single click on a folder opens it; a single click on a file only selects it. lgse/strata#1196
 - With the single-click preview preference on, clicking a previewable file opens the shared preview pane; Space toggles it. lgse/strata#385
 - Dragging a Miller column's right edge resizes it, and double-clicking the edge fits it to its content. lgse/strata#1315
@@ -108,6 +110,9 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Kept the selection on plain clicks in the chooser's showing preview; sidebar clicks still clear it. |
+| 2026-10-10 | lgse/strata#1554 | fix | Delegated folder identity lookups so the chooser follows an open folder renamed or removed outside the app. |
+| 2026-10-10 | lgse/strata#1539 | fix | Gave the chooser's preview divider a wide handle so the column beside it keeps its resize edge. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned the whole selection on Enter, kept exact non-UTF-8 Save names, and kept requests open on filter Escape. |
 | 2026-10-02 | lgse/strata#1384 | feat | Replaced the separate destination picker with the floating folder chooser for Move, Copy, Extract, and Send to. |
 | 2026-10-01 | lgse/strata#1352 | feat | Offered Compress… for native entries in the chooser item menu. |

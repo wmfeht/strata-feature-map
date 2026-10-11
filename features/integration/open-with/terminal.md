@@ -54,7 +54,8 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - One module resolves and builds every terminal command: Open in Terminal, `.sh` runs, and the AUR and Omarchy update rows. All share the no-terminal message; Open in Terminal and the update rows also share the launch-failure messages (lgse/strata#470, lgse/strata#1028).
 - Non-local and Trash locations fail closed, since a terminal needs a real directory (lgse/strata#160).
 - Ctrl+T moved to tabs, so the terminal moved to Ctrl+Alt+T; 10xer keeps `;` then `t` (lgse/strata#1484).
-- One spawn-and-reap helper waits on each launched child from a detached thread, without a SIGCHLD handler. Run already waited this way (lgse/strata#1465, lgse/strata#1570).
+- One spawn-and-reap helper waits on each launched child from its own thread. The owner chose it over a GLib child watch or a double fork (lgse/strata#1465, lgse/strata#1570).
+- A long-lived terminal keeps one parked thread. Run already waited on its program this way (lgse/strata#1465, lgse/strata#1570).
 - A reaper thread that cannot start is logged instead of panicking the UI thread (lgse/strata#1570).
 
 ## History

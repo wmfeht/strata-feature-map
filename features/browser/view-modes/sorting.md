@@ -69,4 +69,4 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 
 ## Known gaps
 
-None known.
+- Folders first and Group by file type are application-wide, not remembered per folder. lgse/strata#1520

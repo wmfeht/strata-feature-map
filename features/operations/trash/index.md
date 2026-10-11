@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs]
@@ -68,6 +68,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1539 | fix | Kept a docked deletion's claimed dissolve when a foreground operation fails; only a new permanent delete takes the slot. |
 | 2026-10-09 | lgse/strata#1533 | fix | Explained a missing Trash with Cancel focused, and listed Trash items with non-UTF-8 names. |
 | 2026-09-14 | lgse/strata#915 | fix | Let Delete reach Move to Trash when a filter result is selected. |
 | 2026-09-07 | lgse/strata#499 | fix | Hid Trash actions GVfs cannot perform and blocked mutations of nested trashed items. |

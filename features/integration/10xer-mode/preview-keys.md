@@ -36,7 +36,6 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - In a document, `j`/`k`, Up/Down, Home, End, `G`, Ctrl+U/D/B/F, and Page Up/Down scroll the document, and the listing does not move. lgse/strata#1295
 - In a document, Ctrl+A selects all and Ctrl+C copies the document's own text, never listing items. lgse/strata#1295
 - In a document, Shift+arrows, Shift+Home, Shift+End, Ctrl+Home, and Ctrl+End reach the document for text selection instead of scrolling it. lgse/strata#1559, lgse/strata#1557 (unverified)
-- In a document with searchable text, `/` or keypad `/` opens the preview's find bar, and Ctrl+F still pages down. lgse/strata#1559, lgse/strata#1558
 - In a preview with no searchable text, `/` returns the keys to the listing and opens its find prompt. lgse/strata#1559, lgse/strata#1558
 - In a document or archive, `g g` goes to the top of the preview. lgse/strata#1296
 - In an archive tree, `j`/`k` or Up/Down move between members, and `l`, Right, or Enter opens a member folder. Nothing is extracted and no listing file opens. lgse/strata#1295
@@ -67,13 +66,14 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - Each surface owns a fixed set of keys and swallows the listing's motion and selection keys; listing commands it does not use go back to the listing (lgse/strata#1340).
 - Ownership never outlives the drawer, so no key can target a destroyed control (lgse/strata#1242, lgse/strata#1295).
 - With the mode off, archive and media keys stay on the default map (lgse/strata#1295).
-- Preview find uses `/` because Ctrl+F pages a 10xer document down and Ctrl+Page Down switches tabs before reaching the preview (lgse/strata#1559).
-- A focused media timeline and the Media surface share one key set; the new paging, jump, and volume keys have no Ctrl+Alt form (lgse/strata#1451, lgse/strata#1570).
+- A focused media timeline and the Media surface share one key set; Page Up/Down, Shift+arrows, Home/End, `0`, `G`, and `+`/`=`/`-` have no Ctrl+Alt form (lgse/strata#1451, lgse/strata#1570).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Added 30-second paging, start and end jumps, and volume keys to the 10xer Media surface. |
+| 2026-10-10 | lgse/strata#1559 | fix | Let Shift selection keys and Ctrl+Home/End reach a document preview for text selection. |
 | 2026-09-27 | lgse/strata#1295 | feat | Gave the preview its own key owner so preview keys cannot launch, move, or select listing items. |
 
 ## Known gaps

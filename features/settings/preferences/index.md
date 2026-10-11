@@ -59,7 +59,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ### Show sizes in Columns view
 
-- General → Browsing has a Show sizes in Columns view switch that edits the same saved choice as the Columns Appearance menu item. lgse/strata#1564
+- General → Browsing has a Show sizes in Columns view switch, on by default. lgse/strata#1564
 - Changing the switch in one window updates the open Settings switch in every other window. lgse/strata#1564
 
 ### About
@@ -103,7 +103,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Settings is hidden rather than removed, so it captures its focus origin on each show and restores focus when the hide completes. Every close route, and the layer unrealizing with its window, runs the same dismissal hooks (lgse/strata#1430, lgse/strata#1457, lgse/strata#1533).
 - A choice button's value goes in its description, so its name stays stable for E2E locators and Settings search. Options are radio menu items so screen readers announce the chosen one (lgse/strata#1467, lgse/strata#1544).
 - Navigation buttons, page titles, and search routing come from one `NAVIGATION` table keyed by page id. Matching label strings with an About fall-through had sent Actions and About matches to the wrong page (lgse/strata#1453, lgse/strata#1554).
-- Every row or section needs a search target with keywords in every catalog, and a test fails on any without one. Status-only content takes its section's target instead of an exemption (lgse/strata#1454, lgse/strata#1554).
+- Every row or section needs a search target, and a test fails on any without one. docs/preferences.md asks for keywords in every catalog. Status-only content takes its section's target instead of an exemption (lgse/strata#1454, lgse/strata#1554).
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
@@ -114,6 +114,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-10-11 | lgse/strata#1564 | feat | Added the Show sizes in Columns view switch to General → Browsing and to Settings search. |
+| 2026-10-11 | lgse/strata#1570 | fix | Showed the empty-notes message for comment-only release notes and reaped the AUR and Omarchy update launchers. |
 | 2026-10-10 | lgse/strata#1554 | fix | Routed Settings search by page id and registered Render documents, the custom-actions list and problems, and the managed-install row. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the file-list cursor when Settings closes, so the next key no longer reaches the header. |
 | 2026-10-02 | lgse/strata#1376 | feat | Removed the Keybindings page and moved Show F1 Shortcuts button to General, making F1 the only reference. |

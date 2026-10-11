@@ -62,6 +62,7 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Added media seek, jump, and volume key mapping shared by the focused timeline and the 10xer Media surface. |
 | 2026-09-24 | lgse/strata#1231 | fix | Made Space enter a selected folder in every view without loading the preview. |
 | 2026-09-12 | lgse/strata#884 | fix | Closed the preview when its file leaves the model, including deletions by other processes. |
 | 2026-09-09 | lgse/strata#670 | fix | Let clipboard and Delete shortcuts reach focused preview text instead of acting on files. |

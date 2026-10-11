@@ -49,11 +49,12 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
 - Saving never overwrites a file in `~/.config/strata/themes`. When `<id>.toml` exists, even invalid or a dangling link, the theme saves as the next free `<id>-N.toml`. lgse/strata#1455, lgse/strata#1544
 - A new theme file is created owner-only, mode 0600. lgse/strata#39, lgse/strata#1544
-- The editor saves a theme under its lowercased name's ASCII letters and digits joined by `-`, so `Ocean Blue` becomes `ocean-blue.toml`. lgse/strata#1570
-- Saving a theme named `Dracula` creates `dracula-2.toml` and leaves the bundled Dracula in place. lgse/strata#1570
+- The editor saves a theme under its lowercased name's ASCII letters and digits joined by `-`, so `Ocean Blue` becomes `ocean-blue.toml`. lgse/strata#762
+- Saving a theme named `Dracula` creates `dracula-2.toml` and leaves the bundled Dracula in place. lgse/strata#1544, lgse/strata#1570
 - A name with no ASCII letters or digits, such as `日本語` or `!!!`, saves as `custom-theme.toml` and is listed under its typed name. lgse/strata#1570, lgse/strata#1458
 - A second such name saves as `custom-theme-2.toml`, the next as `custom-theme-3.toml`. lgse/strata#1570, lgse/strata#1458
 - Saving with an empty or whitespace-only name shows "Enter a theme name" and writes nothing. lgse/strata#762, lgse/strata#1570 (unverified)
+- A swatch's color chooser draws its Cancel and Select buttons, hex entry, sliders, and value popups in the active theme, following live theme changes. lgse/strata#1570, lgse/strata#1460
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
 
 ### Syntax colors
@@ -103,7 +104,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-11 | lgse/strata#1570 | fix | Saved custom themes whose names have no ASCII letters or digits as `custom-theme.toml`, and raised Material Lighter and Material Vivid text contrast. |
+| 2026-10-11 | lgse/strata#1570 | fix | Saved names without ASCII letters or digits as `custom-theme.toml`, raised Material text contrast, and themed the color chooser. |
 | 2026-10-10 | lgse/strata#1554 | fix | Loaded custom and Omarchy colors as CSS hex so GTK-only forms no longer blank icons and styling. |
 | 2026-10-10 | lgse/strata#1544 | fix | Saved custom themes under a free file name so an existing theme file is never overwritten. |
 | 2026-10-09 | lgse/strata#1533 | fix | Discarded unsaved editor previews on every Settings close route and kept them through appearance refreshes. |
@@ -122,4 +123,4 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
 - The interface font is fixed to JetBrains Mono. lgse/strata#1217
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
-- In many bundled themes, text on highlight and on the selected-row fill is below 4.5:1, and dim text and accent are below 3:1. lgse/strata#1566
+- Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. Dim text is below 3:1 on background in 11. lgse/strata#1566

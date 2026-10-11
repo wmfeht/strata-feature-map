@@ -3,8 +3,8 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/readiness.rs, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/e2e/scenarios/test_custom_actions.py]
 docs: [docs/custom-actions.md]
@@ -102,6 +102,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Made the actions list and broken-action problems take part in Settings search. |
 | 2026-09-20 | lgse/strata#1085 | feat | Added manifest-defined Python, Bash, and command actions with a Settings editor and recipe library, as agreed in lgse/strata#36. |
 
 ## Known gaps

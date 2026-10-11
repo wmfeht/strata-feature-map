@@ -54,7 +54,7 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 
 - Moving the pointer over member rows tints the hovered row; the highlighted member and keyboard cursor stay where they were. lgse/strata#1570, lgse/strata#1555
 - After the pointer crosses other rows, Down moves from the highlighted member, not the hovered one. lgse/strata#1570, lgse/strata#1555
-- In Columns with single-click previews, moving the pointer across an archive preview highlights no member. lgse/strata#1570, lgse/strata#1555
+- In Columns, moving the pointer across a passive archive preview highlights no member. lgse/strata#1570, lgse/strata#1555
 - A single click highlights a member when the button is released; on a folder it also opens the folder. lgse/strata#1570, lgse/strata#1555
 - Ctrl+click and Shift+click act as a plain click; one member is highlighted at a time. lgse/strata#1570
 - Double-clicking a folder opens exactly one level. lgse/strata#1570

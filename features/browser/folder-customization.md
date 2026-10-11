@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs]
-tests: []
+tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs]
 docs: [docs/preferences.md]
 related: [browser/sidebar, browser/thumbnails, browser/properties, settings/themes/icons, settings/preferences/storage, operations/rename, browser/context-menu, browser/view-modes/folder-views]
 ---
@@ -63,11 +63,12 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - Undo or redo of a rename or move carries the customization back or forward. lgse/strata#1554
 - Moving a customized item to Trash in Strata removes its keys from `settings.toml`; Put back or Ctrl+Z restores them for the session. lgse/strata#1452, lgse/strata#1554
 - A different item later trashed from the same path does not receive the trashed item's keys. lgse/strata#1554
-- The session keeps at most 10,000 trashed customizations, dropping the oldest first. lgse/strata#1554
+- The session keeps at most 10,000 trashed keys, dropping the oldest trashed items first. lgse/strata#1554 (unverified)
 - Replace on a move or copy keeps the incoming item's customization; the replaced item's keys go to Trash with it for the session. lgse/strata#1554
 - Merging into an existing folder keeps the destination folder's own customization. lgse/strata#1554
 - A copy or duplicate starts uncustomized. lgse/strata#1554
-- A permanent delete in Strata removes the keys, and a move to a remote location drops them. lgse/strata#1554
+- A permanent delete in Strata removes the keys. lgse/strata#1554
+- A move to a remote location drops the keys. lgse/strata#1554 (unverified)
 - Renames, moves, and deletions made outside Strata, by a shell or another application, leave the keys at the old path. lgse/strata#1554
 
 ### Storage
@@ -105,6 +106,3 @@ The request was Finder's folder labels (lgse/strata#211). Folders follow the the
 ## Known gaps
 
 - Keys are lossy UTF-8 paths, so non-UTF-8 names that decode to the same text share one customization. lgse/strata#1452
-- Where Trash is unsupported, Replace deletes permanently, and an uncustomized replacement keeps the replaced item's keys. lgse/strata#1554
-- Undoing a Keep-both move targets the original name instead of the kept name. lgse/strata#1554
-- FAT and exFAT moves that sanitize child names leave those children's keys behind. lgse/strata#1554

@@ -13,7 +13,7 @@ related: [browser/view-modes/sorting, browser/view-modes/icons, settings/prefere
 
 ## Summary
 
-Each local folder remembers the sort chosen in it and its Icons thumbnail size, in a state file outside `settings.toml`. Folders without their own values use a default sort and the default size, both set in Settings.
+Each local folder remembers the sort chosen in it and its Icons thumbnail size, in a state file outside `settings.toml`. Folders without their own values use a default sort and the default size, both set in Settings. With the switch off, `browser/view-modes/sorting` and `browser/view-modes/icons` describe how sorts and sizes set the defaults.
 
 ## Behavior
 
@@ -28,12 +28,11 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - A sort change in one window re-sorts every open column, tab, and window showing that folder at once. lgse/strata#1563, lgse/strata#1565
 - Remote shares, Trash, Recent, Camera Photos, non-UTF-8 paths, and FUSE filesystems other than `fuseblk` are not remembered. lgse/strata#1563, lgse/strata#1565
 - In such a folder the sort stays with the open column, and a changed Icons size lasts while the folder is shown. lgse/strata#1565
-- Device order and Recency are never stored. lgse/strata#1565
+- Device order and Recency are never stored. lgse/strata#1565 (unverified)
 
 ### Settings
 
 - Settings → General → Browsing has the switch "Remember sort and icon size per folder", on by default, saved as `remember_folder_views`. lgse/strata#1563, lgse/strata#1565
-- With the switch off, a chosen field sort becomes the default and open columns keep their own sort. The Icons slider sets the default size. lgse/strata#1565
 - Saved values stay stored but unused while the switch is off. Turning it back on drops saved values equal to the current defaults. lgse/strata#1565
 - The Default sort row has a "Default sort" menu (Name, Size, Modified, Type) and a "Default sort direction" menu (Ascending, Descending). lgse/strata#1563, lgse/strata#1565
 - Changing the default sort re-sorts every open folder without its own sort, in every window, and drops saved sorts equal to the new default. lgse/strata#1565
@@ -97,4 +96,4 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 
 ## Known gaps
 
-None known.
+- Subfolders cannot inherit a parent folder's sort or size; this was deferred. lgse/strata#1563

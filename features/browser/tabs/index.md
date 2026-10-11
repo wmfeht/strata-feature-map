@@ -38,10 +38,11 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - In the default key map Ctrl+Shift+Enter on a folder opens a tab; in 10xer mode it does nothing. lgse/strata#1543 (unverified)
 - Ctrl+Enter or Shift+Enter typed in a text field is left to the field. lgse/strata#1543 (unverified)
 - In the portal file chooser with 10xer mode on, Ctrl+Enter on a folder still chooses it and opens no tab. lgse/strata#1543
-- Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543
-- A folder opened in a new tab gets a new tab at the right end of the strip. The tab is selected, then navigated there. lgse/strata#1543
-- A new window opened for a folder opens at the default size on that folder. lgse/strata#1543
-- A missing or unreachable target shows "Connecting to location…", then the location-unavailable overlay with Retry, in the new tab or window. lgse/strata#1543
+- Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543 (unverified)
+- A folder opened in a new tab gets a new tab at the right end of the strip. The tab is selected, then navigated there. lgse/strata#1543 (unverified)
+- A new window opened for a folder opens at the default size on that folder. lgse/strata#1543 (unverified)
+- A target still unresolved after 1 s shows "Connecting to location…" in the new tab or window. lgse/strata#1543 (unverified)
+- A missing or unreachable target then shows the location-unavailable overlay with Retry; a missing local folder shows it at once. lgse/strata#1543 (unverified)
 - While a modal dialog is open, opening a folder in a new tab does nothing. lgse/strata#1543 (unverified)
 
 ### Switching
@@ -106,7 +107,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - Closing a tab disposes its content and releases its observers (lgse/strata#108, lgse/strata#1484).
 - Ctrl+click was rejected for opening in a new tab because it toggles multi-selection. Ctrl+N was rejected for a new window because 10xer uses it for the sidebar (lgse/strata#1540).
 - A folder opened in a new tab or window reuses the startup argument's connecting and unavailable overlays and `present_target`, rather than new windowing (lgse/strata#1540, lgse/strata#1543).
-- The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI. Menu rows and gestures thus need no tab-window handle (lgse/strata#1543).
+- The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI (lgse/strata#1543).
 - Choosers have no tabs and Ctrl+Enter there accepts the folder, so chooser key dispatch skips the open-in-new handling (lgse/strata#1543).
 - The name hold tracks navigation settlement explicitly rather than using a timer. Cancelled, refused, and same-directory navigation release it, and an older validation completion cannot release a newer click (lgse/strata#1507).
 
@@ -114,6 +115,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1539 | fix | Recorded the folder a pending click opens, so the Columns preview slot lends no width before its column takes focus. |
 | 2026-10-10 | lgse/strata#1543 | feat | Opened folders in a new tab or window from the item menu, a middle-click, and Ctrl+Enter or Shift+Enter. |
 | 2026-10-10 | lgse/strata#1544 | fix | Registered each tab window for the notice shown when settings cannot be saved. |
 | 2026-10-09 | lgse/strata#1533 | fix | Fell back to the file view's cursor when a tab's saved focus can no longer take it, and registered the active tab as the dialog focus fallback. |

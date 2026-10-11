@@ -99,6 +99,8 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Looked up only the mapped Columns row when focusing a search result for its menu after a reload. |
+| 2026-10-10 | lgse/strata#1539 | fix | Made Columns Open on an open folder focus and reveal its column instead of closing it. |
 | 2026-10-02 | lgse/strata#1353 | fix | Released retired panes' context menus and their preference bindings after navigation. |
 | 2026-09-25 | lgse/strata#1210 | feat | Grouped menu actions by intent and gave distinct actions distinct Lucide icons. |
 | 2026-09-17 | lgse/strata#1087 | fix | Styled text-input menus like file menus across GTK versions and themes. |

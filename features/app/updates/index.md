@@ -34,7 +34,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - After a check, the row title reads "Strata is up to date", "An update is available", or "Couldn’t check for updates". lgse/strata#51 (unverified)
 - A failed check shows its reason and a "View releases on GitHub" link. lgse/strata#22 (unverified)
 - An available update shows its notes inline, titled "Available release · vX" with its change count and publication date. lgse/strata#51
-- Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944 (unverified)
+- Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944, lgse/strata#1554
 - The Release channel menu is insensitive while automatic checks are off. lgse/strata#97 (unverified)
 
 ### Release notes
@@ -45,13 +45,14 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - A release with empty notes, or notes holding only HTML comments, shows "No release notes were provided for this release." lgse/strata#51, lgse/strata#1570, lgse/strata#1464
 - A release body starting with `<!-- Release notes generated … -->` shows its notes from the first heading, without the comment. lgse/strata#1570, lgse/strata#1464
 - Multi-line and inline HTML comments in notes are hidden; other raw HTML, such as `<b>x</b>`, shows as escaped text. lgse/strata#1570
-- Text after `-->` on a comment's closing line is hidden with the comment. lgse/strata#1570
+- When a comment starts a line, text after `-->` on its closing line is hidden with it; an inline comment hides only the comment. lgse/strata#1570
 - Notes render headings, paragraphs, lists, code, and rules; images, tables, and block quotes are omitted. lgse/strata#51, lgse/strata#48 (unverified)
 
 ### Sidebar notice
 
 - When a check finds an update, every open window shows "vX available" with a download icon at the foot of its sidebar. lgse/strata#26, lgse/strata#944
-- A prerelease offer reads "<Kind> · vX available" on one line, such as "Nightly · v1.2.3-nightly… available"; a stable offer reads "vX available". lgse/strata#97, lgse/strata#1564
+- A prerelease offer reads "<Kind> · vX available" on one line, such as "Nightly · v1.2.3-nightly.20261011 available"; a stable offer reads "vX available". lgse/strata#97, lgse/strata#1564
+- A notice too long for the sidebar stays on one line, ellipsized in the middle. lgse/strata#1564
 - A window opened after the check shows the cached notice without another request. lgse/strata#944
 - An automatic result that lands after checks were disabled or the channel changed is discarded. lgse/strata#944
 - Clicking the notice opens the update dialog for that release. lgse/strata#51
@@ -79,7 +80,7 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-11 | lgse/strata#1570 | fix | Hid HTML comments in release notes so GitHub's generated-notes comment no longer shows, and showed the empty-notes message when only comments remain. |
+| 2026-10-11 | lgse/strata#1570 | fix | Hid HTML comments in release notes, and showed the empty-notes message for comment-only notes. |
 | 2026-09-16 | lgse/strata#1068 | fix | Removed the horizontal inset from the sidebar update notice. |
 | 2026-09-15 | lgse/strata#944 | fix | Broadcast check results to every window and started the automatic check after the first frame. |
 | 2026-09-04 | lgse/strata#326 | fix | Forced the first automatic check of a session past the on-disk cache. |

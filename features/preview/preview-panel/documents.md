@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
-tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets]
+tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/e2e/scenarios/test_quick_preview.py]
 docs: [docs/document-previews.md]
 related: [preview/preview-panel/sandbox, preview/preview-panel/find, settings/preferences, settings/themes]
 ---
@@ -27,12 +27,12 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Documents over 1 MiB, 20,000 parser events, nesting depth 32, 4 MiB of markup, or 500 ms of parsing fall back to Source. lgse/strata#187
 - A Markdown or HTML table row over 256 columns also falls back to Source. lgse/strata#729
 - Dragging across headings, paragraphs, lists, code, and tables, then Ctrl+C, copies the selected text with original line breaks. lgse/strata#187
-- In rendered prose or code, double-click selects a word and triple-click selects its line; Ctrl+C copies exactly that text. lgse/strata#1559, lgse/strata#1557
+- In rendered or large source documents, double-click selects a word and triple-click its logical line, a whole paragraph in prose; Ctrl+C copies exactly that text. lgse/strata#1559, lgse/strata#1557
 - A click, then a Shift-click farther along, selects from the first click to the second. lgse/strata#1559, lgse/strata#1557
 - With focus in a rendered or large source document, Shift+Left/Right, Shift+Up/Down, Shift+Home/End, and Ctrl+Shift+Left/Right extend the selection by character, line, line edge, or word. lgse/strata#1559, lgse/strata#1557
 - Ctrl+Home and Ctrl+End move the caret to the start and end of the loaded document. lgse/strata#1559
 - Keyboard selection crosses recycled rows and grapheme clusters and does not change the listing's selection. lgse/strata#1559
-- Left or Right with a selection collapses it to its start or end. lgse/strata#1559 (unverified)
+- Right with a selection collapses it to its end; plain Left returns focus to the listing. lgse/strata#1559 (unverified)
 - A click past the end of a wrapped line places the caret at that display line's end. lgse/strata#1559 (unverified)
 - A Shift-click or double-click on a link selects text without opening the link; only a plain single click opens it. lgse/strata#1559 (unverified)
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187
@@ -93,7 +93,9 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Hid HTML comments in release-notes Markdown through a separate parser profile; document previews are unchanged. |
 | 2026-10-10 | lgse/strata#1559 | fix | Restored word, line, Shift-click, and Shift+key selection in virtualized document previews. |
+| 2026-10-10 | lgse/strata#1539 | fix | Stopped rendered documents at the 1280 px content width, centered in wider previews. |
 | 2026-09-19 | lgse/strata#1086 | feat | Rendered RTF in process and DOCX in the sandbox through the shared document view. |
 | 2026-09-17 | lgse/strata#1075 | feat | Rendered relative Markdown images, Mermaid diagrams, and LaTeX equations in the sandbox. |
 | 2026-09-17 | lgse/strata#729 | feat | Added sortable, resizable virtual tables for CSV, TSV, workbooks, and document tables. |

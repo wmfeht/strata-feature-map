@@ -52,7 +52,9 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272
 - Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543
 - In 10xer mode in Columns or List, outside the file chooser, the reference lists "`/` in the preview — Find in preview"; Icons omits it. lgse/strata#1559
-- In 10xer mode in Columns or List, the reference lists media rows for Shift+← → / PgDn / PgUp (seek −30 / +30 seconds), 0 / Home / G / End (seek to start / end), and + / - (volume). lgse/strata#1570, lgse/strata#1451
+- In 10xer mode in Columns or List, the reference lists "Shift+← → / PgDn / PgUp" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451
+- In 10xer mode in Columns or List, the reference lists "0 / Home / G / End" in media as "Seek to the start / end". lgse/strata#1570, lgse/strata#1451
+- In 10xer mode in Columns or List, the reference lists "+ / -" in media as "Volume up / down". lgse/strata#1570, lgse/strata#1451
 - The default reference lists text size (Ctrl++ / Ctrl+− / Ctrl+0), Ctrl+Space, and Ctrl+\; the 10xer reference lists text size. lgse/strata#1376
 - Movement keys are described directly; the `h / j / k / l` row reads "Same as ← ↓ ↑ → (type-to-search off)" and no row names Vim. lgse/strata#826
 - In a translated interface, actions and key context such as "on a file" are translated while key names stay as typed. lgse/strata#1519
@@ -60,7 +62,6 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 ### Menu hints
 
 - In the default map, the Y (copy path) and P (pin) context-menu hints show only while Type to search is off. lgse/strata#1376
-- In both maps, the context menu's Open in… → New Tab and New Window items show Ctrl+Enter and Shift+Enter hints. lgse/strata#1543 (unverified)
 - In 10xer mode, menu hints show 10xer keys, such as `r` for Rename and Shift+D for permanent delete. Duplicate, Copy path, Pin, and terminal show none. lgse/strata#1272, lgse/strata#1340 (unverified)
 
 ### Footer status
@@ -102,6 +103,8 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Listed the 10xer media seek-30 s, start/end, and volume keys in the F1 reference. |
+| 2026-10-10 | lgse/strata#1559 | fix | Listed `/` as Find in preview in the 10xer F1 reference for Columns and List. |
 | 2026-10-10 | lgse/strata#1554 | fix | Showed the filter or search result total in the default-map footer instead of the hidden folder's selection. |
 | 2026-10-03 | lgse/strata#1408 | fix | Gave the Files on clipboard badge the 10X pill style so it no longer shifts the footer height. |
 | 2026-09-15 | lgse/strata#1034 | feat | Moved item and selection counts into the shared footer and replaced inline hints with an F1 Shortcuts button. |

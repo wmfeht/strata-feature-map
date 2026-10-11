@@ -65,6 +65,7 @@ Modal progress made the whole window unusable during long archive work. Routine 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Passed over the per-item moved and trashed events, added for folder customizations, in background completions. |
 | 2026-10-03 | lgse/strata#1393 | fix | Moved copy, compress, and delete progress into non-blocking cards with per-card cancel. |
 
 ## Known gaps

@@ -41,6 +41,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Open a Space preview and the filter, press Down onto a result, then press Escape three times; read the response code after each.
 - Press Tab and Shift+Tab around the file list in each view, in an empty folder, with a filter open, and under `save` with Name present.
 - Choose a filter and a choice option by pointer and by keyboard, with a label over 48 characters, then reopen the dropdown.
+- Rename the open folder from a shell while Name holds an edited name, then delete it while a download runs; read the location and Name.
+- Click blank preview space after a Ctrl+click toggle, on a disabled transport button, and in the empty Columns preview slot, in `single` and `multiple`.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
 
 ### integration/portal-file-chooser/setup
@@ -89,7 +91,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
-- In a searchable document press `/` on a non-US layout, with the find bar open but unfocused, and after Shift+Tab; repeat in a CSV shown as a table.
+- Press `/` and keypad `/` in a PDF, an image, an archive tree, a media preview, a CSV shown as a table, and a document still loading; read which prompt opens and whether the drawer stays.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`; hold Shift on `0` and `G` on a German layout.
 
 ### integration/10xer-mode/places
@@ -111,7 +113,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
-- In Columns, run `s` in the third column and rename the second column's folder from a shell; repeat with `mv` into another folder and with a rename of the searched folder itself.
+- Rename a folder two levels above an `s` search while its stream is still running; rename one back before the monitor fires; rename one while a copy runs into it.
 
 ### integration/10xer-mode/file-verbs
 
@@ -175,6 +177,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Composition of the item and background context menus, and views, selection, and tabs inside the chooser → `browser`.
 - What Move to, Copy to, Extract to, Trash, delete, and Compress do on disk, and the Jobs dashboard → `operations`.
 - Preview rendering, archive and media surfaces, and the player start position handed to the default player → `preview`.
+- The preview find bar's matching and navigation → `preview`.
 - External file providers, their asynchronous actions and badges, and remote mounts → `remote`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
