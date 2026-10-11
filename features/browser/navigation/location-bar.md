@@ -3,7 +3,7 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/location.rs, src/ui/browser/location/**]
 tests: [src/ui/browser/location/tests.rs, src/ui/browser/location/completion/tests.rs, src/app/browser/tests/location_input.rs, tests/e2e/scenarios/test_locations.py]
@@ -37,6 +37,11 @@ The header control that shows the active location as breadcrumbs and switches to
 - A typed password is never saved; failed credentials open the normal sign-in dialog. lgse/strata#145
 - Submitting a non-ASCII URI such as `smb://host/café` keeps the decoded text in the entry while mounting. lgse/strata#1424, lgse/strata#1533
 - A submitted `smb://host/share/café x` is stored as `smb://host/share/caf%C3%A9%20x`, so creating or deleting an entry there refreshes the open column. lgse/strata#1424, lgse/strata#1533
+- Ctrl+L with `<dir>/sub/../other` opens `<dir>/other`, and the breadcrumbs show no `..` crumb; Alt+Up then opens `<dir>`. lgse/strata#1445, lgse/strata#1570
+- `~/../` and `~/a/../b` resolve `..` the same way. lgse/strata#1570
+- `.` and `..` resolve as text without a filesystem check: `/missing/../tmp` opens `/tmp`, and `..` stops at `/`. lgse/strata#1570
+- A file path through `..`, such as `<dir>/a/../report.pdf`, selects the file in its folder. lgse/strata#1570
+- A URI keeps its `.` and `..` segments as typed. lgse/strata#1570 (unverified)
 - A path naming a file opens its parent folder with that file selected, in the main window and the portal file chooser. lgse/strata#1219
 - If that parent is already open, the file is selected in place, after a refresh when the file is new. lgse/strata#1219
 - A hidden file target turns on hidden files so the selection is visible. lgse/strata#1219
@@ -73,6 +78,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - An outside click cancels rather than commits, because a half-typed or invalid path would navigate unexpectedly (lgse/strata#246).
 - Every area showing the text cursor must start editing, so the edit target is the whole bar except crumb and copy-path buttons (lgse/strata#288).
 - `~` expands only for the current user before absolute-path validation; other `~` forms stay errors (lgse/strata#149).
+- Typed paths resolve `.` and `..` as text, like GIO, `cd`, and the folder picker. The visible path stays, symlinks are not followed, and no I/O blocks (lgse/strata#1445, lgse/strata#1570).
 - UNC and SCP shorthand are refused rather than guessed, so a typed URI is never rewritten into another scheme (lgse/strata#20).
 - A typed URI is stored in the percent-encoded form its listed children use, so refreshes reach the open column. The entry keeps the decoded text (lgse/strata#1424, lgse/strata#1533).
 - URI credentials are parsed with GLib's password and auth-parameter flags and leave the text at once. They reach only the pending mount with saving disabled, and are then discarded (lgse/strata#111, lgse/strata#145).
@@ -85,6 +91,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Resolved `.` and `..` as text in typed paths, so crumbs and Parent follow the resolved path. |
 | 2026-10-10 | lgse/strata#1544 | fix | Made crumbs and the hierarchy menu select the folder you came from when they open an ancestor. |
 | 2026-10-09 | lgse/strata#1533 | fix | Stored typed remote URIs in GIO's percent-encoded form so they match their listed children, keeping decoded text in the entry. |
 | 2026-09-25 | lgse/strata#1219 | feat | Revealed a typed file path inside its parent instead of rejecting it as not a directory. |
@@ -98,4 +105,4 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 ## Known gaps
 
-- A typed path containing `..` is opened literally, so breadcrumbs show a `…/documents/..` crumb and Parent can move deeper; the fix is unmerged. lgse/strata#1445, lgse/strata#1546
+None known.

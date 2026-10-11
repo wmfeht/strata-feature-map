@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/e2e/scenarios/test_view_switching.py, src/ui/loading_skeleton/delay/tests.rs]
@@ -13,7 +13,7 @@ related: [browser/search, preview/preview-panel]
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), and `browser/view-modes/sorting` (sort fields, order, and persistence). `browser/view-modes/text-size` covers interface text size, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/text-size` covers interface text size, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
 ## Behavior
 

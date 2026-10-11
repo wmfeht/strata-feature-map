@@ -3,11 +3,11 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs]
-docs: [docs/architecture.md]
+docs: [docs/architecture.md, docs/keyboard-navigation.md]
 related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs]
 ---
 
@@ -41,6 +41,9 @@ The browser window's frame and skeleton: the header with its window buttons, the
 ### Keyboard dispatch
 
 - While a modal dialog is open, browser shortcuts do not act behind it. lgse/strata#544
+- With a modal dialog or Settings open, Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ do nothing, and the dialog keeps focus. lgse/strata#1554, lgse/strata#1432
+- With a rename field or new-entry field open, F5, Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ do nothing; the field keeps its text, and Return commits it. lgse/strata#1554, lgse/strata#1438
+- Ctrl+K pressed while a dialog animates closed, right after Escape, opens the search palette instead of being dropped. lgse/strata#1554
 - The text-size keys Ctrl++, Ctrl+−, and Ctrl+0 still change the text size while a modal dialog is open. lgse/strata#838 (unverified)
 - A key pressed while a modal is open and focus is outside it moves focus into the modal and does nothing else. lgse/strata#544 (unverified)
 - While a popover menu has focus or is visible, keys go to the menu rather than to browser shortcuts. lgse/strata#544 (unverified)
@@ -48,7 +51,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ## Design
 
-[docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) carries the window composition and keyboard routing design under "Window composition" and "Window keyboard routing".
+[docs/architecture.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/architecture.md) carries the window composition and keyboard routing design under "Window composition" and "Window keyboard routing".
 
 - The header is a GTK `HeaderBar` with its title buttons hidden. Strata draws Minimize, Maximize, and Close as its own header actions, so their visibility is a preference rather than a window-manager decision (lgse/strata#1100).
 - Tiling window managers make in-app window buttons redundant; stacking desktops expect all three. Always restoring GTK title buttons and detecting the window manager were rejected: the first suits only stacking desktops, the second is brittle and still needs an override (lgse/strata#1100).
@@ -60,6 +63,8 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - `gtk_window_destroy()` frees a window only with its last reference, which its own closures can hold. Key controllers and preference bindings are therefore released on unrealize, not on destroy (lgse/strata#580).
 - Each tab installs one capture-phase key controller on the window, and it acts only while that tab is mapped (lgse/strata#1484). It runs ordered stages: text size, modal and editing ownership, window and file commands, focus traversal, dismissal, then item navigation. `None` tries the next Strata stage; `Some(Propagation::Proceed)` ends dispatch and leaves the key to GTK (lgse/strata#543, lgse/strata#544).
 - In the default map, a Tab stage runs after window commands and before inline editing. Tab from a Columns rename field therefore leaves the strip (lgse/strata#1431, lgse/strata#1533).
+- GTK runs the window accelerators only after the dispatcher yields, which is when a modal or inline edit owns input. `add_guarded_window_action` therefore gates each `win.*` action itself (lgse/strata#1554).
+- One guard covers dialogs and name fields. It skips the action's own layer, so Ctrl+K still closes the palette it opened (lgse/strata#1432, lgse/strata#1438, lgse/strata#1554).
 - Editable controls and native single-pane selection must not fall through to browser commands, which is why a stage can hand a key to GTK (lgse/strata#544).
 - The file-manager launch path sets the GLib prgname and X11 program class to the application id. The portal chooser keeps its own id. AT-SPI reports the application under the prgname, so the E2E harness looks for `io.github.lgse.Strata` (lgse/strata#812, lgse/strata#957).
 
@@ -67,6 +72,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Gated Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ so they do nothing over dialogs, Settings, and open name fields. |
 | 2026-10-10 | lgse/strata#1544 | fix | Reported a focused 10xer Filter or Search footer prompt to the browser, so outside folder changes leave focus in the prompt. |
 | 2026-10-09 | lgse/strata#1533 | fix | Added a default-map Tab stage before inline editing and registered the browser as the window's dialog focus fallback. |
 | 2026-10-09 | lgse/strata#1129 | feat | Added saved Show close, minimize, and maximize button preferences so tiling and stacking desktops each get fitting header buttons. |

@@ -3,8 +3,8 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/preview/keyboard.rs]
 tests: [tests/e2e/scenarios/test_quick_preview.py]
 docs: [docs/keyboard-navigation.md]
@@ -72,5 +72,4 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 ## Known gaps
 
-- Deleting a folder whose child column is open closes the preview instead of previewing the next sibling. lgse/strata#1497
 - A floating Finder-style Quick Look popup, separate from the docked drawer, is proposed but unmerged. lgse/strata#999, lgse/strata#1183

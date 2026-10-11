@@ -3,7 +3,7 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
@@ -59,6 +59,13 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Cancelling the Extract to… chooser starts no extraction. lgse/strata#1384
 - Extracting into a folder reached through a symlink writes into the resolved folder. lgse/strata#678
 - Extraction shows Processing archive… with completed-file counts in a foreground progress dialog. lgse/strata#81, lgse/strata#1393 (unverified)
+- Ctrl+Z after Extract here or Extract to… completes moves the extracted top-level file or folder to Trash. lgse/strata#1552, lgse/strata#1548
+- When extraction published `readme.txt` as `readme (2).txt` beside an existing one, Ctrl+Z trashes only `readme (2).txt`. lgse/strata#1552
+- Ctrl+Z after a multi-root extraction moves the one archive-named folder, such as `photos/`, to Trash. lgse/strata#1552
+- An extraction that published nothing records no undo entry, so Ctrl+Z undoes the operation before it. lgse/strata#1552
+- Ctrl+Z after an extraction started by Enter, double-click, or a password retry also moves its output to Trash. lgse/strata#1552 (unverified)
+- Ctrl+Shift+Z after undoing an extraction restores its output from Trash. lgse/strata#1552 (unverified)
+- A cancelled or failed extraction records no undo entry, so Ctrl+Z leaves its kept partial output in place. lgse/strata#1552 (unverified)
 
 ### Activation
 
@@ -122,6 +129,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - All decoders feed one `ExtractionSession` that owns conflicts, progress, cancellation, and cleanup (lgse/strata#557, lgse/strata#562).
 - Extraction stages into a hidden folder and decides single-root or bundled publication after decoding. Bundling after writing into the parent renamed members against the wrong folder and could not clean up failures (lgse/strata#1419, lgse/strata#1471).
 - Partial output is kept, not deleted: removing it would mean undoing conflict renames, and the cancel summary already says completed changes stay (lgse/strata#1419).
+- Extraction records its undo like compression: one copy entry for the published top-level item under its final name. Undo therefore never trashes a file that was already there (lgse/strata#1548, lgse/strata#1552).
+- Every caller extracts into an existing folder, so undo leaves no empty destination behind (lgse/strata#1552).
 - Multi-root archives are bundled like Finder. Always wrapping on activation produced `foo/foo/` for tidy archives and was replaced (lgse/strata#894, lgse/strata#1159, lgse/strata#1160).
 - Zip bombs are bounded by free space and declared sizes only. Other file managers rely on cancellation, so ratio and entry-count caps were rejected (lgse/strata#479, lgse/strata#605).
 - Password retries depend on a structured `PasswordFailure` kind from the decoders, never on message text, which can contain member names (lgse/strata#691, lgse/strata#1499).
@@ -135,6 +144,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1552 | fix | Recorded the published extraction output for undo, so Ctrl+Z trashes it and never a pre-existing file. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the opener after the Compress, Extract password, and archive conflict dialogs close, including on Escape. |
 | 2026-10-05 | lgse/strata#1478 | fix | Staged extraction, kept partial output in the archive folder, restored links and metadata, and gated Extract on regular files. |
 | 2026-09-23 | lgse/strata#1160 | feat | Bundled multi-root extractions under the archive stem for every entry point, like Finder. |

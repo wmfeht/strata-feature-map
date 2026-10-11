@@ -3,12 +3,12 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
 docs: [docs/keyboard-navigation.md]
-related: [browser/selection, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility]
+related: [browser/selection, browser/tabs, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility]
 ---
 
 ## Summary
@@ -47,10 +47,12 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - When shown, New Folder with Selection sits alone at the top of the item and multi-selection menus, above the opening group. lgse/strata#1349
 - A regular file's menu groups Open, Open With…, Quick preview, Print; then Cut, Copy, Duplicate, Rename; then Move to…, Copy to…. lgse/strata#1210
 - After those come Compress… alone; then Customize…, Copy path, Copy name, Properties; then Move to Trash and Permanently delete. lgse/strata#1210
-- A folder's menu adds Open in Terminal to the opening group and Pin to sidebar before Customize…. lgse/strata#1210
+- A folder's menu adds Open in Terminal, then Open in…, to the opening group, and Pin to sidebar before Customize…. lgse/strata#1210, lgse/strata#1543
+- Open in… is a submenu of New Tab, shown with Ctrl+Return, and New Window, shown with Shift+Return. A file's menu has no Open in…. lgse/strata#1543
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
 - When every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155
+- When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
 - Custom action rows appear after the opening group and before Cut. lgse/strata#1085 (unverified)
 - Actions hidden for the current target leave no empty group or doubled separator. lgse/strata#1210
@@ -87,6 +89,7 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - A popup appearing under a stationary pointer is not pointer movement. The keyboard keeps ownership until the pointer actually moves, so a resting pointer cannot steal initial focus (lgse/strata#1155).
 - Focusing a submenu's owner row alone left arrows routed to the hidden branch. Left therefore hides the submenu and clears GTK's open-submenu state (lgse/strata#1155).
 - Popovers parented to list views vanished for rows mid-list, so menus live in the window overlay (lgse/strata#303, lgse/strata#306). GTK never shifts a popover's anchor, so Strata measures the menu and shifts it (lgse/strata#702).
+- Open stays a top-level row and Open in… holds only New Tab and New Window, so the submenu header performs no action. Flat rows were rejected for a compact submenu (lgse/strata#1540, lgse/strata#1543).
 - Grouping follows Open, Edit, Transfer, Transform, Organize/Inspect, Destructive, without visible headings to save height. Compress stays a singleton group rather than join an unrelated one (lgse/strata#1207).
 - Icons are secondary cues; labels carry meaning. CircleX gives irreversible deletion a distinct shape, not only a color (lgse/strata#1207).
 - GTK's text-input menus never receive Strata's classes, so `text > popover.menu` and `textview > popover.menu` selectors style them (lgse/strata#456, lgse/strata#1087).
@@ -105,4 +108,4 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 
 ## Known gaps
 
-None known.
+- Every item-menu action logs two GLib-CRITICAL messages while the menu is torn down; the action still runs. lgse/strata#1569

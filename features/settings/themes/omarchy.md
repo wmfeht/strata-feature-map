@@ -3,8 +3,8 @@ title: Omarchy theme following
 status: shipped
 origin: {issue: lgse/strata#1198, pr: lgse/strata#1482}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/theme/omarchy.rs]
 tests: [src/ui/theme/omarchy/tests.rs, src/ui/settings/theme/tests.rs]
 related: []
@@ -22,10 +22,13 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 - On first launch with no `settings.toml` and a valid Quattro state, Strata follows Omarchy. lgse/strata#542
 - While following, the theme library is insensitive and the Current theme description reads "Managed by Omarchy. Turn off Follow Omarchy to pick a theme manually." lgse/strata#849 (unverified)
 - Switching the Omarchy theme or editing `colors.toml` re-applies the palette in every window without restart. lgse/strata#1482
+- A Quattro color in a GTK-only form, such as `accent = "#7a7a2af7f"`, loads as `#rrggbb`; icons stay visible and the accent styling applies. lgse/strata#1554, lgse/strata#1429
+- While following, when Quattro state turns invalid without disappearing, as midway through a theme switch, the Settings preview and newly opened document previews keep the last applied Omarchy palette. lgse/strata#1554, lgse/strata#1429
 - Deleting `~/.local/state/omarchy` while Strata runs hides Follow Omarchy, restores the previously selected theme, and saves `mode = "theme"`. lgse/strata#958
 - Omarchy's own theme switch, which briefly removes `current/theme`, does not turn following off. lgse/strata#958
 - Code previews take keyword, string, constant, type, and preprocessor colors from Quattro's `magenta`, `green`, `orange`, `cyan`, and `yellow`. lgse/strata#762
 - Without the named colors, `color5`, `color2`, `color9`, and `color3` supply keywords, strings, constants, and types. lgse/strata#762
+- An unparsable Quattro syntax color, such as `green = "invalid"`, counts as missing and its fallback applies; code previews keep their syntax scheme. lgse/strata#1554, lgse/strata#1429
 - An invalid optional color such as `selection` or `color8` is ignored and its fallback used. lgse/strata#1482 (unverified)
 
 ### Variants
@@ -41,12 +44,13 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/themes.md) describes the Quattro mapping and the variants.
+[docs/themes.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/themes.md) describes the Quattro mapping and the variants.
 
 - Only Quattro's current-theme state is read. Legacy Omarchy layouts and alacritty color extraction are intentionally unsupported.
 - Tokens derive from Quattro's `background`, `foreground`, `accent`, `selection`, `color8`, and `color1`; surfaces blend the background toward `color8`.
 - Availability is sampled at startup and re-checked by the state monitor on each change. The re-check accepts `current` plus `theme.name` so Omarchy's staged switch does not flicker following off (lgse/strata#857, lgse/strata#958).
 - Variants exist because terminals and Btop draw near-black backgrounds while Strata's mapping drew lighter surfaces from the same palette (lgse/strata#1198).
+- When Quattro state is briefly invalid, as during a partial write in an Omarchy switch, previews keep the last applied palette rather than the built-in theme (lgse/strata#1429, lgse/strata#1554).
 - Darker uses the terminal background, not ANSI `color8`, because bright gray washed out every surface (lgse/strata#1482).
 - Variants keep hues and move only luminance toward black or white, stepping each foreground until its contrast target is met (lgse/strata#1482).
 - Contrast targets apply to semantic tokens, not to every composited or disabled widget state.
@@ -60,4 +64,4 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 
 ## Known gaps
 
-- Omarchy icon colors are not canonicalized and the Quattro syntax palette is not validated. lgse/strata#1429, lgse/strata#1546
+None known.

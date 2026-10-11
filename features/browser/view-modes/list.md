@@ -3,7 +3,7 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser_modes/list_factory.rs]
 tests: []
@@ -21,6 +21,9 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - List shows Name, Mode, Size, Type, and Modified columns. lgse/strata#308
 - Name takes the width left after the metadata columns until it is resized by hand; below the minimum widths the table scrolls horizontally. lgse/strata#191
 - Mode shows a type character, symbolic permissions, and the octal value, such as `drwxrwxrwx  777`, in full at its default 160 px width. lgse/strata#308, lgse/strata#492
+- A folder's Size cell shows "No items" or its item count, such as "4 items"; files show their size. lgse/strata#1564
+- The count covers the folder's immediate entries, hidden ones included whether or not hidden files are shown, and not deeper contents. lgse/strata#1564
+- A folder that cannot be read, or one without a local path, leaves its Size cell blank. lgse/strata#1564 (unverified)
 - Type shows the description of the MIME type guessed from the filename, such as "JSON document"; folders show "Folder" and unrecognized files "Other". lgse/strata#946
 
 ### Headings
@@ -54,6 +57,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 - Grouping uses list-view sections, so one selection, keyboard navigation, and marquee span every group (lgse/strata#235). Icons lost grouping because grouped grids inflated cards and could abort GTK (lgse/strata#372, lgse/strata#509).
 - Autofit measures each cell with its fixed width and one-character label cap lifted; with them in place the measurement returned the current width (lgse/strata#1115).
 - Scroll deferral began as the Icons 80 ms settle (lgse/strata#368, lgse/strata#371). lgse/strata#1081 replaced the fixed wait with the next GTK frame, so continuous scrolling does not postpone updates.
+- List, Icons, and Columns format folder counts with one shared function, so the three views match (lgse/strata#1564).
 - Mode's default width is 160 px so the octal value fits at every text size (lgse/strata#435).
 - Saved widths are unscaled by text size, and browser and chooser widths are independent (lgse/strata#1338).
 
@@ -61,6 +65,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the Size column, matching Icons. |
 | 2026-10-09 | lgse/strata#1533 | fix | Focused the pane instead of the hidden list when history returns to an empty folder. |
 | 2026-09-19 | lgse/strata#1116 | fix | Made double-click autofit work on List heading resize edges. |
 | 2026-09-12 | lgse/strata#893 | feat | Restored selection, cursor, and scroll position when returning to a List folder. |

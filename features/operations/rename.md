@@ -3,12 +3,12 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/e2e/scenarios/test_inline_renaming.py, tests/e2e/scenarios/test_rename_visibility.py, tests/e2e/mutations/rename-caret.patch]
 docs: [docs/keyboard-navigation.md]
-related: [operations/create, browser/selection, operations/trash]
+related: [operations/create, browser/selection, operations/trash, browser/folder-customization]
 ---
 
 ## Summary
@@ -59,6 +59,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - After a rename onto an existing name, Escape on that dialog returns focus to the old-name row. Up then moves the cursor. lgse/strata#1533
 - Renaming onto an existing name overwrites nothing and reports "“name” already exists". lgse/strata#567 (unverified)
 - Renaming a folder whose child columns are open keeps them open under the new path. lgse/strata#760
+- With hidden files off, renaming a file to `.notes` completes, and F2 then starts a second rename at once. lgse/strata#1554, lgse/strata#1438
 - Ctrl+Z after a rename restores the original name, keeping current contents and permissions. lgse/strata#1061
 - When the original name is taken by then, Undo fails without overwriting and stays available for retry. lgse/strata#1061
 - Ctrl+Shift+Z after undoing a rename applies it again. lgse/strata#1120
@@ -85,11 +86,13 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Slow-click waits the GTK double-click interval and arms only on the name text, matching Finder (lgse/strata#1057, lgse/strata#1265).
 - Ctrl+R was taken from Refresh rather than bound to two actions; F5 remains Refresh (lgse/strata#364).
 - Undo restores only the name and location, never older contents or metadata. Batch rename and persistent history were out of scope (lgse/strata#1059).
+- A monitor started with hidden files off reports a rename to a dot name only as the old name's removal. The rename therefore completes once the old name leaves the listing (lgse/strata#1438, lgse/strata#1554).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Finished renames to a dot name with hidden files off; they had blocked the next rename. |
 | 2026-09-16 | lgse/strata#1061 | feat | Added single-item rename to the global Undo history. |
 | 2026-09-16 | lgse/strata#1042 | feat | Added slow-click rename of an already-selected item in all views, following Finder and Explorer. |
 | 2026-09-14 | lgse/strata#914 | fix | Let inline editing claim keys before window chords such as Ctrl+2 and Ctrl+K. |
@@ -105,7 +108,4 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ## Known gaps
 
-- F5 while editing discards the typed name, and in Columns F2 then does nothing on that item; the fix is unmerged. lgse/strata#1438, lgse/strata#1546
-- Ctrl+K while editing still opens global search: its application accelerator bypasses the editor's key ownership. lgse/strata#1432, lgse/strata#1546
-- Folder colors and custom icons stay on the old path after a rename; the fix is unmerged. lgse/strata#1452, lgse/strata#1546
 - Typing `docs/note.txt` as a new file's name is rejected instead of creating the folder; the feature is unmerged. lgse/strata#1511, lgse/strata#1512

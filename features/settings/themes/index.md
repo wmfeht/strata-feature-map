@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs]
@@ -23,6 +23,9 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Typing in "Search themes" hides cards whose names do not contain the query, ignoring case. lgse/strata#96
 - The All, Light, and Dark filter combines with the search query. lgse/strata#96
 - A theme is filed under Light when its background's relative luminance exceeds 0.4, including backgrounds written as `rgb()` or `#fff`. lgse/strata#742
+- Every bundled theme's text has at least 4.5:1 contrast on its background and 3:1 on its surface. lgse/strata#1570, lgse/strata#1459
+- Material Lighter draws text in #455A64, 6.94:1 on its background, and dim text in #607D8B. lgse/strata#1570, lgse/strata#1459
+- Material Vivid draws text in #9e9e9e, 6.01:1 on its background. lgse/strata#1570, lgse/strata#1459
 - Clicking a card applies that theme immediately and marks the card with a check. lgse/strata#96
 - A fresh install without Omarchy starts with Tokyo Night; a saved selection survives restart. lgse/strata#542
 - A saved theme id that matches no bundled or custom theme falls back to Azure Glow at startup. lgse/strata#542 (unverified)
@@ -32,6 +35,7 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Valid `.toml` files in `~/.config/strata/themes` load at startup and appear after the bundled themes, keyed by file stem. lgse/strata#96 (unverified)
 - A custom file whose stem matches a bundled theme id replaces that bundled theme. lgse/strata#96
 - A custom file with an invalid color is skipped at startup. lgse/strata#762
+- A custom file with a GTK-only color form, such as 9-digit hex, loads with colors as `#rrggbb`, or `#rrggbbaa` when translucent; the file is not rewritten. lgse/strata#1554, lgse/strata#1429
 - Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
 - Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
 - Reopening Add theme after Cancel or after Settings closes starts from the selected theme's colors, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
@@ -45,7 +49,11 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Add theme saves the name and all 14 colors to a TOML file in `~/.config/strata/themes` and selects the new theme. lgse/strata#762
 - Saving never overwrites a file in `~/.config/strata/themes`. When `<id>.toml` exists, even invalid or a dangling link, the theme saves as the next free `<id>-N.toml`. lgse/strata#1455, lgse/strata#1544
 - A new theme file is created owner-only, mode 0600. lgse/strata#39, lgse/strata#1544
-- Saving with an empty name, or one with no ASCII letters or digits, shows "Enter a theme name" and writes nothing. lgse/strata#762 (unverified)
+- The editor saves a theme under its lowercased name's ASCII letters and digits joined by `-`, so `Ocean Blue` becomes `ocean-blue.toml`. lgse/strata#1570
+- Saving a theme named `Dracula` creates `dracula-2.toml` and leaves the bundled Dracula in place. lgse/strata#1570
+- A name with no ASCII letters or digits, such as `日本語` or `!!!`, saves as `custom-theme.toml` and is listed under its typed name. lgse/strata#1570, lgse/strata#1458
+- A second such name saves as `custom-theme-2.toml`, the next as `custom-theme-3.toml`. lgse/strata#1570, lgse/strata#1458
+- Saving with an empty or whitespace-only name shows "Enter a theme name" and writes nothing. lgse/strata#762, lgse/strata#1570 (unverified)
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
 
 ### Syntax colors
@@ -71,13 +79,16 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration.
+[docs/themes.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
 - Base16 slots map `base00` background, `base01` surface, `base05` text, `base0D` accent, `base08` danger, `base02` muted and highlight, `base03` border, `base04` dim text (lgse/strata#96).
 - Syntax palettes map `base0E` keywords, `base0B` strings, `base09` constants, `base0A` types, and `base0C` preprocessor. Catppuccin and Tokyo Night use the pinned `catppuccin-mocha` and `tokyo-night-dark` palettes. Azure Glow and Omarchy Light use curated palettes (lgse/strata#762, lgse/strata#1104).
 - Colors are parsed through `gdk::RGBA`, so hex, short hex, `rgb()`, and names all work. Hand-rolled hex parsing had misfiled light themes and dropped syntax colors (lgse/strata#655, lgse/strata#742).
+- GDK also accepts 9- and 12-digit hex, which GTK CSS and SVG strokes reject. Custom and Omarchy colors are canonicalized on load, in memory only, so dotfiles are never rewritten (lgse/strata#1429, lgse/strata#1554).
+- Base16 `base05` maps to text unchanged, except a few catalog entries whose foreground overrides are commented in place for readability. The owner chose the Material Lighter and Material Vivid values and left other weak pairs to lgse/strata#1566 (lgse/strata#1459, lgse/strata#1570).
+- A name without ASCII letters or digits takes the fallback id `custom-theme`. A Unicode slug would change existing ids and give non-ASCII file names; transliteration adds a dependency (lgse/strata#1458, lgse/strata#1570).
 - The token provider sits above GTK theme priority, so GTK themes cannot shadow it, while user CSS keeps GTK's higher user priority by design. The `@strata_*` namespace hardens against name collisions; the trigger reported in lgse/strata#1096 was not reproduced (lgse/strata#1412).
 - Tokyo Night became the default at the maintainer's request; Azure Glow stayed the missing-theme fallback (lgse/strata#541, lgse/strata#542).
 - The editor preview is process-wide: one style provider serves every window. The manager stores the preview tokens, so appearance refreshes re-apply the preview rather than the saved theme (lgse/strata#1457, lgse/strata#1533).
@@ -92,6 +103,8 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Saved custom themes whose names have no ASCII letters or digits as `custom-theme.toml`, and raised Material Lighter and Material Vivid text contrast. |
+| 2026-10-10 | lgse/strata#1554 | fix | Loaded custom and Omarchy colors as CSS hex so GTK-only forms no longer blank icons and styling. |
 | 2026-10-10 | lgse/strata#1544 | fix | Saved custom themes under a free file name so an existing theme file is never overwritten. |
 | 2026-10-09 | lgse/strata#1533 | fix | Discarded unsaved editor previews on every Settings close route and kept them through appearance refreshes. |
 | 2026-10-05 | lgse/strata#1412 | fix | Renamed CSS color tokens to `@strata_*` to avoid collisions with other stylesheets. |
@@ -109,3 +122,4 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
 - The interface font is fixed to JetBrains Mono. lgse/strata#1217
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
+- In many bundled themes, text on highlight and on the selected-row fill is below 4.5:1, and dim text and accent are below 3:1. lgse/strata#1566

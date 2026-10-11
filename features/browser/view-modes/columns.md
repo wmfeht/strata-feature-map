@@ -3,11 +3,12 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
-tests: [tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
-related: [preview/preview-panel, browser/selection, operations/rename]
+tests: [src/ui/browser/columns/tests.rs, tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
+docs: [docs/preview-panel-layout.md, docs/preferences.md]
+related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences]
 ---
 
 ## Summary
@@ -20,6 +21,22 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 - With default click settings, a single click on a folder opens it as the next column. lgse/strata#171
 - Each column after the first has a "Close this pane" X button that closes it. lgse/strata#171
+- Clicking a folder whose child column is already open focuses and reveals that column instead of closing it. Context-menu Open does the same. lgse/strata#1513, lgse/strata#1539
+- A slow second click on the name of a selected, open folder still starts a rename. lgse/strata#1539
+- Double-clicking a closed folder ends as a single click does: its column opens, focused and scrolled into view, with nothing selected in it. lgse/strata#1539
+- The same holds when the first press scrolls the strip, with double-click folders, and from a partly clipped parent column. lgse/strata#1539
+- With folders opening on one click, a plain click on a folder inside a multi-selection collapses the selection to it and opens its column. lgse/strata#1446, lgse/strata#1570
+- With single-click previews on, a plain click on a previewable file inside a multi-selection collapses the selection to it and previews it. lgse/strata#1446, lgse/strata#1570
+- With a folder open, opening a sibling fades the new column in where the old one stood, with no 24 px slide. Deeper columns of the old branch shrink away. lgse/strata#1539
+- Pressing a folder does not shift the strip and shift it back before its column takes focus. lgse/strata#1539
+- A column closed with nothing replacing it narrows and fades out over 220 ms. This covers its X button, Escape, Backspace, and a file click in a parent. lgse/strata#1513, lgse/strata#1539
+- With reduced motion or animations off, a closing column is removed at once. lgse/strata#1539
+- A closing column takes no clicks, hovers, or drops while it leaves. lgse/strata#1539
+- Opening another location, rebuilding the strip, or switching away from Columns replaces the columns with no exit animation. lgse/strata#1539
+- Moving the focused, open folder to Trash with the mouse opens the folder that takes its place in the listing. lgse/strata#1497, lgse/strata#1539
+- That replacement is mirrored only with Mirror columns selection on. lgse/strata#1539 (unverified)
+- A keyboard move reveals a column clipped by up to 4 px fully and leaves an already visible column in place. lgse/strata#1513, lgse/strata#1539
+- A column wider than the viewport that already fills it stays in place; a partly off-screen one scrolls to its left edge. lgse/strata#1539
 - With Mirror columns selection on, the default, Up or Down onto a folder shows its contents in the next column without moving focus. lgse/strata#1179
 - Up or Down onto a previewable file opens Quick Preview when single-click previews are on; onto any other file it closes the child column. lgse/strata#1179
 - Page Up, Page Down, Home, End, and Ctrl+Up or Ctrl+Down mirror the new cursor like Up or Down. Keypad Home and End do too, including after pointer input. lgse/strata#1447, lgse/strata#1533
@@ -39,6 +56,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 ### Refreshing
 
 - F5 or auto-refresh keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544
+- After a reload removes an open rename field, F2 renames that row again and Menu or Shift+F10 opens its context menu. lgse/strata#1438, lgse/strata#1554
 
 ### Column header
 
@@ -68,9 +86,35 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 ### Width
 
-- Dragging a column's right edge resizes it, never below 300 px. lgse/strata#114
-- Double-clicking a column's right edge fits the column to its widest content, never below 300 px. lgse/strata#114
-- A resize or autofit is saved as `browser_column_width`, or `chooser_column_width` in the file chooser; new columns open at that width and open columns keep theirs. lgse/strata#1339
+- Dragging a column's right edge resizes only that column while the pointer moves, never below 300 px. lgse/strata#114, lgse/strata#1539
+- On release, the window's other open columns ease to the dragged width once; other windows keep theirs. A click on an edge without dragging also spreads. lgse/strata#1539
+- A press within 6 px either side of the line between two columns resizes the left column, even when partly scrolled out of view. lgse/strata#1539
+- Resting the pointer on a column edge for 400 ms shows a "Column width" caption, which follows the edge during a drag. lgse/strata#1539
+- Hovering the edge of the column that meets the preview also lights the preview divider line. lgse/strata#1539
+- Double-clicking a column's right edge eases that column alone to its widest content over 220 ms, never below 300 px. lgse/strata#114, lgse/strata#1539
+- Autofit and edge drags stop at the visible browser area: the preview split less its divider, with the sidebar counted at full width. lgse/strata#1448, lgse/strata#1570
+- The width cap never goes below the 300 px standard column, scaled by text size. lgse/strata#1570
+- A resize or autofit is saved as `browser_column_width`, or `chooser_column_width` in the file chooser; new columns open at that width and open columns keep theirs. lgse/strata#1339, lgse/strata#1539
+- An autofit saves its capped width. lgse/strata#1448, lgse/strata#1570
+- A saved width wider than the area, such as `browser_column_width = 1729` in a 1200 px window, opens columns narrowed to the area. The setting is unchanged. lgse/strata#1448, lgse/strata#1570
+- After a text-size change, open columns wider than the area are narrowed; returning to the earlier text size restores the dragged width. lgse/strata#1570
+- Shrinking the window does not narrow open columns; dragging the edge of such a column snaps it to the area. lgse/strata#1570
+- A cancelled edge drag restores the column's previous width. lgse/strata#1570 (unverified)
+
+### Size badge
+
+- Hovering or selecting a folder row, or a folder on the open path, shows "No items" or "N items" in the right-side badge. lgse/strata#1564
+- Files show their size in the same badge. lgse/strata#1564
+- With Show sizes in Columns view off, saved as `columns_show_sizes = false`, the badge stays hidden for files and folders in every open window. lgse/strata#1564
+- With the setting off, Columns requests no folder counts. Turning it on fills counts for folder rows already shown. lgse/strata#1564
+- A count that arrives after the setting is turned off leaves the badge hidden. lgse/strata#1564
+- While a row is being renamed its badge stays hidden; after the rename ends it returns only with the setting on. lgse/strata#1564
+- In Columns, the Appearance menu has a "Show sizes in Columns view" check item after Group by file type. It toggles the same setting and closes the menu. lgse/strata#1564
+- The Appearance item is hidden in Icons and List, and its check mark follows changes made in Settings. lgse/strata#1564
+
+### Row drags
+
+- Pressing a row and moving less than GTK's drag threshold starts no file drag. lgse/strata#1564 (unverified)
 
 ## Design
 
@@ -79,6 +123,17 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Header actions follow the latest input target to remove repeated icons. The header keeps a hidden page of the same size, so columns do not resize as the target moves (lgse/strata#552, lgse/strata#555).
 - The came-from folder is derived from the ancestor chain of the current path, not stored per folder. It is selected without mirroring, so its column stays closed, and a missing one falls back quietly (lgse/strata#1437).
 - Selection mirroring follows Finder's column view. The 75 ms timer re-checks focus when it fires, so a stale selection or an explicit close cannot reopen a column (lgse/strata#1178).
+- Re-clicking an open folder focuses its column rather than closing it, so single clicks and double-clicks share one path. This replaces the close toggle of lgse/strata#171 (lgse/strata#1539).
+- A folder press reuses the tab-location hold, so the reserved preview slot lends no width until the new column takes focus. A trace showed the strip shifting at the press (lgse/strata#1539).
+- A closing column's width and opacity run from one tick callback on an accelerating curve, so they stay in lockstep (lgse/strata#1539).
+- Edge hints are captions, not tooltips, because the repository allows tooltips only on icon-only buttons (lgse/strata#1539).
+- Widths spread once on release, not every frame, to avoid relaying out every column per frame. Resizing the grabbed side was rejected: a column grows only at its right edge (lgse/strata#1539).
+- The 4 px reveal tolerance was removed because it broke the rule that the focused column is always fully visible (lgse/strata#1539).
+- The owner capped widths at the full visible area rather than the area less the preview minimum. Autofit keeps saving, List drags stay uncapped, and window shrinks do not re-clamp (lgse/strata#1448, lgse/strata#1570).
+- The cap is captured at drag start, so it cannot creep as the preview yields (lgse/strata#1570).
+- A plain press inside a multi-selection once kept the group for a drag and skipped activation. Activation already waits for release past a drag threshold, so the guard was dropped, matching List and Icons (lgse/strata#1446, lgse/strata#1570).
+- Rows are recorded at setup and dropped at teardown, so a reload left a detached row with its old position. Lookups now take only the mapped row (lgse/strata#1438, lgse/strata#1554).
+- Folder counts use the formatter List and Icons share, and Columns asks for them only while the badge is on, saving `read_dir` work. A widened-column redesign was rejected (lgse/strata#1564).
 - Background focus fires on click release and is grouped with marquee selection, so neither gesture swallows the other (lgse/strata#523).
 - Home and End go through Strata's own jump, like Ctrl+Up and Ctrl+Down. GTK's native keys emit only a selection echo the mirror ignores, and mirroring that echo risked the reopen loops lgse/strata#1179 avoided (lgse/strata#1447).
 - Horizontal scroll is routed in the capture phase because nested vertical listings consume horizontal events (lgse/strata#1124).
@@ -90,6 +145,10 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the hover badge and added a setting to hide Columns sizes. |
+| 2026-10-11 | lgse/strata#1570 | fix | Opened or previewed a plain-clicked item inside a multi-selection and capped column widths at the visible browser area. |
+| 2026-10-10 | lgse/strata#1554 | fix | Looked up only the mapped row, so F2 and Menu reach a row after a reload ends its rename. |
+| 2026-10-10 | lgse/strata#1539 | fix | Animated column open, close, swap, and autofit; focused open folders on re-click; spread drag widths on release; opened the replacement after a delete. |
 | 2026-10-09 | lgse/strata#1533 | fix | Mirrored Home and End, made the strip one Tab stop, and gave empty columns a focusable surface. |
 | 2026-09-24 | lgse/strata#1215 | fix | Removed the bottom gap and the per-column paste footer. |
 | 2026-09-23 | lgse/strata#1179 | feat | Mirrored keyboard selection into the next column, as in Finder. |
@@ -107,6 +166,6 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 ## Known gaps
 
-- Double-click autofit has no upper bound, and the fitted width becomes the saved default. lgse/strata#1448
-- Closing a column and autofit change width without animation, and keyboard moves between columns shift the open preview panel. lgse/strata#1513
+- With the sidebar railed in a narrow window, columns stop short of the window edge by the width the rail gives up. lgse/strata#1570
+- When the area is narrower than 300 px after a window shrink, dragged and autofitted columns still keep a 300 px minimum. lgse/strata#1570
 - There is no modifier to resize every visible column at once and no default-width setting. lgse/strata#1112

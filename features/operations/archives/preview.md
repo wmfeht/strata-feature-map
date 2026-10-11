@@ -3,8 +3,8 @@ title: Archive preview
 status: shipped
 origin: {issue: lgse/strata#1151, pr: lgse/strata#1090}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/preview/archive.rs, src/adapters/local_operations/archive/listing.rs]
 tests: [src/adapters/local_operations/archive/listing/tests.rs, tests/e2e/scenarios/test_archive_preview.py]
 docs: [docs/keyboard-navigation.md]
@@ -21,7 +21,7 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 
 - Previewing a `.zip`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` shows its members as a folder tree starting at "Contents", with folder names ending in `/`. lgse/strata#1090 (unverified)
 - Each folder lists its subfolders first, then its files, each in case-insensitive name order. lgse/strata#1090 (unverified)
-- File rows show their size; folder rows show a chevron and open on a single click. lgse/strata#1090 (unverified)
+- File rows show their size; folder rows show a chevron. lgse/strata#1090 (unverified)
 - A breadcrumb row starts at "Contents"; clicking a crumb, or the back arrow "Go up one level", returns to that level. lgse/strata#1090 (unverified)
 - An empty archive folder shows "This folder is empty". lgse/strata#1090 (unverified)
 - Previewing an archive never writes files to disk or opens member files. lgse/strata#1090, lgse/strata#1343
@@ -50,6 +50,16 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 - Escape from an entered archive preview in Columns closes the preview and returns focus to the archive in the parent column. lgse/strata#1371
 - Closing the preview leaves the archive selected in the listing. lgse/strata#1192
 
+### Pointer
+
+- Moving the pointer over member rows tints the hovered row; the highlighted member and keyboard cursor stay where they were. lgse/strata#1570, lgse/strata#1555
+- After the pointer crosses other rows, Down moves from the highlighted member, not the hovered one. lgse/strata#1570, lgse/strata#1555
+- In Columns with single-click previews, moving the pointer across an archive preview highlights no member. lgse/strata#1570, lgse/strata#1555
+- A single click highlights a member when the button is released; on a folder it also opens the folder. lgse/strata#1570, lgse/strata#1555
+- Ctrl+click and Shift+click act as a plain click; one member is highlighted at a time. lgse/strata#1570
+- Double-clicking a folder opens exactly one level. lgse/strata#1570
+- The hover tint and the keyboard outline reach the row's edges. lgse/strata#1570
+
 ## Design
 
 Quick Look reads metadata only, so it needs neither extraction to a temporary folder nor an external archive manager (lgse/strata#1151).
@@ -61,11 +71,14 @@ Quick Look reads metadata only, so it needs neither extraction to a temporary fo
 - In Columns, an archive preview stays passive until entered. Taking the arrow keys on selection interrupted column navigation (lgse/strata#1369, lgse/strata#1371).
 - Left at the root follows 10xer's existing `h` behavior instead of being swallowed (lgse/strata#1334).
 - RAR is not listed: UnRAR runs only for explicit extraction (lgse/strata#1046).
+- GTK's single-click-activate mode also selects the row under the pointer. Rows instead select on click release, as the browser views and Ctrl+F results do (lgse/strata#1291, lgse/strata#1555, lgse/strata#1570).
+- Opening a folder replaces every row, so a double-click's second press lands on a new row. The list counts presses itself to open only one level (lgse/strata#1570).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Selected members on click release instead of hover, so the pointer no longer moves the keyboard cursor. |
 | 2026-10-02 | lgse/strata#1371 | fix | Kept Columns archive previews passive until entered with Right, Enter, or Space. |
 | 2026-10-01 | lgse/strata#1343 | fix | Returned Left at the archive root to the listing and routed arrows by pane focus. |
 | 2026-09-23 | lgse/strata#1203 | fix | Fixed stale highlights and stopped keyboard movement reaching Close Preview or F1. |

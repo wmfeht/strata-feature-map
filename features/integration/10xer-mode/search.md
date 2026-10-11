@@ -3,7 +3,7 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs]
@@ -34,6 +34,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - Enter commits the filter and focuses the first result without opening it; empty Enter, Esc from the prompt, or Esc from the listing clears it. lgse/strata#1297, lgse/strata#1245
 - Pressing `f` again pre-fills the current filter query. lgse/strata#1297, lgse/strata#1245
 - While an `f` filter is active, the footer shows `filter: …` and the displayed result count, including zero. lgse/strata#1297, lgse/strata#1245
+- Until a typed `f` query applies or an `s` search delivers its first hits, the footer count keeps describing the folder instead of reading `0 items`. lgse/strata#1554, lgse/strata#1442 (unverified)
 - `f` uses the same fuzzy terms as `s` but matches only the folder's own items, even with Include subfolders on, so `rep md` keeps `gamma-report.md`. lgse/strata#1403
 - Turning the mode on re-runs an open Ctrl+F filter with `f` matching, and turning it off re-runs it with default matching. lgse/strata#1403
 - Leaving the mode clears the find, every `f` filter, and an `s` search in every window. lgse/strata#1244, lgse/strata#1297 (unverified)
@@ -48,11 +49,14 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - The characters each `s` hit's or `f` item's name matched are highlighted in the theme accent and follow live theme changes. lgse/strata#1403
 - While find highlights show, they replace the `f` and `s` match highlights. lgse/strata#1403
 - The footer shows `search: …`, the hit count including zero, and the hit under the cursor as a path relative to the searched folder. lgse/strata#1297
+- With some hits filled, `j`, `k`, `G`, `g g`, and Space move the footer path to the hit now under the cursor. lgse/strata#1554, lgse/strata#1473
+- While focus is outside the hits, such as in a menu, the sidebar, or F1, the footer keeps the last hit the cursor rested on. lgse/strata#1554, lgse/strata#1473
 - Enter applies the query and focuses the first hit without opening it; a second Enter opens the hit. lgse/strata#1297
 - Esc from a nonempty prompt keeps the hits; Esc from an empty prompt cancels. lgse/strata#1297
 - Dismissing the search restores the previous `f` filter, or the plain listing. lgse/strata#1297
 - Pressing `s` while hits are showing pre-fills that query. lgse/strata#1297
 - A newer query, navigation, leaving the mode, or closing the window drops a slower result stream; changing view keeps the search. lgse/strata#1297
+- When another program renames or moves the searched folder or a folder above it, the `s` search ends. A search in a shallower Columns column stays. lgse/strata#1554, lgse/strata#1435
 - A folder with no local path, such as Network, flashes `Nothing to search`. lgse/strata#1297
 - `S` is unbound, and Ctrl+K global search is unchanged. lgse/strata#1297
 
@@ -74,11 +78,14 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - Matching uses the MIT `frizbee` crate behind `services::path_match`, which handles Unicode folding, term parsing, ranking tiers, and frecency bias (lgse/strata#1403).
 - Frecency adds a capped bias, so it reorders only similar matches and never lifts a hit above one whose name matches more terms (lgse/strata#1403).
 - Outside the mode, global search and the default Ctrl+F filter keep their own matching (lgse/strata#1403).
+- The footer refreshes on every window focus change, because GTK can move focus after the selection change is reported (lgse/strata#1473, lgse/strata#1554).
+- The refresh does not reuse the search-selection signal, because preview and chooser subscribers treat that signal as a selection change (lgse/strata#1473).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Made the footer hit path follow the cursor over filled hits, and ended an `s` search whose folder moved outside the app. |
 | 2026-10-10 | lgse/strata#1544 | fix | Added the shared outside-change focus check, which keeps focus in a focused pane filter or `f`/`s` prompt. |
 | 2026-10-09 | lgse/strata#1533 | fix | Added the shared check that counts a focused pane-filter result as filter focus; footer `f` filters keep their own Escape order. |
 | 2026-10-03 | lgse/strata#1403 | feat | Made `s` and `f` match fuzzy fzf-style terms with frecency ranking, and shared the matcher with the folder picker. |

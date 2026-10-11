@@ -3,8 +3,8 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
 related: [browser/sidebar, browser/navigation]
@@ -40,7 +40,8 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 ### `go ›`
 
 - `g Space` opens a footer `go ›` prompt; typing never navigates. lgse/strata#1302
-- Enter on a typed path that exists submits it through location-bar navigation: absolute, `~`, and relative paths work, with `.` and `..` resolved like `cd`. lgse/strata#1302, lgse/strata#1403
+- Enter on a typed path that exists submits it through location-bar navigation: absolute, `~`, and relative paths work. lgse/strata#1302, lgse/strata#1403
+- On Enter, `.` and `..` in a typed local path resolve as text, without checking the filesystem, so the breadcrumbs show no `..` crumb. lgse/strata#1570, lgse/strata#1445
 - A path naming a file opens its folder with that file selected. lgse/strata#1302, lgse/strata#1403
 - A URI is submitted unchanged, and a password typed in it moves into the mount operation instead of the location. lgse/strata#1302
 - A missing or unreachable path that matches no folder shows the location bar's error and keeps the current folder open. lgse/strata#1302, lgse/strata#1403

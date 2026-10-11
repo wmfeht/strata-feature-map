@@ -3,12 +3,12 @@ title: Folder and file customization
 status: shipped
 origin: {issue: lgse/strata#211, pr: lgse/strata#294}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
-code: [src/ui/browser/customization.rs]
+code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs]
 tests: []
 docs: [docs/preferences.md]
-related: [browser/sidebar, browser/thumbnails, browser/properties, settings/themes/icons, settings/preferences/storage, operations/rename, browser/context-menu]
+related: [browser/sidebar, browser/thumbnails, browser/properties, settings/themes/icons, settings/preferences/storage, operations/rename, browser/context-menu, browser/view-modes/folder-views]
 ---
 
 ## Summary
@@ -55,6 +55,21 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - Changing a customization redraws every visible icon for that path without reloading the folder. lgse/strata#294
 - Changing the theme redraws customized icons that have no saved color in the new accent. lgse/strata#294
 
+### Following file operations
+
+- Renaming a customized folder with F2 in Strata keeps its color and icon; a new folder created at the old name is plain. lgse/strata#1452, lgse/strata#1554
+- Cut and paste, or a move into another folder in Strata, carries the item's customization and those of customized folders inside it. lgse/strata#1452, lgse/strata#1554
+- A move resolved with Keep both gives the customization to the new name. lgse/strata#1554
+- Undo or redo of a rename or move carries the customization back or forward. lgse/strata#1554
+- Moving a customized item to Trash in Strata removes its keys from `settings.toml`; Put back or Ctrl+Z restores them for the session. lgse/strata#1452, lgse/strata#1554
+- A different item later trashed from the same path does not receive the trashed item's keys. lgse/strata#1554
+- The session keeps at most 10,000 trashed customizations, dropping the oldest first. lgse/strata#1554
+- Replace on a move or copy keeps the incoming item's customization; the replaced item's keys go to Trash with it for the session. lgse/strata#1554
+- Merging into an existing folder keeps the destination folder's own customization. lgse/strata#1554
+- A copy or duplicate starts uncustomized. lgse/strata#1554
+- A permanent delete in Strata removes the keys, and a move to a remote location drops them. lgse/strata#1554
+- Renames, moves, and deletions made outside Strata, by a shell or another application, leave the keys at the old path. lgse/strata#1554
+
 ### Storage
 
 - Customizations persist across restarts in `settings.toml`, under `[folder_colors]` and `[custom_icons]`, keyed by absolute path. lgse/strata#294
@@ -73,17 +88,23 @@ The request was Finder's folder labels (lgse/strata#211). Folders follow the the
 - Customize opens on Done rather than the layer or a swatch, so Enter does something useful. Edits apply at once, so Done is safe (lgse/strata#1433).
 - The custom color dialog restores focus itself, because the shared restore waits for the last open dialog to close (lgse/strata#1433).
 - The background menu reuses the item dialog. In Columns it targets the location of the pane that was clicked, since several columns are visible at once (lgse/strata#746, lgse/strata#754).
-- Storage is keyed by the item's path string. Nothing rebases keys when Strata renames, moves, or deletes the item (lgse/strata#1452).
+- Storage is keyed by the item's path string. Each file operation reports where every item landed, so keys follow the real destination, including Keep both names (lgse/strata#1452, lgse/strata#1554).
+- Keys are rebased by path component, so `/a/doc` never matches `/a/docs2` (lgse/strata#1452).
+- Trash keeps a session record matched by device and inode, so a new item at the old path starts plain (lgse/strata#1554).
+- Pruning entries for missing paths was rejected, because unmounted removable or network paths would lose their customizations (lgse/strata#1452).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Carried folder colors and icons through rename, move, Trash, restore, Replace, and Merge in Strata. |
 | 2026-10-09 | lgse/strata#1533 | fix | Opened Customize with focus on Done and returned focus to the opener when it and its color dialog close. |
 | 2026-09-10 | lgse/strata#754 | feat | Added Customize… to folder-background menus, targeting the clicked column's folder in Columns. |
 | 2026-09-04 | lgse/strata#294 | feat | Added per-item colors, bundled and emoji icons, and the Customize dialog, saved in `settings.toml`. |
 
 ## Known gaps
 
-- Renaming or moving a customized item in Strata drops its customization, and a new item created at the old path inherits it; the fix is unmerged. lgse/strata#1452, lgse/strata#1546
 - Keys are lossy UTF-8 paths, so non-UTF-8 names that decode to the same text share one customization. lgse/strata#1452
+- Where Trash is unsupported, Replace deletes permanently, and an uncustomized replacement keeps the replaced item's keys. lgse/strata#1554
+- Undoing a Keep-both move targets the original name instead of the kept name. lgse/strata#1554
+- FAT and exFAT moves that sanitize child names leave those children's keys behind. lgse/strata#1554

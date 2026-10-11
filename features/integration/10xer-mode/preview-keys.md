@@ -3,8 +3,8 @@ title: 10xer preview key ownership
 status: shipped
 origin: {issue: lgse/strata#1242, pr: lgse/strata#1295}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/window/keyboard/preview.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/preview_ownership.rs]
 related: [preview/preview-panel]
@@ -35,6 +35,9 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 
 - In a document, `j`/`k`, Up/Down, Home, End, `G`, Ctrl+U/D/B/F, and Page Up/Down scroll the document, and the listing does not move. lgse/strata#1295
 - In a document, Ctrl+A selects all and Ctrl+C copies the document's own text, never listing items. lgse/strata#1295
+- In a document, Shift+arrows, Shift+Home, Shift+End, Ctrl+Home, and Ctrl+End reach the document for text selection instead of scrolling it. lgse/strata#1559, lgse/strata#1557 (unverified)
+- In a document with searchable text, `/` or keypad `/` opens the preview's find bar, and Ctrl+F still pages down. lgse/strata#1559, lgse/strata#1558
+- In a preview with no searchable text, `/` returns the keys to the listing and opens its find prompt. lgse/strata#1559, lgse/strata#1558
 - In a document or archive, `g g` goes to the top of the preview. lgse/strata#1296
 - In an archive tree, `j`/`k` or Up/Down move between members, and `l`, Right, or Enter opens a member folder. Nothing is extracted and no listing file opens. lgse/strata#1295
 - In an archive tree, Home and End or `G` move to the first and last member. lgse/strata#1295
@@ -42,6 +45,9 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - A password prompt takes focus when it appears, including when `i` or cursor movement shows a locked archive. lgse/strata#1295
 - A password field takes typed letters, including `h` and `j`, and its text-editing shortcuts until unlocked. Esc and Shift+Tab still close or return. lgse/strata#1295
 - In a media preview, Space plays or pauses, Left/Right seek 5 seconds, Up/Down change volume, and `m` mutes or unmutes. lgse/strata#1295, lgse/strata#1289
+- In a media preview, Shift+Left and Page Down seek back 30 seconds; Shift+Right and Page Up seek forward 30 seconds. lgse/strata#1570, lgse/strata#1451
+- In a media preview, Home or `0` seeks to the start, and End or `G` seeks to the last frame. lgse/strata#1570, lgse/strata#1451
+- In a media preview, `+`, `=`, `-`, and keypad + and − step the volume. lgse/strata#1570, lgse/strata#1451
 - With an audio or video preview open, `<` and `>` step to the previous or next file of that type and keep playing. They work from the listing too. lgse/strata#1289, lgse/strata#1474
 - A focused preview button or slider keeps GTK's own Space, Enter, and arrow handling. lgse/strata#1295
 - Enter or `o` in a document or media preview returns the keys to the listing and opens the file there; the drawer stays open. lgse/strata#1340
@@ -50,7 +56,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 ### Handing keys back
 
 - While the preview owns the keys, `j`/`k`, Space, `v`/`V`, Ctrl+A, and Ctrl+R never move or fill the listing behind the drawer. lgse/strata#1295, lgse/strata#1340
-- File and folder commands such as `d`, `y`, `M`, `z`, `/`, and Backspace return the keys to the listing and run there. The drawer stays open. lgse/strata#1340
+- File and folder commands such as `d`, `y`, `M`, `z`, `?`, and Backspace return the keys to the listing and run there. The drawer stays open. lgse/strata#1340
 - A `g` place chord such as `g 3` returns the keys to the listing and runs there; `g z` flashes `Unknown chord` and keeps the keys in the preview. lgse/strata#1296, lgse/strata#1340
 - Window commands such as F1, F5, Ctrl+L, Ctrl+1 to Ctrl+3, and Ctrl+N work without moving the keys out of the preview. lgse/strata#1304, lgse/strata#1340
 
@@ -61,6 +67,8 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - Each surface owns a fixed set of keys and swallows the listing's motion and selection keys; listing commands it does not use go back to the listing (lgse/strata#1340).
 - Ownership never outlives the drawer, so no key can target a destroyed control (lgse/strata#1242, lgse/strata#1295).
 - With the mode off, archive and media keys stay on the default map (lgse/strata#1295).
+- Preview find uses `/` because Ctrl+F pages a 10xer document down and Ctrl+Page Down switches tabs before reaching the preview (lgse/strata#1559).
+- A focused media timeline and the Media surface share one key set; the new paging, jump, and volume keys have no Ctrl+Alt form (lgse/strata#1451, lgse/strata#1570).
 
 ## History
 

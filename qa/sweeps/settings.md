@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
 ---
@@ -14,7 +14,7 @@ For every control this sweep proves the binding: the file changes, the other win
 ## Setup
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `tests/e2e/harness/environment.py` is the baseline; every seeded file starts from it.
-- A seeded file with every key non-default before launch, among them `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`.
+- A seeded file with every key non-default before launch, among them `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`.
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
@@ -41,6 +41,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
 - With Restore open tabs on and a `tabs.toml` whose every entry is invalid, plain-launch with the Default directory deleted, then with it `chmod 000`.
+- With icon-only navigation and before Actions, Updates, or About has been built, search "license", "custom actions", "markdown", and "preview"; read the opened page, its title, and the visible navigation entries.
+- Repeat those searches under `language = "ja"` with the Japanese keywords, and with no custom actions installed but one broken action file present.
+- Flip Show sizes in Columns view in window A while window B shows List, while B has the Appearance menu open, and while B has Settings open on General.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
 ### settings/preferences/storage
@@ -55,6 +58,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Run the failing-save cases under `language = "ja"` and `"de"` with a 200-character path; check the dialog text wraps and the path stays whole.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
+- In two windows, sort a local folder and the Trash differently in each; switch Remember sort and icon size per folder off and repeat, then restart and read each window's sort.
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
 
 ### settings/preferences/language
@@ -80,11 +84,14 @@ For every control this sweep proves the binding: the file changes, the other win
 - Drop `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, a 0-byte file, a `chmod 000` file, a `.TOML` extension, and a 1 MB file into the themes directory. Do it while running and again before launch; count the cards and read the log.
 - In the editor, save a 300-character name, a name equal to a bundled theme, `../escape`, and an emoji-only name.
 - Save a theme while its `<id>.toml` is a directory, a `chmod 000` file, and a link to `/dev/shm`; also with `<id>-2.toml` to `<id>-9.toml` present. List the folder after each.
+- Save names that slug to nothing (`日本語`, `!!!`, ` - `) three times, then once while `custom-theme.toml` is a dangling link and once while it is a directory; list the folder and read each card's name.
 - Make the themes folder a symlink, then `chmod 555` it, and save a theme; read the editor's error and the folder.
 - Open the editor in both windows, change swatches in A, then in B, then in A again; close Settings in B, then A, and open a third window. Repeat closing A first.
 - Mid-preview, change text size with the keyboard, toggle Element glow from window B, change `xft-dpi`, and rewrite `colors.toml` while following Omarchy; then Cancel and compare every window.
 - Mid-preview, close the window with the compositor's close shortcut, quit the last window, and close a window that never opened Settings; relaunch and read the theme.
 - Mid-preview, click the selected card, another card, and Follow Omarchy; then press Cancel and Add theme and read the swatches.
+- Seed custom themes whose `accent` is 9-digit hex, 12-digit hex, `#4fd6ff80`, and `rgba(79,214,255,0.5)`; apply each and compare icons, focus outlines, and editor swatches, then diff the file.
+- Apply Material Lighter and Material Vivid and screenshot a selected row, a hovered row, the footer, dim column details, and a disabled menu item.
 - Write a custom theme with background luminance near 0.4 (`#9a9a9a` and `#a0a0a0`) and check its Light/Dark filing with search and filter combined.
 - Cross Element glow, Reduce motion, and `gtk-enable-animations` off and on; then choose Cairo with `GSK_RENDERER=` exported empty and press Restart now from window B.
 
@@ -94,6 +101,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under `extreme.toml`, open the item menu on a Trash entry and the Empty Trash dialog; the destructive icon must take the danger color, not the accent.
 - Fill a folder with 300 distinct extensions and language files, scroll to the end and back in Icons and List; watch for icon flashes and criticals as the cache evicts.
 - Name files `Makefile`, `makefile`, `Dockerfile.dev`, `main.RS`, `.rs`, and a directory `lib.rs`; compare the icon in the listing and in a Ctrl+F result.
+- Put a folder beside Rust, Go, JS, C#, and Java files in List and in Icons at 16, 64, 128, and 256 px, at text size 8 and 48 and under `GDK_SCALE=2`; compare stroke weight and edge clipping.
 - Collapse and expand the sidebar after a theme change; icons in collapsed rows must match the expanded ones.
 
 ### settings/themes/omarchy
@@ -102,6 +110,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Run the rename script at 0, 1, and 5 s gaps, then point the `current/theme` symlink at a missing target, truncate `theme.name` and `colors.toml` to 0 bytes, and `chmod 000` the directory.
 - Seed `mode = "omarchy"` with no state, `omarchy_variant = "HIGH_CONTRAST"`, `"darker "`, and `"neon"`; read the Appearance page and the file after one change.
 - Apply Darker and High contrast to a pure white and a pure black palette; measure text, border, and accent contrast from screenshots of a menu, a dialog, and a code preview.
+- While following, write `accent = "#7a7a2af7f"`, a 12-digit hex `foreground`, `magenta = "#fff0000ff"`, and `green = "invalid"` into `colors.toml`; open a new code preview and the Settings preview after each save.
+- Truncate `colors.toml` mid-switch while window B opens a Markdown preview and window A opens Appearance; then restart with the state still invalid and read both.
 - Turn Follow Omarchy off in window A while `colors.toml` is being rewritten, then `rm -rf` the state while the variant row has keyboard focus.
 
 ## Hand-offs
@@ -117,3 +127,5 @@ For every control this sweep proves the binding: the file changes, the other win
 - Focus return after closing the search palettes → `browser`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
 - Thumbnail workers and thumbnail rendering → `browser`.
+- Remember sort and icon size per folder, Default sort, Forget all folder settings, and `folder-views.toml` → `browser`.
+- Show sizes in Columns view as it acts on the Columns badge → `browser`.

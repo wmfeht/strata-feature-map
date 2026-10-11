@@ -3,8 +3,8 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/window/sidebar.rs, src/ui/window/keyboard/sidebar.rs]
 tests: [src/ui/window/tests/bookmarks.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
 docs: [docs/preferences.md, docs/keyboard-navigation.md]
@@ -78,6 +78,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1564 | feat | Kept the update notice on one line, middle-ellipsized, with a prerelease kind before the version. |
 | 2026-10-02 | lgse/strata#1370 | fix | Showed saved folder colours and custom icons on sidebar rows and added Customize… to local rows. |
 | 2026-10-02 | lgse/strata#1350 | feat | Persisted the collapsed state and synchronized it across windows so new windows open as last left. |
 | 2026-09-30 | lgse/strata#1342 | feat | Added XDG Music as a standard place with its own visibility chip. |

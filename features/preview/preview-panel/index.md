@@ -3,8 +3,8 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/pdf_text.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/archive_cover.rs]
 tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/e2e/scenarios/test_preview_media_layout.py]
 docs: [docs/preview-sandbox.md]
@@ -13,7 +13,7 @@ related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-meta
 
 ## Summary
 
-The drawer beside the file views that shows the selected file's contents: text, images, PDFs, 3D models, and comic or EPUB covers, with a header for print and close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/media` (audio and video), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
+The drawer beside the file views that shows the selected file's contents: text, images, PDFs, 3D models, and comic or EPUB covers, with a header for print and close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
 
 ## Behavior
 
@@ -29,6 +29,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 - Text previews show at most the first 1 MiB of the file. lgse/strata#89
 - **Toggle word wrap** in the header wraps text previews; the choice defaults to off, applies in every open window, and survives restart. lgse/strata#921
+- A small source preview, up to 128 KiB and 512 lines, shows a caret; Shift+arrow keys select text and Ctrl+C copies it, and the file stays read-only. lgse/strata#1559, lgse/strata#1557
 
 ### Images and PDFs
 
@@ -37,7 +38,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - With four remote previews already transferring or decoding, another fails with "Too many remote previews are active; try again shortly". lgse/strata#834
 - Changing selection or closing the preview cancels a remote transfer. lgse/strata#834
 - Remote MOV and MP4 files up to 256 MiB play only after the download completes, within a 60-second deadline. lgse/strata#834
-- PDF pages render at the preview's width, one at a time, and pages scrolled out of view before rendering are cancelled. lgse/strata#898
+- PDF pages render at the preview's width up to 1280 px, one at a time, and pages scrolled out of view before rendering are cancelled. lgse/strata#898, lgse/strata#1539
 - Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
 - In a PDF, double-click selects a word, triple-click a line, Shift+click extends across pages, and Ctrl+A selects all loaded pages. lgse/strata#1223
 - Dragging on a PDF margin or a page without a text layer, such as a scan, pans instead of selecting. lgse/strata#1223
@@ -70,6 +71,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
 - PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
 - Models, PDFs, workbooks, and DOCX share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
+- A hidden caret in a read-only GtkSourceView disables native Shift+arrow selection, so source previews show the caret and stay non-editable (lgse/strata#1557).
 - PDFs render in the sandbox, so the text layer travels with each page as a bounded sidecar to the PNG (lgse/strata#1220, lgse/strata#1223).
 - Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833).
 - 3MF and FreeCAD prefer embedded thumbnails at the owner's request; geometry is the fallback (lgse/strata#1225).
@@ -92,6 +94,5 @@ The drawer beside the file views that shows the selected file's contents: text, 
 ## Known gaps
 
 - Images cannot be rotated in the preview; the change is unmerged. lgse/strata#987, lgse/strata#1388
-- A click on empty space or a disabled control in the preview pane deselects the file and blanks the preview; the fix is unmerged. lgse/strata#1450, lgse/strata#1546
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833

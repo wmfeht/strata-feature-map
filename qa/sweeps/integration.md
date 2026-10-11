@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py]
 ---
 
@@ -89,6 +89,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
+- In a searchable document press `/` on a non-US layout, with the find bar open but unfocused, and after Shift+Tab; repeat in a CSV shown as a table.
+- In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`; hold Shift on `0` and `G` on a German layout.
 
 ### integration/10xer-mode/places
 
@@ -97,6 +99,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Type a path under a 50k-folder tree and press Enter before the search settles; Tab on `.alc` with hidden files off; query `10:30` and a path containing `:`.
 - Open `z` with an empty history, `Z` with 200 entries, press Up past the last candidate, and press Enter twice while the list is still updating.
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
+- In `go ›` submit `../../../..` from a shallow folder, `~/../..`, a folder symlink followed by `/..`, and `/tmp/./`; read the crumbs, then press Alt+Up.
 
 ### integration/10xer-mode/search
 
@@ -107,6 +110,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Delete the cursor file from a shell while the `s` stream is still running. Repeat while an `f` prompt has focus in Columns with a child column open.
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
+- Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
+- In Columns, run `s` in the third column and rename the second column's folder from a shell; repeat with `mv` into another folder and with a rename of the searched folder itself.
 
 ### integration/10xer-mode/file-verbs
 
@@ -116,6 +121,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `create ›` type `name/`, `./x`, `../x`, a 256-byte name, a broken link's name, and `.hidden` with hidden files off; `r` on a non-UTF-8 name, in Recent, and on an `s` hit.
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
+- With per-folder memory on, press `, s` in Trash, Recent, a non-UTF-8 folder, and a remote mount, then reopen each; toggle the switch off in another window and press `, m`.
 
 ### integration/10xer-mode/file-chooser
 
@@ -145,6 +151,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Set `$TERMINAL` to `footerm --title x`, to the failing fake, and to an empty string; then empty `PATH` of emulators, then add the fake `kitty` that exits 127; read each dialog.
 - Press Ctrl+Alt+T with Shift and with Super held, in the location field, during an inline rename, in a chooser, and with the mode on.
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
+- Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits; count Strata's children and threads with `ps -L` afterwards.
 
 ### integration/custom-actions
 

@@ -102,6 +102,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/deferred/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
 | `src/app/browser/directory_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
 | `src/app/browser/directory_changes/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/folder_sorts.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/browser/loading.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
 | `src/app/browser/loading/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
 | `src/app/browser/loading/metadata/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
@@ -120,6 +121,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/tests/archive_activation.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `src/app/browser/tests/background_operations.rs` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/tests/camera_photos.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/app/browser/tests/folder_sorts.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/browser/tests/location_input.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/app/browser/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
 | `src/app/browser/tests/navigation.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
@@ -286,6 +288,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/columns/reveal.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/rows.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/search.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/browser/columns/tests.rs` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/context_menu.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/browser/context_menu/**` | code | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/browser/context_menu/actions/tests.rs` | tests | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
@@ -318,6 +321,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/progress/presentation.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/ui/browser/progress/tests.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/ui/browser/progress/tests/minimization.rs` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `src/ui/browser/progress/tests/minimization/**` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/browser/properties.rs` | code | [Properties dialog](../features/browser/properties/index.md) | — |
 | `src/ui/browser/properties/media.rs` | code | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/ui/browser/properties/media/tests.rs` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
@@ -393,6 +397,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/bindings.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/bindings/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/fixtures.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/ui/preferences/folder_view_settings.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/preferences/folder_views.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/preferences/folder_views/**` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/preferences/folder_views/tests.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/preferences/item_customizations.rs` | code | [Folder and file customization](../features/browser/folder-customization.md) | — |
 | `src/ui/preferences/save_notice.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/preferences.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -407,6 +416,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preview/audio/tests.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/ease_in.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/ease_in/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/find.rs` | code | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/keyboard.rs` | code | [Quick preview](../features/preview/quick-preview/index.md) | — |
 | `src/ui/preview/layout.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/media_layout.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -416,6 +426,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preview/session.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests.rs` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/audio.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/tests/find.rs` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/tests/media_controls.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/video.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/video` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/video.rs` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -435,6 +447,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/scrolling.rs` | code | [Scrolling](../features/browser/scrolling.md) | — |
 | `src/ui/scrolling/popover.rs` | code | [Scrolling](../features/browser/scrolling.md) | — |
 | `src/ui/scrolling/popover/tests.rs` | tests | [Scrolling](../features/browser/scrolling.md) | — |
+| `src/ui/scrolling/tests.rs` | tests | [Scrolling](../features/browser/scrolling.md) | — |
 | `src/ui/search.rs` | code | [Search](../features/browser/search/index.md) | — |
 | `src/ui/search/tests.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/ui/search_session.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
@@ -472,6 +485,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/tabs_session/tests.rs` | tests | [Tab session restore](../features/browser/tabs/session-restore.md) | [Browser tabs](../features/browser/tabs/index.md) |
 | `src/ui/tenxer_mode.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/terminal.rs` | code | [Open in Terminal](../features/integration/open-with/terminal.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
+| `src/ui/terminal/tests.rs` | tests | [Open in Terminal](../features/integration/open-with/terminal.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
 | `src/ui/theme.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/omarchy.rs` | code | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/omarchy/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
@@ -493,6 +507,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/udiskie_preferences.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/udiskie_preferences/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/virtual_preview.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/window/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
@@ -543,6 +559,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/go_prompt.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/mode_exit.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/open_in_new.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/overlay_focus.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/pane_focus.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -596,11 +613,14 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/scenarios/test_popover_scrolling.py` | tests | [Scrolling](../features/browser/scrolling.md) | — |
 | `tests/e2e/scenarios/test_preferences.py` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `tests/e2e/scenarios/test_preselected_hover.py` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `tests/e2e/scenarios/test_preview_media_controls.py` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/e2e/scenarios/test_preview_media_layout.py` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `tests/e2e/scenarios/test_preview_session.py` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/e2e/scenarios/test_preview_video.py` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/e2e/scenarios/test_properties_media.py` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `tests/e2e/scenarios/test_properties_size.py` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `tests/e2e/scenarios/test_quick_preview.py` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/e2e/scenarios/test_quick_preview.py` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/e2e/scenarios/test_quick_preview.py` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
 | `tests/e2e/scenarios/test_recent.py` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/e2e/scenarios/test_rename_visibility.py` | tests | [Inline rename](../features/operations/rename.md) | — |

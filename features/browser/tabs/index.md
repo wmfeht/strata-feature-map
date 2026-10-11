@@ -3,17 +3,17 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
-tests: [src/ui/window/composition/tabs/tests.rs, src/ui/browser/tab_location/tests.rs, tests/e2e/scenarios/test_tabs.py]
+tests: [src/ui/window/composition/tabs/tests.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/e2e/scenarios/test_tabs.py]
 docs: [docs/keyboard-navigation.md, docs/10xer-mode.md]
-related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock]
+related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling]
 ---
 
 ## Summary
 
-Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, and move tabs. Files dropped on a tab transfer into that tab's directory. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
+Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, and move tabs. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Files dropped on a tab transfer into that tab's directory. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
 
 ## Behavior
 
@@ -26,6 +26,23 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Ctrl+W, a tab's X button, or 10xer `t` then `x` closes that tab; closing the last tab closes the window. lgse/strata#1484
 - Middle-clicking a tab closes it. lgse/strata#1484 (unverified)
 - Closing the active tab selects its right neighbour, or its left neighbour when it was last. lgse/strata#1484 (unverified)
+
+### Opening folders in a new tab or window
+
+- Middle-clicking a folder row in Columns, Icons, or List opens that folder in a new tab. lgse/strata#1540, lgse/strata#1543
+- Ctrl+middle-click or Shift+middle-click on a folder row opens that folder in a new window. lgse/strata#1543
+- Middle-clicking a file row selects the file in its parent folder and opens nothing. lgse/strata#1543
+- A double middle-click on a folder opens one tab; a middle press dragged past the drag threshold opens nothing. lgse/strata#1543 (unverified)
+- In both key maps, Ctrl+Enter on a focused folder opens it in a new tab and Shift+Enter in a new window. Keypad Enter works too. lgse/strata#1543
+- Ctrl+Enter or Shift+Enter on a focused file opens it with its default application, like Enter. lgse/strata#1543
+- In the default key map Ctrl+Shift+Enter on a folder opens a tab; in 10xer mode it does nothing. lgse/strata#1543 (unverified)
+- Ctrl+Enter or Shift+Enter typed in a text field is left to the field. lgse/strata#1543 (unverified)
+- In the portal file chooser with 10xer mode on, Ctrl+Enter on a folder still chooses it and opens no tab. lgse/strata#1543
+- Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543
+- A folder opened in a new tab gets a new tab at the right end of the strip. The tab is selected, then navigated there. lgse/strata#1543
+- A new window opened for a folder opens at the default size on that folder. lgse/strata#1543
+- A missing or unreachable target shows "Connecting to location…", then the location-unavailable overlay with Retry, in the new tab or window. lgse/strata#1543
+- While a modal dialog is open, opening a folder in a new tab does nothing. lgse/strata#1543 (unverified)
 
 ### Switching
 
@@ -87,12 +104,17 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - A reorder drag carries a random per-window token, so only this window's tab drags reorder and file drags never do (lgse/strata#1484).
 - One close guard checks every tab, so a background operation in a hidden tab still blocks closing the window (lgse/strata#1484).
 - Closing a tab disposes its content and releases its observers (lgse/strata#108, lgse/strata#1484).
+- Ctrl+click was rejected for opening in a new tab because it toggles multi-selection. Ctrl+N was rejected for a new window because 10xer uses it for the sidebar (lgse/strata#1540).
+- A folder opened in a new tab or window reuses the startup argument's connecting and unavailable overlays and `present_target`, rather than new windowing (lgse/strata#1540, lgse/strata#1543).
+- The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI. Menu rows and gestures thus need no tab-window handle (lgse/strata#1543).
+- Choosers have no tabs and Ctrl+Enter there accepts the folder, so chooser key dispatch skips the open-in-new handling (lgse/strata#1543).
 - The name hold tracks navigation settlement explicitly rather than using a timer. Cancelled, refused, and same-directory navigation release it, and an older validation completion cannot release a newer click (lgse/strata#1507).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1543 | feat | Opened folders in a new tab or window from the item menu, a middle-click, and Ctrl+Enter or Shift+Enter. |
 | 2026-10-10 | lgse/strata#1544 | fix | Registered each tab window for the notice shown when settings cannot be saved. |
 | 2026-10-09 | lgse/strata#1533 | fix | Fell back to the file view's cursor when a tab's saved focus can no longer take it, and registered the active tab as the dialog focus fallback. |
 | 2026-10-07 | lgse/strata#1506 | feat | Added Ctrl+Page Up/Down switching and Ctrl+Shift+Page Up/Down reordering, like web browsers. |
@@ -101,5 +123,4 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 ## Known gaps
 
-- A folder cannot be opened directly into a new tab or window from its menu, a middle-click, or Ctrl+Enter. lgse/strata#1540, lgse/strata#1543
 - Each tab holds one pane; split or dual-pane browsing is undecided. lgse/strata#47

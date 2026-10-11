@@ -3,8 +3,8 @@ title: Themed icons
 status: shipped
 origin: {issue: lgse/strata#169, pr: lgse/strata#170}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/assets.rs, src/assets/vector.rs, data/icons/scalable/actions/strata-lang-*.svg]
 tests: [src/assets/tests.rs, src/assets/vector/tests.rs, src/ui/browser/entry/tests.rs]
 related: [browser/view-modes/icons]
@@ -21,6 +21,7 @@ Strata's bundled interface and file-type icons, tinted with the active theme's c
 - Header, sidebar, settings navigation, and file-type icons draw in the theme's accent color at full opacity. lgse/strata#170
 - Changing the theme or Omarchy variant recolors icons in every open window without reopening them. lgse/strata#1482
 - Destructive menu items, such as Permanently delete, and danger-tone dialogs draw their icon in the theme's danger color. lgse/strata#1210 (unverified)
+- Icons draw in an opaque `#rrggbb` form of the accent, text, or danger color, so a translucent accent loses its alpha on icons only. lgse/strata#1554, lgse/strata#1429
 
 ### Size and weight
 
@@ -32,7 +33,10 @@ Strata's bundled interface and file-type icons, tinted with the active theme's c
 
 ### File-type icons
 
-- Source files in 42 languages, such as `.rs`, `.py`, `.go`, `.java`, and `.kt`, show a language glyph in the accent color. lgse/strata#1529
+- Source files in 42 languages, such as `.rs`, `.py`, `.go`, `.java`, and `.kt`, show a language glyph drawn as an unfilled accent outline with round caps and joins. lgse/strata#1529, lgse/strata#1561
+- A language glyph's outline has the same stroke weight as the folder icon beside it, in List rows and in the Icons view. lgse/strata#1561
+- Outline strokes at a glyph's edge, as on the Rust, JS, and TS marks, draw in full without clipping. lgse/strata#1561
+- `.java` files show the Devicon Java cup-and-steam mark. lgse/strata#1561
 - `.m`, `.v`, and brandless languages such as assembly and Tcl keep the generic code icon. lgse/strata#1529
 - Search results use the same file-type icons as Columns, List, and Icons views. lgse/strata#1529
 - Archives such as `.zip` show an archive icon distinct from folders. lgse/strata#1416
@@ -47,7 +51,9 @@ Strata's bundled interface and file-type icons, tinted with the active theme's c
 ## Design
 
 - Icons are bundled SVGs, Lucide except the language glyphs, whose placeholder colors are replaced before rasterizing. They follow Strata's tokens rather than the desktop icon theme (unverified).
-- Full-color brand icons were rejected because fixed brand colors break theme sync. The owner approved non-Lucide monochrome language glyphs from Simple Icons and Devicons, plus a custom Java glyph (lgse/strata#1528, lgse/strata#1529).
+- Full-color brand icons were rejected because fixed brand colors break theme sync. The owner approved non-Lucide monochrome language glyphs from Simple Icons and Devicons (lgse/strata#1528, lgse/strata#1529). A custom Java glyph gave way to Devicon's Java mark (lgse/strata#1560, lgse/strata#1561).
+- Filled glyphs did not match the outlined folder and interface icons. Generic code icons, restored filled logos, and a thinner folder were rejected for outlined brands at folder weight (lgse/strata#1560).
+- The shared renderer rewrites a glyph's fill into a stroke at render time and keeps upstream path geometry. Padded view boxes keep edge strokes from clipping (lgse/strata#1560, lgse/strata#1561).
 - Lucide strokes are 8.3% of icon size at every scale, about 21 px at 256 px. The fix compensates stroke width at render time instead of editing icon geometry (lgse/strata#1011, lgse/strata#1416).
 - Logical size and context are cached apart from raster resolution, so perceived weight follows logical size while resolution only sets sharpness (lgse/strata#1416).
 - Chrome icons were 20 px drawn from 96 px textures, and GtkImage's default fill stretched them in XFCE's larger buttons. They are now 16 px, centered, and rasterized at twice their size (lgse/strata#469, lgse/strata#497).
@@ -59,6 +65,7 @@ Strata's bundled interface and file-type icons, tinted with the active theme's c
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1561 | fix | Outlined the language glyphs at folder stroke weight in padded view boxes and replaced the custom Java glyph with Devicon's. |
 | 2026-10-08 | lgse/strata#1529 | feat | Added 42 accent-tinted language glyphs and used the same icons in search results. |
 | 2026-10-05 | lgse/strata#1416 | feat | Mapped more file types to Lucide icons and thinned Icons-view outlines at large sizes. |
 | 2026-10-05 | lgse/strata#1400 | perf | Replaced clear-all icon texture eviction with a 256-entry LRU. |

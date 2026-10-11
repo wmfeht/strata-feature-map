@@ -3,8 +3,8 @@ title: Pointer intent
 status: shipped
 origin: {issue: lgse/strata#517, pr: lgse/strata#522}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/pointer.rs]
 tests: [src/ui/pointer/**, tests/e2e/scenarios/test_pointer_intent.py]
 related: [operations/drag-and-drop, preview/preview-panel, operations/rename]
@@ -54,6 +54,7 @@ Before lgse/strata#517, a full column left no blank space to start a marquee, an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1568 | fix | Cached selected listing positions and Icons and List view-to-source maps, so marquee changes no longer rescan large folders. |
 | 2026-09-29 | lgse/strata#1336 | fix | Routed blank-space drags by selection: unselected rows marquee, selected rows drag files. |
 | 2026-09-10 | lgse/strata#789 | fix | Selected an unselected entry on press so a drag highlights its real source. |
 | 2026-09-07 | lgse/strata#522 | fix | Split content drags from blank-space marquees and deferred previews to completed clicks in every view. |

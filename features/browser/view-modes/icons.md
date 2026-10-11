@@ -3,11 +3,11 @@ title: Icons view
 status: shipped
 origin: {issue: lgse/strata#322, pr: lgse/strata#328}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**]
 tests: [src/ui/icons_cell/tests.rs]
-related: [browser/thumbnails, operations/rename]
+related: [browser/thumbnails, operations/rename, browser/view-modes/folder-views]
 ---
 
 ## Summary
@@ -37,7 +37,8 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 - The pane header's Thumbnail size popover holds a slider from 32 to 256 px, default 64, labelled with the current value, such as "64 px". lgse/strata#328, lgse/strata#805, lgse/strata#1133
 - A wheel notch over the slider moves it 1 px; a wheel tick over the listing closes the popover and scrolls the grid, and over the sidebar or other chrome it only closes. lgse/strata#328
 - Moving the slider scales existing thumbnails in place without flashing generic icons. lgse/strata#328
-- The size is saved as `icons_thumbnail_size` and used from the first frame after restart; other windows' Icons panes follow a change. lgse/strata#1133
+- The default size is saved as `icons_thumbnail_size` and used from the first frame after restart; other windows' panes on folders without their own size follow a change. lgse/strata#1133, lgse/strata#1565
+- With Remember sort and icon size per folder off, the slider sets that default; with it on, the slider sets the shown folder's own size. lgse/strata#1565
 
 ### Name tooltip
 

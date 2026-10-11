@@ -3,12 +3,12 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs]
 tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
 docs: [docs/keyboard-navigation.md]
-related: [operations/clipboard, operations/delete, operations/archives]
+related: [operations/clipboard, operations/delete, operations/archives, operations/trash/animation]
 ---
 
 ## Summary
@@ -58,11 +58,13 @@ The modal progress dialog predates the PR history. lgse/strata#398 moved it out 
 - Stopping Strata's writes does not make earlier writes safe to unplug. A stalled cancel therefore never claims the device is safe, and new file operations are refused until the pending transfer resolves (lgse/strata#1278).
 - Copy, compression, and deletion leave this dialog for the progress dock; other operations keep it (lgse/strata#1393).
 - Closing the dialog skips its opener because the operation changes the listing, so the opener row may be gone or stale (lgse/strata#1430, lgse/strata#1533).
+- A deletion drops its dissolve and Trash flight once its card is presented. A slow deletion never locks the window behind an animation (lgse/strata#1562).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1562 | fix | Kept docked deletions from freezing browsing by dropping their animations once the card appears; showed the percentage once. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the cursor row after progress closes, and sent docked no-Trash retries to the explained dialog. |
 | 2026-09-07 | lgse/strata#491 | fix | Kept progress and Cancel visible after backdrop clicks until the operation ends. |
 | 2026-09-05 | lgse/strata#369 | fix | Reported live byte progress for copies and moves, pulsing when totals are unknown. |

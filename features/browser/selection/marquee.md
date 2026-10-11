@@ -3,11 +3,12 @@ title: Marquee selection
 status: shipped
 origin: {issue: lgse/strata#189, pr: lgse/strata#203}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/marquee.rs]
 tests: [src/ui/marquee/tests.rs, tests/e2e/scenarios/test_marquee_scrolling.py]
-related: [integration/portal-file-chooser]
+docs: [docs/preview-panel-layout.md]
+related: [integration/portal-file-chooser, preview/preview-panel/layout]
 ---
 
 ## Summary
@@ -28,10 +29,15 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 - A drag from a pane corner at text sizes 13 and 28 selects files and leaves the sidebar width unchanged. lgse/strata#838
 - During a sidebar-started marquee, the target pane takes keyboard focus, so Ctrl+C copies the marqueed files. lgse/strata#838
 - Taking that focus keeps a scrolled list's position rather than jumping to an off-screen cursor. lgse/strata#838
-- Holding Alt starts a marquee even when the press lands on an entry. lgse/strata#203 (unverified)
+- Holding Alt starts a marquee even when the press lands on an entry. lgse/strata#203, lgse/strata#1567
+- A press on a disabled control, such as Next audio file on the last track, keeps the selection and starts no marquee. lgse/strata#1450, lgse/strata#1570
+- A press in the gaps of the preview header's file icon and name starts a file drag, not a marquee. lgse/strata#1570
 
 ### Selecting
 
+- With a file previewed, a plain click on blank preview space keeps the file selected and previewed, in every view and the file chooser. lgse/strata#1450, lgse/strata#1570
+- In Columns with nothing previewed, a plain click in the empty reserved preview slot clears the selection. lgse/strata#1570
+- A plain click on blank sidebar space clears the selection, in the main window and the file chooser. lgse/strata#1570
 - A plain marquee replaces the selection with the entries under the band. lgse/strata#522 (unverified)
 - A Ctrl-marquee toggles each crossed entry relative to the selection at press. lgse/strata#522
 - A Shift-marquee adds the crossed entries to the selection at press. lgse/strata#522 (unverified)
@@ -56,12 +62,15 @@ One shared module replaced separate Columns and Icons/List implementations so ch
 - Auto-scroll starts within 28 px of an edge and steps up to 24 px every 16 ms. Axes that cannot scroll contribute nothing (lgse/strata#203).
 - A selection-update flag marks marquee changes so the preview ignores them while keyboard and explicit previews still work (lgse/strata#1122).
 - Rejected as the way in: a required modifier on rows (less discoverable, conflicts with file drag) and permanent blank space in the viewport (wastes space) (lgse/strata#189). Alt remains an optional override.
+- The preview shows the selection, so the owner reversed lgse/strata#1164. A plain click on blank preview chrome keeps the selection; a drag still starts a marquee (lgse/strata#1450, lgse/strata#1570).
+- Chrome hits include insensitive widgets, so a disabled control is not taken for the blank box behind it (lgse/strata#1570).
 - A press records its position in surface coordinates, so a column scrolling under a still pointer does not count as drag motion (lgse/strata#1502).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Kept the selection on plain clicks in a showing preview and rejected presses on disabled controls and drag handles. |
 | 2026-09-18 | lgse/strata#1122 | fix | Stopped marquee selection from opening or retargeting quick preview. |
 | 2026-09-03 | lgse/strata#203 | feat | Shared the marquee across views and let drags start from sidebar and header chrome, with edge auto-scroll. |
 
