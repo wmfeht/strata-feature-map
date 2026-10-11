@@ -35,8 +35,8 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 
 ### Selecting
 
-- With a file previewed, a plain click on blank preview space keeps the file selected and previewed, in every view and the file chooser. lgse/strata#1450, lgse/strata#1570
-- In Columns with nothing previewed, a plain click in the empty reserved preview slot clears the selection. lgse/strata#1570
+- While the preview shows content or its placeholder, a plain click on blank preview space keeps the selection, in every view and the file chooser. lgse/strata#1450, lgse/strata#1570
+- In Columns, a plain click in the empty reserved preview slot, which shows nothing, clears the selection. lgse/strata#1570
 - A plain marquee replaces the selection with the entries under the band. lgse/strata#522 (unverified)
 - A Ctrl-marquee toggles each crossed entry relative to the selection at press. lgse/strata#522
 - A Shift-marquee adds the crossed entries to the selection at press. lgse/strata#522 (unverified)

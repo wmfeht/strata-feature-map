@@ -55,7 +55,6 @@ One undo history and one redo history for file operations, shared by every Strat
 ### Failures and partial results
 
 - A cancelled or partly failed operation records only the items it completed. lgse/strata#301, lgse/strata#444
-- A cancelled or failed extraction is the exception: it records nothing, even for the partial output it keeps. lgse/strata#1552 (unverified)
 - An undo that fails leaves its entry for the next Ctrl+Z and offers no redo. lgse/strata#301, lgse/strata#1120
 - An undo that reverts only some items leaves the rest for the next Ctrl+Z. lgse/strata#301
 - After a multi-item move undo where one conflict was answered with Skip, Ctrl+Shift+Z moves forward only the items that went back. lgse/strata#1120

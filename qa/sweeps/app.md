@@ -61,8 +61,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Resize across 1480 px with a query and category active; the footer note must wrap only at a "·".
 - Select 1, 64, 65, and all items in a folder holding files of unknown size, a symlink, and 10k entries; read the count and its accessible description, then copy, cut, paste, and clear the clipboard with `wl-copy -c` or `xsel -c`.
 - In the default map, run Ctrl+F in each mode on a local folder, a 10k-entry folder, and the SFTP fixture in Columns; read the count while typing, after results land, and after Escape.
-- Filter with the default map, select results, switch to 10xer mode and back with the filter open, then clear the query by Backspace instead of Escape.
-- Open F1 in the portal chooser in 10xer mode, and in the browser in both maps, in all three modes; look for the Ctrl+Enter, `/` find, and media seek rows in each.
+- Filter with the default map and select results. Switch to 10xer mode and back with the filter open, then clear the query by Backspace.
+- With F1 open in Columns, toggle 10xer mode from a second window, then close and reopen F1 in Icons; repeat with the interface in ja.
 
 ### app/window
 

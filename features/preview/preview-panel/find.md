@@ -52,8 +52,8 @@ A find bar below the preview header that searches the text loaded in the open pr
 `docs/document-previews.md` ("Text selection and find") is the maintained description.
 
 - Find reuses the virtual document model, its document-coordinate selection, and the existing header-button and entry styles (lgse/strata#1558, lgse/strata#1559).
-- The find bar never changes the listing's selection, entries, or filename filter (lgse/strata#1558).
-- Matching is literal and case-insensitive over loaded text only. Lowercasing keeps a map to original character offsets, so selections land on the original text (lgse/strata#1559).
+- Find never changes the file listing or its filename filter (lgse/strata#1558, lgse/strata#1559).
+- Matching is literal and case-insensitive over loaded text only (lgse/strata#1559).
 
 ## History
 

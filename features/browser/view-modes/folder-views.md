@@ -35,7 +35,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - Settings → General → Browsing has the switch "Remember sort and icon size per folder", on by default, saved as `remember_folder_views`. lgse/strata#1563, lgse/strata#1565
 - Saved values stay stored but unused while the switch is off. Turning it back on drops saved values equal to the current defaults. lgse/strata#1565
 - The Default sort row has a "Default sort" menu (Name, Size, Modified, Type) and a "Default sort direction" menu (Ascending, Descending). lgse/strata#1563, lgse/strata#1565
-- Changing the default sort re-sorts every open folder without its own sort, in every window, and drops saved sorts equal to the new default. lgse/strata#1565
+- Changing the default sort re-sorts every open folder without its own sort, in every window. With the switch on, it also drops saved sorts equal to the new default. lgse/strata#1565
 - The "Forget all folder settings" row has a Clear button, insensitive while nothing is saved, that clears every saved value. lgse/strata#1565
 - Clear also removes values another Strata process saved that this one has not merged yet. lgse/strata#1565
 - Settings search finds the three rows by words such as "per folder", "default sort", and "reset". lgse/strata#1565 (unverified)

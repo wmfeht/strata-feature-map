@@ -91,8 +91,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
-- Press `/` and keypad `/` in a PDF, an image, an archive tree, a media preview, a CSV shown as a table, and a document still loading; read which prompt opens and whether the drawer stays.
-- In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`; hold Shift on `0` and `G` on a German layout.
+- Press `/` and keypad `/` in a PDF, an image, an archive tree, a media preview, a CSV shown as a table, and a document still loading. Read which prompt opens and whether the drawer stays.
+- In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
 ### integration/10xer-mode/places
 
@@ -101,7 +101,6 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Type a path under a 50k-folder tree and press Enter before the search settles; Tab on `.alc` with hidden files off; query `10:30` and a path containing `:`.
 - Open `z` with an empty history, `Z` with 200 entries, press Up past the last candidate, and press Enter twice while the list is still updating.
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
-- In `go ›` submit `../../../..` from a shallow folder, `~/../..`, a folder symlink followed by `/..`, and `/tmp/./`; read the crumbs, then press Alt+Up.
 
 ### integration/10xer-mode/search
 
@@ -113,7 +112,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
-- Rename a folder two levels above an `s` search while its stream is still running; rename one back before the monitor fires; rename one while a copy runs into it.
+- Rename a folder two levels above an `s` search while its stream is still running. Rename one back before the monitor fires, and rename one while a copy runs into it.
 
 ### integration/10xer-mode/file-verbs
 
@@ -123,7 +122,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `create ›` type `name/`, `./x`, `../x`, a 256-byte name, a broken link's name, and `.hidden` with hidden files off; `r` on a non-UTF-8 name, in Recent, and on an `s` hit.
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
-- With per-folder memory on, press `, s` in Trash, Recent, a non-UTF-8 folder, and a remote mount, then reopen each; toggle the switch off in another window and press `, m`.
+- Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
 
 ### integration/10xer-mode/file-chooser
 
@@ -153,7 +152,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Set `$TERMINAL` to `footerm --title x`, to the failing fake, and to an empty string; then empty `PATH` of emulators, then add the fake `kitty` that exits 127; read each dialog.
 - Press Ctrl+Alt+T with Shift and with Super held, in the location field, during an inline rename, in a chooser, and with the mode on.
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
-- Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits; count Strata's children and threads with `ps -L` afterwards.
+- Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits. Count Strata's children and threads with `ps -L` afterwards.
 
 ### integration/custom-actions
 
@@ -179,5 +178,6 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Preview rendering, archive and media surfaces, and the player start position handed to the default player → `preview`.
 - The preview find bar's matching and navigation → `preview`.
 - External file providers, their asynchronous actions and badges, and remote mounts → `remote`.
+- Typed `.` and `..` resolution in `go ›`, and where a keyboard sort is saved → `browser`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.

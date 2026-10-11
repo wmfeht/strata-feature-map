@@ -36,7 +36,8 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - With the timeline focused, `+`, `=`, `-`, and keypad +/− change the volume by 0.1; reaching 0 mutes and keeps the volume to restore. lgse/strata#1570, lgse/strata#1451
 - The paging, jump, and volume keys have no Ctrl+Alt form; Ctrl+Alt+Page Up in the default key map leaves media unchanged. lgse/strata#1570
 - A focused volume slider steps 0.1 with the arrow keys and 0.2 with Page Up/Down; Home mutes and End sets full volume. lgse/strata#1570, lgse/strata#1451
-- Stepped volumes snap to the 0.1 grid, so repeated Down reaches 0 and mutes; dragging the slider stays free. lgse/strata#1570
+- Stepped volumes snap to the 0.1 grid, so repeated Down reaches 0 and mutes. lgse/strata#1570
+- Dragging the volume slider sets any value, without snapping. lgse/strata#1570 (unverified)
 - For media that is neither audio nor video, the seek slider steps 5 s with the arrow keys and 30 s with Page Up/Down. lgse/strata#1570, lgse/strata#1451
 - On that seek slider, Home and End jump to the start and the last frame. lgse/strata#1570, lgse/strata#1451
 - Keys and the mouse wheel on that seek slider seek at once; a drag seeks on release. lgse/strata#1570, lgse/strata#1451

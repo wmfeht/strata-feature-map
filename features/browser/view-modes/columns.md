@@ -23,13 +23,14 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Each column after the first has a "Close this pane" X button that closes it. lgse/strata#171
 - Clicking a folder whose child column is already open focuses and reveals that column instead of closing it. Context-menu Open does the same. lgse/strata#1513, lgse/strata#1539
 - A slow second click on the name of a selected, open folder still starts a rename. lgse/strata#1539
-- Double-clicking a closed folder ends as a single click does: its column opens, focused and scrolled into view, with nothing selected in it. lgse/strata#1539
+- Double-clicking a closed folder ends as a single click does: its column opens, focused and scrolled into view, with nothing selected in it. lgse/strata#1539 (unverified)
 - The same holds when the first press scrolls the strip, with double-click folders, and from a partly clipped parent column. lgse/strata#1539
 - With folders opening on one click, a plain click on a folder inside a multi-selection collapses the selection to it and opens its column. lgse/strata#1446, lgse/strata#1570
 - With single-click previews on, a plain click on a previewable file inside a multi-selection collapses the selection to it and previews it. lgse/strata#1446, lgse/strata#1570
 - With a folder open, opening a sibling fades the new column in where the old one stood, with no 24 px slide. Deeper columns of the old branch shrink away. lgse/strata#1539
 - Pressing a folder does not shift the strip and shift it back before its column takes focus. lgse/strata#1539
-- A column closed with nothing replacing it narrows and fades out over 220 ms. This covers its X button, Escape, Backspace, and a file click in a parent. lgse/strata#1513, lgse/strata#1539
+- A column closed with nothing replacing it narrows and fades out over 220 ms. lgse/strata#1513, lgse/strata#1539
+- That close animation covers its X button, Escape, Backspace, and a file click in a parent. lgse/strata#1539 (unverified)
 - With reduced motion or animations off, a closing column is removed at once. lgse/strata#1539
 - A closing column takes no clicks, hovers, or drops while it leaves. lgse/strata#1539
 - Opening another location, rebuilding the strip, or switching away from Columns replaces the columns with no exit animation. lgse/strata#1539
@@ -114,7 +115,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 ### Row drags
 
-- Pressing a row and moving less than GTK's drag threshold starts no file drag. lgse/strata#1564 (unverified)
+- Pressing a row and moving less than GTK's drag threshold starts no file drag. lgse/strata#1564
 
 ## Design
 

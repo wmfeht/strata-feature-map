@@ -42,7 +42,7 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 - With that switch off, other open columns keep their own sort. lgse/strata#40, lgse/strata#1520, lgse/strata#1565
 - The default field and direction are saved and restored before the first folder loads; missing or invalid saved values fall back to Name ascending. lgse/strata#44
 - The Folders first setting is saved and restored after a restart. lgse/strata#144
-- Toggling Folders first in any pane re-sorts every open column in every window, starting with that pane; Recent is unaffected. lgse/strata#1563, lgse/strata#1565
+- Toggling Folders first in any pane re-sorts every open column in every window; Recent is unaffected. lgse/strata#1563, lgse/strata#1565
 - A folder of more than 2,048 entries is sorted off the UI thread and stays in its loading state until the sorted rows are shown. lgse/strata#1030
 - If the background sort fails, the pane shows the error "Sorting the directory failed." lgse/strata#1030 (unverified)
 

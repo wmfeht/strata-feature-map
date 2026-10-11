@@ -31,8 +31,10 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - A click, then a Shift-click farther along, selects from the first click to the second. lgse/strata#1559, lgse/strata#1557
 - With focus in a rendered or large source document, Shift+Left/Right, Shift+Up/Down, Shift+Home/End, and Ctrl+Shift+Left/Right extend the selection by character, line, line edge, or word. lgse/strata#1559, lgse/strata#1557
 - Ctrl+Home and Ctrl+End move the caret to the start and end of the loaded document. lgse/strata#1559
-- Keyboard selection crosses recycled rows and grapheme clusters and does not change the listing's selection. lgse/strata#1559
-- Right with a selection collapses it to its end; plain Left returns focus to the listing. lgse/strata#1559 (unverified)
+- Keyboard selection crosses recycled rows and does not change the listing's selection. lgse/strata#1559
+- Shift+Left/Right steps over a whole grapheme cluster, such as an emoji with a skin-tone modifier. lgse/strata#1559 (unverified)
+- Right with a selection collapses it to its end. lgse/strata#1559 (unverified)
+- In the default key map, plain Left in a document returns focus to the listing. lgse/strata#1559 (unverified)
 - A click past the end of a wrapped line places the caret at that display line's end. lgse/strata#1559 (unverified)
 - A Shift-click or double-click on a link selects text without opening the link; only a plain single click opens it. lgse/strata#1559 (unverified)
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187

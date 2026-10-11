@@ -22,7 +22,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - Name takes the width left after the metadata columns until it is resized by hand; below the minimum widths the table scrolls horizontally. lgse/strata#191
 - Mode shows a type character, symbolic permissions, and the octal value, such as `drwxrwxrwx  777`, in full at its default 160 px width. lgse/strata#308, lgse/strata#492
 - A folder's Size cell shows "No items" or its item count, such as "4 items"; files show their size. lgse/strata#1564
-- The count covers the folder's immediate entries, hidden ones included whether or not hidden files are shown, and not deeper contents. lgse/strata#1564
+- The count covers the folder's immediate entries, hidden ones included, and not deeper contents. lgse/strata#1564
 - A folder that cannot be read, or one without a local path, leaves its Size cell blank. lgse/strata#1564 (unverified)
 - Type shows the description of the MIME type guessed from the filename, such as "JSON document"; folders show "Folder" and unrecognized files "Other". lgse/strata#946
 

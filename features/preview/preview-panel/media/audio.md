@@ -66,7 +66,7 @@ Each part is sandboxed or derived from already validated data. "Audio previews" 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-11 | lgse/strata#1570 | fix | Stepped the volume and fallback seek sliders and added paging, jump, and volume keys to the media timeline. |
+| 2026-10-11 | lgse/strata#1570 | fix | Added paging, jump, and volume keys to the waveform timeline that audio and video share. |
 | 2026-10-03 | lgse/strata#1289 | feat | Added the now-playing audio view with art, tags, spectrum, waveform scrubber, and track stepping. |
 
 ## Known gaps

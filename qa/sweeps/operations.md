@@ -76,7 +76,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Drop from `/dev/shm` to home and back under each preference value; cancel the ask dialog and check the source is untouched.
 - Drop between two folders on a bind-mounted path to see which device the detection reports.
-- Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device; mount or unmount a device while hovering.
+- Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device. Mount or unmount a device while hovering.
 
 ### operations/trash
 
@@ -138,8 +138,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Open a 50k-member archive, a password-protected one, and an archive inside an archive; drive the listing with the keyboard only.
 - Mix pointer and keys: hover across rows then press Right, and click a row then press Up.
-- Double-click a folder whose first child is a folder, and Shift+click two members.
-- Click a row at its top and bottom edge, and in a long list scrolled halfway.
+- Shift+click two members, and double-click a folder in a long list scrolled halfway.
+- Click a row at its bottom edge, and in a long list scrolled halfway.
 
 ### operations/progress
 
@@ -151,7 +151,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/progress/dock
 
 - Run three operations at once from two windows, cancel one from the other window, and eject a device mid-copy.
-- Read each card's footer during a copy, a compression, a cancelled compression, a deletion, and a drive format.
+- Read the footer of a cancelled compression and of a drive format card.
 - Cancel a slow deletion on a stalled device with X, then click rows and navigate with the pointer while cancellation is pending.
 
 ### operations/progress/jobs

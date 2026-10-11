@@ -63,12 +63,12 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - Undo or redo of a rename or move carries the customization back or forward. lgse/strata#1554
 - Moving a customized item to Trash in Strata removes its keys from `settings.toml`; Put back or Ctrl+Z restores them for the session. lgse/strata#1452, lgse/strata#1554
 - A different item later trashed from the same path does not receive the trashed item's keys. lgse/strata#1554
-- The session keeps at most 10,000 trashed keys, dropping the oldest trashed items first. lgse/strata#1554 (unverified)
+- The session keeps at most 10,000 trashed entries, dropping the oldest first. lgse/strata#1554
 - Replace on a move or copy keeps the incoming item's customization; the replaced item's keys go to Trash with it for the session. lgse/strata#1554
 - Merging into an existing folder keeps the destination folder's own customization. lgse/strata#1554
 - A copy or duplicate starts uncustomized. lgse/strata#1554
 - A permanent delete in Strata removes the keys. lgse/strata#1554
-- A move to a remote location drops the keys. lgse/strata#1554 (unverified)
+- A move to a remote location drops the keys. lgse/strata#1554
 - Renames, moves, and deletions made outside Strata, by a shell or another application, leave the keys at the old path. lgse/strata#1554
 
 ### Storage

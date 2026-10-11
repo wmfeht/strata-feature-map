@@ -41,13 +41,13 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Folder-only requests hide regular files in folder listings and in recursive filter results. lgse/strata#1155
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
 - Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not. lgse/strata#1070
-- The chooser follows an open folder that another program renames, moves, or deletes, as browser windows do. lgse/strata#1554, lgse/strata#1435 (unverified)
+- When another program renames the chooser's open folder, the chooser follows the new name. lgse/strata#1554, lgse/strata#1435 (unverified)
+- When another program deletes it or moves it to another parent, the chooser opens the nearest existing folder. lgse/strata#1554, lgse/strata#1435 (unverified)
 - Recent appears in the chooser sidebar when enabled in sidebar preferences and supported by the desktop, listing only local targets. lgse/strata#1138
 - Ctrl+1, Ctrl+2, and Ctrl+3 switch the chooser to Columns, Icons, and List. lgse/strata#877
 - With the file view focused and type-to-search on (the default), a printable character opens the filter seeded with it; `/` opens an empty filter. lgse/strata#1164
 - Ctrl+click on a file focuses the item just toggled, so the preview follows it. lgse/strata#1164
-- Dragging from blank space draws a marquee only in multiple-selection requests; a blank click in the file list or sidebar clears the selection in every request. lgse/strata#1164
-- A plain click on blank space in a preview that shows something keeps the selection. lgse/strata#1570, lgse/strata#1450
+- Dragging from blank space draws a marquee only in multiple-selection requests. A blank click in the file list or sidebar clears the selection in every request. lgse/strata#1164
 - With folders set to single-click in Icons or List, a single click on a folder opens it; a single click on a file only selects it. lgse/strata#1196
 - With the single-click preview preference on, clicking a previewable file opens the shared preview pane; Space toggles it. lgse/strata#385
 - Dragging a Miller column's right edge resizes it, and double-clicking the edge fits it to its content. lgse/strata#1315

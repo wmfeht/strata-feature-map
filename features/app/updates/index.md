@@ -80,7 +80,6 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-11 | lgse/strata#1570 | fix | Hid HTML comments in release notes, and showed the empty-notes message for comment-only notes. |
 | 2026-09-16 | lgse/strata#1068 | fix | Removed the horizontal inset from the sidebar update notice. |
 | 2026-09-15 | lgse/strata#944 | fix | Broadcast check results to every window and started the automatic check after the first frame. |
 | 2026-09-04 | lgse/strata#326 | fix | Forced the first automatic check of a session past the on-disk cache. |

@@ -21,7 +21,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
-- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 and an exFAT (`fuseblk`) partition, and an `sshfs` mount.
+- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
 - `tests/e2e/mutations/` holds the `click-modes`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
 
 ## Probes
@@ -61,7 +61,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Alt-drag from an entry inside a multi-selection, and Ctrl-marquee across a Shift range, releasing outside the window.
 - Press Ctrl+A in `100000`, then draw a small Ctrl+Alt marquee in Icons and List; compare the footer count with the rows crossed.
 - Plain-click blank preview space while a PDF shows, while the placeholder shows, and while the drawer slides in; then drag from there into the listing.
-- Click Next audio file on the last track, a disabled header button, and the gap between the preview header's icon and name. Repeat in the file chooser.
+- Click a disabled header button and the gap between the preview header's icon and name. Repeat in the file chooser.
 
 ### browser/selection/pointer-intent
 
@@ -123,7 +123,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 ### browser/view-modes/folder-views
 
-- Sort a folder on the ext4 USB partition, eject it, and remount it elsewhere; repeat on the exFAT partition and on the `sshfs` mount.
+- Sort a folder on the ext4 USB partition, eject it, and remount it elsewhere; repeat on the ntfs-3g partition and on the `sshfs` mount.
 - Mount the drive from the sidebar and sort a folder on it before the listing settles.
 - Write `version = 2`, then `icons_size = 900`, a duplicate `path`, and a relative `path` into `folder-views.toml`; launch, change a sort, and read the file.
 - Replace `folder-views.toml` with a symlink, then make the state directory read-only; change a sort twice and count the notices.
@@ -276,7 +276,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Set 1 min and start a rename ten seconds before the tick.
 - `mv` the open folder during a 2,000-file copy into it. Then `mv` it twice within 100 ms and press Escape during the second.
 - `rm -rf` and recreate the open folder within 100 ms; `chmod 000` it; `mv` a dot-named open folder with hidden files off.
-- `mv` an open folder on an `sftp://` share and on the exFAT drive; read the pane and history.
+- `mv` an open folder on an `sftp://` share and on the ntfs-3g partition; read the pane and history.
 
 ### browser/folder-customization
 
@@ -300,7 +300,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Ctrl+W with Properties open, then close every tab from the last one; change Show hidden files with three tabs on one folder and switch through them.
 - Open tabs on `trash:///`, `/`, and a 30-character folder name; press a Columns folder, drag 5 px, release, and read the tab name during and after.
 - Focus an empty folder's pane in tab 2, fill the folder from a shell, then switch away and back.
-- Middle-click a folder in the file chooser and on a Ctrl+F result, then double middle-click and Ctrl+Shift+middle-click. Press Ctrl+Shift+Enter in both key maps.
+- Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
 
 ### browser/tabs/session-restore

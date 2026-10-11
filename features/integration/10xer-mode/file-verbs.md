@@ -63,9 +63,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `, a`, `, m`, `, s`, and `, e` sort the focused pane by name, modified time, size, or type; Shift sorts descending. lgse/strata#1308
 - A keyboard sort keeps the cursor on the same item and leaves other Miller columns in their order. lgse/strata#1308
-- With Remember sort and icon size per folder on, a keyboard sort is remembered for that folder and leaves the default sort unchanged. lgse/strata#1565, lgse/strata#1563
-- With Remember sort and icon size per folder off, a keyboard sort becomes the default sort. lgse/strata#1308, lgse/strata#1565
-- With that switch on, a keyboard sort in Trash or a remote folder changes only that column and leaves the default sort unchanged. lgse/strata#1565 (unverified)
+- `browser/view-modes/folder-views` and `browser/view-modes/sorting` own where a keyboard sort is saved. lgse/strata#1308, lgse/strata#1565
 - After a keyboard sort, a List heading click reverses the sort that is applied. lgse/strata#1308
 - `, n` and `, t` cancel with `Unknown chord`. lgse/strata#1308
 - `.`, Ctrl+H, and Ctrl+. toggle the saved hidden-files preference in every window, including over `f` results. lgse/strata#1308

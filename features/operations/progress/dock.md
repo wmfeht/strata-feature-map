@@ -57,7 +57,7 @@ Modal progress made the whole window unusable during long archive work. Routine 
 - Docking moves an operation from the browser's single foreground slot into a table keyed by request id. Another operation can then start, and late events from the docked one reach only its own card (lgse/strata#1393).
 - Background completion still records copy, compression, and Trash undo, including partial and grouped undo (lgse/strata#1393).
 - Docking must carry per-operation animation state. Dropping the pending dissolve broke the Shift+Delete animation until lgse/strata#1490 kept it.
-- Each docked deletion owns its own dissolve and Trash flight, so another request's success cannot play them. Both are dropped when the deletion's card is presented (lgse/strata#1562).
+- Each docked deletion owns its own dissolve and Trash flight, so another request's success cannot play them (lgse/strata#1562).
 - Pending-write warnings stay inside the card; the separate banner and Return to browser action from lgse/strata#1278 were removed (lgse/strata#1393).
 - Drive formatting reuses the card with no Cancel; formatting cannot be aborted through it (lgse/strata#1393).
 

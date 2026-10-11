@@ -55,6 +55,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - An open folder that becomes unreachable, by a network drop, unmount, or permission change, keeps its listing. lgse/strata#1554
 - With no reachable ancestor, as at a portal file chooser's navigation boundary, the folder shows its read error and never leaves the boundary. lgse/strata#1554
 - An open folder whose name starts with a dot reports its own removal like any other. lgse/strata#1554
+- On a backend without inode identity, such as a GVfs share, an outside rename of the open folder counts as a departure. lgse/strata#1554
 
 ### Manual refresh and auto-refresh
 
@@ -79,7 +80,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 ## Design
 
-Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
+Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
 
 - An unbounded load of 200,000 entries froze the UI for minutes (lgse/strata#137). The 100,000-entry and 10-second caps match the published baseline, past which per-batch merging stops feeling responsive (lgse/strata#154).
 - Native folders are enumerated off the GTK thread, staged, and published after redraw in bounded slices; remote folders keep a first-batch-then-coalesced path (lgse/strata#274, lgse/strata#593).

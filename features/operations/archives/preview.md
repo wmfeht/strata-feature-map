@@ -58,7 +58,7 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 - A single click highlights a member when the button is released; on a folder it also opens the folder. lgse/strata#1570, lgse/strata#1555
 - Ctrl+click and Shift+click act as a plain click; one member is highlighted at a time. lgse/strata#1570
 - Double-clicking a folder opens exactly one level. lgse/strata#1570
-- The hover tint and the keyboard outline reach the row's edges. lgse/strata#1570
+- A click at a row's top edge selects it and opens a folder. lgse/strata#1570
 
 ## Design
 
