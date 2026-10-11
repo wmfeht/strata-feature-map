@@ -3,8 +3,8 @@ title: Trash flight animation
 status: shipped
 origin: {issue: null, pr: lgse/strata#626}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/browser/fly_to_trash.rs]
 tests: [src/ui/browser/fly_to_trash/tests.rs]
 related: []
@@ -12,11 +12,14 @@ related: []
 
 ## Summary
 
-File icons that fly between their rows and the sidebar Trash button when items are restored from Trash. Move to Trash still prepares an inbound flight into the Trash button, but the docked deletion discards it.
+File icons that fly between their rows and the sidebar Trash button, on Move to Trash and on restore from Trash. A Move to Trash flies only when it finishes before its progress card appears.
 
 ## Behavior
 
-- Move to Trash plays no flight into the Trash button. The deletion docks as a progress card when it starts, which discards the prepared flight. lgse/strata#626, lgse/strata#1393, lgse/strata#1266 (unverified)
+- A Move to Trash that succeeds before its progress card appears flies its icons from their rows into the sidebar Trash button. lgse/strata#626, lgse/strata#1562
+- A Move to Trash still running when its card appears, after 350 ms or at once for 16 or more items, never flies. lgse/strata#1562 (unverified)
+- A quick Move to Trash that fails, partly fails, or is cancelled plays no flight. lgse/strata#1562 (unverified)
+- A foreground operation, such as a move, that fails while a quick Move to Trash runs leaves that Move to Trash's flight to play. lgse/strata#1562 (unverified)
 - When a restore fails, no flight plays. lgse/strata#1266 (unverified)
 - Restoring while viewing Trash lifts the icons off their rows and launches them upward with a burst. lgse/strata#1119
 - Restoring into a normal folder, including Ctrl+Z, flies icons from the Trash button onto the restored rows. lgse/strata#1119
@@ -33,7 +36,8 @@ Flights are prepared from the rows' positions before the operation and played af
 - When every item is in Trash, the destination folder is not visible, so the icons leave upward instead of flying toward disappearing rows (lgse/strata#1118).
 - Flyers are bare icons. The ring, disc, and count badge from lgse/strata#626 read as a crosshair and were removed (lgse/strata#1118).
 - Fill-level and open-lid Trash icons added in lgse/strata#1119 were replaced by the single Lucide trash icon in lgse/strata#1155.
-- Docking a deletion discards its prepared flight (lgse/strata#1266). Deletions dock at start since lgse/strata#1393, so only restore flights play.
+- Docking a deletion discarded its prepared flight (lgse/strata#1266), and deletions dock at start since lgse/strata#1393. lgse/strata#1562 keeps the flight on the docked request and plays it on that request's success.
+- The flight is dropped when the deletion's card is presented, so a slow Move to Trash never locks the window behind an animation (lgse/strata#1562).
 - The permanent-delete dissolve added alongside this in lgse/strata#626 belongs to permanent deletion, not to Trash.
 
 ## History

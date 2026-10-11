@@ -3,8 +3,8 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]
 docs: [docs/keyboard-navigation.md]
@@ -50,6 +50,11 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Switching views with Ctrl+1, 2, or 3 replaces the navigation section with the new view's. While the reference is open, Ctrl+1, 2, and 3 do nothing. lgse/strata#358 (unverified)
 - In 10xer mode, the reference lists only the 10xer map, adding Places, Preview, and a "10xer mode" section that collects the keys the default map lacks. lgse/strata#1272
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272
+- Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543
+- In 10xer mode in Columns or List, outside the file chooser, the reference lists "`/` in the preview — Find in preview"; Icons omits it. lgse/strata#1559
+- In 10xer mode in Columns or List, the reference lists "Shift+← → / PgDn / PgUp" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451
+- In 10xer mode in Columns or List, the reference lists "0 / Home / G / End" in media as "Seek to the start / end". lgse/strata#1570, lgse/strata#1451
+- In 10xer mode in Columns or List, the reference lists "+ / -" in media as "Volume up / down". lgse/strata#1570, lgse/strata#1451
 - The default reference lists text size (Ctrl++ / Ctrl+− / Ctrl+0), Ctrl+Space, and Ctrl+\; the 10xer reference lists text size. lgse/strata#1376
 - Movement keys are described directly; the `h / j / k / l` row reads "Same as ← ↓ ↑ → (type-to-search off)" and no row names Vim. lgse/strata#826
 - In a translated interface, actions and key context such as "on a file" are translated while key names stay as typed. lgse/strata#1519
@@ -68,6 +73,11 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Selecting every item shows the folder and file breakdown without a size, such as "1 folder, 2 files selected". lgse/strata#1266 (unverified)
 - Selecting more than 64 items, but not all, shows "N items selected" without a size. lgse/strata#1266 (unverified)
 - An empty folder shows "0 items", and clearing the selection restores the directory total. lgse/strata#1034
+- In the default map, a Ctrl+F query shows the displayed result total, such as "1 item", and "0 items" on a miss. lgse/strata#1554, lgse/strata#1442
+- Selecting results keeps the result total; its accessible description gives the results' file and folder breakdown. lgse/strata#1554, lgse/strata#1442
+- Escape clearing the filter restores the directory count or selection summary. lgse/strata#1554 (unverified)
+- While a typed query's search has not reported back, the count keeps describing the directory instead of reading "0 items". lgse/strata#1554
+- In the default map, the footer shows no `filter:` or `search:` mark and no hit path; those appear only in 10xer mode. lgse/strata#1554, lgse/strata#1442
 - Copying or cutting files shows a "Files on clipboard" badge left of the count, whose description reads "Press Ctrl+V to paste into a supported directory." lgse/strata#358, lgse/strata#499
 - The badge also appears for files copied in other applications, and disappears when the clipboard is cleared, holds text, or holds an empty file list. lgse/strata#358
 - The badge stays after pasting a copy and disappears after pasting a cut. lgse/strata#358
@@ -77,7 +87,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ## Design
 
-[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/keyboard-navigation.md) describes the footer and reference under "Shortcut footer" and "10xer mode".
+[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/keyboard-navigation.md) describes the footer and reference under "Shortcut footer" and "10xer mode".
 
 - A keyboard-first user could not discover shortcuts; lgse/strata#291 asked for an accurate shortcut reference. lgse/strata#358 added a compact, mode-aware hint footer whose F1 reference describes the shortcuts each view actually runs.
 - lgse/strata#1033 proposed per-column counts and rejected a global status bar, because Columns shows several directories at once. lgse/strata#1034 put counts in the shared footer for all views instead, and replaced the inline hints with one F1 Shortcuts button.
@@ -86,17 +96,20 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Settings once had its own Keybindings page, and the two catalogs drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - The reference is drawn in the window's overlay, not a `GtkPopover`. Hyprland sends `xdg_popup.done` when the window deactivates, and no popover setting kept it open (lgse/strata#1375).
 - Selection sizes use only selected files' known metadata; folders are not scanned (lgse/strata#1034). Above 64 selected items no per-entry details are read (lgse/strata#1266) (unverified).
+- The default map shows the result total alone. 10xer adds the `filter:` or `search:` mark because it hides the pane's filter field (lgse/strata#1442, lgse/strata#1554).
 - The clipboard badge reads the file list asynchronously, and a newer clipboard change discards an older pending read (unverified).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Listed the 10xer media seek-30 s, start/end, and volume keys in the F1 reference. |
+| 2026-10-10 | lgse/strata#1559 | fix | Listed `/` as Find in preview in the 10xer F1 reference for Columns and List. |
+| 2026-10-10 | lgse/strata#1554 | fix | Showed the filter or search result total in the default-map footer instead of the hidden folder's selection. |
 | 2026-10-03 | lgse/strata#1408 | fix | Gave the Files on clipboard badge the 10X pill style so it no longer shifts the footer height. |
 | 2026-09-15 | lgse/strata#1034 | feat | Moved item and selection counts into the shared footer and replaced inline hints with an F1 Shortcuts button. |
 | 2026-09-11 | lgse/strata#826 | feat | Described movement keys directly instead of as Vim movement. |
 
 ## Known gaps
 
-- In the default map, Ctrl+F results leave the count describing the hidden directory's selection, including on a miss; the fix is unmerged. lgse/strata#1442, lgse/strata#1546
-- docs/keyboard-navigation.md says the footer shows the result total in both maps; at `reviewed_at` only 10xer mode does. lgse/strata#1442
+None known.

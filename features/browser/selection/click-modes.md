@@ -3,11 +3,11 @@ title: Click modes
 status: shipped
 origin: {issue: lgse/strata#213, pr: lgse/strata#220}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: []
 tests: [tests/e2e/scenarios/test_click_modes.py]
-related: [preview/quick-preview, operations/rename, browser/sidebar]
+related: [preview/quick-preview, operations/rename, browser/sidebar, browser/view-modes/columns]
 ---
 
 ## Summary
@@ -56,4 +56,4 @@ List view, then called Explorer, opened files on the single click meant to selec
 
 ## Known gaps
 
-- In Columns, a plain click on a folder or file inside a multi-selection collapses the selection without opening or previewing it; the fix is unmerged. lgse/strata#1446, lgse/strata#1546
+None known.

@@ -3,8 +3,8 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: []
 tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs]
 docs: []
@@ -13,7 +13,7 @@ related: [operations/trash, operations/trash/restore, operations/clipboard, oper
 
 ## Summary
 
-One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node.
+One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node.
 
 ## Behavior
 
@@ -54,7 +54,7 @@ One undo history and one redo history for file operations, shared by every Strat
 
 ### Failures and partial results
 
-- A cancelled or partly failed operation records only the items it completed. lgse/strata#301, lgse/strata#444
+- A cancelled or partly failed operation records only the items it completed. Extraction is the exception; `operations/archives` owns its rule. lgse/strata#301, lgse/strata#444, lgse/strata#1552
 - An undo that fails leaves its entry for the next Ctrl+Z and offers no redo. lgse/strata#301, lgse/strata#1120
 - An undo that reverts only some items leaves the rest for the next Ctrl+Z. lgse/strata#301
 - After a multi-item move undo where one conflict was answered with Skip, Ctrl+Shift+Z moves forward only the items that went back. lgse/strata#1120

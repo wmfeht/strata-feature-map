@@ -3,7 +3,7 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
@@ -63,7 +63,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 ## Design
 
-Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GTK's default-widget and modality do not apply and Strata supplies both (lgse/strata#439, lgse/strata#1432). [docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) records the split: `ui/modal.rs` owns hosting, animation, and dismissal; each dialog owns its cancel, close, backdrop, and submission policies.
+Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GTK's default-widget and modality do not apply and Strata supplies both (lgse/strata#439, lgse/strata#1432). [docs/architecture.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/architecture.md) records the split: `ui/modal.rs` owns hosting, animation, and dismissal; each dialog owns its cancel, close, backdrop, and submission policies.
 
 - One shell builds every action dialog: header with an accent or danger icon bezel, title, subtitle, close button, body, and Cancel and confirm actions. It replaced one-off widgets and CSS that drifted across themes (lgse/strata#88, lgse/strata#91). The search palette and Settings stay specialized, and native choosers stay native.
 - Animation toggles a `modal-hidden` CSS class: opening removes it 16 ms after mapping, and closing removes the layer 200 ms after adding it. The earlier timer called `allocate()` against GTK's own layout, broke centering, and stacked handlers. A `dismissing` class plus an insensitive layer stops a second dismissal (lgse/strata#112).
@@ -78,12 +78,13 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533).
 - A layer closed while another modal stays open restores focus inside that modal; the window restore order applies only once no modal is left. A layer opened while another closes takes over the closing layer's opener (lgse/strata#1544, unverified).
 - Disabling the focused control on a keyboard dismissal makes GTK hide focus rings on the key release. The layer records whether rings showed before that and re-shows them once focus is back (lgse/strata#1544, unverified).
-- [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
+- [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Shared the closing-layer check so window accelerators skip a dialog that is animating closed. |
 | 2026-10-10 | lgse/strata#1544 | fix | Refocused a dialog's opener inside a modal left open, kept focus rings after keyboard closes, and gave menu options radio and checkbox roles. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to a dialog's origin when on screen, otherwise to the cursor row, so closing a dialog no longer leaves nothing focused. |
 | 2026-09-23 | lgse/strata#1206 | fix | Focused the confirm action in dialogs and stopped the path-completion popover flashing. |
@@ -96,4 +97,4 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 ## Known gaps
 
-- Ctrl+K and Ctrl+Shift+K open the search palette beneath an open dialog and take its focus; the fix is planned, not merged. lgse/strata#1432, lgse/strata#1546
+None known.

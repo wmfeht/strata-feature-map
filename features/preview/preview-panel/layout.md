@@ -3,10 +3,10 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/browser/preview.rs]
-tests: [tests/e2e/scenarios/test_preview_session.py, src/ui/preview/tests.rs]
+tests: [tests/e2e/scenarios/test_preview_session.py, tests/e2e/scenarios/test_quick_preview.py, src/ui/preview/tests.rs]
 docs: [docs/preview-panel-layout.md]
 related: [preview/quick-preview, browser/view-modes, browser/sidebar]
 ---
@@ -20,12 +20,35 @@ How the preview panel shares the window with the file views: its width, the rese
 ### Width
 
 - With a manual width, resizing the window keeps the preview's width; the file views absorb the difference. lgse/strata#888, lgse/strata#1502
-- In Columns, the automatic width fills the space right of the focused column, with a 600 px minimum (two standard columns) that yields to keep the focused column fully visible. lgse/strata#888
+- In Columns, the automatic width fills the space right of the focused column, with a 300 px minimum (one standard column). lgse/strata#888, lgse/strata#1539
+- That minimum yields to keep the focused column fully visible. lgse/strata#888
 - In Icons and List, the automatic width is 90% of half the content width, between 240 px and 3000 px. lgse/strata#888, lgse/strata#1181
 - Dragging the divider, or moving it with the keyboard, sets a manual width of at least 300 px that survives closing, reopening, and folder changes, and is forgotten when the window closes. lgse/strata#888
+- In Columns, a dragged width becomes the session minimum: the preview still fills wider free space and yields to columns only down to that width. lgse/strata#1539
+- In Icons and List, a dragged width is the preview's width. lgse/strata#1539
+- Narrowing a filled preview, by pointer drag or F8 and the arrow keys, lowers the Columns session minimum and leaves the panel in place. lgse/strata#1539
+- Pointer-dragging the divider shows a dashed outline from the pointer to the right edge, captioned "Preview panel minimum width", which fades on release. lgse/strata#1539
+- Moving the divider with the keyboard shows no outline. lgse/strata#1539 (unverified)
 - In Columns with an automatic width, widening or narrowing the window resizes the preview or empty slot in one frame, without the boundary jumping back and forth. lgse/strata#1502
-- Images, GIFs, and video are centered within 1280 px and enlarged at most 2× their native size; PDF and text previews are not capped. lgse/strata#888
+- Images, GIFs, and video are centered within 1280 px and enlarged at most 2× their native size. lgse/strata#888
+- In a preview wider than 1280 px, PDF pages and rendered Markdown, HTML, RTF, and DOCX stop at 1280 px, centered; Ctrl+wheel PDF zoom scales from that width. lgse/strata#1539
+- Source views and standalone tables keep the full preview width. lgse/strata#1539
 - The preview header uses 16 px icons and compact buttons, and its close button lines up with the header bar's close button. lgse/strata#829
+
+### Divider and resize edge
+
+- At the column–preview boundary, the 6 px inside the preview's left edge move the divider. lgse/strata#1539
+- At that boundary, the column's last 6 px, except the 1 px line, resize the column. lgse/strata#1539
+- Hovering the grip or divider line lights the line and tints the grip; after 400 ms, "Preview panel minimum width" appears. lgse/strata#1539
+- Crossing between the divider line and the grip keeps the caption; pressing hides it in favor of the outline. lgse/strata#1539
+- With the preview hidden, such as with a folder selected, the grip and the divider's resize cursor are absent and only the column resizes. lgse/strata#1539
+
+### Drawer motion
+
+- In Icons, List, and Columns with **Appearance → Preview panel** off, the drawer slides open and closed over 260 ms. lgse/strata#1539
+- A reserved Columns slot never slides. lgse/strata#1539
+- Closing the preview mid-slide returns keyboard focus to the files at once; only content teardown waits for the slide. lgse/strata#1539
+- Reopening the preview during its slide-out, such as Space twice quickly in List, turns the drawer back from its current position. lgse/strata#1539
 
 ### Reserved slot
 
@@ -61,7 +84,7 @@ How the preview panel shares the window with the file views: its width, the rese
 
 ## Design
 
-[docs/preview-panel-layout.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/preview-panel-layout.md) is the contract. Every rule there names its owning test, and geometry is verified by manual captures rather than layout assertions (lgse/strata#1404).
+[docs/preview-panel-layout.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/preview-panel-layout.md) is the contract. Every rule there names its owning test, and geometry is verified by manual captures rather than layout assertions (lgse/strata#1404).
 
 - Finder's column view is the reference. Wide windows give the preview the free space; a fixed width wasted it, and shrinking columns hid filenames (lgse/strata#885).
 - Manual width is window- and session-local, not a saved setting; persistent or per-folder sizing was left for later (lgse/strata#885).
@@ -69,14 +92,19 @@ How the preview panel shares the window with the file views: its width, the rese
 - The Columns slot is separate from preview content, because dismissing a preview shifted the deep column chain under the pointer (lgse/strata#1381, lgse/strata#1382).
 - The child column used to sit inside the scroller beside the slot, so each folder-to-file step bounced the focused column by one column width. The slot now lends trailing columns its width, and the scroll offset never changes (lgse/strata#1404, lgse/strata#1405).
 - Priority is focused column, then preview, then peek. A reserved peek budget depended on viewport size and neighbor count, so it toggled with the panel and moved columns by 48 px; it was removed (lgse/strata#1405).
+- Columns keeps its reservation: without one, opening a preview moved the columns 51 px in a 1200 px window (lgse/strata#1539).
+- Resize edges show captions rather than tooltips, because tooltips are allowed only on icon-only buttons (lgse/strata#1539).
 - The hide threshold is 240 px, independent of the 300 px column width. A 300 px floor hid the preview in 780 px windows at 1.6× scaling (lgse/strata#1145).
 - Fit decisions read the sidebar's own `visible` property. Ancestor visibility dropped the sidebar from the next calculation and caused a flicker loop at 4× (lgse/strata#1145).
-- The minimum width went from 280 to 560 px at the owner's request (lgse/strata#828), then to two standard columns in Columns (lgse/strata#888). lgse/strata#1181 lowered the Icons and List minimum to 240 px.
+- The minimum width went from 280 to 560 px at the owner's request (lgse/strata#828), then to two standard columns in Columns (lgse/strata#888). lgse/strata#1181 lowered the Icons and List minimum to 240 px. lgse/strata#1539 lowered the Columns minimum to one column.
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Published the visible browser area as the Miller column width limit and narrowed oversized open columns once. |
+| 2026-10-10 | lgse/strata#1559 | fix | Cleared the preview find query when the preview target is cleared. |
+| 2026-10-10 | lgse/strata#1539 | fix | Lowered the Columns minimum to 300 px, kept dragged widths as a minimum, split the shared resize edge, and capped documents at 1280 px. |
 | 2026-10-06 | lgse/strata#1502 | fix | Let the free-space preview absorb window resizing in one frame to stop divider jitter. |
 | 2026-10-03 | lgse/strata#1405 | fix | Shared the Columns right pane between child columns and the preview so the focused column stays put. |
 | 2026-10-03 | lgse/strata#1396 | fix | Loaded the deferred file when the drawer first opens in a narrow split. |
@@ -91,4 +119,4 @@ How the preview panel shares the window with the file views: its width, the rese
 
 ## Known gaps
 
-- Keyboard column navigation can shift the open preview panel, and closing or auto-fitting a column jumps without animation; the fix is unmerged. lgse/strata#1513, lgse/strata#1539
+None known.

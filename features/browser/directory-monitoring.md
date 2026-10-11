@@ -3,11 +3,11 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs]
-docs: [docs/performance-baseline.md]
+docs: [docs/architecture.md, docs/performance-baseline.md]
 related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations]
 ---
 
@@ -43,6 +43,20 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Deleting an open folder externally in Columns closes its column and every descendant column. lgse/strata#1036, lgse/strata#1037
 - URI locations such as `trash:///` and mounted GVfs shares receive live changes through GIO monitors. lgse/strata#463
 
+### Open folder departures
+
+- When another program renames the open folder within its parent, the pane follows it. The header shows the new name, and listing, selection, cursor, and scroll stay. lgse/strata#1435, lgse/strata#1554
+- That rename leaves Back and Forward history unchanged, and files created in the folder afterwards appear without F5. lgse/strata#1554
+- A pane filter typed in the renamed folder ends; filters and Ctrl+K searches rooted above it follow the rename. lgse/strata#1435, lgse/strata#1554
+- When another program deletes the open folder or moves it to another parent, the pane opens the nearest existing ancestor without a history entry. lgse/strata#1435, lgse/strata#1554
+- That departure walks past removed parents and ends any filter. lgse/strata#1554
+- Deleting the Columns root externally with child columns open closes them and shows the root's parent. lgse/strata#1554
+- An open folder deleted and recreated externally reloads with a fresh monitor. lgse/strata#1435, lgse/strata#1554
+- An open folder that becomes unreachable, by a network drop, unmount, or permission change, keeps its listing. lgse/strata#1554
+- With no reachable ancestor, as at a portal file chooser's navigation boundary, the folder shows its read error and never leaves the boundary. lgse/strata#1554
+- An open folder whose name starts with a dot reports its own removal like any other. lgse/strata#1554
+- On a backend without inode identity, such as a GVfs share, an outside rename of the open folder counts as a departure. lgse/strata#1554
+
 ### Manual refresh and auto-refresh
 
 - F5 reloads every open column in Columns, and the active pane in Icons and List. lgse/strata#173, lgse/strata#393
@@ -60,12 +74,13 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Once 512 changes are held, the next progress update applies them, so completed files appear during a bulk transfer without a reload. lgse/strata#1266 (unverified)
 - When the operation finishes, the held changes apply in one batch per folder, parent folders before their children. lgse/strata#1036
 - Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544 (unverified)
+- An open folder's departure during a delete, restore, or transfer applies when that operation finishes, after its other held changes. lgse/strata#1435, lgse/strata#1554
 - If a monitor asked for a full reload during the operation, that folder reloads after the progress dialog closes, keeping its rows on screen until the new listing replaces them. lgse/strata#1266, lgse/strata#1036
 - Non-native locations, such as SFTP folders, reload after a rename, create, or paste that touches them. lgse/strata#1035 (unverified)
 
 ## Design
 
-Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
+Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
 
 - An unbounded load of 200,000 entries froze the UI for minutes (lgse/strata#137). The 100,000-entry and 10-second caps match the published baseline, past which per-batch merging stops feeling responsive (lgse/strata#154).
 - Native folders are enumerated off the GTK thread, staged, and published after redraw in bounded slices; remote folders keep a first-batch-then-coalesced path (lgse/strata#274, lgse/strata#593).
@@ -75,6 +90,10 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Background changes emit only row splices, so a busy folder such as `/tmp` does not reset scrolling (lgse/strata#767, lgse/strata#803). A focus update follows only when the focused entry was removed or nothing stays selected (lgse/strata#1043).
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
 - After Strata's own operations, native folders rely on their monitor and only non-native locations reload, avoiding needless reloads (lgse/strata#1035).
+- A folder's own monitor reports deletion, rename, and move alike. Strata then looks in the parent, off the main thread, for the same device, inode, and birth time (lgse/strata#1554).
+- The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554).
+- A watch on the open folder's parent was rejected before merge. In a busy parent it delayed notifications from about 100 ms to 150 ms (lgse/strata#1435, lgse/strata#1554).
+- The owner chose the nearest existing ancestor with no history entry and followed renames in place. A move to another parent counts as a deletion (lgse/strata#1554).
 - Auto-refresh exists because monitors can miss changes on network shares or after errors (lgse/strata#172). It defaults to Off.
 - An unlisted interval rounds up rather than down or to Off: auto-refresh stays on and never runs more often than every 60 s. The preference store normalizes it, not the timer (lgse/strata#1456).
 - Every live change and every reload (F5, auto-refresh, rescan) asks the search service to rescan indexes listing that local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544).
@@ -85,6 +104,8 @@ Loading and file monitoring predate the PR history; the original monitor already
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Followed an open folder renamed outside Strata, and left one deleted or moved for its nearest existing ancestor. |
+| 2026-10-10 | lgse/strata#1539 | fix | Flagged a focus change caused by the focused entry's removal, so Columns can mirror the replacement. |
 | 2026-10-10 | lgse/strata#1544 | fix | Refreshed search indexes on outside changes and kept a focused filter's focus through live and held changes. |
 | 2026-09-16 | lgse/strata#1054 | refactor | Separated deferred metadata, sort, and publication cleanup; released a borrow that panicked when a sorting column closed. |
 | 2026-09-15 | lgse/strata#1037 | refactor | Separated live directory-change routing into staging, queueing, path reconciliation, and publication. |

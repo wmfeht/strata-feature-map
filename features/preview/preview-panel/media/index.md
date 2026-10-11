@@ -3,11 +3,11 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, packaging/media-runtime]
-tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/tests.rs, src/ui/preview/ease_in/tests.rs]
-docs: [docs/preview-sandbox.md]
+tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/tests.rs, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs, tests/e2e/scenarios/test_preview_media_controls.py]
+docs: [docs/preview-sandbox.md, docs/keyboard-navigation.md]
 related: [preview/preview-panel/sandbox, preview/preview-panel/layout, preview/quick-preview, settings/preferences]
 ---
 
@@ -28,6 +28,20 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Mute and volume are saved and apply live to every open player. lgse/strata#167, lgse/strata#839
 - The volume and seek sliders show no focus border when clicked. lgse/strata#962
 - In the default key map, Ctrl+Alt+Space plays or pauses, Ctrl+Alt+Left/Right seek 5 s, Ctrl+Alt+Up/Down change volume by 10%, and Ctrl+Alt+M mutes. lgse/strata#888 (unverified)
+
+### Media keys
+
+- With an audio or video timeline focused, Left/Right seek 5 s, and Shift+Left/Right or Page Down/Page Up seek 30 s back or forward. lgse/strata#1570, lgse/strata#1451
+- With the timeline focused, Home or `0` seeks to the start, and End or `G` to the last frame, so playback does not stop. lgse/strata#1570, lgse/strata#1451
+- With the timeline focused, `+`, `=`, `-`, and keypad +/− change the volume by 0.1; reaching 0 mutes and keeps the volume to restore. lgse/strata#1570, lgse/strata#1451
+- The paging, jump, and volume keys have no Ctrl+Alt form; Ctrl+Alt+Page Up in the default key map leaves media unchanged. lgse/strata#1570
+- A focused volume slider steps 0.1 with the arrow keys and 0.2 with Page Up/Down; Home mutes and End sets full volume. lgse/strata#1570, lgse/strata#1451
+- Stepped volumes snap to the 0.1 grid, so repeated Down reaches 0 and mutes. lgse/strata#1570
+- Dragging the volume slider sets any value, without snapping. lgse/strata#1570 (unverified)
+- For media that is neither audio nor video, the seek slider steps 5 s with the arrow keys and 30 s with Page Up/Down. lgse/strata#1570, lgse/strata#1451
+- On that seek slider, Home and End jump to the start and the last frame. lgse/strata#1570, lgse/strata#1451
+- Keys and the mouse wheel on that seek slider seek at once; a drag seeks on release. lgse/strata#1570, lgse/strata#1451
+- That seek slider ignores scroll jumps smaller than one frame. lgse/strata#1570 (unverified)
 
 ### Autoplay
 
@@ -71,6 +85,8 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Each FFmpeg process disables core dumps and caps files and single allocations at 512 MiB. Software decoders also get a 2 GiB address-space limit; hardware decoders are exempt because drivers reserve large virtual ranges (docs/preview-sandbox.md, "Isolation and hardware policy").
 - Polaris defaults to software because explicit VA-API still hung after 16-pixel alignment; the hang is in VCE encode, not the file (lgse/strata#127).
 - Raw elementary streams have no timestamps, so any input `-ss` drops every frame. Their positive seeks use output-side `-ss`, which decodes and discards the prefix (lgse/strata#1346). Detection uses the probed demuxer, never the extension (lgse/strata#1333).
+- The volume and seek sliders had zero step and page increments, and the fallback seek slider seeked only on drag end (lgse/strata#1451, lgse/strata#1570).
+- Keys stop on the last frame because seeking exactly to the duration ends the stream; stepped volumes snap because float steps stop short of zero (lgse/strata#1570).
 - The autoplay fade multiplies a gain on the GStreamer `volume` element, so no audio is processed in Strata and the saved volume is untouched (lgse/strata#1417).
 - The `packaging/media-runtime` patch kit pins a GStreamer worker-finalization fix and probes. It does not change the shipped binary (lgse/strata#779). The GTK context patch was retired once upstream merged it (lgse/strata#830).
 
@@ -97,5 +113,4 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 
 ## Known gaps
 
-- Arrow and Page keys do not step the volume or seek sliders; the fix is unmerged. lgse/strata#1451, lgse/strata#1546
 - Application RSS grows across preview cycles through glibc arena retention; reusable parent-side workers are under investigation. lgse/strata#841

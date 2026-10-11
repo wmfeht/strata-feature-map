@@ -1,13 +1,13 @@
 ---
 title: Browser sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
-triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/navigation.rs]
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/preferences.md, tests/e2e/mutations]
 ---
 
 ## Scope
 
-Everything that shows a folder and moves through it without changing files: selection by pointer and keyboard, with marquee, pointer intent, and click modes; the Columns, Icons, and List views with sorting, text size, and position restore; Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump; Ctrl+K search, the Ctrl+F filter, and search exclusions; the sidebar places and pins; thumbnails with their disk cache and worker pool; Properties with its media, RAW, and size details; and the context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore.
+Everything that shows a folder and moves through it without changing files: selection by pointer and keyboard, with marquee, pointer intent, and click modes; the Columns, Icons, and List views with sorting, per-folder views, text size, and position restore; Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump; Ctrl+K search, the Ctrl+F filter, and search exclusions; the sidebar places and pins; thumbnails with their disk cache and worker pool; Properties with its media, RAW, and size details; and the context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore.
 
 Left to other sweeps: what happens once a press becomes a file drag, drops on tabs and sidebar rows, and every operation that changes files; the DEVICES rows and remote shares in the sidebar; the modal dialog shell, the shortcut footer, F1, and key precedence; what the preview panel renders; the Settings pages that hold the preferences named here; and the 10xer-mode key variants and the portal file chooser.
 
@@ -21,6 +21,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
+- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
 - `tests/e2e/mutations/` holds the `click-modes`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
 
 ## Probes
@@ -58,6 +59,10 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Hold a marquee near the bottom edge of `100000` for ten seconds, then drag back above the anchor; compare the count with the rows crossed.
 - Marquee while a rename editor is open, while a context menu is open, and while the folder is still loading.
 - Alt-drag from an entry inside a multi-selection, and Ctrl-marquee across a Shift range, releasing outside the window.
+- Press Ctrl+A in `100000`, then draw a small Ctrl+Alt marquee in Icons and List; compare the footer count with the rows crossed.
+- Plain-click blank preview space while a PDF shows, while the placeholder shows, and while the drawer slides in; then drag from there into the listing.
+- Click a disabled header button and the gap between the preview header's icon and name. Repeat in the file chooser.
+- In the file chooser, Ctrl+click blank preview space with a file previewed, then plain-click the empty Columns preview slot. Repeat for a `single` and a `multiple` request.
 
 ### browser/selection/pointer-intent
 
@@ -83,6 +88,15 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Click a row in column 1, then press Ctrl+Down in column 2 without moving the pointer; then press End while Properties opens.
 - Open `deep` to column 8, press Alt+Left, Alt+Right, Alt+Up, and click the third crumb; then dot-rename the came-from folder from a shell and press Back.
 - Return to an ancestor with a pending FileManager1 reveal in it, and while the ancestor fails to load after `chmod 000`.
+- Autofit the 255-byte name with the sidebar railed, then expanded, and with the preview open. Drag an edge past the window edge, then press Escape mid-drag.
+- Set `browser_column_width = 5000` with text size 28, launch, then return to 13; shrink the window to 400 px and drag an edge.
+- Double-click a closed folder in a clipped parent while the strip scrolls under the first press; repeat holding Ctrl on the second press.
+- Close a column and click the next one within 220 ms; drop a file on a closing column; switch to Icons mid-close.
+- Ctrl-select three folders and plain-click one, moving 3 px before release; repeat in a filtered column and with double-click folders.
+- Trash the focused open folder with Delete, Mirror columns selection off then on, where the next entry is a file, a dot-folder, or nothing.
+- Start a rename, `touch` a file in that folder from a shell, then press F2, Menu, and Shift+F10 on the row.
+- Toggle Show sizes in Columns view from Appearance with Settings open in a second window and a recursive search column open.
+- With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
 
 ### browser/view-modes/icons
 
@@ -91,11 +105,13 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Rest on a truncated card and drift 4 px, then 5 px. Rest on the thumbnail frame's margin, the details text, and blank space beside a short details line.
 - Rest on a name at the two-line boundary at 32 px and 256 px thumbnails, then at text size 28. Then Tab to the card and wait.
 - Wheel-scroll the grid with the pointer resting on a card.
+- Move the slider in Trash, Recent, and an `sftp://` folder; leave and return, then switch to Columns and back.
 
 ### browser/view-modes/list
 
 - Shrink Name to its minimum, then double-click each heading edge with the 255-byte name and a `drwxrwxrwx  777` row visible.
 - Group by file type with hidden files on, sort by Type descending, toggle Folders first; read the group order top to bottom.
+- Read the Size cell of a folder holding only dot-files, the unreadable folder, `100000`, and an `sftp://` folder; then sort by Size.
 
 ### browser/view-modes/sorting
 
@@ -103,6 +119,20 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Choose Size in `100000` while it loads; watch the pane state until the rows settle.
 - Set a sort in column 3, then open a new column from column 1; compare the sort in every column and after a restart.
 - Open SORT BY in Recent and in a Camera Photos library and read each option's role and checked state. Then change the sort from a second pane.
+- Turn per-folder views off, sort in column 3, open a new column from column 1, then turn per-folder views back on.
+- Toggle Folders first in one window while another shows Recent, a filter, and a Camera Photos library.
+
+### browser/view-modes/folder-views
+
+- Sort a folder on the ext4 USB partition, eject it, and remount it elsewhere; repeat on the ntfs-3g partition and on the `sshfs` mount.
+- Mount the drive from the sidebar and sort a folder on it before the listing settles.
+- Write `version = 2`, then `icons_size = 900`, a duplicate `path`, and a relative `path` into `folder-views.toml`; launch, change a sort, and read the file.
+- Replace `folder-views.toml` with a symlink, then make the state directory read-only; change a sort twice and count the notices.
+- Change the sort of one folder in the portal chooser and the main window within 500 ms; quit both and read the file.
+- With the switch off, change the default sort from the portal chooser and watch a main window that never opened Settings.
+- Set a folder's sort, make another sort the default, then open the folder's sort menu and read which actions show.
+- Rename a sorted folder from a shell, then delete it and reopen its parent; repeat for a folder on the unmounted drive.
+- Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
 
 ### browser/view-modes/text-size
 
@@ -142,6 +172,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Type `smb://host/my share`, `smb://alice:pw@host/café`, and `sftp://host/a%2Fb` while the share is unmounted. Read the entry during the mount and the crumbs after.
 - Type `sftp://host/share/caf%E9` and `smb://host/share/x%2Fy` for existing remote names, then create and delete an entry in each opened folder.
 - In `deep` at level 30, choose level 3 from the hierarchy menu, then from the scrolled crumbs, in each view; then choose the current crumb.
+- Type `/tmp/./x/..`, `~/../..`, `/a/b/../../..`, `smb://host/share/../x`, a symlinked folder followed by `/..`, and a file path followed by `/..`; press Alt+Up after each.
 
 ### browser/navigation/recent
 
@@ -236,6 +267,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Open the menu on a file, folder, archive, symlink, Trash item, Recent row, and empty space in each view; diff the action lists.
 - Right-click the last row of `100000` scrolled to the end at text size 28; then open a menu and press F5, Ctrl+2, and resize the window.
 - Press Menu with the filter field focused, the location entry focused, and a drive row focused; right-click a second entry while a menu is open.
+- Press Right on Open in… in a multi-selection of folders, then Left; open the menu on a folder in Trash and a Recent folder row.
 
 ### browser/directory-monitoring
 
@@ -243,12 +275,17 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - `mv` the open folder in Columns with three descendants open, then `rm -rf` it; repeat in Icons and List.
 - Set `auto_refresh_interval = 4294967295`, then `-1`, then `"60"`; start, change another setting, and read the file back.
 - Set 1 min and start a rename ten seconds before the tick.
+- `mv` the open folder during a 2,000-file copy into it. Then `mv` it twice within 100 ms and press Escape during the second.
+- `rm -rf` and recreate the open folder within 100 ms; `chmod 000` it; `mv` a dot-named open folder with hidden files off.
+- `mv` an open folder on an `sftp://` share and on the ntfs-3g partition; read the pane and history.
 
 ### browser/folder-customization
 
 - Customize a folder, rename it externally, and create a new folder at the old name; then pick a custom color and press Escape at each step, reading settings.toml.
 - Write `emoji:` with a 70-byte string and an unknown icon name into `[custom_icons]`; start, then switch theme with the folder visible in two windows.
 - Close the custom color dialog by a click outside it, then Customize the same way. Delete the item externally while Customize is open and press Escape.
+- Customize a folder, move it with Keep both, undo, and redo. Then trash it, trash a new folder from the same path, and Put back both.
+- Replace a customized folder by a copy, Merge one into a customized folder, and move one to an `sftp://` share; read settings.toml after each.
 
 ### browser/scrolling
 
@@ -256,6 +293,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Page Down through Icons with the preview panel open, close it, Page Up; then Ctrl+Down with hidden files off where the last ten entries are dot-files.
 - Open Sort by, then wheel over the sidebar, the header, and the second window's listing; middle-click a filter field holding a primary selection.
 - Press Home and End with hidden files off where the first and last entries are dot-files. Repeat in filter results and right after a folder opens.
+- Middle-click the gutter between Icons cards, a card's padding, blank List Name space, and the blank strip beside the last column.
 
 ### browser/tabs
 
@@ -263,6 +301,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Ctrl+W with Properties open, then close every tab from the last one; change Show hidden files with three tabs on one folder and switch through them.
 - Open tabs on `trash:///`, `/`, and a 30-character folder name; press a Columns folder, drag 5 px, release, and read the tab name during and after.
 - Focus an empty folder's pane in tab 2, fill the folder from a shell, then switch away and back.
+- Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
+- Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
 
 ### browser/tabs/session-restore
 

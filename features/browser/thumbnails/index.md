@@ -3,8 +3,8 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
 tests: [src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [docs/preview-sandbox.md]
@@ -69,6 +69,7 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Refreshed customized icons under relocated folders, so colors and icons follow moves made in Strata. |
 | 2026-09-29 | lgse/strata#1325 | feat | Added CBZ, CBR, and EPUB cover thumbnails, extracted inside the sandbox. |
 | 2026-09-23 | lgse/strata#1162 | feat | Added album-art thumbnails for audio containers whose art FFmpeg exposes. |
 | 2026-09-17 | lgse/strata#1080 | fix | Rendered GVfs-backed files through their local FUSE mirror when one exists. |

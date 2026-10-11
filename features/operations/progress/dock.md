@@ -3,10 +3,10 @@ title: Progress dock
 status: shipped
 origin: {issue: lgse/strata#1360, pr: lgse/strata#1393}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/app/browser/operation_events/background.rs]
-tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/app/browser/tests/background_operations.rs]
+tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/ui/browser/progress/tests/minimization/**, src/app/browser/tests/background_operations.rs]
 related: [operations/delete, devices/volumes]
 ---
 
@@ -21,6 +21,9 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 - Copying, compressing, and deleting, to Trash or permanently, show a card in the bottom-right corner instead of a progress dialog, and the window stays usable. lgse/strata#1393
 - Moving, extracting, restoring, emptying Trash, and undo or redo keep the blocking progress dialog. lgse/strata#1393 (unverified)
 - A card shows the operation title, percentage, current file or first item name, destination, speed or status, and a progress bar. lgse/strata#1393
+- A card shows its percentage once, at the right of its footer. lgse/strata#1562
+- The footer's left label shows a copy's speed, a compression's count such as "1 / 2 files", or a status such as "Stopping…". lgse/strata#1562
+- During a deletion, the footer's left label is empty. lgse/strata#1562
 - A docked copy also shows files done of total; a compression card names the archive instead of the first item. lgse/strata#1393 (unverified)
 - The destination reads "→ <path>" for a folder, "→ Trash" for Move to Trash, and "Permanent deletion" for permanent deletion. lgse/strata#1393 (unverified)
 - Long file names, statuses, and destinations wrap instead of being cut off. lgse/strata#1393
@@ -54,6 +57,7 @@ Modal progress made the whole window unusable during long archive work. Routine 
 - Docking moves an operation from the browser's single foreground slot into a table keyed by request id. Another operation can then start, and late events from the docked one reach only its own card (lgse/strata#1393).
 - Background completion still records copy, compression, and Trash undo, including partial and grouped undo (lgse/strata#1393).
 - Docking must carry per-operation animation state. Dropping the pending dissolve broke the Shift+Delete animation until lgse/strata#1490 kept it.
+- Each docked deletion owns its own dissolve and Trash flight, so another request's success cannot play them (lgse/strata#1562).
 - Pending-write warnings stay inside the card; the separate banner and Return to browser action from lgse/strata#1278 were removed (lgse/strata#1393).
 - Drive formatting reuses the card with no Cancel; formatting cannot be aborted through it (lgse/strata#1393).
 
@@ -61,6 +65,7 @@ Modal progress made the whole window unusable during long archive work. Routine 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Passed over the per-item moved and trashed events, added for folder customizations, in background completions. |
 | 2026-10-03 | lgse/strata#1393 | fix | Moved copy, compress, and delete progress into non-blocking cards with per-card cancel. |
 
 ## Known gaps

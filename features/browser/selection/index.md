@@ -3,9 +3,9 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
-code: [src/ui/collection_interaction.rs]
+code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/e2e/scenarios/test_selection.py, tests/e2e/scenarios/test_background_selection.py, tests/e2e/scenarios/test_escape_selection.py, tests/e2e/scenarios/test_preselected_hover.py, tests/e2e/scenarios/test_monitor_selection.py]
 docs: [docs/keyboard-navigation.md]
 related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode]
@@ -100,5 +100,4 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 ## Known gaps
 
-- A plain click on empty preview pane space deselects the previewed file and blanks the preview; the fix is unmerged. lgse/strata#1450, lgse/strata#1546
-- docs/keyboard-navigation.md says blank-column presses keep descendants and wait for marquee intent; the code clears on press and closes deeper columns. lgse/strata#1164, lgse/strata#1265
+- docs/keyboard-navigation.md says blank-column presses keep descendants; the code closes deeper columns. lgse/strata#1164, lgse/strata#1265

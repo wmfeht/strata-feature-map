@@ -3,11 +3,11 @@ title: Scrolling
 status: shipped
 origin: {issue: lgse/strata#293, pr: lgse/strata#311}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/scrolling.rs, src/ui/scrolling/popover.rs]
-tests: [src/ui/scrolling/popover/tests.rs, tests/e2e/scenarios/test_popover_scrolling.py, tests/e2e/mutations/popover-scrolling.patch]
-related: [browser/view-modes, browser/view-modes/columns, browser/view-modes/text-size, browser/selection, operations/drag-and-drop/column-autoscroll]
+tests: [src/ui/scrolling/tests.rs, src/ui/scrolling/popover/tests.rs, tests/e2e/scenarios/test_popover_scrolling.py, tests/e2e/mutations/popover-scrolling.patch]
+related: [browser/tabs, browser/view-modes, browser/view-modes/columns, browser/view-modes/text-size, browser/selection, operations/drag-and-drop/column-autoscroll]
 ---
 
 ## Summary
@@ -18,7 +18,8 @@ Fast ways through long listings in Columns, Icons, and List: middle-click autosc
 
 ### Middle-click autoscroll
 
-- Middle-clicking a Columns, Icons, or List listing that can scroll starts autoscroll and marks the press point with a round anchor. lgse/strata#311
+- Middle-clicking the empty background or gutter of a scrollable Columns, Icons, or List listing starts autoscroll. A round anchor marks the press point. lgse/strata#311, lgse/strata#1543
+- Middle-clicking an entry row starts no autoscroll; the row's open-in-new-tab or reveal action runs instead. lgse/strata#1540, lgse/strata#1543
 - While autoscroll runs, the pointer over that listing shows the all-scroll cursor. lgse/strata#311 (unverified)
 - Moving the pointer away from the anchor scrolls toward it, faster the further away, on both axes the listing can scroll. lgse/strata#311
 - The pointer must move more than 12 px from the anchor before scrolling starts; speed reaches 32 px per 16 ms frame at 232 px. lgse/strata#311 (unverified)
@@ -65,6 +66,7 @@ Fast ways through long listings in Columns, Icons, and List: middle-click autosc
 
 Issue lgse/strata#293 asked for fast movement through large folders. Raising wheel speed globally would hurt precise scrolling, and widening the scrollbar alone leaves keyboard and mouse gaps, so three gestures were added instead (lgse/strata#311).
 
+- Autoscroll starts only over the view background, so a middle-click on a row reaches its open or reveal gesture (lgse/strata#1543).
 - Only one autoscroll runs at a time, held in thread-local state, so any click or Escape can end it without knowing which view started it (lgse/strata#311).
 - The anchor and pointer are kept in the scrolled window's coordinates, which do not move as content scrolls underneath. Speed grows with the square of the distance so small movements stay controllable (lgse/strata#311).
 - A press is claimed only when the listing can scroll, so a listing that fits keeps the middle click for other handlers (lgse/strata#311).
@@ -89,4 +91,4 @@ Issue lgse/strata#293 asked for fast movement through large folders. Raising whe
 
 ## Known gaps
 
-- Middle-clicking a folder row starts autoscroll; opening the folder in a new tab instead is proposed. lgse/strata#1540
+None known.

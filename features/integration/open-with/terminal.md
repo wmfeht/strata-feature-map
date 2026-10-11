@@ -3,10 +3,10 @@ title: Open in Terminal
 status: shipped
 origin: {issue: lgse/strata#160, pr: lgse/strata#161}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/ui/terminal.rs]
-tests: [tests/e2e/scenarios/test_terminal.py]
+tests: [src/ui/terminal/tests.rs, tests/e2e/scenarios/test_terminal.py]
 docs: [docs/keyboard-navigation.md]
 related: [integration/10xer-mode, browser/tabs, app/updates]
 ---
@@ -35,6 +35,8 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - Otherwise the first of konsole, gnome-terminal, xfce4-terminal, kitty, ghostty, alacritty, foot, wezterm, tilix, terminator, and xterm on `PATH` is used. lgse/strata#967
 - Every terminal starts with the folder as its working directory. Each known emulator except xterm also gets its own directory option, such as kitty's `--working-directory`. lgse/strata#967 (unverified)
 - Terminal output does not reach Strata's standard output or error. lgse/strata#161
+- After Ctrl+Alt+T starts a launcher that exits at once, no `<defunct>` launcher process stays a child of Strata. lgse/strata#1570, lgse/strata#1465
+- Open in Terminal from a menu and the Settings AUR and Omarchy update rows also reap their launcher after it exits. lgse/strata#1570, lgse/strata#1465
 
 ### Errors
 
@@ -52,11 +54,15 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - One module resolves and builds every terminal command: Open in Terminal, `.sh` runs, and the AUR and Omarchy update rows. All share the no-terminal message; Open in Terminal and the update rows also share the launch-failure messages (lgse/strata#470, lgse/strata#1028).
 - Non-local and Trash locations fail closed, since a terminal needs a real directory (lgse/strata#160).
 - Ctrl+T moved to tabs, so the terminal moved to Ctrl+Alt+T; 10xer keeps `;` then `t` (lgse/strata#1484).
+- One spawn-and-reap helper waits on each launched child from its own thread. The owner chose it over a GLib child watch or a double fork (lgse/strata#1465, lgse/strata#1570).
+- A long-lived terminal keeps one parked thread. Run already waited on its program this way (lgse/strata#1465, lgse/strata#1570).
+- A reaper thread that cannot start is logged instead of panicking the UI thread (lgse/strata#1570).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-11 | lgse/strata#1570 | fix | Reaped Open in Terminal and the AUR and Omarchy update launchers on a background thread so no defunct children remain. |
 | 2026-09-14 | lgse/strata#967 | fix | Fell back to `$TERMINAL` and installed emulators when `xdg-terminal-exec` is missing. |
 | 2026-09-06 | lgse/strata#470 | fix | Named the missing terminal launcher in the error and shared one command builder. |
 | 2026-09-02 | lgse/strata#161 | feat | Added Open in Terminal to folder and item menus with a keyboard shortcut, using `xdg-terminal-exec`. |

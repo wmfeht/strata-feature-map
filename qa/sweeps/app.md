@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md]
 ---
@@ -60,6 +60,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Press F1 with Shift, Ctrl, Alt, and Super held, and `~` with type-to-search on and off, in the default and 10xer maps.
 - Resize across 1480 px with a query and category active; the footer note must wrap only at a "·".
 - Select 1, 64, 65, and all items in a folder holding files of unknown size, a symlink, and 10k entries; read the count and its accessible description, then copy, cut, paste, and clear the clipboard with `wl-copy -c` or `xsel -c`.
+- In the default map, run Ctrl+F in each mode on a local folder, a 10k-entry folder, and the SFTP fixture in Columns; read the count while typing, after results land, and after Escape.
+- Filter with the default map and select results. Switch to 10xer mode and back with the filter open, then clear the query by Backspace.
+- With F1 open in Columns, toggle 10xer mode from a second window, then close and reopen F1 in Icons; repeat with the interface in ja.
 
 ### app/window
 
@@ -68,6 +71,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Maximize, restore, and maximize again by button, by the window manager, and by double-clicking the header; the icon, tooltip, and accessible name must follow the state each time.
 - Press Delete, Ctrl+V, Ctrl+1, and Ctrl+Q in three states: a popover menu open; a modal open with focus on the window; the location field focused.
 - Navigate by keyboard, park the pointer over another column, press Ctrl+V twice, move the pointer 1 px, and paste again; follow the Input precedence rules in `docs/keyboard-navigation.md`.
+- In 10xer mode, open the footer rename with `r` and press Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, Ctrl+\\, and F5; then rename in a Columns child column with the palette open.
+- With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
+- With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
 
 ### app/packaging
 
@@ -94,6 +100,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch with a `update-check.toml` under 6 h old for Preview, then with the channel set to Stable, then with the file corrupted; count requests at the proxy.
 - Open Settings → Updates on the proxy-failed state, click Check now five times quickly, then restore the network and click once.
 - Compare the installed-release expander on the plain build, the prerelease build, and a build tagged with no GitHub release.
+- Serve release bodies through the proxy that hold a `<!-->` short form, a comment inside a fenced code block, and `-->` mid-paragraph; read the expander, the Available card, and the update dialog.
+- Offer a nightly and a release candidate with the interface in ja and with the sidebar at its minimum width; read the notice text and its accessible name.
 
 ### app/updates/release-channels
 

@@ -3,11 +3,11 @@ title: Updates
 status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+review: draft
 code: [src/services/update_check.rs]
 tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
-docs: []
+docs: [docs/preferences.md]
 related: []
 ---
 
@@ -34,7 +34,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - After a check, the row title reads "Strata is up to date", "An update is available", or "Couldn’t check for updates". lgse/strata#51 (unverified)
 - A failed check shows its reason and a "View releases on GitHub" link. lgse/strata#22 (unverified)
 - An available update shows its notes inline, titled "Available release · vX" with its change count and publication date. lgse/strata#51
-- Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944 (unverified)
+- Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944, lgse/strata#1554
 - The Release channel menu is insensitive while automatic checks are off. lgse/strata#97 (unverified)
 
 ### Release notes
@@ -42,13 +42,17 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - The Release notes section holds a collapsed "What's new in vX" expander with the notes of the installed build's exact tag. lgse/strata#51, lgse/strata#849
 - Installed-release notes are fetched once per tag and kept in `~/.cache/strata/release-notes.toml`. lgse/strata#197
 - Without a GitHub release for the installed tag, the expander reads "Release notes are unavailable because this version’s tag was not found." and links to GitHub. lgse/strata#51
-- A release with empty notes shows "No release notes were provided for this release." lgse/strata#51
+- A release with empty notes, or notes holding only HTML comments, shows "No release notes were provided for this release." lgse/strata#51, lgse/strata#1570, lgse/strata#1464
+- A release body starting with `<!-- Release notes generated … -->` shows its notes from the first heading, without the comment. lgse/strata#1570, lgse/strata#1464
+- Multi-line and inline HTML comments in notes are hidden; other raw HTML, such as `<b>x</b>`, shows as escaped text. lgse/strata#1570
+- When a comment starts a line, text after `-->` on its closing line is hidden with it; an inline comment hides only the comment. lgse/strata#1570
 - Notes render headings, paragraphs, lists, code, and rules; images, tables, and block quotes are omitted. lgse/strata#51, lgse/strata#48 (unverified)
 
 ### Sidebar notice
 
 - When a check finds an update, every open window shows "vX available" with a download icon at the foot of its sidebar. lgse/strata#26, lgse/strata#944
-- A prerelease offer adds its build kind, such as "Nightly", on a second line of the notice. lgse/strata#97
+- A prerelease offer reads "<Kind> · vX available" on one line, such as "Nightly · v1.2.3-nightly.20261011 available"; a stable offer reads "vX available". lgse/strata#97, lgse/strata#1564
+- A notice too long for the sidebar stays on one line, ellipsized in the middle. lgse/strata#1564
 - A window opened after the check shows the cached notice without another request. lgse/strata#944
 - An automatic result that lands after checks were disabled or the channel changed is discarded. lgse/strata#944
 - Clicking the notice opens the update dialog for that release. lgse/strata#51
@@ -57,7 +61,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 
 - The dialog is titled "Strata vX is available" and shows "Installed vA  →  Available vB". lgse/strata#51
 - The release's notes appear under "What’s new" in a scrolling area above the Download update button, with a "View release on GitHub" link. lgse/strata#51
-- Empty notes read "No release notes were provided. Review this release on GitHub before continuing." lgse/strata#51
+- Empty or comment-only notes read "No release notes were provided. Review this release on GitHub before continuing." lgse/strata#51, lgse/strata#1570
 
 ## Design
 
@@ -70,6 +74,7 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 - Each check carries a generation number. A result superseded by a newer check is dropped, so a Preview result cannot land after a switch to Stable (lgse/strata#97).
 - Checks and package-manager detection run off the GTK thread, after the first frame rather than on a fixed 8-second delay (lgse/strata#944).
 - A release-notes failure never blocks an eligible update; the GitHub release page stays available as a fallback (lgse/strata#48).
+- HTML comments are stripped only in the client, and only from release notes. Published releases already carry the comment, and `--generate-notes` adds it to every body. Markdown file previews still show comments (lgse/strata#1464, lgse/strata#1570).
 
 ## History
 
@@ -84,4 +89,4 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 
 ## Known gaps
 
-- The README describes automatic checks as opt-in, but they are on by default; the fix is scheduled in a triage batch. lgse/strata#1461, lgse/strata#1546
+None known.

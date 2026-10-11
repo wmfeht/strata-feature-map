@@ -1,12 +1,12 @@
 ---
 title: Preview sweep
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents]
 ---
 
 ## Scope
 
-Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs, 3D models, comic and EPUB covers, and Print. Layout covers width, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, tables, images, diagrams, and equations. Media covers the sandboxed player, autoplay, seeking, limits, and hardware backends, with the audio and video now-playing views. Sandbox covers bubblewrap launch, limits, decoding fallbacks, output validation, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
+Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs, 3D models, comic and EPUB covers, and Print. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, tables, images, diagrams, equations, and text selection. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Sandbox covers bubblewrap launch, limits, decoding fallbacks, output validation, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
 
 Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, archive member listing and the archive preview, and preview keys in 10xer mode. Also media runtime packaging and launch dependencies, the Settings pages as controls, and mounting the remote locations that remote previews read.
 
@@ -34,6 +34,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Open the 2000-page PDF, press End, scroll back fast, Ctrl+A then Ctrl+C, then Print and cancel near page 500.
 - Toggle word wrap on the 20 MiB single-line file in one window while the other shows the 2 MiB text file; check the 1 MiB cap in both.
 - Preview the 200 MP PNG with and without an EXIF thumbnail, a 3MF with two usable PNGs, and a CBZ whose first entry is a folder.
+- In a 600-line `.rs` preview and a plain-text file with a 2 KiB line, type letters, Backspace, Ctrl+V, and Ctrl+X.
+- In the same files, press Shift+Down past the last line, then Ctrl+C.
 
 ### preview/preview-panel/layout
 
@@ -42,6 +44,11 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Drag the divider below 300 px and past the window edge, and resize the window mid-drag.
 - Narrow the window until a playing video hides, wait 35 s, widen; check frame, position, and sound.
 - Toggle Appearance → Preview panel off and on ten times with overflowing columns; the scrollbar extent must match the real columns each time.
+- Preview the 2000-page PDF in a 3000 px wide preview at 2× scaling; Ctrl+wheel to 4×, then narrow the window below 1280 px.
+- In Icons and List, rest on the divider grip and drag it; compare the caption and outline with what the drag changes.
+- At 1× and 2× scaling, press at 1 px steps from 7 px left to 7 px right of the column–preview line.
+- Press Space three times within 260 ms in Icons with reduced motion on, then toggle Appearance → Preview panel mid-slide in Columns.
+- In Columns, drag the divider narrower, then wider, then use F8 and arrows; switch to Icons and back between each step.
 
 ### preview/preview-panel/documents
 
@@ -50,6 +57,16 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Render a 257-line Mermaid block, a 4 KiB plus-one equation, prose containing `$5 and $10`, and an escaped `\$`.
 - Open a 20 MiB plus-one XLSX, an XLSX whose first row has 300 columns, and the ZIP renamed `.docx`.
 - Sort a table, drag-select a range, change the theme, then switch Source and Rendered while an image row is still rendering; close mid-render and check for leaked helpers.
+- Double-click and triple-click a word split across two virtual rows, an emoji with a skin-tone modifier, a combining accent, and a link; Shift-click from prose into a table.
+- Press Shift+End on a 2 KiB pathological line and Ctrl+Shift+Right through CJK text and punctuation runs, then Ctrl+C.
+
+### preview/preview-panel/find
+
+- Search a query spanning two virtual rows, one at 256 characters, German `ß`, and a lone combining accent.
+- With find open, switch to Rendered on a table-only Markdown file and on a CSV, then switch back to Source.
+- Search a large text file while it still loads, then Escape and reopen find before loading ends.
+- In 10xer, press `/` in a small source, a large plain-text, and a rendered DOCX preview, then type `/` inside the find field.
+- Open find in two windows on the same file with different queries; close the drawer in one.
 
 ### preview/preview-panel/media
 
@@ -58,6 +75,11 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Start five players across two windows, pause one for 31 s, retry the fifth, then close a window holding two players.
 - Run `automatic`, `vaapi`, `vulkan`, and acceleration off on the 4K HEVC 10-bit file; switch the setting mid-play and count ffmpeg processes per player.
 - With autoplay on, select a 9 s clip, an 11 s clip, and a muted state; seek during the fade; let a 40 s GIF loop twice with four players active.
+- With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
+- With the timeline focused, type `G` with Caps Lock on.
+- Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
+- Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
+- Scroll the fallback seek slider with a touchpad.
 
 ### preview/preview-panel/media/audio
 
@@ -101,6 +123,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 ## Hand-offs
 
 - Thumbnails in the listing and the thumbnail worker pool → `browser`.
+- Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
+- F1 reference rows for preview find and media keys → `app`.
 - Archive member listing and the archive preview → `operations`.
 - Preview keys and track stepping in 10xer mode → `integration`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.

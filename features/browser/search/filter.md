@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/e2e/scenarios/test_filter_results.py]
@@ -108,6 +108,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-10 | lgse/strata#1554 | fix | Tracked whether a filter query still awaits its first results, so the default footer can keep describing the folder. |
 | 2026-10-09 | lgse/strata#1533 | fix | Kept focus with the filter on Escape from a result, across view switches, and through background loads. |
 | 2026-09-21 | lgse/strata#1155 | fix | Replaced the separate filtered view with a shared collection and kept matching renamed results searchable. |
 | 2026-09-16 | lgse/strata#1041 | feat | Added Open file location to file results so a match can be opened in place. |

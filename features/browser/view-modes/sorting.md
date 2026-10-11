@@ -3,17 +3,17 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/app/browser/sorting.rs]
 tests: [src/app/browser/sorting/tests.rs]
 docs: [docs/preferences.md]
-related: [browser/view-modes/list, browser/navigation/recent, devices/volumes/camera]
+related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navigation/recent, devices/volumes/camera]
 ---
 
 ## Summary
 
-Ordering a folder's entries by Name, Size, Modified, or Type, ascending or descending, with folders optionally first, in all three view modes. The default sort is shared and saved.
+Ordering a folder's entries by Name, Size, Modified, or Type, ascending or descending, with folders optionally first, in all three view modes. The default sort is shared and saved; per-folder sorts belong to `browser/view-modes/folder-views`.
 
 ## Behavior
 
@@ -38,15 +38,17 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 
 ### Defaults
 
-- Choosing a field sort outside Recent reorders that pane and becomes the default for folders opened afterwards; other open columns keep their own sort. lgse/strata#40, lgse/strata#1520
+- With Remember sort and icon size per folder off, a field sort chosen outside Recent reorders that pane and becomes the default for later folders. lgse/strata#40, lgse/strata#1565
+- With that switch off, other open columns keep their own sort. lgse/strata#40, lgse/strata#1520, lgse/strata#1565
 - The default field and direction are saved and restored before the first folder loads; missing or invalid saved values fall back to Name ascending. lgse/strata#44
 - The Folders first setting is saved and restored after a restart. lgse/strata#144
+- Toggling Folders first in any pane re-sorts every open column in every window; Recent is unaffected. lgse/strata#1563, lgse/strata#1565
 - A folder of more than 2,048 entries is sorted off the UI thread and stays in its loading state until the sorted rows are shown. lgse/strata#1030
 - If the background sort fails, the pane shows the error "Sorting the directory failed." lgse/strata#1030 (unverified)
 
 ## Design
 
-One sort default is shared by Columns, Icons, and List, so a change in any mode survives mode switches and restarts (lgse/strata#40). Existing columns keep their local sort; only newly opened columns inherit the default (lgse/strata#1520, `docs/preferences.md`). Recent and Camera Photos force their own sort, which never changes the default field or direction (lgse/strata#1083, lgse/strata#1029).
+One sort default is shared by Columns, Icons, and List, so a change in any mode survives mode switches and restarts (lgse/strata#40). With per-folder values off, existing columns keep their local sort and only new columns inherit the default (lgse/strata#1520, lgse/strata#1565). Folders first is application-wide in either case (lgse/strata#1565). Recent and Camera Photos force their own sort, which never changes the default field or direction (lgse/strata#1083, lgse/strata#1029).
 
 - Case-insensitive order matches GNOME Files, Dolphin, Windows Explorer, and Finder (lgse/strata#216).
 - Type uses `content_type_guess` on the name only. Sniffing contents like Dolphin was rejected: it needs I/O on every file and fights streaming, incremental sorting (lgse/strata#508).
@@ -67,4 +69,4 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 
 ## Known gaps
 
-- Sort is one global default, so a folder's own sort is not remembered after leaving it. lgse/strata#1520
+- Folders first and Group by file type are application-wide, not remembered per folder. lgse/strata#1520

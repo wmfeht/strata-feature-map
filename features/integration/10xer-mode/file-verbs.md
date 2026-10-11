@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
@@ -62,7 +62,8 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 ### Listing commands
 
 - `, a`, `, m`, `, s`, and `, e` sort the focused pane by name, modified time, size, or type; Shift sorts descending. lgse/strata#1308
-- A keyboard sort is saved as the default, keeps the cursor on the same item, and leaves other Miller columns in their order. lgse/strata#1308
+- A keyboard sort keeps the cursor on the same item and leaves other Miller columns in their order. lgse/strata#1308
+- `browser/view-modes/folder-views` and `browser/view-modes/sorting` own where a keyboard sort is saved. lgse/strata#1308, lgse/strata#1565
 - After a keyboard sort, a List heading click reverses the sort that is applied. lgse/strata#1308
 - `, n` and `, t` cancel with `Unknown chord`. lgse/strata#1308
 - `.`, Ctrl+H, and Ctrl+. toggle the saved hidden-files preference in every window, including over `f` results. lgse/strata#1308
@@ -104,4 +105,4 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 ## Known gaps
 
-- In Columns, deleting a directory whose child column is open closes the preview without previewing the next entry. lgse/strata#1497
+None known.

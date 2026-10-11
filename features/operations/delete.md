@@ -3,7 +3,7 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/browser/dissolve_delete.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs]
@@ -52,8 +52,12 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 ### Dissolve animation
 
 - After a successful permanent delete, the deleted rows that were visible when it began break into fragments that scatter and fade. lgse/strata#626, lgse/strata#899
-- The dissolve plays after the progress dialog closes, or while the "Deletion complete" card stays in the dock. lgse/strata#899, lgse/strata#1490
-- Surviving rows stay in place until the dissolve finishes, then move into their new positions. lgse/strata#931
+- A permanent delete that succeeds before its progress card appears dissolves its rows, and no card appears. lgse/strata#1562
+- A permanent delete still running when its card appears, after 350 ms or at once for 16 or more items, plays no dissolve. lgse/strata#1562 (unverified)
+- While a permanent delete runs in Columns, List, or Icons, clicks reach the file view and navigating to another folder works. lgse/strata#1562
+- A foreground operation that fails while a quick permanent delete runs leaves that delete's dissolve to play. lgse/strata#1539
+- When a second quick permanent delete finishes while the first dissolve plays, it plays no dissolve, and the view takes clicks again afterwards. lgse/strata#1562 (unverified)
+- During the dissolve, surviving rows show at their pre-delete positions, then appear at their new positions. lgse/strata#931, lgse/strata#1562 (unverified)
 - "This directory is empty" stays hidden until the dissolve finishes when every item was deleted. lgse/strata#910
 - A failed, partial, or cancelled deletion plays no dissolve. lgse/strata#899, lgse/strata#1490
 - With animations disabled, no dissolve plays and the updated listing appears at once. lgse/strata#899, lgse/strata#931
@@ -73,6 +77,8 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 - A work-stealing queue deletes trees on parallel workers at `nice +10`, one worker on rotational disks (lgse/strata#869). The first failure stops dispatch, started workers are joined, and transient open retries are bounded (lgse/strata#911).
 - The dissolve snapshots visible rows before the operation mutates the model, because rows leave the model during progress (lgse/strata#895, lgse/strata#899). It uses 48 fragments per row within an 80 to 192 fragment budget, over 560 ms.
 - Docking deletions into the progress dock dropped the prepared dissolve; the background completion now plays or discards it (lgse/strata#1489, lgse/strata#1490).
+- Preparing the dissolve only takes the snapshot. The view is hidden and ignores input only during the 560 ms playback, so a slow deletion never locks the window (lgse/strata#1562).
+- A deletion whose card is presented drops its dissolve, so a slower deletion never locks the window behind an animation (lgse/strata#1562).
 
 ## History
 

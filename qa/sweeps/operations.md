@@ -1,7 +1,7 @@
 ---
 title: Operations sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
-triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs]
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
 
@@ -40,6 +40,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Rename to a name differing only by case, to an existing name, to a name containing `/`, and to a 255-byte name, in each mode.
 - Rename an item at the edge of the viewport, in a column narrower than the name, and while a filter is active.
 - Rename an image while its thumbnail is still loading; the thumbnail must follow the new name.
+- In Columns, toggle Show sizes in Columns view while a rename editor is open, then commit and cancel.
+- With hidden files off, rename a file and a folder to dot names in each mode. Then create a file there from a shell, and repeat with hidden files on.
 
 ### operations/clipboard
 
@@ -64,6 +66,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Drop onto the source folder, onto a descendant of the dragged folder, onto a read-only place, onto the sidebar Trash row, onto a tab header, and onto another window.
 - Hover a folder until it spring-loads, move away before it opens, then let it open and press Escape mid-drag.
 - Start a drag in Icons from caption whitespace and from tile content, and in List from an unselected row.
+- Start a multi-selection drag in the large fixture folder in List, Icons, and Columns, and hover several folders before dropping.
 
 ### operations/drag-and-drop/column-autoscroll
 
@@ -73,6 +76,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Drop from `/dev/shm` to home and back under each preference value; cancel the ask dialog and check the source is untouched.
 - Drop between two folders on a bind-mounted path to see which device the detection reports.
+- Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device. Mount or unmount a device while hovering.
 
 ### operations/trash
 
@@ -101,12 +105,16 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/trash/animation
 
 - Trash with reduce motion on and off, with the sidebar hidden, and with the Trash row scrolled out of view; the animation must never delay the operation or move focus.
+- Move to Trash 15 items, then a folder that takes about 350 ms; switch tabs during a quick one.
 
 ### operations/delete
 
 - Shift+Delete with no selection in each mode, inside a read-only folder, and on a selection mixing Trash and non-Trash items reached through search.
 - In the confirmation: Escape, backdrop click, Enter, and Tab order, both after Shift+Delete and after Delete in `/dev/shm`.
 - Delete a 10k-entry folder, cancel at about half, and count what remains.
+- Shift+Delete 15 items, then a folder that takes about 350 ms; switch tabs or view mode during a quick one.
+- Shift+Delete 1 to 15 rows above other rows in each mode and watch whether deleted rows vanish and reappear before the dissolve.
+- Start a second Shift+Delete while the first dissolve plays, then click a row.
 
 ### operations/archives
 
@@ -119,6 +127,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Close the Compress dialog with its X, then press Down.
 - Close the conflict prompt opened from a Ctrl+F result, then press Down.
 - Cancel the Extract password dialog with Escape after Extract to…, then press Down.
+- Extract a multi-root archive, a single-root archive whose name is taken, and a third archive cancelled midway; press Ctrl+Z three times, then Ctrl+Shift+Z once.
+- Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
 
 ### operations/archives/rar
 
@@ -127,6 +137,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/archives/preview
 
 - Open a 50k-member archive, a password-protected one, and an archive inside an archive; drive the listing with the keyboard only.
+- Mix pointer and keys: hover across rows then press Right, and click a row then press Up.
+- Shift+click two members, and double-click a folder in a long list scrolled halfway.
+- Click a row at its bottom edge.
 
 ### operations/progress
 
@@ -138,6 +151,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/progress/dock
 
 - Run three operations at once from two windows, cancel one from the other window, and eject a device mid-copy.
+- Read the footer of a cancelled compression and of a drive format card.
+- Cancel a slow deletion on a stalled device with X, then click rows and navigate with the pointer while cancellation is pending.
 
 ### operations/progress/jobs
 
@@ -145,7 +160,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/undo
 
-- Perform ten mixed operations (create, rename, paste, trash, compress), undo all, redo all; the tree must match snapshots taken before and after.
+- Perform ten mixed operations (create, rename, paste, trash, compress, extract), undo all, redo all; the tree must match snapshots taken before and after.
 - Change an operation's target from a shell, then undo it; expect a clear failure and an intact history.
 - Press Ctrl+Z in a second window and in the file chooser.
 

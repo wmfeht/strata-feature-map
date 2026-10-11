@@ -3,7 +3,7 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/storage.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, tests/e2e/scenarios/test_preferences.py]
@@ -63,11 +63,11 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 ### Synchronization
 
 - Changing a preference in one window updates the matching Settings controls and behavior in every open window of the same process. lgse/strata#518
-- Location, selection, history, each column's sort, and the filter query stay local to their window. lgse/strata#518
+- Location, selection, history, the filter query, and the sort of a folder Strata never remembers stay local to their window. Trash and remote shares are such folders. lgse/strata#518, lgse/strata#1565
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/preferences.md) carries the lifecycle, the consumer table, and the steps for adding a preference.
+[docs/preferences.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/preferences.md) carries the lifecycle, the consumer table, and the steps for adding a preference.
 
 - One binding call applies the current value at once and then each change, so there is no separate startup initializer to drift from the change handler (lgse/strata#518).
 - Settings only edits preferences. Folder peeking once applied only when the General page was built, so a saved choice was ignored until Settings opened (lgse/strata#515).
@@ -84,7 +84,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A malformed entry is salvaged key by key instead of resetting the file, which had silently lost every customization on the next save (lgse/strata#646).
 - A syntax error is preserved rather than repaired; saving stops until restart (lgse/strata#721, lgse/strata#728). No backup or recovery UI exists; a dialog at the first change says saving is off until restart (lgse/strata#1455, lgse/strata#1544).
 - A failed save was only logged, so changes were lost without notice. One notice per failure streak covers write failures; the unreadable file gets one notice per session (lgse/strata#1455, lgse/strata#1544).
-- The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/preferences.md), lgse/strata#1544).
+- The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/preferences.md), lgse/strata#1544).
 - Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field (lgse/strata#518).
 
 ## History

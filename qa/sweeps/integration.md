@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py]
 ---
 
@@ -41,6 +41,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Open a Space preview and the filter, press Down onto a result, then press Escape three times; read the response code after each.
 - Press Tab and Shift+Tab around the file list in each view, in an empty folder, with a filter open, and under `save` with Name present.
 - Choose a filter and a choice option by pointer and by keyboard, with a label over 48 characters, then reopen the dropdown.
+- Rename the open folder from a shell while Name holds an edited name, then delete it while a download runs; read the location and Name.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
 
 ### integration/portal-file-chooser/setup
@@ -89,6 +90,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
+- Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
+- In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
 ### integration/10xer-mode/places
 
@@ -107,6 +110,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Delete the cursor file from a shell while the `s` stream is still running. Repeat while an `f` prompt has focus in Columns with a child column open.
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
+- Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
+- Rename a folder two levels above an `s` search while its stream is still running. Rename one back before the monitor fires, and rename one while a copy runs into it.
 
 ### integration/10xer-mode/file-verbs
 
@@ -116,6 +121,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `create ›` type `name/`, `./x`, `../x`, a 256-byte name, a broken link's name, and `.hidden` with hidden files off; `r` on a non-UTF-8 name, in Recent, and on an `s` hit.
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
+- Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
 
 ### integration/10xer-mode/file-chooser
 
@@ -145,6 +151,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Set `$TERMINAL` to `footerm --title x`, to the failing fake, and to an empty string; then empty `PATH` of emulators, then add the fake `kitty` that exits 127; read each dialog.
 - Press Ctrl+Alt+T with Shift and with Super held, in the location field, during an inline rename, in a chooser, and with the mode on.
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
+- Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits. Count Strata's children and threads with `ps -L` afterwards.
 
 ### integration/custom-actions
 
@@ -168,6 +175,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Composition of the item and background context menus, and views, selection, and tabs inside the chooser → `browser`.
 - What Move to, Copy to, Extract to, Trash, delete, and Compress do on disk, and the Jobs dashboard → `operations`.
 - Preview rendering, archive and media surfaces, and the player start position handed to the default player → `preview`.
+- The preview find bar's matching and navigation → `preview`.
 - External file providers, their asynchronous actions and badges, and remote mounts → `remote`.
+- Typed `.` and `..` resolution in `go ›`, and where a keyboard sort is saved → `browser`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
