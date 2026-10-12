@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
 reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
-code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
+code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/e2e/scenarios/test_filter_results.py, tests/e2e/mutations/filter-results.patch]
 docs: [docs/keyboard-navigation.md, docs/preferences.md]
 related: [integration/10xer-mode, browser/view-modes, preview/quick-preview, browser/thumbnails]
@@ -24,9 +24,10 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - **Type to search** is on unless the user turned it off. lgse/strata#387
 - With **Type to search** on, `/` in a file view opens an empty filter without inserting `/`. lgse/strata#416
 - With **Type to search** on, keypad `/` opens an empty filter like `/`. lgse/strata#1576
-- A letter a layout types on the US `/` key, such as Icelandic þ, starts type-to-search with that letter. lgse/strata#1576
+- With **Type to search** on, a letter a layout types on the US `/` key, such as Icelandic þ, starts type-to-search with that letter. lgse/strata#1576
 - Space in a file view opens quick preview, not the filter. lgse/strata#416
 - Escape in the filter field, or clearing the query, restores the normal listing; hidden files stay hidden. lgse/strata#307, lgse/strata#310
+- With a pinyin input method composing in the filter field, Escape cancels only the composition and the filter stays open. lgse/strata#1583
 - Escape on a focused result closes the filter and shows the full listing at once. Focus goes to the directory's cursor row, with the directory's own selection. lgse/strata#1440, lgse/strata#1533
 - Escape on a focused row also closes a filter that narrows rows in place. That covers Trash, Recent, network locations, and Columns with Include subfolders off. lgse/strata#1440, lgse/strata#1533
 - With a result focused and its quick preview open, the first Escape closes only the filter. A second Escape closes the preview. lgse/strata#1440, lgse/strata#1533
@@ -74,6 +75,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - One unmodified click or Enter opens a result, whatever the click-count and preview preferences. lgse/strata#697
 - In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
 - Space toggles quick preview for the selected file result and keeps the query; Shift+Space types a space. lgse/strata#585
+- With a pinyin input method composing in the filter, Space picks a candidate and does not open quick preview. lgse/strata#1583
 - With preview open, Up and Down move it to the newly selected result. lgse/strata#1119
 - Ctrl-click, Shift-click, Shift+Arrow, Ctrl+A, and marquee select results. lgse/strata#1018
 - Dragging, the item menu, Ctrl+C, and Ctrl+X act on the selected results at their real locations. lgse/strata#639, lgse/strata#1018
@@ -95,7 +97,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - The directory-only index reuses the GIO listing's symlink and `.hidden` rules so filter results match the visible listing (lgse/strata#692, lgse/strata#752).
 - Results are reconciled by full path, so progressive updates keep rows, thumbnails, focus, and selection (lgse/strata#620, lgse/strata#639, lgse/strata#719).
 - Icons and List share one result collection with view-specific presentation; Columns keeps its native collection (lgse/strata#1155, lgse/strata#1167).
-- List and Icons results are one Tab stop, like the listings, because walking every row took 120+ presses (lgse/strata#1431, lgse/strata#1550, lgse/strata#1575).
+- List and Icons results are one Tab stop, like the listings, because Tab otherwise took one press per result (lgse/strata#1550, lgse/strata#1575).
 - Scope changes cancel the old search session, and a session drops batches for any query but the current one, so a stale worker cannot update a rebuilt view (lgse/strata#602, lgse/strata#1174).
 - Results are pruned by checking that each path still exists, rather than tracking each operation's old and new paths (lgse/strata#800).
 - The same check runs whenever a listing splice removes rows, whoever removed them, so outside deletions leave before the rescan. It costs at most 100 stat calls (lgse/strata#1439, lgse/strata#1544).

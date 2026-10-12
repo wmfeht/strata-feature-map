@@ -23,7 +23,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - F1 with Ctrl, Alt, Super, or Shift held does not toggle the reference. lgse/strata#358 (unverified)
 - In 10xer mode, `~` also toggles the reference; in the default map `~` does not open it. lgse/strata#1272
 - While a 10xer footer prompt has focus, `~` goes to the prompt and does not open the reference; F1 still opens it. lgse/strata#1272 (unverified)
-- In 10xer mode with Russian active and a text field focused, the Ё key types Ё instead of toggling the reference. lgse/strata#1576
+- In 10xer mode with Russian active and a text field focused, Shift and the ё key type Ё instead of toggling the reference. lgse/strata#1576
 - The footer's "F1  Shortcuts" button toggles the reference and shows as pressed while it is open. lgse/strata#1034, lgse/strata#1376
 - Escape or a click on the backdrop closes the reference. lgse/strata#1376
 - Focusing another application window leaves the reference open with its search text, category, and scroll position. lgse/strata#1376
@@ -67,7 +67,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 ### Menu hints
 
 - In the default map, the `y` (copy path) and `p` (pin) context-menu hints show only while Type to search is off. lgse/strata#1376, lgse/strata#1576
-- In 10xer mode, menu hints show 10xer keys, such as `r` for Rename and `D` for permanent delete. Duplicate, Copy path, Pin, and terminal show none. lgse/strata#1272, lgse/strata#1340, lgse/strata#1576 (unverified)
+- In 10xer mode, menu hints show 10xer keys, such as `r` for Rename. Duplicate, Copy path, Pin, and terminal show none. lgse/strata#1272, lgse/strata#1340 (unverified)
 
 ### Footer status
 

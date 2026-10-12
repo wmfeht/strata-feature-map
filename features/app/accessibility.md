@@ -47,7 +47,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 ## Design
 
-[docs/e2e-testing.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/e2e-testing.md) ("Accessible names are product surface") states the contract this node owns.
+[docs/e2e-testing.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/e2e-testing.md) ("Accessible names are product surface") states the contract this node owns.
 
 - The E2E harness locates controls only by accessible role and name. When it cannot identify a control, the fix is to name it in the application, never a test-only API (lgse/strata#341).
 - An entry's name and description sit on the list item, not the row content, because the item carries the `list item` or `table cell` role and the selected and focused states (lgse/strata#415).

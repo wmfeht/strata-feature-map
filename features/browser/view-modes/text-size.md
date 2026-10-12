@@ -23,7 +23,6 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 - The Appearance menu's text-size row has decrease and increase buttons around an "N px" button that resets the size to 13. lgse/strata#951
 - Ctrl++, Ctrl+=, or Ctrl+keypad + increases the size by 1 px; Ctrl+− or Ctrl+keypad − decreases it; Ctrl+0 or Ctrl+keypad 0 resets it to 13. lgse/strata#838
 - The same keys with Alt or Super held do not change the size. lgse/strata#838
-- Ctrl++ works whether or not the layout needs Shift to type `+`. lgse/strata#1576
 - Ctrl+Shift+keypad + or Ctrl+Shift+keypad − does not change the size. lgse/strata#1576
 - The shortcuts work while an inline rename editor is open, without submitting it. lgse/strata#838
 - Ctrl+wheel changes the size by 1 px per notch, accumulating smooth touchpad deltas into whole steps. lgse/strata#1069, lgse/strata#1140

@@ -21,7 +21,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - AT-SPI dumps from `tests/e2e/harness/tree.py` or an ad-hoc `gi.repository.Atspi` script under `/tmp`; `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/e2e/harness/keyboard_layout.py` does. Restore `us` afterwards; never change the desktop's layout.
-- Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
+- Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -display :N -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
 
 ## Probes
 
@@ -106,14 +106,14 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run Ctrl+C, Ctrl+V, Ctrl+K, Ctrl+1, and 10xer `j`, `k`, `g g` with `us,gr` and Greek active, then on a Greek-only keymap.
 - Repeat the Greek probe on Ukrainian and Hebrew.
 - On `ru` and `us,ru`, press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ with the file list focused.
-- On French AZERTY, press Ctrl+Shift+1 to Ctrl+Shift+0, Ctrl+AltGr+1, 10xer `t` then the `−` key, and `g` then the `−` key.
+- On French AZERTY, press Ctrl+Shift+1 to Ctrl+Shift+0 with ten tabs open.
 - On Swiss German, press Ctrl+Shift+1 with two tabs open, then `t 1`, `g 1`, and `; 1`; read the text size and the active tab after each.
 - On Icelandic, press the þ, æ, and ö keys in the file list with type-to-search on, off, and in 10xer mode.
 - Repeat the Icelandic keys in the location field.
 - With Caps Lock on, run Ctrl+A, Ctrl+Shift+N, 10xer `G` and `g g`, Shift+D, and the `~` toggle, on `us` and on `ru`.
 - With Num Lock off, then on, press keypad 1, Home, Delete, `+`, and Enter in the file list.
 - Repeat the keypad keys in a rename field and in F1 search.
-- Press Ctrl+C, Ctrl+1, and Page Down with Hyper and with Meta held, mapped through `xmodmap` on the private display.
+- Press Ctrl+1 and Page Down with Hyper and with Meta held, mapped through `xmodmap` on the private display.
 - With a pinyin composition pending in the location field, press Escape, Space, Enter, Tab, and Ctrl+V.
 - Repeat the pinyin keys in global search, the footer prompt, F1 search, and Settings search.
 - With a pending AltGr dead key on `cn(altgr-pinyin)`, press Shift+AltGr+6 then Escape, AltGr+1 then F1, and AltGr+1 then Ctrl+K.
@@ -129,7 +129,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Compare the installed-release expander on the plain build, the prerelease build, and a build tagged with no GitHub release.
 - Serve release bodies through the proxy that hold a `<!-->` short form, a comment inside a fenced code block, and `-->` mid-paragraph; read the expander, the Available card, and the update dialog.
 - Offer a nightly and a release candidate with the interface in ja and with the sidebar at its minimum width; read the notice text and its accessible name.
-- With a notice shown, set text size 8 and 28 and compare the notice row's height with an empty sidebar foot. Then collapse to the rail and expand at each size.
+- With a notice shown, set text size 8 and 48 and compare the notice row's height with an empty sidebar foot. Then collapse to the rail and expand at each size.
 - Show a notice with the interface in ko, ru, and zh-CN at the default sidebar width, then drag the sidebar to its minimum.
 
 ### app/updates/release-channels

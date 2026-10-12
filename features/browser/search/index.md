@@ -68,6 +68,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Alt+Enter with Hyper or Meta held also opens the containing folder. lgse/strata#1576
 - For a folder result, **Open containing folder** selects the folder in its parent rather than opening it. lgse/strata#1066
 - Escape, or a click outside the dialog panel, closes search. lgse/strata#112 (unverified)
+- With a pinyin input method composing in the query field, Escape cancels only the composition and search stays open. lgse/strata#1583
 - Closing search with Escape, Ctrl+K, or a click outside the panel returns focus to its opener, such as the file list's cursor row. lgse/strata#1430, lgse/strata#1533
 - Opening a result, or Open containing folder, hands focus to the revealed item in the browser rather than the control that opened search. lgse/strata#1430, lgse/strata#1533
 

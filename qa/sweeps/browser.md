@@ -313,7 +313,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Focus an empty folder's pane in tab 2, fill the folder from a shell, then switch away and back.
 - Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
-- With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then hold Ctrl+Shift+Super and Ctrl+Shift+Alt and read the badges.
+- With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
 
 ### browser/tabs/session-restore
 

@@ -299,7 +299,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/chooser_context.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/browser/clipboard.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/clipboard/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/ui/browser/collection.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/browser/collection.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/columns.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/drag_scroll.rs` | code | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/ui/browser/columns/drag_scroll/tests.rs` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |

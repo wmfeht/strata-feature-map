@@ -13,7 +13,7 @@ related: [app/window, app/shortcut-reference, integration/10xer-mode, settings/p
 
 ## Summary
 
-Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin layout or US-QWERTY, and the digit row counts by position. It also owns the binding catalog, the formatter that renders every shown shortcut with translated key names, and yielding to an unfinished input-method composition. The F1 panel (`app/shortcut-reference`) and dispatch order (`app/window`) consume it.
+Turns each key event into a shortcut the same way on every keyboard layout: letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the binding catalog, the label formatter with translated key names, and yielding to an unfinished input-method composition. The F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
 
 ## Behavior
 
@@ -22,7 +22,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - With `us,ru` configured and Russian active, Ctrl+C on a selected file then Ctrl+V in another folder copies it. lgse/strata#1576, lgse/strata#1538
 - With only a Russian layout configured, the keys that type с, л and ф act as Ctrl+C, Ctrl+K and Ctrl+A. lgse/strata#1576
 - In 10xer mode with Russian active, the keys that type о and л move the cursor like `j` and `k`. lgse/strata#1576
-- The top digit row counts by position: Ctrl with a top-row key acts as Ctrl with the digit at that key's position, whatever the key types. lgse/strata#1576
+- The top digit row counts by position: Ctrl with a top-row key acts as Ctrl with the digit at that key's position. lgse/strata#1576
 - Where a top-row key types `+` or `−`, Ctrl with that key reads the symbol, not the digit at the key's position. lgse/strata#1576
 - After `t` or `;`, a top-row key counts as its position: on AZERTY, `t` then the `−` key selects tab 6. lgse/strata#1576
 - A chord's digit step (`t 1`, `g 1`, `; 1`) also accepts Shift with the digit. lgse/strata#1576
@@ -30,11 +30,11 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - Ctrl+\ works on German, Swiss, Swedish and Norwegian Mac layouts, where AltGr types `\` on the top row. lgse/strata#1576
 - A digit typed off the digit row counts, such as the Hungarian 0 left of 1. lgse/strata#1576
 - With Caps Lock on, Ctrl+C/V/X/A and h/j/k/l act as with it off, and Caps Lock+g acts as `g`, not `G`. lgse/strata#1576
-- Keypad Enter, arrows, Home, End, Page Up, Page Down, Delete, Tab and Space act as the main keys. Keypad digits count only with Num Lock on. lgse/strata#1576
-- Letter, symbol and digit shortcuts match Ctrl, Alt, Shift and Super exactly: Ctrl+Alt+C does not copy. lgse/strata#1576
+- Keypad Enter, arrows, Home, End, Page Up, Page Down, Insert, Delete, Tab, Space, `+`, `−`, `*`, `/` and `=` act as the main keys. Keypad digits count only with Num Lock on. lgse/strata#1576
+- Letter, symbol and digit shortcuts match Ctrl, Alt, Shift and Super exactly: Ctrl+Alt+C does not copy. Chord digit steps and media `0` are the exceptions; they accept Shift. lgse/strata#1576
 - Symbol shortcuts ignore the Shift the layout needs to type the symbol. lgse/strata#1576
-- With Russian active, Ctrl and the key that types ю act as Ctrl+. lgse/strata#1576
-- In 10xer mode on German, ö in the file list acts as `;`. lgse/strata#1576 (unverified)
+- With Russian active, Ctrl and the key that types ю act as Ctrl+. and toggle hidden files. lgse/strata#1576
+- In 10xer mode on German, ö in the file list arms the actions chord, as `;` does. lgse/strata#1576
 - Hyper and Meta are not shortcut modifiers: a shortcut pressed with either held acts as without it. lgse/strata#1576
 - On plain `cn`, every shortcut is the US one. lgse/strata#1583
 
@@ -42,12 +42,10 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 
 - With Russian active, type-to-search, filters, rename fields and footer prompts still receive Cyrillic characters. lgse/strata#1576
 - While the focused text field shows an unfinished input-method or dead-key composition, each key goes to the composition before any Strata command. lgse/strata#1583
-- With a pinyin input method composing, Escape does not cancel a rename or close the filter, location bar, footer prompt, global search or F1. lgse/strata#1583
-- With a pinyin input method composing in the filter, Space picks a candidate and does not open quick preview. lgse/strata#1583
 - On `cn(altgr-pinyin)` in a rename field, `m`, AltGr+1, `a` types `mā`. lgse/strata#1583
 - On `cn(altgr-pinyin)` in a rename field, AltGr+1 then Escape cancels only the pending tone mark; the rename stays open. lgse/strata#1583
-- With a Korean input method composing 보고 in a rename, one Escape commits the syllable and cancels the rename. lgse/strata#1583
-- On `cn(altgr-pinyin)`, Ctrl+1 and `t 1` select tab 1; AltGr+1 does not. lgse/strata#1583
+- With fcitx5-hangul composing 보고 in a rename, one Escape commits the syllable and cancels the rename. lgse/strata#1583
+- On `cn(altgr-pinyin)`, digit keys without AltGr act as on US: Ctrl+1 switches to Columns, and 10xer `t 1` selects tab 1. AltGr+1 does neither. lgse/strata#1583
 
 ### Labels
 

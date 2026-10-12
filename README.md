@@ -56,7 +56,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Marquee selection](features/browser/selection/marquee.md) | `browser/selection/marquee` | shipped | draft | `442d325` | ? |
 | ↳ [Pointer intent](features/browser/selection/pointer-intent.md) | `browser/selection/pointer-intent` | shipped | reviewed | `b893886` | 0 |
 | [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `0562724` | ? |
-| ↳ [Pinned folders](features/browser/sidebar/pins.md) | `browser/sidebar/pins` | shipped | draft | `72b840e` | ? |
+| ↳ [Pinned folders](features/browser/sidebar/pins.md) | `browser/sidebar/pins` | shipped | draft | `0562724` | ? |
 | [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `0562724` | ? |
 | ↳ [Tab session restore](features/browser/tabs/session-restore.md) | `browser/tabs/session-restore` | shipped | draft | `aee7133` | 0 |
 | [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | draft | `442d325` | ? |
