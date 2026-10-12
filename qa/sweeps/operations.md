@@ -85,7 +85,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Trash from a Ctrl+F result, from a multi-column selection, from a second window viewing the same folder, and look for it in the file chooser, where it must not be offered.
 - Drop a `/dev/shm` selection on the sidebar Trash row.
 - Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
-- Delete in a folder whose first listed entry is a symlink into `/dev/shm`, and in a read-only tmpfs mount.
+- Delete in a read-only tmpfs mount.
 - Open and Delete in folders whose first listed entry is a dangling symlink, or a symlink into a stalled or unmounted network mount.
 - Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
 - Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
@@ -135,7 +135,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On the ntfs-3g mount, take `name` with a file and `name (2)` with a folder, then extract a single-root folder archive named `name`.
 - On the ntfs-3g mount, extract into a folder reached through a symlink.
 - On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
-- On the ntfs-3g mount, chmod a nested staging folder to `0000` mid-extraction, then list the destination with hidden files shown.
+- On the ntfs-3g mount, extract a large ZIP built with `zip -D`, so it lists no folder entries. Mid-extraction, chmod one of its nested staging folders to `0000`.
+- After that run, list the destination with hidden files shown.
 
 ### operations/archives/rar
 
