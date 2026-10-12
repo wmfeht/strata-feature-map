@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
-triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs]
-tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md]
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs]
+tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, the sidebar notice, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, and directory-load log privacy.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, the sidebar notice, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, and directory-load log privacy.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and its update notice as a navigation surface, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -20,6 +20,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Animation and scale: the harness `settings.ini` sets `gtk-enable-animations=false`, so set it `true` for animation probes and toggle `reduce_motion` in `settings.toml`. Set `text_size = 8` and `48` for layout probes.
 - AT-SPI dumps from `tests/e2e/harness/tree.py` or an ad-hoc `gi.repository.Atspi` script under `/tmp`; `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
+- Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/e2e/harness/keyboard_layout.py` does. Restore `us` afterwards; never change the desktop's layout.
+- Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
 
 ## Probes
 
@@ -63,6 +65,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In the default map, run Ctrl+F in each mode on a local folder, a 10k-entry folder, and the SFTP fixture in Columns; read the count while typing, after results land, and after Escape.
 - Filter with the default map and select results. Switch to 10xer mode and back with the filter open, then clear the query by Backspace.
 - With F1 open in Columns, toggle 10xer mode from a second window, then close and reopen F1 in Icons; repeat with the interface in ja.
+- With the interface in German, search F1 for `entf`, `strg+shift`, `bild auf`, `ctrl+−`, and `g-h`; repeat in French with `suppr`.
+- In 10xer mode with `us,ru`, press the Ё key and a US `~` in the location field, a footer prompt, F1 search, and the file list.
+- In F1 search, type, cut, paste, and select all, then undo and redo past the opening query; repeat on a Russian-only keymap.
 
 ### app/window
 
@@ -72,6 +77,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Press Delete, Ctrl+V, Ctrl+1, and Ctrl+Q in three states: a popover menu open; a modal open with focus on the window; the location field focused.
 - Navigate by keyboard, park the pointer over another column, press Ctrl+V twice, move the pointer 1 px, and paste again; follow the Input precedence rules in `docs/keyboard-navigation.md`.
 - In 10xer mode, open the footer rename with `r` and press Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, Ctrl+\\, and F5; then rename in a Columns child column with the palette open.
+- On a Russian-only keymap, run Ctrl+Z, Ctrl+Shift+Z, Ctrl+Y, and Ctrl+A in the location field, a rename, the global search field, and Settings search.
+- Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
 - With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
 
@@ -94,6 +101,22 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `namcap` and `makepkg --printsrcinfo` on each rendered `PKGBUILD` and diff against the committed `.SRCINFO`.
 - Feed `update_aur.py` a checksum file naming the other architecture, and one naming the previous release.
 
+### app/keyboard-shortcuts
+
+- Run Ctrl+C, Ctrl+V, Ctrl+K, Ctrl+1, and 10xer `j`, `k`, `g g` with `us,gr` and Greek active, then with a Greek-only keymap; repeat on Ukrainian and Hebrew.
+- On `ru` and `us,ru`, press Ctrl+. and the key that types ю, and Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ with the file list focused.
+- On French AZERTY, press Ctrl+3, Ctrl+Shift+1 to Ctrl+Shift+0, Ctrl+AltGr+1, 10xer `t` then the `−` key, and `g` then the `−` key.
+- On Swiss German, press Ctrl+Shift+1 with two tabs open, then `t 1`, `g 1`, and `; 1`; read the text size and the active tab after each.
+- On Icelandic, press the þ, æ, and ö keys in the file list with type-to-search on and off, and in 10xer mode; then press them in the location field.
+- With Caps Lock on, run Ctrl+A, Ctrl+Shift+N, 10xer `G` and `g g`, Shift+D, and the `~` toggle, on `us` and on `ru`.
+- With Num Lock off and then on, press keypad 1, keypad Home, keypad Delete, keypad `+`, and keypad Enter in the file list, a rename field, and F1 search.
+- Press Ctrl+C, Ctrl+1, and Page Down with Hyper and with Meta held, mapped through `xmodmap` on the private display.
+- With a pinyin composition pending, press Escape, Space, Enter, Tab, and Ctrl+V in the location field, global search, the footer prompt, F1 search, and Settings search.
+- With a pending AltGr dead key on `cn(altgr-pinyin)`, press Shift+AltGr+6 then Escape, AltGr+1 then F1, and AltGr+1 then Ctrl+K.
+- Compose a hangul syllable in a rename, then press Down, Ctrl+A, and Tab instead of Escape; read the name and where focus lands.
+- Start composing in a Settings search field shown in a popover, and in the file chooser's location field, then press Escape.
+- Switch the interface to German, French, ja, and zh-CN and read the shortcut labels in F1, the item menu, header tooltips, and the footer.
+
 ### app/updates
 
 - Start two windows with checks on and the proxy stalled; turn checks off in one window during the stall and watch both sidebars and both Updates pages.
@@ -102,6 +125,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Compare the installed-release expander on the plain build, the prerelease build, and a build tagged with no GitHub release.
 - Serve release bodies through the proxy that hold a `<!-->` short form, a comment inside a fenced code block, and `-->` mid-paragraph; read the expander, the Available card, and the update dialog.
 - Offer a nightly and a release candidate with the interface in ja and with the sidebar at its minimum width; read the notice text and its accessible name.
+- With a notice shown, set text size 8 and 28 and compare the notice row's height with an empty sidebar foot. Then collapse to the rail and expand at each size.
+- Show a notice with the interface in ko, ru, and zh-CN at the default sidebar width, then drag the sidebar to its minimum.
 
 ### app/updates/release-channels
 
@@ -140,6 +165,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.
 - 10xer-mode key variants and footer prompts → `integration`.
+- Tab numbers, view switching, text size, and the filter on other layouts → `browser`.
 - Chosen states of sort options and Appearance options other than Hidden files, after changes made while their menus are closed → `browser`.
 - Chosen states of Settings choice options and the Hidden files option → `settings`.
 - The contents and outcome of operation dialogs such as paste conflicts, Compress, and progress → `operations`.

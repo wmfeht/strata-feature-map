@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/browser/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs]
@@ -57,6 +57,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 - A Trash item keeps its `trash:///` location for navigation, restore, and deletion. GVfs's `standard::target-uri` native path is carried separately, for thumbnails and as the physical restore source. Remote target URIs are rejected (lgse/strata#417).
 - Move to Trash visibility comes from `access::can-trash` on one listed entry per directory load, not on the folder: `$HOME` cannot itself be trashed but its entries can. An unknown value keeps the item visible so the only delete path never disappears; the trash-unsupported failure then offers permanent deletion (lgse/strata#314, lgse/strata#284, lgse/strata#179).
+- The probe queries that entry without following symlinks: a link is trashed as itself, and its target may be slow or unreachable to stat. GIO derives `can-trash` from the entry's parent directory, not from a link target (lgse/strata#1551, lgse/strata#1584).
 - The trash-unsupported fallback reused the Shift+Delete dialog. lgse/strata#66 forbids silently substituting permanent deletion for Trash. The dialog now explains the missing Trash and focuses Cancel, because the user asked for Trash (lgse/strata#1425).
 - The up-front check uses the menu's `access::can-trash` signal. By owner decision it runs on every route, including drag-to-Trash. It requires `access::can-delete` true, so read-only folders still report "Permission denied" (lgse/strata#179, lgse/strata#1533).
 - Every selected entry is checked, because a search-result selection can span locations (lgse/strata#1425).
@@ -68,6 +69,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-12 | lgse/strata#1584 | fix | Probed Trash support without following a symlinked first entry; hardening, as GIO already derived `can-trash` from the parent. |
 | 2026-10-10 | lgse/strata#1539 | fix | Kept a docked deletion's claimed dissolve when a foreground operation fails; only a new permanent delete takes the slot. |
 | 2026-10-09 | lgse/strata#1533 | fix | Explained a missing Trash with Cancel focused, and listed Trash items with non-UTF-8 names. |
 | 2026-09-14 | lgse/strata#915 | fix | Let Delete reach Move to Trash when a filter result is selected. |
@@ -80,4 +82,4 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 ## Known gaps
 
-- A first listed entry that symlinks into tmpfs makes its whole folder report no Trash, so Delete asks to delete permanently. lgse/strata#1533
+None known.

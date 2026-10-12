@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
@@ -20,6 +20,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Opening and closing
 
 - Ctrl+, or the header Settings button opens Settings over the blurred window; the first open shows General. lgse/strata#849
+- Ctrl+Alt+, and Ctrl+Super+, do not open Settings. lgse/strata#1576
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing. lgse/strata#912
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
@@ -45,6 +46,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Queries match row titles and aliases, so "font size" finds Text size. lgse/strata#849
 - Query words of four or more letters tolerate one typo, six or more two, so "tezt size" finds Text size. lgse/strata#849 (unverified)
 - Queries also match a row's translated title and the current language's keywords. lgse/strata#1519
+- A query word of two or more Han or kana characters matches inside a title word, so 隐藏 finds 显示隐藏文件 under 简体中文. lgse/strata#1583
+- A single Han or kana character does not match inside a word, so の under 日本語 does not find デフォルトのディレクトリ. lgse/strata#1583
+- A query also matches the translated title with its spaces removed, so Omarchy主题变体 finds Omarchy 主题变体. lgse/strata#1583
+- In Search settings, Ctrl+A selects the query on any keyboard layout; Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
 - A query with no match shows "No settings match your search." under the title Search results. lgse/strata#849
 - Escape in a non-empty search field clears the query and restores every row; the next Escape closes Settings. lgse/strata#849
 - Searching changes no saved preference. lgse/strata#849
@@ -83,9 +88,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - Ctrl+H or Ctrl+. toggles hidden files. lgse/strata#240
 - Ctrl+Shift or Ctrl+Alt with H or . does not toggle hidden files. lgse/strata#240 (unverified)
-- The Appearance menu's Hidden files row shows the `Ctrl + H` hint and an eye icon reflecting the current state. lgse/strata#240
+- The Appearance menu's Hidden files row shows the `Ctrl+H` hint and an eye icon reflecting the current state. lgse/strata#240, lgse/strata#1576
 - That row is a check menu item whose checked state follows Ctrl+H and other windows. lgse/strata#1467, lgse/strata#1544
-- That row's accessible description is "Ctrl + H". lgse/strata#1544 (unverified)
+- That row's accessible description is "Ctrl+H". lgse/strata#1544, lgse/strata#1576 (unverified)
 - The folder-background context menu offers Show Hidden Files or Hide Hidden Files, matching the current state. lgse/strata#240
 - Toggling shows or hides hidden entries in every open column without reloading the directories. lgse/strata#201
 - The choice is saved as `show_hidden` and restored on the next launch. lgse/strata#144
@@ -94,7 +99,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work.
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
@@ -104,6 +109,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A choice button's value goes in its description, so its name stays stable for E2E locators and Settings search. Options are radio menu items so screen readers announce the chosen one (lgse/strata#1467, lgse/strata#1544).
 - Navigation buttons, page titles, and search routing come from one `NAVIGATION` table keyed by page id. Matching label strings with an About fall-through had sent Actions and About matches to the wrong page (lgse/strata#1453, lgse/strata#1554).
 - Every row or section needs a search target, and a test fails on any without one. docs/preferences.md asks for keywords in every catalog. Status-only content takes its section's target instead of an exemption (lgse/strata#1454, lgse/strata#1554).
+- Chinese and Japanese titles have no spaces between words but do around Latin words, so unspaced queries match inside words and against joined titles (lgse/strata#1583).
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).

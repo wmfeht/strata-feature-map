@@ -1,7 +1,7 @@
 ---
 title: Integration sweep
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
-tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py]
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
@@ -21,6 +21,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
+- Keyboard layouts loaded with `setxkbmap -layout fr`, `de`, and `ch -variant de`, or the E2E `keyboard_layout` fixture; fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
 ## Probes
@@ -79,10 +80,11 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - Press Ctrl+Shift+M over a modal, in the location field, in an inline rename, in the sidebar, in Settings, and in a chooser; toggle twice within 1.5 seconds.
 - Toggle the mode with a pane filter, a subfolder Ctrl+F scope, a `v` range, a folder peek, and an open preview active at once; toggle back and compare each pane.
-- With three windows open, toggle in one; read the F1 reference, menu hints, and Open in Terminal accelerator in the others; close one and check again.
+- With three windows open, toggle in one; read the F1 reference and menu hints, and press Ctrl+Shift+K and Ctrl+\ from the file list in the others; close one and check again.
 - In Columns, press `g g` and `G` in a newly opened column before any other key, with type grouping on and with hidden files shown.
 - Press `G` in an empty folder, Ctrl+U in a 10k folder, and `h` at `/`. Press `l` on a folder symlink and on a broken symlink, in each view.
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.
+- With fcitx5 pinyin, compose in `rename ›`, `create ›`, `go ›`, and `move to ›`; press Enter mid-composition, then again after the commit.
 
 ### integration/10xer-mode/preview-keys
 
@@ -100,6 +102,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Type a path under a 50k-folder tree and press Enter before the search settles; Tab on `.alc` with hidden files off; query `10:30` and a path containing `:`.
 - Open `z` with an empty history, `Z` with 200 entries, press Up past the last candidate, and press Enter twice while the list is still updating.
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
+- On `fr` and `ch(de)`, press `g` then Shift with each digit-row key, then the keys that type `+` and `−`; on `us`, press `g` then Shift+keypad +.
 
 ### integration/10xer-mode/search
 
@@ -122,6 +125,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
 - Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
+- On `fr`, press `;` then each digit-row key with and without Shift, with 10 and with 3 matching actions.
 
 ### integration/10xer-mode/file-chooser
 
@@ -130,6 +134,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `savefiles` press `r`, `o` on a file, and Tab around; under `save` press Enter with Name empty, `o` on a folder, and Enter with a Recent file selected.
 - Stack a filter, `s` hits, a preview, and a fill, count Esc presses to cancel, and read the response code; repeat with the automatic first row only.
 - Press `g t`, `g n`, `g 1` on a remote pin, `g d` with no Downloads, `z` into a folder outside the hint, and `t n`.
+- Arm `g` under `single`, `directory`, and `save`; compare the chord panel's steps with the F1 list for each.
 
 ### integration/open-with
 
@@ -176,6 +181,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - What Move to, Copy to, Extract to, Trash, delete, and Compress do on disk, and the Jobs dashboard → `operations`.
 - Preview rendering, archive and media surfaces, and the player start position handed to the default player → `preview`.
 - The preview find bar's matching and navigation → `preview`.
+- How a key on any layout, the keypad, or Caps Lock becomes a shortcut, input-method composition, and shortcut label notation → `app`.
 - External file providers, their asynchronous actions and badges, and remote mounts → `remote`.
 - Typed `.` and `..` resolution in `go ›`, and where a keyboard sort is saved → `browser`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.

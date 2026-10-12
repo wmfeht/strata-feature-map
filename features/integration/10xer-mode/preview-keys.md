@@ -3,7 +3,7 @@ title: 10xer preview key ownership
 status: shipped
 origin: {issue: lgse/strata#1242, pr: lgse/strata#1295}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/keyboard/preview.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/preview_ownership.rs]
@@ -45,7 +45,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - A password field takes typed letters, including `h` and `j`, and its text-editing shortcuts until unlocked. Esc and Shift+Tab still close or return. lgse/strata#1295
 - In a media preview, Space plays or pauses, Left/Right seek 5 seconds, Up/Down change volume, and `m` mutes or unmutes. lgse/strata#1295, lgse/strata#1289
 - In a media preview, Shift+Left and Page Down seek back 30 seconds; Shift+Right and Page Up seek forward 30 seconds. lgse/strata#1570, lgse/strata#1451
-- In a media preview, Home or `0` seeks to the start, and End or `G` seeks to the last frame. lgse/strata#1570, lgse/strata#1451
+- In a media preview, Home, `0`, or Shift+0 seeks to the start, and End or `G` seeks to the last frame. lgse/strata#1570, lgse/strata#1451, lgse/strata#1576
 - In a media preview, `+`, `=`, `-`, and keypad + and − step the volume. lgse/strata#1570, lgse/strata#1451
 - With an audio or video preview open, `<` and `>` step to the previous or next file of that type and keep playing. They work from the listing too. lgse/strata#1289, lgse/strata#1474
 - A focused preview button or slider keeps GTK's own Space, Enter, and arrow handling. lgse/strata#1295

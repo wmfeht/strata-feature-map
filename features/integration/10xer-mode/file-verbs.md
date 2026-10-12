@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
@@ -75,6 +75,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - A newer key, a selection or focus change, navigation, leaving the mode, or closing the window drops an unfinished Open With lookup. lgse/strata#1308
 - `;` arms a chord whose panel lists the first ten matching custom actions in context-menu order, then `t`, `c`, `e`, and `E`. lgse/strata#1308, lgse/strata#1340
 - `; 1` to `; 9` and `; 0` run that action; a vacant slot flashes `No action N` and runs nothing. lgse/strata#1308
+- `;` then Shift and a digit-row key runs the same action as the digit alone, as AZERTY needs. lgse/strata#1576
 - If the targets or the action list changed since `;`, the digit flashes `Selection changed` or `Actions changed` and runs nothing. lgse/strata#1308
 - A confirming action asks first, and a run appears in Jobs as from the context menu. lgse/strata#1308
 - `; t` opens a terminal in the keyboard-focused folder. lgse/strata#1340
@@ -82,7 +83,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `; c` opens the Compress dialog for the targets. lgse/strata#1340
 - `; e` extracts one archive beside itself and selects the result; `; E` extracts it to a folder typed in `extract to ›`. lgse/strata#1340
 - `; e` and `; E` flash `Not an archive` for a non-archive or a folder named like one, and `Extract one archive at a time` for several targets. lgse/strata#1340, lgse/strata#1478 (unverified)
-- The context menu shows `r` for Rename and Shift+M, Shift+C, and Shift+R beside Move to…, Copy to…, and Restore. lgse/strata#1308, lgse/strata#1340
+- The context menu shows `r` for Rename and `M`, `C`, and `R` beside Move to…, Copy to…, and Restore. lgse/strata#1308, lgse/strata#1340, lgse/strata#1576
 
 ## Design
 

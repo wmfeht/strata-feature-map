@@ -3,12 +3,12 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/composition/tenxer_splash.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/composition/tenxer_splash/tests.rs]
 docs: [docs/10xer-mode.md]
-related: [browser/selection, browser/tabs, settings/preferences]
+related: [browser/selection, browser/tabs, settings/preferences, app/keyboard-shortcuts]
 ---
 
 ## Summary
@@ -44,8 +44,9 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - With the file list focused, `h`/`j`/`k`/`l`, other letters, Space, Ctrl+D, Ctrl+F, Ctrl+B, and Ctrl+R never also run their default-map action. lgse/strata#1271
 - Ctrl+C/X/V, Delete, Shift+Delete, F2, F5, Ctrl+L, Ctrl+K, Ctrl+1/2/3, Ctrl+Shift+N, Alt+Enter, Menu, and text-size keys keep working. lgse/strata#1271
 - In the location field or an inline rename, letters such as `q`, `d`, and `p` are typed and no file command runs. lgse/strata#1271
-- Turning the mode on removes the folder jump, Open Terminal, and arrow-scope accelerators in every window; turning it off restores them. lgse/strata#1271
+- With the mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning it off restores them. lgse/strata#1271, lgse/strata#1576
 - Ctrl+N shows or hides the sidebar, and Ctrl+B pages up. lgse/strata#1304
+- An Enter that an input method consumes while composing never submits a footer prompt; an Enter it passes back submits it. lgse/strata#1583
 - F1 or `~` toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272
 - Context-menu hints hide the default `Y` copy path, Space preview, and Ctrl+R rename hints while the mode is on. lgse/strata#1272
 - After returning from another window, `g`, `f`, and `s` act on the listing without first clicking a row. lgse/strata#1393
@@ -102,7 +103,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - The scope is not full Yazi compatibility: no content search (`S`), zoxide integration, keybinding editor, or live cross-process preference sync (lgse/strata#1152).
 - The feature was split into 31 OMA stories, lgse/strata#1233 to lgse/strata#1263, later tracked as wmfeht/strata#35 to wmfeht/strata#65. Each story ships its own help text and cleanup (lgse/strata#1152).
 - Mode keys are consumed before the default command chain, so one key never runs both maps. Text fields, modals, native menus, and the reference keep their input (lgse/strata#1271).
-- Conflicting application accelerators follow the saved mode, not a window, so closing one window cannot restore them (lgse/strata#1271).
+- Conflicting window shortcuts follow the saved mode, not a window, so closing one window cannot restore them (lgse/strata#1271). They are no longer GTK accelerators: the dispatcher checks the saved mode on each key, so nothing is removed or restored (lgse/strata#1576).
 - Help, Settings, and menu hints describe only commands that currently run; unfinished keys are not advertised (lgse/strata#1152, lgse/strata#1272).
 - The keyboard cursor and the filled selection are distinct, and the pointer never chooses the pane or row those keys act on (lgse/strata#1291).
 - One precedence chain handles every listing Escape, so each press ends exactly one state (lgse/strata#1307).

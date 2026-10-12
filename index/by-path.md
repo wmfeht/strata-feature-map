@@ -8,8 +8,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | --- | --- | --- | --- |
 | `.github/workflows/packaging.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `.github/workflows/publish-aur.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
+| `AGENTS.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `Cargo.lock` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `Cargo.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `README.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `THIRD_PARTY_LICENSES.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `clippy.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `data/icons/scalable/actions/strata-lang-*.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/apps/io.github.lgse.Strata.svg` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
@@ -27,6 +31,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete.md) | — |
+| `scripts/e2e-native.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/sftp-fixture.sh` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `scripts/sign_update_manifest.py` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `scripts/test_installer.py` | tests | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
@@ -294,6 +299,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/chooser_context.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/browser/clipboard.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/clipboard/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `src/ui/browser/collection.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/columns.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/drag_scroll.rs` | code | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/ui/browser/columns/drag_scroll/tests.rs` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
@@ -383,6 +389,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/inline_search/**` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `src/ui/keys.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
+| `src/ui/keys/**` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
+| `src/ui/keys/tests.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
 | `src/ui/loading_skeleton.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/**` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/delay/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
@@ -401,6 +410,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/modal.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `src/ui/notice.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/open_with.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/open_with/tests.rs` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/pointer.rs` | code | [Pointer intent](../features/browser/selection/pointer-intent.md) | [Selection](../features/browser/selection/index.md) |
@@ -443,6 +453,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preview/tests/audio.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/find.rs` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/media_controls.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/tests/pdf.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/tests/video.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/video` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/video.rs` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -595,10 +606,15 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/util/mod.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/util/tests.rs` | tests | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `tests/e2e/baselines/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/e2e/conftest.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/e2e/harness/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/e2e/mutations/clipboard.patch` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `tests/e2e/mutations/drag-and-drop.patch` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/e2e/mutations/filter-results.patch` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `tests/e2e/mutations/popover-scrolling.patch` | tests | [Scrolling](../features/browser/scrolling.md) | — |
+| `tests/e2e/mutations/quick-preview.patch` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
 | `tests/e2e/mutations/rename-caret.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/e2e/mutations/view-switching.patch` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `tests/e2e/scenarios/test_accessibility.py` | tests | [Accessibility](../features/app/accessibility.md) | — |
 | `tests/e2e/scenarios/test_archive_activation.py` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `tests/e2e/scenarios/test_archive_conflicts.py` | tests | [Archives](../features/operations/archives/index.md) | — |
@@ -659,5 +675,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/scenarios/test_text_size.py` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/e2e/scenarios/test_thumbnail_worker_settings.py` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `tests/e2e/scenarios/test_view_switching.py` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `tests/e2e/unit/test_keyboard_layout.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/rar/**` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `tests/fixtures/spreadsheets` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `typos.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |

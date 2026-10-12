@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, install.sh]
 ---
 

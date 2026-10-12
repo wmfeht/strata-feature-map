@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents]
 ---
 
@@ -19,6 +19,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
+- Keyboard layouts for key probes: `setxkbmap ru` (no Latin layout), `setxkbmap us,ru` with Russian active, and Caps Lock on; restore `us` afterwards.
 - Reduce motion and Element glow each on and off, under the GL renderer and `GSK_RENDERER=cairo`. Two windows of the same build on one media folder for volume sync, the four-player cap, and width isolation.
 
 ## Probes
@@ -36,6 +37,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the 200 MP PNG with and without an EXIF thumbnail, a 3MF with two usable PNGs, and a CBZ whose first entry is a folder.
 - In a 600-line `.rs` preview and a plain-text file with a 2 KiB line, type letters, Backspace, Ctrl+V, and Ctrl+X.
 - In the same files, press Shift+Down past the last line, then Ctrl+C.
+- Zoom a PDF to 3× with Ctrl+wheel, then press Ctrl+0, Ctrl+keypad 0 with Num Lock on and off, and Ctrl+Alt+0.
+- In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout, with Caps Lock on, and as Ctrl+Shift+A and Ctrl+Shift+C.
+- With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
 
 ### preview/preview-panel/layout
 
@@ -48,6 +52,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In Icons and List, rest on the divider grip and drag it; compare the caption and outline with what the drag changes.
 - At 1× and 2× scaling, press at 1 px steps from 7 px left to 7 px right of the column–preview line.
 - Press Space three times within 260 ms in Icons with reduced motion on, then toggle Appearance → Preview panel mid-slide in Columns.
+- With reduced motion off in List, press Space to close, then Space again at about 50 ms, 130 ms, and 250 ms into the slide-out.
 - In Columns, drag the divider narrower, then wider, then use F8 and arrows; switch to Icons and back between each step.
 
 ### preview/preview-panel/documents
@@ -59,6 +64,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Sort a table, drag-select a range, change the theme, then switch Source and Rendered while an image row is still rendering; close mid-render and check for leaked helpers.
 - Double-click and triple-click a word split across two virtual rows, an emoji with a skin-tone modifier, a combining accent, and a link; Shift-click from prose into a table.
 - Press Shift+End on a 2 KiB pathological line and Ctrl+Shift+Right through CJK text and punctuation runs, then Ctrl+C.
+- On the `ru` layout, drag-select a table cell range, click one cell's text, then press Ctrl+C and Ctrl+A; repeat with Caps Lock on and on `us,ru`.
+- In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
 
 ### preview/preview-panel/find
 
@@ -76,7 +83,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Run `automatic`, `vaapi`, `vulkan`, and acceleration off on the 4K HEVC 10-bit file; switch the setting mid-play and count ffmpeg processes per player.
 - With autoplay on, select a 9 s clip, an 11 s clip, and a muted state; seek during the fade; let a 40 s GIF loop twice with four players active.
 - With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
-- With the timeline focused, type `G` with Caps Lock on.
+- With the timeline focused and Caps Lock on, press Shift+g, then Shift+0, then keypad 0 with Num Lock on and off.
+- With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
 - Scroll the fallback seek slider with a touchpad.
@@ -112,6 +120,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - `rm` the previewed file from a shell while a video plays, while a PDF print dialog is open, and remove its parent folder.
 - With Single-click file previews off, click, double-click, and start a drag on a supported file; no preview may open.
 - Press Right into a PDF preview in List, then Ctrl+A, Ctrl+C, Delete, and Ctrl+X; the folder's file count must not change.
+- With a filter result selected, press Space, keypad Space, Ctrl+Space, and Alt+Space on the `ru` layout and with Caps Lock on.
 
 ### preview/quick-preview/folder-peek
 
@@ -125,6 +134,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Thumbnails in the listing and the thumbnail worker pool → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
 - F1 reference rows for preview find and media keys → `app`.
+- Layout fallback, Caps Lock, keypad, and translated key names for every shortcut → `app`.
 - Archive member listing and the archive preview → `operations`.
 - Preview keys and track stepping in 10xer mode → `integration`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.

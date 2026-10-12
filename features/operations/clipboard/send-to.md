@@ -3,8 +3,8 @@ title: Send to removable devices
 status: shipped
 origin: {issue: lgse/strata#1153, pr: lgse/strata#1278}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+review: draft
 code: [src/ui/browser/destination.rs]
 tests: [src/ui/browser/context_menu/actions/tests.rs]
 related: [devices/volumes]
@@ -26,7 +26,7 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 - A subfolder chosen there becomes a recent destination for that device. lgse/strata#1278
 - Sending to a folder moves it to the top of the recent list; the drive root never becomes a recent entry. lgse/strata#1278 (unverified)
 - If the device is gone when a destination is activated or the chooser confirms, "Destination unavailable" appears and nothing is copied. lgse/strata#1278, lgse/strata#1384
-- A send that finishes before progress appears shows "Copied to <device>" or "N items copied to <device>" for 2 seconds. lgse/strata#1278 (unverified)
+- A send that finishes before progress appears shows "Copied to <device>" or "N items copied to <device>" in the bottom-right progress dock for 2 seconds. lgse/strata#1278, lgse/strata#1578 (unverified)
 - An open Send to… menu updates as devices mount and unmount. lgse/strata#1393
 
 ## Design

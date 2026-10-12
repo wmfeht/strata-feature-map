@@ -3,7 +3,7 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, packaging/media-runtime]
 tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/tests.rs, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs, tests/e2e/scenarios/test_preview_media_controls.py]
@@ -32,7 +32,8 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 ### Media keys
 
 - With an audio or video timeline focused, Left/Right seek 5 s, and Shift+Left/Right or Page Down/Page Up seek 30 s back or forward. lgse/strata#1570, lgse/strata#1451
-- With the timeline focused, Home or `0` seeks to the start, and End or `G` to the last frame, so playback does not stop. lgse/strata#1570, lgse/strata#1451
+- With the timeline focused, Home, `0`, or Shift+0 seeks to the start, and End or `G` to the last frame, so playback does not stop. lgse/strata#1570, lgse/strata#1451, lgse/strata#1576
+- With Caps Lock on, the g key without Shift on a focused timeline does not seek. lgse/strata#1576
 - With the timeline focused, `+`, `=`, `-`, and keypad +/− change the volume by 0.1; reaching 0 mutes and keeps the volume to restore. lgse/strata#1570, lgse/strata#1451
 - The paging, jump, and volume keys have no Ctrl+Alt form; Ctrl+Alt+Page Up in the default key map leaves media unchanged. lgse/strata#1570
 - A focused volume slider steps 0.1 with the arrow keys and 0.2 with Page Up/Down; Home mutes and End sets full volume. lgse/strata#1570, lgse/strata#1451

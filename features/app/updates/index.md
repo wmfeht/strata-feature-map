@@ -3,12 +3,12 @@ title: Updates
 status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/services/update_check.rs]
 tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
 docs: [docs/preferences.md]
-related: []
+related: [browser/sidebar]
 ---
 
 ## Summary
@@ -50,9 +50,11 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 
 ### Sidebar notice
 
-- When a check finds an update, every open window shows "vX available" with a download icon at the foot of its sidebar. lgse/strata#26, lgse/strata#944
-- A prerelease offer reads "<Kind> · vX available" on one line, such as "Nightly · v1.2.3-nightly.20261011 available"; a stable offer reads "vX available". lgse/strata#97, lgse/strata#1564
-- A notice too long for the sidebar stays on one line, ellipsized in the middle. lgse/strata#1564
+- When a check finds an update, every open window shows "Update available" over "vX", with a download icon, at the foot of its sidebar. lgse/strata#26, lgse/strata#944, lgse/strata#1581
+- The headline follows the interface language, such as "Update verfügbar" in German and "Nouvelle version" in French. lgse/strata#1581
+- A prerelease and a stable offer show the same headline; only the version line, such as `v0.5.0-rc.1`, marks a prerelease. lgse/strata#1581 (unverified)
+- In a sidebar too narrow for either line, that line stays on one line and is ellipsized at its end. lgse/strata#1581 (unverified)
+- In the collapsed sidebar rail the notice shows only its download icon; expanding the sidebar restores both lines. lgse/strata#1581
 - A window opened after the check shows the cached notice without another request. lgse/strata#944
 - An automatic result that lands after checks were disabled or the channel changed is discarded. lgse/strata#944
 - Clicking the notice opens the update dialog for that release. lgse/strata#51

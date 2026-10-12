@@ -3,8 +3,8 @@ title: 10xer mode in the file chooser
 status: shipped
 origin: {issue: lgse/strata#1261, pr: lgse/strata#1311}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+review: draft
 code: [src/ui/window/keyboard/chooser.rs]
 tests: [src/ui/chooser/tests/keyboard.rs]
 docs: [docs/portal-file-chooser.md]
@@ -23,6 +23,7 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 - While the mode is on, a footer below the files carries prompts, chords, and feedback, and the pane chrome hides; Accept, Cancel, the close button, and List headings stay. lgse/strata#1311
 - With the mode off, the chooser's own keys are unchanged. lgse/strata#1311
 - `q` neither ends the request nor leaves the mode; Ctrl+Shift+M leaves the mode and the request stays open. lgse/strata#1311, lgse/strata#1340
+- The sidebar toggle's tooltip names Ctrl+N while the mode is on and Ctrl+B while it is off. lgse/strata#1576
 - F1 shows a reference that lists only the keys the request allows, and Esc closes it without cancelling the request. lgse/strata#1376
 
 ### Choosing
@@ -52,6 +53,7 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 - In a single-item request, Space, `v`, `V`, Ctrl+A, and Ctrl+R flash `Only one item can be chosen`. lgse/strata#1311
 - `g t`, `g n`, and remote pins flash `Only local folders can be opened here`. lgse/strata#1311
 - `a`, `d`, `D`, sort chords, `.`, `c c`, and `c n` work as in a window. `r` and F2 do too, outside single-file Save requests. lgse/strata#1311
+- The `g` chord panel leaves out `g t`, `g n`, `g +`, and `g −`, which the chooser refuses. lgse/strata#1576
 - `t` does not arm the tab chord, so no `t-` prompt appears in the footer. lgse/strata#1311 (unverified)
 
 ## Design

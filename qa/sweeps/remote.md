@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh]
 ---
 
@@ -47,6 +47,11 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Emit `invalidate` 50 times per second for a minute with an open submenu, then stop; the open submenu, labels, and badges must settle without the menu closing.
 - Activate a leaf, kill the provider with SIGKILL before it answers, and separately make it exit 0 after writing half a reply line; compare the two dialogs.
 - Register nine providers, one with a symlinked `provider.json`, one world-writable, one owned by another user, and one 300×300 icon; the log must name the rejected ids and nothing else about them.
+- Reply `"feedback":"notice"` with `accepted` 1/2 and a `job`, with `error` also set, with an empty `message`, and with `"Notice"` and `null` as the value; read which dialog, notice, or disconnect each produces.
+- Run a `notice` action from the item menu, the background menu, a second window, and a file chooser; then close the window or tab before the reply arrives.
+- Run two providers' `notice` actions within 4 s of each other, one with a 500-character unbroken message, and repeat with a screen reader running.
+- Set `icon` to an id that is also a badge icon, to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
+- With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
 
 ## Hand-offs
 
@@ -54,5 +59,6 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Copy, move, paste, rename, and delete with a remote folder as source or target → `operations`.
 - Preview panel and quick preview of remote files, and thumbnails on remote entries → `preview`.
 - Mounting, unmounting, and ejecting local volumes and removable media → `devices`.
+- How a provider notice stacks with progress cards and replaces another visible notice in the dock → `operations`.
 - Thumbnail rendering that provider badges share, and search inside a remote location → `browser`.
 - How a non-UTF-8 or `%2F` URI displays, skipped-entry warnings, and directory-load log redaction → `app`.

@@ -3,8 +3,8 @@ title: Text size
 status: shipped
 origin: {issue: lgse/strata#155, pr: lgse/strata#252}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+review: draft
 code: [src/ui/preferences/text_size.rs]
 tests: [src/ui/preferences/tests/text_size.rs, src/ui/theme/tests/text_size.rs, tests/e2e/scenarios/test_text_size.py]
 docs: [docs/preferences.md]
@@ -23,6 +23,8 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 - The Appearance menu's text-size row has decrease and increase buttons around an "N px" button that resets the size to 13. lgse/strata#951
 - Ctrl++, Ctrl+=, or Ctrl+keypad + increases the size by 1 px; Ctrl+− or Ctrl+keypad − decreases it; Ctrl+0 or Ctrl+keypad 0 resets it to 13. lgse/strata#838
 - The same keys with Alt or Super held do not change the size. lgse/strata#838
+- Ctrl++ works whether or not the layout needs Shift to type `+`. lgse/strata#1576
+- Ctrl+Shift+keypad + or Ctrl+Shift+keypad − does not change the size. lgse/strata#1576
 - The shortcuts work while an inline rename editor is open, without submitting it. lgse/strata#838
 - Ctrl+wheel changes the size by 1 px per notch, accumulating smooth touchpad deltas into whole steps. lgse/strata#1069, lgse/strata#1140
 - Ctrl+wheel over a PDF preview, including its scrollbars, zooms the PDF instead. lgse/strata#1069
