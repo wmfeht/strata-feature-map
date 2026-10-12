@@ -41,7 +41,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 shipped · draft · reviewed at [`0562724`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025) · ? PRs since · origin issue [lgse/strata#1538](https://github.com/lgse/strata/issues/1538), pr [lgse/strata#1576](https://github.com/lgse/strata/issues/1576)
 
-Turns each key event into a shortcut the same way on every keyboard layout: letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the binding catalog, the label formatter with translated key names, and yielding to an unfinished input-method composition. The F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
+Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the binding catalog, the label formatter, and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
 
 - Code: [`src/ui/keys.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/keys.rs), [`src/ui/keys/**`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/keys)
 - Tests: [`src/ui/keys/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/keys/tests.rs)

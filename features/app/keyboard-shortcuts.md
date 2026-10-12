@@ -13,14 +13,14 @@ related: [app/window, app/shortcut-reference, integration/10xer-mode, settings/p
 
 ## Summary
 
-Turns each key event into a shortcut the same way on every keyboard layout: letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the binding catalog, the label formatter with translated key names, and yielding to an unfinished input-method composition. The F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
+Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the binding catalog, the label formatter, and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
 
 ## Behavior
 
 ### Matching
 
 - With `us,ru` configured and Russian active, Ctrl+C on a selected file then Ctrl+V in another folder copies it. lgse/strata#1576, lgse/strata#1538
-- With only a Russian layout configured, the keys that type с, л and ф act as Ctrl+C, Ctrl+K and Ctrl+A. lgse/strata#1576
+- With only a Russian layout configured, Ctrl with the keys that type с, л and ф acts as Ctrl+C, Ctrl+K and Ctrl+A. lgse/strata#1576
 - In 10xer mode with Russian active, the keys that type о and л move the cursor like `j` and `k`. lgse/strata#1576
 - The top digit row counts by position: Ctrl with a top-row key acts as Ctrl with the digit at that key's position. lgse/strata#1576
 - Where a top-row key types `+` or `−`, Ctrl with that key reads the symbol, not the digit at the key's position. lgse/strata#1576
@@ -45,7 +45,7 @@ Turns each key event into a shortcut the same way on every keyboard layout: lett
 - On `cn(altgr-pinyin)` in a rename field, `m`, AltGr+1, `a` types `mā`. lgse/strata#1583
 - On `cn(altgr-pinyin)` in a rename field, AltGr+1 then Escape cancels only the pending tone mark; the rename stays open. lgse/strata#1583
 - With fcitx5-hangul composing 보고 in a rename, one Escape commits the syllable and cancels the rename. lgse/strata#1583
-- On `cn(altgr-pinyin)`, digit keys without AltGr act as on US: Ctrl+1 switches to Columns, and 10xer `t 1` selects tab 1. AltGr+1 does neither. lgse/strata#1583
+- On `cn(altgr-pinyin)`, digit keys without AltGr act as on US: Ctrl+1 switches to Columns, and 10xer `t 1` selects tab 1. Ctrl+AltGr+1 and `t` then AltGr+1 do neither. lgse/strata#1583
 
 ### Labels
 

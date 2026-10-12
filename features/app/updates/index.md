@@ -55,7 +55,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - A prerelease and a stable offer show the same headline; only the version line, such as `v0.5.0-rc.1`, marks a prerelease. lgse/strata#1581 (unverified)
 - In a sidebar too narrow for either line, that line stays on one line and is ellipsized at its end. lgse/strata#1581 (unverified)
 - In the collapsed sidebar rail the notice shows only its download icon; expanding the sidebar restores both lines. lgse/strata#1581
-- The two-line notice row keeps its 38 px height. lgse/strata#1581 (unverified)
+- The two-line notice row is at least 38 px tall. lgse/strata#1581 (unverified)
 - A window opened after the check shows the cached notice without another request. lgse/strata#944
 - An automatic result that lands after checks were disabled or the channel changed is discarded. lgse/strata#944
 - Clicking the notice opens the update dialog for that release. lgse/strata#51

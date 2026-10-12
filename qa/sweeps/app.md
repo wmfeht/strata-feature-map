@@ -106,8 +106,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run Ctrl+C, Ctrl+V, Ctrl+K, Ctrl+1, and 10xer `j`, `k`, `g g` with `us,gr` and Greek active, then on a Greek-only keymap.
 - Repeat the Greek probe on Ukrainian and Hebrew.
 - On `ru` and `us,ru`, press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ with the file list focused.
-- On French AZERTY, press Ctrl+Shift+1 to Ctrl+Shift+0 with ten tabs open.
-- On Swiss German, press Ctrl+Shift+1 with two tabs open, then `t 1`, `g 1`, and `; 1`; read the text size and the active tab after each.
+- On Swiss German, press `t 1`, `g 1`, and `; 1` with the top-row keys, with and without Shift.
 - On Icelandic, press the þ, æ, and ö keys in the file list with type-to-search on, off, and in 10xer mode.
 - Repeat the Icelandic keys in the location field.
 - With Caps Lock on, run Ctrl+A, Ctrl+Shift+N, 10xer `G` and `g g`, Shift+D, and the `~` toggle, on `us` and on `ru`.
