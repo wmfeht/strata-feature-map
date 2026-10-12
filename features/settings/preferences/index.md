@@ -46,7 +46,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Queries match row titles and aliases, so "font size" finds Text size. lgse/strata#849
 - Query words of four or more letters tolerate one typo, six or more two, so "tezt size" finds Text size. lgse/strata#849 (unverified)
 - Queries also match a row's translated title and the current language's keywords. lgse/strata#1519
-- A query word of two or more Han or kana characters matches inside a title word, so 隐藏 finds 显示隐藏文件 under 简体中文. lgse/strata#1583
+- A query word of two or more characters that includes a Han or kana character matches inside a title, keyword, or alias word, so 视频预览 finds 硬件加速视频预览 under 简体中文. lgse/strata#1583 (unverified)
 - A single Han or kana character does not match inside a word, so の under 日本語 does not find デフォルトのディレクトリ. lgse/strata#1583
 - A query also matches the translated title with its spaces removed, so Omarchy主题变体 finds Omarchy 主题变体. lgse/strata#1583
 - In Search settings, Ctrl+A selects the query on any keyboard layout; Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
@@ -87,7 +87,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Hidden files
 
 - Ctrl+H or Ctrl+. toggles hidden files. lgse/strata#240
-- Ctrl+Shift or Ctrl+Alt with H or . does not toggle hidden files. lgse/strata#240 (unverified)
+- Ctrl+Shift, Ctrl+Alt, or Ctrl+Super with H or . does not toggle hidden files. lgse/strata#240, lgse/strata#1576 (unverified)
 - The Appearance menu's Hidden files row shows the `Ctrl+H` hint and an eye icon reflecting the current state. lgse/strata#240, lgse/strata#1576
 - That row is a check menu item whose checked state follows Ctrl+H and other windows. lgse/strata#1467, lgse/strata#1544
 - That row's accessible description is "Ctrl+H". lgse/strata#1544, lgse/strata#1576 (unverified)

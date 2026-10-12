@@ -41,7 +41,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
 - With Restore open tabs on and a `tabs.toml` whose every entry is invalid, plain-launch with the Default directory deleted, then with it `chmod 000`.
-- Under 简体中文 search 隐, 隐藏, `Omarchy主题变体`, `F1快捷键`, and `隐藏 文件`; under 日本語 search の, カラム, and `サイズを表示`. Count visible rows and read the opened page.
+- Under 简体中文 search 隐, `F1快捷键`, `隐藏 文件`, and 硬解, which only a keyword holds; under 日本語 search カラム. Count visible rows and read the opened page.
 - On a `ru`-only layout with a query typed, press Ctrl+A, Ctrl+Shift+A, and Ctrl+Alt+A in Search settings, then Ctrl+Alt+, from the file list; read the selection and whether Settings opened.
 - With icon-only navigation and before Actions or Updates has been built, search "license", "custom actions", "markdown", and "preview". Read the opened page, its title, and the visible navigation entries.
 - Repeat those searches under `language = "ja"` with the Japanese keywords, and with no custom actions installed but one broken action file present.
