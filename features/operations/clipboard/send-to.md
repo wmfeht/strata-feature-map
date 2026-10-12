@@ -26,8 +26,7 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 - A subfolder chosen there becomes a recent destination for that device. lgse/strata#1278
 - Sending to a folder moves it to the top of the recent list; the drive root never becomes a recent entry. lgse/strata#1278 (unverified)
 - If the device is gone when a destination is activated or the chooser confirms, "Destination unavailable" appears and nothing is copied. lgse/strata#1278, lgse/strata#1384
-- A send that finishes before progress appears shows "Copied to <device>" or "N items copied to <device>" for 2 seconds. lgse/strata#1278 (unverified)
-- That notice appears in the bottom-right progress dock. lgse/strata#1578
+- A send that finishes before progress appears shows a progress-dock notice, "Copied to <device>" or "N items copied to <device>", for 2 seconds. lgse/strata#1278, lgse/strata#1578 (unverified)
 - An open Send to… menu updates as devices mount and unmount. lgse/strata#1393
 
 ## Design

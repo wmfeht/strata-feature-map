@@ -27,6 +27,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 ### Locations without Trash
 
 - Outside Trash, the item context menu hides Move to Trash when the folder's listing reports `access::can-trash` false, and shows it when the value is unknown. lgse/strata#314
+- A folder whose first listed entry is a symlink into `/dev/shm` still offers Move to Trash, and Delete moves a regular file there to Trash. lgse/strata#1551, lgse/strata#1584
 - A no-Trash folder is an open folder reporting `access::can-trash` false and `access::can-delete` true, such as `/dev/shm`. lgse/strata#1533
 - Delete, or a drop on the sidebar Trash row, opens "Permanently delete N items?" at once when every item is in a no-Trash folder. lgse/strata#1533
 - In that case no trash move is attempted, so nothing reaches the Trash. lgse/strata#1533
@@ -57,7 +58,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 - A Trash item keeps its `trash:///` location for navigation, restore, and deletion. GVfs's `standard::target-uri` native path is carried separately, for thumbnails and as the physical restore source. Remote target URIs are rejected (lgse/strata#417).
 - Move to Trash visibility comes from `access::can-trash` on one listed entry per directory load, not on the folder: `$HOME` cannot itself be trashed but its entries can. An unknown value keeps the item visible so the only delete path never disappears; the trash-unsupported failure then offers permanent deletion (lgse/strata#314, lgse/strata#284, lgse/strata#179).
-- The probe queries that entry without following symlinks: a link is trashed as itself, and its target may be slow or unreachable to stat. GIO derives `can-trash` from the entry's parent directory, not from a link target (lgse/strata#1551, lgse/strata#1584).
+- The probe queries that entry without following symlinks: a link is trashed as itself, and its target may be slow or unreachable to stat (lgse/strata#1551). GIO derives `can-trash` from the entry's parent directory, not from a link target (lgse/strata#1584).
 - The trash-unsupported fallback reused the Shift+Delete dialog. lgse/strata#66 forbids silently substituting permanent deletion for Trash. The dialog now explains the missing Trash and focuses Cancel, because the user asked for Trash (lgse/strata#1425).
 - The up-front check uses the menu's `access::can-trash` signal. By owner decision it runs on every route, including drag-to-Trash. It requires `access::can-delete` true, so read-only folders still report "Permission denied" (lgse/strata#179, lgse/strata#1533).
 - Every selected entry is checked, because a search-result selection can span locations (lgse/strata#1425).

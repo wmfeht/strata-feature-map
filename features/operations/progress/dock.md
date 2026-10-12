@@ -51,8 +51,8 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 
 ### Notices
 
-- A fast Send to success, or a file provider reply requesting `notice`, shows as a row in the bottom-right dock, stacked with progress cards. lgse/strata#1578
-- A notice shows a check icon before its text, and pointer clicks pass through it. lgse/strata#1578 (unverified)
+- A notice shows as a row in the bottom-right dock; notices and progress cards stack in the order they appear. lgse/strata#1578 (unverified)
+- A notice shows a check icon before its text and has no controls; a click on it does nothing. lgse/strata#1578 (unverified)
 - Showing a notice while another notice is visible in the same window removes the old one; progress cards stay. lgse/strata#1578 (unverified)
 - Notice text, not its heading, wraps and is cut to 3 lines with an ellipsis. lgse/strata#1578 (unverified)
 - When a notice expires and the dock holds no other row, the dock closes. lgse/strata#1578 (unverified)

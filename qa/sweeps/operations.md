@@ -132,7 +132,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Cancel the Extract password dialog with Escape after Extract to…, then press Down.
 - Extract a multi-root archive, a single-root archive whose name is taken, and a third archive cancelled midway; press Ctrl+Z three times, then Ctrl+Shift+Z once.
 - Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
-- On the ntfs-3g mount, extract a single-root folder archive twice and a multi-root archive twice.
+- On the ntfs-3g mount, take `name` with a file and `name (2)` with a folder, then extract a single-root folder archive named `name`.
+- On the ntfs-3g mount, extract into a folder reached through a symlink.
 - On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
 - On the ntfs-3g mount, chmod a nested staging folder to `0000` mid-extraction, then list the destination with hidden files shown.
 

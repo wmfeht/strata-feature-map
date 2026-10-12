@@ -86,7 +86,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - On a filesystem without `RENAME_NOREPLACE`, such as an ntfs-3g mount, an extracted single root folder publishes as `name`, then `name (2)` when taken. lgse/strata#1585, lgse/strata#1586
 - On such a filesystem, several top-level entries publish in `stem/`, then `stem (1)/` when taken. lgse/strata#1585, lgse/strata#1586
 - After such a publication, no `.strata-extraction-<id>` folder remains and the existing same-named folder is untouched. lgse/strata#1585, lgse/strata#1586
-- On such a filesystem, a nested read-only folder, such as mode `0555`, publishes with its mode kept. lgse/strata#1586
+- On such a filesystem, a nested read-only folder, such as mode `0555`, publishes with its mode and modification time kept. lgse/strata#1586
+- On such a filesystem, a symlink member publishes as a symlink with its stored target. lgse/strata#1586
 - If publication fails partway there, the partial destination folder is removed and the error ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
 - A TAR whose first entry is `./` extracts its contents instead of failing. lgse/strata#494
@@ -140,7 +141,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Zip bombs are bounded by free space and declared sizes only. Other file managers rely on cancellation, so ratio and entry-count caps were rejected (lgse/strata#479, lgse/strata#605).
 - Password retries depend on a structured `PasswordFailure` kind from the decoders, never on message text, which can contain member names (lgse/strata#691, lgse/strata#1499).
 - Metadata restoration matches `tar` and `unzip` for a normal user: no owner, group, xattrs, or ACLs; folder metadata applies only on completion so partial output stays writable (lgse/strata#1422).
-- Without `RENAME_NOREPLACE`, a folder publishes by an exclusive `mkdirat` of the name, so `EEXIST` drives the numbering. Each entry is then linked in, and the source is removed only after every link succeeds; a failure leaves staging intact (lgse/strata#1585, lgse/strata#1586).
+- Without `RENAME_NOREPLACE`, a folder publishes by an exclusive `mkdirat` of the name, so `EEXIST` drives the numbering. Files are hard-linked in, symlinks recreated when linking fails, and subfolders recreated. The source is removed only after every entry is in place, so a failure leaves staging intact. Removal first restores owner access so `0555` folders cannot block it (lgse/strata#1585, lgse/strata#1586).
 - Compression writes a mode-0600 staging file beside the target and publishes it atomically without replacing anything; Keep Both retries the finished staging file under new names (lgse/strata#110, lgse/strata#404, lgse/strata#986).
 - Payload encoding is chosen per container. Known compressed inputs are stored in ZIP and copied in 7Z; TAR.GZ compresses the whole stream unless every payload is already compressed (lgse/strata#978, lgse/strata#981).
 - Compression never follows symlinks, so a selected folder cannot leak files from outside it (lgse/strata#402, lgse/strata#407).
