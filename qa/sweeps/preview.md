@@ -19,7 +19,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
-- Keyboard layouts for key probes: `setxkbmap ru` (no Latin layout), `setxkbmap us,ru` with Russian active, and Caps Lock on. `tests/e2e/harness/keyboard_layout.py` switches the layout, locks the XKB group, and restores `us` afterwards.
+- Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. `tests/e2e/harness/keyboard_layout.py` switches the layout, locks the XKB group, and restores `us` afterwards.
 - Reduce motion and Element glow each on and off, under the GL renderer and `GSK_RENDERER=cairo`. Two windows of the same build on one media folder for volume sync, the four-player cap, and width isolation.
 
 ## Probes

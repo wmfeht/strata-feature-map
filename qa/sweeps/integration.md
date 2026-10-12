@@ -80,7 +80,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - Press Ctrl+Shift+M over a modal, in the location field, in an inline rename, in the sidebar, in Settings, and in a chooser; toggle twice within 1.5 seconds.
 - Toggle the mode with a pane filter, a subfolder Ctrl+F scope, a `v` range, a folder peek, and an open preview active at once; toggle back and compare each pane.
-- With three windows open, toggle in one; read the F1 reference and menu hints, and press Ctrl+Shift+K, Ctrl+\, and Ctrl+Alt+T from the file list in the others; close one and check again.
+- With three windows open, toggle the mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K and Ctrl+\ from the file list. Close one window and check again.
 - In Columns, press `g g` and `G` in a newly opened column before any other key, with type grouping on and with hidden files shown.
 - Press `G` in an empty folder, Ctrl+U in a 10k folder, and `h` at `/`. Press `l` on a folder symlink and on a broken symlink, in each view.
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.

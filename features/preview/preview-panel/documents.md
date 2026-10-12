@@ -59,9 +59,9 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Dragging across cells and pressing Ctrl+C copies the range as tab-separated rows in displayed sort order. lgse/strata#729
 - With focus on the table, Ctrl+C copies every loaded row in the current sort order, including offscreen rows. lgse/strata#729
 - With focus on the table, Ctrl+Shift+C, Ctrl+Alt+C, and Ctrl+Super+C copy nothing. lgse/strata#1576
-- With a cell range selected, Ctrl+A or Ctrl+Shift+A clears the range. lgse/strata#1576
+- With a cell range selected, Ctrl+A or Ctrl+Shift+A clears the range; Ctrl+Alt+A leaves it. lgse/strata#729, lgse/strata#1576
 - With a non-Latin layout such as Russian active, Ctrl+A in a focused table cell selects that cell's text. lgse/strata#1576
-- With a non-Latin layout active and no cell range selected, Ctrl+C in a focused table cell copies the cell's selected text, not the whole table. lgse/strata#1576
+- With a non-Latin layout active and no cell range selected, Ctrl+C in a focused table cell copies its own selection, not the whole table. lgse/strata#1576
 
 ### Images, diagrams, and equations
 
