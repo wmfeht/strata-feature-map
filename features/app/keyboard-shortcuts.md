@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#1538, pr: lgse/strata#1576}
 branch: null
 reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
-code: [src/ui/keys.rs, src/ui/keys/**]
+code: [src/ui/keys.rs, src/ui/keys/label.rs, src/ui/keys/composition.rs]
 tests: [src/ui/keys/tests.rs]
 docs: [docs/keyboard-shortcuts.md]
 related: [app/window, app/shortcut-reference, integration/10xer-mode, settings/preferences/language, browser/selection/keyboard-navigation]
@@ -13,7 +13,7 @@ related: [app/window, app/shortcut-reference, integration/10xer-mode, settings/p
 
 ## Summary
 
-Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the binding catalog, the label formatter, and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
+Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the label formatter and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
 
 ## Behavior
 

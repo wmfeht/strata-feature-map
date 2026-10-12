@@ -74,5 +74,4 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 - Update-check failure reasons, such as "GitHub API rate limit reached", are translated lowercase in some languages because they normally follow a colon. lgse/strata#1542
 - Some progress messages, such as "%{items} deleted", lack count-aware forms for French and Brazilian Portuguese. lgse/strata#1542
 - Han glyph forms follow the process locale or `PANGO_LANGUAGE`, so choosing 简体中文 on an `en_US` system can show another region's glyph forms. lgse/strata#1583
-- Filenames sort by code point, not by pinyin. lgse/strata#1583
 - There is no Traditional Chinese catalog; Traditional locales get Simplified Chinese. lgse/strata#1582

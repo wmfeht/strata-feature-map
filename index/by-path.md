@@ -390,7 +390,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/keys.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
-| `src/ui/keys/**` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
+| `src/ui/keys/bindings.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/keys/bindings/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/keys/composition.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
+| `src/ui/keys/label.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
 | `src/ui/keys/tests.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
 | `src/ui/loading_skeleton.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/**` | code | [View modes](../features/browser/view-modes/index.md) | — |

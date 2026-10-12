@@ -7,9 +7,9 @@ tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-up
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, the sidebar notice, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, and directory-load log privacy.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, and directory-load log privacy.
 
-Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and its update notice as a navigation surface, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
+Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
 ## Setup
 
@@ -127,9 +127,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open Settings → Updates on the proxy-failed state, click Check now five times quickly, then restore the network and click once.
 - Compare the installed-release expander on the plain build, the prerelease build, and a build tagged with no GitHub release.
 - Serve release bodies through the proxy that hold a `<!-->` short form, a comment inside a fenced code block, and `-->` mid-paragraph; read the expander, the Available card, and the update dialog.
-- Offer a nightly and a release candidate with the interface in ja and with the sidebar at its minimum width; read the notice text and its accessible name.
-- With a notice shown, set text size 8 and 48 and compare the notice row's height with an empty sidebar foot. Then collapse to the rail and expand at each size.
-- Show a notice with the interface in ko, ru, and zh-CN at the default sidebar width, then drag the sidebar to its minimum.
 
 ### app/updates/release-channels
 
@@ -163,7 +160,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Per-mode movement, selection, the keyboard cursor after reloads, and type-to-search → `browser`.
 - Context menu items, placement, and Open With → `browser`.
-- The sidebar as a navigation surface and the Trash row → `browser`.
+- The sidebar as a navigation surface, the Trash row, and the update notice's text and layout → `browser`.
 - Settings layer mechanics and pages other than Updates, including Window buttons and text size controls → `settings`.
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.

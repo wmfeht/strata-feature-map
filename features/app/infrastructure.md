@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#14, pr: lgse/strata#27}
 branch: null
 reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
-code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, THIRD_PARTY_LICENSES.md, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock]
+code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, THIRD_PARTY_LICENSES.md, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, src/ui/keys/bindings.rs, src/ui/keys/bindings/**]
 tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py]
 docs: [docs/performance-baseline.md]
 related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring]
@@ -13,7 +13,7 @@ related: [remote/file-providers/network-locations, operations/trash, browser/nav
 
 ## Summary
 
-The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers with no feature of their own: resize captions, trashed-item preferences, and the mount-table parser. The test support crate, E2E harness and its fixtures, screenshot baselines, README, third-party notices, crate manifests, and lint and agent configuration sit here too. This node owns those shared modules as a fallback: it takes a change only when no feature node's code is touched.
+The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers with no feature of their own: resize captions, trashed-item preferences, the mount-table parser, and the key binding catalog that every feature registers its shortcuts in. The test support crate, E2E harness and its fixtures, screenshot baselines, README, third-party notices, crate manifests, and lint and agent configuration sit here too. This node owns those shared modules as a fallback: it takes a change only when no feature node's code is touched.
 
 ## Behavior
 

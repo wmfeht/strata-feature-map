@@ -47,8 +47,8 @@ A node's id is its path under `features/` without `.md` or `/index`, such as
 | Concern | Rule |
 | --- | --- |
 | Inheritance | Children inherit the parent's `docs` and Design and record only what differs. Everything else is per node. |
-| Behavior | Owned by exactly one node. A parent's Behavior covers only what no child owns. |
-| History | A PR's row goes on the most specific node whose code it touched, never on both a parent and its child. A batch PR that bundles independent fixes gets a row on each node whose code it changed. |
+| Behavior | Owned by exactly one node: the one whose `code` implements it, even when another node's feature triggers it. A parent's Behavior covers only what no child owns. |
+| History | A PR's row goes on the node `drift` names, never on both a parent and its child. A batch PR that bundles independent fixes gets a row on each node whose code it changed. See "Row placement" under Sync contract. |
 | Coverage | A parent's effective code and tests are the union of its own and its subtree's. |
 | Staleness | Each node has its own `reviewed_at`. A parent's effective staleness is its oldest descendant's. |
 | Status | Per node. A shipped parent may have an in-progress child. |
@@ -135,7 +135,9 @@ Every `code`, `tests`, and `docs` entry must exist in upstream at `reviewed_at`.
   changed and why. Refactor and perf PRs get a row and no Behavior edit.
   Trivial PRs (typos, formatting) need no row.
 - **Known gaps.** Bullets, each citing an issue: open issues, deferred work,
-  intended behavior not yet shipped. `None known.` when there are none.
+  intended behavior not yet shipped. A limitation stated in a merged PR body,
+  with no issue, cites that PR. A gap goes on the node whose code would fix it.
+  `None known.` when there are none.
 
 ## Writing rules
 
@@ -229,8 +231,19 @@ On each scheduled run:
 Rules:
 
 - Append to History; never rewrite earlier rows.
-- Put a History row on the most specific node, never on both a parent and child.
-  A batch PR of independent fixes gets a row on each node whose code it changed.
+- **Row placement.** A PR gets one History row, on the node `drift` names
+  ("History row here"). Other nodes whose bullets the PR changes cite it there
+  without a row. Never put rows on both a parent and child. Exceptions:
+  - A batch PR of independent fixes (a "triage batch" title, or a body listing
+    separate fixes) gets a row on each node whose code each fix changed.
+  - A PR in triage gets a new node when it passes the Nest rule, and that node
+    takes the row. Otherwise the row goes on the fallback node.
+  - When a PR touches only fallback files, its scope decides: a scope mapped in
+    `scopes.yaml` takes the row, otherwise the fallback does. Follow `drift`;
+    do not reargue it.
+- **Behavior placement.** A Behavior bullet lives on the node whose `code`
+  implements it, even when another node's feature triggers it. Other nodes
+  link the owner through `related`.
 - Edit Behavior only when the PR changed shipped behavior, and cite it on the
   changed bullet.
 - Edit Design only with a linked issue or PR that justifies the change.
@@ -253,12 +266,20 @@ Rules:
      repository file no feature owns.
   4. A sweep `triggers` entry, for the tests of a module that is already a
      trigger.
+  A file that mixes features goes to the node whose behavior most of its lines
+  implement. Build, lint, editor, and CI configuration always goes to the
+  fallback node, whatever it enforces. A catalog module that every feature edits
+  to register itself (key bindings, message catalogs, style sheets) never goes
+  in a feature node's `code`: give it to the fallback node or make it a sweep
+  trigger.
   Name each assignment and its reason in the PR description. Never give a file to
   a node whose behavior it does not implement just to empty the list.
 - When a PR, issue comment, or the code shows a bug that no issue covers, search
   `lgse/strata` issues, open and closed, and list it in the PR description. File
   an issue there only when a person asks, then cite it in Known gaps. Say "found
-  by code reading" when no source states the bug.
+  by code reading" when no source states the bug. A maintained upstream doc that
+  contradicts the code at `reviewed_at` is such a bug: list it, never record it
+  in a node.
 - Probes never record results, dates, or verdicts.
 - Never open a PR that fails `check`.
 - Imitate the reviewed files. They are the format's reference.

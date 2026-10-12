@@ -3,7 +3,7 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/app/browser/sorting.rs]
 tests: [src/app/browser/sorting/tests.rs]
@@ -70,3 +70,4 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 ## Known gaps
 
 - Folders first and Group by file type are application-wide, not remembered per folder. lgse/strata#1520
+- Filenames sort by code point, not by pinyin. lgse/strata#1583

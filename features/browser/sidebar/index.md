@@ -58,6 +58,14 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 - Outside 10xer mode, Ctrl+Shift+B shows a hidden sidebar and focuses the active row; pressing it again in the sidebar restores the previous focus. lgse/strata#58 (unverified)
 - Outside 10xer mode, Enter on a focused row opens the place with its first item selected; a pointer click opens it with nothing selected. lgse/strata#715
+### Update notice
+
+- When a check finds an update, every open window shows "Update available" over "vX", with a download icon, at the foot of its sidebar. lgse/strata#26, lgse/strata#944, lgse/strata#1581
+- The headline follows the interface language, such as "Update verfügbar" in German and "Nouvelle version" in French. lgse/strata#1581
+- A prerelease and a stable offer show the same headline; only the version line, such as `v0.5.0-rc.1`, marks a prerelease. lgse/strata#1581 (unverified)
+- In a sidebar too narrow for either line, that line stays on one line and is ellipsized at its end. lgse/strata#1581 (unverified)
+- In the collapsed sidebar rail the notice shows only its download icon; expanding the sidebar restores both lines. lgse/strata#1581
+- The two-line notice row is at least 38 px tall. lgse/strata#1581 (unverified)
 
 ## Design
 
