@@ -51,7 +51,7 @@ Opt-in, trusted programs that add live status badges and state-dependent context
 - An `accepted` reply with `feedback` `none` shows no dialog and no notice. lgse/strata#1578
 - `feedback` `notice` or `none` on a `rejected`, `partial`, or `unknown` outcome, or on a reply without `outcome`, still opens the dialog. lgse/strata#1578
 - `feedback` `dialog`, an omitted `feedback`, or an unrecognized string such as `"future-style"` opens the dialog. lgse/strata#1578
-- A non-string `feedback`, or `feedback` on a `query`, `menu`, or `error` reply, is an invalid frame and disconnects the provider. lgse/strata#1578 (unverified)
+- A `feedback` that is neither a string nor `null` is an invalid frame and disconnects the provider. So does `feedback` on a `query`, `menu`, or `error` reply or an `invalidate` event. lgse/strata#1578 (unverified)
 - An `unknown` outcome shows its counts as "at least N/M accepted". lgse/strata#1385
 - If the provider disconnects after an action was sent, the dialog says it may already have been accepted; an unsent action says it was not sent. lgse/strata#1385
 - When the provider's queue is full, the dialog says the provider is busy or unavailable and the action was not sent. lgse/strata#1385

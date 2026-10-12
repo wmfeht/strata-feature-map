@@ -49,7 +49,7 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Register nine providers, one with a symlinked `provider.json`, one world-writable, one owned by another user, and one 300×300 icon; the log must name the rejected ids and nothing else about them.
 - Reply `"feedback":"notice"` with `accepted` 1/2 and a `job`. Then reply with `"Notice"` and with `null` as the value; read which dialog or notice each produces.
 - Run a `notice` action from the item menu, the background menu, a second window, and a file chooser; then close the window or tab before the reply arrives.
-- Run a `notice` action whose message is 500 unbroken characters, with and without a screen reader.
+- Run a `notice` action from a provider whose `name` is the full 64 bytes, beside a short message.
 - Set `icon` to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
 - With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
 
