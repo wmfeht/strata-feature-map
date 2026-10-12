@@ -46,7 +46,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Queries match row titles and aliases, so "font size" finds Text size. lgse/strata#849
 - Query words of four or more letters tolerate one typo, six or more two, so "tezt size" finds Text size. lgse/strata#849 (unverified)
 - Queries also match a row's translated title and the current language's keywords. lgse/strata#1519
-- A query word of two or more characters that includes a Han or kana character matches inside a title, keyword, or alias word, so 视频预览 finds 硬件加速视频预览 under 简体中文. lgse/strata#1583 (unverified)
+- A query word of two or more characters with a Han or kana character matches inside a title, keyword, or alias word. Under 简体中文, 视频预览 finds 硬件加速视频预览. lgse/strata#1583 (unverified)
 - A single Han or kana character does not match inside a word, so の under 日本語 does not find デフォルトのディレクトリ. lgse/strata#1583
 - A query also matches the translated title with its spaces removed, so Omarchy主题变体 finds Omarchy 主题变体. lgse/strata#1583
 - In Search settings, Search themes, and Search templates, Ctrl+A selects the query on any keyboard layout. Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576

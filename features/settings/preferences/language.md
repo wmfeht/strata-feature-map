@@ -58,7 +58,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 - `rust-i18n` moved from 3.1.5 to 4.2.4 because cargo-deny rejects `unsafe-libyaml` (RUSTSEC-2024-0449). `i18n::Catalogs` follows the 4.0 `Backend` trait; the compiled tables are unchanged (lgse/strata#1583).
 - One Chinese catalog serves every Chinese locale, as Brazilian Portuguese serves every Portuguese one. The owner rejected an English fallback for Traditional locales (lgse/strata#1582).
 - Two shared helpers were extended instead of adding zh-only paths: `i18n::join_sentences`, replacing an archive-only `。` case, and Settings search (lgse/strata#1583).
-- Han glyph forms follow the process locale or `PANGO_LANGUAGE`, not Strata's setting. Setting `PANGO_LANGUAGE` from Strata was rejected: it must be set before threads start and scrubbed from every launched program (lgse/strata#1583).
+- Setting `PANGO_LANGUAGE` from Strata was rejected: it must be set before threads start and scrubbed from every launched program (lgse/strata#1583).
 - English is the source of truth. Terms follow GNOME, KDE, and Microsoft usage for each language (lgse/strata#1541).
 
 ## History
