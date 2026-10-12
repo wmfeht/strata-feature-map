@@ -62,11 +62,11 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In 10xer mode in Columns or List, the reference lists "↑ / ↓ / + / −" in media as "Volume up / down". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
 - The default reference lists text size as "Ctrl++ / − / 0", Ctrl+Space, and Ctrl+\; the 10xer reference lists text size. lgse/strata#1376, lgse/strata#1576
 - Movement keys are described directly; the `h / j / k / l` row reads "Same as ← ↓ ↑ → (type-to-search off)" and no row names Vim. lgse/strata#826
-- In a translated interface, actions, key context such as "on a file", and key names are translated: German shows Strg+B and Rücktaste. lgse/strata#1519, lgse/strata#1576
+- In a translated interface, actions and key context such as "on a file" are translated, and key names follow the interface language: German shows Strg+B and Rücktaste. lgse/strata#1519, lgse/strata#1576
 
 ### Menu hints
 
-- In the default map, the Y (copy path) and P (pin) context-menu hints show only while Type to search is off. lgse/strata#1376
+- In the default map, the `y` (copy path) and `p` (pin) context-menu hints show only while Type to search is off. lgse/strata#1376, lgse/strata#1576
 - In 10xer mode, menu hints show 10xer keys, such as `r` for Rename and `D` for permanent delete. Duplicate, Copy path, Pin, and terminal show none. lgse/strata#1272, lgse/strata#1340, lgse/strata#1576 (unverified)
 
 ### Footer status

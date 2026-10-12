@@ -103,19 +103,23 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 ### app/keyboard-shortcuts
 
-- Run Ctrl+C, Ctrl+V, Ctrl+K, Ctrl+1, and 10xer `j`, `k`, `g g` with `us,gr` and Greek active, then with a Greek-only keymap; repeat on Ukrainian and Hebrew.
-- On `ru` and `us,ru`, press Ctrl+. and the key that types ю, and Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ with the file list focused.
-- On French AZERTY, press Ctrl+3, Ctrl+Shift+1 to Ctrl+Shift+0, Ctrl+AltGr+1, 10xer `t` then the `−` key, and `g` then the `−` key.
+- Run Ctrl+C, Ctrl+V, Ctrl+K, Ctrl+1, and 10xer `j`, `k`, `g g` with `us,gr` and Greek active, then on a Greek-only keymap.
+- Repeat the Greek probe on Ukrainian and Hebrew.
+- On `ru` and `us,ru`, press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ with the file list focused.
+- On French AZERTY, press Ctrl+Shift+1 to Ctrl+Shift+0, Ctrl+AltGr+1, 10xer `t` then the `−` key, and `g` then the `−` key.
 - On Swiss German, press Ctrl+Shift+1 with two tabs open, then `t 1`, `g 1`, and `; 1`; read the text size and the active tab after each.
-- On Icelandic, press the þ, æ, and ö keys in the file list with type-to-search on and off, and in 10xer mode; then press them in the location field.
+- On Icelandic, press the þ, æ, and ö keys in the file list with type-to-search on, off, and in 10xer mode.
+- Repeat the Icelandic keys in the location field.
 - With Caps Lock on, run Ctrl+A, Ctrl+Shift+N, 10xer `G` and `g g`, Shift+D, and the `~` toggle, on `us` and on `ru`.
-- With Num Lock off and then on, press keypad 1, keypad Home, keypad Delete, keypad `+`, and keypad Enter in the file list, a rename field, and F1 search.
+- With Num Lock off, then on, press keypad 1, Home, Delete, `+`, and Enter in the file list.
+- Repeat the keypad keys in a rename field and in F1 search.
 - Press Ctrl+C, Ctrl+1, and Page Down with Hyper and with Meta held, mapped through `xmodmap` on the private display.
-- With a pinyin composition pending, press Escape, Space, Enter, Tab, and Ctrl+V in the location field, global search, the footer prompt, F1 search, and Settings search.
+- With a pinyin composition pending in the location field, press Escape, Space, Enter, Tab, and Ctrl+V.
+- Repeat the pinyin keys in global search, the footer prompt, F1 search, and Settings search.
 - With a pending AltGr dead key on `cn(altgr-pinyin)`, press Shift+AltGr+6 then Escape, AltGr+1 then F1, and AltGr+1 then Ctrl+K.
 - Compose a hangul syllable in a rename, then press Down, Ctrl+A, and Tab instead of Escape; read the name and where focus lands.
 - Start composing in a Settings search field shown in a popover, and in the file chooser's location field, then press Escape.
-- Switch the interface to German, French, ja, and zh-CN and read the shortcut labels in F1, the item menu, header tooltips, and the footer.
+- With the interface in ja, read the shortcut labels in the footer and header tooltips.
 
 ### app/updates
 

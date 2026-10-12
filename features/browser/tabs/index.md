@@ -49,16 +49,16 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 
 - Ctrl+Tab and Ctrl+Page Down select the next tab; Ctrl+Shift+Tab and Ctrl+Page Up select the previous one. Each wraps at either end. lgse/strata#1484, lgse/strata#1506
 - Ctrl+Shift+1 to Ctrl+Shift+9 select tabs 1 to 9 and Ctrl+Shift+0 selects tab 10, counted in current strip order. lgse/strata#1484
-- The tab digit is the key's position in the digit row on every layout: on German QWERTZ, Ctrl+Shift+2 selects tab 2. lgse/strata#1576
+- The tab digit is the key's position in the digit row: on German QWERTZ, Ctrl+Shift+2 selects tab 2. lgse/strata#1576
 - Where Shift+1 types `+`, as on Swiss German, Ctrl+Shift+1 increases the text size and selects no tab. lgse/strata#1576
 - In 10xer mode, `t` then `1` to `9` or `0` selects tabs 1 to 10, and `t` then `t` selects the previous tab, wrapping from first to last. lgse/strata#1484
 - Escape after `t` cancels the pending tab chord. lgse/strata#1484
 - Typing `t`, `n`, or `x` in a text field such as the location editor enters literal text. lgse/strata#1484
-- Holding exactly Ctrl+Shift, with no other modifier, shows number badges `1` to `9` and `0` beside the first ten tab labels. lgse/strata#1484, lgse/strata#1576
+- Holding Ctrl+Shift without Alt or Super shows number badges `1` to `9` and `0` beside the first ten tab labels. lgse/strata#1484, lgse/strata#1576
 - Badges hide when Ctrl or Shift is released or the window loses focus. lgse/strata#1484 (unverified)
 - Keypad Page Up and Page Down work like Page Up and Page Down, and Caps Lock does not block the shortcuts. lgse/strata#1506
 - Page Up and Page Down tab shortcuts with Alt or Super added do nothing to tabs. lgse/strata#1506, lgse/strata#1576
-- Tab shortcuts ignore a held Hyper or Meta, so Ctrl+Hyper+Page Down selects the next tab. lgse/strata#1576 (unverified)
+- Tab shortcuts ignore a held Hyper or Meta, so Ctrl+Hyper+Page Down selects the next tab. lgse/strata#1576
 - Selecting a tab returns focus to the widget it last focused. When that widget is gone or can no longer take focus, its file view's cursor gets it. lgse/strata#1484, lgse/strata#1533
 - While a modal dialog is open, tab shortcuts and the New tab button do not create, switch, close, or move tabs. lgse/strata#1506
 

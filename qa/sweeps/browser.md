@@ -99,6 +99,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Trash the focused open folder with Delete, Mirror columns selection off then on, where the next entry is a file, a dot-folder, or nothing.
 - Start a rename, `touch` a file in that folder from a shell, then press F2, Menu, and Shift+F10 on the row.
 - Toggle Show sizes in Columns view from Appearance with Settings open in a second window and a recursive search column open.
+- With one entry selected, create 4,200 files in the active column's folder from a shell, then press Down and the 10xer next-entry key.
 - With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
 
 ### browser/view-modes/icons
@@ -155,7 +156,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Alt+Left with the location entry open, with Properties open, and with a filter result focused; then click a breadcrumb with the sidebar focused.
 - Let an auto-refresh tick land in a background tab, then switch to it. Press F5 with a rename open in Icons, then in List.
 - Leave a folder in Icons with three entries selected, then click and Enter its sidebar place; repeat in Columns and after 130 other folders.
-- With one entry selected, create 4,200 files in the open folder from a shell, then press Down and the 10xer next-entry key. Repeat in each view.
+- With one entry selected in Icons and List, create 4,200 files in the open folder from a shell, then press Down and the 10xer next-entry key.
 
 ### browser/navigation
 
@@ -196,7 +197,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Search `résumé` typed in NFD, `.cargo`, `level-255`, `/`, and a query ending in a space; then add a `.gitignore` excluding a folder and reopen.
 - Press Alt+Enter on a result while a Trash view is open, then while a filter is open; press Ctrl+K with the location entry and a rename editor open.
 - Open Ctrl+K from the sidebar, the filter field, and an empty folder, close it by a click outside the panel, and press Down.
-- With pinyin composing in the Ctrl+K field, press Down to the third result, pick a candidate with Space, then press Enter. Repeat with a dead key.
+- In Ctrl+K, press Down to the third result, type pinyin, pick a candidate with Space, then press Enter. Repeat with a dead key.
 - With a Ctrl+K query open, `touch` a file in a watched Home subfolder every 100 ms for 10 s. Type meanwhile and watch the highlight.
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 

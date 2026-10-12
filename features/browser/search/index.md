@@ -65,6 +65,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Opening a file result reveals it selected in its folder and opens quick preview. lgse/strata#1499
 - With **Open search results directly** on, opening a file result launches it instead of previewing it, and still reveals it in its folder. lgse/strata#144 (unverified)
 - Alt+Enter, or right-click → **Open containing folder**, closes search and opens the result's parent with the result selected and focused. lgse/strata#1066
+- Alt+Enter with Hyper or Meta held also opens the containing folder. lgse/strata#1576
 - For a folder result, **Open containing folder** selects the folder in its parent rather than opening it. lgse/strata#1066
 - Escape, or a click outside the dialog panel, closes search. lgse/strata#112 (unverified)
 - Closing search with Escape, Ctrl+K, or a click outside the panel returns focus to its opener, such as the file list's cursor row. lgse/strata#1430, lgse/strata#1533

@@ -62,7 +62,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Permanently delete shows CircleX with a red label and icon; Move to Trash keeps the Trash icon. lgse/strata#1210
 - An action with a shortcut shows it at the row's right, such as Ctrl+C beside Copy. lgse/strata#666
 - Shortcut hints use one notation: Enter beside Open, "F2 / Ctrl+R" beside Rename, and Alt+Enter beside Properties. lgse/strata#1576
-- In a translated interface, hints show translated key names: German shows Strg+C and Entf. lgse/strata#1576
+- With the interface in German, hints read Strg+C beside Copy and Entf beside Move to Trash. lgse/strata#1576
+- In 10xer mode, hints read lowercase `x`, `y`, and `d` beside Cut, Copy, and Move to Trash, and `D` beside Permanently delete. lgse/strata#1576
 - Screen readers get each row's label as its name and its shortcut as its description. lgse/strata#415 (unverified)
 
 ### Placement
