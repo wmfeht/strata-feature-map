@@ -6,7 +6,7 @@ tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh]
 
 ## Scope
 
-Everything that reaches Strata from somewhere other than a local disk: network locations over GIO/GVfs (`smb://`, `sftp://`, `network:///`) with on-demand mounting, the sign-in, passphrase, and host-key dialogs, failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe; and external file providers, from registration and process lifecycle to badges, menu sections, activation dialogs, and invalidation. `remote/file-providers` itself has no Behavior; its two children carry every check.
+Everything that reaches Strata from somewhere other than a local disk: network locations over GIO/GVfs (`smb://`, `sftp://`, `network:///`) with on-demand mounting, the sign-in, passphrase, and host-key dialogs, failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe; and external file providers, from registration and process lifecycle to badges, menu sections and their heading icons, activation dialogs and notices, and invalidation. `remote/file-providers` itself has no Behavior; its two children carry every check.
 
 Left to other sweeps: sidebar rows and location-field parsing and history, copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, and mounting, unmounting, and ejecting local devices.
 
@@ -49,8 +49,8 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Register nine providers, one with a symlinked `provider.json`, one world-writable, one owned by another user, and one 300×300 icon; the log must name the rejected ids and nothing else about them.
 - Reply `"feedback":"notice"` with `accepted` 1/2 and a `job`. Then reply with `"Notice"` and with `null` as the value; read which dialog or notice each produces.
 - Run a `notice` action from the item menu, the background menu, a second window, and a file chooser; then close the window or tab before the reply arrives.
-- Run two providers' `notice` actions within 4 s of each other, one with a 500-character unbroken message, and repeat with a screen reader running.
-- Set `icon` to an id that is also a badge icon, to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
+- Run a `notice` action whose message is 500 unbroken characters, with and without a screen reader.
+- Set `icon` to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
 - With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
 
 ## Hand-offs

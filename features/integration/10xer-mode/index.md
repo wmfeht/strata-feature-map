@@ -97,7 +97,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ## Design
 
-[docs/10xer-mode.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/10xer-mode.md) is the target product specification and keymap contract; each PR updates it as keys ship.
+[docs/10xer-mode.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/10xer-mode.md) is the target product specification and keymap contract; each PR updates it as keys ship.
 
 - Keyboard browsing shared the default map with type-to-search and dense pane controls. Yazi- and Ranger-style users needed an explicit opt-in map instead (lgse/strata#1152).
 - The scope is not full Yazi compatibility: no content search (`S`), zoxide integration, keybinding editor, or live cross-process preference sync (lgse/strata#1152).

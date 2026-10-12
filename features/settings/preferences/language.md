@@ -43,8 +43,8 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 - Counts use each language's plural forms: Russian one, few, and many; French and Brazilian Portuguese singular for zero and one; Chinese, Japanese, Korean, and Vietnamese one form, such as `3 个项目`. lgse/strata#1519, lgse/strata#1583
 - Numbers, file sizes, and durations use the language's digit grouping, decimal separator, and unit symbols. lgse/strata#1519
 - Under 简体中文, numbers read `1,234,567.3`, durations read `45秒`, `2分5秒`, and `1小时2分`, and lists join with `、`. lgse/strata#1583
-- Under 简体中文 or 日本語, archive extraction errors, FAT32 copy failures, transfer flush errors, and package-managed update text put no space after a sentence ending in `。`, `！`, or `？`. lgse/strata#1583 (unverified)
-- In those messages, a first sentence without a stop, such as a bare system error, gets the language's full stop before the next: `。` in Chinese and Japanese, `. ` elsewhere. lgse/strata#1583 (unverified)
+- Under 简体中文 or 日本語, a sentence ending in `。`, `！`, or `？` gets no space before the next. This applies to archive extraction errors, FAT32 copy failures, transfer flush errors, and package-managed update text. lgse/strata#1583 (unverified)
+- In those messages, a first sentence without a stop, such as a bare system error, gets the language's full stop. That stop is `。` in Chinese and Japanese and `. ` elsewhere. lgse/strata#1583 (unverified)
 - Programs launched from Strata keep the user's locale environment. lgse/strata#1519
 
 ## Design

@@ -49,7 +49,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A query word of two or more characters that includes a Han or kana character matches inside a title, keyword, or alias word, so 视频预览 finds 硬件加速视频预览 under 简体中文. lgse/strata#1583 (unverified)
 - A single Han or kana character does not match inside a word, so の under 日本語 does not find デフォルトのディレクトリ. lgse/strata#1583
 - A query also matches the translated title with its spaces removed, so Omarchy主题变体 finds Omarchy 主题变体. lgse/strata#1583
-- In Search settings, Ctrl+A selects the query on any keyboard layout; Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
+- In Search settings, Search themes, and Search templates, Ctrl+A selects the query on any keyboard layout. Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
 - A query with no match shows "No settings match your search." under the title Search results. lgse/strata#849
 - Escape in a non-empty search field clears the query and restores every row; the next Escape closes Settings. lgse/strata#849
 - Searching changes no saved preference. lgse/strata#849
@@ -88,9 +88,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - Ctrl+H or Ctrl+. toggles hidden files. lgse/strata#240
 - Ctrl+Shift, Ctrl+Alt, or Ctrl+Super with H or . does not toggle hidden files. lgse/strata#240, lgse/strata#1576 (unverified)
-- The Appearance menu's Hidden files row shows the `Ctrl+H` hint and an eye icon reflecting the current state. lgse/strata#240, lgse/strata#1576
+- The Appearance menu's Hidden files row shows the `Ctrl+H` hint in English and an eye icon reflecting the current state. lgse/strata#240, lgse/strata#1576
 - That row is a check menu item whose checked state follows Ctrl+H and other windows. lgse/strata#1467, lgse/strata#1544
-- That row's accessible description is "Ctrl+H". lgse/strata#1544, lgse/strata#1576 (unverified)
+- In English, that row's accessible description is "Ctrl+H". lgse/strata#1544, lgse/strata#1576 (unverified)
 - The folder-background context menu offers Show Hidden Files or Hide Hidden Files, matching the current state. lgse/strata#240
 - Toggling shows or hides hidden entries in every open column without reloading the directories. lgse/strata#201
 - The choice is saved as `show_hidden` and restored on the next launch. lgse/strata#144

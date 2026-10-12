@@ -47,7 +47,7 @@ Opt-in, trusted programs that add live status badges and state-dependent context
 
 - Activating a leaf sends the whole selection, the action id, and its `context` token unchanged. lgse/strata#1385
 - Unless an accepted reply requests `notice` or `none`, a "File availability" dialog shows the provider id, status, accepted/total counts, job reference, and message. lgse/strata#1385, lgse/strata#1578
-- An `accepted` reply with `feedback` `notice` opens no dialog. The bottom-right progress dock shows the provider's `name`, or its id, and the message for about 4 seconds. lgse/strata#1578
+- An `accepted` reply with `feedback` `notice` opens no dialog. A progress-dock notice shows the provider's `name`, or its id, and the message for about 4 seconds. lgse/strata#1578
 - An `accepted` reply with `feedback` `none` shows no dialog and no notice. lgse/strata#1578
 - `feedback` `notice` or `none` on a `rejected`, `partial`, or `unknown` outcome, or on a reply without `outcome`, still opens the dialog. lgse/strata#1578
 - `feedback` `dialog`, an omitted `feedback`, or an unrecognized string such as `"future-style"` opens the dialog. lgse/strata#1578

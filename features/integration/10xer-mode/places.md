@@ -34,9 +34,9 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - `g +`, or `g` then keypad `+`, pins the folder under the cursor, or the current folder from a file. It flashes `Pinned “Name” as g N`. lgse/strata#1340
 - A new pin outside the first nine visible pins flashes `Pinned “Name”` with no digit. lgse/strata#1340 (unverified)
 - `g -`, or `g` then keypad `-`, unpins it and flashes `Unpinned “Name”`; pinning twice flashes `“Name” is already pinned`. lgse/strata#1340
+- `g -` on a folder that is not pinned flashes `“Name” isn’t pinned`. lgse/strata#1340 (unverified)
 - `g` then Shift+keypad `+` or Shift+keypad `-` neither pins nor unpins. lgse/strata#1576
 - Where a top-row key types `+` or `-`, `g` then that key pins or unpins instead of opening a pin: AZERTY `g -` unpins. lgse/strata#1576
-- `g -` on a folder that is not pinned flashes `“Name” isn’t pinned`. lgse/strata#1340 (unverified)
 - Standard places and Trash flash `Can’t pin “Name”`. lgse/strata#1340
 
 ### `go ›`

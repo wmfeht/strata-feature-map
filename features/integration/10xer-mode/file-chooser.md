@@ -53,7 +53,7 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 - In a single-item request, Space, `v`, `V`, Ctrl+A, and Ctrl+R flash `Only one item can be chosen`. lgse/strata#1311
 - `g t`, `g n`, and remote pins flash `Only local folders can be opened here`. lgse/strata#1311
 - `a`, `d`, `D`, sort chords, `.`, `c c`, and `c n` work as in a window. `r` and F2 do too, outside single-file Save requests. lgse/strata#1311
-- The `g` chord panel leaves out `g t`, `g n`, `g +`, and `g −`, which the chooser refuses. lgse/strata#1576
+- The `g` chord panel leaves out `g t`, `g n`, `g +`, and `g -`, which the chooser refuses. lgse/strata#1576
 - `t` does not arm the tab chord, so no `t-` prompt appears in the footer. lgse/strata#1311 (unverified)
 
 ## Design

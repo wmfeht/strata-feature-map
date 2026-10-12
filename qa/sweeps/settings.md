@@ -127,6 +127,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - 10xer mode toggle and custom actions pages → `integration`.
 - Automatic updates, release channel, and the Updates page → `app`.
 - Window buttons rows and the F1 shortcuts reference → `app`.
+- Input-method and dead-key composition in Settings fields → `app`.
 - Restore open tabs under General → Startup and the tab session it controls → `browser`.
 - Focus return after closing dialogs other than Settings → `app`.
 - Focus return after closing the search palettes → `browser`.
