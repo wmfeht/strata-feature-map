@@ -50,7 +50,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Ctrl+Tab and Ctrl+Page Down select the next tab; Ctrl+Shift+Tab and Ctrl+Page Up select the previous one. Each wraps at either end. lgse/strata#1484, lgse/strata#1506
 - Ctrl+Shift+1 to Ctrl+Shift+9 select tabs 1 to 9 and Ctrl+Shift+0 selects tab 10, counted in current strip order. lgse/strata#1484
 - The tab digit is the key's position in the digit row: on German QWERTZ, Ctrl+Shift+2 selects tab 2. lgse/strata#1576
-- Where Shift+1 types `+`, as on Swiss German, Ctrl+Shift+1 increases the text size and selects no tab. lgse/strata#1576
+- Where Shift+1 types `+`, as on Swiss German, Ctrl+Shift+1 selects no tab. lgse/strata#1576
 - In 10xer mode, `t` then `1` to `9` or `0` selects tabs 1 to 10, and `t` then `t` selects the previous tab, wrapping from first to last. lgse/strata#1484
 - Escape after `t` cancels the pending tab chord. lgse/strata#1484
 - Typing `t`, `n`, or `x` in a text field such as the location editor enters literal text. lgse/strata#1484

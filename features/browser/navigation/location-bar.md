@@ -22,6 +22,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - Clicking the current crumb, a separator, or empty breadcrumb space opens the entry; crumb buttons and the copy-path button keep their own actions. lgse/strata#316
 - While editing, a click outside the entry and its buttons cancels the edit, restores the breadcrumbs, and still performs the click's normal action. lgse/strata#316
 - Enter or the Navigate button opens the typed location; Escape or the Cancel button restores the breadcrumbs without navigating. lgse/strata#1132
+- With an input method composing in the location field, Escape cancels only the composition and the editor stays open. lgse/strata#1583
 - The entry and its buttons have the accessible names "Location (Ctrl+L)", "Navigate (Enter)", and "Cancel (Escape)". lgse/strata#1132
 - While the entry has focus, Ctrl+K and Ctrl+1–3 reach the entry instead of opening search or switching view mode. lgse/strata#914
 - A location that cannot be opened shows an "Unable to open location" dialog and the breadcrumbs return to the current path. lgse/strata#1206 (unverified)
