@@ -21,7 +21,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
-- Keyboard layouts loaded with `setxkbmap -layout fr`, `de`, and `ch -variant de`, or the E2E `keyboard_layout` fixture; fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
+- Keyboard layouts `fr` and `de` from the E2E `keyboard_layout` fixture or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the fixture lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
 ## Probes
@@ -102,7 +102,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Type a path under a 50k-folder tree and press Enter before the search settles; Tab on `.alc` with hidden files off; query `10:30` and a path containing `:`.
 - Open `z` with an empty history, `Z` with 200 entries, press Up past the last candidate, and press Enter twice while the list is still updating.
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
-- On `fr` and `ch(de)`, press `g` then Shift with each digit-row key, then the keys that type `+` and `−`; on `us`, press `g` then Shift+keypad +.
+- On `fr` and `ch(de)`, press `g` then the keys that type `+` and `-`, on a pinned folder, an unpinned one, and the tenth pin.
 
 ### integration/10xer-mode/search
 

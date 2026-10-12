@@ -7,7 +7,7 @@ reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
-related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions]
+related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions, app/keyboard-shortcuts]
 ---
 
 ## Summary
@@ -75,7 +75,6 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - A newer key, a selection or focus change, navigation, leaving the mode, or closing the window drops an unfinished Open With lookup. lgse/strata#1308
 - `;` arms a chord whose panel lists the first ten matching custom actions in context-menu order, then `t`, `c`, `e`, and `E`. lgse/strata#1308, lgse/strata#1340
 - `; 1` to `; 9` and `; 0` run that action; a vacant slot flashes `No action N` and runs nothing. lgse/strata#1308
-- `;` then Shift and a digit-row key runs the same action as the digit alone, as AZERTY needs. lgse/strata#1576
 - If the targets or the action list changed since `;`, the digit flashes `Selection changed` or `Actions changed` and runs nothing. lgse/strata#1308
 - A confirming action asks first, and a run appears in Jobs as from the context menu. lgse/strata#1308
 - `; t` opens a terminal in the keyboard-focused folder. lgse/strata#1340

@@ -7,7 +7,7 @@ reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
-related: [browser/sidebar, browser/navigation]
+related: [browser/sidebar, browser/navigation, app/keyboard-shortcuts]
 ---
 
 ## Summary
@@ -26,7 +26,6 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - A missing user folder flashes `No Downloads folder`, `No Documents folder`, `No Pictures folder`, or `No Videos folder` and stays put. lgse/strata#1296
 - A missing Music folder flashes `No Music folder`, and a missing `~/.config` flashes `No .config folder`; neither navigates. lgse/strata#1296, lgse/strata#1342 (unverified)
 - `g 1` to `g 9` open the visible PINNED rows in sidebar order, skipping bookmarks that are standard places; a missing pin flashes `No pin N`. lgse/strata#1296
-- `g` then Shift and a digit-row key opens the same pin as the digit alone, as AZERTY needs. lgse/strata#1576
 - Esc cancels an armed chord, and any other unknown second key cancels it with `Unknown chord`. lgse/strata#1296
 - Opening Settings, leaving the mode, or closing the window drops an armed chord. lgse/strata#1296
 
@@ -35,8 +34,8 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - `g +`, or `g` then keypad `+`, pins the folder under the cursor, or the current folder from a file. It flashes `Pinned “Name” as g N`. lgse/strata#1340
 - A new pin outside the first nine visible pins flashes `Pinned “Name”` with no digit. lgse/strata#1340 (unverified)
 - `g -`, or `g` then keypad `-`, unpins it and flashes `Unpinned “Name”`; pinning twice flashes `“Name” is already pinned`. lgse/strata#1340
-- `g` then Shift+keypad + or Shift+keypad − neither pins nor unpins. lgse/strata#1576
-- Where a top-row key types `+` or `−`, `g` then that key pins or unpins instead of opening a pin: AZERTY `g −` unpins. lgse/strata#1576
+- `g` then Shift+keypad `+` or Shift+keypad `-` neither pins nor unpins. lgse/strata#1576
+- Where a top-row key types `+` or `-`, `g` then that key pins or unpins instead of opening a pin: AZERTY `g -` unpins. lgse/strata#1576
 - `g -` on a folder that is not pinned flashes `“Name” isn’t pinned`. lgse/strata#1340 (unverified)
 - Standard places and Trash flash `Can’t pin “Name”`. lgse/strata#1340
 
