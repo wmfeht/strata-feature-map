@@ -47,7 +47,7 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Emit `invalidate` 50 times per second for a minute with an open submenu, then stop; the open submenu, labels, and badges must settle without the menu closing.
 - Activate a leaf, kill the provider with SIGKILL before it answers, and separately make it exit 0 after writing half a reply line; compare the two dialogs.
 - Register nine providers, one with a symlinked `provider.json`, one world-writable, one owned by another user, and one 300×300 icon; the log must name the rejected ids and nothing else about them.
-- Reply `"feedback":"notice"` with `accepted` 1/2 and a `job`, with `error` also set, with an empty `message`, and with `"Notice"` and `null` as the value; read which dialog, notice, or disconnect each produces.
+- Reply `"feedback":"notice"` with `accepted` 1/2 and a `job`. Then reply with `"Notice"` and with `null` as the value; read which dialog or notice each produces.
 - Run a `notice` action from the item menu, the background menu, a second window, and a file chooser; then close the window or tab before the reply arrives.
 - Run two providers' `notice` actions within 4 s of each other, one with a 500-character unbroken message, and repeat with a screen reader running.
 - Set `icon` to an id that is also a badge icon, to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.

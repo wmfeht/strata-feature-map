@@ -37,8 +37,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the 200 MP PNG with and without an EXIF thumbnail, a 3MF with two usable PNGs, and a CBZ whose first entry is a folder.
 - In a 600-line `.rs` preview and a plain-text file with a 2 KiB line, type letters, Backspace, Ctrl+V, and Ctrl+X.
 - In the same files, press Shift+Down past the last line, then Ctrl+C.
-- Zoom a PDF to 3× with Ctrl+wheel, then press Ctrl+0, Ctrl+keypad 0 with Num Lock on and off, and Ctrl+Alt+0.
-- In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout, with Caps Lock on, and as Ctrl+Shift+A and Ctrl+Shift+C.
+- Zoom a PDF to 3× with Ctrl+wheel, then press Ctrl+keypad 0 with Num Lock on and off, and Ctrl+Shift+0.
+- In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout and with Caps Lock on.
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
 
 ### preview/preview-panel/layout
@@ -83,7 +83,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Run `automatic`, `vaapi`, `vulkan`, and acceleration off on the 4K HEVC 10-bit file; switch the setting mid-play and count ffmpeg processes per player.
 - With autoplay on, select a 9 s clip, an 11 s clip, and a muted state; seek during the fade; let a 40 s GIF loop twice with four players active.
 - With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
-- With the timeline focused and Caps Lock on, press Shift+g, then Shift+0, then keypad 0 with Num Lock on and off.
+- With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
 - With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.

@@ -52,7 +52,6 @@ Opt-in, trusted programs that add live status badges and state-dependent context
 - `feedback` `notice` or `none` on a `rejected`, `partial`, or `unknown` outcome, or on a reply without `outcome`, still opens the dialog. lgse/strata#1578
 - `feedback` `dialog`, an omitted `feedback`, or an unrecognized string such as `"future-style"` opens the dialog. lgse/strata#1578
 - A non-string `feedback`, or `feedback` on a `query`, `menu`, or `error` reply, is an invalid frame and disconnects the provider. lgse/strata#1578 (unverified)
-- A `notice` requested from a menu with no window overlay opens a dialog reading "<name>: <message>" instead. lgse/strata#1578 (unverified)
 - An `unknown` outcome shows its counts as "at least N/M accepted". lgse/strata#1385
 - If the provider disconnects after an action was sent, the dialog says it may already have been accepted; an unsent action says it was not sent. lgse/strata#1385
 - When the provider's queue is full, the dialog says the provider is busy or unavailable and the action was not sent. lgse/strata#1385
@@ -80,6 +79,7 @@ Opt-in, trusted programs that add live status badges and state-dependent context
 - Scoped, monotonic revisions order snapshots against invalidations, so activity in one account does not discard valid replies for another (lgse/strata#1385).
 - Feedback is chosen per reply, not in Settings: a preference applies to every action and cannot tell "Share..." from "Copy link" (lgse/strata#1577).
 - Only a fully accepted outcome may skip the dialog, so problems are never hidden. The field is additive: older hosts ignore it, and unknown values fall back to the dialog (lgse/strata#1577, lgse/strata#1578).
+- Without an ancestor overlay, a notice falls back to the dialog (lgse/strata#1578).
 - GTK section titles cannot hold an image, so a heading icon replaces the title with a custom row styled like one (lgse/strata#1578).
 - Unsent and uncertain actions are reported differently. A disconnect after submission is not proof that nothing happened, so nothing is replayed (lgse/strata#1385).
 - Caches hold at most 2,048 path answers and 32 menu selections per provider, and track at most 1,024 mapped thumbnail slots (lgse/strata#1385).

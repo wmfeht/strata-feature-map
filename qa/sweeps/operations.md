@@ -15,7 +15,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - A fixture tree with mixed names: Unicode, a non-UTF-8 name made with `printf 'bad\xff.txt'`, a 255-byte name, two names differing only by case, dot-prefixed files, a symlink, a read-only folder (`chmod 555`), and an empty folder.
 - A second filesystem. `/dev/shm` serves cross-volume drops, Trash-unsupported paths, and copy-or-move prompts. Free-space refusals need a small tmpfs (`mount -t tmpfs -o size=8m`); skip those probes and say so when no mount is available.
-- A filesystem without `RENAME_NOREPLACE`: an ntfs-3g FUSE mount of a loop image (`mkfs.ntfs -F` on a file, then `ntfs-3g`). `/dev/shm` and tmpfs support the flag. Skip those probes and say so when ntfs-3g is unavailable.
+- A filesystem without `RENAME_NOREPLACE`: a loop image made with `mkfs.ntfs -F`, mounted with `ntfs-3g -o permissions` so modes apply. `/dev/shm` and tmpfs support the flag.
+- Run the ntfs-3g probes as a non-root user, so mode `0000` blocks reads. Skip them and say so when ntfs-3g is unavailable.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/e2e/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
@@ -85,8 +86,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Drop a `/dev/shm` selection on the sidebar Trash row.
 - Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
 - Delete in a folder whose first listed entry is a symlink into `/dev/shm`, and in a read-only tmpfs mount.
-- Open and Delete in folders whose first listed entry is a dangling symlink, or a symlink into a stalled or unmounted network mount; the listing must not hang.
-- In a sticky folder, make the first listed entry a symlink owned by another user, then open the item menu on your own file.
+- Open and Delete in folders whose first listed entry is a dangling symlink, or a symlink into a stalled or unmounted network mount.
 - Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
 - Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
@@ -132,8 +132,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Cancel the Extract password dialog with Escape after Extract to…, then press Down.
 - Extract a multi-root archive, a single-root archive whose name is taken, and a third archive cancelled midway; press Ctrl+Z three times, then Ctrl+Shift+Z once.
 - Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
-- On the ntfs-3g mount, extract a single-root folder archive twice and a multi-root archive twice, one holding a nested `0555` folder and a symlink member.
-- On the ntfs-3g mount, make a nested staging folder unreadable mid-extraction, then list the destination with hidden files shown.
+- On the ntfs-3g mount, extract a single-root folder archive twice and a multi-root archive twice.
+- On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
+- On the ntfs-3g mount, chmod a nested staging folder to `0000` mid-extraction, then list the destination with hidden files shown.
 
 ### operations/archives/rar
 

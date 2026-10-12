@@ -54,7 +54,7 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 - A fast Send to success, or a file provider reply requesting `notice`, shows as a row in the bottom-right dock, stacked with progress cards. lgse/strata#1578
 - A notice shows a check icon before its text, and pointer clicks pass through it. lgse/strata#1578 (unverified)
 - Showing a notice while another notice is visible in the same window removes the old one; progress cards stay. lgse/strata#1578 (unverified)
-- Notice text wraps and is cut to 3 lines with an ellipsis. lgse/strata#1578 (unverified)
+- Notice text, not its heading, wraps and is cut to 3 lines with an ellipsis. lgse/strata#1578 (unverified)
 - When a notice expires and the dock holds no other row, the dock closes. lgse/strata#1578 (unverified)
 
 ## Design
@@ -67,7 +67,7 @@ Modal progress made the whole window unusable during long archive work. Routine 
 - Docking must carry per-operation animation state. Dropping the pending dissolve broke the Shift+Delete animation until lgse/strata#1490 kept it.
 - Each docked deletion owns its own dissolve and Trash flight, so another request's success cannot play them (lgse/strata#1562).
 - Pending-write warnings stay inside the card; the separate banner and Return to browser action from lgse/strata#1278 were removed (lgse/strata#1393).
-- Transfer feedback has one place: the Send to success notice moved from the top of the browser into the dock, and file providers reuse it (lgse/strata#1578).
+- Transfer feedback has one place. The Send to success notice moved from the top of the browser into the dock, and file providers reuse it (lgse/strata#1578).
 - Drive formatting reuses the card with no Cancel; formatting cannot be aborted through it (lgse/strata#1393).
 
 ## History
