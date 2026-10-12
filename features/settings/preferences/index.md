@@ -90,7 +90,6 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Ctrl+Shift, Ctrl+Alt, or Ctrl+Super with H or . does not toggle hidden files. lgse/strata#240, lgse/strata#1576 (unverified)
 - The Appearance menu's Hidden files row shows the `Ctrl+H` hint in English and an eye icon reflecting the current state. lgse/strata#240, lgse/strata#1576
 - That row is a check menu item whose checked state follows Ctrl+H and other windows. lgse/strata#1467, lgse/strata#1544
-- In English, that row's accessible description is "Ctrl+H". lgse/strata#1544, lgse/strata#1576 (unverified)
 - The folder-background context menu offers Show Hidden Files or Hide Hidden Files, matching the current state. lgse/strata#240
 - Toggling shows or hides hidden entries in every open column without reloading the directories. lgse/strata#201
 - The choice is saved as `show_hidden` and restored on the next launch. lgse/strata#144
