@@ -13,35 +13,14 @@ concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  MDBOOK_VERSION: 0.4.52
-  MDBOOK_LINKCHECK_VERSION: 0.7.7
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: astral-sh/setup-uv@v6
-      - name: Install mdBook and mdbook-linkcheck
-        run: |
-          bin="$RUNNER_TEMP/bin"
-          mkdir -p "$bin"
-          curl -fsSL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
-            | tar -xz -C "$bin"
-          curl -fsSL -o "$RUNNER_TEMP/linkcheck.zip" \
-            "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v${MDBOOK_LINKCHECK_VERSION}/mdbook-linkcheck.x86_64-unknown-linux-gnu.zip"
-          unzip -q "$RUNNER_TEMP/linkcheck.zip" -d "$bin"
-          chmod +x "$bin/mdbook" "$bin/mdbook-linkcheck"
-          echo "$bin" >> "$GITHUB_PATH"
-      - name: Build and check links
-        run: mdbook build site
-      - name: No node ids in the published HTML
-        run: |
-          if grep -rlE '<!-- node:|^reviewed_at:' site/book/html; then
-            echo "front matter or node comments reached the HTML; the strip preprocessor did not run" >&2
-            exit 1
-          fi
+      - uses: jdx/mise-action@v5
+      - name: Build, check links, and refuse node ids in the HTML
+        run: mise run build
       - name: Upload the site
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3

@@ -208,6 +208,8 @@ triggers fired. Plans and reports are output; they never enter this repository.
 The upstream check uses a blobless bare clone in `.cache/upstream.git`, or the
 clone named by `FEATUREMAP_UPSTREAM`. Run `index` then `check` before every
 commit. Tests: `uv run --with pyyaml python -m unittest discover -s scripts`.
+`mise.toml` pins the site's tools and wraps these as tasks: `mise run ci` runs
+everything CI runs, and `mise run serve` previews the site.
 
 ## Documentation site
 

@@ -132,14 +132,16 @@ Alpha, beta, RC, and nightly tags trigger nothing.
 
 ## Building
 
-Build from the repository root; the preprocessor path in `book.toml` is relative
-to it.
+`mise.toml` pins mdBook 0.4.52, mdbook-linkcheck 0.7.7, and uv. Run `mise install`
+once, then:
 
-```sh
-scripts/featuremap.py index      # regenerates src/SUMMARY.md and the book title
-mdbook build site                # needs mdbook 0.4.52 and mdbook-linkcheck 0.7.7
-mdbook serve site                # preview at http://localhost:3000
-```
+| Command | Does |
+| --- | --- |
+| `mise run serve` | Preview at http://localhost:3000, rebuilding on every save. |
+| `mise run build` | Build into `site/book/`, check links, and fail if a node id reaches the HTML. |
+| `mise run check` | Validate the tree, the sweeps, and the site against upstream. |
+| `mise run ci` | Everything CI runs: tests, a current index, `check`, and the build. |
 
-The `pages` workflow pins both binaries, builds on every pull request, fails if
-a node id reaches the HTML, and deploys `main` to GitHub Pages.
+Each task runs from the repository root, which the preprocessor path in
+`book.toml` requires. The `pages` workflow installs the same tools through mise,
+builds on every pull request, and deploys `main` to GitHub Pages.
