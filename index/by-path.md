@@ -15,14 +15,18 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `THIRD_PARTY_LICENSES.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `clippy.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `data/icons/scalable/actions/strata-lang-*.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/catppuccin/**` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-file-archive.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-video.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/apps/io.github.lgse.Strata.svg` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `data/io.github.lgse.Strata.FileManager1.service` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
 | `data/io.github.lgse.Strata.desktop` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
+| `data/licenses` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/locales/counts.json` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `data/locales/dates.json` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `data/math-renderer.js` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `data/portal` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `data/strata.gresource.xml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/themes/catalog.toml` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `data/udiskie/unlock` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `data/update-keys.json` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
@@ -31,6 +35,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete.md) | — |
+| `scripts/catppuccin_icons.py` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `scripts/e2e-native.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/sftp-fixture.sh` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `scripts/sign_update_manifest.py` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
@@ -316,6 +321,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/desktop.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/browser/destination.rs` | code | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/ui/browser/dissolve_delete.rs` | code | [Permanent deletion](../features/operations/delete.md) | — |
+| `src/ui/browser/entry.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/browser/entry/catppuccin.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/browser/entry/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/browser/file_commands.rs` | code | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/find.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -509,6 +516,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/shortcut_footer/candidates.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/shortcut_footer/tests.rs` | tests | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
 | `src/ui/shortcut_reference.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
+| `src/ui/sidebar_toggle.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `src/ui/sidebar_toggle/tests.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/table_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -521,6 +530,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/omarchy.rs` | code | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/omarchy/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -601,7 +611,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/video_clips.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/tests/keyboard_policy.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/window/tests/preferences.rs` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `src/ui/window/tests/preferences.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `src/ui/window/tests/rail.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/unlock_argument.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/unlock_argument/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/volume_password.rs` | code | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |

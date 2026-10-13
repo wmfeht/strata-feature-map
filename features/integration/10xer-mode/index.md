@@ -3,7 +3,7 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/composition/tenxer_splash.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/composition/tenxer_splash/tests.rs]
@@ -45,7 +45,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - Ctrl+C/X/V, Delete, Shift+Delete, F2, F5, Ctrl+L, Ctrl+K, Ctrl+1/2/3, Ctrl+Shift+N, Alt+Enter, Menu, and text-size keys keep working. lgse/strata#1271
 - In the location field or an inline rename, letters such as `q`, `d`, and `p` are typed and no file command runs. lgse/strata#1271
 - With the mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning it off restores them. lgse/strata#1271, lgse/strata#1576
-- Ctrl+N shows or hides the sidebar, and Ctrl+B pages up. lgse/strata#1304
+- Ctrl+N takes the sidebar toggle's step and Ctrl+B pages up. lgse/strata#1304, lgse/strata#1606
 - An Enter that an input method consumes while composing never submits a footer prompt; an Enter it passes back submits it. lgse/strata#1583
 - F1 or `~` toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272
 - Context-menu hints hide the default `y` copy path, Space preview, and Ctrl+R rename hints while the mode is on. lgse/strata#1272, lgse/strata#1576

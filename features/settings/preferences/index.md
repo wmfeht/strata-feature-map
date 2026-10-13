@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
@@ -59,6 +59,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A query that does not match Custom actions hides the installed-actions list and the broken-action problems, so "import" hides the list. lgse/strata#1554, lgse/strata#1453
 - On a package-managed install, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
+- Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
 
@@ -98,7 +99,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work.
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).

@@ -3,7 +3,7 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/e2e/scenarios/test_accessibility.py]
@@ -41,7 +41,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 ### Tooltips
 
 - Hovering a labelled button, menu item, label, entry, file row, breadcrumb, or status indicator shows no tooltip. The one exception is a truncated name on an Icons-view card (`browser/view-modes/icons`). lgse/strata#1359, lgse/strata#1553
-- Hovering an icon-only button shows its tooltip, such as "Toggle sidebar (Ctrl+B)" on the header sidebar toggle. lgse/strata#1359
+- Hovering an icon-only button shows its tooltip, such as "Search (Ctrl+K)" on the header Search button. lgse/strata#1359
 - In the collapsed sidebar rail, each row shows its name as a tooltip; expanding the sidebar removes those tooltips. lgse/strata#1359
 - Text that tooltips carried before, such as a sidebar place's or breadcrumb's full path, is now the control's accessible description. lgse/strata#1359
 

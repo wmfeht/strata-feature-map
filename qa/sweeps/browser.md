@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py]
 ---
@@ -102,6 +102,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Toggle Show sizes in Columns view from Appearance with Settings open in a second window and a recursive search column open.
 - With one entry selected, create 4,200 files in the active column's folder from a shell, then press Down and the 10xer next-entry key.
 - With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
+- Scroll the strip so a parent column is clipped, then press 5 px and 1 px left of its edge and 4 px right of it and drag; repeat after arrow keys moved the strip.
 
 ### browser/view-modes/icons
 
@@ -226,9 +227,16 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Drop a row on another row's exact midline, then between the PINNED heading and its first pin; restart and compare the order in a second window.
 - Offer a nightly and a release candidate with the interface in ja and with the sidebar at its minimum width; read the notice text and its accessible name.
-- With a notice shown, set text size 8 and 48 and compare the notice row's height with an empty sidebar foot. Then collapse to the rail and expand at each size.
+- With a notice shown, set text size 8 and 48 and compare the notice row's height with an empty sidebar foot. Then step to the rail and on to full at each size.
 - Show a notice with the interface in ko, ru, and zh-CN at the default sidebar width, then drag the sidebar to its minimum.
-- Turn off every place chip; collapse with Ctrl+B in one window while the other's sidebar has focus, then press Ctrl+Shift+B there.
+- Turn off every place chip; press Ctrl+B in one window until the sidebar hides while the other's sidebar has focus, then press Ctrl+Shift+B there.
+- Open a 1200 px and a 700 px window; press Ctrl+B through three full cycles in the narrow one, reading both windows and `settings.toml` after each press.
+- Choose the rail in a wide window, then narrow it, open and close the preview in Columns, and widen it again.
+- Step from hidden to full in a narrow window, then resize by 1 px, by 300 px, and open the preview.
+- With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18; compare rail icons and the update notice icon against the header toggle.
+- Save `sidebar_compact = true` with `sidebar_expanded = false`, then `sidebar_compact = "yes"`; start a 400 px and a 1920 px window and press Ctrl+B once in each.
+- Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
+- Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`, and read its accessible name after each step.
 - Unset `XDG_MUSIC_DIR` and point Documents at a missing folder in `user-dirs.dirs`; shrink the window to the icon rail and Tab through it.
 
 ### browser/sidebar/pins
@@ -339,3 +347,4 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - What the preview panel and quick preview render → `preview`.
 - The Settings pages that hold the preferences named in these probes → `settings`.
 - 10xer-mode key variants and the portal file chooser → `integration`.
+- Sidebar rail fit rule and automatic rail → `preview`.

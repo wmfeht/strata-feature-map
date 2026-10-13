@@ -3,7 +3,7 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/browser/preview.rs]
 tests: [tests/e2e/scenarios/test_preview_session.py, tests/e2e/scenarios/test_quick_preview.py, src/ui/preview/tests.rs]
@@ -75,8 +75,13 @@ How the preview panel shares the window with the file views: its width, the rese
 - When less than 240 px would remain beside the focused column, the preview content hides, media pauses, and loading is deferred. lgse/strata#888, lgse/strata#1405
 - Widening the window again restores the same file at the previous manual width. lgse/strata#888
 - In Columns, the reserved slot shrinks down to zero instead of disappearing, so the columns keep their offset. lgse/strata#1405
-- While a preview is present and space is short, the sidebar collapses to an icon rail, with 24 px of hysteresis before it restores. lgse/strata#1181
-- In Columns, the empty reserved slot alone also rails the sidebar when space is short. lgse/strata#1382 (unverified)
+- While a preview is present, an expanded sidebar rails once when the window is narrower than a sum. The sum is the full sidebar width, the focused column, and the preview width. The column counts at most 300 px in Columns and 300 px in Icons and List; the preview counts its manual width, at least 240 px. lgse/strata#1181, lgse/strata#1606 (unverified)
+- An automatic rail from that rule releases only when the window is 24 px wider than that sum. lgse/strata#1181, lgse/strata#1606
+- In Columns, the empty reserved slot, and in Icons the empty placeholder, also apply that rule. lgse/strata#888, lgse/strata#1382, lgse/strata#1606
+- With no preview, placeholder, or reserved slot, an expanded sidebar rails once when the window narrows to at most the preferred sidebar width plus one standard column. lgse/strata#1606
+- In that state, widening the window past that width releases an automatic rail. lgse/strata#1606
+- An automatic rail leaves `sidebar_compact` false in `settings.toml`. lgse/strata#1606
+- With the sidebar on an automatic rail in Columns three levels deep, clicking Home in the rail does not expand the sidebar and snap back. lgse/strata#1602, lgse/strata#1606
 - The sidebar returns to the user's chosen width once the content has room; a width pinned by the narrow window is never saved. lgse/strata#1181, lgse/strata#1405
 - Dragging a column's resize edge across the threshold does not toggle the sidebar rail; it settles at most once on release. lgse/strata#1305
 - Previewing a file for the first time in a 700 px window rails the sidebar and loads the title, metadata, and content at once. lgse/strata#1396
@@ -95,6 +100,10 @@ How the preview panel shares the window with the file views: its width, the rese
 - Columns keeps its reservation: without one, opening a preview moved the columns 51 px in a 1200 px window (lgse/strata#1539).
 - Resize edges show captions rather than tooltips, because tooltips are allowed only on icon-only buttons (lgse/strata#1539).
 - The hide threshold is 240 px, independent of the 300 px column width. A 300 px floor hid the preview in 780 px windows at 1.6× scaling (lgse/strata#1145).
+- One fit rule, `PreviewDrawer::sidebar_fit`, serves the header toggle and the preview tick, which the chooser shares. Four callers with two thresholds made the sidebar expand, then snap back to the rail (lgse/strata#1602, lgse/strata#1606).
+- The automatic rail is edge-triggered: only a change in fit compacts or releases it. A chosen rail holds at any width; a chosen full sidebar holds until the fit next changes (lgse/strata#1602, lgse/strata#1606).
+- The preview rule measures only the split's parent width, not the content paned. The slot re-budgets a frame after the sidebar shows, and a one-frame shortage would latch the rail (lgse/strata#1606).
+- An unallocated window counts as unknown, not short, so a hidden sidebar in a second window does not rail before it is first shown (lgse/strata#1606).
 - Fit decisions read the sidebar's own `visible` property. Ancestor visibility dropped the sidebar from the next calculation and caused a flicker loop at 4× (lgse/strata#1145).
 - The minimum width went from 280 to 560 px at the owner's request (lgse/strata#828), then to two standard columns in Columns (lgse/strata#888). lgse/strata#1181 lowered the Icons and List minimum to 240 px. lgse/strata#1539 lowered the Columns minimum to one column.
 

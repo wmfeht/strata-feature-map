@@ -3,7 +3,7 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
@@ -28,7 +28,8 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 - With one tab open, the header holds, left to right, the sidebar toggle, the location bar, and the New tab, Search, Appearance, Settings, Minimize, Maximize, and Close buttons. lgse/strata#580, lgse/strata#1129, lgse/strata#1484 (unverified)
 - The sidebar toggle draws its panel icon at 17 px, the same size as the sidebar's Home icon. lgse/strata#636
-- With 10xer mode on, the sidebar toggle's tooltip reads "Toggle sidebar (Ctrl+N)"; turning the mode off restores "Toggle sidebar (Ctrl+B)". lgse/strata#1576
+- Each window whose sidebar mode changes, by a step or the rail engaging or releasing, updates its toggle tooltip to name the next step. lgse/strata#1606 (unverified)
+- Switching 10xer mode updates the shortcut in the sidebar toggle's tooltip and accessible name in each open window. lgse/strata#1576, lgse/strata#1606 (unverified)
 
 ### Window buttons
 

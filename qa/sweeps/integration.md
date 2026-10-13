@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -44,6 +44,11 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Choose a filter and a choice option by pointer and by keyboard, with a label over 48 characters, then reopen the dropdown.
 - Rename the open folder from a shell while Name holds an edited name, then delete it while a download runs; read the location and Name.
 - Open Move to… from two windows, invoke Copy to… in each while open, then close an originating window with its chooser's New Folder editor active; in Send to, type a path outside the device with Ctrl+L.
+- Step the chooser sidebar to the rail, close the chooser, and send a new request; repeat from hidden. Read a browser window's sidebar and `settings.toml` after each.
+- With `sidebar_compact = true` saved, send a request to a narrow chooser and a wide one; step each sidebar through a full cycle.
+- Narrow a chooser with no preview until the sidebar rails, step to hidden and to full, then narrow and widen again; open a preview at each step. Read the toggle's tooltip and accessible name.
+- In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
+- Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
 
 ### integration/portal-file-chooser/setup
 
@@ -85,6 +90,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press `G` in an empty folder, Ctrl+U in a 10k folder, and `h` at `/`. Press `l` on a folder symlink and on a broken symlink, in each view.
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.
 - With fcitx5 pinyin, compose in `rename ›`, `create ›`, `go ›`, and `move to ›`; press Enter mid-composition, then again after the commit.
+- In a browser window railed by width, press Ctrl+N three times, then Ctrl+B; repeat with the preview owning the keys and with the sidebar focused by Ctrl+Shift+B.
 
 ### integration/10xer-mode/preview-keys
 
@@ -186,3 +192,4 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Typed `.` and `..` resolution in `go ›`, and where a keyboard sort is saved → `browser`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
+- The browser window's sidebar steps, the saved `sidebar_compact` state, and the rail's row sizing → `browser`.

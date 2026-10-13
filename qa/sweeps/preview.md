@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -54,6 +54,11 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Press Space three times within 260 ms in Icons with reduced motion on, then toggle Appearance → Preview panel mid-slide in Columns.
 - With reduced motion off in List, press Space to close, then Space again at about 50 ms, 130 ms, and 250 ms into the slide-out.
 - In Columns, drag the divider narrower, then wider, then use F8 and arrows; switch to Icons and back between each step.
+- With an automatic rail and a preview open, narrow and widen the window across the threshold, then close and reopen the preview in List and in Icons.
+- With an automatic rail in Columns three levels deep, click Home, a deeper folder, and Back in the rail, at the rail threshold and 24 px above it.
+- With a preview open, move the window width 1 px at a time through the 24 px band above the rail threshold, both directions.
+- In Icons or List with Appearance → Preview panel off, resize across the preferred sidebar width plus one column at text sizes 10, 13, and 16.
+- Hide the sidebar in a short window, open a second window, then show the sidebar in each.
 
 ### preview/preview-panel/documents
 
@@ -132,6 +137,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 ## Hand-offs
 
 - Thumbnails in the listing and the thumbnail worker pool → `browser`.
+- Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
 - F1 reference rows for preview find and media keys → `app`.
 - Layout fallback, Caps Lock, keypad, and translated key names for every shortcut → `app`.

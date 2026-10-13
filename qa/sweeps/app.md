@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
@@ -161,6 +161,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Per-mode movement, selection, the keyboard cursor after reloads, and type-to-search → `browser`.
 - Context menu items, placement, and Open With → `browser`.
 - The sidebar as a navigation surface, the Trash row, and the update notice's text and layout → `browser`.
+- Sidebar toggle steps and tooltip text → `browser`.
+- Sidebar automatic rail → `preview`.
 - Settings layer mechanics and pages other than Updates, including Window buttons and text size controls → `settings`.
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.

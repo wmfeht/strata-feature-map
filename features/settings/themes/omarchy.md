@@ -3,7 +3,7 @@ title: Omarchy theme following
 status: shipped
 origin: {issue: lgse/strata#1198, pr: lgse/strata#1482}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/theme/omarchy.rs]
 tests: [src/ui/theme/omarchy/tests.rs, src/ui/theme/tests.rs, src/ui/settings/theme/tests.rs]

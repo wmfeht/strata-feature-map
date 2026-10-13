@@ -6,6 +6,10 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
+| [lgse/strata#1606](https://github.com/lgse/strata/issues/1606) | 2026-10-13 | fix | [Sidebar](../features/browser/sidebar/index.md) | Made the header toggle step full, rail, hidden, saved the rail as `sidebar_compact`, and made the automatic rail edge-triggered under one fit rule. |
+| [lgse/strata#1601](https://github.com/lgse/strata/issues/1601) | 2026-10-13 | fix | [Shared location model and listing adapter](../features/app/infrastructure.md) | Pinned GTK font rendering to manual so GL and Vulkan keep glyph top rows, and regenerated screenshot baselines. |
+| [lgse/strata#1589](https://github.com/lgse/strata/issues/1589) | 2026-10-12 | fix | [Themed icons](../features/settings/themes/icons.md) | Redrew video as a clapperboard and archives as a folder-archive, and mapped 10 more video and 8 more archive extensions. |
+| [lgse/strata#1588](https://github.com/lgse/strata/issues/1588) | 2026-10-12 | feat | [Shared location model and listing adapter](../features/app/infrastructure.md) | Replaced the language glyphs with Catppuccin file icons in Mocha and Latte flavors and added a File icon colors preference. |
 | [lgse/strata#1586](https://github.com/lgse/strata/issues/1586) | 2026-10-12 | fix | [Archives](../features/operations/archives/index.md) | Published extracted folders on filesystems without `RENAME_NOREPLACE`, such as ntfs-3g, instead of leaving them in staging. |
 | [lgse/strata#1584](https://github.com/lgse/strata/issues/1584) | 2026-10-12 | fix | [Trash](../features/operations/trash/index.md) | Probed Trash support without following a symlinked first entry; hardening, as GIO already derived `can-trash` from the parent. |
 | [lgse/strata#1583](https://github.com/lgse/strata/issues/1583) | 2026-10-12 | feat | [Interface language](../features/settings/preferences/language.md) | Added Simplified Chinese as the eleventh language, auto-detected for every Chinese locale, with a shared sentence joiner and Han/kana Settings search matching. |
