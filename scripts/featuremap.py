@@ -14,6 +14,7 @@ import os
 import re
 import subprocess
 import sys
+import urllib.parse
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -871,12 +872,20 @@ def render_summary(site: Site) -> str:
 
 
 def render_book(text: str, sources: dict) -> str:
-    """book.toml with its title naming the release the site describes."""
+    """book.toml with its title naming the release the site describes, and `site-url` the path it is published at."""
     tag, _ = site_release(sources)
-    if not tag:
-        return text
-    title = f'title = "Strata {tag.removeprefix("v")}"'
-    return re.sub(r'^title = ".*"$', title, text, count=1, flags=re.M)
+    if tag:
+        title = f'title = "Strata {tag.removeprefix("v")}"'
+        text = re.sub(r'^title = ".*"$', title, text, count=1, flags=re.M)
+    url = site_url(sources)
+    if url:
+        # mdBook roots 404.html at `site-url`; without it a project site's 404 loads assets from the domain root.
+        line = f'site-url = "{urllib.parse.urlsplit(url).path.rstrip("/")}/"'
+        if re.search(r'^site-url = ".*"$', text, flags=re.M):
+            text = re.sub(r'^site-url = ".*"$', line, text, count=1, flags=re.M)
+        else:
+            text = re.sub(r"^\[output\.html\]\n", lambda m: m.group(0) + line + "\n", text, count=1, flags=re.M)
+    return text
 
 
 def render_site(root: Path, site: Site | None, sources: dict) -> dict[str, str]:

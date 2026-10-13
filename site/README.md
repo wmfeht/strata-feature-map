@@ -19,7 +19,7 @@ tree under `features/` stays the spec; the site never cites it.
 | `src/img/` | Screenshots, named after their page. | Human maintainers only |
 | `drafts/<slug>.md` | Proposals with no section to land in. Never built. | The bot, then people |
 | `preprocessors/strip.py` | Drops front matter and HTML comments before rendering. | People |
-| `book.toml` | mdBook configuration. `featuremap.py index` sets its `title`. | People |
+| `book.toml` | mdBook configuration. `featuremap.py index` sets its `title` and `site-url`. | People |
 
 ## Page format
 

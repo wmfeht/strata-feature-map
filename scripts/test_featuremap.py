@@ -302,7 +302,7 @@ SITE = {
     "sources.yaml": "upstream: {repo: lgse/strata, branch: main}\nwatermark: null\n"
                     f"site: {{release: v1.0.0, commit: {SHA}, url: https://example.test/site/}}\n",
     "site/pagemap.yaml": PAGEMAP,
-    "site/book.toml": '[book]\ntitle = "Strata"\nsrc = "src"\n',
+    "site/book.toml": '[book]\ntitle = "Strata"\nsrc = "src"\n\n[output.html]\nno-section-label = true\n',
     "site/src/introduction.md": page(["operations/trash"], "Start here", ["Install"]),
     "site/src/guide/trash.md": page(["operations/trash/restore"], "Trash", ["Restore a file", "Good to know"]),
     "site/src/reference/trash.md": page(["operations/trash", "operations/trash/restore"], "Trash reference", ["Restore"]),
@@ -338,7 +338,9 @@ class SiteTest(unittest.TestCase):
         summary = (f.root / "site/src/SUMMARY.md").read_text()
         self.assertIn("[Start here](introduction.md)\n\n# Guide\n\n- [Trash](guide/trash.md)", summary)
         self.assertIn("# Reference\n\n- [Trash reference](reference/trash.md)", summary)
-        self.assertIn('title = "Strata 1.0.0"', (f.root / "site/book.toml").read_text())
+        book = (f.root / "site/book.toml").read_text()
+        self.assertIn('title = "Strata 1.0.0"', book)
+        self.assertIn('[output.html]\nsite-url = "/site/"\nno-section-label = true', book)
         self.assertIn("<https://example.test/site/>", (f.root / "README.md").read_text())
 
     def test_rejections(self):
