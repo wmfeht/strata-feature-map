@@ -3,7 +3,7 @@ title: Unmount and eject
 status: shipped
 origin: {issue: lgse/strata#295, pr: lgse/strata#296}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: reviewed
 code: [src/ui/window/device_release.rs]
 tests: [src/ui/window/device_release/tests.rs]

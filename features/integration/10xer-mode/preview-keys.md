@@ -3,7 +3,7 @@ title: 10xer preview key ownership
 status: shipped
 origin: {issue: lgse/strata#1242, pr: lgse/strata#1295}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/keyboard/preview.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/preview_ownership.rs]
@@ -56,6 +56,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 
 - While the preview owns the keys, `j`/`k`, Space, `v`/`V`, Ctrl+A, and Ctrl+R never move or fill the listing behind the drawer. lgse/strata#1295, lgse/strata#1340
 - File and folder commands such as `d`, `y`, `M`, `z`, `?`, and Backspace return the keys to the listing and run there. The drawer stays open. lgse/strata#1340
+- Inside a preview, the `g` chord panel lists `m` for Music beside the other place steps. lgse/strata#1576
 - A `g` place chord such as `g 3` returns the keys to the listing and runs there; `g z` flashes `Unknown chord` and keeps the keys in the preview. lgse/strata#1296, lgse/strata#1340
 - Window commands such as F1, F5, Ctrl+L, Ctrl+1 to Ctrl+3, and Ctrl+N work without moving the keys out of the preview. lgse/strata#1304, lgse/strata#1340
 

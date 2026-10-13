@@ -3,7 +3,7 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
@@ -83,6 +83,12 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Members are written into a hidden `.strata-extraction-<id>` folder that shows only when hidden files are shown. lgse/strata#1478
 - A failed or cancelled extraction that wrote a file keeps the output in the archive-named folder, and the error ends "Extracted entries remain in “<folder>”." lgse/strata#1478
 - A failed extraction that wrote no file leaves nothing behind. lgse/strata#1136, lgse/strata#1478
+- On a filesystem without `RENAME_NOREPLACE`, such as an ntfs-3g mount, an extracted single root folder publishes as `name`, then `name (2)` when taken. lgse/strata#1585, lgse/strata#1586
+- On such a filesystem, several top-level entries publish in `stem/`, then `stem (1)/` when taken. lgse/strata#1585, lgse/strata#1586
+- After such a publication, no `.strata-extraction-<id>` folder remains and the existing same-named folder is untouched. lgse/strata#1585, lgse/strata#1586
+- On such a filesystem, a nested read-only folder, such as mode `0555`, publishes with its mode and modification time kept. lgse/strata#1586
+- On such a filesystem, a symlink member publishes as a symlink with its stored target. lgse/strata#1586
+- If publication fails partway there, the partial destination folder is removed and the error ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
 - A TAR whose first entry is `./` extracts its contents instead of failing. lgse/strata#494
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677
@@ -135,6 +141,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Zip bombs are bounded by free space and declared sizes only. Other file managers rely on cancellation, so ratio and entry-count caps were rejected (lgse/strata#479, lgse/strata#605).
 - Password retries depend on a structured `PasswordFailure` kind from the decoders, never on message text, which can contain member names (lgse/strata#691, lgse/strata#1499).
 - Metadata restoration matches `tar` and `unzip` for a normal user: no owner, group, xattrs, or ACLs; folder metadata applies only on completion so partial output stays writable (lgse/strata#1422).
+- Without `RENAME_NOREPLACE`, a folder publishes by an exclusive `mkdirat` of the name, so `EEXIST` drives the numbering. Files are hard-linked in, symlinks recreated when linking fails, and subfolders recreated. The source is removed only after every entry is in place, so a failure leaves staging intact. Removal first restores owner access so `0555` folders cannot block it (lgse/strata#1585, lgse/strata#1586).
 - Compression writes a mode-0600 staging file beside the target and publishes it atomically without replacing anything; Keep Both retries the finished staging file under new names (lgse/strata#110, lgse/strata#404, lgse/strata#986).
 - Payload encoding is chosen per container. Known compressed inputs are stored in ZIP and copied in 7Z; TAR.GZ compresses the whole stream unless every payload is already compressed (lgse/strata#978, lgse/strata#981).
 - Compression never follows symlinks, so a selected folder cannot leak files from outside it (lgse/strata#402, lgse/strata#407).
@@ -144,6 +151,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-12 | lgse/strata#1586 | fix | Published extracted folders on filesystems without `RENAME_NOREPLACE`, such as ntfs-3g, instead of leaving them in staging. |
 | 2026-10-11 | lgse/strata#1552 | fix | Recorded the published extraction output for undo, so Ctrl+Z trashes it and never a pre-existing file. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the opener after the Compress, Extract password, and archive conflict dialogs close, including on Escape. |
 | 2026-10-05 | lgse/strata#1478 | fix | Staged extraction, kept partial output in the archive folder, restored links and metadata, and gated Extract on regular files. |

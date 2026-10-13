@@ -3,12 +3,12 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/sidebar.rs, src/ui/window/keyboard/sidebar.rs]
 tests: [src/ui/window/tests/bookmarks.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
 docs: [docs/preferences.md, docs/keyboard-navigation.md]
-related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, integration/10xer-mode, integration/portal-file-chooser, settings/preferences]
+related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates]
 ---
 
 ## Summary
@@ -58,6 +58,14 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 - Outside 10xer mode, Ctrl+Shift+B shows a hidden sidebar and focuses the active row; pressing it again in the sidebar restores the previous focus. lgse/strata#58 (unverified)
 - Outside 10xer mode, Enter on a focused row opens the place with its first item selected; a pointer click opens it with nothing selected. lgse/strata#715
+### Update notice
+
+- When a check finds an update, every open window shows "Update available" over "vX", with a download icon, at the foot of its sidebar. lgse/strata#26, lgse/strata#944, lgse/strata#1581
+- The headline follows the interface language, such as "Update verfügbar" in German and "Nouvelle version" in French. lgse/strata#1581
+- A prerelease and a stable offer show the same headline; only the version line, such as `v0.5.0-rc.1`, marks a prerelease. lgse/strata#1581 (unverified)
+- In a sidebar too narrow for either line, that line stays on one line and is ellipsized at its end. lgse/strata#1581 (unverified)
+- In the collapsed sidebar rail the notice shows only its download icon; expanding the sidebar restores both lines. lgse/strata#1581
+- The two-line notice row is at least 38 px tall. lgse/strata#1581 (unverified)
 
 ## Design
 
@@ -78,6 +86,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-12 | lgse/strata#1581 | fix | Split the update notice into an "Update available" headline over the version, so it fits the default width in every language. |
 | 2026-10-11 | lgse/strata#1564 | feat | Kept the update notice on one line, middle-ellipsized, with a prerelease kind before the version. |
 | 2026-10-02 | lgse/strata#1370 | fix | Showed saved folder colours and custom icons on sidebar rows and added Customize… to local rows. |
 | 2026-10-02 | lgse/strata#1350 | feat | Persisted the collapsed state and synchronized it across windows so new windows open as last left. |

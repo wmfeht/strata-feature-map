@@ -1,7 +1,7 @@
 ---
 title: Settings sweep
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
-triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json]
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
 ---
 
@@ -18,7 +18,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
-- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, and all four empty. Install a CJK font for the ja and ko runs; none of the ten languages is right-to-left.
+- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, and all four empty. Install a CJK font with Simplified Chinese glyphs, such as Noto Sans CJK SC, for the ja, ko, and zh runs; none of the eleven languages is right-to-left.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
@@ -41,6 +41,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
 - With Restore open tabs on and a `tabs.toml` whose every entry is invalid, plain-launch with the Default directory deleted, then with it `chmod 000`.
+- Under 简体中文 search 隐, `F1快捷键`, `隐藏 文件`, and 硬解, which only a keyword holds; under 日本語 search カラム. Count visible rows and read the opened page.
+- On a `us,ru` layout with Russian active, and again with Caps Lock on, press Ctrl+A and Ctrl+Shift+A in Search themes and Search templates with a query typed; read the selection.
 - With icon-only navigation and before Actions or Updates has been built, search "license", "custom actions", "markdown", and "preview". Read the opened page, its title, and the visible navigation entries.
 - Repeat those searches under `language = "ja"` with the Japanese keywords, and with no custom actions installed but one broken action file present.
 - Flip Show sizes in Columns view in window A three times. Window B shows List, then has the Appearance menu open, then has Settings open on General.
@@ -67,6 +69,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed `language = "FR"`, `"pt-br"`, `"ja "`, and `"zz"`; read the selector and the file after the first change.
 - Choose 日本語 in window A, open window B, press Restart now with a rename editor open in B and again during a running copy.
 - Select 1, 2, 5, 11, and 21 items under Russian, 0 and 1 under French and Português (Brasil); read the footer count, a 1.5 MB size, and a 1 234 567 byte Properties size.
+- Seed `language = "zh-cn"`, `"zh"`, and `"zh-TW"`; read the selector and the file after the first change.
+- Under 简体中文, 日本語, and English, fail an archive extraction into a read-only folder and copy a 5 GB file to a FAT32 stick; read the spacing and stop between the two sentences.
 - Run Deutsch and Русский at the 1250 px panel width and in the destructive-delete dialog; look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
 
 ### settings/preferences/date-format
@@ -74,7 +78,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Show the Setup date fixtures in Columns, Icons, List, and a preview under each format; compare the 61 s, 24 h 1 min, 7 day, and 31 day boundaries.
 - Run `TZ=America/New_York` on both DST days and `TZ=Pacific/Kiritimati`; compare the weekday and week buckets with `date -d`.
 - Change the format in window A while window B is idle for two minutes; watch the 30 s refresh relabel the 59 s and 59 min files.
-- Cross each format with ja, de, and ru: month and weekday names, Long format word order, and the separator in `2026-09-17 14:30`.
+- Cross each format with ja, zh-CN, de, and ru: month and weekday names, Long format word order, and the separator in `2026-09-17 14:30`.
 - Seed `date_format = " ISO-8601 "`, `"LONG"`, and `"yesterday"`; read the menu and the file after one change.
 - Keep the format menu open across a minute boundary, then change the language and restart; read each option's AT-SPI description against its visible example.
 
@@ -123,6 +127,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - 10xer mode toggle and custom actions pages → `integration`.
 - Automatic updates, release channel, and the Updates page → `app`.
 - Window buttons rows and the F1 shortcuts reference → `app`.
+- Input-method and dead-key composition in Settings fields → `app`.
 - Restore open tabs under General → Startup and the tab session it controls → `browser`.
 - Focus return after closing dialogs other than Settings → `app`.
 - Focus return after closing the search palettes → `browser`.

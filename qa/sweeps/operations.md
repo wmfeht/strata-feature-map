@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
@@ -15,6 +15,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - A fixture tree with mixed names: Unicode, a non-UTF-8 name made with `printf 'bad\xff.txt'`, a 255-byte name, two names differing only by case, dot-prefixed files, a symlink, a read-only folder (`chmod 555`), and an empty folder.
 - A second filesystem. `/dev/shm` serves cross-volume drops, Trash-unsupported paths, and copy-or-move prompts. Free-space refusals need a small tmpfs (`mount -t tmpfs -o size=8m`); skip those probes and say so when no mount is available.
+- A filesystem without `RENAME_NOREPLACE`: a loop image made with `mkfs.ntfs -F`, mounted with `ntfs-3g -o permissions` so modes apply. `/dev/shm` and tmpfs support the flag.
+- Run the ntfs-3g probes as a non-root user, so mode `0000` blocks reads. Skip them and say so when ntfs-3g is unavailable.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/e2e/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
@@ -83,7 +85,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Trash from a Ctrl+F result, from a multi-column selection, from a second window viewing the same folder, and look for it in the file chooser, where it must not be offered.
 - Drop a `/dev/shm` selection on the sidebar Trash row.
 - Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
-- Delete in a folder whose first listed entry is a symlink into `/dev/shm`, and in a read-only tmpfs mount.
+- Delete in a read-only tmpfs mount.
+- Open and Delete in folders whose first listed entry is a dangling symlink, or a symlink into a stalled or unmounted network mount.
 - Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
 - Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
@@ -129,6 +132,11 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Cancel the Extract password dialog with Escape after Extract to…, then press Down.
 - Extract a multi-root archive, a single-root archive whose name is taken, and a third archive cancelled midway; press Ctrl+Z three times, then Ctrl+Shift+Z once.
 - Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
+- On the ntfs-3g mount, take `name` with a file and `name (2)` with a folder, then extract a single-root folder archive named `name`.
+- On the ntfs-3g mount, extract into a folder reached through a symlink.
+- On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
+- On the ntfs-3g mount, extract a large ZIP built with `zip -D`, so it lists no folder entries. Mid-extraction, chmod one of its nested staging folders to `0000`.
+- After that run, list the destination with hidden files shown.
 
 ### operations/archives/rar
 
@@ -153,6 +161,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Run three operations at once from two windows, cancel one from the other window, and eject a device mid-copy.
 - Read the footer of a cancelled compression and of a drive format card.
 - Cancel a slow deletion on a stalled device with X, then click rows and navigate with the pointer while cancellation is pending.
+- Show a Send to success notice and a file provider notice while a copy card runs, and in quick succession with no card.
+- Let a notice expire while a card runs, after the card completes, and after the card is pinned; click where the notice sits.
+- Trigger a notice with a long device or provider name in a narrow window.
 
 ### operations/progress/jobs
 

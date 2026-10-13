@@ -3,16 +3,16 @@ title: Progress dock
 status: shipped
 origin: {issue: lgse/strata#1360, pr: lgse/strata#1393}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
-code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/app/browser/operation_events/background.rs]
+code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/ui/notice.rs, src/app/browser/operation_events/background.rs]
 tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/ui/browser/progress/tests/minimization/**, src/app/browser/tests/background_operations.rs]
-related: [operations/delete, devices/volumes]
+related: [operations/delete, devices/volumes, operations/clipboard/send-to, remote/file-providers/external]
 ---
 
 ## Summary
 
-Non-blocking progress cards in the bottom-right corner of the window for copy, compression, and deletion, so browsing continues while they run. Each card cancels only its own operation and becomes a completion notification that closes itself.
+Non-blocking progress cards in the bottom-right corner of the window for copy, compression, and deletion, so browsing continues while they run. Each card cancels only its own operation and becomes a completion notification that closes itself. The dock also shows brief notices, such as a fast Send to success or a file provider's result.
 
 ## Behavior
 
@@ -49,6 +49,14 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 - Complete or X on a completed card dismisses only that card and leaves running cards unaffected. lgse/strata#1393
 - If another operation starts before a docked copy or compression finishes, the finished one does not reveal or select its result. lgse/strata#1393 (unverified)
 
+### Notices
+
+- A notice shows as a row in the bottom-right dock; notices and progress cards stack in the order they appear. lgse/strata#1578 (unverified)
+- A notice shows a check icon before its text and has no controls; a click on it does nothing. lgse/strata#1578 (unverified)
+- Showing a notice while another notice is visible in the same window removes the old one; progress cards stay. lgse/strata#1578 (unverified)
+- Notice text, not its heading, wraps and is cut to 3 lines with an ellipsis. lgse/strata#1578 (unverified)
+- When a notice expires and the dock holds no other row, the dock closes. lgse/strata#1578 (unverified)
+
 ## Design
 
 Modal progress made the whole window unusable during long archive work. Routine progress should not stop unrelated browsing (lgse/strata#1360). lgse/strata#250 had already asked for a persistent surface that a click elsewhere cannot hide.
@@ -59,6 +67,7 @@ Modal progress made the whole window unusable during long archive work. Routine 
 - Docking must carry per-operation animation state. Dropping the pending dissolve broke the Shift+Delete animation until lgse/strata#1490 kept it.
 - Each docked deletion owns its own dissolve and Trash flight, so another request's success cannot play them (lgse/strata#1562).
 - Pending-write warnings stay inside the card; the separate banner and Return to browser action from lgse/strata#1278 were removed (lgse/strata#1393).
+- Transfer feedback has one place. The Send to success notice moved from the top of the browser into the dock, and file providers reuse it (lgse/strata#1578).
 - Drive formatting reuses the card with no Cancel; formatting cannot be aborted through it (lgse/strata#1393).
 
 ## History

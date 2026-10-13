@@ -3,12 +3,12 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
 docs: [docs/architecture.md, docs/keyboard-navigation.md]
-related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs]
+related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts]
 ---
 
 ## Summary
@@ -28,6 +28,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 - With one tab open, the header holds, left to right, the sidebar toggle, the location bar, and the New tab, Search, Appearance, Settings, Minimize, Maximize, and Close buttons. lgse/strata#580, lgse/strata#1129, lgse/strata#1484 (unverified)
 - The sidebar toggle draws its panel icon at 17 px, the same size as the sidebar's Home icon. lgse/strata#636
+- With 10xer mode on, the sidebar toggle's tooltip reads "Toggle sidebar (Ctrl+N)"; turning the mode off restores "Toggle sidebar (Ctrl+B)". lgse/strata#1576
 
 ### Window buttons
 
@@ -49,10 +50,11 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - A key pressed while a modal is open and focus is outside it moves focus into the modal and does nothing else. lgse/strata#544 (unverified)
 - While a popover menu has focus or is visible, keys go to the menu rather than to browser shortcuts. lgse/strata#544 (unverified)
 - With a text field focused, Ctrl+C, Ctrl+X, Ctrl+V, and Ctrl+A act on its text, not on the selected files. lgse/strata#544
+- With only a Russian layout configured, Ctrl+C/X/V/A/Z/Y and Ctrl+Shift+Z in a focused text field copy, cut, paste, select all, undo, and redo its text. lgse/strata#1576
 
 ## Design
 
-[docs/architecture.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/architecture.md) carries the window composition and keyboard routing design under "Window composition" and "Window keyboard routing".
+[docs/architecture.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/architecture.md) carries the design under "Window composition" and "Window keyboard routing". [docs/keyboard-shortcuts.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/keyboard-shortcuts.md) describes how the dispatcher reads keys through `ui::keys` (`app/keyboard-shortcuts`).
 
 - The header is a GTK `HeaderBar` with its title buttons hidden. Strata draws Minimize, Maximize, and Close as its own header actions, so their visibility is a preference rather than a window-manager decision (lgse/strata#1100).
 - Tiling window managers make in-app window buttons redundant; stacking desktops expect all three. Always restoring GTK title buttons and detecting the window manager were rejected: the first suits only stacking desktops, the second is brittle and still needs an override (lgse/strata#1100).
@@ -64,7 +66,10 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - `gtk_window_destroy()` frees a window only with its last reference, which its own closures can hold. Key controllers and preference bindings are therefore released on unrealize, not on destroy (lgse/strata#580).
 - Each tab installs one capture-phase key controller on the window, and it acts only while that tab is mapped (lgse/strata#1484). It runs ordered stages: text size, modal and editing ownership, window and file commands, focus traversal, dismissal, then item navigation. `None` tries the next Strata stage; `Some(Propagation::Proceed)` ends dispatch and leaves the key to GTK (lgse/strata#543, lgse/strata#544).
 - In the default map, a Tab stage runs after window commands and before inline editing. Tab from a Columns rename field therefore leaves the strip (lgse/strata#1431, lgse/strata#1533).
-- GTK runs the window accelerators only after the dispatcher yields, which is when a modal or inline edit owns input. `add_guarded_window_action` therefore gates each of the five accelerator actions itself (lgse/strata#1554).
+- Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, F5, and Ctrl+\ were GTK accelerators, run only after the dispatcher yielded, so `add_guarded_window_action` gates each action itself (lgse/strata#1554).
+- They are now dispatcher bindings, not accelerators: once every stage yields, the dispatcher activates the same guarded `win.*` action. Application accelerators are gone (lgse/strata#1576).
+- In the file list, the file commands stage handles Ctrl+Alt+T and F5 first. The `win.*` path serves only keys the stages yield (lgse/strata#1576, unverified).
+- GTK's text bindings miss an editing key that only the layout fallback recognizes. After the window actions, the focused `gtk::Text` or `TextView` runs that action itself (lgse/strata#1576).
 - One guard covers dialogs and name fields. It skips the action's own layer, so Ctrl+K still closes the palette it opened (lgse/strata#1432, lgse/strata#1438, lgse/strata#1554).
 - Editable controls and native single-pane selection must not fall through to browser commands, which is why a stage can hand a key to GTK (lgse/strata#544).
 - The file-manager launch path sets the GLib prgname and X11 program class to the application id. The portal chooser keeps its own id. AT-SPI reports the application under the prgname, so the E2E harness looks for `io.github.lgse.Strata` (lgse/strata#812, lgse/strata#957).

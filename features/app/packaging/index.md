@@ -3,8 +3,8 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg]
 tests: [src/tests.rs]
 docs: [docs/packaging.md]
@@ -21,7 +21,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 - `io.github.lgse.Strata.desktop` sets `Icon=io.github.lgse.Strata` and `StartupWMClass=io.github.lgse.Strata`, matching the GTK application ID. lgse/strata#182
 - The entry declares `MimeType=inode/directory;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler. lgse/strata#182
-- The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, de, es, ja, pt_BR, ko, vi, it, and ru. lgse/strata#1519 (unverified)
+- The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, de, es, ja, pt_BR, ko, vi, it, ru, and zh_CN. lgse/strata#1519, lgse/strata#1583 (unverified)
 - The application icon is bundled in the GResource and set as GTK's default window icon name. lgse/strata#182
 - Release archives contain `io.github.lgse.Strata.desktop` and `io.github.lgse.Strata.svg` beside the `strata` binary. lgse/strata#182
 - By default, `mise run install-local` installs the binary to `~/.local/bin`, the icon under `~/.local/share/icons/hicolor`, and the entry under `~/.local/share/applications`. lgse/strata#182, lgse/strata#663

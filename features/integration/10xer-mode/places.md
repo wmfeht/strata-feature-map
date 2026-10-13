@@ -3,11 +3,11 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
-related: [browser/sidebar, browser/navigation]
+related: [browser/sidebar, browser/navigation, app/keyboard-shortcuts]
 ---
 
 ## Summary
@@ -35,6 +35,8 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - A new pin outside the first nine visible pins flashes `Pinned “Name”` with no digit. lgse/strata#1340 (unverified)
 - `g -`, or `g` then keypad `-`, unpins it and flashes `Unpinned “Name”`; pinning twice flashes `“Name” is already pinned`. lgse/strata#1340
 - `g -` on a folder that is not pinned flashes `“Name” isn’t pinned`. lgse/strata#1340 (unverified)
+- `g` then Shift+keypad `+` or Shift+keypad `-` neither pins nor unpins. lgse/strata#1576
+- Where a top-row key types `+` or `-`, `g` then that key pins or unpins instead of opening a pin: AZERTY `g -` unpins. lgse/strata#1576
 - Standard places and Trash flash `Can’t pin “Name”`. lgse/strata#1340
 
 ### `go ›`

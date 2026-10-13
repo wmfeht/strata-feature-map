@@ -91,3 +91,4 @@ scopes:
   actions: integration/custom-actions
   a11y: app/accessibility
   10xer: integration/10xer-mode
+  providers: remote/file-providers/external

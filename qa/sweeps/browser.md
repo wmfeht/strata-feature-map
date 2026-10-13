@@ -1,13 +1,13 @@
 ---
 title: Browser sweep
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
-tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/preferences.md, tests/e2e/mutations]
+tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
 
-Everything that shows a folder and moves through it without changing files: selection by pointer and keyboard, with marquee, pointer intent, and click modes; the Columns, Icons, and List views with sorting, per-folder views, text size, and position restore; Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump; Ctrl+K search, the Ctrl+F filter, and search exclusions; the sidebar places and pins; thumbnails with their disk cache and worker pool; Properties with its media, RAW, and size details; and the context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore.
+Everything that shows a folder and moves through it without changing files: selection by pointer and keyboard, with marquee, pointer intent, and click modes; the Columns, Icons, and List views with sorting, per-folder views, text size, and position restore; Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump; Ctrl+K search, the Ctrl+F filter, and search exclusions; the sidebar places and pins, and its update notice; thumbnails with their disk cache and worker pool; Properties with its media, RAW, and size details; and the context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore.
 
 Left to other sweeps: what happens once a press becomes a file drag, drops on tabs and sidebar rows, and every operation that changes files; the DEVICES rows and remote shares in the sidebar; the modal dialog shell, the shortcut footer, F1, and key precedence; what the preview panel renders; the Settings pages that hold the preferences named here; and the 10xer-mode key variants and the portal file chooser.
 
@@ -19,10 +19,13 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
 - Type to search on and off per probe: it changes what `h`, `j`, `k`, `l`, `p`, `/`, and plain letters do. `docs/keyboard-navigation.md` holds the key rules and `docs/preferences.md` the setting keys.
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
+- Keyboard layouts set with `setxkbmap` for layout probes: `us,ru`, `ru`, `fr`, `de`, `ch` (Swiss German), `cz`, `is`, and `us` with variant `dvorak`. `docs/keyboard-shortcuts.md` holds the matching rules; `tests/e2e/harness/keyboard_layout.py` names the layouts the E2E suite covers.
+- fcitx5 with pinyin under `GTK_IM_MODULE=fcitx` on X11 for input-method probes.
+- Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
 - Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
-- `tests/e2e/mutations/` holds the `click-modes`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
+- `tests/e2e/mutations/` holds the `click-modes`, `filter-results`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
 
 ## Probes
 
@@ -77,6 +80,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Write `browser_mode = "grid"`, then `"explorer"`, then `"tiles"` in settings.toml; start and note the view and the Appearance icon.
 - Focus the last row of a folder and delete every entry externally; then add one back. Repeat in the unreadable folder after `chmod 755` and F5.
 - With the Appearance menu closed, press Ctrl+2 or switch the mode in a second window. Then open Appearance and read each option's checked state.
+- Press Ctrl+1, Ctrl+2, and Ctrl+3 with Russian active beside US, with only Russian configured, on Dvorak, and with Caps Lock on; then with keypad digits and Num Lock on.
 
 ### browser/view-modes/columns
 
@@ -96,6 +100,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Trash the focused open folder with Delete, Mirror columns selection off then on, where the next entry is a file, a dot-folder, or nothing.
 - Start a rename, `touch` a file in that folder from a shell, then press F2, Menu, and Shift+F10 on the row.
 - Toggle Show sizes in Columns view from Appearance with Settings open in a second window and a recursive search column open.
+- With one entry selected, create 4,200 files in the active column's folder from a shell, then press Down and the 10xer next-entry key.
 - With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
 
 ### browser/view-modes/icons
@@ -138,6 +143,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
 - Press Ctrl++ with the location entry open, with Ctrl+K open, and in Settings; then set `text_size = 7`, `"huge"`, and `49` and start.
+- On `ch`, `cz`, and `fr`, press Ctrl with each top-row key that types `+`, `=`, or `-`, with and without Shift; then keypad + with Num Lock off.
 
 ### browser/view-modes/position-restore
 
@@ -151,6 +157,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Alt+Left with the location entry open, with Properties open, and with a filter result focused; then click a breadcrumb with the sidebar focused.
 - Let an auto-refresh tick land in a background tab, then switch to it. Press F5 with a rename open in Icons, then in List.
 - Leave a folder in Icons with three entries selected, then click and Enter its sidebar place; repeat in Columns and after 130 other folders.
+- With one entry selected in Icons and List, create 4,200 files in the open folder from a shell, then press Down and the 10xer next-entry key.
 
 ### browser/navigation
 
@@ -191,6 +198,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Search `résumé` typed in NFD, `.cargo`, `level-255`, `/`, and a query ending in a space; then add a `.gitignore` excluding a folder and reopen.
 - Press Alt+Enter on a result while a Trash view is open, then while a filter is open; press Ctrl+K with the location entry and a rename editor open.
 - Open Ctrl+K from the sidebar, the filter field, and an empty folder, close it by a click outside the panel, and press Down.
+- In Ctrl+K, press Down to the third result, type pinyin, pick a candidate with Space, then press Enter. Repeat with a dead key.
 - With a Ctrl+K query open, `touch` a file in a watched Home subfolder every 100 ms for 10 s. Type meanwhile and watch the highlight.
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 
@@ -211,10 +219,15 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - With a filter in Columns column 3, create matches in column 1's folder, `target/`, and three levels down. Repeat in a dot-folder with hidden files off, then on.
 - Create 500 matching files at once during a `100000` walk, then delete the focused hit from a shell; repeat with Include subfolders off.
 - Delete the cursor entry from a shell while a 2,000-file copy into the folder runs, with the filter field focused, then a result.
+- Focus a result after Up and Down moved the cursor, Tab out, and Tab back in from the footer. Repeat with the preview open and Include subfolders off.
+- Press keypad `/` with Num Lock on and off, and on `is` press the þ key with Type to search on, then off.
 
 ### browser/sidebar
 
 - Drop a row on another row's exact midline, then between the PINNED heading and its first pin; restart and compare the order in a second window.
+- Offer a nightly and a release candidate with the interface in ja and with the sidebar at its minimum width; read the notice text and its accessible name.
+- With a notice shown, set text size 8 and 48 and compare the notice row's height with an empty sidebar foot. Then collapse to the rail and expand at each size.
+- Show a notice with the interface in ko, ru, and zh-CN at the default sidebar width, then drag the sidebar to its minimum.
 - Turn off every place chip; collapse with Ctrl+B in one window while the other's sidebar has focus, then press Ctrl+Shift+B there.
 - Unset `XDG_MUSIC_DIR` and point Documents at a missing folder in `user-dirs.dirs`; shrink the window to the icon rail and Tab through it.
 
@@ -268,6 +281,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Right-click the last row of `100000` scrolled to the end at text size 28; then open a menu and press F5, Ctrl+2, and resize the window.
 - Press Menu with the filter field focused, the location entry focused, and a drive row focused; right-click a second entry while a menu is open.
 - Press Right on Open in… in a multi-selection of folders, then Left; open the menu on a folder in Trash and a Recent folder row.
+- With the interface in German, then Japanese, open a file's, a folder's, and the background menu; compare each hint with its F1 row and press it.
 
 ### browser/directory-monitoring
 
@@ -303,6 +317,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Focus an empty folder's pane in tab 2, fill the folder from a shell, then switch away and back.
 - Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
+- With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
 
 ### browser/tabs/session-restore
 

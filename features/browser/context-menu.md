@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
@@ -21,6 +21,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 - Menu alone or Shift+F10 opens the menu of the focused selected entry in Columns, Icons, and List. lgse/strata#666
 - Ctrl+Shift+F10, Shift+Menu, and Ctrl+Menu open no menu. lgse/strata#666 (unverified)
+- Menu or Shift+F10 with Hyper or Meta held opens the menu as without them. lgse/strata#1576
 - With several entries selected, Menu or Shift+F10 opens the multi-selection menu and keeps the whole selection. lgse/strata#666
 - With nothing selected, Menu or Shift+F10 opens the active pane's background menu. lgse/strata#666
 - A keyboard-opened item menu anchors to the entry, not the pointer: its right edge in Columns and Icons, its center in List. lgse/strata#666 (unverified)
@@ -48,7 +49,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - A regular file's menu groups Open, Open With…, Quick preview, Print; then Cut, Copy, Duplicate, Rename; then Move to…, Copy to…. lgse/strata#1210
 - After those come Compress… alone; then Customize…, Copy path, Copy name, Properties; then Move to Trash and Permanently delete. lgse/strata#1210
 - A folder's menu adds Open in Terminal, then Open in…, to the opening group, and Pin to sidebar before Customize…. lgse/strata#1210, lgse/strata#1543
-- Open in… is a submenu of New Tab, shown with Ctrl+Return, and New Window, shown with Shift+Return. A file's menu has no Open in…. lgse/strata#1543
+- Open in… is a submenu of New Tab, shown with Ctrl+Enter, and New Window, shown with Shift+Enter. A file's menu has no Open in…. lgse/strata#1543, lgse/strata#1576
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
 - When every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155
@@ -60,6 +61,9 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Compress… shows PackagePlus, Extract here PackageOpen, and Extract to… FolderArchive. lgse/strata#1210
 - Permanently delete shows CircleX with a red label and icon; Move to Trash keeps the Trash icon. lgse/strata#1210
 - An action with a shortcut shows it at the row's right, such as Ctrl+C beside Copy. lgse/strata#666
+- Shortcut hints use one notation: Enter beside Open, "F2 / Ctrl+R" beside Rename, and Alt+Enter beside Properties. lgse/strata#1576
+- With the interface in German, hints read Strg+C beside Copy and Entf beside Move to Trash. lgse/strata#1576
+- In 10xer mode, hints read lowercase `x`, `y`, and `d` beside Cut, Copy, and Move to Trash, and `D` beside Permanently delete. lgse/strata#1576
 - Screen readers get each row's label as its name and its shortcut as its description. lgse/strata#415 (unverified)
 
 ### Placement

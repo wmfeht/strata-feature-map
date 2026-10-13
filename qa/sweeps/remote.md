@@ -1,12 +1,12 @@
 ---
 title: Remote sweep
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh]
 ---
 
 ## Scope
 
-Everything that reaches Strata from somewhere other than a local disk: network locations over GIO/GVfs (`smb://`, `sftp://`, `network:///`) with on-demand mounting, the sign-in, passphrase, and host-key dialogs, failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe; and external file providers, from registration and process lifecycle to badges, menu sections, activation dialogs, and invalidation. `remote/file-providers` itself has no Behavior; its two children carry every check.
+Everything that reaches Strata from somewhere other than a local disk: network locations over GIO/GVfs (`smb://`, `sftp://`, `network:///`) with on-demand mounting, the sign-in, passphrase, and host-key dialogs, failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe; and external file providers, from registration and process lifecycle to badges, menu sections and their heading icons, activation dialogs and notices, and invalidation. `remote/file-providers` itself has no Behavior; its two children carry every check.
 
 Left to other sweeps: sidebar rows and location-field parsing and history, copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, and mounting, unmounting, and ejecting local devices.
 
@@ -47,6 +47,11 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Emit `invalidate` 50 times per second for a minute with an open submenu, then stop; the open submenu, labels, and badges must settle without the menu closing.
 - Activate a leaf, kill the provider with SIGKILL before it answers, and separately make it exit 0 after writing half a reply line; compare the two dialogs.
 - Register nine providers, one with a symlinked `provider.json`, one world-writable, one owned by another user, and one 300×300 icon; the log must name the rejected ids and nothing else about them.
+- Reply `"feedback":"notice"` with `accepted` 1/2 and a `job`. Then reply with `"Notice"` and with `null` as the value; read which dialog or notice each produces.
+- Run a `notice` action from the item menu, the background menu, a second window, and a file chooser; then close the window or tab before the reply arrives.
+- Run a `notice` action from a provider whose `name` is the full 64 bytes, beside a short message.
+- Set `icon` to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
+- With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
 
 ## Hand-offs
 
@@ -54,5 +59,6 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Copy, move, paste, rename, and delete with a remote folder as source or target → `operations`.
 - Preview panel and quick preview of remote files, and thumbnails on remote entries → `preview`.
 - Mounting, unmounting, and ejecting local volumes and removable media → `devices`.
+- How a provider notice stacks with progress cards and replaces another visible notice in the dock → `operations`.
 - Thumbnail rendering that provider badges share, and search inside a remote location → `browser`.
 - How a non-UTF-8 or `%2F` URI displays, skipped-entry warnings, and directory-load log redaction → `app`.

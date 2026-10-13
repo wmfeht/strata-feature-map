@@ -3,10 +3,10 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/pdf_text.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/archive_cover.rs]
-tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/e2e/scenarios/test_preview_media_layout.py]
+tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/ui/preview/tests/pdf.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/e2e/scenarios/test_preview_media_layout.py]
 docs: [docs/preview-sandbox.md]
 related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-metadata, operations/archives/preview, operations/drag-and-drop]
 ---
@@ -45,7 +45,8 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
 - In a PDF, double-click selects a word, triple-click a line, Shift+click extends across pages, and Ctrl+A selects all loaded pages. lgse/strata#1223
 - Dragging on a PDF margin or a page without a text layer, such as a scan, pans instead of selecting. lgse/strata#1223
-- Ctrl+wheel over a PDF zooms its pages between 1× and 4× its fitted width, and Ctrl+0 resets the zoom. lgse/strata#1069 (unverified)
+- Ctrl+wheel over a PDF zooms its pages between 1× and 4× its fitted width. lgse/strata#1069 (unverified)
+- With focus in a PDF, Ctrl+0, Ctrl+Alt+0, and Ctrl+Super+0 leave its zoom unchanged. lgse/strata#1576
 
 ### Models and covers
 
@@ -63,6 +64,10 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Print on an extensionless file the loader cannot render shows "This file type cannot be printed." lgse/strata#965
 - Printing a PDF shows "Preparing PDF" with page progress while every page renders; Cancel or Escape stops it. lgse/strata#286 (unverified)
 - Printing a text file over 16 MiB shows "This text file is too large to print safely." lgse/strata#286 (unverified)
+
+### Header
+
+- The close button's tooltip and accessible name read "Close preview (Space)", or "Close preview (i)" in 10xer mode. lgse/strata#1576
 
 ## Design
 

@@ -3,12 +3,12 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]
 docs: [docs/keyboard-navigation.md]
-related: [settings/preferences, integration/10xer-mode, integration/10xer-mode/file-chooser, browser/context-menu, operations/clipboard]
+related: [settings/preferences, integration/10xer-mode, integration/10xer-mode/file-chooser, browser/context-menu, operations/clipboard, app/keyboard-shortcuts]
 ---
 
 ## Summary
@@ -23,18 +23,22 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - F1 with Ctrl, Alt, Super, or Shift held does not toggle the reference. lgse/strata#358 (unverified)
 - In 10xer mode, `~` also toggles the reference; in the default map `~` does not open it. lgse/strata#1272
 - While a 10xer footer prompt has focus, `~` goes to the prompt and does not open the reference; F1 still opens it. lgse/strata#1272 (unverified)
+- In 10xer mode with Russian active and a text field focused, Shift and the ё key type Ё instead of toggling the reference. lgse/strata#1576
 - The footer's "F1  Shortcuts" button toggles the reference and shows as pressed while it is open. lgse/strata#1034, lgse/strata#1376
 - Escape or a click on the backdrop closes the reference. lgse/strata#1376
 - Focusing another application window leaves the reference open with its search text, category, and scroll position. lgse/strata#1376
 - Closing the reference returns focus to the widget that had it before opening, such as a text field or the file list. lgse/strata#358
 - While the reference is open, Delete, Ctrl+V, and other browsing shortcuts do nothing to files, and focus cannot leave the panel. lgse/strata#358, lgse/strata#1296
 - In the reference's search field, typing, Delete, and Ctrl+A, Ctrl+C, Ctrl+V, and Ctrl+X edit the query. lgse/strata#1296 (unverified)
+- In the reference's search field, Ctrl+Z undoes and Ctrl+Y or Ctrl+Shift+Z redoes the last query edit. lgse/strata#1576
 
 ### Finding a shortcut
 
 - Opening the reference focuses "Search actions or keys…" and scrolls the list to the top. lgse/strata#1296
 - Reopening the reference keeps the previous search text and selected category. lgse/strata#1296 (unverified)
 - Typing keeps rows whose keys, key context, or action contain the text, ignoring case and matching translated text; no match shows "No matching shortcuts". lgse/strata#1296, lgse/strata#1519
+- Key names match in English and in the interface language: under German, `strg+c` and `ctrl+c` both find Copy. lgse/strata#1576
+- Searching `ctrl+0` finds the "Ctrl++ / − / 0" text-size row, and `1-9` finds "Ctrl+Shift+1–9 / 0". lgse/strata#1576
 - The category list shows All and each section with its row count; choosing one shows only that section. lgse/strata#1296
 - Tab cycles search, the selected category, and the results; Shift+Tab cycles backwards. lgse/strata#1296
 - Ctrl+B focuses the categories, Ctrl+F the search field, and Ctrl+L the results. lgse/strata#1296
@@ -42,7 +46,8 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In the results, arrows, j/k, Page Up, Page Down, Home, and End scroll the list. lgse/strata#1296
 - With the search field focused, Up, Down, Page Up, and Page Down scroll the results without moving focus. lgse/strata#1296 (unverified)
 - In windows narrower than 1480 px, the header stacks, categories become wrapping pills without counts, and results use one column; resizing while open re-lays the panel. lgse/strata#1296
-- A note at the bottom reads "Ctrl+B categories · Ctrl+F search · Ctrl+L list · arrows/hjkl move · Tab cycle · Esc close" and wraps only after a "·". lgse/strata#1296, lgse/strata#1519
+- A note at the bottom reads "Ctrl+B categories · Ctrl+F search · Ctrl+L list · j / k / ↑ / ↓ move · Tab cycle · Escape close". lgse/strata#1296, lgse/strata#1576 (unverified)
+- The note wraps only after a "·". lgse/strata#1296, lgse/strata#1519
 
 ### Contents
 
@@ -52,17 +57,17 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272
 - Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543
 - In 10xer mode in Columns or List, outside the file chooser, the reference lists "`/` in the preview — Find in preview"; Icons omits it. lgse/strata#1559
-- In 10xer mode in Columns or List, the reference lists "Shift+← → / PgDn / PgUp" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451
+- In 10xer mode in Columns or List, the reference lists "Shift+← / Shift+→ / Page Down / Page Up" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
 - In 10xer mode in Columns or List, the reference lists "0 / Home / G / End" in media as "Seek to the start / end". lgse/strata#1570, lgse/strata#1451
-- In 10xer mode in Columns or List, the reference lists "+ / -" in media as "Volume up / down". lgse/strata#1570, lgse/strata#1451
-- The default reference lists text size (Ctrl++ / Ctrl+− / Ctrl+0), Ctrl+Space, and Ctrl+\; the 10xer reference lists text size. lgse/strata#1376
+- In 10xer mode in Columns or List, the reference lists "↑ / ↓ / + / −" in media as "Volume up / down". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
+- The default reference lists text size as "Ctrl++ / − / 0", Ctrl+Space, and Ctrl+\; the 10xer reference lists text size. lgse/strata#1376, lgse/strata#1576
 - Movement keys are described directly; the `h / j / k / l` row reads "Same as ← ↓ ↑ → (type-to-search off)" and no row names Vim. lgse/strata#826
-- In a translated interface, actions and key context such as "on a file" are translated while key names stay as typed. lgse/strata#1519
+- In a translated interface, actions and key context such as "on a file" are translated, and key names follow the interface language: German shows Strg+B and Rücktaste. lgse/strata#1519, lgse/strata#1576
 
 ### Menu hints
 
-- In the default map, the Y (copy path) and P (pin) context-menu hints show only while Type to search is off. lgse/strata#1376
-- In 10xer mode, menu hints show 10xer keys, such as `r` for Rename and Shift+D for permanent delete. Duplicate, Copy path, Pin, and terminal show none. lgse/strata#1272, lgse/strata#1340 (unverified)
+- In the default map, the `y` (copy path) and `p` (pin) context-menu hints show only while Type to search is off. lgse/strata#1376, lgse/strata#1576
+- In 10xer mode, menu hints show 10xer keys, such as `r` for Rename. Duplicate, Copy path, Pin, and terminal show none. lgse/strata#1272, lgse/strata#1340 (unverified)
 
 ### Footer status
 
@@ -92,6 +97,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - A keyboard-first user could not discover shortcuts; lgse/strata#291 asked for an accurate shortcut reference. lgse/strata#358 added a compact, mode-aware hint footer whose F1 reference describes the shortcuts each view actually runs.
 - lgse/strata#1033 proposed per-column counts and rejected a global status bar, because Columns shows several directories at once. lgse/strata#1034 put counts in the shared footer for all views instead, and replaced the inline hints with one F1 Shortcuts button.
 - The catalog is static data in `shortcut_reference.rs`, built per scope: view mode, key map, and portal chooser request. The chooser scope is described in `integration/10xer-mode/file-chooser`.
+- Rows hold binding constants from `ui::keys::bindings`, the ones handlers match, and render through one label formatter; no row carries a typed key label (lgse/strata#1576, `app/keyboard-shortcuts`).
 - The reference shows only the active map, and planned keys are never advertised, so help describes only commands that run (lgse/strata#1272).
 - Settings once had its own Keybindings page, and the two catalogs drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - The reference is drawn in the window's overlay, not a `GtkPopover`. Hyprland sends `xdg_popup.done` when the window deactivates, and no popover setting kept it open (lgse/strata#1375).

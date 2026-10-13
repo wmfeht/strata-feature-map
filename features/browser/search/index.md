@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/e2e/scenarios/test_search_filter_sort.py]
@@ -60,12 +60,15 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Up and Down move the highlight while the caret stays in the query field; typing edits the query. lgse/strata#758
 - When the first result is preselected, one Down highlights the second result. lgse/strata#953
 - Enter or a single click on a result opens it and closes search. lgse/strata#177, lgse/strata#758
+- With an input method composing in the query field, Enter that the input method passes back after committing opens the highlighted result. lgse/strata#1583
 - Opening a folder result navigates into that folder. lgse/strata#177 (unverified)
 - Opening a file result reveals it selected in its folder and opens quick preview. lgse/strata#1499
 - With **Open search results directly** on, opening a file result launches it instead of previewing it, and still reveals it in its folder. lgse/strata#144 (unverified)
 - Alt+Enter, or right-click → **Open containing folder**, closes search and opens the result's parent with the result selected and focused. lgse/strata#1066
+- Alt+Enter with Hyper or Meta held also opens the containing folder. lgse/strata#1576
 - For a folder result, **Open containing folder** selects the folder in its parent rather than opening it. lgse/strata#1066
 - Escape, or a click outside the dialog panel, closes search. lgse/strata#112 (unverified)
+- With a pinyin input method composing in the query field, Escape cancels only the composition and search stays open. lgse/strata#1583
 - Closing search with Escape, Ctrl+K, or a click outside the panel returns focus to its opener, such as the file list's cursor row. lgse/strata#1430, lgse/strata#1533
 - Opening a result, or Open containing folder, hands focus to the revealed item in the browser rather than the control that opened search. lgse/strata#1430, lgse/strata#1533
 

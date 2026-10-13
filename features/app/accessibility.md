@@ -3,7 +3,7 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/e2e/scenarios/test_accessibility.py]
@@ -34,6 +34,8 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - Pressing Tab repeatedly from the window's first control reaches the file listing. lgse/strata#415
 - Items in the file, folder, and sidebar right-click menus have the menu item role and are named after the action. lgse/strata#415
 - A right-click menu item with a keyboard shortcut carries the shortcut in its accessible description, not its name. lgse/strata#415
+- Menu shortcut descriptions use Strata's notation: the Appearance menu's Hidden files option is described as "Ctrl+H", not "Ctrl + H". lgse/strata#1576
+- Accessible names and descriptions that name a shortcut use the interface language's key names, such as "Strg" in German. lgse/strata#1576
 - Strata's modal dialogs have the dialog role and are named after their title. lgse/strata#415
 
 ### Tooltips
@@ -45,7 +47,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 ## Design
 
-[docs/e2e-testing.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/e2e-testing.md) ("Accessible names are product surface") states the contract this node owns.
+[docs/e2e-testing.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/e2e-testing.md) ("Accessible names are product surface") states the contract this node owns.
 
 - The E2E harness locates controls only by accessible role and name. When it cannot identify a control, the fix is to name it in the application, never a test-only API (lgse/strata#341).
 - An entry's name and description sit on the list item, not the row content, because the item carries the `list item` or `table cell` role and the selected and focused states (lgse/strata#415).

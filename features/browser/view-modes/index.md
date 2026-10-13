@@ -3,10 +3,10 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
-tests: [tests/e2e/scenarios/test_view_switching.py, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs]
+tests: [tests/e2e/scenarios/test_view_switching.py, tests/e2e/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs]
 docs: [docs/architecture.md, docs/keyboard-navigation.md]
 related: [browser/search, preview/preview-panel]
 ---
@@ -21,6 +21,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 - The Appearance menu's VIEW section lists Columns, Icons, and List; choosing one switches the view and closes the menu. lgse/strata#383, lgse/strata#168
 - Ctrl+1, Ctrl+2, and Ctrl+3 switch to Columns, Icons, and List, including while typing in the pane filter. lgse/strata#531, lgse/strata#925
+- Ctrl+1, Ctrl+2, and Ctrl+3 count the digit row by position: on French AZERTY, Ctrl+&, Ctrl+é, and Ctrl+" switch views. lgse/strata#1576
+- Ctrl+Super+1, Ctrl+Super+2, or Ctrl+Super+3 does not switch views. lgse/strata#1576
 - The portal file chooser accepts the same Ctrl+1, Ctrl+2, and Ctrl+3 shortcuts. lgse/strata#877
 - The Appearance button shows the current mode's icon, and the menu checks the current mode, after both menu and keyboard switches. lgse/strata#531
 - The chosen mode is saved as `browser_mode` (`columns`, `icons`, or `list`) and restored at startup; saved `grid` and `explorer` values load as Icons and List. lgse/strata#383

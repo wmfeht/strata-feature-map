@@ -3,7 +3,7 @@ title: Package-managed installs
 status: shipped
 origin: {issue: lgse/strata#195, pr: lgse/strata#196}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: reviewed
 code: [src/services/install_source.rs]
 tests: [src/services/install_source/tests.rs]
