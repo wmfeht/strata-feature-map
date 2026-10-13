@@ -18,16 +18,17 @@ knows this map exists.
 | `features/<area>/<feature>/index.md` + `<child>.md` | A node with children: `index.md` is the parent. | Backfill, then the bot |
 | `qa/README.md` | The QA sweep plan: environment, full and targeted sweeps, report template. | People |
 | `qa/sweeps/<area>.md` | One QA sweep per area: setup, probes per node, hand-offs, triggers. | Backfill, then the bot |
-| `README.md`, `index/*.md` | Generated indexes. Never hand-edit. | `featuremap.py index` |
-| `sources.yaml` | Tracked repositories and the sync watermark. | Backfill sets it, the bot advances it |
+| `README.md`, `index/*.md`, `site/src/SUMMARY.md` | Generated indexes. Never hand-edit. | `featuremap.py index` |
+| `sources.yaml` | Tracked repositories, the sync watermark, and the release the site describes. | Backfill sets it, the bot advances it |
 | `scopes.yaml` | Conventional Commit scope to node id, plus `fallback` nodes. | Backfill, refined during triage |
 | `data/prs.jsonl` | Extracted upstream PR dataset. | `featuremap.py extract` / `drift` |
 | `scripts/` | Tooling and its unittest coverage. | People |
+| `site/` | Official user documentation. Pages and sections by people, prose by people and the bot. See `site/README.md`. | People, then the release docs run |
 
-Nothing else belongs in the repository: no test results, CI status, review
-history, release notes, QA reports or plans, or task checklists. Those live in
-issues and PRs, or outside the repository. Sweeps say how to test, never what a
-run found.
+Beyond the feature map and the documentation site under `site/`, nothing else
+belongs in the repository: no test results, CI status, review history, release
+notes, QA reports or plans, or task checklists. Those live in issues and PRs, or
+outside the repository. Sweeps say how to test, never what a run found.
 
 ## Feature tree
 
@@ -109,14 +110,16 @@ maintained Strata doc when one carries the design, and summarize it here.
 | `review` | yes | `draft` or `reviewed`. Only the owner sets `reviewed`, or the bot at Sync contract step 7. |
 | `code` | yes | Upstream paths or globs (`*`, `**`) owning the feature. A plain path also matches everything under it. Used to map PRs to nodes, so be specific: no shared modules, except on a `fallback` node. |
 | `tests` | yes | Upstream test files or globs that cover the feature: Rust test modules and E2E scenarios. May be `[]`. |
-| `docs` | no | Maintained upstream docs such as `docs/archives.md`. Children inherit them. |
+| `docs` | no | Maintained docs: a site page such as `site/src/reference/archives.md`, or an upstream contributor doc such as `docs/architecture.md`. Children inherit them. |
 | `related` | no | Node ids whose behavior moves when this one changes. |
 
 A `<ref>` is always fully qualified, `owner/repo#n`: `lgse/strata#1506` upstream,
 `wmfeht/strata#12` for fork-only issues. GitHub resolves a number to an issue or
 PR, so the same form serves both.
 
-Every `code`, `tests`, and `docs` entry must exist in upstream at `reviewed_at`.
+Every `code` and `tests` entry, and every `docs` entry outside `site/`, must exist
+in upstream at `reviewed_at`. A `docs` entry under `site/` must exist in this
+repository.
 
 ### Sections
 
@@ -141,7 +144,8 @@ Every `code`, `tests`, and `docs` entry must exist in upstream at `reviewed_at`.
 
 ## Writing rules
 
-- Every claim traces to a PR, an issue, an issue comment, or a maintained doc.
+- Every claim traces to a PR, an issue, an issue comment, or a maintained doc:
+  a site page, or an upstream doc that stayed upstream.
   Read the PR body's Description and How to test sections and the linked issue
   with its comments; design discussion lives in the comments.
 - Code is the source of truth for current behavior. When a PR and the code at
@@ -195,14 +199,46 @@ triggers fired. Plans and reports are output; they never enter this repository.
 | Command | Purpose |
 | --- | --- |
 | `scripts/featuremap.py extract` | Pull every merged upstream PR into `data/prs.jsonl`. |
-| `scripts/featuremap.py index` | Regenerate `README.md` and `index/`, including `index/qa.md`. |
-| `scripts/featuremap.py check` | Validate the tree and the sweeps. `--offline` skips the upstream path check. |
+| `scripts/featuremap.py index` | Regenerate `README.md` and `index/`, including `index/qa.md`, plus `site/src/SUMMARY.md` and the book title. |
+| `scripts/featuremap.py check` | Validate the tree, the sweeps, and the site. `--offline` skips the upstream path and release checks. |
 | `scripts/featuremap.py drift` | Extract PRs after the watermark, map them, and print the drift report. |
 | `scripts/featuremap.py qa --pr N \| --files F \| --node ID \| --sweep AREA \| --all` | Render a QA plan to stdout or `--out`. `--tier 1..3` bounds the radius. |
+| `scripts/featuremap.py release-docs --tag vX.Y.Z [--bump]` | Map a stable release's PRs to the site pages they affect; `--bump` moves the site to the release. |
 
 The upstream check uses a blobless bare clone in `.cache/upstream.git`, or the
 clone named by `FEATUREMAP_UPSTREAM`. Run `index` then `check` before every
 commit. Tests: `uv run --with pyyaml python -m unittest discover -s scripts`.
+`mise.toml` pins the site's tools and wraps these as tasks: `mise run ci` runs
+everything CI runs, and `mise run serve` previews the site.
+
+## Documentation site
+
+`site/` is Strata's user documentation, an mdBook published on GitHub Pages.
+`site/README.md` holds its page format and writing rules; follow them for any
+edit under `site/`.
+
+- **Page map.** `site/pagemap.yaml` declares every page, its title, its nodes,
+  and its `##` sections. Only a person adds, removes, renames, or reorders a page
+  or a `##` section. Agents edit under the declared headings: prose, bullets,
+  tables, code blocks, and `###` subsections.
+- **Drafts.** Content no section covers goes in `site/drafts/<slug>.md` with
+  `proposed`, `nodes`, `reason`, and `release` front matter, and under "Proposed
+  pages" in the PR description. Drafts are never built. A person merges,
+  promotes, or rejects each one.
+- **Cadence.** The feature map syncs daily; the site moves once per stable
+  release and describes the latest one. When a `vX.Y.Z` tag lands upstream, run
+  `release-docs --tag vX.Y.Z`, edit the sections it names, run it again with
+  `--bump`, and open a `docs: vX.Y.Z` PR with "Docs updated", "Proposed pages",
+  and "Screenshots needed" sections. Alpha, beta, RC, and nightly tags trigger
+  nothing.
+- **Screenshots.** Human maintainers record every capture. An agent lists a
+  stale or needed one under "Screenshots needed": the page, the state to
+  capture, and what to sanitize.
+- **Accuracy.** Code is the source of truth. A site page that disagrees with the
+  code at its `reviewed_at` is a site bug, fixed in the PR that found it. Pages
+  describe shipped behavior only and carry no PR or issue citations.
+- **Coverage.** Every shipped node is named by a reference page or listed in
+  `site/unguided.yaml` with a reason.
 
 ## Sync contract (the bot)
 
@@ -220,7 +256,10 @@ On each scheduled run:
    sweep's `reviewed_at` to the new head.
 4. For each triage PR you can source, propose a new node. Otherwise leave it in
    the PR description for a person. A new node is owned by its area's sweep
-   without any edit; a new area needs `qa/sweeps/<area>.md` in the same PR.
+   without any edit; a new area needs `qa/sweeps/<area>.md` in the same PR. A
+   new shipped node goes in `site/unguided.yaml` with the reason "New since
+   <release>; the next release docs run places it." The daily sync edits nothing
+   else under `site/`.
 5. For each synced PR, run `qa --pr N` and give every file under "Unmapped
    changes" an owner in the same PR (see the ownership rule below).
 6. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and

@@ -1,0 +1,51 @@
+min_version = "2026.9.0"
+
+[tools]
+# The pages workflow installs these through mise too.
+# mdbook-linkcheck 0.7.7 does not support mdBook 0.5.
+"aqua:rust-lang/mdBook" = "0.4.52"
+# The release zip drops the executable bit.
+"github:Michael-F-Bryan/mdbook-linkcheck" = { version = "0.7.7", postinstall = "chmod +x \"$MISE_TOOL_INSTALL_PATH/mdbook-linkcheck\"" }
+"aqua:astral-sh/uv" = "0.13.0"
+
+[tasks.index]
+description = "Regenerate README.md, index/, and the site's SUMMARY.md and title"
+run = "scripts/featuremap.py index"
+
+[tasks.check]
+description = "Validate the feature tree, the sweeps, and the site against upstream"
+run = "scripts/featuremap.py check"
+
+[tasks."check:offline"]
+description = "Validate without the upstream path and release checks"
+run = "scripts/featuremap.py check --offline"
+
+[tasks.test]
+description = "Run the tooling's unit tests"
+run = "uv run --with pyyaml python -m unittest discover -s scripts"
+
+[tasks.build]
+description = "Build the site and check its links into site/book/"
+depends = ["index"]
+run = """
+mdbook build site
+if grep -rlE '<!-- node:|^reviewed_at:' site/book/html; then
+  echo "front matter or node comments reached the HTML" >&2
+  exit 1
+fi
+"""
+
+[tasks.serve]
+description = "Preview the site at http://localhost:3000, rebuilding on change"
+depends = ["index"]
+run = "mdbook serve site --open"
+
+[tasks.ci]
+description = "Run what CI runs: tests, a current index, check, and the site build"
+depends = ["test"]
+run = [
+  "scripts/featuremap.py index",
+  "git diff --exit-code -- README.md index/ site/src/SUMMARY.md site/book.toml",
+  "scripts/featuremap.py check",
+  { task = "build" },
+]

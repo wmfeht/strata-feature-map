@@ -277,6 +277,202 @@ class CheckTest(unittest.TestCase):
         self.assertTrue(any("is not an upstream commit" in i for i in f.issues(lambda sha: None)))
 
 
+def page(nodes, title, sections, extra="", sha=SHA):
+    body = "".join(f"## {name}\n\n<!-- node: {nodes[0]} -->\n\nText.\n\n" for name in sections)
+    return f"---\nnodes: [{', '.join(nodes)}]\nreviewed_at: {sha}\n---\n\n# {title}\n\nIntro.\n\n{body}{extra}"
+
+
+PAGEMAP = """guide:
+  - path: introduction.md
+    title: Start here
+    nodes: [operations/trash]
+    sections: [Install]
+  - path: guide/trash.md
+    title: Trash
+    nodes: [operations/trash/restore]
+    sections: [Restore a file, Good to know]
+reference:
+  - path: reference/trash.md
+    title: Trash reference
+    nodes: [operations/trash, operations/trash/restore]
+    sections: [Restore]
+"""
+
+SITE = {
+    "sources.yaml": "upstream: {repo: lgse/strata, branch: main}\nwatermark: null\n"
+                    f"site: {{release: v1.0.0, commit: {SHA}, url: https://example.test/site/}}\n",
+    "site/pagemap.yaml": PAGEMAP,
+    "site/book.toml": '[book]\ntitle = "Strata"\nsrc = "src"\n\n[output.html]\nno-section-label = true\n',
+    "site/src/introduction.md": page(["operations/trash"], "Start here", ["Install"]),
+    "site/src/guide/trash.md": page(["operations/trash/restore"], "Trash", ["Restore a file", "Good to know"]),
+    "site/src/reference/trash.md": page(["operations/trash", "operations/trash/restore"], "Trash reference", ["Restore"]),
+    "site/src/img/trash.png": "png",
+}
+
+
+class FakeUpstream:
+    def __init__(self, latest, ancestors=()):
+        self.latest, self.ancestors = latest, set(ancestors)
+
+    def latest_release(self):
+        return self.latest
+
+    def has(self, sha):
+        return sha in (SHA, OLD_SHA)
+
+    def is_ancestor(self, ancestor, descendant):
+        return ancestor == descendant or (ancestor, descendant) in self.ancestors
+
+
+class SiteTest(unittest.TestCase):
+    def fixture(self, files=None):
+        f = Fixture({**SITE, **(files or {})})
+        self.addCleanup(f.close)
+        fm.write_index(f.root)
+        return f
+
+    def test_valid_site_passes_and_index_renders_summary_title_and_link(self):
+        f = self.fixture()
+        self.assertEqual(f.issues(), [])
+        self.assertEqual(f.issues(level="warning"), [])
+        summary = (f.root / "site/src/SUMMARY.md").read_text()
+        self.assertIn("[Start here](introduction.md)\n\n# Guide\n\n- [Trash](guide/trash.md)", summary)
+        self.assertIn("# Reference\n\n- [Trash reference](reference/trash.md)", summary)
+        book = (f.root / "site/book.toml").read_text()
+        self.assertIn('title = "Strata 1.0.0"', book)
+        self.assertIn('[output.html]\nsite-url = "/site/"\nno-section-label = true', book)
+        self.assertIn("<https://example.test/site/>", (f.root / "README.md").read_text())
+
+    def test_rejections(self):
+        ref = "site/src/reference/trash.md"
+        cases = [
+            ({"site/src/guide/extra.md": "# Extra\n"}, "guide/extra.md: page is not declared"),
+            ({"site/src/notes.txt": "x"}, "only pages and img/ belong"),
+            ({ref: None}, "page 'reference/trash.md' does not exist"),
+            ({ref: page(["operations/trash", "operations/trash/restore"], "Trash reference", ["Restore", "More"])},
+             "not in the map: More"),
+            ({ref: page(["operations/trash", "operations/trash/restore"], "Trash reference", [])}, "missing: Restore"),
+            ({ref: page(["operations/trash", "operations/trash/restore"], "Trash", ["Restore"])},
+             "exactly one '#' heading, 'Trash reference'"),
+            ({ref: page(["operations/trash"], "Trash reference", ["Restore"])}, "differ from the page map's nodes"),
+            ({ref: page(["operations/trash", "operations/trash/restore"], "Trash reference", ["Restore"],
+                        "<!-- node: operations/trash/empty -->\n")}, "node comment names 'operations/trash/empty'"),
+            ({ref: "# Trash reference\n\n## Restore\n"}, "missing YAML front matter"),
+            ({ref: page(["operations/trash", "operations/trash/restore"], "Trash reference", ["Restore"], sha="abc")},
+             "reviewed_at must be a full"),
+            ({"site/pagemap.yaml": PAGEMAP.replace("nodes: [operations/trash/restore]", "nodes: [operations/nope]")},
+             "node 'operations/nope' does not exist"),
+            ({"site/pagemap.yaml": PAGEMAP + "extras: []\n"}, "unknown tier 'extras'"),
+            ({"site/pagemap.yaml": PAGEMAP.replace("    sections: [Install]", "    sections: Install")},
+             "sections must be a list"),
+            ({"site/pagemap.yaml": PAGEMAP.replace("nodes: [operations/trash, operations/trash/restore]",
+                                                   "nodes: [operations/trash]")},
+             "operations/trash/restore.md: shipped node is on no reference page"),
+            ({"site/unguided.yaml": "operations/nope: gone\n"}, "'operations/nope' is not a node"),
+            ({"sources.yaml": SITE["sources.yaml"].replace("release: v1.0.0", "release: v1.0.0-rc.1")},
+             "site.release must be a vX.Y.Z tag"),
+        ]
+        for files, expected in cases:
+            with self.subTest(expected=expected):
+                f = self.fixture()
+                for rel, text in files.items():
+                    if text is None:
+                        (f.root / rel).unlink()
+                    else:
+                        f.write(rel, text)
+                issues = f.issues()
+                self.assertTrue(any(expected in i for i in issues), issues)
+
+    def test_unguided_covers_a_node_and_warns_when_also_referenced(self):
+        f = self.fixture({
+            "site/pagemap.yaml": PAGEMAP.replace("nodes: [operations/trash, operations/trash/restore]",
+                                                 "nodes: [operations/trash]"),
+            "site/src/reference/trash.md": page(["operations/trash"], "Trash reference", ["Restore"]),
+            "site/unguided.yaml": "operations/trash/restore: The guide covers it.\noperations/trash: dup\n",
+        })
+        self.assertEqual(f.issues(), [])
+        self.assertTrue(any("'operations/trash' is named by a reference page" in w for w in f.issues(level="warning")))
+        f.write("site/unguided.yaml", "operations/trash/restore: ''\n")
+        self.assertTrue(any("needs a reason" in i for i in f.issues()))
+
+    def test_stale_summary_is_reported_until_regenerated(self):
+        f = self.fixture()
+        f.write("site/pagemap.yaml", PAGEMAP.replace("title: Trash\n", "title: Bin\n"))
+        f.write("site/src/guide/trash.md", page(["operations/trash/restore"], "Bin", ["Restore a file", "Good to know"]))
+        self.assertTrue(any("site/src/SUMMARY.md" in i and "stale" in i for i in f.issues()))
+        fm.write_index(f.root)
+        self.assertEqual(f.issues(), [])
+
+    def test_pages_behind_the_latest_release_warn(self):
+        f = self.fixture()
+        warnings = lambda up: [str(i) for i in fm.check(f.root, None, up) if i.level == "warning"]
+        self.assertEqual(warnings(FakeUpstream(("v1.0.0", SHA))), [])
+        self.assertEqual(warnings(FakeUpstream(("v0.9.0", OLD_SHA), {(OLD_SHA, SHA)})),
+                         ["warning: sources.yaml: site.release is v1.0.0; the latest stable release is v0.9.0"])
+        behind = warnings(FakeUpstream(("v1.1.0", OLD_SHA)))
+        self.assertIn("site.release is v1.0.0; the latest stable release is v1.1.0", behind[0])
+        self.assertTrue(any("reference/trash.md: reviewed_at b893886 is older than v1.1.0" in w for w in behind), behind)
+        f.write("site/src/guide/trash.md", page(["operations/trash/restore"], "Trash", ["Restore a file", "Good to know"],
+                                                 sha="c" * 40))
+        errors = [str(i) for i in fm.check(f.root, None, FakeUpstream(("v1.0.0", SHA))) if i.level == "error"]
+        self.assertTrue(any("guide/trash.md: reviewed_at ccccccc is not an upstream commit" in e for e in errors))
+
+    def test_drafts_need_front_matter_and_old_ones_warn(self):
+        draft = "---\nproposed: {page: guide/trash.md, section: Empty}\nnodes: [operations/trash]\n" \
+                "reason: Emptying has no section.\nrelease: v1.0.0\n---\n\nText.\n"
+        f = self.fixture({"site/drafts/empty.md": draft})
+        self.assertEqual(f.issues(), [])
+        self.assertEqual(f.issues(level="warning"), [])
+        f.write("site/drafts/empty.md", draft.replace("v1.0.0", "v0.9.0"))
+        self.assertTrue(any("draft from v0.9.0 is still unreviewed" in w for w in f.issues(level="warning")))
+        f.write("site/drafts/empty.md", draft.replace("guide/trash.md", "guide/nope.md").replace("reason: Emptying has no section.\n", ""))
+        issues = f.issues()
+        self.assertTrue(any("proposed page 'guide/nope.md' is not in the page map" in i for i in issues), issues)
+        self.assertTrue(any("missing field 'reason'" in i for i in issues), issues)
+        f.write("site/drafts/empty.md", draft.replace("guide/trash.md", "new"))
+        self.assertEqual(f.issues(), [])
+
+    def test_site_docs_entries_are_checked_here_not_upstream(self):
+        f = self.fixture({"features/operations/trash/index.md": feature({"docs": ["site/src/reference/trash.md"]})})
+        present = {"src/trash.rs", "src/trash/tests.rs", "src/trash/restore.rs", "src/trash/restore/tests.rs"}
+        self.assertEqual(f.issues(lambda sha: present), [])
+        f.write("features/operations/trash/index.md", feature({"docs": ["site/src/reference/bin.md"]}))
+        fm.write_index(f.root)
+        self.assertTrue(any("docs entry 'site/src/reference/bin.md' does not exist" in i for i in f.issues()))
+
+    def test_release_report_maps_prs_to_pages_and_bump_moves_reviewed_at(self):
+        f = self.fixture()
+        tree, site = fm.load_tree(f.root), fm.load_site(f.root)
+        prs = [{"number": 9, "title": "fix(trash): restore", "files": ["src/trash/restore.rs"], "merged_at": "2026-10-01"},
+               {"number": 10, "title": "chore: deps", "files": ["Cargo.lock"], "merged_at": "2026-10-02"}]
+        report = fm.render_release_docs("lgse/strata", "v1.1.0", "v1.0.0", OLD_SHA, SHA, 3, prs, tree, site)
+        self.assertIn("### `guide/trash.md` · Trash\n\n- lgse/strata#9 · fix(trash): restore — `operations/trash/restore`",
+                      report)
+        self.assertIn("## PRs on no node\n\n- lgse/strata#10 · chore: deps", report)
+        self.assertIn("### Docs updated\n\n- `guide/trash.md` · Trash\n- `reference/trash.md` · Trash reference", report)
+        new = "d" * 40
+        written = fm.bump_site(f.root, "v1.1.0", new, site)
+        self.assertEqual(len(written), 4)
+        self.assertEqual(fm.load_sources(f.root)["site"],
+                         {"release": "v1.1.0", "commit": new, "url": "https://example.test/site/"})
+        f.write("sources.yaml", "upstream: {repo: lgse/strata}\nsite:\n  release: v1.0.0\n  commit: " + SHA + "\n  url: u\nwatermark: null\n")
+        fm.bump_site(f.root, "v1.1.0", new, site)
+        self.assertEqual(fm.load_sources(f.root)["site"], {"release": "v1.1.0", "commit": new, "url": "u"})
+        self.assertIsNone(fm.load_sources(f.root)["watermark"])
+        self.assertIn(f"reviewed_at: {new}\n", (f.root / "site/src/reference/trash.md").read_text())
+        self.assertEqual(fm.bump_site(f.root, "v1.1.0", new, site), [])
+
+
+class StripTest(unittest.TestCase):
+    def test_front_matter_and_comments_go_and_fenced_comments_stay(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("strip", Path(__file__).parent.parent / "site/preprocessors/strip.py")
+        strip = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(strip)
+        text = "---\nnodes: [a/b]\n---\n\n# T\n\n## S\n\n<!-- node: a/b, G -->\n\nBody <!-- inline --> end.\n\n```html\n<!-- kept -->\n```\n"
+        self.assertEqual(strip.strip(text), "# T\n\n## S\n\nBody end.\n\n```html\n<!-- kept -->\n```\n")
+
+
 class GlobTest(unittest.TestCase):
     def test_matching(self):
         cases = [

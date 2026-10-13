@@ -7,7 +7,7 @@ reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
-docs: [docs/keyboard-navigation.md]
+docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser]
 ---
 

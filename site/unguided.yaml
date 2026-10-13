@@ -1,0 +1,30 @@
+# Shipped nodes that no reference page names, each with the reason. `check` requires
+# every shipped node to be on a reference page or listed here. People maintain this
+# file; the daily sync adds a new shipped node with "New since <release>; the next
+# release docs run places it."
+
+browser/navigation/recent: No upstream user doc covered Recent; the guide does not cover it yet.
+browser/properties/size: No upstream user doc covered Properties; the guide does not cover it yet.
+browser/search/exclusions: Covered by the Find files guide page; its upstream doc, docs/preferences.md, stays upstream as contributor material.
+browser/selection/marquee: No upstream user doc covered pointer selection; the guide does not cover it yet.
+browser/sidebar/pins: No upstream user doc covered pinned folders; the guide does not cover it yet.
+browser/thumbnails/cache: Internal cache with no user setting beyond what the Preview sandbox page says about thumbnails.
+browser/view-modes/icons: Covered by the Views guide page; no upstream user doc described view modes.
+browser/view-modes/sorting: Covered by the Views guide page; no upstream user doc described sorting.
+browser/view-modes/text-size: Covered by the Views guide page; no upstream user doc described text size.
+devices/volumes/encrypted: Covered by the Remote and devices guide page; no upstream user doc described unlocking volumes in Strata.
+devices/volumes/release: Covered by the Remote and devices guide page; no upstream user doc described unmount and eject.
+integration/open-with: No upstream user doc covered Open With; the guide does not cover it yet.
+integration/open-with/recent-apps: No upstream user doc covered Open With; the guide does not cover it yet.
+operations/clipboard/conflicts: Covered by the Everyday operations guide page; no upstream user doc described paste conflicts.
+operations/clipboard/send-to: No upstream user doc covered Send to; the guide does not cover it yet.
+operations/drag-and-drop: Covered by the Everyday operations guide page; its upstream doc, docs/preferences.md, stays upstream.
+operations/drag-and-drop/column-autoscroll: Pointer detail of Columns drag; no upstream user doc covered it.
+operations/drag-and-drop/copy-or-move: Covered by the Everyday operations guide page; no upstream user doc described the drop policy.
+operations/trash/animation: Visual effect with no user-facing setting to document.
+operations/trash/empty: No upstream user doc covered Empty Trash; its testing doc stays upstream.
+operations/trash/restore: Covered by the Everyday operations guide page; its upstream doc, docs/trash-restore-testing.md, is testing guidance and stays upstream.
+remote/file-providers: Parent with no Behavior of its own; its children are on the SFTP locations and External file providers pages.
+settings/preferences/date-format: Covered by the Settings guide page; its upstream doc, docs/preferences.md, stays upstream.
+settings/preferences/language: Covered by the Settings guide page; its upstream doc, docs/internationalization.md, stays upstream.
+settings/preferences/storage: Covered by the Settings guide page; its upstream doc, docs/preferences.md, stays upstream.

@@ -7,7 +7,7 @@ reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg]
 tests: [src/tests.rs]
-docs: [docs/packaging.md]
+docs: [site/src/reference/install.md, docs/packaging.md]
 related: [app/updates/install, app/updates/package-managed, app/window]
 ---
 

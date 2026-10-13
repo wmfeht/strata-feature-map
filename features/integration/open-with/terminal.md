@@ -7,7 +7,7 @@ reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/terminal.rs]
 tests: [src/ui/terminal/tests.rs, tests/e2e/scenarios/test_terminal.py]
-docs: [docs/keyboard-navigation.md]
+docs: [site/src/reference/keyboard-navigation.md]
 related: [integration/10xer-mode, browser/tabs, app/updates]
 ---
 

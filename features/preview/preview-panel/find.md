@@ -7,7 +7,7 @@ reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/preview/find.rs]
 tests: [src/ui/preview/tests/find.rs, tests/e2e/scenarios/test_quick_preview.py]
-docs: [docs/document-previews.md]
+docs: [site/src/reference/document-previews.md]
 related: [preview/preview-panel/documents, integration/10xer-mode/preview-keys, preview/quick-preview]
 ---
 

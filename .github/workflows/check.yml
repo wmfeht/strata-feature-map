@@ -19,6 +19,6 @@ jobs:
       - name: Index is current
         run: |
           scripts/featuremap.py index
-          git diff --exit-code -- README.md index/
+          git diff --exit-code -- README.md index/ site/src/SUMMARY.md site/book.toml
       - name: Check
         run: scripts/featuremap.py check

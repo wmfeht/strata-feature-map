@@ -7,7 +7,7 @@ reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: reviewed
 code: [src/sandbox.rs, src/sandbox_helper.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/trusted_command/tests.rs]
-docs: [docs/preview-sandbox.md]
+docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
 related: [preview/preview-panel/media, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives]
 ---
 

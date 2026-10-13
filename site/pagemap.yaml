@@ -1,0 +1,459 @@
+# The page map: the only place the site's pages and their `##` sections are declared.
+# People change this file; agents edit inside it. `featuremap.py index` generates
+# src/SUMMARY.md from it, and `featuremap.py check` holds every page to it.
+#
+# path      Page path under site/src/.
+# title     Navigation title and the page's `#` heading.
+# nodes     Feature node ids the page describes. The page's front matter repeats them.
+# sections  The page's `##` headings, in order.
+
+guide:
+  - path: introduction.md
+    title: Start here
+    nodes: [app/packaging/installer]
+    sections:
+      - Install
+      - First launch
+      - Where to go next
+
+  - path: guide/install.md
+    title: Install and integrate
+    nodes:
+      - app/packaging
+      - app/packaging/installer
+      - app/packaging/aur
+      - app/updates
+      - app/updates/install
+      - app/updates/package-managed
+      - app/updates/release-channels
+      - integration/file-manager-interface
+      - integration/portal-file-chooser
+      - integration/portal-file-chooser/setup
+    sections:
+      - Install interactively or unattended
+      - Add Strata to your launcher
+      - Make Strata the default file manager
+      - Use Strata as the system file chooser
+      - Keep Strata up to date
+
+  - path: guide/views.md
+    title: Views
+    nodes:
+      - browser/view-modes
+      - browser/view-modes/columns
+      - browser/view-modes/icons
+      - browser/view-modes/list
+      - browser/view-modes/sorting
+      - browser/view-modes/folder-views
+      - browser/view-modes/text-size
+      - browser/view-modes/position-restore
+    sections:
+      - Switch between Columns, Icons, and List
+      - Sort a folder
+      - Keep settings per folder
+      - Change the text size
+      - Good to know
+
+  - path: guide/keyboard.md
+    title: Keyboard
+    nodes: [app/shortcut-reference, app/keyboard-shortcuts, browser/selection/keyboard-navigation]
+    sections:
+      - Shortcuts worth memorizing
+      - Look up any shortcut
+      - Move through views
+      - Good to know
+
+  - path: guide/search.md
+    title: Find files
+    nodes: [browser/search, browser/search/filter, browser/search/exclusions]
+    sections:
+      - Filter the current folder
+      - Search everywhere
+      - Choose what search skips
+      - Good to know
+
+  - path: guide/previews.md
+    title: Previews
+    nodes:
+      - preview/preview-panel
+      - preview/preview-panel/layout
+      - preview/preview-panel/documents
+      - preview/preview-panel/find
+      - preview/preview-panel/media
+      - preview/preview-panel/media/audio
+      - preview/preview-panel/media/video
+      - preview/preview-panel/sandbox
+      - preview/quick-preview
+      - preview/quick-preview/folder-peek
+    sections:
+      - Show the preview panel
+      - Take a quick look
+      - Peek into a folder
+      - Play media and read documents
+      - Why previews are sandboxed
+
+  - path: guide/operations.md
+    title: Everyday operations
+    nodes:
+      - operations/clipboard
+      - operations/clipboard/conflicts
+      - operations/create
+      - operations/rename
+      - operations/trash
+      - operations/trash/restore
+      - operations/delete
+      - operations/undo
+      - operations/archives
+      - operations/drag-and-drop
+      - operations/drag-and-drop/copy-or-move
+      - operations/progress
+      - operations/progress/jobs
+    sections:
+      - Copy, move, and paste
+      - Create and rename
+      - Trash, restore, and delete
+      - Undo a mistake
+      - Work with archives
+      - Drag and drop
+      - Follow progress in Jobs
+
+  - path: guide/actions.md
+    title: Custom actions
+    nodes: [integration/custom-actions]
+    sections:
+      - Your first action in five minutes
+      - What is on disk
+      - Writing a script in Python
+      - Running an existing program instead
+      - Good to know
+
+  - path: guide/themes.md
+    title: Themes
+    nodes: [settings/themes, settings/themes/omarchy, settings/themes/icons]
+    sections:
+      - Pick a bundled theme
+      - Follow Omarchy
+      - Write your own theme
+      - Syntax colors for code previews
+      - Good to know
+
+  - path: guide/settings.md
+    title: Settings
+    nodes: [settings/preferences, settings/preferences/storage, settings/preferences/date-format, settings/preferences/language]
+    sections:
+      - Open Settings
+      - Find settings.toml
+      - Keep settings in your dotfiles
+      - Settings worth changing
+      - Good to know
+
+  - path: guide/remote.md
+    title: Remote and devices
+    nodes:
+      - remote/file-providers
+      - remote/file-providers/network-locations
+      - devices/volumes
+      - devices/volumes/camera
+      - devices/volumes/encrypted
+      - devices/volumes/release
+    sections:
+      - Open an SMB share
+      - Connect over SFTP
+      - Trust a host key
+      - Connect a phone or camera
+      - Mount, unlock, and eject drives
+
+  - path: guide/10xer.md
+    title: 10xer mode
+    nodes:
+      - integration/10xer-mode
+      - integration/10xer-mode/file-verbs
+      - integration/10xer-mode/places
+      - integration/10xer-mode/search
+      - integration/10xer-mode/preview-keys
+      - integration/10xer-mode/file-chooser
+    sections:
+      - What 10xer mode changes
+      - Turn it on and off
+      - Keys to learn first
+      - Who it is for
+
+# Reference sections are the migrated upstream docs' `##` headings, set as each page lands.
+reference:
+  - path: reference/install.md
+    title: Installation and desktop integration
+    nodes:
+      - app/packaging
+      - app/packaging/installer
+      - app/packaging/aur
+      - app/updates
+      - app/updates/install
+      - app/updates/package-managed
+      - app/updates/release-channels
+      - integration/file-manager-interface
+      - integration/portal-file-chooser/setup
+      - devices/volumes
+      - devices/volumes/udiskie-unlock
+      - devices/volumes/camera
+      - browser/navigation
+      - browser/navigation/startup-arguments
+      - browser/navigation/location-bar
+      - browser/search
+      - browser/search/filter
+      - browser/view-modes/list
+      - operations/undo
+      - operations/rename
+      - preview/quick-preview
+      - preview/preview-panel
+      - preview/preview-panel/layout
+      - integration/10xer-mode
+      - integration/10xer-mode/preview-keys
+      - remote/file-providers/network-locations
+    sections:
+      - Installation
+      - Usage and desktop integration
+      - Release channels
+
+  - path: reference/custom-actions.md
+    title: Custom actions reference
+    nodes:
+      - integration/custom-actions
+      - operations/progress/jobs
+      - integration/10xer-mode/file-verbs
+      - browser/context-menu
+      - remote/file-providers/external
+    sections:
+      - Where actions live
+      - Creating an action
+      - Manifest
+      - Matching
+      - How an invocation runs
+      - Progress and results
+      - Python helper
+      - Jobs and cancellation
+      - Trust model
+      - Limitations
+      - Testing an action
+      - Service-dependent actions and badges
+
+  - path: reference/themes.md
+    title: Themes reference
+    nodes:
+      - settings/themes
+      - settings/themes/omarchy
+      - settings/themes/icons
+      - settings/preferences
+      - preview/preview-panel
+    sections:
+      - GTK CSS precedence
+      - Custom theme files
+      - Syntax colors
+      - Omarchy Quattro
+
+  - path: reference/keyboard-navigation.md
+    title: Keyboard navigation
+    nodes:
+      - app/accessibility
+      - app/dialogs
+      - app/keyboard-shortcuts
+      - app/shortcut-reference
+      - app/window
+      - browser/context-menu
+      - browser/directory-monitoring
+      - browser/folder-customization
+      - browser/navigation
+      - browser/navigation/folder-jump
+      - browser/properties
+      - browser/search
+      - browser/search/filter
+      - browser/selection
+      - browser/selection/click-modes
+      - browser/selection/keyboard-navigation
+      - browser/selection/pointer-intent
+      - browser/sidebar
+      - browser/tabs
+      - browser/tabs/session-restore
+      - browser/view-modes
+      - browser/view-modes/columns
+      - browser/view-modes/position-restore
+      - integration/10xer-mode
+      - integration/10xer-mode/file-chooser
+      - integration/10xer-mode/preview-keys
+      - integration/10xer-mode/search
+      - integration/file-manager-interface
+      - integration/open-with/terminal
+      - integration/portal-file-chooser
+      - operations/archives
+      - operations/archives/preview
+      - operations/clipboard
+      - operations/create
+      - operations/delete
+      - operations/rename
+      - operations/trash
+      - preview/preview-panel/layout
+      - preview/preview-panel/media
+      - preview/preview-panel/media/video
+      - preview/quick-preview
+      - preview/quick-preview/folder-peek
+      - settings/preferences
+    sections:
+      - Keyboard layouts
+      - Browser tabs
+      - Input precedence
+      - Focus without selection changes
+      - Returning to a visited directory
+      - Refreshing a directory
+      - Creating files and folders
+      - Filename patterns while filtering
+      - Preview while filtering
+      - Navigating an archive preview
+      - Media preview keys
+      - Shortcut footer
+      - 10xer mode
+      - Arrows, the header, and the sidebar
+      - Closing dialogs and overlays
+      - Opening and navigating the context menu
+
+  - path: reference/10xer-mode.md
+    title: 10xer mode reference
+    nodes:
+      - integration/10xer-mode
+      - integration/10xer-mode/file-verbs
+      - integration/10xer-mode/places
+      - integration/10xer-mode/search
+      - integration/10xer-mode/preview-keys
+      - integration/10xer-mode/file-chooser
+      - app/keyboard-shortcuts
+      - app/shortcut-reference
+      - browser/tabs
+      - browser/context-menu
+      - browser/scrolling
+      - browser/view-modes/folder-views
+      - preview/preview-panel/find
+      - preview/preview-panel/media/audio
+      - preview/preview-panel/media/video
+    sections:
+      - Enter and leave
+      - Navigation
+      - Selection
+      - Tabs
+      - Files
+      - Places
+      - Prompts
+      - Search results
+      - Sidebar and surrounding controls
+      - File chooser
+      - Still bound
+      - Not bound
+
+  - path: reference/archives.md
+    title: Archives
+    nodes:
+      - operations/archives
+      - operations/archives/rar
+      - operations/progress
+      - operations/progress/dock
+      - integration/10xer-mode/file-verbs
+      - devices/volumes/drive-dialogs
+    sections:
+      - Extraction safety
+      - Extraction output
+      - Links, permissions and times
+      - Extraction targets
+      - Archive creation
+      - Classification and limits
+      - Existing archive names
+      - Feedback and cancellation
+
+  - path: reference/document-previews.md
+    title: Document previews
+    nodes:
+      - preview/preview-panel/documents
+      - preview/preview-panel/find
+      - preview/preview-panel/sandbox
+      - preview/preview-panel
+      - preview/preview-panel/layout
+      - integration/10xer-mode/preview-keys
+    sections:
+      - Supported content
+      - Limits and fallback
+      - Text selection and find
+      - Interactive tables
+      - Trust boundary
+
+  - path: reference/portal-file-chooser.md
+    title: System file chooser
+    nodes:
+      - integration/portal-file-chooser
+      - integration/portal-file-chooser/setup
+      - integration/portal-file-chooser/url-download
+      - integration/portal-file-chooser/image-conversion
+      - integration/portal-file-chooser/window-placement
+      - integration/10xer-mode/file-chooser
+      - app/packaging/installer
+      - app/updates/install
+    sections:
+      - Opt in through the app or installer
+      - Per-user installation
+      - Keyboard navigation
+      - Verification
+      - Uninstall
+
+  - path: reference/remote-sftp.md
+    title: SFTP locations
+    nodes:
+      - remote/file-providers/network-locations
+      - browser/navigation/location-bar
+      - app/infrastructure
+    sections:
+      - Addresses
+      - Authentication
+      - Host keys
+      - Failures
+
+  - path: reference/signed-updates.md
+    title: Signed updates
+    nodes:
+      - app/updates/install
+      - app/updates/release-channels
+      - app/updates/package-managed
+    sections:
+      - Trust and format
+      - Rotation and compromise
+      - Rollout and limitations
+
+  - path: reference/file-providers.md
+    title: External file providers
+    nodes:
+      - remote/file-providers/external
+    sections:
+      - Registration and artwork
+      - Transport
+      - Compatibility
+      - Bounds and failure behavior
+
+  - path: reference/preview-sandbox.md
+    title: Preview sandbox
+    nodes:
+      - preview/preview-panel/sandbox
+      - preview/preview-panel
+      - preview/preview-panel/documents
+      - preview/preview-panel/media
+      - preview/preview-panel/media/audio
+      - preview/preview-panel/media/video
+      - browser/thumbnails
+      - browser/thumbnails/workers
+      - browser/properties/media
+      - browser/properties/raw-metadata
+      - devices/volumes/camera
+    sections:
+      - Providers
+      - Local 3D model previews
+      - Browser worker pool
+      - Remote still-image previews
+      - Media metadata
+      - Incremental media playback
+      - Audio previews
+      - Video previews
+      - Scheduling and deadlines
+      - Isolation and hardware policy
