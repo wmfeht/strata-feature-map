@@ -1759,8 +1759,10 @@ def bump_site(root: Path, tag: str, sha: str, site: Site) -> list[str]:
         text = re.sub(r"^site:.*\n(?:[ \t]+.*\n)*", lambda _: block, text, count=1, flags=re.M)
     else:
         text = text.rstrip("\n") + "\n" + block
-    path.write_text(text)
-    written = ["sources.yaml"]
+    written = []
+    if text != path.read_text():
+        path.write_text(text)
+        written.append("sources.yaml")
     for page in site.pages:
         page_path = root / SITE_SRC / page.path
         page_text = read(page_path)
@@ -2069,7 +2071,8 @@ def cmd_release_docs(args: argparse.Namespace) -> int:
         raise SystemExit(f"{args.tag} is not an upstream tag")
     version, head = by_tag[args.tag]
     if args.bump:
-        print("release-docs: " + ", ".join(bump_site(root, args.tag, head, site)))
+        written = bump_site(root, args.tag, head, site)
+        print("release-docs: " + (", ".join(written) if written else f"already at {args.tag}"))
         return 0
     if args.since:
         if args.since not in by_tag:

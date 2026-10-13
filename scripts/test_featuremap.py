@@ -458,6 +458,7 @@ class SiteTest(unittest.TestCase):
         self.assertEqual(fm.load_sources(f.root)["site"], {"release": "v1.1.0", "commit": new, "url": "u"})
         self.assertIsNone(fm.load_sources(f.root)["watermark"])
         self.assertIn(f"reviewed_at: {new}\n", (f.root / "site/src/reference/trash.md").read_text())
+        self.assertEqual(fm.bump_site(f.root, "v1.1.0", new, site), [])
 
 
 class StripTest(unittest.TestCase):
