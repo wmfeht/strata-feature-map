@@ -33,12 +33,15 @@ contributors in
   Sony ARW files keep their extension inside the sandbox so they decode as RAW.
 - An image too large to decode within the sandbox's frame budget (about 134
   megapixels) shows its embedded EXIF thumbnail when it has one, and otherwise
-  fails. Full-resolution phone photos fit the limits. Image helpers limit their
+  fails. Typical phone photos, such as a 12-megapixel JPEG, fit the limits; a
+  200-megapixel photo exceeds the budget. Image helpers limit their
   memory allocator's arenas, so a JPEG with an embedded ICC color profile also
   previews on a many-core host, such as one with 64 threads, without the helper
   hitting its address-space limit.
 - SVG and gzip-compressed SVGZ files, detected by content rather than by name,
-  render with `resvg` inside the sandbox. User SVG and SVGZ previews, SVG
+  render with `resvg` inside the sandbox. An SVG over 8 MiB uncompressed, or one
+  `resvg` cannot parse, falls back to GDK Pixbuf or ImageMagick inside the same
+  sandbox. User SVG and SVGZ previews, SVG
   thumbnails from the worker pool, Markdown SVGs, Mermaid diagrams, and equation
   output use this path, with image references disabled and system font loading
   enabled only when the document contains text. Without the worker pool, SVG
@@ -72,7 +75,9 @@ contributors in
   preview first; PDF; MP4, MKV, WebM, MOV, AVI, M4V, MPEG, MPG, and OGV video;
   cover art in MP3, FLAC, M4A, M4B, MKA, AIFF, AIF, and WMA files, at its aspect
   ratio, but never in Ogg, Opus, or WAV; embedded 3MF and FreeCAD images; and
-  CBZ, CBR, and EPUB covers. AppImage files keep their file icon.
+  CBZ, CBR, and EPUB covers.
+- An AppImage keeps its type icon. Strata does not show the icon embedded in
+  the AppImage, whether or not `squashfs-tools` is installed.
 - A file shows its type icon while its thumbnail loads, and keeps it when
   rendering fails or the type is unsupported. Folders never get thumbnails, and a
   file or folder with a custom icon shows that icon instead. Ctrl+F filter results
@@ -184,8 +189,8 @@ original colors.
 CBZ and CBR files show their first image in natural order, and EPUB files their
 declared cover. A file without one shows an error in the preview and keeps its
 icon in the file list, as does a damaged cover. Cover thumbnails always run in a
-one-shot sandbox, outside the worker pool. Remote covers show "Remote cover
-previews are not supported; copy the file locally first".
+one-shot sandbox, outside the worker pool. Covers on remote locations are not
+offered for preview; copy the file locally first.
 
 ## Browser worker pool
 
@@ -199,8 +204,9 @@ navigation, view changes, and windows. **Thumbnail workers** in
 **Settings → General**, under **PERFORMANCE**, sets its maximum live workers
 (default: available parallelism capped at four, or two when detection fails;
 range 1–16). Each click saves the count and applies to every window at once,
-without a restart, and the same limit caps the preview pool below. Click the
-number between − and + to reset it to the default. At 16, the + button
+without a restart, and the same limit caps the preview pool below. The number
+between − and + shows the count; clicking it (**Reset thumbnail workers**)
+restores the default. At 16, the + button
 (**Increase thumbnail workers**) is disabled; at 1, the − button (**Decrease
 thumbnail workers**) is. Typing "thumbnail workers", or a term such as
 "concurrency" or "decoder pool", in **Search settings** finds the control. The saved `thumbnail_workers`
@@ -283,12 +289,14 @@ MOV and MP4 previews use the same staging, with a 256-MiB byte limit and
 60-second deadline, and share the four-input limit with images. Playback starts
 only after download completes.
 
-Remote PDFs, GIF images (static or animated), audio, and video formats other than
-MOV and MP4 remain unsupported: copy them locally first. Remote 3D models, comic
-and EPUB covers, workbooks, and DOCX files show a message asking you to copy the
-file locally first. Supported still-image formats continue to depend on installed
-sandbox decoder tools; HEIC/HEIF can use ImageMagick with libheif inside the
-image sandbox.
+Remote PDFs, GIF images (static or animated), audio, video formats other than
+MOV and MP4, 3D models, comic and EPUB covers, workbooks, and DOCX files are not
+offered for preview: the preview pane clears, Space opens or closes an empty
+preview drawer, and the context menu has no **Quick preview** item. In 10xer
+mode, **i**, and **l** or **→** in List and Columns, show "Nothing to preview".
+Copy them locally first.
+Supported still-image formats continue to depend on installed sandbox decoder
+tools; HEIC/HEIF can use ImageMagick with libheif inside the image sandbox.
 
 In the file list, files on a GVfs share that has a local FUSE mirror, such as
 `smb://`, get thumbnails once their metadata loads, rendered from the mirror; the
@@ -315,7 +323,8 @@ Thumbnails appear during the Photos scan: after each batch the scan pauses
 bottom and left to right, and re-rank after scrolling. A viewport left at the
 top stays there as batches arrive; after you scroll, normal anchoring applies.
 Background selection updates during loading do not scroll List, Icons, or
-Columns view to the selected photo.
+Columns view to the selected photo. Rows from each camera folder appear only
+after GVfs finishes listing that folder.
 
 ## Media metadata
 
@@ -362,8 +371,8 @@ embedded tags. Closing Properties cancels its work and prevents stale results
 from appearing. Image and audio previews keep their normal size, modified date,
 and type information and do not run this inspector. Video previews also keep
 Size, Modified, and Type. They run the inspector only for their header badges
-(see [Video previews](#video-previews)) and show none of the Properties media
-rows, such as RESOLUTION or BITRATE.
+and the timeline's chapter ticks and titles (see [Video previews](#video-previews)),
+and show none of the Properties media rows, such as RESOLUTION or BITRATE.
 
 A file whose name ends in a camera RAW extension, such as `.DNG`, `.NEF`, `.CR3`,
 or `.ARW` in any case, shows seven RAW rows in place of the media rows:
@@ -432,11 +441,14 @@ previous frame remains visible. Shrinking the pane never restarts decoding: the
 larger frames are downsampled on screen and the next seek or restart adopts the
 smaller size. Growing restarts at the current playback position only when the
 fitted frame would grow by 8 % or more, so a resize costs at most one restart. A
-paused resize/seek stays paused. Mute and volume apply live to every player;
-changes to hardware acceleration apply on the next preview.
+paused resize/seek stays paused. Mute and volume are saved, start every new
+player, and apply live to every open player; changes to hardware acceleration
+apply on the next preview.
 
 Decoded output is checked before Strata uses it. Malformed or truncated output
-fails the preview as a decoder error and is never shown. Strata holds at most
+is never shown. Before the first frame it fails the preview as a decoder error;
+after that, playback restarts at the last position up to 3 times, then fails.
+Strata holds at most
 eight decoded frames for a player (50 MiB at the largest size) plus about two
 seconds of audio, so memory does not grow with clip length. There is **no
 whole-clip media cache**. Closing or revisiting a file requires a new decode.
@@ -457,9 +469,8 @@ extension, and a tagged track number reads "Track 3 of 12". Each part is sandbox
   otherwise the first picture), scaled to at most 800×800 inside the sandbox.
   Without embedded art, the first of `cover`, `folder`, `front`, `album`, or
   `albumart` (`.jpg`, `.jpeg`, `.png`, `.webp`) in the same local folder is
-  decoded by the sandboxed image-preview pool. Remote files use embedded art
-  only. Without any art, a theme-colored record spins in its place while
-  playing.
+  decoded by the sandboxed image-preview pool. Without any art, a
+  theme-colored record spins in its place while playing.
 - **Tags** are limited to title, artist, album, album artist, and track
   number/total. Strata removes control and bidirectional-override characters,
   collapses whitespace, caps each value at 200 characters, and shows them as
@@ -475,9 +486,9 @@ extension, and a tagged track number reads "Track 3 of 12". Each part is sandbox
   is not cached.
 
 Audio previews always start from the beginning, like a music player, and do not
-remember where they stopped. Video previews reopen where they were closed while
-Strata keeps running, unless they had played less than a second or reached the
-end. Positions are kept in memory for the last 128 files and are lost when
+remember where they stopped. Local video previews reopen where they were closed
+while Strata keeps running, unless they had played less than a second or reached
+the end. Remote MOV and MP4 previews always start from the beginning. Positions are kept in memory for the last 128 files and are lost when
 Strata quits.
 
 Uncached tags and artwork also wait 50 ms; cache hits are immediate. Completed
@@ -635,13 +646,13 @@ executable; setting them when launching Strata has no effect.
 | --- | --- | --- |
 | `STRATA_SANDBOX_PATH` | `/usr/bin` | Colon-separated helper binary directories inside the sandbox |
 | `STRATA_SANDBOX_ROOT` | `/usr` | System runtime tree, bound read-only at the same path |
-| `STRATA_SANDBOX_PRLIMIT` | `/usr/bin/prlimit` | Resource-limit launcher path inside the sandbox |
+| `STRATA_SANDBOX_PRLIMIT` | `/usr/bin/prlimit` | Resource-limit launcher path for one-shot helpers and RAR extraction |
 | `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` | Unset | GDK Pixbuf `loaders.cache` path passed to helpers |
 
 For example, a Nix package can compile with:
 
 ```sh
-STRATA_SANDBOX_PATH='/nix/store/<ffmpeg>/bin:/nix/store/<imagemagick>/bin' \
+STRATA_SANDBOX_PATH='/nix/store/<ffmpeg>/bin:/nix/store/<imagemagick>/bin:/nix/store/<util-linux>/bin:/nix/store/<coreutils>/bin' \
 STRATA_SANDBOX_ROOT='/nix/store' \
 STRATA_SANDBOX_PRLIMIT='/nix/store/<util-linux>/bin/prlimit' \
 STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE='/nix/store/<pixbuf-loaders>/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache' \
@@ -652,9 +663,13 @@ Replace the store paths with your package's dependency paths, and include every
 helper binary directory. Values are used literally: leave a variable unset to
 keep its default, never set it to an empty value. The resource-limit launcher,
 the helper binaries, the loaders cache, its modules, and their runtime libraries
-must all be reachable inside the sandbox mounts. The variables apply to every
+must all be reachable inside the sandbox mounts. `STRATA_SANDBOX_PATH`,
+`STRATA_SANDBOX_ROOT` and `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` apply to every
 sandbox: one-shot previews, the browser worker pools, media playback, and RAR
-extraction.
+extraction. `STRATA_SANDBOX_PRLIMIT` applies only to one-shot previews and RAR
+extraction. Media playback, waveform and storyboard helpers run `prlimit`, and
+`nice` for background decodes, from `STRATA_SANDBOX_PATH`, so that path must
+include the util-linux and coreutils binary directories.
 
 The root replaces `/usr` rather than adding a mount. Use only admin-managed
 runtime trees: binding `/` or a user tree exposes private files to untrusted
@@ -686,8 +701,11 @@ Hardware decoding is controlled by **Hardware-accelerated video previews** and
 **Decoding backend** (**Automatic**, **VA-API**, or **Vulkan**) in
 **Settings → General**, under **PERFORMANCE**. Automatic tries VA-API, then
 Vulkan, then software. Explicit VA-API/Vulkan falls directly back to software
-when its hardware attempts fail before output begins. A failure after playback
-starts fails the preview rather than silently switching decoders mid-stream.
+when its hardware attempts fail before output begins. A decoder never switches
+backends partway through a stream. If decoding fails after playback starts,
+Strata restarts at the last position, up to 3 times, and each restart tries the
+hardware backends again before software. Then the preview fails with the last
+error.
 VA-API receives only GPU render nodes (`/dev/dri/renderD*`); Vulkan/Automatic
 may also receive NVIDIA device nodes. Accelerated helpers receive read-only
 `/sys` for discovery. With hardware acceleration off, and always for audio

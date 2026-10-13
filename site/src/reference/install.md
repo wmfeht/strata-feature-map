@@ -145,7 +145,11 @@ If `~/.local/bin/strata` already exists, it asks "Replace the existing …?"
 (default No). An unattended run exits instead: "… already exists; remove it or
 run the interactive installer to replace it."
 
-"Add Strata to your desktop application menu?" defaults to Yes. Only after a Yes
+"Add Strata to your desktop application menu?" defaults to Yes. The installer
+writes the entry, the icon, and the "Open file location" service under
+`${XDG_DATA_HOME:-~/.local/share}`, in `applications/`,
+`icons/hicolor/scalable/apps/`, and `dbus-1/services/`, with `Exec=` set to
+`~/.local/bin/strata`. Only after a Yes
 does it ask "Make Strata the default application for opening folders?", which
 defaults to No. Accepting it also installs the "Open file location" service
 without asking. If `xdg-mime` still reports another folder handler afterwards,
@@ -157,6 +161,12 @@ The questions about the system file chooser, Omarchy keybinds, and
 encrypted-volume unlock each default to No. The Omarchy keybind question is asked
 even when Omarchy is not detected; answering Yes there exits with
 "--with-omarchy-keybinds requires Omarchy 3 or 4."
+
+The file chooser question reads "Replace your current Open/Save chooser with
+Strata in portal-aware apps? (Restarts the portal service; close open file
+dialogs first.)" Accepting it, or passing `--with-file-chooser`, restarts the
+portal service. On Arch, an Arch derivative, or Omarchy, it first installs
+`xdg-desktop-portal` if that package is missing.
 
 The installer finishes by printing the installed version, the archive's source
 commit, and the binary path. It warns when `~/.local/bin` is not on `PATH`.
@@ -229,7 +239,7 @@ On Arch Linux or Omarchy:
 sudo pacman -S --needed bubblewrap desktop-file-utils ffmpeg ffmpegthumbnailer fontconfig \
   gstreamer gst-libav gst-plugins-base gst-plugins-good gtk4 gtksourceview5 gvfs poppler-glib \
   xdg-utils
-# Optional SMB, AppImage icon, and broader camera RAW support:
+# Optional SMB and broader camera RAW support, plus squashfs-tools:
 sudo pacman -S --needed gvfs-smb imagemagick libraw dcraw squashfs-tools
 ```
 
@@ -277,15 +287,16 @@ Download the matching `strata-<version>-<target>.debug` asset from the same rele
 
 In-app updates verify [signed release manifests](signed-updates.md) inside Strata, without `gh`, a GitHub account, or a token. Releases published before signed manifests were introduced require manual installation; the updater never falls back to checksum-only verification.
 
-For a manual installation, use **Settings → Updates** for verified in-app updates, or repeat the download, verification, and `install` steps for a newer release. When `~/.local/share/applications/io.github.lgse.Strata.desktop` exists, an in-app update rewrites it and `~/.local/share/icons/hicolor/scalable/apps/io.github.lgse.Strata.svg` from the new archive. Without that entry it writes neither file. The rewritten `Exec=` line points at the installed binary's path, quoted when the path has spaces or shell characters, with `%` doubled and the `%U` field code kept. This holds even when the running binary was already replaced on disk. If the user opted into Strata's system file chooser, the update restarts the portal frontend so subsequent dialogs use the newly installed build. Package-managed installations are updated only by their system package manager (see [Package-managed installations](#package-managed-installations)). To remove a per-user installation, first run `strata --uninstall-portal` if you opted into the system file chooser, and `strata --uninstall-udiskie-unlock` if you opted into encrypted-volume unlock. Then:
+For a manual installation, use **Settings → Updates** for verified in-app updates, or repeat the download, verification, and `install` steps for a newer release. When `${XDG_DATA_HOME:-~/.local/share}/applications/io.github.lgse.Strata.desktop` exists, an in-app update rewrites it and `${XDG_DATA_HOME:-~/.local/share}/icons/hicolor/scalable/apps/io.github.lgse.Strata.svg` from the new archive. Without that entry it writes neither file. The rewritten `Exec=` line points at the installed binary's path, quoted when the path has spaces or shell characters, with `%` doubled and the `%U` field code kept. This holds even when the running binary was already replaced on disk. If the user opted into Strata's system file chooser, the update restarts the portal frontend so subsequent dialogs use the newly installed build. Package-managed installations are updated only by their system package manager (see [Package-managed installations](#package-managed-installations)). To remove a per-user installation, first run `strata --uninstall-portal` if you opted into the system file chooser, and `strata --uninstall-udiskie-unlock` if you opted into encrypted-volume unlock. Then:
 
 ```bash
+data="${XDG_DATA_HOME:-$HOME/.local/share}"
 rm -f ~/.local/bin/strata \
-  ~/.local/share/applications/io.github.lgse.Strata.desktop \
-  ~/.local/share/dbus-1/services/io.github.lgse.Strata.FileManager1.service \
-  ~/.local/share/icons/hicolor/scalable/apps/io.github.lgse.Strata.svg
-update-desktop-database ~/.local/share/applications 2>/dev/null || true
-gtk-update-icon-cache -qtf ~/.local/share/icons/hicolor 2>/dev/null || true
+  "$data"/applications/io.github.lgse.Strata.desktop \
+  "$data"/dbus-1/services/io.github.lgse.Strata.FileManager1.service \
+  "$data"/icons/hicolor/scalable/apps/io.github.lgse.Strata.svg
+update-desktop-database "$data"/applications 2>/dev/null || true
+gtk-update-icon-cache -qtf "$data"/icons/hicolor 2>/dev/null || true
 ```
 
 User preferences and custom themes remain under the XDG configuration directories so an uninstall does not destroy personal settings.
@@ -301,7 +312,9 @@ it again. Debug symbols are in the release's separate `.debug` asset (see [Debug
 a release crash](#debug-a-release-crash)). Each package provides
 `strata=<pkgver>`, conflicts with `strata` and with the other package, and is
 licensed `MIT` and `LicenseRef-UnRAR`. A prerelease version drops only its
-hyphen: `0.10.0-rc.1` is packaged as `0.10.0rc.1`.
+hyphen: `0.10.0-rc.1` is packaged as `0.10.0rc.1`. Nightly builds have no
+package; install them from the release archive and update in the app. A
+package's channel is fixed, so to change channel, install the other package.
 
 - The desktop entry goes to `/usr/share/applications` and the icon to
   `/usr/share/icons/hicolor/scalable/apps`. An archive without them still
@@ -314,8 +327,8 @@ hyphen: `0.10.0-rc.1` is packaged as `0.10.0rc.1`.
 - Required: `bubblewrap`, `fontconfig`, `glibc>=2.39`, `gstreamer>=1.20`,
   `gst-plugins-base`, `gtk4>=4.12`, `gtksourceview5`, `gvfs`, and `poppler-glib`.
 - Optional: `ffmpeg`, `ffmpegthumbnailer`, `gst-libav`, `gst-plugins-good`,
-  `gvfs-smb`, `imagemagick`, `libraw`, `squashfs-tools` (AppImage icon
-  thumbnails), and `xdg-terminal-exec` (Open in Terminal).
+  `gvfs-smb`, `imagemagick`, `libraw`, `squashfs-tools` (listed for
+  AppImage icons, which Strata does not show), and `xdg-terminal-exec` (Open in Terminal).
 
 ### In-app updates
 
@@ -339,10 +352,15 @@ starting another shows "Another install is already running — try again shortly
   response or 30 seconds without data ("The download stalled — check your
   connection and try again"). There is no total time limit.
 - On success the status reads "Update installed — restart to apply". Strata
-  ends other Strata windows and chooser processes running the old binary from the
-  same install path, closes its windows, and relaunches the new binary. A running
-  file operation that guards closing blocks the restart and shows its close
-  warning.
+  sends SIGTERM to your other Strata processes started without a flag, or with
+  `--portal`, that still run the old binary from the same install path, and
+  SIGKILL to any still running 5 seconds later. Only your own user's processes
+  are affected. Processes started with other flags keep running: preview
+  helpers, an `--unlock-volume` window, and a `strata --gapplication-service`
+  instance started by "Open file location". Strata binaries installed at other
+  paths also keep running. Strata then closes
+  its windows and relaunches the new binary. A running file operation that
+  guards closing blocks the restart and shows its close warning.
 - The previous binary is kept beside the new one as `.strata-update-rollback`.
   It is restored if the new binary fails its startup probe or exits with an error
   within 20 seconds, and deleted 60 seconds after a successful start.
@@ -356,7 +374,9 @@ Strata treats itself as package-managed when its install prefix has
 owns the binary. The marker counts even when it cannot be read or parsed. A
 pacman-owned binary on a system whose `/etc/os-release` has `ID=omarchy` is
 Omarchy-managed. If pacman is installed but the ownership query cannot run,
-Strata also disables in-place updates. A binary no package owns, such as
+Strata also disables in-place updates. The Omarchy and pacman classification
+applies only without the marker. With the marker, Strata follows the marker's
+AUR package, even on Omarchy or when pacman owns the binary. A binary no package owns, such as
 `~/.local/bin/strata`, keeps in-place updates.
 
 - A package-managed install never downloads an update in the app. Its status
@@ -448,7 +468,7 @@ opening a window. Prerelease builds include their suffix, such as `-rc.1`,
 matching **Settings → Updates**. The flag must come first: `strata ~/Documents
 --version` launches Strata instead.
 
-In the default map, useful shortcuts include Ctrl+K for recursive search, Ctrl+L for a path or URI, Ctrl+F to filter the current pane, Ctrl+Z to undo or Ctrl+Shift+Z to redo the latest reversible file operation, Space for preview, F2 to rename, Alt+Left and Alt+Right for Back and Forward, and Alt+Up for the parent folder.
+In the default map, useful shortcuts include Ctrl+K to search Home and mounted local drives from any folder, Ctrl+L for a path or URI, Ctrl+F to filter the current pane, Ctrl+Z to undo or Ctrl+Shift+Z to redo the latest reversible file operation, Space for preview, F2 to rename, Alt+Left and Alt+Right for Back and Forward, and Alt+Up for the parent folder.
 
 Toggle [10xer mode](10xer-mode.md) with Ctrl+Shift+M for Yazi-style navigation and footer prompts; press Ctrl+Shift+M again to return to the default map. In 10xer mode, **q** in the file list does nothing, and Shift+Q closes the current window. In List and Columns, **l** / **Right** on a previewable file moves the keys into its preview, **h** returns them to the listing without closing the preview, and **i** toggles the preview.
 
@@ -519,6 +539,7 @@ While Strata is running, it claims `org.freedesktop.FileManager1` on the session
 - `ShowItems` opens the folder that holds each named item, with the item selected and focused. Items that share a folder open in one window; each other folder opens its own window, in the order listed. `ShowItems` on `file:///` opens `/` with nothing selected.
 - `ShowItemProperties` does the same as `ShowItems` and also opens **Properties** for the first item listed.
 - Revealing a dotfile while hidden files are off turns hidden files on and selects it.
+- When two files' names are not valid UTF-8 and display the same, `ShowItems` selects only the file the URI names.
 - A remote URI such as `sftp://host/dir/file` is mounted first, then revealed. If the mount fails or is cancelled, nothing is revealed.
 - Each method takes a list of URIs and a startup ID (`as`, `s`). Strata ignores the startup ID, and a call with other arguments fails with `org.freedesktop.DBus.Error.InvalidArgs`.
 
@@ -709,8 +730,8 @@ package names vary.
 **Devices** in the sidebar lists the volumes GVfs reports, drives that need a
 password before they show a volume, and mounts that have no listed volume. A
 mount whose volume is already listed gets no second row. Mounts the system
-hides, such as a Pacman cache subvolume outside your home folder, `/media`, and
-`/run/media/$USER`, do not appear. Plugging in, mounting, unmounting, or removing a device updates it without a
+hides do not appear, such as a Pacman cache subvolume mounted somewhere other
+than your home folder, `/media`, or `/run/media/$USER`. Plugging in, mounting, unmounting, or removing a device updates it without a
 restart, and with nothing to list the DEVICES heading is hidden. Clicking a
 mounted volume opens it. Clicking an unmounted volume mounts it, then opens it.
 Right-clicking an unmounted volume on a removable drive offers **Mount** when the
@@ -733,6 +754,8 @@ hidden only from this Photos view; their originals remain untouched and visible
 in normal folder browsing. Duplicate filenames remain
 separate files with their original locations; use **Copy path** or **Properties**
 to distinguish their sources. Preview, copy, and delete act on those originals.
+Deleting a photo removes only its row; a same-named photo from another folder
+stays listed.
 This is the USB-exposed collection, not iOS's Albums hierarchy. The current
 backend does not provide album membership for a reliable Albums/Camera Roll split.
 
@@ -831,7 +854,7 @@ SFTP accepts password and SSH-key authentication. Encrypted keys can be unlocked
 <!-- node: app/updates -->
 <!-- node: app/updates/package-managed, Checking -->
 
-Strata defaults to the **Stable** channel: only final tagged releases are ever offered, and a Stable install never receives, sees, or is notified about a prerelease. Stable offers a release only when its tag has no prerelease suffix and GitHub does not mark it as a prerelease. A saved channel value Strata does not recognize is read as Stable.
+Strata defaults to the **Stable** channel. For release binaries and source builds, only final tagged releases are offered, and a Stable install never receives, sees, or is notified about a prerelease. Package-managed installs follow their package source instead (see [Package-managed installations](#package-managed-installations)). Stable offers a release only when its tag has no prerelease suffix and GitHub does not mark it as a prerelease. A saved channel value Strata does not recognize is read as Stable.
 
 Strata checks for updates automatically by default: each time it starts, once its first window opens, and again when a window or **Settings → Updates** opens if no check has completed in the last 24 hours. Turning **Check for updates automatically** back on, or changing the channel, also runs a check. The check asks the update source for your installation: GitHub for release binaries and source builds, the AUR for AUR packages, the Omarchy package repository for Omarchy packages, or the local pacman sync database for other pacman packages. When a newer version is found, Strata also fetches that release's details from GitHub. Turning the switch off stops the automatic checks, discards the result of an automatic check still running, hides any update notice already shown, and locks the channel. **Check now** still checks on demand, and the Updates page's release-notes card asks GitHub for the current version's notes when they are not already cached. The installed version's notes are fetched once per tag and kept in `~/.cache/strata/release-notes.toml`. Strata never downloads or installs an update without your confirmation.
 
@@ -855,12 +878,21 @@ reports "Network request failed:" followed by the cause.
 - An available update shows its notes inline, titled "Available release · vX"
   with its change count and publication date.
 - **Release notes** holds a collapsed "What's new in vX" expander for the
-  installed version. Without a GitHub release for that tag, it says the notes
-  are unavailable and links to GitHub. Empty notes read "No release notes were
+  installed version, showing "Loading release notes…" until they arrive.
+  Without a GitHub release for that tag, its summary reads "Release notes
+  unavailable for this build", the expander reads "Release notes are unavailable
+  because this version’s tag was not found.", and a **View on GitHub** link
+  appears. A failed request reads "Couldn’t load release notes: <reason>".
+  Empty notes, or notes holding only HTML comments, read "No release notes were
   provided for this release."
-- Notes show headings, paragraphs, lists, code, and rules. HTML comments are
-  hidden, other raw HTML shows as text, and images, tables, and block quotes are
-  left out.
+- Notes show headings, paragraphs, lists, code, and rules. Images, tables, and
+  block quotes are left out, and raw HTML other than comments, such as
+  `<b>x</b>`, shows as text.
+- HTML comments in notes are hidden, whether inline or spanning several lines.
+  A body starting with GitHub's `<!-- Release notes generated … -->` comment
+  shows from its first heading. When a comment starts a line, any text after
+  `-->` on its closing line is hidden with it; an inline comment hides only
+  itself. A comment that is never closed hides the rest of the notes.
 - An available update shows a notice in the sidebar of every window, including
   windows opened later. Clicking it opens the update dialog, titled "Strata vX is
   available", with "Installed vA → Available vB", the notes under "What’s new",

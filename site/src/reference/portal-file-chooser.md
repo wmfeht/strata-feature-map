@@ -29,7 +29,7 @@ Downloads are named from `Content-Disposition` (`filename*`, then `filename`) or
 
 If a downloaded JPEG, BMP, single-frame GIF or static WebP has no canonical filename matching the **selected filter**, but PNG would match, Strata validates the image in its sandbox and asks “Convert image to PNG?” with **Convert to PNG** / **Cancel**. Detection uses file contents, not the URL extension or HTTP content type. BMP detection requires `BM`, zero reserved bytes in its file header and a known DIB header size (12, 40, 52, 56, 108 or 124 bytes); `BM` alone is not enough.
 
-When the bytes sniff as a JPEG, BMP, GIF, WebP or PNG image and the name lacks that format's extension, but the name with it (such as `.jpg` for JPEG bytes) passes the selected filter, Strata renames the download to that extension and returns it without asking, checking or converting. This extension repair runs even when the original name already passed the filter; a failed rename shows “Could not name the downloaded image: …”. If neither that kind's canonical name nor a PNG name matches, the normal filename filter still judges the download: it can be returned under its original server-provided name, such as JPEG bytes named `attachment.pdf` with a `*.pdf` filter. A `.png` name alone does not satisfy a PNG-only filter: JPEG, BMP, static WebP and single-frame GIF bytes still offer conversion. Under a filter that accepts PNG but not JPEG, a `.png` download whose bytes are not a supported image shows “This download is not a supported image. Choose a JPEG, BMP, static WebP, GIF or PNG image.” Bytes sniffed as PNG open without conversion or sandbox validation, after any filename repair; that includes APNG and corrupt PNG data with a PNG signature.
+When the bytes sniff as a JPEG, BMP, GIF, WebP or PNG image and the name lacks that format's extension, but the name with it (such as `.jpg` for JPEG bytes) passes the selected filter, Strata renames the download to that extension and returns it without asking, checking or converting. This extension repair runs even when the original name already passed the filter; a failed rename shows “Could not name the downloaded image: …”. If neither that kind's canonical name nor a PNG name matches, the normal filename filter still judges the download: it can be returned under its original server-provided name, such as JPEG bytes named `attachment.pdf` with a `*.pdf` filter. A `.png` name alone does not satisfy a PNG-only filter: JPEG, BMP, static WebP and single-frame GIF bytes still offer conversion. Under a filter that accepts PNG but not JPEG, a `.png` download whose bytes are not a supported image shows “This download is not a supported image. Choose a JPEG, BMP, static WebP, GIF or PNG image.” Bytes sniffed as PNG that the selected filter accepts under a PNG name open without conversion or sandbox validation, after any filename repair; that includes APNG and corrupt PNG data with a PNG signature.
 
 Conversion preserves full resolution, transparency, orientation and compatible embedded colour profiles. An animated GIF or WebP shows “Animated images cannot be converted to PNG. Choose a static image instead.” during the check, without the conversion prompt. Other conversion inputs (including TIFF, SVG, AVIF and HEIC) are unsupported. An embedded ICC profile recognized by its `acsp` signature must have a colour space matching the decoded image, or conversion aborts. This intentionally rejects grayscale JPEGs carrying RGB profiles and CMYK profiles even when the JPEG decoder has emitted RGB pixels. An unprofiled CMYK JPEG skips that check and can be converted using the decoder's RGB output; Strata does not add colour conversion or strip incompatible profiles.
 
@@ -51,7 +51,7 @@ A Wayland application's exported parent handle makes the chooser a transient dia
 
 The same chooser window serves Strata's own **Move to…**, **Copy to…**, **Extract to…**, and **Send to… → device → Choose folder…** commands. It opens as a floating modal folder chooser over the window the command came from. Invoking another destination command while one is open brings the existing chooser forward instead of opening a second. Closing the originating window closes its chooser, and **Cancel** leaves the files and the window's location unchanged.
 
-Move to, Copy to, and Extract to offer **New Folder**. Enter in the path entry navigates there; Ctrl+Enter in the file list or the action button confirms the displayed folder. For Send to, the sidebar and its toggle are hidden, and Ctrl+B (Ctrl+N in 10xer mode) and Ctrl+Shift+B leave them hidden. Send to also disables **New Folder** in the menu, the toolbar, and Ctrl+Shift+N. Navigating outside the device shows “Choose an existing folder inside this removable device.”
+Move to, Copy to, and Extract to offer **New Folder**. Enter in the path entry navigates there; Ctrl+Enter in the file list or the action button confirms the displayed folder, or a child folder you explicitly selected. For Send to, the sidebar and its toggle are hidden, and Ctrl+B (Ctrl+N in 10xer mode) and Ctrl+Shift+B leave them hidden. Send to also disables **New Folder** in the menu, the toolbar, and Ctrl+Shift+N. Navigating outside the device shows “Choose an existing folder inside this removable device.”
 
 ### Initial size
 
@@ -113,7 +113,9 @@ in its own questions.
 The installer asks about the file chooser separately, defaulting to **No**, after
 placing the binary at its permanent path. For unattended installation,
 `--with-file-chooser` opts in and `--without-file-chooser` keeps your current
-chooser. A plain `--non-interactive` install also leaves the chooser unchanged.
+chooser. Either flag implies `--non-interactive`, so the installer asks nothing
+and declines every integration you do not name. A plain `--non-interactive`
+install also leaves the chooser unchanged.
 `--with-file-chooser` fails on a release without portal support.
 
 A declined installer question or `--without-file-chooser` runs
@@ -195,7 +197,7 @@ Install Strata at a stable absolute path, then run:
 strata --install-portal
 ```
 
-This installs the portal metadata and D-Bus activation service below `$XDG_DATA_HOME`, makes Strata the preferred FileChooser while retaining the active backends as fallbacks, reloads D-Bus, and restarts the portal frontend. If no user portal configuration exists, Strata copies the active desktop configuration before changing the FileChooser preference. The command records whether that user override was created or modified so it can be removed safely later.
+This installs the portal metadata and D-Bus activation service below `$XDG_DATA_HOME`, makes Strata the preferred FileChooser while retaining the active backends as fallbacks, stops any running Strata chooser backend, reloads D-Bus, and restarts the portal frontend. If no user portal configuration exists, Strata copies the active desktop configuration before changing the FileChooser preference. The command records whether that user override was created or modified so it can be removed safely later.
 
 The chooser backend is activated on demand and exits after about two minutes without an active request (checked every 10 seconds). An open dialog (including a pending request) keeps it running; closing the last dialog starts the idle countdown again. When Strata is the configured file chooser, an in-app update restarts the portal services so the next dialog runs the new binary. In-app updates also stop your other Strata windows and `strata --portal` chooser processes running the old binary from the same install path: they receive SIGTERM, then SIGKILL after 5 seconds. Processes started with other flags, such as preview helpers or a `strata --gapplication-service` instance started by Reveal in File Manager, other users' processes, and Strata binaries from other install paths keep running. Strata then relaunches the updating window with the replacement binary.
 
@@ -203,11 +205,11 @@ External package-manager updates and manual binary replacements do not run that 
 
 If a stop, reload, or restart step fails, `--install-portal` and `--uninstall-portal` print “Could not reload every portal service. Ensure xdg-desktop-portal is installed, then log out and back in before testing.”
 
-The generated D-Bus service contains the absolute path of the command being run. Move Strata to its permanent location before installing the portal. For safe activation, every component of the canonical executable path must be owned by the current user or root and must not be writable by other users. D-Bus service-file argument parsing is not shell quoting, so the installer also rejects executable paths containing whitespace, quotes, or backslashes.
+The generated D-Bus service contains the absolute path of the command being run. Move Strata to its permanent location before installing the portal. For safe activation, every component of the canonical executable path must be owned by the current user or root and must not be group- or world-writable. D-Bus service-file argument parsing is not shell quoting, so the installer also rejects executable paths containing whitespace, quotes, or backslashes.
 
 ### Manual installation
 
-The equivalent commands below use the default XDG locations and an existing installation at `~/.local/bin/strata`:
+Run the equivalent commands below from the extracted release archive. They use the default XDG locations and an existing installation at `~/.local/bin/strata`:
 
 ```bash
 data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -297,8 +299,9 @@ On a desktop that does not manage the frontend as a systemd user unit, log out a
   previews on, clicking a previewable file opens the shared preview pane.
 - Dragging a Miller column's right edge resizes it; double-clicking the edge fits
   it to its content.
-- F2 renames a single selected file or folder. Escape cancels the name editor
-  without closing the chooser. Right-click an item for Rename, Properties,
+- F2 renames a single selected file or folder. The editor opens with a file's
+  name before its last `.` selected, and a folder's whole name selected. Escape
+  cancels the name editor without closing the chooser. Right-click an item for Rename, Properties,
   Compress… (local items), Move to Trash and Permanently delete (where the
   location allows them), and Quick preview for one previewable file; right-click
   empty pane space for New Folder. Alt+Enter opens Properties from the file list.
@@ -350,8 +353,9 @@ On a desktop that does not manage the frontend as a systemd user unit, log out a
   request's folder-only and file-type limits.
 - Tab moves from the files to the header, then to **Name** when the request has
   one, then back to the files. While **Name** or the location field has focus,
-  every key is typed except F1, Ctrl+Shift+M, and Escape; Escape returns to the
-  files and keeps the edit.
+  every key is typed except F1, Ctrl+Shift+M, and Escape. Escape in **Name**
+  returns to the files and keeps the edit; Escape in the location field cancels
+  the edit and returns to the files.
 - In a Save request, Enter in the files saves the name in the current folder,
   whatever the cursor is on; moving the cursor changes neither the name nor the
   folder. In a single-file Save request, `r` or F2 edits **Name** with the part
@@ -400,9 +404,9 @@ Run the matching per-user command:
 strata --uninstall-portal
 ```
 
-It removes Strata's metadata and activation service and restores the previous user portal configuration. If the configuration changed after installation, it preserves those changes and removes only Strata from the FileChooser preference. It then reloads D-Bus and restarts the portal frontend. If the frontend cannot be restarted automatically, log out and back in.
+It removes Strata's metadata and activation service and restores the previous user portal configuration. If the configuration changed after installation, it preserves those changes and removes only Strata from the FileChooser preference. It then stops any running Strata chooser backend, reloads D-Bus, and restarts the portal frontend. If the frontend cannot be restarted automatically, log out and back in.
 
-For a complete Strata uninstall, also remove the application binary and desktop entry as described in the main installation guide.
+For a complete Strata uninstall, also remove the application binary and desktop entry as described in [Update or uninstall](install.md#3-update-or-uninstall).
 
 ### Manual uninstall
 

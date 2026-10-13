@@ -35,7 +35,8 @@ colors.
 **Settings → Appearance → EFFECTS → Element glow** is on by default and saved
 as `element_glow = true`. It adds accent glow to dialogs, menus, theme cards,
 and animated feedback. The video preview's
-[ambient light](preview-sandbox.md#video-previews) follows the same switch.
+[ambient light](preview-sandbox.md#video-previews), and the 24 px band it needs
+around the frame, follow the same switch, live in an open preview.
 Turning it off removes that glow in every window at once, keeps focus
 outlines, depth shadows, and animation movement, and persists across restarts;
 use Reduce motion to stop animations.
@@ -49,11 +50,16 @@ desktop's `prefers-reduced-motion` media preference.
 **GTK default**, the initial choice, and **Cairo**, saved as
 `interface_renderer = "system"` or `"cairo"`. Cairo avoids text artifacts on
 some displays but can use more CPU. Choosing a value other than the one Strata
-started with shows **Restart now**; the change applies after a restart. A
-`GSK_RENDERER` environment variable set before Strata starts, even to an empty
-value, overrides the saved choice. When Strata selects Cairo itself,
-applications it launches may inherit that renderer; desktop settings are
-unchanged.
+started with shows **Restart now**; the change applies only when a new Strata
+process starts. **Restart now** closes every Strata window and starts Strata
+again; while a file operation or drive format runs, the usual close warning
+appears instead and nothing restarts. Without the button, quit Strata by
+closing all of its windows, then reopen it: closing one window while others stay
+open keeps the old renderer. The choice and **Restart now** stay in step across
+open Settings windows. A `GSK_RENDERER` environment variable set before Strata
+starts, even to an empty value, overrides the saved choice. When Strata selects
+Cairo itself, applications it launches may inherit that renderer; desktop
+settings are unchanged.
 
 ### Icon colors
 
@@ -190,7 +196,7 @@ Theme files may be symlinks into a dotfiles repository. The configurator never r
 
 All 95 bundled themes include explicit code-preview palettes. Tinted Base16 palettes map `base0E` to keywords, `base0B` to strings, `base09` to constants, `base0A` to types, and `base0C` to preprocessor directives. Catppuccin and Tokyo Night use the pinned `catppuccin-mocha` and `tokyo-night-dark` syntax palettes; Azure Glow and Omarchy Light have original curated palettes.
 
-Under **Settings → Appearance → Add theme**, the syntax color pickers in the **Add a theme** panel start with the selected theme's colors. Each picker previews changes immediately across the interface and in open code previews; Cancel restores the selected theme, and Add theme saves all five syntax colors with the interface palette. Closing Settings by any route (Escape, Close settings, a click outside it, or closing the window) discards an unsaved preview the same way and collapses the editor. A discarded preview re-applies the saved theme in every open window and in windows opened later. Pressing **Add theme** while the editor is open keeps the draft. Opening the editor again starts from the selected theme's colors, with an empty name and no error. Changing text size, toggling Element glow, or an Omarchy theme change while following keeps the preview until it is cancelled or saved. Clicking a theme card or toggling **Follow Omarchy** ends the preview. If followed Omarchy state disappears during a preview, the preview ends and the previously selected bundled or custom theme applies. Cancel, or closing Settings, in one window leaves a preview started later in another window applied. **Dim text / comments** controls comments as well as dim interface text. Markdown headings continue to use the accent color. Rendered 3D model previews, such as STL files, are shaded in the theme's accent, and an open model preview re-renders when the theme changes; see [Local 3D model previews](preview-sandbox.md#local-3d-model-previews).
+Under **Settings → Appearance → Add theme**, the syntax color pickers in the **Add a theme** panel start with the selected theme's colors. Each picker previews changes immediately across the interface and in open code previews; Cancel restores the selected theme, and Add theme saves all five syntax colors with the interface palette. Closing Settings by any route (Escape, Close settings, a click outside it, or closing the window) discards an unsaved preview the same way and collapses the editor. A discarded preview re-applies the saved theme in every open window and in windows opened later. Pressing the library's **Add theme** button again while the editor is open keeps the draft. Opening the editor again starts from the selected theme's colors, with an empty name and no error. Changing text size, toggling Element glow, or an Omarchy theme change while following keeps the preview until it is cancelled or saved. Clicking a theme card or toggling **Follow Omarchy** ends the preview. If followed Omarchy state disappears during a preview, the preview ends and the previously selected bundled or custom theme applies. Cancel, or closing Settings, in one window leaves a preview started later in another window applied. **Dim text / comments** controls comments as well as dim interface text. Markdown headings continue to use the accent color. Rendered 3D model previews, such as STL files, are shaded in the theme's accent, and an open model preview re-renders when the theme changes; see [Local 3D model previews](preview-sandbox.md#local-3d-model-previews).
 
 Each color swatch in the editor opens GTK's color chooser. Its Cancel and Select buttons and its custom color editor (hex entry, hue slider, and the value popups) follow the active theme and update live, as does the same chooser in the custom folder color dialog.
 
@@ -204,9 +210,9 @@ syntax_type = "#ffa657"
 syntax_preprocessor = "#d2a8ff"
 ```
 
-Recognized source languages keep syntax highlighting regardless of the loaded text's byte count, line count, or individual line length. Source text still loads incrementally, and the separate 1 MiB preview-read cap remains in effect. Large plain-text files without a recognized language can still use virtualized rendering.
+Recognized source languages keep syntax highlighting regardless of the loaded text's byte count, line count, or individual line length. Source text still loads incrementally, and the separate 1 MiB preview-read cap remains in effect. Text without a recognized language opens in a source view, without syntax colors, up to 128 KiB and 512 lines with no line over 2 KiB. Larger files, and files with a longer line, use recycled plain-text rows; see [Document previews](document-previews.md#limits-and-fallback).
 
-All color fields, the interface colors included, accept GTK color formats such as `rgb()`, short hex, and color names; a theme written that way keeps its syntax colors in code previews. An omitted `syntax_*` key uses a color derived from accent and text, and an omitted `danger` uses `#e5484d`. Every other color key and a non-empty `name` are required: a file missing one is skipped at startup. The editor initializes omitted syntax fields from those derived colors when creating a theme, and writes each picked color as `#rrggbb`. Invalid colors cause a custom file to be excluded at startup. Preview schemes canonicalize colors to opaque `#rrggbb`.
+All color fields, the interface colors included, accept GTK color formats such as `rgb()`, short hex, and color names; a theme written that way keeps its syntax colors in code previews. An omitted `syntax_*` key uses a color derived from accent and text, and an omitted `danger` uses `#e5484d`. Every other color key and a `name` are required, and the name must contain a non-space character: a file missing one, or with a blank name, is skipped at startup. The editor initializes omitted syntax fields from those derived colors when creating a theme, and writes each picked color as `#rrggbb`. Invalid colors cause a custom file to be excluded at startup. Preview schemes canonicalize colors to opaque `#rrggbb`.
 
 ## Omarchy Quattro
 
@@ -230,7 +236,7 @@ Under **Settings → Appearance → Follow Omarchy**, **Omarchy variant** offers
 
 The variants keep palette hues and adjust brightness where necessary; they do not invert colors or substitute another theme. Darker and High contrast derive muted/hover surfaces from the same palette, adjust semantic foregrounds for at least 4.5:1 contrast against those surfaces, and adapt preview syntax colors. High contrast targets 7:1 for primary text and 3:1 for borders. These are semantic-token targets, not a guarantee for every composited or disabled widget state.
 
-The choice is saved as `omarchy_variant = "original"`, `"darker"`, or `"high_contrast"` in Strata's `settings.toml`. It applies before Settings opens and live across windows, menus, dialogs, icons, and previews. Changing the active Omarchy theme retains the variant. Turning off Follow Omarchy disables the selector but remembers its value. Variants never change bundled or custom themes or the desktop theme.
+The choice is saved as `omarchy_variant = "original"`, `"darker"`, or `"high_contrast"` in Strata's `settings.toml`. A missing or unrecognized `omarchy_variant` value reads as Original, and the other saved preferences are kept. It applies before Settings opens and live across windows, menus, dialogs, icons, and previews. Changing the active Omarchy theme retains the variant. Turning off Follow Omarchy disables the selector but remembers its value. Variants never change bundled or custom themes or the desktop theme.
 
 Syntax colors follow Quattro's named `magenta`, `green`, `orange`, `cyan`, and `yellow` colors. Older terminal palettes can supply `color5` for keywords, `color2` for strings, `color9` for constants, and `color3` for types. Missing colors retain the existing source-palette or derived fallback. Quattro values load in the same canonical hex form as custom theme files; values GTK cannot parse count as missing.
 

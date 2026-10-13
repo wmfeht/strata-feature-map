@@ -145,8 +145,9 @@ writable. A folder listed more than once in the archive is restored once:
 each of its permissions and time comes from the last entry that stores it.
 Folders created only as parents of other members keep default
 permissions. Owner, group, access times, extended attributes and ACLs are not
-restored. RAR archives restore permissions and times, but their link members
-still extract as regular files.
+restored. RAR archives restore permissions and times, but a member archived
+without Unix mode bits, such as one made on Windows, keeps the default
+permissions, and link members still extract as regular files.
 
 On filesystems that cannot store Unix permissions or times, such as FAT and
 exFAT, those are skipped without an error, as `tar` and `unzip` do. Links
@@ -168,8 +169,10 @@ regular file, or a symlink to one, with a local path and a `.zip`, `.7z`,
 `.tar`, `.tar.gz`, `.tgz`, or `.rar` extension, in any letter case. A folder
 named `photos.zip` opens like any other folder and offers no Extract actions.
 FIFOs, sockets, devices, and broken links named like archives are not
-extracted either; activation opens them externally and the chords report
-"Not an archive".
+extracted either. In Icons and List views, Enter or double-click opens them
+externally. In Columns, Enter opens the preview for one with a ZIP, 7Z, TAR,
+or TAR.GZ name, and double-click opens it externally. The chords report "Not
+an archive".
 
 If the item changes between opening the menu and running the action, the
 operation layer checks the path again. A path that exists but is not a regular
@@ -197,10 +200,18 @@ archive again never writes into an earlier extraction.
 
 ### 10xer mode
 
-In 10xer mode, `; c` opens the Compress dialog for the targets. `; e` extracts
+In 10xer mode, `; c` opens the Compress dialog for the targets. If any target
+has no local path, it flashes "Can’t compress these items", and an empty folder
+flashes "Nothing to compress". `; e` extracts
 one archive beside itself and selects the result, and `; E` extracts it to a
-folder typed at the `extract to ›` prompt. With several targets, `; e` and
-`; E` flash "Extract one archive at a time".
+folder typed at the `extract to ›` prompt. Unlike **Extract to…**, `; E`
+leaves the window in the current folder. The prompt chooses and checks a
+folder as `move to ›` and `copy to ›` do; see [Files](10xer-mode.md#files) and
+[Folder picker](10xer-mode.md#folder-picker) in 10xer mode. With several targets, `; e` and
+`; E` flash "Extract one archive at a time". With one target that is not an
+archive, such as `notes.txt` or a folder named `photos.zip`, they flash "Not an
+archive". With no target, as in an empty folder, they flash "Nothing to
+extract".
 
 ### Passwords
 
@@ -211,7 +222,8 @@ wrong password reopens it with "Invalid password", including for plain-header
 7Z and ZipCrypto archives. Cancelling the dialog after **Extract to…** leaves
 nothing in the chosen folder, and the next extraction does not navigate there.
 Closing the dialog with Cancel or Escape leaves keyboard focus in the file
-list.
+list. A click outside the dialog closes it like Cancel only while the password
+field is empty; once you have typed a password, a click outside leaves it open.
 
 Only a failure that the decoder reports as a missing or incorrect password
 opens the password prompt, with "Invalid password" for an incorrect one. The
@@ -228,7 +240,7 @@ at once and reports it as cancelled. Extraction fails if the decoder sends no
 data for 30 seconds, if a member continues into another volume of a
 multi-volume RAR ("The next RAR volume is missing"), or if the archive's
 dictionary exceeds the decoder's memory limit ("RAR dictionary exceeds the
-decoder's memory limit"). Official release builds include RAR extraction. A build made without RAR support shows no Extract actions for
+decoder's memory limit"). Official release builds and AUR builds include RAR extraction. A build made without RAR support shows no Extract actions for
 `.rar` files, and Enter or double-click opens them externally.
 
 ## Archive creation

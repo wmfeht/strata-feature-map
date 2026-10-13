@@ -20,11 +20,11 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 # 10xer mode reference
 
-10xer mode is an opt-in Yazi-style browsing map. In **Settings → General → Browsing** the row is titled **10xer mode** and its subtitle is **Opinionated keyboard-centric mode with Yazi-style navigation. Disables some features. Toggle with Ctrl+Shift+M.** The footer shows a compact **10X** pill in its far right corner, after the item count, while the mode is on. It hides window Search, pane
-Close/filter/refresh/sort chrome, and the List and Icons pane header (back,
+10xer mode is an opt-in Yazi-style browsing map. In **Settings → General → Browsing** the row is titled **10xer mode** and its subtitle is **Opinionated keyboard-centric mode with Yazi-style navigation. Disables some features. Toggle with Ctrl+Shift+M.** The footer shows a compact **10X** pill in its far right corner, after the item count, while the mode is on. It hides window Search, the pane
+Close, filter, refresh, and sort controls, and the List and Icons pane header (back,
 forward, and up buttons with the folder title) in interactive browsers, disables
-type-to-search, and uses the footer as the typed-command surface. List column
-headings stay clickable. The portal file chooser follows the same preference:
+type-to-search, and uses the footer as the typed-command surface. The window's
+own close button and the clickable List column headings stay. The portal file chooser follows the same preference:
 it hides the same pane chrome, uses this keymap and the footer
 prompt, and keeps Accept, Cancel, and the header close control. **Enter** / **o**
 confirm a file. **Esc** is the way out: it cancels the dialog after dismissing
@@ -72,6 +72,8 @@ the full rules.
 
 **Ctrl+Shift+M** also works while a browser text field has focus; modal dialogs
 keep their own input handling.
+With the Russian layout active and a text field focused, Shift and the **ё**
+key type **Ё** rather than toggling the reference.
 
 Turning the mode on in an open window shows a centered 10xer splash for about
 1.5 seconds. It takes no focus or clicks, and with reduced motion it appears
@@ -185,7 +187,11 @@ drawer still open, and run there on the previewed item:
 Window commands (**Q**, **F1**, **~**, **F5**, **Ctrl+K**, **Ctrl+L**, **Ctrl+,**,
 **Ctrl+1** / **Ctrl+2** / **Ctrl+3**, **Ctrl+H**, **Ctrl+N**, **Ctrl+Shift+B**,
 **Ctrl+Shift+M**, undo / redo, text size, and the Ctrl tab shortcuts) work
-without moving the keys. Any other key is swallowed. Inside a text field,
+without moving the keys. The exception is a text or source preview shown in
+SourceView rather than in recycled rows (see
+[limits and fallback](document-previews.md#limits-and-fallback)): while it has the
+keys, **Ctrl+1** / **Ctrl+2** / **Ctrl+3** and undo / redo do nothing. Return the
+keys to the listing first, for example with **Shift+Tab**. Any other key is swallowed. Inside a text field,
 **F1**, **Ctrl+Shift+M**, **Esc**, **Shift+Tab**, **F5**, **Ctrl+K**, **Ctrl+,**,
 the Ctrl tab shortcuts, and text size still work; every other key is typed or
 edits the text.
@@ -331,7 +337,7 @@ closing the preview from there returns focus to the file list.
 <!-- node: app/keyboard-shortcuts, Matching -->
 
 From the listing, press **t**, then a second key. The footer shows **t-** and
-its available commands. Escape cancels the chord; text fields, menus, and
+its available commands. **Esc** cancels the chord; text fields, menus, and
 file-chooser requests do not arm it.
 
 | Chord | Action |
@@ -354,8 +360,9 @@ show square number badges; **0** identifies the tenth tab. See
 [browser tabs](keyboard-navigation.md#browser-tabs).
 
 **Ctrl+Enter** on a focused folder opens it in a new tab and **Shift+Enter** in
-a new window; keypad **Enter** works too. On a file, both open it like
-**Enter**. The file chooser opens no tab or window; in a folder request
+a new window; keypad **Enter** works too. **Ctrl+Shift+Enter** on a folder
+also opens a new tab, as in the default map. On a file, **Ctrl+Enter** and
+**Shift+Enter** open it like **Enter**. The file chooser opens no tab or window; in a folder request
 **Ctrl+Enter** chooses the folder (see [File chooser](#file-chooser)).
 
 ## Files
@@ -411,8 +418,8 @@ like one started from the context menu. See [custom actions](custom-actions.md).
 **; t** opens a terminal in the keyboard-focused folder, the pane holding the
 cursor, whatever the cursor or selection is on. The panel lists it, then
 **; c**, **; e**, and **; E**, after the actions. In Trash and other non-local places it flashes
-`Can’t open a terminal here`. **Ctrl+Alt+T** in regular mode keeps its own rule and prefers a
-single selected folder.
+`Can’t open a terminal here`. **Ctrl+Alt+T** keeps its own rule and prefers a
+single selected folder; see [Not bound](#not-bound) for where it still works in this mode.
 
 **; c** opens the Compress dialog for the fill, or the cursor item when nothing
 is filled; items without a local path flash `Can’t compress these items`.
@@ -494,8 +501,8 @@ flash `Nothing to delete` and leave the open folder alone.
 the typed name in the keyboard-focused folder; spaces and Unicode are kept. A
 trailing `/` makes a folder instead and is removed before the name is checked. An
 empty name, `.`, `..`, or a name containing `/` keeps the prompt open with the
-reason, and so does a name already taken (including by a broken link), so you
-can fix it. Nothing is renumbered, replaced, or followed. **Esc**, focus leaving
+reason, and so does a name already taken (including by a broken link), which
+shows `“…” already exists`, so you can fix it. Nothing is renumbered, replaced, or followed. **Esc**, focus leaving
 the prompt, a clicked row, another prompt, leaving the mode, or closing the
 window discard the name. **Ctrl+Shift+N** still adds a numbered **new folder**
 and renames it in place. Trash and Recent flash `Can’t create items here`.
@@ -506,8 +513,8 @@ open-path marker. The current name is filled in with a file's stem (or a
 folder's whole name) selected, as inline rename selects it. The item is fixed
 when the prompt opens; **Up** / **Down** do not move the cursor while it is open.
 **Enter** renames the item to exactly the typed name and keeps its contents; an
-unchanged name does nothing. An invalid name or one already taken keeps the
-prompt open with the reason, and nothing is replaced. Permission errors and
+unchanged name does nothing. An invalid name keeps the prompt open with the
+reason, and a name already taken shows `“…” already exists`; nothing is replaced. Permission errors and
 filesystem limits leave the original name and show the usual rename error.
 **Esc**, focus leaving the prompt, a clicked row (which keeps its selection),
 another prompt, leaving the mode, or closing the window discard the typed name.
@@ -897,14 +904,14 @@ These GUI conventions stay available alongside the Yazi verbs:
 | **Ctrl+Alt+N** | New folder containing the selection |
 | **Alt+Enter** | Properties |
 | **Menu** / **Shift+F10** | Context menu |
-| **Ctrl++** / **Ctrl+-** / **Ctrl+0** | Text size |
+| **Ctrl++** / **Ctrl+−** / **Ctrl+0** | Text size |
 
 Context-menu shortcut hints follow this map (**x** cut, **y** yank, **p** paste,
 **d** / **D** trash / delete, **r** rename, **M** / **C** move / copy to, **R**
 restore, **i** quick preview, next column, or folder peek). The file chooser has no **i** preview, so its Quick preview item
 shows no hint. **Duplicate**, **Copy path**, **Pin to sidebar**, and **Open in
 Terminal** show no hint, because their default keys (**Ctrl+D**, **y**, **p**,
-**Ctrl+Alt+T**) are unbound or remapped; **Space** for preview and **Ctrl+R**
+**Ctrl+Alt+T**) are remapped or not part of this map; **Space** for preview and **Ctrl+R**
 for rename are hidden too. Use **c c** to copy a path and **g +** to pin.
 Properties keeps **Alt+Enter**.
 
@@ -917,7 +924,7 @@ These default-map shortcuts are unbound or remapped while the mode is on:
 | Default-map key | In 10xer mode |
 | --- | --- |
 | **Ctrl+Shift+K** | Unbound. Use **z** / **Z**. |
-| **Ctrl+Alt+T** | Unbound. Use **; t** or the context menu. |
+| **Ctrl+Alt+T** | Does nothing while a text field such as the location bar has focus, or while search results are listed. From the file list or the sidebar it still opens a terminal, as in regular mode. Use **; t** or the context menu. |
 | **Ctrl+\\** | Unbound. Arrows never leave the file list. |
 | **Ctrl+D** | Half page down. Duplicate has no key; use **Duplicate** in the context menu. |
 | **Ctrl+F** | Full page down. Filter is **f**. |
