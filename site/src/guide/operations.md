@@ -33,7 +33,7 @@ When a name is taken, **File already exists** offers:
 - **Keep Both** (copies only): add `name (1).ext` beside it.
 - **Merge** (folder copied onto folder): add the incoming contents, replacing
   same-named files.
-- **Skip**: keep the existing item, transfer the rest.
+- **Skip** (several items): keep the existing item, transfer the rest.
 - **Cancel**: transfer nothing.
 
 **Apply to All** reuses your answer for the remaining conflicts.
@@ -125,8 +125,8 @@ Drop items onto a folder, a sidebar place, or a parent breadcrumb.
 | Holding Shift | Move |
 
 Hover over a folder for 750 ms to open it mid-drag. To skip the question, set
-**Settings → General → Drag & drop to another device** to **Always copy** or
-**Always move**.
+**Settings → General → File transfers → Drag & drop to another device** to
+**Always copy** or **Always move**.
 
 ## Follow progress in Jobs
 
@@ -135,11 +135,16 @@ Hover over a folder for 750 ms to open it mid-drag. To skip the question, set
 <!-- node: operations/progress/jobs, Dashboard -->
 <!-- node: operations/progress/jobs, Cancellation -->
 
-A file operation that runs past 350 ms, or touches 16 or more items, shows a
-progress dialog. **Cancel** stops the rest but keeps what is done.
+A file operation that runs past 350 ms, or touches 16 or more items, shows its
+progress. Copies, deletions, and compression get a card in the bottom-right
+corner, so you can keep browsing; the card's X cancels it. Moves, extraction,
+and restores show a progress dialog; **Cancel** stops them. Either way, what is
+already done stays done.
 
 [Custom actions](actions.md) run in the background and open **Jobs**. Reopen it
 from the footer button, such as `1 job running`. **Details** shows a job's
 output; **Cancel** stops it. Escape hides Jobs without stopping anything.
 
-**Full detail:** [Archives reference](../reference/archives.md)
+**Full detail:** [Archives reference](../reference/archives.md),
+[Creating files and folders](../reference/keyboard-navigation.md#creating-files-and-folders),
+and [Jobs and cancellation](../reference/custom-actions.md#jobs-and-cancellation)

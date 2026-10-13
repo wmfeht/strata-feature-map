@@ -78,7 +78,7 @@ Search indexes Home and every mounted local drive, but skips:
 Keep a large or private folder out of Ctrl+K results:
 
 1. Press Ctrl+, to open Settings, and choose **General**.
-2. Under **Search & filtering**, find **Global search exclusions**.
+2. Under **SEARCH & FILTERING**, find **Global search exclusions**.
 3. Type a rule, or click **Browse…** to pick a folder.
 4. Press Enter or click **Add**.
 
@@ -110,5 +110,8 @@ click the remove button beside it.
 - In **Settings → General**, turn off **Include subfolders** to filter only
   the current folder, or turn on **Open search results directly** to launch
   files from Ctrl+K instead of previewing them.
-- In [10xer mode](10xer.md), press F to filter and S to search
+- In [10xer mode](10xer.md), press `f` to filter and `s` to search
   subfolders instead of Ctrl+F.
+
+**Full detail:** the [Keyboard navigation reference](../reference/keyboard-navigation.md#filename-patterns-while-filtering)
+covers filter patterns, filter focus, and Ctrl+K keys.

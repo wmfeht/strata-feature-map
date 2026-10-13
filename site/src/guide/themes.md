@@ -14,12 +14,13 @@ menus, dialogs, and code previews.
 <!-- node: settings/themes, Theme library -->
 <!-- node: settings/themes/omarchy, Following -->
 
-Press Ctrl+, and open **Appearance**. In **THEME LIBRARY**, type in **Search
-themes** or pick **Light** or **Dark**, then click a card. The theme applies at
-once, the card gets a check, and Strata remembers it after a restart.
+Press Ctrl+, and open **Appearance**. On Omarchy, first turn off **Follow
+Omarchy** under **THEME**; while it is on, the library is greyed out. In **THEME
+LIBRARY**, type in **Search themes** or pick **Light** or **Dark**, then click a
+card. The theme applies at once, the card gets a check, and Strata remembers it
+after a restart.
 
-A fresh install starts with Tokyo Night. On Omarchy, the library is greyed out
-while **Follow Omarchy** is on; turn it off first.
+A fresh install starts with Tokyo Night.
 
 ## Follow Omarchy
 
@@ -39,14 +40,17 @@ Omarchy themes or edit `colors.toml`, with no restart.
 - **High contrast** raises text and border contrast and keeps a light palette
   light.
 
-Turning following off keeps your variant for next time.
-
 ## Write your own theme
 
 <!-- node: settings/themes, Custom themes -->
 
-A theme is a TOML file with a name and nine colors. Save this as
-`~/.config/strata/themes/ocean-blue.toml`:
+A theme is a TOML file with a name and nine colors. Create the themes folder:
+
+```sh
+mkdir -p ~/.config/strata/themes
+```
+
+Then save this as `~/.config/strata/themes/ocean-blue.toml`:
 
 ```toml
 name = "Ocean Blue"
@@ -61,23 +65,27 @@ border = "#315b75"
 dim_text = "#6f8da3"
 ```
 
-Restart Strata. Your theme appears in the library after the bundled ones. Any
-CSS color form works, including `#rrggbbaa` for translucency. A file with a
-missing key or an invalid color is skipped without a message, so check the file
-if your theme is missing. `danger` is the one color you may leave out.
+Restart Strata. Your theme appears in the library after the bundled ones; click
+its card to use it. On Omarchy, turn off **Follow Omarchy** first. Colors can
+be hex (`#rgb`, `#rrggbb`, or `#rrggbbaa` for translucency), `rgb()`, or a color
+name. A file with a missing key or an invalid color is skipped without a
+message, so check the file if your theme is missing. `danger` is the one color
+you may leave out.
 
 You do not have to write the file by hand. Click **Add theme** below the
 library. The **Add a theme** panel opens with a name field and a picker for
 each color, seeded from your current theme. Every change previews live;
 **Cancel** puts your theme back. Click **Add theme** to save the file and
-switch to it, no restart needed. `Ocean Blue` saves as `ocean-blue.toml`.
+switch to it, no restart needed. The file is named after the theme: `Ocean
+Blue` saves as `ocean-blue.toml`, or `ocean-blue-2.toml` if that file exists.
 
 ## Syntax colors for code previews
 
 <!-- node: settings/themes, Syntax colors -->
 <!-- node: settings/themes/omarchy, Following -->
 
-Add any of these five keys to a theme file to tune code previews:
+Add any of these five keys to a theme file, then restart Strata, to tune code
+previews:
 
 ```toml
 syntax_keyword = "#ff7b72"
@@ -101,12 +109,11 @@ colors, and following Omarchy takes them from the Omarchy palette.
 - Name a file after a bundled theme id, such as `dracula.toml`, and yours
   replaces the bundled one. Saving from the panel never does this: it picks a
   free name such as `dracula-2.toml`.
-- Theme files can be symlinks into your dotfiles repository.
 - Interface icons draw in the accent. Icons for code and config files keep
   their own colors; set **File icon colors** to **Theme colors** to tint them
   too.
-- Styling with `~/.config/gtk-4.0/gtk.css` still works. Strata's colors are
-  named `@strata_bg`, `@strata_accent`, and so on.
+- You can restyle Strata in `~/.config/gtk-4.0/gtk.css`; its colors are named
+  `@strata_bg`, `@strata_accent`, and so on.
 
 **Full detail:** the [Themes reference](../reference/themes.md) covers the
 Base16 mapping, GTK CSS precedence, and the Omarchy color mapping.

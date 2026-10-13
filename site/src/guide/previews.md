@@ -13,9 +13,11 @@ PDFs, documents, spreadsheets, audio, and video in a panel beside your files.
 <!-- node: preview/preview-panel/layout -->
 <!-- node: preview/preview-panel -->
 
-Open the **Appearance** menu in the header bar and click **Preview panel**. In
-Columns the panel is on from the start, holding a slot right of your columns
-so previews never move them. In Icons and List it starts hidden.
+In Columns, the default view, the panel is already on. It holds a slot right
+of your columns, so previews never move them. In Icons and List it starts
+hidden: click the view button in the header bar (your current view's icon,
+tooltip **Appearance**) and click **Preview panel**. Clicking it again hides
+the panel in any view.
 
 Drag the divider to resize the panel; the width lasts until you close the
 window. When the window gets too narrow, the preview hides and media pauses.
@@ -27,10 +29,11 @@ Widen the window and it returns.
 <!-- node: preview/quick-preview, Following the selection -->
 <!-- node: preview/quick-preview, Keyboard ownership -->
 
-Select a file and press Space. Press Space again to close the preview.
+Click a supported file and its preview opens; **Single-click file previews**
+is on by default. In Columns, arrowing onto a file opens its preview too.
+Space toggles the preview: press it to close the preview, and again to reopen
+it for the focused file.
 
-- **Click.** With **Single-click file previews** on, the default, one click on
-  a supported file previews it.
 - **Menu.** Right-click a file and choose **Quick preview**.
 - **Follow.** With the preview open, arrow to another file and the preview
   follows.
@@ -95,8 +98,9 @@ filters filenames instead.
 <!-- node: preview/preview-panel/sandbox -->
 
 A file can be crafted to attack the program that reads it. So Strata decodes
-images, RAW photos, PDFs, spreadsheets, DOCX, and media in a helper process
-inside [Bubblewrap](https://github.com/containers/bubblewrap). The helper sees
+images, RAW photos, PDFs, XLS, XLSX, and ODS workbooks, DOCX, and media in a
+helper process inside [Bubblewrap](https://github.com/containers/bubblewrap).
+The helper sees
 only that one file, has no network, and is killed when you move on. Plain text
 is read directly, up to the first 1 MiB.
 
@@ -104,5 +108,6 @@ If Bubblewrap is missing, these previews show **Preview unavailable**; Strata
 never decodes them outside the sandbox. Install your distribution's
 `bubblewrap` package.
 
-**Full detail:** [Document previews](../reference/document-previews.md) and
-[Preview sandbox](../reference/preview-sandbox.md).
+**Full detail:** [Document previews](../reference/document-previews.md),
+[Preview sandbox](../reference/preview-sandbox.md), and
+[Keyboard navigation](../reference/keyboard-navigation.md#media-preview-keys).

@@ -35,22 +35,33 @@ Install one directory per provider under `$XDG_CONFIG_HOME/strata/providers/`
 }
 ```
 
-Save this as `example/provider.json`. The id must match the directory name.
-The optional `name` supplies the human-readable menu group heading; without it,
+Save this as `example/provider.json`. The manifest must set `version` to 1 and be
+at most 16 KiB. The id is 1–64 ASCII letters, digits or dashes and must match the
+directory name. The optional `name` supplies the human-readable menu group heading; without it,
 Strata uses the id. Names must contain non-whitespace plain text, at most 64 UTF-8
 bytes, without control characters. The optional `icon` names one of the declared
-icons and is drawn before that heading. Existing registrations need no changes.
+icons and is drawn before that heading. If `icon` names an id that is not in
+`icons`, Strata rejects the registration and the provider does not load. Omitting
+`icon` or setting it to `null` is accepted. Existing registrations need no changes.
+`command` holds 1 to 16 strings of at most 4,096 bytes each, with no NUL.
 Commands are literal argv with an absolute executable; no shell interpolation,
 PATH lookup, placeholder expansion or working-directory executable lookup is
 performed. The child runs with `/` as its working directory. Nothing in a browsed
 folder registers a provider. Removing the registration and restarting Strata
-uninstalls it. Editing a registration takes effect on restart.
+uninstalls it. Editing a registration takes effect on restart. A relative
+`XDG_CONFIG_HOME` is ignored, and the default location is used.
 
-Registration directories/manifests and icon files must be owned by the current
-user or root, must not be group/world writable, and cannot be symlinks. Executable
-symlinks are resolved for the executable permission check. Providers can reference
-only declared icon ids in replies. PNG artwork lives beside the manifest (plain
-filenames, no subdirectories), at most 64 KiB and 256×256 per image, up to 16 icons.
+The `providers` directory itself, each registration directory, each manifest and
+each icon file must be owned by the current user or root, must not be group- or
+world-writable, and cannot be a symlink. If the `providers` directory fails this
+check, for example because a dotfile manager made it a symlink, no provider loads.
+The executable, `command[0]`, is checked after its symlinks are resolved: the
+target must be a regular file owned by the current user or root and must not be
+group- or world-writable. A script passed as a later argument is not checked. A
+registration that fails any of these checks does not load. Providers can reference
+only declared icon ids in replies. Icon ids are 1–64 ASCII letters, digits or
+dashes. PNG artwork lives beside the manifest (plain filenames ending in `.png`,
+no subdirectories), at most 64 KiB and 256×256 per image, up to 16 icons.
 It is loaded once from trusted configuration, never from selected file content or
 URLs. Branded artwork preserves its colors; use artwork legible on both light and
 dark backgrounds. Strata's own interface continues to use themed Lucide icons.
@@ -80,12 +91,16 @@ quotes, spaces and Unicode in filenames are JSON data, not delimiters or command
 ```
 
 Omit a path or use `badge: null` to draw no decoration. Replies can only affect
-requested paths. An optional `priority` is 0 (normal, the default), 1 (warning), or
-2 (error). The highest priority wins; equal priorities use the provider id in
+requested paths. A reply holds at most 200 decorations, and a `description` is at
+most 512 bytes. An optional `priority` is 0 (normal, the default), 1 (warning), or
+2 (error); a higher value is invalid. The highest priority wins; equal priorities use the provider id in
 lexical order, independent of discovery timing. Accessible descriptions include
 all contributing providers, prefixed with their ids. Status badges do not use tooltips. Rows
 are rebound to their actual current path; old responses cannot decorate a reused
 row. Badges share the thumbnail/icon rendering used by Columns, List and Icons.
+The badge is drawn as a square over the bottom-right corner of the file's icon.
+Its side is 55% of the icon's shorter side, kept between 10 and 24 pixels.
+Non-square artwork is stretched to fit.
 
 `menu` asks for actions for the **entire selection**, up to 200 items:
 
@@ -97,7 +112,10 @@ row. Badges share the thumbnail/icon rendering used by Columns, List and Icons.
 Return an empty `actions` array for ineligible selections. No placeholder or
 disabled global menu item is inserted. Strata always keeps each provider's root
 entries together in an inline section with a small, muted, non-interactive
-heading. This is not an extra submenu: providers choose flat actions, recursive
+heading. Provider sections appear directly after any custom actions and before
+the remaining built-in commands. When several providers answer, their sections
+follow the byte order of their registration directory names. This is not an
+extra submenu: providers choose flat actions, recursive
 submenus, or a mixture within their section:
 
 ```json
@@ -148,27 +166,43 @@ Adapters without tokens must still guarantee safe identity revalidation.
 Every successful activation requires a nonempty plain-text `message` (at most
 16 KiB). Messages and decoration descriptions may contain newlines, carriage
 returns and tabs, but no other control characters, including NUL or terminal
-escape sequences. Optional `outcome.status` is `accepted`, `rejected`, `partial`
-or `unknown`.
+escape sequences. An optional `outcome` object must include `status`: `accepted`,
+`rejected`, `partial` or `unknown`. A reply with an `outcome` but no `status` is
+an invalid frame and disconnects the provider.
 `accepted` and `total` must appear together, with `total` equal to the original
 selection size and `0 <= accepted <= total`. Accepted means all submitted;
 rejected means none; partial means some but not all. Unknown may report a confirmed
 accepted lower bound while other results remain uncertain. Optional `job` is a
 nonempty service reference of at most 128 bytes without control characters.
-The dialog shows source, status, supplied counts and job reference, and message.
-Unknown counts are explicitly shown as a lower bound. Message-only legacy replies remain
-supported, but do not imply confirmed acceptance or completion.
+Strata shows the result in a **File availability** dialog. The dialog starts with
+the provider id, then a status (Accepted, Rejected, Partially accepted or Outcome
+unknown) with any counts, such as `(1/1)`, then `Job: <job>`, then the message.
+An `unknown` outcome shows its counts as a lower bound: `at least N/M accepted`.
+Message-only legacy replies show the provider id and the message; they remain
+supported, but do not imply confirmed acceptance or completion. When the
+provider's queue is full, the dialog says the provider is busy or unavailable and
+the action was not sent. After a disconnect, it says either that the action was
+not sent or that it may already have been accepted.
 
 Optional `feedback` chooses how a successful result is presented: `dialog` (the
-default), `notice` for a brief non-blocking notice showing the provider name and
-message, or `none` when the service presents its own interface, such as a share
+default), `notice` for a non-blocking notice in the window's progress dock, or
+`none` when the service presents its own interface, such as a share
 window. It is honored only with `outcome.status` `accepted`; rejected, partial and
 unknown outcomes, message-only replies, and disconnects always use the dialog.
 Unrecognized values also use the dialog. The message remains required either way.
+The notice shows the provider's `name`, or its id, above the message for about
+four seconds, and replaces any notice still visible. The notice wraps the message
+and cuts it off with an ellipsis after three lines. Where no notice can be shown,
+the File availability dialog opens instead, showing the provider's `name`, or its
+id, followed by the message.
 
 ```json
 {"version":1,"id":3,"message":"Link copied.","outcome":{"status":"accepted"},"feedback":"notice"}
 ```
+
+After every activation reply, Strata treats all of that provider's answers as
+invalidated. It re-queries the provider's visible badges and open menus without
+waiting for an `invalidate` event.
 
 Long operations should be submitted as service jobs. There is no automatic retry
 of actions, including after a lost reply. An unsent action is distinguished from
@@ -177,7 +211,8 @@ represented as proof that nothing happened. Partial acceptance is not a transact
 rollback. Check service state before a manual retry.
 
 To mark cached answers dirty, emit an event at any time. An optional `paths` array
-scopes it to up to 200 absolute native UTF-8 roots; omission means all paths:
+scopes it to 1–200 absolute native UTF-8 roots; omission means all paths, and
+an empty array is invalid:
 
 ```json
 {"version":1,"event":"invalidate","paths":["/home/alice/cloud"],"revision":17}
@@ -196,7 +231,8 @@ a valid snapshot marks it dirty for another refresh, while retaining presentatio
 This guarantees progress for coherent snapshots under sustained activity, without
 treating a reply older than a preceding relevant event as current. Once any revision
 is used, all subsequent invalidations and successful query/menu replies in that
-process session need revisions; invalidation revisions cannot decrease. A process
+process session need revisions; invalidation revisions cannot decrease. Breaking
+either rule disconnects the provider. A process
 restart begins a new session and may restart its counter at zero.
 
 Legacy unversioned events are refresh hints. Their query/menu replies must still
@@ -219,17 +255,26 @@ or clear badges, and open submenu models survive retained-branch refreshes.
 
 Unknown additive fields in manifests, requests and responses should be ignored;
 known fields must retain their types and bounds. A response has exactly one of
-`id` or `event`. Successful queries require `decorations`, menus require `actions`,
+`id` or `event`. The only event is `invalidate`. Any other event name, an event
+carrying `decorations`, `actions`, `outcome` or `error` or a nonempty `message`,
+and an `id` reply carrying `paths` are invalid frames and disconnect the provider.
+A valid reply whose `id` matches no outstanding request is ignored. Successful queries require `decorations`, menus require `actions`,
 and activations require `message`. Legacy adapters may additionally include empty
 `actions`/`decorations` arrays for another method. Missing required fields,
 duplicate tree ids, unknown icons and malformed outcomes are protocol errors.
-`feedback` belongs only to activation replies.
+`feedback` belongs only to activation replies. A `feedback` value that is not a
+string or `null` is an invalid frame. So is `feedback` on a `query`, `menu` or
+`error` reply or on an event. Either one disconnects the provider. An
+unrecognized string is not an error; it uses the dialog.
 Providers must not send nonempty fields belonging to another method.
 
 For an unsupported method or request, reply with the request id, a bounded slug
 `error` such as `unsupported-method`, and an optional human-readable `message`;
-omit `actions`, `decorations` and `outcome`. A method error withdraws that requested
-presentation without killing the provider. Version 1 has a fixed baseline and no
+omit `actions`, `decorations`, `outcome` and `feedback`. A method error withdraws that
+requested presentation without killing the provider. An `error` reply to `activate`
+opens the File availability dialog with the provider id and the optional
+`message`. Without a message, the dialog says "The provider did not report an
+outcome." Version 1 has a fixed baseline and no
 handshake: hosts only send the three methods above. Do not require a startup reply
 or a capabilities request. A future optional negotiation must preserve that baseline.
 
@@ -255,11 +300,12 @@ Each response frame, excluding its newline, is limited to 1 MiB; adjacent valid
 frames do not share that bound. Native paths are at most 16,384 UTF-8 bytes.
 Requests time out eight seconds after dispatch, not admission; socket writes after
 250 ms. Invalid frames, excessive output and timeouts disconnect the provider;
-its process group is terminated and state is withdrawn, with a two-second restart
-backoff. Actions in flight are reported as uncertain, unsent queued actions as
+its process group is terminated and its state is withdrawn. Strata starts a
+provider's process when it first sends that provider a request. After a
+disconnect, it waits two seconds and starts a new process at the next request. Actions in flight are reported as uncertain, unsent queued actions as
 unsent; neither is replayed. Disconnect updates retire only requests from the
 failed session; requests admitted afterward keep their outcome tracking across
-restart. Ordinary on-demand/unrecognized files stay unbadged.
+restart.
 
 The GTK thread does not perform provider socket or subprocess I/O. It applies
 completed bounded batches on its main loop. Each provider cache holds at most

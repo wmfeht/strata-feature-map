@@ -26,7 +26,9 @@ Switching keeps your folder, selection, and filter. Strata reopens in the view
 you used last.
 
 In Columns, click a folder to open it as the next column. Drag a column's right
-edge to resize it; double-click the edge to fit its contents.
+edge to resize it. When you let go, the window's other open columns match that
+width, and new columns open at it. Double-click the edge to fit one column to its
+contents.
 
 In Icons, click **Thumbnail size** in the pane header and drag the slider
 between 32 and 256 px.
@@ -40,11 +42,12 @@ between 32 and 256 px.
 - **Columns and Icons:** click **Choose sort field** in the pane header and pick
   **Name**, **Size**, **Modified**, or **Type**. The arrow button beside it
   reverses the order.
-- **List:** click a heading to sort by it. Click it again to reverse.
+- **List:** click the **Name**, **Size**, **Type**, or **Modified** heading to
+  sort by it. Click it again to reverse.
 
 Name sorting ignores case and reads numbers by value, so `File 2` comes before
-`File 10`. **Folders first**, in the same menu, is on by default and keeps
-folders ahead of files in both directions.
+`File 10`. **Folders first**, in the Columns and Icons sort menu, is on by
+default and keeps folders ahead of files in both directions, in every view.
 
 ## Keep settings per folder
 
@@ -52,12 +55,15 @@ folders ahead of files in both directions.
 <!-- node: browser/view-modes/folder-views, Settings -->
 <!-- node: browser/view-modes/folder-views, Pane menus -->
 
-Each folder remembers the sort you choose in it and its Icons thumbnail size.
+Each local folder remembers the sort you choose in it and its Icons thumbnail
+size. Remote shares, Trash, and Recent do not.
 Sort `~/Downloads` by **Modified**, descending, and only `~/Downloads` changes,
 even after a restart. Other folders keep the default.
 
-In Columns or Icons, the sort menu offers **Make this the default sort** and
-**Reset to default sort**. The thumbnail popover offers the same for size.
+Once a folder has its own sort, its sort menu in Columns or Icons offers
+**Make this the default sort** and **Reset to default sort**. Once you move a
+folder's thumbnail slider off the default, the popover offers **Make this the
+default size** and **Reset to default size**.
 
 Press Ctrl+, and open **General**. Under **BROWSING** you find:
 
@@ -100,3 +106,6 @@ one shows the current size and resets it. To type a size from 8 to 48, use
 - A subfolder does not inherit its parent's sort or size.
 - Ctrl+wheel over a PDF preview zooms the PDF instead of the text. Text size
   never changes thumbnail size or preview zoom.
+
+**Full detail:** [Returning to a visited directory](../reference/keyboard-navigation.md#returning-to-a-visited-directory)
+in the Keyboard navigation reference.

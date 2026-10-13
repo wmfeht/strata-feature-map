@@ -5,9 +5,9 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 # Keyboard
 
-Run Strata without touching the mouse. Learn the handful of keys below, press
-F1 whenever you forget one, and use the arrows to move between files, the
-sidebar, and the toolbar.
+Run Strata without touching the mouse. Learn the keys below, press F1 when
+you forget one, and use the arrows to move between files, the sidebar, and
+the top navigation bar.
 
 ## Shortcuts worth memorizing
 
@@ -28,11 +28,8 @@ sidebar, and the toolbar.
 | Ctrl+Z / Ctrl+Shift+Z | Undo / redo the last file operation |
 | F2 | Rename |
 | Delete / Shift+Delete | Move to Trash / delete permanently |
-| Ctrl+Shift+N | Create a folder |
 | Ctrl+1 / Ctrl+2 / Ctrl+3 | Switch to Columns, Icons, or List |
 | Ctrl+T / Ctrl+W | New tab / close the active tab |
-| Ctrl+H | Show or hide hidden files |
-| Ctrl+, | Open Settings |
 
 ## Look up any shortcut
 
@@ -43,14 +40,9 @@ sidebar, and the toolbar.
 1. Press F1, or click **F1 Shortcuts** at the bottom left of the window.
 2. Type into **Search actions or keys…**: `rename` finds F2, and `ctrl+k`
    finds global search.
-3. Pick a category to narrow the list.
-4. Press F1 or Escape to close it. Focus returns where it was.
+3. Press F1 or Escape to close it. Focus returns where it was.
 
 The list shows only the keys that work in the current view.
-
-The same bottom bar shows the item count, such as `24 items` or
-`1 folder, 2 files selected (64 MB)`. After you copy or cut files, a
-**Files on clipboard** badge appears beside it.
 
 ## Move through views
 
@@ -61,8 +53,8 @@ The same bottom bar shows the item count, such as `24 items` or
 Plain arrows move focus. In Icons and List they never change directory.
 
 - **Columns:** Up and Down move through a column. Right enters the folder,
-  Left goes back to the parent column. Right on a file does nothing; press
-  Enter to open it.
+  Left goes back to the parent column. Right never opens a file; press Enter
+  to open it. If the file's preview is showing, Right moves focus into it.
 - **Icons:** arrows move one tile in that direction.
 - **List:** Up and Down move through rows.
 
@@ -76,30 +68,28 @@ Keep going past the edge to reach the rest of the window:
 - Up from the top of the sidebar reaches the top navigation bar.
 
 Home and End jump to the first and last item, and Page Up and Page Down move
-one page. Tab leaves the file list in one press, and Tab back in lands on the
-item you left.
+one page. Tab leaves the file list in one press, and Shift+Tab back into it
+lands on the item you left.
 
-To jump to a file by name, start typing: **Type to search**, on by default,
-opens the pane filter with that letter (see [Find files](search.md)). Turn it
-off in **Settings → General** and `h`, `j`, `k`, `l` act as Left, Down, Up,
-Right instead.
+To find a file by name, start typing: **Type to search**, on by default,
+opens the pane filter with what you typed and shows only matching items (see
+[Find files](search.md)). Turn it off in **Settings → General** and `h`, `j`,
+`k`, `l` act as Left, Down, Up, Right instead.
 
 ## Good to know
 
 <!-- node: app/keyboard-shortcuts, Matching -->
-<!-- node: app/keyboard-shortcuts, Labels -->
 <!-- node: browser/selection/keyboard-navigation, Keep arrows in file list -->
 <!-- node: app/shortcut-reference, Footer status -->
 <!-- node: app/shortcut-reference, Contents -->
 
-- Shortcuts work on any keyboard layout. On Russian, Ctrl+C is the key that
-  types с. Digits count by position, so Ctrl+1 works on AZERTY without Shift.
-- Caps Lock never changes a shortcut, and labels stay Latin whatever layout
-  is active.
+- Shortcuts work on any keyboard layout and ignore Caps Lock. On Russian,
+  Ctrl+C is the key that types с. Digits count by position, so Ctrl+1 works
+  on AZERTY without Shift.
 - Turn on **Keep arrows in file list** in **Settings → General** to stop
   arrows leaving the files. Ctrl+\ toggles it, and Ctrl+Shift+B jumps to the
   sidebar.
-- Hide the button with **Show F1 Shortcuts button** in **Settings → General**.
+- Hide the **F1 Shortcuts** button with **Show F1 Shortcuts button** in **Settings → General**.
   F1 still opens the reference.
 - In [10xer mode](10xer.md) (Ctrl+Shift+M) the keys change, and F1 lists
   only the 10xer keys.

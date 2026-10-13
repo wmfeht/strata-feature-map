@@ -7,7 +7,8 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 Custom actions add your own scripts to the file and folder context menus. In
 [10xer mode](10xer-mode.md), **;** then **1**–**9** / **0** runs the first
-ten matching actions on the focused item or filled selection.
+ten matching actions that can run on the focused item or filled selection;
+actions whose interpreter or program is missing are skipped.
 
 They are ordinary programs running with your permissions. There is no sandbox and
 no install step beyond enabling an action. Strata validates the definition and the
@@ -17,6 +18,7 @@ results; it does not restrict what a script may do.
 ## Where actions live
 
 <!-- node: integration/custom-actions, Definitions -->
+<!-- node: integration/custom-actions, Settings → Actions -->
 
 ```text
 $XDG_CONFIG_HOME/strata/actions/
@@ -27,8 +29,16 @@ $XDG_CONFIG_HOME/strata/actions/
 
 One directory per action, named after its `id`, containing `action.toml` and
 optionally one script beside it. Settings → Actions creates, edits, duplicates,
-imports, and exports these files, and hand-editing them is supported: opening the
-editor shows whatever is on disk.
+imports, and exports these files. You can also edit them by hand. Context menus
+and the 10xer **;** list reread the manifests each time they open, so hand edits
+apply the next time you open one. Once **Settings → Actions** has been opened in
+a window, every window keeps the manifests loaded at that moment until each
+window where it was opened closes; closing Settings does not release them. In
+that time Strata rereads them only after Settings → Actions creates, saves,
+duplicates, imports, or deletes an action, and **Save changes** or the enable
+switch writes the loaded values back over your manifest edits. Restarting Strata
+always picks up hand edits. The editor reads the script itself from disk each
+time it opens.
 
 Actions are ordinary, user-owned folders under
 `${XDG_CONFIG_HOME:-$HOME/.config}/strata/actions/`. The folder name and manifest
@@ -38,7 +48,8 @@ action. Create directories with mode `0700` and manifest/script files with mode
 paths. Scripts need no executable bit: Strata invokes the interpreter. Command
 actions have only a manifest. Import/export transfers the manifest and declared
 entrypoint, not arbitrary helper files. After hand-writing files, restart Strata
-to reload them, then review/enable the action in Settings.
+if Settings → Actions has been opened since it started, then review and enable
+the action in Settings → Actions.
 
 ## Creating an action
 
@@ -52,7 +63,8 @@ Choose **Settings → Actions → New action…**. The editor has three tabs:
   Leave the id blank to derive it from the name.
 - **Script**: choose Python, Bash, or Command. Scripts have a line-numbered editor;
   commands take an installed program and one argument per line. Switching runtimes
-  keeps each script draft until you close the dialog. For Python and Bash, a runtime
+  keeps each script draft until you close the dialog; only the runtime selected
+  when you save is written. For Python and Bash, a runtime
   indicator checks the declared shebang (or default interpreter) against the same executable lookup
   used when loading actions. Python uses the script's shebang, or `python3` when
   there is none. Availability is checked automatically when the
@@ -61,23 +73,42 @@ Choose **Settings → Actions → New action…**. The editor has three tabs:
   script syntax, dependencies such as ImageMagick, FFmpeg, or ExifTool, or
   behavior; missing runtimes do not prevent saving a draft.
 - **Behavior**: execution mode, per-item failure policy, working folder, menu
-  placement, file/folder filters, selection limit, and confirmation.
+  placement, file/folder filters, selection limit, and confirmation. **On
+  failure** (**Continue** or **Stop**) can be changed only when **Run** is set to
+  **Per item**.
 
+The editor opens with Name focused, nothing selected, and the caret at the end.
 **Create action** saves all three tabs together. Invalid fields bring you back to
 that tab without discarding your edits. Clicking outside the dialog leaves it open;
-**Cancel**, the close button, or **Escape** discards the draft.
+**Cancel**, the close button, or **Esc** discards the draft.
 Existing actions use the same editor with **Save changes**; their id stays fixed.
 Creating or duplicating an action never replaces an existing action directory.
 Manifest-only MIME filters and minimum selection counts survive editor saves.
 Command arguments preserve literal whitespace and empty lines; unchanged arguments
 containing embedded newlines are also retained.
 
+### Managing actions
+
+Each action row in **Settings → Actions** has an enable switch and **Edit**,
+**Duplicate**, **Export…**, and **Delete** buttons.
+
+- **Duplicate** creates `<id>-copy` named “<name> copy”, then tries `<id>-copy-1`,
+  `<id>-copy-2`, and so on.
+- **Export…** asks for a folder and writes the action to `<chosen folder>/<id>`.
+  It refuses if that folder already exists.
+- **Import…** asks for an action folder and copies its `action.toml` and
+  entrypoint. It saves the action disabled under a free id (`<id>`, then
+  `<id>-1`, `<id>-2`, …) and tells you to review its script before enabling it.
+- **Delete** asks **Delete this action?**, with **Delete** focused. Confirming
+  removes the action folder and its script from your actions directory.
+
 ### Script examples
 
 Open **Library** on the Script tab to browse bundled Python and Bash recipes in a
-dropdown attached to the editor. Search names, descriptions, or requirements,
-and narrow the list with **All**, **Files**, or **Media**. Each template shows its
-language, purpose, run mode/input scope, and required tools:
+dropdown attached to the editor. Search names, descriptions, requirements, input
+scope, category, or runtime; every word you type must match. Narrow the list
+with **All**, **Files**, or **Media**. Each template shows its language, purpose,
+run mode/input scope, and required tools:
 
 | Example | Extra requirements | Result |
 | --- | --- | --- |
@@ -93,7 +124,9 @@ language, purpose, run mode/input scope, and required tools:
 | Count lines | Bash + `wc` (coreutils) | Log each file's newline count and the total, without changing files |
 
 Python recipes need Python 3 but no pip packages; Bash recipes do not need
-Python. Strata does not install tools.
+Python. Strata does not install tools. A recipe whose ImageMagick, FFmpeg, or
+ExifTool command is not on your `PATH` fails before it creates or changes any
+file.
 Conversion outputs go into fresh, private folders **beside each original**;
 conversions never overwrite originals. EXIF stripping instead edits the working
 photo after making a private backup, as described below. Existing checksum files
@@ -105,18 +138,25 @@ sandboxed.
 Applying a recipe selects its runtime and sets suitable file filters and run mode.
 Conversions, checksums, and EXIF stripping select **Per item**; the starter,
 rename/lowercase, and line-count recipes select **Whole selection**, even if the
-previous draft used the opposite mode. It keeps a name or description you
-entered, the id, and other settings. Choose a template to load it into the
-editor for review. If you have edited the target runtime's draft, the dropdown first
-asks you to **Replace script** or **Keep draft**, without opening another dialog.
+previous draft used the opposite mode. A blank Name or Description, or one still
+showing the previously applied recipe's text, takes the recipe's name and
+description; a name or description you typed, the id, and other settings are
+kept. Choose a template to load it into the editor for review; the editor then
+shows the Script tab with the recipe loaded. If the target runtime's script is
+not blank and differs from the starter template (your edits, an earlier recipe,
+or an existing action's script), the dropdown first asks you to **Replace
+script** or **Keep draft**, without opening another dialog.
 Code replacement can be undone in the editor; drafts for the other runtimes are retained.
-Escape or clicking outside closes only the dropdown, leaving the editor open.
+**Esc** or clicking outside closes only the dropdown, leaving the editor open.
 Searching, browsing, or applying a template never saves or executes it. Review
 and save the action, then launch it from its file/folder context menu or, in
-10xer mode, **;** then a digit.
+10xer mode, **;** then a digit. The digits follow context-menu order. A vacant
+digit flashes `No action N` and runs nothing. A digit pressed after the targets
+or the action list changed flashes `Selection changed` or `Actions changed` and
+runs nothing; see [10xer mode](10xer-mode.md).
 
 The documented Python starter and every Python recipe include the same maintained
-[`context()` reference](https://github.com/lgse/strata/blob/main/data/actions/context-api.txt) as a module docstring.
+[`context()` reference](https://github.com/lgse/strata/blob/0a086aa3bdb251842a1e8413e2a6b35970d0b409/data/actions/context-api.txt) as a module docstring.
 Examples are starting points: edit the output format, quality, resize limit,
 FFmpeg flags, or filters before saving. Shared rename-recipe code is embedded
 into the inserted script, so saved recipes do not depend on files in Strata's
@@ -124,9 +164,9 @@ source checkout.
 
 **EXIF stripping:** only regular, non-symlink photos are accepted. Each original
 is copied completely into a new private folder before ExifTool replaces the
-working photo; repeated runs keep separate backups. Failed or cancelled copies
-may leave partial backup folders, and cancellation does not restore earlier
-changes. Removing writable metadata can remove orientation/color profiles and
+working photo; repeated runs keep separate backups. If the backup copy fails,
+that photo's metadata is left untouched. Failed or cancelled copies may leave
+partial backup folders, and cancellation does not restore earlier changes. Removing writable metadata can remove orientation/color profiles and
 is not a guarantee that every format is anonymized. Review results before
 removing backups.
 
@@ -172,6 +212,7 @@ error can leave earlier files renamed. Review the script and try it on copies fi
 ## Manifest
 
 <!-- node: integration/custom-actions, Definitions -->
+<!-- node: integration/custom-actions, Invocation -->
 
 ```toml
 schema_version = 1
@@ -199,27 +240,29 @@ confirm = false
 | Field | Meaning |
 | --- | --- |
 | `schema_version` | Must be `1`. A newer version is refused with an explanation. |
-| `id` | Directory name: lowercase letters, digits, `.`, `-`, `_`. Cannot change later. |
+| `id` | Directory name, up to 64 characters: lowercase letters, digits, `.`, `-`, `_`, starting with a letter or digit. It must equal the folder name, or the action fails to load. Cannot change later. |
 | `name` | Menu label, 1–64 characters. |
-| `description` | Optional accessible description. |
+| `description` | Optional accessible description, 1–240 characters. |
 | `icon` | Bundled Lucide icon slug, for example `play`, `terminal`, `image`. |
 | `enabled` | `false` keeps the action in Settings but out of menus. |
 | `menu` | `submenu` (default) groups the action under **Actions**; `top` puts it in the menu body. |
 | `[when].kinds` | `file`, `folder`, or both. Empty means either. |
-| `[when].extensions` | Lowercase extensions without dots. Empty means any. |
+| `[when].extensions` | Extensions without dots, matched regardless of case. Empty means any. |
 | `[when].mime_types` | Guessed content types such as `image/*` or `image/png`. |
-| `[when].min_items` / `max_items` | Selection size bounds. |
+| `[when].min_items` / `max_items` | Selection size bounds. `min_items` defaults to 1 and `max_items` to no limit; both lie between 1 and 10,000, and `max_items` cannot be smaller than `min_items`. |
 | `[run].runtime` | `python`, `bash`, or `command`. |
 | `[run].entrypoint` | Script file name beside `action.toml` (Python and Bash only). |
 | `[run].program` / `[run].args` | Program and arguments (command actions only). |
 | `[run].mode` | `whole-selection` (default) invokes once with every path; `per-item` invokes once per path. |
 | `[run].on_error` | `continue` (default) or `stop`, used by `per-item` runs. |
-| `[run].working_directory` | `parent` (default), `home`, or `action`. |
-| `[run].confirm` | Ask once before queuing the entire job. |
+| `[run].working_directory` | Where the process starts (**Working folder** in the editor). `parent` (default, **Invoking**) is the invoking folder, which for a folder-background run is that folder itself; `home` (**Home**) is your home folder; `action` (**Action**) is the action's own directory. |
+| `[run].confirm` | Ask once before queuing the entire job (see [Confirmation](#confirmation)). |
 
 Validation is strict: unknown keys, unsupported versions, invalid ids, entrypoints
 that are not a plain file name, and argument tokens that do not match the execution
-mode are all refused with a message rather than being ignored.
+mode are all refused with a message rather than being ignored. A manifest lists
+at most 64 extensions, 64 content types, and 32 command arguments. An extension
+is at most 24 characters, with no leading dot, `/`, `\`, `*`, or whitespace.
 
 ## Matching
 
@@ -229,16 +272,23 @@ mode are all refused with a message rather than being ignored.
 An action appears when **every** currently selected entry satisfies `[when]`, and
 the selection size is within `min_items`/`max_items`. A mixed selection therefore
 never runs an action on a subset the author did not intend to accept.
+Extensions match regardless of case, so `jpg` matches `photo.JPG`. Content types
+are guessed from the file name alone; Strata never reads file contents to match
+an action. `image/*` matches every `image/` type.
 
 Opening the folder background menu offers the same rules with the folder itself as
 the single input. Actions are only offered for native paths: Trash, GVfs, and other
 non-native locations are excluded in this release.
 
-Custom actions occupy a separate section between the opening/printing commands
-and Cut/Copy. The context menu uses GTK's native nested menu model: hover over
+Custom actions occupy a separate section after the opening, printing, and extract
+commands and before Cut/Copy. Actions with `menu = "top"` are listed first in that
+section of the menu body, followed by the **Actions** submenu row, with a play
+icon, holding the rest. Both groups are sorted by name, ignoring case. The context menu uses GTK's native nested menu model: hover over
 **Actions** to open its submenu, then move onto an action to highlight it.
 Hovering another menu item closes the submenu. Clicking or keyboard activation
-also opens it; outside-click or Escape dismisses the menu. Long filenames and
+also opens it. On the **Actions** row, **Right**, **Space**, or **Enter** opens
+the submenu with its first action focused; **Left** closes only the submenu and
+refocuses its row. An outside click or **Esc** dismisses the menu. Long filenames and
 paths use middle ellipsis, preserving their beginning and extension.
 
 ## How an invocation runs
@@ -286,16 +336,24 @@ stored byte-exactly in the file named by `STRATA_ACTION_PARENT`.
 once per path and tracks succeeded, failed, and remaining counts itself; with
 `on_error = "stop"` the first failure ends the job.
 
+### Confirmation
+
+With `confirm = true`, choosing the action opens **Run this action?** with the
+action's name and icon. It reads “This runs “<name>” on <n> selected items.”, then
+the action's description, with **Run** focused. **Cancel** or the close button
+runs nothing.
+
 ### Command argument tokens
 
-`args` entries are either literal text or exactly one of:
+`args` entries are either literal text without `{` or `}`, or exactly one of:
 
 - `{path}` — the single input of a per-item run.
 - `{paths}` — every input of a whole-selection run, as separate arguments.
 - `{parent}` — the invoking folder.
 
-A token written inside a larger string (`prefix-{path}`) is rejected, so nothing is
-ever interpolated into a command line.
+Any other argument containing a brace, such as `prefix-{path}` or `{}`, is
+refused, so nothing is ever interpolated into a command line. Use a Bash action
+if a program needs literal braces.
 
 For an installed executable, `[run]` looks like this—no script file:
 
@@ -333,8 +391,9 @@ line to `$STRATA_ACTION_PROGRESS`:
 - Malformed or unknown lines are ignored, the file is read incrementally, and both
   the file and the number of events per invocation are bounded.
 
-Scripts that never report progress still appear as **Running** with elapsed time
-and an indeterminate indicator. stdout and stderr are captured as bounded output
+Whole-selection scripts that never report a total still appear as **Running**
+with elapsed time and an indeterminate indicator. A per-item job's bar fills by
+completed items, plus the current item's reported fraction. stdout and stderr are captured as bounded output
 for the Jobs dashboard; they are not the progress channel.
 
 ## Python helper
@@ -342,7 +401,8 @@ for the Jobs dashboard; they are not the progress channel.
 <!-- node: integration/custom-actions, Invocation -->
 
 Python actions can use the bundled standard-library helper, which is importable
-inside a run and needs no `pip install`:
+inside a run and needs no `pip install`. In this sketch, `convert` stands for your
+own function that writes `<path>.webp`:
 
 ```python
 #!/usr/bin/env python3
@@ -396,32 +456,48 @@ progress file, and exit with a status.
 
 ## Jobs and cancellation
 
+<!-- node: operations/progress/jobs, Queue -->
 <!-- node: operations/progress/jobs, Dashboard -->
 <!-- node: operations/progress/jobs, Cancellation -->
 
 Each invocation runs in the background. Queuing an action automatically opens
-Jobs in the **launching window**, with that new job first and its queued/running
-state, progress, elapsed time, and output. Confirmation actions open Jobs only
-after you choose **Run**. This presentation does not change queue execution order
-or open dashboards in other windows. The footer shows running/queued counts and
-reopens finished history when clicked.
+Jobs in the **launching window**, with that new job first, showing its
+queued/running state, progress, and elapsed time; **Details** shows its output.
+Confirmation actions open Jobs only after you choose **Run**. This presentation does not change queue execution order
+or open dashboards in other windows. A **Jobs** button appears in the footer only
+while jobs exist. It reads, for example, “2 jobs running · 1 queued”, or “3 jobs
+finished” when none are active, with “ · failures” added when any job failed.
+Clicking it reopens the dashboard.
 
-Minimizing, pressing Escape, or clicking away only hides the dashboard. Progress
+Minimizing, pressing **Esc**, or clicking away only hides the dashboard. Progress
 and completion updates do not reopen it; launching another action does.
-Cancellation is its own button and signals the whole process group, escalating
-to SIGKILL if the process ignores SIGTERM. Closing the last application window
-is blocked while jobs are queued, running, or cancelling; finish or cancel them
-in Jobs first. Other windows may close without interrupting work.
+**Remove** on a queued job ends it as Cancelled (“Removed before starting”)
+without running it. **Cancel** on a running job shows “Cancelling…” and sends
+SIGTERM to its whole process group, then SIGKILL after 2 seconds. A job still
+cancelling after 10 seconds is marked Cancelled (“Cancelled; the action did not
+stop cleanly”) and frees its slot. Closing the last application window while jobs
+are queued, running, or cancelling shows **Background jobs are still active** and
+keeps the window open; finish or cancel them in Jobs first. Other windows may
+close without interrupting work.
 
 An invocation ends when its direct process exits. Output capture and scratch
 files are then closed without waiting for background descendants. Scripts should
 wait for subprocesses that need the invocation's context or captured output.
 
-Finished jobs stay in the dashboard for the current session, including successes,
-failures, and cancellations. **Details** expands captured output and **Hide**
-collapses it. The header summarizes running, queued, and finished jobs. Rows use
-the action's icon and theme-accent status, with elapsed time and a check or X for
-finished results. Failure output appears only in Details, not a separate banner.
+Up to 20 finished jobs (successes, failures, and cancellations) stay for the
+current session. The oldest finished jobs are dropped first; active jobs never
+are. The dashboard lists at most 12 jobs, then shows “<n> older jobs are hidden”.
+**Details** expands captured output and **Hide** collapses it; a queued job has no
+**Details** yet. Details shows “No output yet.” until output arrives. On a running
+job it streams new output and follows the bottom until you scroll up, then follows
+again once you scroll back down. The header summarizes running, queued, and
+finished jobs. Each row shows the action's name and icon, a theme-accent status
+(“Queued”, “Cancelling…”, or “Running for”, “Done in”, “Failed after”, or
+“Cancelled after” with the elapsed time), and a check or X for finished results.
+Below it, the row lists the script's latest message, progress counts such as
+`3/10` (plus “<n> failed” in a per-item job), and the invoking folder, shown as
+Home or `~/…` under your home folder. Failure
+output appears only in Details, not a separate banner.
 The dashboard opens above the footer without covering it.
 Icon-only buttons retain tooltips; controls retain accessible names. **Minimize** keeps history;
 **Dismiss** removes one finished job,
@@ -434,6 +510,8 @@ already written to disk, and Strata does not retry a failed or cancelled action.
 
 <!-- node: integration/custom-actions, Definitions -->
 <!-- node: integration/custom-actions, Settings → Actions -->
+<!-- node: operations/progress/jobs, Queue -->
+<!-- node: operations/progress/jobs, Dashboard -->
 
 - Actions are trusted local programs. Out-of-process execution is not a filesystem
   or network boundary; a script can do anything you can do.
@@ -442,11 +520,18 @@ already written to disk, and Strata does not retry a failed or cancelled action.
 - Strata never discovers or runs scripts found in browsed folders, and never
   installs runtimes, interpreters, or packages. A missing interpreter or program
   leaves the action visible but disabled, with the reason in its accessible description.
+- Interpreters and programs are looked up on your `PATH`. A script without a
+  shebang runs with `python3` or `bash`. A shebang outside the runtime's family,
+  such as `#!/bin/bash` in a Python action, makes the action fail to load and
+  appear under Problems. A `program` written as a relative path containing `/`
+  counts as unavailable; use a bare name or an absolute path.
 - Manifests and generated scripts are written owner-only (0600) inside an
   owner-only directory, and entrypoints are read as regular files: a symlinked
   manifest, entrypoint, action directory, or scratch directory is refused rather
   than followed.
-- Captured output is bounded, and the dashboard renders it as text.
+- Each invocation keeps the newest 8 KiB of stdout and stderr, starting with “…”
+  when trimmed, and a job keeps the newest 64 KiB across invocations. Terminal
+  colour and control sequences are stripped, and the rest is shown as plain text.
 
 ## Limitations
 
@@ -464,12 +549,17 @@ already written to disk, and Strata does not retry a failed or cancelled action.
 ## Testing an action
 
 <!-- node: integration/custom-actions, Definitions -->
+<!-- node: integration/custom-actions, Settings → Actions -->
 <!-- node: operations/progress/jobs, Dashboard -->
 
 Enable it, then right-click a file that matches `[when]` and choose it. The Jobs
 dashboard shows the invocation, its output, and its exit status. A definition that
-cannot load appears under **Settings → Actions → Problems** with the reason, and
-never silently disappears from the menus.
+cannot load appears under **Settings → Actions → Problems** as
+`<folder>: <reason>`, and never silently disappears from the menus; the other
+actions still load. Problems carries the note “These files could not be loaded.
+Fix them in the actions folder, or remove them.” Settings search finds the action
+list and Problems as “Custom actions”, **New action…** as “New custom action”,
+and **Import…** as “Import custom action”.
 
 When a coding agent writes an action for you: choose a fresh id, write the
 matching manifest and entrypoint, declare required tools, preserve

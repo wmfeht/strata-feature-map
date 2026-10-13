@@ -6,7 +6,8 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 # Start here
 
 Strata is a fast, keyboard-first GTK file manager for Linux. It is built for
-Arch Linux and Omarchy, and runs on other GTK4 desktops with glibc 2.39 or newer.
+Arch Linux and Omarchy, and may also run on other x86_64 or aarch64 Linux
+systems with GTK 4.12 or newer and glibc 2.39 or newer.
 
 ## Install
 
@@ -26,16 +27,22 @@ The installer walks you through five steps:
 
 1. It checks your machine: x86_64 or aarch64, glibc 2.39 or newer, and whether
    you run Omarchy.
-2. On Arch or Omarchy, it lists the missing packages and asks before running
-   `sudo pacman`. On other distributions, it lists what to install yourself.
+2. On Arch-based systems, including Omarchy, it lists the missing packages and
+   asks before running `sudo pacman`. It then offers optional SMB share and
+   camera RAW support. On other distributions, it lists the libraries to install
+   and stops unless you confirm they are installed.
 3. It downloads the latest stable release and checks its SHA-256 checksum before
-   installing anything. With a logged-in `gh`, it also verifies the build's
+   extracting it. With a logged-in `gh`, it also verifies the build's
    provenance.
 4. It installs the binary to `~/.local/bin/strata`.
-5. It asks about optional extras, one question each: a launcher entry, making
-   Strata the default for folders, "Open file location" from other apps, the
-   system file chooser, and Omarchy keybinds. Only the launcher entry defaults
-   to Yes.
+5. It asks about optional extras: a launcher entry, then making Strata the
+   default for folders, "Open file location" from other apps, the system file
+   chooser, and Omarchy keybinds. On Omarchy or other Arch-based systems with
+   udiskie, it also offers to unlock encrypted drives with Strata. Only the
+   launcher entry defaults to Yes. The folder question follows only a Yes to the
+   launcher entry, and a Yes to it sets up "Open file location" without asking.
+   Answer No to the keybinds unless you run Omarchy: elsewhere, Yes stops the
+   installer with an error.
 
 If the summary warns that `~/.local/bin` is not on `PATH`, add it in your shell
 configuration, or start Strata from your launcher.
@@ -55,9 +62,9 @@ Home open in Columns view, sidebar on the left, footer showing "F1  Shortcuts". 
 
 Strata opens your home folder in Columns view. Each folder you open adds a
 column to the right, so the path you took stays visible. The sidebar lists Home,
-Trash, Network, and your standard folders, with **PINNED** and **DEVICES**
-below. If Strata finds an Omarchy theme, it follows it; otherwise it starts in
-Tokyo Night.
+Trash, Network, and your standard folders. Folders you pin appear under
+**PINNED**, and drives under **DEVICES**. On Omarchy Quattro, Strata follows your
+desktop theme; otherwise it starts in Tokyo Night.
 
 Try these three things first:
 

@@ -17,22 +17,22 @@ and shows its progress and output in the Jobs dashboard.
 1. Open **Settings → Actions** and click **New action…**.
 2. On **General**, type `Count lines` in **Name**. Leave **Id** blank; Strata
    derives `count-lines` from the name.
-3. On **Script**, click **Library** and pick **Count lines**. It is a Bash
-   recipe that needs only `wc`, and it limits the action to text files such as
+3. On **Script**, click **Library** and pick **Count lines**. This Bash
+   recipe needs only `wc` and offers the action only for text files such as
    `.txt` and `.md`.
 4. Click **Create action**.
 5. Select a few `.txt` or `.md` files, right-click, and choose
    **Actions → Count lines**.
 
-The Jobs dashboard opens with the new job. Click **Details** to read each
-file's count and the total.
+The Jobs dashboard opens with the new job. Click the eye button (**Details**)
+on the job to read each file's count and the total.
 
 ## What is on disk
 
 <!-- node: integration/custom-actions, Definitions -->
 <!-- node: integration/custom-actions, Matching and menus -->
 
-Settings wrote this for you, and you can edit it by hand:
+Settings wrote this, and you can edit it by hand:
 
 ```text
 ~/.config/strata/actions/count-lines/
@@ -40,8 +40,7 @@ Settings wrote this for you, and you can edit it by hand:
   run.sh
 ```
 
-The folder name must match the `id`. Settings also writes default values; the
-smallest working manifest is:
+The folder name must match the `id`. A short working manifest is:
 
 ```toml
 schema_version = 1
@@ -60,7 +59,8 @@ entrypoint = "run.sh"
 The `[when]` table decides when the action shows up. Add
 `extensions = ["md", "txt"]` to limit it to those files, or set
 `kinds = ["folder"]` for folders. The action appears only when every selected
-item matches.
+item matches. Strata reads hand edits at startup, so restart Strata after you
+change a file.
 
 ## Writing a script in Python
 
@@ -83,22 +83,23 @@ for index, path in enumerate(ctx.paths, start=1):
     ctx.output(target)
 ```
 
-Choose **Python** under **Runtime**, keep the **Script file** `main.py`, and
-paste the script. In the manifest that is `runtime = "python"` and
-`entrypoint = "main.py"`.
+A new action starts as **Python** with `main.py` and a starter script;
+replace the starter with this one. On **Behavior**, clear **Folders** and set
+**Extensions** to `png, jpg, jpeg`. In the manifest that is `runtime = "python"`
+and `entrypoint = "main.py"`.
 
 `ctx.paths` holds the selected absolute paths, `ctx.progress` fills the
 progress bar, and `ctx.output` records where a result went. `require_tool`
 stops the run when a program is missing, and any non-zero exit marks the job
-failed. Every Python recipe in **Library** starts with the full helper
-reference.
+failed.
 
 ## Running an existing program instead
 
 <!-- node: integration/custom-actions, Invocation -->
 
 Choose **Command** under **Runtime**, name the **Program**, and enter one
-argument per line under **Arguments**. In the manifest:
+argument per line under **Arguments**. On **Behavior**, clear **Folders** and
+set **Extensions** to `jpg, jpeg, png`. In the manifest:
 
 ```toml
 [when]
@@ -113,9 +114,9 @@ confirm = true
 ```
 
 `{paths}` expands to every selected file, one argument each, and nothing goes
-through a shell. A token must be a whole argument: `prefix-{path}` is refused.
+through a shell.
 `mogrify` overwrites the originals, so `confirm = true` asks before running.
-In Settings that is **Ask before running this action** on **Behavior**.
+In Settings that is the **Confirm** switch on **Behavior**.
 
 ## Good to know
 
@@ -127,8 +128,8 @@ In Settings that is **Ask before running this action** on **Behavior**.
   save it. Actions you add with **Import…** arrive disabled.
 - `mode = "per-item"` runs the action once per file. Use `{path}` there
   instead of `{paths}`.
-- In [10xer mode](10xer.md), press ; then 1–9 or 0 to run one of the first ten
-  matching actions.
+- In [10xer mode](10xer.md), press `;` then `1`–`9` or `0` to run one of the
+  first ten matching actions.
 - Actions are not offered in Trash or on remote locations.
 - A manifest that fails to load is listed under **PROBLEMS** in
   **Settings → Actions** with the reason. Your other actions still load.

@@ -123,9 +123,11 @@ button, or right-click and choose **Lock**. If its passphrase is saved, Strata
 asks **Forget saved password?**; **Forget and lock** removes it and locks.
 
 To remove a drive, click its eject button, or right-click and choose **Eject**
-(**Unmount** on drives that cannot eject). Strata flushes pending writes first.
-Unplug when **Safe to remove** appears. **Hide** dismisses the progress without
-stopping it; the row shows a spinner until the release finishes.
+(**Unmount** on drives that cannot eject). Strata flushes pending writes first;
+the row shows a spinner until the release finishes. Unplug once the spinner
+stops with no error. A slow release opens a progress window; **Hide** dismisses
+it without stopping the release. If it is open when an eject finishes, it shows
+**Safe to remove**.
 
 **Full detail:** [SFTP locations](../reference/remote-sftp.md),
 [Installation and desktop integration](../reference/install.md)
