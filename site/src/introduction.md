@@ -75,7 +75,7 @@ Try these three things first:
 3. **Search everywhere.** Press Ctrl+K and type part of a name. Search covers
    your home folder and mounted local drives, wherever you are.
 
-Forgot a key? Press F1, or click **Shortcuts** in the footer, to search every
+Forgot a key? Press F1, or click **F1 Shortcuts** in the footer, to search every
 shortcut. Ctrl+, opens **Settings**.
 
 ## Where to go next

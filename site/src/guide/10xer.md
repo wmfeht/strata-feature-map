@@ -37,7 +37,7 @@ Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+Z, Ctrl+K, and Ctrl+L work as in the
    **BROWSING** in **General**.
 2. Check for the **10X** pill at the far right of the footer.
 3. Press Ctrl+Shift+M again, or turn the switch off in Settings, to leave.
-   Ctrl+Shift+M is the only key that leaves: `q` and Esc never do.
+   Ctrl+Shift+M is the only key that leaves: `q` and Escape never do.
 
 The choice is saved for every window and the next launch. Strata's system file
 chooser follows it too.
@@ -86,7 +86,7 @@ tiles; press Enter to open one. Capitals mean Shift: `G` is Shift+G.
 | `z` | Jump to a visited folder |
 | `g h` / `g d` | Home / Downloads |
 | `g` Space | Type a path to go to |
-| Esc | End one thing: prompt, filter, range, preview, then selection |
+| Escape | End one thing: prompt, filter, range, preview, then selection |
 | `Q` | Close the window |
 
 Try it: press `s`, type `readme`, and press Enter. The cursor lands on the

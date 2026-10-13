@@ -20,19 +20,19 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 # 10xer mode reference
 
-10xer mode is an opt-in Yazi-style browsing map. In **Settings → General → Browsing** the row is titled **10xer mode** and its subtitle is **Opinionated keyboard-centric mode with Yazi-style navigation. Disables some features. Toggle with Ctrl+Shift+M.** The footer shows a compact **10X** pill in its far right corner, after the item count, while the mode is on. It hides window Search, the pane
+10xer mode is an opt-in Yazi-style browsing map. In **Settings → General → BROWSING** the row is titled **10xer mode** and its subtitle is **Opinionated keyboard-centric mode with Yazi-style navigation. Disables some features. Toggle with Ctrl+Shift+M.** The footer shows a compact **10X** pill in its far right corner, after the item count, while the mode is on. It hides window Search, the pane
 Close, filter, refresh, and sort controls, and the List and Icons pane header (back,
 forward, and up buttons with the folder title) in interactive browsers, disables
 type-to-search, and uses the footer as the typed-command surface. The window's
 own close button and the clickable List column headings stay. The portal file chooser follows the same preference:
 it hides the same pane chrome, uses this keymap and the footer
 prompt, and keeps Accept, Cancel, and the header close control. **Enter** / **o**
-confirm a file. **Esc** is the way out: it cancels the dialog after dismissing
+confirm a file. **Escape** is the way out: it cancels the dialog after dismissing
 a prompt, filter, or preview. The chooser
 continues to disallow folder peeking and column mirroring, so **i** does not
 open a peek or an extra Miller column there.
 
-Turn it on in **Settings → General → Browsing → 10xer mode**, or with
+Turn it on in **Settings → General → BROWSING → 10xer mode**, or with
 **Ctrl+Shift+M**. The choice is saved and live-updates every window. **F1** or
 **~** opens the in-app table of commands that currently run; it is the only
 in-app keybinding reference. While the mode is on, the reference lists only the
@@ -141,7 +141,7 @@ In Columns, **i** on a directory opens the next column and leaves focus where it
 is, even with mirroring off. A second press does not move focus. In List and Icons, **i** toggles
 the existing folder-peek popover for the focused directory. That popover is the
 directory peek, not the saved Folder peeking switch and not a file preview.
-Pressing **i** again, or **Esc**, closes the popover. **Esc** does not close a
+Pressing **i** again, or **Escape**, closes the popover. **Escape** does not close a
 Miller column. **i** on a file opens the preview drawer if it is closed and
 closes it if it is open; keys stay in the listing, so **j** / **k** keep moving
 the cursor and the preview follows it. Use **l** / **Right** (List and Columns) or
@@ -172,7 +172,7 @@ Listing commands no surface uses hand the keys back to the listing, with the
 drawer still open, and run there on the previewed item:
 
 - Folders: **Backspace**, **H** / **L**, **Alt+Left** / **Alt+Right** / **Alt+Up**, **g** places
-  and **g +** / **g -**, **z** / **Z**. In a document or archive **g g** still goes to the top, and
+  and **g +** / **g −**, **z** / **Z**. In a document or archive **g g** still goes to the top, and
   every other valid **g** step runs from the listing; an unknown second key
   flashes `Unknown chord` and leaves the keys in the preview.
 - Prompts: **/** (except in a searchable document, where it opens find), **?**,
@@ -192,7 +192,7 @@ SourceView rather than in recycled rows (see
 [limits and fallback](document-previews.md#limits-and-fallback)): while it has the
 keys, **Ctrl+1** / **Ctrl+2** / **Ctrl+3** and undo / redo do nothing. Return the
 keys to the listing first, for example with **Shift+Tab**. Any other key is swallowed. Inside a text field,
-**F1**, **Ctrl+Shift+M**, **Esc**, **Shift+Tab**, **F5**, **Ctrl+K**, **Ctrl+,**,
+**F1**, **Ctrl+Shift+M**, **Escape**, **Shift+Tab**, **F5**, **Ctrl+K**, **Ctrl+,**,
 the Ctrl tab shortcuts, and text size still work; every other key is typed or
 edits the text.
 
@@ -208,20 +208,20 @@ edits the text.
 | Paging keys | Scroll half / full page | Swallowed | Text editing | **Page Up** / **Page Down** seek +30 / −30 s; **Ctrl+U** / **Ctrl+D** / **Ctrl+B** / **Ctrl+F** swallowed |
 | **/** | Find in the document; see [document previews](document-previews.md#text-selection-and-find) | Listing find prompt, as **/** from the listing | Typed | Listing find prompt, as **/** from the listing |
 | **0** | Swallowed | Swallowed | Typed | Seek to the start |
-| **+** / **=** / **-** | Swallowed | Swallowed | Typed | Volume up / down |
+| **+** / **=** / **−** | Swallowed | Swallowed | Typed | Volume up / down |
 | **m** | Swallowed | Swallowed | Typed | Mute / unmute |
 | **<** / **>** | Swallowed | Swallowed | Typed | Previous / next file of the same type in the listing; playback continues if it was playing |
 | **J** / **K** | Scroll | Scroll | Typed | Swallowed |
 | **Shift+Tab** | Return to the listing | Return to the listing | Return to the listing | Return to the listing |
-| **Esc** | Close find if it is open, otherwise close the drawer | Close the drawer | Close the drawer | Close the drawer |
+| **Escape** | Close find if it is open, otherwise close the drawer | Close the drawer | Close the drawer | Close the drawer |
 
 Returning to the listing keeps the drawer open and lands on the same cursor.
-Closing with **Esc** or **i** also returns the keys to the listing, so the
+Closing with **Escape** or **i** also returns the keys to the listing, so the
 Miller column regains its destination bar. **i** therefore toggles the preview
 from either side: open from the listing, closed from the preview. A focused
 media timeline takes the Media keys above. A focused preview button or slider
 (reached with **Tab** or the pointer) keeps GTK's own **Space** / **Enter** /
-arrow handling; **Shift+Tab** and **Esc** still return or close. The volume
+arrow handling; **Shift+Tab** and **Escape** still return or close. The volume
 slider steps 0.1 with the arrows and 0.2 with **Page Up** / **Page Down**; **Home**
 mutes and **End** sets full volume. Browsing archive members never extracts them, opens a listing
 file, or changes the listing's cursor or fill. Unlocking a password-protected
@@ -234,18 +234,18 @@ and **Shift+End** select text instead of scrolling, and **Ctrl+Home** /
 opens find like **/**. The find button's tooltip reads
 **Find in preview (/)** while the mode is on and **Find in preview (Ctrl+F)**
 while it is off; toggling the mode updates the tooltip of a preview that is
-already open. In media, keypad **+** / **-** also step the volume.
+already open. In media, keypad **+** / **−** also step the volume.
 
 A password prompt takes focus as soon as it appears, including when **i** or
 cursor movement shows a locked archive. It then owns the keys like any other
 surface: the header shows the owner bar, the Miller column drops its bar, and
-**i**, **h**, **j**, **k**, and **l** are typed into the password until **Esc**,
+**i**, **h**, **j**, **k**, and **l** are typed into the password until **Escape**,
 **Shift+Tab**, or unlocking moves focus. If the drawer is hidden for lack of room
 when **l** is pressed, it takes the keys when it reappears for the same file;
 moving the cursor first cancels that.
 
 With 10xer mode off the default map is unchanged: an archive tree keeps its
-arrow, **k** / **j** / **h** / **l**, **Enter**, **Space**, and **Esc** keys
+arrow, **k** / **j** / **h** / **l**, **Enter**, **Space**, and **Escape** keys
 described in [keyboard navigation](keyboard-navigation.md#navigating-an-archive-preview),
 and media keys stay on **Ctrl+Alt**.
 
@@ -276,7 +276,7 @@ peek.
 | **v** / **V** | Visual select / visual unset |
 | **Ctrl+A** | Select all in the focused pane |
 | **Ctrl+R** | Invert the selection |
-| **Esc** | Dismiss the current interaction, one step per press; see the precedence below |
+| **Escape** | Dismiss the current interaction, one step per press; see the precedence below |
 
 On a cursor-only row, **Space** adds that item and moves down; it does not
 deselect it. After **Space**, **Ctrl+A**, **Ctrl+R**, or leaving visual,
@@ -288,7 +288,7 @@ A range walks the pane in displayed order, including List type groups, and only
 rewrites the fill of that pane. Walking back toward the anchor restores the items
 the range had covered; items toggled with **Space** stay toggled. The footer shows
 **VISUAL** or **UNSET** while a range is active. Pressing the same key again or
-**Esc** leaves visual mode and keeps the fill; the other key starts a new range
+**Escape** leaves visual mode and keeps the fill; the other key starts a new range
 at the cursor. Opening another folder, moving to another pane, changing the view,
 a pointer selection, **Ctrl+A**, **Ctrl+R**, or leaving 10xer mode also end the
 range. In an empty folder **v** / **V**, **Space**, **Ctrl+A**, and **Ctrl+R**
@@ -302,7 +302,7 @@ start a range and use **Page Up** / **Page Down** or **Ctrl+D** / **Ctrl+U** /
 ### Escape precedence
 
 Dialogs, the shortcut reference, text editors, and an open folder-peek popover
-handle **Esc** before browsing; active autoscroll also stops before listing
+handle **Escape** before browsing; active autoscroll also stops before listing
 dismissal. Closing the peek does not close a Miller column. In a footer prompt it
 cancels that prompt: **f** clears its filter, **/** / **?** clear find highlights,
 and a nonempty **s** keeps its results. An armed chord is canceled before any
@@ -319,12 +319,12 @@ With no prompt or chord, each press takes the first applicable step:
   visual mode (keep the fill), close an open preview, then clear the selection.
   A fill made on the `f` results goes away with them.
 
-While the preview owns keys, **Esc** closes an open find bar, then the drawer,
+While the preview owns keys, **Escape** closes an open find bar, then the drawer,
 before any other step, and closing the drawer returns keys to the listing. Unlike **h** while the preview owns keys, the
 preview-close step actually closes the drawer. Leaving visual mode or closing a
-preview can therefore require an extra **Esc** before retained search results
+preview can therefore require an extra **Escape** before retained search results
 disappear. Once nothing is left to
-dismiss, **Esc** does nothing: it never closes a Miller column or the window.
+dismiss, **Escape** does nothing: it never closes a Miller column or the window.
 The sidebar and header controls take the same steps; clearing a filter or
 closing the preview from there returns focus to the file list.
 
@@ -337,7 +337,7 @@ closing the preview from there returns focus to the file list.
 <!-- node: app/keyboard-shortcuts, Matching -->
 
 From the listing, press **t**, then a second key. The footer shows **t-** and
-its available commands. **Esc** cancels the chord; text fields, menus, and
+its available commands. **Escape** cancels the chord; text fields, menus, and
 file-chooser requests do not arm it.
 
 | Chord | Action |
@@ -360,8 +360,8 @@ show square number badges; **0** identifies the tenth tab. See
 [browser tabs](keyboard-navigation.md#browser-tabs).
 
 **Ctrl+Enter** on a focused folder opens it in a new tab and **Shift+Enter** in
-a new window; keypad **Enter** works too. **Ctrl+Shift+Enter** on a folder
-also opens a new tab, as in the default map. On a file, **Ctrl+Enter** and
+a new window; keypad **Enter** works too. **Ctrl+Shift+Enter** does nothing,
+although the default map opens a new tab with it. On a file, **Ctrl+Enter** and
 **Shift+Enter** open it like **Enter**. The file chooser opens no tab or window; in a folder request
 **Ctrl+Enter** chooses the folder (see [File chooser](#file-chooser)).
 
@@ -447,7 +447,7 @@ folders (`Can’t put a folder inside itself`) keeps the prompt open with the
 reason. Text that names no existing folder, such as `/tmp/newdir` or `nowhere`,
 does not show `No such folder`: **Enter** acts on the chosen match from the
 list, or shows `No matching folders` when nothing is listed. Empty **Enter**
-closes the prompt. **Esc**, focus
+closes the prompt. **Escape**, focus
 leaving the prompt, another prompt, leaving the mode, or closing the window
 discard it. Items that cannot be moved flash `Can’t move these items`; an empty
 folder flashes `Nothing to move` / `Nothing to copy`. **; E**'s `extract to ›`
@@ -483,7 +483,7 @@ clears its marks.
 **Ctrl+V** (see [keyboard navigation](keyboard-navigation.md#input-precedence)),
 and pasting never changes pointer or keyboard ownership. Focusing a conflict
 button does not choose it: nothing changes until you accept, and Cancel or
-**Esc** leaves both items untouched. Keep Both is offered only for copies.
+**Escape** leaves both items untouched. Keep Both is offered only for copies.
 
 **d** / **Delete** show a **Move … to Trash?** confirmation (for example
 **Move 3 items to Trash?**) with its confirm button focused; pressing **d** again confirms it, so **d d** trashes. **D** / **Shift+Delete**, and **d** inside Trash, show the permanent
@@ -502,7 +502,7 @@ the typed name in the keyboard-focused folder; spaces and Unicode are kept. A
 trailing `/` makes a folder instead and is removed before the name is checked. An
 empty name, `.`, `..`, or a name containing `/` keeps the prompt open with the
 reason, and so does a name already taken (including by a broken link), which
-shows `“…” already exists`, so you can fix it. Nothing is renumbered, replaced, or followed. **Esc**, focus leaving
+shows `“…” already exists`, so you can fix it. Nothing is renumbered, replaced, or followed. **Escape**, focus leaving
 the prompt, a clicked row, another prompt, leaving the mode, or closing the
 window discard the name. **Ctrl+Shift+N** still adds a numbered **new folder**
 and renames it in place. Trash and Recent flash `Can’t create items here`.
@@ -516,7 +516,7 @@ when the prompt opens; **Up** / **Down** do not move the cursor while it is open
 unchanged name does nothing. An invalid name keeps the prompt open with the
 reason, and a name already taken shows `“…” already exists`; nothing is replaced. Permission errors and
 filesystem limits leave the original name and show the usual rename error.
-**Esc**, focus leaving the prompt, a clicked row (which keeps its selection),
+**Escape**, focus leaving the prompt, a clicked row (which keeps its selection),
 another prompt, leaving the mode, or closing the window discard the typed name.
 Trash items flash `Can’t rename items here`. The context menu's **Rename** and a
 new folder from **Ctrl+Shift+N** still edit the name in place.
@@ -575,20 +575,20 @@ actions) while armed. The second key completes only that chord: **, a** /
 | **p** | Pictures. Missing: `No Pictures folder`. |
 | **v** | Videos. Missing: `No Videos folder`. |
 | **1**–**9** | Visible PINNED rows in sidebar order. Missing: `No pin N`. |
-| **+** / **-** | Pin / unpin the folder under the cursor, or the focused pane's folder when the cursor is on a file or the pane is empty |
+| **+** / **−** | Pin / unpin the folder under the cursor, or the focused pane's folder when the cursor is on a file or the pane is empty |
 | **Space** | Footer `go ›` — pick a folder with the [folder picker](#folder-picker), or type a path or URI |
-| **Esc** | Cancel |
+| **Escape** | Cancel |
 
 An unknown second key cancels with `Unknown chord`.
 
 **g +** (also keypad **+**) adds the folder to PINNED and reports its **g**
 digit when it is among the first nine visible pins, for example
 `Pinned “Projects” as g 3`; a pin beyond the first nine flashes
-`Pinned “Projects”` with no digit. **g -** (also keypad **-**) removes it and
+`Pinned “Projects”` with no digit. **g −** (also keypad **−**) removes it and
 flashes `Unpinned “Projects”`. A folder already pinned flashes
 `“Projects” is already pinned`; unpinning one that is not pinned flashes
-`“Projects” isn’t pinned`. **g** then Shift+keypad **+** or Shift+keypad **-**
-neither pins nor unpins. Where a top-row key types **+** or **-**, as on
+`“Projects” isn’t pinned`. **g** then Shift+keypad **+** or Shift+keypad **−**
+neither pins nor unpins. Where a top-row key types **+** or **−**, as on
 AZERTY, **g** then that key pins or unpins instead of opening a pin. The digit
 steps also accept Shift with the digit. Home, the standard folders, Trash, and
 other places with their own sidebar rows flash `Can’t pin “…”`.
@@ -603,9 +603,9 @@ filesystem. A path naming a file opens its folder with the file selected, and
 URI input is submitted unchanged, except that a password typed in the URI moves
 into the mount operation instead of the location. A missing or unreachable
 destination shows the location bar's error and leaves the current folder open.
-Empty **Enter** just closes the prompt. **Esc** cancels without navigating;
+Empty **Enter** just closes the prompt. **Escape** cancels without navigating;
 clicking a listing row ends the prompt and keeps the clicked selection. The
-entry is cleared on submit, **Esc**, focus loss, a replacing prompt, and mode
+entry is cleared on submit, **Escape**, focus loss, a replacing prompt, and mode
 exit, and it keeps no undo history, so reopening the prompt or another window
 cannot recover typed credentials. Anything that looks like a URI (`scheme://`,
 a scheme the location bar opens such as `sftp:`, `//host`, `\\host`, or
@@ -625,7 +625,7 @@ mounted, or probed before **Enter**.
 <!-- node: app/shortcut-reference, Opening and closing -->
 
 Typed commands use the footer, never the pane filter revealer or the global
-search dialog. **Enter** submits, **Esc** cancels. **Up** / **Down** move the
+search dialog. **Enter** submits, **Escape** cancels. **Up** / **Down** move the
 listing or pick a history candidate without leaving the prompt. Clicking a
 listing row closes the prompt and keeps that selection. An **Enter** that an
 input method uses while composing does not submit the prompt; one it passes
@@ -634,10 +634,10 @@ still opens the reference.
 
 | Key | Action |
 | --- | --- |
-| **/** / **?** | Find next / previous name in this listing. Does not hide rows. Enter keeps matching substring highlights; **Esc** from the listing dismisses them. |
+| **/** / **?** | Find next / previous name in this listing. Does not hide rows. Enter keeps matching substring highlights; **Escape** from the listing dismisses them. |
 | **n** / **N** | Repeat the last find. **N** reverses. |
 | **f** | Fuzzy name filter for this folder (hides non-matches). The footer shows `filter: …` until dismissed. |
-| **s** | Fuzzy path search below the current folder (cap 100). The footer shows `search: …` until dismissed. Prompt **Esc** keeps hits; listing **Esc** follows the precedence above. |
+| **s** | Fuzzy path search below the current folder (cap 100). The footer shows `search: …` until dismissed. Prompt **Escape** keeps hits; listing **Escape** follows the precedence above. |
 | **z** | Jump to a visited folder (name match, then frecency) |
 | **Z** | Jump to a recently visited folder (last visit first) |
 | **a** | Create |
@@ -651,8 +651,8 @@ still opens the reference.
 stays focused while you type. Matching is a case-insensitive substring of the
 name, searched in display order from the cursor and wrapping at either end.
 Matching substrings stay highlighted in the theme's accent color after Enter in
-Columns, Icons, and List. **Esc** from the listing dismisses those highlights without hiding rows.
-Empty **/** with Enter closes the prompt and changes nothing. **Esc** from the
+Columns, Icons, and List. **Escape** from the listing dismisses those highlights without hiding rows.
+Empty **/** with Enter closes the prompt and changes nothing. **Escape** from the
 prompt cancels without leaving highlights. Pressing **/** again shows the
 prompt. **n** repeats the last query, including multi-character input, in its
 original direction; **N** reverses it, and either shows the highlights again.
@@ -665,7 +665,7 @@ committed query is kept per tab and forgotten when the mode is left.
 and returns keyboard focus to the filtered listing (its first result once the
 results arrive) without opening an item. A following **Enter** opens the
 focused item. Opening **f** again pre-fills the current query. Empty Enter,
-**Esc** from the prompt, or **Esc** from the list clears it. Moving focus out of
+**Escape** from the prompt, or **Escape** from the list clears it. Moving focus out of
 the prompt keeps what was typed. View rebuilds keep the filter and the funnel
 collapsed. While a filter is active, the footer count is the displayed result
 count, including zero, with a file/folder breakdown in its accessible description; motion,
@@ -691,15 +691,15 @@ patterns do not apply in either. **S** is unbound; there is no content search.
 **Enter** on **s** applies the query, closes the prompt, and returns keyboard focus to the results,
 on the first hit when there is one. It does not open that hit. A following
 **Enter** opens it through ordinary item activation, not **Open search results
-directly**. **Ctrl+K** global search is unchanged. **Esc** from the prompt keeps
+directly**. **Ctrl+K** global search is unchanged. **Escape** from the prompt keeps
 the hits so **v** / **V** / Space / **i** can use them (and **Right** in List and
-Columns). From those results, **Esc** dismisses visual mode, find highlights, and an open
+Columns). From those results, **Escape** dismisses visual mode, find highlights, and an open
 preview before dismissing search, as described above. In List and Columns, **h** dismisses
 search directly unless the preview owns keys, in which case it first returns to
 the hits without closing the preview. In Icons, **h** / **j** / **k** / **l** and
 arrows move among the result icons and do not dismiss search or open an item.
 Search dismissal restores a previously committed **f** filter, or the unfiltered
-directory otherwise. Empty **Esc** cancels without retaining search results.
+directory otherwise. Empty **Escape** cancels without retaining search results.
 The footer count is the displayed hit count, not the hidden directory's fill.
 If another program deletes the cursor's file while the **f** or **s** prompt has
 focus, focus stays in the prompt. If another program renames or moves the
@@ -730,7 +730,7 @@ footer shows the position, such as `2 of 5`. **Enter** or a click opens the
 chosen folder once. Editing the text lists
 fresh candidates and chooses the first again. A miss shows
 `No matching folders`, and **Enter** then leaves the prompt open without
-navigating. **Esc**, focus loss, a replacing prompt, and leaving the mode close
+navigating. **Escape**, focus loss, a replacing prompt, and leaving the mode close
 the prompt without opening a candidate.
 
 ### Folder picker
@@ -770,7 +770,7 @@ unless another folder was chosen with **Up** / **Down**. Otherwise **Enter**
 before the search finishes waits for it, so a better match found late still
 wins. While nothing is found yet the footer shows `Searching…`,
 and a finished search with no folder shows `No matching folders`. Editing the
-text, **Esc**, focus loss, a replacing prompt, leaving the mode, and closing the
+text, **Escape**, focus loss, a replacing prompt, leaving the mode, and closing the
 window cancel a search, and a late result never changes the list.
 
 ## Search results
@@ -855,12 +855,12 @@ allow is refused when it is pressed, not only hidden:
 | **Enter** / **o** on a folder | Open it. **Ctrl+Enter** or **Accept** chooses a folder in a folder request. |
 | **Enter** in a Save request | Save in the current folder, whatever the cursor is on. In Recent, save in the folder of the filled or cursor file. An existing file asks first. |
 | **o** on a file in a single-file Save request | Save over that file. It asks first. |
-| **r** / **F2** in a single-file Save request | Edit the name, with the part before the extension selected. **Enter** saves; **Esc** returns to the files and keeps the edit. |
-| **Esc** | Take one dismissal step from [Escape precedence](#escape-precedence), then cancel the request. The automatic first-row selection is not a step. |
+| **r** / **F2** in a single-file Save request | Edit the name, with the part before the extension selected. **Enter** saves; **Escape** returns to the files and keeps the edit. |
+| **Escape** | Take one dismissal step from [Escape precedence](#escape-precedence), then cancel the request. The automatic first-row selection is not a step. |
 | **Space**, **v** / **V**, **Ctrl+A**, **Ctrl+R** | Only in requests that let you choose several files or folders. Otherwise, Save requests included, `Only one item can be chosen`. |
 | **a**, **r** / **F2**, **d** / **D** / **Delete**, **,** sorts, **.**, **c c** / **c n** | As in a window, except **r** / **F2** in a single-file Save request. |
 | **g** places, **g Space**, **z** / **Z** | Local folders and Recent only. Trash, Network, and remote pins flash `Only local folders can be opened here`; a typed remote location shows the unsupported-location error. |
-| **y**, **x**, **p** / **P**, **Y** / **X**, **M** / **C**, **R**, **g +** / **g -**, **Ctrl+C** / **Ctrl+X** / **Ctrl+V**, **O**, **;**, **i**, **Q** | `Not available in the file chooser`. The chooser does not copy, move, or restore files, change pins, open them with an application, run custom actions, peek folders, or open an extra Miller column, and **Q** does not close the chooser: cancel with **Esc**, Cancel, or the close control. |
+| **y**, **x**, **p** / **P**, **Y** / **X**, **M** / **C**, **R**, **g +** / **g −**, **Ctrl+C** / **Ctrl+X** / **Ctrl+V**, **O**, **;**, **i**, **Q** | `Not available in the file chooser`. The chooser does not copy, move, or restore files, change pins, open them with an application, run custom actions, peek folders, or open an extra Miller column, and **Q** does not close the chooser: cancel with **Escape**, Cancel, or the close control. |
 | **Ctrl+K**, **Ctrl+Shift+K**, **Ctrl+,**, **Ctrl+Z** | Unbound. |
 
 The request takes the fill, or the cursor item when nothing is filled; the
@@ -868,20 +868,20 @@ automatic first-row selection never counts. A Save request saves in the current
 folder; in Recent, which has no folder of its own, it saves in the folder of the
 filled or cursor file. Outside Recent, moving the cursor changes neither the
 name nor the destination. While the name or location field has focus, every key but **F1**,
-**Ctrl+Shift+M**, and **Esc** is left to the field; **Ctrl+A** selects the text.
+**Ctrl+Shift+M**, and **Escape** is left to the field; **Ctrl+A** selects the text.
 Every request starts with focus in the files. **Tab** goes from the files to the
 header, and from the header to the **Name** field when the request has one (a
 single-file Save request or a file Open request). From the **Name** field,
 **Tab** follows the dialog's ordinary focus order to the next control, and
-**Esc** returns to the files with the edit kept.
+**Escape** returns to the files with the edit kept.
 Saving over an existing file asks first with Cancel focused. Beside Cancel and
 Save, a Save request shows hints for **Enter**, plus **r** and **o** when it
 saves one named file.
 
 **f** and **s** hits follow the request's folder-only and file-type limits.
-**F1** shows a reference listing only the keys the request allows; **Esc**
+**F1** shows a reference listing only the keys the request allows; **Escape**
 closes it without canceling the request. The **g** panel leaves out **g t**,
-**g n**, **g +**, and **g -**.
+**g n**, **g +**, and **g −**.
 
 ## Still bound
 

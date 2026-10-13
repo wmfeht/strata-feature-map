@@ -293,7 +293,7 @@ Remote PDFs, GIF images (static or animated), audio, video formats other than
 MOV and MP4, 3D models, comic and EPUB covers, workbooks, and DOCX files are not
 offered for preview: the preview pane clears, Space opens or closes an empty
 preview drawer, and the context menu has no **Quick preview** item. In 10xer
-mode, **i**, and **l** or **→** in List and Columns, show "Nothing to preview".
+mode, **i**, and **l** or **Right** in List and Columns, show "Nothing to preview".
 Copy them locally first.
 Supported still-image formats continue to depend on installed sandbox decoder
 tools; HEIC/HEIF can use ImageMagick with libheif inside the image sandbox.

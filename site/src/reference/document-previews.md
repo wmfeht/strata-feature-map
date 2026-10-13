@@ -5,7 +5,7 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 # Document previews
 
-Strata can render local Markdown, a deliberately small HTML subset, RTF, CSV, and TSV with native GTK widgets. Each document preview has **Rendered** and **Source** views. **Render documents by default** under **Settings → General → Browsing** chooses the initial view for each newly opened document; **View source** and **View rendered** in the preview header switch the current document without changing that preference.
+Strata can render local Markdown, a deliberately small HTML subset, RTF, CSV, and TSV with native GTK widgets. Each document preview has **Rendered** and **Source** views. **Render documents by default** under **Settings → General → BROWSING** chooses the initial view for each newly opened document; **View source** and **View rendered** in the preview header switch the current document without changing that preference.
 
 Remote files never render. A remote Markdown, HTML, RTF, CSV, or TSV file previews as source only. A remote XLS, XLSX, ODS, or DOCX file is not offered for preview at all: its context menu has no **Quick preview** item, the preview drawer shows "No preview for this selection" in Icons and Columns view and hides in List view, and in 10xer mode **i** while the drawer is closed, or **l** in List and Columns view, shows "Nothing to preview". Copy the file to a local folder to preview it. Rendered previews are selected from the local filename or content type:
 

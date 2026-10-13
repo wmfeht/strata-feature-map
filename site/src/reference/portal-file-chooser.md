@@ -37,7 +37,7 @@ Image processing is cancellable and limited to 32 MiB input, 16 megapixels, 16,3
 
 Cancel, Escape, or a conversion failure leaves the chooser open without returning the incompatible original. Clicking Open again on the same URL reuses the downloaded file while it still exists. Changing the name or selected filter during the check, the conversion prompt, or the conversion stops the job and shows “The name or filter changed. Press Open to try again.” After successful conversion, both the cached original and the returned PNG remain in their temporary folders until the one-day sweep; closing the chooser does not remove either file.
 
-Folder-only requests hide regular files in both directory listings and recursive results. File requests keep folders available for navigation. Changing a file-type filter refreshes the current results without clearing the search query; selection and acceptance follow the new filter. Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not.
+Folder-only requests hide regular files in both directory listings and recursive results. File requests keep folders available for navigation. Changing a file-type filter refreshes the current results without clearing the search query; selection and acceptance follow the new filter. Local drives mounted before the chooser opened appear under **DEVICES** in its sidebar once the dialog has painted; network shares do not.
 
 File Open requests show an **Open files read-only** checkbox; checking it tells the application to open the returned files read-only. In a single-selection request, selecting another item replaces the selection, including with Ctrl or Shift clicks and across grouped List sections, so **Open** returns one item. In Columns, a filter result selected in a column other than the active one is returned on **Open**. In a folder request, accepting while only the automatically selected first row is selected returns the displayed folder; an explicitly selected child folder returns that child.
 
@@ -349,7 +349,7 @@ On a desktop that does not manage the frontend as a systemd user unit, log out a
   mode; Ctrl+Shift+M leaves the mode with the request still open.
 - F1 shows a reference listing only the keys the request allows; Escape closes
   it without cancelling. The `g` panel leaves out `g t`, `g n`, `g +`, and
-  `g -`, and `t` does not start a tab chord. `f` and `s` hits follow the
+  `g −`, and `t` does not start a tab chord. `f` and `s` hits follow the
   request's folder-only and file-type limits.
 - Tab moves from the files to the header, then to **Name** when the request has
   one, then back to the files. While **Name** or the location field has focus,
@@ -363,8 +363,8 @@ On a desktop that does not manage the frontend as a systemd user unit, log out a
   prompt with Cancel focused. Beside Cancel and Save, a single-file Save request
   shows Enter, `r`, and `o` hints; a Save Files request shows only the Enter
   “Save here” hint.
-- `y`, `x`, `p`, `P`, `Y`, `X`, `M`, `C`, `R`, `O`, `;`, `i`, `g +`, `g -`,
-  Shift+Q, Ctrl+C, Ctrl+X, and Ctrl+V flash “Not available in the file chooser”.
+- `y`, `x`, `p`, `P`, `Y`, `X`, `M`, `C`, `R`, `O`, `;`, `i`, `g +`, `g −`,
+  `Q`, Ctrl+C, Ctrl+X, and Ctrl+V flash “Not available in the file chooser”.
   In a single-item request, Space, `v`, `V`, Ctrl+A, and Ctrl+R flash “Only one
   item can be chosen”. `g t`, `g n`, and remote pins flash “Only local folders
   can be opened here”. `a`, `d`, `D`, sort chords, `.`, `c c`, and `c n` work as

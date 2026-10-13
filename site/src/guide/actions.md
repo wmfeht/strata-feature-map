@@ -59,8 +59,9 @@ entrypoint = "run.sh"
 The `[when]` table decides when the action shows up. Add
 `extensions = ["md", "txt"]` to limit it to those files, or set
 `kinds = ["folder"]` for folders. The action appears only when every selected
-item matches. Strata reads hand edits at startup, so restart Strata after you
-change a file.
+item matches. The menu rereads your files each time it opens, so a hand edit
+shows up on your next right-click. If you opened **Settings → Actions** since
+Strata started, restart Strata first.
 
 ## Writing a script in Python
 

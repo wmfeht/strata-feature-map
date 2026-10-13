@@ -80,7 +80,7 @@ Choose **Settings → Actions → New action…**. The editor has three tabs:
 The editor opens with Name focused, nothing selected, and the caret at the end.
 **Create action** saves all three tabs together. Invalid fields bring you back to
 that tab without discarding your edits. Clicking outside the dialog leaves it open;
-**Cancel**, the close button, or **Esc** discards the draft.
+**Cancel**, the close button, or **Escape** discards the draft.
 Existing actions use the same editor with **Save changes**; their id stays fixed.
 Creating or duplicating an action never replaces an existing action directory.
 Manifest-only MIME filters and minimum selection counts survive editor saves.
@@ -147,7 +147,7 @@ not blank and differs from the starter template (your edits, an earlier recipe,
 or an existing action's script), the dropdown first asks you to **Replace
 script** or **Keep draft**, without opening another dialog.
 Code replacement can be undone in the editor; drafts for the other runtimes are retained.
-**Esc** or clicking outside closes only the dropdown, leaving the editor open.
+**Escape** or clicking outside closes only the dropdown, leaving the editor open.
 Searching, browsing, or applying a template never saves or executes it. Review
 and save the action, then launch it from its file/folder context menu or, in
 10xer mode, **;** then a digit. The digits follow context-menu order. A vacant
@@ -288,7 +288,7 @@ icon, holding the rest. Both groups are sorted by name, ignoring case. The conte
 Hovering another menu item closes the submenu. Clicking or keyboard activation
 also opens it. On the **Actions** row, **Right**, **Space**, or **Enter** opens
 the submenu with its first action focused; **Left** closes only the submenu and
-refocuses its row. An outside click or **Esc** dismisses the menu. Long filenames and
+refocuses its row. An outside click or **Escape** dismisses the menu. Long filenames and
 paths use middle ellipsis, preserving their beginning and extension.
 
 ## How an invocation runs
@@ -469,7 +469,7 @@ while jobs exist. It reads, for example, “2 jobs running · 1 queued”, or �
 finished” when none are active, with “ · failures” added when any job failed.
 Clicking it reopens the dashboard.
 
-Minimizing, pressing **Esc**, or clicking away only hides the dashboard. Progress
+Minimizing, pressing **Escape**, or clicking away only hides the dashboard. Progress
 and completion updates do not reopen it; launching another action does.
 **Remove** on a queued job ends it as Cancelled (“Removed before starting”)
 without running it. **Cancel** on a running job shows “Cancelling…” and sends
@@ -523,7 +523,7 @@ already written to disk, and Strata does not retry a failed or cancelled action.
 - Interpreters and programs are looked up on your `PATH`. A script without a
   shebang runs with `python3` or `bash`. A shebang outside the runtime's family,
   such as `#!/bin/bash` in a Python action, makes the action fail to load and
-  appear under Problems. A `program` written as a relative path containing `/`
+  appear under **PROBLEMS**. A `program` written as a relative path containing `/`
   counts as unavailable; use a bare name or an absolute path.
 - Manifests and generated scripts are written owner-only (0600) inside an
   owner-only directory, and entrypoints are read as regular files: a symlinked
@@ -554,11 +554,11 @@ already written to disk, and Strata does not retry a failed or cancelled action.
 
 Enable it, then right-click a file that matches `[when]` and choose it. The Jobs
 dashboard shows the invocation, its output, and its exit status. A definition that
-cannot load appears under **Settings → Actions → Problems** as
+cannot load appears under **Settings → Actions → PROBLEMS** as
 `<folder>: <reason>`, and never silently disappears from the menus; the other
-actions still load. Problems carries the note “These files could not be loaded.
+actions still load. **PROBLEMS** carries the note “These files could not be loaded.
 Fix them in the actions folder, or remove them.” Settings search finds the action
-list and Problems as “Custom actions”, **New action…** as “New custom action”,
+list and **PROBLEMS** as “Custom actions”, **New action…** as “New custom action”,
 and **Import…** as “Import custom action”.
 
 When a coding agent writes an action for you: choose a fresh id, write the

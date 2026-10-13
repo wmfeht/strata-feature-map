@@ -20,14 +20,14 @@ LIBRARY**, type in **Search themes** or pick **Light** or **Dark**, then click a
 card. The theme applies at once, the card gets a check, and Strata remembers it
 after a restart.
 
-A fresh install starts with Tokyo Night.
+Without Omarchy Quattro, a fresh install starts with Tokyo Night.
 
 ## Follow Omarchy
 
 <!-- node: settings/themes/omarchy, Following -->
 <!-- node: settings/themes/omarchy, Variants -->
 
-On Omarchy, a fresh install follows your desktop theme. The **Follow Omarchy**
+On Omarchy Quattro, a fresh install follows your desktop theme. The **Follow Omarchy**
 switch sits under **THEME** on the same page. Strata reads the active theme from
 `~/.local/state/omarchy/current/` and restyles itself whenever you switch
 Omarchy themes or edit `colors.toml`, with no restart.

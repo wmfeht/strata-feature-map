@@ -125,7 +125,7 @@ Drop items onto a folder, a sidebar place, or a parent breadcrumb.
 | Holding Shift | Move |
 
 Hover over a folder for 750 ms to open it mid-drag. To skip the question, set
-**Settings → General → File transfers → Drag & drop to another device** to
+**Settings → General → FILE TRANSFERS → Drag & drop to another device** to
 **Always copy** or **Always move**.
 
 ## Follow progress in Jobs

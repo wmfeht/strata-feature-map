@@ -46,7 +46,7 @@ Space on a folder opens the folder instead.
 
 <!-- node: preview/quick-preview/folder-peek -->
 
-Turn on **Settings → General → Browsing → Folder peeking**; it is off by
+Turn on **Settings → General → BROWSING → Folder peeking**; it is off by
 default. Rest the pointer on a folder in Icons or List for half a second, and
 a popover lists up to eight of its entries. Columns never peeks.
 
@@ -57,7 +57,7 @@ a popover lists up to eight of its entries. Columns never peeks.
 <!-- node: preview/preview-panel/media/video -->
 
 Audio, video, and GIF previews open paused. To start them at once, turn on
-**Settings → General → Browsing → Autoplay media previews**.
+**Settings → General → BROWSING → Autoplay media previews**.
 
 | Keys | Action |
 | --- | --- |
@@ -77,7 +77,7 @@ Celluloid, and MPlayer pick up where the preview stopped.
 Local Markdown, HTML, RTF, CSV, and TSV files open rendered. Click **View
 source** in the header for the raw text, and **View rendered** to go back. To
 start in source, turn off **Render documents by default** in the same
-Browsing group. Local XLS, XLSX, and ODS files show
+BROWSING group. Local XLS, XLSX, and ODS files show
 their first sheet as a sortable table, and local DOCX files render too.
 
 <!-- node: preview/preview-panel/find -->

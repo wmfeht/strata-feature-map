@@ -91,8 +91,8 @@ and integrations you do not name are declined. An unknown option exits with
 the desktop entry and `--with-file-manager`. Use `--with-file-manager` by itself
 to enable only "Open file location" integration. File chooser replacement is
 separate: use `--with-file-chooser` to opt in, or `--without-file-chooser` to keep
-your current chooser. You can set it up later in **Settings → General → Desktop
-integration → System file manager** (see [Set up from Settings](#set-up-from-settings)). Neither folder
+your current chooser. You can set it up later in **Settings → General → DESKTOP
+INTEGRATION → System file manager** (see [Set up from Settings](#set-up-from-settings)). Neither folder
 association nor an unattended install enables the chooser automatically.
 Encrypted-volume unlock is offered on Omarchy 3 or 4 (the installer asks; default
 No), and on generic Arch only when `udiskie` is already on `PATH`. The installer
@@ -247,7 +247,7 @@ GTK **4.12 or newer** and glibc **2.39 or newer** are required. Other glibc-base
 
 Device discovery requires the GVfs UDisks2 volume monitor (`gvfs` on Arch and
 Fedora; `gvfs-daemons` on Debian/Ubuntu). Without that backend, removable drives
-may be absent from Devices. SMB support remains optional. Phones need additional
+may be absent from **DEVICES**. SMB support remains optional. Phones need additional
 backends; see [Connecting phones](#connecting-phones).
 
 #### 2. Download and verify
@@ -341,16 +341,18 @@ starting another shows "Another install is already running — try again shortly
   "Finalizing update…". Its button reads **Cancel**.
 - **Cancel** during a download stops it within about a second, shows "Update
   cancelled", and leaves the installed binary unchanged. In the dialog,
-  **Cancel**, the close button, Esc, and a click outside it do the same and close
+  **Cancel**, the close button, Escape, and a click outside it do the same and close
   the dialog.
 - Once finalizing begins, the row's **Cancel** is disabled and the dialog cannot
   be dismissed until the install ends.
 - A failure shows "Couldn't install update: <reason>". The row's button becomes
   **Check now**, and the dialog's becomes **Close**.
 - A download fails after 30 seconds to connect ("Could not reach the download
-  server — check your connection and try again"), or 60 seconds without a
-  response or 30 seconds without data ("The download stalled — check your
-  connection and try again"). There is no total time limit.
+  server — check your connection and try again"), or after 30 seconds without
+  receiving any bytes, the wait for the server's first reply included ("The
+  download stalled — check your connection and try again"). Sending the request
+  and receiving the response headers must each finish within 60 seconds. There
+  is no total time limit; see [Signed updates](signed-updates.md#download-and-verification).
 - On success the status reads "Update installed — restart to apply". Strata
   sends SIGTERM to your other Strata processes started without a flag, or with
   `--portal`, that still run the old binary from the same install path, and
@@ -440,7 +442,7 @@ strata --version            # print the installed version
 ```
 
 With no arguments, Strata reopens the tabs saved from the last session while
-**Settings → General → Startup → Restore open tabs** is on, which is the
+**Settings → General → STARTUP → Restore open tabs** is on, which is the
 default. Without a saved session, or with that switch off, it opens the default
 directory.
 
@@ -470,7 +472,7 @@ matching **Settings → Updates**. The flag must come first: `strata ~/Documents
 
 In the default map, useful shortcuts include Ctrl+K to search Home and mounted local drives from any folder, Ctrl+L for a path or URI, Ctrl+F to filter the current pane, Ctrl+Z to undo or Ctrl+Shift+Z to redo the latest reversible file operation, Space for preview, F2 to rename, Alt+Left and Alt+Right for Back and Forward, and Alt+Up for the parent folder.
 
-Toggle [10xer mode](10xer-mode.md) with Ctrl+Shift+M for Yazi-style navigation and footer prompts; press Ctrl+Shift+M again to return to the default map. In 10xer mode, **q** in the file list does nothing, and Shift+Q closes the current window. In List and Columns, **l** / **Right** on a previewable file moves the keys into its preview, **h** returns them to the listing without closing the preview, and **i** toggles the preview.
+Toggle [10xer mode](10xer-mode.md) with Ctrl+Shift+M for Yazi-style navigation and footer prompts; press Ctrl+Shift+M again to return to the default map. In 10xer mode, **q** in the file list does nothing, and **Q** closes the current window. In List and Columns, **l** / **Right** on a previewable file moves the keys into its preview, **h** returns them to the listing without closing the preview, and **i** toggles the preview.
 
 In narrow or highly scaled windows, the file view takes priority: the preview shrinks, then hides when there is not enough room for both. Widening the window restores the preview and its session width automatically. Hidden previews pause playback and defer loading new selections; unchanged previews return without reloading the file.
 
@@ -552,7 +554,7 @@ busctl --user call org.freedesktop.FileManager1 /org/freedesktop/FileManager1 \
 
 ### Set up from Settings
 
-**Settings → General → Desktop integration → System file manager** lists **Open
+**Settings → General → DESKTOP INTEGRATION → System file manager** lists **Open
 and Save dialogs**, **Opening folders**, and **Reveal in File Manager**, each
 marked configured or not. On Omarchy it also lists **Keyboard shortcuts**. Close
 open file dialogs before changing setup.
@@ -647,7 +649,7 @@ omarchy menu keybindings --print | grep -i "file manager"
 
 ### Unlock encrypted volumes on Omarchy
 
-On Omarchy 3 or 4, the installer asks whether to use Strata for encrypted-volume unlock (default No). **Settings → General → Desktop integration** includes **Unlock encrypted volumes**. Choose **Use Strata** so plugging in an encrypted drive opens Strata's password prompt instead of udiskie's dialog. **Restore default** returns udiskie to its previous configuration. Restoring also deletes the restore state in `~/.local/share/strata/udiskie-install/`.
+On Omarchy 3 or 4, the installer asks whether to use Strata for encrypted-volume unlock (default No). **Settings → General → DESKTOP INTEGRATION** includes **Unlock encrypted volumes**. Choose **Use Strata** so plugging in an encrypted drive opens Strata's password prompt instead of udiskie's dialog. **Restore default** returns udiskie to its previous configuration. Restoring also deletes the restore state in `~/.local/share/strata/udiskie-install/`.
 
 On generic Arch, the installer offers the same step only when `udiskie` is already on `PATH`. Restore there with `strata --uninstall-udiskie-unlock`; Settings for this row stays Omarchy-only.
 
@@ -727,7 +729,7 @@ package names vary.
   charging-only mode. Accept any file-access prompt. Only storage exposed by the
   phone is available, not protected system files or private app data.
 
-**Devices** in the sidebar lists the volumes GVfs reports, drives that need a
+**DEVICES** in the sidebar lists the volumes GVfs reports, drives that need a
 password before they show a volume, and mounts that have no listed volume. A
 mount whose volume is already listed gets no second row. Mounts the system
 hides do not appear, such as a Pacman cache subvolume mounted somewhere other
@@ -743,7 +745,7 @@ mounting the volume, Strata shows "Connecting…" and waits up to 8 seconds, the
 opens the mount or starts its own mount once.
 
 After installing a backend, fully quit Strata (all windows) and reopen it.
-Reconnect the unlocked phone if necessary, then click its entry under **Devices**.
+Reconnect the unlocked phone if necessary, then click its entry under **DEVICES**.
 The camera/PTP entry opens a single **Photos** view: files appear progressively
 from storage/date folders, prioritizing newer date-folder names, without requiring
 you to open each folder. The backend may finish a folder's metadata before
@@ -833,7 +835,7 @@ the fields it requests. For SMB that can be Username, Domain, Password, a
 Registered user or Anonymous choice, and Password storage (Don't remember, Until
 logout, Forever). Anonymous disables the credential and storage fields. Wrong
 credentials reopen the dialog with "Those credentials weren’t accepted. Check …
-and try again." Cancel or Esc returns to the previous location with no error and
+and try again." Cancel or Escape returns to the previous location with no error and
 no history entry.
 
 The sidebar's **Network** place opens `network:///`, which lists the hosts and
