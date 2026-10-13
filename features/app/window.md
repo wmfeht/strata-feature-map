@@ -28,8 +28,8 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 - With one tab open, the header holds, left to right, the sidebar toggle, the location bar, and the New tab, Search, Appearance, Settings, Minimize, Maximize, and Close buttons. lgse/strata#580, lgse/strata#1129, lgse/strata#1484 (unverified)
 - The sidebar toggle draws its panel icon at 17 px, the same size as the sidebar's Home icon. lgse/strata#636
-- A window re-describes its sidebar toggle when its sidebar shows or hides, or its rail engages or releases. lgse/strata#1606
-- Changing 10xer mode re-describes the sidebar toggle in every open window. lgse/strata#1576, lgse/strata#1606
+- Stepping the sidebar, or the rail engaging or releasing, updates that window's sidebar toggle tooltip to name the next step. lgse/strata#1606 (unverified)
+- Switching 10xer mode updates the shortcut in the sidebar toggle's tooltip in each open window. lgse/strata#1576, lgse/strata#1606 (unverified)
 
 ### Window buttons
 

@@ -108,12 +108,13 @@ For every control this sweep proves the binding: the file changes, the other win
 - Switch themes with an Icons pane at 32 px and at 256 px and a List pane side by side; compare outline weight and color in the same screenshot, then repeat under `GDK_SCALE=2`.
 - Under `extreme.toml`, open the item menu on a Trash entry and the Empty Trash dialog; the destructive icon must take the danger color, not the accent.
 - Fill a folder with 300 distinct extensions and language files, scroll to the end and back in Icons and List; watch for icon flashes and criticals as the cache evicts.
-- Name files `Makefile`, `MAKEFILE`, `dockerfile.dev`, `Dockerfile.dev`, `.rs`, `Foo.D.TS`, `x.LOCK`, `ARCHIVE.TAR.GZ`, `clip.MKV`, and a directory `lib.rs`; compare the icon in the listing, a Ctrl+F result, folder peek, and an archive preview.
+- Name files `Makefile`, `MAKEFILE`, `dockerfile.dev`, `Dockerfile.dev`, `.rs`, `Foo.D.TS`, `ARCHIVE.TAR.GZ`, `clip.MKV`, and a directory `lib.rs`; compare the icon in the listing, a Ctrl+F result, folder peek, and an archive preview.
 - Name files `backup.tbz2`, `backup.txz`, `backup.tar.zst`, `movie.ts`, and `notes.m`; read which icon each takes.
 - Put a folder beside Catppuccin and Lucide file icons in List and in Icons at 32, 64, 128, and 256 px. Repeat at text size 8 and 48 and under `GDK_SCALE=2`; compare stroke weight and edge clipping.
 - Give `main.rs` a saved custom color with no custom icon, then switch File icon colors between Brand and Theme colors; compare its icon in the listing and in Customize… preview.
 - Follow Omarchy and switch the variant and `colors.toml` between light and dark palettes with Catppuccin icons visible under both File icon colors choices; read both windows.
-- Switch File icon colors from window B while window A scrolls a folder of 300 code files in Icons view, and while a drag of a code file is in progress.
+- Switch File icon colors from window B while window A scrolls a folder of 300 code files in Icons view.
+- Switch File icon colors from window B while window A drags a code file.
 - Collapse and expand the sidebar after a theme change; icons in collapsed rows must match the expanded ones.
 
 ### settings/themes/omarchy

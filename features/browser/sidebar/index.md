@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/window/sidebar.rs, src/ui/window/keyboard/sidebar.rs, src/ui/sidebar_toggle.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs, src/ui/window/tests/preferences.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
 docs: [docs/preferences.md, docs/keyboard-navigation.md]
-related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates]
+related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window]
 ---
 
 ## Summary
@@ -49,17 +49,16 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 ### Collapsing
 
-- In a browser window, each press of the header toggle, Ctrl+B, or Ctrl+N in 10xer mode steps the sidebar from full to icon rail to hidden, then back to full. lgse/strata#1606
+- In a browser window, each press of the header toggle or Ctrl+B steps the sidebar from full to icon rail to hidden, then back to full. lgse/strata#1606
 - Each step applies to every open browser window, and new windows open in the saved state. lgse/strata#1350, lgse/strata#1304, lgse/strata#1606
-- The sidebar is expanded and `sidebar_compact` is off by default; the file chooser keeps its own unsaved state. lgse/strata#1350, lgse/strata#1606
+- The sidebar is expanded and `sidebar_compact` is off by default. lgse/strata#1350, lgse/strata#1606
 - With `sidebar_compact = true` saved and the sidebar shown, every new window starts on the icon rail at any width. lgse/strata#1606
 - With `sidebar_compact = true` and `sidebar_expanded = false` saved, a new window starts hidden; the next step shows the full sidebar and clears `sidebar_compact`. lgse/strata#1606 (unverified)
-- Stepping from hidden to full shows the full sidebar even in a window too narrow for it, until the window or the preview next runs out of room. lgse/strata#1606
+- In the window where the step is taken, stepping from hidden to full shows the full sidebar even when too narrow, until the window or the preview next runs out of room. Another window on an automatic rail keeps its rail unless the step cleared a saved `sidebar_compact`. lgse/strata#1606 (unverified)
 - The toggle's tooltip names the next step: "Compact sidebar (Ctrl+B)" from full, "Hide sidebar (Ctrl+B)" from the rail, "Show sidebar (Ctrl+B)" from hidden. lgse/strata#1606
-- In 10xer mode the tooltip names Ctrl+N instead of Ctrl+B; switching 10xer mode updates the tooltip in every open window. lgse/strata#1576, lgse/strata#1606
+- In 10xer mode the tooltip names Ctrl+N instead of Ctrl+B. lgse/strata#1576, lgse/strata#1606
 - The accessible name is "Toggle sidebar (Ctrl+B)", or "(Ctrl+N)" in 10xer mode, at every step. lgse/strata#1606
 - A rail chosen with the toggle stays when the window widens or the preview closes. lgse/strata#1606
-- An automatic rail leaves `sidebar_compact` false in `settings.toml`. lgse/strata#1606 (unverified)
 - At text sizes 9 and 11, rail row icons and the update notice icon sit on the header toggle's vertical axis. lgse/strata#1606
 - Reopening the sidebar at a 10px text size restores at least its measured minimum width, so row icons are not clipped. lgse/strata#1176
 - In the icon rail, rows show only icons with name tooltips, and headings and device buttons are hidden. lgse/strata#1181 (unverified)

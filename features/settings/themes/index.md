@@ -13,7 +13,7 @@ related: [browser/view-modes/text-size, preview/preview-panel]
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it: 95 bundled themes, custom theme files and their editor, code-preview syntax palettes, file icon colors, element glow, the interface renderer, and font rendering. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme) and `settings/themes/icons` (bundled Lucide and Catppuccin icons). Text size, also on this page, is `browser/view-modes/text-size`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, and font rendering. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme) and `settings/themes/icons` (bundled Lucide and Catppuccin icons). Text size, also on this page, is `browser/view-modes/text-size`.
 
 ## Behavior
 
@@ -70,7 +70,8 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Settings → Appearance has a File icons group with a File icon colors menu: Brand colors, the default, and Theme colors. lgse/strata#1588
 - A File icon colors choice applies in every open window at once. lgse/strata#1588
 - The choice is saved as `file_icon_colors = "brand"` or `"theme"`; a missing key reads as Brand colors. lgse/strata#1588 (unverified)
-- A theme gets Mocha file icons when its background's (299R + 587G + 114B) ÷ 1000 is below 128, Latte otherwise, and Mocha when the background cannot be parsed. lgse/strata#1588 (unverified)
+- A theme gets Mocha file icons when its background's (299R + 587G + 114B) ÷ 1000 is below 128, otherwise Latte. lgse/strata#1588 (unverified)
+- A background that cannot be parsed gets Mocha file icons. lgse/strata#1588 (unverified)
 
 ### Styling and effects
 

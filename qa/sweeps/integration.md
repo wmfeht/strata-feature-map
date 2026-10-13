@@ -47,7 +47,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Step the chooser sidebar to the rail, close the chooser, and send a new request; repeat from hidden. Read a browser window's sidebar and `settings.toml` after each.
 - With `sidebar_compact = true` saved, send a request to a narrow chooser and a wide one; step each sidebar through a full cycle.
 - Narrow a chooser with no preview until the sidebar rails, step to hidden and to full, then narrow and widen again; open a preview at each step. Read the toggle's tooltip and accessible name.
-- In Send to, press Ctrl+B, then turn the mode on and press Ctrl+N; in Move to, step the sidebar through a cycle with the New Folder editor open.
+- In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
 - Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
 
 ### integration/portal-file-chooser/setup

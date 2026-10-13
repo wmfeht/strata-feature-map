@@ -13,7 +13,7 @@ related: [remote/file-providers/network-locations, operations/trash, browser/nav
 
 ## Summary
 
-The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, the key binding catalog, and the GResource manifest that bundles every icon and the brand logo. As the fallback node, it takes History rows for triage PRs failing the Nest rule and for PRs where it owns the most files.
+The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, crate manifests, and lint and agent configuration. It is the `fallback` node in `scopes.yaml`.
 
 ## Behavior
 

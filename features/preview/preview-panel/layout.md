@@ -75,12 +75,13 @@ How the preview panel shares the window with the file views: its width, the rese
 - When less than 240 px would remain beside the focused column, the preview content hides, media pauses, and loading is deferred. lgse/strata#888, lgse/strata#1405
 - Widening the window again restores the same file at the previous manual width. lgse/strata#888
 - In Columns, the reserved slot shrinks down to zero instead of disappearing, so the columns keep their offset. lgse/strata#1405
-- While a preview is present, an expanded sidebar rails once when the window cannot fit the full sidebar, the navigated columns, and the preview minimum. lgse/strata#1181, lgse/strata#1606
+- While a preview is present, an expanded sidebar rails once when the window is narrower than a sum. The sum is the full sidebar width, the focused column (at most 300 px in Columns, 300 px in Icons and List), and the preview width (its manual width, at least 240 px). lgse/strata#1181, lgse/strata#1606 (unverified)
 - An automatic rail from that rule releases only when the window is 24 px wider than that sum. lgse/strata#1181, lgse/strata#1606
-- In Columns, the empty reserved slot alone also rails the sidebar when space is short. lgse/strata#1382, lgse/strata#1606
+- In Columns, the empty reserved slot alone also applies that rule. lgse/strata#1382, lgse/strata#1606
 - With no preview, placeholder, or reserved slot, an expanded sidebar rails once when the window narrows to at most the preferred sidebar width plus one standard column. lgse/strata#1606
 - In that state, widening the window past that width releases an automatic rail. lgse/strata#1606
-- In Columns at about 1250 px, three levels deep with the sidebar railed, clicking Home in the rail does not expand the sidebar and snap back. lgse/strata#1602, lgse/strata#1606
+- An automatic rail leaves `sidebar_compact` false in `settings.toml`. lgse/strata#1606
+- With the sidebar on an automatic rail in Columns three levels deep, clicking Home in the rail does not expand the sidebar and snap back. lgse/strata#1602, lgse/strata#1606
 - The sidebar returns to the user's chosen width once the content has room; a width pinned by the narrow window is never saved. lgse/strata#1181, lgse/strata#1405
 - Dragging a column's resize edge across the threshold does not toggle the sidebar rail; it settles at most once on release. lgse/strata#1305
 - Previewing a file for the first time in a 700 px window rails the sidebar and loads the title, metadata, and content at once. lgse/strata#1396
@@ -100,7 +101,7 @@ How the preview panel shares the window with the file views: its width, the rese
 - Resize edges show captions rather than tooltips, because tooltips are allowed only on icon-only buttons (lgse/strata#1539).
 - The hide threshold is 240 px, independent of the 300 px column width. A 300 px floor hid the preview in 780 px windows at 1.6× scaling (lgse/strata#1145).
 - One fit rule, `PreviewDrawer::sidebar_fit`, serves the header toggle and the preview tick, which the chooser shares. Four callers with two thresholds made the sidebar expand, then snap back to the rail (lgse/strata#1602, lgse/strata#1606).
-- The automatic rail is edge-triggered: only a change in fit compacts or releases it, so an explicit full or rail choice holds at any width (lgse/strata#1602, lgse/strata#1606).
+- The automatic rail is edge-triggered: only a change in fit compacts or releases it, so a chosen rail holds at any width, and a chosen full sidebar holds until the fit next changes (lgse/strata#1602, lgse/strata#1606).
 - The preview rule measures only the split's parent width, not the content paned. The slot re-budgets a frame after the sidebar shows, and a one-frame shortage would latch the rail (lgse/strata#1606).
 - An unallocated window counts as unknown, not short, so a hidden sidebar in a second window does not rail before it is first shown (lgse/strata#1606).
 - Fit decisions read the sidebar's own `visible` property. Ancestor visibility dropped the sidebar from the next calculation and caused a flicker loop at 4× (lgse/strata#1145).

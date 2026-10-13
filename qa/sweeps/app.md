@@ -34,7 +34,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Dump the tree in these states: a selection in each mode, an open item menu, a confirmation dialog, each Settings page, the search palette, a rename editor, the F1 reference. Flag unnamed interactive nodes, wrong roles, and missing states.
 - Move the keyboard cursor without changing selection and compare which node carries `focused` and which `selected`; repeat after a directory reload and after Trash removes the focused row.
 - Tab around the whole window from the sidebar toggle and back; record any control skipped or visited twice, with the sidebar hidden and in an empty directory.
-- Step the sidebar toggle by Space through every mode, in the default and 10xer maps and with the interface in de; dump its name after each step.
 - Switch the interface language to ja and ko and re-read entry, pane, and view descriptions and the menu-item accelerators.
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.

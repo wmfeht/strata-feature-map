@@ -236,6 +236,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18; compare rail icons and the update notice icon against the header toggle.
 - Save `sidebar_compact = true` with `sidebar_expanded = false`, then `sidebar_compact = "yes"`; start a 400 px and a 1920 px window and press Ctrl+B once in each.
 - Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
+- Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`, and read its accessible name after each step.
 - Unset `XDG_MUSIC_DIR` and point Documents at a missing folder in `user-dirs.dirs`; shrink the window to the icon rail and Tab through it.
 
 ### browser/sidebar/pins
@@ -307,7 +308,6 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Close the custom color dialog by a click outside it, then Customize the same way. Delete the item externally while Customize is open and press Escape.
 - Customize a folder, move it with Keep both, undo, and redo. Then trash it, trash a new folder from the same path, and Put back both.
 - Replace a customized folder by a copy, Merge one into a customized folder, and move one to an `sftp://` share; read settings.toml after each.
-- Color `main.rs`, `Cargo.toml`, and `notes.txt` with a preset and no icon; switch File icon colors between Brand and Theme with Customize File open in a second window.
 
 ### browser/scrolling
 
