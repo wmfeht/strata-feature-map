@@ -8,7 +8,7 @@ review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
 docs: [docs/portal-file-chooser.md]
-related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash]
+related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout]
 ---
 
 ## Summary
@@ -42,12 +42,10 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
 - Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not. lgse/strata#1070
 - `browser/directory-monitoring` owns how the chooser follows an open folder renamed, moved, or deleted outside Strata. lgse/strata#1554
-- The header toggle, Ctrl+B, and Ctrl+N in 10xer mode step the chooser sidebar from full to icon rail to hidden, then to full. lgse/strata#1606
-- Chooser sidebar steps apply to that dialog only; `sidebar_compact`, `sidebar_expanded`, and browser windows' sidebars stay unchanged. lgse/strata#1606
-- A saved `sidebar_compact = true` does not start a chooser on the icon rail. lgse/strata#1606 (unverified)
-- The chooser's toggle tooltip names the next step: "Compact sidebar" from full, "Hide sidebar" from the rail, "Show sidebar" from hidden. lgse/strata#1606
-- With no preview present, a chooser no wider than the full sidebar plus 300 px rails an expanded sidebar; widening releases only that automatic rail. lgse/strata#1606 (unverified)
-- With the chooser sidebar on an automatic rail, one toggle step hides it, and the next shows the full sidebar. lgse/strata#1606 (unverified)
+- The header toggle and Ctrl+B (Ctrl+N in 10xer mode) step the chooser's sidebar from full to icon rail to hidden and back, except in Send to. lgse/strata#1606
+- Chooser sidebar steps are not saved and leave browser windows unchanged; a saved `sidebar_compact = true` does not start a chooser on the rail. lgse/strata#1606 (unverified)
+- The chooser's toggle tooltip follows the dialog's own sidebar mode and updates when the rail engages or releases or 10xer mode changes. lgse/strata#1606
+- The chooser sidebar follows the automatic rail rule owned by `preview/preview-panel/layout`. lgse/strata#1606
 - Recent appears in the chooser sidebar when enabled in sidebar preferences and supported by the desktop, listing only local targets. lgse/strata#1138
 - Ctrl+1, Ctrl+2, and Ctrl+3 switch the chooser to Columns, Icons, and List. lgse/strata#877
 - With the file view focused and type-to-search on (the default), a printable character opens the filter seeded with it; `/` opens an empty filter. lgse/strata#1164
@@ -91,8 +89,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Move to…, Copy to…, Extract to…, and Send to… → device → Choose folder… open a folder chooser as a floating modal window over the originating window. lgse/strata#1384
 - Invoking another destination command while one is open presents the existing chooser instead of opening a second. lgse/strata#1384 (unverified)
 - Closing the originating window closes its chooser; Cancel leaves the files and the window's location unchanged. lgse/strata#1384
-- For Send to, the sidebar is hidden and navigating outside the device shows "Choose an existing folder inside this removable device." lgse/strata#1384
-- In Send to, the sidebar toggle is hidden, and Ctrl+B or Ctrl+N in 10xer mode leaves the sidebar hidden. lgse/strata#1384, lgse/strata#1606 (unverified)
+- For Send to, the sidebar and its toggle are hidden, and Ctrl+B or Ctrl+N in 10xer mode leaves the sidebar hidden. Navigating outside the device shows "Choose an existing folder inside this removable device." lgse/strata#1384
 - Move to, Copy to, and Extract to offer New Folder. Enter in the path entry navigates; Ctrl+Enter in the file list or the action button confirms. lgse/strata#1384
 - Send to disables New Folder in the menu, the toolbar, and Ctrl+Shift+N. lgse/strata#1384 (unverified)
 
@@ -111,6 +108,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - The backend is D-Bus activated and exits when idle. A request arriving during shutdown is refused rather than raced (lgse/strata#1200).
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
 - The chooser's 10xer key map and command allowlist belong to `integration/10xer-mode`.
+- The chooser keeps its sidebar steps for the dialog only and does not save them (lgse/strata#1606).
 
 ## History
 

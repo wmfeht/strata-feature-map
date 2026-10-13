@@ -7,7 +7,7 @@ reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/assets.rs, src/assets/vector.rs, src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin/**, scripts/catppuccin_icons.py, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg]
 tests: [src/assets/tests.rs, src/assets/vector/tests.rs, src/ui/browser/entry/tests.rs, src/ui/theme/tests.rs]
-related: [browser/view-modes/icons]
+related: [browser/view-modes/icons, browser/folder-customization]
 ---
 
 ## Summary
@@ -19,31 +19,36 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 ### Color
 
 - Header, sidebar, and settings navigation icons, and Lucide file-type icons, draw in the theme's accent color at full opacity. lgse/strata#170, lgse/strata#1588
-- Changing the theme or Omarchy variant recolors icons in every open window without reopening them. lgse/strata#1482
+- Changing the theme or Omarchy variant recolors icons, including the Catppuccin palette, in every open window without reopening them. lgse/strata#1482, lgse/strata#1588
 - Destructive menu items, such as Permanently delete, and danger-tone dialogs draw their icon in the theme's danger color. lgse/strata#1210 (unverified)
 - Icons draw in an opaque `#rrggbb` form of the accent, text, or danger color, so a translucent accent loses its alpha on icons only. lgse/strata#1554, lgse/strata#1429
 - With File icon colors on Brand colors, a Catppuccin icon draws in its own Mocha or Latte colors, not the accent. lgse/strata#1587, lgse/strata#1588
 - With File icon colors on Theme colors, every color of a Catppuccin icon draws in the accent, on dark and light themes alike. lgse/strata#1588
 - Under Theme colors, a Catppuccin icon's unfilled shapes get a 15% accent fill, like the folder icon. lgse/strata#1588 (unverified)
 - File icon colors leaves interface icons, Lucide file-type icons, and folders unchanged. lgse/strata#1588
+- A colored code file such as `main.rs` with no custom icon keeps its Catppuccin brand palette under Brand colors and takes the saved color under Theme colors. lgse/strata#1588 (unverified)
 
 ### Size and weight
 
 - Header-bar and pane action icons draw at 16 logical px at the default text size, centered, even when the desktop theme gives buttons extra space. lgse/strata#497
 - Chrome icons rasterize at twice their logical size; file, sidebar, and dialog icons rasterize at 96 px or their device-pixel size, whichever is larger. lgse/strata#497, lgse/strata#1416
 - In the Icons view, Lucide outlines draw at half the stroke weight of list, toolbar, and sidebar icons at every size. lgse/strata#1416
-- Above 64 logical px, strokes scale by (64 ÷ size)^0.35, about 0.62× at 256 px, so large icons do not read as bold. Catppuccin strokes follow the same factor. lgse/strata#1416, lgse/strata#1588 (unverified)
+- Above 64 logical px, strokes scale by (64 ÷ size)^0.35, about 0.62× at 256 px, so large icons do not read as bold. lgse/strata#1416
+- Catppuccin strokes take the same large-size factor and the same Icons-view halving as Lucide outlines. lgse/strata#1588 (unverified)
 - In the Icons view, a Catppuccin icon's strokes match the stroke weight of the folder icon beside it. lgse/strata#1588 (unverified)
+- In List rows, a Catppuccin icon's strokes draw at three quarters of the folder icon's weight. lgse/strata#1588 (unverified)
 - Icons rasterize at the display's pixel density, so 2× displays get sharp strokes. lgse/strata#1416
 
 ### File-type icons
 
 - Code and config files show a Catppuccin icon: `main.rs` the Rust icon, `package.json` the package-json icon, `Cargo.toml` the Cargo icon. lgse/strata#1588
 - JSON, YAML, XML, SQL, database, `.toml`, and Markdown files show Catppuccin icons. lgse/strata#1588
-- An exact filename, ignoring case, wins over the extension: `Makefile`, `Dockerfile`, `Cargo.lock`, `README`, and `LICENSE` get their own Catppuccin icons. lgse/strata#1588
-- Otherwise the longest matching dotted suffix wins: `types.d.ts`, `app.test.ts`, and `vite.config.ts` show specific icons, not the `.ts` icon. lgse/strata#1588
+- An exact filename, ignoring case, wins over the extension: `Makefile`, `Dockerfile`, `Cargo.lock`, `vite.config.ts`, `README`, and `LICENSE` get their own Catppuccin icons. lgse/strata#1588
+- Next, case-sensitive name patterns apply: `Dockerfile.*` shows Docker, `.env.*` env, `tsconfig.*.json` TypeScript config, `*_history` a terminal file, and `*.lock` the Lucide cog. lgse/strata#1588 (unverified)
+- Otherwise the longest matching dotted suffix wins: `types.d.ts` and `app.test.ts` show specific icons, not the `.ts` icon. lgse/strata#1588
 - `docker-compose.override.yml` and `compose.yaml` show the Docker Compose icon; `deploy.yml` shows the YAML icon. lgse/strata#1588
-- `archive.lock` and other `.lock` files without their own association show the Lucide cog icon. lgse/strata#1588
+- `archive.lock` and other lowercase `.lock` files without their own association show the Lucide cog icon. lgse/strata#1588
+- `ARCHIVE.LOCK` shows the Catppuccin config icon. lgse/strata#1588 (unverified)
 - `.m` shows the MATLAB icon and `.v` the V icon. lgse/strata#1588
 - `.asm`, `.s`, and `.nasm` show the assembly icon; `.sv`, `.svh`, and `.vhdl` the Verilog icon; `.ps1` PowerShell; `.bat` and `.cmd` Batch. lgse/strata#1588
 - Shell scripts and shell rc files such as `.bashrc` and `.zshrc` show the Catppuccin Bash icon. lgse/strata#1588
@@ -53,6 +58,7 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 - `.mp4`, `.mkv`, `.webm`, `.mov`, `.avi`, `.m4v`, `.mpeg`, `.mpg`, `.ogv`, `.3gp`, `.3g2`, `.flv`, `.wmv`, `.asf`, `.m2ts`, and `.vob` files show the Lucide clapperboard icon. lgse/strata#1589
 - `.zip`, `.7z`, `.tar`, `.gz`, `.tgz`, `.bz2`, `.xz`, `.zst`, `.rar`, `.lz`, `.lzma`, `.lzo`, `.rz`, `.sz`, `.cab`, `.arj`, and `.cpio` files show the Lucide folder-archive icon, distinct from documents. lgse/strata#1416, lgse/strata#1589
 - Spreadsheets, presentations, fonts, disk images, and keys each show their own Lucide icon. lgse/strata#1416
+- `.apk`, `.jar`, `.nupkg`, and `.vsix` show Catppuccin icons; `.deb`, `.rpm`, and `.exe` keep the Lucide package icon. lgse/strata#1588
 - A file with an unrecognized extension shows the document icon. lgse/strata#1416
 
 ### Cache
@@ -67,9 +73,9 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 - The outlined Simple Icons and Devicons language glyphs from lgse/strata#1529 and lgse/strata#1561, and their outline render path, were removed (lgse/strata#1588).
 - SVGs are copied unchanged from upstream's `icons/css-variables`. Their `var(--vscode-ctp-*)` colors are replaced at render time from 16-color Mocha and Latte tables (lgse/strata#1588).
 - `scripts/catppuccin_icons.py` regenerates the SVGs, the gresource entries, and `src/ui/browser/entry/catppuccin.rs` from an upstream checkout, importing 1075 filename and 532 extension associations (lgse/strata#1588).
-- Catppuccin draws 1-unit strokes on a 16-unit grid where Lucide draws 2 on 24. Icons-view textures scale Catppuccin strokes by 4/3 so they match the folder (lgse/strata#1588).
+- Catppuccin draws 1-unit strokes on a 16-unit grid where Lucide draws 2 on 24. Icons-view textures scale Catppuccin strokes by 4/3 so they match the folder (lgse/strata#1588) (unverified).
 - Catppuccin textures are cached under the flavor name, or the accent under Theme colors, so a palette change never reuses a stale texture (lgse/strata#1588) (unverified).
-- The video and archive icons are Lucide's clapperboard and folder-archive, so archives no longer resemble documents. The maintainer calls them temporary while a Strata icon pack is drawn (lgse/strata#1589).
+- The video and archive icons are Lucide's clapperboard and folder-archive, so archives no longer resemble documents (lgse/strata#1589).
 - Lucide strokes are 8.3% of icon size at every scale, about 21 px at 256 px. The fix compensates stroke width at render time instead of editing icon geometry (lgse/strata#1011, lgse/strata#1416).
 - Logical size and context are cached apart from raster resolution, so perceived weight follows logical size while resolution only sets sharpness (lgse/strata#1416).
 - Chrome icons were 20 px drawn from 96 px textures, and GtkImage's default fill stretched them in XFCE's larger buttons. They are now 16 px, centered, and rasterized at twice their size (lgse/strata#469, lgse/strata#497).
@@ -93,4 +99,3 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 - Custom themes cannot supply their own icons. lgse/strata#1525
 - Generic file-type icons, such as documents, pictures, media, and archives, cannot be colored by category; they use the accent. lgse/strata#1510
-- The video and archive icons are interim Lucide drawings until a Strata icon pack replaces them. lgse/strata#1589

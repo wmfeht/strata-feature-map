@@ -231,8 +231,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Show a notice with the interface in ko, ru, and zh-CN at the default sidebar width, then drag the sidebar to its minimum.
 - Turn off every place chip; press Ctrl+B in one window until the sidebar hides while the other's sidebar has focus, then press Ctrl+Shift+B there.
 - Open a 1200 px and a 700 px window; press Ctrl+B through three full cycles in the narrow one, reading both windows and `settings.toml` after each press.
-- Narrow a window until the sidebar rails, widen it, and narrow it again; repeat after choosing the rail, and after stepping from hidden to full while narrow, resizing by 1 px and then 300 px.
-- In Columns, open and close the preview with an automatic rail, a chosen rail, and a full sidebar shown by choice in a narrow window.
+- Choose the rail in a wide window, then narrow it, open and close the preview in Columns, and widen it again.
+- Step from hidden to full in a narrow window, then resize by 1 px, by 300 px, and open the preview.
 - With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18; compare rail icons and the update notice icon against the header toggle.
 - Save `sidebar_compact = true` with `sidebar_expanded = false`, then `sidebar_compact = "yes"`; start a 400 px and a 1920 px window and press Ctrl+B once in each.
 - Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
@@ -347,3 +347,4 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - What the preview panel and quick preview render → `preview`.
 - The Settings pages that hold the preferences named in these probes → `settings`.
 - 10xer-mode key variants and the portal file chooser → `integration`.
+- Sidebar rail fit rule and automatic rail → `preview`.

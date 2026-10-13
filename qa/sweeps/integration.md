@@ -48,6 +48,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With `sidebar_compact = true` saved, send a request to a narrow chooser and a wide one; step each sidebar through a full cycle.
 - Narrow a chooser with no preview until the sidebar rails, step to hidden and to full, then narrow and widen again; open a preview at each step. Read the toggle's tooltip and accessible name.
 - In Send to, press Ctrl+B, then turn the mode on and press Ctrl+N; in Move to, step the sidebar through a cycle with the New Folder editor open.
+- Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
 
 ### integration/portal-file-chooser/setup
 
@@ -140,7 +141,6 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Stack a filter, `s` hits, a preview, and a fill, count Esc presses to cancel, and read the response code; repeat with the automatic first row only.
 - Press `g t`, `g n`, `g 1` on a remote pin, `g d` with no Downloads, `z` into a folder outside the hint, and `t n`.
 - Arm `g` under `single`, `directory`, and `save`; compare the chord panel's steps with the F1 list for each.
-- Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
 
 ### integration/open-with
 

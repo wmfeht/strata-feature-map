@@ -59,4 +59,4 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 
 ## Known gaps
 
-- On GTK older than 4.16, Strata cannot pin manual font rendering, so glyph tops can still clip at 15 device px under the GL and Vulkan renderers. The opt-in Cairo renderer avoids it. lgse/strata#1310, lgse/strata#1218, lgse/strata#1601
+None known.

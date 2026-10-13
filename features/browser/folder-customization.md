@@ -50,8 +50,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 
 - A folder with a custom icon or emoji shows it as a badge on a filled folder, in the saved color or the theme accent. lgse/strata#294
 - A file with a custom icon shows that icon in the saved color or the theme accent; a file with an emoji shows the emoji alone. lgse/strata#294 (unverified)
-- An item with a color and no custom icon shows its default icon in that color, unless that icon is a Catppuccin file-type icon. lgse/strata#294, lgse/strata#1588 (unverified)
-- A colored code file such as `main.rs` with no custom icon keeps its Catppuccin brand palette under Brand colors, and takes the saved color under Theme colors. lgse/strata#1588 (unverified)
+- An item with a color and no custom icon shows its default icon in that color, except a Catppuccin file-type icon under Brand colors. lgse/strata#294, lgse/strata#1588 (unverified)
 - Customized icons appear in Columns, List, Icons, search result rows, and the Properties header. lgse/strata#294
 - Changing a customization redraws every visible icon for that path without reloading the folder. lgse/strata#294
 - Changing the theme redraws customized icons that have no saved color in the new accent. lgse/strata#294

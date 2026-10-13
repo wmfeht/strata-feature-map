@@ -54,11 +54,11 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Press Space three times within 260 ms in Icons with reduced motion on, then toggle Appearance → Preview panel mid-slide in Columns.
 - With reduced motion off in List, press Space to close, then Space again at about 50 ms, 130 ms, and 250 ms into the slide-out.
 - In Columns, drag the divider narrower, then wider, then use F8 and arrows; switch to Icons and back between each step.
-- With a preview open in a 700 px window, step the sidebar to full, then narrow 1 px, widen 30 px, and close the preview in List.
-- Step the sidebar to the rail in a wide window, then open and close a preview in Icons and narrow and widen across the threshold.
+- With an automatic rail and a preview open, narrow and widen the window across the threshold, then close and reopen the preview in List and in Icons.
+- With an automatic rail in Columns three levels deep, click Home, a deeper folder, and Back in the rail, at 1250 px and at the release threshold.
 - With a preview open, move the window width 1 px at a time through the 24 px band above the rail threshold, both directions.
-- With Appearance → Preview panel off and on in Columns, resize across the preferred sidebar width plus 300 px at text sizes 9, 10, and 11.
-- Hide the sidebar in a short window, open a second window, then show the sidebar in each; watch for a full-width frame before the rail.
+- In Icons or List with Appearance → Preview panel off, resize across the preferred sidebar width plus one column at text size 10 and two sizes above 13.
+- Hide the sidebar in a short window, open a second window, then show the sidebar in each.
 
 ### preview/preview-panel/documents
 
@@ -137,6 +137,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 ## Hand-offs
 
 - Thumbnails in the listing and the thumbnail worker pool → `browser`.
+- Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
 - F1 reference rows for preview find and media keys → `app`.
 - Layout fallback, Caps Lock, keypad, and translated key names for every shortcut → `app`.

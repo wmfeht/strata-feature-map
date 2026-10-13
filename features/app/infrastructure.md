@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#14, pr: lgse/strata#27}
 branch: null
 reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
-code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, THIRD_PARTY_LICENSES.md, data/licenses/Catppuccin-VSCode-Icons-MIT.txt, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, src/ui/keys/bindings.rs, src/ui/keys/bindings/**]
+code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, src/ui/keys/bindings.rs, src/ui/keys/bindings/**]
 tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py]
 docs: [docs/performance-baseline.md]
 related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring]
@@ -13,7 +13,7 @@ related: [remote/file-providers/network-locations, operations/trash, browser/nav
 
 ## Summary
 
-The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers with no feature of their own: resize captions, trashed-item preferences, the mount-table parser, the key binding catalog that every feature registers its shortcuts in, and the resource catalog that registers every bundled asset. The test support crate, E2E harness and its fixtures, screenshot baselines, README, third-party notices and license texts, crate manifests, and lint and agent configuration sit here too. This node owns those shared modules as a fallback: it takes a change when no feature node's code is touched, and the History row of an unmapped PR too small for a node of its own.
+The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, the key binding catalog, and the GResource manifest that bundles every icon and the brand logo. As the fallback node, it takes History rows for triage PRs failing the Nest rule and for PRs where it owns the most files.
 
 ## Behavior
 

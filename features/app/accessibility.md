@@ -41,7 +41,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 ### Tooltips
 
 - Hovering a labelled button, menu item, label, entry, file row, breadcrumb, or status indicator shows no tooltip. The one exception is a truncated name on an Icons-view card (`browser/view-modes/icons`). lgse/strata#1359, lgse/strata#1553
-- Hovering an icon-only button shows its tooltip, such as "Compact sidebar (Ctrl+B)" on the header sidebar toggle while the full sidebar shows. lgse/strata#1359, lgse/strata#1606
+- Hovering an icon-only button shows its tooltip, such as "Search (Ctrl+K)" on the header Search button. lgse/strata#1359
 - In the collapsed sidebar rail, each row shows its name as a tooltip; expanding the sidebar removes those tooltips. lgse/strata#1359
 - Text that tooltips carried before, such as a sidebar place's or breadcrumb's full path, is now the control's accessible description. lgse/strata#1359
 
