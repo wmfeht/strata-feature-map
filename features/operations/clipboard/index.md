@@ -7,7 +7,7 @@ reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/e2e/scenarios/test_clipboard.py, tests/e2e/mutations/clipboard.patch]
-docs: [docs/keyboard-navigation.md]
+docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode]
 ---
 

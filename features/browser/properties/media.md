@@ -7,7 +7,7 @@ reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: reviewed
 code: [src/ui/browser/properties/media.rs, src/sandbox/metadata.rs]
 tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/e2e/scenarios/test_properties_media.py]
-docs: [docs/preview-sandbox.md]
+docs: [site/src/reference/preview-sandbox.md]
 related: [preview/preview-panel]
 ---
 

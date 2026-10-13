@@ -7,7 +7,7 @@ reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
 tests: [src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
-docs: [docs/preview-sandbox.md]
+docs: [site/src/reference/preview-sandbox.md]
 related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera]
 ---
 

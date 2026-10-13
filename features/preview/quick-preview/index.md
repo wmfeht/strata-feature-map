@@ -7,7 +7,7 @@ reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/preview/keyboard.rs]
 tests: [tests/e2e/scenarios/test_quick_preview.py, tests/e2e/mutations/quick-preview.patch]
-docs: [docs/keyboard-navigation.md]
+docs: [site/src/reference/keyboard-navigation.md]
 related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection]
 ---
 

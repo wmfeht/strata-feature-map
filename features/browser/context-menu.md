@@ -7,7 +7,7 @@ reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
-docs: [docs/keyboard-navigation.md]
+docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/selection, browser/tabs, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility]
 ---
 

@@ -7,7 +7,7 @@ reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: reviewed
 code: [src/adapters/local_files/camera_photos.rs, src/services/camera_preview.rs, src/ui/browser/camera_scroll.rs, src/ui/thumbnail/camera.rs]
 tests: [src/adapters/local_files/camera_photos/tests.rs, src/services/camera_preview/tests.rs, src/app/browser/tests/camera_photos.rs]
-docs: [docs/preview-sandbox.md]
+docs: [site/src/reference/preview-sandbox.md]
 related: [preview/preview-panel, browser/thumbnails, browser/view-modes]
 ---
 

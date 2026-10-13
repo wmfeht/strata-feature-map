@@ -7,7 +7,7 @@ reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
 review: draft
 code: [src/ui/window/keyboard/chooser.rs]
 tests: [src/ui/chooser/tests/keyboard.rs]
-docs: [docs/portal-file-chooser.md]
+docs: [site/src/reference/portal-file-chooser.md]
 related: [integration/portal-file-chooser]
 ---
 

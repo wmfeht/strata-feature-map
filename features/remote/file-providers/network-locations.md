@@ -7,7 +7,7 @@ reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
-docs: [docs/remote-sftp.md]
+docs: [site/src/reference/remote-sftp.md]
 related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins]
 ---
 

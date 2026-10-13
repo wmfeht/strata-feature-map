@@ -7,7 +7,7 @@ reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs]
-docs: [docs/themes.md, docs/preferences.md]
+docs: [site/src/reference/themes.md, docs/preferences.md]
 related: [browser/view-modes/text-size, preview/preview-panel]
 ---
 
