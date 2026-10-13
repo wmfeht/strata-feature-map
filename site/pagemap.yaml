@@ -121,7 +121,7 @@ guide:
     title: Custom actions
     nodes: [integration/custom-actions]
     sections:
-      - Your first action in five minutes
+      - Your first action
       - What is on disk
       - Writing a script in Python
       - Running an existing program instead

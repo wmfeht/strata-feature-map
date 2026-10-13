@@ -9,7 +9,7 @@ Add your own scripts to the right-click menu. An action is a folder with a
 small `action.toml` and, usually, one script. Strata runs it in the background
 and shows its progress and output in the Jobs dashboard.
 
-## Your first action in five minutes
+## Your first action
 
 <!-- node: integration/custom-actions, Settings → Actions -->
 <!-- node: integration/custom-actions, Script library -->

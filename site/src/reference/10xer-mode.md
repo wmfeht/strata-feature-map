@@ -679,7 +679,7 @@ somewhere in a hit's path, in any order, as a fuzzy subsequence, so
 against the hit's name first, then against its whole path. A term written
 `'term` must appear as one unbroken run of characters, `^term` must start the
 hit's name or its path, `term$` must end it, and `!term` excludes paths that
-contain it. Hits whose names match more terms rank
+contain it. Terms ignore case. Hits whose names match more terms rank
 first, then closer matches; among similar matches, folders visited often and
 recently, and files inside them, rank higher. The characters a hit's name
 matched stay highlighted in the theme's accent color; while find highlights

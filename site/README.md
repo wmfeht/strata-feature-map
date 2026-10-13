@@ -33,7 +33,7 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 Opening paragraph.
 
-## Your first action in five minutes
+## Your first action
 
 <!-- node: integration/custom-actions, Settings → Actions -->
 
