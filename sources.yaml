@@ -5,3 +5,8 @@ fork:
   repo: wmfeht/strata
 # Last upstream commit the sync has processed. Set at backfill hand-off.
 watermark: d0f7028cff2fc71087fde8cd27f3247e0761e999
+# The documentation site under site/: the stable release it describes and where it is published.
+site:
+  release: v1.0.0
+  commit: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+  url: https://wmfeht.github.io/strata-feature-map/

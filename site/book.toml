@@ -1,0 +1,26 @@
+[book]
+# featuremap.py index sets the title from `site.release` in sources.yaml.
+title = "Strata 1.0.0"
+description = "User documentation for Strata, a file manager for Linux."
+language = "en"
+src = "src"
+
+[build]
+create-missing = false
+
+[preprocessor.strip]
+command = "uv run --quiet site/preprocessors/strip.py"
+before = ["links", "index"]
+
+[output.html]
+git-repository-url = "https://github.com/lgse/strata"
+no-section-label = true
+default-theme = "light"
+preferred-dark-theme = "navy"
+
+[output.html.search]
+limit-results = 20
+
+[output.linkcheck]
+follow-web-links = false
+warning-policy = "error"
