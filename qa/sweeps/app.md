@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
@@ -34,6 +34,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Dump the tree in these states: a selection in each mode, an open item menu, a confirmation dialog, each Settings page, the search palette, a rename editor, the F1 reference. Flag unnamed interactive nodes, wrong roles, and missing states.
 - Move the keyboard cursor without changing selection and compare which node carries `focused` and which `selected`; repeat after a directory reload and after Trash removes the focused row.
 - Tab around the whole window from the sidebar toggle and back; record any control skipped or visited twice, with the sidebar hidden and in an empty directory.
+- Step the sidebar toggle by Space through every mode, in the default and 10xer maps and with the interface in de; dump its name and description after each step.
 - Switch the interface language to ja and ko and re-read entry, pane, and view descriptions and the menu-item accelerators.
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
@@ -78,7 +79,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Navigate by keyboard, park the pointer over another column, press Ctrl+V twice, move the pointer 1 px, and paste again; follow the Input precedence rules in `docs/keyboard-navigation.md`.
 - In 10xer mode, open the footer rename with `r` and press Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, Ctrl+\\, and F5; then rename in a Columns child column with the palette open.
 - On a Russian-only keymap, run Ctrl+Z, Ctrl+Shift+Z, Ctrl+Y, and Ctrl+A in the location field, a rename, the global search field, and Settings search.
-- Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
+- Toggle 10xer mode from a second window while hovering the sidebar toggle, with the sidebar full, railed, and hidden; read its tooltip and accessible name in both windows.
+- Hover the sidebar toggle while narrowing the window until the sidebar rails, then widen it again; read the tooltip at each edge, with and without a preview open.
 - With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
 

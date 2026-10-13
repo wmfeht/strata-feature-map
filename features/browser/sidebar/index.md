@@ -3,17 +3,17 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
-code: [src/ui/window/sidebar.rs, src/ui/window/keyboard/sidebar.rs]
-tests: [src/ui/window/tests/bookmarks.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
-docs: [docs/preferences.md, docs/keyboard-navigation.md]
-related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates]
+code: [src/ui/window/sidebar.rs, src/ui/window/keyboard/sidebar.rs, src/ui/sidebar_toggle.rs]
+tests: [src/ui/window/tests/bookmarks.rs, src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
+docs: [docs/preferences.md, docs/keyboard-navigation.md, docs/preview-panel-layout.md]
+related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates]
 ---
 
 ## Summary
 
-The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places, collapse the panel, and reach it from the keyboard. Child: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
+The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places, step the panel between full, icon rail, and hidden, and reach it from the keyboard. Child: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
 
 ## Behavior
 
@@ -49,8 +49,17 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 ### Collapsing
 
-- Ctrl+B, Ctrl+N in 10xer mode, or the header toggle collapses or expands the sidebar in every open browser window; new windows open in the saved state. lgse/strata#1350, lgse/strata#1304
-- The sidebar is expanded by default, and the file chooser keeps its own unsaved state. lgse/strata#1350
+- Each press of the header toggle, Ctrl+B, or Ctrl+N in 10xer mode steps the sidebar from full to icon rail to hidden, then back to full. lgse/strata#1606
+- Each step applies to every open browser window, and new windows open in the saved state. lgse/strata#1350, lgse/strata#1304, lgse/strata#1606
+- The sidebar is expanded and `sidebar_compact` is off by default; the file chooser keeps its own unsaved state. lgse/strata#1350, lgse/strata#1606
+- With `sidebar_compact = true` saved in `settings.toml`, every new window starts with the icon rail at any window width. lgse/strata#1606
+- Stepping from hidden to full shows the full sidebar even in a window too narrow for it, until the window's fit next changes. lgse/strata#1606
+- The toggle's tooltip names the next step: "Compact sidebar (Ctrl+B)" from full, "Hide sidebar (Ctrl+B)" from the rail, "Show sidebar (Ctrl+B)" from hidden. lgse/strata#1606
+- In 10xer mode the tooltip names Ctrl+N instead of Ctrl+B; the accessible name stays "Toggle sidebar (Ctrl+B)", or "(Ctrl+N)", in every mode. lgse/strata#1606 (unverified)
+- When the full sidebar stops fitting beside one column, with no preview present, an expanded sidebar rails once; widening releases that automatic rail. lgse/strata#1606
+- A rail chosen with the toggle stays when the window widens. lgse/strata#1606
+- An automatic rail leaves `sidebar_compact` false in `settings.toml`. lgse/strata#1606 (unverified)
+- At text sizes 9 and 11, rail row icons sit on the header toggle's vertical axis. lgse/strata#1606
 - Reopening the sidebar at a 10px text size restores at least its measured minimum width, so row icons are not clipped. lgse/strata#1176
 - In the narrow-window icon rail, rows show only icons with name tooltips, and headings and device buttons are hidden. lgse/strata#1181 (unverified)
 
@@ -78,14 +87,18 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Built-in places are not pins, so their Unpin writes the visibility preference rather than the bookmarks file (lgse/strata#1024, lgse/strata#1025).
 - DEVICES shows exactly what GIO reports. A raw `/proc/self/mountinfo` fallback surfaced mounts the backend hides on purpose, so it was removed; visibility policy stays with GIO, GVfs, and udisks2, as in Nautilus (lgse/strata#532, lgse/strata#536).
 - Device discovery waits until after first paint so a window never blocks on D-Bus, GVfs, or udisks2 before appearing (lgse/strata#1070).
-- Only the collapsed state is remembered. A "Start with sidebar collapsed" switch was left out as unneeded (lgse/strata#1345, lgse/strata#1350); hover-reveal panels were declined (lgse/strata#1282).
+- Only the toggle's steps are remembered, as `sidebar_expanded` and `sidebar_compact`. A "Start with sidebar collapsed" switch was left out as unneeded (lgse/strata#1345, lgse/strata#1350, lgse/strata#1606); hover-reveal panels were declined (lgse/strata#1282).
 - The selected row uses a direct accent tint because tinting the existing highlight token stayed too faint on dark themes (lgse/strata#104, lgse/strata#106).
-- The preview layout owns the narrow-window icon rail only while its pane is present; otherwise the window layout rails the sidebar when one column does not fit beside it. See `preview/preview-panel` (lgse/strata#1181).
+- One fit rule decides the icon rail: the preview rule while a preview, placeholder, or reserved Columns slot is present, otherwise the full sidebar beside one column. The header toggle, the preview tick, and the chooser all ask it, so showing the sidebar opens straight into the rail instead of expanding and snapping back. Four callers with two thresholds caused that snap before (lgse/strata#1602, lgse/strata#1606). See [docs/preview-panel-layout.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preview-panel-layout.md) and `preview/preview-panel/layout`.
+- `RailPolicy` in `src/ui/window.rs` makes the automatic rail edge-triggered: a change in fit compacts an expanded sidebar once, and returning space releases only what it compacted. An explicit step overrides it either way, so all three modes are reachable at any width (lgse/strata#1602, lgse/strata#1606).
+- Rail rows take the scaled header-control size from code instead of a fixed 24 px CSS minimum, so they stay on the toggle's axis below 100 % text size (lgse/strata#1602, lgse/strata#1606).
+- The tooltip names the next step while the accessible name stays constant, so assistive technology and E2E tests find the toggle in every mode (lgse/strata#1606).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-13 | lgse/strata#1606 | fix | Made the header toggle step full, rail, hidden, saved the rail as `sidebar_compact`, and made the automatic rail edge-triggered under one fit rule. |
 | 2026-10-12 | lgse/strata#1581 | fix | Split the update notice into an "Update available" headline over the version, so it fits the default width in every language. |
 | 2026-10-11 | lgse/strata#1564 | feat | Kept the update notice on one line, middle-ellipsized, with a prerelease kind before the version. |
 | 2026-10-02 | lgse/strata#1370 | fix | Showed saved folder colours and custom icons on sidebar rows and added Customize… to local rows. |

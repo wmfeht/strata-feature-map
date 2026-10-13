@@ -3,17 +3,17 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs]
-docs: [docs/themes.md]
+docs: [docs/themes.md, docs/preferences.md]
 related: [browser/view-modes/text-size, preview/preview-panel]
 ---
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it: 95 bundled themes, custom theme files and their editor, code-preview syntax palettes, element glow, and the interface renderer. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme) and `settings/themes/icons` (theme-tinted bundled icons). Text size, also on this page, is `browser/view-modes/text-size`.
+The Settings → Appearance page and the color system behind it: 95 bundled themes, custom theme files and their editor, code-preview syntax palettes, file icon colors, element glow, the interface renderer, and font rendering. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme) and `settings/themes/icons` (theme-tinted bundled icons). Text size, also on this page, is `browser/view-modes/text-size`.
 
 ## Behavior
 
@@ -65,6 +65,14 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - A custom theme whose colors are written as `rgb()`, short hex, or color names keeps syntax colors in code previews. lgse/strata#742
 - The editor saves each picked color as `#rrggbb`. lgse/strata#742 (unverified)
 
+### File icon colors
+
+- Settings → Appearance has a File icons group with a File icon colors menu: Brand colors, the default, and Theme colors. lgse/strata#1588
+- Choosing Theme colors redraws Catppuccin file icons in the accent in every open window at once; Brand colors restores their palette. lgse/strata#1588
+- The choice is saved as `file_icon_colors = "brand"` or `"theme"`; a missing key reads as Brand colors. lgse/strata#1588 (unverified)
+- A theme gets Mocha file icons when its background's (299R + 587G + 114B) ÷ 1000 is below 128, Latte otherwise, and Mocha when the background cannot be parsed. lgse/strata#1588 (unverified)
+- Switching between a dark and a light theme changes the file icon palette in open windows without restarting. lgse/strata#1588
+
 ### Styling and effects
 
 - Strata's stylesheet reads the nine tokens as `@strata_bg`, `@strata_surface`, `@strata_text`, `@strata_accent`, `@strata_danger`, `@strata_muted`, `@strata_highlight`, `@strata_border`, and `@strata_dim_text`. lgse/strata#1412
@@ -74,13 +82,17 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Turning Element glow off removes that glow in every window at once, keeps focus outlines and depth shadows, and persists across restart. lgse/strata#920
 - Interface renderer offers GTK default and Cairo; choosing a value other than the startup one shows Restart now. lgse/strata#1218
 - After restart, Cairo renders the interface; an explicit `GSK_RENDERER` environment variable overrides the saved choice. lgse/strata#1218
+- On GTK 4.16 or later, Strata sets `gtk-font-rendering` to manual for its own process at startup; the desktop's setting is unchanged. lgse/strata#1601
+- Under GL or Vulkan at text size 10, scaling 1.1818, and a 1.25× monitor, `T`, `E`, and `I` keep their top pixel row. "Trash" no longer reads "Irash". lgse/strata#1600, lgse/strata#1601
+- Manual font rendering follows the desktop's antialiasing and hint style. lgse/strata#1601
+- On GTK older than 4.16, font rendering stays at the desktop's setting. lgse/strata#1601
 - With Reduce motion on, sidebar, column, and preview animations do not play. lgse/strata#458
 - Strata's stylesheet has no `prefers-reduced-motion` rule, so that desktop media preference does not shorten CSS transitions. lgse/strata#458
 - With GTK's `gtk-enable-animations` set to false, the same animations do not play even when Reduce motion is off. lgse/strata#458 (unverified)
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration.
+[docs/themes.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. [docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -97,7 +109,10 @@ The Settings → Appearance page and the color system behind it: 95 bundled them
 - Each preview carries a generation number, so an editor cancels only the preview it started, never a newer one from another window (lgse/strata#1533).
 - Theme files may be dotfile symlinks. A file that failed to load may be a broken dotfile the user still wants, so saving never replaces an existing file (lgse/strata#1455, lgse/strata#1544).
 - Glow got its own switch because changing themes could not tone down dialog glow (lgse/strata#919).
-- GTK's GL and Vulkan renderers lose a top glyph pixel at some scales (GTK issue 8395). Cairo avoids it but costs CPU and is inherited by launched apps, so it stays opt-in (lgse/strata#1216, lgse/strata#1218).
+- GTK's GL and Vulkan renderers lose a top glyph pixel at some scales (GTK issue 8395). Cairo avoids it but costs CPU and is inherited by launched apps, so it stays opt-in (lgse/strata#1216, lgse/strata#1218). The manual font rendering pin fixes it on GTK 4.16 and later (lgse/strata#1601).
+- GTK's automatic font rendering hints glyphs slightly but not their metrics. GSK sizes GPU atlas slots from the unhinted extents, so the hinted top row lands in padding the quad never samples. Cairo draws glyphs directly (lgse/strata#1600, lgse/strata#1601).
+- Manual mode hints metrics too, so the extents match the raster. Application-set GTK settings outrank the settings portal, which on Wayland overrides `settings.ini` (lgse/strata#1600, lgse/strata#1601).
+- lgse/strata#1310 proposed this pin and was closed as not fixable in Strata; lgse/strata#1601 reverses that. The property is looked up by name to keep the GTK 4.12 floor (lgse/strata#1601).
 - The `@media (prefers-reduced-motion)` rule was removed because GTK before 4.20 rejects `@media`. Reduced motion now flows through Strata's setting, not a CSS media query (lgse/strata#436, lgse/strata#458).
 
 ## History

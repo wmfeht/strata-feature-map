@@ -3,7 +3,7 @@ title: Text size
 status: shipped
 origin: {issue: lgse/strata#155, pr: lgse/strata#252}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
 review: draft
 code: [src/ui/preferences/text_size.rs]
 tests: [src/ui/preferences/tests/text_size.rs, src/ui/theme/tests/text_size.rs, tests/e2e/scenarios/test_text_size.py]
@@ -59,4 +59,4 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 
 ## Known gaps
 
-- At desktop text scaling 1.18, the default 13 px rounds to 15 px and glyph tops can still clip. The issue was closed as a GTK rendering problem; the opt-in Cairo renderer avoids it. lgse/strata#1310, lgse/strata#1218
+- On GTK older than 4.16, Strata cannot pin manual font rendering, so glyph tops can still clip at 15 device px under the GL and Vulkan renderers. The opt-in Cairo renderer avoids it. lgse/strata#1310, lgse/strata#1218, lgse/strata#1601
