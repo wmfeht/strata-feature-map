@@ -23,12 +23,24 @@ curl -fsSL https://raw.githubusercontent.com/lgse/strata/main/install.sh | bash
 It needs x86_64 or aarch64 and glibc 2.39 or newer. On Arch and Omarchy it
 installs missing packages with `sudo pacman`. On other distributions it lists
 the libraries to install yourself, then asks you to confirm. It verifies the
-latest stable release's checksum, installs it to `~/.local/bin/strata`, and asks
-about each integration below.
+latest stable release's checksum, installs it to `~/.local/bin/strata`, then
+asks about each integration:
 
-On Arch or Omarchy, to install without questions, name the integrations you
-want. Anything you leave out stays off, except that `--with-folder-association`
-also turns on both of these:
+| Question | Default | Flag |
+| --- | --- | --- |
+| **Add Strata to your desktop application menu?** | Yes | `--with-desktop-entry` |
+| **Make Strata the default application for opening folders?** | No | `--with-folder-association` |
+| **Use Strata for "Open file location" from other applications?** | No | `--with-file-manager` |
+| **Replace your current Open/Save chooser with Strata in portal-aware apps?** | No | `--with-file-chooser` |
+| **Replace Omarchy's Nautilus file-manager keybinds with Strata?** | No | `--with-omarchy-keybinds` |
+
+The folder question follows only a Yes to the menu entry, and a Yes to it also
+sets up "Open file location". Answer No to the keybinds unless you run Omarchy.
+
+On Arch or Omarchy, to install without questions, pass the flags for the
+integrations you want. Anything you leave out stays off, except that
+`--with-folder-association` also turns on the menu entry and "Open file
+location":
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lgse/strata/main/install.sh \
@@ -50,10 +62,10 @@ AUR packages are not yet published; use the installer.
 <!-- node: app/packaging, Desktop entry and icon -->
 <!-- node: app/packaging/installer, Desktop entry and folder association -->
 
-Answer Yes to **Add Strata to your desktop application menu?** (the default),
-or pass `--with-desktop-entry`. The installer writes
+The desktop menu entry puts Strata in your launcher. The installer writes
 `~/.local/share/applications/io.github.lgse.Strata.desktop` and the icon under
-`~/.local/share/icons/hicolor`.
+`~/.local/share/icons/hicolor`. To add it by hand, see
+[Desktop entry](../reference/install.md#desktop-entry).
 
 ## Make Strata the default file manager
 
@@ -68,34 +80,20 @@ Close any open file dialogs, then click **Complete setup** to configure all of
 them. On Omarchy, Super+Shift+F and Super+Alt+Shift+F then open Strata instead
 of Nautilus. **Restore default** undoes it.
 
-To set only the folder handler once the launcher entry is installed, use
-`xdg-mime`:
-
-```bash
-xdg-mime default io.github.lgse.Strata.desktop inode/directory
-xdg-mime query default inode/directory   # prints io.github.lgse.Strata.desktop
-```
-
-Browsers and GTK apps skip that association for "Open file location" and "Show
-in Folder". Strata answers those once its D-Bus service is installed. Answer Yes
-to **Use Strata for "Open file location" from other applications?**, or pass
-`--with-file-manager`. Folder association in the installer installs it too.
+To set these up by hand, see
+[Usage and desktop integration](../reference/install.md#usage-and-desktop-integration).
 
 ## Use Strata as the system file chooser
 
 <!-- node: integration/portal-file-chooser/setup, Portal installation -->
 <!-- node: integration/portal-file-chooser, Requests -->
 
-Strata can draw portal Open and Save dialogs for local files. To switch only
-the chooser, close any open file dialogs and run:
+Strata can draw portal Open and Save dialogs for local files. **Complete setup**
+in **Settings → General** turns this on with the rest of the row. Your current
+chooser stays listed as the fallback, and **Restore default** brings it back.
 
-```bash
-strata --install-portal
-```
-
-Your current chooser stays listed as the fallback. Run
-`strata --uninstall-portal` to restore it. The installer offers this with default No; `--with-file-chooser`
-opts in unattended, and folder association never turns it on.
+To switch only the chooser by hand, see
+[Per-user installation](../reference/portal-file-chooser.md#per-user-installation).
 
 ## Keep Strata up to date
 

@@ -55,23 +55,39 @@ highlights. Your selection stays.
 <!-- node: integration/10xer-mode/file-verbs, Clipboard -->
 <!-- node: integration/10xer-mode/file-verbs, Delete and restore -->
 <!-- node: integration/10xer-mode/file-verbs, Create and rename -->
+<!-- node: integration/10xer-mode/file-verbs, Listing commands -->
+<!-- node: integration/10xer-mode/file-verbs, Open With and actions -->
 <!-- node: integration/10xer-mode/places, The `g` chord -->
 <!-- node: integration/10xer-mode/places, `go ›` -->
 <!-- node: integration/10xer-mode/places, `z` and `Z` -->
 <!-- node: integration/10xer-mode/search, Find -->
 <!-- node: integration/10xer-mode/search, Filter -->
 <!-- node: integration/10xer-mode/search, Search -->
+<!-- node: integration/10xer-mode/places, Folder picker -->
 <!-- node: integration/10xer-mode/preview-keys, Opening and leaving -->
 
-These work in List and Columns. In Icons, `h`, `j`, `k`, and `l` move between
-tiles; press Enter to open one. Capitals mean Shift: `G` is Shift+G.
+You don't need to memorize every key. Five keys start a chord: press one, and a
+panel above the footer lists the keys that can follow. Remember what each chord
+is for and read the rest off the panel. Escape cancels a chord.
+
+| Press | Think | For example |
+| --- | --- | --- |
+| `g` | "go somewhere" | `g h` Home, `g d` Downloads, `g g` first item, `g` Space to type a path |
+| `;` | "do something" | `; t` terminal here, `; c` compress, `; 1` first custom action |
+| `t` | "tabs" | `t n` new tab, `t x` close it, `t 1` first tab |
+| `c` | "copy a path or name" | `c c` path, `c n` name |
+| `,` | "sort by something" | `, a` name, `, m` modified; Shift reverses |
+
+The rest are single keys. They work in List and Columns. In Icons, `h`, `j`,
+`k`, and `l` move between tiles; press Enter to open one. Capitals mean Shift:
+`G` is Shift+G.
 
 | Keys | What it does |
 | --- | --- |
 | `j` / `k` | Next / previous item |
 | `h` / `l` | Parent folder / open the folder |
 | Enter or `o` | Open the item, including files |
-| `g g` / `G` | First / last item |
+| `G` | Last item |
 | `H` / `L` | Back / forward in history |
 | `i` | Preview a file while you keep moving |
 | Space | Select or unselect, then move down |
@@ -84,8 +100,6 @@ tiles; press Enter to open one. Capitals mean Shift: `G` is Shift+G.
 | `f` | Filter this folder |
 | `s` | Search this folder and its subfolders |
 | `z` | Jump to a visited folder |
-| `g h` / `g d` | Home / Downloads |
-| `g` Space | Type a path to go to |
 | Escape | End one thing: prompt, filter, range, preview, then selection |
 | `Q` | Close the window |
 
@@ -95,6 +109,30 @@ first hit; Enter again opens it.
 `y`, `x`, and `d` act on the selection, or on the focused item when nothing is
 selected. Press `l` on a file to move the keys into its preview, and `h` to
 hand them back.
+
+### Type a few letters, fzf-style
+
+Prompts that pick a file or folder match the way fzf does. Type a few letters
+of each word, separated by spaces, in any order. Case never matters.
+
+| Type | Matches |
+| --- | --- |
+| `dev str` | Each term's letters in order, terms in any order: `~/dev/strata` |
+| `'read` | `read` as one unbroken run |
+| `^read` | A name or path that starts with `read` |
+| `.md$` | A name or path that ends in `.md` |
+| `!test` | Leaves out anything containing `test` |
+
+These prompts use it:
+
+| Prompt | Matches against |
+| --- | --- |
+| `f` filter | Names of the folder's own items |
+| `s` search | Paths below the current folder |
+| `z` jump, `Z` recent | Folders you have opened |
+| `g` Space, `M`, `C`, `; E` | Folders below the current one, to go to, move or copy to, or extract to |
+
+`/` find is the exception: it matches plain text in the name.
 
 ## Who it is for
 

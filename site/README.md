@@ -33,7 +33,7 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 Opening paragraph.
 
-## Your first action in five minutes
+## Your first action
 
 <!-- node: integration/custom-actions, Settings → Actions -->
 
@@ -63,8 +63,9 @@ Guide pages:
   once by the author.
 - **Non-exhaustive on purpose.** The common path and at most five "Good to know"
   bullets. Edge cases, limits, and refusal rules belong on the reference page.
-- **Under 600 words a page.** If a page wants more, the overflow belongs in the
-  reference.
+- **Under 600 words of prose a page.** Tables and code blocks do not count;
+  they are scanned, not read. If the prose wants more, the overflow belongs in
+  the reference.
 - **Full detail footer.** A guide page with a reference page ends with
   `**Full detail:**` and links to it.
 
