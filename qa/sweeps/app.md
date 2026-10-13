@@ -161,7 +161,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Per-mode movement, selection, the keyboard cursor after reloads, and type-to-search → `browser`.
 - Context menu items, placement, and Open With → `browser`.
 - The sidebar as a navigation surface, the Trash row, and the update notice's text and layout → `browser`.
-- Sidebar toggle steps, tooltips, and automatic rail → `browser`.
+- Sidebar toggle steps and tooltip text → `browser`.
+- Sidebar automatic rail → `preview`.
 - Settings layer mechanics and pages other than Updates, including Window buttons and text size controls → `settings`.
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.

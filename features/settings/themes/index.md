@@ -85,7 +85,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - On GTK 4.16 or later, Strata sets `gtk-font-rendering` to manual for its own process at startup; the desktop's setting is unchanged. lgse/strata#1601
 - Under GL or Vulkan at text size 10, `text-scaling-factor` 1.1818, and a 1.25× monitor, `T`, `E`, and `I` keep their top pixel row. "Trash" does not read "Irash". lgse/strata#1600, lgse/strata#1601
 - Manual font rendering follows the desktop's antialiasing and hint style. lgse/strata#1601
-- On GTK older than 4.16, font rendering stays at the desktop's setting. lgse/strata#1601
+- On GTK older than 4.16, Strata skips the font rendering pin. lgse/strata#1601
 - With Reduce motion on, sidebar, column, and preview animations do not play. lgse/strata#458
 - Strata's stylesheet has no `prefers-reduced-motion` rule, so that desktop media preference does not shorten CSS transitions. lgse/strata#458
 - With GTK's `gtk-enable-animations` set to false, the same animations do not play even when Reduce motion is off. lgse/strata#458 (unverified)

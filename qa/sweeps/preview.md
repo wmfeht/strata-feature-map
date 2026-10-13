@@ -57,7 +57,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With an automatic rail and a preview open, narrow and widen the window across the threshold, then close and reopen the preview in List and in Icons.
 - With an automatic rail in Columns three levels deep, click Home, a deeper folder, and Back in the rail, at the rail threshold and 24 px above it.
 - With a preview open, move the window width 1 px at a time through the 24 px band above the rail threshold, both directions.
-- In Icons or List with Appearance → Preview panel off, resize across the preferred sidebar width plus one column at text size 10 and two sizes above 13.
+- In Icons or List with Appearance → Preview panel off, resize across the preferred sidebar width plus one column at text sizes 10, 13, and 16.
 - Hide the sidebar in a short window, open a second window, then show the sidebar in each.
 
 ### preview/preview-panel/documents

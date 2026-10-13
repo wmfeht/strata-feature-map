@@ -54,12 +54,12 @@ The left panel of every browser window and the file chooser: built-in places, th
 - The sidebar is expanded and `sidebar_compact` is off by default. lgse/strata#1350, lgse/strata#1606
 - With `sidebar_compact = true` saved and the sidebar shown, every new window starts on the icon rail at any width. lgse/strata#1606
 - With `sidebar_compact = true` and `sidebar_expanded = false` saved, a new window starts hidden; the next step shows the full sidebar and clears `sidebar_compact`. lgse/strata#1606 (unverified)
-- In the window where the step is taken, stepping from hidden to full shows the full sidebar even when too narrow, until the window or the preview next runs out of room. Another window on an automatic rail keeps its rail unless the step cleared a saved `sidebar_compact`. lgse/strata#1606 (unverified)
+- In the window where the step is taken, stepping from hidden to full shows the full sidebar even when too narrow. It stays full until the window or the preview next runs out of room. Another window on an automatic rail keeps its rail unless the step cleared a saved `sidebar_compact`. lgse/strata#1606 (unverified)
 - The toggle's tooltip names the next step: "Compact sidebar (Ctrl+B)" from full, "Hide sidebar (Ctrl+B)" from the rail, "Show sidebar (Ctrl+B)" from hidden. lgse/strata#1606
 - In 10xer mode the tooltip names Ctrl+N instead of Ctrl+B. lgse/strata#1576, lgse/strata#1606
 - The accessible name is "Toggle sidebar (Ctrl+B)", or "(Ctrl+N)" in 10xer mode, at every step. lgse/strata#1606
 - A rail chosen with the toggle stays when the window widens or the preview closes. lgse/strata#1606
-- At text sizes 9 and 11, rail row icons and the update notice icon sit on the header toggle's vertical axis. lgse/strata#1606
+- At text sizes 9 and 11, rail row icons sit on the header toggle's vertical axis. lgse/strata#1606
 - Reopening the sidebar at a 10px text size restores at least its measured minimum width, so row icons are not clipped. lgse/strata#1176
 - In the icon rail, rows show only icons with name tooltips, and headings and device buttons are hidden. lgse/strata#1181 (unverified)
 
@@ -78,7 +78,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preferences.md) carries the sidebar order, place visibility, expanded state, folder customization, and device label preferences.
+[docs/preferences.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preferences.md) carries the sidebar order, place visibility, expanded and compact state, folder customization, and device label preferences.
 
 - The sidebar is a list of buttons rebuilt wholesale from preferences, pins, and the volume monitor. Monitor events are coalesced into one idle rebuild that restores the scroll position (lgse/strata#589).
 - Trash, Recent, and standard folders navigate directly. Other rows go through `navigate_location`, which validates only non-local locations such as Network and SMB pins, mounting them first when needed (lgse/strata#67, lgse/strata#589). Volume rows mount an unmounted volume on click.
@@ -90,7 +90,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Only the toggle's steps are remembered, as `sidebar_expanded` and `sidebar_compact` (lgse/strata#1606). A "Start with sidebar collapsed" switch was left out as unneeded (lgse/strata#1345, lgse/strata#1350); hover-reveal panels were declined (lgse/strata#1282).
 - The selected row uses a direct accent tint because tinting the existing highlight token stayed too faint on dark themes (lgse/strata#104, lgse/strata#106).
 - The fit rule and `RailPolicy` that rail the sidebar automatically belong to `preview/preview-panel/layout` (lgse/strata#1602, lgse/strata#1606).
-- Rail rows take the scaled header-control size from code instead of a fixed 24 px CSS minimum, so they stay on the toggle's axis below 100 % text size (lgse/strata#1602, lgse/strata#1606).
+- Rail rows take the scaled header-control size from code instead of a fixed 24 px CSS minimum. They stay on the toggle's axis below 100 % text size (lgse/strata#1602, lgse/strata#1606).
 - The tooltip names the next step while the accessible name stays constant, so assistive technology and E2E tests find the toggle in every mode (lgse/strata#1606).
 
 ## History

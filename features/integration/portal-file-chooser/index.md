@@ -42,8 +42,10 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
 - Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not. lgse/strata#1070
 - `browser/directory-monitoring` owns how the chooser follows an open folder renamed, moved, or deleted outside Strata. lgse/strata#1554
-- The header toggle and Ctrl+B (Ctrl+N in 10xer mode) step the chooser's sidebar from full to icon rail to hidden and back, except in Send to. lgse/strata#1606
-- Chooser sidebar steps are not saved and leave browser windows unchanged; a saved `sidebar_compact = true` does not start a chooser on the rail. lgse/strata#1606 (unverified)
+- The header toggle and Ctrl+B (Ctrl+N in 10xer mode) step the chooser sidebar full, rail, hidden, full, except in Send to. lgse/strata#1606
+- In a chooser too narrow for the full sidebar, stepping from hidden shows the full sidebar until the fit next changes. lgse/strata#1606 (unverified)
+- Chooser sidebar steps apply to that dialog only and are not saved. lgse/strata#1606
+- A saved `sidebar_compact = true` does not start a chooser on the rail. lgse/strata#1606 (unverified)
 - The chooser's toggle tooltip follows the dialog's own sidebar mode and updates when the rail engages or releases or 10xer mode changes. lgse/strata#1606
 - The chooser sidebar follows the automatic rail rule owned by `preview/preview-panel/layout`. lgse/strata#1606
 - Recent appears in the chooser sidebar when enabled in sidebar preferences and supported by the desktop, listing only local targets. lgse/strata#1138

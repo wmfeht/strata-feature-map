@@ -12,7 +12,7 @@ related: [browser/view-modes/icons, browser/folder-customization]
 
 ## Summary
 
-Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette. Covers icon coloring, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
+Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
 
 ## Behavior
 
