@@ -29,7 +29,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
 - An SVG previews as an image although its bytes are text. lgse/strata#1638
 - Local `app.ts`, `Component.tsx`, and `module.mts` files holding TypeScript preview as highlighted source, whatever the installed MIME database says. lgse/strata#1638, lgse/strata#1631
-- A local file named with an unsupported binary type, other than a workbook or 3D model, previews as text when its first 8 KiB look like text. lgse/strata#1638 (unverified)
+- A local file with an unsupported binary type previews as text when its first 8 KiB look like text. Workbook, 3D model, CBZ, CBR, and EPUB names still route by extension. lgse/strata#1638 (unverified)
 - Remote files are not sampled; an uncertain name takes the content type the location reports, otherwise the name decides. lgse/strata#1638 (unverified)
 - On remote locations, PDFs, GIF images, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
 - 3D models, comic covers, workbooks, and DOCX preview only from local files. lgse/strata#1276, lgse/strata#1325 (unverified)
