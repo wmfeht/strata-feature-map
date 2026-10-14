@@ -65,7 +65,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-13 | lgse/strata#1625 | fix | Reworded zh-CN strings for Compact sidebar, Tasks, Danger, and the password choices so they read as their labels mean. |
+| 2026-10-13 | lgse/strata#1625 | fix | Reworded zh-CN strings so Compact sidebar no longer reads as Hide, and the password choices use the label's verb 保存. |
 | 2026-10-12 | lgse/strata#1583 | feat | Added Simplified Chinese as the eleventh language, auto-detected for every Chinese locale, with a shared sentence joiner and Han/kana Settings search matching. |
 | 2026-10-08 | lgse/strata#1542 | fix | Reviewed every catalog against English and fixed mistranslations and inconsistent terms. |
 | 2026-10-08 | lgse/strata#1519 | feat | Added ten compiled-in languages, locale detection, and a restart-to-apply Language setting. |

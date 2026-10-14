@@ -53,7 +53,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Copy name and Copy path for a multi-selection with non-UTF-8 and space-containing names; paste into a terminal and compare bytes.
 - Paste an image copied from a browser, and paste into a read-only folder.
 - Move to… and Copy to…: reach the destination through the dialog's search, pick Trash, pick a remote location, and pick the source folder itself.
-- On the ntfs-3g mount, copy a folder holding one multi-GB file and cancel after the progress bar fills, before the copy completes; list the destination's parent with `ls -la`.
+- On the ntfs-3g mount, copy a folder and cancel the moment the progress bar fills; list the destination's parent with `ls -la`.
 
 ### operations/clipboard/conflicts
 
