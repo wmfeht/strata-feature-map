@@ -38,7 +38,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A custom file with a GTK-only color form, such as 9-digit hex, loads with colors as `#rrggbb`, or `#rrggbbaa` when translucent; the file is not rewritten. lgse/strata#1554, lgse/strata#1429
 - With a custom theme selected, rewriting its `.toml` file, such as changing `accent`, re-applies the new colors in every open window without a restart. lgse/strata#1620
 - A live re-apply also updates file icon colors and code-preview syntax colors. lgse/strata#1620
-- Theme file writes are debounced by 75 ms, so a generator touching several files in a row triggers one re-read. lgse/strata#1620
+- `.toml` changes in the themes directory less than 75 ms apart trigger one re-read, 75 ms after the last. lgse/strata#1620
 - When a selected file whose stem matches no bundled theme is caught mid-write, invalid, or deleted, its colors stay until the next valid write. lgse/strata#1620
 - While such a file is unreadable, its theme stays in the theme list. lgse/strata#1620
 - Only `.toml` files directly in `~/.config/strata/themes` trigger a re-read; other extensions and subdirectories do not. lgse/strata#1620 (unverified)
@@ -46,8 +46,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - When `~/.config/strata/themes` is missing at startup, files created there later are not re-read until an editor save or a restart. lgse/strata#1620 (unverified)
 - While following Omarchy, rewriting a custom theme file changes no colors. lgse/strata#1620 (unverified)
 - During an editor preview, rewriting the selected file keeps the preview applied. lgse/strata#1620 (unverified)
-- Deleting or breaking a selected custom file that shadows a bundled id, such as `tokyo-night.toml`, applies the bundled theme's colors and lists the bundled theme at once. lgse/strata#1620 (unverified)
-- In an open Settings page, a re-read never redraws existing theme cards; a new file gets a card only when the selected theme's colors change. lgse/strata#1620 (unverified)
+- Deleting or breaking a selected custom `tokyo-night.toml` applies the bundled theme's colors at once, and the bundled theme replaces it in the list. lgse/strata#1620 (unverified)
+- In an open Settings page, a re-read never redraws existing theme cards; a new file's card appears at the next theme or preference change. lgse/strata#1620 (unverified)
 - Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
 - Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
 - Reopening Add theme after Cancel or after Settings closes starts from the selected theme's colors, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)

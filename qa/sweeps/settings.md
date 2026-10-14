@@ -72,6 +72,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed `language = "zh-cn"`, `"zh"`, and `"zh-TW"`; read the selector and the file after the first change.
 - Under 简体中文, 日本語, and English, fail an archive extraction into a read-only folder and copy a 5 GB file to a FAT32 stick; read the spacing and stop between the two sentences.
 - Under 简体中文, read the sidebar toggle tooltip in full, compact, and hidden states, and the password remember choices in a mount dialog.
+- Under 简体中文, read the Tasks icon name in Customize… and the Danger color label in Add theme.
 - Run Deutsch and Русский at the 1250 px panel width and in the destructive-delete dialog; look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
 
 ### settings/preferences/date-format

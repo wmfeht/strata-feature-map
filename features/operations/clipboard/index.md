@@ -81,7 +81,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Names that collide after that sanitizing get a numbered suffix instead of overwriting each other. lgse/strata#1126
 - Copying a file of 4 GiB or larger to a FAT32 drive fails before copying, with a message suggesting exFAT. lgse/strata#1278
 - Copies onto NTFS through ntfs-3g and other FUSE mounts without `RENAME_NOREPLACE` complete without an "Invalid argument" error. lgse/strata#1515
-- Cancelling a folder copy onto a filesystem without `RENAME_NOREPLACE` during publication removes the destination folder it created, even mid-creation. lgse/strata#1515, lgse/strata#1625 (unverified)
+- Cancelling a folder copy onto an ntfs-3g mount after the progress bar fills leaves no partial folder at the destination name. lgse/strata#1515, lgse/strata#1625 (unverified)
 - Copying or moving an item out of Trash that came from another drive creates it under its own leaf name. lgse/strata#1524
 - Moving a folder into itself or a descendant, including through a symlink alias, does nothing and leaves the source untouched. lgse/strata#1537
 
