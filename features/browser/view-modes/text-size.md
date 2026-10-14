@@ -22,7 +22,6 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 - Settings → Appearance → Text has a "Text size" spin button, accessible name "Text size in pixels", accepting 8 to 48; the default is 13. lgse/strata#838
 - The Appearance menu's text-size row has decrease and increase buttons around an "N px" button that resets the size to 13. lgse/strata#951
 - Ctrl++, Ctrl+=, or Ctrl+keypad + increases the size by 1 px; Ctrl+− or Ctrl+keypad − decreases it; Ctrl+0 or Ctrl+keypad 0 resets it to 13. lgse/strata#838
-- With keyboard focus on a PDF's pages, Ctrl+0 leaves the size unchanged. lgse/strata#1622
 - The same keys with Alt or Super held do not change the size. lgse/strata#838
 - Ctrl+Shift+keypad + or Ctrl+Shift+keypad − does not change the size. lgse/strata#1576
 - The shortcuts work while an inline rename editor is open, without submitting it. lgse/strata#838
@@ -47,7 +46,7 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 - Small, Medium, and Large were replaced by a number because 15 px was still hard to read on a 4K monitor (lgse/strata#831).
 - Monitor scaling is left to GTK to avoid double scaling, so moving a window between monitors never rewrites the saved size (lgse/strata#831).
 - Ctrl+wheel is handled in the capture phase so scrolled windows cannot consume it first. The PDF scroll container keeps its own zoom (lgse/strata#1069, lgse/strata#1110).
-- Scroll events carry no pointer position, so the wheel handler asks the seat where the pointer is and picks the widget under it. Keyboard focus does not decide (lgse/strata#1622).
+- Scroll events carry no pointer position, so the wheel handler asks the seat where the pointer is and picks the widget under it (lgse/strata#1622).
 - The wheel controller accumulates deltas itself instead of using GTK's discrete mode, which consumed every touchpad scroll before descendant scrollers saw it (lgse/strata#1140).
 
 ## History

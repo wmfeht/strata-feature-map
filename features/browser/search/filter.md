@@ -58,14 +58,14 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - With **Include subfolders** off, a symlink to a folder matches as a folder and names in `.hidden` stay hidden while hidden files are off. lgse/strata#752
 - At Trash, network, and other non-local locations, the filter narrows the loaded entries without searching subfolders. lgse/strata#995
 - Results stop at 100; the status reads "Searching…", "No matching files", or the partial-search reason. lgse/strata#989 (unverified)
-- In Icons and List, with no results, "Searching…" or "No matching files" sits centered in the results pane both ways. lgse/strata#1648
-- In Icons and List, when outside deletions or moves leave no results, the status shows "No matching files", centered. lgse/strata#1648 (unverified)
+- In Icons and List, with no results, the status sits centered horizontally and vertically in the results pane. lgse/strata#1648
 
 ### Live updates
 
 - With a filter open, a match another program creates or renames in a watched folder appears in the results within about a second. lgse/strata#1439, lgse/strata#1544
 - Watched folders are the filtered folder and, with Include subfolders on in Columns, the open columns below it. lgse/strata#1439, lgse/strata#1544
 - A matching file another program deletes leaves the results as soon as the listing drops it, before the rescan finishes. lgse/strata#1439, lgse/strata#1544
+- In Icons and List, when a deletion, rename, or move removes the last result, the status reads "No matching files", centered. lgse/strata#1648 (unverified)
 - In Columns, Enter after Down opens a remaining hit, with no "Unable to open file" dialog. In List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
 - With Include subfolders on, a change below the watched folders shows only after F5, auto-refresh, a monitor rescan, or reopening the filter. lgse/strata#1439, lgse/strata#1544
 - When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544

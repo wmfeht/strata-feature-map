@@ -25,7 +25,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
 - A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - On open, the empty query shows "Type to search Home and mounted local drives"; clearing a typed query adds "Fuzzy matching · try a name or path fragment". lgse/strata#493 (unverified)
-- The status text sits centered in the results area, both ways, with wrapped lines center-justified. lgse/strata#1648
+- The status text sits centered horizontally and vertically in the results area, with wrapped lines center-justified. lgse/strata#1648
 
 ### Matching and results
 

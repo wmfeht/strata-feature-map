@@ -146,7 +146,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Ctrl++ with the location entry open, with Ctrl+K open, and in Settings; then set `text_size = 7`, `"huge"`, and `49` and start.
 - On `ch`, `cz`, and `fr`, press Ctrl with each top-row key that types `+`, `=`, or `-`, with and without Shift; then keypad + with Num Lock off.
 - Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
-- With a PDF's pages focused, press Ctrl++ and Ctrl+−, then move focus to the listing and press Ctrl+0; read the text size each time.
+- With a PDF's pages focused, press Ctrl++ and Ctrl+−, then Ctrl+keypad 0 with Num Lock on and off.
 
 ### browser/view-modes/position-restore
 
