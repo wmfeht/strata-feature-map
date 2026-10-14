@@ -8,7 +8,7 @@ review: draft
 code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, src/ui/keys/bindings.rs, src/ui/keys/bindings/**]
 tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py]
 docs: [docs/performance-baseline.md]
-related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring]
+related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring, preview/preview-panel]
 ---
 
 ## Summary
@@ -26,8 +26,9 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 - A URI listing, such as Trash or an SMB share, skips an entry whose URI cannot be converted to a location. lgse/strata#1424, lgse/strata#1533 (unverified)
 - Each skipped entry logs a warning with only the request id and backend name; the folder and entry name appear only at DEBUG. lgse/strata#1424, lgse/strata#1533
-- A local file named as image or media whose first bytes are text, such as `clip.mp4` holding source, is never probed by GStreamer or ffprobe. lgse/strata#1638
-- Such a file shows its duration and dimensions as unavailable. lgse/strata#1638
+- In Icons, a file named `clip.mp4` or `photo.png` whose first 8 KiB are text starts no sandboxed metadata probe. lgse/strata#1638
+- A text file named as an SVG or other XML image, or an unreadable file, is still metadata-probed. lgse/strata#1638 (unverified)
+- In Icons, a text file named `clip.mp4` or `photo.png` shows its file size, not a duration or dimensions, in its caption. lgse/strata#1638 (unverified)
 
 ### Log privacy
 

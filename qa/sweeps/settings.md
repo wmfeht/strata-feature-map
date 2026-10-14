@@ -108,7 +108,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Rewrite the selected file during an editor preview and while following Omarchy; then Cancel, or turn Follow Omarchy off, and read every window.
 - Select the custom `tokyo-night.toml`, then delete it, and separately overwrite it with unparseable TOML; read the colors and the theme cards.
 - Launch with no themes directory, then `mkdir` it and drop a theme file; repeat after saving a theme from the editor.
-- Write 20 theme files in one burst, the selected one among them, and watch the log and the repaint count.
+- Write 20 theme files 10 ms apart, the selected one last, then read the window colors and the log.
 - With Settings open in two windows, rewrite the selected file and a non-selected file; read the cards and swatches in each window.
 
 ### settings/themes/icons

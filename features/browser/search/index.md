@@ -97,7 +97,6 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-14 | lgse/strata#1648 | fix | Centered the empty-state and status labels in the search modal and the inline filter, and showed "No matching files" when pruning removes every filter result. |
 | 2026-10-10 | lgse/strata#1539 | fix | Read the new column-truncation event shape when recording visited folders. |
 | 2026-10-10 | lgse/strata#1544 | fix | Rescanned indexes listing a folder changed outside the app, coalescing bursts and skipping pruned folders. |
 | 2026-09-27 | lgse/strata#1287 | fix | Scheduled shallow directories first and pruned Go and Python caches so sibling folders are not starved. |

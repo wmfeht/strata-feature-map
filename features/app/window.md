@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts]
+related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts, browser/view-modes/text-size]
 ---
 
 ## Summary

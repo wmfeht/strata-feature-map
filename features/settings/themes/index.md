@@ -32,22 +32,22 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ### Custom themes
 
-- Valid `.toml` files in `~/.config/strata/themes` load at startup and appear after the bundled themes, keyed by file stem. lgse/strata#96 (unverified)
+- Valid `.toml` files in `~/.config/strata/themes` load at startup, are re-read when one changes, and appear after the bundled themes, keyed by file stem. lgse/strata#96, lgse/strata#1620 (unverified)
 - A custom file whose stem matches a bundled theme id replaces that bundled theme. lgse/strata#96
 - A custom file with an invalid color is skipped at startup. lgse/strata#762
 - A custom file with a GTK-only color form, such as 9-digit hex, loads with colors as `#rrggbb`, or `#rrggbbaa` when translucent; the file is not rewritten. lgse/strata#1554, lgse/strata#1429
 - With a custom theme selected, rewriting its `.toml` file, such as changing `accent`, re-applies the new colors in every open window without a restart. lgse/strata#1620
 - A live re-apply also updates file icon colors and code-preview syntax colors. lgse/strata#1620
 - Theme file writes are debounced by 75 ms, so a generator touching several files in a row triggers one re-read. lgse/strata#1620
-- When the selected file is caught mid-write, invalid, or deleted, the current colors stay; the next valid write applies them. lgse/strata#1620
-- While the selected file is unreadable, its theme stays in the theme list. lgse/strata#1620
+- When a selected file whose stem matches no bundled theme is caught mid-write, invalid, or deleted, its colors stay until the next valid write. lgse/strata#1620
+- While such a file is unreadable, its theme stays in the theme list. lgse/strata#1620
 - Only `.toml` files directly in `~/.config/strata/themes` trigger a re-read; other extensions and subdirectories do not. lgse/strata#1620 (unverified)
 - Saving a theme from the editor re-arms the watch, so a themes directory that the save creates is watched. lgse/strata#1620
 - When `~/.config/strata/themes` is missing at startup, files created there later are not re-read until an editor save or a restart. lgse/strata#1620 (unverified)
 - While following Omarchy, rewriting a custom theme file changes no colors. lgse/strata#1620 (unverified)
 - During an editor preview, rewriting the selected file keeps the preview applied. lgse/strata#1620 (unverified)
-- Deleting or breaking a selected custom file that shadows a bundled id, such as `tokyo-night.toml`, applies the bundled theme's colors at once. lgse/strata#1620 (unverified)
-- Rewriting a theme file other than the selected one does not refresh theme cards in an open Settings page. lgse/strata#1620 (unverified)
+- Deleting or breaking a selected custom file that shadows a bundled id, such as `tokyo-night.toml`, applies the bundled theme's colors and lists the bundled theme at once. lgse/strata#1620 (unverified)
+- In an open Settings page, a re-read never redraws existing theme cards; a new file gets a card only when the selected theme's colors change. lgse/strata#1620 (unverified)
 - Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
 - Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
 - Reopening Add theme after Cancel or after Settings closes starts from the selected theme's colors, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
@@ -104,7 +104,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change: a 75 ms debounce, and keeping the current appearance through a mid-write, invalid, or removed file. [docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change. [docs/preferences.md](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -119,7 +119,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - The editor preview is process-wide: one style provider serves every window. The manager stores the preview tokens, so appearance refreshes re-apply the preview rather than the saved theme (lgse/strata#1457, lgse/strata#1533).
 - Every Settings close route, and the layer unrealizing, runs a hook that discards the preview. A closed window never runs `hide` (lgse/strata#1457, lgse/strata#1533).
 - Each preview carries a generation number, so an editor cancels only the preview it started, never a newer one from another window (lgse/strata#1533).
-- Custom files are re-read on change so theme generators such as matugen work without a restart. lgse/strata#1619 rejected restarting, re-saving, and re-reading on window focus as heavier and still delayed, and a built-in matugen integration as too opinionated (lgse/strata#1619, lgse/strata#1620).
+- Custom files are re-read on change so theme generators such as matugen work without a restart. lgse/strata#1619 rejected restarting, which loses session state, and re-saving, which is manual and easy to forget. Re-reading on window focus was heavier and still delayed; a built-in matugen integration was too opinionated (lgse/strata#1619, lgse/strata#1620).
 - The directory watch uses a 75 ms debounce, the pattern of the Omarchy state watcher (lgse/strata#1620).
 - A refresh keeps the selected theme's last valid entry while its file is unreadable. Dropping it would leave the saved selection pointing at no theme, so appearance changes such as text size would stop applying (lgse/strata#1620).
 - Theme files may be dotfile symlinks. A file that failed to load may be a broken dotfile the user still wants, so saving never replaces an existing file (lgse/strata#1455, lgse/strata#1544).

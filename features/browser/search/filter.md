@@ -58,7 +58,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - With **Include subfolders** off, a symlink to a folder matches as a folder and names in `.hidden` stay hidden while hidden files are off. lgse/strata#752
 - At Trash, network, and other non-local locations, the filter narrows the loaded entries without searching subfolders. lgse/strata#995
 - Results stop at 100; the status reads "Searching…", "No matching files", or the partial-search reason. lgse/strata#989 (unverified)
-- With no results, "Searching…" or "No matching files" sits centered in the results pane both ways. lgse/strata#1648
+- In Icons and List, with no results, "Searching…" or "No matching files" sits centered in the results pane both ways. lgse/strata#1648
 - In Icons and List, when outside deletions or moves leave no results, the status shows "No matching files", centered. lgse/strata#1648 (unverified)
 
 ### Live updates
@@ -116,6 +116,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-14 | lgse/strata#1648 | fix | Centered the empty-state status over the results and showed "No matching files" when pruning removes every result. |
 | 2026-10-11 | lgse/strata#1575 | fix | Made List and Icons filter results one Tab stop, matching the listings. |
 | 2026-10-10 | lgse/strata#1554 | fix | Tracked whether a filter query still awaits its first results, so the default footer can keep describing the folder. |
 | 2026-10-09 | lgse/strata#1533 | fix | Kept focus with the filter on Escape from a result, across view switches, and through background loads. |
