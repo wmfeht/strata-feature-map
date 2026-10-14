@@ -40,7 +40,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - The input keeps a sanitized extension of 1 to 8 ASCII alphanumerics, such as `/input.ARW`, so Sony ARW files render; other names become `/input`. lgse/strata#166
 - A RAW preview that GDK Pixbuf cannot decode falls back to ImageMagick, then to the embedded camera JPEG via `dcraw` or `simple_dcraw`. lgse/strata#166
 - On Debian-family systems where `/usr/bin/magick` and `/usr/bin/convert` link through `/etc/alternatives`, the ImageMagick fallback runs inside the sandbox. lgse/strata#1657
-- The sandbox binds only `/etc/alternatives/magick` and `/etc/alternatives/convert`, never the whole `/etc/alternatives` directory. lgse/strata#1657
+- From `/etc/alternatives`, the sandbox binds only `magick` and `convert`, plus BLAS and LAPACK links for media operations, never the whole directory. lgse/strata#1657, lgse/strata#984
 - On Debian testing with GDK Pixbuf 2.44 and glycin and ImageMagick installed, JPEG and PNG previews render through ImageMagick instead of staying empty. lgse/strata#1656, lgse/strata#1657
 - An image over the decoded-frame budget (about 134 MP RGBA) renders its embedded EXIF thumbnail when it has one, and otherwise fails without killing any process. lgse/strata#1277
 - SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
@@ -92,4 +92,4 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ## Known gaps
 
 - Inside Flatpak, bubblewrap cannot create namespaces, so native-format previews and thumbnails show "Preview unavailable". lgse/strata#1503, lgse/strata#936
-- glycin's loader sandbox cannot start inside the preview sandbox, so with GDK Pixbuf 2.44 every raster image depends on the ImageMagick fallback. lgse/strata#1656
+- glycin's loader sandbox cannot start inside the preview sandbox, so with GDK Pixbuf 2.44 every raster image depends on the ImageMagick fallback. lgse/strata#1657

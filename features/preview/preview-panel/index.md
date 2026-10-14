@@ -25,19 +25,19 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A local file's first 8 KiB decide its preview family: a file named `.png` or `.mp4` holding plain text previews as source text. lgse/strata#1638
 - A local `photo.txt` holding PNG bytes previews as an image, and `paper.txt` holding a PDF previews as a PDF. lgse/strata#1638
 - A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
-- A local binary file named `.json` or `.md` shows "No visual preview" instead of text. lgse/strata#1638
+- A local binary file named `.json` or `.md` whose bytes match no previewable type shows "No visual preview" instead of text. lgse/strata#1638
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
 - An SVG previews as an image although its bytes are text. lgse/strata#1638
 - Local `app.ts`, `Component.tsx`, and `module.mts` files holding TypeScript preview as highlighted source, whatever the installed MIME database says. lgse/strata#1638, lgse/strata#1631
-- A local file whose name gives an unsupported binary type but whose first 8 KiB look like text previews as text. lgse/strata#1638 (unverified)
-- Remote files are not sampled; their preview family comes from the name alone. lgse/strata#1638 (unverified)
+- A local file named with an unsupported binary type, other than a workbook or 3D model, previews as text when its first 8 KiB look like text. lgse/strata#1638 (unverified)
+- Remote files are not sampled; an uncertain name takes the content type the location reports, otherwise the name decides. lgse/strata#1638 (unverified)
 - On remote locations, PDFs, GIF images, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
 - 3D models, comic covers, workbooks, and DOCX preview only from local files. lgse/strata#1276, lgse/strata#1325 (unverified)
 
 ### Text
 
 - Text previews show at most the first 1 MiB of the file. lgse/strata#89
-- A local text file starting with a UTF-16 LE or BE byte-order mark previews as decoded text. lgse/strata#1638
+- A text file starting with a UTF-16 LE or BE byte-order mark previews as decoded text. lgse/strata#1638
 - **Toggle word wrap** in the header wraps text previews; the choice defaults to off, applies in every open window, and survives restart. lgse/strata#921
 - Text with a recognized language, or plain text within 128 KiB, 512 lines, and 2 KiB per line, opens in a source view. lgse/strata#187, lgse/strata#762
 - That source view shows a caret. lgse/strata#1559, lgse/strata#1557
@@ -55,8 +55,9 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
 - In a PDF, double-click selects a word, triple-click a line, Shift+click extends across pages, and Ctrl+A selects all loaded pages. lgse/strata#1223
 - Dragging on a PDF margin or a page without a text layer, such as a scan, pans instead of selecting. lgse/strata#1223
-- Ctrl+wheel over a PDF's pages or scrollbars zooms its pages between 1× and 4× its fitted width; interface text size does not change. lgse/strata#1069, lgse/strata#1622
-- With keyboard focus in a zoomed PDF, Ctrl+0 or Ctrl+keypad 0 returns its pages to fitted width on the same page; interface text size does not change. lgse/strata#1622
+- Ctrl+wheel over a PDF's pages zooms its pages between 1× and 4× its fitted width; interface text size does not change. lgse/strata#1069, lgse/strata#1622
+- With keyboard focus in a zoomed PDF, Ctrl+0 returns its pages to fitted width on the same page; interface text size does not change. lgse/strata#1622
+- With Num Lock on, Ctrl+keypad 0 also resets a focused PDF's zoom. lgse/strata#1622 (unverified)
 - Ctrl+0 on a focused PDF already at fitted width is consumed and does not reset interface text size. lgse/strata#1622
 - In 10xer mode, Ctrl+0 on a focused zoomed PDF also resets its zoom. lgse/strata#1622
 - With focus in a PDF, Ctrl+Alt+0 and Ctrl+Super+0 leave its zoom unchanged. lgse/strata#1576
@@ -70,6 +71,10 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276
 - While a model loads, the drawer shows "Reading model…", "Rendering N triangles…", then "Finishing preview…"; embedded images show "Reading thumbnail…" instead of the count. lgse/strata#1276
 - CBZ and CBR files show their first naturally ordered image, and EPUB files their declared cover; a file without one shows an error. lgse/strata#1325
+
+### Media stepping
+
+- In Icons, media previous and next skip an entry whose metadata fill found no positive duration, such as text named `clip.mp4`. lgse/strata#1638 (unverified)
 
 ### Printing
 
@@ -88,7 +93,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 - Every browsed file is untrusted. Native parsing runs in the sandbox, and only bounded PNG, text, or validated JSON reaches the drawer (lgse/strata#6).
 - Eligibility is guessed from the name so listing stays cheap. An uncertain guess defers to the loader, which queries the content type of the one previewed file; listing and sorting stay name-only (lgse/strata#964).
-- The loader also reads the first 8 KiB of every local file, and the bytes override the name's family. shared-mime-info maps `*.ts` to TypeScript, Qt Linguist, and MPEG-TS, so a confident name match had skipped sniffing (lgse/strata#1638).
+- The loader also reads the first 8 KiB of every local file, and the bytes override the name's family. shared-mime-info maps `*.ts` to TypeScript, Qt Linguist, and MPEG-TS. A confident name match had skipped sniffing (lgse/strata#1638).
 - Special-casing TypeScript would fix one collision only. Quick preview, printing, menus, and the chooser still gate on the name; the loader resolves the final family (lgse/strata#1638).
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.

@@ -37,7 +37,8 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - In the default key map, plain Left in a document returns focus to the listing. lgse/strata#1559 (unverified)
 - A click past the end of a wrapped line places the caret at that display line's end. lgse/strata#1559 (unverified)
 - A Shift-click or double-click on a link selects text without opening the link; only a plain single click opens it. lgse/strata#1559 (unverified)
-- With word wrap off, a rendered document such as Markdown with lines wider than the pane scrolls sideways to every line's end, by touchpad, Shift+wheel, or scrollbar. lgse/strata#1612, lgse/strata#1610
+- With word wrap off, each rendered document row widens to its longest line, so the horizontal scrollbar reaches every line. lgse/strata#1612, lgse/strata#1610
+- Touchpad, Shift+wheel, and the scrollbar all scroll an unwrapped rendered document sideways. lgse/strata#1612
 - Turning wrap on while a rendered document is open reflows each paragraph to its full wrapped height without reopening. lgse/strata#1612, lgse/strata#1610
 - Turning wrap off while a rendered document is open returns rows to their unwrapped height with no blank gaps between them. lgse/strata#1612, lgse/strata#1610
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187

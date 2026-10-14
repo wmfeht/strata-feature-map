@@ -43,7 +43,6 @@ The now-playing view for audio files: artwork, tags, a live spectrum, a waveform
 - Previous and next step through the folder's audio files, or visible filtered audio results including subfolders, and keep playing if the current track was playing. lgse/strata#1289
 - Previous is disabled on the first audio file and next on the last; stepping does not wrap. lgse/strata#1289 (unverified)
 - Previous and next skip playlists and MIDI files. lgse/strata#1289
-- In Icons, previous and next skip an entry whose metadata probe found no media, such as source text named `song.mp3`, whatever its extension. lgse/strata#1638 (unverified)
 - In 10xer mode, `<` and `>` step tracks from the listing or inside the preview; the default key map uses Ctrl+Alt+`<` and Ctrl+Alt+`>`. lgse/strata#1289
 - Tracks never advance automatically when one ends. lgse/strata#1289
 - Every track starts from the beginning; audio does not resume where it stopped. lgse/strata#1289

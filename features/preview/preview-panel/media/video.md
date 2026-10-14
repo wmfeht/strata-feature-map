@@ -43,7 +43,6 @@ The now-playing view for video files: the frame, a header with technical badges,
 ### Stepping and handoff
 
 - Previous and next, Ctrl+Alt+`<` and Ctrl+Alt+`>`, or `<` and `>` in 10xer mode step to the previous or next video, skipping audio files. lgse/strata#1474
-- In Icons, previous and next skip an entry whose metadata probe found no media, such as source text named `clip.mp4`, whatever its extension. lgse/strata#1638
 - Enter, the header's Open button, or activating the file in the listing pauses the preview and opens the default player. lgse/strata#1474
 - mpv, VLC, Celluloid, and MPlayer start at the preview's position; other players, and positions within 1 s of either end, open the file plainly. lgse/strata#1474
 - A video double-clicked while its preview is loading stays paused when the preview lands; moving to another file or pressing play lifts the hold. lgse/strata#1474
