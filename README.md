@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `6e654a7` · 111 features, 32 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `6e654a7` · 111 features, 33 reviewed
 
 ## app
 
@@ -146,7 +146,7 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 | ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `6e654a7` | ? |
 | ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `0562724` | ? |
 | &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | draft | `6e654a7` | ? |
-| &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | draft | `6e654a7` | ? |
+| &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | reviewed | `6e654a7` | ? |
 | ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | draft | `6e654a7` | ? |
 | [Quick preview](features/preview/quick-preview/index.md) | `preview/quick-preview` | shipped | draft | `6e654a7` | ? |
 | ↳ [Folder peek](features/preview/quick-preview/folder-peek.md) | `preview/quick-preview/folder-peek` | shipped | reviewed | `b893886` | 0 |

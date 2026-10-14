@@ -60,7 +60,6 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Press Space three times within 260 ms in Icons with reduced motion on, then toggle Appearance → Preview panel mid-slide in Columns.
 - With reduced motion off in List, press Space to close, then Space again at about 50 ms, 130 ms, and 250 ms into the slide-out.
 - Show a rendered Markdown file and a DOCX in a 3000 px preview, with wrap on, then off.
-- In Columns with overflowing columns and wrap off, compare the pixel rows of the preview's and the columns' horizontal scrollbars at 1× and 2×.
 - In Columns, drag the divider narrower, then wider, then use F8 and arrows; switch to Icons and back between each step.
 - With an automatic rail and a preview open, narrow and widen the window across the threshold, then close and reopen the preview in List and in Icons.
 - With an automatic rail in Columns three levels deep, click Home, a deeper folder, and Back in the rail, at the rail threshold and 24 px above it.

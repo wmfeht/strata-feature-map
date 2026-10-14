@@ -1076,7 +1076,7 @@ The now-playing view for audio files: artwork, tags, a live spectrum, a waveform
 
 ### [Video previews](../features/preview/preview-panel/media/video.md) `preview/preview-panel/media/video`
 
-shipped · draft · reviewed at [`6e654a7`](https://github.com/lgse/strata/tree/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8) · ? PRs since · origin issue [lgse/strata#1417](https://github.com/lgse/strata/issues/1417), pr [lgse/strata#1474](https://github.com/lgse/strata/issues/1474)
+shipped · reviewed · reviewed at [`6e654a7`](https://github.com/lgse/strata/tree/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8) · ? PRs since · origin issue [lgse/strata#1417](https://github.com/lgse/strata/issues/1417), pr [lgse/strata#1474](https://github.com/lgse/strata/issues/1474)
 
 The now-playing view for video files: the frame, a header with technical badges, a waveform timeline with chapter ticks and storyboard scrubbing, and previous/next controls. It also hands playback to the default player at the current position.
 
