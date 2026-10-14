@@ -92,7 +92,7 @@ containing embedded newlines are also retained.
 Each action row in **Settings → Actions** has an enable switch and **Edit**,
 **Duplicate**, **Export…**, and **Delete** buttons.
 
-- **Duplicate** creates `<id>-copy` named “<name> copy”, then tries `<id>-copy-1`,
+- **Duplicate** creates `<id>-copy` named “\<name> copy”, then tries `<id>-copy-1`,
   `<id>-copy-2`, and so on.
 - **Export…** asks for a folder and writes the action to `<chosen folder>/<id>`.
   It refuses if that folder already exists.
@@ -339,7 +339,7 @@ once per path and tracks succeeded, failed, and remaining counts itself; with
 ### Confirmation
 
 With `confirm = true`, choosing the action opens **Run this action?** with the
-action's name and icon. It reads “This runs “<name>” on <n> selected items.”, then
+action's name and icon. It reads “This runs “\<name>” on \<n> selected items.”, then
 the action's description, with **Run** focused. **Cancel** or the close button
 runs nothing.
 
@@ -486,7 +486,7 @@ wait for subprocesses that need the invocation's context or captured output.
 
 Up to 20 finished jobs (successes, failures, and cancellations) stay for the
 current session. The oldest finished jobs are dropped first; active jobs never
-are. The dashboard lists at most 12 jobs, then shows “<n> older jobs are hidden”.
+are. The dashboard lists at most 12 jobs, then shows “\<n> older jobs are hidden”.
 **Details** expands captured output and **Hide** collapses it; a queued job has no
 **Details** yet. Details shows “No output yet.” until output arrives. On a running
 job it streams new output and follows the bottom until you scroll up, then follows
@@ -495,7 +495,7 @@ finished jobs. Each row shows the action's name and icon, a theme-accent status
 (“Queued”, “Cancelling…”, or “Running for”, “Done in”, “Failed after”, or
 “Cancelled after” with the elapsed time), and a check or X for finished results.
 Below it, the row lists the script's latest message, progress counts such as
-`3/10` (plus “<n> failed” in a per-item job), and the invoking folder, shown as
+`3/10` (plus “\<n> failed” in a per-item job), and the invoking folder, shown as
 Home or `~/…` under your home folder. Failure
 output appears only in Details, not a separate banner.
 The dashboard opens above the footer without covering it.

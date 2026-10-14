@@ -54,7 +54,7 @@ consumer accepts at most one artifact per supported target, so two in total, and
 verifies the selected architecture and exact asset name. Each artifact must be
 named `strata-<version>-<target>.tar.gz`, with a nonzero size of at most 128 MiB.
 A manifest with a missing, extra, or wrongly typed field fails with "Invalid
-signed update manifest: <reason>". A manifest with another schema, repository,
+signed update manifest: \<reason>". A manifest with another schema, repository,
 or tag, a `source_commit` that is not 40 lowercase hex characters, or an empty
 or over-eight-entry `artifacts` list fails with "The signed manifest does not
 identify the selected Strata release". An unknown target, a duplicate name or
@@ -70,7 +70,7 @@ rejects.
 The signature envelope has `schema: 1` and a `signatures` array of one to eight
 entries. Each entry has only `key_id` (64 lowercase hex characters) and
 `signature` (128 hex characters). An envelope with a missing, extra, or wrongly
-typed field fails with "Invalid update signatures: <reason>". Any other schema
+typed field fails with "Invalid update signatures: \<reason>". Any other schema
 or entry count fails with "Unsupported update signature format".
 The Ed25519 message is the bytes `strata-update-manifest-v1`, one NUL byte, then
 the **exact published manifest bytes**, including its trailing newline. Readers
@@ -126,9 +126,9 @@ server, or while sending the request, it reads "Could not reach the download
 server — check your connection and try again". When it times out waiting for
 the response or for data, it reads "The download stalled — check your
 connection and try again". Other network errors, such as a refused connection
-or a failed name lookup, read "Could not download the update: <reason>". A
+or a failed name lookup, read "Could not download the update: \<reason>". A
 metadata request that fails before its response arrives, a timeout included,
-reads "Could not download signed update metadata: <reason>". Once the metadata
+reads "Could not download signed update metadata: \<reason>". Once the metadata
 response has started, its errors read as for the archive.
 
 ### Extraction, probe, and rollback
