@@ -20,6 +20,7 @@ tree under `features/` stays the spec; the site never cites it.
 | `drafts/<slug>.md` | Proposals with no section to land in. Never built. | The bot, then people |
 | `preprocessors/strip.py` | Drops front matter and HTML comments before rendering. | People |
 | `book.toml` | mdBook configuration. `featuremap.py index` sets its `title` and `site-url`. | People |
+| `theme/` | The site's look: Tokyo Night palettes, the page template, fonts, and the pixel wordmark. See "Theme" below. | People |
 
 ## Page format
 
@@ -130,6 +131,32 @@ The feature map syncs daily; the site updates once per stable release. When a
    `release-docs` report renders them.
 
 Alpha, beta, RC, and nightly tags trigger nothing.
+
+## Theme
+
+`theme/` replaces mdBook's stock theme with one modeled on the Omarchy manual
+and colored in Tokyo Night. Readers pick Night (the default), Storm, or Day from
+the palette button.
+
+| File | Holds |
+| --- | --- |
+| `index.hbs` | The page template: top bar, sidebar, pixel wordmark, search palette, pager. Derived from mdBook 0.4.52's; keep the ids and classes `book.js` and `searcher.js` look up. |
+| `css/variables.css` | One token set per palette. The other stylesheets read tokens and name no colors. |
+| `css/general.css` | Typography and page content: headings, lists, code, tables. |
+| `css/chrome.css` | Everything around the content. |
+| `css/print.css` | Print: content only, on white. |
+| `highlight.css` | Syntax colors, drawn from the tokens. |
+| `fonts/` | JetBrains Mono and Geist, latin variable subsets from Fontsource, under the OFL. |
+| `favicon.svg`, `favicon.png` | The pixel S. The PNG is `rsvg-convert -w 64 -h 64 favicon.svg`. |
+
+The STRATA wordmark is SVG path data inlined in `index.hbs`: each letter is a
+6×7 grid of cells, drawn as one-cell-high runs. To change a glyph, edit the runs
+for its columns. Letters start every 7 cells: S at 0, T at 7, R at 14, A at 21,
+T at 28, A at 35.
+
+Pinning mdBook in `mise.toml` pins the template's contract too. After upgrading
+mdBook, diff `mdbook init --theme` output against `index.hbs` and carry over the
+changes.
 
 ## Building
 

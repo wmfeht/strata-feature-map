@@ -16,8 +16,8 @@ before = ["links", "index"]
 site-url = "/strata-feature-map/"
 git-repository-url = "https://github.com/lgse/strata"
 no-section-label = true
-default-theme = "light"
-preferred-dark-theme = "navy"
+default-theme = "tokyo-night"
+preferred-dark-theme = "tokyo-night"
 
 [output.html.search]
 limit-results = 20

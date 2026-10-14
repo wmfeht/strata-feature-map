@@ -1,0 +1,91 @@
+/* highlight.js in Tokyo Night, after folke/tokyonight.nvim's syntax groups.
+   Colours come from the theme tokens in css/variables.css, so Day follows too. */
+
+/* book.js also tags inline code .hljs; only blocks take the base colours. */
+pre > code.hljs {
+    color: var(--fg-strong);
+    background: transparent;
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: var(--faint);
+    font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-doctag {
+    color: var(--magenta);
+}
+
+.hljs-built_in,
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+    color: var(--cyan);
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-section,
+.hljs-function .hljs-title {
+    color: var(--blue);
+}
+
+.hljs-type,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+    color: var(--aqua);
+}
+
+.hljs-string,
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-addition {
+    color: var(--green);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet {
+    color: var(--orange);
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-property,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+    color: var(--teal);
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-params {
+    color: var(--yellow);
+}
+
+.hljs-subst,
+.hljs-name,
+.hljs-tag {
+    color: var(--red);
+}
+
+.hljs-punctuation,
+.hljs-operator {
+    color: var(--sky);
+}
+
+.hljs-link {
+    color: var(--cyan);
+    text-decoration: underline;
+}
+
+.hljs-deletion {
+    color: var(--red);
+}
+
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }

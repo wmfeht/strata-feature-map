@@ -1,0 +1,132 @@
+/*
+ * Strata docs theme: Tokyo Night, laid out after the Omarchy manual.
+ * Palettes follow folke/tokyonight.nvim. The other stylesheets read these
+ * tokens and name no colour of their own.
+ */
+
+:root {
+    --frame-width: 1200px;
+    --gutter: max(16px, calc((100vw - var(--frame-width)) / 2));
+    --sidebar-target-width: 264px;
+    --sidebar-width: min(var(--sidebar-target-width), 84vw);
+    --content-max-width: 760px;
+    --menu-bar-height: 52px;
+    --page-padding: 16px;
+
+    --sans-font: "Geist", "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+    --mono-font: "JetBrains Mono", "JetBrainsMono Nerd Font", "JetBrains Mono Variable", ui-monospace, monospace;
+    --code-font-size: 0.875em;
+
+    /* Theme picker swatches show each palette whatever the current theme: bg, blue, magenta. */
+    --swatch-night: linear-gradient(90deg, #1a1b26 0 34%, #7aa2f7 34% 67%, #bb9af7 67%);
+    --swatch-storm: linear-gradient(90deg, #24283b 0 34%, #7aa2f7 34% 67%, #bb9af7 67%);
+    --swatch-day: linear-gradient(90deg, #e1e2e7 0 34%, #2e7de9 34% 67%, #9854f1 67%);
+}
+
+/* Night: the Omarchy default. */
+.tokyo-night, html:not(.js) {
+    --bg: #1a1b26;
+    --bg-dark: #16161e;
+    --bg-hl: #292e42;
+    --bg-sel: #283457;
+    --rule: #292e42;
+    --rule-strong: #3b4261;
+    --fg: #a9b1d6;
+    --fg-strong: #c0caf5;
+    --muted: #737aa2;
+    --faint: #565f89;
+
+    --blue: #7aa2f7;
+    --blue-deep: #3d59a1;
+    --blue-shade: #394b70;
+    --cyan: #7dcfff;
+    --sky: #89ddff;
+    --aqua: #2ac3de;
+    --magenta: #bb9af7;
+    --purple: #9d7cd8;
+    --green: #9ece6a;
+    --teal: #73daca;
+    --yellow: #e0af68;
+    --orange: #ff9e64;
+    --red: #f7768e;
+
+    --button-bg: #c0caf5;
+    --button-fg: #1a1b26;
+    --overlay: rgba(10, 11, 18, 0.72);
+    --topbar-bg: rgba(26, 27, 38, 0.86);
+    --dot: rgba(122, 162, 247, 0.16);
+
+    --color-scheme: dark;
+}
+
+/* Storm: Night on a lighter, bluer slate. */
+.tokyo-night-storm {
+    --bg: #24283b;
+    --bg-dark: #1f2335;
+    --bg-hl: #292e42;
+    --bg-sel: #2e3c64;
+    --rule: #2f344d;
+    --rule-strong: #3b4261;
+    --fg: #a9b1d6;
+    --fg-strong: #c0caf5;
+    --muted: #737aa2;
+    --faint: #565f89;
+
+    --blue: #7aa2f7;
+    --blue-deep: #3d59a1;
+    --blue-shade: #394b70;
+    --cyan: #7dcfff;
+    --sky: #89ddff;
+    --aqua: #2ac3de;
+    --magenta: #bb9af7;
+    --purple: #9d7cd8;
+    --green: #9ece6a;
+    --teal: #73daca;
+    --yellow: #e0af68;
+    --orange: #ff9e64;
+    --red: #f7768e;
+
+    --button-bg: #c0caf5;
+    --button-fg: #24283b;
+    --overlay: rgba(16, 18, 30, 0.72);
+    --topbar-bg: rgba(36, 40, 59, 0.86);
+    --dot: rgba(122, 162, 247, 0.16);
+
+    --color-scheme: dark;
+}
+
+/* Day: the light variant. Body text is slate rather than the editor's blue, for long reading. */
+.tokyo-night-day {
+    --bg: #e1e2e7;
+    --bg-dark: #d5d6db;
+    --bg-hl: #c4c8da;
+    --bg-sel: #b7c1e3;
+    --rule: #c4c8da;
+    --rule-strong: #a8aecb;
+    --fg: #3f4673;
+    --fg-strong: #1f2335;
+    --muted: #5c6390;
+    --faint: #848cb5;
+
+    --blue: #2e7de9;
+    --blue-deep: #7890dd;
+    --blue-shade: #a8aecb;
+    --cyan: #007197;
+    --sky: #006a83;
+    --aqua: #188092;
+    --magenta: #9854f1;
+    --purple: #7847bd;
+    --green: #587539;
+    --teal: #387068;
+    --yellow: #8c6c3e;
+    --orange: #b15c00;
+    --red: #f52a65;
+
+    --button-bg: #343b58;
+    --button-fg: #e1e2e7;
+    --overlay: rgba(52, 59, 88, 0.32);
+    --topbar-bg: rgba(225, 226, 231, 0.88);
+    --dot: rgba(46, 125, 233, 0.14);
+
+    --color-scheme: light;
+}

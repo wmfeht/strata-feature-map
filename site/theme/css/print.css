@@ -1,0 +1,58 @@
+/* Print: content only, dark text on white whatever the screen theme. */
+
+:root, html {
+    --bg: #ffffff;
+    --bg-dark: #f4f4f6;
+    --bg-hl: #e8e9ee;
+    --rule: #d0d3dc;
+    --rule-strong: #a8aecb;
+    --fg: #24283b;
+    --fg-strong: #000000;
+    --muted: #4c5374;
+    --faint: #6b7194;
+    --blue: #2e7de9;
+    --blue-shade: #a8aecb;
+    --cyan: #007197;
+    --magenta: #9854f1;
+    --green: #587539;
+    --teal: #387068;
+    --yellow: #8c6c3e;
+    --orange: #b15c00;
+    --red: #c64343;
+    --sky: #006a83;
+    --aqua: #188092;
+    color-scheme: light;
+}
+
+.topbar,
+#sidebar,
+.sidebar-scrim,
+.masthead,
+.pager,
+#search-wrapper,
+pre > .buttons {
+    display: none !important;
+}
+
+#page-wrapper.page-wrapper {
+    margin: 0 !important;
+    padding: 0;
+    transform: none !important;
+}
+
+.page { padding: 0 !important; }
+.content main { max-width: none; margin: 0 !important; }
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+
+pre, code {
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+}
+
+pre::after { display: none; }
+
+.fa { display: none !important; }
