@@ -33,7 +33,7 @@ How the preview panel shares the window with the file views: its width, the rese
 - Images, GIFs, and video are centered within 1280 px and enlarged at most 2× their native size. lgse/strata#888
 - In a preview wider than 1280 px, PDF pages and wrapped rendered Markdown, HTML, and RTF stop at 1280 px, centered; Ctrl+wheel PDF zoom scales from that width. lgse/strata#1539, lgse/strata#1612
 - With word wrap off, every row of a rendered document starts at the left edge, including in previews wider than 1280 px. lgse/strata#1612
-- A DOCX preview starts at the left edge instead of centering at 1280 px. lgse/strata#1612 (unverified)
+- DOCX, XLS, XLSX, and ODS previews start at the left edge instead of centering at 1280 px. lgse/strata#1612 (unverified)
 - Source views and standalone tables keep the full preview width. lgse/strata#1539
 - The preview header uses 16 px icons and compact buttons, and its close button lines up with the header bar's close button. lgse/strata#829
 

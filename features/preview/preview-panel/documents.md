@@ -83,7 +83,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - DOCX renders headings, `Title`, `Subtitle`, quotes, inline formatting, nested bulleted and numbered lists, and tables with the first row as sortable titles. lgse/strata#1086
 - DOCX has no Source view; images, hyperlink targets, headers, footers, footnotes, and comments are omitted. lgse/strata#1086
 - DOCX files with alternate XML namespace prefixes or default namespaces keep their Word content. lgse/strata#1086
-- DOCX paragraphs never wrap and the header shows no wrap toggle; long lines scroll sideways. lgse/strata#1612 (unverified)
+- DOCX paragraphs never wrap, and lines wider than the pane scroll sideways. lgse/strata#1612 (unverified)
 
 ## Design
 

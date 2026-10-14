@@ -42,7 +42,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout and with Caps Lock on.
 - Preview the UTF-16 BE samples with and without a BOM, and the text named `.xlsx`.
 - Preview a Latin-1 file whose control bytes are just over 1 in 32, and one just under.
-- Press Ctrl++ with a PDF focused at fitted width, then Ctrl+0; read `text_size` in `settings.toml`.
+- Preview MP4 and Ogg bytes named `.txt` and `.md`.
 - Arm a 10xer chord, then press Ctrl+0 in a zoomed PDF in the main window.
 - Ctrl+wheel with a touchpad over a PDF's scrollbar, on X11 and on Wayland.
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
