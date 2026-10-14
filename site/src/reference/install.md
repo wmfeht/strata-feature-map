@@ -87,7 +87,7 @@ binary and any integration it set up before that flag's step.
 
 Each `--with-*` flag and `--without-file-chooser` implies `--non-interactive`,
 and integrations you do not name are declined. An unknown option exits with
-"Unknown option: <option> (run with --help for usage)." Folder association implies
+"Unknown option: \<option> (run with --help for usage)." Folder association implies
 the desktop entry and `--with-file-manager`. Use `--with-file-manager` by itself
 to enable only "Open file location" integration. File chooser replacement is
 separate: use `--with-file-chooser` to opt in, or `--without-file-chooser` to keep
@@ -114,10 +114,10 @@ needs a terminal; without one it exits with "This interactive installer needs a
 terminal." Under `curl … | bash`, every prompt, including pacman's, reads from
 the terminal. On a system other than Linux it exits with "The prebuilt Strata
 release supports Linux only." On a machine other than x86_64 or aarch64 it exits
-with "Strata has no prebuilt release for <machine>." On a Linux system without
+with "Strata has no prebuilt release for \<machine>." On a Linux system without
 glibc it exits with "Strata requires a glibc-based Linux system." With glibc
 older than 2.39 it exits with "Strata requires glibc 2.39 or newer (found
-<version>)."
+\<version>)."
 
 It then prints the detected Linux distribution, the architecture (as the release
 target), the glibc version, and "Omarchy: major version N" or "Omarchy: not
@@ -139,7 +139,7 @@ only."
 
 The installer always installs the latest stable release. If GitHub's latest
 release tag is not shaped `vX.Y.Z`, it exits with "GitHub returned an unexpected
-stable release tag: <tag>". An archive missing the
+stable release tag: \<tag>". An archive missing the
 `strata` binary, the desktop entry, or the icon is rejected before installation.
 If `~/.local/bin/strata` already exists, it asks "Replace the existing …?"
 (default No). An unattended run exits instead: "… already exists; remove it or
@@ -345,7 +345,7 @@ starting another shows "Another install is already running — try again shortly
   the dialog.
 - Once finalizing begins, the row's **Cancel** is disabled and the dialog cannot
   be dismissed until the install ends.
-- A failure shows "Couldn't install update: <reason>". The row's button becomes
+- A failure shows "Couldn't install update: \<reason>". The row's button becomes
   **Check now**, and the dialog's becomes **Close**.
 - A download fails after 30 seconds to connect ("Could not reach the download
   server — check your connection and try again"), or after 30 seconds without
@@ -574,7 +574,7 @@ open file dialogs before changing setup.
   missing target, and Restore default leaves the shortcuts and the link
   unchanged.
 - Complete setup fails with "Another per-user FileManager1 provider is already
-  installed: <path>" when another service owns that name. The button is hidden
+  installed: \<path>" when another service owns that name. The button is hidden
   once every line is configured.
 - **Restore default** appears while any part is installed. It removes the
   service and the chooser, and returns `inode/directory` to the handler recorded
@@ -672,7 +672,7 @@ Setup then restarts udiskie, or starts `udiskie --automount --no-notify
 If udiskie cannot be restarted, the command reports "Saved the udiskie
 configuration. Restart udiskie or log out for it to take effect." A `config.yml`
 that is a symlink or other non-regular file is refused with "Refusing to replace
-non-regular udiskie configuration <path>". Setup also refuses a configuration
+non-regular udiskie configuration \<path>". Setup also refuses a configuration
 that is not a YAML mapping, whose `program_options` is not a mapping, whose
 `device_config` is not a list, or whose existing `event_hook` or
 `password_prompt` is not a boolean, string, or list of strings. It reports
@@ -884,7 +884,7 @@ reports "Network request failed:" followed by the cause.
   Without a GitHub release for that tag, its summary reads "Release notes
   unavailable for this build", the expander reads "Release notes are unavailable
   because this version’s tag was not found.", and a **View on GitHub** link
-  appears. A failed request reads "Couldn’t load release notes: <reason>".
+  appears. A failed request reads "Couldn’t load release notes: \<reason>".
   Empty notes, or notes holding only HTML comments, read "No release notes were
   provided for this release."
 - Notes show headings, paragraphs, lists, code, and rules. Images, tables, and

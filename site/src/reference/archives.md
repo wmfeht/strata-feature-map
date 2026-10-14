@@ -21,8 +21,8 @@ members instead of aborting the entire operation. Backslashes count as path
 separators, so `..\report.txt` also becomes `report.txt`. An empty or absolute
 path, or one with any component that starts with a letter and a colon, such as
 `C:` or `docs/a:b.txt`, fails the extraction with "Refusing unsafe archive
-path: <name>", and nothing is written outside the destination. A path that resolves to nothing, such as `folder/..`, fails it
-with "Refusing empty archive path: <name>".
+path: \<name>", and nothing is written outside the destination. A path that resolves to nothing, such as `folder/..`, fails it
+with "Refusing empty archive path: \<name>".
 
 The sanitized path still passes through the descriptor-relative destination
 writer, which refuses symlink traversal. Normal conflict renaming also applies,
@@ -130,7 +130,7 @@ TAR names and hard-link targets retain their native bytes. Hard links become
 links to the member of that name extracted earlier from the same archive,
 following any conflict rename. A hard link to a member that
 was not extracted, or that appears later, fails the extraction. A TAR FIFO or
-device member fails the extraction with "Archive member “<name>” is a FIFO and
+device member fails the extraction with "Archive member “\<name>” is a FIFO and
 cannot be extracted" or "… is a device and cannot be extracted". An existing symlink at a member's name, such as an
 earlier link member with the same name, is skipped like a file: the member is
 renamed to `name (2)`.
@@ -423,12 +423,12 @@ stops updating. A docked copy also shows files done of total. A copy onto
 removable media shows "Writing to device…" in its footer and is not reported
 complete until the filesystem flush returns. A compression card names the
 archive instead of the first item. The
-destination reads "→ <path>" for a folder, "→ Trash" for Move to Trash, and
+destination reads "→ \<path>" for a folder, "→ Trash" for Move to Trash, and
 "Permanent deletion" for permanent deletion. Several cards stack and update
 independently; the stack scrolls once it reaches 320 px. A card never blurs
 or unblurs the window, even while another dialog is open.
 
-The dock also shows brief notices, such as "Copied to <device>" when a Send to
+The dock also shows brief notices, such as "Copied to \<device>" when a Send to
 finishes before its progress appears. A notice is a row with a check icon
 before its text and no controls; clicking it does nothing. Notices and
 progress cards stack in the order they appear. A new notice in the same window
