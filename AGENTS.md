@@ -23,6 +23,7 @@ knows this map exists.
 | `scopes.yaml` | Conventional Commit scope to node id, plus `fallback` nodes. | Backfill, refined during triage |
 | `data/prs.jsonl` | Extracted upstream PR dataset. | `featuremap.py extract` / `drift` |
 | `scripts/` | Tooling and its unittest coverage. | People |
+| `.agents/skills/<name>/SKILL.md` | Agent workflows: `feature-map-update` syncs a merged upstream PR, `docs-update` runs the release docs for a stable tag. `.claude/skills/` links each one for Claude Code. | People |
 | `site/` | Official user documentation. Pages and sections by people, prose by people and the bot. See `site/README.md`. | People, then the release docs run |
 
 Beyond the feature map and the documentation site under `site/`, nothing else
