@@ -3,7 +3,7 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
@@ -77,6 +77,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 ### Extraction output
 
 - A single top-level entry lands in the destination under its own name, or `name (2)`, `name (3)` when that name is taken. lgse/strata#1160, lgse/strata#1478
+- A taken single top-level folder such as `strata-1.0.0` publishes as `strata-1.0.0 (2)`; a file or symlink gets the suffix before its extension, `readme (2).txt`. lgse/strata#1617
 - Several top-level entries land in a folder named after the archive without its extension, such as `photos/` for `photos.zip`, or `photos (1)/` when taken. lgse/strata#1160, lgse/strata#1478
 - Entries inside that new folder keep their archive names even when the destination has same-named entries. lgse/strata#1478
 - An existing symlink, device, or socket at a top-level name is never followed or replaced; the entry gets a numbered name. lgse/strata#1478
@@ -142,6 +143,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Password retries depend on a structured `PasswordFailure` kind from the decoders, never on message text, which can contain member names (lgse/strata#691, lgse/strata#1499).
 - Metadata restoration matches `tar` and `unzip` for a normal user: no owner, group, xattrs, or ACLs; folder metadata applies only on completion so partial output stays writable (lgse/strata#1422).
 - Without `RENAME_NOREPLACE`, a folder publishes by an exclusive `mkdirat` of the name, so `EEXIST` drives the numbering. Files are hard-linked in, symlinks recreated when linking fails, and subfolders recreated. The source is removed only after every entry is in place, so a failure leaves staging intact. Removal first restores owner access so `0555` folders cannot block it (lgse/strata#1585, lgse/strata#1586).
+- A single-root conflict name follows Paste's Keep both: a folder takes ` (n)` after its whole name, a file before its extension. The root's type is read without following symlinks, so a symlink is numbered like a file (lgse/strata#1616, lgse/strata#1617).
 - Compression writes a mode-0600 staging file beside the target and publishes it atomically without replacing anything; Keep Both retries the finished staging file under new names (lgse/strata#110, lgse/strata#404, lgse/strata#986).
 - Payload encoding is chosen per container. Known compressed inputs are stored in ZIP and copied in 7Z; TAR.GZ compresses the whole stream unless every payload is already compressed (lgse/strata#978, lgse/strata#981).
 - Compression never follows symlinks, so a selected folder cannot leak files from outside it (lgse/strata#402, lgse/strata#407).
@@ -151,6 +153,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-14 | lgse/strata#1617 | fix | Numbered a taken single-root folder after its whole name, so `strata-1.0.0` becomes `strata-1.0.0 (2)`, not `strata-1.0 (2).0`. |
 | 2026-10-12 | lgse/strata#1586 | fix | Published extracted folders on filesystems without `RENAME_NOREPLACE`, such as ntfs-3g, instead of leaving them in staging. |
 | 2026-10-11 | lgse/strata#1552 | fix | Recorded the published extraction output for undo, so Ctrl+Z trashes it and never a pre-existing file. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the opener after the Compress, Extract password, and archive conflict dialogs close, including on Escape. |

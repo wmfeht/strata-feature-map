@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/e2e/scenarios/test_search_filter_sort.py]
@@ -25,6 +25,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
 - A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - On open, the empty query shows "Type to search Home and mounted local drives"; clearing a typed query adds "Fuzzy matching · try a name or path fragment". lgse/strata#493 (unverified)
+- The status text sits centered in the results area, both ways, with wrapped lines center-justified. lgse/strata#1648
 
 ### Matching and results
 
@@ -96,6 +97,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-14 | lgse/strata#1648 | fix | Centered the empty-state and status labels in the search modal and the inline filter, and showed "No matching files" when pruning removes every filter result. |
 | 2026-10-10 | lgse/strata#1539 | fix | Read the new column-truncation event shape when recording visited folders. |
 | 2026-10-10 | lgse/strata#1544 | fix | Rescanned indexes listing a folder changed outside the app, coalescing bursts and skipping pruned folders. |
 | 2026-09-27 | lgse/strata#1287 | fix | Scheduled shallow directories first and pruned Go and Python caches so sibling folders are not starved. |

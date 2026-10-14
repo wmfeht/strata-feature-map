@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -47,6 +47,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Step the chooser sidebar to the rail, close the chooser, and send a new request; repeat from hidden. Read a browser window's sidebar and `settings.toml` after each.
 - With `sidebar_compact = true` saved, send a request to a narrow chooser and a wide one; step each sidebar through a full cycle.
 - Narrow a chooser with no preview until the sidebar rails, step to hidden and to full, then narrow and widen again; open a preview at each step. Read the toggle's tooltip and accessible name.
+- With 10xer mode on, arm `g` with focus on a PDF page in the preview, press Ctrl+0, then press `d`; read the chord panel, the page width, and the location.
 - In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
 - Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
 

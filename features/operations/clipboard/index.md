@@ -3,7 +3,7 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/e2e/scenarios/test_clipboard.py, tests/e2e/mutations/clipboard.patch]
@@ -81,6 +81,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Names that collide after that sanitizing get a numbered suffix instead of overwriting each other. lgse/strata#1126
 - Copying a file of 4 GiB or larger to a FAT32 drive fails before copying, with a message suggesting exFAT. lgse/strata#1278
 - Copies onto NTFS through ntfs-3g and other FUSE mounts without `RENAME_NOREPLACE` complete without an "Invalid argument" error. lgse/strata#1515
+- Cancelling a folder copy onto a filesystem without `RENAME_NOREPLACE` removes the destination folder it created, even when Cancel arrives during folder creation. lgse/strata#1625 (unverified)
 - Copying or moving an item out of Trash that came from another drive creates it under its own leaf name. lgse/strata#1524
 - Moving a folder into itself or a descendant, including through a symlink alias, does nothing and leaves the source untouched. lgse/strata#1537
 

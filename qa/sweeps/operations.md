@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
@@ -53,6 +53,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Copy name and Copy path for a multi-selection with non-UTF-8 and space-containing names; paste into a terminal and compare bytes.
 - Paste an image copied from a browser, and paste into a read-only folder.
 - Move to… and Copy to…: reach the destination through the dialog's search, pick Trash, pick a remote location, and pick the source folder itself.
+- On the ntfs-3g mount, cancel a folder copy the moment it starts, then list the destination with `ls -la`.
 
 ### operations/clipboard/conflicts
 
@@ -133,6 +134,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract a multi-root archive, a single-root archive whose name is taken, and a third archive cancelled midway; press Ctrl+Z three times, then Ctrl+Shift+Z once.
 - Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
 - On the ntfs-3g mount, take `name` with a file and `name (2)` with a folder, then extract a single-root folder archive named `name`.
+- On local disk and on the ntfs-3g mount, extract single-root archives whose root is a dotted folder such as `pkg-1.2.3/`, and a symlink named `v1.2`, each where that name is taken.
 - On the ntfs-3g mount, extract into a folder reached through a symlink.
 - On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
 - On the ntfs-3g mount, extract a large ZIP built with `zip -D`, so it lists no folder entries. Mid-extraction, chmod one of its nested staging folders to `0000`.

@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -14,6 +14,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 - Image samples under `/tmp` from ImageMagick: a 200 MP PNG (`magick -size 20000x10000 xc:gray`) and one with an EXIF thumbnail. Also a 12 MP ICC-profiled JPEG and an animated GIF over 30 s.
 - Media samples from ffmpeg: a 4K HEVC 10-bit MP4 with chapters and two subtitle streams, an MP4 with `-vn`, one with `-an`, and a bare `.h264` stream. Also a VFR clip, 3.9 s and 4.1 s clips, a 2-hour FLAC, and a truncated faststart MP4 (`head -c`).
+- Byte-sniffing samples: an MPEG-TS clip (`ffmpeg -f lavfi -i testsrc2=duration=3 -f mpegts recording.ts`), TypeScript as `app.ts` and `Component.tsx`, a UTF-16 BE text file with and without a BOM, and a text file named `.xlsx`.
 - Zero-byte files for every previewed extension. Lying extensions: an MP4 as `.jpg`, a PNG as `.pdf`, a ZIP as `.epub` and `.docx`, an ELF as `notes.txt`, a TIFF as `.ARW`.
 - Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, and the `any_sheets.*` and `report.docx` fixtures.
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
@@ -39,6 +40,11 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In the same files, press Shift+Down past the last line, then Ctrl+C.
 - Zoom a PDF to 3× with Ctrl+wheel, then press Ctrl+keypad 0 with Num Lock on and off, and Ctrl+Shift+0.
 - In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout and with Caps Lock on.
+- Preview the UTF-16 BE samples with and without a BOM, and the text named `.xlsx`.
+- Preview an 8 KiB text file whose multi-byte UTF-8 sequence crosses the 8 KiB boundary, and a Latin-1 file whose control bytes are just over 1 in 32.
+- Press Ctrl++ with a PDF focused at fitted width, then Ctrl+0; read `text_size` in `settings.toml`.
+- Arm a 10xer chord, then press Ctrl+0 in a zoomed PDF, in the main window and in the file chooser.
+- Ctrl+wheel with a touchpad over a PDF's scrollbar, on X11 and on Wayland.
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
 
 ### preview/preview-panel/layout
@@ -53,6 +59,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - At 1× and 2× scaling, press at 1 px steps from 7 px left to 7 px right of the column–preview line.
 - Press Space three times within 260 ms in Icons with reduced motion on, then toggle Appearance → Preview panel mid-slide in Columns.
 - With reduced motion off in List, press Space to close, then Space again at about 50 ms, 130 ms, and 250 ms into the slide-out.
+- Show a rendered Markdown file and a DOCX in a 3000 px preview, with wrap on, then off.
+- In Columns with overflowing columns and wrap off, compare the pixel rows of the preview's and the columns' horizontal scrollbars at 1× and 2×.
 - In Columns, drag the divider narrower, then wider, then use F8 and arrows; switch to Icons and back between each step.
 - With an automatic rail and a preview open, narrow and widen the window across the threshold, then close and reopen the preview in List and in Icons.
 - With an automatic rail in Columns three levels deep, click Home, a deeper folder, and Back in the rail, at the rail threshold and 24 px above it.
@@ -71,6 +79,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Press Shift+End on a 2 KiB pathological line and Ctrl+Shift+Right through CJK text and punctuation runs, then Ctrl+C.
 - On the `ru` layout, drag-select a table cell range, click one cell's text, then press Ctrl+C and Ctrl+A; repeat with Caps Lock on and on `us,ru`.
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
+- With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
+- Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
 
 ### preview/preview-panel/find
 
@@ -109,6 +119,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Hand off at 0:00, at 0:00.5, 1 s before the end, and mid-clip, with mpv, VLC, a non-listed player, and no default player.
 - Element glow on and off under Cairo and GL; toggle reduce motion mid-fade; pause and confirm the band freezes.
 - Double-click a video in Icons while another video's preview is mid-load, then press play in the preview.
+- Step through a folder holding a remote MP4, a bare `.h264` stream, and source text named `.mp4`, in Icons and then in List.
 
 ### preview/preview-panel/sandbox
 
@@ -116,6 +127,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Place a `bwrap` symlink earlier in the trusted roots pointing under `/home`; it must be rejected.
 - Feed a 512 MiB plus-one PNG, a header claiming 100000×100000, an SVGZ with external image references, a gzip bomb as `.svgz`, and the TIFF named `.ARW`.
 - Open and close a RAW preview 50 times within 1 ms of each other; compare the bwrap count and the fd list with the baseline.
+- On Debian testing with ImageMagick through `update-alternatives` and a glycin-only GDK Pixbuf, preview a HEIC and a JPEG; remove `/etc/alternatives/magick` and preview again.
 - Preview 20 images inside 60 s under the debug log and count `browser sandbox started` lines; wait 61 s and preview once more.
 
 ### preview/quick-preview

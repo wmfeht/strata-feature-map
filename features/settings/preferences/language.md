@@ -3,7 +3,7 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/i18n.rs, data/locales/counts.json]
 tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs]
@@ -65,6 +65,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-13 | lgse/strata#1625 | fix | Reworded zh-CN strings for the compact sidebar, Tasks icon, Danger color, and password choices to read naturally. |
 | 2026-10-12 | lgse/strata#1583 | feat | Added Simplified Chinese as the eleventh language, auto-detected for every Chinese locale, with a shared sentence joiner and Han/kana Settings search matching. |
 | 2026-10-08 | lgse/strata#1542 | fix | Reviewed every catalog against English and fixed mistranslations and inconsistent terms. |
 | 2026-10-08 | lgse/strata#1519 | feat | Added ten compiled-in languages, locale detection, and a restart-to-apply Language setting. |

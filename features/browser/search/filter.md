@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/e2e/scenarios/test_filter_results.py, tests/e2e/mutations/filter-results.patch]
@@ -58,6 +58,8 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - With **Include subfolders** off, a symlink to a folder matches as a folder and names in `.hidden` stay hidden while hidden files are off. lgse/strata#752
 - At Trash, network, and other non-local locations, the filter narrows the loaded entries without searching subfolders. lgse/strata#995
 - Results stop at 100; the status reads "Searching…", "No matching files", or the partial-search reason. lgse/strata#989 (unverified)
+- With no results, "Searching…" or "No matching files" sits centered in the results pane both ways. lgse/strata#1648
+- In Icons and List, when outside deletions or moves leave no results, the status shows "No matching files", centered. lgse/strata#1648 (unverified)
 
 ### Live updates
 

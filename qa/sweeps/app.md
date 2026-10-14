@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, and directory-load log privacy.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, and directory-load log privacy.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -68,6 +68,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With the interface in German, search F1 for `entf`, `strg+shift`, `bild auf`, `ctrl+−`, and `g-h`; repeat in French with `suppr`.
 - In 10xer mode with `us,ru`, press the Ё key and a US `~` in the location field, a footer prompt, F1 search, and the file list.
 - In F1 search, type, cut, paste, and select all, then undo and redo past the opening query; repeat on a Russian-only keymap.
+- Type an unmatched F1 query at the narrowest window width and with the interface in German, then clear the query and read the results area.
 
 ### app/window
 
@@ -155,6 +156,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Browse a native folder, Trash, Recent, and the SFTP fixture once at `RUST_LOG=info` and once at `RUST_LOG=strata=debug`; grep both logs for each path, host, and user name.
 - Open `sftp://user:secret@host/dir?token=x#frag` with debug logging on and grep the log for `secret`, `token`, and `frag`.
 - Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
+- Open a folder of 200 text files named `.mp4` and `.png` in Icons and run `pgrep -fc 'ffprobe|gst'` while metadata fills; repeat with one real clip and one `chmod 000` file among them.
 
 ## Hand-offs
 

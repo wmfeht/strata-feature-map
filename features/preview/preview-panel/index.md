@@ -3,7 +3,7 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/pdf_text.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/archive_cover.rs]
 tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/ui/preview/tests/pdf.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/e2e/scenarios/test_preview_media_layout.py]
@@ -22,12 +22,22 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A non-executable extensionless dotfile such as `.steampath` previews as plain text; an executable one does not use this fallback. lgse/strata#224
 - A file whose name gives an uncertain type, such as `some notes`, opens in the preview; text content shows as text and other content shows "No visual preview". lgse/strata#965
 - `.yaml`, `.yml`, and other `text/plain` subtypes preview as highlighted text with their type label, not "No visual preview". lgse/strata#1228
+- A local file's first 8 KiB decide its preview family: a file named `.png` or `.mp4` holding plain text previews as source text. lgse/strata#1638
+- A local `photo.txt` holding PNG bytes previews as an image, and `paper.txt` holding a PDF previews as a PDF. lgse/strata#1638
+- A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
+- A local binary file named `.json` or `.md` shows "No visual preview" instead of text. lgse/strata#1638
+- A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
+- An SVG previews as an image although its bytes are text. lgse/strata#1638
+- Local `app.ts`, `Component.tsx`, and `module.mts` files holding TypeScript preview as highlighted source, whatever the installed MIME database says. lgse/strata#1638, lgse/strata#1631
+- A local file whose name gives an unsupported binary type but whose first 8 KiB look like text previews as text. lgse/strata#1638 (unverified)
+- Remote files are not sampled; their preview family comes from the name alone. lgse/strata#1638 (unverified)
 - On remote locations, PDFs, GIF images, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
 - 3D models, comic covers, workbooks, and DOCX preview only from local files. lgse/strata#1276, lgse/strata#1325 (unverified)
 
 ### Text
 
 - Text previews show at most the first 1 MiB of the file. lgse/strata#89
+- A local text file starting with a UTF-16 LE or BE byte-order mark previews as decoded text. lgse/strata#1638
 - **Toggle word wrap** in the header wraps text previews; the choice defaults to off, applies in every open window, and survives restart. lgse/strata#921
 - Text with a recognized language, or plain text within 128 KiB, 512 lines, and 2 KiB per line, opens in a source view. lgse/strata#187, lgse/strata#762
 - That source view shows a caret. lgse/strata#1559, lgse/strata#1557
@@ -45,8 +55,11 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
 - In a PDF, double-click selects a word, triple-click a line, Shift+click extends across pages, and Ctrl+A selects all loaded pages. lgse/strata#1223
 - Dragging on a PDF margin or a page without a text layer, such as a scan, pans instead of selecting. lgse/strata#1223
-- Ctrl+wheel over a PDF zooms its pages between 1× and 4× its fitted width. lgse/strata#1069 (unverified)
-- With focus in a PDF, Ctrl+0, Ctrl+Alt+0, and Ctrl+Super+0 leave its zoom unchanged. lgse/strata#1576
+- Ctrl+wheel over a PDF's pages or scrollbars zooms its pages between 1× and 4× its fitted width; interface text size does not change. lgse/strata#1069, lgse/strata#1622
+- With keyboard focus in a zoomed PDF, Ctrl+0 or Ctrl+keypad 0 returns its pages to fitted width on the same page; interface text size does not change. lgse/strata#1622
+- Ctrl+0 on a focused PDF already at fitted width is consumed and does not reset interface text size. lgse/strata#1622
+- In 10xer mode, Ctrl+0 on a focused zoomed PDF also resets its zoom. lgse/strata#1622
+- With focus in a PDF, Ctrl+Alt+0 and Ctrl+Super+0 leave its zoom unchanged. lgse/strata#1576
 
 ### Models and covers
 
@@ -75,11 +88,15 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 - Every browsed file is untrusted. Native parsing runs in the sandbox, and only bounded PNG, text, or validated JSON reaches the drawer (lgse/strata#6).
 - Eligibility is guessed from the name so listing stays cheap. An uncertain guess defers to the loader, which queries the content type of the one previewed file; listing and sorting stay name-only (lgse/strata#964).
+- The loader also reads the first 8 KiB of every local file, and the bytes override the name's family. shared-mime-info maps `*.ts` to TypeScript, Qt Linguist, and MPEG-TS, so a confident name match had skipped sniffing (lgse/strata#1638).
+- Special-casing TypeScript would fix one collision only. Quick preview, printing, menus, and the chooser still gate on the name; the loader resolves the final family (lgse/strata#1638).
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
 - PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
 - Models, PDFs, workbooks, and DOCX share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
 - A hidden caret in a read-only GtkSourceView disables native Shift+arrow selection, so source previews show the caret and stay non-editable (lgse/strata#1557).
+- PDF zoom reset skips the view-center correction, because the list view re-anchors the visible page itself; correcting it jumped to page 1 (lgse/strata#1622).
+- Ctrl+0 on a focused PDF is consumed even at fitted width, so a reset meant for the page never resets the saved text size (lgse/strata#1622).
 - PDFs render in the sandbox, so the text layer travels with each page as a bounded sidecar to the PNG (lgse/strata#1220, lgse/strata#1223).
 - Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833).
 - 3MF and FreeCAD prefer embedded thumbnails at the owner's request; geometry is the fallback (lgse/strata#1225).
@@ -89,6 +106,9 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-14 | lgse/strata#1612 | fix | Let unwrapped rendered documents scroll horizontally from the left edge and remeasured rows after live wrap toggles. |
+| 2026-10-14 | lgse/strata#1622 | fix | Kept PDF zoom separate from interface text size: Ctrl+wheel over a PDF and Ctrl+0 on a focused PDF now act on the page. |
+| 2026-10-14 | lgse/strata#1638 | fix | Chose the preview family from the first 8 KiB of a file, so TypeScript and other misnamed text no longer open as media. |
 | 2026-09-27 | lgse/strata#1276 | feat | Added sandboxed STL, 3MF, and FreeCAD previews with staged progress text. |
 | 2026-09-26 | lgse/strata#1228 | fix | Rendered YAML and other `text/plain` subtypes as text previews. |
 | 2026-09-25 | lgse/strata#1223 | feat | Added a sandbox-extracted text layer so PDF text can be selected and copied. |
@@ -104,3 +124,4 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Images cannot be rotated in the preview; the change is unmerged. lgse/strata#987, lgse/strata#1388
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
+- With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

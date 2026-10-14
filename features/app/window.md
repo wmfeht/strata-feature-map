@@ -3,7 +3,7 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]

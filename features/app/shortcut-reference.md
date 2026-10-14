@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]
@@ -36,7 +36,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 - Opening the reference focuses "Search actions or keys…" and scrolls the list to the top. lgse/strata#1296
 - Reopening the reference keeps the previous search text and selected category. lgse/strata#1296 (unverified)
-- Typing keeps rows whose keys, key context, or action contain the text, ignoring case and matching translated text; no match shows "No matching shortcuts". lgse/strata#1296, lgse/strata#1519
+- Typing keeps rows whose keys, key context, or action contain the text, ignoring case and matching translated text; no match shows "No matching shortcuts", wrapped and centered in the results area. lgse/strata#1296, lgse/strata#1519, lgse/strata#1648
 - Key names match in English and in the interface language: under German, `strg+c` and `ctrl+c` both find Copy. lgse/strata#1576
 - Searching `ctrl+0` finds the "Ctrl++ / − / 0" text-size row, and `1-9` finds "Ctrl+Shift+1–9 / 0". lgse/strata#1576
 - The category list shows All and each section with its row count; choosing one shows only that section. lgse/strata#1296
@@ -109,6 +109,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-14 | lgse/strata#1648 | fix | Centered "No matching shortcuts" in the reference results area. |
 | 2026-10-11 | lgse/strata#1570 | fix | Listed the 10xer media seek-30 s, start/end, and volume keys in the F1 reference. |
 | 2026-10-10 | lgse/strata#1559 | fix | Listed `/` as Find in preview in the 10xer F1 reference for Columns and List. |
 | 2026-10-10 | lgse/strata#1554 | fix | Showed the filter or search result total in the default-map footer instead of the hidden folder's selection. |

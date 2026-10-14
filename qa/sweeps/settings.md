@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
 ---
@@ -71,6 +71,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Select 1, 2, 5, 11, and 21 items under Russian, 0 and 1 under French and Português (Brasil); read the footer count, a 1.5 MB size, and a 1 234 567 byte Properties size.
 - Seed `language = "zh-cn"`, `"zh"`, and `"zh-TW"`; read the selector and the file after the first change.
 - Under 简体中文, 日本語, and English, fail an archive extraction into a read-only folder and copy a 5 GB file to a FAT32 stick; read the spacing and stop between the two sentences.
+- Under 简体中文, read the sidebar toggle tooltip in full, compact, and hidden states, and the password remember choices in a mount dialog.
 - Run Deutsch and Русский at the 1250 px panel width and in the destructive-delete dialog; look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
 
 ### settings/preferences/date-format
@@ -102,6 +103,13 @@ For every control this sweep proves the binding: the file changes, the other win
 - Cross `GSK_RENDERER=gl`, `vulkan`, and `cairo` with text sizes 8, 10, and 13 and `text-scaling-factor` 1.0, 1.1818, and 1.25 on a 1.25× monitor. Repeat under hint style none and full and with antialiasing off; zoom on `T`, `E`, and `I` in the sidebar and file list.
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
+- With a custom theme selected, rewrite its file by atomic rename, then by in-place truncate-and-write; read both windows after each.
+- Make the selected theme file a symlink into `$HOME/dotfiles`, then into `/dev/shm`; edit the target and read the window.
+- Rewrite the selected file during an editor preview and while following Omarchy; then Cancel, or turn Follow Omarchy off, and read every window.
+- Select the custom `tokyo-night.toml`, then delete it, and separately overwrite it with unparseable TOML; read the colors and the theme cards.
+- Launch with no themes directory, then `mkdir` it and drop a theme file; repeat after saving a theme from the editor.
+- Write 20 theme files in one burst, the selected one among them, and watch the log and the repaint count.
+- With Settings open in two windows, rewrite the selected file and a non-selected file; read the cards and swatches in each window.
 
 ### settings/themes/icons
 
