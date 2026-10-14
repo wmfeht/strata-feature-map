@@ -22,6 +22,7 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 - Settings → Appearance → Text has a "Text size" spin button, accessible name "Text size in pixels", accepting 8 to 48; the default is 13. lgse/strata#838
 - The Appearance menu's text-size row has decrease and increase buttons around an "N px" button that resets the size to 13. lgse/strata#951
 - Ctrl++, Ctrl+=, or Ctrl+keypad + increases the size by 1 px; Ctrl+− or Ctrl+keypad − decreases it; Ctrl+0 or Ctrl+keypad 0 resets it to 13. lgse/strata#838
+- The Ctrl+0 reset does not apply while a PDF's pages hold keyboard focus, in the window or the file chooser. lgse/strata#1622
 - The same keys with Alt or Super held do not change the size. lgse/strata#838
 - Ctrl+Shift+keypad + or Ctrl+Shift+keypad − does not change the size. lgse/strata#1576
 - The shortcuts work while an inline rename editor is open, without submitting it. lgse/strata#838

@@ -21,6 +21,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - AT-SPI dumps from `tests/e2e/harness/tree.py` or an ad-hoc `gi.repository.Atspi` script under `/tmp`; `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/e2e/harness/keyboard_layout.py` does. Restore `us` afterwards; never change the desktop's layout.
+- `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
 - Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -display :N -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
 
 ## Probes

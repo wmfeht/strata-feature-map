@@ -26,6 +26,9 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 - A URI listing, such as Trash or an SMB share, skips an entry whose URI cannot be converted to a location. lgse/strata#1424, lgse/strata#1533 (unverified)
 - Each skipped entry logs a warning with only the request id and backend name; the folder and entry name appear only at DEBUG. lgse/strata#1424, lgse/strata#1533
+
+### Media metadata
+
 - In Icons, a file named `clip.mp4` or `photo.png` whose first 8 KiB are text starts no sandboxed metadata probe. lgse/strata#1638
 - In Icons, an SVG holding XML text still shows its width×height in its caption. lgse/strata#1638 (unverified)
 
