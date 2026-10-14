@@ -53,7 +53,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Copy name and Copy path for a multi-selection with non-UTF-8 and space-containing names; paste into a terminal and compare bytes.
 - Paste an image copied from a browser, and paste into a read-only folder.
 - Move to… and Copy to…: reach the destination through the dialog's search, pick Trash, pick a remote location, and pick the source folder itself.
-- On the ntfs-3g mount, cancel a folder copy the moment it starts, then list the destination with `ls -la`.
+- On the ntfs-3g mount, copy a folder holding one multi-GB file and cancel after the progress bar fills, before the copy completes; list the destination's parent with `ls -la`.
 
 ### operations/clipboard/conflicts
 
@@ -134,7 +134,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract a multi-root archive, a single-root archive whose name is taken, and a third archive cancelled midway; press Ctrl+Z three times, then Ctrl+Shift+Z once.
 - Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
 - On the ntfs-3g mount, take `name` with a file and `name (2)` with a folder, then extract a single-root folder archive named `name`.
-- On local disk and on the ntfs-3g mount, extract single-root archives whose root is a dotted folder such as `pkg-1.2.3/`, and a symlink named `v1.2`, each where that name is taken.
+- On local disk and on the ntfs-3g mount, extract a single-root archive whose root is a symlink to a folder, named `v1.2`, where that name is taken.
 - On the ntfs-3g mount, extract into a folder reached through a symlink.
 - On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
 - On the ntfs-3g mount, extract a large ZIP built with `zip -D`, so it lists no folder entries. Mid-extraction, chmod one of its nested staging folders to `0000`.
