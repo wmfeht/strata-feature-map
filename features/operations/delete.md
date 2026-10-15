@@ -34,7 +34,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - It renders at most 50 rows and adds "… and N more items"; confirming still deletes every selected item. lgse/strata#703
 - While the total calculates, a spinner shows beside a kind subtitle. lgse/strata#1134 (unverified)
 - That subtitle reads "N files" when every item is a file or file link, "N folders" when every item is a real folder, otherwise "N items". lgse/strata#1134, lgse/strata#1627 (unverified)
-- A single selected symlink to a folder reads "1 item" beside the spinner; a folder link plus a file reads "2 items". lgse/strata#1627
+- A single selected symlink to a folder reads "1 item" beside the spinner; a folder link plus a file reads "2 items". lgse/strata#1627 (unverified)
 - When the walk finishes, the spinner hides and the subtitle reads "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134
 - A selected symlink to a folder counts as 1 item of 0 B; its target's contents are not counted. lgse/strata#1627
 - A selected symlink whose size is unknown, such as a dangling link, does not make the finished subtitle read "At least". lgse/strata#1627 (unverified)

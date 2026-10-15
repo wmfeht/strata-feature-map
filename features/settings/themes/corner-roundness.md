@@ -41,7 +41,7 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 - One numeric scale was chosen over named presets, which are no simpler and less flexible, and per-element controls, which add too many settings (lgse/strata#1678).
 - ThemeManager reparses the shared stylesheet with scaled radii only when roundness changes; other appearance preferences go through the token provider (lgse/strata#1680).
 - Radii that GTK's built-in theme supplied are restated in Strata's stylesheet so the scale reaches them (lgse/strata#1680).
-- GTK caps each radius at half its box, so the base switch track and thumb share one radius to keep matching shapes (lgse/strata#1680). Settings switches set their own track radius.
+- GTK caps each radius at half its box, so the base switch track and thumb share one radius to keep matching shapes (lgse/strata#1680).
 - The default dropped from 100 to 60 because full roundness looked too round; saved values are not migrated (lgse/strata#1687, lgse/strata#1688).
 
 ## History

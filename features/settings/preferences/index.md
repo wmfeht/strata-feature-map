@@ -79,6 +79,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A hand-edited `search_time_limit = 45` shows 1 min, and `search_entry_limit = 300000` shows 500,000. lgse/strata#1667
 - A saved value above 900 seconds or 5,000,000 entries loads as No limit. lgse/strata#1667 (unverified)
 - Changing a limit in one window's Settings shows the same choice in another window's Settings. lgse/strata#1667
+- Searching "timeout" finds Search time limit, and "memory" finds Search entry limit. lgse/strata#1667 (unverified)
 
 ### About
 
@@ -135,7 +136,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-15 | lgse/strata#1673 | fix | Drew the About logo in theme colors, so it no longer sits on a near-black tile in light themes, and changed the tagline to "Navigate every layer." |
+| 2026-10-15 | lgse/strata#1673 | perf | Drew the About logo in theme colors, so it no longer sits on a near-black tile in light themes, and changed the tagline to "Navigate every layer." |
 | 2026-10-11 | lgse/strata#1564 | feat | Added the Show sizes in Columns view switch to General → Browsing and to Settings search. |
 | 2026-10-11 | lgse/strata#1570 | fix | Showed the empty-notes message for comment-only release notes and reaped the AUR and Omarchy update launchers. |
 | 2026-10-10 | lgse/strata#1554 | fix | Routed Settings search by page id and registered Render documents, the custom-actions list and problems, and the managed-install row. |

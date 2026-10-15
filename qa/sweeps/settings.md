@@ -14,7 +14,7 @@ For every control this sweep proves the binding: the file changes, the other win
 ## Setup
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `tests/e2e/harness/environment.py` is the baseline; every seeded file starts from it.
-- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`.
+- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
@@ -170,3 +170,4 @@ For every control this sweep proves the binding: the file changes, the other win
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails changes in the file views → `browser`.
 - Remember sort and icon size per folder, Default sort, Forget all folder settings, and `folder-views.toml` → `browser`.
 - Show sizes in Columns view as it acts on the Columns badge → `browser`.
+- Search time limit and Search entry limit as they act on global search, pane filters, and the Partial results hint → `browser`.
