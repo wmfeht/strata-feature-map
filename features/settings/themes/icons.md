@@ -28,6 +28,7 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 - File icon colors leaves interface icons, Lucide file-type icons, and folders unchanged. lgse/strata#1588
 - A code file such as `main.rs` with a saved color and no custom icon keeps its brand palette under Brand colors. lgse/strata#1588 (unverified)
 - Under Theme colors, that file's icon takes the saved color instead of the accent. lgse/strata#1588 (unverified)
+- The Strata logo on Settings → About takes the theme's text color and recolors when the theme changes. lgse/strata#1673 (unverified)
 
 ### Size and weight
 

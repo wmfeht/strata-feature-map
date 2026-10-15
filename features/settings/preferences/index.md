@@ -72,9 +72,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - About shows Strata's version, build commit, and GTK version, plus Website, Source code, Report an issue, and License (MIT) links. lgse/strata#19, lgse/strata#849
 - Copy version info copies the version, description, commit, toolkit, author, and license to the clipboard. lgse/strata#849 (unverified)
-- In a debug build, the BUILD group's Version row and the first line of the copied version info end in `+debug`, such as `1.0.0+debug`; a release build shows no suffix. lgse/strata#1676
-- The About description, and the second line of the copied version info, read "Navigate every layer.", translated in every language. lgse/strata#1673
-- The About logo tile fills with the theme's surface color inside a 1px border in the theme's border color, and the logo takes the theme's text color, recoloring when the theme changes. lgse/strata#1673
+- In a debug build, the BUILD group's Version row ends in `+debug`, such as `1.0.0+debug`. So does the first line of the copied version info. lgse/strata#1676
+- In a release build, the Version row and the copied version info show no suffix. lgse/strata#1676
+- The About description, and the second line of the copied version info, read "Navigate every layer.", translated in every language. lgse/strata#1673 (unverified)
+- The About logo tile fills with the theme's surface color inside a 1px border in the theme's border color. lgse/strata#1673 (unverified)
 
 ### Show F1 Shortcuts button
 

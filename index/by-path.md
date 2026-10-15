@@ -524,6 +524,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/theme.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/editor.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/editor/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/settings/theme/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/settings/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/settings/wrap.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/shortcut_footer.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
@@ -546,6 +547,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |

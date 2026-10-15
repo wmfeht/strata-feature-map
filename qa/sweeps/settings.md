@@ -139,6 +139,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Type 0, 15, 200, and 999 into the stepper, then use its buttons and arrow keys from 0 and 200; read the value and the file after each.
 - Step from 0 to 200 in window A while window B shows Icons with a context menu, a modal dialog, and a rename editor open; screenshot each at 0, 60, and 200.
 - At 0 and 200, look at switches, check boxes, tooltips, popovers, the search palette, progress dialogs, the file chooser, and the theme cards' swatches; note any corner that keeps its shape.
+- At 0, 60, and 200, compare a switch on a Settings page with a switch in a dialog or menu outside Settings; read the track and thumb corner shapes.
 - At 0 and 200, cross text size 8 and 48 with compact and airy density; look for clipped corners and mismatched switch thumbs.
 - Change roundness during an editor preview and while following Omarchy; then Cancel and compare every window.
 

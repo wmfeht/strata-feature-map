@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/preferences/corner_roundness.rs, src/ui/theme/roundness.rs]
-tests: [src/ui/theme/roundness/tests.rs]
+tests: [src/ui/theme/roundness/tests.rs, src/ui/theme/tests.rs, src/ui/settings/theme/tests.rs]
 related: []
 ---
 
@@ -31,8 +31,8 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 - A change applies at once in every open window, dialog, menu, and rebuilt view; a saved value applies before Settings opens. lgse/strata#1680
 - Percentage radii, which draw circles, and radii written as `0` stay unchanged at every value. lgse/strata#1680
 - A scaled radius is rounded to 0.01 px, so 9px at 40% becomes 3.6px. lgse/strata#1680 (unverified)
-- Buttons, entries, spin buttons, check buttons, flat menu items, and tooltips start from a 5px radius, popovers from 9px, and check boxes from 3px; all scale. lgse/strata#1680
-- A switch's track and thumb share a 14px radius, so both keep the same shape at every value. lgse/strata#1680
+- Radii that GTK's built-in theme supplied, such as on buttons, entries, popovers, and check boxes, scale with the setting. lgse/strata#1680
+- Outside Settings, a switch's track and thumb share a 14px radius, so both keep the same shape at every value. lgse/strata#1680 (unverified)
 
 ## Design
 
@@ -41,7 +41,7 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 - One numeric scale was chosen over named presets, which are no simpler and less flexible, and per-element controls, which add too many settings (lgse/strata#1678).
 - ThemeManager reparses the shared stylesheet with scaled radii only when roundness changes; other appearance preferences go through the token provider (lgse/strata#1680).
 - Radii that GTK's built-in theme supplied are restated in Strata's stylesheet so the scale reaches them (lgse/strata#1680).
-- GTK caps each radius at half its box, so the switch track and thumb share one radius to keep matching shapes (lgse/strata#1680).
+- GTK caps each radius at half its box, so the base switch track and thumb share one radius to keep matching shapes (lgse/strata#1680). Settings switches set their own track radius.
 - The default dropped from 100 to 60 because full roundness looked too round; saved values are not migrated (lgse/strata#1687, lgse/strata#1688).
 
 ## History

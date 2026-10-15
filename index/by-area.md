@@ -1228,7 +1228,7 @@ shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/
 An app-wide scale for corner radii, set as a percent under Settings → Appearance → Shape. It lets users square the interface at 0 or soften it up to 200, applied to every pixel radius in Strata's stylesheet.
 
 - Code: [`src/ui/preferences/corner_roundness.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/corner_roundness.rs), [`src/ui/theme/roundness.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/roundness.rs)
-- Tests: [`src/ui/theme/roundness/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/roundness/tests.rs)
+- Tests: [`src/ui/theme/roundness/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/roundness/tests.rs), [`src/ui/theme/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/tests.rs), [`src/ui/settings/theme/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/settings/theme/tests.rs)
 - Docs: [`site/src/reference/themes.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/themes.md) (inherited), [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md) (inherited), [`docs/themes.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/themes.md) (inherited)
 
 ### [Themed icons](../features/settings/themes/icons.md) `settings/themes/icons`

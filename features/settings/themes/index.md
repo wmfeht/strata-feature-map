@@ -92,12 +92,13 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Strata's stylesheet reads the nine tokens as `@strata_bg`, `@strata_surface`, `@strata_text`, `@strata_accent`, `@strata_danger`, `@strata_muted`, `@strata_highlight`, `@strata_border`, and `@strata_dim_text`. lgse/strata#1412
 - User CSS that redefines the former `@theme_*` names no longer changes Strata's colors. lgse/strata#1412
-- A rule in `~/.config/gtk-4.0/gtk.css`, such as `label { color: red }`, `button { min-width: 60px }`, or `* { outline: 3px solid red }`, changes no property of Strata's widgets. lgse/strata#1680, lgse/strata#1682
+- A rule in `~/.config/gtk-4.0/gtk.css` changes no property of Strata's widgets. Examples are `label { color: red }`, `button { min-width: 60px }`, and `* { outline: 3px solid red }`. lgse/strata#1680, lgse/strata#1682
 - The user `gtk.css` stays without effect after switching between a light and a dark Strata theme. lgse/strata#1682
 - A desktop GTK theme chosen through the settings portal or `settings.ini` does not style Strata; `gtk-theme-name` reads `Default` once Strata starts. lgse/strata#1680
 - Launching with `GTK_THEME` set, such as `GTK_THEME=Adwaita:dark`, restarts Strata without that variable, as a browser or as the portal chooser. lgse/strata#1680
 - GTK's high-contrast variant is never used, whatever the desktop's contrast setting. lgse/strata#1680
-- GTK's built-in dark variant applies when the Strata theme's background (299R + 587G + 114B) ÷ 1000 is below 128 or unparseable, otherwise the light one; the desktop color scheme is ignored. lgse/strata#1680, lgse/strata#1682 (unverified)
+- GTK's built-in dark variant applies when the Strata theme's background (299R + 587G + 114B) ÷ 1000 is below 128 or unparseable. lgse/strata#1680, lgse/strata#1682 (unverified)
+- Otherwise the light variant applies; the desktop color scheme is ignored. lgse/strata#1680, lgse/strata#1682
 - Element glow, on by default, adds accent glow to dialogs, menus, theme cards, and animated feedback. lgse/strata#920
 - Turning Element glow off removes that glow in every window at once, keeps focus outlines and depth shadows, and persists across restart. lgse/strata#920
 - Interface renderer offers GTK default and Cairo; choosing a value other than the startup one shows Restart now. lgse/strata#1218
@@ -146,7 +147,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-15 | lgse/strata#1682 | fix | Unset every property above GTK's user priority and restated the built-in theme, so a desktop `gtk.css` cannot restyle any widget property. |
+| 2026-10-15 | lgse/strata#1651 | feat | Added the Show thumbnails switch to the File icons group and to Settings search. |
+| 2026-10-15 | lgse/strata#1682 | fix | Unset every property above GTK's user priority and restated the built-in theme, completing lgse/strata#1680's isolation, so a desktop `gtk.css` cannot restyle any widget property. |
 | 2026-10-14 | lgse/strata#1620 | feat | Re-applied the selected custom theme when its file changes on disk, so theme generators work without a restart. |
 | 2026-10-11 | lgse/strata#1570 | fix | Saved names without ASCII letters or digits as `custom-theme.toml`, raised Material text contrast, and themed the color chooser. |
 | 2026-10-10 | lgse/strata#1554 | fix | Loaded custom and Omarchy colors as CSS hex so GTK-only forms no longer blank icons and styling. |
