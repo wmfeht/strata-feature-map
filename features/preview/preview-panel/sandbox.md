@@ -3,7 +3,7 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/trusted_command/tests.rs]
@@ -40,8 +40,9 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - The input keeps a sanitized extension of 1 to 8 ASCII alphanumerics, such as `/input.ARW`, so Sony ARW files render; other names become `/input`. lgse/strata#166
 - A RAW preview that GDK Pixbuf cannot decode falls back to ImageMagick, then to the embedded camera JPEG via `dcraw` or `simple_dcraw`. lgse/strata#166
 - On Debian-family systems where `/usr/bin/magick` and `/usr/bin/convert` link through `/etc/alternatives`, the ImageMagick fallback runs inside the sandbox. lgse/strata#1657
-- From `/etc/alternatives`, the sandbox binds only `magick` and `convert`, plus BLAS and LAPACK links for media operations, never the whole directory. lgse/strata#1657, lgse/strata#984
-- On Debian testing with GDK Pixbuf 2.44, glycin, and ImageMagick installed, JPEG previews render through ImageMagick instead of staying empty. lgse/strata#1656, lgse/strata#1657
+- From `/etc/alternatives`, the sandbox binds only `magick`, `convert`, the `glx--*` GL dispatch links for x86-64 and ARM64, plus BLAS and LAPACK links for media operations, never the whole directory. lgse/strata#1657, lgse/strata#984, lgse/strata#1660
+- On Debian testing with GDK Pixbuf 2.44, glycin, and ImageMagick installed, JPEG previews render instead of staying empty. lgse/strata#1656, lgse/strata#1657, lgse/strata#1660
+- On a Debian-family host whose `libGL.so.1` links through `/etc/alternatives/glx--*`, as with glx-diversions or NVIDIA, PNG, PDF, and MP4 previews render instead of failing as the helper starts. lgse/strata#1658, lgse/strata#1660
 - On Debian 13 with ImageMagick installed, HEIC previews render through ImageMagick instead of staying empty. lgse/strata#1656, lgse/strata#1657
 - An image over the decoded-frame budget (about 134 MP RGBA) renders its embedded EXIF thumbnail when it has one, and otherwise fails without killing any process. lgse/strata#1277
 - SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
@@ -68,7 +69,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - ImageMagick sniffs TIFF magic and picks its TIFF coder for ARW unless the name keeps `.ARW`, so the extension is preserved, sanitized (lgse/strata#165).
 - Oversized images are refused from header dimensions before decoding, rather than ignoring `SIGXFSZ`, so no sandboxed process is killed (lgse/strata#1202, lgse/strata#1277).
 - The renderer can write its own output directory, so the parent opens outputs with `O_NOFOLLOW`, checks the descriptor is a regular file, and reads at most the limit plus one byte (lgse/strata#653).
-- Debian's ImageMagick commands are `update-alternatives` links that dangled inside the sandbox. Only the two links are bound, mirroring the individual BLAS and LAPACK binds of lgse/strata#984, not all of `/etc/alternatives` (lgse/strata#1656, lgse/strata#1657).
+- Debian's ImageMagick commands are `update-alternatives` links that dangled inside the sandbox. Only the two links are bound, mirroring the individual BLAS and LAPACK binds of lgse/strata#984, not all of `/etc/alternatives` (lgse/strata#1656, lgse/strata#1657). Debian's `glx--*` GL dispatch links follow the same rule. They are bound in every sandbox, not only media ones, because the helper binary itself links `libGL.so.1` (lgse/strata#1658, lgse/strata#1660).
 - Build-time variables replace `/usr` rather than adding mounts, so Nix and Guix packages need no source patches. Binding `/` or a user tree was rejected because it exposes private files (lgse/strata#1329).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
 - The `fchmodat2` denylist entry uses syscall number 452 directly, because libc omits the constant on aarch64 (lgse/strata#1111).
@@ -78,6 +79,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-14 | lgse/strata#1660 | fix | Bound Debian's `glx--*` GL dispatch links so helpers start, and let glycin decode inside pooled workers. |
 | 2026-10-14 | lgse/strata#1657 | fix | Bound Debian's ImageMagick alternatives links so the ImageMagick fallback runs inside the sandbox. |
 | 2026-10-01 | lgse/strata#1357 | fix | Embedded optional build-time sandbox paths for non-FHS distributions. |
 | 2026-09-26 | lgse/strata#1277 | fix | Fell back to EXIF thumbnails for images over the decoded-frame budget instead of letting `SIGXFSZ` kill decoders. |
@@ -93,4 +95,3 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ## Known gaps
 
 - Inside Flatpak, bubblewrap cannot create namespaces, so native-format previews and thumbnails show "Preview unavailable". lgse/strata#1503, lgse/strata#936
-- glycin's loader sandbox cannot start inside the preview sandbox, so with GDK Pixbuf 2.44 every raster image depends on the ImageMagick fallback. lgse/strata#1657

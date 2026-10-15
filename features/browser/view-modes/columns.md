@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
@@ -109,6 +109,10 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - With Show sizes in Columns view off, the badge stays hidden for files and folders in every open window. lgse/strata#1564
 - With the setting off, Columns requests no folder counts. Turning it on fills counts for folder rows already shown. lgse/strata#1564
 - A count that arrives after the setting is turned off leaves the badge hidden. lgse/strata#1564
+- Moving the pointer onto a row fades its badge in over 120 ms. lgse/strata#1674
+- Selecting a row, or opening a folder onto the open path, shows its badge at once; moving the selection off a row hides that badge at once. lgse/strata#1674
+- Moving the pointer off a row hides its badge at once, without a fade. lgse/strata#1674
+- With the pointer resting on an unselected row, arrow keys that move the selection hide that row's badge at once; moving the pointer fades it in again. lgse/strata#1674
 - While a row is being renamed its badge stays hidden; after the rename ends it returns only with the setting on. lgse/strata#1564
 - In Columns, the Appearance menu has a "Show sizes in Columns view" check item after Group by file type. It toggles the same setting and closes the menu. lgse/strata#1564
 - The Appearance item is hidden in Icons and List, and its check mark follows changes made in Settings. lgse/strata#1564
@@ -134,6 +138,9 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - The cap is captured at drag start, so it cannot creep as the preview yields (lgse/strata#1570).
 - A plain press inside a multi-selection once kept the group for a drag and skipped activation. Activation already waits for release past a drag threshold, so the guard was dropped, matching List and Icons (lgse/strata#1446, lgse/strata#1570).
 - Rows are recorded at setup and dropped at teardown, so a reload left a detached row with its old position. Lookups now take only the mapped row (lgse/strata#1438, lgse/strata#1554).
+- Only pointer hover fades the badge. With badges on by default, keyboard navigation kept several 120 ms fades running and GTK repainted each per frame (lgse/strata#1671, lgse/strata#1674).
+- Suppressing the hover fade during wheel scrolling with a class on the scrolling column was rejected: toggling it restyled the whole column at scroll start and end (lgse/strata#1674).
+- Reveal buttons for clipped columns update after each layout pass instead of on every frame, so the frame clock can stop while the window is idle (lgse/strata#1671, lgse/strata#1677).
 - Folder counts use the formatter List and Icons share, and Columns asks for them only while the badge is on, saving `read_dir` work. A widened-column redesign was rejected (lgse/strata#1564).
 - Background focus fires on click release and is grouped with marquee selection, so neither gesture swallows the other (lgse/strata#523).
 - Home and End go through Strata's own jump, like Ctrl+Up and Ctrl+Down. GTK's native keys emit only a selection echo the mirror ignores, and mirroring that echo risked the reopen loops lgse/strata#1179 avoided (lgse/strata#1447).
@@ -146,6 +153,8 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1674 | perf | Faded size badges only on pointer hover and indexed clipboard marks, to cut arrow-key and scroll cost. |
+| 2026-10-15 | lgse/strata#1677 | perf | Updated column reveal buttons after each layout pass instead of every frame, so an idle window stops drawing frames. |
 | 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the hover badge and added a setting to hide Columns sizes. |
 | 2026-10-11 | lgse/strata#1570 | fix | Opened or previewed a plain-clicked item inside a multi-selection and capped column widths at the visible browser area. |
 | 2026-10-10 | lgse/strata#1554 | fix | Looked up only the mapped row, so F2 and Menu reach a row after a reload ends its rename. |
@@ -168,3 +177,5 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 ## Known gaps
 
 - There is no modifier to resize every visible column at once and no default-width setting. lgse/strata#1112
+- A row passing under the pointer during wheel scrolling still plays the badge's hover fade. lgse/strata#1674
+- With recursive filter results, the modal focus fallback, view switches, and hiding the preview with the mouse still focus GTK's last focused result, not the cursor's. lgse/strata#1611

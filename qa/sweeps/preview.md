@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -66,6 +66,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With a preview open, move the window width 1 px at a time through the 24 px band above the rail threshold, both directions.
 - In Icons or List with Appearance → Preview panel off, resize across the preferred sidebar width plus one column at text sizes 10, 13, and 16.
 - Hide the sidebar in a short window, open a second window, then show the sidebar in each.
+- Leave the window idle 2 s, then change the preview without input in the split: toggle Appearance → Preview panel from the Settings window, and let a slow remote preview finish loading. Check that the slot, divider, and sidebar rail settle.
+- With the window idle 2 s and narrowed below the 240 px threshold, finish a preview load and confirm it stays suspended until the window widens.
 
 ### preview/preview-panel/documents
 
@@ -126,7 +128,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Place a `bwrap` symlink earlier in the trusted roots pointing under `/home`; it must be rejected.
 - Feed a 512 MiB plus-one PNG, a header claiming 100000×100000, an SVGZ with external image references, a gzip bomb as `.svgz`, and the TIFF named `.ARW`.
 - Open and close a RAW preview 50 times within 1 ms of each other; compare the bwrap count and the fd list with the baseline.
-- On Debian testing with ImageMagick through `update-alternatives` and a glycin-only GDK Pixbuf, preview a HEIC and a JPEG; remove `/etc/alternatives/magick` and preview again.
+- On Debian testing with ImageMagick through `update-alternatives` and a glycin-only GDK Pixbuf, preview a HEIC and a JPEG; remove `/etc/alternatives/magick` and preview again. Repeat on a kernel without Landlock ABI 3, where previews use one-shot helpers.
+- On Debian-family hosts with glx-diversions and with the NVIDIA GL alternative, preview a PNG, a PDF, and an MP4, and let a folder of thumbnails complete. Inside a running helper, list `/etc/alternatives`; only individual links may appear.
 - Preview 20 images inside 60 s under the debug log and count `browser sandbox started` lines; wait 61 s and preview once more.
 
 ### preview/quick-preview

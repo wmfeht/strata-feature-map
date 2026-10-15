@@ -3,7 +3,7 @@ title: Archive preview
 status: shipped
 origin: {issue: lgse/strata#1151, pr: lgse/strata#1090}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/preview/archive.rs, src/adapters/local_operations/archive/listing.rs]
 tests: [src/adapters/local_operations/archive/listing/tests.rs, tests/e2e/scenarios/test_archive_preview.py]
@@ -45,7 +45,10 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 - Left at the archive root returns focus to the listing without closing the preview; Up/Down then move through listing items. lgse/strata#1343
 - In Columns, another Left from the listing moves to the parent column. lgse/strata#1343
 - While the preview owns focus, its header shows the accent top border instead of the Miller column. lgse/strata#1343
-- In Columns, moving onto an archive shows its contents with no member selected, and Up/Down keep moving through the column. lgse/strata#1371
+- With the preview open in List, Icons, or Columns, moving the cursor onto an archive shows its contents with no member highlighted, and the next arrow keeps moving through the listing. lgse/strata#1371, lgse/strata#1684
+- With the preview open, moving the cursor onto a password-protected archive shows the prompt with the password field unfocused, and the next arrow moves the cursor on. lgse/strata#1684
+- In List and Columns, Right on a password-protected archive whose prompt is showing focuses the password field. lgse/strata#1684
+- With the preview closed, Space on a password-protected archive opens the prompt with the password field focused. lgse/strata#1684
 - In Columns, Right, Enter, or Space on the archive enters the preview and selects its first member, even with automatic previews off. lgse/strata#1371
 - Escape from an entered archive preview in Columns closes the preview and returns focus to the archive in the parent column. lgse/strata#1371
 - Closing the preview leaves the archive selected in the listing. lgse/strata#1192
@@ -68,7 +71,7 @@ Quick Look reads metadata only, so it needs neither extraction to a temporary fo
 - Entry count, name length, path depth, and total name bytes are bounded on both sides of the sandbox. Entry counts alone do not bound the memory of synthesized parent folders (lgse/strata#1090).
 - The `zip` crate silently collapses duplicate names, so such ZIPs are refused rather than shown incomplete (lgse/strata#1151).
 - Rows are virtualized, since eager widgets stalled large archives (lgse/strata#1090).
-- In Columns, an archive preview stays passive until entered. Taking the arrow keys on selection interrupted column navigation (lgse/strata#1369, lgse/strata#1371).
+- An archive preview stays passive until entered, in every view and for password prompts too. Only Space opening the preview, Right, `l`, or Unlock focuses the prompt or highlights a member. Taking the keys on cursor movement interrupted navigation (lgse/strata#1369, lgse/strata#1371, lgse/strata#1683, lgse/strata#1684).
 - Left at the root follows 10xer's existing `h` behavior instead of being swallowed (lgse/strata#1334).
 - RAR is not listed: UnRAR runs only for explicit extraction (lgse/strata#1046).
 - GTK's single-click-activate mode also selects the row under the pointer. Rows instead select on click release, as the browser views and Ctrl+F results do (lgse/strata#1291, lgse/strata#1555, lgse/strata#1570).

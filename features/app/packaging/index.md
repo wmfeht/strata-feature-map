@@ -3,7 +3,7 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg]
 tests: [src/tests.rs]
@@ -31,7 +31,8 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 ### Version
 
 - `strata --version` prints one line, `strata <version>`, and exits successfully without opening a window. lgse/strata#918
-- The printed version is the release-tag identity Settings → Updates uses, including a prerelease suffix such as `-rc.1`. lgse/strata#918
+- The printed version is the release-tag identity Settings → Updates uses, including a prerelease suffix such as `-rc.1`, before any `+debug` suffix. lgse/strata#918, lgse/strata#1676
+- A debug build, such as one from `cargo build` or `mise run dev`, prints `strata <version>+debug`; a release build prints no suffix. lgse/strata#1676
 - `strata --version ~/Documents` prints the version; `strata ~/Documents --version` launches the application. lgse/strata#918
 
 ## Design
@@ -41,7 +42,8 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - Linux has no portable icon-on-a-process property. Shells match the window's application ID to a `.desktop` file and use its `Icon`, so the entry's file name is the application ID (lgse/strata#49).
 - The icon is the Lucide `layers` glyph on a backdrop original to Strata. It keeps fixed colors because shells render application icons outside Strata's theming (lgse/strata#182).
 - Desktop metadata ships inside the release archive, so the installer, packages, and updater always install the copy that matches the binary (lgse/strata#182, docs/packaging.md).
-- `--version` prints `build_info::installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917).
+- `--version` prints `build_info::displayed_version()`, built on `installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917, lgse/strata#1676).
+- Debug builds scroll and load noticeably slower, so they carry `+debug` to tell them apart in reports. The suffix is display-only; update checks keep the plain version (lgse/strata#1671, lgse/strata#1676).
 - `--version` joins the existing first-argument launch-mode dispatch; a full `--help` parser was rejected as more than needed (lgse/strata#917).
 
 ## History

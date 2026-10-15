@@ -1,7 +1,7 @@
 ---
 title: App sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
-triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs]
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -22,6 +22,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/e2e/harness/keyboard_layout.py` does. Restore `us` afterwards; never change the desktop's layout.
 - `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
+- A client-decorating compositor for title bar probes: `weston --backend=x11-backend.so` or a nested `mutter --nested` on the private display, with Strata launched against its Wayland socket.
 - Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -display :N -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
 
 ## Probes
@@ -70,6 +71,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In 10xer mode with `us,ru`, press the Ё key and a US `~` in the location field, a footer prompt, F1 search, and the file list.
 - In F1 search, type, cut, paste, and select all, then undo and redo past the opening query; repeat on a Russian-only keymap.
 - Type an unmatched F1 query at the narrowest window width and with the interface in German, then clear the query and read the results area.
+- Read the footer's F1 Shortcuts label and its accessible name with the interface in ja, de, and zh-CN, at text size 8 and 48.
 
 ### app/window
 
@@ -83,11 +85,14 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
 - With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
+- Under the client-decorating compositor, open a window, a second window, a new tab, and the portal chooser; drag each edge and corner, then maximize, tile, and fullscreen and read the window border each time.
+- Under the client-decorating compositor, open a modal dialog and the search palette and check that the blur covers the header.
 
 ### app/packaging
 
 - Run `desktop-file-validate` on the shipped entry and on the entry a release archive carries, and diff the two.
 - Run `strata --version`, `strata --version ~/Documents`, `strata ~/Documents --version`, and `strata --version` with `DISPLAY` unset; compare the output with the prerelease build and check no window appears.
+- Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version`, Settings → About, and the Settings → Updates version line in each.
 - Install with `mise run install-local` into a throwaway `HOME`, read `Exec=` in the installed entry, uninstall, and list what remains.
 
 ### app/packaging/installer
@@ -151,6 +156,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch with the unreadable marker and with the marker holding `channel = "preview"` and unknown keys; the page must offer no download.
 - Point the AUR check at a package version equal to, below, and above the installed one through the proxy; only the last may show a notice.
 - Click "Open AUR Update" with the helper removed from `PATH` after the page rendered.
+- On a fake Omarchy install with an update offered, put a stub `omarchy-launch-floating-terminal-with-presentation` on `PATH` that records its arguments; click Open Omarchy Update with the stub present, absent, and not executable, from the Updates row and from the update dialog.
 
 ### app/infrastructure
 

@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
@@ -72,6 +72,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - About shows Strata's version, build commit, and GTK version, plus Website, Source code, Report an issue, and License (MIT) links. lgse/strata#19, lgse/strata#849
 - Copy version info copies the version, description, commit, toolkit, author, and license to the clipboard. lgse/strata#849 (unverified)
+- In a debug build, the BUILD group's Version row and the first line of the copied version info end in `+debug`, such as `1.0.0+debug`; a release build shows no suffix. lgse/strata#1676
+- The About description, and the second line of the copied version info, read "Navigate every layer.", translated in every language. lgse/strata#1673
+- The About logo tile fills with the theme's surface color inside a 1px border in the theme's border color, and the logo takes the theme's text color, recoloring when the theme changes. lgse/strata#1673
 
 ### Show F1 Shortcuts button
 
@@ -99,7 +102,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work.
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
@@ -119,6 +122,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1673 | fix | Drew the About logo in theme colors, so it no longer sits on a near-black tile in light themes, and changed the tagline to "Navigate every layer." |
 | 2026-10-11 | lgse/strata#1564 | feat | Added the Show sizes in Columns view switch to General → Browsing and to Settings search. |
 | 2026-10-11 | lgse/strata#1570 | fix | Showed the empty-notes message for comment-only release notes and reaped the AUR and Omarchy update launchers. |
 | 2026-10-10 | lgse/strata#1554 | fix | Routed Settings search by page id and registered Render documents, the custom-actions list and problems, and the managed-install row. |

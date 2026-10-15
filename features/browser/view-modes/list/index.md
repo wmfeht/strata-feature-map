@@ -3,7 +3,7 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser_modes/list_factory.rs]
 tests: []
@@ -12,13 +12,13 @@ related: [browser/navigation]
 
 ## Summary
 
-A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer. Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
+A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer. Child: `browser/view-modes/list/column-layout` (column order and visibility). Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
 
 ## Behavior
 
 ### Table
 
-- List shows Name, Mode, Size, Type, and Modified columns. lgse/strata#308
+- By default List shows Name, Mode, Size, Type, and Modified columns, in that order. lgse/strata#308, lgse/strata#1651
 - Name takes the width left after the metadata columns until it is resized by hand; below the minimum widths the table scrolls horizontally. lgse/strata#191
 - Mode shows a type character, symbolic permissions, and the octal value, such as `drwxrwxrwx  777`, in full at its default 160 px width. lgse/strata#308, lgse/strata#492
 - A folder's Size cell shows "No items" or its item count, such as "4 items"; files show their size. lgse/strata#1564
@@ -48,7 +48,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 - A click selects the row whose hover highlight is shown; no strip between rows highlights one row but selects another. lgse/strata#327
 - Hovered and selected rows use the same rounded highlight as Columns, dimmed when the list loses focus. lgse/strata#554
-- Rows bound while scrolling show their text, icon, and a static date at once; cut styling and live-updating dates apply on the next frame. lgse/strata#371, lgse/strata#1081 (unverified)
+- Rows bound while scrolling show their text, icon, and a static date at once; cut styling and live-updating dates apply once scrolling settles. lgse/strata#371, lgse/strata#1081, lgse/strata#1673 (unverified)
 
 ## Design
 
@@ -56,7 +56,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 - Grouping uses list-view sections, so one selection, keyboard navigation, and marquee span every group (lgse/strata#235). Icons lost grouping because grouped grids inflated cards and could abort GTK (lgse/strata#372, lgse/strata#509).
 - Autofit measures each cell with its fixed width and one-character label cap lifted; with them in place the measurement returned the current width (lgse/strata#1115).
-- Scroll deferral began as the Icons 80 ms settle (lgse/strata#368, lgse/strata#371). lgse/strata#1081 replaced the fixed wait with the next GTK frame, so continuous scrolling does not postpone updates.
+- Scroll deferral began as the Icons 80 ms settle (lgse/strata#368, lgse/strata#371). lgse/strata#1081 replaced the fixed wait with the next GTK frame, so continuous scrolling does not postpone updates. lgse/strata#1673 returned to a quiet period, recorded on `browser/view-modes`.
 - List, Icons, and Columns format folder counts with one shared function, so the three views match (lgse/strata#1564).
 - Mode's default width is 160 px so the octal value fits at every text size (lgse/strata#435).
 - Saved widths are unscaled by text size, and browser and chooser widths are independent (lgse/strata#1338).

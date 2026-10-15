@@ -3,11 +3,11 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/e2e/scenarios/test_search_filter_sort.py]
-docs: []
+docs: [docs/preferences.md]
 related: [browser/navigation, devices/volumes, integration/10xer-mode]
 ---
 
@@ -40,8 +40,26 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Each result shows its name, its full path, and a thumbnail for images. lgse/strata#493, lgse/strata#548
 - A spinner shows in the search bar while indexing runs. lgse/strata#72 (unverified)
 - When indexing stops early, the footer shows "Partial results"; its description names each cause, such as "some folders could not be read". lgse/strata#72, lgse/strata#493, lgse/strata#1066
+- Hovering **Partial results** shows a tooltip with the same causes as its description; complete results clear the tooltip. lgse/strata#1667
 - A small tree with one unreadable folder reports the unreadable folder, not an entry limit. lgse/strata#493
 - While indexing adds results, the highlighted result stays selected by path and unchanged rows are not rebuilt. lgse/strata#758
+
+### Search limits
+
+- Settings → General → **Search & filtering** shows **Search time limit** and **Search entry limit** after **Open search results directly** and before **Global search exclusions**. lgse/strata#1667
+- **Search time limit** offers 10 s, the default, 30 s, 1 min, 5 min, 15 min, and No limit. lgse/strata#1667
+- **Search entry limit** offers 200,000, the default, 500,000, 1,000,000, 5,000,000, and No limit. lgse/strata#1667
+- The time row reads "Stop indexing a search after this long. Slow or network mounts need longer to list every folder." lgse/strata#1667
+- The entry row reads "Stop indexing a search after this many files and folders. Higher limits use more memory." lgse/strata#1667
+- The choices save as `search_time_limit`, in seconds, and `search_entry_limit` in `settings.toml`; 0 means No limit. lgse/strata#1667
+- A hand-edited `search_time_limit = 45` shows **1 min**, and `search_entry_limit = 300000` shows **500,000**. lgse/strata#1667
+- A saved value above 900 seconds or 5,000,000 entries loads as **No limit**. lgse/strata#1667 (unverified)
+- Changing a limit in one window's Settings shows the same choice in another window's Settings. lgse/strata#1667
+- Every index walk stops at the saved time or entry limit; with **No limit** it walks until its roots are exhausted. Depth stays capped at 64. lgse/strata#1667
+- Ctrl+K reads the saved limits each time it opens, including before Settings has opened; a changed limit applies at the next open. lgse/strata#1667
+- Sessions with different limits never share an index snapshot. lgse/strata#1667
+- Rescans for outside changes, F5, and auto-refresh rebuild an index with the limits it was opened with. lgse/strata#1667
+- When the time or entry limit stopped the walk, the partial-search message ends "Raise the limits in Settings → General → Search & filtering." Other causes alone do not add it. lgse/strata#1667
 
 ### Outside changes
 
@@ -79,8 +97,12 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 - lgse/strata#277 proposed a Current-folder scope in the Ctrl+K dialog. Instead the Ctrl+F filter learned to search subfolders (lgse/strata#275), and Ctrl+K was fixed to Home (lgse/strata#222).
 - Ctrl+K later widened to mounted local drives because files on a USB drive were unreachable (lgse/strata#441, lgse/strata#493). Remote shares stay out of scope (lgse/strata#87).
-- The index is in memory and bounded: 200,000 entries, depth 64, and 10 seconds of indexing (lgse/strata#13, lgse/strata#72). A disk-backed index was deferred for its own discussion (lgse/strata#72).
-- Raising the cap to 400,000 entries was rejected because it roughly doubles worst-case memory and query work (lgse/strata#471).
+- The index is in memory and bounded: by default 200,000 entries, depth 64, and 10 seconds of indexing (lgse/strata#13, lgse/strata#72). A disk-backed index was deferred for its own discussion (lgse/strata#72).
+- Raising the default cap to 400,000 entries was rejected because it roughly doubles worst-case memory and query work (lgse/strata#471). The default stays; users opt into more.
+- The time and entry limits are preferences because rclone and other FUSE mounts make each listing a network round trip, so the fixed 10 s walk missed visible files. Warming the mount's cache and adding exclusions were rejected: neither fixes a large local tree (lgse/strata#1665, lgse/strata#1667).
+- The entry limit still bounds index memory, so its row warns that higher limits use more memory (lgse/strata#1665, lgse/strata#1667).
+- The limits are part of the shared-index key, so snapshots with different budgets are never shared (lgse/strata#1667).
+- The **Partial results** tooltip is a deliberate exception to tooltips only on icon-only buttons (lgse/strata#1667).
 - Concurrent sessions with the same roots, hidden-file setting, scope, and exclusions share one index snapshot. Only the best 100 matches are kept, in a bounded heap (lgse/strata#473).
 - Roots share one entry budget and take turns, so a large Home cannot starve a drive (lgse/strata#493). Folders share indexing work so a dense subtree cannot exhaust the budget first (lgse/strata#758).
 - Among directories with equal pending work, shallower ones are scheduled first, so sibling folders are found before deep subtrees (lgse/strata#1286, lgse/strata#1287).

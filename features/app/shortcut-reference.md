@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]
@@ -24,7 +24,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In 10xer mode, `~` also toggles the reference; in the default map `~` does not open it. lgse/strata#1272
 - While a 10xer footer prompt has focus, `~` goes to the prompt and does not open the reference; F1 still opens it. lgse/strata#1272 (unverified)
 - In 10xer mode with Russian active and a text field focused, Shift and the ё key type Ё instead of toggling the reference. lgse/strata#1576
-- The footer's "F1  Shortcuts" button toggles the reference and shows as pressed while it is open. lgse/strata#1034, lgse/strata#1376
+- The footer's "F1 Shortcuts" button toggles the reference and shows as pressed while it is open. lgse/strata#1034, lgse/strata#1376, lgse/strata#1688
 - Escape or a click on the backdrop closes the reference. lgse/strata#1376
 - Focusing another application window leaves the reference open with its search text, category, and scroll position. lgse/strata#1376
 - Closing the reference returns focus to the widget that had it before opening, such as a text field or the file list. lgse/strata#358
@@ -72,7 +72,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ### Footer status
 
-- In Columns, Icons, and List, the footer shows "F1  Shortcuts" at the left and the clipboard badge and item count at the right. lgse/strata#1034
+- In Columns, Icons, and List, the footer shows "F1 Shortcuts", with one space, at the left and the clipboard badge and item count at the right. lgse/strata#1034, lgse/strata#1688
 - With nothing selected, the count reads "N items", and its accessible description gives the file and folder breakdown. lgse/strata#1034
 - With a selection, the count shows a folder and file breakdown with the selected files' total size, such as "1 folder, 2 files selected (64 MB)"; folder contents are not counted. lgse/strata#1034
 - When some selected file sizes are unknown the size reads "(3 B known; size incomplete)", and when none are known "(size unavailable)". lgse/strata#1034
@@ -110,6 +110,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1688 | feat | Removed the double space from the footer's F1 Shortcuts label in all 11 catalogs, which left a wide gap in the monospace font. |
 | 2026-10-14 | lgse/strata#1648 | fix | Wrapped and centered "No matching shortcuts" in the reference results area. |
 | 2026-10-11 | lgse/strata#1570 | fix | Listed the 10xer media seek-30 s, start/end, and volume keys in the F1 reference. |
 | 2026-10-10 | lgse/strata#1559 | fix | Listed `/` as Find in preview in the 10xer F1 reference for Columns and List. |

@@ -1,24 +1,25 @@
 ---
 title: Settings sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, and the General rows no feature claims (Show F1 Shortcuts button, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, and the General rows no feature claims (Show F1 Shortcuts button, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, Corner roundness, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, and preview rows belong to the sweeps named under Hand-offs.
 
 ## Setup
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `tests/e2e/harness/environment.py` is the baseline; every seeded file starts from it.
-- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`.
+- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`.
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
 - Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, and all four empty. Install a CJK font with Simplified Chinese glyphs, such as Noto Sans CJK SC, for the ja, ko, and zh runs; none of the eleven languages is right-to-left.
+- A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
@@ -38,6 +39,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Open Settings from the gear and close it by backdrop click with the cursor folder empty, still loading, and deleted from a terminal meanwhile; press Down after each.
 - Focus a filter result, open Settings with the gear, and press Escape; repeat with the filter field focused but empty, and with the filter in a non-active Columns pane.
 - Resize the window across the 900 and 1250 px panel widths at text size 8 and 48, crossed with compact and airy density. Check the navigation, the search popover with a query typed, and dependent rows with arrows.
+- In a debug and a release build, compare the About Version row, the Copy version info clipboard text under `language = "ja"`, and the Updates page's version text.
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
 - With Restore open tabs on and a `tabs.toml` whose every entry is invalid, plain-launch with the Default directory deleted, then with it `chmod 000`.
@@ -106,6 +108,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
 - With a custom theme selected, rewrite its file by atomic rename, then by in-place truncate-and-write; read both windows after each.
 - Make the selected theme file a symlink into `$HOME/dotfiles`, then into `/dev/shm`; edit the target and read the window.
+- With the hostile `gtk.css` and `settings.ini`, walk the screenshot set in all three modes under a light and a dark theme, then compare against a run without them; any difference is a lead.
+- With the hostile setup, launch under `GTK_THEME=Adwaita:dark`, under `GTK_THEME=HighContrast`, and as the portal chooser, then with desktop high contrast and the dark color scheme on; read the log and the window.
+- Edit `~/.config/gtk-4.0/gtk.css` while Strata runs, then switch themes and open a new window; read Settings, a context menu, and a modal dialog.
 - Rewrite the selected file during an editor preview and while following Omarchy; then Cancel, or turn Follow Omarchy off, and read every window.
 - Select the custom `tokyo-night.toml`, delete it, then recreate it with new colors; read the theme cards in an open Settings page.
 - With bundled Dracula selected, create and then delete `dracula.toml`; read both windows after each.
@@ -125,7 +130,17 @@ For every control this sweep proves the binding: the file changes, the other win
 - Follow Omarchy and switch the variant and `colors.toml` between light and dark palettes with Catppuccin icons visible under both File icon colors choices; read both windows.
 - Switch File icon colors from window B while window A scrolls a folder of 300 code files in Icons view.
 - Switch File icon colors from window B while window A drags a code file.
+- Open About under a light custom theme, then switch to a dark one and Follow Omarchy while it stays open; compare the logo with a fresh About page.
 - Collapse and expand the sidebar after a theme change; icons in collapsed rows must match the expanded ones.
+
+### settings/themes/corner-roundness
+
+- Seed `corner_roundness = 50.5`, `"60"`, `-10`, `250`, and no key; launch, read the stepper and the log, change one other preference, and diff `settings.toml`.
+- Type 0, 15, 200, and 999 into the stepper, then use its buttons and arrow keys from 0 and 200; read the value and the file after each.
+- Step from 0 to 200 in window A while window B shows Icons with a context menu, a modal dialog, and a rename editor open; screenshot each at 0, 60, and 200.
+- At 0 and 200, look at switches, check boxes, tooltips, popovers, the search palette, progress dialogs, the file chooser, and the theme cards' swatches; note any corner that keeps its shape.
+- At 0 and 200, cross text size 8 and 48 with compact and airy density; look for clipped corners and mismatched switch thumbs.
+- Change roundness during an editor preview and while following Omarchy; then Cancel and compare every window.
 
 ### settings/themes/omarchy
 
@@ -150,6 +165,6 @@ For every control this sweep proves the binding: the file changes, the other win
 - Focus return after closing dialogs other than Settings → `app`.
 - Focus return after closing the search palettes → `browser`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
-- Thumbnail workers and thumbnail rendering → `browser`.
+- Thumbnail workers, thumbnail rendering, and what Show thumbnails changes in the file views → `browser`.
 - Remember sort and icon size per folder, Default sort, Forget all folder settings, and `folder-views.toml` → `browser`.
 - Show sizes in Columns view as it acts on the Columns badge → `browser`.

@@ -3,10 +3,10 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
-tests: [src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
+tests: [src/ui/thumbnail/tests.rs, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [site/src/reference/preview-sandbox.md]
 related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera]
 ---
@@ -25,6 +25,16 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
 - Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
 - A fresh image decode fills the item's Icons caption with its source dimensions, such as `320×180`. lgse/strata#1081
+
+### Show thumbnails off
+
+- With **Show thumbnails** off, files show their file-type icons instead of thumbnails in Columns, List, Icons, search and filter results, folder peeks, and the portal chooser. lgse/strata#1651
+- Turning it off updates open windows and rebuilt views at once; the saved choice applies before Settings opens. lgse/strata#1651
+- Turning it off cancels pending thumbnail requests; new requests read no cache and decode nothing. lgse/strata#1651
+- Turning it back on restores thumbnails for rows still bound. lgse/strata#1651
+- Toggling it, even off and on quickly, keeps pending dimension and duration updates such as the Icons caption `320×180`. lgse/strata#1651
+- After a toggle, rebinding or unbinding a row still discards that row's stale updates. lgse/strata#1651
+- Custom icons and the preview panel are unchanged: Space still opens a preview with thumbnails off. lgse/strata#1651
 
 ### Formats
 
@@ -63,12 +73,16 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 - Failures are cached for 30 seconds to stop retry loops on malformed files, and identical requests share one job (lgse/strata#57).
 - Requests rank visible, then overscan, then offscreen. Offscreen work is demoted rather than run (lgse/strata#274). Ranking runs from idle or the frame clock, never inside GTK bind or layout callbacks (lgse/strata#1081).
 - With two or more workers, RAW, PDF, video, audio-art, model, and cover jobs leave one render slot free for ordinary images (lgse/strata#1081).
+- **Show thumbnails** is an explicit switch. Zero workers as a hidden off switch and deleting cached files were rejected as workarounds (lgse/strata#1664).
+- A fallback icon's height scale is cached per texture, weakly keyed and pruned at 512 entries, instead of scanning the texture on each icon change (lgse/strata#1675).
 - A GVfs FUSE path is a render input only; navigation and identity keep the URI (lgse/strata#1080).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1651 | feat | Added the saved Show thumbnails switch, which shows file-type icons and stops thumbnail work while keeping previews. |
+| 2026-10-15 | lgse/strata#1675 | perf | Cached a fallback icon's height scale per texture instead of scanning the texture on each icon change. |
 | 2026-10-10 | lgse/strata#1554 | fix | Refreshed customized icons under relocated folders, so colors and icons follow moves made in Strata. |
 | 2026-09-29 | lgse/strata#1325 | feat | Added CBZ, CBR, and EPUB cover thumbnails, extracted inside the sandbox. |
 | 2026-09-23 | lgse/strata#1162 | feat | Added album-art thumbnails for audio containers whose art FFmpeg exposes. |

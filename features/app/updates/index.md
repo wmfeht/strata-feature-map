@@ -3,7 +3,7 @@ title: Updates
 status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/services/update_check.rs]
 tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
@@ -77,6 +77,7 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1609 | fix | Opened Omarchy Update in Omarchy's floating presentation terminal, so its output stays open after the update ends or fails. |
 | 2026-09-16 | lgse/strata#1068 | fix | Removed the horizontal inset from the sidebar update notice. |
 | 2026-09-15 | lgse/strata#944 | fix | Broadcast check results to every window and started the automatic check after the first frame. |
 | 2026-09-04 | lgse/strata#326 | fix | Forced the first automatic check of a session past the on-disk cache. |

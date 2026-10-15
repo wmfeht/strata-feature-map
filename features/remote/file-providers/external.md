@@ -3,7 +3,7 @@ title: External file providers
 status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
 tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, tests/e2e/scenarios/test_file_providers.py]
@@ -83,12 +83,14 @@ Opt-in, trusted programs that add live status badges and state-dependent context
 - GTK section titles cannot hold an image, so a heading icon replaces the title with a custom row styled like one (lgse/strata#1578).
 - Unsent and uncertain actions are reported differently. A disconnect after submission is not proof that nothing happened, so nothing is replayed (lgse/strata#1385).
 - Caches hold at most 2,048 path answers and 32 menu selections per provider, and track at most 1,024 mapped thumbnail slots (lgse/strata#1385).
+- Discovery runs once per process. When it finds no providers, the hub's 100 ms timer stops and thumbnail slots are no longer tracked, so an idle window stays idle (lgse/strata#1671, lgse/strata#1677).
 - Providers must answer from cached service state and never download content to draw a badge or menu. Strata cannot enforce this (lgse/strata#1385).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1677 | perf | Stopped the 100 ms hub timer and slot tracking once discovery finds no providers, so an idle window can stop waking. |
 | 2026-10-11 | lgse/strata#1578 | feat | Let providers choose dialog, notice, or no feedback for accepted activations, and show a manifest icon before the menu heading. |
 | 2026-10-07 | lgse/strata#1385 | feat | Added opt-in external providers for live badges and context actions, with Cirrove as the first adapter. |
 

@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
@@ -98,6 +98,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1623 | fix | Made Ctrl+Alt+N use only the committed fill, so with nothing selected it creates an empty folder instead of moving the cursor item. |
 | 2026-10-07 | lgse/strata#1508 | fix | Focused the confirm button in permanent-delete dialogs and let `d` trash an open Columns folder. |
 | 2026-10-01 | lgse/strata#1340 | feat | Added pin, move, copy, extract, restore, and `d d` keys, and made Ctrl+Shift+M the only exit. |
 | 2026-09-29 | lgse/strata#1308 | feat | Added footer rename, sort chords, hidden-file toggles, Open With, and numbered custom actions. |

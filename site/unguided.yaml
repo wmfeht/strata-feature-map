@@ -10,6 +10,8 @@ browser/selection/marquee: No upstream user doc covered pointer selection; the g
 browser/sidebar/pins: No upstream user doc covered pinned folders; the guide does not cover it yet.
 browser/thumbnails/cache: Internal cache with no user setting beyond what the Preview sandbox page says about thumbnails.
 browser/view-modes/icons: Covered by the Views guide page; no upstream user doc described view modes.
+browser/view-modes/list/column-layout: New since v1.0.0; the next release docs run places it.
+settings/themes/corner-roundness: New since v1.0.0; the next release docs run places it.
 browser/view-modes/sorting: Covered by the Views guide page; no upstream user doc described sorting.
 browser/view-modes/text-size: Covered by the Views guide page; no upstream user doc described text size.
 devices/volumes/encrypted: Covered by the Remote and devices guide page; no upstream user doc described unlocking volumes in Strata.

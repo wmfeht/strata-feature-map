@@ -3,7 +3,7 @@ title: Themed icons
 status: shipped
 origin: {issue: lgse/strata#169, pr: lgse/strata#170}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/assets.rs, src/assets/vector.rs, src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin/**, scripts/catppuccin_icons.py, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg]
 tests: [src/assets/tests.rs, src/assets/vector/tests.rs, src/ui/browser/entry/tests.rs, src/ui/theme/tests.rs]
@@ -93,6 +93,7 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1675 | perf | Checked the icon texture cache before loading and recoloring an icon's SVG source. |
 | 2026-10-12 | lgse/strata#1589 | fix | Redrew video as a clapperboard and archives as a folder-archive, and mapped 10 more video and 8 more archive extensions. |
 | 2026-10-10 | lgse/strata#1561 | fix | Outlined the language glyphs at folder stroke weight in padded view boxes and replaced the custom Java glyph with Devicon's. |
 | 2026-10-08 | lgse/strata#1529 | feat | Added 42 accent-tinted language glyphs and used the same icons in search results. |

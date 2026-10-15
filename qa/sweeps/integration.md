@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -22,6 +22,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - Keyboard layout `fr` from the E2E `keyboard_layout` fixture or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the fixture lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
+- A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
 ## Probes
@@ -99,6 +100,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
+- With the drawer open, step `j`/`k` across two locked archives in a row, press `i` on one, then `l`, a wrong password, and Enter; repeat in Icons with the default keymap.
 - Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
@@ -121,6 +123,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
+- Fill two `f` hits, rest the cursor on an unfilled hit, then cancel a Shift+Delete dialog, Tab out and back, and close Quick Look; read which hit holds focus and whether the fill changed.
 - Rename a folder two levels above an `s` search while its stream is still running. Rename one back before the monitor fires, and rename one while a copy runs into it.
 
 ### integration/10xer-mode/file-verbs
@@ -149,6 +152,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Run a `.sh` without a shebang, with CRLF endings, with a space in its path, an executable symlink to a non-executable, and an AppImage with a registered type; with no terminal on `PATH`.
 - Install 300 fake `.desktop` files; search by desktop id, wrap Up and Down, Tab with a non-empty search, press Escape twice; select three types sharing one handler, and a broken symlink plus a file.
 - Check Always use for two types at once, with `mimeapps.list` at mode 444, and cancel with it checked; compare with `xdg-mime query default`.
+- In the Flatpak build, activate a `.sh`, an AppImage, and a file on an exFAT mount; press Open With… on three files of different types and dismiss the second desktop chooser; hand a video from the preview to the player.
 - On a GVfs FUSE mount, open with a `%f` handler and a `%u` handler; skip when no mount exists and say so.
 
 ### integration/open-with/recent-apps
@@ -163,6 +167,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Set `$TERMINAL` to `footerm --title x`, to the failing fake, and to an empty string; then empty `PATH` of emulators, then add the fake `kitty` that exits 127; read each dialog.
 - Press Ctrl+Alt+T with Shift and with Super held, in the location field, during an inline rename, in a chooser, and with the mode on.
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
+- In Columns, click a folder and press Ctrl+Alt+T with the pointer over its parent, over a grandparent, and after selecting a second folder in the parent; repeat with the folder opened by keyboard.
 - Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits. Count Strata's children and threads with `ps -L` afterwards.
 
 ### integration/custom-actions

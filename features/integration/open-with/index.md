@@ -3,8 +3,8 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
-review: reviewed
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/e2e/scenarios/test_open_with.py]
 docs: []
@@ -78,6 +78,16 @@ Opening files in their default application, choosing another application from th
 - The toggle is hidden when the chooser has no application to offer. lgse/strata#1298
 - If writing the default fails, the file still opens and a warning is logged. lgse/strata#1298
 
+### Flatpak
+
+- Inside a Flatpak sandbox (`/.flatpak-info` exists), activating a file such as a PDF opens it in the host's default application through the OpenURI portal. Strata's chooser does not appear. lgse/strata#1635
+- Inside Flatpak, the item menu's Open hands each selected file to its host default handler. lgse/strata#1635
+- Inside Flatpak, Open With… shows the desktop's own app chooser instead of Strata's chooser. lgse/strata#1635
+- Inside Flatpak, Open With… on several files shows one desktop chooser per file in turn; dismissing one opens none of the rest and shows no error. lgse/strata#1635
+- Inside Flatpak, Open With… is never disabled for lack of compatible applications, and the multi-selection menu always shows Open. lgse/strata#1635 (unverified)
+- Inside Flatpak, a portal failure other than a dismissal shows "Unable to open file" with the error and opens none of the remaining files. lgse/strata#1635 (unverified)
+- Outside Flatpak, opening and Open With… behave as in the sections above. lgse/strata#1635
+
 ## Design
 
 Applications come from GIO metadata; Strata does not parse `.desktop` files (lgse/strata#174). Choosing an application never changes the system default unless Always use is checked (lgse/strata#174, lgse/strata#1290).
@@ -90,12 +100,15 @@ Applications come from GIO metadata; Strata does not parse `.desktop` files (lgs
 - Activation falls back to the chooser rather than an error, matching Nautilus and Dolphin; always showing it was rejected because it slows associated files (lgse/strata#842).
 - Executables without a handler are confirmed before running because they may be untrusted (lgse/strata#460). Run is also an explicit menu item, because AppImages and other executables with a registered type never reach that fallback (lgse/strata#844).
 - A `.sh` script receives its path as an argument to `/bin/sh -c`, not as shell text, to keep its shebang and avoid injection (lgse/strata#1028).
+- Inside Flatpak, GIO sees only the runtime's applications and cannot launch host ones, so files go to the OpenURI portal through `gtk::FileLauncher`. The portal cannot name an application, so Open With asks the desktop's chooser (lgse/strata#1503, lgse/strata#1635).
+- Portal launches run one file at a time so desktop choosers do not stack (lgse/strata#1635).
 - Type lookups run asynchronously and are discarded when the menu closes or the selection changes (lgse/strata#578, lgse/strata#625).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1635 | fix | Opened files through the OpenURI portal under Flatpak, where GIO sees only the runtime's apps. |
 | 2026-09-27 | lgse/strata#1298 | feat | Added "Always use for this file type" to set the default from the chooser. |
 | 2026-09-15 | lgse/strata#1028 | fix | Ran `.sh` files in a terminal that keeps output and exit status until Enter. |
 | 2026-09-14 | lgse/strata#1012 | feat | Opened the chooser when activating a file with no default application. |
@@ -110,4 +123,4 @@ Applications come from GIO metadata; Strata does not parse `.desktop` files (lgs
 
 ## Known gaps
 
-- Inside a Flatpak sandbox, GIO sees only the runtime's applications, so activating a document opens an empty chooser. lgse/strata#1503
+None known.

@@ -3,12 +3,12 @@ title: Package-managed installs
 status: shipped
 origin: {issue: lgse/strata#195, pr: lgse/strata#196}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
-review: reviewed
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+review: draft
 code: [src/services/install_source.rs]
 tests: [src/services/install_source/tests.rs]
 docs: [docs/packaging.md]
-related: [app/packaging/aur]
+related: [app/packaging/aur, integration/open-with/terminal]
 ---
 
 ## Summary
@@ -40,7 +40,8 @@ Update checks and actions for Strata installed by a package manager: the officia
 - With a marker, the Release channel menu is disabled and follows the marker's channel, mapping `rc` and `preview` to Preview. lgse/strata#183
 - Without a marker, an Omarchy or pacman install hides the Release channel row. lgse/strata#196 (unverified)
 - No package-managed install offers an in-app download, and the installer refuses one before downloading. lgse/strata#196
-- With an update available, an Omarchy install offers "Open Omarchy Update", which runs `omarchy update` in the configured terminal. lgse/strata#196
+- With an update available, an Omarchy install offers "Open Omarchy Update", which runs `omarchy-launch-floating-terminal-with-presentation omarchy-update` when that launcher is on `PATH`. lgse/strata#1609
+- Without that launcher, or when it fails to start, Open Omarchy Update runs `omarchy update` in the configured terminal and logs a warning for the failed start. lgse/strata#196, lgse/strata#1609
 - An AUR install offers "Open AUR Update", running `<helper> -Syu <package>` in a terminal, when a marker-listed helper is on `PATH`. lgse/strata#183 (unverified)
 - Without such a helper, an AUR install offers "View on AUR", which opens the package page. lgse/strata#183 (unverified)
 - A pacman install says to install through a full system update and offers no install action. lgse/strata#196, lgse/strata#210
@@ -57,6 +58,7 @@ Replacing a pacman-owned `/usr/bin/strata` fails on permissions, and with enough
 - Omarchy's live database is read instead of pacman's cache, because the same `omarchy update` that installs Strata refreshes that cache (lgse/strata#210).
 - The marker is scoped to the official AUR packages, locks the shown channel to the package, and tolerates unknown keys for older binaries (lgse/strata#183).
 - The AUR marker lists helpers instead of an `update_command`, because pacman cannot update an AUR package (lgse/strata#183, docs/packaging.md).
+- Open Omarchy Update uses the launcher Omarchy's own menu uses, so the window floats and its output stays readable after a failed update (lgse/strata#1608, lgse/strata#1609).
 - Detection fails safe: an unreadable marker or a failed ownership query keeps in-place replacement off (lgse/strata#183, lgse/strata#196).
 
 ## History

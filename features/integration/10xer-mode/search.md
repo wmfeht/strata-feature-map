@@ -3,7 +3,7 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs]
@@ -84,6 +84,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1611 | fix | Returned focus to the results' cursor hit, keeping GTK's row over a 10xer fill, without rewriting the selection. |
 | 2026-10-10 | lgse/strata#1554 | fix | Made the footer hit path follow the cursor over filled hits, and ended an `s` search whose folder moved outside the app. |
 | 2026-10-10 | lgse/strata#1544 | fix | Added the shared outside-change focus check, which keeps focus in a focused pane filter or `f`/`s` prompt. |
 | 2026-10-09 | lgse/strata#1533 | fix | Added the shared check that counts a focused pane-filter result as filter focus; footer `f` filters keep their own Escape order. |

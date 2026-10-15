@@ -3,10 +3,10 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/window/sidebar.rs, src/ui/window/keyboard/sidebar.rs, src/ui/sidebar_toggle.rs]
-tests: [src/ui/window/tests/bookmarks.rs, src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs, src/ui/window/tests/preferences.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
+tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs, src/ui/window/tests/preferences.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
 docs: [docs/preferences.md, site/src/reference/keyboard-navigation.md]
 related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window]
 ---
@@ -23,6 +23,8 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Desktop, Documents, Downloads, Music, Pictures, and Videos open the folders set in `user-dirs.dirs`; Music follows `XDG_MUSIC_DIR`. lgse/strata#1342
 - Recent appears only when GTK recent-file tracking is enabled and GIO supports the `recent` scheme. lgse/strata#1083
 - The row for the current location shows an 18% accent tint and an accent-coloured icon. lgse/strata#106
+- Clicking a place that fails to open, such as Network with `GIO_USE_VFS=local`, and dismissing the error leaves the pane and the highlight on the open place. lgse/strata#1605
+- While a place mounts before opening, the highlight stays on the open place; a failed or cancelled mount leaves it there. lgse/strata#1605
 - Home, standard folders, and local pins show the folder's saved colour and custom icon, and update in every open window when it changes. lgse/strata#1370
 - Right-clicking a local folder row offers Customize…; clearing the customization restores the place's default icon. lgse/strata#1370
 - In the file chooser, the sidebar omits Trash and Network, and its rows have no context menu and cannot be reordered. lgse/strata#1025 (unverified)
@@ -88,6 +90,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - DEVICES shows exactly what GIO reports. A raw `/proc/self/mountinfo` fallback surfaced mounts the backend hides on purpose, so it was removed; visibility policy stays with GIO, GVfs, and udisks2, as in Nautilus (lgse/strata#532, lgse/strata#536).
 - Device discovery waits until after first paint so a window never blocks on D-Bus, GVfs, or udisks2 before appearing (lgse/strata#1070).
 - Only the toggle's steps are remembered, as `sidebar_expanded` and `sidebar_compact` (lgse/strata#1606). A "Start with sidebar collapsed" switch was left out as unneeded (lgse/strata#1345, lgse/strata#1350); hover-reveal panels were declined (lgse/strata#1282).
+- A row highlights on click, before its location is validated. A rejected navigation resyncs the highlight to the open location rather than deferring it until validation (lgse/strata#860, lgse/strata#1605).
 - The selected row uses a direct accent tint because tinting the existing highlight token stayed too faint on dark themes (lgse/strata#104, lgse/strata#106).
 - The fit rule and `RailPolicy` that rail the sidebar automatically belong to `preview/preview-panel/layout` (lgse/strata#1602, lgse/strata#1606).
 - Rail rows take the scaled header-control size from code instead of a fixed 24 px CSS minimum. They stay on the toggle's axis below 100 % text size (lgse/strata#1602, lgse/strata#1606).
@@ -97,6 +100,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1605 | fix | Returned the highlight to the open place after a rejected place click. |
 | 2026-10-13 | lgse/strata#1606 | fix | Made the header toggle step full, rail, hidden, saved the rail as `sidebar_compact`, and made the automatic rail edge-triggered under one fit rule. |
 | 2026-10-12 | lgse/strata#1581 | fix | Split the update notice into an "Update available" headline over the version, so it fits the default width in every language. |
 | 2026-10-11 | lgse/strata#1564 | feat | Kept the update notice on one line, middle-ellipsized, with a prerelease kind before the version. |
@@ -111,6 +115,5 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 ## Known gaps
 
-- Clicking a place that fails to open, such as Network without its backend, leaves that row highlighted while the pane stays put. lgse/strata#860
 - NAS shares mounted by the system at native paths do not appear unless GIO reports them. lgse/strata#1209
 - PINNED and DEVICES cannot be collapsed; the implementation is unmerged. lgse/strata#1389, lgse/strata#1390

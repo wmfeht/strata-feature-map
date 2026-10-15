@@ -3,7 +3,7 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
@@ -112,6 +112,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Submitting an empty password keeps the dialog open with "Enter a password". lgse/strata#793
 - A wrong password reopens the dialog with "Invalid password", including for plain-header 7Z and ZipCrypto archives whose wrong password fails a checksum. lgse/strata#751, lgse/strata#793, lgse/strata#798
 - Cancelling the password dialog after Extract to… leaves nothing in the chosen folder and does not redirect the next completion. lgse/strata#827, lgse/strata#1499
+- A wrong password after Extract to… still navigates to the chosen folder once the retried extraction succeeds. lgse/strata#827, lgse/strata#1605
 - A password failure discards everything written, so the retry publishes under the archive's plain name instead of `stem (1)`. lgse/strata#1499
 - An error that quotes a member name such as `passwords.txt` shows the error dialog, not the password prompt. lgse/strata#750, lgse/strata#1499
 - Damage in an unencrypted member is reported as damage even when a password was given. lgse/strata#1499
@@ -125,6 +126,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A member that produces more or fewer bytes than its header declares fails the extraction and is not kept. lgse/strata#605
 - A highly compressible archive with truthful headers extracts in full; there is no ratio or entry-count cap. lgse/strata#605
 - If the item stopped being a regular file after the menu opened, extraction fails with "Not an archive: “<name>”" before creating anything. lgse/strata#1478
+- After Extract to… fails, such as into a read-only folder, the next Extract here stays in the current folder and selects its output. lgse/strata#864, lgse/strata#1605
 
 ## Design
 
@@ -153,6 +155,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1605 | fix | Dropped the pending navigation when Extract to… fails, so the next extraction stays put. |
 | 2026-10-14 | lgse/strata#1617 | fix | Numbered a taken single-root folder after its whole name, so `strata-1.0.0` becomes `strata-1.0.0 (2)`, not `strata-1.0 (2).0`. |
 | 2026-10-12 | lgse/strata#1586 | fix | Published extracted folders on filesystems without `RENAME_NOREPLACE`, such as ntfs-3g, instead of leaving them in staging. |
 | 2026-10-11 | lgse/strata#1552 | fix | Recorded the published extraction output for undo, so Ctrl+Z trashes it and never a pre-existing file. |
@@ -190,5 +193,4 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 ## Known gaps
 
-- A failed Extract to…, such as into a read-only folder, leaves a pending navigation that the next Extract completion follows. lgse/strata#864
 - There is no option to delete the archive after a successful extraction. lgse/strata#759
