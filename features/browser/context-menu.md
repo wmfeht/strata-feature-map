@@ -61,7 +61,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
 - Outside Flatpak, when every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155, lgse/strata#1635
-- Under Flatpak, the multi-selection menu always shows Open above Open With…, even when the selected types have different or no defaults. lgse/strata#1635 (unverified)
+- Under Flatpak, once the selected types resolve, the multi-selection menu shows Open above Open With…, even with different or no defaults. lgse/strata#1635 (unverified)
 - When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
 - Custom action rows appear after the opening group and before Cut. lgse/strata#1085 (unverified)

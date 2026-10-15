@@ -48,7 +48,8 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 - On load, duplicate columns are dropped and missing ones are appended in default order. lgse/strata#1651 (unverified)
 - The saved order and visibility apply before Settings opens and survive restarts. lgse/strata#1651
 - Every browser window and the portal file chooser share order and visibility, and update live. lgse/strata#1651
-- A List pane cached while another view shows also updates: hide Size in window B while window A shows Icons, and A's List has Size hidden on return. lgse/strata#1651
+- A List pane cached while another view shows also updates. lgse/strata#1651
+- With window A showing Icons, hide Size in window B; A's List has Size hidden on return. lgse/strata#1651
 - Column widths keep their separate browser and chooser scopes, `browser_list_columns` and `chooser_list_columns`. lgse/strata#1651
 
 ### Sorting

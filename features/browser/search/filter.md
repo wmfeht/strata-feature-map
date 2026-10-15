@@ -89,8 +89,9 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - A result renamed, deleted, or moved through its menu leaves the results; a rename that still matches stays at its real parent. lgse/strata#800, lgse/strata#1155
 - As results update, rows still matching keep their widgets, thumbnails, and selection, without flashing. lgse/strata#639, lgse/strata#778
 - When the selected result disappears, the next result, or the last remaining one, is selected. lgse/strata#639
-- In List and Icons, Delete, or Shift+Delete and confirm, on a focused result moves focus, with a visible focus ring, to the result now in its slot; Escape then closes the filter. lgse/strata#1632
-- Deleting the last remaining result that way moves focus to the filter field with the caret after the query; Escape then closes the filter. lgse/strata#1632
+- In List and Icons, Delete, or Shift+Delete and confirm, on a focused result moves focus to the first remaining selected result, with a visible focus ring. lgse/strata#1632
+- If no selected result remains, focus goes to the result now in the deleted one's slot, or to the last result. Escape then closes the filter. lgse/strata#1632
+- Deleting the last remaining result that way moves focus to the filter field; Escape then closes the filter. lgse/strata#1632
 - Icons shows results as an icon grid and List as rows. lgse/strata#1155
 
 ### Focus return

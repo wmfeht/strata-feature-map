@@ -70,7 +70,7 @@ GTK's GridView estimates layout from cell sizes, so flexible image and label car
 - Cards run their own rest timer. GTK4's hover delay drops to 60 ms once any tooltip shows, which would flash names card by card while sweeping the grid (lgse/strata#1553).
 - Upstream AGENTS.md allows tooltips only on icon-only buttons. The owner approved this exception for Icons names on condition of a longer delay than GTK's default (lgse/strata#1553).
 - The tooltip reads the caption when GTK asks for it, so it follows a pending rename (lgse/strata#1553).
-- A caption's measured extent is kept between measure and allocate, keyed by Pango context serial, insets, attributes, text, and width, so Text size changes and renames remeasure it. The reserved two-line height is cached the same way (lgse/strata#1675).
+- A caption's measured extent is kept between measure and allocate. It is keyed by Pango context serial, insets, attributes, text, and width, so Text size changes and renames remeasure it. The reserved two-line height is cached the same way (lgse/strata#1675).
 
 ## History
 

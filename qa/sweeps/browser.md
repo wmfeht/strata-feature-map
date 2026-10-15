@@ -244,7 +244,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press keypad `/` with Num Lock on and off, and on `is` press the þ key with Type to search on, then off.
 - Filter to one match in Icons, then List, and delete it from a shell; repeat in Columns and read the status each time.
 - Run a partial-coverage filter that returns results; check whether the status covers the first result row at text size 8 and 48.
-- In List and Icons, delete the last hit in sort order, a hit with several hits selected, and a hit through the item menu's Move to Trash; repeat with Include subfolders off and the preview open.
+- In List and Icons, delete the last hit in sort order, a hit with several hits selected, and a hit through the item menu's Move to Trash. Repeat with Include subfolders off and the preview open.
 - Set Search entry limit to 200,000 and filter `100000` plus a second large folder below it; change the limit in another window's Settings and type one more character.
 - With 10xer mode on, move the cursor with `f` results and a fill, open and cancel a dialog, then close Quick Look; note which hit has the focus ring.
 
@@ -311,7 +311,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Open Properties on `100000` and on `deep`; watch the counter cadence and read the nesting warning text.
 - Select 300 items including the unreadable folder and the symlink to a folder; compare with `du -sb`, close mid-count, and reopen at once.
-- On an `sftp://` share, permanently delete, open Properties on, and multi-select Properties for a folder holding dot-files, a symlink to a folder, and nested folders; watch the log and compare totals with `du -sb` on the server.
+- On an `sftp://` share, permanently delete, open Properties on, and multi-select Properties for a folder holding dot-files, a symlink to a folder, and nested folders. Watch the log and compare totals with `du -sb` on the server.
 
 ### browser/context-menu
 
@@ -320,7 +320,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Menu with the filter field focused, the location entry focused, and a drive row focused; right-click a second entry while a menu is open.
 - Press Right on Open in… in a multi-selection of folders, then Left; open the menu on a folder in Trash and a Recent folder row.
 - With the interface in German, then Japanese, open a file's, a folder's, and the background menu; compare each hint with its F1 row and press it.
-- On niri, right-click and hold 250 ms near the bottom edge on a row, on empty space, and where a submenu row lands; then press, drag onto a row, release, and click a row.
+- On niri, quick-right-click on empty space near the bottom edge and where a submenu row lands; then reopen the menu with Menu and click a row.
 - Right-click a folder, choose Copy, reopen its menu within one frame, then alternate file, folder, and multi-selection menus while watching the log.
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 
