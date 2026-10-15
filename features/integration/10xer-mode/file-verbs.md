@@ -71,7 +71,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 ### Open With and actions
 
 - `O` looks up types and applications without blocking keys, then opens Open With for the targets. lgse/strata#1308
-- For a mixed selection, Recommended Applications lists only applications that handle every type. lgse/strata#1308
+- Outside Flatpak, for a mixed selection, Recommended Applications lists only applications that handle every type. lgse/strata#1308, lgse/strata#1635
 - A newer key, a selection or focus change, navigation, leaving the mode, or closing the window drops an unfinished Open With lookup. lgse/strata#1308
 - `;` arms a chord whose panel lists the first ten matching custom actions in context-menu order, then `t`, `c`, `e`, and `E`. lgse/strata#1308, lgse/strata#1340
 - `; 1` to `; 9` and `; 0` run that action; a vacant slot flashes `No action N` and runs nothing. lgse/strata#1308

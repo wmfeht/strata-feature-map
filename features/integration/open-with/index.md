@@ -21,15 +21,15 @@ Opening files in their default application, choosing another application from th
 
 - Activating a file whose type has a default application launches it with no dialog. lgse/strata#1012
 - Double-clicking a file in Columns launches its application once, as Enter does. lgse/strata#92
-- Activating a file with no default application opens the Open With chooser for it instead of an error. lgse/strata#1012
+- Outside Flatpak, activating a file with no default application opens the Open With chooser for it instead of an error. lgse/strata#1012, lgse/strata#1635
 - When that chooser has no application to offer, it shows "No application is registered for this file" with Open disabled. lgse/strata#1012
 - Closing the fallback chooser returns focus to the activated entry. lgse/strata#1012
 - Activating an item in Trash shows "Unable to open item" with "Items in Trash cannot be opened" and launches nothing. lgse/strata#995
 - A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
-- Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474
-- Outside Flatpak, the mpv, VLC, and Celluloid Flatpaks also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474 (unverified)
+- Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474, lgse/strata#1635
+- When Strata runs outside Flatpak, Flatpak installs of mpv, VLC, and Celluloid also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474, lgse/strata#1635 (unverified)
 
 ### Running programs
 
@@ -47,9 +47,9 @@ Opening files in their default application, choosing another application from th
 - The item menu offers Open With… for one or several selected files or folders. lgse/strata#421, lgse/strata#625
 - While types are looked up, Open With… is insensitive and described "Looking for compatible applications…". lgse/strata#578
 - A broken symbolic link in the selection disables Open With… with "Broken symbolic links cannot be opened with an application". lgse/strata#578
-- A selection no visible application can open disables Open With… with "No compatible applications were found", or "No application can open all selected file types" for several types. lgse/strata#578
-- A multi-selection menu shows Open only when every selected type has the same default; Open launches that application with all items. lgse/strata#578
-- Selected types with common handlers but different defaults get Open With… and no Open. lgse/strata#578
+- Outside Flatpak, a selection no visible application can open disables Open With… with "No compatible applications were found", or "No application can open all selected file types" for several types. lgse/strata#578, lgse/strata#1635
+- Outside Flatpak, a multi-selection menu shows Open only when every selected type has the same default; Open launches that application with all items. lgse/strata#578, lgse/strata#1635
+- Outside Flatpak, selected types with common handlers but different defaults get Open With… and no Open. lgse/strata#578, lgse/strata#1635
 - The folder background menu offers Open With… for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#1083
 
 ### Chooser
@@ -86,7 +86,7 @@ Opening files in their default application, choosing another application from th
 - Inside Flatpak, the item menu's Open hands each selected file to its host default handler. lgse/strata#1635
 - Inside Flatpak, Open With… shows the desktop's own app chooser instead of Strata's chooser. lgse/strata#1635
 - Inside Flatpak, Open With… on several files shows one desktop chooser per file in turn. Dismissing one opens none of the rest and shows no error. lgse/strata#1635
-- Inside Flatpak, Open With… is never disabled for lack of compatible applications. The multi-selection menu shows Open whenever every selected file's type resolves. lgse/strata#1635 (unverified)
+- Inside Flatpak, Open With… is never disabled for lack of compatible applications. lgse/strata#1635 (unverified)
 - Inside Flatpak, a portal failure other than a dismissal shows "Unable to open file" with the error and opens none of the remaining files. lgse/strata#1635 (unverified)
 - Without `/.flatpak-info`, Open With… shows Strata's chooser. lgse/strata#1635
 
@@ -102,7 +102,7 @@ Applications come from GIO metadata; Strata does not parse `.desktop` files (lgs
 - Activation falls back to the chooser rather than an error, matching Nautilus and Dolphin; always showing it was rejected because it slows associated files (lgse/strata#842).
 - Executables without a handler are confirmed before running because they may be untrusted (lgse/strata#460). Run is also an explicit menu item, because AppImages and other executables with a registered type never reach that fallback (lgse/strata#844).
 - A `.sh` script receives its path as an argument to `/bin/sh -c`, not as shell text, to keep its shebang and avoid injection (lgse/strata#1028).
-- Inside Flatpak, GIO sees only the runtime's applications and cannot launch host ones, so files go to the OpenURI portal through `gtk::FileLauncher`. The portal cannot name an application, so Open With asks the desktop's chooser (lgse/strata#1503, lgse/strata#1635).
+- Inside Flatpak, GIO sees only the runtime's desktop entries, so files go to the OpenURI portal through `gtk::FileLauncher`. Open With sets `always_ask`, so the desktop's chooser picks the application (lgse/strata#1503, lgse/strata#1635).
 - Portal launches run one file at a time so desktop choosers do not stack (lgse/strata#1635).
 - Type lookups run asynchronously and are discarded when the menu closes or the selection changes (lgse/strata#578, lgse/strata#625).
 

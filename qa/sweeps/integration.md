@@ -100,7 +100,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
-- With the drawer open, step `j`/`k` across two locked archives in a row, press `i` on one, then `l`, a wrong password, and Enter.
+- With the drawer closed, press `i` on a locked archive and type `j`; step `j`/`k` across a second locked archive, then press `l`, a wrong password, and Enter.
 - Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
