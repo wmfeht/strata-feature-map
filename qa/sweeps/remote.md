@@ -37,7 +37,7 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Open `smb://host/` for a server exposing a share with `%20`, a Unicode name, and an `IPC$`-style hidden share; activate each and look for FUSE paths.
 - On the SFTP fixture, create `$(printf 'caf\xe9')`, a file named `a%2Fb`, and `café`; open, rename, and delete each, then read the location field, breadcrumbs, window title, and Properties.
 - Drop files onto a remote folder in the file pane and onto its DEVICES row, then search with Ctrl+F inside the remote folder with Include subfolders on and read what the UI says.
-- On the SFTP fixture, build a folder holding hidden files, a symlink to a folder, and nested folders; permanently delete it, and separately open Properties on it alone and in a multi-selection. Watch the log for GLib-GIO criticals and compare totals with `du -sb` on the server.
+- On the SFTP fixture, build a folder holding hidden files, a symlink to a folder, and nested folders. Press Delete on it, then open Properties on it alone and in a multi-selection, watching the log for GLib-GIO criticals.
 - Start Strata with `gvfsd` stopped and D-Bus activation masked, then with `gvfsd` running but `gvfsd-sftp` removed; compare startup time and the two failure texts.
 
 ### remote/file-providers/external
@@ -53,7 +53,7 @@ Left to other sweeps: sidebar rows and location-field parsing and history, copy 
 - Run a `notice` action from a provider whose `name` is the full 64 bytes, beside a short message.
 - Set `icon` to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
 - With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
-- Start Strata with no provider registered, wait past discovery, then register one while it runs; scroll, open item menus, and restart, checking when its badges and sections first appear.
+- Start Strata with no provider registered and browse a folder in Icons for a second. Then register one while it runs; scroll, open item menus, and restart, checking when its badges and sections first appear.
 
 ## Hand-offs
 
