@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
@@ -35,6 +35,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Create inside an empty folder, a read-only folder, Trash, a Ctrl+F result, and in a Columns pane that is not the last column; note which column the editor opens in.
 - Create with a 255-byte name, a name ending in a space, and `.hidden` with hidden files off.
 - Press Ctrl+Shift+N ten times quickly while earlier items are still in their editors; the `(n)` suffixes must stay unique.
+- Press Ctrl+Alt+N in Columns with a selection in one column and keyboard focus in another, and with a selection of only hidden items after hidden files are turned off.
 
 ### operations/rename
 
@@ -51,6 +52,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Paste with the pointer parked over a different column than the keyboard cursor; the destination footer names the folder that receives the files.
 - Copy a file, delete or hide the current folder from a shell, press Alt+Up in Icons and List, then Ctrl+V.
 - Copy name and Copy path for a multi-selection with non-UTF-8 and space-containing names; paste into a terminal and compare bytes.
+- Copy the path of a non-UTF-8 name, and of a folder whose name holds a newline, from the location-bar crumb and from Properties; paste into zsh, fish, and dash.
+- Cut one file in a large Columns folder, scroll it out of view and back, then copy 1,000 files and scroll again.
+- Start a foreground Move to…, cancel it, then fail one, and run Extract here after each.
 - Paste an image copied from a browser, and paste into a read-only folder.
 - Move to… and Copy to…: reach the destination through the dialog's search, pick Trash, pick a remote location, and pick the source folder itself.
 - On the ntfs-3g mount, copy a folder and cancel the moment the progress bar fills; list the destination's parent with `ls -la`.
@@ -92,6 +96,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
+- Drop a link to a folder on a stalled or unmounted network mount onto the sidebar Trash row.
 
 ### operations/trash/restore
 
@@ -119,6 +124,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete 15 items, then a folder that takes about 350 ms; switch tabs or view mode during a quick one.
 - Shift+Delete 1 to 15 rows above other rows in each mode and watch whether deleted rows vanish and reappear before the dissolve.
 - Start a second Shift+Delete while the first dissolve plays, then click a row.
+- Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
 
 ### operations/archives
 
@@ -131,6 +137,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Close the Compress dialog with its X, then press Down.
 - Close the conflict prompt opened from a Ctrl+F result, then press Down.
 - Cancel the Extract password dialog with Escape after Extract to…, then press Down.
+- Extract to… a folder that is deleted or unmounted during extraction, close the error, then extract another archive in List and Columns.
 - Extract a multi-root archive, a single-root archive whose name is taken, and a third archive cancelled midway; press Ctrl+Z three times, then Ctrl+Shift+Z once.
 - Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
 - On the ntfs-3g mount, take `name` with a file and `name (2)` with a folder, then extract a single-root folder archive named `name`.
@@ -150,6 +157,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Mix pointer and keys: hover across rows then press Right, and click a row then press Up.
 - Shift+click two members, and double-click a folder in a long list scrolled halfway.
 - Click a row at its bottom edge.
+- With the preview open, hold Down through a mix of plain and password-protected archives in each view and with each key map; then press Right in Icons on a locked archive.
+- Type a wrong password, then move the cursor away and back to the archive.
 
 ### operations/progress
 

@@ -3,7 +3,7 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
@@ -60,7 +60,7 @@ Creating an empty file or folder in the current directory from the background me
 - With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349
 - The item is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
 - Choosing it, or Ctrl+Alt+N, creates a numbered `new folder` beside the selection, moves the selected items into it, and opens rename on the folder. lgse/strata#1349
-- Ctrl+Alt+N with nothing selected creates a plain `new folder`. lgse/strata#1349
+- Ctrl+Alt+N with nothing selected creates an empty `new folder` and moves nothing. This holds with the cursor on an item, or with only a load cursor on the first row. lgse/strata#1349, lgse/strata#1623
 - One Ctrl+Z moves the items back and moves the created folder to Trash. lgse/strata#1349
 
 ## Design
@@ -75,6 +75,7 @@ Creating an empty file or folder in the current directory from the background me
 - In Columns, revealing the created entry does not start a second asynchronous navigation, which could cancel its rename editor (lgse/strata#690, lgse/strata#760).
 - Create undo trashes rather than deletes, so it is reversible (lgse/strata#1097).
 - New Folder with Selection records one composite undo entry instead of three stacked ones, so the gesture reverts atomically (lgse/strata#1347). Fusion happens when entries are pushed, because Columns truncation could otherwise consume the pending entry first (lgse/strata#1349).
+- Ctrl+Alt+N takes only a committed selection, never the cursor fallback that Delete uses, because it moves files (lgse/strata#1485, lgse/strata#1591, lgse/strata#1623).
 - New Folder with Selection is hidden in recursive search, whose result model never shows the created row, so the move and rename would never start (lgse/strata#1349).
 
 ## History

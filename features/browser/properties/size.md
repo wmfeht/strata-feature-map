@@ -3,8 +3,8 @@ title: Folder and selection size
 status: shipped
 origin: {issue: lgse/strata#556, pr: lgse/strata#558}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+review: draft
 code: [src/adapters/directory_summary.rs]
 tests: [src/adapters/directory_summary/**, tests/e2e/scenarios/test_properties_size.py]
 related: [operations/trash/empty]
@@ -27,6 +27,8 @@ The SIZE and CONTAINS rows of Properties: a recursive, bounded, cancellable meas
 - A file's Properties shows its own size, with no spinner and no CONTAINS row. lgse/strata#558
 - Properties for `trash:///` measures Trash recursively and shows SIZE and CONTAINS as for a folder. lgse/strata#556, lgse/strata#558
 - Closing the dialog stops the measurement. lgse/strata#558
+- Measuring a folder on SFTP, as the Permanently delete confirmation does, logs no GLib-GIO critical about `standard::is-hidden`. lgse/strata#1634
+- An entry without `standard::is-hidden` counts as visible, one without `standard::is-symlink` as not a symlink, and a file without `standard::size` adds 0 bytes. lgse/strata#1634
 
 ### Incomplete measurements
 
@@ -52,6 +54,7 @@ The SIZE and CONTAINS rows of Properties: a recursive, bounded, cancellable meas
 - An unreadable or vanished branch marks the result incomplete but does not stop its siblings. Only an unreadable root fails the walk (lgse/strata#558).
 - The SIZE value uses tabular digits in a fixed-width field, and progress is throttled to 150 ms, so the row does not jitter while counting (lgse/strata#556 comments).
 - Counts follow a fixed non-hidden policy rather than the browser toggle. Hidden bytes still count because they occupy disk (lgse/strata#886). The issue proposed immediate children only; recursive counts were chosen instead (lgse/strata#604, lgse/strata#886).
+- Missing optional attributes fall back to visible, not a symlink, and 0 bytes. Measurement reuses the listing's guards, so it treats such entries as the listing does (lgse/strata#1595, lgse/strata#1634).
 - The selection dialog reuses the walker per selected folder and keeps permissions, rename, and media single-item (lgse/strata#1099).
 
 ## History

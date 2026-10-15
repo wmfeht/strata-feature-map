@@ -3,7 +3,7 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/e2e/scenarios/test_inline_renaming.py, tests/e2e/scenarios/test_rename_visibility.py, tests/e2e/mutations/rename-caret.patch]
@@ -92,6 +92,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1675 | perf | Looked up each row's rename editor by list item instead of scanning every bound row on bind and unbind. |
 | 2026-10-11 | lgse/strata#1564 | feat | Restored the Columns size badge after a rename only when Show sizes in Columns view is on. |
 | 2026-10-10 | lgse/strata#1554 | fix | Finished renames to a dot name with hidden files off; they had blocked the next rename. |
 | 2026-09-16 | lgse/strata#1061 | feat | Added single-item rename to the global Undo history. |

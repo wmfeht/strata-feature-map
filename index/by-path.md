@@ -30,15 +30,20 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/themes/catalog.toml` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `data/udiskie/unlock` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `data/update-keys.json` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `docs/assets/strata-themes.png` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `install.sh` | code | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
+| `mise.lock` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `mise.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `packaging/aur` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete.md) | — |
+| `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/catppuccin_icons.py` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `scripts/e2e-native.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/sftp-fixture.sh` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `scripts/sign_update_manifest.py` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `scripts/test_benchmark_scroll.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_installer.py` | tests | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/test_sign_update_manifest.py` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `scripts/test_update_aur.py` | tests | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
@@ -156,6 +161,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/assets/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/assets/vector.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/assets/vector/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -248,6 +255,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/model_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/services/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/services/package_manager.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -359,8 +367,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
 | `src/ui/browser/trash/tests.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `src/ui/browser_modes.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
+| `src/ui/browser_modes/column_options.rs` | code | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/events.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
-| `src/ui/browser_modes/list_factory.rs` | code | [List view](../features/browser/view-modes/list.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser_modes/list_factory.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/navigation.rs` | code | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/chooser.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -368,6 +377,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/chooser/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/tests.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/acceptance.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `src/ui/chooser/tests/column_widths.rs` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/chooser/tests/column_widths.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/filtered_preview.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/image_conversion.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
@@ -378,6 +388,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/collection_interaction/tests.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/ui/controls.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/controls/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `src/ui/decoration.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
+| `src/ui/decoration/tests.rs` | tests | [Window chrome and structure](../features/app/window.md) | — |
 | `src/ui/desktop_integration.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -429,6 +441,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/portal_preferences/tests.rs` | tests | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/preferences/bindings.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/bindings/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/ui/preferences/corner_roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/preferences/fixtures.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/folder_view_settings.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/folder_views.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -438,6 +451,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/save_notice.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/preferences.rs` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `src/ui/preferences/tests/preferences.rs` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/tests/preferences.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/text_size.rs` | code | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -510,6 +524,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/theme.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/editor.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/editor/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/settings/theme/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/settings/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/settings/wrap.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/shortcut_footer.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
@@ -529,7 +544,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/omarchy.rs` | code | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/omarchy/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/theme/roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/theme/roundness/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -540,6 +558,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/thumbnail/camera.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/thumbnail/slot.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/slot/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
+| `src/ui/thumbnail/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/viewport.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/viewport/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail_cache.rs` | code | [Thumbnail disk cache](../features/browser/thumbnails/cache.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
@@ -612,8 +631,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_policy.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/window/tests/preferences.rs` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
 | `src/ui/window/tests/preferences.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `src/ui/window/tests/preferences.rs` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/window/tests/rail.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `src/ui/window/tests/sidebar.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/unlock_argument.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/unlock_argument/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/volume_password.rs` | code | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -690,6 +711,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/scenarios/test_text_size.py` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/e2e/scenarios/test_thumbnail_worker_settings.py` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `tests/e2e/scenarios/test_view_switching.py` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `tests/e2e/scenarios/test_view_switching.py` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
+| `tests/e2e/unit/test_harness.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/e2e/unit/test_keyboard_layout.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/rar/**` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `tests/fixtures/spreadsheets` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |

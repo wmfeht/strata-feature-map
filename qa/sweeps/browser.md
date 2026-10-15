@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py]
 ---
@@ -71,6 +71,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Press on a filename, move 3 px, return, and release; repeat moving past the threshold and returning.
 - In List, press in the Size and Modified cells of a selected row and an unselected row and drag; note which starts a drag and which a marquee.
+- Repeat the List press-and-drag probes with Name moved to the last column and with Size and Type hidden.
 - Wheel-scroll during a held press until the row recycles, then release over a different row.
 
 ### browser/view-modes
@@ -81,6 +82,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Focus the last row of a folder and delete every entry externally; then add one back. Repeat in the unreadable folder after `chmod 755` and F5.
 - With the Appearance menu closed, press Ctrl+2 or switch the mode in a second window. Then open Appearance and read each option's checked state.
 - Press Ctrl+1, Ctrl+2, and Ctrl+3 with Russian active beside US, with only Russian configured, on Dvorak, and with Caps Lock on; then with keypad digits and Num Lock on.
+- Scroll List and Icons with cut files in view under a 25% CPU quota, and again after the window sat idle for 10 s; stop on cut rows and watch when their styling and dates settle.
+- In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
 
 ### browser/view-modes/columns
 
@@ -103,6 +106,9 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - With one entry selected, create 4,200 files in the active column's folder from a shell, then press Down and the 10xer next-entry key.
 - With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
 - Scroll the strip so a parent column is clipped, then press 5 px and 1 px left of its edge and 4 px right of it and drag; repeat after arrow keys moved the strip.
+- With badges on, rest the pointer on an unselected row and hold Down through it; then move the pointer 1 px. Hover a row and leave it within 120 ms.
+- Wheel-scroll a column with the pointer over it and badges on; then kinetic-scroll the strip so a parent is clipped, stop, and compare its reveal button with its visible width.
+- With recursive filter results in a column, cancel a dialog opened from a hit, switch views, and hide the preview with the mouse; note which hit has focus each time.
 
 ### browser/view-modes/icons
 
@@ -118,6 +124,16 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Shrink Name to its minimum, then double-click each heading edge with the 255-byte name and a `drwxrwxrwx  777` row visible.
 - Group by file type with hidden files on, sort by Type descending, toggle Folders first; read the group order top to bottom.
 - Read the Size cell of a folder holding only dot-files, the unreadable folder, `100000`, and an `sftp://` folder; then sort by Size.
+
+### browser/view-modes/list/column-layout
+
+- Hide the sort column with Remember per folder off, then with Group by file type on; hide it in the file chooser while a browser window sorts by it.
+- Drag Name to the last position, then press within 8 px of each heading's right edge and drag; then drag a heading 9 px and 11 px and release.
+- Drag a heading past two neighbours in one motion, then press Escape mid-drag; read `list_column_order` after each.
+- Write `list_hidden_columns = ["name", "size", "size", "bogus"]` and `list_column_order = ["type", "type"]` in settings.toml and start.
+- Hide Mode in one window while a second shows Icons and the portal file chooser shows List; return the second window to List.
+- Hide every column but Name, shrink the window to 400 px, and reset; then repeat at text size 8 and 48 with 10xer mode on and off.
+- Open the Columns popover from the header, the heading row's right-click, and Appearance in Recent, Trash, and a Camera Photos library; navigate it by keyboard and read it with Orca.
 
 ### browser/view-modes/sorting
 
@@ -204,6 +220,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - In Ctrl+K, press Down to the third result, type pinyin, pick a candidate with Space, then press Enter. Repeat with a dead key.
 - With a Ctrl+K query open, `touch` a file in a watched Home subfolder every 100 ms for 10 s. Type meanwhile and watch the highlight.
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
+- Set both search limits to No limit and Ctrl+K over an `sshfs` or rclone mount under Home; then 10 s and 200,000 over two `100000` copies, and hover Partial results.
+- Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
 
 ### browser/search/exclusions
 
@@ -226,6 +244,9 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press keypad `/` with Num Lock on and off, and on `is` press the þ key with Type to search on, then off.
 - Filter to one match in Icons, then List, and delete it from a shell; repeat in Columns and read the status each time.
 - Run a partial-coverage filter that returns results; check whether the status covers the first result row at text size 8 and 48.
+- In List and Icons, delete the last hit in sort order, a hit with several hits selected, and a hit through the item menu's Move to Trash. Repeat with Include subfolders off and the preview open.
+- Set Search entry limit to 200,000 and filter `100000` plus a second large folder below it; change the limit in another window's Settings and type one more character.
+- With 10xer mode on, move the cursor with `f` results and a fill, open and cancel a dialog, then close Quick Look; note which hit has the focus ring.
 
 ### browser/sidebar
 
@@ -242,6 +263,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
 - Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`, and read its accessible name after each step.
 - Unset `XDG_MUSIC_DIR` and point Documents at a missing folder in `user-dirs.dirs`; shrink the window to the icon rail and Tab through it.
+- Click an unmounted `sftp://` pin and cancel its password prompt, then enter a wrong password; click Network with `GIO_USE_VFS=local` in tab 2 and switch to tab 1.
 
 ### browser/sidebar/pins
 
@@ -255,6 +277,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Scroll the slow directory to the end and back twice; look for icons left on decoded rows and thumbnails on the `.svgz` and `.ogg` files.
 - Rename an image while its decode runs, then overwrite an image's bytes keeping its mtime with `touch -r`.
 - Remove the HEIC or JPEG XL decoder package and reopen the folder; open an `smb://` share with `gvfsd-fuse` stopped.
+- Turn Show thumbnails off mid-load in the slow directory, then on within 200 ms while videos' durations stream into Icons captions; repeat in a folder peek and a Ctrl+K result list.
+- With Show thumbnails off, open the portal file chooser and a second window, then turn it on from Settings and scroll each.
 
 ### browser/thumbnails/cache
 
@@ -265,6 +289,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Set workers to 1 in the slow directory, then 16 mid-load, and count sandbox processes with `pgrep`; kill one with SIGKILL during a scroll.
 - Set `STRATA_THUMBNAIL_WORKERS=99`, then `abc`, and `STRATA_THUMBNAIL_IDLE_SECONDS=1`; read the reset value and watch process exit.
+- Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
 
 ### browser/properties
 
@@ -286,6 +311,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 - Open Properties on `100000` and on `deep`; watch the counter cadence and read the nesting warning text.
 - Select 300 items including the unreadable folder and the symlink to a folder; compare with `du -sb`, close mid-count, and reopen at once.
+- On an `sftp://` share, permanently delete, open Properties on, and multi-select Properties for a folder holding dot-files, a symlink to a folder, and nested folders. Watch the log and compare totals with `du -sb` on the server.
 
 ### browser/context-menu
 
@@ -294,6 +320,9 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Press Menu with the filter field focused, the location entry focused, and a drive row focused; right-click a second entry while a menu is open.
 - Press Right on Open in… in a multi-selection of folders, then Left; open the menu on a folder in Trash and a Recent folder row.
 - With the interface in German, then Japanese, open a file's, a folder's, and the background menu; compare each hint with its F1 row and press it.
+- On niri, quick-right-click on empty space near the bottom edge and where a submenu row lands; then reopen the menu with Menu and click a row.
+- Right-click a folder, choose Copy, reopen its menu within one frame, then alternate file, folder, and multi-selection menus while watching the log.
+- Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 
 ### browser/directory-monitoring
 
@@ -330,6 +359,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
 - With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
+- With the window idle, rename a tab's folder from a shell and change text size from another window; check the underline matches the new tab bounds.
 
 ### browser/tabs/session-restore
 

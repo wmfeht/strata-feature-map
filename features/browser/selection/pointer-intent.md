@@ -3,8 +3,8 @@ title: Pointer intent
 status: shipped
 origin: {issue: lgse/strata#517, pr: lgse/strata#522}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+review: draft
 code: [src/ui/pointer.rs]
 tests: [src/ui/pointer/**, tests/e2e/scenarios/test_pointer_intent.py]
 related: [operations/drag-and-drop, preview/preview-panel, operations/rename]
@@ -22,7 +22,7 @@ How a press on an entry is read in Columns, Icons, and List: as a click, a file 
 - On an unselected entry, a drag from blank row space beside the filename starts a marquee. lgse/strata#522, lgse/strata#1336
 - In Icons, the gutter beside the thumbnail inside a card is blank space for marquee. lgse/strata#522
 - On a selected entry, a drag from blank row or card space starts a file drag of the selection. lgse/strata#1336
-- In List, unused Name-column space and its row padding are blank; other column cells count as item content. lgse/strata#838
+- In List, unused Name-column space and its row padding are blank, even when Name is not the first column; other column cells count as item content. lgse/strata#838, lgse/strata#1651
 - Ctrl+click and Shift+click on blank row space still toggle and range. lgse/strata#522
 
 ### Clicks and previews

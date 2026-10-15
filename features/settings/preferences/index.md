@@ -3,12 +3,12 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
 docs: [docs/preferences.md]
-related: [settings/themes, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
+related: [settings/themes, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
 ---
 
 ## Summary
@@ -68,10 +68,27 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - General → Browsing has a Show sizes in Columns view switch, on by default. lgse/strata#1564
 - Changing the switch in one window updates the open Settings switch in every other window. lgse/strata#1564
 
+### Search limits
+
+- Settings → General → Search & filtering shows Search time limit and Search entry limit after Open search results directly and before Global search exclusions. lgse/strata#1667
+- Search time limit offers 10 s, the default, 30 s, 1 min, 5 min, 15 min, and No limit. lgse/strata#1667
+- Search entry limit offers 200,000, the default, 500,000, 1,000,000, 5,000,000, and No limit. lgse/strata#1667
+- The time row reads "Stop indexing a search after this long. Slow or network mounts need longer to list every folder." lgse/strata#1667
+- The entry row reads "Stop indexing a search after this many files and folders. Higher limits use more memory." lgse/strata#1667
+- The choices save as `search_time_limit`, in seconds, and `search_entry_limit` in `settings.toml`; 0 means No limit. lgse/strata#1667
+- A hand-edited `search_time_limit = 45` shows 1 min, and `search_entry_limit = 300000` shows 500,000. lgse/strata#1667
+- A saved value above 900 seconds or 5,000,000 entries loads as No limit. lgse/strata#1667 (unverified)
+- Changing a limit in one window's Settings shows the same choice in another window's Settings. lgse/strata#1667
+- Searching "timeout" finds Search time limit, and "memory" finds Search entry limit. lgse/strata#1667 (unverified)
+
 ### About
 
 - About shows Strata's version, build commit, and GTK version, plus Website, Source code, Report an issue, and License (MIT) links. lgse/strata#19, lgse/strata#849
 - Copy version info copies the version, description, commit, toolkit, author, and license to the clipboard. lgse/strata#849 (unverified)
+- In a debug build, the BUILD group's Version row ends in `+debug`, such as `1.0.0+debug`. So does the first line of the copied version info. lgse/strata#1676
+- In a release build, the Version row and the copied version info show no suffix. lgse/strata#1676
+- The About description, and the second line of the copied version info, read "Navigate every layer.", translated in every language. lgse/strata#1673 (unverified)
+- The About logo tile fills with the theme's surface color inside a 1px border in the theme's border color. lgse/strata#1673 (unverified)
 
 ### Show F1 Shortcuts button
 
@@ -99,7 +116,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work.
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
@@ -119,6 +136,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1673 | perf | Drew the About logo in theme colors, so it no longer sits on a near-black tile in light themes, and changed the tagline to "Navigate every layer." |
 | 2026-10-11 | lgse/strata#1564 | feat | Added the Show sizes in Columns view switch to General → Browsing and to Settings search. |
 | 2026-10-11 | lgse/strata#1570 | fix | Showed the empty-notes message for comment-only release notes and reaped the AUR and Omarchy update launchers. |
 | 2026-10-10 | lgse/strata#1554 | fix | Routed Settings search by page id and registered Render documents, the custom-actions list and problems, and the managed-install row. |

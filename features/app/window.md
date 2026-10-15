@@ -3,12 +3,12 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
-code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
-tests: [src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
+code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/decoration.rs]
+tests: [src/ui/decoration/tests.rs, src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts, browser/view-modes/text-size, preview/preview-panel]
+related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts, browser/view-modes/text-size, preview/preview-panel, integration/portal-file-chooser]
 ---
 
 ## Summary
@@ -23,6 +23,17 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - A new browser window opens with a default size of 1200×760. lgse/strata#580 (unverified)
 - On X11, `WM_CLASS` instance and class are both `io.github.lgse.Strata`, matching the desktop file's `StartupWMClass` and `_GTK_APPLICATION_ID`. lgse/strata#957
 - The file chooser portal keeps its separate identity, `io.github.lgse.Strata.FileChooser`. lgse/strata#957
+
+### Title bar and frame
+
+- On a client-decorating compositor (GNOME Mutter, Weston, WSLg), a browser window shows only Strata's header, with no GTK default title bar. lgse/strata#1680
+- The portal file chooser window likewise shows no GTK default title bar. lgse/strata#1680 (unverified)
+- Opening a new tab leaves the window without a GTK default title bar. lgse/strata#1680
+- A second browser window has no GTK default title bar either. lgse/strata#1680
+- On such a compositor, dragging Strata's header moves the window and dragging a window edge resizes it. lgse/strata#1680
+- With compositing, a client-decorated window has square corners and a 1 px border in the theme's border color at 60% opacity instead of GTK's shadow. lgse/strata#1680 (unverified)
+- A maximized, fullscreen, or tiled client-decorated window draws no border. lgse/strata#1680 (unverified)
+- A client-decorated window without compositor alpha (`solid-csd`) draws no border, shadow, or padding. lgse/strata#1680 (unverified)
 
 ### Header
 
@@ -63,6 +74,9 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - The default keeps the earlier close-only header, so no layout changes until a user opts in (lgse/strata#1129).
 - Window buttons bind through the shared preference path, so they apply at construction and live across windows; Settings only edits the preference (lgse/strata#1100).
 - The outer window frame drawn by the desktop is a separate concern from the header buttons (lgse/strata#1100, lgse/strata#1098).
+- On a client-decorating compositor, GTK adds its default title bar to a window with no registered titlebar. Each Strata window registers a hidden placeholder, so GTK adds only invisible resize edges, and Strata draws a hairline (lgse/strata#1679, lgse/strata#1680).
+- The header stays inside the window content rather than in the titlebar slot, so overlays and the modal blur still cover it (lgse/strata#1679, lgse/strata#1680).
+- A preference to show GTK's title bar was rejected: two title bars help no one, and the window-button toggles cover its controls (lgse/strata#1679).
 - Startup runs in a fixed order: theme and styles, compose and bind, arm first-paint work and cleanup, present, then navigate. Sidebar device discovery waits until after the first paint (lgse/strata#580).
 - `composition.rs` coordinates the window's parts. Its `layout` module assembles the header, the sidebar, browser, and preview splits, and the shortcut footer. Each tab builds its own Settings layer lazily, once (lgse/strata#580, lgse/strata#1484).
 - `gtk_window_destroy()` frees a window only with its last reference, which its own closures can hold. Key controllers and preference bindings are therefore released on unrealize, not on destroy (lgse/strata#580).
@@ -80,6 +94,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-14 | lgse/strata#1680 | feat | Registered a hidden titlebar so GTK stops adding its default title bar on client-decorated desktops, and drew a hairline in place of its shadow. |
 | 2026-10-11 | lgse/strata#1570 | fix | Gave the preview and sidebar marquee origins click policies, so a click in the preview keeps the selection. |
 | 2026-10-10 | lgse/strata#1559 | fix | Added a preview find-key stage to the dispatcher and bound the find shortcut when the preview is built. |
 | 2026-10-10 | lgse/strata#1554 | fix | Gated Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ so they do nothing over dialogs, Settings, and open name fields. |
@@ -96,5 +111,5 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ## Known gaps
 
-- On stacking desktops the window still gets the desktop's outer border and decorations; dropping them is unimplemented. lgse/strata#1098
+- Every key press walks the window's whole widget tree for an open menu; replacing the walk is deferred. lgse/strata#1671
 - The window's remaining complex keyboard handlers, particularly command dispatch, are still due for simplification. lgse/strata#763
