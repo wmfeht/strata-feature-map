@@ -86,7 +86,7 @@ Opening files in their default application, choosing another application from th
 - Inside Flatpak, the item menu's Open hands each selected file to its host default handler. lgse/strata#1635
 - Inside Flatpak, Open With… shows the desktop's own app chooser instead of Strata's chooser. lgse/strata#1635
 - Inside Flatpak, Open With… on several files shows one desktop chooser per file in turn. Dismissing one opens none of the rest and shows no error. lgse/strata#1635
-- Inside Flatpak, Open With… is never disabled for lack of compatible applications, and the multi-selection menu always shows Open. lgse/strata#1635 (unverified)
+- Inside Flatpak, Open With… is never disabled for lack of compatible applications. The multi-selection menu shows Open whenever every selected file's type resolves. lgse/strata#1635 (unverified)
 - Inside Flatpak, a portal failure other than a dismissal shows "Unable to open file" with the error and opens none of the remaining files. lgse/strata#1635 (unverified)
 - Without `/.flatpak-info`, Open With… shows Strata's chooser. lgse/strata#1635
 

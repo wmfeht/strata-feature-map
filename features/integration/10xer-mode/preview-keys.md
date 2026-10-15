@@ -41,7 +41,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - In an archive tree, `j`/`k` or Up/Down move between members, and `l`, Right, or Enter opens a member folder. Nothing is extracted and no listing file opens. lgse/strata#1295
 - In an archive tree, Home and End or `G` move to the first and last member. lgse/strata#1295
 - In an archive tree, `h` or Left goes up one member level; at the archive root it returns the keys to the listing with the drawer open. lgse/strata#1295, lgse/strata#1343
-- A password prompt shown by `i` or cursor movement leaves focus in the listing with no owner bar. `l` then hands its field the keys. lgse/strata#1295, lgse/strata#1684
+- A password prompt shown by `i` or cursor movement leaves focus in the listing with no owner bar. In List and Columns, `l` then hands its field the keys. lgse/strata#1295, lgse/strata#1684 (unverified)
 - A password field takes typed letters, including `h` and `j`, and its text-editing shortcuts until unlocked. Esc and Shift+Tab still close or return. lgse/strata#1295
 - In a media preview, Space plays or pauses, Left/Right seek 5 seconds, Up/Down change volume, and `m` mutes or unmutes. lgse/strata#1295, lgse/strata#1289
 - In a media preview, Shift+Left and Page Down seek back 30 seconds; Shift+Right and Page Up seek forward 30 seconds. lgse/strata#1570, lgse/strata#1451
@@ -50,7 +50,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - With an audio or video preview open, `<` and `>` step to the previous or next file of that type and keep playing. They work from the listing too. lgse/strata#1289, lgse/strata#1474
 - A focused preview button or slider keeps GTK's own Space, Enter, and arrow handling. lgse/strata#1295
 - Enter or `o` in a document or media preview returns the keys to the listing and opens the file there; the drawer stays open. lgse/strata#1340
-- Enter on a video preview opens it in the default player where the preview stopped. lgse/strata#1474
+- Outside Flatpak, Enter on a video preview opens it in the default player where the preview stopped. lgse/strata#1474, lgse/strata#1635
 
 ### Handing keys back
 
