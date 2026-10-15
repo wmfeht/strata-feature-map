@@ -26,12 +26,14 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ### Title bar and frame
 
-- On a compositor that leaves decorations to the client, such as GNOME Mutter, Weston, or WSLg, a browser window shows only Strata's header, with no GTK default title bar above it. lgse/strata#1680
+- On a client-decorating compositor (GNOME Mutter, Weston, WSLg), a browser window shows only Strata's header, with no GTK default title bar. lgse/strata#1680
 - The portal file chooser window likewise shows no GTK default title bar. lgse/strata#1680 (unverified)
-- A browser window opened by a new tab or window still has no GTK default title bar. lgse/strata#1680 (unverified)
+- Opening a new tab leaves the window without a GTK default title bar. lgse/strata#1680
+- A second browser window has no GTK default title bar either. lgse/strata#1680
 - On such a compositor, dragging Strata's header moves the window and dragging a window edge resizes it. lgse/strata#1680
-- A client-decorated window has square corners and a 1 px border in the theme's border color at 60% opacity instead of GTK's shadow. lgse/strata#1680 (unverified)
+- With compositing, a client-decorated window has square corners and a 1 px border in the theme's border color at 60% opacity instead of GTK's shadow. lgse/strata#1680 (unverified)
 - A maximized, fullscreen, or tiled client-decorated window draws no border. lgse/strata#1680 (unverified)
+- A client-decorated window without compositor alpha (`solid-csd`) draws no border, shadow, or padding. lgse/strata#1680 (unverified)
 
 ### Header
 
@@ -72,7 +74,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - The default keeps the earlier close-only header, so no layout changes until a user opts in (lgse/strata#1129).
 - Window buttons bind through the shared preference path, so they apply at construction and live across windows; Settings only edits the preference (lgse/strata#1100).
 - The outer window frame drawn by the desktop is a separate concern from the header buttons (lgse/strata#1100, lgse/strata#1098).
-- GTK adds its default title bar to any window with no registered titlebar. Each Strata window registers a hidden placeholder, so client-side decoration adds only invisible resize edges (lgse/strata#1679, lgse/strata#1680).
+- On a client-decorating compositor, GTK adds its default title bar to a window with no registered titlebar. Each Strata window registers a hidden placeholder, so GTK adds only invisible resize edges, and Strata draws a hairline (lgse/strata#1679, lgse/strata#1680).
 - The header stays inside the window content rather than in the titlebar slot, so overlays and the modal blur still cover it (lgse/strata#1679, lgse/strata#1680).
 - A preference to show GTK's title bar was rejected: two title bars help no one, and the window-button toggles cover its controls (lgse/strata#1679).
 - Startup runs in a fixed order: theme and styles, compose and bind, arm first-paint work and cleanup, present, then navigate. Sidebar device discovery waits until after the first paint (lgse/strata#580).
@@ -109,4 +111,5 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ## Known gaps
 
+- Every key press walks the window's whole widget tree for an open menu; replacing the walk is deferred. lgse/strata#1671
 - The window's remaining complex keyboard handlers, particularly command dispatch, are still due for simplification. lgse/strata#763

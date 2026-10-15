@@ -722,7 +722,7 @@ Opening files in their default application, choosing another application from th
 
 - Code: [`src/ui/open_with.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/open_with.rs), [`src/ui/browser/desktop.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/desktop.rs)
 - Tests: [`src/ui/open_with/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/open_with/tests.rs), [`src/ui/browser/context_menu/tests/open_with.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/context_menu/tests/open_with.rs), [`tests/e2e/scenarios/test_open_with.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_open_with.py)
-- Related: [10xer mode](../features/integration/10xer-mode/index.md), [Preview panel](../features/preview/preview-panel/index.md)
+- Related: [10xer mode](../features/integration/10xer-mode/index.md), [Preview panel](../features/preview/preview-panel/index.md), [Context menus](../features/browser/context-menu.md)
 - Children: [Recently used applications](../features/integration/open-with/recent-apps.md), [Open in Terminal](../features/integration/open-with/terminal.md)
 
 ### [Recently used applications](../features/integration/open-with/recent-apps.md) `integration/open-with/recent-apps`

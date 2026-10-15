@@ -41,7 +41,7 @@ Update checks and actions for Strata installed by a package manager: the officia
 - Without a marker, an Omarchy or pacman install hides the Release channel row. lgse/strata#196 (unverified)
 - No package-managed install offers an in-app download, and the installer refuses one before downloading. lgse/strata#196
 - With an update available, an Omarchy install offers "Open Omarchy Update", which runs `omarchy-launch-floating-terminal-with-presentation omarchy-update` when that launcher is on `PATH`. lgse/strata#1609
-- Without that launcher, or when it fails to start, Open Omarchy Update runs `omarchy update` in the configured terminal and logs a warning for the failed start. lgse/strata#196, lgse/strata#1609
+- Without the launcher, or if it fails to start, it runs `omarchy update` in the configured terminal; a failed start logs a warning. lgse/strata#196, lgse/strata#1609
 - An AUR install offers "Open AUR Update", running `<helper> -Syu <package>` in a terminal, when a marker-listed helper is on `PATH`. lgse/strata#183 (unverified)
 - Without such a helper, an AUR install offers "View on AUR", which opens the package page. lgse/strata#183 (unverified)
 - A pacman install says to install through a full system update and offers no install action. lgse/strata#196, lgse/strata#210

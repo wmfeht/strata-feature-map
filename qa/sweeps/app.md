@@ -92,7 +92,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Run `desktop-file-validate` on the shipped entry and on the entry a release archive carries, and diff the two.
 - Run `strata --version`, `strata --version ~/Documents`, `strata ~/Documents --version`, and `strata --version` with `DISPLAY` unset; compare the output with the prerelease build and check no window appears.
-- Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version`, Settings → About, and the Settings → Updates version line in each.
+- Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version` with the Settings → Updates version line in each.
 - Install with `mise run install-local` into a throwaway `HOME`, read `Exec=` in the installed entry, uninstall, and list what remains.
 
 ### app/packaging/installer

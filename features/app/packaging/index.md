@@ -43,7 +43,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The icon is the Lucide `layers` glyph on a backdrop original to Strata. It keeps fixed colors because shells render application icons outside Strata's theming (lgse/strata#182).
 - Desktop metadata ships inside the release archive, so the installer, packages, and updater always install the copy that matches the binary (lgse/strata#182, docs/packaging.md).
 - `--version` prints `build_info::displayed_version()`, built on `installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917, lgse/strata#1676).
-- Debug builds scroll and load noticeably slower, so they carry `+debug` to tell them apart in reports. The suffix is display-only; update checks keep the plain version (lgse/strata#1671, lgse/strata#1676).
+- Debug builds scroll and load noticeably slower, so they carry `+debug` to tell them apart in reports. The suffix is display-only; update checks keep the plain version (lgse/strata#1671, lgse/strata#1676, unverified).
 - `--version` joins the existing first-argument launch-mode dispatch; a full `--help` parser was rejected as more than needed (lgse/strata#917).
 
 ## History

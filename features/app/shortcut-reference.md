@@ -72,7 +72,8 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ### Footer status
 
-- In Columns, Icons, and List, the footer shows "F1 Shortcuts", with one space, at the left and the clipboard badge and item count at the right. lgse/strata#1034, lgse/strata#1688
+- In Columns, Icons, and List, the footer shows "F1 Shortcuts" at the left and the clipboard badge and item count at the right. lgse/strata#1034, lgse/strata#1688
+- The hovered F1 Shortcuts button's highlight is inset equally from the footer's left, top, and bottom edges. lgse/strata#1680
 - With nothing selected, the count reads "N items", and its accessible description gives the file and folder breakdown. lgse/strata#1034
 - With a selection, the count shows a folder and file breakdown with the selected files' total size, such as "1 folder, 2 files selected (64 MB)"; folder contents are not counted. lgse/strata#1034
 - When some selected file sizes are unknown the size reads "(3 B known; size incomplete)", and when none are known "(size unavailable)". lgse/strata#1034
