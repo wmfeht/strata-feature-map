@@ -89,7 +89,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 ## Design
 
-[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preview-sandbox.md) documents the providers, the remote still-image boundary, and model limits. Children inherit it.
+[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preview-sandbox.md) documents the providers, the remote still-image boundary, and model limits. Children inherit it.
 
 - Every browsed file is untrusted. Native parsing runs in the sandbox, and only bounded PNG, text, or validated JSON reaches the drawer (lgse/strata#6).
 - Eligibility is guessed from the name so listing stays cheap. An uncertain guess defers to the loader, which queries the content type of the one previewed file; listing and sorting stay name-only (lgse/strata#964).

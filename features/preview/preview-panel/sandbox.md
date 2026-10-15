@@ -40,9 +40,10 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - The input keeps a sanitized extension of 1 to 8 ASCII alphanumerics, such as `/input.ARW`, so Sony ARW files render; other names become `/input`. lgse/strata#166
 - A RAW preview that GDK Pixbuf cannot decode falls back to ImageMagick, then to the embedded camera JPEG via `dcraw` or `simple_dcraw`. lgse/strata#166
 - On Debian-family systems where `/usr/bin/magick` and `/usr/bin/convert` link through `/etc/alternatives`, the ImageMagick fallback runs inside the sandbox. lgse/strata#1657
-- From `/etc/alternatives`, the sandbox binds only `magick`, `convert`, the `glx--*` GL dispatch links for x86-64 and ARM64, plus BLAS and LAPACK links for media operations, never the whole directory. lgse/strata#1657, lgse/strata#984, lgse/strata#1660
+- From `/etc/alternatives`, the sandbox binds only `magick`, `convert`, and BLAS and LAPACK links for media operations, never the whole directory. lgse/strata#1657, lgse/strata#984
+- It also binds nine `glx--<library>-<triplet>` GL dispatch links, such as `glx--libGL.so.1-x86_64-linux-gnu`, for x86-64 and ARM64. lgse/strata#1660
 - On Debian testing with GDK Pixbuf 2.44, glycin, and ImageMagick installed, JPEG previews render instead of staying empty. lgse/strata#1656, lgse/strata#1657, lgse/strata#1660
-- On a Debian-family host whose `libGL.so.1` links through `/etc/alternatives/glx--*`, as with glx-diversions or NVIDIA, PNG, PDF, and MP4 previews render instead of failing as the helper starts. lgse/strata#1658, lgse/strata#1660
+- On a Debian-family host whose `libGL.so.1` links through `/etc/alternatives/glx--*`, helpers start: PNG, PDF, and MP4 previews and thumbnails render. lgse/strata#1658, lgse/strata#1660
 - On Debian 13 with ImageMagick installed, HEIC previews render through ImageMagick instead of staying empty. lgse/strata#1656, lgse/strata#1657
 - An image over the decoded-frame budget (about 134 MP RGBA) renders its embedded EXIF thumbnail when it has one, and otherwise fails without killing any process. lgse/strata#1277
 - SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
@@ -60,7 +61,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ## Design
 
-[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
+[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
 
 - Files become visible by browsing, so any parser reachable from a listing is attacker-facing. Parsing moves out of process, and crashes or timeouts degrade to a fallback icon or message (lgse/strata#6).
 - There is no unsandboxed fallback. A hijacked `bwrap` would silently reintroduce one, so host helpers are resolved by trusted absolute path and never through `PATH` (lgse/strata#1045, lgse/strata#1055).
