@@ -100,7 +100,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
-- With the drawer open, step `j`/`k` across two locked archives in a row, press `i` on one, then `l`, a wrong password, and Enter; repeat in Icons with the default keymap.
+- With the drawer open, step `j`/`k` across two locked archives in a row, press `i` on one, then `l`, a wrong password, and Enter.
 - Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
@@ -167,7 +167,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Set `$TERMINAL` to `footerm --title x`, to the failing fake, and to an empty string; then empty `PATH` of emulators, then add the fake `kitty` that exits 127; read each dialog.
 - Press Ctrl+Alt+T with Shift and with Super held, in the location field, during an inline rename, in a chooser, and with the mode on.
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
-- In Columns, click a folder and press Ctrl+Alt+T with the pointer over its parent, over a grandparent, and after selecting a second folder in the parent; repeat with the folder opened by keyboard.
+- In Columns, click a folder and press Ctrl+Alt+T with the pointer over a grandparent, and after selecting a second folder in the parent; repeat with the folder opened by keyboard.
 - Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits. Count Strata's children and threads with `ps -L` afterwards.
 
 ### integration/custom-actions

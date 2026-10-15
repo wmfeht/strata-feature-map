@@ -21,7 +21,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 
 - Ctrl+Alt+T opens a terminal in the selected folder when exactly one folder is selected, otherwise in the pane's current folder. lgse/strata#161, lgse/strata#1484
 - In Columns with no single folder selected, Ctrl+Alt+T uses the Paste destination column: the hovered column after pointer input, otherwise the focused column. lgse/strata#358, lgse/strata#1605
-- When that column's one selected folder is open as the active column to its right, Ctrl+Alt+T opens in that folder, so a just-clicked folder wins over its hovered parent. lgse/strata#1605, lgse/strata#867
+- When that column's one selected folder is open as the active column to its right, Ctrl+Alt+T opens in that folder. A just-clicked folder thus wins over its hovered parent. lgse/strata#1605, lgse/strata#867
 - Ctrl+Alt+T with Shift or Super also held does not open a terminal. lgse/strata#1484 (unverified)
 - The folder background menu shows Open in Terminal for the current folder, insensitive when the folder is not local. lgse/strata#161 (unverified)
 - The background menu omits Open in Terminal in Trash and Recent. lgse/strata#161, lgse/strata#1083
@@ -55,7 +55,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - One module resolves and builds every terminal command: Open in Terminal, `.sh` runs, and the AUR and Omarchy update rows. All share the no-terminal message; Open in Terminal and the update rows also share the launch-failure messages (lgse/strata#470, lgse/strata#1028).
 - Non-local and Trash locations fail closed, since a terminal needs a real directory (lgse/strata#160).
 - Ctrl+T moved to tabs, so the terminal moved to Ctrl+Alt+T; 10xer keeps `;` then `t` (lgse/strata#1484).
-- In Columns, a folder selected in the pointer column overrides that column only when it is also open as the active column to its right (lgse/strata#867, lgse/strata#1605).
+- A click opens a folder as the active column while the pointer still rests on its parent, so the opened folder is preferred there. Hovering an ancestor further up still uses that ancestor's folder (lgse/strata#867, lgse/strata#1605).
 - One spawn-and-reap helper waits on each launched child from its own thread. The owner chose it over a GLib child watch or a double fork (lgse/strata#1465, lgse/strata#1570).
 - A long-lived terminal keeps one parked thread. Run already waited on its program this way (lgse/strata#1465, lgse/strata#1570).
 - A reaper thread that cannot start is logged instead of panicking the UI thread (lgse/strata#1570).

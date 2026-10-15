@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/e2e/scenarios/test_open_with.py]
 docs: []
-related: [integration/10xer-mode, preview/preview-panel]
+related: [integration/10xer-mode, preview/preview-panel, browser/context-menu]
 ---
 
 ## Summary
@@ -28,8 +28,8 @@ Opening files in their default application, choosing another application from th
 - A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
-- When the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474
-- The mpv, VLC, and Celluloid Flatpaks also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474 (unverified)
+- Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474
+- Outside Flatpak, the mpv, VLC, and Celluloid Flatpaks also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474 (unverified)
 
 ### Running programs
 
@@ -80,13 +80,15 @@ Opening files in their default application, choosing another application from th
 
 ### Flatpak
 
-- Inside a Flatpak sandbox (`/.flatpak-info` exists), activating a file such as a PDF opens it in the host's default application through the OpenURI portal. Strata's chooser does not appear. lgse/strata#1635
+- Inside a Flatpak sandbox (`/.flatpak-info` exists), activating a file without an execute bit opens it in the host's default application through the OpenURI portal. Strata's chooser does not appear. lgse/strata#1635
+- Inside Flatpak, activating any local regular file with an execute bit asks "Run this program?", whatever its type. lgse/strata#1635 (unverified)
+- Inside Flatpak, a video handed from the preview to its player starts at the beginning. lgse/strata#1635 (unverified)
 - Inside Flatpak, the item menu's Open hands each selected file to its host default handler. lgse/strata#1635
 - Inside Flatpak, Open With… shows the desktop's own app chooser instead of Strata's chooser. lgse/strata#1635
-- Inside Flatpak, Open With… on several files shows one desktop chooser per file in turn; dismissing one opens none of the rest and shows no error. lgse/strata#1635
+- Inside Flatpak, Open With… on several files shows one desktop chooser per file in turn. Dismissing one opens none of the rest and shows no error. lgse/strata#1635
 - Inside Flatpak, Open With… is never disabled for lack of compatible applications, and the multi-selection menu always shows Open. lgse/strata#1635 (unverified)
 - Inside Flatpak, a portal failure other than a dismissal shows "Unable to open file" with the error and opens none of the remaining files. lgse/strata#1635 (unverified)
-- Outside Flatpak, opening and Open With… behave as in the sections above. lgse/strata#1635
+- Without `/.flatpak-info`, Open With… shows Strata's chooser. lgse/strata#1635
 
 ## Design
 

@@ -66,6 +66,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - `g f` opens the folder holding the focused hit, selects it there, and ends the search. lgse/strata#1297
 - `i` on a directory hit opens an unfocused column or folder peek, and on a file hit toggles the preview. lgse/strata#1297
 - In List and Columns, `h` dismisses the search unless a preview owns the keys. lgse/strata#1297
+- With hits filled by Space or `v`/`V`, a focus return after a cancelled dialog, Tab-in, or closing Quick Look leaves focus on the cursor's hit, even when it is unfilled. The fill is unchanged. lgse/strata#1611
 
 ## Design
 
