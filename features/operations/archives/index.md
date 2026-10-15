@@ -20,6 +20,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 ### Compressing
 
 - Compress… appears in the item menu only when every selected item has a local path. lgse/strata#81 (unverified)
+- The Compress dialog subtitle reads "N files" when every item is a file or file link, and "N folders" when every item is a real folder. lgse/strata#81, lgse/strata#1627 (unverified)
+- Any other selection, such as a single symlink to a folder, gives the subtitle "N items". lgse/strata#81, lgse/strata#1627 (unverified)
 - The Compress dialog offers ZIP, 7Z, TAR.GZ, and TAR, with ZIP selected and the name prefilled with the item's name, or `archive` for several items. lgse/strata#81 (unverified)
 - Typing the selected format's extension, such as `backup.zip` with ZIP, creates `backup.zip`, not `backup.zip.zip`. lgse/strata#81 (unverified)
 - A name such as `../outside` is rejected in the dialog and nothing is written outside the shown folder. lgse/strata#147

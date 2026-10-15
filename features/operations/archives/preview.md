@@ -71,7 +71,7 @@ Quick Look reads metadata only, so it needs neither extraction to a temporary fo
 - Entry count, name length, path depth, and total name bytes are bounded on both sides of the sandbox. Entry counts alone do not bound the memory of synthesized parent folders (lgse/strata#1090).
 - The `zip` crate silently collapses duplicate names, so such ZIPs are refused rather than shown incomplete (lgse/strata#1151).
 - Rows are virtualized, since eager widgets stalled large archives (lgse/strata#1090).
-- An archive preview stays passive until entered, in every view and for password prompts too. Only Space opening the preview, Right, `l`, or Unlock focuses the prompt or highlights a member. Taking the keys on cursor movement interrupted navigation (lgse/strata#1369, lgse/strata#1371, lgse/strata#1683, lgse/strata#1684).
+- An archive preview stays passive until entered, in every view and for password prompts too. Only Space opening the preview, Right, `l`, Enter in Columns, or Unlock focuses the prompt or highlights a member. Taking the keys on cursor movement interrupted navigation (lgse/strata#1369, lgse/strata#1371, lgse/strata#1683, lgse/strata#1684).
 - Left at the root follows 10xer's existing `h` behavior instead of being swallowed (lgse/strata#1334).
 - RAR is not listed: UnRAR runs only for explicit extraction (lgse/strata#1046).
 - GTK's single-click-activate mode also selects the row under the pointer. Rows instead select on click release, as the browser views and Ctrl+F results do (lgse/strata#1291, lgse/strata#1555, lgse/strata#1570).

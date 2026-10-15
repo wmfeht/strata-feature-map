@@ -29,9 +29,11 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 ### Confirmation
 
 - The dialog is titled "Permanently delete N items?" and its danger-styled button reads "Permanently delete N items". lgse/strata#164
-- It lists each item with its icon, name, and size, "—" when the size is unknown, "Folder" for folders, or "Folder link" for a symlink to a folder, scrolling past 10 items. lgse/strata#1134, lgse/strata#1627 (unverified)
+- It lists each item with its icon, name, and size, "—" when the size is unknown, or "Folder" for folders, scrolling past 10 items. lgse/strata#1134 (unverified)
+- A symlink to a folder is listed with "Folder link" in place of a size. lgse/strata#1627
 - It renders at most 50 rows and adds "… and N more items"; confirming still deletes every selected item. lgse/strata#703
-- While the total calculates, a spinner shows beside the subtitle "N files" when every item is a file or file link, "N folders" when every item is a real folder, otherwise "N items". lgse/strata#1134, lgse/strata#1627 (unverified)
+- While the total calculates, a spinner shows beside a kind subtitle. lgse/strata#1134 (unverified)
+- That subtitle reads "N files" when every item is a file or file link, "N folders" when every item is a real folder, otherwise "N items". lgse/strata#1134, lgse/strata#1627 (unverified)
 - A single selected symlink to a folder reads "1 item" beside the spinner; a folder link plus a file reads "2 items". lgse/strata#1627
 - When the walk finishes, the spinner hides and the subtitle reads "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134
 - A selected symlink to a folder counts as 1 item of 0 B; its target's contents are not counted. lgse/strata#1627

@@ -60,7 +60,7 @@ Creating an empty file or folder in the current directory from the background me
 - With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349
 - The item is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
 - Choosing it, or Ctrl+Alt+N, creates a numbered `new folder` beside the selection, moves the selected items into it, and opens rename on the folder. lgse/strata#1349
-- Ctrl+Alt+N with nothing selected, even with the cursor on an item or only a load cursor on the first row, creates an empty `new folder` and moves nothing. lgse/strata#1349, lgse/strata#1623
+- Ctrl+Alt+N with nothing selected creates an empty `new folder` and moves nothing. This holds with the cursor on an item, or with only a load cursor on the first row. lgse/strata#1349, lgse/strata#1623
 - One Ctrl+Z moves the items back and moves the created folder to Trash. lgse/strata#1349
 
 ## Design
@@ -75,7 +75,7 @@ Creating an empty file or folder in the current directory from the background me
 - In Columns, revealing the created entry does not start a second asynchronous navigation, which could cancel its rename editor (lgse/strata#690, lgse/strata#760).
 - Create undo trashes rather than deletes, so it is reversible (lgse/strata#1097).
 - New Folder with Selection records one composite undo entry instead of three stacked ones, so the gesture reverts atomically (lgse/strata#1347). Fusion happens when entries are pushed, because Columns truncation could otherwise consume the pending entry first (lgse/strata#1349).
-- Ctrl+Alt+N takes only a committed selection, never the cursor fallback that Delete and Copy use, because it moves files (lgse/strata#1591, lgse/strata#1623).
+- Ctrl+Alt+N takes only a committed selection, never the cursor fallback that Delete uses, because it moves files (lgse/strata#1485, lgse/strata#1591, lgse/strata#1623).
 - New Folder with Selection is hidden in recursive search, whose result model never shows the created row, so the move and rename would never start (lgse/strata#1349).
 
 ## History

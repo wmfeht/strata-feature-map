@@ -96,6 +96,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
+- Drop a link to a folder on a stalled or unmounted network mount onto the sidebar Trash row.
 
 ### operations/trash/restore
 
@@ -124,7 +125,6 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete 1 to 15 rows above other rows in each mode and watch whether deleted rows vanish and reappear before the dissolve.
 - Start a second Shift+Delete while the first dissolve plays, then click a row.
 - Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
-- Drop a link to a folder on a stalled or unmounted network mount onto the sidebar Trash row.
 
 ### operations/archives
 

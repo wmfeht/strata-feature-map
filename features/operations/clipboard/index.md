@@ -68,7 +68,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Cancelling the chooser or closing its parent window leaves the files and the parent's location unchanged. lgse/strata#1384
 - A window opens at most one chooser at a time. lgse/strata#1384
 - After confirming, the window navigates to the destination and selects the transferred items. lgse/strata#125, lgse/strata#1384
-- Cancelling a foreground Move to… drops its pending navigation, so the next foreground Extract here stays in the current folder. lgse/strata#1605
+- Cancelling a running foreground Move to… from its progress card, then running Extract here, keeps the window in the current folder. lgse/strata#1605
 
 ### Undo
 
@@ -138,5 +138,5 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 ## Known gaps
 
 - Cut intent is not exchanged through `x-special/gnome-copied-files`, so cuts between Strata and other file managers paste as copies. lgse/strata#289
-- Row marks match a `file://` URI to its native path, but no longer match other equivalent spellings of a non-`file://` URI. lgse/strata#1674
+- Row marks treat a `file://` URI and its native path as equal, but not other equivalent spellings of a non-`file://` URI. lgse/strata#1674
 - On NFS, same-share moves fall back to copy and delete, and replacing where Trash is unsupported may still fail. lgse/strata#1530
