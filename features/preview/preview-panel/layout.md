@@ -3,7 +3,7 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/browser/preview.rs]
 tests: [tests/e2e/scenarios/test_preview_session.py, tests/e2e/scenarios/test_quick_preview.py, src/ui/preview/tests.rs]
@@ -31,7 +31,9 @@ How the preview panel shares the window with the file views: its width, the rese
 - Moving the divider with the keyboard shows no outline. lgse/strata#1539 (unverified)
 - In Columns with an automatic width, widening or narrowing the window resizes the preview or empty slot in one frame, without the boundary jumping back and forth. lgse/strata#1502
 - Images, GIFs, and video are centered within 1280 px and enlarged at most 2× their native size. lgse/strata#888
-- In a preview wider than 1280 px, PDF pages and rendered Markdown, HTML, RTF, and DOCX stop at 1280 px, centered; Ctrl+wheel PDF zoom scales from that width. lgse/strata#1539
+- In a preview wider than 1280 px, PDF pages and wrapped rendered Markdown, HTML, and RTF stop at 1280 px, centered; Ctrl+wheel PDF zoom scales from that width. lgse/strata#1539, lgse/strata#1612
+- With word wrap off, every row of a rendered document starts at the left edge, including in previews wider than 1280 px. lgse/strata#1612
+- DOCX, XLS, XLSX, and ODS previews start at the left edge instead of centering at 1280 px. lgse/strata#1612 (unverified)
 - Source views and standalone tables keep the full preview width. lgse/strata#1539
 - The preview header uses 16 px icons and compact buttons, and its close button lines up with the header bar's close button. lgse/strata#829
 
@@ -97,6 +99,7 @@ How the preview panel shares the window with the file views: its width, the rese
 - The Columns slot is separate from preview content, because dismissing a preview shifted the deep column chain under the pointer (lgse/strata#1381, lgse/strata#1382).
 - The child column used to sit inside the scroller beside the slot, so each folder-to-file step bounced the focused column by one column width. The slot now lends trailing columns its width, and the scroll offset never changes (lgse/strata#1404, lgse/strata#1405).
 - Priority is focused column, then preview, then peek. A reserved peek budget depended on viewport size and neighbor count, so it toggled with the panel and moved columns by 48 px; it was removed (lgse/strata#1405).
+- Unwrapped rendered rows start at the left edge, because centering each row in the widened list scattered shorter rows far to the right (lgse/strata#1612).
 - Columns keeps its reservation: without one, opening a preview moved the columns 51 px in a 1200 px window (lgse/strata#1539).
 - Resize edges show captions rather than tooltips, because tooltips are allowed only on icon-only buttons (lgse/strata#1539).
 - The hide threshold is 240 px, independent of the 300 px column width. A 300 px floor hid the preview in 780 px windows at 1.6× scaling (lgse/strata#1145).

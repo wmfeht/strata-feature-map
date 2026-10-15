@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py]
 ---
@@ -145,6 +145,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
 - Press Ctrl++ with the location entry open, with Ctrl+K open, and in Settings; then set `text_size = 7`, `"huge"`, and `49` and start.
 - On `ch`, `cz`, and `fr`, press Ctrl with each top-row key that types `+`, `=`, or `-`, with and without Shift; then keypad + with Num Lock off.
+- Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
+- With a PDF's pages focused, press Ctrl++ and Ctrl+−, then Ctrl+keypad 0 with Num Lock on and off.
 
 ### browser/view-modes/position-restore
 
@@ -222,6 +224,8 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Delete the cursor entry from a shell while a 2,000-file copy into the folder runs, with the filter field focused, then a result.
 - Focus a result after Up and Down moved the cursor, Tab out, and Tab back in from the footer. Repeat with the preview open and Include subfolders off.
 - Press keypad `/` with Num Lock on and off, and on `is` press the þ key with Type to search on, then off.
+- Filter to one match in Icons, then List, and delete it from a shell; repeat in Columns and read the status each time.
+- Run a partial-coverage filter that returns results; check whether the status covers the first result row at text size 8 and 48.
 
 ### browser/sidebar
 
