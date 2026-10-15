@@ -54,7 +54,7 @@ The SIZE and CONTAINS rows of Properties: a recursive, bounded, cancellable meas
 - An unreadable or vanished branch marks the result incomplete but does not stop its siblings. Only an unreadable root fails the walk (lgse/strata#558).
 - The SIZE value uses tabular digits in a fixed-width field, and progress is throttled to 150 ms, so the row does not jitter while counting (lgse/strata#556 comments).
 - Counts follow a fixed non-hidden policy rather than the browser toggle. Hidden bytes still count because they occupy disk (lgse/strata#886). The issue proposed immediate children only; recursive counts were chosen instead (lgse/strata#604, lgse/strata#886).
-- Missing optional attributes fall back to visible, not a symlink, and 0 bytes, through the listing's own guards, so measurement treats such entries as the listing does (lgse/strata#1595, lgse/strata#1634).
+- Missing optional attributes fall back to visible, not a symlink, and 0 bytes. Measurement reuses the listing's guards, so it treats such entries as the listing does (lgse/strata#1595, lgse/strata#1634).
 - The selection dialog reuses the walker per selected folder and keeps permissions, rename, and media single-item (lgse/strata#1099).
 
 ## History

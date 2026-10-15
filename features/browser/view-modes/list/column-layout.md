@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser_modes/column_options.rs]
 tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs, src/ui/chooser/tests/column_widths.rs, tests/e2e/scenarios/test_view_switching.py]
 docs: [docs/preferences.md]
-related: [browser/view-modes/sorting, browser/view-modes/folder-views, browser/selection/pointer-intent, integration/portal-file-chooser]
+related: [browser/view-modes, browser/view-modes/sorting, browser/view-modes/folder-views, browser/selection/pointer-intent, integration/portal-file-chooser]
 ---
 
 ## Summary
@@ -63,7 +63,7 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 
 - Column presentation is independent of sorting. Earlier revisions fell back to sorting by Name when the sort column was hidden; that was removed so file order never jumps (lgse/strata#1651).
 - Changing the layout also updates a cached inactive List pane, because returning to List reuses it (lgse/strata#1651).
-- Rows find their cells by CSS class, not child position, so reordering keeps binding and pointer hit testing correct (lgse/strata#1651) (unverified).
+- Reordering moves Name off the first child, so rows and pointer hit testing find cells by CSS class (lgse/strata#1651).
 
 ## History
 

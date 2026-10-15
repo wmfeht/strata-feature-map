@@ -58,7 +58,7 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 - A launcher thread spawns every supervisor, because bubblewrap's parent-death signal follows the spawning thread, and short-lived threads must not own it (lgse/strata#1081).
 - Retirement waits on the next expiry on that thread, with no polling timer. Idle retirement frees sandbox memory, not the thumbnail caches.
 - glycin's own bubblewrap sandbox cannot start inside a job, because Landlock blocks its namespace setup, so its loader runs directly under the job's Landlock and seccomp. The filter allows the read-only `SIOCGIFINDEX` loopback lookup so glycin's probe detects this, and newer glycin skips the probe through `GLYCIN_DISABLE_SANDBOX`. One-shot sandboxes keep glycin's own sandbox (lgse/strata#1658, lgse/strata#1660).
-- Retrying a failed pooled job in the one-shot helper was rejected: it cannot tell a glycin failure from a decoder crash, and would rerun crashes and timeouts without Landlock or seccomp (lgse/strata#1660).
+- Retrying a failed pooled job in the one-shot helper was rejected. It cannot tell a glycin failure from a decoder crash. It would rerun crashes and timeouts without Landlock or seccomp (lgse/strata#1660).
 - Decoding untrusted files in-process and delegating to Tumbler were rejected (lgse/strata#516).
 - Results are cached for 30 seconds, keyed by path, device, inode, size, nanosecond modification and change times, and operation, so a 256 px thumbnail cannot satisfy a larger preview (lgse/strata#1222).
 - Space previews use a second pool so a scrolled folder's thumbnails cannot delay them (lgse/strata#516, lgse/strata#1222). Supervisor isolation itself belongs to `preview/preview-panel/sandbox`.

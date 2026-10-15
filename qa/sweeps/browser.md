@@ -127,7 +127,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 
 ### browser/view-modes/list/column-layout
 
-- Hide Size while sorted by Size in a folder with a saved folder sort, open a new folder, switch to Icons and back, then show Size and click its heading.
+- Hide the sort column with Remember per folder off, then with Group by file type on; hide it in the file chooser while a browser window sorts by it.
 - Drag Name to the last position, then press within 8 px of each heading's right edge and drag; then drag a heading 9 px and 11 px and release.
 - Drag a heading past two neighbours in one motion, then press Escape mid-drag; read `list_column_order` after each.
 - Write `list_hidden_columns = ["name", "size", "size", "bogus"]` and `list_column_order = ["type", "type"]` in settings.toml and start.
@@ -221,7 +221,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - With a Ctrl+K query open, `touch` a file in a watched Home subfolder every 100 ms for 10 s. Type meanwhile and watch the highlight.
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 - Set both search limits to No limit and Ctrl+K over an `sshfs` or rclone mount under Home; then 10 s and 200,000 over two `100000` copies, and hover Partial results.
-- Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it; write `search_time_limit = 901` and `search_entry_limit = 1` and start.
+- Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
 
 ### browser/search/exclusions
 

@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
 docs: [docs/preferences.md]
-related: [settings/themes, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
+related: [settings/themes, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
 ---
 
 ## Summary
@@ -67,6 +67,18 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - General → Browsing has a Show sizes in Columns view switch, on by default. lgse/strata#1564
 - Changing the switch in one window updates the open Settings switch in every other window. lgse/strata#1564
+
+### Search limits
+
+- Settings → General → Search & filtering shows Search time limit and Search entry limit after Open search results directly and before Global search exclusions. lgse/strata#1667
+- Search time limit offers 10 s, the default, 30 s, 1 min, 5 min, 15 min, and No limit. lgse/strata#1667
+- Search entry limit offers 200,000, the default, 500,000, 1,000,000, 5,000,000, and No limit. lgse/strata#1667
+- The time row reads "Stop indexing a search after this long. Slow or network mounts need longer to list every folder." lgse/strata#1667
+- The entry row reads "Stop indexing a search after this many files and folders. Higher limits use more memory." lgse/strata#1667
+- The choices save as `search_time_limit`, in seconds, and `search_entry_limit` in `settings.toml`; 0 means No limit. lgse/strata#1667
+- A hand-edited `search_time_limit = 45` shows 1 min, and `search_entry_limit = 300000` shows 500,000. lgse/strata#1667
+- A saved value above 900 seconds or 5,000,000 entries loads as No limit. lgse/strata#1667 (unverified)
+- Changing a limit in one window's Settings shows the same choice in another window's Settings. lgse/strata#1667
 
 ### About
 

@@ -112,7 +112,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Moving the pointer onto a row fades its badge in over 120 ms. lgse/strata#1674
 - Selecting a row, or opening a folder onto the open path, shows its badge at once; moving the selection off a row hides that badge at once. lgse/strata#1674
 - Moving the pointer off a row hides its badge at once, without a fade. lgse/strata#1674
-- With the pointer resting on an unselected row, arrow keys that move the selection hide that row's badge at once; moving the pointer fades it in again. lgse/strata#1674
+- With the pointer resting on an unselected row, arrow keys that move the selection hide that row's badge at once; moving the pointer fades it in again. lgse/strata#1674 (unverified)
 - While a row is being renamed its badge stays hidden; after the rename ends it returns only with the setting on. lgse/strata#1564
 - In Columns, the Appearance menu has a "Show sizes in Columns view" check item after Group by file type. It toggles the same setting and closes the menu. lgse/strata#1564
 - The Appearance item is hidden in Icons and List, and its check mark follows changes made in Settings. lgse/strata#1564

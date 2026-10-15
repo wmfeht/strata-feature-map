@@ -33,7 +33,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Pointer activation
 
 - On niri, a right click held about 250 ms and released over the menu that opened leaves the menu open and runs no row. lgse/strata#1621
-- A button release that reaches an item or background menu, or its submenus, before any press inside it is ignored; a later full click on a row runs it. lgse/strata#1621
+- A button release that reaches an item or background menu, or its submenus, before any press inside it is ignored. lgse/strata#1621
+- After that, a full click on a menu row runs it. lgse/strata#1621
 - Pressing the secondary button, moving onto a menu row, and releasing does not run the row; menu rows need a separate click. lgse/strata#1621
 - On Hyprland, wlroots compositors, and X11, a right click released over a menu row behaves as before: the menu stays open. lgse/strata#1621
 

@@ -60,7 +60,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Results stop at 100; the status reads "Searching…", "No matching files", or the partial-search reason. lgse/strata#989 (unverified)
 - The filter, 10xer path search, and folder pickers read the saved search time and entry limits at each query. lgse/strata#1667
 - After a limit changes in Settings, the next typed character restarts the index walk instead of reusing the running one. lgse/strata#1667
-- When a time or entry limit stopped the walk, the status ends "Raise the limits in Settings → General → Search & filtering." lgse/strata#1667
+- A partial filter status shows the same partial-search message as Ctrl+K. lgse/strata#1667
 - In Icons and List, with no results, the status sits centered horizontally and vertically in the results pane. lgse/strata#1648
 
 ### Live updates
@@ -91,18 +91,18 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - When the selected result disappears, the next result, or the last remaining one, is selected. lgse/strata#639
 - In List and Icons, Delete, or Shift+Delete and confirm, on a focused result moves focus, with a visible focus ring, to the result now in its slot; Escape then closes the filter. lgse/strata#1632
 - Deleting the last remaining result that way moves focus to the filter field with the caret after the query; Escape then closes the filter. lgse/strata#1632
+- Icons shows results as an icon grid and List as rows. lgse/strata#1155
 
 ### Focus return
 
-- After a dialog opened from a result is cancelled, focus returns to the result under the results' cursor in Columns, Icons, and List. The selection is unchanged. lgse/strata#1611
-- In List, Ctrl+F `txt`, Down twice, Shift+Delete, then Escape: the second result has the focus ring and Up moves to the first. In Icons, Left does. lgse/strata#1611
+- After a dialog or overlay opened from a result closes, focus returns to the result under the results' cursor in Columns, Icons, and List. The selection is unchanged. lgse/strata#1611, lgse/strata#1632
+- In List, Ctrl+F `txt`, Down twice, Shift+Delete, then Escape: the second result has the focus ring and Up moves to the first. lgse/strata#1611
+- In Icons, Ctrl+F `txt`, Down then Right, Shift+Delete, then Escape: Left moves to the first result. lgse/strata#1611
 - Tabbing into the pane while results show also returns focus to the cursor's result. lgse/strata#1611
-- When GTK's last focused result is selected it keeps focus; otherwise focus moves to the selected result. Over a 10xer fill, GTK's row keeps focus. lgse/strata#1611
+- When GTK's last focused result is selected it keeps focus; otherwise focus moves to the selected result. lgse/strata#1611
 - With several results selected and GTK's row unselected, focus goes to the last selected result in list order. lgse/strata#1611 (unverified)
 - Closing Quick Look over results returns focus to the cursor's result by the same rule. lgse/strata#1611
 - While a result is being renamed, a focus return leaves focus in the rename field. lgse/strata#1611
-- In List and Icons, dismissing a dialog while results show returns focus to the current result rather than the hidden listing. lgse/strata#1632 (unverified)
-- Icons shows results as an icon grid and List as rows. lgse/strata#1155
 
 ## Design
 

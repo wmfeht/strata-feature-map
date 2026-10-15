@@ -50,8 +50,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - F5 or auto-refresh keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533
 - Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
 - While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
-- In List and Icons, cut styling, live dates, hidden-file styling, and tooltips of visible rows refresh once scrolling has been still for 25 ms, not during continuous scrolling. lgse/strata#1673
-- That quiet period lasts at least two frames once the frame clock's whole recent history follows the scroll's start. lgse/strata#1673 (unverified)
+- In List, cut styling, hidden-file dimming, and live dates of visible rows refresh once scrolling has been still for 25 ms. lgse/strata#1673
+- In Icons, cut styling, hidden-file dimming, and accessible descriptions of visible cards refresh once scrolling has been still for 25 ms. lgse/strata#1673 (unverified)
 - Long filenames are middle-ellipsized in Columns rows and headings, Icons captions, and the List Name column, so the extension stays visible. lgse/strata#1143
 
 ## Design

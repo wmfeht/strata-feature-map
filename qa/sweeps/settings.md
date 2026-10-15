@@ -47,6 +47,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - On a `us,ru` layout with Russian active, and again with Caps Lock on, press Ctrl+A and Ctrl+Shift+A in Search themes and Search templates with a query typed; read the selection.
 - With icon-only navigation and before Actions or Updates has been built, search "license", "custom actions", "markdown", and "preview". Read the opened page, its title, and the visible navigation entries.
 - Repeat those searches under `language = "ja"` with the Japanese keywords, and with no custom actions installed but one broken action file present.
+- Hand-edit `search_time_limit = -10`, `= 30.5`, and `= "5 min"`, then `search_entry_limit = 4294967296`; launch after each, read both Search limits rows and the log, change one other preference, and diff `settings.toml`.
 - Flip Show sizes in Columns view in window A three times. Window B shows List, then has the Appearance menu open, then has Settings open on General.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
