@@ -1,27 +1,30 @@
 ---
 title: Settings sweep
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
-triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json]
-tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, tests/e2e/harness/environment.py]
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
+tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, tests/e2e/harness/environment.py]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, and the General rows no feature claims (Show F1 Shortcuts button, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, Corner roundness, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, the user stylesheet, Interface font, Corner roundness, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
-For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, and preview rows belong to the sweeps named under Hand-offs.
+For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
 ## Setup
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `tests/e2e/harness/environment.py` is the baseline; every seeded file starts from it.
-- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
+- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
-- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, and all four empty. Install a CJK font with Simplified Chinese glyphs, such as Noto Sans CJK SC, for the ja, ko, and zh runs; none of the eleven languages is right-to-left.
+- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the twelve languages is right-to-left.
 - A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
+- A user stylesheet at `$XDG_CONFIG_HOME/strata/style.css` with a valid rule using `@strata_accent`, a rule GTK rejects such as `label { color: nope; }`, and a layout rule such as `.sidebar-shell { margin: 12px; }`; a 1 MB copy and a non-UTF-8 copy beside it.
+- Fonts for Interface font: a family with a quoted name, a family with no Latin glyphs, a bitmap-only family, and a family installed with `fc-cache` while Strata runs, then removed.
+- For Diagnostics: a container or bind mounts that mask `bwrap`, `prlimit`, `ffmpeg`, `ffmpegthumbnailer`, `ffprobe`, and `unsquashfs` one at a time, plus `os-release` files for Arch, Debian, Fedora, openSUSE, and an unknown `ID`.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
 
 ## Probes
@@ -49,6 +52,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Repeat those searches under `language = "ja"` with the Japanese keywords, and with no custom actions installed but one broken action file present.
 - Hand-edit `search_time_limit = -10`, `= 30.5`, and `= "5 min"`, then `search_entry_limit = 4294967296`; launch after each, read both Search limits rows and the log, change one other preference, and diff `settings.toml`.
 - Flip Show sizes in Columns view in window A three times. Window B shows List, then has the Appearance menu open, then has Settings open on General.
+- On every Settings page, swipe sideways on a touchpad, Shift+wheel, and drag-scroll past both ends at text size 8, 32, and 48 in a 640 px wide window; read the right edge and the scroll walls.
+- At text size 48 and the narrowest window, open General, Appearance, Integrations, and Diagnostics after a Run; watch the log for allocation warnings and scroll to each last row.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
 ### settings/preferences/storage
@@ -72,8 +77,10 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed `language = "FR"`, `"pt-br"`, `"ja "`, and `"zz"`; read the selector and the file after the first change.
 - Choose 日本語 in window A, open window B, press Restart now with a rename editor open in B and again during a running copy.
 - Select 1, 2, 5, 11, and 21 items under Russian, 0 and 1 under French and Português (Brasil); read the footer count, a 1.5 MB size, and a 1 234 567 byte Properties size.
-- Seed `language = "zh-cn"`, `"zh"`, and `"zh-TW"`; read the selector and the file after the first change.
+- Seed `language = "zh-cn"`, `"zh"`, `"zh-tw"`, `"ZH-TW"`, and `"zh-HK"`; read the selector and the file after the first change.
 - Under 简体中文, 日本語, and English, fail an archive extraction into a read-only folder and copy a 5 GB file to a FAT32 stick; read the spacing and stop between the two sentences.
+- Under 正體中文, select 1, 2, and 3,000 items and read the footer count, a transfer duration, and a list of mixed item kinds; repeat under 简体中文 and compare.
+- Under 正體中文 on an `en_US` system, with only Noto Sans CJK SC installed, then only TC, read Settings and a file list for mixed glyph forms.
 - Under 简体中文, read the sidebar toggle tooltip in full, compact, and hidden states, and the password remember choices in a mount dialog.
 - Under 简体中文, read the Tasks icon name in Customize… and the Danger color label in Add theme.
 - Run Deutsch and Русский at the 1250 px panel width and in the destructive-delete dialog; look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
@@ -86,6 +93,16 @@ For every control this sweep proves the binding: the file changes, the other win
 - Cross each format with ja, zh-CN, de, and ru: month and weekday names, Long format word order, and the separator in `2026-09-17 14:30`.
 - Seed `date_format = " ISO-8601 "`, `"LONG"`, and `"yesterday"`; read the menu and the file after one change.
 - Keep the format menu open across a minute boundary, then change the language and restart; read each option's AT-SPI description against its visible example.
+
+### settings/diagnostics
+
+- Run under `GIO_USE_VFS=local`, with no session bus (`env -u DBUS_SESSION_BUS_ADDRESS`), with no network (`unshare -rn`), and with `fs.inotify.max_user_watches=4096`; read each row and the summary.
+- Run with each Setup tool masked in turn, and with each `os-release`; read the install command, then use Run in terminal and run diagnostics again.
+- Press Run twice quickly, close Settings mid-run, then reopen Diagnostics and run again; watch the log and the temporary directory.
+- Close the window mid-run and quit the last window mid-run; list `$TMPDIR` for leftover `strata-diagnostics-*` directories.
+- Copy the report under `language = "ja"` and `"zh-TW"` and paste it into a text editor; compare section names, statuses, and the System fields with the page.
+- Run with no terminal resolvable, then with a terminal that exits at once; read the row under each install command.
+- Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
 
 ### settings/themes
 
@@ -118,6 +135,13 @@ For every control this sweep proves the binding: the file changes, the other win
 - Make `~/.config/strata/themes` a symlink to a dotfiles directory, then delete and recreate that directory while Strata runs; rewrite the selected file.
 - Write 20 theme files 10 ms apart, the selected one last, then read the window colors and the log.
 - With Settings open in two windows, rewrite the selected file and a non-selected file; read the cards and swatches in each window.
+- Compare dim text against background and surface with a contrast meter in Tokyo Night, Catppuccin Latte, Material Lighter, and a custom theme copied from Catppuccin Mocha's catalog values.
+- Save a custom file named after a bundled theme with that theme's catalog dim text; compare it with the bundled theme's loaded dim text.
+- Under a light and a dark theme, read the Settings navigation, close, and search icons, and the About and release-notes icons, beside page text; repeat at Corner roundness 0.
+- Create the user stylesheet from Setup while running, then edit it ten times 10 ms apart, replace it by atomic rename, make it a symlink into `/dev/shm`, `chmod 000` it, and delete it; read every window and the log after each.
+- With the user stylesheet present, switch theme, follow Omarchy, open an editor preview, and change Corner roundness; read the overridden rules in each state.
+- Launch with the 1 MB and the non-UTF-8 stylesheets, and as the portal chooser; read the window and the log.
+- With `XDG_CONFIG_HOME` unset, then set to another directory, create `style.css` in each place; read which one applies.
 
 ### settings/themes/icons
 
@@ -140,9 +164,18 @@ For every control this sweep proves the binding: the file changes, the other win
 - Type 0, 15, 200, and 999 into the stepper, then use its buttons and arrow keys from 0 and 200; read the value and the file after each.
 - Step from 0 to 200 in window A while window B shows Icons with a context menu, a modal dialog, and a rename editor open; screenshot each at 0, 60, and 200.
 - At 0 and 200, look at switches, check boxes, tooltips, popovers, the search palette, progress dialogs, the file chooser, and the theme cards' swatches; note any corner that keeps its shape.
-- At 0, 60, and 200, compare a switch on a Settings page with a switch in a dialog or menu outside Settings; read the track and thumb corner shapes.
+- At 0, 40, 50, 60, and 200, compare a switch on a Settings page with the Confirm switch in the action editor and a switch in a menu; read the track and knob corner shapes, on and off.
 - At 0 and 200, cross text size 8 and 48 with compact and airy density; look for clipped corners and mismatched switch thumbs.
 - Change roundness during an editor preview and while following Omarchy; then Cancel and compare every window.
+
+### settings/themes/interface-font
+
+- Choose each Setup font, then open a context menu, a modal dialog, a rename editor, the search palette, the file chooser, and a text, source, and command preview; read the family in each.
+- Seed `interface_font = ""`, `"   "`, `"Missing Family"`, and a 300-character name; launch, read the button, the check mark, and the log, change one other preference, and diff `settings.toml`.
+- Choose a font in window A while window B has the picker open with a query typed; read B's button, list, and check mark.
+- Install a family with `fc-cache` while Settings is open, then uninstall the chosen one; reopen the picker and read the list and the window.
+- Cross a chosen family with text size 8 and 48, Cairo and GL renderers, and the user stylesheet; zoom on clipped glyphs and row heights.
+- Search fonts with a leading space, mixed case, and a translated "Default" under `language = "ja"`; read the list.
 
 ### settings/themes/omarchy
 
@@ -159,7 +192,12 @@ For every control this sweep proves the binding: the file changes, the other win
 - Browsing mode, density, click counts, folder peeking, sort defaults, and text size as they act in the file views → `browser`.
 - Properties dialog timestamps and sizes → `browser`.
 - System file chooser opt-in under Desktop integration and the chooser itself → `integration`.
-- 10xer mode toggle and custom actions pages → `integration`.
+- 10xer mode toggle and custom actions pages, including the action editor's toggles, tabs, and footer → `integration`.
+- The Integrations page, its catalog, and installed providers → `remote`.
+- The sandbox and previews behind a failing Diagnostics check → `preview`.
+- GVfs and network backends behind a failing Diagnostics check → `remote`.
+- Drives, phones, and cameras behind a failing Diagnostics check → `devices`.
+- Terminal launch and custom actions behind a failing Diagnostics check → `integration`.
 - Automatic updates, release channel, and the Updates page → `app`.
 - Window buttons rows and the F1 shortcuts reference → `app`.
 - Input-method and dead-key composition in Settings fields → `app`.

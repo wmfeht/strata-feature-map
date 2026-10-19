@@ -3,12 +3,12 @@ title: Restore from Trash
 status: shipped
 origin: {issue: lgse/strata#478, pr: lgse/strata#502}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/adapters/trash_restore.rs]
+code: [src/adapters/trash_restore.rs, src/adapters/local_operations/restore.rs]
 tests: [src/adapters/trash_restore/**, src/adapters/local_operations/tests/restore_safety.rs]
 docs: [docs/trash-restore-testing.md]
-related: []
+related: [operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -45,6 +45,11 @@ Returning trashed items to their original locations, from the Restore menu item 
 - If the original location changes after confirmation, the restore fails with "no longer matches the confirmed destination" and the payload and metadata stay in Trash. lgse/strata#502
 - If something exists at the destination, the restore fails with "something already exists at the destination" and the item stays in Trash. lgse/strata#502, lgse/strata#1527
 - On filesystems without `RENAME_NOREPLACE`, such as NTFS via ntfs-3g, files and folders restore when the destination is free. lgse/strata#1527
+- There the item is placed without copying: a file by hard link, a folder over an empty placeholder. An item that appears at the destination meanwhile is never replaced. lgse/strata#1615
+- Where nothing can place the item, it is copied with best-effort metadata, so ntfs3 `$LX*` attributes no longer fail it and named pipes are recreated. lgse/strata#1615
+- That copy is flushed, then the Trash copy is deleted entry by entry. lgse/strata#1615
+- An entry that changed or cannot be copied stays in Trash with its `.trashinfo`, reported as "“name” changed during the restore and was left in the Trash". lgse/strata#1615
+- Cancelling mid-copy ends as a cancel, with the partial copy removed; a removal that cannot be proven reports the item as failed. lgse/strata#1615
 
 ### Undo
 
@@ -53,7 +58,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 ## Design
 
-[docs/trash-restore-testing.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/trash-restore-testing.md) carries the safety model, the automated regressions, and the manual acceptance steps.
+[docs/trash-restore-testing.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/trash-restore-testing.md) carries the safety model, the automated regressions, and the manual acceptance steps.
 
 - Metadata is untrusted. An attacker who can write a mounted volume's `.Trash-$uid` could plant `Path=` targets such as `~/.config/autostart/` (lgse/strata#478). Destinations are therefore confined to the mount hosting the physical trash item and shown in full before moving.
 - The physical item is resolved through `standard::target-uri`, because GVfs volume-trash basenames do not identify the entry (lgse/strata#502).
@@ -61,7 +66,8 @@ Returning trashed items to their original locations, from the Restore menu item 
 - Home-trash items whose original path is on another filesystem could have been returned there or refused. Refusing was chosen, with a message that names the volume rather than bind mounts (lgse/strata#735, lgse/strata#776).
 - A missing parent is refused rather than recreated, matching Finder's Put Back instead of Nautilus (lgse/strata#777).
 - The parent is checked with `symlink_metadata` before canonicalization, which would otherwise follow a same-volume symlink into its target (lgse/strata#862).
-- No-clobber must be atomic: `RENAME_NOREPLACE`, never a check followed by a plain rename (lgse/strata#502). Without it, a file is hard-linked, otherwise copied exclusively with metadata, and the source deleted only if unchanged. A failed copy removes only entries Strata provably created (lgse/strata#1526).
+- No-clobber must be atomic: `RENAME_NOREPLACE`, never a check followed by a plain rename (lgse/strata#502). Without it, a file was first hard-linked, otherwise copied exclusively with strict metadata (lgse/strata#1526). Restore now uses the placement ladder of `operations/filesystem-compatibility` and copies only where nothing can place the item (lgse/strata#1615).
+- A restore copy is flushed before the Trash copy is deleted, because only the copy then holds the data (lgse/strata#1615).
 - Execution keeps `openat2` confinement beneath the allowed mount against concurrent changes (lgse/strata#502).
 - Lookups run at most 8 at a time. Cancelling drops pending futures but cannot stop a system call already blocked in the kernel (lgse/strata#502).
 
@@ -79,4 +85,4 @@ Returning trashed items to their original locations, from the Restore menu item 
 ## Known gaps
 
 - A lookup timeout frees its batch slot while the blocking worker may still run, so more than 8 lookups can be outstanding. lgse/strata#733
-- docs/trash-restore-testing.md still says filesystems without `RENAME_NOREPLACE` get an error; restore now falls back instead. lgse/strata#1526
+- Restore still matches the trashed item by device and inode; stable identity on mounts without stable inodes is deferred. lgse/strata#1590, lgse/strata#1615

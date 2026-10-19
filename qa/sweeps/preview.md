@@ -1,12 +1,12 @@
 ---
 title: Preview sweep
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
 
-Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs, 3D models, comic and EPUB covers, and Print. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, tables, images, diagrams, equations, and text selection. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Sandbox covers bubblewrap launch, limits, decoding fallbacks, output validation, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
+Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs, 3D models, comic and EPUB covers, and Print. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, tables, images, diagrams, equations, and text selection. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
 
 Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, archive member listing and the archive preview, and preview keys in 10xer mode. Also media runtime packaging and launch dependencies, the Settings pages as controls, and mounting the remote locations that remote previews read.
 
@@ -15,8 +15,11 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Image samples under `/tmp` from ImageMagick: a 200 MP PNG (`magick -size 20000x10000 xc:gray`) and one with an EXIF thumbnail. Also a 12 MP ICC-profiled JPEG and an animated GIF over 30 s.
 - Media samples from ffmpeg: a 4K HEVC 10-bit MP4 with chapters and two subtitle streams, an MP4 with `-vn`, one with `-an`, and a bare `.h264` stream. Also a VFR clip, 3.9 s and 4.1 s clips, a 2-hour FLAC, and a truncated faststart MP4 (`head -c`).
 - Byte-sniffing samples: an MPEG-TS clip (`ffmpeg -f lavfi -i testsrc2=duration=3 -f mpegts recording.ts`), TypeScript as `app.ts` and `Component.tsx`, a UTF-16 BE text file with and without a BOM, and a text file named `.xlsx`.
+- RAW samples: a lossless compressed Fuji X-T5 `.RAF`, a Pentax portrait `.DNG`, a GoPro `.GPR`, and an uppercase `.ARQ`. Also a JPEG panorama over 134 MP (`magick -size 42374x10529 xc:gray pano.jpg`) with and without a small EXIF thumbnail. Hide `dcraw`, `simple_dcraw`, and ImageMagick in turn by bind-mounting `/dev/null` over them inside `unshare -rm`.
+- Model samples: a binary STL, an ASCII STL with one triangle, a geometry-only 3MF, a 3MF with one embedded PNG, a FreeCAD file, and an STL just under 2 million triangles.
 - Zero-byte files for every previewed extension. Lying extensions: an MP4 as `.jpg`, a PNG as `.pdf`, a ZIP as `.epub` and `.docx`, an ELF as `notes.txt`, a TIFF as `.ARW`.
 - Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, and the `any_sheets.*` and `report.docx` fixtures.
+- A second build with `STRATA_TRUSTED_COMMAND_PATH` set, and a prebuilt binary to launch with `STRATA_SANDBOX_*` variables; `RUST_LOG=strata::sandbox=warn` shows ignored overrides.
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
@@ -46,6 +49,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Arm a 10xer chord, then press Ctrl+0 in a zoomed PDF in the main window.
 - Ctrl+wheel with a touchpad over a PDF's scrollbar, on X11 and on Wayland.
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
+- Preview the `.GPR` and `.ARQ` samples from a local folder and from an sftp mount, and a Pro Tools `.ptx` file.
 
 ### preview/preview-panel/layout
 
@@ -123,6 +127,17 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Double-click a video in Icons while another video's preview is mid-load, then press play in the preview.
 - Step through a folder holding a remote MP4, a bare `.h264` stream, and source text named `.mp4`, in Icons and then in List.
 
+### preview/preview-panel/model-views
+
+- Step through all four views on the STL near 2 million triangles, clicking Next again before each render ends; watch the bwrap count.
+- Pick Back right, change the theme twice, then select the next model file and come back.
+- Pick a view, then switch view mode between Columns, Icons, and List with the preview open.
+- With a filter typed and a reversed sort, read the position eyebrow over a folder mixing STL, 3MF, FreeCAD, and non-model files.
+- Toggle Reduce motion mid-sweep of the indicator, and close the drawer mid-sweep.
+- Read the buttons, the indicator, and the header spinner in Accerciser while a view renders.
+- Open the same model in two windows, pick different views, then change the theme.
+- Make a view render fail by replacing the file with garbage between clicks, then restore it and retry.
+
 ### preview/preview-panel/sandbox
 
 - With `bwrap` dropped from `PATH`, every native preview must still work; with `/dev/null` over `/usr/bin/bwrap`, image, PDF, SVG, DOCX, model, video, and GIF must each fail closed with no decoder in `ps`.
@@ -132,6 +147,13 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - On Debian testing with ImageMagick through `update-alternatives` and a glycin-only GDK Pixbuf, preview a HEIC and a JPEG; remove `/etc/alternatives/magick` and preview again. Repeat on a kernel without Landlock ABI 3, where previews use one-shot helpers.
 - On Debian-family hosts with glx-diversions and with the NVIDIA GL alternative, preview a PNG, a PDF, and an MP4, and let a folder of thumbnails complete. Repeat where `glx--libGL.so.1-x86_64-linux-gnu` chains to an `nvidia--` alternative.
 - Preview 20 images inside 60 s under the debug log and count `browser sandbox started` lines; wait 61 s and preview once more.
+- Launch with `STRATA_SANDBOX_ROOT` set to `/usr/share`, `/usr/./share`, `/usr/../home`, `/usrdata`, `/`, and `/nix/store` on a non-Nix host; preview a PNG each time and read the log.
+- Launch with `STRATA_SANDBOX_PATH` set to `/usr/bin:`, `:/usr/bin`, an empty string, and a non-UTF-8 byte, and `STRATA_SANDBOX_PRLIMIT` set to a missing absolute path.
+- Change a `STRATA_SANDBOX_*` variable in the running session, then open a second window and preview.
+- Build with `STRATA_TRUSTED_COMMAND_PATH` naming a directory symlinked from `/home`, a store directory holding a `bwrap` symlink into `/home`, and `/usr/bin` listed twice.
+- Preview the DNG with `dcraw` and `simple_dcraw` hidden, then with ImageMagick hidden too; repeat as Icons thumbnails.
+- Preview the RAF with ImageMagick hidden, and step through a folder of 50 RAF files with the preview open.
+- Preview and thumbnail the panorama with ImageMagick hidden, with and without its EXIF thumbnail.
 
 ### preview/quick-preview
 

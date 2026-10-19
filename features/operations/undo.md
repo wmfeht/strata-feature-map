@@ -3,12 +3,12 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: []
 tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs]
 docs: []
-related: [operations/trash, operations/trash/restore, operations/clipboard, operations/clipboard/conflicts, operations/rename, operations/create, operations/archives, operations/progress/dock, app/shortcut-reference]
+related: [operations/trash, operations/trash/restore, operations/clipboard, operations/clipboard/conflicts, operations/rename, operations/create, operations/archives, operations/progress/dock, app/shortcut-reference, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -34,6 +34,15 @@ One undo history and one redo history for file operations, shared by every Strat
 - While an undo or redo runs, Ctrl+Z or Ctrl+Shift+Z in another window does not start it a second time. lgse/strata#228, lgse/strata#1120 (unverified)
 - A completed redo becomes the latest undo entry again, so Ctrl+Z after Ctrl+Shift+Z reverts it once more. lgse/strata#1120
 - Any new operation that records an undo entry, such as a rename, clears the redo history; Ctrl+Shift+Z then does nothing. lgse/strata#1120
+
+### Moves
+
+- Ctrl+Z after a move that fixed names for the destination gives the original names back, deepest first, also between native and GVfs locations. lgse/strata#1615
+- Ctrl+Shift+Z then fixes those names again. lgse/strata#1615
+- Names Undo cannot give back are reported as "“new” could not be renamed back to “old”: <error>". lgse/strata#1615
+- A move undo starts from where each item landed, such as a Keep Both number or a fixed name. lgse/strata#1615 (unverified)
+- A move whose entries partly stayed at the source leaves that item out of its undo, and the report names it. lgse/strata#1615
+- Undoing a cross-volume move deletes the moved items only once their copies back are flushed. lgse/strata#1615 (unverified)
 
 ### Restore
 
@@ -70,7 +79,7 @@ Undo targets the latest reversible operation process-wide, matching common file 
 
 - The history lives on the GTK main thread and every window reads it. Entries carry a generation, so an undo applies only to the entry the user inspected, and a claimed entry cannot be started twice (lgse/strata#228, lgse/strata#301).
 - The single pending slot became a history of 32 entries because undoing a copy must expose the operation before it (lgse/strata#444).
-- Undo never destroys an original. Copy, create, compress, and Restore undos move items to Trash. Replace and Merge undos delete the incoming copy, then restore the original staged in Trash. Permanent deletion stays outside the history by design (lgse/strata#444, lgse/strata#1097).
+- Undo never destroys an original. Copy, create, compress, and Restore undos move items to Trash. Replace and Merge undos delete the incoming copy, then restore the original staged in Trash; since lgse/strata#1615 an edited incoming item is kept instead. Permanent deletion stays outside the history by design (lgse/strata#444, lgse/strata#1097).
 - An undo never records a new undo entry, so Ctrl+Z cannot toggle an item back and forth (lgse/strata#301). Its applied items feed a parallel redo stack instead (lgse/strata#1120).
 - Any new forward operation clears the redo stack, matching Finder. A persistent action journal was rejected as more than platform parity needs (lgse/strata#1117, lgse/strata#1120).
 - Each claimed entry keeps a bucket of the items that actually applied. Unapplied items stay on the stack for retry, applied items become the opposite entry, and a replay that applied nothing pushes nothing (lgse/strata#1120).

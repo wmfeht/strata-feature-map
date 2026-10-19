@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs]
@@ -13,7 +13,7 @@ related: [browser/view-modes/text-size, preview/preview-panel]
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, and font rendering. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), and `settings/themes/corner-roundness` (the corner radius scale). Text size, also on this page, is `browser/view-modes/text-size`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, and an optional user stylesheet. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`.
 
 ## Behavior
 
@@ -24,7 +24,10 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - The All, Light, and Dark filter combines with the search query. lgse/strata#96
 - A theme is filed under Light when its background's relative luminance exceeds 0.4, including backgrounds written as `rgb()` or `#fff`. lgse/strata#742
 - Every bundled theme's text has at least 4.5:1 contrast on its background and 3:1 on its surface. lgse/strata#1570, lgse/strata#1459
-- Material Lighter draws text in #455A64, 6.94:1 on its background, and dim text in #607D8B. lgse/strata#1570, lgse/strata#1459
+- Every bundled theme's dim text, as loaded, has at least 4.5:1 contrast on its background and 3:1 on its surface. lgse/strata#1724
+- Loading a bundled theme whose catalog dim text misses those floors blends it toward its text color in 1/255 steps, stopping at the first step that passes; Tokyo Night's #737aa2 loads as #767da6. lgse/strata#1724 (unverified)
+- A custom theme file keeps its dim text as written, even below those floors. lgse/strata#1724
+- Material Lighter draws text in #455A64, 6.94:1 on its background, and dim text in #5c7785, lifted from its catalog #607D8B. lgse/strata#1570, lgse/strata#1459, lgse/strata#1724 (unverified)
 - Material Vivid draws text in #9e9e9e, 6.01:1 on its background. lgse/strata#1570, lgse/strata#1459
 - Clicking a card applies that theme immediately and marks the card with a check. lgse/strata#96
 - A fresh install without Omarchy starts with Tokyo Night; a saved selection survives restart. lgse/strata#542
@@ -90,6 +93,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ### Styling and effects
 
+- Settings navigation, close, and search icons, and the About and release-notes icons, draw in the theme's accent color at 0.65 opacity, without desaturation. lgse/strata#1724 (unverified)
 - Strata's stylesheet reads the nine tokens as `@strata_bg`, `@strata_surface`, `@strata_text`, `@strata_accent`, `@strata_danger`, `@strata_muted`, `@strata_highlight`, `@strata_border`, and `@strata_dim_text`. lgse/strata#1412
 - User CSS that redefines the former `@theme_*` names no longer changes Strata's colors. lgse/strata#1412
 - A rule in `~/.config/gtk-4.0/gtk.css` changes no property of Strata's widgets. Examples are `label { color: red }`, `button { min-width: 60px }`, and `* { outline: 3px solid red }`. lgse/strata#1680, lgse/strata#1682
@@ -111,9 +115,21 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Strata's stylesheet has no `prefers-reduced-motion` rule, so that desktop media preference does not shorten CSS transitions. lgse/strata#458
 - With GTK's `gtk-enable-animations` set to false, the same animations do not play even when Reduce motion is off. lgse/strata#458 (unverified)
 
+### User stylesheet
+
+- With `~/.config/strata/style.css` present at startup, its rules apply in every window and override Strata's own rules and the active theme. lgse/strata#1758
+- The file follows `$XDG_CONFIG_HOME`, so with `XDG_CONFIG_HOME=/tmp/cfg` it is read from `/tmp/cfg/strata/style.css`. lgse/strata#1758 (unverified)
+- Rules in the file may use the active theme's `@strata_*` colors; switching themes keeps the override and updates those colors. lgse/strata#1758
+- Creating, editing, or deleting the file while Strata runs re-applies it in every open window without a restart. lgse/strata#1758
+- Changes to the file less than 75 ms apart trigger one reload, 75 ms after the last. lgse/strata#1758 (unverified)
+- Deleting the file, or making it unreadable, restores Strata's default appearance; an unreadable file logs "cannot read user stylesheet". lgse/strata#1758
+- A rule GTK cannot parse, such as `label { color: nope; }`, is skipped with an "invalid rule in user stylesheet" warning; valid rules in the same file still apply. lgse/strata#1758
+- Without the file, Strata's appearance is unchanged. lgse/strata#1758
+- Corner roundness does not scale radii set in the user stylesheet. lgse/strata#1758 (unverified)
+
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change. [docs/preferences.md](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -122,9 +138,14 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Colors are parsed through `gdk::RGBA`, so hex, short hex, `rgb()`, and names all work. Hand-rolled hex parsing had misfiled light themes and dropped syntax colors (lgse/strata#655, lgse/strata#742).
 - GDK also accepts 9- and 12-digit hex, which GTK CSS and SVG strokes reject. Custom and Omarchy colors are canonicalized on load, in memory only, so dotfiles are never rewritten (lgse/strata#1429, lgse/strata#1554).
 - Base16 `base05` maps to text unchanged, except a few catalog entries whose foreground overrides are commented in place for readability. The owner chose the Material Lighter and Material Vivid values and left other weak pairs to lgse/strata#1566 (lgse/strata#1459, lgse/strata#1570).
+- Dim text is lifted at load rather than overridden in the catalog. It takes the same floors as body text, and the lift stops at the first passing step so it stays dimmer than text. The lift reuses the Omarchy readability helper (lgse/strata#1711, lgse/strata#1724).
+- Settings icons lost their desaturation because a gray that differed from text gray read as disabled and looked the same in every theme (lgse/strata#1711, lgse/strata#1724).
 - A name without ASCII letters or digits takes the fallback id `custom-theme`. A Unicode slug would change existing ids and give non-ASCII file names; transliteration adds a dependency (lgse/strata#1458, lgse/strata#1570).
 - The `@strata_*` namespace hardens against name collisions; the trigger reported in lgse/strata#1096 was not reproduced (lgse/strata#1412).
 - Strata no longer leaves user CSS at GTK's higher user priority, as lgse/strata#1412 did. Desktop themes changed padding, row heights, and spacing, and user `gtk.css` could recolor or resize widgets. Documenting that user stylesheets win was rejected (lgse/strata#1679, lgse/strata#1680).
+- An opt-in `~/.config/strata/style.css` restores layout overrides beyond the nine tokens, which `gtk.css` could no longer reach. Unlike `gtk.css`, it exists only when the user creates it, so default isolation stays intact (lgse/strata#1710, lgse/strata#1758).
+- The user stylesheet loads one priority above the token provider, so its rules win over every Strata stylesheet. A missing or unreadable file clears it, and its watch reuses the custom-theme 75 ms debounce (lgse/strata#1758).
+- A Floating sidebar toggle in Settings and patching Strata's stylesheet before each build were the alternatives in lgse/strata#1710. Class names are not a stable interface and may change between releases (docs/themes.md).
 - The built-in `Default` theme and regular contrast are set as application values, which outrank the settings portal and `settings.ini`. They are set even when they match, because only application values survive later portal updates (lgse/strata#1680).
 - `GTK_THEME` bypasses GTK's settings, so startup re-execs without it, through the same path as the Cairo renderer. Editing the environment after threads start was avoided (lgse/strata#1680).
 - Stylesheets above user priority win only for properties they set. A reset provider unsets every property just above user priority; the built-in theme, Strata's stylesheet, and its tokens follow in rising priority (lgse/strata#1681, lgse/strata#1682).
@@ -147,6 +168,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-18 | lgse/strata#1758 | feat | Loaded an optional `~/.config/strata/style.css` above Strata's stylesheets, re-read live, so users can restyle layout beyond the color tokens. |
+| 2026-10-17 | lgse/strata#1724 | fix | Lifted bundled themes' dim text to the body-text contrast floors and stopped desaturating Settings icons, so secondary text no longer reads as disabled. |
 | 2026-10-15 | lgse/strata#1651 | feat | Added the Show thumbnails switch to the File icons group and to Settings search. |
 | 2026-10-15 | lgse/strata#1682 | fix | Unset every property above GTK's user priority and restated the built-in theme, completing lgse/strata#1680's isolation, so a desktop `gtk.css` cannot restyle any widget property. |
 | 2026-10-14 | lgse/strata#1620 | feat | Re-applied the selected custom theme when its file changes on disk, so theme generators work without a restart. |
@@ -167,6 +190,5 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 ## Known gaps
 
 - docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
-- The interface font is fixed to JetBrains Mono. lgse/strata#1217
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
-- Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. Dim text is below 3:1 on background in 11. lgse/strata#1566
+- Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566

@@ -3,8 +3,8 @@ title: udiskie unlock handler
 status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+review: draft
 code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
 tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
 docs: [docs/packaging.md, docs/preferences.md]
@@ -47,9 +47,12 @@ An opt-in integration that makes udiskie open Strata's passphrase prompt when an
 - Settings → General → Desktop integration shows "Unlock encrypted volumes" only when Omarchy is detected and `udiskie` is on `PATH`. lgse/strata#1047
 - The row's Use Strata button installs the integration and Restore default removes it. lgse/strata#1047
 - Use Strata shows only while the integration is not configured; Restore default shows only while restore state or a Strata-managed config exists. lgse/strata#1047 (unverified)
-- `install.sh` offers the step on Omarchy 3 or 4 with default No, and on generic Arch only when `udiskie` is on `PATH`. lgse/strata#1047
-- On Omarchy without `udiskie` on `PATH`, `install.sh` warns and skips the step; `--with-udiskie-unlock` makes it abort instead. lgse/strata#1047 (unverified)
-- `install.sh` skips the step when the release archive lacks the `udiskie/unlock` marker; with `--with-udiskie-unlock` it aborts. lgse/strata#1047 (unverified)
+- The interactive `install.sh` lists "Encrypted-drive unlock", unchecked, under "Customize installation" only on an Arch-based system, Omarchy included, with `udiskie` on `PATH`. lgse/strata#1047, lgse/strata#1730
+- "Install Strata (recommended)" leaves the step off. lgse/strata#1730
+- `install.sh --with-udiskie-unlock` on a system that is not Arch-based or lacks `udiskie` on `PATH` exits with "--with-udiskie-unlock requires an Arch-based system with udiskie on PATH." before any download. lgse/strata#1730
+- With the step selected and no `udiskie/unlock` marker in the verified archive, `install.sh` exits with "This release does not include encrypted-volume integration. Install a newer release." before installing packages or the binary. lgse/strata#1730 (unverified)
+- Output of the installer's `--install-udiskie-unlock` step, such as restart notices, stays on screen and in the retained log. lgse/strata#1730
+- If the step fails, `install.sh` exits with "Encrypted-volume unlock setup failed. Strata is installed; retry with: <path> --install-udiskie-unlock". lgse/strata#1047, lgse/strata#1730 (unverified)
 - `install.sh --non-interactive` leaves the step declined unless `--with-udiskie-unlock` is passed. lgse/strata#1047
 
 ## Design

@@ -3,12 +3,12 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser]
+related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -30,6 +30,10 @@ Creating an empty file or folder in the current directory from the background me
 - New Folder creates `new folder` on disk before any name is typed; New File creates an empty `new file`. lgse/strata#567
 - When the default name is taken by any item, creation uses the first free `new folder (1)`, `(2)`, and so on, without overwriting. lgse/strata#567
 - A creation failure reports "Could not create “name”:" followed by the error. lgse/strata#567 (unverified)
+- A long default name is cut so ` (n)` fits within the folder's name limit. lgse/strata#1615 (unverified)
+- On SMB with POSIX extensions, a folder reported by an exclusive file create counts as a taken name, so numbering goes on. lgse/strata#1615 (unverified)
+- Creating under a typed name, as the 10xer create prompt does, refuses a name the location would store as another, such as `CON` on vfat. Nothing is made. lgse/strata#1615
+- Default names such as `new folder` are never checked that way. lgse/strata#1615
 
 ### Naming the new item
 

@@ -3,16 +3,17 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/e2e/scenarios/test_keyboard_navigation.py]
-related: [browser/sidebar, browser/navigation, integration/10xer-mode]
+docs: [docs/keyboard-navigation.md]
+related: [browser/sidebar, browser/navigation, integration/10xer-mode, app/dialogs, integration/custom-actions]
 ---
 
 ## Summary
 
-Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file list, pane header, sidebar, and top bar in the default key map. Arrows move between interface regions rather than changing directories.
+Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file list, pane header, sidebar, and top bar in the default key map, and between controls in modal dialogs. Arrows move between interface regions rather than changing directories.
 
 ## Behavior
 
@@ -62,6 +63,15 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - With it on, Tab and the pointer still reach the header, sidebar, and top bar. lgse/strata#942
 - The file chooser follows the same preference. lgse/strata#942
 
+### Modal dialogs
+
+- In a dialog with tabs, such as the custom action editor, Up from a control in the page, such as Behavior → Whole selection, focuses the current tab. lgse/strata#1739
+- With the tab strip focused, Left and Right switch tabs as GTK does: Left from Behavior selects Script. lgse/strata#1739
+- With the tab strip focused, Down moves focus into the current page. lgse/strata#1739
+- Up from the tab strip moves focus to the control above the tabs, such as the dialog's close button. lgse/strata#1739 (unverified)
+- Enter on a focused tab does not run the dialog's Enter activation. lgse/strata#1739 (unverified)
+- A tab set whose tabs are hidden is skipped, so Up from its page moves to the control above it. lgse/strata#1739 (unverified)
+
 ## Design
 
 [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/keyboard-navigation.md) carries the rules under "Arrows, the header, and the sidebar", including Tab stops.
@@ -75,12 +85,15 @@ Strata is positioned as keyboard-first; a Yazi user reported needing the trackpa
 - Each listing is one Tab stop because walking every row took 120 or more presses in a 120-entry folder (lgse/strata#1431).
 - The Columns strip is one stop that lands on the active column. Per-column stops were rejected because entering a column would change the paste and New Folder destination (lgse/strata#1431).
 - The List sort headings stay Tab stops: they are real controls and cost five stops, not one per row (lgse/strata#1431).
+- Modal arrow navigation collected only buttons, menu buttons, checkboxes, switches, and entries, so a tab strip was never a target. A notebook holds focus while a tab does, so the current tab stands in for the notebook (lgse/strata#1738, lgse/strata#1739).
+- The tab strip spans the whole notebook, so Up and Down treat it as directly above or below the control they leave (lgse/strata#1739) (unverified).
 - The sidebar remembers a return target only while the file view holds focus. A header control as target trapped focus outside the listing (lgse/strata#1053).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-17 | lgse/strata#1739 | fix | Let modal arrow navigation reach a notebook's current tab, so arrows reach the action editor's tabs. |
 | 2026-10-09 | lgse/strata#1533 | fix | Made each listing one Tab stop that lands on the keyboard cursor, with a focusable pane in empty folders. |
 | 2026-09-23 | lgse/strata#1088 | fix | Returned Right from the sidebar to the file list when the sidebar was entered from the header. |
 | 2026-09-14 | lgse/strata#942 | feat | Added Keep arrows in file list and its Ctrl+\ toggle. |

@@ -3,12 +3,12 @@ title: Text size
 status: shipped
 origin: {issue: lgse/strata#155, pr: lgse/strata#252}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/preferences/text_size.rs]
 tests: [src/ui/preferences/tests/text_size.rs, src/ui/theme/tests/text_size.rs, tests/e2e/scenarios/test_text_size.py]
 docs: [docs/preferences.md]
-related: [settings/preferences, settings/themes, preview/preview-panel]
+related: [settings/preferences, settings/themes, preview/preview-panel, browser/view-modes/thumbnail-size]
 ---
 
 ## Summary
@@ -27,9 +27,14 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 - Ctrl+Shift+keypad + or Ctrl+Shift+keypad − does not change the size. lgse/strata#1576
 - The shortcuts work while an inline rename editor is open, without submitting it. lgse/strata#838
 - Ctrl+wheel changes the size by 1 px per notch, accumulating smooth touchpad deltas into whole steps. lgse/strata#1069, lgse/strata#1140
+- Ctrl+Shift+wheel does not change the text size; in Icons it steps the thumbnail size instead. lgse/strata#1721
+- Ctrl+wheel never changes the Icons thumbnail size. lgse/strata#1721
 - Ctrl+wheel over a PDF preview, including its scrollbars, zooms the PDF instead. lgse/strata#1069, lgse/strata#1622
 - Ctrl+wheel over the file listing changes the size even while a PDF preview holds keyboard focus. lgse/strata#1622
 - The portal file chooser accepts the same keyboard shortcuts. lgse/strata#838 (unverified)
+- Each change from Ctrl++, Ctrl+=, Ctrl+−, Ctrl+0, or Ctrl+wheel shows "Text size: Npx" briefly in the bottom-right notice dock. lgse/strata#1721
+- A change made in Settings shows no size notice. lgse/strata#1721
+- The Appearance menu's decrease, size, and increase buttons show no size notice. lgse/strata#1721 (unverified)
 
 ### Applying the size
 
@@ -46,6 +51,7 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 - CSS pixels bypass GTK's desktop text-scaling DPI, so Strata multiplies the size by that factor once. With slight hinting, fractional results such as 17.73 px dropped the cap-height pixel row, so the product is rounded (lgse/strata#442, lgse/strata#495).
 - Small, Medium, and Large were replaced by a number because 15 px was still hard to read on a 4K monitor (lgse/strata#831).
 - Monitor scaling is left to GTK to avoid double scaling, so moving a window between monitors never rewrites the saved size (lgse/strata#831).
+- Ctrl+wheel stays interface zoom, as in browsers and the PDF preview, so Ctrl+Shift+wheel was given to Icons thumbnails rather than also stepping text (lgse/strata#1720, lgse/strata#1721).
 - Ctrl+wheel is handled in the capture phase so scrolled windows cannot consume it first. The PDF scroll container keeps its own zoom (lgse/strata#1069, lgse/strata#1110).
 - Scroll events carry no pointer position, so the wheel handler asks the seat where the pointer is and picks the widget under it (lgse/strata#1622).
 - The wheel controller accumulates deltas itself instead of using GTK's discrete mode, which consumed every touchpad scroll before descendant scrollers saw it (lgse/strata#1140).

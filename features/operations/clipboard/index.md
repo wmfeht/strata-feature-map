@@ -3,17 +3,17 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs]
+code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/e2e/scenarios/test_clipboard.py, tests/e2e/mutations/clipboard.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode]
+related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…, and the copy engine behind them. It also covers copying paths, names, and pasted images. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
+Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…. The copy engine, placement, and name rules behind them belong to `operations/filesystem-compatibility`. It also covers copying paths, names, and pasted images. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
 
 ## Behavior
 
@@ -37,6 +37,8 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - The destination column follows the last pointer or keyboard navigation; pressing Ctrl+V does not change it. lgse/strata#358
 - After going to a parent folder, Ctrl+V pastes into the parent, not into the folder selected on arrival, restored or first. lgse/strata#485, lgse/strata#1436, lgse/strata#1544
 - Ctrl+V while viewing Recent does nothing. lgse/strata#1083
+- A paste whose destination is slow to answer shows "Preparing items…" with Cancel and no count: in the docked row for a copy, in a dialog for a move. lgse/strata#1615
+- Cancel there abandons the paste with no prompt, and closing the view dismisses the row and copies nothing. lgse/strata#1615
 - After a paste, the destination is shown with the pasted items selected; a pasted-into folder in Columns opens and keeps focus. lgse/strata#524
 - Completing a cut-paste removes the moved items from the clipboard; text copied after the cut stays on the clipboard. lgse/strata#1265
 - Completing a drag move or Move to… leaves unrelated clipboard contents, such as copied text, intact. lgse/strata#1265
@@ -75,14 +77,11 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Ctrl+Z after a cut-paste or Move to… returns the moved items to their original folders. lgse/strata#301
 - Ctrl+Z after a copy sends only the items that copy created to Trash, including numbered and replaced destinations. lgse/strata#444
 - After a copy is undone, the next Ctrl+Z undoes the operation before it. lgse/strata#444
+- An item a copy replaced without Trash is left out of that copy's undo. lgse/strata#1615 (unverified)
 
 ### Copy and move safety
 
-- Moving a non-empty folder to another filesystem copies it, then deletes the source only after the copy succeeds. lgse/strata#215
 - A symlink inside a copied folder is recreated as a symlink pointing at the same target, not followed. lgse/strata#254
-- Copying a folder that contains a FIFO or other special file fails promptly with an error naming that entry. lgse/strata#707
-- On FAT, vfat, and exFAT destinations, `" * / : < > ? \ |` and control characters become `_`, and trailing dots and spaces are trimmed. lgse/strata#1126
-- Names that collide after that sanitizing get a numbered suffix instead of overwriting each other. lgse/strata#1126
 - Copying a file of 4 GiB or larger to a FAT32 drive fails before copying, with a message suggesting exFAT. lgse/strata#1278
 - Copies onto NTFS through ntfs-3g and other FUSE mounts without `RENAME_NOREPLACE` complete without an "Invalid argument" error. lgse/strata#1515
 - Cancelling a folder copy onto an ntfs-3g mount after the progress bar fills leaves no partial folder at the destination name. lgse/strata#1515, lgse/strata#1625 (unverified)
@@ -101,9 +100,10 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 - Same-folder copies use the language-neutral `(n)` suffix. A same-folder cut stays a no-op to prevent accidental renames (lgse/strata#270, lgse/strata#272).
 - Duplicate exists so an in-place copy does not overwrite the user's clipboard (lgse/strata#271).
 - Undo is one process-wide history of 32 entries. Copy undo trashes rather than deletes, so Ctrl+Z never destroys data (lgse/strata#444).
-- Local copies open each source directory through `openat2` and re-read every entry's type before acting (lgse/strata#254). Local moves use one confined `renameat2` with `NOREPLACE` (lgse/strata#365).
-- A move the kernel cannot rename falls back to a staged copy, and the source is deleted only after it succeeds (lgse/strata#215).
-- FAT names are sanitized like GNOME Files does, rather than failing and discarding the whole staged copy (lgse/strata#1123).
+- Local copies open each source directory through `openat2` and re-read every entry's type before acting (lgse/strata#254).
+- Local moves first used one confined `renameat2` with `NOREPLACE` (lgse/strata#365), and a staged copy where the kernel could not rename (lgse/strata#215). The placement ladder of `operations/filesystem-compatibility` replaced both (lgse/strata#1590, lgse/strata#1615).
+- FAT names were first sanitized like GNOME Files does, rather than failing the whole staged copy (lgse/strata#1123). Per-mount name rules replaced that (lgse/strata#1615).
+- The paste's conflict check runs off the UI thread, so a hung destination cannot freeze the window (lgse/strata#1590, lgse/strata#1615).
 - Move to and Copy to reuse Strata's full chooser in a floating window instead of a separate destination picker (lgse/strata#1377, lgse/strata#1383).
 
 ## History
@@ -139,4 +139,3 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 
 - Cut intent is not exchanged through `x-special/gnome-copied-files`, so cuts between Strata and other file managers paste as copies. lgse/strata#289
 - Row marks treat a `file://` URI and its native path as equal, but not other equivalent spellings of a non-`file://` URI. lgse/strata#1674
-- On NFS, same-share moves fall back to copy and delete, and replacing where Trash is unsupported may still fail. lgse/strata#1530

@@ -3,12 +3,12 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
 docs: [site/src/reference/remote-sftp.md]
-related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins]
+related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins, browser/sidebar/connect-to-server]
 ---
 
 ## Summary
@@ -48,6 +48,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 ### Sidebar
 
 - The sidebar's Network place opens `network:///`, which lists the hosts and shares GVfs discovers. lgse/strata#31, lgse/strata#62
+- At `network:///`, the column heading, breadcrumbs, and window title read "Network", localized, instead of `network:`. lgse/strata#1726
 - A mounted `smb://` share appears under DEVICES with a network icon instead of a drive icon, and clicking it opens the share. lgse/strata#31, lgse/strata#62
 - Right-clicking a mounted SMB share's DEVICES row offers Properties and Disconnect. lgse/strata#31, lgse/strata#296 (unverified)
 - Disconnect unmounts the share; a failure other than a cancel shows an "Unable to disconnect" dialog. lgse/strata#31 (unverified)

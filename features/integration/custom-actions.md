@@ -3,7 +3,7 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/readiness.rs, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/e2e/scenarios/test_custom_actions.py]
@@ -58,6 +58,9 @@ User-defined Python, Bash, or command actions in the file and folder context men
 
 - Each action row has an enable switch and Edit, Duplicate, Export…, and Delete buttons. lgse/strata#1085
 - New action… opens an editor with General, Script, and Behavior tabs, and Create action saves all three. lgse/strata#1085
+- The editor's tab labels are in natural case. Hovering an inactive tab fades its label to full opacity with no background, and the selected tab's underline is as wide as its label. lgse/strata#1739
+- The editor's toggles, such as Behavior → Confirm, look like Settings toggles. lgse/strata#1739
+- The editor's footer has no background of its own; Cancel and Create action or Save changes use the same button styles as other dialogs, such as Delete. lgse/strata#1739
 - If a field is invalid, the editor switches to that field's tab, keeps the edits, and writes nothing. lgse/strata#1085
 - If Id is left blank, it is derived from Name: "Batch rename" becomes `batch-rename`. When an existing action is edited, Id is read-only. lgse/strata#1085
 - Cancel, the close button, or Escape discards the draft. A click outside the dialog leaves it open. lgse/strata#1085
@@ -94,7 +97,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Matching is declarative, so opening a menu never runs user code. Content types are guessed from names only (lgse/strata#36).
 - Every selected item must match, so an image-only action never runs on part of a mixed selection (lgse/strata#36).
 - Paths go in files rather than argv or the environment. This keeps bytes exact and avoids command-line limits, so a whole-selection run is never split (lgse/strata#36).
-- Action interpreters resolve on the user's `PATH`, including shims. Strata's own helpers use only fixed trusted roots (lgse/strata#1055, lgse/strata#1085).
+- Action interpreters resolve on the user's `PATH`, including shims. Strata's own helpers use only fixed trusted roots, plus packager directories set at build time with `STRATA_TRUSTED_COMMAND_PATH` that resolve under a trust root (lgse/strata#1055, lgse/strata#1085, lgse/strata#1746).
 - A broken definition is reported under Problems and never hides other actions (lgse/strata#1085).
 - Rename recipes are not transactions and offer no undo. Cancelling or an I/O error can leave earlier files renamed (lgse/strata#1085).
 

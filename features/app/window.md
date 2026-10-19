@@ -3,7 +3,7 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/decoration.rs]
 tests: [src/ui/decoration/tests.rs, src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/e2e/scenarios/test_dialogs_and_menus.py]
@@ -56,6 +56,8 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - While a modal dialog is open, browser shortcuts do not act behind it. lgse/strata#544
 - With a modal dialog or Settings open, Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ do nothing, and the dialog keeps focus. lgse/strata#1554, lgse/strata#1432
 - With a rename field or new-entry field open, F5, Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ do nothing; the field keeps its text, and Return commits it. lgse/strata#1554, lgse/strata#1438
+- With the F1 reference open, F5, Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ do nothing; F5 does not refresh the folder behind it. lgse/strata#1714
+- With the F1 reference open and its search focused, Ctrl+Space and Super+Space reach the search's input method rather than a Strata command. lgse/strata#1714
 - Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ pressed while a dialog animates closed act as with no dialog open. lgse/strata#1554
 - While only a closing dialog is visible, other browser shortcuts do nothing and the key goes to GTK; text-size keys still act. lgse/strata#1554 (unverified)
 - The text-size keys Ctrl++, Ctrl+−, and Ctrl+0 still change the text size while a modal dialog is open. lgse/strata#838 (unverified)
@@ -85,6 +87,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, F5, and Ctrl+\ were GTK accelerators, run only after the dispatcher yielded, so `add_guarded_window_action` gates each action itself (lgse/strata#1554).
 - They are now dispatcher bindings, not accelerators: once every stage yields, the dispatcher activates the same guarded `win.*` action. Application accelerators are gone (lgse/strata#1576).
 - In the file list, the file commands stage handles Ctrl+Alt+T and F5 first. The `win.*` path serves only keys the stages yield (lgse/strata#1576, unverified).
+- While the F1 reference is open, a key every stage yields runs no window action; only a focused text field's editing action may run. The reference's search therefore takes every chord without F5 or Ctrl+K acting behind it (lgse/strata#1714).
 - GTK's text bindings miss an editing key that only the layout fallback recognizes. After the window actions, the focused `gtk::Text` or `TextView` runs that action itself (lgse/strata#1576).
 - One guard covers dialogs and name fields. It skips the action's own layer, so Ctrl+K still closes the palette it opened (lgse/strata#1432, lgse/strata#1438, lgse/strata#1554).
 - Editable controls and native single-pane selection must not fall through to browser commands, which is why a stage can hand a key to GTK (lgse/strata#544).
@@ -94,6 +97,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-17 | lgse/strata#1714 | fix | Stopped window actions such as F5 behind an open F1 reference, and limited Space on a selected filter hit to the filter. |
 | 2026-10-14 | lgse/strata#1680 | feat | Registered a hidden titlebar so GTK stops adding its default title bar on client-decorated desktops, and drew a hairline in place of its shadow. |
 | 2026-10-11 | lgse/strata#1570 | fix | Gave the preview and sidebar marquee origins click policies, so a click in the preview keeps the selection. |
 | 2026-10-10 | lgse/strata#1559 | fix | Added a preview find-key stage to the dispatcher and bound the find shortcut when the preview is built. |

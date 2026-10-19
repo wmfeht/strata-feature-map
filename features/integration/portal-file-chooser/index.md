@@ -3,11 +3,11 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
-docs: [site/src/reference/portal-file-chooser.md]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/keyboard.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
+docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
 related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout]
 ---
 
@@ -60,9 +60,14 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - A resized Miller column or List heading becomes the default for the next chooser, stored apart from browser windows' defaults. lgse/strata#1339
 - The item menu offers Rename, Properties, and, for one previewable file, Quick preview; empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
 - The item menu also offers Compress… for native entries, plus Move to Trash and Permanently delete where the location allows them. lgse/strata#950, lgse/strata#1352
+- When every selected item is remote, the item menu's Permanently delete reads Delete without Trash. lgse/strata#1614
 - With the file view focused, Shift+Delete asks to delete permanently. Delete moves the selection to Trash, except as below. lgse/strata#950, lgse/strata#1533
 - Where every selected item's open folder reports no Trash support but allows deletion, Delete opens the `operations/trash` explained permanent confirmation instead. lgse/strata#1533
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
+- With a shortcut reference left open after 10xer mode was turned off in another window, F5, Ctrl+H, Ctrl+., Ctrl+1/2/3, and Alt+Up/Left/Home leave the folder, view, and hidden files unchanged. lgse/strata#1714
+- In that state, Escape closes the reference and keeps the request open. lgse/strata#1714
+- In that state, text-size and thumbnail-size shortcuts still apply to the chooser. lgse/strata#1714 (unverified)
+- With a filter result selected, Space in the Name or location entry types a space and opens no preview. lgse/strata#1714
 - Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
 - Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533
 - With 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533
@@ -117,6 +122,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-17 | lgse/strata#1714 | fix | Yielded chooser shortcuts to an open reference and typed Space in the Name and location entries with a hit selected. |
 | 2026-10-11 | lgse/strata#1570 | fix | Kept the selection on plain clicks in the chooser's showing preview; sidebar clicks still clear it. |
 | 2026-10-10 | lgse/strata#1554 | fix | Delegated folder identity lookups so the chooser follows an open folder renamed or removed outside the app. |
 | 2026-10-10 | lgse/strata#1539 | fix | Gave the chooser's preview divider a wide handle so the column beside it keeps its resize edge. |

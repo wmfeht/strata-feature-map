@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -20,6 +20,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A fake `.desktop` default handler under `$XDG_DATA_HOME/applications` that logs its argv, in `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
+- A vfat loop mount, an ext4 folder with casefold on, and an sshfs mount of localhost, for typed-name and Trash-refusal probes.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - Keyboard layout `fr` from the E2E `keyboard_layout` fixture or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the fixture lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
@@ -51,9 +52,13 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With 10xer mode on, arm `g` with focus on a PDF page in the preview, press Ctrl+0, then press `d`; read the chord panel, the page width, and the location.
 - In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
 - Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
+- With 10xer mode on, open F1 in a chooser, turn the mode off from a browser window, then press Ctrl+plus, Ctrl+3, Ctrl+A, and Enter, and type in the reference search under fcitx5; press Escape twice and read the response code.
+- Select a filter result, then press Space and Shift+Space in Name under `save`, in the location entry, and with an input method composing.
+- Right-click an item on the sshfs mount, a mix of sshfs and Home items, and an item on a `fuseblk` mount; read the delete entries.
 
 ### integration/portal-file-chooser/setup
 
+- Run the installer from an archive without `portal/strata.portal`, once with Open and Save dialogs checked and once with Recommended; read the output and whether `portal-opt-in-v1` exists.
 - Run `--install-portal` with `portals.conf` already listing `strata;` last, with no `xdg-desktop-portal` on the system, and from a binary path containing a space; diff the config directory and `state.toml` after each.
 - Edit `portals.conf` by hand after installing, then `--uninstall-portal`; repeat with the file untouched and with a hand-made config present before install.
 - Complete setup with a foreign per-user FileManager1 service present, then Restore default with no Nautilus on `PATH` and no recorded handler; read each message.
@@ -88,6 +93,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press Ctrl+Shift+M over a modal, in the location field, in an inline rename, in the sidebar, in Settings, and in a chooser; toggle twice within 1.5 seconds.
 - Toggle the mode with a pane filter, a subfolder Ctrl+F scope, a `v` range, a folder peek, and an open preview active at once; toggle back and compare each pane.
 - With three windows open, toggle the mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K and Ctrl+\ from the file list. Close one window and check again.
+- Press `~` in `go ›`, `rename ›`, the preview find bar, an archive password field, and Settings search; repeat with a dead-key `~` on `fr` and from the file list on `ru`.
 - In Columns, press `g g` and `G` in a newly opened column before any other key, with type grouping on and with hidden files shown.
 - Press `G` in an empty folder, Ctrl+U in a 10k folder, and `h` at `/`. Press `l` on a folder symlink and on a broken symlink, in each view.
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.
@@ -135,6 +141,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
 - Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
+- On the vfat mount, submit `CON`, `a.`, ` lead`, `x:y`, and a name with U+200B in `create ›` and `rename ›`; on vfat and casefold, `rename ›` `Notes.txt` to `notes.txt`.
+- On a slow sshfs mount, submit a `rename ›` name, then edit it or press Esc before the check returns; read the folder afterwards.
+- On the sshfs mount, press `d` until Trash is refused, then `d` again before and after F5, and from a second window; read each dialog.
+- Press `x` on a file, then `p` into a folder holding the same name, choose the focused button, and press Ctrl+Z.
 - On `fr`, press `;` then each digit-row key with and without Shift, with 10 and with 3 matching actions.
 
 ### integration/10xer-mode/file-chooser
@@ -176,6 +186,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Match `extensions = ["JPG"]` against `a.jpg`, `a.JPG`, and `a.jpg.bak`; `image/*` against `.svg` and an extensionless PNG; `min_items` and `max_items` at 0, 1, and 50; the background menu in Trash, Recent, a FUSE folder, and over `s` hits spanning folders.
 - Run on 1,000 selected files with newline and non-UTF-8 names in per-item and whole modes; check `STRATA_ACTION_PATHS` bytes, `RUN_DIR` mode and removal, each cwd choice, a forked child, `processed > total`, malformed JSON, and a relative output path.
 - Cancel a per-item run at item 3 of 10 with a script ignoring SIGTERM, then close the last window while jobs are queued; hand-edit `prefix-{path}` and `{paths}` in per-item mode into a manifest and reload.
+- Open the action editor at corner roundness 0%, 40%, and 200%, and under each theme; hover and focus each tab by keyboard, and read the Confirm toggle and footer buttons.
 - Derive Id from `Ünïcode Name!!`, switch runtimes three times with edits, and apply a recipe over an edited draft. Duplicate three times, Export into an existing folder, and Import a folder with extra files and a symlinked entrypoint. Run Batch rename with a colliding target and one created between check and rename.
 
 ### integration/file-manager-interface
@@ -185,6 +196,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Install the service copy, call with Strata not running, then twice within one second; run a stub owning the name first and call again; read `busctl --user status org.freedesktop.FileManager1`.
 - Call `ShowItemProperties` with two files in one folder, with a folder, and with a Trash URI; call `ShowFolders` on a folder already open in a window and with the mode on.
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
+- In the installer's Customize menu, check Default file manager, uncheck Open file location, then recheck Default file manager; read the Installation plan lines and the services directory.
 
 ## Hand-offs
 

@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/e2e/scenarios/test_view_switching.py, tests/e2e/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs]
@@ -13,7 +13,7 @@ related: [browser/search, preview/preview-panel]
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/text-size` covers interface text size, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
 ## Behavior
 

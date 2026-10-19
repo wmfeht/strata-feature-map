@@ -3,7 +3,7 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/pdf_text.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/archive_cover.rs]
 tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/ui/preview/tests/pdf.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/e2e/scenarios/test_preview_media_layout.py]
@@ -13,7 +13,7 @@ related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-meta
 
 ## Summary
 
-The drawer beside the file views that shows the selected file's contents: text, images, PDFs, 3D models, and comic or EPUB covers, with a header for print and close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
+The drawer beside the file views that shows the selected file's contents: text, images, PDFs, 3D models, and comic or EPUB covers, with a header for print and close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/model-views` (camera views and mesh details for rendered models), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
 
 ## Behavior
 
@@ -50,6 +50,8 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - With four remote previews already transferring or decoding, another fails with "Too many remote previews are active; try again shortly". lgse/strata#834
 - Changing selection or closing the preview cancels a remote transfer. lgse/strata#834
 - Remote MOV and MP4 files up to 256 MiB play only after the download completes, within a 60-second deadline. lgse/strata#834
+- A RAW name the MIME database types as `application/octet-stream`, such as `GOPR0001.GPR`, still previews as a RAW image. lgse/strata#1698
+- A RAW file on a GIO location previews after the original streams to a private temporary file, like other still images. lgse/strata#1698 (unverified)
 - PDF pages render at the preview pane's width, at most 1280 px, one page at a time across previews. lgse/strata#898, lgse/strata#823
 - Queued PDF pages that leave the view are cancelled before rendering. lgse/strata#898
 - Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
@@ -64,7 +66,10 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 ### Models and covers
 
-- An STL file renders at a fixed three-quarter angle, tinted with the theme accent; changing the theme re-renders the open preview. lgse/strata#1276
+- An STL file first renders from the Front left camera, looking diagonally down at the model, tinted with the theme accent. lgse/strata#1276, lgse/strata#1644
+- Changing the theme re-renders the open model preview with the new accent. lgse/strata#1276, lgse/strata#1644
+- All four camera views of a model share one bounding-box fit on a square canvas, so switching views never changes its scale or centring. lgse/strata#1644
+- Revisiting a camera view of the same model at the same size and theme is served from the preview cache; a first visit rereads and re-renders the mesh. lgse/strata#1644
 - A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
 - A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
 - A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
@@ -105,12 +110,14 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - PDFs render in the sandbox, so the text layer travels with each page as a bounded sidecar to the PNG (lgse/strata#1220, lgse/strata#1223).
 - Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833).
 - 3MF and FreeCAD prefer embedded thumbnails at the owner's request; geometry is the fallback (lgse/strata#1225).
+- Camera views render on demand and share the 128 MiB preview cache, keyed by view. The single heavy-preview permit keeps four angles from multiplying peak memory (lgse/strata#1644, lgse/strata#1633).
 - The stream-copy video and native GIF paths from lgse/strata#318 were replaced by sandboxed streaming (lgse/strata#839).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-18 | lgse/strata#1644 | feat | Added four camera views, an orbit indicator, and mesh badges to rendered STL and 3MF previews, so every side of a model can be seen. |
 | 2026-10-15 | lgse/strata#1684 | fix | Kept focus in the listing when the cursor moves onto an archive with the preview open; only explicit entry focuses the password field or highlights a member. |
 | 2026-10-14 | lgse/strata#1612 | fix | Let unwrapped rendered documents scroll horizontally from the left edge and remeasured rows after live wrap toggles. |
 | 2026-10-14 | lgse/strata#1622 | fix | Kept PDF zoom separate from interface text size: Ctrl+wheel over a PDF and Ctrl+0 on a focused PDF now act on the page. |
@@ -130,4 +137,5 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Images cannot be rotated in the preview; the change is unmerged. lgse/strata#987, lgse/strata#1388
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
+- Each first visit to a camera view rereads and reparses the mesh, so dense models can take noticeable time per angle. lgse/strata#1644
 - With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

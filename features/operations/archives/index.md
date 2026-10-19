@@ -3,12 +3,12 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
-docs: [site/src/reference/archives.md, site/src/reference/keyboard-navigation.md]
-related: [integration/10xer-mode, operations/progress, operations/trash]
+docs: [site/src/reference/archives.md, site/src/reference/keyboard-navigation.md, docs/archives.md]
+related: [integration/10xer-mode, operations/progress, operations/trash, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -25,6 +25,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - The Compress dialog offers ZIP, 7Z, TAR.GZ, and TAR, with ZIP selected and the name prefilled with the item's name, or `archive` for several items. lgse/strata#81 (unverified)
 - Typing the selected format's extension, such as `backup.zip` with ZIP, creates `backup.zip`, not `backup.zip.zip`. lgse/strata#81 (unverified)
 - A name such as `../outside` is rejected in the dialog and nothing is written outside the shown folder. lgse/strata#147
+- An archive name the location would store as another, such as `a:b.zip` on vfat, is refused before anything is written. lgse/strata#1615
 - Protection (No password / Password protected) shows only for ZIP and 7Z; switching to TAR or TAR.GZ hides it and resets it to No password. lgse/strata#81, lgse/strata#745
 - Password protected with an empty password shows "Password required"; differing fields show "Passwords do not match"; no archive is written. lgse/strata#81, lgse/strata#745
 - A password-protected 7Z of 4 MiB of zeros packs to hundreds of bytes, like the unprotected one, and lists no member names without the password. lgse/strata#745
@@ -32,6 +33,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Compressing a symlink to 7Z fails with "7z compression does not support symbolic links: <path>. Use ZIP or TAR instead." and leaves no archive. lgse/strata#407
 - A file whose name is not valid UTF-8 fails ZIP and 7Z with an error naming it and suggesting TAR; TAR stores the original bytes. lgse/strata#679
 - ZIP members store each source's modification time and Unix mode. lgse/strata#1478
+- TAR and TAR.GZ store small files from ntfs3, which reports zero blocks for them, in full instead of as zeros. lgse/strata#1615
 - 7Z members store each source's Unix mode and its modification, creation, and access times. lgse/strata#1478 (unverified)
 - The new archive appears only when encoding finishes, then is selected and scrolled into view in every view mode. lgse/strata#147, lgse/strata#616
 - Compression runs as a progress card at the bottom right showing Preparing…, then Compressing… with file counts, and browsing stays available. lgse/strata#981, lgse/strata#1393
@@ -45,8 +47,10 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Enter activates the focused button; Escape and Cancel leave the existing archive unchanged. lgse/strata#986
 - Escape, Cancel, or X on the "File already exists" prompt returns focus to the listed item that was focused before it. lgse/strata#1533
 - Keep Both creates the next free numbered name, such as `archive (1).zip` or `archive (1).tar.gz`, and selects it. lgse/strata#986
+- A long archive name numbered by Keep Both is cut so the number fits the name limit. lgse/strata#1615 (unverified)
 - Replace moves the existing archive to Trash before publishing; Ctrl+Z returns it. lgse/strata#1097
-- If the existing archive cannot be moved to Trash, Replace fails and the existing archive stays in place. lgse/strata#1097
+- Where Trash is unavailable, Replace sets the existing archive aside or exchanges it, and deletes it after the new archive is flushed; Ctrl+Z has nothing to undo. lgse/strata#1615
+- Replace is refused before encoding when no strategy is safe there, and a name taken during replacement keeps the original aside. lgse/strata#1615
 - Replace keeps the replaced archive's permission bits on the new archive. lgse/strata#410
 - Cancelling, or an encoding failure, during Replace leaves the existing archive in place. lgse/strata#147, lgse/strata#981
 - If publishing fails after Replace moved the existing archive, the error says the original is in Trash. lgse/strata#1097 (unverified)
@@ -55,7 +59,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 - Extract here and Extract to… appear only for a regular file, or a symlink to one, with a local path and a `.zip`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` extension. lgse/strata#81, lgse/strata#1478
 - A folder named `photos.zip` shows no Extract actions and opens like any folder. lgse/strata#1478
-- Extract here extracts beside the archive, reloads the folder, and selects the result. lgse/strata#81, lgse/strata#494
+- Extract here extracts beside the archive and selects the result; only a folder without a monitor is reloaded for it. lgse/strata#81, lgse/strata#494, lgse/strata#1615
 - The extracted result that the browser selects keeps keyboard focus after the progress dialog closes, including in Columns. lgse/strata#1533
 - Extract to… opens the floating folder chooser, titled "Extract to", with an "Extract here" button and New Folder. After extraction, the window navigates to the chosen folder and selects the result. lgse/strata#81, lgse/strata#1384
 - Cancelling the Extract to… chooser starts no extraction. lgse/strata#1384
@@ -91,7 +95,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - After such a publication, no `.strata-extraction-<id>` folder remains and the existing same-named folder is untouched. lgse/strata#1585, lgse/strata#1586
 - On such a filesystem, a nested read-only folder, such as mode `0555`, publishes with its mode and modification time kept. lgse/strata#1586
 - On such a filesystem, a symlink member publishes as a symlink with its stored target. lgse/strata#1586
-- If publication fails partway there, the partial destination folder is removed and the error ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586
+- Where no placement step can place the output, publication is refused and the members stay in the staging folder. lgse/strata#1615 (unverified)
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
 - A TAR whose first entry is `./` extracts its contents instead of failing. lgse/strata#494
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677
@@ -106,7 +110,11 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A TAR hard link links to the earlier member of that name; a hard link to a member not extracted fails the extraction. lgse/strata#1478
 - A TAR FIFO or device member fails the extraction with a message naming the member. lgse/strata#1478
 - Each member gets its stored mode, masked by the umask with setuid, setgid, and sticky removed, and its stored modification time. lgse/strata#1478
-- On FAT and exFAT, modes and times are skipped without error, but an archive containing links fails, naming the member. lgse/strata#1478
+- On FAT and exFAT, modes and times are skipped without error. lgse/strata#1478
+- Extracting where member names cannot be stored fixes them by the destination's rules, retrying refused names under stricter rules, and reports each change. lgse/strata#1615
+- Folders whose fixed names became one stay apart, such as `10_00 (2)/`. lgse/strata#1615
+- Links the destination cannot hold, and hard links to them, are left out and reported, and the extraction finishes. lgse/strata#1615
+- Extracted symlink times are not set on FUSE mounts. lgse/strata#1615
 
 ### Passwords
 
@@ -146,7 +154,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Zip bombs are bounded by free space and declared sizes only. Other file managers rely on cancellation, so ratio and entry-count caps were rejected (lgse/strata#479, lgse/strata#605).
 - Password retries depend on a structured `PasswordFailure` kind from the decoders, never on message text, which can contain member names (lgse/strata#691, lgse/strata#1499).
 - Metadata restoration matches `tar` and `unzip` for a normal user: no owner, group, xattrs, or ACLs; folder metadata applies only on completion so partial output stays writable (lgse/strata#1422).
-- Without `RENAME_NOREPLACE`, a folder publishes by an exclusive `mkdirat` of the name, so `EEXIST` drives the numbering. Files are hard-linked in, symlinks recreated when linking fails, and subfolders recreated. The source is removed only after every entry is in place, so a failure leaves staging intact. Removal first restores owner access so `0555` folders cannot block it (lgse/strata#1585, lgse/strata#1586).
+- Extraction and compression publish through the placement ladder of `operations/filesystem-compatibility`, and compression publishes off the UI thread (lgse/strata#1615).
+- Before that, without `RENAME_NOREPLACE`, a folder published by an exclusive `mkdirat` of the name, so `EEXIST` drove the numbering, and files were hard-linked in (lgse/strata#1585, lgse/strata#1586). Staging removal first restores owner access so `0555` folders cannot block it (lgse/strata#1586).
 - A single-root conflict name places the suffix as Paste's Keep Both does: a folder takes ` (n)` after its whole name, a file before its extension. The root's type is read without following symlinks, so a symlink is numbered like a file (lgse/strata#1616, lgse/strata#1617).
 - Compression writes a mode-0600 staging file beside the target and publishes it atomically without replacing anything; Keep Both retries the finished staging file under new names (lgse/strata#110, lgse/strata#404, lgse/strata#986).
 - Payload encoding is chosen per container. Known compressed inputs are stored in ZIP and copied in 7Z; TAR.GZ compresses the whole stream unless every payload is already compressed (lgse/strata#978, lgse/strata#981).

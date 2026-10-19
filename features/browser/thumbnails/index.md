@@ -3,12 +3,12 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
 tests: [src/ui/thumbnail/tests.rs, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [site/src/reference/preview-sandbox.md]
-related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera]
+related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera, browser/properties/raw-metadata, preview/preview-panel/sandbox]
 ---
 
 ## Summary
@@ -25,6 +25,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
 - Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
 - A fresh image decode fills the item's Icons caption with its source dimensions, such as `320×180`. lgse/strata#1081
+- A RAW file's Icons caption shows the full image size after orientation, such as `4032×6028` for a DNG, not the size of its embedded 160×120 thumbnail. lgse/strata#1698
 
 ### Show thumbnails off
 
@@ -41,7 +42,9 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - PNG, JPEG, WebP, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails, provided a decoder for the format is installed. lgse/strata#881, lgse/strata#969
 - SVG files get thumbnails without a gdk-pixbuf SVG loader: pooled workers render them with resvg, the one-shot fallback with ImageMagick. lgse/strata#881, lgse/strata#1222
 - `.svgz` files keep their icon, since the thumbnail extension list omits them. lgse/strata#881 (unverified)
-- Camera RAW files, such as `.ARW`, use the embedded camera preview before ImageMagick or gdk-pixbuf. lgse/strata#199
+- Camera RAW thumbnails, such as for `.ARW`, use the embedded camera preview first, then gdk-pixbuf, then ImageMagick. lgse/strata#199, lgse/strata#1698
+- RAW thumbnails of portrait shots are upright in Columns, List, and Icons. lgse/strata#1698
+- Every extension `browser/properties/raw-metadata` recognizes as RAW gets a RAW thumbnail in any case, including `.RAF`, `.GPR`, `.IIQ`, and `.CRW`. lgse/strata#1698
 - PDF files and MP4, MKV, WebM, MOV, AVI, M4V, MPEG, MPG, and OGV videos get thumbnails. lgse/strata#57, lgse/strata#274 (unverified)
 - MP3, FLAC, M4A, M4B, MKA, AIFF, AIF, and WMA files with embedded cover art show the art at its aspect ratio; files without art keep the audio icon. lgse/strata#1162
 - Ogg, Opus, and WAV files never get album-art thumbnails. lgse/strata#1162
@@ -67,7 +70,7 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 
 - Kinds are chosen by file extension. HEIC, AVIF, JPEG XL, and audio art joined that list by reusing existing renderers (lgse/strata#969, lgse/strata#1162). AppImage, model, and cover kinds added sandboxed extractors (lgse/strata#1077, lgse/strata#1276, lgse/strata#1325).
 - Strata does not run external freedesktop `.thumbnailer` entries or Tumbler; each provider runs inside its own sandbox (lgse/strata#516, lgse/strata#1275).
-- RAW thumbnails take the embedded camera JPEG first, since ImageMagick demosaics; the median fell from 550 ms to 16 ms per file (lgse/strata#199). Quick Preview keeps the demosaic-first order.
+- RAW thumbnails take the embedded camera JPEG first, since ImageMagick demosaics; the median fell from 550 ms to 16 ms per file (lgse/strata#199). Thumbnails keep gdk-pixbuf ahead of ImageMagick, because ImageMagick would demosaic every RAW in a folder. Previews now also take the embedded JPEG first (lgse/strata#1666, lgse/strata#1698).
 - Ogg, Opus, and WAV keep cover art in tags for which FFmpeg exposes no stream, so including them would start a decoder per song that cannot succeed (lgse/strata#1162).
 - The in-memory cache keys by path, modification time, size, and the canonical 256 px edge. All views and icon sizes share one texture; it holds at most 256 entries and 64 MiB (lgse/strata#1081).
 - Failures are cached for 30 seconds to stop retry loops on malformed files, and identical requests share one job (lgse/strata#57).

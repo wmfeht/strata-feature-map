@@ -3,17 +3,17 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/ui/window/sidebar.rs, src/ui/window/keyboard/sidebar.rs, src/ui/sidebar_toggle.rs]
-tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs, src/ui/window/tests/preferences.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
+code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs, src/ui/sidebar_toggle.rs]
+tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs, src/ui/window/tests/preferences.rs, tests/e2e/scenarios/test_sidebar_reordering.py]
 docs: [docs/preferences.md, site/src/reference/keyboard-navigation.md]
 related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window]
 ---
 
 ## Summary
 
-The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places, step the panel between full, icon rail, and hidden, and reach it from the keyboard. Child: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
+The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places, step the panel between full, icon rail, and hidden, and reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file, including drag-to-pin) and `browser/sidebar/connect-to-server` (the Network row's Connect to server dialog). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
 
 ## Behavior
 
@@ -27,7 +27,9 @@ The left panel of every browser window and the file chooser: built-in places, th
 - While a place mounts before opening, the highlight stays on the open place; a failed or cancelled mount leaves it there. lgse/strata#1605
 - Home, standard folders, and local pins show the folder's saved colour and custom icon, and update in every open window when it changes. lgse/strata#1370
 - Right-clicking a local folder row offers Customize…; clearing the customization restores the place's default icon. lgse/strata#1370
-- In the file chooser, the sidebar omits Trash and Network, and its rows have no context menu and cannot be reordered. lgse/strata#1025 (unverified)
+- In the file chooser, the sidebar omits Trash and Network. lgse/strata#1025 (unverified)
+- In the file chooser, built-in place rows offer the same context menus as in a browser window and can be reordered by drag. lgse/strata#1713
+- Unpinning Home or a standard folder in the file chooser hides it in every window, and a reorder there is saved for every window. lgse/strata#1713
 
 ### Visibility
 
@@ -42,8 +44,19 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Home, Trash, Network, Recent, and the standard folders can be dragged into any order, which is saved and restored after a restart. lgse/strata#1161
 - A reorder in one window reorders the sidebar in every other open window. lgse/strata#589
 - A plain click on a row navigates and never reorders. lgse/strata#1161
-- Dropping a built-in place on a pinned row, or a pinned row on a built-in place, changes nothing. lgse/strata#202
+- Dropping a built-in place on a pinned row, or a pinned row on a built-in place, changes nothing and shows no insertion line. lgse/strata#202, lgse/strata#1713
+- While a built-in place is dragged over the upper or lower half of another built-in row, an accent line shows in the gap before or after that row. lgse/strata#1713
+- Dropping a built-in place on the gap just before or after another built-in row moves it to that side; dropping a row on its own adjacent gap changes nothing. lgse/strata#1713
 - A saved order that lacks a newer place gains it beside its default neighbour, so Music appears after Downloads. lgse/strata#1161, lgse/strata#1342
+
+### Spacing and drag feedback
+
+- Pinned rows have the same 2 px spacing as built-in places and devices, in the full sidebar and the icon rail. lgse/strata#1707, lgse/strata#1713
+- Dragging files over a pinned folder's row body shows a highlight and an accent outline, and dropping still moves or copies into that folder. lgse/strata#1692, lgse/strata#1713
+- The row-body highlight does not scale the row. lgse/strata#1713 (unverified)
+- While a pin insertion line shows, other rows and devices show no hover background; the focus outline is hidden during any drag over the sidebar. lgse/strata#1713
+- Only one sidebar drop site shows an indicator at a time, and moving from a folder row onto a gap cancels that row's spring-load. lgse/strata#1713
+- Dragging files over the Trash row highlights it only when the selection can be trashed. lgse/strata#1713 (unverified)
 
 ### Devices
 
@@ -91,6 +104,9 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Device discovery waits until after first paint so a window never blocks on D-Bus, GVfs, or udisks2 before appearing (lgse/strata#1070).
 - Only the toggle's steps are remembered, as `sidebar_expanded` and `sidebar_compact` (lgse/strata#1606). A "Start with sidebar collapsed" switch was left out as unneeded (lgse/strata#1345, lgse/strata#1350); hover-reveal panels were declined (lgse/strata#1282).
 - A row highlights on click, before its location is validated. A rejected navigation resyncs the highlight to the open location rather than deferring it until validation (lgse/strata#860, lgse/strata#1605).
+- Pin gaps supply the spacing between rows, so each row boundary has one spacer. The sidebar box's own 2 px spacing had doubled it around every pin gap (lgse/strata#1707, lgse/strata#1713).
+- One drop-feedback owner per sidebar decides which site shows an indicator, so a late validation or a stale leave cannot restore or clear another site's line. The general file-drop outline no longer overrides the row indicator (lgse/strata#1707, lgse/strata#1713).
+- The file chooser shares the browser's place reordering, menus, and drag-to-pin. Its sidebar visibility and compact state stay local to the dialog ([docs/portal-file-chooser.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/portal-file-chooser.md), lgse/strata#1713).
 - The selected row uses a direct accent tint because tinting the existing highlight token stayed too faint on dark themes (lgse/strata#104, lgse/strata#106).
 - The fit rule and `RailPolicy` that rail the sidebar automatically belong to `preview/preview-panel/layout` (lgse/strata#1602, lgse/strata#1606).
 - Rail rows take the scaled header-control size from code instead of a fixed 24 px CSS minimum. They stay on the toggle's axis below 100 % text size (lgse/strata#1602, lgse/strata#1606).
@@ -100,6 +116,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-17 | lgse/strata#1726 | feat | Added Connect to server… to the Network row's menu, with an address field and an optional pin, so network locations can be added without typing in the location bar. |
 | 2026-10-15 | lgse/strata#1605 | fix | Returned the highlight to the open place after a rejected place click. |
 | 2026-10-13 | lgse/strata#1606 | fix | Made the header toggle step full, rail, hidden, saved the rail as `sidebar_compact`, and made the automatic rail edge-triggered under one fit rule. |
 | 2026-10-12 | lgse/strata#1581 | fix | Split the update notice into an "Update available" headline over the version, so it fits the default width in every language. |

@@ -3,12 +3,12 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/e2e/scenarios/test_inline_renaming.py, tests/e2e/scenarios/test_rename_visibility.py, tests/e2e/mutations/rename-caret.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/create, browser/selection, operations/trash, browser/folder-customization]
+related: [operations/create, browser/selection, operations/trash, browser/folder-customization, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -49,7 +49,9 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 ### Committing and cancelling
 
 - Enter, Tab, or a click outside the field, including empty pane space or a sidebar place, commits a valid changed name. lgse/strata#567
-- Keyboard focus leaving the field commits too, including when the window becomes inactive. lgse/strata#567, lgse/strata#686
+- Keyboard focus moving to another widget in the same window commits too. lgse/strata#567, lgse/strata#1714
+- When another window or an input method switcher takes activation, the editor stays open and nothing is renamed. lgse/strata#1714
+- Returning to the window keeps focus in the field, and Enter then commits. lgse/strata#1714
 - Clicking inside the field moves the caret and keeps editing. lgse/strata#115, lgse/strata#591
 - Escape closes the editor and keeps the original name. lgse/strata#115, lgse/strata#567
 - Committing an empty, invalid, or unchanged name closes the editor and leaves the item and its contents as they were. lgse/strata#567
@@ -58,10 +60,16 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - When the rename fails, an "Unable to rename item" dialog explains why and the old name returns. lgse/strata#619
 - After a rename onto an existing name, Escape on that dialog returns focus to the old-name row. Up then moves the cursor. lgse/strata#1533
 - Renaming onto an existing name overwrites nothing and reports "“name” already exists". lgse/strata#567 (unverified)
+- A local rename never replaces an item created at the new name meanwhile. lgse/strata#1615
+- A typed name the location would store as another, such as `x:y` or `notes.` on vfat, is refused before anything changes. lgse/strata#1615
+- The refusal reads "Names in this location can’t contain “:”", "…can’t end with a space or a period", "“CON” is a reserved name in this location", or "The name is too long". lgse/strata#1615
+- A case-only rename, such as `notes.txt` to `Notes.txt`, succeeds on vfat, exFAT, SMB, casefold ext4, and exfat-fuse, and so does its undo. lgse/strata#1615
+- Renaming an `smb://` item with no GVfs backend running fails with the backend's message instead of ending Strata. lgse/strata#1615
 - Renaming a folder whose child columns are open keeps them open under the new path. lgse/strata#760
 - With hidden files off, renaming a file to `.notes` completes, and F2 then starts a second rename at once. lgse/strata#1554, lgse/strata#1438
 - Ctrl+Z after a rename restores the original name, keeping current contents and permissions. lgse/strata#1061
 - When the original name is taken by then, Undo fails without overwriting and stays available for retry. lgse/strata#1061
+- Undoing a rename never copies the item; where no placement step can place it, the undo is refused. lgse/strata#1615
 - Ctrl+Shift+Z after undoing a rename applies it again. lgse/strata#1120
 
 ### Visibility
@@ -74,9 +82,12 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ## Design
 
-[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/keyboard-navigation.md) states the commit rule: Enter, click-away, or focus loss commits; Escape or an invalid name keeps the original.
+[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/keyboard-navigation.md) states the commit rule: Enter, click-away, or focus moving away within the window commits; switching windows leaves the edit open; Escape or an invalid name keeps the original.
 
-- Only Escape and an invalid name revert. Focus loss to another window commits by design, not as a regression (lgse/strata#686).
+- Only Escape and an invalid name revert. Focus loss to another window first committed by design (lgse/strata#686).
+- lgse/strata#1714 reversed that. GTK sends a focus leave when the window deactivates, including when an input method switcher grabs the keyboard. The edit now ends only on focus moves within the window, as the filter and location bar already did (lgse/strata#1714).
+- Local renames go through the placement routine of `operations/filesystem-compatibility` instead of GIO's check-then-rename. A case-only rename takes two steps through a hidden `.strata-rename-<id>` name, with rollback (lgse/strata#1615).
+- Typed names are refused with the reason, never fixed (lgse/strata#1615).
 - Click-away first cancelled the edit (lgse/strata#115). It now commits, so new and existing items share one rename path (lgse/strata#566, lgse/strata#567).
 - The rename is dispatched on idle, after GTK's focus walk. Refreshing the model inside that walk destroyed the focused row and froze List and Icons (lgse/strata#566).
 - An edit is a lease on an entry's identity, not a row position. Rebinding the row to another item, unbinding, or cancelling revokes it (lgse/strata#1174).
@@ -92,6 +103,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-17 | lgse/strata#1714 | fix | Kept an inline rename open while the window is inactive, so switching input methods no longer commits it. |
 | 2026-10-15 | lgse/strata#1675 | perf | Looked up each row's rename editor by list item instead of scanning every bound row on bind and unbind. |
 | 2026-10-11 | lgse/strata#1564 | feat | Restored the Columns size badge after a rename only when Show sizes in Columns view is on. |
 | 2026-10-10 | lgse/strata#1554 | fix | Finished renames to a dot name with hidden files off; they had blocked the next rename. |
@@ -111,3 +123,4 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 ## Known gaps
 
 - Typing `docs/note.txt` as a new file's name is rejected instead of creating the folder; the feature is unmerged. lgse/strata#1511, lgse/strata#1512
+- With fcitx5 through GTK's input method module, the first composed key replaces the preselected stem as a raw character; IBus is unaffected. lgse/strata#1715

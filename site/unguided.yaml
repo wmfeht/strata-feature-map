@@ -7,12 +7,14 @@ browser/navigation/recent: No upstream user doc covered Recent; the guide does n
 browser/properties/size: No upstream user doc covered Properties; the guide does not cover it yet.
 browser/search/exclusions: Covered by the Find files guide page; its upstream doc, docs/preferences.md, stays upstream as contributor material.
 browser/selection/marquee: No upstream user doc covered pointer selection; the guide does not cover it yet.
+browser/sidebar/connect-to-server: New since v1.0.0; the next release docs run places it.
 browser/sidebar/pins: No upstream user doc covered pinned folders; the guide does not cover it yet.
 browser/thumbnails/cache: Internal cache with no user setting beyond what the Preview sandbox page says about thumbnails.
 browser/view-modes/icons: Covered by the Views guide page; no upstream user doc described view modes.
 browser/view-modes/list/column-layout: New since v1.0.0; the next release docs run places it.
 browser/view-modes/sorting: Covered by the Views guide page; no upstream user doc described sorting.
 browser/view-modes/text-size: Covered by the Views guide page; no upstream user doc described text size.
+browser/view-modes/thumbnail-size: New since v1.0.0; the next release docs run places it.
 devices/volumes/encrypted: Covered by the Remote and devices guide page; no upstream user doc described unlocking volumes in Strata.
 devices/volumes/release: Covered by the Remote and devices guide page; no upstream user doc described unmount and eject.
 integration/open-with: No upstream user doc covered Open With; the guide does not cover it yet.
@@ -22,11 +24,18 @@ operations/clipboard/send-to: No upstream user doc covered Send to; the guide do
 operations/drag-and-drop: Covered by the Everyday operations guide page; its upstream doc, docs/preferences.md, stays upstream.
 operations/drag-and-drop/column-autoscroll: Pointer detail of Columns drag; no upstream user doc covered it.
 operations/drag-and-drop/copy-or-move: Covered by the Everyday operations guide page; no upstream user doc described the drop policy.
+operations/filesystem-compatibility: New since v1.0.0; the next release docs run places it.
 operations/trash/animation: Visual effect with no user-facing setting to document.
 operations/trash/empty: No upstream user doc covered Empty Trash; its testing doc stays upstream.
 operations/trash/restore: Covered by the Everyday operations guide page; its upstream doc, docs/trash-restore-testing.md, is testing guidance and stays upstream.
+preview/preview-panel/model-views: New since v1.0.0; the next release docs run places it.
 remote/file-providers: Parent with no Behavior of its own; its children are on the SFTP locations and External file providers pages.
+remote/file-providers/integrations: New since v1.0.0; the next release docs run places it.
+remote/file-providers/kde-connect: New since v1.0.0; the next release docs run places it.
+remote/file-providers/localsend: New since v1.0.0; the next release docs run places it.
+settings/diagnostics: New since v1.0.0; the next release docs run places it.
 settings/preferences/date-format: Covered by the Settings guide page; its upstream doc, docs/preferences.md, stays upstream.
 settings/preferences/language: Covered by the Settings guide page; its upstream doc, docs/internationalization.md, stays upstream.
 settings/preferences/storage: Covered by the Settings guide page; its upstream doc, docs/preferences.md, stays upstream.
 settings/themes/corner-roundness: New since v1.0.0; the next release docs run places it.
+settings/themes/interface-font: New since v1.0.0; the next release docs run places it.

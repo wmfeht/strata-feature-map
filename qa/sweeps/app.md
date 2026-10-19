@@ -1,8 +1,8 @@
 ---
 title: App sweep
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
-tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
+tools: [scripts/test_installer.py, install.sh, scripts/installer_messages.py, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
@@ -17,6 +17,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Network control for update checks and downloads. Point `HTTPS_PROXY` at a closed port for a fast failure and at a `nc -l` socket for a stall; run under `unshare -rn` when the proxy is ignored. Live GitHub checks are capped at 60 per hour, so plan them.
 - A fake package-managed install: copy the binary to `<prefix>/bin/strata` and write `<prefix>/share/strata/install-source.toml` in the shape `docs/packaging.md` gives. Keep one marker per manager and channel, one with unknown keys, and one made unreadable with `chmod 000`.
 - The installer is never run on the host. Evidence is `python3 scripts/test_installer.py`, `bash install.sh --help`, and the script read against its Behavior; a fake `omarchy` on `PATH` and `~/.local/share/omarchy/version` under the throwaway `HOME` feed the detection cases.
+- Installer menus: drive `install.sh` through a pseudo-terminal in a throwaway `HOME`, with stub `curl`, `pacman`, `sudo`, `gh`, and `gdbus` on `PATH`, as the `scripts/test_installer.py` fixture does; set the size with `stty rows N cols M`.
 - Animation and scale: the harness `settings.ini` sets `gtk-enable-animations=false`, so set it `true` for animation probes and toggle `reduce_motion` in `settings.toml`. Set `text_size = 8` and `48` for layout probes.
 - AT-SPI dumps from `tests/e2e/harness/tree.py` or an ad-hoc `gi.repository.Atspi` script under `/tmp`; `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
@@ -72,6 +73,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In F1 search, type, cut, paste, and select all, then undo and redo past the opening query; repeat on a Russian-only keymap.
 - Type an unmatched F1 query at the narrowest window width and with the interface in German, then clear the query and read the results area.
 - Read the footer's F1 Shortcuts label and its accessible name with the interface in ja, de, and zh-CN, at text size 8 and 48.
+- With fcitx5 pinyin running, open F1, switch to pinyin with Ctrl+Space, and press Ctrl+Left, Ctrl+Backspace, and Ctrl+, while a composition is pending.
+- In 10xer mode, type `~` in the global search field, Settings search, a rename field, and the Compress name field; then focus an F1 category and press `~`.
+- In Icons, search F1 for `ctrl+alt+0`, `+`, and `thumbnail` in both maps, with the interface in English and German.
 
 ### app/window
 
@@ -87,6 +91,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
 - Under the client-decorating compositor, open a window, a second window, a new tab, and the portal chooser; drag each edge and corner, then maximize, tile, and fullscreen and read the window border each time.
 - Under the client-decorating compositor, open a modal dialog and the search palette and check that the blur covers the header.
+- With F1 open from Columns, List, and Icons, press F5, Ctrl+K, Ctrl+Alt+T, and Ctrl+\\ with focus on a category and on the results; close F1 and press each again.
 
 ### app/packaging
 
@@ -94,6 +99,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `strata --version`, `strata --version ~/Documents`, `strata ~/Documents --version`, and `strata --version` with `DISPLAY` unset; compare the output with the prerelease build and check no window appears.
 - Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version` with the Settings → Updates version line in each.
 - Install with `mise run install-local` into a throwaway `HOME`, read `Exec=` in the installed entry, uninstall, and list what remains.
+- Read the launcher's name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, and `zh_MO.UTF-8`.
 
 ### app/packaging/installer
 
@@ -101,6 +107,13 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Feed Omarchy detection `dev (b280f130)`, `Omarchy 2.3.1`, `3.10`, `4.0-beta`, and an empty file through the fake `omarchy` and the `~/.local/share/omarchy/version` file.
 - Drive the download step against a local copy of a release with a wrong `.sha256`, a missing `.sha256`, and an archive lacking the icon; nothing may land in `~/.local/bin`.
 - Write a bindings file with the marker block already present, run the keybind step twice, and diff; then make `hyprctl` report an error and check the backup restores.
+- Drive the menus at 23×80, 24×63, and 24×64, with `TERM=dumb`, and with stdout piped to `cat`; press Escape and `q` in each menu.
+- In the custom menu, toggle Default file manager, Open file location, and Application launcher in every order, then read the plan's `+` lines.
+- In a numbered menu, enter `0`, `99`, `1 2`, `01`, and an empty line in both menus.
+- Run with `LANGUAGE=zz`, `LANGUAGE=zh-Hant-TW`, `LANG=zh_SG.UTF-8`, `LC_ALL=POSIX`, and `LC_MESSAGES=ko_KR.UTF-8` with `LANG=fr_FR.UTF-8`; read the banner, menus, and failure lines.
+- Make the stub `gdbus` hang past 5 s, exit 1, and be absent while installing Open file location; read the heading and whether the log is kept.
+- Fail the package step, the desktop-entry step, and the udiskie step in turn; read the failure lines and the retained log.
+- Run with `TMPDIR` unset, pointing at a read-only directory, and at a path with spaces.
 
 ### app/packaging/aur
 
@@ -126,6 +139,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Compose a hangul syllable in a rename, then press Down, Ctrl+A, and Tab instead of Escape; read the name and where focus lands.
 - Start composing in a Settings search field shown in a popover, and in the file chooser's location field, then press Escape.
 - With the interface in ja, read the shortcut labels in the footer and header tooltips.
+- With chewing (Zhuyin) active, start syllables with `1`, `-`, and `;` in the location field, a rename, F1 search, and a 10xer footer prompt.
+- On `tw` and `tw(indigenous)`, type the AltGr digit-row marks in a rename field, then press `t` and AltGr+1 in 10xer mode.
+- With IBus, press Super+Space in a dialog's entry, Settings search, and the Open With search field.
 
 ### app/updates
 
@@ -164,6 +180,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open `sftp://user:secret@host/dir?token=x#frag` with debug logging on and grep the log for `secret`, `token`, and `frag`.
 - Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 - Run Strata under `strace -f -e trace=execve`, open a folder of 200 text files named `.mp4` and `.png` in Icons, and count `ffprobe` launches; repeat with one real clip among them.
+- Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode; read every row the view shows during the copy.
 
 ## Hand-offs
 
@@ -181,3 +198,4 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Chosen states of Settings choice options and the Hidden files option → `settings`.
 - The contents and outcome of operation dialogs such as paste conflicts, Compress, and progress → `operations`.
 - The mount authentication dialog and remote paths in the search palette → `remote`.
+- Thumbnail size steps and the size notice → `browser`.
