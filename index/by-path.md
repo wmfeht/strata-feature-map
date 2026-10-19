@@ -380,7 +380,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/tests.rs` | tests | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `src/trusted_command.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/trusted_command/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/trusted_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/accessibility.rs` | code | [Accessibility](../features/app/accessibility.md) | — |
 | `src/ui/accessibility/tests.rs` | tests | [Accessibility](../features/app/accessibility.md) | — |
 | `src/ui/actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |

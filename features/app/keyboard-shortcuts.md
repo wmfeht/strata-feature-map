@@ -76,7 +76,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - Accented Latin letters such as German ö also use the fallback, so ö acts as `;` in 10xer. The owner kept this because Thai and Arabic have no `;` key; only typing destinations escape the fallback (lgse/strata#1576).
 - GTK runs a field's input method only after every capture-phase handler. `keys::on_press` therefore forwards keys to a composing field first, as GtkSearchEntry's key capture does; with nothing composing the cost is one empty-list check (lgse/strata#1583).
 - A field that submits on Enter must also submit from `activate`, which is how Enter arrives after an input method passes it back (lgse/strata#1583).
-- The switch-key, Zhuyin, and `tw` bullets restate rules that #1714 added to docs/keyboard-shortcuts.md after checking Taiwan layouts. #1714 changed none of this node's code; these keys already worked (lgse/strata#1714).
+- No command takes a plain digit or punctuation key while a text field has focus, so Zhuyin syllables reach the input method; new bindings must keep it that way (lgse/strata#1714).
 - On Wayland the input method runs in the compositor, so the keys it uses never reach Strata (lgse/strata#1583).
 
 ## History

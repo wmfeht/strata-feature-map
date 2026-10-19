@@ -6,7 +6,7 @@ branch: null
 reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
-tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/trusted_command/tests.rs, src/sandbox/runtime/tests.rs]
+tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
 related: [preview/preview-panel/media, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
 ---
@@ -21,11 +21,6 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 - Strata runs `bwrap` only from `/run/wrappers/bin`, `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin`, the NixOS and Guix system profiles, or build-time `STRATA_TRUSTED_COMMAND_PATH` directories, never from `PATH`. lgse/strata#1055, lgse/strata#1746
 - A build with `STRATA_TRUSTED_COMMAND_PATH=/nix/store/<bwrap>/bin` and no system bubblewrap finds `bwrap` there, and native previews render. lgse/strata#1746, lgse/strata#1702
-- A helper present in both a fixed root and a configured directory resolves to the fixed-root copy. lgse/strata#1746
-- A build with an empty or relative `STRATA_TRUSTED_COMMAND_PATH` entry, such as `relative/bin` or a trailing `:`, fails with "must be an absolute directory". lgse/strata#1746
-- A configured directory that is missing or does not canonicalize under `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin`, `/run/wrappers/bin`, `/nix/store`, or `/gnu/store` is skipped. lgse/strata#1746
-- A helper in a configured directory whose canonical target lies outside those roots is rejected, and the search moves to the next directory. lgse/strata#1746
-- With no trusted copy in any directory, the lookup fails closed. lgse/strata#1055, lgse/strata#1746
 - A search hit whose canonical target lies outside FHS, `/run/wrappers/bin`, `/nix/store`, or `/gnu/store` is rejected, and previews fail closed. lgse/strata#1055
 - When bubblewrap is missing or cannot start, a native-format preview shows "Preview unavailable" and the file is never decoded outside the sandbox. lgse/strata#17, lgse/strata#1503
 - `STRATA_SANDBOX_PATH`, `STRATA_SANDBOX_ROOT`, `STRATA_SANDBOX_PRLIMIT`, and `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` set at launch override the values embedded at build time. lgse/strata#1357, lgse/strata#1746, lgse/strata#1599
