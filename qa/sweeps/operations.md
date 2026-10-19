@@ -40,12 +40,14 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Create with a 255-byte name, a name ending in a space, and `.hidden` with hidden files off.
 - Press Ctrl+Shift+N ten times quickly while earlier items are still in their editors; the `(n)` suffixes must stay unique.
 - Press Ctrl+Alt+N in Columns with a selection in one column and keyboard focus in another, and with a selection of only hidden items after hidden files are turned off.
-- On vfat and on an SMB share with POSIX extensions, take `new folder` with a file, then create in a folder whose names are near the length limit.
+- On vfat and on an SMB share with POSIX extensions, take `new folder` with a file, then create there.
+- Create in a folder whose names are near the length limit.
 
 ### operations/rename
 
 - Commit by Enter, by clicking another item, by clicking the background, and press F5 while editing.
-- Focus a second window mid-edit, switch input methods with Super+Space under IBus and Ctrl+Space under fcitx5, then come back and press Escape.
+- Focus a second window mid-edit, then come back and press Escape.
+- Mid-edit, switch input methods with Super+Space under IBus and Ctrl+Space under fcitx5.
 - Leave an edit open while another window is active, then close the Strata window from the taskbar; read the name on disk.
 - On a vfat or SMB mount, rename to a case-only variant, to a name holding a tab or a combining mark, and to `notes.`; then undo each.
 - Rename to a name differing only by case, to an existing name, to a name containing `/`, and to a 255-byte name, in each mode.
@@ -102,7 +104,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Build a folder holding `10:00`, `notes.`, `CON`, `aux.c`, `report?.txt`, a non-UTF-8 `caf\xe9.txt`, a symlink to `10:00` and a dangling symlink. Copy, move, undo and redo it onto every lab mount and a real stick, then extract it as a tar.
 - Move a folder across disks while one shell loop appends to a file in it. Repeat while another loop renames a sibling into it.
 - Move hard-linked files off an SMB share right after writing them, and off FAT within 2 s of saving them.
-- Copy a folder holding hard links, a FIFO, a socket, a device node, a `0555` subfolder with `user.*` xattrs, and a 1 GiB sparse file into a setgid folder.
+- Move a folder holding two hard-linked names from a real SMB share and from a vfat stick. Rewrite the later name, at the same size, within 1 s of starting.
+- Copy a folder holding hard links, a FIFO, a socket, and a device node into a setgid folder.
+- Copy a `0555` subfolder with `user.*` xattrs and a 1 GiB sparse file the same way.
 - Pull the real stick during a copy and during a move's final flush; then list hidden `.strata-copy-*` entries on both sides.
 - Pause `sftp-server` with `kill -STOP` during a move onto sshfs, resume after 30 s, and compare both sides.
 - Paste onto a stick reached through two nested symlinks, and onto a bind mount of it.
@@ -220,7 +224,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Perform ten mixed operations (create, rename, paste, trash, compress, extract), undo all, redo all; the tree must match snapshots taken before and after.
 - Change an operation's target from a shell, then undo it; expect a clear failure and an intact history.
 - Press Ctrl+Z in a second window and in the file chooser.
-- Move the names folder onto vfat, rename one fixed name on the stick, then undo and redo.
+- Move the folder built for `operations/filesystem-compatibility` onto vfat, rename one fixed name on the stick, then undo and redo.
 
 ## Hand-offs
 

@@ -64,7 +64,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - On a package-managed install, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
-- Searching "typeface", "family", or "typography" shows Appearance's Interface font row. lgse/strata#1696 (unverified)
+- Searching "font" shows Appearance's Interface font row beside Text size. lgse/strata#1696
+- Searching "typeface" or "family" shows the Interface font row. lgse/strata#1696 (unverified)
 - Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735
 - Searching "add-ons" or "plugins" opens the Integrations page. lgse/strata#1748
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
@@ -125,7 +126,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 [docs/preferences.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
-- Settings is a layer inside the window, built on first open. Appearance, Actions, Integrations, and Updates build on first selection, because Updates starts package-manager detection and network work (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
+- Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work. Integrations joined them (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
 - Closing Settings returns focus to the file list, not to the gear or other chrome that opened it. Only a focused filter session gets its field or results back (owner decision, lgse/strata#1430, lgse/strata#1533).

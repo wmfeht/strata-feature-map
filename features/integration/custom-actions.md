@@ -59,6 +59,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Each action row has an enable switch and Edit, Duplicate, Export…, and Delete buttons. lgse/strata#1085
 - New action… opens an editor with General, Script, and Behavior tabs, and Create action saves all three. lgse/strata#1085
 - The editor's tab labels are in natural case. Hovering an inactive tab fades its label to full opacity with no background, and the selected tab's underline is as wide as its label. lgse/strata#1739
+- A keyboard-focused editor tab's focus ring clears its label text. lgse/strata#1739
 - The editor's toggles, such as Behavior → Confirm, match the Settings → General toggles in size, colors, and knob shape at every corner roundness. lgse/strata#1739
 - The editor's footer has no background of its own; Cancel and Create action or Save changes use the same button styles as other dialogs, such as Delete. lgse/strata#1739
 - If a field is invalid, the editor switches to that field's tab, keeps the edits, and writes nothing. lgse/strata#1085

@@ -46,7 +46,8 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - For a remote selection the subtitle reads "N items · X will be deleted". lgse/strata#1614
 - A selected symlink to a folder counts as 1 item of 0 B; its target's contents are not counted. lgse/strata#1627
 - A selected symlink whose size is unknown, such as a dangling link, does not make the finished subtitle read "At least". lgse/strata#1627 (unverified)
-- When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted", or "…will be deleted" when remote. lgse/strata#1134, lgse/strata#1614
+- When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
+- For a remote selection, it ends "…will be deleted" instead. lgse/strata#1614
 - After Shift+Delete, Permanently delete, or Delete without Trash, the confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266, lgse/strata#1533, lgse/strata#1614
 - Left or `h` focuses Cancel and Right or `l` focuses confirm; Enter and keypad Enter activate the focused button. lgse/strata#1052
 - With Cancel or Close focused, Enter dismisses the dialog and the files stay. lgse/strata#1052
@@ -60,7 +61,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - If a folder in the tree is moved while it is being deleted, deletion stops with an error instead of following it. lgse/strata#869
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
 - That dialog lists the first 8 errors as "name: reason" and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
-- Cancelling a permanent delete counts an item it left whole as not attempted. lgse/strata#1615 (unverified)
+- Cancelling a permanent delete counts an item it had started as failed, and items not yet started as not attempted. lgse/strata#1615
 - Ctrl+Z after a permanent delete does not restore the items; it undoes the undoable operation before it, such as a Move to Trash. lgse/strata#228 (unverified)
 
 ### Dissolve animation

@@ -48,7 +48,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - Ctrl+N takes the sidebar toggle's step and Ctrl+B pages up. lgse/strata#1304, lgse/strata#1606
 - An Enter that an input method consumes while composing never submits a footer prompt; an Enter it passes back submits it. lgse/strata#1583
 - A `create ›` or `rename ›` name check still running when the prompt is dismissed or edited creates or renames nothing. lgse/strata#1615 (unverified)
-- F1 or `~` toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272
+- F1, or `~` outside text fields, toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272, lgse/strata#1714
 - Context-menu hints hide the default `y` copy path, Space preview, and Ctrl+R rename hints while the mode is on. lgse/strata#1272, lgse/strata#1576
 - After returning from another window, `g`, `f`, and `s` act on the listing without first clicking a row. lgse/strata#1393
 

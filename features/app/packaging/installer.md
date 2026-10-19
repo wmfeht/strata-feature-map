@@ -23,7 +23,8 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - Run interactively without a readable and writable `/dev/tty`, it exits with "This interactive installer needs a terminal." lgse/strata#330 (unverified)
 - A machine other than x86_64 or aarch64 exits with "Strata has no prebuilt release for <machine>." lgse/strata#330
 - glibc older than 2.39 exits with "Strata requires glibc 2.39 or newer (found <version>)." lgse/strata#330
-- Before the setup menu, it prints one dim line, `<PRETTY_NAME or ID> · <arch>`, such as `Manjaro Linux · x86_64`; it prints no glibc or Omarchy line. lgse/strata#1730 (unverified)
+- Before the setup menu, it prints one dim line, `<PRETTY_NAME or ID> · <arch>`, such as `Manjaro Linux · x86_64`. lgse/strata#1730 (unverified)
+- It prints no glibc or Omarchy line. lgse/strata#1730 (unverified)
 - The Omarchy major is the first `3.N` or `4.N` token, not after a digit or dot, in `omarchy version`, `/usr/share/omarchy/version`, then `~/.local/share/omarchy/version`. lgse/strata#743
 - `omarchy version` output of `dev (b280f130)` or `Omarchy 2.3.1` is not detected as Omarchy 3. lgse/strata#743
 
@@ -52,7 +53,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 - Arch, an `ID_LIKE` containing `arch`, and Omarchy count as Arch-based. lgse/strata#330
 - On an Arch-based system, missing required packages and the selected `gvfs-smb`, RAW packages, and `xdg-desktop-portal` install in one `sudo pacman -S --needed` transaction. lgse/strata#1730
-- That transaction uses pacman's own confirmation. lgse/strata#1730
+- Interactively, that transaction uses pacman's own confirmation. lgse/strata#1730
 - An Arch-based or Omarchy system without `pacman` exits with "This Arch-based system does not provide pacman." lgse/strata#1730 (unverified)
 - The package transaction runs after the release is downloaded, verified, and unpacked, and before the binary is installed. lgse/strata#1730
 - The step prints "Packages to install: <packages>", or "All selected runtime packages are already installed." when none are missing. lgse/strata#1730 (unverified)
@@ -64,7 +65,8 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 - The installer downloads the latest stable release only; a latest tag not shaped `vX.Y.Z` exits with an error. lgse/strata#330 (unverified)
 - The archive must pass `sha256sum --check` against its published `.sha256` file before anything is extracted. lgse/strata#330, lgse/strata#775
-- Without `gh`, it notes "GitHub CLI is unavailable; continuing after HTTPS download and checksum verification." and continues; a logged-out `gh` gives "GitHub CLI is not authenticated; …". lgse/strata#775, lgse/strata#1730
+- Without `gh`, it notes "GitHub CLI is unavailable; continuing after HTTPS download and checksum verification." and continues. lgse/strata#775, lgse/strata#1730
+- With `gh` logged out, the note reads "GitHub CLI is not authenticated; …". lgse/strata#775, lgse/strata#1730
 - The missing or logged-out `gh` note does not count as a warning, so the summary can still read "Ready to explore". lgse/strata#1730
 - With an authenticated `gh`, it runs `gh attestation verify`, and a failed verification stops the install. lgse/strata#775
 - A failed checksum or provenance check installs no package and writes nothing to `~/.local/bin`. lgse/strata#1730
@@ -72,15 +74,17 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - An archive without an executable `strata`, the desktop entry, or the icon exits before installing. lgse/strata#330 (unverified)
 - With Open and Save dialogs selected, a release without `portal/strata.portal` exits with "This release does not include file chooser integration. Install a newer release." before installing. lgse/strata#1730 (unverified)
 - With Encrypted-drive unlock selected, a release without `udiskie/unlock` exits with "This release does not include encrypted-volume integration. Install a newer release." before installing packages or the binary. lgse/strata#1047, lgse/strata#1730 (unverified)
-- In a full-size terminal, the download shows a 27-cell bar with curl's real percentage, or a spinner while the total is unknown, and ends in a green ✓. lgse/strata#1730
-- Other steps show a spinner beside their label, then "✓ <label>". lgse/strata#1730
+- In a full-size terminal, the download shows a 27-cell bar with curl's real percentage, ending in a green ✓. lgse/strata#1730
+- While the download total is unknown, a spinner replaces the bar. lgse/strata#1730
+- In a full-size terminal, other steps show a spinner beside their label, then "✓ <label>". lgse/strata#1730
 - `--verbose` shows each step's full download and verification output. lgse/strata#1730
 
 ### Install
 
 - The binary is installed to `~/.local/bin/strata`. lgse/strata#330
 - When that file exists, the interactive installer prints "This replaces <path>. Your saved settings are kept." and asks nothing more; the unattended installer exits before downloading. lgse/strata#332, lgse/strata#1730 (unverified)
-- The summary heading reads "Ready to explore", "Installed with warnings", or "Installed — review setup details", then "Strata <version> is installed." and "Run <path> to get started." lgse/strata#1730 (unverified)
+- The summary heading reads "Ready to explore", "Installed with warnings", or "Installed — review setup details". lgse/strata#1730 (unverified)
+- The summary then reads "Strata <version> is installed." and "Run <path> to get started." lgse/strata#1730 (unverified)
 - When `~/.local/bin` is not on `PATH`, a warning says so and the heading reads "Installed with warnings". lgse/strata#330, lgse/strata#1730 (unverified)
 
 ### Logs and failures
@@ -95,24 +99,25 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 ### Language
 
-- When the first set of `LC_ALL`, `LC_MESSAGES`, and `LANG` is exactly `C` or `POSIX`, catalog text is English. lgse/strata#1730
-- Otherwise catalog text follows the first supported `LANGUAGE` entry, then that variable. lgse/strata#1730
+- When the first set of `LC_ALL`, `LC_MESSAGES`, and `LANG` is exactly `C` or `POSIX`, or when none is set, catalog text is English. lgse/strata#1730
+- Otherwise catalog text follows the first supported `LANGUAGE` entry, then the `LC_ALL`, `LC_MESSAGES`, or `LANG` value. lgse/strata#1730
 - Error lines such as "Unknown option: …" and the `gh` notes stay English in every locale. lgse/strata#1730 (unverified)
 - With `LANGUAGE=zz:fr` and `LC_ALL=C.UTF-8`, the plan reads "Installer dans <path>". lgse/strata#1730 (unverified)
 - With `LANGUAGE=fr` and `LC_ALL=C`, the plan reads "Install to <path>". lgse/strata#1730 (unverified)
 - `zh_TW`, `zh_HK`, `zh_MO`, and `zh-Hant…` show Traditional Chinese messages; every other `zh` locale shows Simplified Chinese. lgse/strata#1745
 - Paths in messages show literally, even when they hold `&` or `%{version}`. lgse/strata#1730 (unverified)
-- The installer ignores the language saved in Strata's Settings. lgse/strata#1730 (unverified)
+- The installer ignores the language saved in Strata's Settings. lgse/strata#1730
 
 ### Desktop integrations
 
 - Application launcher installs the icon and entry under `$XDG_DATA_HOME`, with `Exec` set to the installed binary. lgse/strata#330, lgse/strata#1730
 - Default file manager sets Strata as the `inode/directory` default and exits with an error if `xdg-mime query` then reports another handler. lgse/strata#330 (unverified)
 - Open file location writes `$XDG_DATA_HOME/dbus-1/services/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the installed binary. lgse/strata#317, lgse/strata#1730
-- After writing the "Open file location" service, the installer calls `org.freedesktop.DBus.ReloadConfig` on the session bus with a 5 s timeout, so Strata answers reveal requests without a re-login. lgse/strata#1699, lgse/strata#1728
+- After writing the "Open file location" service, the installer calls `org.freedesktop.DBus.ReloadConfig` on the session bus with a 5 s timeout. lgse/strata#1728
+- Strata then answers reveal requests in that session without a re-login. lgse/strata#1699, lgse/strata#1728
 - A successful reload prints `Strata now handles "Open file location" requests.` lgse/strata#1728
 - When the reload fails, times out, or `gdbus` is missing, the service stays installed and the installer warns "…could not reload the session bus. Log out and back in…" and continues. lgse/strata#1728
-- A failed service write, or another per-user FileManager1 provider, stops the step before any reload. lgse/strata#1728
+- A failed service write, or another per-user FileManager1 provider, exits the installer before any reload; later integrations do not run. lgse/strata#1728
 - Checking Open and Save dialogs, or passing `--with-file-chooser`, runs the installed binary with `--install-portal`. lgse/strata#175, lgse/strata#1730
 - The recommended setup, the option left unchecked, or `--without-file-chooser` runs `--dismiss-portal-prompt` when the release ships `portal/strata.portal`. lgse/strata#1730
 
@@ -141,7 +146,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 The manual archive steps were accurate but hard to follow safely: pick the architecture, install dependencies, find the release, verify it, place desktop metadata, and edit two Omarchy keybind formats. One verified installer was chosen over an unverified curl-only script or separate scripts per Omarchy version (lgse/strata#329).
 
 - Optional integrations stay opt-in. Unattended mode enabling every integration was rejected because associations and keybinds would be too invasive (lgse/strata#331).
-- The installer offers only integrations the system supports and rejects unsupported explicit flags before changing anything, so a run never fails halfway. On Manjaro without Omarchy, accepting the keybind question aborted after everything else was installed (lgse/strata#1727, lgse/strata#1730).
+- The installer offers only integrations the system supports and rejects unsupported explicit flags before changing anything, so an unsupported integration never fails after the install has begun. On Manjaro without Omarchy, accepting the keybind question aborted after everything else was installed (lgse/strata#1727, lgse/strata#1730).
 - Packages install in one transaction, after the release is verified, with the package manager's own confirmation (lgse/strata#1730).
 - Installer strings live in `data/locales/installer.json`, and `scripts/installer_messages.py --write` embeds them into `install.sh`. The installer needs no translation files, Python, or Strata binary at run time (lgse/strata#1730, docs/internationalization.md).
 - The SHA-256 check is mandatory. Attestation runs only with an authenticated `gh`, because `gh attestation verify` needs a login even for a public repository. Dropping attestation was rejected: it proves CI built the release (lgse/strata#731).
@@ -155,7 +160,7 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-10-17 | lgse/strata#1728 | fix | Reloaded the session bus after installing the FileManager1 service, so "Open file location" uses Strata without a re-login. |
-| 2026-10-17 | lgse/strata#1730 | fix | Replaced per-step questions with a recommended setup or a menu of supported integrations, rejected unsupported flags up front, and added localized text, progress, and logs. |
+| 2026-10-17 | lgse/strata#1730 | fix | Replaced per-step questions with a recommended setup or a menu of supported integrations, and rejected unsupported flags up front. |
 | 2026-09-13 | lgse/strata#743 | fix | Required a whole version token for the Omarchy major so dev-build hashes no longer select Omarchy 3. |
 | 2026-09-10 | lgse/strata#775 | fix | Made GitHub CLI and attestation optional, keeping checksum verification mandatory. |
 | 2026-09-10 | lgse/strata#748 | fix | Read pacman's interactive prompt from the terminal when the installer is piped into Bash. |

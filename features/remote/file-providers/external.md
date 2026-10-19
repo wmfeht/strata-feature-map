@@ -37,7 +37,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 ### Menus
 
-- Item and background menus show each provider's root actions that are not placed in Send to… in an inline section under a muted heading with its registered `name`, or its id. lgse/strata#1385, lgse/strata#1742
+- Item and background menus show each provider's root actions that are not placed in Send to… in an inline section. Its muted heading shows the registered `name`, or the id. lgse/strata#1385, lgse/strata#1742
 - A manifest `icon` is drawn before that heading's name in item and background menus, and on the provider's Send to… submenu or entry; a provider without one keeps the native section title. lgse/strata#1578, lgse/strata#1704
 - A background menu sends the current folder as the only path. lgse/strata#1385
 - An empty `actions` reply shows neither the section nor its heading. lgse/strata#1385
@@ -57,10 +57,10 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - A placed destination may have `children` within the 64-node, four-level bounds; its leaves activate with the whole selection, the action id, and `context`, with unchanged `feedback` handling. lgse/strata#1742
 - A provider's Send to… submenu without a manifest `icon` shows its `category` icon: `cloud` a cloud, `devices` a phone, `version-control` a git branch, and `other`, absent, or unknown a blocks icon. lgse/strata#1704
 - An `_` in a provider's name shows literally in its Send to… submenu label instead of marking a mnemonic. lgse/strata#1704 (unverified)
-- A provider with one root action placed `"send-to-entry"` and no `children` shows that leaf directly in Send to… with its own label, and its own `icon` or else the provider's icon. lgse/strata#1756
+- A provider with one root action placed `"send-to-entry"` and no `children` shows that leaf directly in Send to… with its own label. It shows its own `icon`, else the provider's manifest icon, else its category icon. lgse/strata#1756
 - A `send-to-entry` action with `children`, or beside another Send to… action from the same provider, joins that provider's Send to… submenu. lgse/strata#1756
 - A provider submenu that holds one `send-to` destination stays a submenu. lgse/strata#1756
-- When a refresh turns a single Send to… entry into a submenu, or back, the old item is removed and the new one takes its place in the open menu. lgse/strata#1756 (unverified)
+- When a refresh turns a single Send to… entry into a submenu, or back, the old item is removed. The new one takes its place in the open menu. lgse/strata#1756 (unverified)
 
 ### Activation
 

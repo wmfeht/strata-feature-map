@@ -7,9 +7,9 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 ## Scope
 
-Everything that shows a folder and moves through it without changing files: selection by pointer and keyboard, with marquee, pointer intent, and click modes; the Columns, Icons, and List views with sorting, per-folder views, text size, thumbnail size shortcuts, and position restore; Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump; Ctrl+K search, the Ctrl+F filter, and search exclusions; the sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice; thumbnails with their disk cache and worker pool; Properties with its media, RAW, and size details; and the context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore. Arrow focus between controls in modal dialogs belongs here too.
+Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool; Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
-Left to other sweeps: file drags once a press becomes one, drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser are also left out.
+Left to other sweeps: file drags once a press becomes one, drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
 ## Setup
 
@@ -170,10 +170,10 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
 - With a PDF's pages focused, press Ctrl++ and Ctrl+−, then Ctrl+keypad 0 with Num Lock on and off.
 - Press Ctrl++ at 48 and Ctrl+− at 8, then change the size from the Appearance buttons and from Settings while a size notice still shows.
-- Ctrl+Shift+wheel in Columns and List over a long listing, with a touchpad and a mouse.
 
 ### browser/view-modes/thumbnail-size
 
+- Ctrl+Shift+wheel in Columns and List over a long listing, with a touchpad and a mouse.
 - Press Ctrl+Alt+keypad + and Ctrl+Alt+keypad −, then on `de` and `fr` Ctrl+Alt with the keys that type + and −.
 - Drag the slider to 100 px and step up and down; drag it to 33 px and step down twice.
 - Hold Ctrl+Shift and scroll a touchpad slowly, then fast; then release Shift mid-scroll and keep scrolling.

@@ -80,7 +80,8 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - One unmodified click or Enter opens a result, whatever the click-count and preview preferences. lgse/strata#697
 - In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
 - In the filter field or its results, Space toggles quick preview for the selected file result and keeps the query; Shift+Space types a space. lgse/strata#585, lgse/strata#1714
-- With a file result selected, Space in the location bar, the preview find bar, or the archive password field types a space and opens no preview, in every view. lgse/strata#1714
+- With a file result selected, Space in the location bar, the preview find bar, or the archive password field types a space. lgse/strata#1714
+- In those fields Space opens no preview, in every view. lgse/strata#1714
 - With a file result selected and focus on a sidebar row or a toolbar button, Space does what that control does and does not preview the result. lgse/strata#1714
 - In the file chooser, Space typed in the file name or location field with a result selected types a space. lgse/strata#1714
 - With a pinyin input method composing in the filter, Space picks a candidate and does not open quick preview. lgse/strata#1583

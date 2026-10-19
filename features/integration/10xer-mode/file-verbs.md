@@ -45,7 +45,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `a` opens `create ›`; Enter creates an empty file with exactly the typed name, or a folder when the name ends in `/`. lgse/strata#1306
 - An empty, invalid, or taken name, including one taken by a broken link, keeps the `create ›` prompt open with the reason; nothing is renumbered or replaced. lgse/strata#1306
-- In `create ›` or `rename ›`, a name the location would store as another, such as `x:y` on vfat, keeps the prompt open with the reason. So does a 300-character name, with "The name is too long". Nothing changes. lgse/strata#1615
+- In `create ›` or `rename ›`, a name the location would store as another keeps the prompt open with the reason. An example is `x:y` on vfat. So does a 300-character name, with "The name is too long". Nothing changes. lgse/strata#1615
 - `rename ›` to a case-only variant of the item's own name, on a case-insensitive location, renames it instead of reporting the name taken. lgse/strata#1615
 - `rename ›` to another name of the same file, such as a hard link, closes the prompt. The rename then fails with a dialog, and both names keep their contents. lgse/strata#1615 (unverified)
 - Ctrl+Shift+N still creates a numbered new folder and renames it in place. lgse/strata#1306

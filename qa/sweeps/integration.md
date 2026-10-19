@@ -20,7 +20,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A fake `.desktop` default handler under `$XDG_DATA_HOME/applications` that logs its argv, in `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
-- A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount, for typed-name and Trash-refusal probes.
+- A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount. Typed-name and Trash-refusal probes use them.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - Keyboard layout `fr` from the E2E `keyboard_layout` fixture or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the fixture lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
@@ -52,7 +52,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With 10xer mode on, arm `g` with focus on a PDF page in the preview, press Ctrl+0, then press `d`; read the chord panel, the page width, and the location.
 - In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
 - Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
-- With 10xer mode on, open F1 in a chooser and turn the mode off from a browser window. Press Ctrl+plus, Ctrl+3, Ctrl+A, and Enter, then type in the reference search under fcitx5. Press Escape twice and read the response code.
+- With 10xer mode on, open F1 in a chooser and turn the mode off from a browser window. Press Ctrl+plus, Ctrl+3, Ctrl+A, and Enter. Press Escape twice and read the response code.
 - Select a filter result, then press Shift+Space in Name under `save` and Space while an input method composes. Press Space on a sidebar row and a header button.
 - Right-click an item on the sshfs mount, a mix of sshfs and Home items, and an item on a `fuseblk` mount; read the delete entries.
 
@@ -89,6 +89,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 ### integration/10xer-mode
 
+- On a slow sshfs mount, submit a `rename ›` name, then edit it or press Esc before the check returns; read the folder afterwards.
 - Press Ctrl+Shift+M over a modal, in the location field, in an inline rename, in the sidebar, in Settings, and in a chooser; toggle twice within 1.5 seconds.
 - Toggle the mode with a pane filter, a subfolder Ctrl+F scope, a `v` range, a folder peek, and an open preview active at once; toggle back and compare each pane.
 - With three windows open, toggle the mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K and Ctrl+\ from the file list. Close one window and check again.
@@ -140,7 +141,6 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
 - Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
 - On the vfat mount, submit `CON`, `a.`, ` lead`, `x:y`, and a name with U+200B in `create ›` and `rename ›`. On vfat and casefold, `rename ›` `Notes.txt` to `notes.txt`.
-- On a slow sshfs mount, submit a `rename ›` name, then edit it or press Esc before the check returns; read the folder afterwards.
 - On the sshfs mount, press `d` until Trash is refused, then `d` again before and after F5, and from a second window; read each dialog.
 - Press `x` on a file, then `p` into a folder holding the same name, choose the focused button, and press Ctrl+Z.
 - On `fr`, press `;` then each digit-row key with and without Shift, with 10 and with 3 matching actions.
@@ -194,7 +194,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Install the service copy, call with Strata not running, then twice within one second; run a stub owning the name first and call again; read `busctl --user status org.freedesktop.FileManager1`.
 - Call `ShowItemProperties` with two files in one folder, with a folder, and with a Trash URI; call `ShowFolders` on a folder already open in a window and with the mode on.
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
-- After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed, without logging out.
+- After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed.
 
 ## Hand-offs
 

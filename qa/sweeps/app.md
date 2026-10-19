@@ -75,7 +75,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Type an unmatched F1 query at the narrowest window width and with the interface in German, then clear the query and read the results area.
 - Read the footer's F1 Shortcuts label and its accessible name with the interface in ja, de, and zh-CN, at text size 8 and 48.
 - With fcitx5 pinyin running, open F1, switch to pinyin with Ctrl+Space, and press Ctrl+Left, Ctrl+Backspace, and Ctrl+, while a composition is pending.
-- In 10xer mode, type `~` in the global search field, Settings search, a rename field, and the Compress name field; then focus an F1 category and press `~`.
+- In 10xer mode, type `~` in the global search field, Settings search, a rename field, and the Compress name field.
+- Focus an F1 category and press `~`.
 - In Icons, search F1 for `ctrl+alt+0`, `+`, and `thumbnail` in both maps, with the interface in English and German.
 
 ### app/window
@@ -101,7 +102,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `strata --version`, `strata --version ~/Documents`, `strata ~/Documents --version`, and `strata --version` with `DISPLAY` unset; compare the output with the prerelease build and check no window appears.
 - Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version` with the Settings → Updates version line in each.
 - Install with `mise run install-local` into a throwaway `HOME`, read `Exec=` in the installed entry, uninstall, and list what remains.
-- Read the launcher's name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, and `zh_MO.UTF-8`.
+- Read the launcher's generic name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, and `zh_MO.UTF-8`.
 
 ### app/packaging/installer
 

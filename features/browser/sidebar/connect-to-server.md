@@ -27,12 +27,14 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 
 ### Connecting
 
-- Connect on an address that cannot be opened, such as `nonsense`, shows an inline error under the address, marks the field as an error, and keeps the dialog open. lgse/strata#1726
+- Connect on an address that cannot be opened, such as `nonsense`, shows an inline error under the address. lgse/strata#1726
+- That error marks the field as an error and keeps the dialog open. lgse/strata#1726
 - Editing the address clears that error. lgse/strata#1726
 - While connecting, the address field, the checkbox, and Connect are disabled, and a spinner labelled "Connecting…" runs through validation, mounting, and sign-in. lgse/strata#1726
 - A sign-in prompt raised while connecting stacks above the dialog. lgse/strata#1726
 - An unknown host such as `sftp://nonexistent.invalid/share`, a refused connection, a timeout, or a missing GVfs backend shows its message inline under the address. No second error dialog opens. lgse/strata#1726
-- A connection failure, other than an address rejected at once, that arrives less than 1 s after Connect keeps the dialog busy until 1 s has passed, then shows the error. lgse/strata#1726
+- A connection failure that arrives less than 1 s after Connect keeps the dialog busy until 1 s has passed, then shows the error. lgse/strata#1726
+- An address rejected at once shows its error without that wait. lgse/strata#1726 (unverified)
 - Cancelling the sign-in prompt returns the dialog to its editable state with no error message. lgse/strata#1726
 - Cancel, the close button, or Escape while connecting closes the dialog and cancels the pending validation or mount; nothing opens afterwards. lgse/strata#1726
 - A click outside the dialog does not close it while it is connecting or while the address is not empty. lgse/strata#1726 (unverified)

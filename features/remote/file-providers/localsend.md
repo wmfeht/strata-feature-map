@@ -13,13 +13,13 @@ related: [remote/file-providers/external, remote/file-providers/integrations, op
 
 ## Summary
 
-An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hands the selected files and folders to the installed LocalSend app, which then picks the device and sends. For users who would otherwise re-pick the same files in LocalSend's own dialog. It installs from `remote/file-providers/integrations`.
+An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hands the selected files and folders to the installed LocalSend app. LocalSend then picks the device and sends. For users who would otherwise re-pick the same files in LocalSend's own dialog. It installs from `remote/file-providers/integrations`.
 
 ## Behavior
 
 ### Menu
 
-- With the integration installed and LocalSend found, an item menu on files, folders, or both shows one Send to… row, LocalSend, with no submenu arrow and the `devices` phone icon. lgse/strata#1756
+- With the integration installed and LocalSend found, an item menu on files, folders, or both shows one Send to… row, LocalSend. It has no submenu arrow and shows the `devices` phone icon. lgse/strata#1756
 - A selection containing a symbolic link, a missing path, or an item that is neither a regular file nor a folder shows no LocalSend entry. lgse/strata#1756 (unverified)
 - A background (folder) menu shows no LocalSend entry. lgse/strata#1756 (unverified)
 - Without LocalSend in a trusted location, no LocalSend entry appears. lgse/strata#1756 (unverified)
@@ -34,8 +34,8 @@ An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hand
 - LocalSend exiting with a non-zero status within 1.5 seconds rejects the activation with "LocalSend closed before it opened the selection." lgse/strata#1756 (unverified)
 - A launch failure rejects the activation with "LocalSend could not be started." lgse/strata#1756 (unverified)
 - LocalSend removed while the menu is open rejects the activation with "LocalSend is not installed in a system directory." lgse/strata#1756 (unverified)
-- An item edited or replaced after the menu opened rejects the activation with "The selected items changed. Reopen the right-click menu." lgse/strata#1756
-- An item removed after the menu opened rejects the activation with "The selected items are no longer available." lgse/strata#1756 (unverified)
+- An item edited, or replaced by another regular file or folder, after the menu opened rejects the activation with "The selected items changed. Reopen the right-click menu." lgse/strata#1756
+- An item removed, or replaced by a symbolic link, after the menu opened rejects the activation with "The selected items are no longer available." lgse/strata#1756 (unverified)
 - An unreadable item, or a folder that cannot be traversed, rejects the activation with "One or more selected items cannot be read." lgse/strata#1756 (unverified)
 - A stale, forged, or reused menu token, or one older than 120 seconds, rejects the activation with "This LocalSend menu expired. Reopen the right-click menu." lgse/strata#1756
 - The token is consumed before the launch, so a lost reply cannot open the selection twice. lgse/strata#1756

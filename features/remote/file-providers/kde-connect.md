@@ -13,7 +13,7 @@ related: [remote/file-providers/external, remote/file-providers/integrations, op
 
 ## Summary
 
-An opt-in bundled file provider that lists paired KDE Connect devices under Send to… ▸ KDE Connect and sends the whole selection to the chosen device over D-Bus, with no device-picker window. For users moving from Nautilus who relied on KDE Connect's device-aware context menu. It installs from `remote/file-providers/integrations`.
+An opt-in bundled file provider that lists paired KDE Connect devices under Send to… ▸ KDE Connect. It sends the whole selection to the chosen device over D-Bus, with no device-picker window. For users moving from Nautilus who relied on KDE Connect's device-aware context menu. It installs from `remote/file-providers/integrations`.
 
 ## Behavior
 
@@ -44,7 +44,8 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 - A device that disconnected or turned off sharing, or a daemon restart, rejects the activation and sends nothing; it is never redirected to another device. lgse/strata#1704
 - When that change has not yet invalidated the open menu, the rejection reads "The selected device disconnected or file sharing was disabled." lgse/strata#1704 (unverified)
 - A stale, forged, or reused menu token rejects the activation with "This device menu expired. Reopen the right-click menu." lgse/strata#1704
-- A menu token expires 120 seconds after the menu was built, and any device change invalidates every token. lgse/strata#1704 (unverified)
+- A menu token expires 120 seconds after it was first issued; a menu reopened within that window reuses it. Any device change invalidates every token. lgse/strata#1704 (unverified)
+- A D-Bus failure while rechecking devices at activation rejects it with "KDE Connect is unavailable or the device list changed.", and a deadline overrun with "KDE Connect did not respond in time." lgse/strata#1704 (unverified)
 - A known D-Bus failure of `shareUrls`, such as an unknown object or access denied, rejects the activation with "The device is unavailable or file sharing was disabled." lgse/strata#1704 (unverified)
 - A D-Bus error outside the known unavailable cases reports an uncertain outcome, "KDE Connect did not confirm the submission. Check your device before retrying.", and is not retried. lgse/strata#1704
 

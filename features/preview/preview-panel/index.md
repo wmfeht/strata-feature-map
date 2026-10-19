@@ -51,7 +51,6 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Changing selection or closing the preview cancels a remote transfer. lgse/strata#834
 - Remote MOV and MP4 files up to 256 MiB play only after the download completes, within a 60-second deadline. lgse/strata#834
 - A RAW name the MIME database types as `application/octet-stream`, such as `GOPR0001.GPR`, still previews as a RAW image. lgse/strata#1698
-- A `.ptx` or `.crf` file is not treated as a RAW image. lgse/strata#1698
 - A RAW file on a GIO location previews after the original streams to a private temporary file, like other still images. lgse/strata#1698 (unverified)
 - PDF pages render at the preview pane's width, at most 1280 px, one page at a time across previews. lgse/strata#898, lgse/strata#823
 - Queued PDF pages that leave the view are cancelled before rendering. lgse/strata#898
@@ -72,7 +71,8 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Selecting another file resets the camera view to Front left. lgse/strata#1644, lgse/strata#1633
 - While camera views change, the header content type stays `model/stl` or `model/3mf`. lgse/strata#1644
 - All four camera views of a model share one bounding-box fit on a square canvas, so switching views never changes its scale or centring. lgse/strata#1644
-- Revisiting a camera view of the same model at the same size and theme is served from the preview cache; a first visit rereads and re-renders the mesh. lgse/strata#1644
+- Revisiting a camera view of the same model at the same size and theme is served from the preview cache. lgse/strata#1644
+- A first visit to a camera view rereads and re-renders the mesh. lgse/strata#1644
 - A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
 - A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
 - A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
@@ -97,7 +97,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 ## Design
 
-[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preview-sandbox.md) documents the providers, the remote still-image boundary, and model limits. Children inherit it.
+[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preview-sandbox.md) documents the providers, the remote still-image boundary, and model limits. Children inherit it.
 
 - Every browsed file is untrusted. Native parsing runs in the sandbox, and only bounded PNG, text, or validated JSON reaches the drawer (lgse/strata#6).
 - Eligibility is guessed from the name so listing stays cheap. An uncertain guess defers to the loader, which queries the content type of the one previewed file; listing and sorting stay name-only (lgse/strata#964).

@@ -21,7 +21,7 @@ An Interface font preference under Settings → Appearance → Text that picks t
 - Settings → Appearance → Text shows an Interface font row before Text size, described "The typeface for menus, file lists, and dialogs. File previews keep a monospace font." lgse/strata#1696
 - The row's button shows the saved family name, or "Default" when none is saved, and follows a change made in any other open Settings window. lgse/strata#1696
 - Opening the picker lists Default first, then the installed font families sorted case-insensitively without duplicates, each name drawn in the interface font. lgse/strata#1696
-- The family list is collected on the picker's first open, so a font installed while Settings is open does not appear until the page is rebuilt. lgse/strata#1696 (unverified)
+- The family list is collected on the picker's first open. A font installed later does not appear until a new window opens Settings or Strata restarts. lgse/strata#1696 (unverified)
 - The chosen family, or Default when none is saved, shows a check mark in the list. lgse/strata#1696 (unverified)
 - Typing in Search fonts keeps families whose name contains the query, ignoring case; with no match, "No fonts match" replaces the list. lgse/strata#1696
 - Each time the picker opens, Search fonts is cleared and focused. lgse/strata#1696 (unverified)

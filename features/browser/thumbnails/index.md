@@ -25,7 +25,8 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
 - Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
 - A fresh image decode fills the item's Icons caption with its source dimensions, such as `320×180`. lgse/strata#1081
-- A RAW file's Icons caption shows the full image size after orientation, such as `4000×6016` for a portrait DNG with a 6016×4000 crop, not the size of its embedded 160×120 thumbnail. lgse/strata#1698
+- A RAW file's Icons caption shows the full image size after orientation, not the size of its embedded 160×120 thumbnail. lgse/strata#1698
+- A portrait DNG with a 6016×4000 crop shows `4000×6016`. lgse/strata#1698
 
 ### Show thumbnails off
 

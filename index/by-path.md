@@ -128,13 +128,13 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/create_entry.rs` | code | [New Folder and New File](../features/operations/create.md) | — |
 | `src/adapters/local_operations/deletion.rs` | code | [Permanent deletion](../features/operations/delete.md) | — |
 | `src/adapters/local_operations/environment.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/fs_ops.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/fs_ops.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_operations/merge_aside.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/mount_profile.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
 | `src/adapters/local_operations/mount_profile/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
 | `src/adapters/local_operations/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
 | `src/adapters/local_operations/names/fix.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/native_fs.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_operations/owed.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
 | `src/adapters/local_operations/placement.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
 | `src/adapters/local_operations/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
@@ -162,7 +162,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/transfer_targets.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
 | `src/adapters/local_operations/typed_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/work_queue.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/work_queue.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/remote.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/remote/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
@@ -379,7 +379,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/test_support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/tests.rs` | tests | [Packaging and installation](../features/app/packaging/index.md) | — |
-| `src/trusted_command.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/trusted_command.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/trusted_command/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/accessibility.rs` | code | [Accessibility](../features/app/accessibility.md) | — |
 | `src/ui/accessibility/tests.rs` | tests | [Accessibility](../features/app/accessibility.md) | — |

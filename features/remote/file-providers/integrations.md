@@ -8,12 +8,12 @@ review: draft
 code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
 tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs, tests/e2e/scenarios/test_integrations.py]
 docs: [docs/file-providers.md, integrations/README.md]
-related: [remote/file-providers/external, remote/file-providers/kde-connect, remote/file-providers/localsend, settings/preferences]
+related: [remote/file-providers/external, remote/file-providers/kde-connect, remote/file-providers/localsend, settings/preferences, app/infrastructure]
 ---
 
 ## Summary
 
-Settings → Integrations, a catalog of opt-in provider programs bundled with Strata under `integrations/`. It installs an entry as an external file provider, updates it when the bundled copy changes, turns it off, and removes it, and it lists hand-made registrations beside catalog installs. For users who want KDE Connect or LocalSend in the context menu without copying files by hand.
+Settings → Integrations, a catalog of opt-in provider programs bundled with Strata under `integrations/`. It installs an entry as an external file provider, updates it when the bundled copy changes, turns it off, and removes it. It also lists hand-made registrations beside catalog installs. For users who want KDE Connect or LocalSend in the context menu without copying files by hand.
 
 ## Behavior
 

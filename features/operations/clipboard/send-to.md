@@ -16,7 +16,8 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 
 ## Behavior
 
-- The item menu shows Send to… only when items are selected and either a mounted, writable, local removable device exists or a provider places a destination there. lgse/strata#1278, lgse/strata#1393, lgse/strata#1742
+- The item menu shows Send to… only when items are selected. lgse/strata#1278
+- A mounted, writable, local removable device must exist, or a provider must place a destination there. lgse/strata#1278, lgse/strata#1393, lgse/strata#1742
 - Removable devices come first in Send to…, above one submenu per provider, named after the provider. lgse/strata#1742, lgse/strata#1704
 - Device rows are sorted by name, ignoring case; devices sharing one identity are left out. lgse/strata#1278 (unverified)
 - Each device submenu offers Drive root, up to 3 recent folders labeled "<folder> (recent)", and Choose folder…. lgse/strata#1278

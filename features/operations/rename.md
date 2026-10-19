@@ -62,7 +62,8 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Renaming onto an existing name overwrites nothing and reports "“name” already exists". lgse/strata#567 (unverified)
 - A local rename never replaces an item created at the new name meanwhile. lgse/strata#1615
 - A typed name the location would store as another, such as `x:y` or `notes.` on vfat, is refused before anything changes. lgse/strata#1615
-- The refusal reads "Names in this location can’t contain “:”", "…can’t end with a space or a period", "“CON” is a reserved name in this location", or "The name is too long". lgse/strata#1615
+- A refused character reads "Names in this location can’t contain “:”"; a trailing space or period reads "…can’t end with a space or a period". lgse/strata#1615
+- A reserved name reads "“CON” is a reserved name in this location", and an overlong one "The name is too long". lgse/strata#1615
 - A case-only rename, such as `notes.txt` to `Notes.txt`, succeeds on vfat, exFAT, SMB, casefold ext4, and exfat-fuse, and so does its undo. lgse/strata#1615
 - Renaming an `smb://` item with no GVfs backend running fails with the backend's message instead of ending Strata. lgse/strata#1615
 - Renaming a folder whose child columns are open keeps them open under the new path. lgse/strata#760

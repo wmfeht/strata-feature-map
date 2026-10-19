@@ -67,7 +67,8 @@ Creating an empty file or folder in the current directory from the background me
 - Choosing it, or Ctrl+Alt+N, creates a numbered `new folder` beside the selection, moves the selected items into it, and opens rename on the folder. lgse/strata#1349
 - Ctrl+Alt+N with nothing selected creates an empty `new folder` and moves nothing. This holds with the cursor on an item, or with only a load cursor on the first row. lgse/strata#1349, lgse/strata#1623
 - One Ctrl+Z moves the items back and moves the created folder to Trash. lgse/strata#1349
-- Where Trash is unavailable, such as on tmpfs, that Ctrl+Z moves the items back and removes the folder only if it is empty; a folder holding other items stays. lgse/strata#1614
+- Where Trash is unavailable, such as on tmpfs, that Ctrl+Z moves the items back. lgse/strata#1614
+- It then removes the folder only if it is empty; a folder holding other items stays. lgse/strata#1614
 
 ## Design
 

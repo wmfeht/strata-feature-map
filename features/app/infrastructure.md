@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#14, pr: lgse/strata#27}
 branch: null
 reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, docs/assets/strata-themes.png, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, mise.toml, mise.lock, scripts/benchmark-scroll.py, src/build_info.rs, src/services/native_fs.rs, src/ui/keys/bindings.rs, src/ui/keys/bindings/**, build.rs, deny.toml, .github/workflows/ci.yml, .github/workflows/e2e.yml, .github/workflows/e2e-cache.yml, .github/workflows/integrations.yml, .github/ISSUE_TEMPLATE/bug_report.yml, scripts/quality.sh, scripts/quality_ci.py, scripts/test-headless.py, scripts/integration_tests.py, src/ui/settings/install_command.rs]
+code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, docs/assets/strata-themes.png, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, mise.toml, mise.lock, scripts/benchmark-scroll.py, src/build_info.rs, src/services/native_fs.rs, src/ui/keys/bindings.rs, src/ui/keys/bindings/**, build.rs, deny.toml, .github/workflows/ci.yml, .github/workflows/e2e.yml, .github/workflows/e2e-cache.yml, .github/workflows/integrations.yml, .github/ISSUE_TEMPLATE/bug_report.yml, scripts/quality.sh, scripts/quality_ci.py, scripts/test-headless.py, scripts/integration_tests.py, src/ui/settings/install_command.rs, src/adapters/local_operations/fs_ops.rs, src/adapters/local_operations/native_fs.rs, src/adapters/local_operations/work_queue.rs, src/trusted_command.rs]
 tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py, tests/e2e/unit/test_harness.py, scripts/test_benchmark_scroll.py, src/build_info/tests.rs, scripts/test_quality_ci.py, scripts/test_quality_runner.py, scripts/test_headless_runner.py, scripts/test_e2e_runner.py, scripts/test_integration_tests.py, src/ui/settings/install_command/tests.rs]
 docs: [docs/performance-baseline.md, docs/hardened-configuration.md, docs/unsafe-code.md]
 related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring, preview/preview-panel]
@@ -53,11 +53,13 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - Display tries the decoded form first, so valid names such as `smb://host/café` still display decoded (lgse/strata#1533).
 - Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited. Plain `UriFlags::ENCODED` was rejected because it stops userinfo decoding (lgse/strata#1424, lgse/strata#1533).
 - The directory loader dropped unconvertible entries without a trace. Logging each skip keeps a future conversion failure visible (lgse/strata#1424, lgse/strata#1533).
+- The `fstatat` fallback widens `st_nlink` through a generic helper, because it is `u32` on aarch64 and `u64` on x86_64 (lgse/strata#1753, lgse/strata#1755).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-18 | lgse/strata#1755 | fix | Widened `st_nlink` in the legacy stat fallback so the aarch64 release builds again. |
 | 2026-10-17 | lgse/strata#1737 | ci | Moved the E2E suite to a manual-dispatch workflow and split Rust tests into four shards, since E2E gated every PR. |
 | 2026-10-15 | lgse/strata#1701 | test | Made the Open With and release tar test fixtures independent of the host's applications and `tar` location, for Nix builds. |
 | 2026-10-15 | lgse/strata#1700 | docs | Added a hardened-configuration guide that lists optional settings shrinking the attack surface. |

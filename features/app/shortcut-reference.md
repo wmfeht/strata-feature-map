@@ -26,7 +26,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - F1 still opens the reference from a footer prompt or text field. lgse/strata#1272 (unverified)
 - In 10xer mode, `~` typed in the open reference's search closes the reference. lgse/strata#1714
 - In 10xer mode with Russian active and a text field focused, Shift and the ё key type Ё instead of toggling the reference. lgse/strata#1576
-- In 10xer mode, a key that gives `~` only through the layout fallback, such as Russian ё, types itself in the open reference's search instead of closing it. lgse/strata#1576, lgse/strata#1714
+- In 10xer mode, Russian ё reads as `~` only through the layout fallback. In the open reference's search it types itself instead of closing it. lgse/strata#1576, lgse/strata#1714
 - The footer's "F1 Shortcuts" button toggles the reference and shows as pressed while it is open. lgse/strata#1034, lgse/strata#1376, lgse/strata#1688
 - Escape or a click on the backdrop closes the reference. lgse/strata#1376
 - Focusing another application window leaves the reference open with its search text, category, and scroll position. lgse/strata#1376
@@ -109,7 +109,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - The catalog is static data in `shortcut_reference.rs`, built per scope: view mode, key map, and portal chooser request. The chooser scope is described in `integration/10xer-mode/file-chooser`.
 - Rows hold binding constants from `ui::keys::bindings`, the ones handlers match, and render through one label formatter; no row carries a typed key label (lgse/strata#1576, `app/keyboard-shortcuts`).
 - The search field once let through only an allow-list of text-editing chords, which also blocked input-method switch keys and word movement. It now takes every key the reference does not use; a bubble-phase guard on the field stops unused Ctrl, Alt, and Super chords there (lgse/strata#1714).
-- In 10xer mode, `~` opens the reference only when no prompt or typing widget has focus, so text fields such as the location bar can type it (lgse/strata#1714).
+- In 10xer mode, `~` opens the reference only when no prompt or typing widget has focus. Text fields such as the location bar can then type it (lgse/strata#1714).
 - The reference shows only the active map, and planned keys are never advertised, so help describes only commands that run (lgse/strata#1272).
 - Settings once had its own Keybindings page, and the two catalogs drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - The reference is drawn in the window's overlay, not a `GtkPopover`. Hyprland sends `xdg_popup.done` when the window deactivates, and no popover setting kept it open (lgse/strata#1375).

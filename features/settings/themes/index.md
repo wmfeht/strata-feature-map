@@ -25,7 +25,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A theme is filed under Light when its background's relative luminance exceeds 0.4, including backgrounds written as `rgb()` or `#fff`. lgse/strata#742
 - Every bundled theme's text has at least 4.5:1 contrast on its background and 3:1 on its surface. lgse/strata#1570, lgse/strata#1459
 - Every bundled theme's dim text, as loaded, has at least 4.5:1 contrast on its background and 3:1 on its surface. lgse/strata#1724
-- Loading a bundled theme whose catalog dim text misses those floors blends it toward its text color in 1/255 steps, stopping at the first step that passes; Tokyo Night's #737aa2 loads as #767da6. lgse/strata#1724 (unverified)
+- Loading a bundled theme whose catalog dim text misses those floors blends it toward its text color in 1/255 steps, stopping at the first that passes. Tokyo Night's #737aa2 loads as #767da6. lgse/strata#1724 (unverified)
 - A custom theme file keeps its dim text as written, even below those floors. lgse/strata#1724
 - Material Lighter draws text in #455A64, 6.94:1 on its background, and dim text in #5c7785, lifted from its catalog #607D8B. lgse/strata#1570, lgse/strata#1459, lgse/strata#1724 (unverified)
 - Material Vivid draws text in #9e9e9e, 6.01:1 on its background. lgse/strata#1570, lgse/strata#1459
@@ -93,7 +93,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ### Styling and effects
 
-- Settings navigation, close, and search icons, and the About and release-notes icons, draw in the theme's accent color at 0.65 opacity, without desaturation; the active page's navigation icon is opaque. lgse/strata#1724 (unverified)
+- Settings navigation, close, and search icons, and the About and release-notes icons, draw in the accent color at 0.65 opacity, without desaturation. lgse/strata#1724 (unverified)
+- The active page's navigation icon draws at full opacity. lgse/strata#1724 (unverified)
 - Strata's stylesheet reads the nine tokens as `@strata_bg`, `@strata_surface`, `@strata_text`, `@strata_accent`, `@strata_danger`, `@strata_muted`, `@strata_highlight`, `@strata_border`, and `@strata_dim_text`. lgse/strata#1412
 - User CSS that redefines the former `@theme_*` names no longer changes Strata's colors. lgse/strata#1412
 - A rule in `~/.config/gtk-4.0/gtk.css` changes no property of Strata's widgets. Examples are `label { color: red }`, `button { min-width: 60px }`, and `* { outline: 3px solid red }`. lgse/strata#1680, lgse/strata#1682

@@ -49,7 +49,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Arm a 10xer chord, then press Ctrl+0 in a zoomed PDF in the main window.
 - Ctrl+wheel with a touchpad over a PDF's scrollbar, on X11 and on Wayland.
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
-- Preview the `.GPR` and `.ARQ` samples from a local folder and from an sftp mount, and a Pro Tools `.ptx` file.
+- Preview the `.GPR` and `.ARQ` samples from a local folder and from an sftp mount.
+- Pick Back right, change the theme twice, then select the next model file and come back.
 
 ### preview/preview-panel/layout
 
@@ -130,7 +131,6 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 ### preview/preview-panel/model-views
 
 - Step through all four views on the STL near 2 million triangles, clicking Next again before each render ends; watch the bwrap count.
-- Pick Back right, change the theme twice, then select the next model file and come back.
 - Pick a view, then switch view mode between Columns, Icons, and List with the preview open.
 - With a filter typed and a reversed sort, read the position eyebrow over a folder mixing STL, 3MF, FreeCAD, and non-model files.
 - Toggle Reduce motion mid-sweep of the indicator, and close the drawer mid-sweep.
@@ -174,6 +174,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 ## Hand-offs
 
 - Thumbnails in the listing and the thumbnail worker pool → `browser`.
+- The RAW extension list, including `.ptx` and `.crf` → `browser`.
 - Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
 - F1 reference rows for preview find and media keys → `app`.

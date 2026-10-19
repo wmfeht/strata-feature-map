@@ -1,7 +1,7 @@
 ---
 title: Devices sweep
 reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
-tools: [docs/preview-sandbox.md, data/udiskie/unlock, install.sh]
+tools: [docs/preview-sandbox.md, data/udiskie/unlock]
 ---
 
 ## Scope

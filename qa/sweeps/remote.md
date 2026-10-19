@@ -14,7 +14,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 
 - `GIO_USE_VFS` must not be `local` and `GIO_USE_VOLUME_MONITOR` must be unset for every probe here. The E2E environment sets `GIO_USE_VFS=local`, which disables GVfs; drop that variable, keep the private D-Bus session, and start `gvfsd` on it before launching Strata.
 - `scripts/sftp-fixture.sh --port 2222` for a working `sftp://` location; `--keep` and a second run on the same port for a changed host key; `STRATA_SFTP_PASSWORD` for password prompts. An isolated `known_hosts` and a non-loopback relay for trust questions, per `docs/remote-sftp.md`.
-- An `smb://` URI that does not resolve (`smb://no-such-host.invalid/share`), one that refuses (`smb://127.0.0.1:1/share`), and, when Samba is installed, a local share with a guest-readable folder, a password-protected folder, and a 20k-entry folder.
+- An `smb://` URI that does not resolve (`smb://no-such-host.invalid/share`) and one that refuses (`smb://127.0.0.1:1/share`). When Samba is installed, a local share with a guest-readable folder, a password-protected folder, and a 20k-entry folder.
 - A fake provider under `$XDG_CONFIG_HOME/strata/providers/<id>/provider.json`: a Python script that answers from a scenario file so delays, malformed frames, oversized frames, silence, and exits can be switched per request without restarting Strata. `docs/file-providers.md` gives the frames.
 - A way to cut the network mid-session: `unshare -n` around the whole stack, or an `nft`/`iptables` rule that drops the fixture's port while a listing is in flight.
 - `RUST_LOG=info` for one run and `RUST_LOG=debug` for a second; grep both logs for every hostname, username, password, and token used during the sweep.
@@ -38,7 +38,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Have the fixture's `sshd` refuse, drop the TCP connection after the banner, and hang without a banner; read the message each produces and how long each takes.
 - Open `smb://host/` for a server exposing a share with `%20`, a Unicode name, and an `IPC$`-style hidden share; activate each and look for FUSE paths.
 - On the SFTP fixture, create `$(printf 'caf\xe9')`, a file named `a%2Fb`, and `café`; open, rename, and delete each, then read the location field, breadcrumbs, window title, and Properties.
-- Drop files onto a remote folder in the file pane and onto its DEVICES row, then search with Ctrl+F inside the remote folder with Include subfolders on and read what the UI says.
+- Drop files onto a remote folder in the file pane and onto its DEVICES row. Then search with Ctrl+F inside the remote folder with Include subfolders on, and read what the UI says.
 - On the SFTP fixture, build a folder holding hidden files, a symlink to a folder, and nested folders. Press Delete on it, then open Properties on it alone and in a multi-selection, watching the log for GLib-GIO criticals.
 - Type `network:`, `network://`, and `network:///` in the location bar, then switch Strata's language while the Network column is open; read the heading, breadcrumbs, window title, and tab title.
 - Start Strata with `gvfsd` stopped and D-Bus activation masked, then with `gvfsd` running but `gvfsd-sftp` removed; compare startup time and the two failure texts.
@@ -59,8 +59,8 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Start Strata with no provider registered and browse a folder in Icons for a second. Then register one while it runs; scroll, open item menus, and restart, checking when its badges and sections first appear.
 - Press Refresh on Settings → Integrations while an item menu with provider actions is open in another window, and while an activation reply is still pending.
 - Create a `disabled` file by hand in a running provider's directory, then press Refresh; then delete it and restart instead.
-- Return two `send-to` root actions and one unplaced action; then add a `send-to-entry` action beside them; then reply with only the `send-to-entry` action carrying `children`.
-- Flip one provider between a lone `send-to-entry` and a `send-to` destination on every `invalidate` while Send to… is open, with a removable drive mounted and unmounted at the same time.
+- Return two `send-to` root actions and one unplaced action; then add a `send-to-entry` action beside them; then nest a `send-to-entry` child under a `send-to` parent.
+- Flip one provider between a lone `send-to-entry` and a `send-to` destination on every `invalidate` while Send to… is open. Mount and unmount a removable drive at the same time.
 - Give two providers placed destinations, one with `category` `cloud` and artwork, one with `category` `"Cloud"`, and name one `My_Phone`; read the submenu icons, labels, and their order beside a drive.
 - Return a `send-to` action for a file-chooser item menu and for an item menu with an empty selection.
 

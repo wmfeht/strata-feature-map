@@ -95,7 +95,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - After such a publication, no `.strata-extraction-<id>` folder remains and the existing same-named folder is untouched. lgse/strata#1585, lgse/strata#1586
 - On such a filesystem, a nested read-only folder, such as mode `0555`, publishes with its mode and modification time kept. lgse/strata#1586
 - On such a filesystem, a symlink member publishes as a symlink with its stored target. lgse/strata#1586
-- Where no placement step can place the output, extraction fails, the members stay in the staging folder, and the error ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586, lgse/strata#1615 (unverified)
+- Where no placement step can place the output, extraction fails and the members stay in the staging folder. lgse/strata#1615 (unverified)
+- The error then ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586, lgse/strata#1615 (unverified)
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
 - A TAR whose first entry is `./` extracts its contents instead of failing. lgse/strata#494
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677
