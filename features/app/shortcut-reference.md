@@ -22,9 +22,11 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - F1 opens the "Keyboard shortcuts" panel centered over a dimmed, blurred window; F1 again closes it. lgse/strata#358, lgse/strata#1296
 - F1 with Ctrl, Alt, Super, or Shift held does not toggle the reference. lgse/strata#358 (unverified)
 - In 10xer mode, `~` also toggles the reference; in the default map `~` does not open it. lgse/strata#1272
-- In 10xer mode, while a footer prompt or a text field such as the location bar has focus, `~` types into it and does not open the reference; F1 still opens it. lgse/strata#1272, lgse/strata#1714
+- In 10xer mode, `~` in a focused footer prompt or text field, such as the location bar, types into it and opens no reference. lgse/strata#1272, lgse/strata#1714
+- F1 still opens the reference from a footer prompt or text field. lgse/strata#1272 (unverified)
 - In 10xer mode, `~` typed in the open reference's search closes the reference. lgse/strata#1714
-- In 10xer mode with Russian active and a text field focused, the open reference's search included, Shift and the ё key type Ё instead of toggling the reference. lgse/strata#1576, lgse/strata#1714
+- In 10xer mode with Russian active and a text field focused, Shift and the ё key type Ё instead of toggling the reference. lgse/strata#1576
+- In 10xer mode, a key that gives `~` only through the layout fallback, such as Russian ё, types itself in the open reference's search instead of closing it. lgse/strata#1576, lgse/strata#1714
 - The footer's "F1 Shortcuts" button toggles the reference and shows as pressed while it is open. lgse/strata#1034, lgse/strata#1376, lgse/strata#1688
 - Escape or a click on the backdrop closes the reference. lgse/strata#1376
 - Focusing another application window leaves the reference open with its search text, category, and scroll position. lgse/strata#1376

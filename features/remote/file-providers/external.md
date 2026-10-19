@@ -51,7 +51,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - In an item menu, a root action with `"placement": "send-to"` appears under Send to… ▸ <provider name> ▸ <label> instead of in the provider's section. lgse/strata#1742, lgse/strata#1704
 - Root actions without a placement in the same reply stay in the provider's section, so the section and the Send to… submenu both appear. lgse/strata#1742
 - A `placement` on a child action is ignored; the child stays inside its parent. lgse/strata#1742
-- In a background menu, a `send-to` or `send-to-entry` root action stays in the provider's section. lgse/strata#1742, lgse/strata#1756
+- In a background menu, or any menu without Send to…, a `send-to` or `send-to-entry` root action stays in the provider's section. lgse/strata#1742, lgse/strata#1756
 - An unrecognized `placement` string such as `"float-to-top"`, or `null`, keeps the action in the provider's section. lgse/strata#1742
 - A `placement` that is neither a string nor `null`, such as `7`, is an invalid frame and disconnects the provider. lgse/strata#1742 (unverified)
 - A placed destination may have `children` within the 64-node, four-level bounds; its leaves activate with the whole selection, the action id, and `context`, with unchanged `feedback` handling. lgse/strata#1742
@@ -102,7 +102,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - GTK section titles cannot hold an image, so a heading icon replaces the title with a custom row styled like one (lgse/strata#1578).
 - Unsent and uncertain actions are reported differently. A disconnect after submission is not proof that nothing happened, so nothing is replayed (lgse/strata#1385).
 - Caches hold at most 2,048 path answers and 32 menu selections per provider, and track at most 1,024 mapped thumbnail slots (lgse/strata#1385).
-- Discovery runs at startup and again on each reload from Settings → Integrations, never by watching the providers directory. When it finds no providers, the hub's 100 ms timer stops and thumbnail slots are no longer tracked, so the provider hub no longer wakes an idle window; a reload restarts the timer (lgse/strata#1671, lgse/strata#1677, lgse/strata#1748).
+- Discovery runs at startup and again on each reload from Settings → Integrations, never by watching the providers directory. When it finds no providers, the hub's 100 ms timer stops and thumbnail slots are no longer tracked, so the hub no longer wakes an idle window. A reload restarts the timer (lgse/strata#1671, lgse/strata#1677, lgse/strata#1748).
 - Some integrations are destinations. A heading section duplicated Send to… and forced label suffixes such as "via KDE Connect", so placed actions sit beside removable drives with bare labels (lgse/strata#1740).
 - `placement` is additive with no handshake: older hosts ignore it, and unknown values keep the section. A dedicated Send to… method or device-list reply was rejected as more host code and a second tree model (lgse/strata#1740, lgse/strata#1742).
 - Each provider's destinations sit in a submenu named after it, like a removable drive (lgse/strata#1704).

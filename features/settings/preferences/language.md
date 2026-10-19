@@ -61,9 +61,9 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 - `build.rs` embeds the catalogs as static tables behind the `i18n::Catalogs` backend. The `i18n!` loader's per-message initializer overflowed 2 MiB thread stacks in unoptimized builds (lgse/strata#1519).
 - Strata never rewrites the process locale. GTK-owned controls, GIO type descriptions, and system errors can therefore stay in the system language (lgse/strata#1519).
 - `rust-i18n` moved from 3.1.5 to 4.2.4 because cargo-deny rejects `unsafe-libyaml` (RUSTSEC-2024-0449). `i18n::Catalogs` follows the 4.0 `Backend` trait; the compiled tables are unchanged (lgse/strata#1583).
-- Traditional Chinese locales route to their own catalog (Option A), over a manual-only choice (Option B), though it changes auto-detection for existing `zh_TW` and `zh_HK` users (lgse/strata#1613, lgse/strata#1745).
+- Traditional Chinese locales route to their own catalog (Option A), over a manual-only choice (Option B). Option A changes auto-detection for existing `zh_TW` and `zh_HK` users (lgse/strata#1613, lgse/strata#1745).
 - Hong Kong and Macau use the Taiwan catalog until a zh-HK one is contributed (lgse/strata#1613).
-- Other Chinese regions, such as `zh_MY`, keep Simplified Chinese rather than English, holding to lgse/strata#1582's rejection of an English fallback (lgse/strata#1745).
+- Other Chinese regions, such as `zh_MY`, keep Simplified Chinese rather than falling back to English (lgse/strata#1745).
 - The zh-TW catalog is translated from English in Taiwan terms, not converted from zh-CN. Key names and F1 descriptions are translated too, because mixed-script labels read as inconsistent (lgse/strata#1613, lgse/strata#1745).
 - Two shared helpers were extended instead of adding zh-only paths: `i18n::join_sentences`, replacing an archive-only `。` case, and Settings search (lgse/strata#1583).
 - Setting `PANGO_LANGUAGE` from Strata was rejected: it must be set before threads start and scrubbed from every launched program (lgse/strata#1583).

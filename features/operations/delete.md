@@ -21,7 +21,8 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - Shift+Delete on a selection outside Trash opens the permanent-delete confirmation; Delete without Shift opens it only where Trash is unsupported (`operations/trash`). lgse/strata#164, lgse/strata#1533
 - Outside Trash, the item menu shows "Permanently delete" with a Shift+Del hint below Move to Trash, for single and multiple selections. lgse/strata#164
 - On a remote selection, the item menu shows a danger-styled "Delete without Trash" with the Shift+Del hint in place of "Permanently delete". lgse/strata#1614
-- A selection is remote only when every item is: a native path on a network mount, such as NFS, SMB, or sshfs, or a non-`trash:` URI. lgse/strata#1571, lgse/strata#1614
+- A selection is remote only when every item is remote. lgse/strata#1571, lgse/strata#1614
+- A remote item is a native path on a network mount, such as NFS, SMB, or sshfs, or a non-`trash:` URI. lgse/strata#1614
 - `fuseblk` drives and local FUSE overlays, such as mergerfs or gocryptfs, count as local. lgse/strata#1614
 - The menu hides "Permanently delete" when `access::can-delete` reports false for the folder's contents, and shows it when the query is unresolved. lgse/strata#361
 - In a folder without write permission, such as after `chmod 555`, neither Move to Trash nor Permanently delete appears in the item menu. lgse/strata#361

@@ -25,7 +25,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
 - Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
 - A fresh image decode fills the item's Icons caption with its source dimensions, such as `320×180`. lgse/strata#1081
-- A RAW file's Icons caption shows the full image size after orientation, such as `4032×6028` for a DNG, not the size of its embedded 160×120 thumbnail. lgse/strata#1698
+- A RAW file's Icons caption shows the full image size after orientation, such as `4000×6016` for a portrait DNG with a 6016×4000 crop, not the size of its embedded 160×120 thumbnail. lgse/strata#1698
 
 ### Show thumbnails off
 
@@ -42,7 +42,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - PNG, JPEG, WebP, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails, provided a decoder for the format is installed. lgse/strata#881, lgse/strata#969
 - SVG files get thumbnails without a gdk-pixbuf SVG loader: pooled workers render them with resvg, the one-shot fallback with ImageMagick. lgse/strata#881, lgse/strata#1222
 - `.svgz` files keep their icon, since the thumbnail extension list omits them. lgse/strata#881 (unverified)
-- Camera RAW thumbnails, such as for `.ARW`, use the embedded camera preview first, then gdk-pixbuf, then ImageMagick. lgse/strata#199, lgse/strata#1698
+- Camera RAW thumbnails, such as for `.ARW`, use the embedded camera preview first, then gdk-pixbuf, then ImageMagick. lgse/strata#199 (unverified)
 - RAW thumbnails of portrait shots are upright in Columns, List, and Icons. lgse/strata#1698
 - Every extension `browser/properties/raw-metadata` recognizes as RAW gets a RAW thumbnail in any case, including `.RAF`, `.GPR`, `.IIQ`, and `.CRW`. lgse/strata#1698
 - PDF files and MP4, MKV, WebM, MOV, AVI, M4V, MPEG, MPG, and OGV videos get thumbnails. lgse/strata#57, lgse/strata#274 (unverified)

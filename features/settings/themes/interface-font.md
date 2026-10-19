@@ -27,7 +27,6 @@ An Interface font preference under Settings → Appearance → Text that picks t
 - Each time the picker opens, Search fonts is cleared and focused. lgse/strata#1696 (unverified)
 - Clicking a family saves `interface_font = "<family>"` in `settings.toml` and closes the picker; clicking Default removes the key. lgse/strata#1696
 - Building the control writes nothing to `settings.toml`. lgse/strata#1696
-- Searching "font", "typeface", "family", or "typography" in Search settings shows the Interface font row on Appearance. lgse/strata#1696 (unverified)
 
 ### Applying the font
 

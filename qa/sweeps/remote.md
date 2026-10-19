@@ -6,7 +6,7 @@ tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, in
 
 ## Scope
 
-Everything that reaches Strata from somewhere other than a local disk: network locations over GIO/GVfs (`smb://`, `sftp://`, `network:///`) with on-demand mounting, the sign-in, passphrase, and host-key dialogs, failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe; external file providers, from registration, reload, and process lifecycle to badges, menu sections and their heading icons, Send to… placement, activation dialogs and notices, and invalidation; the Settings → Integrations catalog that installs, updates, turns off, and removes bundled providers; and the bundled KDE Connect and LocalSend providers. `remote/file-providers` itself has no Behavior; its children carry every check.
+Everything that reaches Strata from somewhere other than a local disk. Network locations: GIO/GVfs `smb://`, `sftp://`, and `network:///` with on-demand mounting, and the sign-in, passphrase, and host-key dialogs. They also cover failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe. External file providers: registration, reload, and process lifecycle, badges, menu sections and heading icons, and Send to… placement. They also cover activation dialogs and notices, and invalidation. Integrations: the Settings catalog that installs, updates, turns off, and removes bundled providers. KDE Connect and LocalSend: the two bundled providers. `remote/file-providers` itself has no Behavior; its children carry every check.
 
 Left to other sweeps: sidebar rows, the Connect to server dialog, and location-field parsing and history; Settings navigation and search; copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, and mounting, unmounting, and ejecting local devices.
 
@@ -62,7 +62,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Return two `send-to` root actions and one unplaced action; then add a `send-to-entry` action beside them; then reply with only the `send-to-entry` action carrying `children`.
 - Flip one provider between a lone `send-to-entry` and a `send-to` destination on every `invalidate` while Send to… is open, with a removable drive mounted and unmounted at the same time.
 - Give two providers placed destinations, one with `category` `cloud` and artwork, one with `category` `"Cloud"`, and name one `My_Phone`; read the submenu icons, labels, and their order beside a drive.
-- Return a `send-to` action from a background-menu request and from a file-chooser item menu.
+- Return a `send-to` action for a file-chooser item menu and for an item menu with an empty selection.
 
 ### remote/file-providers/integrations
 

@@ -30,9 +30,10 @@ Creating an empty file or folder in the current directory from the background me
 - New Folder creates `new folder` on disk before any name is typed; New File creates an empty `new file`. lgse/strata#567
 - When the default name is taken by any item, creation uses the first free `new folder (1)`, `(2)`, and so on, without overwriting. lgse/strata#567
 - A creation failure reports "Could not create “name”:" followed by the error. lgse/strata#567 (unverified)
-- A long default name is cut so ` (n)` fits within the folder's name limit. lgse/strata#1615 (unverified)
+- A long default name is cut so ` (n)` fits within the folder's name limit. lgse/strata#1615
 - On SMB with POSIX extensions, a folder reported by an exclusive file create counts as a taken name, so numbering goes on. lgse/strata#1615 (unverified)
-- Creating under a typed name, as the 10xer create prompt does, refuses a name the location would store as another, such as `CON` on vfat. Nothing is made. lgse/strata#1615
+- Creating under a typed name, as the 10xer create prompt does, refuses a name the location would store as another, such as `CON` on vfat. lgse/strata#1615
+- Nothing is made, and the 10xer prompt stays open with the reason. lgse/strata#1615
 - Default names such as `new folder` are never checked that way. lgse/strata#1615
 
 ### Naming the new item
@@ -66,6 +67,7 @@ Creating an empty file or folder in the current directory from the background me
 - Choosing it, or Ctrl+Alt+N, creates a numbered `new folder` beside the selection, moves the selected items into it, and opens rename on the folder. lgse/strata#1349
 - Ctrl+Alt+N with nothing selected creates an empty `new folder` and moves nothing. This holds with the cursor on an item, or with only a load cursor on the first row. lgse/strata#1349, lgse/strata#1623
 - One Ctrl+Z moves the items back and moves the created folder to Trash. lgse/strata#1349
+- Where Trash is unavailable, such as on tmpfs, that Ctrl+Z moves the items back and removes the folder only if it is empty; a folder holding other items stays. lgse/strata#1614
 
 ## Design
 

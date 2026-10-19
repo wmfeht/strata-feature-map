@@ -47,7 +47,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Enter activates the focused button; Escape and Cancel leave the existing archive unchanged. lgse/strata#986
 - Escape, Cancel, or X on the "File already exists" prompt returns focus to the listed item that was focused before it. lgse/strata#1533
 - Keep Both creates the next free numbered name, such as `archive (1).zip` or `archive (1).tar.gz`, and selects it. lgse/strata#986
-- A long archive name numbered by Keep Both is cut so the number fits the name limit. lgse/strata#1615 (unverified)
+- A long archive name numbered by Keep Both is cut so the number fits the name limit. lgse/strata#1615
 - Replace moves the existing archive to Trash before publishing; Ctrl+Z returns it. lgse/strata#1097
 - Where Trash is unavailable, Replace sets the existing archive aside or exchanges it, and deletes it after the new archive is flushed; Ctrl+Z has nothing to undo. lgse/strata#1615
 - Replace is refused before encoding when no strategy is safe there, and a name taken during replacement keeps the original aside. lgse/strata#1615
@@ -95,7 +95,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - After such a publication, no `.strata-extraction-<id>` folder remains and the existing same-named folder is untouched. lgse/strata#1585, lgse/strata#1586
 - On such a filesystem, a nested read-only folder, such as mode `0555`, publishes with its mode and modification time kept. lgse/strata#1586
 - On such a filesystem, a symlink member publishes as a symlink with its stored target. lgse/strata#1586
-- Where no placement step can place the output, publication is refused and the members stay in the staging folder. lgse/strata#1615 (unverified)
+- Where no placement step can place the output, extraction fails, the members stay in the staging folder, and the error ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586, lgse/strata#1615 (unverified)
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
 - A TAR whose first entry is `./` extracts its contents instead of failing. lgse/strata#494
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677

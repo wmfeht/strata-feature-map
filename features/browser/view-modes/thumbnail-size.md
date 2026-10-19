@@ -19,12 +19,13 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 
 ### Stepping
 
-- In Icons, Ctrl+Alt++ or Ctrl+Alt+= moves the size one step larger along 32, 36, 40, 44, 48, 56, 64, 72, 80, 96, 112, 128, 144, 160, 192, 224, and 256 px. lgse/strata#1721
+- The size steps through 32, 36, 40, 44, 48, 56, 64, 72, 80, 96, 112, 128, 144, 160, 192, 224, and 256 px. lgse/strata#1721
+- In Icons, Ctrl+Alt++ or Ctrl+Alt+= moves the size one step larger. lgse/strata#1721
 - In Icons, Ctrl+Alt+− moves the size one step smaller along the same sizes. lgse/strata#1721
 - From a size between two steps, such as 100 px, one step up lands on 112 and one step down on 96. lgse/strata#1721
 - A step up at 256 px stays at 256, and a step down at 32 px stays at 32. lgse/strata#1721 (unverified)
 - In Icons, each Ctrl+Shift+wheel notch steps the size once, up for larger and down for smaller. Smooth touchpad deltas accumulate into whole steps. lgse/strata#1721
-- A Shift+wheel that arrives as horizontal scrolling steps the size the same way. lgse/strata#1721
+- In Icons, a Ctrl+Shift+wheel that arrives as horizontal scrolling steps the size the same way. lgse/strata#1721
 - In 10xer mode, with the Icons listing focused, plain +, =, or − steps the size; Ctrl+Alt++ and Ctrl+Alt+− still work. lgse/strata#1721
 - In Columns or List, none of these keys resizes anything, and Ctrl+Shift+wheel passes through to the view. lgse/strata#1721
 - The portal file chooser accepts the key shortcuts but not Ctrl+Shift+wheel. lgse/strata#1721
@@ -41,7 +42,6 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 - With per-folder sizes on, a step changes the folder's size and leaves the default unchanged; with them off, it changes the default. lgse/strata#1721
 - Each step or reset shows "Thumbnail size: Npx" in the bottom-right notice dock. lgse/strata#1721
 - The notice lasts 1.2 s and shows no check icon. lgse/strata#1721 (unverified)
-- F1 lists Ctrl+Alt++ / − / 0 in the default key map's Icons section, and +, −, and Ctrl+Alt+± in the 10xer Icons section. lgse/strata#1721
 
 ## Design
 
@@ -62,4 +62,4 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 
 ## Known gaps
 
-- Ctrl+Shift+wheel does not resize thumbnails in the portal file chooser, which has no wheel zoom. lgse/strata#1721
+None known.

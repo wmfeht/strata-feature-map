@@ -51,6 +51,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Changing selection or closing the preview cancels a remote transfer. lgse/strata#834
 - Remote MOV and MP4 files up to 256 MiB play only after the download completes, within a 60-second deadline. lgse/strata#834
 - A RAW name the MIME database types as `application/octet-stream`, such as `GOPR0001.GPR`, still previews as a RAW image. lgse/strata#1698
+- A `.ptx` or `.crf` file is not treated as a RAW image. lgse/strata#1698
 - A RAW file on a GIO location previews after the original streams to a private temporary file, like other still images. lgse/strata#1698 (unverified)
 - PDF pages render at the preview pane's width, at most 1280 px, one page at a time across previews. lgse/strata#898, lgse/strata#823
 - Queued PDF pages that leave the view are cancelled before rendering. lgse/strata#898
@@ -67,7 +68,9 @@ The drawer beside the file views that shows the selected file's contents: text, 
 ### Models and covers
 
 - An STL file first renders from the Front left camera, looking diagonally down at the model, tinted with the theme accent. lgse/strata#1276, lgse/strata#1644
-- Changing the theme re-renders the open model preview with the new accent. lgse/strata#1276, lgse/strata#1644
+- Changing the theme re-renders the open model preview with the new accent and keeps the selected camera view. lgse/strata#1276, lgse/strata#1644
+- Selecting another file resets the camera view to Front left. lgse/strata#1644, lgse/strata#1633
+- While camera views change, the header content type stays `model/stl` or `model/3mf`. lgse/strata#1644
 - All four camera views of a model share one bounding-box fit on a square canvas, so switching views never changes its scale or centring. lgse/strata#1644
 - Revisiting a camera view of the same model at the same size and theme is served from the preview cache; a first visit rereads and re-renders the mesh. lgse/strata#1644
 - A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
@@ -137,5 +140,5 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Images cannot be rotated in the preview; the change is unmerged. lgse/strata#987, lgse/strata#1388
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
-- Each first visit to a camera view rereads and reparses the mesh, so dense models can take noticeable time per angle. lgse/strata#1644
+- Each first visit to a camera view rereads and reparses the mesh before a full CPU render; parsed meshes are not retained. lgse/strata#1644
 - With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

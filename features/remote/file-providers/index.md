@@ -13,7 +13,7 @@ related: []
 
 ## Summary
 
-How files that do not live on a local disk reach Strata. Children: `remote/file-providers/network-locations` (SMB, SFTP, and other GIO/GVfs locations, with mounting and sign-in), `remote/file-providers/external` (opt-in provider programs that add live badges, context actions, and Send to… destinations), `remote/file-providers/integrations` (the Settings → Integrations catalog that installs bundled providers), and the bundled `remote/file-providers/kde-connect` and `remote/file-providers/localsend` providers.
+How files that do not live on a local disk reach Strata. `remote/file-providers/network-locations` covers SMB, SFTP, and other GIO/GVfs locations, with mounting and sign-in. `remote/file-providers/external` covers opt-in provider programs that add live badges, context actions, and Send to… destinations. `remote/file-providers/integrations` is the Settings → Integrations catalog that installs bundled providers. `remote/file-providers/kde-connect` and `remote/file-providers/localsend` are the two bundled providers.
 
 ## Behavior
 

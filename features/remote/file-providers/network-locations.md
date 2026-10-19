@@ -48,7 +48,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 ### Sidebar
 
 - The sidebar's Network place opens `network:///`, which lists the hosts and shares GVfs discovers. lgse/strata#31, lgse/strata#62
-- At `network:///`, the column heading, breadcrumbs, and window title read "Network", localized, instead of `network:`. lgse/strata#1726
+- At `network:///`, the column heading, breadcrumbs, and window title read "Network", localized. lgse/strata#1726
 - A mounted `smb://` share appears under DEVICES with a network icon instead of a drive icon, and clicking it opens the share. lgse/strata#31, lgse/strata#62
 - Right-clicking a mounted SMB share's DEVICES row offers Properties and Disconnect. lgse/strata#31, lgse/strata#296 (unverified)
 - Disconnect unmounts the share; a failure other than a cancel shows an "Unable to disconnect" dialog. lgse/strata#31 (unverified)

@@ -22,7 +22,7 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - Settings → Integrations shows the intro "Optional integrations bundled with Strata connect the context menu to other apps and services…" with Refresh and Open folder buttons. lgse/strata#1748
 - Open folder closes Settings and opens the providers directory, default `~/.config/strata/providers`, in the browser. lgse/strata#1748
 - Each visit to the page rescans the catalog and the providers directory. lgse/strata#1748 (unverified)
-- Refresh restarts the providers, discards cached requirement results, checks them again, and rescans the page. lgse/strata#1748
+- Refresh reloads the providers (see `remote/file-providers/external`), discards cached requirement results, checks them again, and rescans the page. lgse/strata#1748
 - A catalog with no valid entries shows "No integrations are bundled with this build." lgse/strata#1748
 
 ### Catalog
@@ -40,7 +40,8 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - For each missing requirement with a package for the detected pacman, apt, dnf, or zypper, the expanded footer shows "Install missing dependencies with:" and the copyable command. lgse/strata#1748
 - When a terminal resolves, that command has a Run in terminal button; after it opens, the page says "The command opened in your terminal. Select Refresh when it finishes." lgse/strata#1704
 - A `command` requirement is met when its name or one of its `alternatives` resolves in a trusted system directory. lgse/strata#1748, lgse/strata#1756
-- A `command` requirement is also met through a link in a search directory to a target that root owns, with every ancestor directory root-owned and none group- or world-writable, such as `/usr/bin/localsend` → `/opt/localsend/localsend`. lgse/strata#1756
+- A `command` requirement is also met through a link in a search directory, such as `/usr/bin/localsend` → `/opt/localsend/localsend`. lgse/strata#1756
+- That link counts only when root owns the target and every directory above it, and none is group- or world-writable. lgse/strata#1756
 - A `module` requirement is checked with the resolved interpreter's `-I` and `importlib.util.find_spec`, never by importing it, and counts as missing after 5 seconds. lgse/strata#1748
 - Expanded footers stay expanded across rescans, and revisiting the page reuses requirement results until Refresh. lgse/strata#1748
 
@@ -49,7 +50,7 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - Install fails with "<runtime> is not installed in a system directory" when the entry's runtime does not resolve in a trusted system directory. lgse/strata#1748
 - Install creates the providers directory and `<id>/` with mode 0700, refuses a symlinked or group- or world-writable directory, and writes each file with mode 0600. lgse/strata#1748
 - The installed `provider.json` runs the resolved interpreter on the absolute entry path and carries the entry's name, icons, and category. `catalog-install.json` records the catalog hash and each file's SHA-256. lgse/strata#1748, lgse/strata#1704
-- After an install, update, removal, or switch change succeeds, the provider's context-menu actions appear or disappear without a restart. lgse/strata#1748
+- After an install, update, removal, or switch change succeeds, the page reloads the providers and rescans, with no restart notice. lgse/strata#1748
 - A catalog install's row reads "Installed via catalog" and shows Update only when the bundled files differ from the recorded hash; nothing updates automatically. lgse/strata#1748, lgse/strata#1704
 - Update on a copy whose files differ from the record asks "The installed copy has local changes. Updating replaces them with the bundled files." with Cancel and Replace; files change only on Replace. lgse/strata#1748
 - An update deletes files the previous install recorded that the new entry lacks, and keeps the `disabled` marker. lgse/strata#1748
@@ -59,17 +60,21 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 ### Installed list
 
 - INSTALLED, with a count, lists catalog installs and every other slug-named entry in the providers directory, sorted by name, and is hidden when there are none. lgse/strata#1748, lgse/strata#1704
-- A registration the catalog did not install reads "Manually installed" and shows its manifest `name`, or its id. Its icon shows only when it loads as a trusted provider. lgse/strata#1748, lgse/strata#1704
+- A registration under an id the catalog does not list reads "Manually installed" and shows its manifest `name`, or its id. Its icon shows only when it loads as a trusted provider. lgse/strata#1748, lgse/strata#1704
 - Remove on a manually installed row asks "This copy was not installed from the catalog. Its folder is deleted." first. lgse/strata#1748
-- A catalog id's directory without a valid `catalog-install.json` counts as manually installed, with no Update. lgse/strata#1748 (unverified)
+- A catalog id's directory without a valid `catalog-install.json` reads "Manually installed" with no Update, and keeps the catalog entry's name and icon. lgse/strata#1748 (unverified)
 - Each installed row has a switch labelled Enabled or Disabled. Off writes an empty `disabled` file beside `provider.json`; on deletes it. lgse/strata#1748
 
 ### Catalog format
 
 - `STRATA_INTEGRATION_CATALOG=<dir>` replaces the bundled catalog. Directories starting with `.` or `_` are skipped, and an invalid entry logs `Strata integration <dir>: <error>` and is left out. lgse/strata#1748
-- An entry is rejected unless `schema_version` is 1, `id` matches its directory slug, `name` is plain text of at most 64 bytes, `description` at most 400 bytes, `maintainer` a GitHub username, and `entry` one of its files. lgse/strata#1748
-- An entry is rejected with more than 32 files, a file over 1 MiB, more than 16 icons, an icon that is not a PNG of at most 256×256, or a file named `provider.json`, `catalog-install.json`, or `disabled`. lgse/strata#1748
-- An entry is rejected with more than 8 requirements, a requirement naming both or neither of `command` and `module`, a dotted `module`, or a package manager other than pacman, apt, dnf, and zypper. lgse/strata#1748
+- An entry is rejected unless `schema_version` is 1, `id` matches its directory slug, and `entry` is one of its files. lgse/strata#1748
+- An entry is rejected unless `name` is plain text of at most 64 bytes, `description` at most 400 bytes, and `maintainer` a GitHub username. lgse/strata#1748
+- An entry is rejected with more than 32 files or a file over 1 MiB. lgse/strata#1748
+- An entry is rejected with more than 16 icons, or an icon that is not a PNG of at most 256×256. lgse/strata#1748
+- An entry is rejected when it bundles a file named `provider.json`, `catalog-install.json`, or `disabled`. lgse/strata#1748
+- An entry is rejected with more than 8 requirements, or a requirement naming both or neither of `command` and `module`. lgse/strata#1748
+- An entry is rejected for a dotted `module`, or a package manager other than pacman, apt, dnf, and zypper. lgse/strata#1748
 - An entry is rejected for `alternatives` on a `module` requirement, more than 4 alternatives, or an alternative that is not an executable basename. lgse/strata#1756 (unverified)
 
 ## Design

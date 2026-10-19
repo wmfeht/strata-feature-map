@@ -19,7 +19,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Run the ntfs-3g probes as a non-root user, so mode `0000` blocks reads. Skip them and say so when ntfs-3g is unavailable.
 - `scripts/fslab/fslab.sh up` starts a privileged container with NFS, SMB, sshfs, vfat, exFAT, ntfs3, ntfs-3g, exfat-fuse, and casefold mounts; `fslab.sh probe` reports what each supports. Skip lab probes and say so when Docker cannot run privileged.
 - A real USB stick formatted vfat, and one exFAT, for flush and unplug probes; the lab's loop devices live in RAM.
-- An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals.
+- An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals. The lab has no rclone; skip those probes and say so when it is unavailable.
+- A 9p or virtiofs share and a mergerfs pool, for deletion wording. The lab has neither; skip those probes and say so when unavailable.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/e2e/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
@@ -98,8 +99,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/filesystem-compatibility
 
-- Run the awkward-names fixture from `docs/filesystem-compatibility.md` onto every lab mount and a real stick: copy, move, undo, redo, then extract it as a tar.
-- Move a folder across disks while a shell loop appends to one file and another renames a sibling into it.
+- Build a folder holding `10:00`, `notes.`, `CON`, `aux.c`, `report?.txt`, a non-UTF-8 `caf\xe9.txt`, a symlink to `10:00` and a dangling symlink. Copy, move, undo and redo it onto every lab mount and a real stick, then extract it as a tar.
+- Move a folder across disks while one shell loop appends to a file in it. Repeat while another loop renames a sibling into it.
 - Move hard-linked files off an SMB share right after writing them, and off FAT within 2 s of saving them.
 - Copy a folder holding hard links, a FIFO, a socket, a device node, a `0555` subfolder with `user.*` xattrs, and a 1 GiB sparse file into a setgid folder.
 - Pull the real stick during a copy and during a move's final flush; then list hidden `.strata-copy-*` entries on both sides.
@@ -120,7 +121,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
 - Drop a link to a folder on a stalled or unmounted network mount onto the sidebar Trash row.
-- On sshfs without `default_permissions` and on rclone, Delete a file, a read-only file, and a mixed selection spanning both mounts; list the mount roots with `ls -la`.
+- On sshfs without `default_permissions` and on rclone, Delete a file, a read-only file, and a selection spanning both mounts. List the mount roots with `ls -la`.
 - After a refusal, open the same folder in a second window and in the file chooser, then reload each way: F5, the pane refresh button, the folder menu, chooser F5.
 - Kill the sshfs process mid-delete, then Delete again; remount and Delete again.
 
@@ -152,7 +153,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete 1 to 15 rows above other rows in each mode and watch whether deleted rows vanish and reappear before the dissolve.
 - Start a second Shift+Delete while the first dissolve plays, then click a row.
 - Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
-- Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, a mergerfs pool, and through a symlink alias into an NFS folder; read each title and subtitle.
+- Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
+- Shift+Delete through a symlink alias into an NFS folder.
 
 ### operations/archives
 
@@ -218,7 +220,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Perform ten mixed operations (create, rename, paste, trash, compress, extract), undo all, redo all; the tree must match snapshots taken before and after.
 - Change an operation's target from a shell, then undo it; expect a clear failure and an intact history.
 - Press Ctrl+Z in a second window and in the file chooser.
-- Move awkward names onto vfat, rename one fixed name on the stick, then undo and redo.
+- Move the names folder onto vfat, rename one fixed name on the stick, then undo and redo.
 
 ## Hand-offs
 

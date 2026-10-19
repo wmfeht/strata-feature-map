@@ -20,7 +20,7 @@ Opening a phone or camera's gphoto2 entry in Devices as one flat, progressive Ph
 ### Photos view
 
 - Opening a `gphoto2://` camera root shows a flat listing titled "Photos" of every JPEG, HEIC/HEIF, MOV, MP4, and recognized RAW file below it. lgse/strata#834
-- Photos lists RAW names by the RAW details extension list, any case, so `.GPR`, `.ARQ`, `.ORI`, `.IIQ`, and `.FFF` files appear; `.ptx` and `.crf` files do not. lgse/strata#1698
+- Photos accepts the RAW extensions of `raw_metadata::is_raw`, the list behind RAW thumbnails and the RAW details panel, in any case, so `.GPR`, `.ARQ`, `.ORI`, `.IIQ`, and `.FFF` files appear. lgse/strata#1698
 - `.AAE` sidecars and other formats are hidden from Photos and left untouched on the device. lgse/strata#834
 - Files with the same name stay separate rows, each with its original URI. lgse/strata#834
 - Discovery skips symlinks and visits newer date-named folders first. lgse/strata#834

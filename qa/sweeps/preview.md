@@ -16,7 +16,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Media samples from ffmpeg: a 4K HEVC 10-bit MP4 with chapters and two subtitle streams, an MP4 with `-vn`, one with `-an`, and a bare `.h264` stream. Also a VFR clip, 3.9 s and 4.1 s clips, a 2-hour FLAC, and a truncated faststart MP4 (`head -c`).
 - Byte-sniffing samples: an MPEG-TS clip (`ffmpeg -f lavfi -i testsrc2=duration=3 -f mpegts recording.ts`), TypeScript as `app.ts` and `Component.tsx`, a UTF-16 BE text file with and without a BOM, and a text file named `.xlsx`.
 - RAW samples: a lossless compressed Fuji X-T5 `.RAF`, a Pentax portrait `.DNG`, a GoPro `.GPR`, and an uppercase `.ARQ`. Also a JPEG panorama over 134 MP (`magick -size 42374x10529 xc:gray pano.jpg`) with and without a small EXIF thumbnail. Hide `dcraw`, `simple_dcraw`, and ImageMagick in turn by bind-mounting `/dev/null` over them inside `unshare -rm`.
-- Model samples: a binary STL, an ASCII STL with one triangle, a geometry-only 3MF, a 3MF with one embedded PNG, a FreeCAD file, and an STL just under 2 million triangles.
+- Model samples: a binary STL, a one-triangle ASCII STL, and an STL just under 2 million triangles. Also a geometry-only 3MF, a 3MF with one embedded PNG, and a FreeCAD file.
 - Zero-byte files for every previewed extension. Lying extensions: an MP4 as `.jpg`, a PNG as `.pdf`, a ZIP as `.epub` and `.docx`, an ELF as `notes.txt`, a TIFF as `.ARW`.
 - Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, and the `any_sheets.*` and `report.docx` fixtures.
 - A second build with `STRATA_TRUSTED_COMMAND_PATH` set, and a prebuilt binary to launch with `STRATA_SANDBOX_*` variables; `RUST_LOG=strata::sandbox=warn` shows ignored overrides.
@@ -147,10 +147,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - On Debian testing with ImageMagick through `update-alternatives` and a glycin-only GDK Pixbuf, preview a HEIC and a JPEG; remove `/etc/alternatives/magick` and preview again. Repeat on a kernel without Landlock ABI 3, where previews use one-shot helpers.
 - On Debian-family hosts with glx-diversions and with the NVIDIA GL alternative, preview a PNG, a PDF, and an MP4, and let a folder of thumbnails complete. Repeat where `glx--libGL.so.1-x86_64-linux-gnu` chains to an `nvidia--` alternative.
 - Preview 20 images inside 60 s under the debug log and count `browser sandbox started` lines; wait 61 s and preview once more.
-- Launch with `STRATA_SANDBOX_ROOT` set to `/usr/share`, `/usr/./share`, `/usr/../home`, `/usrdata`, `/`, and `/nix/store` on a non-Nix host; preview a PNG each time and read the log.
-- Launch with `STRATA_SANDBOX_PATH` set to `/usr/bin:`, `:/usr/bin`, an empty string, and a non-UTF-8 byte, and `STRATA_SANDBOX_PRLIMIT` set to a missing absolute path.
+- Launch a real session with `STRATA_SANDBOX_ROOT` set to `/usr/./share`, then to `/nix/store` on a non-Nix host; preview a PNG each time and read the log.
+- Launch with `STRATA_SANDBOX_PATH=:/usr/bin`, then with `STRATA_SANDBOX_PRLIMIT` set to a missing absolute path; preview a PNG and a PDF.
 - Change a `STRATA_SANDBOX_*` variable in the running session, then open a second window and preview.
-- Build with `STRATA_TRUSTED_COMMAND_PATH` naming a directory symlinked from `/home`, a store directory holding a `bwrap` symlink into `/home`, and `/usr/bin` listed twice.
+- Build with `STRATA_TRUSTED_COMMAND_PATH` naming a `/home` symlink that points into `/nix/store`, a store directory holding a `bwrap` symlink into `/home`, and `/usr/bin` listed twice.
 - Preview the DNG with `dcraw` and `simple_dcraw` hidden, then with ImageMagick hidden too; repeat as Icons thumbnails.
 - Preview the RAF with ImageMagick hidden, and step through a folder of 50 RAF files with the preview open.
 - Preview and thumbnail the panorama with ImageMagick hidden, with and without its EXIF thumbnail.

@@ -35,6 +35,7 @@ An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hand
 - A launch failure rejects the activation with "LocalSend could not be started." lgse/strata#1756 (unverified)
 - LocalSend removed while the menu is open rejects the activation with "LocalSend is not installed in a system directory." lgse/strata#1756 (unverified)
 - An item edited or replaced after the menu opened rejects the activation with "The selected items changed. Reopen the right-click menu." lgse/strata#1756
+- An item removed after the menu opened rejects the activation with "The selected items are no longer available." lgse/strata#1756 (unverified)
 - An unreadable item, or a folder that cannot be traversed, rejects the activation with "One or more selected items cannot be read." lgse/strata#1756 (unverified)
 - A stale, forged, or reused menu token, or one older than 120 seconds, rejects the activation with "This LocalSend menu expired. Reopen the right-click menu." lgse/strata#1756
 - The token is consumed before the launch, so a lost reply cannot open the selection twice. lgse/strata#1756
@@ -43,7 +44,8 @@ An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hand
 
 - The executable is looked up as `localsend`, then `localsend_app`, in Strata's trusted search directories. lgse/strata#1756
 - A link whose target lies under a trusted root runs through the link. lgse/strata#1756
-- A link to a target outside the trusted roots runs the target itself, never the link, and only when root owns the target and every directory above it, none group- or world-writable. lgse/strata#1756
+- A link to a target outside the trusted roots runs the target itself, never the link. lgse/strata#1756
+- That target runs only when root owns it and every directory above it, and none is group- or world-writable. lgse/strata#1756
 - A target with another owner or a group- or world-writable directory above it is refused. lgse/strata#1756
 
 ### Catalog entry and messages
@@ -70,5 +72,5 @@ An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hand
 
 ## Known gaps
 
-- Flatpak, Snap, and AppImage installs of LocalSend are not found: their launchers sit outside the trusted directories, and Flatpak would also need document-portal forwarding. lgse/strata#1756
+- Flatpak, Snap, and AppImage installs of LocalSend are not found, because their launchers sit outside the trusted directories. Flatpak would also need document-portal forwarding. lgse/strata#1756
 - Acceptance means LocalSend received the paths, not that anything was sent; LocalSend reads the files when the device is chosen. lgse/strata#1756

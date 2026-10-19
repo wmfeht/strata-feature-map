@@ -19,13 +19,13 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 
 ### Devices
 
-- With the integration installed, every paired, reachable device with the `kdeconnect_share` plugin appears by name under Send to… ▸ KDE Connect, even when there is only one. lgse/strata#1704
+- With the integration installed, every paired, reachable device with the `kdeconnect_share` plugin appears by name under Send to… ▸ KDE Connect, even when there is only one. lgse/strata#1704, lgse/strata#1756
 - With no eligible device, the item menu has no KDE Connect submenu, and no Send to… row when nothing else offers a destination. lgse/strata#1704
 - Unreachable, unpaired, and share-disabled devices are not listed. lgse/strata#1704
 - Devices are sorted by name, ignoring case. lgse/strata#1704 (unverified)
 - Two devices with the same name each get " (<first 6 hex digits of the device id's SHA-256>)" after the name. lgse/strata#1704
 - A device that connects or disconnects while Send to… ▸ KDE Connect is open is added or removed without closing the menu. lgse/strata#1704
-- More than 63 eligible devices show no KDE Connect entry rather than a truncated list. lgse/strata#1704
+- More than 63 paired, reachable devices, counted before the file-sharing check, show no KDE Connect entry rather than a truncated list. lgse/strata#1704
 - The Send to… submenu shows the phone icon of the `devices` category. lgse/strata#1704
 
 ### Selection
@@ -38,10 +38,14 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 - Choosing a device submits the whole selection once through `shareUrls` to that device, pinned to the daemon's unique D-Bus owner. lgse/strata#1704
 - Focusing Send to…, pressing Right twice, and pressing Return on a device sends the whole multi-file selection to it. lgse/strata#1704
 - An accepted submission opens no dialog and shows the notice "Files submitted to <device>: <N>. KDE Connect handles transfer progress and results." lgse/strata#1704
-- A file edited, replaced, or removed after the menu opened rejects the activation with "The selected files changed. Reopen the right-click menu." and sends nothing. lgse/strata#1704
-- A device that disconnected or turned off sharing, or a daemon restart, rejects the activation with "The selected device disconnected or file sharing was disabled."; it is never redirected to another device. lgse/strata#1704
+- A selected file edited or replaced by another regular file after the menu opened rejects the activation with "The selected files changed. Reopen the right-click menu." and sends nothing. lgse/strata#1704
+- A selected file removed, or replaced by a symbolic link or folder, rejects the activation with "The selected files are no longer available." and sends nothing. lgse/strata#1704 (unverified)
+- An unreadable selected file rejects the activation with "One or more selected files cannot be read." lgse/strata#1704 (unverified)
+- A device that disconnected or turned off sharing, or a daemon restart, rejects the activation and sends nothing; it is never redirected to another device. lgse/strata#1704
+- When that change has not yet invalidated the open menu, the rejection reads "The selected device disconnected or file sharing was disabled." lgse/strata#1704 (unverified)
 - A stale, forged, or reused menu token rejects the activation with "This device menu expired. Reopen the right-click menu." lgse/strata#1704
 - A menu token expires 120 seconds after the menu was built, and any device change invalidates every token. lgse/strata#1704 (unverified)
+- A known D-Bus failure of `shareUrls`, such as an unknown object or access denied, rejects the activation with "The device is unavailable or file sharing was disabled." lgse/strata#1704 (unverified)
 - A D-Bus error outside the known unavailable cases reports an uncertain outcome, "KDE Connect did not confirm the submission. Check your device before retrying.", and is not retried. lgse/strata#1704
 
 ### Catalog entry and messages
@@ -55,7 +59,8 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 `integrations/kdeconnect/README.md` documents discovery, the token, and the failure contract.
 
 - The device choice stays in Strata's context menu. A picker window per transfer breaks the Nautilus workflow (lgse/strata#1703).
-- Rejected: a custom action running `kdeconnect-handler`, which opens a picker; static actions with a hardcoded device, which are not live; removable Send to, which copies to mounted storage; and a built-in integration, which the provider protocol makes unnecessary (lgse/strata#1703).
+- Rejected: a custom action running `kdeconnect-handler`, which opens a picker, and static actions with a hardcoded device, which are not live (lgse/strata#1703).
+- Also rejected: removable Send to, which copies to mounted storage, and a built-in integration, which the provider protocol makes unnecessary (lgse/strata#1703).
 - The integration is opt-in and adds no KDE or Python dependency to a default install (lgse/strata#1703, lgse/strata#1704).
 - Each leaf binds the selection, file metadata, device id, and daemon owner into a short-lived, single-use token that activation revalidates (lgse/strata#1704).
 - A successful reply confirms submission, not receipt. A lost reply is uncertain, so nothing is retried (lgse/strata#1704).

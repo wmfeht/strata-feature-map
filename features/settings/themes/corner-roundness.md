@@ -32,7 +32,7 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 - Percentage radii, which draw circles, and radii written as `0` stay unchanged at every value. lgse/strata#1680
 - A scaled radius is rounded to 0.01 px, so 9px at 40% becomes 3.6px. lgse/strata#1680 (unverified)
 - Radii that GTK's built-in theme supplied, such as on buttons, entries, popovers, and check boxes, scale with the setting. lgse/strata#1680
-- Every switch, in Settings or elsewhere, has a 24px track radius and a 20px knob radius. At 50% and above, including the 60% default, both are full circles. lgse/strata#1739
+- Every switch, in Settings or elsewhere, has a 24px track radius and a 20px knob radius at 100%, so 14.4px and 12px at the 60% default. At 50% and above, including the 60% default, both are full circles. lgse/strata#1739
 - Below 50%, a switch's track and knob square off together and stay concentric, so at 40% the track radius is 9.6px and the knob's 8px. lgse/strata#1739 (unverified)
 
 ## Design
@@ -42,7 +42,7 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 - One numeric scale was chosen over named presets, which are no simpler and less flexible, and per-element controls, which add too many settings (lgse/strata#1678).
 - ThemeManager reparses the shared stylesheet with scaled radii only when roundness changes; other appearance preferences go through the token provider (lgse/strata#1680).
 - Radii that GTK's built-in theme supplied are restated in Strata's stylesheet so the scale reaches them (lgse/strata#1680).
-- GTK caps each radius at half its box. The switch knob's radius is 5/6 of the track's, its share of the track height, so both reach a full circle at the same roundness and stay concentric (lgse/strata#1738, lgse/strata#1739). This replaced one shared radius for track and thumb (lgse/strata#1680).
+- GTK caps each radius at half its box. The switch knob's radius is 5/6 of the track's, its share of the track height. Both therefore reach a full circle at the same roundness and stay concentric (lgse/strata#1738, lgse/strata#1739). This replaced one shared radius for track and thumb (lgse/strata#1680).
 - The default dropped from 100 to 60 because full roundness looked too round; saved values are not migrated (lgse/strata#1687, lgse/strata#1688).
 
 ## History

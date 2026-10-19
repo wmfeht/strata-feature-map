@@ -29,7 +29,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 
 ### Transfer progress
 
-- A transfer whose item total is not yet known shows "Preparing items…" with no count, where a docked row showed "0/0" before. lgse/strata#1615
+- A transfer whose item total is not yet known shows "Preparing items…" with no count. lgse/strata#1615
 - During a copy or move with a known byte total, the bar advances as bytes are written, not only after each item. lgse/strata#369
 - When the byte total is unknown, the bar pulses and reads "Preparing…" until bytes move, then "Transferring…". lgse/strata#369
 - A tree of only empty files or folders advances by item count and reaches 100% only when every item is copied. lgse/strata#369

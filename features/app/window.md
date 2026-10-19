@@ -57,7 +57,6 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - With a modal dialog or Settings open, Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ do nothing, and the dialog keeps focus. lgse/strata#1554, lgse/strata#1432
 - With a rename field or new-entry field open, F5, Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ do nothing; the field keeps its text, and Return commits it. lgse/strata#1554, lgse/strata#1438
 - With the F1 reference open, F5, Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ do nothing; F5 does not refresh the folder behind it. lgse/strata#1714
-- With the F1 reference open and its search focused, Ctrl+Space and Super+Space reach the search's input method rather than a Strata command. lgse/strata#1714
 - Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ pressed while a dialog animates closed act as with no dialog open. lgse/strata#1554
 - While only a closing dialog is visible, other browser shortcuts do nothing and the key goes to GTK; text-size keys still act. lgse/strata#1554 (unverified)
 - The text-size keys Ctrl++, Ctrl+−, and Ctrl+0 still change the text size while a modal dialog is open. lgse/strata#838 (unverified)

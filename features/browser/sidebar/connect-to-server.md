@@ -20,7 +20,8 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 
 - Right-clicking the Network sidebar row shows "Connect to server…", with a plus icon, above Unpin and Properties. lgse/strata#1726
 - The file chooser's sidebar has no Network row, so the dialog opens only from a browser window. lgse/strata#1726 (unverified)
-- Choosing it opens a dialog titled "Connect to server", subtitled "Connect to a share or remote server", with a focused "Server address" field, a "Pin to sidebar" checkbox, and Cancel and Connect. lgse/strata#1726
+- Choosing it opens a dialog titled "Connect to server", subtitled "Connect to a share or remote server". lgse/strata#1726
+- The dialog has a focused "Server address" field, a "Pin to sidebar" checkbox, and Cancel and Connect buttons. lgse/strata#1726
 - The address field's placeholder is `smb://server/share` in every language. lgse/strata#1726
 - Enter in the address field presses Connect. lgse/strata#1726 (unverified)
 
@@ -31,7 +32,7 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 - While connecting, the address field, the checkbox, and Connect are disabled, and a spinner labelled "Connecting…" runs through validation, mounting, and sign-in. lgse/strata#1726
 - A sign-in prompt raised while connecting stacks above the dialog. lgse/strata#1726
 - An unknown host such as `sftp://nonexistent.invalid/share`, a refused connection, a timeout, or a missing GVfs backend shows its message inline under the address. No second error dialog opens. lgse/strata#1726
-- A failure that arrives less than 1 s after Connect keeps the dialog busy until 1 s has passed, then shows the error. lgse/strata#1726
+- A connection failure, other than an address rejected at once, that arrives less than 1 s after Connect keeps the dialog busy until 1 s has passed, then shows the error. lgse/strata#1726
 - Cancelling the sign-in prompt returns the dialog to its editable state with no error message. lgse/strata#1726
 - Cancel, the close button, or Escape while connecting closes the dialog and cancels the pending validation or mount; nothing opens afterwards. lgse/strata#1726
 - A click outside the dialog does not close it while it is connecting or while the address is not empty. lgse/strata#1726 (unverified)
@@ -44,6 +45,7 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 - The pin is stored in the form the bookmarks file reloads, so `smb://host/share` is saved as `smb://host/share/`. lgse/strata#1726
 - The pin is labelled with the location's display name, or its display path when the name is empty. lgse/strata#1726 (unverified)
 - An address that is already pinned, or that is Home or a standard folder, closes the dialog without adding a pin. lgse/strata#1726 (unverified)
+- Disconnecting or unmounting a pinned share keeps its row under PINNED; clicking the row remounts the share. lgse/strata#1726
 - After a successful connect, keyboard focus returns to the active browser pane. lgse/strata#1726 (unverified)
 
 ## Design
@@ -62,4 +64,4 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 
 ## Known gaps
 
-- The dialog saves no connection: there is no Connections sidebar section, saved connection list, or Add connection form. lgse/strata#65
+None known.

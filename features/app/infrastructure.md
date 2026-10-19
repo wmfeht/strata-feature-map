@@ -6,14 +6,14 @@ branch: null
 reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, docs/assets/strata-themes.png, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, mise.toml, mise.lock, scripts/benchmark-scroll.py, src/build_info.rs, src/services/native_fs.rs, src/ui/keys/bindings.rs, src/ui/keys/bindings/**, build.rs, deny.toml, .github/workflows/ci.yml, .github/workflows/e2e.yml, .github/workflows/e2e-cache.yml, .github/workflows/integrations.yml, .github/ISSUE_TEMPLATE/bug_report.yml, scripts/quality.sh, scripts/quality_ci.py, scripts/test-headless.py, scripts/integration_tests.py, src/ui/settings/install_command.rs]
-tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py, tests/e2e/unit/test_harness.py, scripts/test_benchmark_scroll.py, src/build_info/tests.rs, scripts/test_quality_ci.py, scripts/test_quality_runner.py, scripts/test_headless_runner.py, scripts/test_e2e_runner.py, scripts/test_integration_tests.py, src/app/browser/tests/operations.rs, src/ui/settings/install_command/tests.rs]
+tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py, tests/e2e/unit/test_harness.py, scripts/test_benchmark_scroll.py, src/build_info/tests.rs, scripts/test_quality_ci.py, scripts/test_quality_runner.py, scripts/test_headless_runner.py, scripts/test_e2e_runner.py, scripts/test_integration_tests.py, src/ui/settings/install_command/tests.rs]
 docs: [docs/performance-baseline.md, docs/hardened-configuration.md, docs/unsafe-code.md]
 related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring, preview/preview-panel]
 ---
 
 ## Summary
 
-The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, crate manifests, the build script, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration. It is the `fallback` node in `scopes.yaml`.
+The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, and crate manifests. It owns the build script, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration. It is the `fallback` node in `scopes.yaml`.
 
 ## Behavior
 
@@ -30,7 +30,8 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 ### Folder monitoring
 
 - Copying a file into an open local folder shows no `#<inode>` entry while it is written; the file appears once, under its final name. lgse/strata#1615
-- A file linked into a watched folder is queried once, not again at the change-done hint that arrives two seconds later. lgse/strata#1615
+- A file linked into a watched folder is queried once, so its row updates once. lgse/strata#1615 (unverified)
+- Moving a file out of an open folder and creating a file under its old name in the same moment shows the new file. lgse/strata#1615 (unverified)
 
 ### Media metadata
 

@@ -135,7 +135,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Make `~/.config/strata/themes` a symlink to a dotfiles directory, then delete and recreate that directory while Strata runs; rewrite the selected file.
 - Write 20 theme files 10 ms apart, the selected one last, then read the window colors and the log.
 - With Settings open in two windows, rewrite the selected file and a non-selected file; read the cards and swatches in each window.
-- Compare dim text against background and surface with a contrast meter in Tokyo Night, Catppuccin Latte, Material Lighter, and a custom theme copied from Catppuccin Mocha's catalog values.
+- In Tokyo Night, Catppuccin Latte, and Material Lighter, measure dim text on a hovered row, the highlight, and the selected-row fill; repeat with a custom theme copied from Catppuccin Mocha's catalog values.
 - Save a custom file named after a bundled theme with that theme's catalog dim text; compare it with the bundled theme's loaded dim text.
 - Under a light and a dark theme, read the Settings navigation, close, and search icons, and the About and release-notes icons, beside page text; repeat at Corner roundness 0.
 - Create the user stylesheet from Setup while running, then edit it ten times 10 ms apart, replace it by atomic rename, make it a symlink into `/dev/shm`, `chmod 000` it, and delete it; read every window and the log after each.

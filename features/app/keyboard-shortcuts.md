@@ -45,8 +45,9 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - On `cn(altgr-pinyin)` in a rename field, `m`, AltGr+1, `a` types `mā`. lgse/strata#1583
 - On `cn(altgr-pinyin)` in a rename field, AltGr+1 then Escape cancels only the pending tone mark; the rename stays open. lgse/strata#1583
 - With fcitx5-hangul composing 보고 in a rename, one Escape commits the syllable and cancels the rename. lgse/strata#1583
-- With fcitx5 (Ctrl+Space) or IBus (Super+Space), the switch key in any focused text field reaches the input method; Strata's own Ctrl+Space toggles selection only in a file list. lgse/strata#1714
-- With a Zhuyin input method such as chewing in any text field, a plain digit, `-`, `,`, `.`, `/`, or `;` starts no Strata command, so the first key of a syllable reaches the input method. lgse/strata#1714
+- With fcitx5 (Ctrl+Space) or IBus (Super+Space), the switch key in a rename field, the location bar, or a footer prompt reaches the input method. lgse/strata#1714
+- With a Zhuyin input method such as chewing in a text field, a plain digit, `-`, `,`, `.`, `/`, or `;` starts no Strata command. lgse/strata#1714
+- The first key of a Zhuyin syllable therefore reaches the input method. lgse/strata#1714
 - On `tw(saisiyat)`, the semicolon key types ː in a rename field; in 10xer mode the same key in the file list arms the `;` chord. lgse/strata#1714
 - On `cn(altgr-pinyin)`, digit keys without AltGr act as on US: Ctrl+1 switches to Columns, and 10xer `t 1` selects tab 1. Ctrl+AltGr+1 and `t` then AltGr+1 do neither. lgse/strata#1583
 

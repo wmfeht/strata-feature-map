@@ -93,7 +93,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ### Styling and effects
 
-- Settings navigation, close, and search icons, and the About and release-notes icons, draw in the theme's accent color at 0.65 opacity, without desaturation. lgse/strata#1724 (unverified)
+- Settings navigation, close, and search icons, and the About and release-notes icons, draw in the theme's accent color at 0.65 opacity, without desaturation; the active page's navigation icon is opaque. lgse/strata#1724 (unverified)
 - Strata's stylesheet reads the nine tokens as `@strata_bg`, `@strata_surface`, `@strata_text`, `@strata_accent`, `@strata_danger`, `@strata_muted`, `@strata_highlight`, `@strata_border`, and `@strata_dim_text`. lgse/strata#1412
 - User CSS that redefines the former `@theme_*` names no longer changes Strata's colors. lgse/strata#1412
 - A rule in `~/.config/gtk-4.0/gtk.css` changes no property of Strata's widgets. Examples are `label { color: red }`, `button { min-width: 60px }`, and `* { outline: 3px solid red }`. lgse/strata#1680, lgse/strata#1682
@@ -123,7 +123,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Creating, editing, or deleting the file while Strata runs re-applies it in every open window without a restart. lgse/strata#1758
 - Changes to the file less than 75 ms apart trigger one reload, 75 ms after the last. lgse/strata#1758 (unverified)
 - Deleting the file, or making it unreadable, restores Strata's default appearance; an unreadable file logs "cannot read user stylesheet". lgse/strata#1758
-- A rule GTK cannot parse, such as `label { color: nope; }`, is skipped with an "invalid rule in user stylesheet" warning; valid rules in the same file still apply. lgse/strata#1758
+- A rule GTK cannot parse, such as `label { color: nope; }`, is skipped with an "invalid rule in user stylesheet" warning. Valid rules in the same file still apply. lgse/strata#1758
 - Without the file, Strata's appearance is unchanged. lgse/strata#1758
 - Corner roundness does not scale radii set in the user stylesheet. lgse/strata#1758 (unverified)
 
@@ -139,12 +139,12 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - GDK also accepts 9- and 12-digit hex, which GTK CSS and SVG strokes reject. Custom and Omarchy colors are canonicalized on load, in memory only, so dotfiles are never rewritten (lgse/strata#1429, lgse/strata#1554).
 - Base16 `base05` maps to text unchanged, except a few catalog entries whose foreground overrides are commented in place for readability. The owner chose the Material Lighter and Material Vivid values and left other weak pairs to lgse/strata#1566 (lgse/strata#1459, lgse/strata#1570).
 - Dim text is lifted at load rather than overridden in the catalog. It takes the same floors as body text, and the lift stops at the first passing step so it stays dimmer than text. The lift reuses the Omarchy readability helper (lgse/strata#1711, lgse/strata#1724).
-- Settings icons lost their desaturation because a gray that differed from text gray read as disabled and looked the same in every theme (lgse/strata#1711, lgse/strata#1724).
+- Settings icons lost their desaturation because their fixed gray differed from the text's and looked the same in every theme (lgse/strata#1711, lgse/strata#1724).
 - A name without ASCII letters or digits takes the fallback id `custom-theme`. A Unicode slug would change existing ids and give non-ASCII file names; transliteration adds a dependency (lgse/strata#1458, lgse/strata#1570).
 - The `@strata_*` namespace hardens against name collisions; the trigger reported in lgse/strata#1096 was not reproduced (lgse/strata#1412).
 - Strata no longer leaves user CSS at GTK's higher user priority, as lgse/strata#1412 did. Desktop themes changed padding, row heights, and spacing, and user `gtk.css` could recolor or resize widgets. Documenting that user stylesheets win was rejected (lgse/strata#1679, lgse/strata#1680).
 - An opt-in `~/.config/strata/style.css` restores layout overrides beyond the nine tokens, which `gtk.css` could no longer reach. Unlike `gtk.css`, it exists only when the user creates it, so default isolation stays intact (lgse/strata#1710, lgse/strata#1758).
-- The user stylesheet loads one priority above the token provider, so its rules win over every Strata stylesheet. A missing or unreadable file clears it, and its watch reuses the custom-theme 75 ms debounce (lgse/strata#1758).
+- The user stylesheet loads one priority above the token provider, so its rules win over every Strata stylesheet. A missing or unreadable file clears it, and its watch debounces 75 ms, as custom themes do (lgse/strata#1758).
 - A Floating sidebar toggle in Settings and patching Strata's stylesheet before each build were the alternatives in lgse/strata#1710. Class names are not a stable interface and may change between releases (docs/themes.md).
 - The built-in `Default` theme and regular contrast are set as application values, which outrank the settings portal and `settings.ini`. They are set even when they match, because only application values survive later portal updates (lgse/strata#1680).
 - `GTK_THEME` bypasses GTK's settings, so startup re-execs without it, through the same path as the Cairo renderer. Editing the environment after threads start was avoided (lgse/strata#1680).

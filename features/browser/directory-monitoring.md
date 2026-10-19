@@ -6,7 +6,7 @@ branch: null
 reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs]
-tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs]
+tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs]
 docs: [docs/architecture.md, docs/performance-baseline.md]
 related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations, operations/filesystem-compatibility]
 ---
@@ -77,7 +77,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - An open folder's departure during a delete, restore, or transfer applies when that operation finishes, after its other held changes. lgse/strata#1435, lgse/strata#1554
 - If a monitor asked for a full reload during the operation, that folder reloads after the progress dialog closes, keeping its rows on screen until the new listing replaces them. lgse/strata#1266, lgse/strata#1036
 - When an operation completes, fails, or is cancelled, each affected open folder without a monitor reloads once, native or remote. Folders with a monitor are left to it. lgse/strata#1615
-- A merge undo or restore that ends with errors removes from the view only what it removed; restored and kept items stay without a reload. lgse/strata#1615
+- A merge undo or restore that ends with errors removes from the view only what it removed; restored and kept items stay in the view. lgse/strata#1615
 
 ## Design
 

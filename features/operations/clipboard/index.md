@@ -37,7 +37,8 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - The destination column follows the last pointer or keyboard navigation; pressing Ctrl+V does not change it. lgse/strata#358
 - After going to a parent folder, Ctrl+V pastes into the parent, not into the folder selected on arrival, restored or first. lgse/strata#485, lgse/strata#1436, lgse/strata#1544
 - Ctrl+V while viewing Recent does nothing. lgse/strata#1083
-- A paste whose destination is slow to answer shows "Preparing items…" with Cancel and no count: in the docked row for a copy, in a dialog for a move. lgse/strata#1615
+- A paste whose destination is slow to answer shows "Preparing items…" with Cancel and no count. lgse/strata#1615
+- A copy shows it in its docked row, and a move in a dialog. lgse/strata#1615
 - Cancel there abandons the paste with no prompt, and closing the view dismisses the row and copies nothing. lgse/strata#1615
 - After a paste, the destination is shown with the pasted items selected; a pasted-into folder in Columns opens and keeps focus. lgse/strata#524
 - Completing a cut-paste removes the moved items from the clipboard; text copied after the cut stays on the clipboard. lgse/strata#1265

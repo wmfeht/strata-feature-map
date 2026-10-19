@@ -24,9 +24,10 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - Skip appears only when other items are accepted or further conflicts remain; it keeps the existing item and transfers the rest. lgse/strata#708
 - The Apply to All checkbox appears only while further conflicts remain; when checked, the chosen action applies to all of them. lgse/strata#708
 - Dragging a move or a copy onto a folder that holds a taken name shows the same dialog with Keep Both. lgse/strata#599, lgse/strata#1615 (unverified)
-- A paste whose name the destination stores differently prompts on that stored name: `10:00` onto FAT holding `10_00` explains "“10:00” will be saved as “10_00” in this location." lgse/strata#1615
+- A paste whose name the destination stores differently prompts on that stored name. lgse/strata#1615
+- For example, `10:00` pasted onto FAT holding `10_00` explains "“10:00” will be saved as “10_00” in this location." lgse/strata#1615
 - The folder prompt then adds "Items whose names change to suit this location overwrite items with the new name." lgse/strata#1615
-- On a mount that already refused Trash, the Replace prompt adds "Replaced items can't be moved to Trash here and will be deleted." lgse/strata#1614
+- On a mount that already refused Trash, the conflict prompt adds "Replaced items can't be moved to Trash here and will be deleted." lgse/strata#1614
 
 ### Choices
 
@@ -34,7 +35,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - Keep Both creates the first free `name (N).ext` beside the existing item and leaves it untouched. lgse/strata#599
 - Keep Both is offered for a cut-paste or Move to… too; Ctrl+Z moves the item back from its numbered name. lgse/strata#1615
 - Keep Both picks its number when the copy is placed, so a name taken meanwhile gets the next number. lgse/strata#1615
-- A long name numbered by Keep Both is cut so ` (N)` fits the mount's name limit. lgse/strata#1615 (unverified)
+- A long name numbered by Keep Both is cut so ` (N)` fits the mount's name limit. lgse/strata#1615
 - Merge appears only when copying a folder onto a folder; moves and file conflicts never offer it. lgse/strata#1092
 - Merge adds the incoming contents, keeps destination-only items, and overwrites same-named files with the incoming copies. lgse/strata#1092
 - Merge with Apply to All merges the remaining folder pairs and still asks about each file conflict. lgse/strata#1092 (unverified)

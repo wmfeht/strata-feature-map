@@ -45,7 +45,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 - If the original location changes after confirmation, the restore fails with "no longer matches the confirmed destination" and the payload and metadata stay in Trash. lgse/strata#502
 - If something exists at the destination, the restore fails with "something already exists at the destination" and the item stays in Trash. lgse/strata#502, lgse/strata#1527
 - On filesystems without `RENAME_NOREPLACE`, such as NTFS via ntfs-3g, files and folders restore when the destination is free. lgse/strata#1527
-- There the item is placed without copying: a file by hard link, a folder over an empty placeholder. An item that appears at the destination meanwhile is never replaced. lgse/strata#1615
+- There the item is placed without copying: a file by hard link, or over a checked empty placeholder on sshfs and vboxsf; a folder over an empty placeholder. An item that appears at the destination meanwhile is never replaced. lgse/strata#1615
 - Where nothing can place the item, it is copied with best-effort metadata, so ntfs3 `$LX*` attributes no longer fail it and named pipes are recreated. lgse/strata#1615
 - That copy is flushed, then the Trash copy is deleted entry by entry. lgse/strata#1615
 - An entry that changed or cannot be copied stays in Trash with its `.trashinfo`, reported as "“name” changed during the restore and was left in the Trash". lgse/strata#1615

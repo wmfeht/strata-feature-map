@@ -85,8 +85,8 @@ Strata is positioned as keyboard-first; a Yazi user reported needing the trackpa
 - Each listing is one Tab stop because walking every row took 120 or more presses in a 120-entry folder (lgse/strata#1431).
 - The Columns strip is one stop that lands on the active column. Per-column stops were rejected because entering a column would change the paste and New Folder destination (lgse/strata#1431).
 - The List sort headings stay Tab stops: they are real controls and cost five stops, not one per row (lgse/strata#1431).
-- Modal arrow navigation collected only buttons, menu buttons, checkboxes, switches, and entries, so a tab strip was never a target. A notebook holds focus while a tab does, so the current tab stands in for the notebook (lgse/strata#1738, lgse/strata#1739).
-- The tab strip spans the whole notebook, so Up and Down treat it as directly above or below the control they leave (lgse/strata#1739) (unverified).
+- Modal arrow navigation collected only buttons, menu buttons, checkboxes, switches, and entries, so a tab strip was never a target. A notebook holds focus while a tab does, so the current tab stands in for the notebook (lgse/strata#1739).
+- The tab strip spans the whole notebook, so Up and Down treat it as directly above or below the control they leave (lgse/strata#1739).
 - The sidebar remembers a return target only while the file view holds focus. A header control as target trapped focus outside the listing (lgse/strata#1053).
 
 ## History

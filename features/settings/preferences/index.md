@@ -64,6 +64,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - On a package-managed install, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
+- Searching "typeface", "family", or "typography" shows Appearance's Interface font row. lgse/strata#1696 (unverified)
 - Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735
 - Searching "add-ons" or "plugins" opens the Integrations page. lgse/strata#1748
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
@@ -136,7 +137,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - Page scrollers refuse horizontal scrolling. GTK treats an `External` horizontal policy as scrollable, so sideways deltas panned the page with up to 100 px of overshoot even with no horizontal range (lgse/strata#1712, lgse/strata#1719).
-- A page bin reports no horizontal minimum and gives its content the viewport width, so a content minimum can neither restore the pan nor clip the right edge. It passes its child's request mode through, because a fixed one cached a single-line height for wrapped text (lgse/strata#1719).
+- A page bin reports no horizontal minimum and gives its content the viewport width. A content minimum can then neither restore the pan nor clip the right edge. It passes its child's request mode through, because a fixed one cached a single-line height for wrapped text (lgse/strata#1719).
 - The dark band at scroll walls was GTK's default overshoot gradient; Settings clears it as context menus and popovers already did (lgse/strata#1719).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).

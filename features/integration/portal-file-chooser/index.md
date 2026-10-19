@@ -6,7 +6,7 @@ branch: null
 reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/keyboard.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
 related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout]
 ---
@@ -37,6 +37,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 ### Browsing
 
+- The chooser's header bar has the same height and button and icon sizes as a browser window's header. lgse/strata#1696
 - Entering a remote URI in the address bar shows "The system file chooser supports local files and folders only." lgse/strata#175
 - Folder-only requests hide regular files in folder listings and in recursive filter results. lgse/strata#1155
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
@@ -60,13 +61,13 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - A resized Miller column or List heading becomes the default for the next chooser, stored apart from browser windows' defaults. lgse/strata#1339
 - The item menu offers Rename, Properties, and, for one previewable file, Quick preview; empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
 - The item menu also offers Compress… for native entries, plus Move to Trash and Permanently delete where the location allows them. lgse/strata#950, lgse/strata#1352
-- When every selected item is remote, the item menu's Permanently delete reads Delete without Trash. lgse/strata#1614
+- When every selected item is on a network or cloud mount, Permanently delete in the item menu reads Delete without Trash. A `fuseblk` mount or a local FUSE overlay such as mergerfs keeps Permanently delete. lgse/strata#1614
 - With the file view focused, Shift+Delete asks to delete permanently. Delete moves the selection to Trash, except as below. lgse/strata#950, lgse/strata#1533
 - Where every selected item's open folder reports no Trash support but allows deletion, Delete opens the `operations/trash` explained permanent confirmation instead. lgse/strata#1533
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
-- With a shortcut reference left open after 10xer mode was turned off in another window, F5, Ctrl+H, Ctrl+., Ctrl+1/2/3, and Alt+Up/Left/Home leave the folder, view, and hidden files unchanged. lgse/strata#1714
+- A shortcut reference can stay open after 10xer mode is turned off in another window. Then F5, Ctrl+H, Ctrl+., Ctrl+1/2/3, and Alt+Up/Left/Home leave the folder, view, and hidden files unchanged. lgse/strata#1714
 - In that state, Escape closes the reference and keeps the request open. lgse/strata#1714
-- In that state, text-size and thumbnail-size shortcuts still apply to the chooser. lgse/strata#1714 (unverified)
+- In that state, text-size and thumbnail-size shortcuts still apply to the chooser. lgse/strata#1714, lgse/strata#1721 (unverified)
 - With a filter result selected, Space in the Name or location entry types a space and opens no preview. lgse/strata#1714
 - Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
 - Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533

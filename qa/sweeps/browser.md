@@ -9,7 +9,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 Everything that shows a folder and moves through it without changing files: selection by pointer and keyboard, with marquee, pointer intent, and click modes; the Columns, Icons, and List views with sorting, per-folder views, text size, thumbnail size shortcuts, and position restore; Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump; Ctrl+K search, the Ctrl+F filter, and search exclusions; the sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice; thumbnails with their disk cache and worker pool; Properties with its media, RAW, and size details; and the context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore. Arrow focus between controls in modal dialogs belongs here too.
 
-Left to other sweeps: what happens once a press becomes a file drag, drops on tabs and sidebar row bodies, and every operation that changes files; the DEVICES rows and remote shares in the sidebar; the modal dialog shell, the shortcut footer, F1, and key precedence; what the preview panel renders; the Settings pages that hold the preferences named here; and the 10xer-mode key variants and the portal file chooser.
+Left to other sweeps: file drags once a press becomes one, drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser are also left out.
 
 ## Setup
 
@@ -24,7 +24,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Foreign drags for pin probes: Nautilus or Dolphin, and `tests/e2e/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
-- Ubuntu 24.04 with GTK 4.14 for context menu teardown probes; CI pins GTK 4.22.
+- Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
@@ -223,7 +223,6 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Run `gio open` on five files, delete two externally, and open Recent in two windows; trash a third from one and watch the other.
 - Press Ctrl+V, Ctrl+Shift+N, and Remove from Recent on a selection mixing a file and a folder row.
 - `gio open` the non-UTF-8 name, open Recent, then rename, Remove from Recent, and Properties on its row.
-
 - Trash 65 files listed in Recent while Recent is open in a second window, then restore them with Ctrl+Z.
 
 ### browser/navigation/startup-arguments
@@ -300,7 +299,6 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Start a foreign folder drag over a gap and plug in a USB drive before releasing.
 - Drag a folder from the Trash view, an `https://` link from a web browser, and a symlink to a folder over the gaps; then drag an SMB pin between two local pins.
 - With nothing pinned, drag a file over the sidebar and out again, then drag a folder in; repeat in the file chooser and on the icon rail.
-- Hold Shift while dragging a folder from List into a gap; then check the folder is still in its original place.
 
 ### browser/sidebar/connect-to-server
 
@@ -318,14 +316,12 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Remove the HEIC or JPEG XL decoder package and reopen the folder; open an `smb://` share with `gvfsd-fuse` stopped.
 - Turn Show thumbnails off mid-load in the slow directory, then on within 200 ms while videos' durations stream into Icons captions; repeat in a folder peek and a Ctrl+K result list.
 - With Show thumbnails off, open the portal file chooser and a second window, then turn it on from Settings and scroll each.
-
 - Open a folder of the RAW samples with and without `dcraw` and `simple_dcraw`; compare orientation and Icons captions.
 
 ### browser/thumbnails/cache
 
 - Plant entries that are a symlink, a 3 MiB PNG, a 600 px PNG, and a JPEG renamed `.png`, each with matching tags; reopen the folder.
 - Delete `thumbnails/large`, make it a `chmod 755` directory, reopen, and read its mode; then point `XDG_CACHE_HOME` at an unwritable path.
-
 - Thumbnail the RAW samples with another file manager first, open the folder twice in Strata, then let the other file manager rewrite the cache and reopen.
 
 ### browser/thumbnails/workers
@@ -368,7 +364,7 @@ Left to other sweeps: what happens once a press becomes a file drag, drops on ta
 - Right-click a folder, choose Copy, reopen its menu within one frame, then alternate file, folder, and multi-selection menus while watching the log.
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.
-- Open the menu on a selection mixing an sshfs file and a local file, on two sshfs files, and on a file on a virtiofs share.
+- Open the menu on a file on a virtiofs share, a 9p share, and a mergerfs mount.
 
 ### browser/directory-monitoring
 

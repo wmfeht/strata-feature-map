@@ -13,15 +13,15 @@ related: [operations/clipboard, operations/clipboard/conflicts, operations/renam
 
 ## Summary
 
-The no-clobber placement routine, the native copy engine, and the per-mount name rules behind every local move, copy, Replace, Merge, restore, rename, undo, and archive publish. It keeps these operations working on NFS, SMB, sshfs and other FUSE mounts, FAT, exFAT, NTFS, and case-insensitive folders, and reports every name it changed or item it left out.
+The no-clobber placement routine, the native copy engine, and the per-mount name rules behind every local move, copy, Replace, Merge, restore, rename, undo, and archive publish. It keeps these operations working on NFS, SMB, FUSE, FAT, exFAT, NTFS, and case-insensitive mounts. It reports every name it changed and every item it left out.
 
 ## Behavior
 
 ### Placement
 
-- A move within one NFS, ntfs-3g, sshfs, 9p, or ceph mount, where `RENAME_NOREPLACE` returns `EINVAL`, finishes without copying any data. lgse/strata#1615
+- A move within one NFS, ntfs-3g, 9p, or ceph mount, where `RENAME_NOREPLACE` returns `EINVAL`, finishes without copying any data. lgse/strata#1615
 - There a file is hard-linked and its old name unlinked once the link proves its identity; a folder is renamed over an exclusive empty placeholder. lgse/strata#1615
-- On sshfs, vboxsf, rclone, and s3fs, an exclusive empty placeholder is created, checked, then renamed over. lgse/strata#1615
+- On sshfs, vboxsf, rclone, and s3fs, an exclusive empty placeholder is created, checked, then renamed over; on sshfs whose server lacks `posix-rename@openssh.com`, the move copies instead. lgse/strata#1615
 - A move copies only across devices, or where no placement step can place the item. lgse/strata#1615
 - An item that appears at the destination meanwhile is never overwritten, except in the reserved-name step's window. lgse/strata#1615
 - An `EINVAL` from a rename reports an invalid name as such and refuses a folder moved into itself, instead of copying. lgse/strata#1615
@@ -30,11 +30,12 @@ The no-clobber placement routine, the native copy engine, and the per-mount name
 
 ### Copying
 
-- Native-to-native pastes, Duplicate, Keep Both, cross-filesystem moves, Replace, Merge, and restore copies no longer go through GIO; GVfs locations keep GIO. lgse/strata#1615
+- Pastes, Duplicate, Keep Both, cross-filesystem moves, Replace, Merge, and restore copies between native paths use Strata's copy engine. GVfs locations use GIO. lgse/strata#1615
 - A copied item appears under its final name only when complete. A cancelled or failed copy leaves nothing partial at a real name. lgse/strata#1615
 - On local POSIX filesystems a copied file is written unnamed (`O_TMPFILE`) and linked when done; elsewhere the copy is built in a hidden `.strata-copy-*` stage. lgse/strata#1615
 - Every native file copy reports byte progress. lgse/strata#1615
-- A sparse file copied from ext4, XFS, btrfs, tmpfs, or f2fs keeps its holes, except onto FAT, exFAT, NTFS, or any `fuseblk` mount. lgse/strata#1615
+- A sparse file of 1 MiB or more copied from ext4, XFS, btrfs, tmpfs, or f2fs keeps its holes. lgse/strata#1615
+- Holes are filled onto FAT, exFAT, and NTFS, including exfat-fuse and ntfs-3g. lgse/strata#1615
 - A copied folder keeps its mode, times, owner, and xattrs; a `0555` folder stays `0555`. lgse/strata#1615
 - A read-only item keeps its `user.*` xattrs. lgse/strata#1615
 - A copy into a setgid folder keeps the folder's group. lgse/strata#1615
@@ -55,8 +56,8 @@ The no-clobber placement routine, the native copy engine, and the per-mount name
 - On an SMB source, every later name of a file whose first name was compared by content stays at the source, reported as changed. lgse/strata#1751
 - Nothing only the copy holds is deleted before the destination is flushed: move sources, Replace originals, merge set-asides, and restored Trash copies. lgse/strata#1615
 - A failed flush deletes nothing. lgse/strata#1615
-- Source deletions after a flush are batched at 256 items, 1 GiB, or 5 seconds. lgse/strata#1615 (unverified)
-- A cross-disk move of more than 8 regular files with no conflicts runs on up to 8 workers, or 1 when either side is a rotational disk. lgse/strata#1615
+- Source deletions after a flush are batched at 256 items, 1 GiB, or 5 seconds. lgse/strata#1615
+- A paste of more than 8 native files with no conflicts copies or moves up to 8 at a time, or 1 when either disk is rotational. lgse/strata#1615
 - An SMB open of another hard-linked name refused during the client's deferred close is retried for `closetimeo` plus 0.5 s, at most 10 s. lgse/strata#1615
 
 ### Names
@@ -65,14 +66,17 @@ The no-clobber placement routine, the native copy engine, and the per-mount name
 - There trailing dots and spaces are dropped, and malformed UTF-8 bytes become `_`. lgse/strata#1126, lgse/strata#1615
 - `CON` becomes `CON_` wherever Windows rules apply. lgse/strata#1615
 - `aux.c` keeps its name on FAT, exFAT, and ntfs3, and becomes `aux_.c` on ntfs-3g, ntfs3 with `windows_names`, and SMB without POSIX extensions. lgse/strata#1615
-- A name too long for the destination is cut in the destination's unit, keeping the extension and whole characters: 100 CJK characters onto ext4 arrive as 83 plus `.txt`. lgse/strata#1615
+- A name too long for the destination is cut in the destination's unit, keeping the extension and whole characters. lgse/strata#1615
+- For example, a name of 100 CJK characters copied onto ext4 arrives as 83 characters plus `.txt`. lgse/strata#1615
 - Duplicates, restores, and moves within one filesystem keep every name. lgse/strata#1615
-- Two names the destination cannot tell apart, such as `Makefile` and `makefile` onto FAT, exFAT, SMB, or casefold, save the later one in byte order as `makefile (1)`. lgse/strata#1126, lgse/strata#1615
+- Two source names that FAT, exFAT, SMB, or a casefold folder cannot tell apart both arrive, under separate names. lgse/strata#1126, lgse/strata#1615
+- Of `Makefile` and `makefile`, the later in byte order is saved as `makefile (1)`. lgse/strata#1126, lgse/strata#1615
 - Top-level items from two folders sharing a name, such as `notes.txt`, save the later one as `notes (1).txt` before copying. lgse/strata#1615
 - A destination reached through a symlink, such as `~/stick` into `/run/media/…`, gets the rules and the 4 GiB check of the mount behind it. lgse/strata#1615
 - A name an sshfs or other FUSE mount still refuses is retried under stricter Windows rules, which that mount then keeps. lgse/strata#1615
 - When no rule helps, the item fails with "The name isn't valid at this location" or "The name is too long". lgse/strata#1615
-- A symlink the destination cannot store is left out and reported, and the paste goes on: on FAT and exFAT at once, on SMB after the first refusal. lgse/strata#1615
+- A symlink the destination cannot store is left out and reported, and the paste goes on. lgse/strata#1615
+- This happens at once on FAT and exFAT, and after the first refusal on SMB without POSIX extensions. lgse/strata#1615
 - A move keeps such a link at the source, and Undo leaves its item out, naming it. lgse/strata#1615
 
 ### Completion report
@@ -89,7 +93,7 @@ The no-clobber placement routine, the native copy engine, and the per-mount name
 
 [docs/filesystem-compatibility.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/filesystem-compatibility.md) carries the guarantees, the placement steps, the copy engine, the name rules, and per-filesystem notes. The work is steps 1 to 3 of lgse/strata#1590.
 
-- Invariants: never overwrite a destination that appeared concurrently, never delete what the copy does not hold, and run no disk operation on the GTK main thread (lgse/strata#1590).
+- Invariants: never overwrite a destination that appeared concurrently, never delete what the copy does not hold, and run no disk operation on the GTK main thread (lgse/strata#1590, lgse/strata#1615).
 - Placement tries `renameat2(NOREPLACE)`, then a file hard link, then a folder rename over an exclusive placeholder, then the reserved-name step, then a copy. `EEXIST` stays authoritative (lgse/strata#1615).
 - The reserved-name step loses only a write that another program makes to that exact name between the check and the rename. GLib checks then renames with no placeholder, which is weaker (lgse/strata#1615).
 - Rejected: check-then-rename as in GLib, Nautilus, KIO, and coreutils; the copy fallbacks of lgse/strata#1515 and lgse/strata#1586, which doubled writes and lost metadata; and gating on filesystem type (lgse/strata#1590).

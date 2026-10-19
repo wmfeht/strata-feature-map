@@ -2,7 +2,7 @@
 title: App sweep
 reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
-tools: [scripts/test_installer.py, install.sh, scripts/installer_messages.py, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
+tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
@@ -16,8 +16,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Two builds of the same commit: one plain, one with `STRATA_RELEASE_TAG=v0.0.1-rc.1 STRATA_BUILD_KIND=rc` exported before `cargo build`. The second drives Return to stable and build-kind labels.
 - Network control for update checks and downloads. Point `HTTPS_PROXY` at a closed port for a fast failure and at a `nc -l` socket for a stall; run under `unshare -rn` when the proxy is ignored. Live GitHub checks are capped at 60 per hour, so plan them.
 - A fake package-managed install: copy the binary to `<prefix>/bin/strata` and write `<prefix>/share/strata/install-source.toml` in the shape `docs/packaging.md` gives. Keep one marker per manager and channel, one with unknown keys, and one made unreadable with `chmod 000`.
-- The installer is never run on the host. Evidence is `python3 scripts/test_installer.py`, `bash install.sh --help`, and the script read against its Behavior; a fake `omarchy` on `PATH` and `~/.local/share/omarchy/version` under the throwaway `HOME` feed the detection cases.
-- Installer menus: drive `install.sh` through a pseudo-terminal in a throwaway `HOME`, with stub `curl`, `pacman`, `sudo`, `gh`, and `gdbus` on `PATH`, as the `scripts/test_installer.py` fixture does; set the size with `stty rows N cols M`.
+- The installer is never run on the host outside the stubs and throwaway `HOME` below. Evidence is `python3 scripts/test_installer.py`, `bash install.sh --help`, and the script read against its Behavior; a fake `omarchy` on `PATH` and `~/.local/share/omarchy/version` under the throwaway `HOME` feed the detection cases.
+- Installer menus: drive `install.sh` through a pseudo-terminal in a throwaway `HOME`. Put stub `curl`, `pacman`, `sudo`, `gh`, and `gdbus` on `PATH`, as the `scripts/test_installer.py` fixture does.
+- Set the pseudo-terminal's size with `stty rows N cols M`.
 - Animation and scale: the harness `settings.ini` sets `gtk-enable-animations=false`, so set it `true` for animation probes and toggle `reduce_motion` in `settings.toml`. Set `text_size = 8` and `48` for layout probes.
 - AT-SPI dumps from `tests/e2e/harness/tree.py` or an ad-hoc `gi.repository.Atspi` script under `/tmp`; `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
@@ -91,7 +92,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
 - Under the client-decorating compositor, open a window, a second window, a new tab, and the portal chooser; drag each edge and corner, then maximize, tile, and fullscreen and read the window border each time.
 - Under the client-decorating compositor, open a modal dialog and the search palette and check that the blur covers the header.
-- With F1 open from Columns, List, and Icons, press F5, Ctrl+K, Ctrl+Alt+T, and Ctrl+\\ with focus on a category and on the results; close F1 and press each again.
+- With F1 open from Columns, List, and Icons, press F5, Ctrl+K, Ctrl+Alt+T, and Ctrl+\\ with focus on a category, then on the results.
+- Close F1 and press the same keys again.
 
 ### app/packaging
 
@@ -111,7 +113,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In the custom menu, toggle Default file manager, Open file location, and Application launcher in every order, then read the plan's `+` lines.
 - In a numbered menu, enter `0`, `99`, `1 2`, `01`, and an empty line in both menus.
 - Run with `LANGUAGE=zz`, `LANGUAGE=zh-Hant-TW`, `LANG=zh_SG.UTF-8`, `LC_ALL=POSIX`, and `LC_MESSAGES=ko_KR.UTF-8` with `LANG=fr_FR.UTF-8`; read the banner, menus, and failure lines.
-- Make the stub `gdbus` hang past 5 s, exit 1, and be absent while installing Open file location; read the heading and whether the log is kept.
+- Install Open file location with the stub `gdbus` exiting 1 and then absent; read the heading and whether the log is kept.
+- Repeat with the real `gdbus` and `DBUS_SESSION_BUS_ADDRESS` pointing at a socket that accepts and never answers, such as `socat UNIX-LISTEN:<path> -`.
 - Fail the package step, the desktop-entry step, and the udiskie step in turn; read the failure lines and the retained log.
 - Run with `TMPDIR` unset, pointing at a read-only directory, and at a path with spaces.
 
@@ -180,7 +183,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open `sftp://user:secret@host/dir?token=x#frag` with debug logging on and grep the log for `secret`, `token`, and `frag`.
 - Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 - Run Strata under `strace -f -e trace=execve`, open a folder of 200 text files named `.mp4` and `.png` in Icons, and count `ffprobe` launches; repeat with one real clip among them.
-- Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode; read every row the view shows during the copy.
+- Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
 
 ## Hand-offs
 

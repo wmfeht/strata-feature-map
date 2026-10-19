@@ -48,16 +48,18 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 ### FUSE mounts that refuse Trash
 
 - On a FUSE mount, including `fuseblk`, a trash move failing with permission denied, failed, or invalid argument counts as Trash unsupported. lgse/strata#1614
-- It counts only while the item is still present, the mount root answers `stat`, the parent is off the home device, and the user may remove the item. lgse/strata#1614
+- So does an error writing the `.trashinfo` file, other than a full disk, a missing path, a read-only mount, or a name too long. lgse/strata#1614
+- It counts only while the item is still present and the mount root answers `stat`. lgse/strata#1614
+- The parent must also be off the home device, and the user must be allowed to remove the item. lgse/strata#1614
 - On other local disks, only a not-supported error counts as Trash unsupported. lgse/strata#1614
 - A disconnected FUSE mount, whose root `stat` fails, keeps the raw error instead of "doesn't support Trash". lgse/strata#1614
 - After a counted refusal, the mount is remembered in every window, keyed by mount instance; a remount starts fresh. lgse/strata#1614
 - After that failed delete, the parent folders reload, and the next Delete there opens the explained dialog without a trash attempt. lgse/strata#1614
 - F5 forgets every remembered mount, so the next Delete tries Trash again. lgse/strata#1614
 - The pane refresh button, the folder menu's reload, and F5 in the file chooser also forget them. lgse/strata#1614 (unverified)
-- After a failed trash batch, empty `.Trash-$uid` or `.Trash/$uid` folders that did not exist before are removed from the mount root. lgse/strata#1614
+- After a batch whose trash moves on a FUSE mount were refused as unsupported, new empty `.Trash-$uid` or `.Trash/$uid` folders are removed from its root. lgse/strata#1614
 - That cleanup is skipped on a mount where any item in the batch was trashed. lgse/strata#1614
-- A Trash move that reports success while the item is still in place fails as Trash unsupported, records no Undo, and leaves no `.trashinfo`. lgse/strata#1615
+- A Trash move that reports success while the item is still in place fails as Trash unsupported, and records no Undo. lgse/strata#1615
 
 ### Browsing Trash
 

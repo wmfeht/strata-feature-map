@@ -27,7 +27,8 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 ### Dragging folders in
 
-- Dragging one or more folders from Columns, Icons, or List into a PINNED gap pins them at that gap in selection order: before the first pin, between two pins, after the last, or into an empty section. The pins survive a restart. lgse/strata#1690, lgse/strata#1692
+- Dragging folders from Columns, Icons, or List into a PINNED gap pins them at that gap, in selection order. The pins survive a restart. lgse/strata#1690, lgse/strata#1692
+- Gaps sit before the first pin, between pins, after the last pin, and in an empty section. lgse/strata#1690, lgse/strata#1692
 - Dropping an already pinned folder into a gap adds no duplicate and leaves the order unchanged. lgse/strata#1690, lgse/strata#1692
 - A multi-folder drag that includes pinned folders, Home, or standard folders adds only the others, in selection order. lgse/strata#1690
 - Dragging a file, or a selection mixing files and folders, over a gap shows no insertion line, and releasing it pins and transfers nothing. lgse/strata#1692
@@ -42,7 +43,8 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - Directory symlinks and remote folders, such as SMB and SFTP shares, can be drag-pinned. Their locations are stored as spelled, not canonicalized. lgse/strata#1692
 - Remote pins have gaps beside them, although their rows accept no file drops. lgse/strata#1692
 - In the file chooser, a local folder dragged into a PINNED gap is bookmarked, not moved, and a remote folder is rejected before any probe. lgse/strata#1713
-- A folder pin drag keeps a single insertion target when it crosses a row's edges and gap, leaves a spring-loaded row for a gap, or the sidebar shrinks to the rail and back. lgse/strata#1713 (unverified)
+- A folder pin drag that crosses a row's edges and gap, or leaves a spring-loaded row for a gap, keeps one insertion target. lgse/strata#1713 (unverified)
+- A folder pin drag keeps its target while the sidebar shrinks to the rail and back. lgse/strata#1713 (unverified)
 
 ### Display and order
 
@@ -85,7 +87,7 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - Pinning uses dedicated gaps, separate from row bodies, which stay file-transfer targets; the two drop targets are visually distinct (lgse/strata#1690). Before, pinning took two steps: the menu, then a drag into place.
 - Drags from Strata carry a snapshot of locations, display names, and an all-folders flag, so hovering a gap needs no filesystem probe. Foreign drags are validated once per drag, shared by every gap, so hover never blocks ([docs/architecture.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/architecture.md), lgse/strata#1692).
 - Move is accepted only from Strata's own drag sources, whose drag-end handlers never delete. A foreign Move completion could ask the source application to delete the originals (lgse/strata#1692).
-- One query in flight and a 2 s deadline bound speculative work on huge foreign selections, because cancelling a GIO query does not interrupt a kernel-blocked call (lgse/strata#1692).
+- One query in flight and a 2 s deadline bound speculative work on foreign selections such as 100 SFTP folders, because cancelling a GIO query does not interrupt a kernel-blocked call (lgse/strata#1692).
 - Each gap remembers both neighbours, because other windows do not watch the bookmarks file (lgse/strata#1692).
 - A pinned row's drag payload is `pinned:<index>` into the stored list. The prefix keeps pins and built-in places apart, and the index keeps hidden standard-folder bookmarks in place (lgse/strata#202).
 - Home and the standard folders report pin status Unavailable, so they cannot be pinned twice (lgse/strata#67). Where pinning can never apply, the control is hidden rather than insensitive, because some themes render insensitive labels unreadably (lgse/strata#438, lgse/strata#457).
@@ -107,9 +109,5 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 ## Known gaps
 
-- A sidebar rebuild, such as a mount change or a finished deletion, while a foreign folder drop is still being validated rejects that drop. lgse/strata#1692
-- Shortcut and mountable items dragged from another application, such as SMB shares or network-browse entries, are rejected, though the same items pin when dragged from Strata. lgse/strata#1692
-- A large or slow foreign selection, such as 100 SFTP folders, exceeds the 2 s deadline and is rejected. lgse/strata#1692
-- Each gap is an empty accessible group named "PINNED", so N pins add N+1 identical groups to the accessibility tree. lgse/strata#1692
 - A pin made in one window appears in other open windows only after they change a pin or Strata deletes an item; there is no file monitor. lgse/strata#647, lgse/strata#674
 - When deleting a parent fails after removing some children, pins to those removed children are kept. lgse/strata#1372

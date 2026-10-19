@@ -37,7 +37,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - After that, a full click on a menu row runs it. lgse/strata#1621
 - Pressing the secondary button, moving onto a menu row, and releasing does not run the row; menu rows need a separate click. lgse/strata#1621
 - On Hyprland, wlroots compositors, and X11, a right click released over a menu row behaves as before: the menu stays open. lgse/strata#1621
-- On GTK 4.14, such as Ubuntu 24.04, choosing Open With… from a file's menu and picking an application keeps the window open, and the menu and chooser open again afterwards. lgse/strata#1642, lgse/strata#1695
+- On GTK 4.14, choosing Open With… from a file's menu and picking an application keeps the window open. lgse/strata#1642, lgse/strata#1695
+- After that, the menu and the chooser open again. lgse/strata#1642, lgse/strata#1695
 
 ### Keyboard navigation
 
@@ -70,7 +71,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Open With… shows AppWindow, Duplicate CopyPlus, Copy path(s) Route, Copy name(s) FileType, Move to… FolderInput, and Copy to… FolderOutput. lgse/strata#1210
 - Compress… shows PackagePlus, Extract here PackageOpen, and Extract to… FolderArchive. lgse/strata#1210
 - Permanently delete shows CircleX with a red label and icon; Move to Trash keeps the Trash icon. lgse/strata#1210
-- Outside Trash, when every selected item is remote, such as on an NFS, SMB, or sshfs mount, the item and multi-selection menus show "Delete without Trash" in place of Permanently delete. lgse/strata#1614
+- Outside Trash, the item and multi-selection menus show "Delete without Trash" in place of Permanently delete when every selected item is remote. lgse/strata#1614
+- Remote means on an NFS, SMB, or sshfs mount, or at an `sftp://` or `smb://` location. lgse/strata#1614
 - Delete without Trash has the CircleX icon, a red label, and the Shift+Del hint. A mixed local and remote selection keeps Permanently delete. lgse/strata#1614
 - An action with a shortcut shows it at the row's right, such as Ctrl+C beside Copy. lgse/strata#666
 - Shortcut hints use one notation: Enter beside Open, "F2 / Ctrl+R" beside Rename, and Alt+Enter beside Properties. lgse/strata#1576
@@ -113,8 +115,9 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - A quick right click can open the menu under the pointer, and GtkModelButton activates on an unpaired release of any button. Some compositors, such as niri, deliver the opening click's release to the popup (lgse/strata#1618).
 - A release with no press inside the menu since `show()` belongs to the opening click and is dropped. The flag resets per presentation, so nothing stays armed on compositors that never deliver that release. A guard armed at the trigger was rejected for that reason; it also covered only the secondary button (lgse/strata#1618, lgse/strata#1621).
 - The guard runs with no propagation limit because submenus are separate popover natives (lgse/strata#1621).
-- GTK before 4.22 leaves a position handler on a freed section box when a popover built from a model has that model replaced, and can keep the window's pointer focus on a hidden popover. The item menu therefore starts with no model, and a sensitivity toggle repicks pointer focus before unparenting (lgse/strata#1642, lgse/strata#1695).
-- Neither fix alone stopped the GTK 4.14 crashes. An E2E guard was dropped because CI pins GTK 4.22, which cannot hit either bug (lgse/strata#1695).
+- GTK 4.12 to 4.16 leave a position handler on a freed section box when a popover's model is replaced. The item menu therefore starts with no model (lgse/strata#1642, lgse/strata#1695).
+- GTK 4.14 can keep the window's pointer focus on a hidden popover. A sensitivity toggle therefore repicks pointer focus before unparenting (lgse/strata#1642, lgse/strata#1695).
+- Both workarounds are needed on GTK 4.14; GTK 4.22 fixed both bugs (lgse/strata#1695).
 - A dropped menu owner unparents its popover, and preference bindings hold weak references, so navigation releases retired menus (lgse/strata#1353).
 
 ## History

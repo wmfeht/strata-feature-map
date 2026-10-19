@@ -35,7 +35,6 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `d` and Delete ask before moving to Trash, and a second `d` confirms that dialog. lgse/strata#1306, lgse/strata#1340
 - Where every item's open folder reports `access::can-trash` false and `access::can-delete` true, `d` opens the explained permanent confirmation with Cancel focused. A second `d` does not confirm it. lgse/strata#1533
-- A folder on a FUSE mount that already refused Trash counts as such a folder until Reload or a remount, so `d` there opens the same confirmation. lgse/strata#1614
 - `D`, Shift+Delete, and `d` inside Trash open the permanent-delete confirmation with Permanently delete focused, and `d` there does not confirm. lgse/strata#1340, lgse/strata#1508
 - In Columns, `d` on an open folder whose empty child column has focus asks to trash that folder instead of flashing `Nothing to delete`. lgse/strata#1508
 - While an `f` or `s` result list shows no hits, `d` and `D` flash `Nothing to delete` and leave the open folder alone. lgse/strata#1508 (unverified)
@@ -46,9 +45,9 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `a` opens `create ›`; Enter creates an empty file with exactly the typed name, or a folder when the name ends in `/`. lgse/strata#1306
 - An empty, invalid, or taken name, including one taken by a broken link, keeps the `create ›` prompt open with the reason; nothing is renumbered or replaced. lgse/strata#1306
-- In `create ›` or `rename ›`, a name the location would store as another, such as `x:y` on vfat, keeps the prompt open with the location's reason, and nothing changes. lgse/strata#1615
-- A `create ›` or `rename ›` check still running when the prompt is dismissed or edited creates or renames nothing. lgse/strata#1615 (unverified)
-- `rename ›` to a case-only variant of the item's own name, on a case-insensitive location, renames it instead of reporting the name taken. lgse/strata#1615 (unverified)
+- In `create ›` or `rename ›`, a name the location would store as another, such as `x:y` on vfat, keeps the prompt open with the reason. So does a 300-character name, with "The name is too long". Nothing changes. lgse/strata#1615
+- `rename ›` to a case-only variant of the item's own name, on a case-insensitive location, renames it instead of reporting the name taken. lgse/strata#1615
+- `rename ›` to another name of the same file, such as a hard link, closes the prompt. The rename then fails with a dialog, and both names keep their contents. lgse/strata#1615 (unverified)
 - Ctrl+Shift+N still creates a numbered new folder and renames it in place. lgse/strata#1306
 - `r` and F2 open `rename ›` for the cursor item or focused hit, never the fill. A file's stem or a folder's whole name is selected. lgse/strata#1308
 - Enter renames the item and keeps its contents; a taken name keeps the prompt open with "“…” already exists" and overwrites nothing. lgse/strata#1308
