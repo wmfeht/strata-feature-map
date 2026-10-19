@@ -3,7 +3,7 @@ title: Drive format, label, and properties
 status: shipped
 origin: {issue: lgse/strata#1293, pr: lgse/strata#1331}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: reviewed
 code: [src/ui/window/drive_dialogs.rs, src/ui/window/drive_dialogs/**, src/ui/window/drive_ops.rs, src/ui/window/device_labels.rs, src/ui/missing_tools.rs, src/services/package_manager.rs]
 tests: [src/ui/window/drive_dialogs/tests.rs, src/ui/window/drive_ops/tests.rs, src/ui/window/device_labels/tests.rs, src/ui/missing_tools/tests.rs, src/services/package_manager/tests.rs]

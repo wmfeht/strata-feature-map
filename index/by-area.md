@@ -17,18 +17,18 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 ### [Modal dialogs](../features/app/dialogs.md) `app/dialogs`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#88](https://github.com/lgse/strata/issues/88), pr [lgse/strata#91](https://github.com/lgse/strata/issues/91)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#88](https://github.com/lgse/strata/issues/88), pr [lgse/strata#91](https://github.com/lgse/strata/issues/91)
 
 The shared shell behind Strata's action dialogs: the blurred backdrop, open and close animation, backdrop dismissal, initial focus, Enter and Escape handling, form submission, and sizing within the window. Individual dialogs supply their content and actions; this node owns what they have in common.
 
-- Code: [`src/ui/modal.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/modal.rs), [`src/ui/modal/layout.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/modal/layout.rs), [`src/ui/controls.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/controls.rs), [`src/ui/blur.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/blur.rs)
-- Tests: [`src/ui/modal/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/modal/tests.rs), [`src/ui/controls/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/controls/tests.rs), [`src/ui/window/tests/keyboard_dispatch/overlay_focus.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/window/tests/keyboard_dispatch/overlay_focus.rs), [`tests/e2e/scenarios/test_dialogs_and_menus.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_dialogs_and_menus.py)
-- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/keyboard-navigation.md)
+- Code: [`src/ui/modal.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/modal.rs), [`src/ui/modal/layout.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/modal/layout.rs), [`src/ui/controls.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/controls.rs), [`src/ui/blur.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/blur.rs)
+- Tests: [`src/ui/modal/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/modal/tests.rs), [`src/ui/controls/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/controls/tests.rs), [`src/ui/window/tests/keyboard_dispatch/overlay_focus.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/tests/keyboard_dispatch/overlay_focus.rs), [`tests/e2e/scenarios/test_dialogs_and_menus.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_dialogs_and_menus.py)
+- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md)
 - Related: [Operation progress and cancellation](../features/operations/progress/index.md), [Window chrome and structure](../features/app/window.md), [Settings window and general preferences](../features/settings/preferences/index.md)
 
 ### [Shared location model and listing adapter](../features/app/infrastructure.md) `app/infrastructure`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#14](https://github.com/lgse/strata/issues/14), pr [lgse/strata#27](https://github.com/lgse/strata/issues/27)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#14](https://github.com/lgse/strata/issues/14), pr [lgse/strata#27](https://github.com/lgse/strata/issues/27)
 
 The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, crate manifests, the build script, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration. It is the `fallback` node in `scopes.yaml`.
 
@@ -39,7 +39,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 ### [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) `app/keyboard-shortcuts`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1538](https://github.com/lgse/strata/issues/1538), pr [lgse/strata#1576](https://github.com/lgse/strata/issues/1576)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1538](https://github.com/lgse/strata/issues/1538), pr [lgse/strata#1576](https://github.com/lgse/strata/issues/1576)
 
 Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the label formatter and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
 
@@ -50,7 +50,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 
 ### [Packaging and installation](../features/app/packaging/index.md) `app/packaging`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 4 PRs since · origin issue [lgse/strata#49](https://github.com/lgse/strata/issues/49), pr [lgse/strata#182](https://github.com/lgse/strata/issues/182)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#49](https://github.com/lgse/strata/issues/49), pr [lgse/strata#182](https://github.com/lgse/strata/issues/182)
 
 How Strata reaches a desktop: the desktop entry and application icon that let shells recognize it, and `strata --version` for checking an install. Children: `app/packaging/installer` (the `install.sh` release installer) and `app/packaging/aur` (the `strata-bin` and `strata-rc-bin` AUR packages).
 
@@ -73,7 +73,7 @@ The `strata-bin` and `strata-rc-bin` Arch packages, rendered from one `PKGBUILD.
 
 ### [Release installer](../features/app/packaging/installer.md) `app/packaging/installer`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#329](https://github.com/lgse/strata/issues/329), pr [lgse/strata#330](https://github.com/lgse/strata/issues/330)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#329](https://github.com/lgse/strata/issues/329), pr [lgse/strata#330](https://github.com/lgse/strata/issues/330)
 
 `install.sh`, a localized Bash installer that checks the system, offers a recommended setup or a menu of the integrations the system supports, and installs the latest verified stable release to `~/.local/bin/strata`. It runs interactively or unattended with `--with-*` flags. What the "Open file location", file chooser, and udiskie unlock steps install belongs to `integration/file-manager-interface`, `integration/portal-file-chooser/setup`, and `devices/volumes/udiskie-unlock`.
 
@@ -84,7 +84,7 @@ shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/
 
 ### [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) `app/shortcut-reference`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
 
 The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and the window footer that hosts it. The reference shows the active key map for the current view, with search and categories. The footer carries the F1 Shortcuts button, the item and selection count, and the Files on clipboard badge. 10xer prompts, chords, and tags in the same footer belong to `integration/10xer-mode`.
 
@@ -95,25 +95,25 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ### [Updates](../features/app/updates/index.md) `app/updates`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin pr [lgse/strata#22](https://github.com/lgse/strata/issues/22)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin pr [lgse/strata#22](https://github.com/lgse/strata/issues/22)
 
 Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (signed in-place install, rollback, and restart), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
 
-- Code: [`src/services/update_check.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/services/update_check.rs)
-- Tests: [`src/services/update_check/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/services/update_check/tests.rs), [`src/ui/settings/tests/updates.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/settings/tests/updates.rs)
-- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md)
+- Code: [`src/services/update_check.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_check.rs)
+- Tests: [`src/services/update_check/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_check/tests.rs), [`src/ui/settings/tests/updates.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/settings/tests/updates.rs)
+- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md)
 - Related: [Sidebar](../features/browser/sidebar/index.md)
 - Children: [In-place update install](../features/app/updates/install.md), [Package-managed installs](../features/app/updates/package-managed.md), [Release channels](../features/app/updates/release-channels.md)
 
 ### [In-place update install](../features/app/updates/install.md) `app/updates/install`
 
-shipped · reviewed · reviewed at [`0562724`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025) · 1 PRs since · origin issue [lgse/strata#24](https://github.com/lgse/strata/issues/24), pr [lgse/strata#26](https://github.com/lgse/strata/issues/26)
+shipped · reviewed · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#24](https://github.com/lgse/strata/issues/24), pr [lgse/strata#26](https://github.com/lgse/strata/issues/26)
 
 Downloading a release, authenticating it against a signed manifest, replacing the running executable, and restarting into it. Applies only to self-managed installs such as `~/.local/bin/strata`; package-managed installs defer to their package manager.
 
-- Code: [`src/services/update_install.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install.rs), [`src/services/update_install/**`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install), [`data/update-keys.json`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/data/update-keys.json), [`scripts/sign_update_manifest.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/scripts/sign_update_manifest.py)
-- Tests: [`src/services/update_install/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install/tests.rs), [`src/services/update_install/review_tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install/review_tests.rs), [`src/services/update_install/archive/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install/archive/tests.rs), [`src/services/update_install/command/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install/command/tests.rs), [`src/services/update_install/download/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install/download/tests.rs), [`src/services/update_install/manifest/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/update_install/manifest/tests.rs), [`src/ui/settings/tests/update_dialog.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/settings/tests/update_dialog.rs), [`scripts/test_sign_update_manifest.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/scripts/test_sign_update_manifest.py)
-- Docs: [`site/src/reference/signed-updates.md`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/site/src/reference/signed-updates.md), [`docs/preferences.md`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/preferences.md) (inherited)
+- Code: [`src/services/update_install.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install.rs), [`src/services/update_install/**`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install), [`data/update-keys.json`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/data/update-keys.json), [`scripts/sign_update_manifest.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/scripts/sign_update_manifest.py)
+- Tests: [`src/services/update_install/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install/tests.rs), [`src/services/update_install/review_tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install/review_tests.rs), [`src/services/update_install/archive/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install/archive/tests.rs), [`src/services/update_install/command/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install/command/tests.rs), [`src/services/update_install/download/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install/download/tests.rs), [`src/services/update_install/manifest/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/update_install/manifest/tests.rs), [`src/ui/settings/tests/update_dialog.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/settings/tests/update_dialog.rs), [`scripts/test_sign_update_manifest.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/scripts/test_sign_update_manifest.py)
+- Docs: [`site/src/reference/signed-updates.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/signed-updates.md), [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) (inherited)
 - Related: [System file chooser](../features/integration/portal-file-chooser/index.md)
 
 ### [Package-managed installs](../features/app/updates/package-managed.md) `app/updates/package-managed`
@@ -139,7 +139,7 @@ The Stable, Preview, and Nightly update channels, release ordering, and the Retu
 
 ### [Window chrome and structure](../features/app/window.md) `app/window`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin pr [lgse/strata#580](https://github.com/lgse/strata/issues/580)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin pr [lgse/strata#580](https://github.com/lgse/strata/issues/580)
 
 The browser window's frame and skeleton: the header with its window buttons, the X11 window identity, the composition of header, sidebar, panes, preview, and footer, and the capture-phase keyboard dispatcher that routes keys to them. Features plugged into the window, such as tabs, the sidebar, and 10xer mode, own their own behavior.
 
@@ -152,7 +152,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ### [Context menus](../features/browser/context-menu.md) `browser/context-menu`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#303](https://github.com/lgse/strata/issues/303), pr [lgse/strata#306](https://github.com/lgse/strata/issues/306)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#303](https://github.com/lgse/strata/issues/303), pr [lgse/strata#306](https://github.com/lgse/strata/issues/306)
 
 The item and background context menus in Columns, Icons, and List. This node covers opening them by pointer and keyboard, navigation, grouping, placement, and styling. The actions inside them belong to their own features.
 
@@ -163,7 +163,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 ### [Directory loading and monitoring](../features/browser/directory-monitoring.md) `browser/directory-monitoring`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#137](https://github.com/lgse/strata/issues/137), pr [lgse/strata#154](https://github.com/lgse/strata/issues/154)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#137](https://github.com/lgse/strata/issues/137), pr [lgse/strata#154](https://github.com/lgse/strata/issues/154)
 
 How an open folder's listing is loaded, published to the view, and kept in step with the filesystem. Covers bounded loads, live updates from file monitors, F5 and the pane Refresh button, the auto-refresh timer, and how changes made by Strata's own file operations reach the listing.
 
@@ -174,18 +174,18 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 ### [Folder and file customization](../features/browser/folder-customization.md) `browser/folder-customization`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#211](https://github.com/lgse/strata/issues/211), pr [lgse/strata#294](https://github.com/lgse/strata/issues/294)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#211](https://github.com/lgse/strata/issues/211), pr [lgse/strata#294](https://github.com/lgse/strata/issues/294)
 
 Per-item colors and icons for local folders and files, chosen in the Customize dialog and saved in `settings.toml`. Customized icons replace the default icon wherever Strata draws that path. Sidebar rows and their Customize… action belong to `browser/sidebar`.
 
-- Code: [`src/ui/browser/customization.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/customization.rs), [`src/ui/preferences/item_customizations.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/item_customizations.rs)
-- Tests: [`src/ui/preferences/tests/preferences.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/tests/preferences.rs), [`src/ui/window/tests/preferences.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/window/tests/preferences.rs)
-- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md)
+- Code: [`src/ui/browser/customization.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/customization.rs), [`src/ui/preferences/item_customizations.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/item_customizations.rs)
+- Tests: [`src/ui/preferences/tests/preferences.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/tests/preferences.rs), [`src/ui/window/tests/preferences.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/tests/preferences.rs)
+- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md)
 - Related: [Sidebar](../features/browser/sidebar/index.md), [Thumbnails](../features/browser/thumbnails/index.md), [Properties dialog](../features/browser/properties/index.md), [Themed icons](../features/settings/themes/icons.md), [Preference storage and synchronization](../features/settings/preferences/storage.md), [Inline rename](../features/operations/rename.md), [Context menus](../features/browser/context-menu.md), [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md)
 
 ### [Navigation](../features/browser/navigation/index.md) `browser/navigation`
 
-shipped · draft · reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1) · 9 PRs since · origin issue [lgse/strata#70](https://github.com/lgse/strata/issues/70), pr [lgse/strata#118](https://github.com/lgse/strata/issues/118)
+shipped · draft · reviewed at [`72b840e`](https://github.com/lgse/strata/tree/72b840e69d6f0df9d33fb5583e62a3a2944886a1) · ? PRs since · origin issue [lgse/strata#70](https://github.com/lgse/strata/issues/70), pr [lgse/strata#118](https://github.com/lgse/strata/issues/118)
 
 Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), and `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders). Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`, and selecting the folder you came from in Columns to `browser/view-modes/columns`.
 
@@ -208,18 +208,18 @@ A keyboard palette, Ctrl+Shift+K, that reopens folders previously visited in Str
 
 ### [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) `browser/navigation/location-bar`
 
-shipped · draft · reviewed at [`0562724`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025) · 1 PRs since · origin issue [lgse/strata#149](https://github.com/lgse/strata/issues/149), pr [lgse/strata#242](https://github.com/lgse/strata/issues/242)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#149](https://github.com/lgse/strata/issues/149), pr [lgse/strata#242](https://github.com/lgse/strata/issues/242)
 
 The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, folder-name completion, revealing a typed file, and the breadcrumb hierarchy menu.
 
-- Code: [`src/ui/browser/location.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/browser/location.rs), [`src/ui/browser/location/**`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/browser/location)
-- Tests: [`src/ui/browser/location/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/browser/location/tests.rs), [`src/ui/browser/location/completion/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/browser/location/completion/tests.rs), [`src/app/browser/tests/location_input.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/app/browser/tests/location_input.rs), [`tests/e2e/scenarios/test_locations.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/tests/e2e/scenarios/test_locations.py)
-- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/site/src/reference/keyboard-navigation.md) (inherited)
+- Code: [`src/ui/browser/location.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/location.rs), [`src/ui/browser/location/**`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/location)
+- Tests: [`src/ui/browser/location/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/location/tests.rs), [`src/ui/browser/location/completion/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/location/completion/tests.rs), [`src/app/browser/tests/location_input.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/app/browser/tests/location_input.rs), [`tests/e2e/scenarios/test_locations.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_locations.py)
+- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md) (inherited)
 - Related: [Remote locations and file providers](../features/remote/file-providers/index.md), [System file chooser](../features/integration/portal-file-chooser/index.md), [10xer mode](../features/integration/10xer-mode/index.md), [Drag and drop](../features/operations/drag-and-drop/index.md)
 
 ### [Recent](../features/browser/navigation/recent.md) `browser/navigation/recent`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1082](https://github.com/lgse/strata/issues/1082), pr [lgse/strata#1083](https://github.com/lgse/strata/issues/1083)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1082](https://github.com/lgse/strata/issues/1082), pr [lgse/strata#1083](https://github.com/lgse/strata/issues/1083)
 
 The `recent:///` collection of recently used files, read from the desktop's GTK and GIO recent-file history. It is a browsable location whose rows act on the real files, opened from the sidebar Recent place or the location bar.
 
@@ -261,7 +261,7 @@ Source-media details for a single local image, audio, or video file in Propertie
 
 ### [RAW photo details](../features/browser/properties/raw-metadata.md) `browser/properties/raw-metadata`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1168](https://github.com/lgse/strata/issues/1168), pr [lgse/strata#1171](https://github.com/lgse/strata/issues/1171)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1168](https://github.com/lgse/strata/issues/1168), pr [lgse/strata#1171](https://github.com/lgse/strata/issues/1171)
 
 Capture details for camera RAW files, shown in Properties and in the preview panel: dimensions, camera, lens, focal length, shutter speed, ISO, and GPS coordinates.
 
@@ -315,7 +315,7 @@ User-defined folder names and directory paths that Ctrl+K global search skips wh
 
 ### [Pane filter](../features/browser/search/filter.md) `browser/search/filter`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#277](https://github.com/lgse/strata/issues/277), pr [lgse/strata#275](https://github.com/lgse/strata/issues/275)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#277](https://github.com/lgse/strata/issues/277), pr [lgse/strata#275](https://github.com/lgse/strata/issues/275)
 
 The Ctrl+F filter narrows the focused pane by filename, in the current folder and, by default, its subfolders. It works in Columns, Icons, and List, and its results support the normal item actions.
 
@@ -326,13 +326,13 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 
 ### [Selection](../features/browser/selection/index.md) `browser/selection`
 
-shipped · draft · reviewed at [`0562724`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025) · ? PRs since · origin issue [lgse/strata#521](https://github.com/lgse/strata/issues/521), pr [lgse/strata#526](https://github.com/lgse/strata/issues/526)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#521](https://github.com/lgse/strata/issues/521), pr [lgse/strata#526](https://github.com/lgse/strata/issues/526)
 
 Which entries are selected in Columns, Icons, and List, and how clicks, modifier clicks, Shift keys, Escape, and empty-space clicks change that. Children: `browser/selection/marquee` (rubber-band selection), `browser/selection/pointer-intent` (press-and-drag routing), `browser/selection/click-modes` (single- or double-click opening), and `browser/selection/keyboard-navigation` (arrow focus movement). Columns-specific empty-space clicks belong to `browser/view-modes/columns`.
 
-- Code: [`src/ui/collection_interaction.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/collection_interaction.rs), [`src/app/navigation/selection.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/app/navigation/selection.rs)
-- Tests: [`src/ui/collection_interaction/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/collection_interaction/tests.rs), [`src/app/browser/tests/selection.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/app/browser/tests/selection.rs), [`tests/e2e/scenarios/test_selection.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/tests/e2e/scenarios/test_selection.py), [`tests/e2e/scenarios/test_background_selection.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/tests/e2e/scenarios/test_background_selection.py), [`tests/e2e/scenarios/test_escape_selection.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/tests/e2e/scenarios/test_escape_selection.py), [`tests/e2e/scenarios/test_preselected_hover.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/tests/e2e/scenarios/test_preselected_hover.py), [`tests/e2e/scenarios/test_monitor_selection.py`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/tests/e2e/scenarios/test_monitor_selection.py)
-- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/site/src/reference/keyboard-navigation.md)
+- Code: [`src/ui/collection_interaction.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/collection_interaction.rs), [`src/app/navigation/selection.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/app/navigation/selection.rs)
+- Tests: [`src/ui/collection_interaction/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/collection_interaction/tests.rs), [`src/app/browser/tests/selection.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/app/browser/tests/selection.rs), [`tests/e2e/scenarios/test_selection.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_selection.py), [`tests/e2e/scenarios/test_background_selection.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_background_selection.py), [`tests/e2e/scenarios/test_escape_selection.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_escape_selection.py), [`tests/e2e/scenarios/test_preselected_hover.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_preselected_hover.py), [`tests/e2e/scenarios/test_monitor_selection.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_monitor_selection.py)
+- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md)
 - Related: [View modes](../features/browser/view-modes/index.md), [Columns view](../features/browser/view-modes/columns.md), [10xer mode](../features/integration/10xer-mode/index.md)
 - Children: [Click modes](../features/browser/selection/click-modes.md), [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md), [Marquee selection](../features/browser/selection/marquee.md), [Pointer intent](../features/browser/selection/pointer-intent.md)
 
@@ -348,7 +348,7 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 
 ### [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) `browser/selection/keyboard-navigation`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
 
 Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file list, pane header, sidebar, and top bar in the default key map, and between controls in modal dialogs. Arrows move between interface regions rather than changing directories.
 
@@ -381,7 +381,7 @@ How a press on an entry is read in Columns, Icons, and List: as a click, a file 
 
 ### [Sidebar](../features/browser/sidebar/index.md) `browser/sidebar`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#104](https://github.com/lgse/strata/issues/104), pr [lgse/strata#106](https://github.com/lgse/strata/issues/106)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#104](https://github.com/lgse/strata/issues/104), pr [lgse/strata#106](https://github.com/lgse/strata/issues/106)
 
 The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places, step the panel between full, icon rail, and hidden, and reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file, including drag-to-pin) and `browser/sidebar/connect-to-server` (the Network row's Connect to server dialog). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
 
@@ -393,7 +393,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 ### [Connect to server dialog](../features/browser/sidebar/connect-to-server.md) `browser/sidebar/connect-to-server`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1725](https://github.com/lgse/strata/issues/1725), pr [lgse/strata#1726](https://github.com/lgse/strata/issues/1726)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1725](https://github.com/lgse/strata/issues/1725), pr [lgse/strata#1726](https://github.com/lgse/strata/issues/1726)
 
 A dialog opened from the sidebar Network row's menu that connects to a share or remote server by address, and optionally pins it to the sidebar. It gives a discoverable route to what typing an `smb://` or `sftp://` URI in the location bar already did.
 
@@ -404,7 +404,7 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 
 ### [Pinned folders](../features/browser/sidebar/pins.md) `browser/sidebar/pins`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin pr [lgse/strata#67](https://github.com/lgse/strata/issues/67)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin pr [lgse/strata#67](https://github.com/lgse/strata/issues/67)
 
 The PINNED section of the sidebar: folders the user pins. They are stored in GTK's shared bookmarks file, `$XDG_CONFIG_HOME/gtk-3.0/bookmarks`, which Nautilus and GTK file choosers also read. Folders are pinned from the item menu, Properties, the `p` key, or by dragging them into a gap in PINNED.
 
@@ -415,13 +415,13 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 ### [Browser tabs](../features/browser/tabs/index.md) `browser/tabs`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#108](https://github.com/lgse/strata/issues/108), pr [lgse/strata#1484](https://github.com/lgse/strata/issues/1484)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#108](https://github.com/lgse/strata/issues/108), pr [lgse/strata#1484](https://github.com/lgse/strata/issues/1484)
 
 Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, and move tabs. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Files dropped on a tab transfer into that tab's directory. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
 
-- Code: [`src/ui/window/composition/tabs.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/window/composition/tabs.rs), [`src/ui/window/composition/tabs/**`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/window/composition/tabs), [`src/ui/browser/tab_location.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/tab_location.rs)
-- Tests: [`src/ui/window/composition/tabs/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/window/composition/tabs/tests.rs), [`src/ui/browser/tab_location/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/tab_location/tests.rs), [`src/ui/window/tests/keyboard_dispatch/open_in_new.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/window/tests/keyboard_dispatch/open_in_new.rs), [`tests/e2e/scenarios/test_tabs.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_tabs.py)
-- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/keyboard-navigation.md), [`site/src/reference/10xer-mode.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/10xer-mode.md)
+- Code: [`src/ui/window/composition/tabs.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/composition/tabs.rs), [`src/ui/window/composition/tabs/**`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/composition/tabs), [`src/ui/browser/tab_location.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/tab_location.rs)
+- Tests: [`src/ui/window/composition/tabs/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/composition/tabs/tests.rs), [`src/ui/browser/tab_location/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/tab_location/tests.rs), [`src/ui/window/tests/keyboard_dispatch/open_in_new.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/tests/keyboard_dispatch/open_in_new.rs), [`tests/e2e/scenarios/test_tabs.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_tabs.py)
+- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md), [`site/src/reference/10xer-mode.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/10xer-mode.md)
 - Related: [10xer mode](../features/integration/10xer-mode/index.md), [Drag and drop](../features/operations/drag-and-drop/index.md), [Progress dock](../features/operations/progress/dock.md), [Context menus](../features/browser/context-menu.md), [Scrolling](../features/browser/scrolling.md)
 - Children: [Tab session restore](../features/browser/tabs/session-restore.md)
 
@@ -450,7 +450,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 
 ### [Thumbnail disk cache](../features/browser/thumbnails/cache.md) `browser/thumbnails/cache`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#273](https://github.com/lgse/strata/issues/273), pr [lgse/strata#274](https://github.com/lgse/strata/issues/274)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#273](https://github.com/lgse/strata/issues/273), pr [lgse/strata#274](https://github.com/lgse/strata/issues/274)
 
 Persisting rendered thumbnails in the freedesktop shared cache, `$XDG_CACHE_HOME/thumbnails/large`, and reading them back on later visits. Strata reads entries written by other spec-following applications and treats every cached byte as untrusted.
 
@@ -461,13 +461,13 @@ Persisting rendered thumbnails in the freedesktop shared cache, `$XDG_CACHE_HOME
 
 ### [Thumbnail workers](../features/browser/thumbnails/workers.md) `browser/thumbnails/workers`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#516](https://github.com/lgse/strata/issues/516), pr [lgse/strata#1081](https://github.com/lgse/strata/issues/1081)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#516](https://github.com/lgse/strata/issues/516), pr [lgse/strata#1081](https://github.com/lgse/strata/issues/1081)
 
 The process-wide pool of reusable sandboxed decoders that renders browser thumbnails and media details, and the Thumbnail workers setting that sizes it. Columns, List, and Icons in every window share the pool.
 
-- Code: [`src/sandbox/browser.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/sandbox/browser.rs), [`src/sandbox/browser/worker.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/sandbox/browser/worker.rs), [`src/sandbox/browser/wire.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/sandbox/browser/wire.rs), [`src/sandbox/browser/process.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/sandbox/browser/process.rs), [`src/ui/thumbnail/background.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/thumbnail/background.rs)
-- Tests: [`src/sandbox/browser/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/sandbox/browser/tests.rs), [`src/ui/thumbnail/background/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/thumbnail/background/tests.rs), [`tests/e2e/scenarios/test_browser_workers.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_browser_workers.py), [`tests/e2e/scenarios/test_thumbnail_worker_settings.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_thumbnail_worker_settings.py)
-- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/preview-sandbox.md) (inherited)
+- Code: [`src/sandbox/browser.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox/browser.rs), [`src/sandbox/browser/worker.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox/browser/worker.rs), [`src/sandbox/browser/wire.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox/browser/wire.rs), [`src/sandbox/browser/process.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox/browser/process.rs), [`src/ui/thumbnail/background.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/thumbnail/background.rs)
+- Tests: [`src/sandbox/browser/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox/browser/tests.rs), [`src/ui/thumbnail/background/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/thumbnail/background/tests.rs), [`tests/e2e/scenarios/test_browser_workers.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_browser_workers.py), [`tests/e2e/scenarios/test_thumbnail_worker_settings.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_thumbnail_worker_settings.py)
+- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/preview-sandbox.md) (inherited)
 - Related: [Preview sandbox](../features/preview/preview-panel/sandbox.md), [Settings window and general preferences](../features/settings/preferences/index.md)
 
 ### [View modes](../features/browser/view-modes/index.md) `browser/view-modes`
@@ -528,13 +528,13 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 ### [List column order and visibility](../features/browser/view-modes/list/column-layout.md) `browser/view-modes/list/column-layout`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#1597](https://github.com/lgse/strata/issues/1597), pr [lgse/strata#1651](https://github.com/lgse/strata/issues/1651)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1597](https://github.com/lgse/strata/issues/1597), pr [lgse/strata#1651](https://github.com/lgse/strata/issues/1651)
 
 Choosing which List columns show and in what order, for narrow windows where Mode and Type squeeze Name. Headings reorder by dragging, and a Columns popover toggles visibility. The choice is shared by every browser window and the portal file chooser, and never changes the sort.
 
-- Code: [`src/ui/browser_modes/column_options.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser_modes/column_options.rs)
-- Tests: [`src/ui/preferences/tests/preferences.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/tests/preferences.rs), [`src/ui/window/tests/preferences.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/window/tests/preferences.rs), [`src/ui/chooser/tests/column_widths.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/chooser/tests/column_widths.rs), [`tests/e2e/scenarios/test_view_switching.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_view_switching.py)
-- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md), [`docs/architecture.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/architecture.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/keyboard-navigation.md) (inherited)
+- Code: [`src/ui/browser_modes/column_options.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser_modes/column_options.rs)
+- Tests: [`src/ui/preferences/tests/preferences.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/tests/preferences.rs), [`src/ui/window/tests/preferences.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/tests/preferences.rs), [`src/ui/chooser/tests/column_widths.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/chooser/tests/column_widths.rs), [`tests/e2e/scenarios/test_view_switching.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_view_switching.py)
+- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md), [`docs/architecture.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/architecture.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md) (inherited)
 - Related: [View modes](../features/browser/view-modes/index.md), [Sorting](../features/browser/view-modes/sorting.md), [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md), [Pointer intent](../features/browser/selection/pointer-intent.md), [System file chooser](../features/integration/portal-file-chooser/index.md)
 
 ### [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) `browser/view-modes/position-restore`
@@ -550,7 +550,7 @@ Icons and List remember each folder's selection, cursor, and scroll position, an
 
 ### [Sorting](../features/browser/view-modes/sorting.md) `browser/view-modes/sorting`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#40](https://github.com/lgse/strata/issues/40), pr [lgse/strata#44](https://github.com/lgse/strata/issues/44)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#40](https://github.com/lgse/strata/issues/40), pr [lgse/strata#44](https://github.com/lgse/strata/issues/44)
 
 Ordering a folder's entries by Name, Size, Modified, or Type, ascending or descending, with folders optionally first, in all three view modes. The default sort is shared and saved; per-folder sorts belong to `browser/view-modes/folder-views`.
 
@@ -561,7 +561,7 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 
 ### [Text size](../features/browser/view-modes/text-size.md) `browser/view-modes/text-size`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#155](https://github.com/lgse/strata/issues/155), pr [lgse/strata#252](https://github.com/lgse/strata/issues/252)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#155](https://github.com/lgse/strata/issues/155), pr [lgse/strata#252](https://github.com/lgse/strata/issues/252)
 
 An app-wide interface text size in logical pixels, set in Settings, in the Appearance menu, or with zoom shortcuts. Every window, view, menu, and dialog scales with it.
 
@@ -572,7 +572,7 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 
 ### [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) `browser/view-modes/thumbnail-size`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1720](https://github.com/lgse/strata/issues/1720), pr [lgse/strata#1721](https://github.com/lgse/strata/issues/1721)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1720](https://github.com/lgse/strata/issues/1720), pr [lgse/strata#1721](https://github.com/lgse/strata/issues/1721)
 
 Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed ladder of sizes, and reset it. They are for users who resize thumbnails more often than the interface text. The slider they move belongs to `browser/view-modes/icons`, and per-folder sizes to `browser/view-modes/folder-views`.
 
@@ -585,7 +585,7 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 
 ### [Devices and volumes](../features/devices/volumes/index.md) `devices/volumes`
 
-shipped · reviewed · reviewed at [`b893886`](https://github.com/lgse/strata/tree/b8938864dc95d2e041a0a442b3b7a63755681f4e) · 7 PRs since · origin issue [lgse/strata#441](https://github.com/lgse/strata/issues/441), pr [lgse/strata#493](https://github.com/lgse/strata/issues/493)
+shipped · reviewed · reviewed at [`b893886`](https://github.com/lgse/strata/tree/b8938864dc95d2e041a0a442b3b7a63755681f4e) · ? PRs since · origin issue [lgse/strata#441](https://github.com/lgse/strata/issues/441), pr [lgse/strata#493](https://github.com/lgse/strata/issues/493)
 
 Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
 
@@ -596,7 +596,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 ### [Camera photos](../features/devices/volumes/camera.md) `devices/volumes/camera`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#833](https://github.com/lgse/strata/issues/833), pr [lgse/strata#834](https://github.com/lgse/strata/issues/834)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#833](https://github.com/lgse/strata/issues/833), pr [lgse/strata#834](https://github.com/lgse/strata/issues/834)
 
 Opening a phone or camera's gphoto2 entry in Devices as one flat, progressive Photos view instead of backend date folders. For iPhone users copying or previewing camera-roll photos over USB.
 
@@ -607,12 +607,12 @@ Opening a phone or camera's gphoto2 entry in Devices as one flat, progressive Ph
 
 ### [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) `devices/volumes/drive-dialogs`
 
-shipped · reviewed · reviewed at [`0562724`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025) · 1 PRs since · origin issue [lgse/strata#1293](https://github.com/lgse/strata/issues/1293), pr [lgse/strata#1331](https://github.com/lgse/strata/issues/1331)
+shipped · reviewed · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1293](https://github.com/lgse/strata/issues/1293), pr [lgse/strata#1331](https://github.com/lgse/strata/issues/1331)
 
 Dialogs opened from a device row's menu: Properties for any listed storage, Set label… for a Strata-only display name, and Format… for removable drives. Formatting asks twice and names the exact target before erasing anything.
 
-- Code: [`src/ui/window/drive_dialogs.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/drive_dialogs.rs), [`src/ui/window/drive_dialogs/**`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/drive_dialogs), [`src/ui/window/drive_ops.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/drive_ops.rs), [`src/ui/window/device_labels.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/device_labels.rs), [`src/ui/missing_tools.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/missing_tools.rs), [`src/services/package_manager.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/package_manager.rs)
-- Tests: [`src/ui/window/drive_dialogs/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/drive_dialogs/tests.rs), [`src/ui/window/drive_ops/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/drive_ops/tests.rs), [`src/ui/window/device_labels/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/device_labels/tests.rs), [`src/ui/missing_tools/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/missing_tools/tests.rs), [`src/services/package_manager/tests.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/services/package_manager/tests.rs)
+- Code: [`src/ui/window/drive_dialogs.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/drive_dialogs.rs), [`src/ui/window/drive_dialogs/**`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/drive_dialogs), [`src/ui/window/drive_ops.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/drive_ops.rs), [`src/ui/window/device_labels.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/device_labels.rs), [`src/ui/missing_tools.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/missing_tools.rs), [`src/services/package_manager.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/package_manager.rs)
+- Tests: [`src/ui/window/drive_dialogs/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/drive_dialogs/tests.rs), [`src/ui/window/drive_ops/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/drive_ops/tests.rs), [`src/ui/window/device_labels/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/device_labels/tests.rs), [`src/ui/missing_tools/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/missing_tools/tests.rs), [`src/services/package_manager/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/package_manager/tests.rs)
 - Related: [Sidebar](../features/browser/sidebar/index.md), [Operation progress and cancellation](../features/operations/progress/index.md)
 
 ### [Encrypted volumes](../features/devices/volumes/encrypted.md) `devices/volumes/encrypted`
@@ -637,7 +637,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 ### [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) `devices/volumes/udiskie-unlock`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#537](https://github.com/lgse/strata/issues/537), pr [lgse/strata#1047](https://github.com/lgse/strata/issues/1047)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#537](https://github.com/lgse/strata/issues/537), pr [lgse/strata#1047](https://github.com/lgse/strata/issues/1047)
 
 An opt-in integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, an installer step, and a Settings row.
 
@@ -662,18 +662,18 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ### [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) `integration/10xer-mode/file-chooser`
 
-shipped · draft · reviewed at [`0562724`](https://github.com/lgse/strata/tree/0562724ad97c8e83a4c81b85e556bf275be3b025) · 1 PRs since · origin issue [lgse/strata#1261](https://github.com/lgse/strata/issues/1261), pr [lgse/strata#1311](https://github.com/lgse/strata/issues/1311)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1261](https://github.com/lgse/strata/issues/1261), pr [lgse/strata#1311](https://github.com/lgse/strata/issues/1311)
 
 The portal file chooser follows the saved 10xer preference. Its keys run through the 10xer dispatcher, limited by a per-request policy that refuses commands the request does not allow.
 
-- Code: [`src/ui/window/keyboard/chooser.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/window/keyboard/chooser.rs)
-- Tests: [`src/ui/chooser/tests/keyboard.rs`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/src/ui/chooser/tests/keyboard.rs)
-- Docs: [`site/src/reference/portal-file-chooser.md`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/site/src/reference/portal-file-chooser.md), [`site/src/reference/10xer-mode.md`](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/site/src/reference/10xer-mode.md) (inherited)
+- Code: [`src/ui/window/keyboard/chooser.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/keyboard/chooser.rs)
+- Tests: [`src/ui/chooser/tests/keyboard.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/chooser/tests/keyboard.rs)
+- Docs: [`site/src/reference/portal-file-chooser.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/portal-file-chooser.md), [`site/src/reference/10xer-mode.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/10xer-mode.md) (inherited)
 - Related: [System file chooser](../features/integration/portal-file-chooser/index.md)
 
 ### [10xer file commands](../features/integration/10xer-mode/file-verbs.md) `integration/10xer-mode/file-verbs`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1251](https://github.com/lgse/strata/issues/1251), pr [lgse/strata#1306](https://github.com/lgse/strata/issues/1306)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1251](https://github.com/lgse/strata/issues/1251), pr [lgse/strata#1306](https://github.com/lgse/strata/issues/1306)
 
 Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename, move, copy, restore, sort, hidden files, Open With, custom actions, and archive commands. They act on the focused pane's filled selection, or its cursor item when nothing is filled.
 
@@ -717,7 +717,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 
 ### [Custom actions](../features/integration/custom-actions.md) `integration/custom-actions`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#36](https://github.com/lgse/strata/issues/36), pr [lgse/strata#1085](https://github.com/lgse/strata/issues/1085)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#36](https://github.com/lgse/strata/issues/36), pr [lgse/strata#1085](https://github.com/lgse/strata/issues/1085)
 
 User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs (`operations/progress/jobs`). In 10xer mode, `;` then a digit runs the first ten matching actions (`integration/10xer-mode`).
 
@@ -728,7 +728,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 
 ### [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) `integration/file-manager-interface`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#290](https://github.com/lgse/strata/issues/290), pr [lgse/strata#317](https://github.com/lgse/strata/issues/317)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#290](https://github.com/lgse/strata/issues/290), pr [lgse/strata#317](https://github.com/lgse/strata/issues/317)
 
 Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GTK/GNOME apps call for "Open file location" and "Show in Folder". It answers `ShowFolders`, `ShowItems`, and `ShowItemProperties`, and ships a per-user D-Bus activation service. The Settings row that installs that service is `integration/portal-file-chooser/setup`.
 
@@ -770,7 +770,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 
 ### [System file chooser](../features/integration/portal-file-chooser/index.md) `integration/portal-file-chooser`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 13 PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
 
 Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files dialogs for portal-aware applications, drawn with Strata's sidebar, views, filters, and previews. The same chooser window also serves Strata's own Move to, Copy to, Extract to, and Send to destinations. Children: `integration/portal-file-chooser/setup` (enabling and restoring the integration), `integration/portal-file-chooser/url-download` (Name field filenames and URLs), `integration/portal-file-chooser/image-conversion` (PNG conversion of downloads), and `integration/portal-file-chooser/window-placement` (initial size and centering).
 
@@ -793,7 +793,7 @@ An opt-in conversion to PNG for images downloaded through the chooser's Name fie
 
 ### [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) `integration/portal-file-chooser/setup`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
 
 Making Strata the per-user FileChooser portal backend and default file manager, and restoring the previous setup. It runs from the `--install-portal` and `--uninstall-portal` commands, the installer, and the Settings → General "System file manager" row, which also sets Omarchy shortcuts.
 
@@ -838,29 +838,29 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 ### [Archive preview](../features/operations/archives/preview.md) `operations/archives/preview`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#1151](https://github.com/lgse/strata/issues/1151), pr [lgse/strata#1090](https://github.com/lgse/strata/issues/1090)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1151](https://github.com/lgse/strata/issues/1151), pr [lgse/strata#1090](https://github.com/lgse/strata/issues/1090)
 
 Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, like a read-only folder, without extracting anything. Listing runs in the preview sandbox and reads metadata only.
 
-- Code: [`src/ui/preview/archive.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preview/archive.rs), [`src/adapters/local_operations/archive/listing.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/adapters/local_operations/archive/listing.rs)
-- Tests: [`src/adapters/local_operations/archive/listing/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/adapters/local_operations/archive/listing/tests.rs), [`tests/e2e/scenarios/test_archive_preview.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_archive_preview.py)
-- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/keyboard-navigation.md), [`site/src/reference/archives.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/archives.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/keyboard-navigation.md) (inherited), [`docs/archives.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/archives.md) (inherited)
+- Code: [`src/ui/preview/archive.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/archive.rs), [`src/adapters/local_operations/archive/listing.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/adapters/local_operations/archive/listing.rs)
+- Tests: [`src/adapters/local_operations/archive/listing/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/adapters/local_operations/archive/listing/tests.rs), [`tests/e2e/scenarios/test_archive_preview.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_archive_preview.py)
+- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md), [`site/src/reference/archives.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/archives.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md) (inherited), [`docs/archives.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/archives.md) (inherited)
 - Related: [Preview panel](../features/preview/preview-panel/index.md), [Preview sandbox](../features/preview/preview-panel/sandbox.md), [Quick preview](../features/preview/quick-preview/index.md), [10xer mode](../features/integration/10xer-mode/index.md)
 
 ### [RAR extraction](../features/operations/archives/rar.md) `operations/archives/rar`
 
-shipped · reviewed · reviewed at [`b893886`](https://github.com/lgse/strata/tree/b8938864dc95d2e041a0a442b3b7a63755681f4e) · 3 PRs since · origin issue [lgse/strata#816](https://github.com/lgse/strata/issues/816), pr [lgse/strata#832](https://github.com/lgse/strata/issues/832)
+shipped · reviewed · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#816](https://github.com/lgse/strata/issues/816), pr [lgse/strata#832](https://github.com/lgse/strata/issues/832)
 
 Extraction-only support for `.rar` archives through UnRAR, run in a sandboxed helper process. It is an optional `rar` build feature, enabled by default, so packagers can ship Strata without the non-free UnRAR code.
 
-- Code: [`src/adapters/local_operations/archive/decoders/rar.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/adapters/local_operations/archive/decoders/rar.rs), [`src/rar_extraction.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/rar_extraction.rs), [`src/sandbox/archive.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/sandbox/archive.rs), [`src/sandbox_helper/archive_rar.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/sandbox_helper/archive_rar.rs)
-- Tests: [`src/adapters/local_operations/archive/decoders/rar/tests.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/adapters/local_operations/archive/decoders/rar/tests.rs), [`src/rar_extraction/tests.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/rar_extraction/tests.rs), [`src/sandbox/archive/tests.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/sandbox/archive/tests.rs), [`src/sandbox_helper/archive_rar/tests.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/sandbox_helper/archive_rar/tests.rs), [`tests/fixtures/rar/**`](https://github.com/lgse/strata/tree/b8938864dc95d2e041a0a442b3b7a63755681f4e/tests/fixtures/rar)
-- Docs: [`site/src/reference/archives.md`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/site/src/reference/archives.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/site/src/reference/keyboard-navigation.md) (inherited), [`docs/archives.md`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/archives.md) (inherited)
+- Code: [`src/adapters/local_operations/archive/decoders/rar.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/adapters/local_operations/archive/decoders/rar.rs), [`src/rar_extraction.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/rar_extraction.rs), [`src/sandbox/archive.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox/archive.rs), [`src/sandbox_helper/archive_rar.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox_helper/archive_rar.rs)
+- Tests: [`src/adapters/local_operations/archive/decoders/rar/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/adapters/local_operations/archive/decoders/rar/tests.rs), [`src/rar_extraction/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/rar_extraction/tests.rs), [`src/sandbox/archive/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox/archive/tests.rs), [`src/sandbox_helper/archive_rar/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox_helper/archive_rar/tests.rs), [`tests/fixtures/rar/**`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/fixtures/rar)
+- Docs: [`site/src/reference/archives.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/archives.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md) (inherited), [`docs/archives.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/archives.md) (inherited)
 - Related: [Thumbnails](../features/browser/thumbnails/index.md), [Preview sandbox](../features/preview/preview-panel/sandbox.md)
 
 ### [Copy, cut, and paste](../features/operations/clipboard/index.md) `operations/clipboard`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#287](https://github.com/lgse/strata/issues/287), pr [lgse/strata#289](https://github.com/lgse/strata/issues/289)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#287](https://github.com/lgse/strata/issues/287), pr [lgse/strata#289](https://github.com/lgse/strata/issues/289)
 
 Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…. The copy engine, placement, and name rules behind them belong to `operations/filesystem-compatibility`. It also covers copying paths, names, and pasted images. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
 
@@ -872,7 +872,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### [Paste name conflicts](../features/operations/clipboard/conflicts.md) `operations/clipboard/conflicts`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#7](https://github.com/lgse/strata/issues/7), pr [lgse/strata#25](https://github.com/lgse/strata/issues/25)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#7](https://github.com/lgse/strata/issues/7), pr [lgse/strata#25](https://github.com/lgse/strata/issues/25)
 
 The "File already exists" dialog shown when a paste, Move to…, Copy to…, or move undo meets a taken name. It covers the Replace, Keep Both, Merge, and Skip transfers behind the dialog and their undo.
 
@@ -883,7 +883,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 
 ### [Send to removable devices](../features/operations/clipboard/send-to.md) `operations/clipboard/send-to`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1153](https://github.com/lgse/strata/issues/1153), pr [lgse/strata#1278](https://github.com/lgse/strata/issues/1278)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1153](https://github.com/lgse/strata/issues/1153), pr [lgse/strata#1278](https://github.com/lgse/strata/issues/1278)
 
 A Send to… submenu in the item menu that copies the selection to a mounted removable device without leaving the current folder. It is for people who copy to USB drives often. File providers can also place destinations in it (`remote/file-providers/external`).
 
@@ -894,7 +894,7 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 
 ### [New Folder and New File](../features/operations/create.md) `operations/create`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin pr [lgse/strata#4](https://github.com/lgse/strata/issues/4)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin pr [lgse/strata#4](https://github.com/lgse/strata/issues/4)
 
 Creating an empty file or folder in the current directory from the background menu or Ctrl+Shift+N, then naming it in place. It also covers New Folder with Selection, which groups selected items into a new folder. The file chooser's header button reuses this flow, and the 10xer footer create prompt reuses the creation operation; both are described in their own nodes.
 
@@ -905,7 +905,7 @@ Creating an empty file or folder in the current directory from the background me
 
 ### [Permanent deletion](../features/operations/delete.md) `operations/delete`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#163](https://github.com/lgse/strata/issues/163), pr [lgse/strata#164](https://github.com/lgse/strata/issues/164)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#163](https://github.com/lgse/strata/issues/163), pr [lgse/strata#164](https://github.com/lgse/strata/issues/164)
 
 Deleting files and folders without Trash, from Shift+Delete or the item menu's "Permanently delete", after a confirmation that shows the recursive total. Local trees are deleted descriptor-relative and in parallel, and the deleted rows dissolve afterwards. Deletion inside Trash, and the fallback where Trash is unsupported, are Trash's rules (`operations/trash`).
 
@@ -915,7 +915,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 
 ### [Drag and drop](../features/operations/drag-and-drop/index.md) `operations/drag-and-drop`
 
-shipped · reviewed · reviewed at [`b893886`](https://github.com/lgse/strata/tree/b8938864dc95d2e041a0a442b3b7a63755681f4e) · 4 PRs since · origin issue [lgse/strata#285](https://github.com/lgse/strata/issues/285), pr [lgse/strata#350](https://github.com/lgse/strata/issues/350)
+shipped · reviewed · reviewed at [`b893886`](https://github.com/lgse/strata/tree/b8938864dc95d2e041a0a442b3b7a63755681f4e) · ? PRs since · origin issue [lgse/strata#285](https://github.com/lgse/strata/issues/285), pr [lgse/strata#350](https://github.com/lgse/strata/issues/350)
 
 Moving and copying files by dragging them onto folders, pane backgrounds, sidebar places, and breadcrumbs, within and between windows and to or from other applications. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices) and `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags).
 
@@ -936,17 +936,17 @@ Edge autoscrolling while a file drag is held over Columns view, so off-screen co
 
 ### [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) `operations/drag-and-drop/copy-or-move`
 
-shipped · draft · reviewed at [`442d325`](https://github.com/lgse/strata/tree/442d325be108ff95391f0fe76cbd89da8db9e129) · 2 PRs since · origin issue [lgse/strata#248](https://github.com/lgse/strata/issues/248), pr [lgse/strata#502](https://github.com/lgse/strata/issues/502)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#248](https://github.com/lgse/strata/issues/248), pr [lgse/strata#502](https://github.com/lgse/strata/issues/502)
 
 How a drop chooses between copying and moving. Plain drops on the same filesystem move, plain drops onto another device follow the Copy, Move, or Ask strategy, and Ctrl or Shift overrides both.
 
-- Code: [`src/services/transfer_action.rs`](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/src/services/transfer_action.rs), [`src/adapters/volume.rs`](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/src/adapters/volume.rs)
-- Tests: [`src/services/transfer_action/tests.rs`](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/src/services/transfer_action/tests.rs), [`src/adapters/volume/tests.rs`](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/src/adapters/volume/tests.rs), [`src/adapters/volume/tests/lookup_regressions.rs`](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/src/adapters/volume/tests/lookup_regressions.rs), [`tests/e2e/scenarios/test_cross_volume_drop.py`](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/tests/e2e/scenarios/test_cross_volume_drop.py)
-- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/preferences.md) (inherited)
+- Code: [`src/services/transfer_action.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/transfer_action.rs), [`src/adapters/volume.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/adapters/volume.rs)
+- Tests: [`src/services/transfer_action/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/transfer_action/tests.rs), [`src/adapters/volume/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/adapters/volume/tests.rs), [`src/adapters/volume/tests/lookup_regressions.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/adapters/volume/tests/lookup_regressions.rs), [`tests/e2e/scenarios/test_cross_volume_drop.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_cross_volume_drop.py)
+- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) (inherited)
 
 ### [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) `operations/filesystem-compatibility`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1590](https://github.com/lgse/strata/issues/1590), pr [lgse/strata#1615](https://github.com/lgse/strata/issues/1615)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1590](https://github.com/lgse/strata/issues/1590), pr [lgse/strata#1615](https://github.com/lgse/strata/issues/1615)
 
 The no-clobber placement routine, the native copy engine, and the per-mount name rules behind every local move, copy, Replace, Merge, restore, rename, undo, and archive publish. It keeps these operations working on NFS, SMB, sshfs and other FUSE mounts, FAT, exFAT, NTFS, and case-insensitive folders, and reports every name it changed or item it left out.
 
@@ -957,7 +957,7 @@ The no-clobber placement routine, the native copy engine, and the per-mount name
 
 ### [Operation progress and cancellation](../features/operations/progress/index.md) `operations/progress`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 3 PRs since · origin issue [lgse/strata#11](https://github.com/lgse/strata/issues/11), pr [lgse/strata#75](https://github.com/lgse/strata/issues/75)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#11](https://github.com/lgse/strata/issues/11), pr [lgse/strata#75](https://github.com/lgse/strata/issues/75)
 
 The progress and cancellation UI shared by file operations: the blocking progress dialog, transfer byte and speed reporting, and the result shown after Cancel. Children: `operations/progress/dock` (non-blocking cards for copy, compression, and deletion) and `operations/progress/jobs` (the custom-action job queue and Jobs dashboard).
 
@@ -969,7 +969,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 
 ### [Progress dock](../features/operations/progress/dock.md) `operations/progress/dock`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1360](https://github.com/lgse/strata/issues/1360), pr [lgse/strata#1393](https://github.com/lgse/strata/issues/1393)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1360](https://github.com/lgse/strata/issues/1360), pr [lgse/strata#1393](https://github.com/lgse/strata/issues/1393)
 
 Non-blocking progress cards in the bottom-right corner of the window for copy, compression, and deletion, so browsing continues while they run. Each card cancels only its own operation and becomes a completion notification that closes itself. The dock also shows brief notices, such as a fast Send to success or a file provider's result.
 
@@ -991,7 +991,7 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 
 ### [Inline rename](../features/operations/rename.md) `operations/rename`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin pr [lgse/strata#115](https://github.com/lgse/strata/issues/115)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin pr [lgse/strata#115](https://github.com/lgse/strata/issues/115)
 
 Renaming one file or folder in place, in Columns, List, and Icons, from the keyboard, a menu, or a slow second click. Covers the editor's validation, how it commits or cancels, Undo, and keeping the edited and renamed row inside the viewport.
 
@@ -1002,7 +1002,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ### [Trash](../features/operations/trash/index.md) `operations/trash`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 5 PRs since · origin issue [lgse/strata#205](https://github.com/lgse/strata/issues/205), pr [lgse/strata#228](https://github.com/lgse/strata/issues/228)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#205](https://github.com/lgse/strata/issues/205), pr [lgse/strata#228](https://github.com/lgse/strata/issues/228)
 
 Moving files and folders to the freedesktop.org Trash, undoing that move, and browsing `trash:///` in every view mode. Children: `operations/trash/restore` (Restore from Trash), `operations/trash/empty` (Empty Trash), and `operations/trash/animation` (flights between rows and the sidebar Trash button).
 
@@ -1035,7 +1035,7 @@ Permanently deleting everything in Trash from the Trash pane header or the sideb
 
 ### [Restore from Trash](../features/operations/trash/restore.md) `operations/trash/restore`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#478](https://github.com/lgse/strata/issues/478), pr [lgse/strata#502](https://github.com/lgse/strata/issues/502)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#478](https://github.com/lgse/strata/issues/478), pr [lgse/strata#502](https://github.com/lgse/strata/issues/502)
 
 Returning trashed items to their original locations, from the Restore menu item or by undoing Move to Trash. Strata treats `.trashinfo` metadata as untrusted, confirms each full destination, and never overwrites an existing file.
 
@@ -1046,7 +1046,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 ### [Undo and redo](../features/operations/undo.md) `operations/undo`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#298](https://github.com/lgse/strata/issues/298), pr [lgse/strata#301](https://github.com/lgse/strata/issues/301)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#298](https://github.com/lgse/strata/issues/298), pr [lgse/strata#301](https://github.com/lgse/strata/issues/301)
 
 One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node.
 
@@ -1069,35 +1069,35 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 ### [Rendered document previews](../features/preview/preview-panel/documents.md) `preview/preview-panel/documents`
 
-shipped · draft · reviewed at [`6e654a7`](https://github.com/lgse/strata/tree/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8) · ? PRs since · origin issue [lgse/strata#89](https://github.com/lgse/strata/issues/89), pr [lgse/strata#187](https://github.com/lgse/strata/issues/187)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#89](https://github.com/lgse/strata/issues/89), pr [lgse/strata#187](https://github.com/lgse/strata/issues/187)
 
 Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX, ODS, and DOCX files in the preview panel. Text formats switch between Rendered and Source; nothing uses a web engine or runs document scripts.
 
-- Code: [`src/services/document.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/document.rs), [`src/services/document_media.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/document_media.rs), [`src/services/docx.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/docx.rs), [`src/services/docx/namespaces.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/docx/namespaces.rs), [`src/services/rtf.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/rtf.rs), [`src/services/table.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/table.rs), [`src/ui/document_view.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/document_view.rs), [`src/ui/document_media.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/document_media.rs), [`src/ui/virtual_preview.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/virtual_preview.rs), [`src/ui/virtual_preview/selection.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/virtual_preview/selection.rs), [`src/ui/table_view.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/table_view.rs), [`src/ui/table_view/selection.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/table_view/selection.rs), [`src/sandbox_helper/document_media.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/sandbox_helper/document_media.rs), [`data/math-renderer.js`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/data/math-renderer.js), [`packaging/math-renderer`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/packaging/math-renderer)
-- Tests: [`src/services/document/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/document/tests.rs), [`src/services/document_media/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/document_media/tests.rs), [`src/services/docx/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/docx/tests.rs), [`src/services/docx/namespaces/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/docx/namespaces/tests.rs), [`src/services/rtf/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/rtf/tests.rs), [`src/services/table/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/services/table/tests.rs), [`src/ui/document_media/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/document_media/tests.rs), [`src/ui/virtual_preview/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/virtual_preview/tests.rs), [`src/ui/virtual_preview/selection/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/virtual_preview/selection/tests.rs), [`src/ui/table_view/selection/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/table_view/selection/tests.rs), [`src/sandbox_helper/document_media/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/sandbox_helper/document_media/tests.rs), [`tests/fixtures/spreadsheets`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/tests/fixtures/spreadsheets), [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/tests/e2e/scenarios/test_quick_preview.py)
-- Docs: [`site/src/reference/document-previews.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/document-previews.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/preview-sandbox.md) (inherited)
+- Code: [`src/services/document.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/document.rs), [`src/services/document_media.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/document_media.rs), [`src/services/docx.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/docx.rs), [`src/services/docx/namespaces.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/docx/namespaces.rs), [`src/services/rtf.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/rtf.rs), [`src/services/table.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/table.rs), [`src/ui/document_view.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/document_view.rs), [`src/ui/document_media.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/document_media.rs), [`src/ui/virtual_preview.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/virtual_preview.rs), [`src/ui/virtual_preview/selection.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/virtual_preview/selection.rs), [`src/ui/table_view.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/table_view.rs), [`src/ui/table_view/selection.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/table_view/selection.rs), [`src/sandbox_helper/document_media.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox_helper/document_media.rs), [`data/math-renderer.js`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/data/math-renderer.js), [`packaging/math-renderer`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/packaging/math-renderer)
+- Tests: [`src/services/document/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/document/tests.rs), [`src/services/document_media/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/document_media/tests.rs), [`src/services/docx/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/docx/tests.rs), [`src/services/docx/namespaces/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/docx/namespaces/tests.rs), [`src/services/rtf/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/rtf/tests.rs), [`src/services/table/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/services/table/tests.rs), [`src/ui/document_media/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/document_media/tests.rs), [`src/ui/virtual_preview/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/virtual_preview/tests.rs), [`src/ui/virtual_preview/selection/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/virtual_preview/selection/tests.rs), [`src/ui/table_view/selection/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/table_view/selection/tests.rs), [`src/sandbox_helper/document_media/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/sandbox_helper/document_media/tests.rs), [`tests/fixtures/spreadsheets`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/fixtures/spreadsheets), [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_quick_preview.py)
+- Docs: [`site/src/reference/document-previews.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/document-previews.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/preview-sandbox.md) (inherited)
 - Related: [Preview sandbox](../features/preview/preview-panel/sandbox.md), [Find in preview](../features/preview/preview-panel/find.md), [Settings window and general preferences](../features/settings/preferences/index.md), [Themes and appearance](../features/settings/themes/index.md)
 
 ### [Find in preview](../features/preview/preview-panel/find.md) `preview/preview-panel/find`
 
-shipped · draft · reviewed at [`6e654a7`](https://github.com/lgse/strata/tree/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8) · ? PRs since · origin issue [lgse/strata#1558](https://github.com/lgse/strata/issues/1558), pr [lgse/strata#1559](https://github.com/lgse/strata/issues/1559)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1558](https://github.com/lgse/strata/issues/1558), pr [lgse/strata#1559](https://github.com/lgse/strata/issues/1559)
 
 A find bar below the preview header that searches the text loaded in the open preview. It serves source, plain-text, and rendered document previews, and never filters the file listing.
 
-- Code: [`src/ui/preview/find.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/find.rs)
-- Tests: [`src/ui/preview/tests/find.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/tests/find.rs), [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/tests/e2e/scenarios/test_quick_preview.py)
-- Docs: [`site/src/reference/document-previews.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/document-previews.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/preview-sandbox.md) (inherited)
+- Code: [`src/ui/preview/find.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/find.rs)
+- Tests: [`src/ui/preview/tests/find.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/tests/find.rs), [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_quick_preview.py)
+- Docs: [`site/src/reference/document-previews.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/document-previews.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/preview-sandbox.md) (inherited)
 - Related: [Rendered document previews](../features/preview/preview-panel/documents.md), [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md), [Quick preview](../features/preview/quick-preview/index.md)
 
 ### [Preview panel layout](../features/preview/preview-panel/layout.md) `preview/preview-panel/layout`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#885](https://github.com/lgse/strata/issues/885), pr [lgse/strata#888](https://github.com/lgse/strata/issues/888)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#885](https://github.com/lgse/strata/issues/885), pr [lgse/strata#888](https://github.com/lgse/strata/issues/888)
 
 How the preview panel shares the window with the file views: its width, the reserved slot in Columns, the right pane shared with child columns, and narrow-window behavior. Applies to Columns, Icons, List, and the file chooser.
 
-- Code: [`src/ui/preview/layout.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preview/layout.rs), [`src/ui/preview/session.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preview/session.rs), [`src/ui/preview/media_layout.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preview/media_layout.rs), [`src/ui/browser/preview.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/preview.rs)
-- Tests: [`tests/e2e/scenarios/test_preview_session.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_preview_session.py), [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_quick_preview.py), [`src/ui/preview/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preview/tests.rs)
-- Docs: [`docs/preview-panel-layout.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preview-panel-layout.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/preview-sandbox.md) (inherited)
+- Code: [`src/ui/preview/layout.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/layout.rs), [`src/ui/preview/session.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/session.rs), [`src/ui/preview/media_layout.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/media_layout.rs), [`src/ui/browser/preview.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/preview.rs)
+- Tests: [`tests/e2e/scenarios/test_preview_session.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_preview_session.py), [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_quick_preview.py), [`src/ui/preview/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/tests.rs)
+- Docs: [`docs/preview-panel-layout.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preview-panel-layout.md), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/preview-sandbox.md) (inherited)
 - Related: [Quick preview](../features/preview/quick-preview/index.md), [View modes](../features/browser/view-modes/index.md), [Sidebar](../features/browser/sidebar/index.md)
 
 ### [Media playback](../features/preview/preview-panel/media/index.md) `preview/preview-panel/media`
@@ -1125,18 +1125,18 @@ The now-playing view for audio files: artwork, tags, a live spectrum, a waveform
 
 ### [Video previews](../features/preview/preview-panel/media/video.md) `preview/preview-panel/media/video`
 
-shipped · reviewed · reviewed at [`6e654a7`](https://github.com/lgse/strata/tree/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8) · ? PRs since · origin issue [lgse/strata#1417](https://github.com/lgse/strata/issues/1417), pr [lgse/strata#1474](https://github.com/lgse/strata/issues/1474)
+shipped · reviewed · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1417](https://github.com/lgse/strata/issues/1417), pr [lgse/strata#1474](https://github.com/lgse/strata/issues/1474)
 
 The now-playing view for video files: the frame, a header with technical badges, a waveform timeline with chapter ticks and storyboard scrubbing, and previous/next controls. It also hands playback to the default player at the current position.
 
-- Code: [`src/ui/preview/video.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/video.rs), [`src/ui/preview/video`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/video), [`src/media/storyboard.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/media/storyboard.rs), [`src/media/storyboard`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/media/storyboard), [`src/ui/media/ambient.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/media/ambient.rs), [`src/ui/media/ambient`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/media/ambient)
-- Tests: [`src/ui/preview/tests/video.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/tests/video.rs), [`src/ui/preview/video/badges/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/video/badges/tests.rs), [`src/ui/preview/video/details/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/video/details/tests.rs), [`src/ui/preview/video/storyboard/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/video/storyboard/tests.rs), [`src/media/storyboard/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/media/storyboard/tests.rs), [`src/ui/media/ambient/tests.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/media/ambient/tests.rs), [`src/ui/window/tests/keyboard_dispatch/video_clips.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/window/tests/keyboard_dispatch/video_clips.rs), [`tests/e2e/scenarios/test_preview_video.py`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/tests/e2e/scenarios/test_preview_video.py)
-- Docs: [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/preview-sandbox.md) (inherited), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/preview-sandbox.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/keyboard-navigation.md) (inherited)
+- Code: [`src/ui/preview/video.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/video.rs), [`src/ui/preview/video`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/video), [`src/media/storyboard.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/media/storyboard.rs), [`src/media/storyboard`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/media/storyboard), [`src/ui/media/ambient.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/media/ambient.rs), [`src/ui/media/ambient`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/media/ambient)
+- Tests: [`src/ui/preview/tests/video.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/tests/video.rs), [`src/ui/preview/video/badges/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/video/badges/tests.rs), [`src/ui/preview/video/details/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/video/details/tests.rs), [`src/ui/preview/video/storyboard/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/video/storyboard/tests.rs), [`src/media/storyboard/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/media/storyboard/tests.rs), [`src/ui/media/ambient/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/media/ambient/tests.rs), [`src/ui/window/tests/keyboard_dispatch/video_clips.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/window/tests/keyboard_dispatch/video_clips.rs), [`tests/e2e/scenarios/test_preview_video.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_preview_video.py)
+- Docs: [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/preview-sandbox.md) (inherited), [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/preview-sandbox.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md) (inherited)
 - Related: [Audio previews](../features/preview/preview-panel/media/audio.md), [Properties dialog](../features/browser/properties/index.md), [Opening files and Open With](../features/integration/open-with/index.md), [Themes and appearance](../features/settings/themes/index.md)
 
 ### [Model camera views](../features/preview/preview-panel/model-views.md) `preview/preview-panel/model-views`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1633](https://github.com/lgse/strata/issues/1633), pr [lgse/strata#1644](https://github.com/lgse/strata/issues/1644)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1633](https://github.com/lgse/strata/issues/1633), pr [lgse/strata#1644](https://github.com/lgse/strata/issues/1644)
 
 Camera controls and mesh details for rendered STL and 3MF previews in the drawer and Quick Preview. Users step through four preset views around the model, guided by a top-down orbit indicator, with format and triangle-count badges.
 
@@ -1147,7 +1147,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ### [Preview sandbox](../features/preview/preview-panel/sandbox.md) `preview/preview-panel/sandbox`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#6](https://github.com/lgse/strata/issues/6), pr [lgse/strata#17](https://github.com/lgse/strata/issues/17)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#6](https://github.com/lgse/strata/issues/6), pr [lgse/strata#17](https://github.com/lgse/strata/issues/17)
 
 The bubblewrap boundary that keeps native parsing of browsed files out of the Strata process. Image, RAW, PDF, SVG, and document-media renders run in resource-limited helpers that return only validated, bounded PNG or metadata.
 
@@ -1158,13 +1158,13 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ### [Quick preview](../features/preview/quick-preview/index.md) `preview/quick-preview`
 
-shipped · draft · reviewed at [`6e654a7`](https://github.com/lgse/strata/tree/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8) · ? PRs since · origin pr [lgse/strata#135](https://github.com/lgse/strata/issues/135)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin pr [lgse/strata#135](https://github.com/lgse/strata/issues/135)
 
 Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers default-keymap key ownership while a preview is open; 10xer preview keys belong to `integration/10xer-mode/preview-keys`. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
 
-- Code: [`src/ui/preview/keyboard.rs`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/src/ui/preview/keyboard.rs)
-- Tests: [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/tests/e2e/scenarios/test_quick_preview.py), [`tests/e2e/mutations/quick-preview.patch`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/tests/e2e/mutations/quick-preview.patch)
-- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8/site/src/reference/keyboard-navigation.md)
+- Code: [`src/ui/preview/keyboard.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preview/keyboard.rs)
+- Tests: [`tests/e2e/scenarios/test_quick_preview.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_quick_preview.py), [`tests/e2e/mutations/quick-preview.patch`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/mutations/quick-preview.patch)
+- Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/keyboard-navigation.md)
 - Related: [Preview panel](../features/preview/preview-panel/index.md), [10xer mode](../features/integration/10xer-mode/index.md), [Search](../features/browser/search/index.md), [Selection](../features/browser/selection/index.md)
 - Children: [Folder peek](../features/preview/quick-preview/folder-peek.md)
 
@@ -1183,7 +1183,7 @@ A transient popover that lists up to 8 entries of a folder when the pointer rest
 
 ### [Remote locations and file providers](../features/remote/file-providers/index.md) `remote/file-providers`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#20](https://github.com/lgse/strata/issues/20), pr [lgse/strata#31](https://github.com/lgse/strata/issues/31)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#20](https://github.com/lgse/strata/issues/20), pr [lgse/strata#31](https://github.com/lgse/strata/issues/31)
 
 How files that do not live on a local disk reach Strata. Children: `remote/file-providers/network-locations` (SMB, SFTP, and other GIO/GVfs locations, with mounting and sign-in), `remote/file-providers/external` (opt-in provider programs that add live badges, context actions, and Send to… destinations), `remote/file-providers/integrations` (the Settings → Integrations catalog that installs bundled providers), and the bundled `remote/file-providers/kde-connect` and `remote/file-providers/localsend` providers.
 
@@ -1191,7 +1191,7 @@ How files that do not live on a local disk reach Strata. Children: `remote/file-
 
 ### [External file providers](../features/remote/file-providers/external.md) `remote/file-providers/external`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1356](https://github.com/lgse/strata/issues/1356), pr [lgse/strata#1385](https://github.com/lgse/strata/issues/1385)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1356](https://github.com/lgse/strata/issues/1356), pr [lgse/strata#1385](https://github.com/lgse/strata/issues/1385)
 
 Opt-in, trusted programs that add live status badges, state-dependent context actions, and Send to… destinations to native files, such as cloud offline availability or a phone. Strata talks to each provider over a newline-delimited JSON protocol; Cirrove is the first adapter. Bundled providers install from `remote/file-providers/integrations`.
 
@@ -1202,7 +1202,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 ### [Integrations catalog](../features/remote/file-providers/integrations.md) `remote/file-providers/integrations`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1741](https://github.com/lgse/strata/issues/1741), pr [lgse/strata#1748](https://github.com/lgse/strata/issues/1748)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1741](https://github.com/lgse/strata/issues/1741), pr [lgse/strata#1748](https://github.com/lgse/strata/issues/1748)
 
 Settings → Integrations, a catalog of opt-in provider programs bundled with Strata under `integrations/`. It installs an entry as an external file provider, updates it when the bundled copy changes, turns it off, and removes it, and it lists hand-made registrations beside catalog installs. For users who want KDE Connect or LocalSend in the context menu without copying files by hand.
 
@@ -1213,7 +1213,7 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 
 ### [KDE Connect integration](../features/remote/file-providers/kde-connect.md) `remote/file-providers/kde-connect`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1703](https://github.com/lgse/strata/issues/1703), pr [lgse/strata#1704](https://github.com/lgse/strata/issues/1704)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1703](https://github.com/lgse/strata/issues/1703), pr [lgse/strata#1704](https://github.com/lgse/strata/issues/1704)
 
 An opt-in bundled file provider that lists paired KDE Connect devices under Send to… ▸ KDE Connect and sends the whole selection to the chosen device over D-Bus, with no device-picker window. For users moving from Nautilus who relied on KDE Connect's device-aware context menu. It installs from `remote/file-providers/integrations`.
 
@@ -1224,7 +1224,7 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 
 ### [LocalSend integration](../features/remote/file-providers/localsend.md) `remote/file-providers/localsend`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1754](https://github.com/lgse/strata/issues/1754), pr [lgse/strata#1756](https://github.com/lgse/strata/issues/1756)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1754](https://github.com/lgse/strata/issues/1754), pr [lgse/strata#1756](https://github.com/lgse/strata/issues/1756)
 
 An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hands the selected files and folders to the installed LocalSend app, which then picks the device and sends. For users who would otherwise re-pick the same files in LocalSend's own dialog. It installs from `remote/file-providers/integrations`.
 
@@ -1235,7 +1235,7 @@ An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hand
 
 ### [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) `remote/file-providers/network-locations`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#20](https://github.com/lgse/strata/issues/20), pr [lgse/strata#31](https://github.com/lgse/strata/issues/31)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#20](https://github.com/lgse/strata/issues/20), pr [lgse/strata#31](https://github.com/lgse/strata/issues/31)
 
 Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native folders. Covers mounting on demand, the sign-in and SSH host-key dialogs, and connection failure messages. It also covers the sidebar's Network place and SMB share rows, SMB share lists, and progressive remote loading. Typed-address parsing belongs to `browser/navigation/location-bar`.
 
@@ -1248,7 +1248,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 ### [Diagnostics](../features/settings/diagnostics.md) `settings/diagnostics`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1734](https://github.com/lgse/strata/issues/1734), pr [lgse/strata#1735](https://github.com/lgse/strata/issues/1735)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1734](https://github.com/lgse/strata/issues/1734), pr [lgse/strata#1735](https://github.com/lgse/strata/issues/1735)
 
 Settings → Diagnostics, an on-demand page that checks the runtime pieces previews, locations, devices, and desktop integration rely on. Each check reports passed, warning, or problem with an install command for the detected distribution, and the results copy as a report for bug reports.
 
@@ -1271,7 +1271,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ### [Modified date format](../features/settings/preferences/date-format.md) `settings/preferences/date-format`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin pr [lgse/strata#180](https://github.com/lgse/strata/issues/180)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin pr [lgse/strata#180](https://github.com/lgse/strata/issues/180)
 
 How file modification times read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats.
 
@@ -1282,7 +1282,7 @@ How file modification times read in lists and previews, and the Modified date fo
 
 ### [Interface language](../features/settings/preferences/language.md) `settings/preferences/language`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1517](https://github.com/lgse/strata/issues/1517), pr [lgse/strata#1519](https://github.com/lgse/strata/issues/1519)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1517](https://github.com/lgse/strata/issues/1517), pr [lgse/strata#1519](https://github.com/lgse/strata/issues/1519)
 
 The Language setting and the compiled-in translations behind it. Strata's own interface is available in twelve languages, chosen automatically from the desktop locale or set manually, and applied on restart.
 
@@ -1292,13 +1292,13 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 ### [Preference storage and synchronization](../features/settings/preferences/storage.md) `settings/preferences/storage`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#212](https://github.com/lgse/strata/issues/212), pr [lgse/strata#518](https://github.com/lgse/strata/issues/518)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#212](https://github.com/lgse/strata/issues/212), pr [lgse/strata#518](https://github.com/lgse/strata/issues/518)
 
 How application-wide preferences are loaded, saved to `settings.toml`, recovered from damaged files, and kept in step across every window of one Strata process. Every Settings row and every preference consumer goes through this store.
 
-- Code: [`src/ui/preferences/bindings.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/bindings.rs), [`src/ui/preferences/save_notice.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/save_notice.rs), [`src/storage.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/storage.rs)
-- Tests: [`src/ui/preferences/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/tests.rs), [`src/ui/preferences/tests/preferences.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/tests/preferences.rs), [`src/ui/preferences/bindings/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/bindings/tests.rs), [`src/ui/preferences/fixtures.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/preferences/fixtures.rs), [`src/storage/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/storage/tests.rs), [`tests/e2e/scenarios/test_preferences.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/tests/e2e/scenarios/test_preferences.py)
-- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md) (inherited)
+- Code: [`src/ui/preferences/bindings.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/bindings.rs), [`src/ui/preferences/save_notice.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/save_notice.rs), [`src/storage.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/storage.rs)
+- Tests: [`src/ui/preferences/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/tests.rs), [`src/ui/preferences/tests/preferences.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/tests/preferences.rs), [`src/ui/preferences/bindings/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/bindings/tests.rs), [`src/ui/preferences/fixtures.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/preferences/fixtures.rs), [`src/storage/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/storage/tests.rs), [`tests/e2e/scenarios/test_preferences.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/tests/e2e/scenarios/test_preferences.py)
+- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) (inherited)
 
 ### [Themes and appearance](../features/settings/themes/index.md) `settings/themes`
 
@@ -1314,7 +1314,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ### [Corner roundness](../features/settings/themes/corner-roundness.md) `settings/themes/corner-roundness`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1678](https://github.com/lgse/strata/issues/1678), pr [lgse/strata#1680](https://github.com/lgse/strata/issues/1680)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1678](https://github.com/lgse/strata/issues/1678), pr [lgse/strata#1680](https://github.com/lgse/strata/issues/1680)
 
 An app-wide scale for corner radii, set as a percent under Settings → Appearance → Shape. It lets users square the interface at 0 or soften it up to 200, applied to every pixel radius in Strata's stylesheet.
 
@@ -1324,18 +1324,18 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 
 ### [Themed icons](../features/settings/themes/icons.md) `settings/themes/icons`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#169](https://github.com/lgse/strata/issues/169), pr [lgse/strata#170](https://github.com/lgse/strata/issues/170)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#169](https://github.com/lgse/strata/issues/169), pr [lgse/strata#170](https://github.com/lgse/strata/issues/170)
 
 Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
 
-- Code: [`src/assets.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/assets.rs), [`src/assets/vector.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/assets/vector.rs), [`src/ui/browser/entry.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/entry.rs), [`src/ui/browser/entry/catppuccin.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/entry/catppuccin.rs), [`data/icons/catppuccin/**`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b/data/icons/catppuccin), [`scripts/catppuccin_icons.py`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/scripts/catppuccin_icons.py), [`data/icons/scalable/actions/strata-video.svg`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/data/icons/scalable/actions/strata-video.svg), [`data/icons/scalable/actions/strata-file-archive.svg`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/data/icons/scalable/actions/strata-file-archive.svg)
-- Tests: [`src/assets/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/assets/tests.rs), [`src/assets/vector/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/assets/vector/tests.rs), [`src/ui/browser/entry/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/browser/entry/tests.rs), [`src/ui/theme/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/tests.rs)
-- Docs: [`site/src/reference/themes.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/themes.md) (inherited), [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md) (inherited), [`docs/themes.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/themes.md) (inherited)
+- Code: [`src/assets.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/assets.rs), [`src/assets/vector.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/assets/vector.rs), [`src/ui/browser/entry.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/entry.rs), [`src/ui/browser/entry/catppuccin.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/entry/catppuccin.rs), [`data/icons/catppuccin/**`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/data/icons/catppuccin), [`scripts/catppuccin_icons.py`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/scripts/catppuccin_icons.py), [`data/icons/scalable/actions/strata-video.svg`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/data/icons/scalable/actions/strata-video.svg), [`data/icons/scalable/actions/strata-file-archive.svg`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/data/icons/scalable/actions/strata-file-archive.svg)
+- Tests: [`src/assets/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/assets/tests.rs), [`src/assets/vector/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/assets/vector/tests.rs), [`src/ui/browser/entry/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/browser/entry/tests.rs), [`src/ui/theme/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/theme/tests.rs)
+- Docs: [`site/src/reference/themes.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/themes.md) (inherited), [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) (inherited), [`docs/themes.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/themes.md) (inherited)
 - Related: [Icons view](../features/browser/view-modes/icons.md), [Folder and file customization](../features/browser/folder-customization.md)
 
 ### [Interface font](../features/settings/themes/interface-font.md) `settings/themes/interface-font`
 
-shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · 0 PRs since · origin issue [lgse/strata#1217](https://github.com/lgse/strata/issues/1217), pr [lgse/strata#1696](https://github.com/lgse/strata/issues/1696)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1217](https://github.com/lgse/strata/issues/1217), pr [lgse/strata#1696](https://github.com/lgse/strata/issues/1696)
 
 An Interface font preference under Settings → Appearance → Text that picks the typeface for menus, file lists, and dialogs. It is for users who want a different interface font than the bundled JetBrains Mono, independent of text size.
 
@@ -1346,10 +1346,10 @@ An Interface font preference under Settings → Appearance → Text that picks t
 
 ### [Omarchy theme following](../features/settings/themes/omarchy.md) `settings/themes/omarchy`
 
-shipped · draft · reviewed at [`027d698`](https://github.com/lgse/strata/tree/027d6981a69ea7b526a763d3ec563fdecb19c66b) · ? PRs since · origin issue [lgse/strata#1198](https://github.com/lgse/strata/issues/1198), pr [lgse/strata#1482](https://github.com/lgse/strata/issues/1482)
+shipped · draft · reviewed at [`e0f7397`](https://github.com/lgse/strata/tree/e0f73973926ff67e77c2c56cf288b7b7617bb2e5) · ? PRs since · origin issue [lgse/strata#1198](https://github.com/lgse/strata/issues/1198), pr [lgse/strata#1482](https://github.com/lgse/strata/issues/1482)
 
 Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tracks it as it changes. The Omarchy variant setting picks how the palette is interpreted: Original, Darker, or High contrast.
 
-- Code: [`src/ui/theme/omarchy.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/omarchy.rs)
-- Tests: [`src/ui/theme/omarchy/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/omarchy/tests.rs), [`src/ui/theme/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/theme/tests.rs), [`src/ui/settings/theme/tests.rs`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/src/ui/settings/theme/tests.rs)
-- Docs: [`site/src/reference/themes.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/site/src/reference/themes.md) (inherited), [`docs/preferences.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/preferences.md) (inherited), [`docs/themes.md`](https://github.com/lgse/strata/blob/027d6981a69ea7b526a763d3ec563fdecb19c66b/docs/themes.md) (inherited)
+- Code: [`src/ui/theme/omarchy.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/theme/omarchy.rs)
+- Tests: [`src/ui/theme/omarchy/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/theme/omarchy/tests.rs), [`src/ui/theme/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/theme/tests.rs), [`src/ui/settings/theme/tests.rs`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/src/ui/settings/theme/tests.rs)
+- Docs: [`site/src/reference/themes.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/site/src/reference/themes.md) (inherited), [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) (inherited), [`docs/themes.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/themes.md) (inherited)

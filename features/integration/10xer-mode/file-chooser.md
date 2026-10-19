@@ -3,7 +3,7 @@ title: 10xer mode in the file chooser
 status: shipped
 origin: {issue: lgse/strata#1261, pr: lgse/strata#1311}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/window/keyboard/chooser.rs]
 tests: [src/ui/chooser/tests/keyboard.rs]

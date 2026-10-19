@@ -3,7 +3,7 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
 tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/e2e/scenarios/test_browser_workers.py, tests/e2e/scenarios/test_thumbnail_worker_settings.py]
