@@ -3,7 +3,7 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/e2e/scenarios/test_tabs.py]
@@ -113,11 +113,13 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI (lgse/strata#1543).
 - Choosers have no tabs and Ctrl+Enter there accepts the folder, so chooser key dispatch skips the open-in-new handling (lgse/strata#1543).
 - The name hold tracks navigation settlement explicitly rather than using a timer. Cancelled, refused, and same-directory navigation release it, and an older validation completion cannot release a newer click (lgse/strata#1507).
+- The underline follows the selected tab from the layout pass. Its tick callback runs only while it moves, so an idle window stops drawing frames (lgse/strata#1671, lgse/strata#1677).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1677 | perf | Moved the tab underline to the layout pass and animated it only while moving, so an idle window stops drawing frames. |
 | 2026-10-10 | lgse/strata#1539 | fix | Recorded the folder a pending click opens, so the Columns preview slot lends no width before its column takes focus. |
 | 2026-10-10 | lgse/strata#1543 | feat | Opened folders in a new tab or window from the item menu, a middle-click, and Ctrl+Enter or Shift+Enter. |
 | 2026-10-10 | lgse/strata#1544 | fix | Registered each tab window for the notice shown when settings cannot be saved. |

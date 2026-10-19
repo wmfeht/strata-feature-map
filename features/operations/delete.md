@@ -3,7 +3,7 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser/dissolve_delete.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs]
@@ -30,9 +30,14 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 
 - The dialog is titled "Permanently delete N items?" and its danger-styled button reads "Permanently delete N items". lgse/strata#164
 - It lists each item with its icon, name, and size, "—" when the size is unknown, or "Folder" for folders, scrolling past 10 items. lgse/strata#1134 (unverified)
+- A symlink to a folder is listed with "Folder link" in place of a size. lgse/strata#1627
 - It renders at most 50 rows and adds "… and N more items"; confirming still deletes every selected item. lgse/strata#703
-- While the total calculates, a spinner shows beside the subtitle "N files", "N folders", or, for a mixed selection, "N items". lgse/strata#1134 (unverified)
+- While the total calculates, a spinner shows beside a kind subtitle. lgse/strata#1134 (unverified)
+- That subtitle reads "N files" when every item is a file or file link, "N folders" when every item is a real folder, otherwise "N items". lgse/strata#1134, lgse/strata#1627 (unverified)
+- A single selected symlink to a folder reads "1 item" beside the spinner; a folder link plus a file reads "2 items". lgse/strata#1627 (unverified)
 - When the walk finishes, the spinner hides and the subtitle reads "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134
+- A selected symlink to a folder counts as 1 item of 0 B; its target's contents are not counted. lgse/strata#1627
+- A selected symlink whose size is unknown, such as a dangling link, does not make the finished subtitle read "At least". lgse/strata#1627 (unverified)
 - When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
 - After Shift+Delete or Permanently delete, the confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266, lgse/strata#1533
 - Left or `h` focuses Cancel and Right or `l` focuses confirm; Enter and keypad Enter activate the focused button. lgse/strata#1052
@@ -42,7 +47,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 ### Deleting
 
 - Permanently deleting a folder that contains a symlink removes the symlink and leaves its target untouched. lgse/strata#253
-- A selected symlink to a folder is removed as a symlink; the folder it points to keeps its contents. lgse/strata#253
+- A selected symlink to a folder is removed as a symlink; the folder it points to keeps its contents. lgse/strata#253, lgse/strata#1627
 - Deleting through a parent path that contains a symlink, such as a folder alias, succeeds and leaves the alias in place. lgse/strata#477
 - If a folder in the tree is moved while it is being deleted, deletion stops with an error instead of following it. lgse/strata#869
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
@@ -70,6 +75,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 - Menu visibility mirrors Move to Trash: one `access::can-delete` query per directory load, and an unresolved query keeps the item (lgse/strata#361). Only the menu is gated; keyboard and other paths are left to lgse/strata#66.
 - The confirmation renders at most 50 rows because one GTK row per item on the main thread froze the UI at 1000 items (lgse/strata#622, lgse/strata#703).
 - A selected folder hides its nested contents behind one "Folder" row. The subtitle therefore reuses Empty Trash's bounded directory summary and reports a lower bound when truncated (lgse/strata#900, lgse/strata#1134).
+- A selected symlink root is counted as one item and never walked, because enumerating a root follows the link even with no-follow flags on its children (lgse/strata#1592, lgse/strata#1627).
 - Confirm takes initial focus, matching Finder, so Enter confirms and Escape cancels (lgse/strata#1204). Trash's no-Trash fallback is the exception (`operations/trash`, lgse/strata#1425). Enter honors the focused button because always confirming was a data-loss path (lgse/strata#854).
 - Local deletion walks descriptor-relative from each open directory with `openat2` and `RESOLVE_BENEATH | RESOLVE_NO_SYMLINKS | RESOLVE_NO_MAGICLINKS`. Each entry's type is re-read before recursing or unlinking, never trusted from the listing (lgse/strata#8, lgse/strata#253).
 - The parent of a selected item resolves with `openat2(IN_ROOT | NO_MAGICLINKS)` so directory aliases work, while traversal inside the tree stays no-follow (lgse/strata#477).
@@ -84,6 +90,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1627 | fix | Counted a symlink to a folder as one 0 B "Folder link" item on the confirmation, since only the link is deleted. |
 | 2026-10-05 | lgse/strata#1486 | fix | Targeted the cursor row or open folder for Delete and Shift+Delete in Columns view. |
 | 2026-10-05 | lgse/strata#1490 | fix | Restored the dissolve after operation docking dropped it. |
 | 2026-09-22 | lgse/strata#1134 | feat | Showed a recursive item count and size on the confirmation, since folders hid their contents. |

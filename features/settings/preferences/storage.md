@@ -3,7 +3,7 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/storage.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, tests/e2e/scenarios/test_preferences.py]

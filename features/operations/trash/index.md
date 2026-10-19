@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs]

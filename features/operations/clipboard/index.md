@@ -3,7 +3,7 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/e2e/scenarios/test_clipboard.py, tests/e2e/mutations/clipboard.patch]
@@ -52,6 +52,9 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 ### Paths, names, and images
 
 - Outside 10xer mode, `y` or Copy path copies the shell-escaped native path; folders get a trailing `/`, and URIs are copied unescaped. lgse/strata#230, lgse/strata#1306
+- Copy path on a local name with non-UTF-8 bytes, such as `bad\xff.txt`, copies `/path/to/$'bad\xff.txt'`, which bash resolves to the file. lgse/strata#1626
+- In a path that is not valid UTF-8, only the `/`-separated components that are not valid UTF-8 or contain a newline are `$'...'`-quoted; others keep backslash escaping. lgse/strata#1626 (unverified)
+- Inside `$'...'`, valid UTF-8 characters stay literal, `'` and `\` get a backslash, and each byte of a control character becomes `\xHH`. lgse/strata#1626 (unverified)
 - With several items selected, Copy paths copies one path per line. lgse/strata#230 (unverified)
 - Copy name and Copy names copy the display names, one per line. lgse/strata#704
 - Pasting while the clipboard holds an image and no files writes `image.png`, then `image (1).png`, into a local destination. lgse/strata#882
@@ -65,6 +68,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - Cancelling the chooser or closing its parent window leaves the files and the parent's location unchanged. lgse/strata#1384
 - A window opens at most one chooser at a time. lgse/strata#1384
 - After confirming, the window navigates to the destination and selects the transferred items. lgse/strata#125, lgse/strata#1384
+- Cancelling a running foreground Move to… from its progress card, then running Extract here, keeps the window in the current folder. lgse/strata#1605
 
 ### Undo
 
@@ -90,6 +94,8 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 The GDK clipboard carries only a file list with no cut marker. Strata keeps process-wide copy and cut lists, shared by every window, as the source of truth (lgse/strata#289).
 
 - Cut matching also accepts GIO equality, because a clipboard round trip can return an equivalent URI instead of the stored path (lgse/strata#287).
+- Row marks are read from an index rebuilt whenever the copy or cut lists change, not by comparing every entry on each row bind. `file://` URIs are keyed by native path so both spellings match (lgse/strata#1671, lgse/strata#1674).
+- Copied paths that are not valid UTF-8 use ANSI-C `$'...'` quoting with `\xHH`, the shell syntax that carries arbitrary bytes, instead of lossy U+FFFD (lgse/strata#1594, lgse/strata#1626).
 - Strata rewrites or clears the system clipboard only while it still owns the file list it set (lgse/strata#1265).
 - Pasting into a single selected folder deliberately diverges from Nautilus, Thunar, and Finder (lgse/strata#449). An auto-selection made on load counts as a cursor, not a choice (lgse/strata#483).
 - Same-folder copies use the language-neutral `(n)` suffix. A same-folder cut stays a no-op to prevent accidental renames (lgse/strata#270, lgse/strata#272).
@@ -104,6 +110,7 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1626 | fix | Escaped non-UTF-8 path bytes with ANSI-C quoting so copied paths name the real file. |
 | 2026-10-09 | lgse/strata#1537 | fix | Rejected self-nesting moves that reach the source through a symlink alias. |
 | 2026-10-08 | lgse/strata#1524 | fix | Used the leaf name for items transferred out of another drive's Trash. |
 | 2026-10-07 | lgse/strata#1515 | fix | Fell back to exclusive-create copies where `RENAME_NOREPLACE` is unsupported, such as ntfs-3g. |
@@ -131,4 +138,5 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 ## Known gaps
 
 - Cut intent is not exchanged through `x-special/gnome-copied-files`, so cuts between Strata and other file managers paste as copies. lgse/strata#289
+- Row marks treat a `file://` URI and its native path as equal, but not other equivalent spellings of a non-`file://` URI. lgse/strata#1674
 - On NFS, same-share moves fall back to copy and delete, and replacing where Trash is unsupported may still fail. lgse/strata#1530

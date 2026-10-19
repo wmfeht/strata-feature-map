@@ -3,12 +3,12 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
-review: reviewed
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/e2e/scenarios/test_open_with.py]
 docs: []
-related: [integration/10xer-mode, preview/preview-panel]
+related: [integration/10xer-mode, preview/preview-panel, browser/context-menu]
 ---
 
 ## Summary
@@ -21,15 +21,15 @@ Opening files in their default application, choosing another application from th
 
 - Activating a file whose type has a default application launches it with no dialog. lgse/strata#1012
 - Double-clicking a file in Columns launches its application once, as Enter does. lgse/strata#92
-- Activating a file with no default application opens the Open With chooser for it instead of an error. lgse/strata#1012
+- Outside Flatpak, activating a file with no default application opens the Open With chooser for it instead of an error. lgse/strata#1012, lgse/strata#1635
 - When that chooser has no application to offer, it shows "No application is registered for this file" with Open disabled. lgse/strata#1012
 - Closing the fallback chooser returns focus to the activated entry. lgse/strata#1012
 - Activating an item in Trash shows "Unable to open item" with "Items in Trash cannot be opened" and launches nothing. lgse/strata#995
 - A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
-- When the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474
-- The mpv, VLC, and Celluloid Flatpaks also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474 (unverified)
+- Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474, lgse/strata#1635
+- When Strata runs outside Flatpak, Flatpak installs of mpv, VLC, and Celluloid also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474, lgse/strata#1635 (unverified)
 
 ### Running programs
 
@@ -47,9 +47,9 @@ Opening files in their default application, choosing another application from th
 - The item menu offers Open With… for one or several selected files or folders. lgse/strata#421, lgse/strata#625
 - While types are looked up, Open With… is insensitive and described "Looking for compatible applications…". lgse/strata#578
 - A broken symbolic link in the selection disables Open With… with "Broken symbolic links cannot be opened with an application". lgse/strata#578
-- A selection no visible application can open disables Open With… with "No compatible applications were found", or "No application can open all selected file types" for several types. lgse/strata#578
-- A multi-selection menu shows Open only when every selected type has the same default; Open launches that application with all items. lgse/strata#578
-- Selected types with common handlers but different defaults get Open With… and no Open. lgse/strata#578
+- Outside Flatpak, a selection no visible application can open disables Open With… with "No compatible applications were found", or "No application can open all selected file types" for several types. lgse/strata#578, lgse/strata#1635
+- Outside Flatpak, a multi-selection menu shows Open only when every selected type has the same default; Open launches that application with all items. lgse/strata#578, lgse/strata#1635
+- Outside Flatpak, selected types with common handlers but different defaults get Open With… and no Open. lgse/strata#578, lgse/strata#1635
 - The folder background menu offers Open With… for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#1083
 
 ### Chooser
@@ -78,6 +78,18 @@ Opening files in their default application, choosing another application from th
 - The toggle is hidden when the chooser has no application to offer. lgse/strata#1298
 - If writing the default fails, the file still opens and a warning is logged. lgse/strata#1298
 
+### Flatpak
+
+- Inside a Flatpak sandbox (`/.flatpak-info` exists), activating a file without an execute bit opens it in the host's default application through the OpenURI portal. Strata's chooser does not appear. lgse/strata#1635
+- Inside Flatpak, activating any local regular file with an execute bit asks "Run this program?", whatever its type. lgse/strata#1635 (unverified)
+- Inside Flatpak, a video handed from the preview to its player starts at the beginning. lgse/strata#1635 (unverified)
+- Inside Flatpak, the item menu's Open hands each selected file to its host default handler. lgse/strata#1635
+- Inside Flatpak, Open With… shows the desktop's own app chooser instead of Strata's chooser. lgse/strata#1635
+- Inside Flatpak, Open With… on several files shows one desktop chooser per file in turn. Dismissing one opens none of the rest and shows no error. lgse/strata#1635
+- Inside Flatpak, Open With… is never disabled for lack of compatible applications. lgse/strata#1635 (unverified)
+- Inside Flatpak, a portal failure other than a dismissal shows "Unable to open file" with the error and opens none of the remaining files. lgse/strata#1635 (unverified)
+- Without `/.flatpak-info`, Open With… shows Strata's chooser. lgse/strata#1635
+
 ## Design
 
 Applications come from GIO metadata; Strata does not parse `.desktop` files (lgse/strata#174). Choosing an application never changes the system default unless Always use is checked (lgse/strata#174, lgse/strata#1290).
@@ -90,12 +102,15 @@ Applications come from GIO metadata; Strata does not parse `.desktop` files (lgs
 - Activation falls back to the chooser rather than an error, matching Nautilus and Dolphin; always showing it was rejected because it slows associated files (lgse/strata#842).
 - Executables without a handler are confirmed before running because they may be untrusted (lgse/strata#460). Run is also an explicit menu item, because AppImages and other executables with a registered type never reach that fallback (lgse/strata#844).
 - A `.sh` script receives its path as an argument to `/bin/sh -c`, not as shell text, to keep its shebang and avoid injection (lgse/strata#1028).
+- Inside Flatpak, GIO sees only the runtime's desktop entries, so files go to the OpenURI portal through `gtk::FileLauncher`. Open With sets `always_ask`, so the desktop's chooser picks the application (lgse/strata#1503, lgse/strata#1635).
+- Portal launches run one file at a time so desktop choosers do not stack (lgse/strata#1635).
 - Type lookups run asynchronously and are discarded when the menu closes or the selection changes (lgse/strata#578, lgse/strata#625).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1635 | fix | Opened files through the OpenURI portal under Flatpak, where GIO sees only the runtime's apps. |
 | 2026-09-27 | lgse/strata#1298 | feat | Added "Always use for this file type" to set the default from the chooser. |
 | 2026-09-15 | lgse/strata#1028 | fix | Ran `.sh` files in a terminal that keeps output and exit status until Enter. |
 | 2026-09-14 | lgse/strata#1012 | feat | Opened the chooser when activating a file with no default application. |
@@ -110,4 +125,4 @@ Applications come from GIO metadata; Strata does not parse `.desktop` files (lgs
 
 ## Known gaps
 
-- Inside a Flatpak sandbox, GIO sees only the runtime's applications, so activating a document opens an empty chooser. lgse/strata#1503
+None known.
