@@ -31,7 +31,7 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 - Names differing only in case are ordered by their original spelling, so the order is stable. lgse/strata#232
 - Digit runs compare by value: `File 2` sorts before `File 10`. lgse/strata#879
 - Type sorts by the MIME description guessed from the filename; ascending puts unrecognized files last, descending puts them first, with names A–Z within each type. lgse/strata#946
-- A RAW file that shared-mime-info does not type as an image, such as `GOPR0001.GPR`, gets Type `image/x-dcraw` instead of Other. lgse/strata#1698
+- A RAW file that shared-mime-info does not type as an image, such as `GOPR0001.GPR`, is typed `image/x-dcraw` instead of Other. lgse/strata#1698
 - Its Type shows that type's description, "Digital raw image" in English. lgse/strata#1698
 - With Folders first on, the default, folders stay ahead of files in both directions. lgse/strata#946
 - Entries tied on Size, Modified, or Type are ordered by name. lgse/strata#946 (unverified)

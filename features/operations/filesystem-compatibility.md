@@ -22,7 +22,7 @@ The no-clobber placement routine, the native copy engine, and the per-mount name
 - A move within one NFS, ntfs-3g, 9p, or ceph mount, where `RENAME_NOREPLACE` returns `EINVAL`, finishes without copying any data. lgse/strata#1615
 - There a file is hard-linked and its old name unlinked once the link proves its identity; a folder is renamed over an exclusive empty placeholder. lgse/strata#1615
 - On sshfs, vboxsf, rclone, and s3fs, a file is renamed over an exclusive empty placeholder after a check. lgse/strata#1615
-- On vboxsf a folder is placed the same way; an sshfs folder is renamed to a name found free. lgse/strata#1615
+- On sshfs a folder is renamed over an exclusive empty placeholder. On vboxsf a folder is renamed to a name found free. lgse/strata#1615
 - On sshfs whose server lacks `posix-rename@openssh.com`, the move copies instead. lgse/strata#1615
 - A move copies only across devices, or where no placement step can place the item. lgse/strata#1615
 - An item that appears at the destination meanwhile is never overwritten, except in the reserved-name step's window. lgse/strata#1615
