@@ -306,6 +306,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Drag a folder from the Trash view, an `https://` link from a web browser, and a symlink to a folder over the gaps; then drag an SMB pin between two local pins.
 - With nothing pinned, drag a file over the sidebar and out again, then drag a folder in; repeat in the file chooser and on the icon rail.
 - Pin from one window while Nautilus rewrites the bookmarks file in a loop; then reorder in a second window and open a third.
+- Pin 50 folders, trash them all, cancel midway, and watch PINNED in two windows.
 
 ### browser/sidebar/connect-to-server
 

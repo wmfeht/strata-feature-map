@@ -71,7 +71,7 @@ Periodic checks of shown folders on mounts that other computers or programs chan
 
 ## Known gaps
 
-- On a Samba share with directory leases, a change made on the server itself stays hidden while the folder is shown, even after F5. Mounting with `nohandlecache` avoids it. lgse/strata#1729
+- On a Samba share with directory leases, a change made on the server itself stays hidden while the folder is shown, even after F5. It shows once the lease lapses, 46 to 66 s after its last use. Mounting with `nohandlecache` avoids it. lgse/strata#1729
 - After a mount ends its stuck request with an error, as SMB does with `EHOSTDOWN`, "Not responding" stays until F5, Retry, or navigating. lgse/strata#1729
 - A window on another workspace counts as hidden only where the compositor reports it suspended; elsewhere it keeps the 15 s interval. lgse/strata#1729
 - On whole-second mounts, a server clock behind this computer's by more than the coarse window can hide a change. lgse/strata#1729

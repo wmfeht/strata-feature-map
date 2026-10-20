@@ -60,7 +60,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - Hidden folders are suggested only when hidden files are shown or the typed name starts with `.`. lgse/strata#388 (unverified)
 - The popover does not appear while the breadcrumbs are showing. lgse/strata#388
 - Closing and reopening the editor shows no stale or flashing suggestion list. lgse/strata#1206
-- While the typed folder is being listed, the previous suggestions stay; only the latest text's list replaces them. lgse/strata#1729
+- While the typed folder is being listed, the previous suggestions stay; only the latest text's list replaces them. lgse/strata#1729 (unverified)
 - Tab pressed during the listing waits for its list, and so do Down, Up, Page Down, and Page Up while suggestions show. Enter after one of them waits too; they then run in order. lgse/strata#1729
 - A folder load that ends while the entry is open and focused, as in a new tab, leaves the entry open with its text. lgse/strata#1729
 

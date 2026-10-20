@@ -79,6 +79,7 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - Items whose deletion failed or was cancelled keep their pins, as do pins on disconnected drives or unavailable network locations. lgse/strata#1373
 - Restoring a folder, including with Ctrl+Z, does not restore its pins. lgse/strata#1373
 - Deleting a symlink removes pins under the link's path and keeps pins to its target. lgse/strata#1373
+- Pins of folders a deletion or restore run removed leave every sidebar in one update when the run ends, also when it is cancelled. lgse/strata#1729
 - When the bookmarks file cannot be updated after a deletion, an error is reported and the deletion still counts as successful. lgse/strata#1373
 
 ## Design
@@ -94,7 +95,7 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - Each gap remembers both neighbours, because other windows do not watch the bookmarks file (lgse/strata#1692).
 - A pinned row's drag payload is `pinned:<index>` into the stored list. The prefix keeps pins and built-in places apart, and the index keeps hidden standard-folder bookmarks in place (lgse/strata#202).
 - Home and the standard folders report pin status Unavailable, so they cannot be pinned twice (lgse/strata#67). Where pinning can never apply, the control is hidden rather than insensitive, because some themes render insensitive labels unreadably (lgse/strata#438, lgse/strata#457).
-- Deletion cleanup runs in the deletion provider, so it survives the originating window closing. It retries an etag conflict twice and notifies every sidebar through a shared watcher list (lgse/strata#1373).
+- Deletion cleanup runs in the deletion provider, so it survives the originating window closing. It retries twice when another program changed the file and notifies every sidebar through a shared watcher list (lgse/strata#1373, lgse/strata#1729).
 - Cleanup acts only on confirmed deletions. It does not scan for missing paths, since unavailability is not evidence of deletion (lgse/strata#1372, lgse/strata#1373).
 
 ## History
