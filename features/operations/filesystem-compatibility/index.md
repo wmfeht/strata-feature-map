@@ -78,6 +78,8 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - Without multigrain timestamps, such as before Linux 6.13, a file modified within 100 ms of its read is compared by content. lgse/strata#1615
 - When the first name of a hard-linked file was compared by content, later names use that content check. A rewrite within the tick keeps every name at the source. lgse/strata#1751
 - On an SMB source, every later name of a file whose first name was compared by content stays at the source, reported as changed. lgse/strata#1751
+- After a move deletes one name of a hard-linked file, a later name in the same item goes only if its change time matches one read through another name. lgse/strata#1729
+- On SMB without server inode numbers, a later name with no such reading stays at the source as changed. lgse/strata#1729
 - Nothing only the copy holds is deleted before the destination is flushed. lgse/strata#1615
 - That covers move sources, Replace originals, merge set-asides, and restored Trash copies. lgse/strata#1615
 - A failed flush deletes nothing. lgse/strata#1615
@@ -157,7 +159,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - SFTP without `posix-rename@openssh.com` cannot rename over a placeholder, so file renames, archive publication, and setting a file aside are refused. lgse/strata#1615
 - On ntfs-3g a reused inode number passes for the original. On exfat-fuse and sshfs an unheld item with the same type, size, and times passes. lgse/strata#1729
 - On vfat and exFAT, a file made within the same 10 ms tick with the same size and modification time passes. lgse/strata#1729
-- On SMB after `serverino` goes off, neither a moved copy's proof nor the removal of what an operation set aside compares the change time. lgse/strata#1729
+- On SMB after `serverino` goes off, neither a moved copy's proof nor the removal of what an operation set aside compares the change time. A later name of a hard-linked file is the exception. lgse/strata#1729
 - File handles were measured only on knfsd `no_subtree_check` exports; elsewhere a false "different" keeps the item. lgse/strata#1729
 - On sshfs and vboxsf, a folder put at a held Replace target's name passes for the target. lgse/strata#1729
 - On SMB without server numbers, two names of one hard-linked file moved as separate items leave the later name at the source. lgse/strata#1729

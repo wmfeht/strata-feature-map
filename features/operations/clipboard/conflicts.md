@@ -65,6 +65,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - An original that cannot be removed after the new item is placed no longer fails the paste. It completes with any Undo it has and reports "“%{name}” was replaced, but its original could not be removed from “%{kept}”: %{error}". lgse/strata#1729
 - Where Trash is unavailable, Merge sets originals aside in a hidden `.strata-merge-<id>` folder and removes it once the merge is flushed. lgse/strata#1615
 - A name taken since the check ends such a merge, keeping the aside folder and naming it. lgse/strata#1615
+- On kernel exFAT, a Merge without Trash removes its `.strata-merge-*` folder once it finishes. lgse/strata#1729
 - Cancelling such a merge after it placed an item ends as Cancelled, with the originals back and no `.strata-merge-*` folder left. lgse/strata#1729
 - A merge whose aside folder only another program's open file keeps completes and reports the folder as still open. lgse/strata#1729
 - A Trash move that reports success without moving the original falls back to setting it aside. lgse/strata#1615
