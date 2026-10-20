@@ -35,6 +35,8 @@ The "Install a specific release" menu in Settings → Updates. It lists the rele
 ### Choosing
 
 - Each entry shows "vX" above "<build kind> · <date>", such as "Stable · <date>"; the installed release has a check mark. lgse/strata#1781
+- A release with no publication date shows its build kind alone on the second line. lgse/strata#1781 (unverified)
+- Over AT-SPI each entry is a radio menu item named "vX", checked only for the installed release. lgse/strata#1781 (unverified)
 - Choosing the installed release closes the menu and opens nothing. lgse/strata#1781
 - Choosing another release closes the menu and opens the update dialog for that release once its commit is resolved. lgse/strata#1781
 - The menu button is insensitive while the chosen release's commit is resolved. lgse/strata#1781 (unverified)

@@ -49,8 +49,10 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - With `STRATA_UI_STALL_MS=250`, a UI thread blocked for 250 ms logs "UI thread stalled N ms" and the call it waits in. lgse/strata#1729
 - When the blocked UI thread runs again, the log adds "UI thread ran again after N ms". lgse/strata#1729
 - A stall that lasts logs again each time it doubles: at 2, 4, and 8 times the limit, and so on. lgse/strata#1729 (unverified)
+- The portal file chooser backend starts the same stall watchdog. lgse/strata#1729 (unverified)
 - Without `STRATA_UI_STALL_MS`, or with `0` or a non-number, no stall watchdog runs. lgse/strata#1729 (unverified)
-- In a debug build, a file call that Strata guards panics on the UI thread with "file calls must not run on the UI thread". Start-up and the exit flush are exempt. lgse/strata#1729 (unverified)
+- In a debug build, a guarded file call on the UI thread panics with "file calls must not run on the UI thread". Start-up and the exit flush are exempt. lgse/strata#1729 (unverified)
+- Guarded calls include reading the install marker, searching `PATH` for helpers, and replacing a settings or state file. lgse/strata#1729 (unverified)
 
 ### Working folder
 

@@ -168,10 +168,12 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 ### app/updates/release-channels
 
 - On the prerelease build, select Stable with no newer stable release; then select Preview and Nightly and read the button, status, and labels after each change.
-- Open the update dialog for a nightly offer, and for a release candidate chosen from the release list; switch the channel to Stable in a second window, then click the dialog's button.
+- Open the update dialog for a nightly offer, switch the channel to Stable in a second window, and click the dialog's button.
+- Repeat with a release candidate chosen from the release list in place of the nightly offer.
 - Write `channel = "beta"` and an empty value into `settings.toml` and read the menu after restart.
 - Hand-edit the cached release list so a tag reads `v0.10.0-rc.0` and another `0.10.0-RC.1`; neither may be offered.
-- Serve a release list holding `v1.0.0` and `1.0.0`, and a stable tag GitHub flags as a prerelease; open the menu on each channel.
+- Serve a release list holding a stable tag GitHub flags as a prerelease; open the menu on each channel.
+- Serve both `v1.0.0` and `1.0.0`, choose the one entry the menu shows, and press Install release; read the tag the dialog names.
 
 ### app/updates/install
 
