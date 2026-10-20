@@ -123,7 +123,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Repeat with each holder from Setup, and with the holder owned by another user.
 - Delete 50 held folders at once and time the wait.
 - On SMB without and with POSIX extensions, rename and move a folder while a file below it is open in another program.
-- Play a video in the preview and rename, then delete, its folder from a second window, on NFS and on a local disk.
+- Play a video in the preview and move its folder to another disk from a second window, on NFS and on a local disk.
 - Start a Delete while a thumbnail of a large image in that folder is still loading.
 
 ### operations/filesystem-compatibility/leftovers

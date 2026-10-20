@@ -7,7 +7,7 @@ reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/local_operations/release.rs, src/adapters/local_operations/holders.rs, src/adapters/local_operations/deferred_close.rs, src/services/file_activity.rs]
 tests: [src/adapters/local_operations/tests/release.rs, src/adapters/local_operations/holders/tests.rs, src/services/file_activity/tests.rs]
-related: [operations/delete, preview/preview-panel/sandbox, devices/volumes/release]
+related: [operations/filesystem-compatibility/leftovers, operations/delete, preview/preview-panel/sandbox, devices/volumes/release]
 ---
 
 ## Summary
@@ -43,7 +43,6 @@ Before a file operation changes an item, Strata stops its own reads of it. It th
 
 - One registry, `services::file_activity`, records every read of a user's file and every running operation. A folder the user opens is not registered, so browsing where an operation works is never blocked (lgse/strata#1729).
 - The release runs on every mount, local disks included (lgse/strata#1729). It resolves the folder's real path, so a read opened through a symlink is released too (lgse/strata#1729).
-- The foreign-leftover wait (`remove_folder`, `held_only`, 2 s `LINGERS`) lives in `leftovers.rs`, which `operations/filesystem-compatibility/leftovers` owns by most of its lines (lgse/strata#1729).
 - Other programs' leftovers are never deleted, renamed, copied, or moved on Strata's own; the error names the holder instead (lgse/strata#1729).
 - The holder search checks Strata's own registry first, then `/proc/*/fd` confirmed by `fdinfo`, then `/proc/*/maps`, and stops after 200 ms. It never calls `stat` through another process's descriptor (lgse/strata#1729).
 - The SMB rename retry runs only after a refusal. On Linux 7.2.5 no rename was refused after a close, 0 of 360; the retry covers 6.17 to 7.1 (lgse/strata#1729).
