@@ -47,7 +47,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - An empty, invalid, or taken name, including one taken by a broken link, keeps the `create ›` prompt open with the reason; nothing is renumbered or replaced. lgse/strata#1306
 - In `create ›` or `rename ›`, a name the location would store as another keeps the prompt open with the reason. An example is `x:y` on vfat. So does a 300-character name, with "The name is too long". Nothing changes. lgse/strata#1615
 - `rename ›` to a case-only variant of the item's own name, on a case-insensitive location, renames it instead of reporting the name taken. This includes exfat-fuse and SMB after the client drops `serverino`. lgse/strata#1615, lgse/strata#1729
-- `rename ›` to another hard link's name, or its case variant on a case-insensitive folder, keeps the prompt open with "“link.txt” already exists". Nothing changes on disk. lgse/strata#1729
+- `rename ›` to another hard link's name, or its case variant on a case-insensitive folder, keeps the prompt open with "“<typed name>” already exists", such as "“Link.txt” already exists". Nothing changes on disk. lgse/strata#1729
 - Ctrl+Shift+N still creates a numbered new folder and renames it in place. lgse/strata#1306
 - `r` and F2 open `rename ›` for the cursor item or focused hit, never the fill. A file's stem or a folder's whole name is selected. lgse/strata#1308
 - Enter renames the item and keeps its contents; a taken name keeps the prompt open with "“…” already exists" and overwrites nothing. lgse/strata#1308

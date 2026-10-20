@@ -109,8 +109,11 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - Several renamed items open an information dialog, "N items were saved under new names"; renames for several reasons add "Names changed for different reasons". lgse/strata#1615
 - Any item left out or left behind opens a warning listing every section. lgse/strata#1615
 - A cancelled or failed transfer shows one dialog: its outcome, then the report. lgse/strata#1615
-- Sections read "The destination can’t tell these names apart", "These names were already taken", "The destination doesn’t allow these names", and "These names were too long for the destination". lgse/strata#1615
-- Left-out sections read "These special files can’t be copied and were left out" and "These symbolic links can’t be stored at the destination and were left out". lgse/strata#1615
+- Sections with several items read "The destination can’t tell these names apart", "These names were already taken", "The destination doesn’t allow these names", or "These names were too long for the destination". lgse/strata#1615, lgse/strata#1729
+- A section with one item reads "The destination can’t tell this name apart from another", "This name was already taken", "The destination doesn’t allow this name", or "This name was too long for the destination". lgse/strata#1729
+- Left-out sections with several items read "These special files can’t be copied and were left out" and "These symbolic links can’t be stored at the destination and were left out". lgse/strata#1615, lgse/strata#1729
+- With one item they read "This special file can’t be copied and was left out" and "This symbolic link can’t be stored at the destination and was left out". lgse/strata#1729
+- Each line quotes its names, such as "“10:00” was saved as “10_00”". lgse/strata#1729
 - A move whose items partly stayed at the source adds "Undo can’t move these items back, as part of each stayed in its original folder." lgse/strata#1615
 
 ## Design
