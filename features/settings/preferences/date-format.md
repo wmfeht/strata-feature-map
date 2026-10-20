@@ -3,7 +3,7 @@ title: Modified date format
 status: shipped
 origin: {issue: null, pr: lgse/strata#180}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/util/mod.rs, data/locales/dates.json]
 tests: [src/util/tests.rs]
@@ -37,6 +37,7 @@ How file modification times read in lists and previews, and the Modified date fo
 - On a daylight-saving fall-back day, a time earlier that day can read "24h ago". lgse/strata#1264 (unverified)
 - Relative labels refresh every 30 seconds while shown. lgse/strata#1102 (unverified)
 - Month and weekday names follow Strata's interface language, not the system locale. lgse/strata#1519
+- Under 正體中文, Long renders `2026年9月7日 14:30` and a weekday label reads `星期一`. lgse/strata#1745
 
 ## Design
 

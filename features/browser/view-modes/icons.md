@@ -3,7 +3,7 @@ title: Icons view
 status: shipped
 origin: {issue: lgse/strata#322, pr: lgse/strata#328}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**]
 tests: [src/ui/icons_cell/tests.rs]
@@ -54,7 +54,7 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 
 ### Scrolling
 
-- Tiles bound mid-scroll set their name and request thumbnail and details at once; cut styling and accessible descriptions refresh on the next frame. lgse/strata#328, lgse/strata#1081 (unverified)
+- Tiles bound mid-scroll set their name and request thumbnail and details at once; cut styling and accessible descriptions refresh once scrolling settles. lgse/strata#328, lgse/strata#1081, lgse/strata#1673 (unverified)
 
 ## Design
 
@@ -70,11 +70,13 @@ GTK's GridView estimates layout from cell sizes, so flexible image and label car
 - Cards run their own rest timer. GTK4's hover delay drops to 60 ms once any tooltip shows, which would flash names card by card while sweeping the grid (lgse/strata#1553).
 - Upstream AGENTS.md allows tooltips only on icon-only buttons. The owner approved this exception for Icons names on condition of a longer delay than GTK's default (lgse/strata#1553).
 - The tooltip reads the caption when GTK asks for it, so it follows a pending rename (lgse/strata#1553).
+- A caption's measured extent is kept between measure and allocate. It is keyed by Pango context serial, insets, attributes, text, and width, so Text size changes and renames remeasure it. The reserved two-line height is cached the same way (lgse/strata#1675).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1675 | perf | Reused caption measurements between measure and allocate, and cached the reserved two-line height, to cut Icons scrolling cost. |
 | 2026-10-10 | lgse/strata#1553 | feat | Showed the full name in a tooltip after the pointer rests on a card whose name is truncated. |
 | 2026-09-19 | lgse/strata#1133 | feat | Saved the thumbnail size across restarts and synced it between windows. |
 | 2026-09-19 | lgse/strata#1148 | fix | Reserved the details line, resumed fills after fast scrolls, and kept focus on renamed items. |

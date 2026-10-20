@@ -3,8 +3,8 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
 tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/e2e/scenarios/test_browser_workers.py, tests/e2e/scenarios/test_thumbnail_worker_settings.py]
 docs: [docs/preferences.md]
@@ -37,6 +37,8 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 - `STRATA_THUMBNAIL_IDLE_SECONDS` sets the idle timeout at startup, capped at 86,400; zero or invalid values use 60. lgse/strata#1081
 - When a worker is killed, the next request starts one replacement and thumbnails continue. lgse/strata#1081
 - Without Landlock ABI 3, each thumbnail runs in a one-shot sandbox and Strata logs "Landlock ABI 3 unavailable; retaining one-shot sandboxes". lgse/strata#1081
+- With Landlock ABI 3 and `magick` and `convert` hidden from Strata, PNG and JPEG thumbnails still appear: GDK Pixbuf's glycin loaders decode them inside the worker. lgse/strata#1660
+- The persistent worker runs with `GLYCIN_DISABLE_SANDBOX=i-know-the-risks` in its environment; one-shot sandboxes do not set it. lgse/strata#1660
 - CBZ, CBR, and EPUB cover thumbnails skip the pool and always run in a one-shot sandbox. lgse/strata#1325 (unverified)
 
 ### Admission
@@ -55,6 +57,8 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 - The main process opens each source read-only and passes the descriptor. Results return on a per-job pipe, so the supervisor never buffers decoded bytes.
 - A launcher thread spawns every supervisor, because bubblewrap's parent-death signal follows the spawning thread, and short-lived threads must not own it (lgse/strata#1081).
 - Retirement waits on the next expiry on that thread, with no polling timer. Idle retirement frees sandbox memory, not the thumbnail caches.
+- glycin's own bubblewrap sandbox cannot start inside a job, because Landlock blocks its namespace setup, so its loader runs directly under the job's Landlock and seccomp. The filter allows the read-only `SIOCGIFINDEX` loopback lookup so glycin's probe detects this, and glycin 2.2 and later skip the probe through `GLYCIN_DISABLE_SANDBOX`. One-shot sandboxes keep glycin's own sandbox (lgse/strata#1658, lgse/strata#1660).
+- Retrying a failed pooled job in the one-shot helper was rejected. It cannot tell a glycin failure from a decoder crash. It would rerun crashes and timeouts without Landlock or seccomp (lgse/strata#1660).
 - Decoding untrusted files in-process and delegating to Tumbler were rejected (lgse/strata#516).
 - Results are cached for 30 seconds, keyed by path, device, inode, size, nanosecond modification and change times, and operation, so a 256 px thumbnail cannot satisfy a larger preview (lgse/strata#1222).
 - Space previews use a second pool so a scrolled folder's thumbnails cannot delay them (lgse/strata#516, lgse/strata#1222). Supervisor isolation itself belongs to `preview/preview-panel/sandbox`.

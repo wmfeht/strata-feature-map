@@ -3,12 +3,12 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs]
+code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, src/adapters/local_operations/progress.rs]
 tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/clipboard, operations/delete, operations/archives, operations/trash/animation]
+related: [operations/clipboard, operations/delete, operations/archives, operations/trash/animation, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -29,12 +29,14 @@ The progress and cancellation UI shared by file operations: the blocking progres
 
 ### Transfer progress
 
+- A transfer whose item total is not yet known shows "Preparing items…" with no count. lgse/strata#1615
 - During a copy or move with a known byte total, the bar advances as bytes are written, not only after each item. lgse/strata#369
 - When the byte total is unknown, the bar pulses and reads "Preparing…" until bytes move, then "Transferring…". lgse/strata#369
 - A tree of only empty files or folders advances by item count and reaches 100% only when every item is copied. lgse/strata#369
 - The transfer view shows the percentage, transferred and total bytes, "N of M files" with the current file name, and the speed with time left. lgse/strata#1278
 - Until a speed is measured, the speed field reads "Calculating speed…". lgse/strata#1278
 - A copy onto removable media shows "Writing to device…" and is not reported done until the filesystem flush returns. lgse/strata#1193
+- A move that copies shows "Writing to device…" during its final flush on internal disks too, except onto SMB. lgse/strata#1615
 
 ### Cancellation
 
@@ -45,6 +47,8 @@ The progress and cancellation UI shared by file operations: the blocking progres
 - After cancellation, an "Operation cancelled" dialog gives the counts of items completed, failed, and not attempted, then "Completed changes were not reverted." lgse/strata#75
 - After cancellation, every affected source and destination folder refreshes to its on-disk state. lgse/strata#75
 - An item that GIO completes as Cancel arrives is counted as completed, not cancelled. lgse/strata#75
+- An item the cancel cut off and rolled back counts as not attempted, not failed, in local transfers, Trash deletes, restores, and merge undos. lgse/strata#1615
+- In merges, permanent deletes, and remote locations, a cut-off item still counts as failed. lgse/strata#1615
 
 ## Design
 
@@ -58,6 +62,7 @@ The modal progress dialog predates the PR history. lgse/strata#398 moved it out 
 - Stopping Strata's writes does not make earlier writes safe to unplug. A stalled cancel therefore never claims the device is safe, and new file operations are refused until the pending transfer resolves (lgse/strata#1278).
 - Copy, compression, and deletion leave this dialog for the progress dock; other operations keep it (lgse/strata#1393).
 - Closing the dialog skips its opener because the operation changes the listing, so the opener row may be gone or stale (lgse/strata#1430, lgse/strata#1533).
+- A cancel never reports the transfer as finished (lgse/strata#1193). Cut-off items count as not attempted only where the rollback is proven (lgse/strata#1615).
 - A deletion drops its dissolve and Trash flight once its card is presented. A slow deletion never locks the window behind an animation (lgse/strata#1562).
 
 ## History

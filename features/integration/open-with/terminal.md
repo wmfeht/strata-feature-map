@@ -3,7 +3,7 @@ title: Open in Terminal
 status: shipped
 origin: {issue: lgse/strata#160, pr: lgse/strata#161}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
 review: draft
 code: [src/ui/terminal.rs]
 tests: [src/ui/terminal/tests.rs, tests/e2e/scenarios/test_terminal.py]
@@ -20,7 +20,8 @@ Opening the user's terminal emulator in a local folder from the context menus or
 ### Entry points
 
 - Ctrl+Alt+T opens a terminal in the selected folder when exactly one folder is selected, otherwise in the pane's current folder. lgse/strata#161, lgse/strata#1484
-- In Columns with no single folder selected, Ctrl+Alt+T uses the Paste destination column: the hovered column after pointer input, otherwise the focused column. lgse/strata#358
+- In Columns with no single folder selected, Ctrl+Alt+T uses the Paste destination column: the hovered column after pointer input, otherwise the focused column. lgse/strata#358, lgse/strata#1605
+- When that column's one selected folder is open as the active column to its right, Ctrl+Alt+T opens in that folder. A just-clicked folder thus wins over its hovered parent. lgse/strata#1605, lgse/strata#867
 - Ctrl+Alt+T with Shift or Super also held does not open a terminal. lgse/strata#1484 (unverified)
 - The folder background menu shows Open in Terminal for the current folder, insensitive when the folder is not local. lgse/strata#161 (unverified)
 - The background menu omits Open in Terminal in Trash and Recent. lgse/strata#161, lgse/strata#1083
@@ -54,6 +55,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - One module resolves and builds every terminal command: Open in Terminal, `.sh` runs, and the AUR and Omarchy update rows. All share the no-terminal message; Open in Terminal and the update rows also share the launch-failure messages (lgse/strata#470, lgse/strata#1028).
 - Non-local and Trash locations fail closed, since a terminal needs a real directory (lgse/strata#160).
 - Ctrl+T moved to tabs, so the terminal moved to Ctrl+Alt+T; 10xer keeps `;` then `t` (lgse/strata#1484).
+- A click opens a folder as the active column while the pointer still rests on its parent, so the opened folder is preferred there. Hovering an ancestor further up still uses that ancestor's folder (lgse/strata#867, lgse/strata#1605).
 - One spawn-and-reap helper waits on each launched child from its own thread. The owner chose it over a GLib child watch or a double fork (lgse/strata#1465, lgse/strata#1570).
 - A long-lived terminal keeps one parked thread. Run already waited on its program this way (lgse/strata#1465, lgse/strata#1570).
 - A reaper thread that cannot start is logged instead of panicking the UI thread (lgse/strata#1570).
@@ -62,6 +64,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1605 | fix | Opened the terminal in a Columns folder just clicked open while the pointer stays over its parent. |
 | 2026-10-11 | lgse/strata#1570 | fix | Reaped Open in Terminal and the AUR and Omarchy update launchers on a background thread so no defunct children remain. |
 | 2026-09-14 | lgse/strata#967 | fix | Fell back to `$TERMINAL` and installed emulators when `xdg-terminal-exec` is missing. |
 | 2026-09-06 | lgse/strata#470 | fix | Named the missing terminal launcher in the error and shared one command builder. |
@@ -69,4 +72,4 @@ Opening the user's terminal emulator in a local folder from the context menus or
 
 ## Known gaps
 
-- In Columns, the terminal shortcut opens at the listing root instead of a folder selected in the parent pane. lgse/strata#867
+None known.

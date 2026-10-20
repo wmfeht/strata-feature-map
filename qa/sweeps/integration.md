@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -20,8 +20,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A fake `.desktop` default handler under `$XDG_DATA_HOME/applications` that logs its argv, in `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
+- A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount. Typed-name and Trash-refusal probes use them.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - Keyboard layout `fr` from the E2E `keyboard_layout` fixture or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the fixture lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
+- A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
 ## Probes
@@ -50,6 +52,9 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With 10xer mode on, arm `g` with focus on a PDF page in the preview, press Ctrl+0, then press `d`; read the chord panel, the page width, and the location.
 - In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
 - Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
+- With 10xer mode on, open F1 in a chooser and turn the mode off from a browser window. Press Ctrl+plus, Ctrl+3, Ctrl+A, and Enter. Press Escape twice and read the response code.
+- Select a filter result, then press Shift+Space in Name under `save` and Space while an input method composes. Press Space on a sidebar row and a header button.
+- Right-click an item on the sshfs mount, a mix of sshfs and Home items, and an item on a `fuseblk` mount; read the delete entries.
 
 ### integration/portal-file-chooser/setup
 
@@ -84,6 +89,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 ### integration/10xer-mode
 
+- On a slow sshfs mount, submit a `rename ›` name, then edit it or press Esc before the check returns; read the folder afterwards.
 - Press Ctrl+Shift+M over a modal, in the location field, in an inline rename, in the sidebar, in Settings, and in a chooser; toggle twice within 1.5 seconds.
 - Toggle the mode with a pane filter, a subfolder Ctrl+F scope, a `v` range, a folder peek, and an open preview active at once; toggle back and compare each pane.
 - With three windows open, toggle the mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K and Ctrl+\ from the file list. Close one window and check again.
@@ -99,6 +105,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In a 50k-member archive press `G`, `h` at the root, then type `hjkl` into its password prompt before Esc; open a member that is itself an archive.
 - Press `<` and `>` at the first and last media file, over `s` hits, and with the sidebar focused; press `m`, then Enter, and read the player's start position.
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
+- With the drawer closed, press `i` on a locked archive and type `j`; step `j`/`k` across a second locked archive, then press `l`, a wrong password, and Enter.
 - Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
@@ -121,6 +128,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
+- Fill two `f` hits, rest the cursor on an unfilled hit, then cancel a Shift+Delete dialog, Tab out and back, and close Quick Look; read which hit holds focus and whether the fill changed.
 - Rename a folder two levels above an `s` search while its stream is still running. Rename one back before the monitor fires, and rename one while a copy runs into it.
 
 ### integration/10xer-mode/file-verbs
@@ -132,6 +140,9 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
 - Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
+- On the vfat mount, submit `CON`, `a.`, ` lead`, `x:y`, and a name with U+200B in `create ›` and `rename ›`. On vfat and casefold, `rename ›` `Notes.txt` to `notes.txt`.
+- On the sshfs mount, press `d` until Trash is refused, then `d` again before and after F5, and from a second window; read each dialog.
+- Press `x` on a file, then `p` into a folder holding the same name, choose the focused button, and press Ctrl+Z.
 - On `fr`, press `;` then each digit-row key with and without Shift, with 10 and with 3 matching actions.
 
 ### integration/10xer-mode/file-chooser
@@ -149,6 +160,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Run a `.sh` without a shebang, with CRLF endings, with a space in its path, an executable symlink to a non-executable, and an AppImage with a registered type; with no terminal on `PATH`.
 - Install 300 fake `.desktop` files; search by desktop id, wrap Up and Down, Tab with a non-empty search, press Escape twice; select three types sharing one handler, and a broken symlink plus a file.
 - Check Always use for two types at once, with `mimeapps.list` at mode 444, and cancel with it checked; compare with `xdg-mime query default`.
+- In the Flatpak build, activate a `.sh`, an AppImage, and a file on an exFAT mount; press Open With… on three files of different types and dismiss the second desktop chooser; hand a video from the preview to the player.
 - On a GVfs FUSE mount, open with a `%f` handler and a `%u` handler; skip when no mount exists and say so.
 
 ### integration/open-with/recent-apps
@@ -163,6 +175,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Set `$TERMINAL` to `footerm --title x`, to the failing fake, and to an empty string; then empty `PATH` of emulators, then add the fake `kitty` that exits 127; read each dialog.
 - Press Ctrl+Alt+T with Shift and with Super held, in the location field, during an inline rename, in a chooser, and with the mode on.
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
+- In Columns, click a folder and press Ctrl+Alt+T with the pointer over a grandparent, and after selecting a second folder in the parent; repeat with the folder opened by keyboard.
 - Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits. Count Strata's children and threads with `ps -L` afterwards.
 
 ### integration/custom-actions
@@ -171,6 +184,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Match `extensions = ["JPG"]` against `a.jpg`, `a.JPG`, and `a.jpg.bak`; `image/*` against `.svg` and an extensionless PNG; `min_items` and `max_items` at 0, 1, and 50; the background menu in Trash, Recent, a FUSE folder, and over `s` hits spanning folders.
 - Run on 1,000 selected files with newline and non-UTF-8 names in per-item and whole modes; check `STRATA_ACTION_PATHS` bytes, `RUN_DIR` mode and removal, each cwd choice, a forked child, `processed > total`, malformed JSON, and a relative output path.
 - Cancel a per-item run at item 3 of 10 with a script ignoring SIGTERM, then close the last window while jobs are queued; hand-edit `prefix-{path}` and `{paths}` in per-item mode into a manifest and reload.
+- Open the action editor at corner roundness 0%, 40%, and 200%, under each theme. Hover each tab, focus it by keyboard, and read the Confirm toggle and footer buttons.
 - Derive Id from `Ünïcode Name!!`, switch runtimes three times with edits, and apply a recipe over an edited draft. Duplicate three times, Export into an existing folder, and Import a folder with extra files and a symlinked entrypoint. Run Batch rename with a colliding target and one created between check and rename.
 
 ### integration/file-manager-interface
@@ -180,6 +194,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Install the service copy, call with Strata not running, then twice within one second; run a stub owning the name first and call again; read `busctl --user status org.freedesktop.FileManager1`.
 - Call `ShowItemProperties` with two files in one folder, with a folder, and with a Trash URI; call `ShowFolders` on a folder already open in a window and with the mode on.
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
+- After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed.
 
 ## Hand-offs
 

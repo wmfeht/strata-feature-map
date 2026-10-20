@@ -3,10 +3,10 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/app/browser/sorting.rs]
-tests: [src/app/browser/sorting/tests.rs]
+code: [src/app/browser/sorting.rs, src/services/mime_type.rs]
+tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs]
 docs: [docs/preferences.md]
 related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navigation/recent, devices/volumes/camera]
 ---
@@ -31,6 +31,8 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 - Names differing only in case are ordered by their original spelling, so the order is stable. lgse/strata#232
 - Digit runs compare by value: `File 2` sorts before `File 10`. lgse/strata#879
 - Type sorts by the MIME description guessed from the filename; ascending puts unrecognized files last, descending puts them first, with names A–Z within each type. lgse/strata#946
+- A RAW file that shared-mime-info does not type as an image, such as `GOPR0001.GPR`, is typed `image/x-dcraw` instead of Other. lgse/strata#1698
+- Its Type shows that type's description, "Digital raw image" in English. lgse/strata#1698
 - With Folders first on, the default, folders stay ahead of files in both directions. lgse/strata#946
 - Entries tied on Size, Modified, or Type are ordered by name. lgse/strata#946 (unverified)
 - Choosing Size or Modified loads any missing sizes or dates for that folder before reordering. lgse/strata#274 (unverified)
@@ -52,6 +54,7 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 
 - Case-insensitive order matches GNOME Files, Dolphin, Windows Explorer, and Finder (lgse/strata#216).
 - Type uses `content_type_guess` on the name only. Sniffing contents like Dolphin was rejected: it needs I/O on every file and fights streaming, incremental sorting (lgse/strata#508).
+- The Type guess is shared with the preview, custom-action MIME matching, and chooser filters, so all four treat RAW names alike. The RAW override applies only when GIO does not already return an image type, and stays name-only (lgse/strata#1698).
 - Full sorts and batch merges compute case-folded keys once per entry instead of inside the comparator, with a zero-allocation path for ASCII names (lgse/strata#1318, lgse/strata#1401).
 - A superseded sort worker is rejected before it can remove pending state; otherwise it discarded the replacement load's monitor changes (lgse/strata#1030).
 - The 2,048-entry inline limit was measured and kept; the cost seen with CJK names was case folding, not the threshold (lgse/strata#1319).

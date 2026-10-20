@@ -1,7 +1,7 @@
 ---
 title: App sweep
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
-triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs]
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -16,12 +16,15 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Two builds of the same commit: one plain, one with `STRATA_RELEASE_TAG=v0.0.1-rc.1 STRATA_BUILD_KIND=rc` exported before `cargo build`. The second drives Return to stable and build-kind labels.
 - Network control for update checks and downloads. Point `HTTPS_PROXY` at a closed port for a fast failure and at a `nc -l` socket for a stall; run under `unshare -rn` when the proxy is ignored. Live GitHub checks are capped at 60 per hour, so plan them.
 - A fake package-managed install: copy the binary to `<prefix>/bin/strata` and write `<prefix>/share/strata/install-source.toml` in the shape `docs/packaging.md` gives. Keep one marker per manager and channel, one with unknown keys, and one made unreadable with `chmod 000`.
-- The installer is never run on the host. Evidence is `python3 scripts/test_installer.py`, `bash install.sh --help`, and the script read against its Behavior; a fake `omarchy` on `PATH` and `~/.local/share/omarchy/version` under the throwaway `HOME` feed the detection cases.
+- The installer is never run on the host outside the stubs and throwaway `HOME` below. Evidence is `python3 scripts/test_installer.py`, `bash install.sh --help`, and the script read against its Behavior; a fake `omarchy` on `PATH` and `~/.local/share/omarchy/version` under the throwaway `HOME` feed the detection cases.
+- Installer menus: drive `install.sh` through a pseudo-terminal in a throwaway `HOME`. Put stub `curl`, `pacman`, `sudo`, `gh`, and `gdbus` on `PATH`, as the `scripts/test_installer.py` fixture does.
+- Set the pseudo-terminal's size with `stty rows N cols M`.
 - Animation and scale: the harness `settings.ini` sets `gtk-enable-animations=false`, so set it `true` for animation probes and toggle `reduce_motion` in `settings.toml`. Set `text_size = 8` and `48` for layout probes.
 - AT-SPI dumps from `tests/e2e/harness/tree.py` or an ad-hoc `gi.repository.Atspi` script under `/tmp`; `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/e2e/harness/keyboard_layout.py` does. Restore `us` afterwards; never change the desktop's layout.
 - `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
+- A client-decorating compositor for title bar probes: `weston --backend=x11-backend.so` or a nested `mutter --nested` on the private display, with Strata launched against its Wayland socket.
 - Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -display :N -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
 
 ## Probes
@@ -70,6 +73,11 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In 10xer mode with `us,ru`, press the Ё key and a US `~` in the location field, a footer prompt, F1 search, and the file list.
 - In F1 search, type, cut, paste, and select all, then undo and redo past the opening query; repeat on a Russian-only keymap.
 - Type an unmatched F1 query at the narrowest window width and with the interface in German, then clear the query and read the results area.
+- Read the footer's F1 Shortcuts label and its accessible name with the interface in ja, de, and zh-CN, at text size 8 and 48.
+- With fcitx5 pinyin running, open F1, switch to pinyin with Ctrl+Space, and press Ctrl+Left, Ctrl+Backspace, and Ctrl+, while a composition is pending.
+- In 10xer mode, type `~` in the global search field, Settings search, a rename field, and the Compress name field.
+- Focus an F1 category and press `~`.
+- In Icons, search F1 for `ctrl+alt+0`, `+`, and `thumbnail` in both maps, with the interface in English and German.
 
 ### app/window
 
@@ -83,12 +91,18 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
 - With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
+- Under the client-decorating compositor, open a window, a second window, a new tab, and the portal chooser; drag each edge and corner, then maximize, tile, and fullscreen and read the window border each time.
+- Under the client-decorating compositor, open a modal dialog and the search palette and check that the blur covers the header.
+- With F1 open from Columns, List, and Icons, press F5, Ctrl+K, Ctrl+Alt+T, and Ctrl+\\ with focus on a category, then on the results.
+- Close F1 and press the same keys again.
 
 ### app/packaging
 
 - Run `desktop-file-validate` on the shipped entry and on the entry a release archive carries, and diff the two.
 - Run `strata --version`, `strata --version ~/Documents`, `strata ~/Documents --version`, and `strata --version` with `DISPLAY` unset; compare the output with the prerelease build and check no window appears.
+- Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version` with the Settings → Updates version line in each.
 - Install with `mise run install-local` into a throwaway `HOME`, read `Exec=` in the installed entry, uninstall, and list what remains.
+- Read the launcher's generic name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, and `zh_MO.UTF-8`.
 
 ### app/packaging/installer
 
@@ -96,6 +110,14 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Feed Omarchy detection `dev (b280f130)`, `Omarchy 2.3.1`, `3.10`, `4.0-beta`, and an empty file through the fake `omarchy` and the `~/.local/share/omarchy/version` file.
 - Drive the download step against a local copy of a release with a wrong `.sha256`, a missing `.sha256`, and an archive lacking the icon; nothing may land in `~/.local/bin`.
 - Write a bindings file with the marker block already present, run the keybind step twice, and diff; then make `hyprctl` report an error and check the backup restores.
+- Drive the menus at 23×80, 24×63, and 24×64, with `TERM=dumb`, and with stdout piped to `cat`; press Escape and `q` in each menu.
+- In the custom menu, toggle Default file manager, Open file location, and Application launcher in every order, then read the plan's `+` lines.
+- In a numbered menu, enter `0`, `99`, `1 2`, `01`, and an empty line in both menus.
+- Run with `LANGUAGE=zz`, `LANGUAGE=zh-Hant-TW`, `LANG=zh_SG.UTF-8`, `LC_ALL=POSIX`, and `LC_MESSAGES=ko_KR.UTF-8` with `LANG=fr_FR.UTF-8`; read the banner, menus, and failure lines.
+- Install Open file location with the stub `gdbus` exiting 1 and then absent; read the heading and whether the log is kept.
+- Repeat with the real `gdbus` and `DBUS_SESSION_BUS_ADDRESS` pointing at a socket that accepts and never answers, such as `socat UNIX-LISTEN:<path> -`.
+- Fail the package step, the desktop-entry step, and the udiskie step in turn; read the failure lines and the retained log.
+- Run with `TMPDIR` unset, pointing at a read-only directory, and at a path with spaces.
 
 ### app/packaging/aur
 
@@ -121,6 +143,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Compose a hangul syllable in a rename, then press Down, Ctrl+A, and Tab instead of Escape; read the name and where focus lands.
 - Start composing in a Settings search field shown in a popover, and in the file chooser's location field, then press Escape.
 - With the interface in ja, read the shortcut labels in the footer and header tooltips.
+- With chewing (Zhuyin) active, start syllables with `1`, `-`, and `;` in the location field, a rename, F1 search, and a 10xer footer prompt.
+- On `tw` and `tw(indigenous)`, type the AltGr digit-row marks in a rename field, then press `t` and AltGr+1 in 10xer mode.
+- With IBus, press Super+Space in a dialog's entry, Settings search, and the Open With search field.
 
 ### app/updates
 
@@ -151,6 +176,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch with the unreadable marker and with the marker holding `channel = "preview"` and unknown keys; the page must offer no download.
 - Point the AUR check at a package version equal to, below, and above the installed one through the proxy; only the last may show a notice.
 - Click "Open AUR Update" with the helper removed from `PATH` after the page rendered.
+- On a fake Omarchy install with an update offered, put a stub `omarchy-launch-floating-terminal-with-presentation` on `PATH` that records its arguments; click Open Omarchy Update with the stub present, absent, and not executable, from the Updates row and from the update dialog.
 
 ### app/infrastructure
 
@@ -158,6 +184,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open `sftp://user:secret@host/dir?token=x#frag` with debug logging on and grep the log for `secret`, `token`, and `frag`.
 - Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 - Run Strata under `strace -f -e trace=execve`, open a folder of 200 text files named `.mp4` and `.png` in Icons, and count `ffprobe` launches; repeat with one real clip among them.
+- Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
 
 ## Hand-offs
 
@@ -175,3 +202,4 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Chosen states of Settings choice options and the Hidden files option → `settings`.
 - The contents and outcome of operation dialogs such as paste conflicts, Compress, and progress → `operations`.
 - The mount authentication dialog and remote paths in the search palette → `remote`.
+- Thumbnail size steps and the size notice → `browser`.

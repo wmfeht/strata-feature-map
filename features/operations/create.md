@@ -3,12 +3,12 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser]
+related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -30,6 +30,11 @@ Creating an empty file or folder in the current directory from the background me
 - New Folder creates `new folder` on disk before any name is typed; New File creates an empty `new file`. lgse/strata#567
 - When the default name is taken by any item, creation uses the first free `new folder (1)`, `(2)`, and so on, without overwriting. lgse/strata#567
 - A creation failure reports "Could not create “name”:" followed by the error. lgse/strata#567 (unverified)
+- A long default name is cut so ` (n)` fits within the folder's name limit. lgse/strata#1615
+- On SMB with POSIX extensions, a folder reported by an exclusive file create counts as a taken name, so numbering goes on. lgse/strata#1615 (unverified)
+- Creating under a typed name, as the 10xer create prompt does, refuses a name the location would store as another, such as `CON` on vfat. lgse/strata#1615
+- Nothing is made, and the 10xer prompt stays open with the reason. lgse/strata#1615
+- Default names such as `new folder` are never checked that way. lgse/strata#1615
 
 ### Naming the new item
 
@@ -60,8 +65,10 @@ Creating an empty file or folder in the current directory from the background me
 - With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349
 - The item is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
 - Choosing it, or Ctrl+Alt+N, creates a numbered `new folder` beside the selection, moves the selected items into it, and opens rename on the folder. lgse/strata#1349
-- Ctrl+Alt+N with nothing selected creates a plain `new folder`. lgse/strata#1349
+- Ctrl+Alt+N with nothing selected creates an empty `new folder` and moves nothing. This holds with the cursor on an item, or with only a load cursor on the first row. lgse/strata#1349, lgse/strata#1623
 - One Ctrl+Z moves the items back and moves the created folder to Trash. lgse/strata#1349
+- Where Trash is unavailable, such as on tmpfs, that Ctrl+Z moves the items back. lgse/strata#1614
+- It then removes the folder only if it is empty; a folder holding other items stays. lgse/strata#1614
 
 ## Design
 
@@ -75,6 +82,7 @@ Creating an empty file or folder in the current directory from the background me
 - In Columns, revealing the created entry does not start a second asynchronous navigation, which could cancel its rename editor (lgse/strata#690, lgse/strata#760).
 - Create undo trashes rather than deletes, so it is reversible (lgse/strata#1097).
 - New Folder with Selection records one composite undo entry instead of three stacked ones, so the gesture reverts atomically (lgse/strata#1347). Fusion happens when entries are pushed, because Columns truncation could otherwise consume the pending entry first (lgse/strata#1349).
+- Ctrl+Alt+N takes only a committed selection, never the cursor fallback that Delete uses, because it moves files (lgse/strata#1485, lgse/strata#1591, lgse/strata#1623).
 - New Folder with Selection is hidden in recursive search, whose result model never shows the created row, so the move and rename would never start (lgse/strata#1349).
 
 ## History

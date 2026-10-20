@@ -3,11 +3,11 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
-related: [integration/file-manager-interface, settings/preferences, app/updates]
+related: [app/packaging/installer, integration/file-manager-interface, settings/preferences, app/updates]
 ---
 
 ## Summary
@@ -28,7 +28,6 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - An executable path with a component not owned by the user or root, or writable by other users, is refused. lgse/strata#175
 - `strata --uninstall-portal` restores the original configuration, or deletes the copy it created, when the file is unchanged since installation; otherwise it removes only `strata` from the preference. lgse/strata#175
 - `strata --dismiss-portal-prompt` creates `$XDG_CONFIG_HOME/strata/portal-opt-in-v1` and leaves portal preferences unchanged. lgse/strata#175
-- The installer asks about the file chooser with default No; `--with-file-chooser` runs `--install-portal`, and a decline or `--without-file-chooser` runs `--dismiss-portal-prompt`. lgse/strata#175
 
 ### Settings row
 

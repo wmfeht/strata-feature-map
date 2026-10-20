@@ -3,7 +3,7 @@ title: Progress dock
 status: shipped
 origin: {issue: lgse/strata#1360, pr: lgse/strata#1393}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/ui/notice.rs, src/app/browser/operation_events/background.rs]
 tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/ui/browser/progress/tests/minimization/**, src/app/browser/tests/background_operations.rs]
@@ -26,6 +26,7 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 - During a deletion, the footer's left label is empty. lgse/strata#1562
 - A docked copy also shows files done of total; a compression card names the archive instead of the first item. lgse/strata#1393 (unverified)
 - The destination reads "→ <path>" for a folder, "→ Trash" for Move to Trash, and "Permanent deletion" for permanent deletion. lgse/strata#1393 (unverified)
+- A permanent deletion of a remote selection reads "Deletion without Trash" instead. lgse/strata#1614
 - Long file names, statuses, and destinations wrap instead of being cut off. lgse/strata#1393
 - Several cards stack and update independently; the stack scrolls once it reaches 320 px. lgse/strata#1393 (unverified)
 - A docked card does not blur or unblur the window, including while another dialog is open. lgse/strata#1393 (unverified)
@@ -47,13 +48,16 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 - Hovering or focusing a completed card pauses its countdown and shows "paused"; leaving resumes the remaining time. lgse/strata#1393
 - The pin button, "Keep notification", keeps a completed card open and shows "pinned" until it is dismissed. lgse/strata#1393
 - Complete or X on a completed card dismisses only that card and leaves running cards unaffected. lgse/strata#1393
+- A docked transfer reports its renamed and left-out items once, after it ends. lgse/strata#1615 (unverified)
 - If another operation starts before a docked copy or compression finishes, the finished one does not reveal or select its result. lgse/strata#1393 (unverified)
 
 ### Notices
 
 - A notice shows as a row in the bottom-right dock; notices and progress cards stack in the order they appear. lgse/strata#1578 (unverified)
 - A notice shows a check icon before its text and has no controls; a click on it does nothing. lgse/strata#1578 (unverified)
+- A size notice, such as "Text size: 16px", has no check icon and no minimum width. lgse/strata#1721 (unverified)
 - Showing a notice while another notice is visible in the same window removes the old one; progress cards stay. lgse/strata#1578 (unverified)
+- A transfer report notice is the exception: it joins the dock and leaves visible notices in place. lgse/strata#1615 (unverified)
 - Notice text, not its heading, wraps and is cut to 3 lines with an ellipsis. lgse/strata#1578 (unverified)
 - When a notice expires and the dock holds no other row, the dock closes. lgse/strata#1578 (unverified)
 

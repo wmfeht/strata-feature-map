@@ -3,7 +3,7 @@ title: Shortcuts on any keyboard layout
 status: shipped
 origin: {issue: lgse/strata#1538, pr: lgse/strata#1576}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/keys.rs, src/ui/keys/label.rs, src/ui/keys/composition.rs]
 tests: [src/ui/keys/tests.rs]
@@ -45,6 +45,10 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - On `cn(altgr-pinyin)` in a rename field, `m`, AltGr+1, `a` types `mā`. lgse/strata#1583
 - On `cn(altgr-pinyin)` in a rename field, AltGr+1 then Escape cancels only the pending tone mark; the rename stays open. lgse/strata#1583
 - With fcitx5-hangul composing 보고 in a rename, one Escape commits the syllable and cancels the rename. lgse/strata#1583
+- With fcitx5 (Ctrl+Space) or IBus (Super+Space), the switch key in a rename field, the location bar, or a footer prompt reaches the input method. lgse/strata#1714
+- With a Zhuyin input method such as chewing in a text field, a plain digit, `-`, `,`, `.`, `/`, or `;` starts no Strata command. lgse/strata#1714
+- The first key of a Zhuyin syllable therefore reaches the input method. lgse/strata#1714
+- On `tw(saisiyat)`, the semicolon key types ː in a rename field; in 10xer mode the same key in the file list arms the `;` chord. lgse/strata#1714
 - On `cn(altgr-pinyin)`, digit keys without AltGr act as on US: Ctrl+1 switches to Columns, and 10xer `t 1` selects tab 1. Ctrl+AltGr+1 and `t` then AltGr+1 do neither. lgse/strata#1583
 
 ### Labels
@@ -72,6 +76,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - Accented Latin letters such as German ö also use the fallback, so ö acts as `;` in 10xer. The owner kept this because Thai and Arabic have no `;` key; only typing destinations escape the fallback (lgse/strata#1576).
 - GTK runs a field's input method only after every capture-phase handler. `keys::on_press` therefore forwards keys to a composing field first, as GtkSearchEntry's key capture does; with nothing composing the cost is one empty-list check (lgse/strata#1583).
 - A field that submits on Enter must also submit from `activate`, which is how Enter arrives after an input method passes it back (lgse/strata#1583).
+- No command takes a plain digit or punctuation key while a text field has focus, so Zhuyin syllables reach the input method; new bindings must keep it that way (lgse/strata#1714).
 - On Wayland the input method runs in the compositor, so the keys it uses never reach Strata (lgse/strata#1583).
 
 ## History

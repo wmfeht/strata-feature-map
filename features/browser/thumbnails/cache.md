@@ -3,11 +3,11 @@ title: Thumbnail disk cache
 status: shipped
 origin: {issue: lgse/strata#273, pr: lgse/strata#274}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+review: draft
 code: [src/ui/thumbnail_cache.rs]
 tests: [src/ui/thumbnail_cache/tests.rs]
-related: []
+related: [browser/properties/raw-metadata]
 ---
 
 ## Summary
@@ -19,7 +19,9 @@ Persisting rendered thumbnails in the freedesktop shared cache, `$XDG_CACHE_HOME
 - After rendering a local file with a known modification time, Strata writes `thumbnails/large/<MD5 of the file URI>.png` under `$XDG_CACHE_HOME`, or `$HOME/.cache` when it is unset or empty. lgse/strata#274
 - The stored PNG has a 256 px long edge and `Thumb::URI` and `Thumb::MTime` tags, whatever icon size the view used. lgse/strata#274
 - After a restart, revisiting a folder shows thumbnails from the disk cache without rendering the files again. lgse/strata#274
-- An entry written by another application is used when its `Thumb::URI` and `Thumb::MTime` match the file. lgse/strata#274 (unverified)
+- An entry written by another application for a non-RAW file is used when its `Thumb::URI` and `Thumb::MTime` match the file. lgse/strata#274, lgse/strata#1698 (unverified)
+- A RAW thumbnail Strata writes carries the PNG text tag `X-Strata-Raw-Render=1`. lgse/strata#1698
+- A cached RAW entry without that tag, written by an older Strata or another application, is a miss: the file is rendered once more and the entry replaced. lgse/strata#1698
 - An entry whose `Thumb::URI` or `Thumb::MTime` differs from the file's URI or modification time is ignored and the file is rendered again. lgse/strata#274 (unverified)
 - An entry that is a symlink, a FIFO, larger than 2 MiB, not a PNG, zero-sized, or wider or taller than 512 px is treated as a miss. lgse/strata#274 (unverified)
 - Failed renders are never written to the disk cache. lgse/strata#274 (unverified)
@@ -35,6 +37,7 @@ The cache follows the freedesktop thumbnail specification so Strata and other fi
 - Entries are untrusted: they are opened without following symlinks and bounded in size and dimensions before allocation. Every hit revalidates the URI and modification-time tags.
 - Writes are normalized to the canonical `large` size so a small view cannot poison the shared bucket. Only files with a known modification time touch the disk.
 - Persistence is best effort and asynchronous. At most 32 writes queue; the oldest drops first, so slow disks never delay display.
+- The shared cache validates entries by URI and modification time only, so sideways RAW thumbnails from older builds stayed valid until the file changed. The render tag lets Strata replace them (lgse/strata#1666, lgse/strata#1698).
 - Disk lookups run on their own executor rather than in a render slot, so a cache hit never waits behind a decoder (lgse/strata#516, lgse/strata#1081).
 
 ## History

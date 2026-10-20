@@ -3,20 +3,23 @@ title: Send to removable devices
 status: shipped
 origin: {issue: lgse/strata#1153, pr: lgse/strata#1278}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/browser/destination.rs]
 tests: [src/ui/browser/context_menu/actions/tests.rs]
-related: [devices/volumes]
+related: [devices/volumes, remote/file-providers/external]
 ---
 
 ## Summary
 
-A Send to… submenu in the item menu that copies the selection to a mounted removable device without leaving the current folder. It is for people who copy to USB drives often.
+A Send to… submenu in the item menu that copies the selection to a mounted removable device without leaving the current folder. It is for people who copy to USB drives often. File providers can also place destinations in it (`remote/file-providers/external`).
 
 ## Behavior
 
-- The item menu shows Send to… only when items are selected and a mounted, writable, local removable device exists. lgse/strata#1278, lgse/strata#1393
+- The item menu shows Send to… only when items are selected. lgse/strata#1278
+- A mounted, writable, local removable device must exist, or a provider must place a destination there. lgse/strata#1278, lgse/strata#1393, lgse/strata#1742
+- Removable devices come first in Send to…, then one entry per provider. lgse/strata#1742
+- A provider's entry is a submenu named after the provider, or the single row it asked for when that is its only destination. lgse/strata#1704, lgse/strata#1756
 - Device rows are sorted by name, ignoring case; devices sharing one identity are left out. lgse/strata#1278 (unverified)
 - Each device submenu offers Drive root, up to 3 recent folders labeled "<folder> (recent)", and Choose folder…. lgse/strata#1278
 - A recent folder that no longer exists on the device is left out of its submenu. lgse/strata#1278 (unverified)
@@ -28,6 +31,8 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 - If the device is gone when a destination is activated or the chooser confirms, "Destination unavailable" appears and nothing is copied. lgse/strata#1278, lgse/strata#1384
 - A send that finishes before progress appears shows a progress-dock notice, "Copied to <device>" or "N items copied to <device>", for 2 seconds. lgse/strata#1278, lgse/strata#1578 (unverified)
 - An open Send to… menu updates as devices mount and unmount. lgse/strata#1393
+- An open Send to… menu also gains and loses provider destinations without closing. lgse/strata#1742
+- When the last provider destination goes and no device is left, the Send to… row disappears. lgse/strata#1742
 
 ## Design
 

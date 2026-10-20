@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
@@ -30,6 +30,16 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - With a sidebar place, Trash, or drive row focused, Menu or Shift+F10 opens that row's menu, with 10xer mode on or off. lgse/strata#1331
 - With a menu open, a secondary click on another entry closes it and opens that entry's menu in one click. lgse/strata#1155 (unverified)
 
+### Pointer activation
+
+- On niri, a right click held about 250 ms and released over the menu that opened leaves the menu open and runs no row. lgse/strata#1621
+- A button release that reaches an item or background menu, or its submenus, before any press inside it is ignored. lgse/strata#1621
+- After that, a full click on a menu row runs it. lgse/strata#1621
+- Pressing the secondary button, moving onto a menu row, and releasing does not run the row; menu rows need a separate click. lgse/strata#1621
+- On Hyprland, wlroots compositors, and X11, a right click released over a menu row behaves as before: the menu stays open. lgse/strata#1621
+- On GTK 4.14, choosing Open With… from a file's menu and picking an application keeps the window open. lgse/strata#1642, lgse/strata#1695
+- After that, the menu and the chooser open again. lgse/strata#1642, lgse/strata#1695
+
 ### Keyboard navigation
 
 - A menu opens with keyboard focus on its first visible action; focus stays there while Open With lookup finishes, even with the pointer resting over the menu. lgse/strata#1155
@@ -52,7 +62,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Open in… is a submenu of New Tab, shown with Ctrl+Enter, and New Window, shown with Shift+Enter. A file's menu has no Open in…. lgse/strata#1543, lgse/strata#1576
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
-- When every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155
+- Outside Flatpak, when every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155, lgse/strata#1635
+- Under Flatpak, once the selected types resolve, the multi-selection menu shows Open above Open With…, even with different or no defaults. lgse/strata#1635 (unverified)
 - When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
 - Custom action rows appear after the opening group and before Cut. lgse/strata#1085 (unverified)
@@ -60,6 +71,9 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Open With… shows AppWindow, Duplicate CopyPlus, Copy path(s) Route, Copy name(s) FileType, Move to… FolderInput, and Copy to… FolderOutput. lgse/strata#1210
 - Compress… shows PackagePlus, Extract here PackageOpen, and Extract to… FolderArchive. lgse/strata#1210
 - Permanently delete shows CircleX with a red label and icon; Move to Trash keeps the Trash icon. lgse/strata#1210
+- Outside Trash, the item and multi-selection menus show "Delete without Trash" in place of Permanently delete when every selected item is remote. lgse/strata#1614
+- Remote means on an NFS, SMB, or sshfs mount, or at an `sftp://` or `smb://` location. lgse/strata#1614
+- Delete without Trash has the CircleX icon, a red label, and the Shift+Del hint. A mixed local and remote selection keeps Permanently delete. lgse/strata#1614
 - An action with a shortcut shows it at the row's right, such as Ctrl+C beside Copy. lgse/strata#666
 - Shortcut hints use one notation: Enter beside Open, "F2 / Ctrl+R" beside Rename, and Alt+Enter beside Properties. lgse/strata#1576
 - With the interface in German, hints read Strg+C beside Copy and Entf beside Move to Trash. lgse/strata#1576
@@ -97,12 +111,22 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - Grouping follows Open, Edit, Transfer, Transform, Organize/Inspect, Destructive, without visible headings to save height. Compress stays a singleton group rather than join an unrelated one (lgse/strata#1207).
 - Icons are secondary cues; labels carry meaning. CircleX gives irreversible deletion a distinct shape, not only a color (lgse/strata#1207).
 - GTK's text-input menus never receive Strata's classes, so `text > popover.menu` and `textview > popover.menu` selectors style them (lgse/strata#456, lgse/strata#1087).
+- Strata adds and removes the Open in… submenu row itself, alone in a nested section that draws no separator. Hiding it with `hidden-when` freed its submenu's trackers while GTK iterated them during teardown, logging GLib-CRITICALs. Clearing the menu model before unparenting was rejected: GTK's rebuild takes the same path (lgse/strata#1569, lgse/strata#1611). A later attempt to clear it on every close still crashed on GTK 4.14 (lgse/strata#1695).
+- A quick right click can open the menu under the pointer, and GtkModelButton activates on an unpaired release of any button. Some compositors, such as niri, deliver the opening click's release to the popup (lgse/strata#1618).
+- A release with no press inside the menu since `show()` belongs to the opening click and is dropped. The flag resets per presentation, so nothing stays armed on compositors that never deliver that release. A guard armed at the trigger was rejected for that reason; it also covered only the secondary button (lgse/strata#1618, lgse/strata#1621).
+- The guard runs with no propagation limit because submenus are separate popover natives (lgse/strata#1621).
+- GTK 4.12 to 4.16 leave a position handler on a freed section box when a popover's model is replaced. The item menu therefore starts with no model (lgse/strata#1642, lgse/strata#1695).
+- GTK 4.14 can keep the window's pointer focus on a hidden popover. A sensitivity toggle therefore repicks pointer focus before unparenting (lgse/strata#1642, lgse/strata#1695).
+- Both workarounds are needed on GTK 4.14; GTK 4.22 fixed both bugs (lgse/strata#1695).
 - A dropped menu owner unparents its popover, and preference bindings hold weak references, so navigation releases retired menus (lgse/strata#1353).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-16 | lgse/strata#1695 | fix | Built the item menu without a model and repicked pointer focus before unparenting, so menu actions no longer crash on GTK 4.14. |
+| 2026-10-15 | lgse/strata#1611 | fix | Added and removed the Open in… row in its own nested section, so item-menu teardown no longer logs GLib-CRITICALs. |
+| 2026-10-15 | lgse/strata#1621 | fix | Dropped a menu button release that arrives before any press, so a quick right click on niri no longer runs the row under the pointer. |
 | 2026-10-10 | lgse/strata#1554 | fix | Looked up only the mapped Columns row when focusing a search result for its menu after a reload. |
 | 2026-10-10 | lgse/strata#1539 | fix | Made Columns Open on an open folder focus and reveal its column instead of closing it. |
 | 2026-10-02 | lgse/strata#1353 | fix | Released retired panes' context menus and their preference bindings after navigation. |
@@ -114,4 +138,4 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 
 ## Known gaps
 
-- Every item-menu action logs two GLib-CRITICAL messages while the menu is torn down; the action still runs. lgse/strata#1569
+- On GTK 4.14, Left in a submenu does not return keyboard control to the parent menu as it does on GTK 4.22. lgse/strata#1695

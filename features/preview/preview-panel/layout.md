@@ -3,7 +3,7 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/browser/preview.rs]
 tests: [tests/e2e/scenarios/test_preview_session.py, tests/e2e/scenarios/test_quick_preview.py, src/ui/preview/tests.rs]
@@ -95,7 +95,7 @@ How the preview panel shares the window with the file views: its width, the rese
 
 - Finder's column view is the reference. Wide windows give the preview the free space; a fixed width wasted it, and shrinking columns hid filenames (lgse/strata#885).
 - Manual width is window- and session-local, not a saved setting; persistent or per-folder sizing was left for later (lgse/strata#885).
-- `sync_split` runs once per frame while the drawer is enabled or reserving space. It owns the slot's visibility, minimum width, and divider position; besides the user's drag, only the open animation and hiding the panel move it.
+- While the drawer is enabled or reserving space, `sync_split` ticks for 60 frames after a layout pass or an input event in the split (lgse/strata#1671, lgse/strata#1677). It no longer keeps the frame clock running in an idle window. It owns the slot's visibility, minimum width, and divider position; besides the user's drag, only the open animation and hiding the panel move it.
 - The Columns slot is separate from preview content, because dismissing a preview shifted the deep column chain under the pointer (lgse/strata#1381, lgse/strata#1382).
 - The child column used to sit inside the scroller beside the slot, so each folder-to-file step bounced the focused column by one column width. The slot now lends trailing columns its width, and the scroll offset never changes (lgse/strata#1404, lgse/strata#1405).
 - Priority is focused column, then preview, then peek. A reserved peek budget depended on viewport size and neighbor count, so it toggled with the panel and moved columns by 48 px; it was removed (lgse/strata#1405).
@@ -114,6 +114,7 @@ How the preview panel shares the window with the file views: its width, the rese
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1677 | perf | Ran the split sync only for about a second after a layout pass or input, so an idle window stops drawing frames. |
 | 2026-10-11 | lgse/strata#1570 | fix | Published the visible browser area as the Miller column width limit and narrowed oversized open columns once. |
 | 2026-10-10 | lgse/strata#1559 | fix | Cleared the preview find query when the preview target is cleared. |
 | 2026-10-10 | lgse/strata#1539 | fix | Lowered the Columns minimum to 300 px, kept dragged widths as a minimum, split the shared resize edge, and capped documents at 1280 px. |

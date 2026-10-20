@@ -3,7 +3,7 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg]
 tests: [src/tests.rs]
@@ -21,7 +21,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 - `io.github.lgse.Strata.desktop` sets `Icon=io.github.lgse.Strata` and `StartupWMClass=io.github.lgse.Strata`, matching the GTK application ID. lgse/strata#182
 - The entry declares `MimeType=inode/directory;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler. lgse/strata#182
-- The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, de, es, ja, pt_BR, ko, vi, it, ru, and zh_CN. lgse/strata#1519, lgse/strata#1583 (unverified)
+- The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, de, es, ja, pt_BR, ko, vi, it, ru, zh_CN, and zh_TW. lgse/strata#1519, lgse/strata#1583, lgse/strata#1745 (unverified)
 - The application icon is bundled in the GResource and set as GTK's default window icon name. lgse/strata#182
 - Release archives contain `io.github.lgse.Strata.desktop` and `io.github.lgse.Strata.svg` beside the `strata` binary. lgse/strata#182
 - By default, `mise run install-local` installs the binary to `~/.local/bin`, the icon under `~/.local/share/icons/hicolor`, and the entry under `~/.local/share/applications`. lgse/strata#182, lgse/strata#663
@@ -31,7 +31,8 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 ### Version
 
 - `strata --version` prints one line, `strata <version>`, and exits successfully without opening a window. lgse/strata#918
-- The printed version is the release-tag identity Settings → Updates uses, including a prerelease suffix such as `-rc.1`. lgse/strata#918
+- The printed version is the release-tag identity Settings → Updates uses, including a prerelease suffix such as `-rc.1`, before any `+debug` suffix. lgse/strata#918, lgse/strata#1676
+- A debug build, such as one from `cargo build` or `mise run dev`, prints `strata <version>+debug`; a release build prints no suffix. lgse/strata#1676
 - `strata --version ~/Documents` prints the version; `strata ~/Documents --version` launches the application. lgse/strata#918
 
 ## Design
@@ -41,7 +42,8 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - Linux has no portable icon-on-a-process property. Shells match the window's application ID to a `.desktop` file and use its `Icon`, so the entry's file name is the application ID (lgse/strata#49).
 - The icon is the Lucide `layers` glyph on a backdrop original to Strata. It keeps fixed colors because shells render application icons outside Strata's theming (lgse/strata#182).
 - Desktop metadata ships inside the release archive, so the installer, packages, and updater always install the copy that matches the binary (lgse/strata#182, docs/packaging.md).
-- `--version` prints `build_info::installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917).
+- `--version` prints `build_info::displayed_version()`, built on `installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917, lgse/strata#1676).
+- Debug builds scroll and load noticeably slower, so they carry `+debug` to tell them apart in reports. The suffix is display-only; update checks keep the plain version (lgse/strata#1671, lgse/strata#1676, unverified).
 - `--version` joins the existing first-argument launch-mode dispatch; a full `--help` parser was rejected as more than needed (lgse/strata#917).
 
 ## History

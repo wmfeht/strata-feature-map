@@ -3,12 +3,12 @@ title: RAW photo details
 status: shipped
 origin: {issue: lgse/strata#1168, pr: lgse/strata#1171}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+review: draft
 code: [src/ui/raw_details.rs, src/sandbox/raw_metadata.rs, src/sandbox_helper/raw_metadata.rs]
 tests: [src/ui/raw_details/tests.rs, src/sandbox/raw_metadata/tests.rs, src/sandbox_helper/raw_metadata/tests.rs]
 docs: [site/src/reference/preview-sandbox.md]
-related: [preview/preview-panel]
+related: [preview/preview-panel, browser/thumbnails, browser/thumbnails/cache, devices/volumes/camera]
 ---
 
 ## Summary
@@ -18,6 +18,8 @@ Capture details for camera RAW files, shown in Properties and in the preview pan
 ## Behavior
 
 - A file whose name ends in a RAW extension such as `.DNG`, `.NEF`, `.CR3`, or `.ARW`, in any case, shows seven RAW rows in place of the media rows. lgse/strata#1171 (unverified)
+- `.ARI`, `.ARQ`, `.BAY`, `.CRW`, `.DC2`, `.FFF`, `.GPR`, `.IIQ`, `.K25`, `.KC2`, `.MDC`, `.ORI`, `.PXN`, `.QTK`, `.RDC`, and `.RWZ` count as RAW extensions too. lgse/strata#1698
+- `.ptx` and `.crf` files are not treated as RAW. lgse/strata#1698
 - The rows read DIMENSIONS, CAMERA, LENS, FOCAL LENGTH, SHUTTER SPEED, ISO, and GPS COORDINATES, in that order, and all seven always appear. lgse/strata#1168, lgse/strata#1171
 - A readable RAW shows values such as "600 × 400 pixels", "50 mm", "1/250 s", "400", and "-12.500000, -45.250000". lgse/strata#1171
 - A non-reciprocal exposure reads in decimal seconds, such as "0.3 s", not "1/3.333 s". lgse/strata#1171
@@ -37,6 +39,8 @@ Metadata is read inside the preview sandbox, described in [docs/preview-sandbox.
 - All seven fields stay visible with "N/A" so rows do not shift between files (lgse/strata#1168, lgse/strata#1171). Pixel aspect ratio was considered and excluded.
 - Detection checks both the stored and the displayed name, and Trash entries read their local backing file, so collision-suffixed Trash names still work (lgse/strata#1171).
 - Parsed values are bounded before display: text fields up to 256 bytes without control or bidirectional characters, dimensions from 1 to 1,000,000 pixels, coordinates within ±90 and ±180 (lgse/strata#1171).
+- The RAW extension list also decides RAW thumbnails, RAW previews, the cache's RAW tag, and camera import. `.ptx` is also a Pro Tools session and `.crf` is not a LibRaw extension, so both stay out (lgse/strata#1698).
+- Icons captions of RAW files reuse this reader for their dimensions, so the caption and the details rows agree (lgse/strata#1698).
 - One `raw_details` module draws the rows for both Properties and the preview panel, so the two surfaces cannot disagree (lgse/strata#1171).
 
 ## History

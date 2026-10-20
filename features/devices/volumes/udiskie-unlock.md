@@ -3,17 +3,17 @@ title: udiskie unlock handler
 status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+review: draft
 code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
 tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
 docs: [docs/packaging.md, docs/preferences.md]
-related: [devices/volumes/encrypted, integration/portal-file-chooser/setup, settings/preferences]
+related: [app/packaging/installer, devices/volumes/encrypted, integration/portal-file-chooser/setup, settings/preferences]
 ---
 
 ## Summary
 
-An opt-in integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, an installer step, and a Settings row.
+An opt-in integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row; the installer step is on `app/packaging/installer`.
 
 ## Behavior
 
@@ -42,15 +42,11 @@ An opt-in integration that makes udiskie open Strata's passphrase prompt when an
 - Install and uninstall refuse a `config.yml` that is a symlink or other non-regular file, reporting "Refusing to replace non-regular udiskie configuration". lgse/strata#1047 (unverified)
 - Neither command installs or removes the `udiskie` package. lgse/strata#1047
 
-### Settings and installer
+### Settings
 
 - Settings → General → Desktop integration shows "Unlock encrypted volumes" only when Omarchy is detected and `udiskie` is on `PATH`. lgse/strata#1047
 - The row's Use Strata button installs the integration and Restore default removes it. lgse/strata#1047
 - Use Strata shows only while the integration is not configured; Restore default shows only while restore state or a Strata-managed config exists. lgse/strata#1047 (unverified)
-- `install.sh` offers the step on Omarchy 3 or 4 with default No, and on generic Arch only when `udiskie` is on `PATH`. lgse/strata#1047
-- On Omarchy without `udiskie` on `PATH`, `install.sh` warns and skips the step; `--with-udiskie-unlock` makes it abort instead. lgse/strata#1047 (unverified)
-- `install.sh` skips the step when the release archive lacks the `udiskie/unlock` marker; with `--with-udiskie-unlock` it aborts. lgse/strata#1047 (unverified)
-- `install.sh --non-interactive` leaves the step declined unless `--with-udiskie-unlock` is passed. lgse/strata#1047
 
 ## Design
 

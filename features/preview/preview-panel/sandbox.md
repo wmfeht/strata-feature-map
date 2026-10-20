@@ -3,12 +3,12 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/sandbox.rs, src/sandbox_helper.rs]
-tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/trusted_command/tests.rs]
+code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
+tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
-related: [preview/preview-panel/media, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives]
+related: [preview/preview-panel/media, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
 ---
 
 ## Summary
@@ -19,11 +19,18 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ### Launching the sandbox
 
-- Strata runs `bwrap` only from `/run/wrappers/bin`, `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin`, or the NixOS and Guix system profiles, never from `PATH`. lgse/strata#1055
+- Strata runs `bwrap` only from `/run/wrappers/bin`, `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin`, the NixOS and Guix system profiles, or build-time `STRATA_TRUSTED_COMMAND_PATH` directories, never from `PATH`. lgse/strata#1055, lgse/strata#1746
+- A build with `STRATA_TRUSTED_COMMAND_PATH=/nix/store/<bwrap>/bin` and no system bubblewrap finds `bwrap` there, and native previews render. lgse/strata#1746, lgse/strata#1702
 - A search hit whose canonical target lies outside FHS, `/run/wrappers/bin`, `/nix/store`, or `/gnu/store` is rejected, and previews fail closed. lgse/strata#1055
 - When bubblewrap is missing or cannot start, a native-format preview shows "Preview unavailable" and the file is never decoded outside the sandbox. lgse/strata#17, lgse/strata#1503
-- Builds compiled with `STRATA_SANDBOX_PATH`, `STRATA_SANDBOX_ROOT`, `STRATA_SANDBOX_PRLIMIT`, or `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` use those paths inside the sandbox; setting them at launch has no effect. lgse/strata#1357
-- Without those build variables, helpers run with `PATH=/usr/bin`, a read-only `/usr`, and `/usr/bin/prlimit`. lgse/strata#1357
+- `STRATA_SANDBOX_PATH`, `STRATA_SANDBOX_ROOT`, `STRATA_SANDBOX_PRLIMIT`, and `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` set at launch override the values embedded at build time. lgse/strata#1357, lgse/strata#1746, lgse/strata#1599
+- Without launch or build values, helpers run with `PATH=/usr/bin`, a read-only `/usr`, and `/usr/bin/prlimit`. lgse/strata#1357, lgse/strata#1746
+- A launch-time `STRATA_SANDBOX_ROOT` must be `/usr`, `/nix/store`, `/gnu/store`, or a path inside one; `/`, `/home/<user>`, `/usrdata`, and `/usr/../home` are ignored. lgse/strata#1746
+- A launch-time path that is relative or contains `..` is ignored; `.` components are accepted. lgse/strata#1746
+- A launch-time `STRATA_SANDBOX_PATH` that is empty or has an empty or relative entry, such as `/usr/bin:`, is ignored whole. lgse/strata#1746 (unverified)
+- An ignored launch-time value logs the warning "ignoring an invalid launch-time sandbox override", and the embedded or default value applies, so previews keep working. lgse/strata#1746
+- A launch-time value that is not valid UTF-8 logs "ignoring a launch-time sandbox override that is not valid UTF-8" and is ignored. lgse/strata#1746 (unverified)
+- Launch-time values are read once per process; changing them takes effect after a restart. lgse/strata#1746
 
 ### Isolation and limits
 
@@ -38,18 +45,30 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - A 12 MP phone JPEG previews and thumbnails without the decoder being killed by `SIGXFSZ`. lgse/strata#55
 - An ICC-profiled JPEG on a 64-thread host previews without the helper aborting; image helpers run with `MALLOC_ARENA_MAX=1`. lgse/strata#143
 - The input keeps a sanitized extension of 1 to 8 ASCII alphanumerics, such as `/input.ARW`, so Sony ARW files render; other names become `/input`. lgse/strata#166
-- A RAW preview that GDK Pixbuf cannot decode falls back to ImageMagick, then to the embedded camera JPEG via `dcraw` or `simple_dcraw`. lgse/strata#166
+- A RAW preview renders the embedded camera JPEG via `dcraw` or `simple_dcraw` first, then tries GDK Pixbuf, then ImageMagick. lgse/strata#1698
+- A Fuji `.RAF`, including lossless compressed X-T5 files, previews from its embedded JPEG instead of timing out. lgse/strata#1698, lgse/strata#1666
+- When GDK Pixbuf sees a RAW image under 800 px, such as a DNG's 160×120 IFD0 thumbnail, previews try ImageMagick before it. lgse/strata#1698
+- RAW thumbnails keep the order embedded JPEG, GDK Pixbuf, then ImageMagick; ImageMagick runs only when both earlier steps fail. lgse/strata#1698
+- A portrait RAW whose embedded JPEG carries an EXIF orientation previews and thumbnails upright. lgse/strata#1698
 - On Debian-family systems where `/usr/bin/magick` and `/usr/bin/convert` link through `/etc/alternatives`, the ImageMagick fallback runs inside the sandbox. lgse/strata#1657
-- From `/etc/alternatives`, the sandbox binds only `magick` and `convert`, plus BLAS and LAPACK links for media operations, never the whole directory. lgse/strata#1657, lgse/strata#984
-- On Debian testing with GDK Pixbuf 2.44, glycin, and ImageMagick installed, JPEG previews render through ImageMagick instead of staying empty. lgse/strata#1656, lgse/strata#1657
+- From `/etc/alternatives`, the sandbox binds only `magick`, `convert`, and BLAS and LAPACK links for media operations, never the whole directory. lgse/strata#1657, lgse/strata#984
+- It also binds nine `glx--<library>-<triplet>` GL dispatch links, such as `glx--libGL.so.1-x86_64-linux-gnu`, for x86-64 and ARM64. lgse/strata#1660
+- On Debian testing with GDK Pixbuf 2.44, glycin, and ImageMagick installed, JPEG previews render instead of staying empty. lgse/strata#1656, lgse/strata#1657, lgse/strata#1660
+- On a Debian-family host whose `libGL.so.1` links through `/etc/alternatives/glx--*`, helpers start: PNG, PDF, and MP4 previews and thumbnails render. lgse/strata#1658, lgse/strata#1660
 - On Debian 13 with ImageMagick installed, HEIC previews render through ImageMagick instead of staying empty. lgse/strata#1656, lgse/strata#1657
-- An image over the decoded-frame budget (about 134 MP RGBA) renders its embedded EXIF thumbnail when it has one, and otherwise fails without killing any process. lgse/strata#1277
+- An image over the decoded-frame budget (about 134 MP RGBA) uses its EXIF thumbnail when that covers the request. lgse/strata#1277, lgse/strata#1698
+- The thumbnail covers the request when its long edge reaches 256 px for a thumbnail or 800 px for a preview. lgse/strata#1698
+- An oversized JPEG without such a thumbnail renders through an ImageMagick reduced-scale decode; a 42374×10529 panorama previews at 800×199. lgse/strata#1698
+- When that reduced decode fails or ImageMagick is missing, the smaller EXIF thumbnail shows; with none, the render fails without killing any process. lgse/strata#1277, lgse/strata#1698
+- An oversized non-JPEG image gets no reduced decode: it shows its EXIF thumbnail at any size or fails. lgse/strata#1698 (unverified)
+- Every ImageMagick render runs with `-limit area` at the decoded-frame budget, `-limit disk 0`, and a `jpeg:size` hint. lgse/strata#1698
+- Under those limits, a full-size ImageMagick decode of an oversized image fails fast instead of filling the sandbox. lgse/strata#1698
 - SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
 
 ### Output validation
 
 - An image renderer output that is a symlink, FIFO, directory, empty file, or over 32 MiB is rejected; a symlinked `result.meta` falls back to page `(0, 0)`. lgse/strata#669
-- An image renderer must return a PNG within the operation's bounds, 800×800 for a still preview and 256×256 for a thumbnail; other output is rejected. lgse/strata#17 (unverified)
+- An image renderer must return a PNG within the operation's bounds: 800×800 for a still or RAW preview, 256×256 for a thumbnail. Other output is rejected. lgse/strata#17, lgse/strata#1698 (unverified)
 
 ### Pooled preview worker
 
@@ -59,17 +78,22 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ## Design
 
-[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
+[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
 
 - Files become visible by browsing, so any parser reachable from a listing is attacker-facing. Parsing moves out of process, and crashes or timeouts degrade to a fallback icon or message (lgse/strata#6).
 - There is no unsandboxed fallback. A hijacked `bwrap` would silently reintroduce one, so host helpers are resolved by trusted absolute path and never through `PATH` (lgse/strata#1045, lgse/strata#1055).
+- Packagers may add helper directories at build time, searched after the fixed roots so NixOS wrappers still win. Each directory and each helper target must canonicalize under a trust root, so a build cannot embed a user-writable location. Searching inherited `PATH` was rejected (lgse/strata#1702, lgse/strata#1746).
 - `RLIMIT_FSIZE` is process-wide and also covers glycin's memfd for the full decoded frame. It was raised to 512 MiB; the address-space limit is the memory guard, and output size is checked host-side (lgse/strata#54, lgse/strata#55).
 - glibc creates up to 8 arenas per CPU, which can exhaust the 2 GiB address space on many-core hosts. One arena keeps the limit intact; media helpers are excluded because they have no address-space limit (lgse/strata#141, lgse/strata#143).
 - ImageMagick sniffs TIFF magic and picks its TIFF coder for ARW unless the name keeps `.ARW`, so the extension is preserved, sanitized (lgse/strata#165).
 - Oversized images are refused from header dimensions before decoding, rather than ignoring `SIGXFSZ`, so no sandboxed process is killed (lgse/strata#1202, lgse/strata#1277).
 - The renderer can write its own output directory, so the parent opens outputs with `O_NOFOLLOW`, checks the descriptor is a regular file, and reads at most the limit plus one byte (lgse/strata#653).
-- Debian's ImageMagick commands are `update-alternatives` links that dangled inside the sandbox. Only the two links are bound, mirroring the individual BLAS and LAPACK binds of lgse/strata#984, not all of `/etc/alternatives` (lgse/strata#1656, lgse/strata#1657).
+- Debian's ImageMagick commands are `update-alternatives` links that dangled inside the sandbox. Only the two links are bound, mirroring the individual BLAS and LAPACK binds of lgse/strata#984, not all of `/etc/alternatives` (lgse/strata#1656, lgse/strata#1657). Debian's `glx--*` GL dispatch links follow the same rule. They are bound in every sandbox, not only media ones, because the helper binary itself links `libGL.so.1` (lgse/strata#1658, lgse/strata#1660).
 - Build-time variables replace `/usr` rather than adding mounts, so Nix and Guix packages need no source patches. Binding `/` or a user tree was rejected because it exposes private files (lgse/strata#1329).
+- Launch-time overrides let prebuilt releases run without a rebuild. They are less trusted than a packager's values, so the root is limited to admin-managed trees. An invalid value falls back rather than disabling previews (lgse/strata#1599, lgse/strata#1746).
+- A RAF preview timed out because nothing read the container. ImageMagick demosaiced the 40 MP sensor data in about 20 s, against the 12 s wall limit. Previews now take the embedded JPEG first (lgse/strata#1666, lgse/strata#1698).
+- Previews promote ImageMagick only when GDK Pixbuf sees a thumbnail-sized image. Thumbnails keep the cheaper order, because ImageMagick would demosaic every RAW in a folder (lgse/strata#1698).
+- libjpeg decodes at 1/2, 1/4, or 1/8 scale from compressed data. The `jpeg:size` hint makes ImageMagick use it, so oversized JPEGs fit the budget. The area limit stops any unhinted full decode (lgse/strata#1698).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
 - The `fchmodat2` denylist entry uses syscall number 452 directly, because libc omits the constant on aarch64 (lgse/strata#1111).
 - The supervisor pool implementation, its sizing, and its Landlock fallback belong to `browser/thumbnails/workers`; media playback isolation belongs to `preview/preview-panel/media`.
@@ -78,6 +102,9 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-18 | lgse/strata#1746 | feat | Added build-time trusted helper directories and launch-time sandbox paths, so prebuilt releases run the sandbox without a rebuild and Nix packages need no source patch. |
+| 2026-10-16 | lgse/strata#1698 | fix | Rendered RAW previews from the embedded camera JPEG and reduced-decoded oversized JPEGs, so RAF previews no longer time out and DNG previews fill the pane. |
+| 2026-10-14 | lgse/strata#1660 | fix | Bound Debian's `glx--*` GL dispatch links so helpers start, and let glycin decode inside pooled workers. |
 | 2026-10-14 | lgse/strata#1657 | fix | Bound Debian's ImageMagick alternatives links so the ImageMagick fallback runs inside the sandbox. |
 | 2026-10-01 | lgse/strata#1357 | fix | Embedded optional build-time sandbox paths for non-FHS distributions. |
 | 2026-09-26 | lgse/strata#1277 | fix | Fell back to EXIF thumbnails for images over the decoded-frame budget instead of letting `SIGXFSZ` kill decoders. |
@@ -93,4 +120,3 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ## Known gaps
 
 - Inside Flatpak, bubblewrap cannot create namespaces, so native-format previews and thumbnails show "Preview unavailable". lgse/strata#1503, lgse/strata#936
-- glycin's loader sandbox cannot start inside the preview sandbox, so with GDK Pixbuf 2.44 every raster image depends on the ImageMagick fallback. lgse/strata#1657

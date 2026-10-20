@@ -3,12 +3,12 @@ title: FileManager1 D-Bus interface
 status: shipped
 origin: {issue: lgse/strata#290, pr: lgse/strata#317}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
-review: reviewed
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+review: draft
 code: [src/adapters/file_manager1.rs, data/io.github.lgse.Strata.FileManager1.service]
 tests: [src/adapters/file_manager1/tests.rs, tests/e2e/scenarios/test_file_manager_interface.py]
 docs: [docs/packaging.md]
-related: [integration/portal-file-chooser/setup, browser/navigation, browser/properties, browser/tabs/session-restore]
+related: [app/packaging/installer, integration/portal-file-chooser/setup, browser/navigation, browser/properties, browser/tabs/session-restore]
 ---
 
 ## Summary
@@ -36,10 +36,7 @@ Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GT
 
 - With `io.github.lgse.Strata.FileManager1.service` in `~/.local/share/dbus-1/services`, a `ShowItems` call while Strata is not running starts `strata --gapplication-service` and opens the reveal window. lgse/strata#317
 - When another file manager already owns `org.freedesktop.FileManager1`, Strata does not take the name and calls keep reaching that owner. lgse/strata#317 (unverified)
-- When the folder-association question is declined, the interactive installer asks 'Use Strata for "Open file location" from other applications?' separately. lgse/strata#317
-- Accepting the folder-association question installs the service without asking. lgse/strata#317
-- `install.sh --with-file-manager` installs the service unattended with `Exec=` pointing at the installed binary; `--with-folder-association` implies it. lgse/strata#317
-- The installer and `mise run install-file-manager` refuse to install when another per-user service in that directory names `org.freedesktop.FileManager1`. lgse/strata#317, lgse/strata#663
+- `mise run install-file-manager` refuses to install when another per-user service in that directory names `org.freedesktop.FileManager1`. lgse/strata#317, lgse/strata#663
 - `mise run uninstall-file-manager` removes the per-user service. lgse/strata#663
 - AUR packages install the service only as an inactive template, `/usr/share/strata/io.github.lgse.Strata.FileManager1.service`. lgse/strata#317
 

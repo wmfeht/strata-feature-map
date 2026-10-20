@@ -3,12 +3,12 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: 72b840e69d6f0df9d33fb5583e62a3a2944886a1
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
 docs: [site/src/reference/remote-sftp.md]
-related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins]
+related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins, browser/sidebar/connect-to-server]
 ---
 
 ## Summary
@@ -48,6 +48,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 ### Sidebar
 
 - The sidebar's Network place opens `network:///`, which lists the hosts and shares GVfs discovers. lgse/strata#31, lgse/strata#62
+- At `network:///`, the column heading, breadcrumbs, and window title read "Network", localized. lgse/strata#1726
 - A mounted `smb://` share appears under DEVICES with a network icon instead of a drive icon, and clicking it opens the share. lgse/strata#31, lgse/strata#62
 - Right-clicking a mounted SMB share's DEVICES row offers Properties and Disconnect. lgse/strata#31, lgse/strata#296 (unverified)
 - Disconnect unmounts the share; a failure other than a cancel shows an "Unable to disconnect" dialog. lgse/strata#31 (unverified)
@@ -85,6 +86,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1634 | fix | Guarded optional GIO attributes in directory measurement, so measuring an SFTP folder for permanent delete logs no GLib-GIO critical. |
 | 2026-10-10 | lgse/strata#1544 | fix | Published the neighbour cursor after a remote reload removes the cursor file, without taking focus from outside the pane. |
 | 2026-10-09 | lgse/strata#1533 | fix | Kept GIO's percent-encoding in URI locations so names that are not valid UTF-8 are listed and `%2F` stays a name. |
 | 2026-09-29 | lgse/strata#233 | feat | Completed SFTP: scheme-specific sign-in fields, a Strata host-key dialog, actionable failures, sanitized logs, and a test fixture. |

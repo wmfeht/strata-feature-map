@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
@@ -27,7 +27,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `y` and `x` copy or cut the targets; copied items show the copy icon and cut items show scissors in every view and window. lgse/strata#1306
 - Ctrl+C and Ctrl+X keep their default behavior and set the same marks; the marks go away when another application takes the clipboard. lgse/strata#1306
 - `Y` and `X` clear the marks and release the clipboard only while Strata still owns it. lgse/strata#1306
-- `p` pastes into the same folder as Ctrl+V and focuses Keep Both on conflicts when offered (copies only); otherwise Replace is focused. lgse/strata#1306
+- `p` pastes into the same folder as Ctrl+V and focuses Keep Both on conflicts when offered, after `x` as after `y`; otherwise Replace is focused. lgse/strata#1306, lgse/strata#1615
 - `P` and Ctrl+V paste with Replace focused on conflicts. `p` or `P` with an empty clipboard flashes `Nothing to paste`. lgse/strata#1306
 - `c c` and `c n` copy the targets' paths or names through a `c-` chord; `Y` no longer copies a path. lgse/strata#1306
 
@@ -45,6 +45,9 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `a` opens `create ›`; Enter creates an empty file with exactly the typed name, or a folder when the name ends in `/`. lgse/strata#1306
 - An empty, invalid, or taken name, including one taken by a broken link, keeps the `create ›` prompt open with the reason; nothing is renumbered or replaced. lgse/strata#1306
+- In `create ›` or `rename ›`, a name the location would store as another keeps the prompt open with the reason. An example is `x:y` on vfat. So does a 300-character name, with "The name is too long". Nothing changes. lgse/strata#1615
+- `rename ›` to a case-only variant of the item's own name, on a case-insensitive location, renames it instead of reporting the name taken. lgse/strata#1615
+- `rename ›` to another name of the same file, such as a hard link, closes the prompt. The rename then fails with a dialog, and both names keep their contents. lgse/strata#1615 (unverified)
 - Ctrl+Shift+N still creates a numbered new folder and renames it in place. lgse/strata#1306
 - `r` and F2 open `rename ›` for the cursor item or focused hit, never the fill. A file's stem or a folder's whole name is selected. lgse/strata#1308
 - Enter renames the item and keeps its contents; a taken name keeps the prompt open with "“…” already exists" and overwrites nothing. lgse/strata#1308
@@ -71,7 +74,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 ### Open With and actions
 
 - `O` looks up types and applications without blocking keys, then opens Open With for the targets. lgse/strata#1308
-- For a mixed selection, Recommended Applications lists only applications that handle every type. lgse/strata#1308
+- Outside Flatpak, for a mixed selection, Recommended Applications lists only applications that handle every type. lgse/strata#1308, lgse/strata#1635
 - A newer key, a selection or focus change, navigation, leaving the mode, or closing the window drops an unfinished Open With lookup. lgse/strata#1308
 - `;` arms a chord whose panel lists the first ten matching custom actions in context-menu order, then `t`, `c`, `e`, and `E`. lgse/strata#1308, lgse/strata#1340
 - `; 1` to `; 9` and `; 0` run that action; a vacant slot flashes `No action N` and runs nothing. lgse/strata#1308
@@ -98,6 +101,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1623 | fix | Made Ctrl+Alt+N use only the committed fill, so with nothing selected it creates an empty folder. |
 | 2026-10-07 | lgse/strata#1508 | fix | Focused the confirm button in permanent-delete dialogs and let `d` trash an open Columns folder. |
 | 2026-10-01 | lgse/strata#1340 | feat | Added pin, move, copy, extract, restore, and `d d` keys, and made Ctrl+Shift+M the only exit. |
 | 2026-09-29 | lgse/strata#1308 | feat | Added footer rename, sort chords, hidden-file toggles, Open With, and numbered custom actions. |

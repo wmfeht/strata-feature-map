@@ -3,7 +3,7 @@ title: Recent
 status: shipped
 origin: {issue: lgse/strata#1082, pr: lgse/strata#1083}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: []
 tests: [src/app/browser/tests/recent.rs, tests/e2e/scenarios/test_recent.py]
@@ -32,7 +32,7 @@ The `recent:///` collection of recently used files, read from the desktop's GTK 
 - Changing the sort in Recent does not change the sort of ordinary folders. lgse/strata#1083
 - An open Recent view reloads when the desktop's recent history changes. lgse/strata#1083
 - Deleting or moving a file, from Recent or another pane, removes its row from an open Recent view at once. lgse/strata#1157
-- Deleting more than 64 items in one operation reloads an open Recent view instead. lgse/strata#1157 (unverified)
+- Deleting or restoring more than 64 items in one operation reloads an open Recent view once instead, and not again when the view is already rescanning. lgse/strata#1157, lgse/strata#1615 (unverified)
 - In Recent, Parent is unavailable, while Back and Forward still move to and from it. lgse/strata#1083
 
 ### Actions

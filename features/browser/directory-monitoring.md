@@ -3,12 +3,12 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs]
-tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs]
+tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs]
 docs: [docs/architecture.md, docs/performance-baseline.md]
-related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations]
+related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -76,7 +76,8 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544 (unverified)
 - An open folder's departure during a delete, restore, or transfer applies when that operation finishes, after its other held changes. lgse/strata#1435, lgse/strata#1554
 - If a monitor asked for a full reload during the operation, that folder reloads after the progress dialog closes, keeping its rows on screen until the new listing replaces them. lgse/strata#1266, lgse/strata#1036
-- Non-native locations, such as SFTP folders, reload after a rename, create, or paste that touches them. lgse/strata#1035 (unverified)
+- When an operation completes, fails, or is cancelled, each affected open folder without a monitor reloads once, native or remote. Folders with a monitor are left to it. lgse/strata#1615
+- A merge undo or restore that ends with errors removes from the view only what it removed; restored and kept items stay in the view. lgse/strata#1615
 
 ## Design
 
@@ -89,7 +90,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Monitor events are debounced for 100 ms and keyed by location. A burst past the cap collapses to one rescan rather than thousands of splices (lgse/strata#75); lgse/strata#1266 raised the cap from 256 to 4,096.
 - Background changes emit only row splices, so a busy folder such as `/tmp` does not reset scrolling (lgse/strata#767, lgse/strata#803). A focus update follows only when the focused entry was removed or nothing stays selected (lgse/strata#1043).
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
-- After Strata's own operations, native folders rely on their monitor and only non-native locations reload, avoiding needless reloads (lgse/strata#1035).
+- After Strata's own operations, folders with a monitor rely on it and only folders without one reload, avoiding needless reloads (lgse/strata#1035). Until lgse/strata#1615 the test was native versus non-native, and the reload was skipped after a cancel or when another watched folder had rescanned.
 - A folder's own monitor reports deletion, rename, and move alike. Strata then looks in the parent, off the main thread, for the same device, inode, and birth time (lgse/strata#1554).
 - The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554).
 - A watch on the open folder's parent was rejected before merge. In a busy parent it delayed notifications from about 100 ms to 150 ms (lgse/strata#1435, lgse/strata#1554).

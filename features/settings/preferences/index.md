@@ -3,17 +3,17 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
 docs: [docs/preferences.md]
-related: [settings/themes, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
+related: [settings/themes, settings/diagnostics, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
 ---
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Updates, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 
@@ -25,8 +25,12 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
-- The navigation lists General, Appearance, Actions, Updates, and About; choosing one shows that page and its name as the title. lgse/strata#849
+- The navigation lists General, Appearance, Actions, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748
 - The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
+- A sideways touchpad swipe or Shift+wheel over a Settings page does not move the page horizontally. lgse/strata#1719
+- Scrolling past the top or bottom of a Settings page, or of any scroller inside the Settings panel, draws no dark band at the edge. lgse/strata#1719
+- At text size 32 in a narrow window, a Settings page fits the panel width with nothing clipped on the right and still scrolls vertically. lgse/strata#1719
+- A page with wrapped descriptions scrolls to its last row, so General's desktop integration section and its Complete setup button are reachable. lgse/strata#1719 (unverified)
 - When the panel is narrower than 900 px at the default 13 px text size, the navigation drops its heading and labels and shows icons only. lgse/strata#29, lgse/strata#849 (unverified)
 - The Items shown in sidebar chips stay below their title and description at every panel width. lgse/strata#1032
 - When the panel is narrower than 1250 px at the default text size, a row's control moves below its title and description; switches stay beside it. lgse/strata#849, lgse/strata#924 (unverified)
@@ -46,9 +50,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Queries match row titles and aliases, so "font size" finds Text size. lgse/strata#849
 - Query words of four or more letters tolerate one typo, six or more two, so "tezt size" finds Text size. lgse/strata#849 (unverified)
 - Queries also match a row's translated title and the current language's keywords. lgse/strata#1519
-- A query word of two or more characters with a Han or kana character matches inside a title, keyword, or alias word. Under 简体中文, 视频预览 finds 硬件加速视频预览. lgse/strata#1583 (unverified)
+- A query word of two or more characters with a Han or kana character matches inside a title, keyword, or alias word. Under 简体中文, 视频预览 finds 硬件加速视频预览; under 正體中文, 快捷鍵按鈕 finds 顯示 F1 快捷鍵按鈕. lgse/strata#1583, lgse/strata#1745 (unverified)
 - A single Han or kana character does not match inside a word, so の under 日本語 does not find デフォルトのディレクトリ. lgse/strata#1583
-- A query also matches the translated title with its spaces removed, so Omarchy主题变体 finds Omarchy 主题变体. lgse/strata#1583
+- A query also matches the translated title with its spaces removed, so Omarchy主题变体 finds Omarchy 主题变体, and Omarchy變體 finds Omarchy 變體 under 正體中文. lgse/strata#1583, lgse/strata#1745
 - In Search settings, Search themes, and Search templates, Ctrl+A selects the query on any keyboard layout. Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
 - A query with no match shows "No settings match your search." under the title Search results. lgse/strata#849
 - Escape in a non-empty search field clears the query and restores every row; the next Escape closes Settings. lgse/strata#849
@@ -60,6 +64,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - On a package-managed install, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
+- Searching "font" shows Appearance's Interface font row. lgse/strata#1696
+- Searching "typeface" or "family" shows the Interface font row. lgse/strata#1696 (unverified)
+- Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735
+- Searching "add-ons" or "plugins" opens the Integrations page. lgse/strata#1748
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
 
@@ -68,10 +76,27 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - General → Browsing has a Show sizes in Columns view switch, on by default. lgse/strata#1564
 - Changing the switch in one window updates the open Settings switch in every other window. lgse/strata#1564
 
+### Search limits
+
+- Settings → General → Search & filtering shows Search time limit and Search entry limit after Open search results directly and before Global search exclusions. lgse/strata#1667
+- Search time limit offers 10 s, the default, 30 s, 1 min, 5 min, 15 min, and No limit. lgse/strata#1667
+- Search entry limit offers 200,000, the default, 500,000, 1,000,000, 5,000,000, and No limit. lgse/strata#1667
+- The time row reads "Stop indexing a search after this long. Slow or network mounts need longer to list every folder." lgse/strata#1667
+- The entry row reads "Stop indexing a search after this many files and folders. Higher limits use more memory." lgse/strata#1667
+- The choices save as `search_time_limit`, in seconds, and `search_entry_limit` in `settings.toml`; 0 means No limit. lgse/strata#1667
+- A hand-edited `search_time_limit = 45` shows 1 min, and `search_entry_limit = 300000` shows 500,000. lgse/strata#1667
+- A saved value above 900 seconds or 5,000,000 entries loads as No limit. lgse/strata#1667 (unverified)
+- Changing a limit in one window's Settings shows the same choice in another window's Settings. lgse/strata#1667
+- Searching "timeout" finds Search time limit, and "memory" finds Search entry limit. lgse/strata#1667 (unverified)
+
 ### About
 
 - About shows Strata's version, build commit, and GTK version, plus Website, Source code, Report an issue, and License (MIT) links. lgse/strata#19, lgse/strata#849
 - Copy version info copies the version, description, commit, toolkit, author, and license to the clipboard. lgse/strata#849 (unverified)
+- In a debug build, the BUILD group's Version row ends in `+debug`, such as `1.0.0+debug`. So does the first line of the copied version info. lgse/strata#1676
+- In a release build, the Version row and the copied version info show no suffix. lgse/strata#1676
+- The About description, and the second line of the copied version info, read "Navigate every layer.", translated in every language. lgse/strata#1673 (unverified)
+- The About logo tile fills with the theme's surface color inside a 1px border in the theme's border color. lgse/strata#1673 (unverified)
 
 ### Show F1 Shortcuts button
 
@@ -99,9 +124,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
-- Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work.
+- Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work. Integrations joined them (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
 - Closing Settings returns focus to the file list, not to the gear or other chrome that opened it. Only a focused filter session gets its field or results back (owner decision, lgse/strata#1430, lgse/strata#1533).
@@ -112,6 +137,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Chinese and Japanese titles have no spaces between words but do around Latin words, so unspaced queries match inside words and against joined titles (lgse/strata#1583).
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
+- Page scrollers refuse horizontal scrolling. GTK treats an `External` horizontal policy as scrollable, so sideways deltas panned the page with up to 100 px of overshoot even with no horizontal range (lgse/strata#1712, lgse/strata#1719).
+- A page bin reports no horizontal minimum and gives its content the viewport width. A content minimum can then neither restore the pan nor clip the right edge. It passes its child's request mode through, because a fixed one cached a single-line height for wrapped text (lgse/strata#1719).
+- The dark band at scroll walls was GTK's default overshoot gradient; Settings clears it as context menus and popovers already did (lgse/strata#1719).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 
@@ -119,6 +147,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-17 | lgse/strata#1719 | fix | Made Settings pages scroll vertically only and cleared the overshoot bands, so pages no longer pan sideways or draw dark stripes at scroll walls. |
+| 2026-10-15 | lgse/strata#1673 | perf | Drew the About logo in theme colors, so it no longer sits on a near-black tile in light themes, and changed the tagline to "Navigate every layer." |
 | 2026-10-11 | lgse/strata#1564 | feat | Added the Show sizes in Columns view switch to General → Browsing and to Settings search. |
 | 2026-10-11 | lgse/strata#1570 | fix | Showed the empty-notes message for comment-only release notes and reaped the AUR and Omarchy update launchers. |
 | 2026-10-10 | lgse/strata#1554 | fix | Routed Settings search by page id and registered Render documents, the custom-actions list and problems, and the managed-install row. |

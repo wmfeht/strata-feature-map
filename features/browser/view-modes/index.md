@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/e2e/scenarios/test_view_switching.py, tests/e2e/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs]
@@ -13,7 +13,7 @@ related: [browser/search, preview/preview-panel]
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/text-size` covers interface text size, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
 ## Behavior
 
@@ -50,6 +50,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - F5 or auto-refresh keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533
 - Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
 - While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
+- In List, cut styling, hidden-file dimming, and live dates of visible rows refresh once scrolling has been still for 25 ms. lgse/strata#1673
+- In Icons, cut styling, hidden-file dimming, and accessible descriptions of visible cards refresh once scrolling has been still for 25 ms. lgse/strata#1673 (unverified)
 - Long filenames are middle-ellipsized in Columns rows and headings, Icons captions, and the List Name column, so the extension stays visible. lgse/strata#1143
 
 ## Design
@@ -63,12 +65,17 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 - The pane filter query is window-local: it is carried across a switch but never saved (lgse/strata#851).
 - An empty, unreadable, or loading folder focuses the existing page stack rather than its status label. Up, Delete, and the context menu already key off that stack. It is focusable only off the content page, so populated listings gain no unnamed Tab stop (lgse/strata#1466).
 - GTK moves focus off a removed or hidden row at the next paint. The pane settles focus first, so a reload never sends it out of the listing (lgse/strata#1466, lgse/strata#1533).
+- lgse/strata#1081 moved the deferred row refresh to the next frame, so during continuous scrolling it ran every frame or two and restyled every List row. lgse/strata#1673 settles 25 ms after the last scroll, never sooner than two frames, so a slow machine does not settle between frames of one scroll (lgse/strata#1671, lgse/strata#1673).
+- The frame rate counts only when the frame clock's history all follows the scroll's start. `fps()` averages idle gaps, which would stretch the floor by seconds once the clock stops while idle (lgse/strata#1673, lgse/strata#1677).
+- A focus request for a pane showing filter or search results goes to the results' cursor, not the hidden listing behind them (lgse/strata#1549, lgse/strata#1611).
 - The skeleton waits a 150 ms grace period because fast loads flashed it for a few frames; showing nothing or a spinner was rejected (lgse/strata#283). Skeletons mirror each mode's loaded layout and density (lgse/strata#336).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1673 | perf | Settled List and Icons row refreshes 25 ms after the last scroll instead of every frame, and dropped the `list-fast-scroll` class. |
+| 2026-10-15 | lgse/strata#1611 | fix | Routed a focus request for a pane showing results to their cursor hit instead of the hidden listing. |
 | 2026-10-11 | lgse/strata#1568 | fix | Cached Icons and List view-to-source maps and selected listing positions, so marquee changes no longer rescan large folders. |
 | 2026-10-10 | lgse/strata#1544 | fix | Restored Icons positions on return, kept cursor, viewport, and focus through reloads, and exposed menu roles. |
 | 2026-09-22 | lgse/strata#1188 | perf | Cached directory counts and released inactive models and reload buffers across modes. |
@@ -89,4 +96,4 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 ## Known gaps
 
-None known.
+- In List and Icons, a selection change that takes focus while filter results show still focuses the hidden listing. lgse/strata#1611

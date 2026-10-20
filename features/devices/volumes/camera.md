@@ -3,8 +3,8 @@ title: Camera photos
 status: shipped
 origin: {issue: lgse/strata#833, pr: lgse/strata#834}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+review: draft
 code: [src/adapters/local_files/camera_photos.rs, src/services/camera_preview.rs, src/ui/browser/camera_scroll.rs, src/ui/thumbnail/camera.rs]
 tests: [src/adapters/local_files/camera_photos/tests.rs, src/services/camera_preview/tests.rs, src/app/browser/tests/camera_photos.rs]
 docs: [site/src/reference/preview-sandbox.md]
@@ -20,6 +20,7 @@ Opening a phone or camera's gphoto2 entry in Devices as one flat, progressive Ph
 ### Photos view
 
 - Opening a `gphoto2://` camera root shows a flat listing titled "Photos" of every JPEG, HEIC/HEIF, MOV, MP4, and recognized RAW file below it. lgse/strata#834
+- Photos accepts the RAW extensions of `raw_metadata::is_raw`, the list behind RAW thumbnails and the RAW details panel, in any case, so `.GPR`, `.ARQ`, `.ORI`, `.IIQ`, and `.FFF` files appear. lgse/strata#1698
 - `.AAE` sidecars and other formats are hidden from Photos and left untouched on the device. lgse/strata#834
 - Files with the same name stay separate rows, each with its original URI. lgse/strata#834
 - Discovery skips symlinks and visits newer date-named folders first. lgse/strata#834

@@ -3,12 +3,12 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
-code: [src/ui/browser/trash.rs]
-tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs]
+code: [src/ui/browser/trash.rs, src/adapters/trash_support.rs, src/adapters/local_operations/trash.rs]
+tests: [src/ui/browser/trash/tests.rs, src/adapters/trash_support/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs]
 docs: [docs/trash-restore-testing.md]
-related: [operations/delete, integration/10xer-mode/file-verbs]
+related: [operations/delete, integration/10xer-mode/file-verbs, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -27,18 +27,39 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 ### Locations without Trash
 
 - Outside Trash, the item context menu hides Move to Trash when the folder's listing reports `access::can-trash` false, and shows it when the value is unknown. lgse/strata#314
+- A folder on a FUSE mount that already refused Trash lists `access::can-trash` false, so Move to Trash is hidden there until Reload. lgse/strata#1614
 - A folder whose first listed entry is a symlink into `/dev/shm` still offers Move to Trash, and Delete moves a regular file there to Trash. lgse/strata#1551, lgse/strata#1584
 - A no-Trash folder is an open folder reporting `access::can-trash` false and `access::can-delete` true, such as `/dev/shm`. lgse/strata#1533
 - Delete, or a drop on the sidebar Trash row, opens "Permanently delete N items?" at once when every item is in a no-Trash folder. lgse/strata#1533
 - In that case no trash move is attempted, so nothing reaches the Trash. lgse/strata#1533
-- That dialog adds "This location doesn't support Trash. This item will be permanently deleted." for one item. lgse/strata#1533
-- For several items it reads "These items will be permanently deleted.", and both versions end "This action cannot be undone." lgse/strata#1533
+- That dialog's text opens with the paragraph "This location doesn't support Trash." lgse/strata#1533, lgse/strata#1614
+- When a refusal was recorded for the first item's mount, the next paragraph reads "Trash isn't available on <mount point> (<type>)." lgse/strata#1614
+- The last paragraph is the local or remote deletion sentence of the permanent-delete confirmation (`operations/delete`). lgse/strata#1533, lgse/strata#1614
 - That dialog focuses Cancel, still after the size summary loads, so Enter closes it and keeps the files. lgse/strata#1533
 - When the folder's `access::can-trash` value is unknown, or the item's folder is not open, Delete attempts the trash move first. lgse/strata#1533 (unverified)
 - In a read-only folder, where `access::can-trash` and `access::can-delete` are both false, Delete still attempts the trash move and opens no dialog first. lgse/strata#1533
 - When a trash move fails because every failed item's location lacks Trash, the same explained dialog opens with Cancel focused, for only those items. lgse/strata#225, lgse/strata#1425, lgse/strata#1533
-- When some items failed for other reasons, Delete Permanently in the error dialog opens the explained dialog for the trash-unsupported items only. lgse/strata#225, lgse/strata#1533
+- When some items failed for other reasons, the error dialog's retry button opens the explained dialog for the trash-unsupported items only. lgse/strata#225, lgse/strata#1533
+- That button reads "Delete without Trash" when every retryable item is remote, otherwise "Delete Permanently". lgse/strata#1614
+- In the "Completed with errors" list, a trash-unsupported item reads "<name>: This location doesn't support Trash." lgse/strata#1614
+- A read-only location reads "<name>: This location is read-only.", and a full disk "<name>: Not enough space to move to Trash." lgse/strata#1614
 - Both fallbacks apply to docked deletions as well as foreground ones. lgse/strata#1533
+
+### FUSE mounts that refuse Trash
+
+- On a FUSE mount, including `fuseblk`, a trash move failing with permission denied, failed, or invalid argument counts as Trash unsupported. lgse/strata#1614
+- So does an error writing the `.trashinfo` file, other than a full disk, a missing path, a read-only mount, or a name too long. lgse/strata#1614
+- It counts only while the item is still present and the mount root answers `stat`. lgse/strata#1614
+- The parent must also be off the home device, and the user must be allowed to remove the item. lgse/strata#1614
+- On other local disks, only a not-supported error counts as Trash unsupported. lgse/strata#1614
+- A disconnected FUSE mount, whose root `stat` fails, keeps the raw error instead of "doesn't support Trash". lgse/strata#1614
+- After a counted refusal, the mount is remembered in every window, keyed by mount instance; a remount starts fresh. lgse/strata#1614
+- After that failed delete, the parent folders reload, and the next Delete there opens the explained dialog without a trash attempt. lgse/strata#1614
+- F5 forgets every remembered mount, so the next Delete tries Trash again. lgse/strata#1614
+- The pane refresh button, the folder menu's reload, and F5 in the file chooser also forget them. lgse/strata#1614 (unverified)
+- After a batch whose trash moves on a FUSE mount were refused as unsupported, new empty `.Trash-$uid` or `.Trash/$uid` folders are removed from its root. lgse/strata#1614
+- That cleanup is skipped on a mount where any item in the batch was trashed. lgse/strata#1614
+- A Trash move that reports success while the item is still in place fails as Trash unsupported, and records no Undo. lgse/strata#1615
 
 ### Browsing Trash
 
@@ -62,6 +83,10 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 - The trash-unsupported fallback reused the Shift+Delete dialog. lgse/strata#66 forbids silently substituting permanent deletion for Trash. The dialog now explains the missing Trash and focuses Cancel, because the user asked for Trash (lgse/strata#1425).
 - The up-front check uses the menu's `access::can-trash` signal. By owner decision it runs on every route, including drag-to-Trash. It requires `access::can-delete` true, so read-only folders still report "Permission denied" (lgse/strata#179, lgse/strata#1533).
 - Every selected entry is checked, because a search-result selection can span locations (lgse/strata#1425).
+- GIO reports `can-trash` on writable FUSE roots, so a refusal shows only mid-attempt. `access()` is not trusted, because sshfs answers success without `default_permissions`; mode and sticky bits are read (lgse/strata#1614).
+- A refusal is remembered per mount instance so a remount retries, and Reload clears every record rather than probe a possibly hung folder (lgse/strata#1614).
+- A failure in the home Trash says nothing about the mount, so items on the home device are excluded (lgse/strata#1614).
+- GLib 2.86.0 to 2.88.4 can report success without trashing anything on some FUSE mounts (GLib #4060), so a trashed local item is checked gone first (lgse/strata#1615).
 - GVfs can move or delete whole trashed items but not their children, so actions on nested Trash children are hidden rather than left to fail (lgse/strata#433).
 - Undo finds the trashed items through home-trash `.trashinfo` metadata before `trash:///`, because GVfs can miss an item re-trashed under the same name (lgse/strata#228).
 - URI locations are monitored through GIO, so `trash:///` receives `gvfsd-trash` change events; events about the watched root itself are dropped, except its removal (lgse/strata#432, lgse/strata#463).
@@ -70,6 +95,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-16 | lgse/strata#1614 | fix | Classified FUSE Trash refusals as unsupported, remembered them per mount until Reload, and cleaned leftover Trash folders. |
 | 2026-10-12 | lgse/strata#1584 | fix | Probed Trash support without following a symlinked first entry; hardening, as GIO already derived `can-trash` from the parent. |
 | 2026-10-10 | lgse/strata#1539 | fix | Kept a docked deletion's claimed dissolve when a foreground operation fails; only a new permanent delete takes the slot. |
 | 2026-10-09 | lgse/strata#1533 | fix | Explained a missing Trash with Cancel focused, and listed Trash items with non-UTF-8 names. |
@@ -83,4 +109,5 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 ## Known gaps
 
-None known.
+- A persistent or per-mount "Use Trash" setting, and recovery declared by a provider, are deferred. lgse/strata#1614
+- Through a symlink alias, the dialog's mount sentence and remote wording fall back to local wording. lgse/strata#1614

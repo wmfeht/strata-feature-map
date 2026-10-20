@@ -3,12 +3,12 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
-tests: [src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
+tests: [src/ui/thumbnail/tests.rs, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [site/src/reference/preview-sandbox.md]
-related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera]
+related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera, browser/properties/raw-metadata, preview/preview-panel/sandbox]
 ---
 
 ## Summary
@@ -25,13 +25,27 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
 - Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
 - A fresh image decode fills the item's Icons caption with its source dimensions, such as `320×180`. lgse/strata#1081
+- A RAW file's Icons caption shows the full image size after orientation, not the size of its embedded 160×120 thumbnail. lgse/strata#1698
+- A portrait DNG with a 6016×4000 crop shows `4000×6016`. lgse/strata#1698
+
+### Show thumbnails off
+
+- With **Show thumbnails** off, files show their file-type icons instead of thumbnails in Columns, List, Icons, search and filter results, folder peeks, and the portal chooser. lgse/strata#1651
+- Turning it off updates open windows and rebuilt views at once; the saved choice applies before Settings opens. lgse/strata#1651
+- Turning it off cancels pending thumbnail requests; new requests read no cache and decode nothing. lgse/strata#1651
+- Turning it back on restores thumbnails for rows still bound. lgse/strata#1651
+- Toggling it, even off and on quickly, keeps pending dimension and duration updates such as the Icons caption `320×180`. lgse/strata#1651
+- After a toggle, rebinding or unbinding a row still discards that row's stale updates. lgse/strata#1651
+- Custom icons and the preview panel are unchanged: Space still opens a preview with thumbnails off. lgse/strata#1651
 
 ### Formats
 
 - PNG, JPEG, WebP, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails, provided a decoder for the format is installed. lgse/strata#881, lgse/strata#969
 - SVG files get thumbnails without a gdk-pixbuf SVG loader: pooled workers render them with resvg, the one-shot fallback with ImageMagick. lgse/strata#881, lgse/strata#1222
 - `.svgz` files keep their icon, since the thumbnail extension list omits them. lgse/strata#881 (unverified)
-- Camera RAW files, such as `.ARW`, use the embedded camera preview before ImageMagick or gdk-pixbuf. lgse/strata#199
+- Camera RAW thumbnails, such as for `.ARW`, use the embedded camera preview first, then gdk-pixbuf, then ImageMagick. lgse/strata#199 (unverified)
+- RAW thumbnails of portrait shots are upright in Columns, List, and Icons. lgse/strata#1698
+- Every extension `browser/properties/raw-metadata` recognizes as RAW gets a RAW thumbnail in any case, including `.RAF`, `.GPR`, `.IIQ`, and `.CRW`. lgse/strata#1698
 - PDF files and MP4, MKV, WebM, MOV, AVI, M4V, MPEG, MPG, and OGV videos get thumbnails. lgse/strata#57, lgse/strata#274 (unverified)
 - MP3, FLAC, M4A, M4B, MKA, AIFF, AIF, and WMA files with embedded cover art show the art at its aspect ratio; files without art keep the audio icon. lgse/strata#1162
 - Ogg, Opus, and WAV files never get album-art thumbnails. lgse/strata#1162
@@ -57,18 +71,22 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 
 - Kinds are chosen by file extension. HEIC, AVIF, JPEG XL, and audio art joined that list by reusing existing renderers (lgse/strata#969, lgse/strata#1162). AppImage, model, and cover kinds added sandboxed extractors (lgse/strata#1077, lgse/strata#1276, lgse/strata#1325).
 - Strata does not run external freedesktop `.thumbnailer` entries or Tumbler; each provider runs inside its own sandbox (lgse/strata#516, lgse/strata#1275).
-- RAW thumbnails take the embedded camera JPEG first, since ImageMagick demosaics; the median fell from 550 ms to 16 ms per file (lgse/strata#199). Quick Preview keeps the demosaic-first order.
+- RAW thumbnails take the embedded camera JPEG first, since ImageMagick demosaics; the median fell from 550 ms to 16 ms per file (lgse/strata#199). Thumbnails keep gdk-pixbuf ahead of ImageMagick, because ImageMagick would demosaic every RAW in a folder. Previews now also take the embedded JPEG first (lgse/strata#1666, lgse/strata#1698).
 - Ogg, Opus, and WAV keep cover art in tags for which FFmpeg exposes no stream, so including them would start a decoder per song that cannot succeed (lgse/strata#1162).
 - The in-memory cache keys by path, modification time, size, and the canonical 256 px edge. All views and icon sizes share one texture; it holds at most 256 entries and 64 MiB (lgse/strata#1081).
 - Failures are cached for 30 seconds to stop retry loops on malformed files, and identical requests share one job (lgse/strata#57).
 - Requests rank visible, then overscan, then offscreen. Offscreen work is demoted rather than run (lgse/strata#274). Ranking runs from idle or the frame clock, never inside GTK bind or layout callbacks (lgse/strata#1081).
 - With two or more workers, RAW, PDF, video, audio-art, model, and cover jobs leave one render slot free for ordinary images (lgse/strata#1081).
+- **Show thumbnails** is an explicit switch. Zero workers as a hidden off switch and deleting cached files were rejected as workarounds (lgse/strata#1664).
+- A fallback icon's height scale is cached per texture, weakly keyed and pruned at 512 entries, instead of scanning the texture on each icon change (lgse/strata#1675).
 - A GVfs FUSE path is a render input only; navigation and identity keep the URI (lgse/strata#1080).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-15 | lgse/strata#1651 | feat | Added the saved Show thumbnails switch, which shows file-type icons and stops thumbnail work while keeping previews. |
+| 2026-10-15 | lgse/strata#1675 | perf | Cached a fallback icon's height scale per texture instead of scanning the texture on each icon change. |
 | 2026-10-10 | lgse/strata#1554 | fix | Refreshed customized icons under relocated folders, so colors and icons follow moves made in Strata. |
 | 2026-09-29 | lgse/strata#1325 | feat | Added CBZ, CBR, and EPUB cover thumbnails, extracted inside the sandbox. |
 | 2026-09-23 | lgse/strata#1162 | feat | Added album-art thumbnails for audio containers whose art FFmpeg exposes. |

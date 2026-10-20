@@ -1,7 +1,7 @@
 ---
 title: Devices sweep
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
-tools: [docs/preview-sandbox.md, data/udiskie/unlock, install.sh]
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+tools: [docs/preview-sandbox.md, data/udiskie/unlock]
 ---
 
 ## Scope
@@ -73,6 +73,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Lock the iPhone, then detach it over USB, each during a scan; read the error and the rows left behind.
 - Copy 50 photos to the stick during the scan, then Eject the stick; preview one HEIC and delete one of a duplicate pair.
 - Add a dot-prefixed folder of photos on the device and toggle hidden files during and after the scan.
+- Put `.CRW`, `.Arq`, and `.k25` files, a `.GPR` beside its `.JPG`, and a `.ptx` in one DCIM folder on the device; compare the Photos rows with `gio list`.
 
 ## Hand-offs
 

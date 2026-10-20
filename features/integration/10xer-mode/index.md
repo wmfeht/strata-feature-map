@@ -3,12 +3,12 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: d0f7028cff2fc71087fde8cd27f3247e0761e999
+reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
 review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/composition/tenxer_splash.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/composition/tenxer_splash/tests.rs]
 docs: [site/src/reference/10xer-mode.md]
-related: [browser/selection, browser/tabs, settings/preferences, app/keyboard-shortcuts]
+related: [browser/selection, browser/tabs, settings/preferences, app/keyboard-shortcuts, app/shortcut-reference]
 ---
 
 ## Summary
@@ -47,7 +47,8 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - With the mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning it off restores them. lgse/strata#1271, lgse/strata#1576
 - Ctrl+N takes the sidebar toggle's step and Ctrl+B pages up. lgse/strata#1304, lgse/strata#1606
 - An Enter that an input method consumes while composing never submits a footer prompt; an Enter it passes back submits it. lgse/strata#1583
-- F1 or `~` toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272
+- A `create ›` or `rename ›` name check still running when the prompt is dismissed or edited creates or renames nothing. lgse/strata#1615 (unverified)
+- F1, or `~` outside text fields, toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272, lgse/strata#1714
 - Context-menu hints hide the default `y` copy path, Space preview, and Ctrl+R rename hints while the mode is on. lgse/strata#1272, lgse/strata#1576
 - After returning from another window, `g`, `f`, and `s` act on the listing without first clicking a row. lgse/strata#1393
 
