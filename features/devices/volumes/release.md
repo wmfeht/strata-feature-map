@@ -27,7 +27,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 ### Releasing
 
 - Eject or Unmount while browsing inside the device navigates the pane Home before the flush starts. lgse/strata#296, lgse/strata#1193
-- Before the flush, Strata stops its previews, sandboxes, thumbnails, and listings under the mount root and waits at most 2 s for them. lgse/strata#1729
+- Before the flush, Strata releases its own reads under the mount root, as file operations do. lgse/strata#1729
 - Unmount or Eject while the preview reads a file on the device does not fail as busy. lgse/strata#1729
 - Strata runs `syncfs` on the mount root off the GTK thread, then calls the GIO eject or unmount. lgse/strata#1193
 - If the flush fails, GIO is not called and "Unable to eject device" or "Unable to unmount device" shows the error. lgse/strata#1193 (unverified)

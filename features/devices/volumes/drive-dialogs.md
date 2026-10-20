@@ -21,6 +21,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Properties opens from the menu of a volume or a mount-only entry, including fixed storage. lgse/strata#1393
 - It lists System name, Strata label, Device, Filesystem, and Status; a mounted volume adds Mount point, Capacity, Used, and Free. lgse/strata#1331, lgse/strata#1393
 - Properties opens at once with "—" for Filesystem, Capacity, and Used, then fills them in when a worker has read the drive. lgse/strata#1729
+- Until then, a target with a known mount shows its Mount point and "Mounted"; otherwise Status shows "—". lgse/strata#1729 (unverified)
 - For an unmounted volume it shows "Not mounted", the device size when known, and "Unavailable (not mounted)" for Used, without mounting. lgse/strata#1393
 - The footer offers Set label, Eject, and Format; Format appears only for removable drives. lgse/strata#1331, lgse/strata#1393
 - The footer shows Eject for a removable drive or a row with Eject or Unmount; it is insensitive without either action. lgse/strata#1393 (unverified)
@@ -38,7 +39,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 - Format… appears only for volumes on a removable drive; fixed disks and network shares never offer it. lgse/strata#1331, lgse/strata#1393
 - Format Drive opens at once with Continue insensitive; a worker checks the tools and the drive, then fills in the options. lgse/strata#1729
-- If `mkfs.fat`, `mkfs.ntfs`/`mkntfs`, or `mkfs.exfat` is missing, Format opens "Missing tools" before unmounting anything. lgse/strata#1331
+- If `mkfs.fat`, `mkfs.ntfs`/`mkntfs`, or `mkfs.exfat` is missing, Format Drive closes and "Missing tools" opens before anything is unmounted. lgse/strata#1331, lgse/strata#1729
 - Missing tools shows a copyable pacman, apt, dnf, or zypper install command, or generic guidance on an unrecognized distribution. lgse/strata#1331
 - On Arch and Omarchy the suggested NTFS package is `ntfsprogs`. lgse/strata#1331
 - The Format Drive dialog offers FAT32, NTFS, and exFAT, preselects the current filesystem marked "(current)", and checks Quick format. lgse/strata#1331, lgse/strata#1393
