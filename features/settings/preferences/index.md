@@ -124,7 +124,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A saved folder counts as gone when it is not a folder, or when it is missing beside other entries in a parent with no mount points. lgse/strata#1729
 - If the saved folder is gone, a new window opens home and the saved choice is cleared. lgse/strata#943, lgse/strata#1729
 - A missing folder on an unplugged drive, an unmounted share, or in an empty or unreadable parent is not gone. The window opens it and keeps the choice. lgse/strata#1729
-- If the check has not finished after 2 s, such as on a stopped NFS or FUSE mount, the window opens the saved folder and keeps the choice. lgse/strata#1729
+- If the check has not finished after 2 s, the window opens the saved folder and keeps the choice. A stopped NFS or FUSE mount does this. lgse/strata#1729
 - That folder loads by itself once the mount answers. lgse/strata#1729
 
 ### Hidden files
