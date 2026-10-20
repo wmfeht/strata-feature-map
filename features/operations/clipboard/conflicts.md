@@ -3,11 +3,11 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs]
 tests: [tests/e2e/scenarios/test_copy_conflicts.py, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs]
-related: [operations/drag-and-drop, operations/filesystem-compatibility]
+related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers]
 ---
 
 ## Summary
@@ -49,6 +49,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - Ctrl+Z after a Merge removes what the merge created and restores the overwritten originals, leaving destination-only items. lgse/strata#1092, lgse/strata#1097
 - An item edited since the Merge or Replace stays on undo, its original stays in Trash, and the dialog says so. lgse/strata#1615
 - Where Trash is unavailable, a Merge undo deletes only created items it recorded and finds unchanged, and reports the rest. lgse/strata#1615
+- Undoing such a Merge that placed `0555` folders completes without "Permission denied"; a placed folder that stays gets its mode back. lgse/strata#1729
 - When undoing a move finds an original name taken, the dialog offers Replace and Skip but not Keep Both or Merge. lgse/strata#301, lgse/strata#708
 - Skipping one item while undoing a multi-item move still returns the others and leaves the new occupant intact. lgse/strata#708
 
@@ -58,10 +59,14 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - An item that appears at the destination after the dialog is answered is not overwritten. lgse/strata#25, lgse/strata#1097
 - Replacing a folder swaps the whole folder; none of its old contents remain. lgse/strata#25
 - Replace onto a destination without a local path fails with "Safe replacement is unavailable at this destination" and keeps the existing item. lgse/strata#25
-- Where Trash is unavailable, Replace sets the original aside under a hidden name, publishes, and deletes the original only after the flush. lgse/strata#1615
+- Without Trash, Replace moves the original into a hidden `.strata-originals-<id>/` folder under its own name, then deletes it after the flush. lgse/strata#1615, lgse/strata#1729
+- An exchange Replace also runs through that folder, so a `.strata-copy-*` stage only ever holds a copy. lgse/strata#1729
+- An original that cannot be removed after the new item is placed no longer fails the paste. It completes with any Undo it has and reports "“%{name}” was replaced, but its original could not be removed from “%{kept}”: %{error}". lgse/strata#1729
 - A failure there puts the original back; Replace is refused before copying when no strategy is safe. lgse/strata#1615
 - Where Trash is unavailable, Merge sets originals aside in a hidden `.strata-merge-<id>` folder and removes it once the merge is flushed. lgse/strata#1615
 - A name taken since the check ends such a merge, keeping the aside folder and naming it. lgse/strata#1615
+- Cancelling such a merge after it placed an item ends as Cancelled, with the originals back and no `.strata-merge-*` folder left. lgse/strata#1729
+- A merge whose aside folder only another program's open file keeps completes and reports the folder as still open. lgse/strata#1729
 - A Trash move that reports success without moving the original falls back to setting it aside. lgse/strata#1615
 
 ## Design
@@ -70,6 +75,7 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 
 - Replace copies into a staged sibling, moves the original to Trash, then publishes the stage without replacing a concurrent arrival (lgse/strata#25, lgse/strata#1097).
 - Where Trash is unsupported, Replace first kept an atomic exchange that cannot be undone (lgse/strata#1097). Exchange is now used only on in-kernel local filesystems; elsewhere the original is set aside (lgse/strata#1590, lgse/strata#1615).
+- A set-aside original goes into a `.strata-originals-<id>/` folder under its own name, so a crash leaves it restorable by its name alone (lgse/strata#1729).
 - Keep Both was copy-only, because move undo and reveal assumed a move never renames its destination (lgse/strata#599). Undo now starts from where each item landed, so Keep Both is offered for moves (lgse/strata#1615).
 - The prompt works out the name the paste will use, off the main thread, so fixed names conflict as the user will see them (lgse/strata#1615).
 - Undo of a Merge or Replace records what it placed, up to 100,000 entries, and deletes only unchanged items, so later edits survive (lgse/strata#1615).
@@ -81,6 +87,7 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1729 | fix | Set Replace originals aside in an originals folder and fixed merge cancel and undo without Trash. |
 | 2026-09-23 | lgse/strata#1092 | feat | Added Merge for folder-onto-folder copy conflicts, undone through Trash staging. |
 | 2026-09-11 | lgse/strata#708 | feat | Showed Skip and Apply to All only when other items depend on them. |
 | 2026-09-08 | lgse/strata#599 | fix | Offered Keep Both for cross-folder copy conflicts. |
@@ -90,3 +97,4 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 ## Known gaps
 
 - The dialog cannot paste an item under a custom name; the fix is unmerged. lgse/strata#1299, lgse/strata#1303
+- Replace without Trash of a folder the user can neither write nor chmod fails with "Permission denied", where earlier builds' flat hidden name worked. lgse/strata#1729

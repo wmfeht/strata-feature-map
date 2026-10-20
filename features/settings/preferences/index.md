@@ -3,17 +3,17 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/e2e/scenarios/test_settings_search.py]
 docs: [docs/preferences.md]
-related: [settings/themes, settings/diagnostics, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode]
+related: [settings/themes, settings/diagnostics, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode, browser/directory-monitoring]
 ---
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, Watch network folders, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 
@@ -37,9 +37,14 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - When a dependent row's control stacks below it, the row's dependency arrow stays beside its heading. lgse/strata#924
 - Settings has no Keybindings page; the F1 reference is the only keybinding list. lgse/strata#1376
 
+### Restart
+
+- Pressing Restart now twice quickly relaunches Strata once; a restart requested while one is starting is ignored. lgse/strata#1729
+- When a window refuses to close for a restart, Strata keeps running and does not relaunch. lgse/strata#1729
+
 ### Choice menus
 
-- A Settings choice button, such as Auto-refresh folder, is named after its row title and described by its shown value, such as "5 min". lgse/strata#1467, lgse/strata#1544
+- A Settings choice button, such as Search time limit, is named after its row title and described by its shown value, such as "5 min". lgse/strata#1467, lgse/strata#1544, lgse/strata#1667
 - The Decoding backend button is the exception: its name is "Video preview hardware backend", not its row title. lgse/strata#1467
 - Choosing another value updates the button's description at once, also in other windows. lgse/strata#1544 (unverified)
 - Each option in a Settings choice menu is a radio menu item whose checked state matches its check icon. lgse/strata#1467, lgse/strata#1544
@@ -68,8 +73,16 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Searching "typeface" or "family" shows the Interface font row. lgse/strata#1696 (unverified)
 - Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735
 - Searching "add-ons" or "plugins" opens the Integrations page. lgse/strata#1748
+- Searching "rollback", "downgrade", or "previous version" opens Updates with the Install a specific release row. lgse/strata#1781 (unverified)
+- Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
+
+### Watch network folders
+
+- Settings → General → Performance shows a Watch network folders switch before Thumbnail workers, on by default; the Auto-refresh folder row is gone. lgse/strata#1729
+- The row reads "Check open folders on network shares every few seconds for changes made on other computers. When off, those changes show only after a refresh." lgse/strata#1729
+- The choice saves as `watch_network_folders`; a saved `auto_refresh_interval` is ignored and dropped from `settings.toml` on the next save. lgse/strata#1729
 
 ### Show sizes in Columns view
 
@@ -108,7 +121,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Choosing a folder saves it and shows it with `~/` for paths under home. lgse/strata#943
 - A new window without an explicit target or restored tabs opens at the chosen folder; `browser/tabs/session-restore` owns when tabs restore. lgse/strata#943, lgse/strata#1532
 - Reset restores the home directory as the default. lgse/strata#943
-- If the saved folder no longer exists, a new window opens home and the saved choice is cleared. lgse/strata#943
+- If the saved folder is proven missing or not a folder, a new window opens home and the saved choice is cleared. lgse/strata#943, lgse/strata#1729
+- If the saved folder cannot be checked within 2 s, such as on a stopped NFS or FUSE mount, the window opens it with its error and keeps the saved choice. lgse/strata#1729
+- That folder loads by itself once the mount answers. lgse/strata#1729
 
 ### Hidden files
 
@@ -124,7 +139,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
+[docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work. Integrations joined them (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
@@ -140,6 +155,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Page scrollers refuse horizontal scrolling. GTK treats an `External` horizontal policy as scrollable, so sideways deltas panned the page with up to 100 px of overshoot even with no horizontal range (lgse/strata#1712, lgse/strata#1719).
 - A page bin reports no horizontal minimum and gives its content the viewport width. A content minimum can then neither restore the pan nor clip the right edge. It passes its child's request mode through, because a fixed one cached a single-line height for wrapped text (lgse/strata#1719).
 - The dark band at scroll walls was GTK's default overshoot gradient; Settings clears it as context menus and popovers already did (lgse/strata#1719).
+- The default directory is checked on a worker rather than on the UI thread before the window shows. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 

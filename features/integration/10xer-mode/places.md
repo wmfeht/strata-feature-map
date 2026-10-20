@@ -3,7 +3,7 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
@@ -25,6 +25,8 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - `g m` opens the XDG Music folder. lgse/strata#1342
 - A missing user folder flashes `No Downloads folder`, `No Documents folder`, `No Pictures folder`, or `No Videos folder` and stays put. lgse/strata#1296
 - A missing Music folder flashes `No Music folder`, and a missing `~/.config` flashes `No .config folder`; neither navigates. lgse/strata#1296, lgse/strata#1342 (unverified)
+- `g c`, `g d`, `g k`, `g m`, `g p`, and `g v` navigate only after a worker checks the folder. A check still running after 2 s opens the folder, and the pane shows its error. lgse/strata#1729
+- A folder counts as missing only when it is not a folder, or is gone beside other entries in a parent without mount points; a folder on an unplugged drive opens with its error. lgse/strata#1729
 - `g 1` to `g 9` open the visible PINNED rows in sidebar order, skipping bookmarks that are standard places; a missing pin flashes `No pin N`. lgse/strata#1296
 - Esc cancels an armed chord, and any other unknown second key cancels it with `Unknown chord`. lgse/strata#1296
 - Opening Settings, leaving the mode, or closing the window drops an armed chord. lgse/strata#1296

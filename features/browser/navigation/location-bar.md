@@ -3,7 +3,7 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/location.rs, src/ui/browser/location/**]
 tests: [src/ui/browser/location/tests.rs, src/ui/browser/location/completion/tests.rs, src/app/browser/tests/location_input.rs, tests/e2e/scenarios/test_locations.py]
@@ -60,6 +60,9 @@ The header control that shows the active location as breadcrumbs and switches to
 - Hidden folders are suggested only when hidden files are shown or the typed name starts with `.`. lgse/strata#388 (unverified)
 - The popover does not appear while the breadcrumbs are showing. lgse/strata#388
 - Closing and reopening the editor shows no stale or flashing suggestion list. lgse/strata#1206
+- While the typed folder is being listed, the previous suggestions stay; only the latest text's list replaces them. lgse/strata#1729
+- Tab, Down, Up, Page Down, or Page Up pressed during the listing waits for its list. Enter pressed after one of them waits too. They then run in order. lgse/strata#1729
+- A folder load that ends while the entry is open and focused, as in a new tab, leaves the entry open with its text. lgse/strata#1729
 
 ### Breadcrumbs
 
@@ -84,7 +87,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - A typed URI is stored in the percent-encoded form its listed children use, so refreshes reach the open column. The entry keeps the decoded text (lgse/strata#1424, lgse/strata#1533).
 - URI credentials are parsed with GLib's password and auth-parameter flags and leave the text at once. They reach only the pending mount with saving disabled, and are then discarded (lgse/strata#111, lgse/strata#145).
 - A file path reuses validation: `NotDirectory` sends the parent through navigation with the file as a pending reveal, matching GTK and KDE choosers (lgse/strata#1139, lgse/strata#1219).
-- Completion reads the local folder directly, scanning at most 10,000 entries and listing at most 50 folders (lgse/strata#388).
+- Completion scans at most 10,000 entries and lists at most 50 folders (lgse/strata#388). Since lgse/strata#1729 a worker lists the folder, one request per text change, so a dead mount cannot freeze typing.
 - Every exit path switches the stack to the breadcrumbs before resetting the text, so the entry's `changed` signal cannot reopen the popover (lgse/strata#1205).
 - The scrollbar moved from an overlay inside the 22 px crumb row to its own row, after the shared fixed-scrollbar class still cropped labels (lgse/strata#297, lgse/strata#819).
 

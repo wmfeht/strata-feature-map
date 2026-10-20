@@ -3,7 +3,7 @@ title: Folder and selection size
 status: shipped
 origin: {issue: lgse/strata#556, pr: lgse/strata#558}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/directory_summary.rs]
 tests: [src/adapters/directory_summary/**, tests/e2e/scenarios/test_properties_size.py]
@@ -37,6 +37,7 @@ The SIZE and CONTAINS rows of Properties: a recursive, bounded, cancellable meas
 - Reaching the five-minute limit adds "The five-minute calculation limit was reached." to the warning. lgse/strata#558 (unverified)
 - Folders nested deeper than 64 levels are not entered and add "Some folders exceeded the 64-level nesting limit." to the warning. lgse/strata#558 (unverified)
 - When the folder itself cannot be read, SIZE and CONTAINS read "Unavailable" and the warning reads "Folder contents couldn't be read." lgse/strata#558, lgse/strata#886
+- A file operation on the measured folder or an item inside it stops the measurement. The totals then show "≥" and the incomplete warning. lgse/strata#1729 (unverified)
 
 ### Multi-item selection
 
@@ -68,3 +69,4 @@ The SIZE and CONTAINS rows of Properties: a recursive, bounded, cancellable meas
 ## Known gaps
 
 - Subfolders are measured one at a time, and each selected folder gets its own 300-second budget; bounded concurrency was closed as not planned. lgse/strata#1324
+- The measurement bypasses the mount request lanes. A walk that reaches a dead mount waits until the server answers. lgse/strata#1729

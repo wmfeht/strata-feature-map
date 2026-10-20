@@ -3,7 +3,7 @@ title: Restore from Trash
 status: shipped
 origin: {issue: lgse/strata#478, pr: lgse/strata#502}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/trash_restore.rs, src/adapters/local_operations/restore.rs]
 tests: [src/adapters/trash_restore/**, src/adapters/local_operations/tests/restore_safety.rs]
@@ -58,10 +58,16 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 - Ctrl+Z after Move to Trash applies the same destination validation without showing the restore confirmation. lgse/strata#502
 - Cancel during an undo restore stops the trash lookup within one 64-item batch and reports the operation as cancelled. lgse/strata#873
+- Undo of a Delete, Replace, or Merge brings back the item it trashed, even when another was trashed later from that path. lgse/strata#1729
+- The later item stays in Trash. The match uses the mount's identity rule, by birth time with size and modification time on vfat and exFAT. lgse/strata#1729
+- When two Trash items match equally, both stay: "More than one item in Trash could be “%{name}”, so they were left there". lgse/strata#1729
+- The undo's other items are still restored. lgse/strata#1729
+- Without GVfs, such as with `GIO_USE_VFS=local`, Undo on a mount other than home reads that mount's `.Trash-$uid` or `.Trash/$uid`. lgse/strata#1729
+- Such a Trash folder counts only if it is a real folder the user owns. lgse/strata#1729
 
 ## Design
 
-[docs/trash-restore-testing.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/trash-restore-testing.md) carries the safety model, the automated regressions, and the manual acceptance steps.
+[docs/trash-restore-testing.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/trash-restore-testing.md) carries the safety model, the automated regressions, and the manual acceptance steps.
 
 - Metadata is untrusted. An attacker who can write a mounted volume's `.Trash-$uid` could plant `Path=` targets such as `~/.config/autostart/` (lgse/strata#478). Destinations are therefore confined to the mount hosting the physical trash item and shown in full before moving.
 - The physical item is resolved through `standard::target-uri`, because GVfs volume-trash basenames do not identify the entry (lgse/strata#502).
@@ -71,6 +77,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 - The parent is checked with `symlink_metadata` before canonicalization, which would otherwise follow a same-volume symlink into its target (lgse/strata#862).
 - No-clobber must be atomic: `RENAME_NOREPLACE`, never a check followed by a plain rename (lgse/strata#502). Without it, a file was first hard-linked, otherwise copied exclusively with strict metadata (lgse/strata#1526). Restore now uses the placement ladder of `operations/filesystem-compatibility` and copies only where nothing can place the item (lgse/strata#1615).
 - A restore copy is flushed before the Trash copy is deleted, because only the copy then holds the data (lgse/strata#1615).
+- Two Trash candidates that match with equal rank are left in Trash rather than taking the first listed (lgse/strata#1729).
 - Execution keeps `openat2` confinement beneath the allowed mount against concurrent changes (lgse/strata#502).
 - Lookups run at most 8 at a time. Cancelling drops pending futures but cannot stop a system call already blocked in the kernel (lgse/strata#502).
 
@@ -78,6 +85,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1729 | fix | Matched Trash items by the mount's identity rule, refused ambiguous matches, and read volume Trash without GVfs. |
 | 2026-10-08 | lgse/strata#1527 | fix | Restored without `RENAME_NOREPLACE` through hard links or exclusive copies, keeping no-clobber. |
 | 2026-09-14 | lgse/strata#913 | fix | Refused restore through a same-volume symlink parent. |
 | 2026-09-12 | lgse/strata#873 | fix | Made the undo restore's trash scan cancellable. |
@@ -88,4 +96,5 @@ Returning trashed items to their original locations, from the Restore menu item 
 ## Known gaps
 
 - A lookup timeout frees its batch slot while the blocking worker may still run, so more than 8 lookups can be outstanding. lgse/strata#733
-- Restore still matches the trashed item by device and inode; stable identity on mounts without stable inodes is deferred. lgse/strata#1590, lgse/strata#1615
+- On sshfs and exfat-fuse, alike files trashed from one path within one second both stay in Trash on Undo; on vfat and exFAT, within one 10 ms tick. lgse/strata#1729
+- On renumbering mounts without birth times, Undo brings back the newest folder trashed from a path. lgse/strata#1729

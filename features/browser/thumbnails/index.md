@@ -3,7 +3,7 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
 tests: [src/ui/thumbnail/tests.rs, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
@@ -64,6 +64,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Visible items render in reading order, top to bottom, and scrolling re-ranks queued work toward the new viewport. lgse/strata#274, lgse/strata#1081
 - Scrolling an item away or rebinding its row cancels its pending work, and a late result never appears on a recycled row. lgse/strata#57, lgse/strata#1081
 - A file whose render failed is not retried for 30 seconds. lgse/strata#57
+- A thumbnail that a file operation stopped is not cached as failed; it is requested again once the operation ends. lgse/strata#1729
 
 ## Design
 
@@ -102,3 +103,4 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 ## Known gaps
 
 - Under Flatpak the sandbox helper cannot create namespaces, so no native-format thumbnails render. lgse/strata#1503
+- Thumbnail reads bypass the mount request lanes. A thumbnail of a file on a dead mount waits until the server answers. lgse/strata#1729

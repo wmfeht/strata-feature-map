@@ -3,7 +3,7 @@ title: Open in Terminal
 status: shipped
 origin: {issue: lgse/strata#160, pr: lgse/strata#161}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/terminal.rs]
 tests: [src/ui/terminal/tests.rs, tests/e2e/scenarios/test_terminal.py]
@@ -39,6 +39,16 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - After Ctrl+Alt+T starts a launcher that exits at once, no `<defunct>` launcher process stays a child of Strata. lgse/strata#1570, lgse/strata#1465
 - Open in Terminal from a menu and the Settings AUR and Omarchy update rows also reap their launcher after it exits. lgse/strata#1570, lgse/strata#1465
 
+### Ghostty
+
+- When the resolved program is named `ghostty` and `ghostty --version` reports 1.3 or later, Open in Terminal runs `ghostty +new-window --working-directory=<folder>`. lgse/strata#1763
+- With Ghostty 1.3 or later running under `gtk-single-instance = true`, Open in Terminal opens a new Ghostty window in the selected folder. lgse/strata#1763, lgse/strata#1762
+- Ghostty 1.2 or 1.1, or a first version line not starting with `Ghostty `, gets the plain `ghostty --working-directory=<folder>` launch. lgse/strata#1763
+- Extra words in `$TERMINAL`, such as `ghostty --class=x`, follow `+new-window`. lgse/strata#1763
+- `.sh` runs and the AUR and Omarchy update rows start Ghostty with `-e` and no `+new-window`, on every version. lgse/strata#1763
+- Strata runs `ghostty --version` at most once per program path per session, and never for other terminals or `xdg-terminal-exec`. lgse/strata#1763
+- An `xdg-terminal-exec` that starts Ghostty itself gets no `+new-window`. lgse/strata#1763 (unverified)
+
 ### Errors
 
 - With no terminal found, the dialog says "No terminal emulator was found", suggests `xdg-terminal-exec` with `~/.config/xdg-terminals.list` or `$TERMINAL`, and lists the fallback emulators. lgse/strata#967
@@ -59,11 +69,15 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - One spawn-and-reap helper waits on each launched child from its own thread. The owner chose it over a GLib child watch or a double fork (lgse/strata#1465, lgse/strata#1570).
 - A long-lived terminal keeps one parked thread. Run already waited on its program this way (lgse/strata#1465, lgse/strata#1570).
 - A reaper thread that cannot start is logged instead of panicking the UI thread (lgse/strata#1570).
+- The reaper thread also resolves the terminal and spawns it, and the error returns to the UI thread for the dialog. A `PATH` entry or folder on a dead mount thus no longer freezes the window (lgse/strata#1729).
+- A single-instance Ghostty hands a plain launch to the running instance, which ignores the folder; `+new-window` forwards it (lgse/strata#1762, lgse/strata#1763).
+- `+new-window` is limited to directory launches on 1.3 or later. Ghostty 1.1 has no `+new-window`, and 1.2's drops `--working-directory`. `-e` launches already force a separate instance (lgse/strata#1763).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1763 | fix | Opened Ghostty 1.3+ through `+new-window` so single-instance Ghostty honors the selected folder. |
 | 2026-10-15 | lgse/strata#1605 | fix | Opened the terminal in a Columns folder just clicked open while the pointer stays over its parent. |
 | 2026-10-11 | lgse/strata#1570 | fix | Reaped Open in Terminal and the AUR and Omarchy update launchers on a background thread so no defunct children remain. |
 | 2026-09-14 | lgse/strata#967 | fix | Fell back to `$TERMINAL` and installed emulators when `xdg-terminal-exec` is missing. |
@@ -72,4 +86,4 @@ Opening the user's terminal emulator in a local folder from the context menus or
 
 ## Known gaps
 
-None known.
+- On Ghostty 1.3 or later without its D-Bus service `com.mitchellh.ghostty.service`, `+new-window` opens no window when no Ghostty is running. lgse/strata#1763

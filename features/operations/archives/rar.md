@@ -3,7 +3,7 @@ title: RAR extraction
 status: shipped
 origin: {issue: lgse/strata#816, pr: lgse/strata#832}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: reviewed
 code: [src/adapters/local_operations/archive/decoders/rar.rs, src/rar_extraction.rs, src/sandbox/archive.rs, src/sandbox_helper/archive_rar.rs]
 tests: [src/adapters/local_operations/archive/decoders/rar/tests.rs, src/rar_extraction/tests.rs, src/sandbox/archive/tests.rs, src/sandbox_helper/archive_rar/tests.rs, tests/fixtures/rar/**]

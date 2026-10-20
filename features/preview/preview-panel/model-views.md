@@ -3,7 +3,7 @@ title: Model camera views
 status: shipped
 origin: {issue: lgse/strata#1633, pr: lgse/strata#1644}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/preview/model.rs, src/sandbox/model.rs]
 tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, tests/e2e/scenarios/test_quick_preview.py]
@@ -18,10 +18,10 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ### Camera views
 
-- **Next model view** cycles Front left, Front right, Back right, Back left, and wraps to Front left. lgse/strata#1644
-- **Previous model view** from Front left goes to Back left. lgse/strata#1644
+- **Next model view** turns the camera clockwise: Front left, Back left, Back right, Front right, then wraps to Front left. lgse/strata#1644, lgse/strata#1764
+- **Previous model view** turns it anticlockwise: from Front left it goes to Front right. lgse/strata#1644, lgse/strata#1764
 - Only the two buttons change the view; no key binding does. lgse/strata#1644 (unverified)
-- A 3MF with one usable embedded PNG, or a FreeCAD file, shows its saved image with no camera buttons, no indicator, and no badges. lgse/strata#1644, lgse/strata#1633
+- Once loaded, a 3MF with one usable embedded PNG, or a FreeCAD file, shows its saved image without camera buttons, indicator, or badges. lgse/strata#1644, lgse/strata#1633, lgse/strata#1764
 
 ### Indicator
 
@@ -34,11 +34,19 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ### Loading and errors
 
+- Before its first image, an STL or 3MF shows its filename, position eyebrow, and its uppercase extension as format badge, such as "STL". lgse/strata#1764
+- On a first load, the triangle badge appears once rendering reports a count; with the image, the format badge becomes "Binary STL", "ASCII STL", or "3MF". lgse/strata#1764
+- Previous and Next are insensitive until the first image is ready; clicking them does nothing. lgse/strata#1764
+- A loading FreeCAD file or embedded-image 3MF shows the same details and inactive camera controls, then switches to the plain image. lgse/strata#1764
+- A FreeCAD file's loading badge reads "FCSTD". lgse/strata#1764 (unverified)
+- No loading card covers the model; the header spinner left of Open is the only indicator, shown at once for first loads and view changes. lgse/strata#1764
 - While another view renders, the last image stays at opacity 0.3 with a wait cursor, and the header shows a spinner left of Open. lgse/strata#1644
-- The header spinner's accessible label reads "Loading preview…", then the model stage text, such as "Rendering N triangles…". lgse/strata#1644 (unverified)
+- The header spinner's accessible label reads "Loading preview…", then "Reading model…", "Rendering N triangles…", and "Finishing preview…"; embedded images read "Reading thumbnail…" instead of the count. lgse/strata#1276, lgse/strata#1644, lgse/strata#1764
 - Clicking a camera button during a render is ignored; the button keeps focus and the drawer keeps the keys. lgse/strata#1644
-- Selecting another file mid-render stops and hides the header spinner. lgse/strata#1644
-- A view render or image decode that fails keeps the previous image, shows an error under the controls, and the buttons can retry. lgse/strata#1644
+- Selecting a non-model file mid-render stops and hides the header spinner. lgse/strata#1644 (unverified)
+- Selecting another model file mid-render keeps the header spinner showing for that file's first load. lgse/strata#1764
+- After the first image, a failed view render or image decode keeps the previous image and shows an error under the controls; the buttons retry. lgse/strata#1644, lgse/strata#1764
+- A first load that fails shows "Preview unavailable" and its error in the drawer, with no camera controls. lgse/strata#1764
 
 ### Details
 
@@ -56,7 +64,9 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - The controls borrow the video player: the play button becomes the camera dot, and previous and next step the camera. The orbit diagram carries the view, so no visible label is shown (lgse/strata#1633, lgse/strata#1644).
 - The renderer and the indicator share the camera directions. View names follow the model axes: +X right, −Y front, +Z up (lgse/strata#1644).
 - Badges reuse counts from the parse and render pass, so thumbnail previews never parse geometry for them. Dimensions and units are not shown (lgse/strata#1644).
-- A header spinner replaced a loading card over the model. The buttons stay sensitive so focus and the keyboard-owner bar survive a render (lgse/strata#1644).
+- A header spinner replaced a loading card over the model. The buttons stay sensitive during view renders so focus and the keyboard-owner bar survive a render (lgse/strata#1644). They stay insensitive until the first image exists (lgse/strata#1764).
+- A centred progress card returned for the first load, then was removed again because it flashed for small models. The header spinner carries the stage in its accessible label (lgse/strata#1764).
+- Model badges take their own badge area in the shared player layout instead of the video timeline slot (lgse/strata#1764).
 - The sandbox boundary rejects a mesh result that does not identify the requested view, so a stale render cannot show under the wrong camera. It also rejects a format mismatch, 0 triangles, more than 2 million, or an STL without mesh details (lgse/strata#1644).
 
 ## History

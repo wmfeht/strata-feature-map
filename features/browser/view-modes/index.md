@@ -3,10 +3,10 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
-tests: [tests/e2e/scenarios/test_view_switching.py, tests/e2e/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs]
+tests: [tests/e2e/scenarios/test_view_switching.py, tests/e2e/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
 related: [browser/search, preview/preview-panel]
 ---
@@ -47,11 +47,15 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - Entering an empty, unreadable, or still-loading folder gives keyboard focus to the pane itself. lgse/strata#1466, lgse/strata#1533
 - The focused pane draws a 2 px accent focus ring only while GTK shows focus, as after keyboard input. lgse/strata#1466, lgse/strata#1533 (unverified)
 - When entries appear in a folder whose pane held focus, focus moves to the keyboard cursor row. lgse/strata#1466, lgse/strata#1533
-- F5 or auto-refresh keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533
+- F5 keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533, lgse/strata#1729
 - Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
 - While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
 - In List, cut styling, hidden-file dimming, and live dates of visible rows refresh once scrolling has been still for 25 ms. lgse/strata#1673
 - In Icons, cut styling, hidden-file dimming, and accessible descriptions of visible cards refresh once scrolling has been still for 25 ms. lgse/strata#1673 (unverified)
+- After 10 s without progress on a folder's mount, "Not responding. This list may be out of date." shows above its listing in Columns, Icons, and List. lgse/strata#1729
+- The last listing stays in view under the notice. The notice also shows over a stuck first load, never over an error page. lgse/strata#1729
+- The notice clears as soon as a request on that mount answers. lgse/strata#1729
+- The notice has the accessible role status. lgse/strata#1729 (unverified)
 - Long filenames are middle-ellipsized in Columns rows and headings, Icons captions, and the List Name column, so the extension stays visible. lgse/strata#1143
 
 ## Design

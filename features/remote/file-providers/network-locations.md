@@ -3,7 +3,7 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]

@@ -1,13 +1,13 @@
 ---
 title: Settings sweep
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, tests/e2e/harness/environment.py]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, the user stylesheet, Interface font, Corner roundness, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, the user stylesheet, Interface font, Corner roundness, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
@@ -19,10 +19,13 @@ For every control this sweep proves the binding: the file changes, the other win
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
 - Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the twelve languages is right-to-left.
-- A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`.
+- A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`; and `~/.local/share/themes/StrataEmpty/gtk-4.0/gtk.css` holding the same rules.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
 - A user stylesheet at `$XDG_CONFIG_HOME/strata/style.css` with a valid rule using `@strata_accent`, a rule GTK rejects such as `label { color: nope; }`, and a layout rule such as `.sidebar-shell { margin: 12px; }`; a 1 MB copy and a non-UTF-8 copy beside it.
+- Icon themes for the control icons: Breeze, Yaru, and Adwaita installed, plus a theme without symbolic icons, each selected through `settings.ini` before launch.
+- A user GtkSourceView setup: `~/.local/share/gtksourceview-5/styles/strata-current.xml` and a `rust.lang` under `~/.local/share/gtksourceview-5/language-specs/`, and a `chmod 555` `~/.cache/strata`.
+- An sshfs mount whose daemon a script stops with `kill -STOP` and resumes with `kill -CONT`, for the Default directory and save cases.
 - Fonts for Interface font: a family with a quoted name, a family with no Latin glyphs, a bitmap-only family, and a family installed with `fc-cache` while Strata runs, then removed.
 - For Diagnostics: a container or bind mounts that mask `bwrap`, `prlimit`, `ffmpeg`, `ffmpegthumbnailer`, `ffprobe`, and `unsquashfs` one at a time, plus `os-release` files for Arch, Debian, Fedora, openSUSE, and an unknown `ID`.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
@@ -54,6 +57,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Flip Show sizes in Columns view in window A three times. Window B shows List, then has the Appearance menu open, then has Settings open on General.
 - On every Settings page, swipe sideways on a touchpad, Shift+wheel, and drag-scroll past both ends at text size 8, 32, and 48 in a 640 px wide window; read the right edge and the scroll walls.
 - At text size 48 and the narrowest window, open General, Appearance, Integrations, and Diagnostics after a Run; watch the log for allocation warnings and scroll to each last row.
+- Seed `auto_refresh_interval = 300` with no `watch_network_folders`, then `watch_network_folders = "yes"`; launch, read the switch, change one other preference, and diff `settings.toml`.
+- Set Default directory to a folder on the sshfs mount, stop the daemon, and open a new window. Resume after 1 s and after 30 s; then delete the folder on the server while stopped and resume.
+- Click Restart now five times within a second after a renderer change, then with Properties open in another window; count Strata processes after the relaunch.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
 ### settings/preferences/storage
@@ -70,6 +76,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
 - In two windows, sort the Trash and an SFTP folder differently in each. Read each window's sort, then restart and read them again.
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
+- Change ten preferences within one second and quit at once; relaunch and diff `settings.toml` against the last values shown.
+- Symlink `settings.toml` onto the sshfs mount, stop the daemon, change a preference, and quit; time the quit and read the log.
 
 ### settings/preferences/language
 
@@ -101,7 +109,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Press Run twice quickly, close Settings mid-run, then reopen Diagnostics and run again; watch the log and the temporary directory.
 - Close the window mid-run and quit the last window mid-run; list `$TMPDIR` for leftover `strata-diagnostics-*` directories.
 - Copy the report under `language = "ja"` and `"zh-TW"` and paste it into a text editor; compare section names, statuses, and the System fields with the page.
-- Run with no terminal resolvable, then with a terminal that exits at once; read the row under each install command.
+- Run with no terminal resolvable, then with a terminal that exits at once; press Run in terminal and read the row under each install command.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
 
 ### settings/themes
@@ -142,6 +150,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - With the user stylesheet present, switch theme, follow Omarchy, open an editor preview, and change Corner roundness; read the overridden rules in each state.
 - Launch with the 1 MB and the non-UTF-8 stylesheets, and as the portal chooser; read the window and the log.
 - With `XDG_CONFIG_HOME` unset, then set to another directory, create `style.css` in each place; read which one applies.
+- With the hostile setup, also name `StrataEmpty` in `settings.ini` and launch under `GTK_THEME=StrataEmpty`; walk the screenshot set and compare with a clean run.
+- With the user GtkSourceView setup, open a Rust, Markdown, and shell preview, switch themes twice, and follow Omarchy; compare syntax colors with a run without it and read the log.
 
 ### settings/themes/icons
 
@@ -157,6 +167,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Switch File icon colors from window B while window A drags a code file.
 - Open About under a light custom theme, then switch to a dark one and Follow Omarchy while it stays open; compare the logo with a fresh About page.
 - Collapse and expand the sidebar after a theme change; icons in collapsed rows must match the expanded ones.
+- Under each Setup icon theme, compare every Settings dropdown arrow, the Appearance menu buttons, and the drive format dialog dropdown; repeat under `GDK_SCALE=2` and at text size 48.
+- Step Text size, Corner roundness, and Thumbnail workers to each end so one step is disabled; hover each step under a light and a dark theme and read the icon color.
+- Open Customize… → Custom color… and switch to the custom editor under each Setup icon theme; read its spin-button steps, then change the theme while it is open.
 
 ### settings/themes/corner-roundness
 
@@ -205,6 +218,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Focus return after closing dialogs other than Settings → `app`.
 - Focus return after closing the search palettes → `browser`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
+- What Watch network folders checks and re-reads in open folders → `browser`.
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails changes in the file views → `browser`.
 - Remember sort and icon size per folder, Default sort, Forget all folder settings, and `folder-views.toml` → `browser`.
 - Show sizes in Columns view as it acts on the Columns badge → `browser`.

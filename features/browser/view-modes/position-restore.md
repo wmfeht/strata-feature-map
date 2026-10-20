@@ -3,7 +3,7 @@ title: Position restore on return and refresh
 status: shipped
 origin: {issue: lgse/strata#868, pr: lgse/strata#893}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser_modes/navigation.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/reload_cursor.rs]
@@ -38,7 +38,7 @@ Icons and List remember each folder's selection, cursor, and scroll position, an
 
 ### Refreshing
 
-- In Icons and List, F5, the Refresh button, auto-refresh, or a rescan past 4,096 queued changes keeps the cursor row, selection, and scroll offset. lgse/strata#1434, lgse/strata#1544
+- In Icons and List, F5, the Refresh button, or a rescan past 4,096 queued changes keeps the cursor row, selection, and scroll offset. lgse/strata#1434, lgse/strata#1544, lgse/strata#1729
 - After End then F5, the last row keeps the cursor at the same position on screen, and Left or Up moves from it. lgse/strata#1434, lgse/strata#1544
 - In Icons and List, a refresh keeps focus on a focused row, or in a focused Ctrl+F field with its query. That holds through a slow reload. lgse/strata#1434, lgse/strata#1544
 - Typing in the Ctrl+F field during that reload does not stop focus returning to it. Tab, Escape, or pointer input does. lgse/strata#1544

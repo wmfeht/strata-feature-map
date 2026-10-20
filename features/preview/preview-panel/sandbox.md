@@ -3,7 +3,7 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
@@ -38,6 +38,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - Image, RAW, and PDF helpers run under a 2 GiB address-space limit, a 10-second CPU limit, a 512 MiB file-size limit, and a 12-second wall deadline. lgse/strata#17, lgse/strata#45, lgse/strata#55
 - An image, RAW, or PDF preview input over 512 MiB fails with "Preview input exceeds the supported size limit" before any renderer starts. lgse/strata#17 (unverified)
 - Changing selection or closing the preview kills the helper's whole process tree. lgse/strata#17
+- After `bwrap` exits, killed or not, Strata waits on a pidfd, at most 1 s, until the sandbox's namespace releases the input file. lgse/strata#1729
 - An image or PDF helper receives no GPU device and no `/sys` mount. lgse/strata#17, lgse/strata#45
 
 ### Decoding
@@ -96,6 +97,8 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - libjpeg decodes at 1/2, 1/4, or 1/8 scale from compressed data. The `jpeg:size` hint makes ImageMagick use it, so oversized JPEGs fit the budget. The area limit stops any unhinted full decode (lgse/strata#1698).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
 - The `fchmodat2` denylist entry uses syscall number 452 directly, because libc omits the constant on aarch64 (lgse/strata#1111).
+- With bubblewrap 0.12.0 the sandbox's namespace, and its bind of the user's file, outlived `bwrap` after nearly every exit. On NFS, SMB, and FUSE that left hidden leftovers and blocked folder deletes. The wait costs about 2 ms after a kill and 0.1 ms after a normal exit (lgse/strata#1729).
+- `bwrap` reports the namespace init's pid through `--info-fd` on stderr, which every sandbox already discarded (lgse/strata#1729).
 - The supervisor pool implementation, its sizing, and its Landlock fallback belong to `browser/thumbnails/workers`; media playback isolation belongs to `preview/preview-panel/media`.
 
 ## History

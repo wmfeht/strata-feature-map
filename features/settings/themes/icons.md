@@ -3,16 +3,16 @@ title: Themed icons
 status: shipped
 origin: {issue: lgse/strata#169, pr: lgse/strata#170}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
-code: [src/assets.rs, src/assets/vector.rs, src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin/**, scripts/catppuccin_icons.py, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg]
+code: [src/assets.rs, src/assets/vector.rs, src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin/**, scripts/catppuccin_icons.py, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg, data/icons/scalable/actions/strata-chevron-down-symbolic.svg, data/icons/scalable/actions/strata-minus-symbolic.svg, data/icons/scalable/actions/strata-plus-symbolic.svg]
 tests: [src/assets/tests.rs, src/assets/vector/tests.rs, src/ui/browser/entry/tests.rs, src/ui/theme/tests.rs]
 related: [browser/view-modes/icons, browser/folder-customization]
 ---
 
 ## Summary
 
-Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
+Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, bundled GTK control icons, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
 
 ## Behavior
 
@@ -29,6 +29,13 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 - A code file such as `main.rs` with a saved color and no custom icon keeps its brand palette under Brand colors. lgse/strata#1588 (unverified)
 - Under Theme colors, that file's icon takes the saved color instead of the accent. lgse/strata#1588 (unverified)
 - The Strata logo on Settings → About takes the theme's text color and recolors when the theme changes. lgse/strata#1673 (unverified)
+
+### GTK control icons
+
+- Under the Breeze, Yaru, or Adwaita icon theme, the arrows of Settings dropdowns, such as Language and Release channel, and of the drive format dialog dropdown draw the same thin Lucide chevron. lgse/strata#1777, lgse/strata#1778
+- Under any icon theme, the Text size, Corner roundness, and Thumbnail workers spin buttons draw Lucide − and + steps. lgse/strata#1778
+- Those steps follow the control's CSS color, including hover and disabled states. lgse/strata#1778
+- The spin buttons in the Customize… custom color editor draw the bundled − and + steps. lgse/strata#1778
 
 ### Size and weight
 
@@ -74,7 +81,10 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 ## Design
 
-- Interface icons and generic file categories are bundled Lucide SVGs whose placeholder colors are replaced before rasterizing. They follow Strata's tokens rather than the desktop icon theme (unverified).
+- Interface icons and generic file categories are bundled Lucide SVGs whose placeholder colors are replaced before rasterizing. They follow Strata's tokens rather than the desktop icon theme; Open With application icons still come from the desktop theme ([docs/themes.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/themes.md), lgse/strata#1777, lgse/strata#1778).
+- Dropdown and menu-button arrows and spin-button steps came from the desktop icon theme, so their shape changed with it; Breeze drew a filled triangle (lgse/strata#1777).
+- The arrow uses a recolored `-gtk-icon-source`, as the table sort caret does. Spin steps swap their icon names for bundled ones (lgse/strata#1778).
+- The control SVGs outline Lucide's 2 px round strokes as filled paths, because older GTK recolors only the fill of symbolic icons. The `-symbolic` suffix and `#2e3436` fill let GTK recolor them to the control's CSS color (lgse/strata#1778).
 - Code and config files use the Catppuccin VSCode icon set, v1.26.0, MIT. A uniform monochrome set did not help recognize file types at a glance (lgse/strata#1587, lgse/strata#1588).
 - This reverses the earlier rejection of full-color brand icons for breaking theme sync (lgse/strata#1528, lgse/strata#1529). Mocha on dark backgrounds and Latte on light ones keep them legible on built-in, custom, and Omarchy themes; Theme colors keeps the accent-only look (lgse/strata#1587, lgse/strata#1588).
 - The outlined Simple Icons and Devicons language glyphs from lgse/strata#1529 and lgse/strata#1561, and their outline render path, were removed (lgse/strata#1588).
@@ -94,6 +104,7 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1778 | fix | Drew dropdown arrows and spin-button steps from bundled Lucide icons, so their shape no longer changes with the desktop icon theme. |
 | 2026-10-15 | lgse/strata#1675 | perf | Checked the icon texture cache before loading and recoloring an icon's SVG source. |
 | 2026-10-12 | lgse/strata#1589 | fix | Redrew video as a clapperboard and archives as a folder-archive, and mapped 10 more video and 8 more archive extensions. |
 | 2026-10-10 | lgse/strata#1561 | fix | Outlined the language glyphs at folder stroke weight in padded view boxes and replaced the custom Java glyph with Devicon's. |

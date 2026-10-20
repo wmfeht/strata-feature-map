@@ -3,8 +3,8 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+review: draft
 code: [src/ui/window/devices.rs]
 tests: [src/ui/window/devices/tests.rs]
 docs: []
@@ -41,6 +41,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - Visibility policy belongs to GIO, GVfs, and udisks2, as in Nautilus, Nemo, Thunar, and Dolphin. lgse/strata#493 added a raw `/proc/self/mountinfo` fallback to surface USB drives (lgse/strata#441). It reinstated mounts the backend hides on purpose, so lgse/strata#536 removed it from the sidebar (lgse/strata#532).
 - An empty device list is a valid answer. A union volume monitor does not reveal which backend is active, so Strata does not infer a degraded backend from a short list (lgse/strata#532).
 - Global search still reads the raw mount table for its roots; that policy is separate (lgse/strata#533).
+- Removable Send To destinations, their remembered folders, and encryption hints are checked on a worker and cached. Volume monitor signals refresh them (lgse/strata#1729).
 - Sidebar mounts run through the browser's mount flow, so volumes share the themed authentication prompt, quiet cancellation, and retries used by remote locations (lgse/strata#302, lgse/strata#493).
 - A desktop automounter may already own a mount job. Strata waits for it rather than cancelling it, and never disables the user's automounter (lgse/strata#537, lgse/strata#935).
 

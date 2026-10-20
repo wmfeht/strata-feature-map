@@ -3,10 +3,10 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
-tests: [src/ui/search_session/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/e2e/scenarios/test_filter_results.py, tests/e2e/mutations/filter-results.patch]
+tests: [src/ui/search_session/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/e2e/scenarios/test_filter_results.py, tests/e2e/mutations/filter-results.patch]
 docs: [site/src/reference/keyboard-navigation.md, docs/preferences.md]
 related: [integration/10xer-mode, browser/view-modes, preview/quick-preview, browser/thumbnails]
 ---
@@ -43,11 +43,17 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 ### Matching
 
 - Plain text matches a case-insensitive substring of the file or folder name; parent folder names never qualify a result. lgse/strata#1119
+- A query with spaces also matches a name that contains every word in any order: `duck txt` matches `ducks_in_the_pool.txt` and `duck.txt`, not `only-duck.md`. lgse/strata#1693, lgse/strata#1768
+- `duck goose` does not match `ducks_in_the_pool.txt`, and `summer holiday` does not match `holiday.jpg`. lgse/strata#1768
+- A trailing space keeps the matches: `duck ` still matches `duck.txt`. lgse/strata#1768
 - An alphanumeric query of 4 or more characters also matches a name word one edit away: `trahs` finds `strata-trash.svg`. lgse/strata#1119
-- Literal matches rank above typo matches. lgse/strata#1119
+- In a query with spaces, each word of 4 or more alphanumerics allows one edit: `abc text` matches `abc_tent.doc`, but `abc tex` does not. lgse/strata#1768
+- Literal matches rank above typo matches. A name containing the whole query ranks above names matching scattered words: with Include subfolders on, `duck txt` lists `duck txt notes.md` before `ducks_in_the_pool.txt`. lgse/strata#1119, lgse/strata#1768
+- Where the filter narrows rows in place, editing `abc tex` to `abc text` shows `abc_tent.doc` at once. lgse/strata#1768
 - `*` matches zero or more characters across the whole name: `*.MOV` matches `clip.MOV` but not `clip.MOV.bak`. lgse/strata#989
 - `IMG*.MOV` matches only names starting with `IMG` and ending in `.MOV`; `*` alone matches every name. lgse/strata#989
 - Wildcard queries allow no typos, and other punctuation such as `?` or `[]` is literal. lgse/strata#989, lgse/strata#1119
+- In a query with `*`, spaces are literal and words are not matched separately: `duck *.txt` needs `duck ` at the start of the name. lgse/strata#1768 (unverified)
 
 ### Scope
 
@@ -70,7 +76,8 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - A matching file another program deletes leaves the results as soon as the listing drops it, before the rescan finishes. lgse/strata#1439, lgse/strata#1544
 - In Icons and List, when a deletion, rename, or move removes the last result, the status reads "No matching files", centered. lgse/strata#1648 (unverified)
 - In Columns, Enter after Down opens a remaining hit, with no "Unable to open file" dialog. In List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
-- With Include subfolders on, a change below the watched folders shows only after F5, auto-refresh, a monitor rescan, or reopening the filter. lgse/strata#1439, lgse/strata#1544
+- With Include subfolders on, a change below the watched folders shows only after F5, a network re-list, a monitor rescan, or reopening the filter. lgse/strata#1439, lgse/strata#1544, lgse/strata#1729 (unverified)
+- A result whose existence check fails or times out, as on a mount that stopped answering, stays; only a result proven gone leaves. lgse/strata#1729
 - When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544
 
 ### Results
@@ -117,13 +124,15 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - Subfolder search is a saved preference, on by default to keep existing behavior. A per-filter scope toggle was left for separate consideration (lgse/strata#586, lgse/strata#602).
 - The filter matches names only, while Ctrl+K stays fuzzy over paths (lgse/strata#989, lgse/strata#1119). Wildcards are `*` only; regular expressions were not wanted (lgse/strata#988).
 - Typo tolerance is limited to one edit in a whole word for 4 or more alphanumeric characters, so short queries stay literal (lgse/strata#1119).
+- lgse/strata#1693 asked for the exact phrase first, then all words. Phrase hits rank first through the fuzzy score. A fixed −500 offset for scattered hits was dropped: it moved every scattered hit equally (lgse/strata#1768).
+- Any query edit with a typo-eligible word counts as a full filter change. A typo edit can both add and remove matches (lgse/strata#1768).
 - The directory-only index reuses the GIO listing's symlink and `.hidden` rules so filter results match the visible listing (lgse/strata#692, lgse/strata#752).
 - Results are reconciled by full path, so progressive updates keep rows, thumbnails, focus, and selection (lgse/strata#620, lgse/strata#639, lgse/strata#719).
 - Icons and List share one result collection with view-specific presentation; Columns keeps its native collection (lgse/strata#1155, lgse/strata#1167).
 - List and Icons results are one Tab stop, like the listings, because Tab otherwise took one press per result (lgse/strata#1550, lgse/strata#1575).
 - Scope changes cancel the old search session, and a session drops batches for any query but the current one, so a stale worker cannot update a rebuilt view (lgse/strata#602, lgse/strata#1174).
 - Results are pruned by checking that each path still exists, rather than tracking each operation's old and new paths (lgse/strata#800).
-- The same check runs whenever a listing splice removes rows, whoever removed them, so outside deletions leave before the rescan. It costs at most 100 stat calls (lgse/strata#1439, lgse/strata#1544).
+- The same check runs whenever a listing splice removes rows, whoever removed them, so outside deletions leave before the rescan. It costs at most 100 stat calls (lgse/strata#1439, lgse/strata#1544). Since lgse/strata#1729 it runs on a worker, and only a proven absence removes a result.
 - Changes below the watched folders appear only on refresh. The GIO monitor watches only open folders, and recursive watching hits inotify limits (lgse/strata#1439).
 - Filtered results ignore the click-count and preview preferences, which keep governing unfiltered rows (lgse/strata#681, lgse/strata#697).
 - Columns dismisses on any outside click through one window-level gesture, because focus stays in the entry when non-focusable widgets are clicked (lgse/strata#887).
@@ -140,6 +149,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1768 | feat | Matched space-separated queries when the name contains every word, ranking whole-phrase hits first. |
 | 2026-10-15 | lgse/strata#1632 | fix | Returned focus to the next result, or the filter field, after deleting a focused List or Icons result. |
 | 2026-10-15 | lgse/strata#1667 | feat | Read configurable search time and entry limits at each query and restarted the walk when they change. |
 | 2026-10-14 | lgse/strata#1648 | fix | Centered the empty-state status over the results and showed "No matching files" when pruning removes every result. |

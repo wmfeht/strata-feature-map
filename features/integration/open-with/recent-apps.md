@@ -3,7 +3,7 @@ title: Recently used applications
 status: shipped
 origin: {issue: null, pr: lgse/strata#1354}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: reviewed
 code: [src/ui/recent_apps]
 tests: [src/ui/recent_apps/tests.rs]

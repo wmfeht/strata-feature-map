@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
@@ -43,6 +43,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Keyboard navigation
 
 - A menu opens with keyboard focus on its first visible action; focus stays there while Open With lookup finishes, even with the pointer resting over the menu. lgse/strata#1155
+- In a folder's menu, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
 - Up and Down move between enabled actions, skipping separators and wrapping at either end; Home and End jump to the first and last action. lgse/strata#666
 - Enter or Space activates the focused action and closes the menu. lgse/strata#666
 - Escape closes the menu, keeps the selection, and returns focus to the entry or pane that opened it. lgse/strata#666

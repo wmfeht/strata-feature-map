@@ -3,7 +3,7 @@ title: Chooser PNG conversion
 status: shipped
 origin: {issue: lgse/strata#1386, pr: lgse/strata#1387}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: reviewed
 code: [src/ui/chooser/image_conversion.rs, src/services/image_conversion.rs, src/sandbox_helper/image_conversion.rs]
 tests: [src/ui/chooser/tests/image_conversion.rs, src/services/image_conversion/tests.rs, src/sandbox_helper/image_conversion/tests.rs, tests/e2e/scenarios/test_chooser_image_conversion.py]

@@ -23,9 +23,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `data/icons/catppuccin/**` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-blocks.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `data/icons/scalable/actions/strata-chevron-down-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-cloud.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `data/icons/scalable/actions/strata-file-archive.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-git-branch.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `data/icons/scalable/actions/strata-minus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-plus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-smartphone.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `data/icons/scalable/actions/strata-stethoscope.svg` | code | [Diagnostics](../features/settings/diagnostics.md) | — |
 | `data/icons/scalable/actions/strata-video.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
@@ -39,6 +42,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/math-renderer.js` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `data/portal` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `data/strata.gresource.xml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `data/theme-empty.css` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `data/themes/catalog.toml` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `data/udiskie/unlock` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `data/update-keys.json` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
@@ -64,7 +68,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/catppuccin_icons.py` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `scripts/e2e-native.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `scripts/fslab/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `scripts/e2e.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/fslab/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `scripts/installer_messages.py` | code | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/integration_tests.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/quality.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -80,7 +85,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `scripts/test_quality_ci.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_quality_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_sign_update_manifest.py` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `scripts/test_trace_main_io.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_update_aur.py` | tests | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
+| `scripts/trace-main-io.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/update_aur.py` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `src/adapters/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/adapters/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
@@ -90,6 +97,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/directory_validation/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
 | `src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
+| `src/adapters/gio_close.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/gio_close/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/gio_location.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/adapters/gio_location/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/adapters/local_actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
@@ -98,6 +107,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_files.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_files/camera_photos.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/adapters/local_files/camera_photos/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/adapters/local_files/monitors.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/adapters/local_files/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_files/tests/browse.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_files/tests/trash.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
@@ -122,38 +132,50 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/archive/listing.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `src/adapters/local_operations/archive/listing/tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `src/adapters/local_operations/archive/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/case_variants.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/copy_engine.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/copy_engine/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/case_variants.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/copy_engine.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/copy_engine/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/create_entry.rs` | code | [New Folder and New File](../features/operations/create.md) | — |
+| `src/adapters/local_operations/deferred_close.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/adapters/local_operations/deletion.rs` | code | [Permanent deletion](../features/operations/delete.md) | — |
-| `src/adapters/local_operations/environment.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/environment.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/environment/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/fs_ops.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/local_operations/fs_ops/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/local_operations/holders.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `src/adapters/local_operations/holders/tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `src/adapters/local_operations/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/adapters/local_operations/merge_aside.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/mount_profile.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/mount_profile/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/names/fix.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/mount_profile.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/mount_profile/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/names/fix.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_operations/owed.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/placement.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/owed.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/placement.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/probes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/local_operations/probes/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_operations/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `src/adapters/local_operations/release.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/adapters/local_operations/replacement.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/tests/aliases.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/tests/aliases.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/tests/closes.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/adapters/local_operations/tests/conflicts.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/tests/copy.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/tests/create_entry.rs` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `src/adapters/local_operations/tests/deletion.rs` | tests | [Permanent deletion](../features/operations/delete.md) | — |
-| `src/adapters/local_operations/tests/file_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/tests/folder_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/local_operations/tests/fs_quirks.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/tests/file_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/tests/folder_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/tests/fs_quirks.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/adapters/local_operations/tests/merge.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/tests/moves.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/tests/naming.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/tests/paste_results.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/placement.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/tests/placement.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/tests/progress.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `src/adapters/local_operations/tests/release.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/adapters/local_operations/tests/replacement.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/tests/restore_safety.rs` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/local_operations/tests/sync.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
@@ -161,7 +183,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
 | `src/adapters/local_operations/transfer_targets.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
-| `src/adapters/local_operations/typed_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/local_operations/typed_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/work_queue.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/remote.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
@@ -178,30 +200,38 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/trash_support.rs` | code | [Trash](../features/operations/trash/index.md) | — |
 | `src/adapters/trash_support/tests.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `src/adapters/volume.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/adapters/volume/mount_capabilities.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/volume/mount_capabilities.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/volume/mount_lanes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/volume/mount_lanes/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/volume/mount_snapshot.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/volume/mount_watch.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/volume/mount_watch/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/volume/mounts.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/volume/mounts/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/adapters/volume/names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/adapters/volume/mounts/tests/byte_paths.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/volume/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/volume/names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/volume/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/adapters/volume/tests/lookup_regressions.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/app/browser/deferred.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/deferred/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/directory_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/directory_changes/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/deferred.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/deferred/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/directory_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/directory_changes/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/folder_sorts.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/browser/loading.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/loading/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/loading/metadata/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/loading/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/operation_events.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/freshness.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `src/app/browser/freshness/tests.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `src/app/browser/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `src/app/browser/loading.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/loading/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/loading/metadata/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/loading/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/operation_events.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/operation_events/background.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/operation_events/tests.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/app/browser/operation_updates.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/operation_updates/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/publication.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
-| `src/app/browser/publication/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/operation_updates.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/operation_updates/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/publication.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/publication/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/remote.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/app/browser/remote/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/app/browser/sorting.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -210,15 +240,16 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/tests/background_operations.rs` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/tests/camera_photos.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/app/browser/tests/folder_sorts.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/app/browser/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/app/browser/tests/location_input.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/app/browser/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/navigation.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/browser/tests/operations.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/tests/operations.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/app/browser/tests/recent.rs` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/app/browser/tests/relocation.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/tests/relocation.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/selection.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/browser/tests/staging.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring.md) | — |
+| `src/app/browser/tests/staging.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
 | `src/app/browser/tests/undo_refresh.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
 | `src/app/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -246,6 +277,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/model/action.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `src/model/hidden_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/model/hidden_names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/model/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/model/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/portal.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -317,6 +350,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/docx/namespaces.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/docx/namespaces/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/docx/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/file_activity.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `src/services/file_activity/tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/services/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/services/file_providers.rs` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/services/file_providers/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -327,6 +362,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/install_source/tests.rs` | tests | [Package-managed installs](../features/app/updates/package-managed.md) | [Updates](../features/app/updates/index.md) |
 | `src/services/integration_catalog.rs` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/services/integration_catalog/tests.rs` | tests | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `src/services/item_identity.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/services/item_identity/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/services/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/services/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/services/mime_type.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -376,6 +413,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/update_install/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `src/storage.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/storage/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/storage/writer.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/storage/writer/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/test_support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/tests.rs` | tests | [Packaging and installation](../features/app/packaging/index.md) | — |
@@ -392,6 +431,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/clipboard.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/clipboard/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/collection.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/browser/collection/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/columns.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/drag_scroll.rs` | code | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/ui/browser/columns/drag_scroll/tests.rs` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
@@ -406,6 +446,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/context_menu/tests/open_with.rs` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/browser/customization.rs` | code | [Folder and file customization](../features/browser/folder-customization.md) | — |
 | `src/ui/browser/desktop.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
+| `src/ui/browser/desktop/tests.rs` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/browser/destination.rs` | code | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/ui/browser/dissolve_delete.rs` | code | [Permanent deletion](../features/operations/delete.md) | — |
 | `src/ui/browser/entry.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
@@ -417,6 +458,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/fly_to_trash.rs` | code | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/fly_to_trash/tests.rs` | tests | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/inline_edit.rs` | code | [Inline rename](../features/operations/rename.md) | — |
+| `src/ui/browser/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `src/ui/browser/leftovers/tests.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/ui/browser/listing_filter.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/listing_search.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/location.rs` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
@@ -427,6 +470,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/ui/browser/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/ui/browser/presentation.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
+| `src/ui/browser/presentation/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser/preview.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/browser/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/ui/browser/progress/context.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
@@ -443,8 +487,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/tab_stops.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/browser/transfer.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/ui/browser/transfer_report.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
-| `src/ui/browser/transfer_report/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility.md) | — |
+| `src/ui/browser/transfer_report.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/ui/browser/transfer_report/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/ui/browser/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
 | `src/ui/browser/trash/tests.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `src/ui/browser_modes.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
@@ -462,6 +506,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/chooser/tests/acceptance.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/column_widths.rs` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/chooser/tests/column_widths.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `src/ui/chooser/tests/confined.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/filtered_preview.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/image_conversion.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/tests/keyboard.rs` | tests | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -539,6 +584,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/text_size.rs` | code | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/trashed.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/presence.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `src/ui/presence/tests.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
 | `src/ui/preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/archive.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `src/ui/preview/audio` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -546,6 +593,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preview/audio/analysis/tests.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/audio/details/tests.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/audio/tests.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/components.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/ease_in.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/ease_in/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/find.rs` | code | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -557,12 +605,14 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preview/pdf_ranges_tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/pdf_text.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/pdf_text/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/ui/preview/player_layout.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/session.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests.rs` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/audio.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/find.rs` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/media_controls.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/model.rs` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/tests/operations.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/tests/pdf.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/tests/video.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/video` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -605,11 +655,13 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/install_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/settings/integrations.rs` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/settings/integrations/tests.rs` | tests | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `src/ui/settings/release_picker.rs` | code | [Install a specific release](../features/app/updates/release-picker.md) | [Updates](../features/app/updates/index.md) |
 | `src/ui/settings/search.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/search/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/dismissal.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/tests/general.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `src/ui/settings/tests/release_picker.rs` | tests | [Install a specific release](../features/app/updates/release-picker.md) | [Updates](../features/app/updates/index.md) |
 | `src/ui/settings/tests/restart.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/tests/update_dialog.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `src/ui/settings/tests/updates.rs` | tests | [Updates](../features/app/updates/index.md) | — |
@@ -651,6 +703,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/thumbnail/background.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `src/ui/thumbnail/background/tests.rs` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `src/ui/thumbnail/camera.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/thumbnail/camera/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/thumbnail/slot.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/slot/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
@@ -743,12 +796,18 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/unlock_argument/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/volume_password.rs` | code | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/volume_password/tests.rs` | tests | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/util/gresource.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/util/gresource/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/util/mod.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/util/tests.rs` | tests | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/util/ui_thread.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/util/ui_thread/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/e2e/Dockerfile` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/e2e/baselines/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/e2e/conftest.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/e2e/fixtures/file_drag_source.py` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `tests/e2e/harness/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/e2e/main-io-allowlist.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/e2e/mutations/clipboard.patch` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `tests/e2e/mutations/drag-and-drop.patch` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/e2e/mutations/filter-results.patch` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |

@@ -3,7 +3,7 @@ title: Integrations catalog
 status: shipped
 origin: {issue: lgse/strata#1741, pr: lgse/strata#1748}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
 tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs, tests/e2e/scenarios/test_integrations.py]

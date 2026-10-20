@@ -3,7 +3,7 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
@@ -38,6 +38,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - The new archive appears only when encoding finishes, then is selected and scrolled into view in every view mode. lgse/strata#147, lgse/strata#616
 - Compression runs as a progress card at the bottom right showing Preparing…, then Compressing… with file counts, and browsing stays available. lgse/strata#981, lgse/strata#1393
 - Cancelling compression stops within the current member, then shows the cancellation summary; no partial archive or staging file remains. lgse/strata#410, lgse/strata#981
+- The new archive is built in a hidden `.strata-copy-<id>` stage; on SMB without server inode numbers, a cancelled or failed compression removes it too. lgse/strata#1729
 - Ctrl+Z after compression moves the new archive to Trash. lgse/strata#1097
 - Closing the Compress dialog opened from the item menu with Escape, Cancel, or a backdrop click returns focus to the cursor row. lgse/strata#1533
 
@@ -47,9 +48,12 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Enter activates the focused button; Escape and Cancel leave the existing archive unchanged. lgse/strata#986
 - Escape, Cancel, or X on the "File already exists" prompt returns focus to the listed item that was focused before it. lgse/strata#1533
 - Keep Both creates the next free numbered name, such as `archive (1).zip` or `archive (1).tar.gz`, and selects it. lgse/strata#986
+- Keep Both tries every numbered name, so it succeeds when only the last one is free. lgse/strata#1729
 - A long archive name numbered by Keep Both is cut so the number fits the name limit. lgse/strata#1615
 - Replace moves the existing archive to Trash before publishing; Ctrl+Z returns it. lgse/strata#1097
-- Where Trash is unavailable, Replace sets the existing archive aside or exchanges it, and deletes it after the new archive is flushed; Ctrl+Z has nothing to undo. lgse/strata#1615
+- Without Trash, Replace moves the existing archive into a hidden `.strata-originals-<id>` folder, by exchange where supported. It deletes it after the new archive is flushed. lgse/strata#1615, lgse/strata#1729
+- Ctrl+Z then has nothing to undo. lgse/strata#1615
+- When that original cannot be deleted, compression still completes and reports the folder that keeps it. lgse/strata#1729
 - Replace is refused before encoding when no strategy is safe there, and a name taken during replacement keeps the original aside. lgse/strata#1615
 - Replace keeps the replaced archive's permission bits on the new archive. lgse/strata#410
 - Cancelling, or an encoding failure, during Replace leaves the existing archive in place. lgse/strata#147, lgse/strata#981
@@ -84,6 +88,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 - A single top-level entry lands in the destination under its own name, or `name (2)`, `name (3)` when that name is taken. lgse/strata#1160, lgse/strata#1478
 - A taken single top-level folder such as `strata-1.0.0` publishes as `strata-1.0.0 (2)`; a file or symlink gets the suffix before its extension, `readme (2).txt`. lgse/strata#1617
+- An extracted `readme.` beside a taken one becomes `readme. (2)`, not `readme (2).`. lgse/strata#1729
 - Several top-level entries land in a folder named after the archive without its extension, such as `photos/` for `photos.zip`, or `photos (1)/` when taken. lgse/strata#1160, lgse/strata#1478
 - Entries inside that new folder keep their archive names even when the destination has same-named entries. lgse/strata#1478
 - An existing symlink, device, or socket at a top-level name is never followed or replaced; the entry gets a numbered name. lgse/strata#1478
@@ -137,11 +142,12 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A member that produces more or fewer bytes than its header declares fails the extraction and is not kept. lgse/strata#605
 - A highly compressible archive with truthful headers extracts in full; there is no ratio or entry-count cap. lgse/strata#605
 - If the item stopped being a regular file after the menu opened, extraction fails with "Not an archive: “<name>”" before creating anything. lgse/strata#1478
+- Extract to… accepts a write-only folder, such as mode `0733`, then fails with "Could not open extraction destination: Permission denied". lgse/strata#1729
 - After Extract to… fails, such as into a read-only folder, the next Extract here stays in the current folder and selects its output. lgse/strata#864, lgse/strata#1605
 
 ## Design
 
-[docs/archives.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/archives.md) carries the extraction safety model, output rules, metadata handling, compression policy per format, and cancellation.
+[docs/archives.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/archives.md) carries the extraction safety model, output rules, metadata handling, compression policy per format, and cancellation.
 
 - Member paths are untrusted. Writes go through one pinned destination descriptor with `openat2` and per-component `NOFOLLOW`, so traversal names and swapped symlinks cannot escape (lgse/strata#109, lgse/strata#116).
 - The destination itself may be reached through ordinary symlinks; it is resolved with `RESOLVE_IN_ROOT` and pinned, as copy and compress already did (lgse/strata#644, lgse/strata#678).
@@ -167,6 +173,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1729 | fix | Tried every Keep Both number, set replaced archives aside in an originals folder, and removed SMB stages on cancel. |
 | 2026-10-15 | lgse/strata#1605 | fix | Dropped the pending navigation when Extract to… fails, so the next extraction stays put. |
 | 2026-10-14 | lgse/strata#1617 | fix | Numbered a taken single-root folder after its whole name, so `strata-1.0.0` becomes `strata-1.0.0 (2)`, not `strata-1.0 (2).0`. |
 | 2026-10-12 | lgse/strata#1586 | fix | Published extracted folders on filesystems without `RENAME_NOREPLACE`, such as ntfs-3g, instead of leaving them in staging. |
