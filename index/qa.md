@@ -91,7 +91,7 @@ reviewed at [`fd63272`](https://github.com/lgse/strata/tree/fd6327265eaa3266f842
 | --- | --- | --- | --- | --- |
 | [Devices and volumes](../features/devices/volumes/index.md) `devices/volumes` | 5 | — | 1 | — |
 | ↳ [Camera photos](../features/devices/volumes/camera.md) `devices/volumes/camera` | 6 | — | 4 | [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/site/src/reference/preview-sandbox.md) |
-| ↳ [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) `devices/volumes/drive-dialogs` | 6 | — | 5 | — |
+| ↳ [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) `devices/volumes/drive-dialogs` | 7 | — | 5 | — |
 | ↳ [Encrypted volumes](../features/devices/volumes/encrypted.md) `devices/volumes/encrypted` | 5 | — | 1 | — |
 | ↳ [Unmount and eject](../features/devices/volumes/release.md) `devices/volumes/release` | 6 | — | 1 | [`docs/filesystem-compatibility.md`](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/filesystem-compatibility.md) |
 | ↳ [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) `devices/volumes/udiskie-unlock` | 5 | — | 3 | [`docs/packaging.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/packaging.md), [`docs/preferences.md`](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/preferences.md) |

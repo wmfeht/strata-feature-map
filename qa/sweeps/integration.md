@@ -53,7 +53,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Narrow a chooser with no preview until the sidebar rails, step to hidden and to full, then narrow and widen again; open a preview at each step. Read the toggle's tooltip and accessible name.
 - With 10xer mode on, arm `g` with focus on a PDF page in the preview, press Ctrl+0, then press `d`; read the chord panel, the page width, and the location.
 - In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
-- In Send to on the `ntfs-3g` loop device, open the link that leaves the device, the link that stays on it, and a typed `../` path. Repeat with its `ntfs-3g` process stopped while a check runs, and click in the window before resuming it.
+- In Send to on the `ntfs-3g` loop device, open the link that leaves the device and the link that stays on it. Then type a `../` path. Repeat with its `ntfs-3g` process stopped while a check runs, and click in the window before resuming it.
 - Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
 - With 10xer mode on, open F1 in a chooser and turn the mode off from a browser window. Press Ctrl+plus, Ctrl+3, Ctrl+A, and Enter. Press Escape twice and read the response code.
 - Select a filter result, then press Shift+Space in Name under `save` and Space while an input method composes. Press Space on a sidebar row and a header button.
@@ -131,7 +131,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Delete the cursor file from a shell while the `s` stream is still running. Repeat while an `f` prompt has focus in Columns with a child column open.
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
-- Open a Ctrl+F filter of `rpeort md`, then `md report gamma`, and toggle the mode on and off with each. Toggle again while typing a query.
+- Type a Ctrl+F filter of `^gam 'report md$`, toggling the mode on and off after each word. Then commit it and toggle twice more.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
 - Fill two `f` hits, rest the cursor on an unfilled hit, then cancel a Shift+Delete dialog, Tab out and back, and close Quick Look; read which hit holds focus and whether the fill changed.
 - Rename a folder two levels above an `s` search while its stream is still running. Rename one back before the monitor fires, and rename one while a copy runs into it.

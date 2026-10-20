@@ -75,6 +75,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Duplicate creates `<id>-copy` named "<name> copy", trying `-copy-1` and so on, and never replaces an existing folder. lgse/strata#1085
 - Import… copies only `action.toml` and its entrypoint. It saves the action disabled under a free id and asks the user to review the script. lgse/strata#1085
 - Export… writes the action to `<chosen folder>/<id>` and refuses if that folder exists. lgse/strata#1085
+- Saving an edit or flipping the switch of an action deleted outside Strata recreates nothing. The save fails with "The action “<id>” no longer exists". lgse/strata#1729 (unverified)
 
 ### Script library
 

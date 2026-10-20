@@ -24,12 +24,11 @@ Opening files in their default application, choosing another application from th
 - Outside Flatpak, activating a file with no default application opens the Open With chooser for it instead of an error. lgse/strata#1012, lgse/strata#1635
 - When that chooser has no application to offer, it shows "No application is registered for this file" with Open disabled. lgse/strata#1012
 - Closing the fallback chooser returns focus to the activated entry. lgse/strata#1012
-- The fallback chooser opens only if no other dialog opened while Strata read the Recently Used history. Pressing Enter twice on such a file opens one chooser. lgse/strata#1729
+- The fallback chooser opens only if the window is visible and shows no other dialog when the Recently Used history read finishes. Pressing Enter twice on such a file opens one chooser. lgse/strata#1729
 - Activating an item in Trash shows "Unable to open item" with "Items in Trash cannot be opened" and launches nothing. lgse/strata#995
 - A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
-- Outside Flatpak, an application that Open With or activation launches starts in `/` when its desktop entry has no `Path=`. lgse/strata#1729
 - Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474, lgse/strata#1635
 - When Strata runs outside Flatpak, Flatpak installs of mpv, VLC, and Celluloid also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474, lgse/strata#1635 (unverified)
 

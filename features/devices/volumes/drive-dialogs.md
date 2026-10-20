@@ -39,6 +39,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 - Format… appears only for volumes on a removable drive; fixed disks and network shares never offer it. lgse/strata#1331, lgse/strata#1393
 - Format Drive opens at once with Continue insensitive; a worker checks the tools and the drive, then fills in the options. lgse/strata#1729
+- A Devices rebuild while Format Drive waits does not lose the Missing tools dialog or the format progress. lgse/strata#1729
 - If `mkfs.fat`, `mkfs.ntfs`/`mkntfs`, or `mkfs.exfat` is missing, Format Drive closes and "Missing tools" opens before anything is unmounted. lgse/strata#1331, lgse/strata#1729
 - Missing tools shows a copyable pacman, apt, dnf, or zypper install command, or generic guidance on an unrecognized distribution. lgse/strata#1331
 - On Arch and Omarchy the suggested NTFS package is `ntfsprogs`. lgse/strata#1331

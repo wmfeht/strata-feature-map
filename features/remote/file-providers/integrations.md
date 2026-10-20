@@ -39,7 +39,7 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - Selecting the footer expands it to "Requires:" with one Available or Missing chip per requirement, the runtime first, and relabels it "Hide requirements". It shows "Checking…" until results arrive. lgse/strata#1748, lgse/strata#1704
 - For each missing requirement with a package for the detected pacman, apt, dnf, or zypper, the expanded footer shows "Install missing dependencies with:" and the copyable command. lgse/strata#1748
 - Each install command has a Run in terminal button. After the terminal opens, the page says "The command opened in your terminal. Select Refresh when it finishes." lgse/strata#1704, lgse/strata#1729
-- When no terminal emulator resolves, selecting Run in terminal shows "No terminal emulator was found." under the command, with ways to configure or install one. lgse/strata#1729 (unverified)
+- When no terminal emulator resolves, selecting Run in terminal shows "No terminal emulator was found." under the command. It suggests `xdg-terminal-exec` with `~/.config/xdg-terminals.list`, setting `$TERMINAL`, or a listed terminal. lgse/strata#1729 (unverified)
 - A `command` requirement is met when its name or one of its `alternatives` resolves in a trusted system directory. lgse/strata#1748, lgse/strata#1756
 - A `command` requirement is also met through a link in a search directory, such as `/usr/bin/localsend` → `/opt/localsend/localsend`. lgse/strata#1756
 - That link counts only when root owns the target and every directory above it, and none is group- or world-writable. lgse/strata#1756

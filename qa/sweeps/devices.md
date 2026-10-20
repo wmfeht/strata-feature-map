@@ -67,6 +67,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Open Format Drive, detach the disk before Continue, reattach, and press Format.
 - Format while a shell sits inside the mount, and with an Eject pending on the same row. Cancel the polkit prompt at the unmount step, then at the format step.
 - Open the unlocked LUKS volume's Properties and Format Drive after `dmsetup suspend` on its mapping; close each before its facts arrive, then `dmsetup resume`.
+- Replug another stick while Format Drive loads its facts, and again while it formats.
 
 ### devices/volumes/camera
 

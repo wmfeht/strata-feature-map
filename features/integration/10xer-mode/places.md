@@ -26,7 +26,8 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - A missing user folder flashes `No Downloads folder`, `No Documents folder`, `No Pictures folder`, or `No Videos folder` and stays put. lgse/strata#1296
 - A missing Music folder flashes `No Music folder`, and a missing `~/.config` flashes `No .config folder`; neither navigates. lgse/strata#1296, lgse/strata#1342 (unverified)
 - `g c`, `g d`, `g k`, `g m`, `g p`, and `g v` navigate only after a worker checks the folder. A check still running after 2 s opens the folder, and the pane shows its error. lgse/strata#1729
-- A folder counts as missing only when it is not a folder, or is gone from a parent that has other entries and no mount points. A folder on an unplugged drive opens with its error. lgse/strata#1729
+- A folder counts as missing only when it is not a folder, or is gone from a parent with other entries. That parent must hold no mount points. A folder on an unplugged drive opens with its error. lgse/strata#1729
+- A navigation made while a `g` chord's folder check runs wins; the check's answer is dropped. lgse/strata#1729 (unverified)
 - `g 1` to `g 9` open the visible PINNED rows in sidebar order, skipping bookmarks that are standard places; a missing pin flashes `No pin N`. lgse/strata#1296
 - Esc cancels an armed chord, and any other unknown second key cancels it with `Unknown chord`. lgse/strata#1296
 - Opening Settings, leaving the mode, or closing the window drops an armed chord. lgse/strata#1296

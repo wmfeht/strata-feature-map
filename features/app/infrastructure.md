@@ -52,6 +52,11 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - Without `STRATA_UI_STALL_MS`, or with `0` or a non-number, no stall watchdog runs. lgse/strata#1729 (unverified)
 - In a debug build, a file call that Strata guards panics on the UI thread with "file calls must not run on the UI thread". Start-up and the exit flush are exempt. lgse/strata#1729 (unverified)
 
+### Working folder
+
+- Once command-line paths are resolved, Strata's working folder is `/`. An application it launches without a desktop `Path=` starts in `/`. lgse/strata#1729
+- The D-Bus service and the portal backend change their working folder to `/` at start. lgse/strata#1729
+
 ### Trusted helper lookup
 
 - A helper present in both a fixed root and a configured directory resolves to the fixed-root copy. lgse/strata#1746

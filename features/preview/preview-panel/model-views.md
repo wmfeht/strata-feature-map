@@ -34,7 +34,8 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ### Loading and errors
 
-- Before its first image, an STL or 3MF shows its filename, position eyebrow, and its uppercase extension as format badge, such as "STL". lgse/strata#1764
+- Before its first image, an STL or 3MF shows its filename, position eyebrow, and format badge. lgse/strata#1764
+- That first-load format badge is the uppercase extension, such as "STL". lgse/strata#1764 (unverified)
 - On a first load, the triangle badge appears once rendering reports a count; with the image, the format badge becomes "Binary STL", "ASCII STL", or "3MF". lgse/strata#1764
 - Previous and Next are insensitive until the first image is ready; clicking them does nothing. lgse/strata#1764
 - A loading FreeCAD file or embedded-image 3MF shows the same details and inactive camera controls, then switches to the plain image. lgse/strata#1764
@@ -44,7 +45,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - The header spinner's accessible label reads "Loading preview…", then "Reading model…", "Rendering N triangles…", and "Finishing preview…"; embedded images read "Reading thumbnail…" instead of the count. lgse/strata#1276, lgse/strata#1644, lgse/strata#1764
 - Clicking a camera button during a render is ignored; the button keeps focus and the drawer keeps the keys. lgse/strata#1644
 - Selecting a non-model file mid-render stops and hides the header spinner. lgse/strata#1644 (unverified)
-- Selecting another model file mid-render keeps the header spinner showing for that file's first load. lgse/strata#1764
+- Selecting another model file mid-render keeps the header spinner showing for that file's first load. lgse/strata#1764 (unverified)
 - After the first image, a failed view render or image decode keeps the previous image and shows an error under the controls; the buttons retry. lgse/strata#1644, lgse/strata#1764
 - A first load that fails shows "Preview unavailable" and its error in the drawer, with no camera controls. lgse/strata#1764
 

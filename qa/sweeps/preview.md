@@ -24,7 +24,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
 - Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. `tests/e2e/harness/keyboard_layout.py` switches the layout, locks the XKB group, and restores `us` afterwards.
-- An NFS or SMB mount holding a music folder and a RAW folder, for probes that rename or delete what the preview reads.
+- An NFS or SMB mount holding a music folder, a RAW folder, and a model folder with the FreeCAD file and the embedded-PNG 3MF, for probes that rename or delete what the preview reads.
 - Reduce motion and Element glow each on and off, under the GL renderer and `GSK_RENDERER=cairo`. Two windows of the same build on one media folder for volume sync, the four-player cap, and width isolation.
 
 ## Probes
@@ -142,9 +142,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Read the buttons, the indicator, and the header spinner in Accerciser while a view renders.
 - Open the same model in two windows, pick different views, then change the theme.
 - Make a view render fail by replacing the file with garbage between clicks, then restore it and retry.
-- Click Previous and Next during the first render of the STL near 2 million triangles, before any image shows.
+- During the first render of the STL near 2 million triangles, press Previous and Next with the pointer, then focus them with Tab and press Space and Enter.
 - Preview the FreeCAD file and the embedded-PNG 3MF from the network mount; read the header and badges before the image lands.
-- Switch from one model to another mid-render, then from a model to a text file mid-render; watch the header spinner each time.
+- Switch from a model to a text file mid-render; watch the header spinner.
 - Preview a garbage file named `.stl` on a first load, then compare with a failure after the first image.
 
 ### preview/preview-panel/sandbox
