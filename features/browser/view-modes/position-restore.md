@@ -38,7 +38,7 @@ Icons and List remember each folder's selection, cursor, and scroll position, an
 
 ### Refreshing
 
-- In Icons and List, F5, the Refresh button, a network-folder re-list, or a rescan past 4,096 queued changes keeps the cursor row, selection, and scroll offset. lgse/strata#1434, lgse/strata#1544, lgse/strata#1729
+- In Icons and List, these reloads keep the cursor row, selection, and scroll offset: F5, the Refresh button, a network-folder re-list, and a rescan past 4,096 queued changes. lgse/strata#1434, lgse/strata#1544, lgse/strata#1729
 - After End then F5, the last row keeps the cursor at the same position on screen, and Left or Up moves from it. lgse/strata#1434, lgse/strata#1544
 - In Icons and List, a refresh keeps focus on a focused row, or in a focused Ctrl+F field with its query. That holds through a slow reload. lgse/strata#1434, lgse/strata#1544
 - Typing in the Ctrl+F field during that reload does not stop focus returning to it. Tab, Escape, or pointer input does. lgse/strata#1544

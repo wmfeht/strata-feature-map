@@ -61,7 +61,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - The popover does not appear while the breadcrumbs are showing. lgse/strata#388
 - Closing and reopening the editor shows no stale or flashing suggestion list. lgse/strata#1206
 - While the typed folder is being listed, the previous suggestions stay; only the latest text's list replaces them. lgse/strata#1729
-- Tab, Down, Up, Page Down, or Page Up pressed during the listing waits for its list. Enter pressed after one of them waits too. They then run in order. lgse/strata#1729
+- Tab pressed during the listing waits for its list, and so do Down, Up, Page Down, and Page Up while suggestions show. Enter after one of them waits too; they then run in order. lgse/strata#1729
 - A folder load that ends while the entry is open and focused, as in a new tab, leaves the entry open with its text. lgse/strata#1729
 
 ### Breadcrumbs

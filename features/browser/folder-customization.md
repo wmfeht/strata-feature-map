@@ -63,7 +63,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - Undo or redo of a rename or move carries the customization back or forward. lgse/strata#1554
 - Moving a customized item to Trash in Strata removes its keys from `settings.toml`; Put back or Ctrl+Z restores them for the session. lgse/strata#1452, lgse/strata#1554
 - A different item later trashed from the same path does not receive the trashed item's keys. lgse/strata#1554
-- On vfat or exFAT, a folder the kernel renumbered in Trash still gets its keys back on Put back or undo. lgse/strata#1729
+- On vfat, a folder the kernel renumbered in Trash still gets its keys back on Put back or undo. On exFAT, it gets them back only if its inode number is unchanged. lgse/strata#1729
 - The session keeps at most 10,000 trashed keys, dropping the oldest trashed items first. lgse/strata#1554
 - Replace on a move or copy keeps the incoming item's customization; the replaced item's keys go to Trash with it for the session. lgse/strata#1554
 - A Merge that moves destination files to Trash sends their keys to Trash with them for the session; Undo brings them back. lgse/strata#1729
@@ -93,7 +93,7 @@ The request was Finder's folder labels (lgse/strata#211). Folders follow the the
 - The background menu reuses the item dialog. In Columns it targets the location of the pane that was clicked, since several columns are visible at once (lgse/strata#746, lgse/strata#754).
 - Storage is keyed by the item's path string. Each file operation reports where every item landed, so keys follow the real destination, including Keep both names (lgse/strata#1452, lgse/strata#1554).
 - Keys are rebased by path component, so `/a/doc` never matches `/a/docs2` (lgse/strata#1452).
-- Trash keeps a session record of the item's identity, so a new item at the old path starts plain (lgse/strata#1554). Since lgse/strata#1729 the restore reports the identity it placed, and the mount's identity rule compares it, so birth times prove renumbered FAT items.
+- Trash keeps a session record of the item's identity, so a new item at the old path starts plain (lgse/strata#1554). Since lgse/strata#1729 the restore reports the identity it placed, and the mount's identity rule compares it, so birth times prove renumbered vfat items and exFAT files. exFAT folders are not proven, because every rename into one resets its birth time.
 - Pruning entries for missing paths was rejected, because unmounted removable or network paths would lose their customizations (lgse/strata#1452).
 
 ## History

@@ -60,7 +60,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - A Merge into an existing folder keeps that folder's own values; a move to a place that is not remembered drops them. lgse/strata#1565
 - Values follow renames and moves whether or not the switch is on. lgse/strata#1565
 - Moving a folder to Trash in Strata drops its values; Put back or undo restores them for the session. A permanent delete drops them. lgse/strata#1565
-- On vfat or exFAT, a folder the kernel renumbered in Trash still gets its values back on Put back or undo. lgse/strata#1729
+- On vfat, a folder the kernel renumbered in Trash still gets its values back on Put back or undo. On exFAT, it gets them back only if its inode number is unchanged. lgse/strata#1729
 - Opening a deleted local folder drops its values only when its parent lists other entries and holds no mount points. A drive root keeps them. lgse/strata#1565
 
 ### Storage file

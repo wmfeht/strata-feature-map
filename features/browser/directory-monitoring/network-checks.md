@@ -18,11 +18,11 @@ Periodic checks of shown folders on mounts that other computers or programs chan
 
 ### Which folders are checked
 
-- With **Watch network folders** on, an open folder on a network or FUSE mount other than `fuseblk`, such as NFS, SMB, 9p, or virtiofs, is checked. lgse/strata#1729
+- With **Watch network folders** on, open folders on network and FUSE mounts are checked. That covers NFS, SMB, 9p, and virtiofs, but not `fuseblk`. lgse/strata#1729
 - GVfs locations count as network folders too, except `admin://`, `mtp://`, and `gphoto2://`. lgse/strata#1729
 - `trash:///` and Recent are never checked. lgse/strata#1729 (unverified)
 - With **Watch network folders** off, those folders are never checked or re-listed; changes made on other computers show only after F5. lgse/strata#1729
-- A folder on another mount is checked whatever the switch says while its monitor is not live, as when it could not be created. lgse/strata#1729
+- A local folder, or one on a mount other computers do not change, such as `fuseblk` or `mtp://`, is checked whatever the switch says while its monitor is not live. lgse/strata#1729
 - Columns checks every open column; Icons and List check only the open folder. lgse/strata#1729
 - A folder that shows a load error is not checked until it loads again. lgse/strata#1729
 
@@ -43,6 +43,9 @@ Periodic checks of shown folders on mounts that other computers or programs chan
 - A check that finds the folder gone or replaced acts as a monitor's report: it follows a rename, reloads, or opens the nearest existing folder. lgse/strata#1729
 - A check refused for permission re-lists the folder, so the pane shows the failure. lgse/strata#1729
 - A check that fails with another error, such as `EIO` or `EHOSTDOWN`, keeps the listing and checks again 30 s later. lgse/strata#1729
+- A folder whose check the backend does not support is not checked again. lgse/strata#1729 (unverified)
+- When a mount answers again, a refresh kept on it while it was not answering runs again by itself, still keeping the rows. lgse/strata#1729
+- A folder whose load failed while its mount was not answering loads again by itself once the mount answers. lgse/strata#1729
 - A background re-list that fails, is refused, or stops at the load's time budget keeps the previous listing, with no error page. lgse/strata#1729
 - A background re-list cut at the entry limit is shown, marked as cut. lgse/strata#1729
 - A re-list waits while an inline rename is open or being submitted, and while a Strata operation changes or writes into the folder. lgse/strata#1729

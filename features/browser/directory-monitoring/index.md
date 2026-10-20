@@ -57,7 +57,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - With no reachable ancestor, as at a portal file chooser's navigation boundary, the folder shows its read error and never leaves the boundary. lgse/strata#1554
 - An open folder whose name starts with a dot reports its own removal like any other. lgse/strata#1554
 - On a backend without inode identity, such as a GVfs share, an outside rename of the open folder counts as a departure. lgse/strata#1554
-- On sshfs, and for any folder on exFAT, an outside rename of the open folder also counts as a departure: the pane opens the nearest existing folder. lgse/strata#1729
+- On sshfs, exfat-fuse, and vboxsf, and for any folder on exFAT, an outside rename of the open folder also counts as a departure: the pane opens the nearest existing folder. lgse/strata#1729
 
 ### Manual refresh
 
@@ -68,8 +68,6 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 - Once a request on a mount has gone 2 s without progress, opening another folder there fails at once with "The operation timed out". lgse/strata#1729
 - F5, Retry, or a monitor's rescan on such a mount keeps the shown rows instead of showing an error. lgse/strata#1729
-- When the mount answers again, that kept refresh runs again by itself, still keeping the rows until the new listing replaces them. lgse/strata#1729
-- A folder whose load failed while its mount was not answering loads again by itself once the mount answers. lgse/strata#1729
 - A folder whose load failed while its mount answered keeps its error until Retry. lgse/strata#1729
 - A refresh that keeps a listing of more than 512 entries first shows all of its rows, never stopping at the first 128. lgse/strata#1729
 
@@ -97,7 +95,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
 - After Strata's own operations, folders with a monitor rely on it and only folders without one reload, avoiding needless reloads (lgse/strata#1035). Until lgse/strata#1615 the test was native versus non-native, and the reload was skipped after a cancel or when another watched folder had rescanned.
 - A folder's own monitor reports deletion, rename, and move alike. Strata then looks in the parent, off the main thread, for the same device, inode, and birth time (lgse/strata#1554).
-- The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554). Since lgse/strata#1729 the comparison starts from the load's change stamp and uses the mount's identity rule. Where nothing proves the folder, as on sshfs or for exFAT folders, the rename is not followed.
+- The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554). Since lgse/strata#1729 the comparison starts from the load's change stamp and uses the mount's identity rule. Where nothing proves the folder, as on sshfs, exfat-fuse, and vboxsf or for exFAT folders, the rename is not followed.
 - A watch on the open folder's parent was rejected before merge. In a busy parent it delayed notifications from about 100 ms to 150 ms (lgse/strata#1435, lgse/strata#1554).
 - The owner chose the nearest existing ancestor with no history entry and followed renames in place. A move to another parent counts as a deletion (lgse/strata#1554).
 - An Auto-refresh timer, Off by default, was added because monitors can miss changes on network shares (lgse/strata#172, lgse/strata#173). lgse/strata#1729 removed it: the lab saw no inotify event for 300 changes made on other computers over NFS, SMB, and sshfs. Stamp checks in `browser/directory-monitoring/network-checks` replace it.
