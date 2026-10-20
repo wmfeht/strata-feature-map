@@ -12,7 +12,7 @@ related: [browser/view-modes/icons, browser/folder-customization]
 
 ## Summary
 
-Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, bundled GTK control icons, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
+Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, GTK control icons, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
 
 ## Behavior
 
@@ -32,7 +32,7 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 ### GTK control icons
 
-- Under the Breeze, Yaru, or Adwaita icon theme, the arrows of Settings dropdowns, such as Language and Release channel, and of the drive format dialog dropdown draw the same thin Lucide chevron. lgse/strata#1777, lgse/strata#1778
+- Under any icon theme, every dropdown and menu-button arrow draws one Lucide chevron. Examples are Settings → General → Language and the drive format dialog's dropdown. lgse/strata#1777, lgse/strata#1778
 - Under any icon theme, the Text size, Corner roundness, and Thumbnail workers spin buttons draw Lucide − and + steps. lgse/strata#1778
 - Those steps follow the control's CSS color, including hover and disabled states. lgse/strata#1778
 - The spin buttons in the Customize… custom color editor draw the bundled − and + steps. lgse/strata#1778
@@ -104,7 +104,7 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-20 | lgse/strata#1778 | fix | Drew dropdown arrows and spin-button steps from bundled Lucide icons, so their shape no longer changes with the desktop icon theme. |
+| 2026-10-20 | lgse/strata#1778 | fix | Drew dropdown arrows and spin-button steps from bundled Lucide icons. Their shape no longer changes with the desktop icon theme. |
 | 2026-10-15 | lgse/strata#1675 | perf | Checked the icon texture cache before loading and recoloring an icon's SVG source. |
 | 2026-10-12 | lgse/strata#1589 | fix | Redrew video as a clapperboard and archives as a folder-archive, and mapped 10 more video and 8 more archive extensions. |
 | 2026-10-10 | lgse/strata#1561 | fix | Outlined the language glyphs at folder stroke weight in padded view boxes and replaced the custom Java glyph with Devicon's. |

@@ -159,7 +159,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - `GTK_THEME` bypasses GTK's settings, so startup re-execs without it, through the same path as the Cairo renderer. Editing the environment after threads start was avoided (lgse/strata#1680).
 - Stylesheets above user priority win only for properties they set. A reset provider unsets every property just above user priority; the built-in theme, Strata's stylesheet, and its tokens follow in rising priority (lgse/strata#1681, lgse/strata#1682).
 - The source-preview style scheme is built in memory as a one-file resource, and the style manager searches only that resource folder. Saving it to the cache and rescanning listed the user's folders on the UI thread (lgse/strata#1729).
-- Language lookups keep GtkSourceView's bundled and system folders and drop those under the user's data and home folders, which the first preview listed on the UI thread (lgse/strata#1729).
+- Language lookups keep GtkSourceView's bundled and system folders and drop those under the user's data and home folders. The first preview had listed them on the UI thread (lgse/strata#1729).
 - Tokyo Night became the default at the maintainer's request; Azure Glow stayed the missing-theme fallback (lgse/strata#541, lgse/strata#542).
 - The editor preview is process-wide: one style provider serves every window. The manager stores the preview tokens, so appearance refreshes re-apply the preview rather than the saved theme (lgse/strata#1457, lgse/strata#1533).
 - Every Settings close route, and the layer unrealizing, runs a hook that discards the preview. A closed window never runs `hide` (lgse/strata#1457, lgse/strata#1533).
@@ -179,7 +179,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-20 | lgse/strata#1773 | perf | Pinned GTK's theme to an empty bundled theme, so GTK no longer matches every widget against a `Default` copy the reset hides. |
+| 2026-10-20 | lgse/strata#1773 | perf | Pinned GTK's theme to an empty bundled theme. GTK no longer matches widgets against a hidden `Default` copy. |
 | 2026-10-18 | lgse/strata#1758 | feat | Loaded an optional `~/.config/strata/style.css` above Strata's stylesheets, re-read live, so users can restyle layout beyond the color tokens. |
 | 2026-10-17 | lgse/strata#1724 | fix | Lifted bundled themes' dim text to the body-text contrast floors and stopped desaturating Settings icons, so secondary text no longer reads as disabled. |
 | 2026-10-15 | lgse/strata#1651 | feat | Added the Show thumbnails switch to the File icons group and to Settings search. |

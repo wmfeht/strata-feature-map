@@ -121,8 +121,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Choosing a folder saves it and shows it with `~/` for paths under home. lgse/strata#943
 - A new window without an explicit target or restored tabs opens at the chosen folder; `browser/tabs/session-restore` owns when tabs restore. lgse/strata#943, lgse/strata#1532
 - Reset restores the home directory as the default. lgse/strata#943
-- If the saved folder is proven missing or not a folder, a new window opens home and the saved choice is cleared. lgse/strata#943, lgse/strata#1729
-- If the saved folder cannot be checked within 2 s, such as on a stopped NFS or FUSE mount, the window opens it with its error and keeps the saved choice. lgse/strata#1729
+- A saved folder counts as gone when it is not a folder, or when it is missing beside other entries in a parent with no mount points. lgse/strata#1729
+- If the saved folder is gone, a new window opens home and the saved choice is cleared. lgse/strata#943, lgse/strata#1729
+- A missing folder on an unplugged drive, an unmounted share, or in an empty or unreadable parent is not gone. The window opens it and keeps the choice. lgse/strata#1729
+- If the check has not finished after 2 s, such as on a stopped NFS or FUSE mount, the window opens the saved folder and keeps the choice. lgse/strata#1729
 - That folder loads by itself once the mount answers. lgse/strata#1729
 
 ### Hidden files
@@ -155,7 +157,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Page scrollers refuse horizontal scrolling. GTK treats an `External` horizontal policy as scrollable, so sideways deltas panned the page with up to 100 px of overshoot even with no horizontal range (lgse/strata#1712, lgse/strata#1719).
 - A page bin reports no horizontal minimum and gives its content the viewport width. A content minimum can then neither restore the pan nor clip the right edge. It passes its child's request mode through, because a fixed one cached a single-line height for wrapped text (lgse/strata#1719).
 - The dark band at scroll walls was GTK's default overshoot gradient; Settings clears it as context menus and popovers already did (lgse/strata#1719).
-- The default directory is checked on a worker rather than on the UI thread before the window shows. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
+- The default directory is checked on a worker after the window opens, instead of with `is_dir()` on the UI thread. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 

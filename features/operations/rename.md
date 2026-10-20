@@ -87,7 +87,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 - Only Escape and an invalid name revert. Focus loss to another window first committed by design (lgse/strata#686).
 - lgse/strata#1714 reversed that. GTK sends a focus leave when the window deactivates, including when an input method switcher grabs the keyboard. The edit now ends only on focus moves within the window, as the filter and location bar already did (lgse/strata#1714).
-- Local renames go through the placement routine of `operations/filesystem-compatibility` instead of GIO's check-then-rename. A case-only rename takes two steps, with rollback, through a hidden name (lgse/strata#1615); since lgse/strata#1729 that is a `.strata-originals-<id>/` folder holding the item under its old spelling.
+- Local renames go through the placement routine of `operations/filesystem-compatibility` instead of GIO's check-then-rename. A case-only rename takes two steps, with rollback, through a hidden name (lgse/strata#1615). Since lgse/strata#1729 that is a `.strata-originals-<id>/` folder holding the old spelling.
 - Typed names are refused with the reason, never fixed (lgse/strata#1615).
 - Click-away first cancelled the edit (lgse/strata#115). It now commits, so new and existing items share one rename path (lgse/strata#566, lgse/strata#567).
 - The rename is dispatched on idle, after GTK's focus walk. Refreshing the model inside that walk destroyed the focused row and froze List and Icons (lgse/strata#566).

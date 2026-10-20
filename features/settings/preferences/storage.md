@@ -12,7 +12,7 @@ related: []
 
 ## Summary
 
-How application-wide preferences are loaded, saved to `settings.toml` through one background writer, recovered from damaged files, and kept in step across every window of one Strata process. Every Settings row and every preference consumer goes through this store.
+How application-wide preferences are loaded, saved to `settings.toml`, recovered from damaged files, and kept in step across every window of one Strata process. Saves go through one background writer. Every Settings row and every preference consumer goes through this store.
 
 ## Behavior
 
@@ -22,7 +22,7 @@ How application-wide preferences are loaded, saved to `settings.toml` through on
 - A preference change applies at once; one background writer thread saves it afterwards, in order with Strata's other settings and state files. lgse/strata#1729
 - While a save of `settings.toml` waits in the queue, a newer change replaces its contents, so only the newest values are written. lgse/strata#1729
 - Quitting waits up to 10 s for queued saves to finish. lgse/strata#1729
-- A crash before a queued save runs loses that change. lgse/strata#1729
+- A crash before a queued save runs loses that change. lgse/strata#1729 (unverified)
 - A save writes a temporary file in the destination's directory, syncs it, and renames it into place. lgse/strata#39, lgse/strata#1544
 - A failed write leaves the previous `settings.toml` intact and removes the temporary file. lgse/strata#39
 - An existing `settings.toml` keeps its permission bits, so a 0644 file stays 0644; a missing one is created 0600. lgse/strata#1544
@@ -91,7 +91,7 @@ How application-wide preferences are loaded, saved to `settings.toml` through on
 - A failed save was only logged, so changes were lost without notice. One notice per failure streak covers write failures; the unreadable file gets one notice per session (lgse/strata#1455, lgse/strata#1544).
 - The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md), lgse/strata#1544).
 - One background writer runs every save of Strata's own settings and state files, so no save blocks the UI thread on a slow mount. Startup reads stay synchronous as a documented exception (lgse/strata#1729, docs/preferences.md).
-- Quitting waits up to 10 s for queued saves, a lead call the owner may override; the design had 1 s (lgse/strata#1729).
+- Quitting waits up to 10 s for queued saves; the design had 1 s (lgse/strata#1729).
 - The writer remembers the stamp of every file it wrote or read. Re-reads after another process's write cover folder views, custom themes, Omarchy state, and the default sort and thumbnail size in `settings.toml`. A change of this process still being saved wins (lgse/strata#1729).
 - Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field (lgse/strata#518).
 

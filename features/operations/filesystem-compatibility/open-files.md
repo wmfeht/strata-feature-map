@@ -42,7 +42,8 @@ Before a file operation changes an item, Strata stops its own reads of it. It th
 [docs/filesystem-compatibility.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/filesystem-compatibility.md) "Files that are still open" carries the release, what each mount leaves, and the holder search.
 
 - One registry, `services::file_activity`, records every read of a user's file and every running operation. A folder the user opens is not registered, so browsing where an operation works is never blocked (lgse/strata#1729).
-- The release runs on every mount, local disks included, and resolves the folder's real path so a read opened through a symlink is released too (lgse/strata#1729).
+- The release runs on every mount, local disks included (lgse/strata#1729). It resolves the folder's real path, so a read opened through a symlink is released too (lgse/strata#1729).
+- The foreign-leftover wait (`remove_folder`, `held_only`, 2 s `LINGERS`) lives in `leftovers.rs`, which `operations/filesystem-compatibility/leftovers` owns by most of its lines (lgse/strata#1729).
 - Other programs' leftovers are never deleted, renamed, copied, or moved on Strata's own; the error names the holder instead (lgse/strata#1729).
 - The holder search checks Strata's own registry first, then `/proc/*/fd` confirmed by `fdinfo`, then `/proc/*/maps`, and stops after 200 ms. It never calls `stat` through another process's descriptor (lgse/strata#1729).
 - The SMB rename retry runs only after a refusal. On Linux 7.2.5 no rename was refused after a close, 0 of 360; the retry covers 6.17 to 7.1 (lgse/strata#1729).
@@ -57,6 +58,7 @@ Before a file operation changes an item, Strata stops its own reads of it. It th
 - The holder search sees only processes on this computer that Strata may read, and its 200 ms limit is an estimate. lgse/strata#1729
 - A leftover nobody holds, such as a crashed NFS client's, keeps its folder until removed by hand. lgse/strata#1729
 - An SMB unlink refused by another computer holding the file without delete sharing fails with `EIO`, reported as an I/O error. lgse/strata#1729
-- SMB before Linux 6.17 keeps a deleted open file under its own name, which is not recognised; the 6.17 to 7.1 rename retry is unverified. lgse/strata#1729
+- SMB before Linux 6.17 keeps a deleted open file under its own name, which is not recognised. lgse/strata#1729
+- The SMB rename retry for Linux 6.17 to 7.1 is unverified. lgse/strata#1729
 - rclone, gvfsd-fuse, and GVfs's own deletes meet leftovers with their own errors. lgse/strata#1729
 - A single file another program has open is deleted without a report, as on local disks. lgse/strata#1729

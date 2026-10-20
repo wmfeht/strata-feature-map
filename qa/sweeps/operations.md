@@ -121,7 +121,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Hold a file below a folder on NFS, SMB, and sshfs, and unlink it from a shell. Then Delete, Move to another disk, and Move to Trash the folder.
 - Repeat with each holder from Setup, and with the holder owned by another user.
-- Quit the holder about 1 s into the wait; repeat with 50 held folders deleted at once and time the wait.
+- Delete 50 held folders at once and time the wait.
 - On SMB without and with POSIX extensions, rename and move a folder while a file below it is open in another program.
 - Play a video in the preview and rename, then delete, its folder from a second window, on NFS and on a local disk.
 - Start a Delete while a thumbnail of a large image in that folder is still loading.
@@ -133,7 +133,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Open the review, remove one item from a shell, then press Restore and Delete… on it.
 - Close the folder before pressing Review on the card; reopen the same folder in a second window in the same session.
 - Kill Strata with `kill -9` during a Replace on sshfs and on NFS, then open the folder.
-- Open an `sftp://` folder holding leftovers, and a read-only ntfs3 mount holding an originals folder.
+- Open an `sftp://` folder holding leftovers.
+- Unplug an ntfs3 stick during a Replace without Trash, then plug it in with udisks' default options and open the folder.
 - Mount a vfat stick last written in a time zone to the west that holds a fresh `.strata-probe-*`.
 
 ### operations/trash
@@ -184,7 +185,6 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
 - Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
 - Shift+Delete through a symlink alias into an NFS folder.
-- With hidden files shown, select another program's `.nfs…` or `.fuse_hidden…` file by name and Shift+Delete it.
 
 ### operations/archives
 

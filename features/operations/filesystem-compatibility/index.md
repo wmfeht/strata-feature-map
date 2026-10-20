@@ -30,6 +30,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - A lost reply (`EIO`, `ETIMEDOUT`) to the rename over a placeholder removes the placeholder and reports the error on mounts with stable inode numbers. lgse/strata#1615
 - On sshfs and vboxsf, such a lost reply keeps both names and reports the item as unconfirmed. lgse/strata#1615
 - On a mount whose type is unknown or unreadable, a lost reply never removes the placeholder on an equal inode number. lgse/strata#1729
+- A placement checks the source name just before the move and refuses another item found there, moving nothing. lgse/strata#1729
 - An item found at a placement's destination with another identity right after the move stays there, reported as unconfirmed, and is never moved back. lgse/strata#1729
 
 ### Identity
@@ -44,7 +45,8 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - There a move's copy replaced by a same-size, same-time file before the source is deleted keeps the source. lgse/strata#1729
 - On ntfs-3g, inode numbers count as kept once Strata's probe link keeps the number with two links. lgse/strata#1729
 - In 10xer mode, the rename prompt accepts a case-only rename such as `foo` to `Foo` on exfat-fuse, and on SMB after `serverino` went off. lgse/strata#1729
-- Renaming `a.txt` to another hard link's name, `link.txt`, or its case variant on a case-insensitive folder, keeps the prompt open with "“link.txt” already exists"; nothing changes. lgse/strata#1729
+- In 10xer mode, renaming `a.txt` to another hard link's name `link.txt`, or its case variant on a case-insensitive folder, keeps the prompt open. lgse/strata#1729
+- The prompt then reads "“link.txt” already exists", and nothing changes. lgse/strata#1729
 
 ### Copying
 
@@ -79,7 +81,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - Nothing only the copy holds is deleted before the destination is flushed. lgse/strata#1615
 - That covers move sources, Replace originals, merge set-asides, and restored Trash copies. lgse/strata#1615
 - A failed flush deletes nothing. lgse/strata#1615
-- On vfat, exFAT, ntfs-3g, and exfat-fuse, a set-aside original is removed after flushing its folder, the filesystem, then the folder again. On ntfs3 the folder is flushed first. lgse/strata#1729
+- On vfat, msdos, exFAT, ntfs3, ntfs-3g, and exfat-fuse, that flush is a folder fsync, syncfs, then a folder fsync again. lgse/strata#1729
 - Source deletions after a flush are batched at 256 items, 1 GiB, or 5 seconds. lgse/strata#1615
 - A paste of more than 8 native files with no conflicts copies or moves up to 8 at a time, or 1 when either disk is rotational. lgse/strata#1615
 - An SMB open of another hard-linked name refused during the client's deferred close is retried for `closetimeo` plus 0.5 s, at most 10 s. lgse/strata#1615

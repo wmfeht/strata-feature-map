@@ -68,7 +68,7 @@ One undo history and one redo history for file operations, shared by every Strat
 - An undo that reverts only some items leaves the rest for the next Ctrl+Z. lgse/strata#301
 - After a multi-item move undo where one conflict was answered with Skip, Ctrl+Shift+Z moves forward only the items that went back. lgse/strata#1120
 - A redo that applies only some items records an undo entry for just those items. lgse/strata#1120
-- Undo of a move, copy, create, Restore, or compression skips items proven gone from where the operation left them. lgse/strata#301, lgse/strata#444, lgse/strata#1729
+- Undo of a move, copy, create, Restore, or compression skips items proven gone from where the operation left them. lgse/strata#301, lgse/strata#444, lgse/strata#1729 (unverified)
 - Ctrl+Z after moving a dangling symlink moves it back. lgse/strata#1729
 - Redo of a move or Move to Trash skips items no longer where the undo left them. lgse/strata#1120 (unverified)
 - When no items remain, that Ctrl+Z or Ctrl+Shift+Z only discards the entry; the next press reaches the entry before it. lgse/strata#444, lgse/strata#1120 (unverified)

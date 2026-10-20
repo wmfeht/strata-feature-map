@@ -27,13 +27,16 @@ Recognising the hidden `.strata-*` names a crash, kill, or unplug leaves in a fo
 - `.nfs…`, `.fuse_hidden…`, and `.__smbfile_silly…` files never count as leftovers. lgse/strata#1729
 - The portal file chooser, Trash, and Recent show no leftover button. lgse/strata#1729
 - The first time per session a shown folder holds possible originals, a dock card reads "“%{folder}” holds originals that an interrupted operation set aside." with Review. lgse/strata#1729
+- Review on the card opens the folder when it was closed meanwhile; its header button then opens the review. lgse/strata#1729
 - The card closes after 15 s unless pinned. A folder holding only an incomplete copy shows the button but no card. lgse/strata#1729
 - With hidden files shown, the context menu of a single originals, merge, or older-build leftover row offers Restore. lgse/strata#1729
 
 ### Review
 
 - The review lists each item with its kind, contents, date, and hidden name, above "Another program or computer may still be using these items. Restore never replaces an existing item." lgse/strata#1729
-- Originals and merge folders, and older builds' originals, offer Restore and Show. Incomplete copies offer Show and Delete…. lgse/strata#1729
+- Originals and merge folders, older builds' originals, and possible originals offer Restore and Show. Incomplete copies offer Show and Delete…. lgse/strata#1729
+- An item still held open by another program, or gone, shows no Restore; a gone item reads "No longer here". lgse/strata#1729
+- Show reveals the item and turns hidden files on. lgse/strata#1729
 - An incomplete copy reads "A copy that never finished. Its source was not changed." lgse/strata#1729
 - Restore puts originals back under their own names, selects them, and removes the emptied hidden folder. It adds nothing to Undo. lgse/strata#1729
 - A name taken meanwhile gets the next Keep Both number, such as `song (1).flac`, listed under "This name was already taken", or "These names were already taken" for several. lgse/strata#1729
@@ -46,6 +49,7 @@ Recognising the hidden `.strata-*` names a crash, kill, or unplug leaves in a fo
 ### Stale probes
 
 - An empty `.strata-probe-*` file or folder over 1 hour old in a listed folder is removed in the background; errors are ignored. lgse/strata#1729
+- Each folder and name is swept once per session. lgse/strata#1729
 - A probe modified within the last hour stays. lgse/strata#1729
 
 ## Design

@@ -70,6 +70,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - New Folder in the chooser creates a destination; "Move here" or "Copy here", or Ctrl+Enter from the file list, confirms. lgse/strata#1384
 - Cancelling the chooser or closing its parent window leaves the files and the parent's location unchanged. lgse/strata#1384
 - A window opens at most one chooser at a time. lgse/strata#1384
+- A removable device's folder chooser still lists links leading off the device; confirming one shows "Choose an existing folder inside this removable device." lgse/strata#1729
 - After confirming, the window navigates to the destination and selects the transferred items. lgse/strata#125, lgse/strata#1384
 - Cancelling a running foreground Move to… from its progress card, then running Extract here, keeps the window in the current folder. lgse/strata#1605
 
