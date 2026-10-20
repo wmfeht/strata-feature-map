@@ -38,12 +38,12 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - A selection that includes Trash or a non-native GVfs item shows no custom actions. lgse/strata#1085
 - Actions with `menu = "top"` appear in the menu body. Others appear under an Actions submenu. Both groups are sorted by name, ignoring case. lgse/strata#1085 (unverified)
 - Custom actions sit in their own section after the open, print, and extract commands and before Cut and Copy. lgse/strata#1085
-- Menus, the 10xer action chord, and Settings → Actions show the actions as last read; an action changed outside Strata appears once a background reread finishes. lgse/strata#1729
+- Menus, the 10xer action chord, and Settings → Actions show the actions as last read. An action changed outside Strata appears once a background reread finishes. lgse/strata#1729
 
 ### Invocation
 
-- Choosing an action changed since the menu or chord listed it runs nothing and shows "Unable to run action" with "Actions changed". lgse/strata#1729
-- Choosing an action whose folder was removed since the menu listed it runs nothing and shows "Unable to run action" with "The action “<id>” no longer exists". lgse/strata#1729 (unverified)
+- Choosing an action whose definition changed since the menu or `;` listed it runs nothing. It shows "Unable to run action" with "Actions changed". lgse/strata#1729
+- Choosing an action whose folder was removed since the menu listed it runs nothing. It shows "Unable to run action" with "The action “<id>” no longer exists". lgse/strata#1729 (unverified)
 - An action with `confirm = true` opens "Run this action?" with the action name and item count, and Run focused. Cancel runs nothing. lgse/strata#1085, lgse/strata#1206
 - Programs and interpreters get argv entries directly, never through a shell. lgse/strata#1085
 - A command argument that is exactly `{path}`, `{paths}`, or `{parent}` expands to absolute paths, one argument each. Other arguments pass through literally. lgse/strata#1085
@@ -104,7 +104,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Action interpreters resolve on the user's `PATH`, including shims. Strata's own helpers use only fixed trusted roots (lgse/strata#1055, lgse/strata#1085). Packagers can add build-time `STRATA_TRUSTED_COMMAND_PATH` directories that resolve under a trust root (lgse/strata#1746).
 - A broken definition is reported under Problems and never hides other actions (lgse/strata#1085).
 - The actions folder is read and written on the background settings writer, never on the UI thread. Interpreter lookups, imports, and exports run on a separate worker under the per-mount request limits (lgse/strata#1729).
-- Choosing an action rereads its definition first, so an edit made after the menu opened cannot run unseen (lgse/strata#1729).
+- Menus show a cached catalog so opening one reads no disk; rereading at the choice keeps that cache from running a stale definition (lgse/strata#1729).
 - Rename recipes are not transactions and offer no undo. Cancelling or an I/O error can leave earlier files renamed (lgse/strata#1085).
 
 ## History

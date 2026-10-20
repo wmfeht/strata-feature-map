@@ -96,5 +96,6 @@ Returning trashed items to their original locations, from the Restore menu item 
 ## Known gaps
 
 - A lookup timeout frees its batch slot while the blocking worker may still run, so more than 8 lookups can be outstanding. lgse/strata#733
-- On sshfs and exfat-fuse, alike files trashed from one path within one second both stay in Trash on Undo; on vfat and exFAT, within one 10 ms tick. lgse/strata#1729
+- On sshfs, exfat-fuse, vboxsf, and msdos, alike files trashed from one path within one second both stay in Trash on Undo. lgse/strata#1729
+- On vfat and exFAT, that holds within one 10 ms tick. lgse/strata#1729
 - On renumbering mounts without birth times, Undo brings back the newest folder trashed from a path. lgse/strata#1729

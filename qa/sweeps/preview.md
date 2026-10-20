@@ -114,7 +114,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
 - Scroll the fallback seek slider with a touchpad.
-- Play a song with `~/.cache/gstreamer-1.0` removed, then with the sound server stopped mid-play; the window must keep answering.
+- Play a song with `~/.cache/gstreamer-1.0` removed, then with the sound server stopped mid-play.
 
 ### preview/preview-panel/media/audio
 
@@ -191,6 +191,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Layout fallback, Caps Lock, keypad, and translated key names for every shortcut → `app`.
 - Archive member listing and the archive preview → `operations`.
 - Releasing Strata's reads before an operation, and leftovers on network mounts → `operations`.
+- Unmounting a drive while a preview reads a file on it → `devices`.
 - Preview keys and track stepping in 10xer mode → `integration`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.
 - The Settings controls for autoplay, backend, document rendering, and folder peeking → `settings`.

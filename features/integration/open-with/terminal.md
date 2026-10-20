@@ -45,7 +45,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - With Ghostty 1.3 or later running under `gtk-single-instance = true`, Open in Terminal opens a new Ghostty window in the selected folder. lgse/strata#1763, lgse/strata#1762
 - Ghostty 1.2 or 1.1, or a first version line not starting with `Ghostty `, gets the plain `ghostty --working-directory=<folder>` launch. lgse/strata#1763
 - Extra words in `$TERMINAL`, such as `ghostty --class=x`, follow `+new-window`. lgse/strata#1763
-- `.sh` runs and the AUR and Omarchy update rows start Ghostty with `-e` and no `+new-window`, on every version. lgse/strata#1763
+- `.sh` runs, the AUR update row, and the Omarchy row without Omarchy's presentation launcher start Ghostty with `-e` and no `+new-window`. lgse/strata#1763
 - Strata runs `ghostty --version` at most once per program path per session, and never for other terminals or `xdg-terminal-exec`. lgse/strata#1763
 - An `xdg-terminal-exec` that starts Ghostty itself gets no `+new-window`. lgse/strata#1763 (unverified)
 

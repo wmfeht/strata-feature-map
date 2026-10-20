@@ -114,12 +114,12 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Paste onto a stick reached through two nested symlinks, and onto a bind mount of it.
 - Move 300 files to a rotational USB disk and to an SSD; watch for "Writing to device…" and count files on arrival.
 - Produce every report section in one transfer, in a narrow window, while a Send to notice is visible.
-- On an SMB share, look up a folder under a second spelling so the client drops `serverino`, then move a folder off the share and Replace a file on it.
+- On an SMB share, look up a folder under a second spelling so the client drops `serverino`. Then move a folder off the share and Replace a file on it.
 - On a vfat stick, Replace a file after a remount between the prompt and the copy, so the kernel renumbers its entries.
 
 ### operations/filesystem-compatibility/open-files
 
-- Hold a file below a folder on NFS, SMB, and sshfs, unlink it from a shell, then Delete, Move to another disk, and Move to Trash the folder.
+- Hold a file below a folder on NFS, SMB, and sshfs, and unlink it from a shell. Then Delete, Move to another disk, and Move to Trash the folder.
 - Repeat with each holder from Setup, and with the holder owned by another user.
 - Quit the holder about 1 s into the wait; repeat with 50 held folders deleted at once and time the wait.
 - On SMB without and with POSIX extensions, rename and move a folder while a file below it is open in another program.
@@ -128,7 +128,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/filesystem-compatibility/leftovers
 
-- Make each kind by hand: `.strata-originals-<uuid>/`, `.strata-merge-<uuid>/`, `.strata-copy-<uuid>`, `.strata-extraction-<uuid>`, an older `.strata-replaced-<uuid>`, and `.strata-copy-notes`. Open the folder in Columns, List, Icons, the portal chooser, and a peek.
+- Make each kind by hand: `.strata-originals-<uuid>/`, `.strata-merge-<uuid>/`, `.strata-copy-<uuid>`, `.strata-extraction-<uuid>`, an older `.strata-replaced-<uuid>`, `.strata-replacement-ab12Cd`, and `.strata-copy-notes`. Open the folder in Columns, List, Icons, the portal chooser, and a peek.
 - Restore an originals folder whose names are taken by a file, a folder, and a symlink; restore a merge folder whose subfolders were deleted.
 - Open the review, remove one item from a shell, then press Restore and Delete… on it.
 - Close the folder before pressing Review on the card; reopen the same folder in a second window in the same session.

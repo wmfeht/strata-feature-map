@@ -6,7 +6,7 @@ branch: null
 reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/local_operations/release.rs, src/adapters/local_operations/holders.rs, src/adapters/local_operations/deferred_close.rs, src/services/file_activity.rs]
-tests: [src/adapters/local_operations/tests/release.rs, src/adapters/local_operations/holders/tests.rs, src/adapters/local_operations/tests/closes.rs, src/services/file_activity/tests.rs]
+tests: [src/adapters/local_operations/tests/release.rs, src/adapters/local_operations/holders/tests.rs, src/services/file_activity/tests.rs]
 related: [operations/delete, preview/preview-panel/sandbox, devices/volumes/release]
 ---
 
@@ -59,3 +59,4 @@ Before a file operation changes an item, Strata stops its own reads of it. It th
 - An SMB unlink refused by another computer holding the file without delete sharing fails with `EIO`, reported as an I/O error. lgse/strata#1729
 - SMB before Linux 6.17 keeps a deleted open file under its own name, which is not recognised; the 6.17 to 7.1 rename retry is unverified. lgse/strata#1729
 - rclone, gvfsd-fuse, and GVfs's own deletes meet leftovers with their own errors. lgse/strata#1729
+- A single file another program has open is deleted without a report, as on local disks. lgse/strata#1729

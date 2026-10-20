@@ -13,7 +13,7 @@ related: [operations/clipboard, operations/clipboard/conflicts, operations/renam
 
 ## Summary
 
-The no-clobber placement routine, the native copy engine, the per-mount identity rule, and the per-mount name rules behind every local move, copy, Replace, Merge, restore, rename, undo, and archive publish. It keeps these operations working on NFS, SMB, FUSE, FAT, exFAT, NTFS, and case-insensitive mounts, and reports every name it changed and every item it left out. Children: `operations/filesystem-compatibility/open-files` (releasing open files before a change) and `operations/filesystem-compatibility/leftovers` (what a crash or unplug leaves).
+The no-clobber placement routine, the native copy engine, the identity rule, and the name rules behind every local file operation. They cover move, copy, Replace, Merge, restore, rename, undo, and archive publish. They keep these working on NFS, SMB, FUSE, FAT, exFAT, NTFS, and case-insensitive mounts. Every changed name and left-out item is reported. Children: `operations/filesystem-compatibility/open-files` (releasing open files before a change) and `operations/filesystem-compatibility/leftovers` (what a crash or unplug leaves).
 
 ## Behavior
 
@@ -79,7 +79,7 @@ The no-clobber placement routine, the native copy engine, the per-mount identity
 - Nothing only the copy holds is deleted before the destination is flushed. lgse/strata#1615
 - That covers move sources, Replace originals, merge set-asides, and restored Trash copies. lgse/strata#1615
 - A failed flush deletes nothing. lgse/strata#1615
-- Before a set-aside original is removed on vfat, exFAT, ntfs-3g, or exfat-fuse, Strata flushes its folder, the filesystem, then the folder again; on ntfs3 the folder first. lgse/strata#1729
+- On vfat, exFAT, ntfs-3g, and exfat-fuse, a set-aside original is removed after flushing its folder, the filesystem, then the folder again. On ntfs3 the folder is flushed first. lgse/strata#1729
 - Source deletions after a flush are batched at 256 items, 1 GiB, or 5 seconds. lgse/strata#1615
 - A paste of more than 8 native files with no conflicts copies or moves up to 8 at a time, or 1 when either disk is rotational. lgse/strata#1615
 - An SMB open of another hard-linked name refused during the client's deferred close is retried for `closetimeo` plus 0.5 s, at most 10 s. lgse/strata#1615
@@ -128,8 +128,8 @@ The no-clobber placement routine, the native copy engine, the per-mount identity
 - exFAT folder births are not compared, because every rename into a folder reset it, 12 of 12 in the lab (lgse/strata#1729).
 - NFSv3 and ext without births compare file handles, which changed in 198 of 198 NFSv3 inode reuses in the lab (lgse/strata#1729).
 - Where nothing else proves a single Replace target or stage, it is held with an `O_PATH` descriptor so it keeps its number. Never on NFS, where a hold left a `.nfs…` file in 10 of 10 runs (lgse/strata#1729).
-- SMB's creation time stands in for the inode, because the client can drop `serverino` without a mount-table event; the options are read again at each decision (lgse/strata#1729).
-- Records kept after an operation, such as Trash lookups and saved views, carry the mount's traits in `ItemIdentity`, and a comparison uses the weaker of two (lgse/strata#1729).
+- SMB's creation time stands in for the inode, because the client can drop `serverino` without a mount-table event. The options are read again at each decision (lgse/strata#1729).
+- Records kept after an operation, such as Trash lookups and saved views, carry the mount's traits in `ItemIdentity`. A comparison uses the weaker of two (lgse/strata#1729).
 - Each filesystem is flushed the way the lab measured it reaches the device. `syncfs` alone flushes nothing on vfat, exFAT, and FUSE daemons (lgse/strata#1615).
 - Only the first name of a hard-linked file is read during a copy, so later names inherit its digest. SMB refuses to open another name of a file it recently opened, so keeping them is the safe choice (lgse/strata#1750, lgse/strata#1751).
 - Owner decisions: pipes are recreated and other special files skipped, the setgid group is kept, and typed names are refused, never fixed (lgse/strata#1615).
@@ -154,6 +154,10 @@ The no-clobber placement routine, the native copy engine, the per-mount identity
 - On vfat and exFAT, a file made within the same 10 ms tick with the same size and modification time passes. lgse/strata#1729
 - On SMB after `serverino` goes off, neither a moved copy's proof nor the removal of what an operation set aside compares the change time. lgse/strata#1729
 - File handles were measured only on knfsd `no_subtree_check` exports; elsewhere a false "different" keeps the item. lgse/strata#1729
+- On sshfs and vboxsf, a folder put at a held Replace target's name passes for the target. lgse/strata#1729
+- On SMB without server numbers, two names of one hard-linked file moved as separate items leave the later name at the source. lgse/strata#1729
+- A hard-linked file's change time is checked only within one item. lgse/strata#1729
+- A folder the user can neither write nor chmod cannot be set aside or case-renamed: "Permission denied", where earlier builds' flat hidden name worked. lgse/strata#1729
 - A server or daemon clock more than 100 ms behind the client (2 s on sshfs) can hide a same-size rewrite. lgse/strata#1615
 - Moving a just-saved file takes up to 2 s longer on FAT and exFAT, and 3 s on sshfs. lgse/strata#1615
 - On ntfs-3g, an empty folder created at a 237-unit name in the check window is replaced. lgse/strata#1615

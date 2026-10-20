@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1386, pr: lgse/strata#1387}
 branch: null
 reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
-review: reviewed
+review: draft
 code: [src/ui/chooser/image_conversion.rs, src/services/image_conversion.rs, src/sandbox_helper/image_conversion.rs]
 tests: [src/ui/chooser/tests/image_conversion.rs, src/services/image_conversion/tests.rs, src/sandbox_helper/image_conversion/tests.rs, tests/e2e/scenarios/test_chooser_image_conversion.py]
 related: [integration/portal-file-chooser/url-download, preview/preview-panel]
@@ -45,6 +45,7 @@ An opt-in conversion to PNG for images downloaded through the chooser's Name fie
 - Only a 32-byte signature is read outside the sandbox; decoding and encoding run in the bounded helper (lgse/strata#1387).
 - Incompatible colour profiles abort conversion rather than being stripped or colour-converted (lgse/strata#1387).
 - The 128 MiB decoder allocation budget is best-effort. Pre-decode dimension checks and sandbox process limits bound resources (lgse/strata#1387).
+- Signature detection, the reuse check of an earlier download, and the rename to the target name run on a worker. Open waits for them, and a cancel or a new download drops their answer (lgse/strata#1729).
 
 ## History
 

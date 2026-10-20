@@ -41,9 +41,8 @@ The "Install a specific release" menu in Settings → Updates. It lists the rele
 
 ## Design
 
-The list ignores the installed version on purpose: choosing an older release is how a user rolls back (lgse/strata#1779, lgse/strata#1781).
+The list is fetched only when the menu opens, so opening Settings alone never calls GitHub (lgse/strata#1781). Which releases it holds, and why it ignores the installed version, is in `app/updates/release-channels`.
 
-- The list is fetched only when the menu opens, so opening Settings alone never calls GitHub (lgse/strata#1781).
 - Package-managed installs get no menu, because their package manager decides the version (lgse/strata#1779).
 - A chosen release reuses the update dialog and its verified, install-guarded flow rather than a separate install path (lgse/strata#1781).
 - Downloading an older archive by hand was the rejected alternative: it skips manifest verification and the rollback safety net (lgse/strata#1779).

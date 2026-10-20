@@ -40,7 +40,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - A loading FreeCAD file or embedded-image 3MF shows the same details and inactive camera controls, then switches to the plain image. lgse/strata#1764
 - A FreeCAD file's loading badge reads "FCSTD". lgse/strata#1764 (unverified)
 - No loading card covers the model; the header spinner left of Open is the only indicator, shown at once for first loads and view changes. lgse/strata#1764
-- While another view renders, the last image stays at opacity 0.3 with a wait cursor, and the header shows a spinner left of Open. lgse/strata#1644
+- While another view renders, the last image stays at opacity 0.3 with a wait cursor. lgse/strata#1644
 - The header spinner's accessible label reads "Loading preview…", then "Reading model…", "Rendering N triangles…", and "Finishing preview…"; embedded images read "Reading thumbnail…" instead of the count. lgse/strata#1276, lgse/strata#1644, lgse/strata#1764
 - Clicking a camera button during a render is ignored; the button keeps focus and the drawer keeps the keys. lgse/strata#1644
 - Selecting a non-model file mid-render stops and hides the header spinner. lgse/strata#1644 (unverified)

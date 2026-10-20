@@ -85,10 +85,12 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 ### File operations
 
+- A file operation that changes the previewed item or a folder holding it clears the preview first, in the browser and the file chooser. lgse/strata#1729
 - Renaming or deleting the folder of a song or video playing in the preview stops playback. lgse/strata#1729
 - A file operation on a sibling of the previewed file leaves the preview showing and playing. lgse/strata#1729 (unverified)
 - After a rename of the previewed item or its folder, the preview shows the item at its new name once the operation ends. lgse/strata#1729
 - A preview refused with "This item is being changed by a file operation." after that operation ended loads again at once. lgse/strata#1729
+- A preview refused while an operation is still releasing shows "Preview unavailable" with that message, then reloads the focused entry when the operation ends. lgse/strata#1729 (unverified)
 
 ### Printing
 
@@ -120,7 +122,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833).
 - 3MF and FreeCAD prefer embedded thumbnails at the owner's request; geometry is the fallback (lgse/strata#1225).
 - Camera views render on demand and share the 128 MiB preview cache, keyed by view. The single heavy-preview permit keeps four angles from multiplying peak memory (lgse/strata#1644, lgse/strata#1633).
-- Audio, video, and model previews share a details header, navigation row, badge row, and player layout with named areas. One universal player was rejected because artwork, the spectrum, and the camera need different content; playback, seeking, camera motion, and loading stay per preview (lgse/strata#1659, lgse/strata#1764).
+- Audio, video, and model previews share a details header and navigation row; video and model also share a badge row and a player layout with named areas. One universal player was rejected because artwork, the spectrum, and the camera need different content; playback, seeking, camera motion, and loading stay per preview (lgse/strata#1659, lgse/strata#1764).
 - The stream-copy video and native GIF paths from lgse/strata#318 were replaced by sandboxed streaming (lgse/strata#839).
 
 ## History

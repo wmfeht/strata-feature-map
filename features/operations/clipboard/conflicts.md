@@ -61,8 +61,8 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - Replace onto a destination without a local path fails with "Safe replacement is unavailable at this destination" and keeps the existing item. lgse/strata#25
 - Without Trash, Replace moves the original into a hidden `.strata-originals-<id>/` folder under its own name, then deletes it after the flush. lgse/strata#1615, lgse/strata#1729
 - An exchange Replace also runs through that folder, so a `.strata-copy-*` stage only ever holds a copy. lgse/strata#1729
-- An original that cannot be removed after the new item is placed no longer fails the paste. It completes with any Undo it has and reports "“%{name}” was replaced, but its original could not be removed from “%{kept}”: %{error}". lgse/strata#1729
 - A failure there puts the original back; Replace is refused before copying when no strategy is safe. lgse/strata#1615
+- An original that cannot be removed after the new item is placed no longer fails the paste. It completes with any Undo it has and reports "“%{name}” was replaced, but its original could not be removed from “%{kept}”: %{error}". lgse/strata#1729
 - Where Trash is unavailable, Merge sets originals aside in a hidden `.strata-merge-<id>` folder and removes it once the merge is flushed. lgse/strata#1615
 - A name taken since the check ends such a merge, keeping the aside folder and naming it. lgse/strata#1615
 - Cancelling such a merge after it placed an item ends as Cancelled, with the originals back and no `.strata-merge-*` folder left. lgse/strata#1729
@@ -97,4 +97,3 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 ## Known gaps
 
 - The dialog cannot paste an item under a custom name; the fix is unmerged. lgse/strata#1299, lgse/strata#1303
-- Replace without Trash of a folder the user can neither write nor chmod fails with "Permission denied", where earlier builds' flat hidden name worked. lgse/strata#1729

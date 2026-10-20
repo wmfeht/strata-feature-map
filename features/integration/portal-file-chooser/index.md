@@ -99,7 +99,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Invoking another destination command while one is open presents the existing chooser instead of opening a second. lgse/strata#1384 (unverified)
 - Closing the originating window closes its chooser; Cancel leaves the files and the window's location unchanged. lgse/strata#1384
 - For Send to, the sidebar and its toggle are hidden, and Ctrl+B or Ctrl+N in 10xer mode leaves the sidebar hidden. Navigating outside the device shows "Choose an existing folder inside this removable device." lgse/strata#1384 (unverified)
-- In Send to, a link on the device to a folder off the device stays listed; opening it shows "Choose an existing folder inside this removable device." lgse/strata#1729
+- In Send to, a link on the device to a folder off the device stays listed. Opening it shows "Choose an existing folder inside this removable device." lgse/strata#1729
 - Move to, Copy to, and Extract to offer New Folder. Enter in the path entry navigates; Ctrl+Enter in the file list or the action button confirms. lgse/strata#1384
 - Send to disables New Folder in the menu, the toolbar, and Ctrl+Shift+N. lgse/strata#1384 (unverified)
 

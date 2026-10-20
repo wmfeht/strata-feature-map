@@ -33,6 +33,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - The "Install a specific release" list keeps only releases with this architecture's archive, `strata-update-manifest.json`, and `strata-update-manifest.signatures.json`. lgse/strata#1781
 - Releases before `v0.22.0-nightly.20261005` have no signed manifest, so the list omits them. lgse/strata#1781
 - The list reads GitHub's releases in pages of 100. It stops after a page shorter than 100, a page whose last release is unsigned, or 5 requests. lgse/strata#1781
+- A failed page fails the whole list, and the menu shows "Couldn't load releases: <reason>". lgse/strata#1781 (unverified)
 
 ### Settings → Updates
 
@@ -98,4 +99,4 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 
 ## Known gaps
 
-- The release list stops after 5 pages, so signed releases beyond the 500 newest are not listed. lgse/strata#1781
+- Releases older than the 500 newest on GitHub are not listed, because the release list is capped at 5 requests of 100. lgse/strata#1781

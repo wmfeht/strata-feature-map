@@ -44,7 +44,8 @@ Update checks and actions for Strata installed by a package manager: the officia
 - Without the launcher, or if it fails to start, it runs `omarchy update` in the configured terminal; a failed start logs a warning. lgse/strata#196, lgse/strata#1609
 - An AUR install offers "Open AUR Update", running `<helper> -Syu <package>` in a terminal, when a marker-listed helper is on `PATH`. lgse/strata#183 (unverified)
 - Without such a helper, an AUR install offers "View on AUR", which opens the package page. lgse/strata#183 (unverified)
-- In the update dialog, Open AUR Update and Open Omarchy Update turn insensitive while the terminal starts. A failed start shows its reason, re-enables the button, and keeps the dialog open. lgse/strata#1729 (unverified)
+- In the update dialog, Open AUR Update, View on AUR, and Open Omarchy Update turn insensitive while the launch starts. A successful start closes the dialog. lgse/strata#1729 (unverified)
+- A failed start shows its reason in the dialog, re-enables the button, and keeps the dialog open. lgse/strata#1729 (unverified)
 - A pacman install says to install through a full system update and offers no install action. lgse/strata#196, lgse/strata#210
 
 ## Design
@@ -60,7 +61,7 @@ Replacing a pacman-owned `/usr/bin/strata` fails on permissions, and with enough
 - The marker is scoped to the official AUR packages, locks the shown channel to the package, and tolerates unknown keys for older binaries (lgse/strata#183).
 - The AUR marker lists helpers instead of an `update_command`, because pacman cannot update an AUR package (lgse/strata#183, docs/packaging.md).
 - Open Omarchy Update uses the launcher Omarchy's own menu uses, so the window floats and its output stays readable after a failed update (lgse/strata#1608, lgse/strata#1609).
-- The AUR helper search on `PATH` runs with update-method detection, off the UI thread. Until it answers, an AUR install's action reads "View on AUR" (lgse/strata#1729).
+- The AUR helper search on `PATH` runs with update-method detection, off the UI thread (lgse/strata#1729).
 - Detection fails safe: an unreadable marker or a failed ownership query keeps in-place replacement off (lgse/strata#183, lgse/strata#196).
 
 ## History

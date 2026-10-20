@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#1354}
 branch: null
 reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
-review: reviewed
+review: draft
 code: [src/ui/recent_apps]
 tests: [src/ui/recent_apps/tests.rs]
 related: []
@@ -35,6 +35,7 @@ History is keyed by MIME type rather than by file path, so one choice serves eve
 
 - Entries carry persisted sequence numbers instead of timestamps, so recency survives restarts and merges across the types of a multi-type selection. Exhausted counters are compacted without changing order (lgse/strata#1354) (unverified).
 - History is advisory: read or write failures are logged and never prevent a launch (lgse/strata#1354).
+- History is read and recorded on the background settings writer, never on the UI thread (lgse/strata#1729).
 - An empty application database leaves history untouched, so a failed discovery cannot erase it. A changed MIME association alone does not prune an installed application (lgse/strata#1354) (unverified).
 
 ## History

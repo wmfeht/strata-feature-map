@@ -155,7 +155,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open Settings → Updates on the proxy-failed state, click Check now five times quickly, then restore the network and click once.
 - Compare the installed-release expander on the plain build, the prerelease build, and a build tagged with no GitHub release.
 - Serve release bodies through the proxy that hold a `<!-->` short form, a comment inside a fenced code block, and `-->` mid-paragraph; read the expander, the Available card, and the update dialog.
-- Serve release-list pages through the proxy: release 100 of page 1 unsigned, 250 signed releases, then a failing page 2. Count requests and read the list.
+- Serve 250 signed releases through the proxy with page 3 answering HTTP 500, then open the release menu.
 
 ### app/updates/release-picker
 
@@ -168,11 +168,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 ### app/updates/release-channels
 
 - On the prerelease build, select Stable with no newer stable release; then select Preview and Nightly and read the button, status, and labels after each change.
-- Open the update dialog for a nightly, switch the channel to Stable in a second window, and click the dialog's button.
+- Open the update dialog for a nightly offer, and for a release candidate chosen from the release list; switch the channel to Stable in a second window, then click the dialog's button.
 - Write `channel = "beta"` and an empty value into `settings.toml` and read the menu after restart.
 - Hand-edit the cached release list so a tag reads `v0.10.0-rc.0` and another `0.10.0-RC.1`; neither may be offered.
 - Serve a release list holding `v1.0.0` and `1.0.0`, and a stable tag GitHub flags as a prerelease; open the menu on each channel.
-- Choose a release candidate on Preview, switch to Stable in a second window, then click Install release.
 
 ### app/updates/install
 
