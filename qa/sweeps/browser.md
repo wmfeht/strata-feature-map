@@ -29,7 +29,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
 - Network mounts for change-check and stalled-mount probes: NFSv3 and NFSv4.2 exports, a `cifs` SMB share, an `sshfs` mount, and a 9p or virtiofs share. Each must be writable from the server. Stall a mount by stopping its server or sending SIGSTOP to the FUSE daemon. `powerprofilesctl` switches power-saver mode.
-- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
+- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition, a kernel exFAT partition, and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
 - `tests/e2e/mutations/` holds the `click-modes`, `filter-results`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
 
 ## Probes
@@ -270,7 +270,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Set Search entry limit to 200,000 and filter `100000` plus a second large folder below it; change the limit in another window's Settings and type one more character.
 - With 10xer mode on, move the cursor with `f` results and a fill, open and cancel a dialog, then close Quick Look; note which hit has the focus ring.
 - Select a file hit, then press Space in the location bar, the preview find bar, a sidebar row, and the sidebar toggle; repeat in the file chooser's name and location fields.
-- Type `duck txt`, `duck `, `duck  txt`, `txt duck`, and `abc tex` then `abc text`. Use Columns with Include subfolders off, then Icons and List with it on.
+- Type `duck  txt` and `txt duck` in Columns with Include subfolders off, then in Icons and List with it on.
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
 
@@ -378,19 +378,18 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 - Run `touch f{1..5000}` then `rm f*` in the open folder; count the rows afterwards and look for duplicates and lost selection.
 - `mv` the open folder in Columns with three descendants open, then `rm -rf` it; repeat in Icons and List.
-- Write `auto_refresh_interval = 600` and `watch_network_folders = "no"` into settings.toml; start, change another setting, and read the file back.
-- Stall an NFS mount, press F5 and Retry on its folder, open a second folder there, and resume the server. Count rows and errors at each step.
+- Stall an NFS mount, press F5 with an inline rename open in its folder, and resume the server before submitting the rename.
 - On a stalled mount, open a 2,000-entry folder, press F5 before all rows show, and resume the server.
 - `mv` the open folder during a 2,000-file copy into it. Then `mv` it twice within 100 ms and press Escape during the second.
 - `rm -rf` and recreate the open folder within 100 ms; `chmod 000` it; `mv` a dot-named open folder with hidden files off.
-- `mv` an open folder on an `sftp://` share and on the ntfs-3g partition; read the pane and history.
+- `mv` an open folder on an `sftp://` share, the ntfs-3g partition, an `sshfs` mount, and a kernel exFAT partition; read the pane and history.
 - Paste 50 files into an open `sftp://` folder and an sshfs folder, cancel halfway, then repeat to completion; count reloads and rows each time.
 
 ### browser/directory-monitoring/network-checks
 
-- Change files from the server in a shown folder on each network mount. Time each appearance with the window focused, unfocused, minimized, and on another workspace.
+- Change files from the server in a shown NFS folder while the window sits on another workspace; time the appearance.
 - Turn Watch network folders off and on in one window while a second window and the portal chooser show the same NFS folder.
-- Edit a file in place on the server, leave the window for 29 s, then 31 s, and compare its size and date on return.
+- Edit a file in place on the server and leave the window for 29 s. Repeat with 31 s, comparing its size and date on return.
 - Run `rsync -a` into a shown SMB folder, which puts its modification time back. Then change a Samba folder from the server itself.
 - Change a 9p `cache=loose` share and an rclone bucket twice in one second, with power-saver on, then off.
 - Start a rename in a shown NFS folder, change the folder from the server, and wait three checks before Enter. Repeat during a 2,000-file paste into it.

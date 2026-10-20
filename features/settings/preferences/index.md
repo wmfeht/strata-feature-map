@@ -40,7 +40,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Restart
 
 - Pressing Restart now twice quickly relaunches Strata once; a restart requested while one is starting is ignored. lgse/strata#1729
-- When a window refuses to close for a restart, Strata keeps running and does not relaunch. lgse/strata#1729
+- When a window refuses to close for a restart, Strata keeps running and does not relaunch. lgse/strata#1519, lgse/strata#1729
 
 ### Choice menus
 
@@ -73,7 +73,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Searching "typeface" or "family" shows the Interface font row. lgse/strata#1696 (unverified)
 - Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735
 - Searching "add-ons" or "plugins" opens the Integrations page. lgse/strata#1748
-- Searching "rollback", "downgrade", or "previous version" opens Updates with the Install a specific release row. lgse/strata#1781 (unverified)
+- On an in-place install, searching "rollback", "downgrade", or "previous version" opens Updates with the Install a specific release row. lgse/strata#1781 (unverified)
 - Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)

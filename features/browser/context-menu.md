@@ -43,7 +43,6 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Keyboard navigation
 
 - A menu opens with keyboard focus on its first visible action; focus stays there while Open With lookup finishes, even with the pointer resting over the menu. lgse/strata#1155
-- In a folder's menu, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
 - Up and Down move between enabled actions, skipping separators and wrapping at either end; Home and End jump to the first and last action. lgse/strata#666
 - Enter or Space activates the focused action and closes the menu. lgse/strata#666
 - Escape closes the menu, keeps the selection, and returns focus to the entry or pane that opened it. lgse/strata#666
@@ -67,6 +66,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Under Flatpak, once the selected types resolve, the multi-selection menu shows Open above Open With…, even with different or no defaults. lgse/strata#1635 (unverified)
 - When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
+- In the background menu of a folder, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
 - Custom action rows appear after the opening group and before Cut. lgse/strata#1085 (unverified)
 - Actions hidden for the current target leave no empty group or doubled separator. lgse/strata#1210
 - Open With… shows AppWindow, Duplicate CopyPlus, Copy path(s) Route, Copy name(s) FileType, Move to… FolderInput, and Copy to… FolderOutput. lgse/strata#1210

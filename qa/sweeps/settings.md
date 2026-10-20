@@ -57,7 +57,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Flip Show sizes in Columns view in window A three times. Window B shows List, then has the Appearance menu open, then has Settings open on General.
 - On every Settings page, swipe sideways on a touchpad, Shift+wheel, and drag-scroll past both ends at text size 8, 32, and 48 in a 640 px wide window; read the right edge and the scroll walls.
 - At text size 48 and the narrowest window, open General, Appearance, Integrations, and Diagnostics after a Run; watch the log for allocation warnings and scroll to each last row.
-- Seed `auto_refresh_interval = 300` with no `watch_network_folders`, then `watch_network_folders = "yes"`; launch, read the switch, change one other preference, and diff `settings.toml`.
+- Seed `auto_refresh_interval = 300` with no `watch_network_folders`, then with `"yes"`, then `"no"`; launch, read the switch, change one other preference, and diff `settings.toml`.
 - Set Default directory to a folder on the sshfs mount, stop the daemon, and open a new window. Resume after 1 s and after 30 s; then delete the folder on the server while stopped and resume.
 - Click Restart now five times within a second after a renderer change, then with Properties open in another window; count Strata processes after the relaunch.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.

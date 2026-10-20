@@ -18,8 +18,9 @@ Periodic checks of shown folders on mounts that other computers or programs chan
 
 ### Which folders are checked
 
-- With **Watch network folders** on, an open folder on NFS, SMB, 9p, virtiofs, or a FUSE mount other than `fuseblk` is checked. lgse/strata#1729
-- GVfs locations are checked too, except `admin://`, `mtp://`, and `gphoto2://`. lgse/strata#1729
+- With **Watch network folders** on, an open folder on a network or FUSE mount other than `fuseblk`, such as NFS, SMB, 9p, or virtiofs, is checked. lgse/strata#1729
+- GVfs locations count as network folders too, except `admin://`, `mtp://`, and `gphoto2://`. lgse/strata#1729
+- `trash:///` and Recent are never checked. lgse/strata#1729 (unverified)
 - With **Watch network folders** off, those folders are never checked or re-listed; changes made on other computers show only after F5. lgse/strata#1729
 - A folder on another mount is checked whatever the switch says while its monitor is not live, as when it could not be created. lgse/strata#1729
 - Columns checks every open column; Icons and List check only the open folder. lgse/strata#1729
@@ -43,6 +44,7 @@ Periodic checks of shown folders on mounts that other computers or programs chan
 - A check refused for permission re-lists the folder, so the pane shows the failure. lgse/strata#1729
 - A check that fails with another error, such as `EIO` or `EHOSTDOWN`, keeps the listing and checks again 30 s later. lgse/strata#1729
 - A background re-list that fails, is refused, or stops at the load's time budget keeps the previous listing, with no error page. lgse/strata#1729
+- A background re-list cut at the entry limit is shown, marked as cut. lgse/strata#1729
 - A re-list waits while an inline rename is open or being submitted, and while a Strata operation changes or writes into the folder. lgse/strata#1729
 - Where a folder's stamp stays put while names change, as on 9p with `cache=loose`, checked folders are re-listed instead, at most every 15 s. lgse/strata#1729
 

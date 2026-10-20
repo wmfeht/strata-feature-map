@@ -78,6 +78,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - In Columns, Enter after Down opens a remaining hit, with no "Unable to open file" dialog. In List and Icons, Down from the field lands on a remaining hit. lgse/strata#1439, lgse/strata#1544
 - With Include subfolders on, a change below the watched folders shows only after F5, a network re-list, a monitor rescan, or reopening the filter. lgse/strata#1439, lgse/strata#1544, lgse/strata#1729 (unverified)
 - A result whose existence check fails or times out, as on a mount that stopped answering, stays; only a result proven gone leaves. lgse/strata#1729
+- When dropped hits leave fewer than 100 results and the ranked candidates filled the limit, the search ranks twice as many candidates to fill them. lgse/strata#1729
 - When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544
 
 ### Results

@@ -24,6 +24,7 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 - Typing "thumbnail workers" in Search settings reveals the control. lgse/strata#1081, lgse/strata#1778
 - Clicking − or +, or typing a count and pressing Return, saves `thumbnail_workers`. It applies to every window without a restart or stopping running jobs. lgse/strata#1081, lgse/strata#1778
 - At 16, clicking + leaves the count at 16. lgse/strata#1778
+- + is insensitive at 16, and − at 1. lgse/strata#1778 (unverified)
 - Clicking the number edits it; there is no reset to the default. lgse/strata#1778
 - The default is the CPU count capped at 4, or 2 when detection fails. lgse/strata#1081
 - With no saved count, `STRATA_THUMBNAIL_WORKERS` sets the default; an invalid value falls back to the CPU default. lgse/strata#1081, lgse/strata#1778

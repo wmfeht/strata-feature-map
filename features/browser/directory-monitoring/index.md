@@ -13,7 +13,7 @@ related: [browser/selection, browser/view-modes, browser/view-modes/position-res
 
 ## Summary
 
-How an open folder's listing is loaded, published to the view, and kept in step with the filesystem. Covers bounded loads, live updates from file monitors, F5 and the pane Refresh button, mounts that stop answering, and how changes made by Strata's own file operations reach the listing. Child: `browser/directory-monitoring/network-checks` (checks of folders that other computers change).
+How an open folder's listing is loaded, published to the view, and kept in step with the filesystem. Covers bounded loads, live updates from file monitors, F5, and the pane Refresh button. It also covers mounts that stop answering and how Strata's own file operations reach the listing. Child: `browser/directory-monitoring/network-checks` (checks of folders that other computers change).
 
 ## Behavior
 
@@ -63,7 +63,6 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 - F5 reloads every open column in Columns, and the active pane in Icons and List. lgse/strata#173, lgse/strata#393
 - Each pane header has a Refresh button, tooltip "Refresh (F5)", that reloads only that pane. lgse/strata#173 (unverified)
-- Settings has no Auto-refresh folder row. A saved `auto_refresh_interval` is ignored and dropped from `settings.toml` on the next save. lgse/strata#1729
 
 ### Mounts that stop answering
 
@@ -105,7 +104,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Every live change and every reload (F5, a check's re-list, rescan) asks the search service to rescan indexes listing that local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544, lgse/strata#1729).
 - Requests to each mount go through a lane that stalls after 2 s without progress. Hard NFS returned nothing in 62 s, SMB failed after about 207 s, and stopped FUSE daemons returned nothing in 31 to 40 s. Without lanes, each action on a dead mount parked another GLib worker, up to 330 (lgse/strata#1729).
 - Monitors are created and cancelled on one serial worker, off the interface thread, never on a stalled lane. GLib's inotify backend handles every monitor under one lock, and creating one walks its path (lgse/strata#1729).
-- The owner chose to keep the listing and answer at once as timed out after 2 s without progress, then show "Not responding" after 10 s (lgse/strata#1729).
+- The owner chose to keep the listing after 2 s without progress and answer requests at once as timed out. "Not responding" follows after 10 s (lgse/strata#1729).
 - lgse/strata#173 also bound Ctrl+R to refresh. lgse/strata#393 gave Ctrl+R to Rename, leaving F5 as the only refresh key.
 - Retired views once stayed alive through autoscroll, menu, and preference-listener cycles, so each folder switch added work (lgse/strata#1185, lgse/strata#1187, lgse/strata#1353).
 
@@ -132,4 +131,4 @@ Loading and file monitoring predate the PR history; the original monitor already
 
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902
 - While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
-- Before Linux 6.13, a change in the same clock tick as the load's stamp, made before the monitor went live, stays hidden until the next change or F5. lgse/strata#1729
+- Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729

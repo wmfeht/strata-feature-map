@@ -48,6 +48,7 @@ How application-wide preferences are loaded, saved to `settings.toml` through on
 
 - A save that fails while a browser window is active opens one dialog there: "Settings can't be saved", summary "Changes last only until Strata closes". lgse/strata#1455, lgse/strata#1544
 - Its detail reads "Strata couldn't write “<path>”: <reason>. It tries again with each change." lgse/strata#1544
+- When several saves of `settings.toml` are queued, only the newest one's failure can show the dialog. lgse/strata#1729 (unverified)
 - Further failed saves show no dialog until a save succeeds; the next failure after a success shows the dialog again. lgse/strata#1544
 - A save that fails with no active browser window, such as during an Omarchy theme update, is only logged. The next failure can still show the dialog. lgse/strata#1544
 - A save that fails from a portal file chooser window is only logged. lgse/strata#1544
@@ -90,8 +91,8 @@ How application-wide preferences are loaded, saved to `settings.toml` through on
 - A failed save was only logged, so changes were lost without notice. One notice per failure streak covers write failures; the unreadable file gets one notice per session (lgse/strata#1455, lgse/strata#1544).
 - The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md), lgse/strata#1544).
 - One background writer runs every save of Strata's own settings and state files, so no save blocks the UI thread on a slow mount. Startup reads stay synchronous as a documented exception (lgse/strata#1729, docs/preferences.md).
-- Quitting waits 10 s for queued saves; the design had 1 s, raised by owner decision (lgse/strata#1729).
-- The writer remembers the stamp of every file it wrote or read. A re-read after another process's write applies, but a change of this process still being saved wins (lgse/strata#1729).
+- Quitting waits up to 10 s for queued saves, a lead call the owner may override; the design had 1 s (lgse/strata#1729).
+- The writer remembers the stamp of every file it wrote or read. Re-reads after another process's write cover folder views, custom themes, Omarchy state, and the default sort and thumbnail size in `settings.toml`. A change of this process still being saved wins (lgse/strata#1729).
 - Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field (lgse/strata#518).
 
 ## History

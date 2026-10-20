@@ -160,7 +160,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/replacement.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/local_operations/tests/aliases.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/closes.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `src/adapters/local_operations/tests/closes.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_operations/tests/conflicts.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/tests/copy.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/tests/create_entry.rs` | tests | [New Folder and New File](../features/operations/create.md) | — |

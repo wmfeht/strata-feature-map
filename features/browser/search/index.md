@@ -43,7 +43,6 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Hovering **Partial results** shows a tooltip with the same causes as its description; complete results clear the tooltip. lgse/strata#1667
 - A small tree with one unreadable folder reports the unreadable folder, not an entry limit. lgse/strata#493
 - A hit whose file was deleted is dropped before it shows. A hit whose check fails or times out, as on a dead mount, stays. lgse/strata#1729
-- When dropped hits leave fewer than 100 results, the search keeps ranking further candidates to fill them. lgse/strata#1729
 - A file operation that renames, moves, or deletes a folder during an index walk stops the walk there. The results are then marked partial. lgse/strata#1729
 - While indexing adds results, the highlighted result stays selected by path and unchanged rows are not rebuilt. lgse/strata#758
 

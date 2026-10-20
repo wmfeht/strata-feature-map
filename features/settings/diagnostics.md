@@ -70,7 +70,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - When the distribution has no known command, the row reads "Install <package> or your distribution's equivalent." with the Arch package name. lgse/strata#1735
 - Every install command shows a Run in terminal button, with or without a terminal emulator. lgse/strata#1729
 - Run in terminal opens the terminal running the install command. Afterwards the row reads "The command opened in your terminal. Run diagnostics again when it finishes." lgse/strata#1735, lgse/strata#1704
-- With no terminal emulator found, Run in terminal shows "No terminal emulator was found." under the command, with the terminals Strata looks for. lgse/strata#1729
+- With no terminal emulator found, Run in terminal shows "No terminal emulator was found." under the command. lgse/strata#1729
 - When the install command ends, the terminal prints "Press Enter to close." and stays open until Enter. lgse/strata#1735, lgse/strata#1704
 - Copy report copies "Strata diagnostics", the System fields, and every result by group as `[Status] Title: message`, then shows "Copied" for 1.5 s. lgse/strata#1735 (unverified)
 - The System box lists Version, Commit, Installation, Toolkit, GStreamer, Kernel, Desktop environment, Display server, Interface renderer, and Language. lgse/strata#1735
