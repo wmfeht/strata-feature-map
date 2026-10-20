@@ -3,7 +3,7 @@ title: Audio previews
 status: shipped
 origin: {issue: lgse/strata#1288, pr: lgse/strata#1289}
 branch: null
-reviewed_at: 6e654a7b68fdfeb0a6eec8239a95b16ccfb1cea8
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/preview/audio.rs, src/ui/preview/audio, src/ui/preview/waveform.rs, src/ui/preview/waveform, src/media/peaks.rs, src/media/peaks]
 tests: [src/ui/preview/audio/tests.rs, src/ui/preview/audio/analysis/tests.rs, src/ui/preview/audio/details/tests.rs, src/ui/preview/tests/audio.rs, src/ui/preview/waveform/tests.rs, src/media/peaks/tests.rs, src/ui/window/tests/keyboard_dispatch/audio_tracks.rs]
@@ -24,6 +24,8 @@ The now-playing view for audio files: artwork, tags, a live spectrum, a waveform
 - Remote audio files use embedded art only. lgse/strata#1289 (unverified)
 - Title, artist, and album come from tags; a file without a title tag shows its name without the extension. lgse/strata#1289
 - The caption shows the tagged track number, such as "Track 3 of 12"; without one it shows "3 of 12 in folder", or "3 of 12 in results" while filtered results replace the listing. lgse/strata#1289
+- A song's tags stay shown when a file operation stops the read of its folder cover. lgse/strata#1729
+- Details and folder art refused by a file operation are not cached as failures; the next visit reads them again. lgse/strata#1729 (unverified)
 - Tag and art rows keep their space while loading, so changing tracks does not shift the layout. lgse/strata#1289
 - Stepping to a track with the same art keeps it in place; only different art crossfades. lgse/strata#1289
 - A pane at least 1.12 times as wide as tall places art beside the controls; at 0.95 or below, art returns on top. lgse/strata#1289 (unverified)

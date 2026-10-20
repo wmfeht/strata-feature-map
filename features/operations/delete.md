@@ -3,11 +3,11 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/dissolve_delete.rs, src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs]
-related: [operations/trash, operations/progress]
+related: [operations/trash, operations/progress, operations/filesystem-compatibility/open-files]
 ---
 
 ## Summary
@@ -59,6 +59,8 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - A selected symlink to a folder is removed as a symlink; the folder it points to keeps its contents. lgse/strata#253, lgse/strata#1627
 - Deleting through a parent path that contains a symlink, such as a folder alias, succeeds and leaves the alias in place. lgse/strata#477
 - If a folder in the tree is moved while it is being deleted, deletion stops with an error instead of following it. lgse/strata#869
+- Deleting a folder on NFS, SMB, or FUSE leaves another program's `.nfs…`, `.__smbfile_silly…`, or `.fuse_hidden…` file in place. lgse/strata#1729
+- Such a leftover selected by name is deleted like any file, and the mount's refusal is reported. lgse/strata#1729
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
 - That dialog lists the first 8 errors as "name: reason" and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
 - Cancelling a permanent delete counts an item it had started as failed, and items not yet started as not attempted. lgse/strata#1615

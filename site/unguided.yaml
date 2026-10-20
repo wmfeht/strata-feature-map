@@ -3,6 +3,8 @@
 # file; the daily sync adds a new shipped node with "New since <release>; the next
 # release docs run places it."
 
+app/updates/release-picker: New since v1.0.0; the next release docs run places it.
+browser/directory-monitoring/network-checks: New since v1.0.0; the next release docs run places it.
 browser/navigation/recent: No upstream user doc covered Recent; the guide does not cover it yet.
 browser/properties/size: No upstream user doc covered Properties; the guide does not cover it yet.
 browser/search/exclusions: Covered by the Find files guide page; its upstream doc, docs/preferences.md, stays upstream as contributor material.
@@ -25,6 +27,8 @@ operations/drag-and-drop: Covered by the Everyday operations guide page; its ups
 operations/drag-and-drop/column-autoscroll: Pointer detail of Columns drag; no upstream user doc covered it.
 operations/drag-and-drop/copy-or-move: Covered by the Everyday operations guide page; no upstream user doc described the drop policy.
 operations/filesystem-compatibility: New since v1.0.0; the next release docs run places it.
+operations/filesystem-compatibility/leftovers: New since v1.0.0; the next release docs run places it.
+operations/filesystem-compatibility/open-files: New since v1.0.0; the next release docs run places it.
 operations/trash/animation: Visual effect with no user-facing setting to document.
 operations/trash/empty: No upstream user doc covered Empty Trash; its testing doc stays upstream.
 operations/trash/restore: Covered by the Everyday operations guide page; its upstream doc, docs/trash-restore-testing.md, is testing guidance and stays upstream.

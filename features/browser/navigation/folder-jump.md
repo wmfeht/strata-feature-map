@@ -3,7 +3,7 @@ title: Folder jump
 status: shipped
 origin: {issue: lgse/strata#276, pr: lgse/strata#959}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/services/navigation_history.rs]
 tests: [src/services/navigation_history/tests.rs]

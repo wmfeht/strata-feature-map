@@ -3,7 +3,7 @@ title: Tab session restore
 status: shipped
 origin: {issue: lgse/strata#1531, pr: lgse/strata#1532}
 branch: null
-reviewed_at: aee71335dfecd059b9af23efeac2ed52c43e3b19
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/tabs_session.rs]
 tests: [src/ui/tabs_session/tests.rs]
@@ -30,7 +30,11 @@ A plain launch reopens the previous session's tab locations in strip order, with
 
 - Launching `strata` with no arguments reopens the saved tabs in order, with the saved active tab selected. This needs a saved session and the toggle on. lgse/strata#1531, lgse/strata#1532
 - A folder or file argument, a FileManager1 reveal request, or `--unlock-volume` skips restore. The next plain launch still restores the earlier session. lgse/strata#1532
-- A saved local folder that no longer exists, or a relative path, is skipped; the other tabs still open. lgse/strata#1532
+- A saved relative path is skipped; the other tabs still open. lgse/strata#1532
+- Every saved local folder gets its tab at once and is checked off the interface thread. lgse/strata#1729
+- A saved folder proven missing, or not a folder, closes its tab; the other tabs stay. lgse/strata#1532, lgse/strata#1729
+- When that tab is the only one, it opens the default folder instead. lgse/strata#1729 (unverified)
+- A saved folder whose check times out, as on a server that does not answer, keeps its tab and shows its error. It loads by itself once the mount answers. lgse/strata#1729
 - Trashed-item children (`trash:///x`) and non-root Recent entries (`recent:///x`) are skipped, while `trash:///` and `recent:///` restore. lgse/strata#1532
 - Camera roots such as `gphoto2://` are skipped. So is every scheme other than `smb`, `sftp`, `ftp`, `ftps`, `dav`, `davs`, `trash`, `network`, and `recent`. lgse/strata#1532 (unverified)
 - When a skipped entry precedes the active tab, the restored selection still lands on the saved active location. lgse/strata#1532

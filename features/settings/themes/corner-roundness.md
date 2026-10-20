@@ -3,7 +3,7 @@ title: Corner roundness
 status: shipped
 origin: {issue: lgse/strata#1678, pr: lgse/strata#1680}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/preferences/corner_roundness.rs, src/ui/theme/roundness.rs]
 tests: [src/ui/theme/roundness/tests.rs, src/ui/theme/tests.rs, src/ui/settings/theme/tests.rs]

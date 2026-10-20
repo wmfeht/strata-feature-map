@@ -3,8 +3,8 @@ title: Drive format, label, and properties
 status: shipped
 origin: {issue: lgse/strata#1293, pr: lgse/strata#1331}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
-review: reviewed
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+review: draft
 code: [src/ui/window/drive_dialogs.rs, src/ui/window/drive_dialogs/**, src/ui/window/drive_ops.rs, src/ui/window/device_labels.rs, src/ui/missing_tools.rs, src/services/package_manager.rs]
 tests: [src/ui/window/drive_dialogs/tests.rs, src/ui/window/drive_ops/tests.rs, src/ui/window/device_labels/tests.rs, src/ui/missing_tools/tests.rs, src/services/package_manager/tests.rs]
 related: [browser/sidebar, operations/progress]
@@ -20,6 +20,8 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 - Properties opens from the menu of a volume or a mount-only entry, including fixed storage. lgse/strata#1393
 - It lists System name, Strata label, Device, Filesystem, and Status; a mounted volume adds Mount point, Capacity, Used, and Free. lgse/strata#1331, lgse/strata#1393
+- Properties opens at once with "—" for Filesystem, Capacity, and Used, then fills them in when a worker has read the drive. lgse/strata#1729
+- Until then, a target with a known mount shows its Mount point and "Mounted"; otherwise Status shows "—". lgse/strata#1729 (unverified)
 - For an unmounted volume it shows "Not mounted", the device size when known, and "Unavailable (not mounted)" for Used, without mounting. lgse/strata#1393
 - The footer offers Set label, Eject, and Format; Format appears only for removable drives. lgse/strata#1331, lgse/strata#1393
 - The footer shows Eject for a removable drive or a row with Eject or Unmount; it is insensitive without either action. lgse/strata#1393 (unverified)
@@ -36,7 +38,9 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 ### Format
 
 - Format… appears only for volumes on a removable drive; fixed disks and network shares never offer it. lgse/strata#1331, lgse/strata#1393
-- If `mkfs.fat`, `mkfs.ntfs`/`mkntfs`, or `mkfs.exfat` is missing, Format opens "Missing tools" before unmounting anything. lgse/strata#1331
+- Format Drive opens at once with Continue insensitive; a worker checks the tools and the drive, then fills in the options. lgse/strata#1729
+- A Devices rebuild while Format Drive waits does not lose the Missing tools dialog or the format progress. lgse/strata#1729
+- If `mkfs.fat`, `mkfs.ntfs`/`mkntfs`, or `mkfs.exfat` is missing, Format Drive closes and "Missing tools" opens before anything is unmounted. lgse/strata#1331, lgse/strata#1729
 - Missing tools shows a copyable pacman, apt, dnf, or zypper install command, or generic guidance on an unrecognized distribution. lgse/strata#1331
 - On Arch and Omarchy the suggested NTFS package is `ntfsprogs`. lgse/strata#1331
 - The Format Drive dialog offers FAT32, NTFS, and exFAT, preselects the current filesystem marked "(current)", and checks Quick format. lgse/strata#1331, lgse/strata#1393
@@ -59,6 +63,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Actions are volume-level only. Whole-disk and partition-table changes are out of scope, and destructive actions are never offered for network shares or internal volumes (lgse/strata#1293).
 - lgse/strata#1331 shipped Rename as a filesystem relabel. lgse/strata#1393 replaced it with a Strata display label keyed by volume UUID or mount root URI, which never mounts, unmounts, or edits system configuration.
 - lgse/strata#1331 ran mkfs tools through `pkexec`. lgse/strata#1393 replaced that with UDisks2 `Block.Format` and `update-partition-type`, so the partition type and reprobe change together. Quick format skips zeroing; FAT32 passes `-F 32`.
+- Tool lookups, the package manager, the mount table, and drive facts are read on a worker, so a stalled mount cannot freeze the window (lgse/strata#1729).
 - Progress is indeterminate because the supported tools report no consistent percentage (lgse/strata#1331).
 - Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393).
 

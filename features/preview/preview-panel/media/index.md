@@ -3,7 +3,7 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, packaging/media-runtime]
 tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/tests.rs, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs, tests/e2e/scenarios/test_preview_media_controls.py]
@@ -89,6 +89,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - The volume and seek sliders had zero step and page increments, and the fallback seek slider seeked only on drag end (lgse/strata#1451, lgse/strata#1570).
 - Keys stop on the last frame because seeking exactly to the duration ends the stream; stepped volumes snap because float steps stop short of zero (lgse/strata#1570).
 - The autoplay fade multiplies a gain on the GStreamer `volume` element, so no audio is processed in Strata and the saved volume is untouched (lgse/strata#1417).
+- A preview's audio output is built, started, and changed on one `strata-audio` worker. GStreamer's start-up could scan plugins and rewrite its registry, and state changes could wait on the sound server, all on the UI thread (lgse/strata#1729).
 - The `packaging/media-runtime` patch kit pins a GStreamer worker-finalization fix and probes. It does not change the shipped binary (lgse/strata#779). The GTK context patch was retired once upstream merged it (lgse/strata#830).
 
 ## History

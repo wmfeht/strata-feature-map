@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py, tests/e2e/fixtures/file_drag_source.py]
 ---
@@ -28,7 +28,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
-- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
+- Network mounts for change-check and stalled-mount probes: NFSv3 and NFSv4.2 exports, a `cifs` SMB share, an `sshfs` mount, and a 9p or virtiofs share. Each must be writable from the server. Stall a mount by stopping its server or sending SIGSTOP to the FUSE daemon. `powerprofilesctl` switches power-saver mode.
+- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition, a kernel exFAT partition, and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
 - `tests/e2e/mutations/` holds the `click-modes`, `filter-results`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
 
 ## Probes
@@ -89,6 +90,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Press Ctrl+1, Ctrl+2, and Ctrl+3 with Russian active beside US, with only Russian configured, on Dvorak, and with Caps Lock on; then with keypad digits and Num Lock on.
 - Scroll List and Icons with cut files in view under a 25% CPU quota, and again after the window sat idle for 10 s; stop on cut rows and watch when their styling and dates settle.
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
+- Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
 
 ### browser/view-modes/columns
 
@@ -192,7 +194,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Leave a folder in Icons scrolled halfway, widen the window by 1 px, then 100 px, and press Alt+Left each time. Then leave in Icons and return in List.
 - Press Back in `100000` and, before the restore settles, press Down, wheel-scroll, press Ctrl+2, or re-sort by Size.
 - Press Alt+Left with the location entry open, with Properties open, and with a filter result focused; then click a breadcrumb with the sidebar focused.
-- Let an auto-refresh tick land in a background tab, then switch to it. Press F5 with a rename open in Icons, then in List.
+- Change an NFS folder from the server while it sits in a background tab, then switch to it with the cursor on entry 500. Press F5 with a rename open in Icons, then in List.
 - Leave a folder in Icons with three entries selected, then click and Enter its sidebar place; repeat in Columns and after 130 other folders.
 - With one entry selected in Icons and List, create 4,200 files in the open folder from a shell, then press Down and the 10xer next-entry key.
 
@@ -217,6 +219,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Type `sftp://host/share/caf%E9` and `smb://host/share/x%2Fy` for existing remote names, then create and delete an entry in each opened folder.
 - In `deep` at level 30, choose level 3 from the hierarchy menu, then from the scrolled crumbs, in each view; then choose the current crumb.
 - Type `/tmp/./x/..`, `~/../..`, `/a/b/../../..`, `smb://host/share/../x`, a symlinked folder followed by `/..`, and a file path followed by `/..`; press Alt+Up after each.
+- Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon. Open a new tab on that mount and type before its first load ends.
 
 ### browser/navigation/recent
 
@@ -267,6 +270,9 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Set Search entry limit to 200,000 and filter `100000` plus a second large folder below it; change the limit in another window's Settings and type one more character.
 - With 10xer mode on, move the cursor with `f` results and a fill, open and cancel a dialog, then close Quick Look; note which hit has the focus ring.
 - Select a file hit, then press Space in the location bar, the preview find bar, a sidebar row, and the sidebar toggle; repeat in the file chooser's name and location fields.
+- Type `duck  txt` and `txt duck` in Columns with Include subfolders off, then in Icons and List with it on.
+- Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
+- Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
 
 ### browser/sidebar
 
@@ -299,6 +305,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Start a foreign folder drag over a gap and plug in a USB drive before releasing.
 - Drag a folder from the Trash view, an `https://` link from a web browser, and a symlink to a folder over the gaps; then drag an SMB pin between two local pins.
 - With nothing pinned, drag a file over the sidebar and out again, then drag a folder in; repeat in the file chooser and on the icon rail.
+- Pin from one window while Nautilus rewrites the bookmarks file in a loop; then reorder in a second window and open a third.
+- Pin 50 folders, trash them all, cancel midway, and watch PINNED in two windows.
 
 ### browser/sidebar/connect-to-server
 
@@ -327,7 +335,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 ### browser/thumbnails/workers
 
 - Set workers to 1 in the slow directory, then 16 mid-load, and count sandbox processes with `pgrep`; kill one with SIGKILL during a scroll.
-- Set `STRATA_THUMBNAIL_WORKERS=99`, then `abc`, and `STRATA_THUMBNAIL_IDLE_SECONDS=1`; read the reset value and watch process exit.
+- Set `STRATA_THUMBNAIL_WORKERS=99`, then `abc`, and `STRATA_THUMBNAIL_IDLE_SECONDS=1`; read the shown default and watch process exit.
+- Type 0, 17, `abc`, and an empty value into the Thumbnail workers spin button, pressing Return, then Tab, after each; read `thumbnail_workers` back.
 - Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
 
 ### browser/properties
@@ -370,12 +379,22 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 - Run `touch f{1..5000}` then `rm f*` in the open folder; count the rows afterwards and look for duplicates and lost selection.
 - `mv` the open folder in Columns with three descendants open, then `rm -rf` it; repeat in Icons and List.
-- Set `auto_refresh_interval = 4294967295`, then `-1`, then `"60"`; start, change another setting, and read the file back.
-- Set 1 min and start a rename ten seconds before the tick.
+- Stall an NFS mount, press F5 with an inline rename open in its folder, and resume the server before submitting the rename.
+- On a stalled mount, open a 2,000-entry folder, press F5 before all rows show, and resume the server.
 - `mv` the open folder during a 2,000-file copy into it. Then `mv` it twice within 100 ms and press Escape during the second.
 - `rm -rf` and recreate the open folder within 100 ms; `chmod 000` it; `mv` a dot-named open folder with hidden files off.
-- `mv` an open folder on an `sftp://` share and on the ntfs-3g partition; read the pane and history.
+- `mv` an open folder on an `sftp://` share, the ntfs-3g partition, an `sshfs` mount, and a kernel exFAT partition; read the pane and history.
 - Paste 50 files into an open `sftp://` folder and an sshfs folder, cancel halfway, then repeat to completion; count reloads and rows each time.
+
+### browser/directory-monitoring/network-checks
+
+- Change files from the server in a shown NFS folder while the window sits on another workspace; time the appearance.
+- Turn Watch network folders off and on in one window while a second window and the portal chooser show the same NFS folder.
+- Edit a file in place on the server and leave the window for 29 s. Repeat with 31 s, comparing its size and date on return.
+- Run `rsync -a` into a shown SMB folder, which puts its modification time back. Then change a Samba folder from the server itself.
+- Change a 9p `cache=loose` share and an rclone bucket twice in one second, with power-saver on, then off.
+- Start a rename in a shown NFS folder, change the folder from the server, and wait three checks before Enter. Repeat during a 2,000-file paste into it.
+- `chmod 000` a shown NFS folder from the server, then `rm -rf` it, then recreate it under the same name.
 
 ### browser/folder-customization
 
@@ -414,6 +433,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Turn Restore open tabs off in one window's Settings while a second window changes tabs, then on again, and quit.
 - Close tabs down to one, then close the window, and relaunch plainly.
 - Open a window through a FileManager1 `ShowItems` call, add tabs there, quit, and relaunch plainly.
+- Save tabs on a stalled NFS folder, an unplugged USB folder, and a folder replaced by a file; relaunch, then resume the server.
 
 ## Hand-offs
 

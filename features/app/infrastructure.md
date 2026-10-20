@@ -3,17 +3,17 @@ title: Shared location model and listing adapter
 status: shipped
 origin: {issue: lgse/strata#14, pr: lgse/strata#27}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
-code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, docs/assets/strata-themes.png, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, mise.toml, mise.lock, scripts/benchmark-scroll.py, src/build_info.rs, src/services/native_fs.rs, src/ui/keys/bindings.rs, src/ui/keys/bindings/**, build.rs, deny.toml, .github/workflows/ci.yml, .github/workflows/e2e.yml, .github/workflows/e2e-cache.yml, .github/workflows/integrations.yml, .github/ISSUE_TEMPLATE/bug_report.yml, scripts/quality.sh, scripts/quality_ci.py, scripts/test-headless.py, scripts/integration_tests.py, src/ui/settings/install_command.rs, src/adapters/local_operations/fs_ops.rs, src/adapters/local_operations/native_fs.rs, src/adapters/local_operations/work_queue.rs, src/trusted_command.rs]
-tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py, tests/e2e/unit/test_harness.py, scripts/test_benchmark_scroll.py, src/build_info/tests.rs, scripts/test_quality_ci.py, scripts/test_quality_runner.py, scripts/test_headless_runner.py, scripts/test_e2e_runner.py, scripts/test_integration_tests.py, src/ui/settings/install_command/tests.rs, src/trusted_command/tests.rs]
-docs: [docs/performance-baseline.md, docs/hardened-configuration.md, docs/unsafe-code.md]
+code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, docs/assets/strata-themes.png, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, scripts/e2e-native.sh, Cargo.toml, Cargo.lock, mise.toml, mise.lock, scripts/benchmark-scroll.py, src/build_info.rs, src/services/native_fs.rs, src/ui/keys/bindings.rs, src/ui/keys/bindings/**, build.rs, deny.toml, .github/workflows/ci.yml, .github/workflows/e2e.yml, .github/workflows/e2e-cache.yml, .github/workflows/integrations.yml, .github/ISSUE_TEMPLATE/bug_report.yml, scripts/quality.sh, scripts/quality_ci.py, scripts/test-headless.py, scripts/integration_tests.py, src/ui/settings/install_command.rs, src/adapters/local_operations/fs_ops.rs, src/adapters/local_operations/native_fs.rs, src/adapters/local_operations/work_queue.rs, src/trusted_command.rs, src/adapters/gio_close.rs, src/adapters/volume/mount_watch.rs, src/adapters/volume/mount_lanes.rs, src/adapters/local_operations/probes.rs, src/util/ui_thread.rs, src/util/ui_thread/**, scripts/e2e.sh, scripts/trace-main-io.py, tests/e2e/Dockerfile, tests/e2e/main-io-allowlist.toml]
+tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, tests/e2e/harness/**, tests/e2e/baselines/**, tests/e2e/conftest.py, tests/e2e/unit/test_keyboard_layout.py, tests/e2e/unit/test_harness.py, scripts/test_benchmark_scroll.py, src/build_info/tests.rs, scripts/test_quality_ci.py, scripts/test_quality_runner.py, scripts/test_headless_runner.py, scripts/test_e2e_runner.py, scripts/test_integration_tests.py, src/ui/settings/install_command/tests.rs, src/trusted_command/tests.rs, src/adapters/gio_close/tests.rs, src/adapters/local_operations/tests/closes.rs, src/adapters/volume/mount_watch/tests.rs, src/adapters/volume/mount_lanes/tests.rs, src/adapters/local_operations/probes/tests.rs, src/adapters/local_operations/fs_ops/tests.rs, src/adapters/volume/mounts/tests/byte_paths.rs, scripts/test_trace_main_io.py]
+docs: [docs/performance-baseline.md, docs/hardened-configuration.md, docs/unsafe-code.md, docs/e2e-testing.md]
 related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring, preview/preview-panel, preview/preview-panel/sandbox, app/updates/install, settings/diagnostics, operations/filesystem-compatibility, operations/delete]
 ---
 
 ## Summary
 
-The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, and crate manifests. It owns the build script, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration. It owns the trusted helper lookup and the syscall layer that local operations share. It is the `fallback` node in `scopes.yaml`.
+The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, and crate manifests. It owns the build script, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration. It owns the trusted helper lookup and the syscall layer that local operations share. It owns the mount-table watcher, per-mount request lanes, off-thread probes and closes, and the UI-thread checks. It is the `fallback` node in `scopes.yaml`.
 
 ## Behavior
 
@@ -44,6 +44,21 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - With `RUST_LOG=strata=debug`, a directory load also logs its location, including the full native path. lgse/strata#27
 - Logged URI locations omit user info, authentication parameters, query, and fragment at every log level. lgse/strata#27
 
+### UI thread
+
+- With `STRATA_UI_STALL_MS=250`, a UI thread blocked for 250 ms logs "UI thread stalled N ms" and the call it waits in. lgse/strata#1729
+- When the blocked UI thread runs again, the log adds "UI thread ran again after N ms". lgse/strata#1729
+- A stall that lasts logs again each time it doubles: at 2, 4, and 8 times the limit, and so on. lgse/strata#1729 (unverified)
+- The portal file chooser backend starts the same stall watchdog. lgse/strata#1729 (unverified)
+- Without `STRATA_UI_STALL_MS`, or with `0` or a non-number, no stall watchdog runs. lgse/strata#1729 (unverified)
+- In a debug build, a guarded file call on the UI thread panics with "file calls must not run on the UI thread". Start-up and the exit flush are exempt. lgse/strata#1729 (unverified)
+- Guarded calls include reading the install marker, searching `PATH` for helpers, and replacing a settings or state file. lgse/strata#1729 (unverified)
+
+### Working folder
+
+- Once command-line paths are resolved, Strata's working folder is `/`. An application it launches without a desktop `Path=` starts in `/`. lgse/strata#1729
+- The D-Bus service and the portal backend change their working folder to `/` at start. lgse/strata#1729
+
 ### Trusted helper lookup
 
 - A helper present in both a fixed root and a configured directory resolves to the fixed-root copy. lgse/strata#1746
@@ -61,6 +76,8 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - Display tries the decoded form first, so valid names such as `smb://host/café` still display decoded (lgse/strata#1533).
 - Display decodes only valid UTF-8 without `%2F`: decoding `%2F` would turn a name into a separator once the shown text is edited. Plain `UriFlags::ENCODED` was rejected because it stops userinfo decoding (lgse/strata#1424, lgse/strata#1533).
 - The directory loader dropped unconvertible entries without a trace. Logging each skip keeps a future conversion failure visible (lgse/strata#1424, lgse/strata#1533).
+- A stopped NFS, SMB, sshfs, or FUSE server gives no timely error, so disk calls run off the UI thread ([docs/filesystem-compatibility.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/filesystem-compatibility.md), "What a dead server does"). Debug assertions, the stall watchdog, and `scripts/trace-main-io.py` check that (lgse/strata#1590, lgse/strata#1729).
+- [docs/e2e-testing.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/e2e-testing.md) describes the trace script: it runs E2E scenarios with the UI thread under `strace`, and `tests/e2e/main-io-allowlist.toml` lists only documented exceptions (lgse/strata#1729).
 - The `fstatat` fallback widens `st_nlink` through a generic helper, because it is `u32` on aarch64 and `u64` on x86_64 (lgse/strata#1753, lgse/strata#1755).
 
 ## History

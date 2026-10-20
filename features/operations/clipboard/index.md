@@ -3,7 +3,7 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/e2e/scenarios/test_clipboard.py, tests/e2e/mutations/clipboard.patch]
@@ -70,6 +70,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - New Folder in the chooser creates a destination; "Move here" or "Copy here", or Ctrl+Enter from the file list, confirms. lgse/strata#1384
 - Cancelling the chooser or closing its parent window leaves the files and the parent's location unchanged. lgse/strata#1384
 - A window opens at most one chooser at a time. lgse/strata#1384
+- In Send to… → Choose folder…, the chooser still lists links leading off the device; confirming one shows "Choose an existing folder inside this removable device." lgse/strata#1729
 - After confirming, the window navigates to the destination and selects the transferred items. lgse/strata#125, lgse/strata#1384
 - Cancelling a running foreground Move to… from its progress card, then running Extract here, keeps the window in the current folder. lgse/strata#1605
 

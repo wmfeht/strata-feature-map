@@ -3,11 +3,11 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/readiness.rs, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/e2e/scenarios/test_custom_actions.py]
-docs: [site/src/reference/custom-actions.md]
+docs: [site/src/reference/custom-actions.md, docs/custom-actions.md]
 related: [operations/progress/jobs, integration/10xer-mode, remote/file-providers]
 ---
 
@@ -38,9 +38,12 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - A selection that includes Trash or a non-native GVfs item shows no custom actions. lgse/strata#1085
 - Actions with `menu = "top"` appear in the menu body. Others appear under an Actions submenu. Both groups are sorted by name, ignoring case. lgse/strata#1085 (unverified)
 - Custom actions sit in their own section after the open, print, and extract commands and before Cut and Copy. lgse/strata#1085
+- Menus, the 10xer action chord, and Settings → Actions show the actions as last read. An action changed outside Strata appears once a background reread finishes. lgse/strata#1729
 
 ### Invocation
 
+- Choosing an action whose definition changed since the menu or `;` listed it runs nothing. It shows "Unable to run action" with "Actions changed". lgse/strata#1729
+- Choosing an action whose folder was removed since the menu listed it runs nothing. It shows "Unable to run action" with "The action “<id>” no longer exists". lgse/strata#1729 (unverified)
 - An action with `confirm = true` opens "Run this action?" with the action name and item count, and Run focused. Cancel runs nothing. lgse/strata#1085, lgse/strata#1206
 - Programs and interpreters get argv entries directly, never through a shell. lgse/strata#1085
 - A command argument that is exactly `{path}`, `{paths}`, or `{parent}` expands to absolute paths, one argument each. Other arguments pass through literally. lgse/strata#1085
@@ -72,6 +75,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Duplicate creates `<id>-copy` named "<name> copy", trying `-copy-1` and so on, and never replaces an existing folder. lgse/strata#1085
 - Import… copies only `action.toml` and its entrypoint. It saves the action disabled under a free id and asks the user to review the script. lgse/strata#1085
 - Export… writes the action to `<chosen folder>/<id>` and refuses if that folder exists. lgse/strata#1085
+- Saving an edit or flipping the switch of an action deleted outside Strata recreates nothing. The save fails with "The action “<id>” no longer exists". lgse/strata#1729 (unverified)
 
 ### Script library
 
@@ -100,6 +104,8 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Paths go in files rather than argv or the environment. This keeps bytes exact and avoids command-line limits, so a whole-selection run is never split (lgse/strata#36).
 - Action interpreters resolve on the user's `PATH`, including shims. Strata's own helpers use only fixed trusted roots (lgse/strata#1055, lgse/strata#1085). Packagers can add build-time `STRATA_TRUSTED_COMMAND_PATH` directories that resolve under a trust root (lgse/strata#1746).
 - A broken definition is reported under Problems and never hides other actions (lgse/strata#1085).
+- The actions folder is read and written on the background settings writer, never on the UI thread. Interpreter lookups, imports, and exports run on a separate worker under the per-mount request limits (lgse/strata#1729).
+- Menus show a cached catalog so opening one reads no disk; rereading at the choice keeps that cache from running a stale definition (lgse/strata#1729).
 - Rename recipes are not transactions and offer no undo. Cancelling or an I/O error can leave earlier files renamed (lgse/strata#1085).
 
 ## History

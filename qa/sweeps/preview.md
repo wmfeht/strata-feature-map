@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -24,6 +24,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
 - Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. `tests/e2e/harness/keyboard_layout.py` switches the layout, locks the XKB group, and restores `us` afterwards.
+- An NFS or SMB mount holding a music folder, a RAW folder, and a model folder with the FreeCAD file and the embedded-PNG 3MF, for probes that rename or delete what the preview reads.
 - Reduce motion and Element glow each on and off, under the GL renderer and `GSK_RENDERER=cairo`. Two windows of the same build on one media folder for volume sync, the four-player cap, and width isolation.
 
 ## Probes
@@ -51,6 +52,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
 - Preview the `.GPR` and `.ARQ` samples from a local folder and from an sftp mount.
 - Pick Back right, change the theme twice, then select the next model file and come back.
+- Play a song from a folder on the network mount, reached once directly and once through a symlinked folder; rename the folder from a second window, then Shift+Delete it.
+- With a video playing, paste a large file into the same folder, then rename a sibling of the playing file.
+- Move the cursor onto a file in a folder that a slow move to another disk is copying, during and after the move.
 
 ### preview/preview-panel/layout
 
@@ -110,6 +114,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
 - Scroll the fallback seek slider with a touchpad.
+- Play a song with `~/.cache/gstreamer-1.0` removed, then with the sound server stopped mid-play.
 
 ### preview/preview-panel/media/audio
 
@@ -137,6 +142,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Read the buttons, the indicator, and the header spinner in Accerciser while a view renders.
 - Open the same model in two windows, pick different views, then change the theme.
 - Make a view render fail by replacing the file with garbage between clicks, then restore it and retry.
+- During the first render of the STL near 2 million triangles, press Previous and Next with the pointer, then focus them with Tab and press Space and Enter.
+- Preview the FreeCAD file and the embedded-PNG 3MF from the network mount; read the header and badges before the image lands.
+- Switch from a model to a text file mid-render; watch the header spinner.
+- Preview a garbage file named `.stl` on a first load, then compare with a failure after the first image.
 
 ### preview/preview-panel/sandbox
 
@@ -154,6 +163,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the DNG with `dcraw` and `simple_dcraw` hidden, then with ImageMagick hidden too; repeat as Icons thumbnails.
 - Preview the RAF with ImageMagick hidden, and step through a folder of 50 RAF files with the preview open.
 - Preview and thumbnail the panorama with ImageMagick hidden, with and without its EXIF thumbnail.
+- On the network mount, preview a RAW file, move the selection mid-render, and delete its folder at once; look for `.nfs…` or `.__smbfile_silly…` files in the parent.
 
 ### preview/quick-preview
 
@@ -180,6 +190,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - F1 reference rows for preview find and media keys → `app`.
 - Layout fallback, Caps Lock, keypad, and translated key names for every shortcut → `app`.
 - Archive member listing and the archive preview → `operations`.
+- Releasing Strata's reads before an operation, and leftovers on network mounts → `operations`.
+- Unmounting a drive while a preview reads a file on it → `devices`.
 - Preview keys and track stepping in 10xer mode → `integration`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.
 - The Settings controls for autoplay, backend, document rendering, and folder peeking → `settings`.

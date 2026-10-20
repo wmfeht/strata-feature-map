@@ -3,8 +3,8 @@ title: Release channels
 status: shipped
 origin: {issue: lgse/strata#61, pr: lgse/strata#97}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+review: draft
 code: [src/services/release_channel.rs]
 tests: [src/services/release_channel/tests.rs]
 docs: [docs/releasing.md]
@@ -29,6 +29,12 @@ The Stable, Preview, and Nightly update channels, release ordering, and the Retu
 - Outside Return to stable, only a release newer than the installed build is offered. For one core version, nightly sorts below alpha, beta, rc, then the final release. lgse/strata#97
 - A Preview user on `0.5.0-rc.2` is offered the final `0.5.0`. lgse/strata#97
 
+### Release list
+
+- The "Install a specific release" list shows the releases the channel offers, newest first, including releases older than the installed build. lgse/strata#1779, lgse/strata#1781
+- On Stable the list holds only stable releases; Preview adds alpha, beta, and release-candidate builds; Nightly lists every build kind. lgse/strata#1779, lgse/strata#1781
+- Two releases with the same version appear once in the list. lgse/strata#1781 (unverified)
+
 ### Return to stable
 
 - On an in-place install, selecting Stable while running a prerelease offers the newest stable release, even when older, and the row's button reads "Return to stable". lgse/strata#97
@@ -39,12 +45,13 @@ The Stable, Preview, and Nightly update channels, release ordering, and the Retu
 - Changing the channel clears the sidebar notice in every window and re-runs the check on every open Updates page. lgse/strata#126
 - An Updates row that is installing or waiting to restart is not re-checked on a channel change. lgse/strata#126
 - An open update dialog whose build the new channel excludes, before installing starts, reads "This build is no longer offered on your update channel — check for updates again." Its button becomes Close. lgse/strata#126
+- A release chosen from the release list is withdrawn the same way when the new channel excludes its build kind. lgse/strata#1781
 - Clicking Install update on an offer the current channel excludes runs a new check instead of installing. lgse/strata#97
 
 ### Labels
 
 - A prerelease offer shows its build kind as a badge in the notes and the update dialog. lgse/strata#97
-- The dialog for a prerelease shows "Channel", "Tag", "Commit", and "Published" rows above its notes. lgse/strata#97
+- The update dialog shows "Channel", "Tag", "Commit", and "Published" rows above its notes for a prerelease offer and for any chosen release. lgse/strata#97, lgse/strata#1781
 
 ## Design
 
@@ -52,7 +59,10 @@ The Stable, Preview, and Nightly update channels, release ordering, and the Retu
 
 - The updater once zero-filled unparsable segments, so `0.5.0-rc.1` read as `0.5.0`. `Version::parse` is now the only place tags are interpreted, with semver precedence (lgse/strata#97).
 - Channel logic is a pure module with no I/O, so "Stable never sees a prerelease" is provable in unit tests (lgse/strata#97).
-- Stable uses a separate fetch path that never enumerates prereleases. Both the tag and GitHub's prerelease flag must say final, so one mislabelled signal is still caught (lgse/strata#61).
+- Stable update checks use a separate fetch path that never enumerates prereleases. Both the tag and GitHub's prerelease flag must say final, so one mislabelled signal is still caught (lgse/strata#61).
+- On Stable the release list reads every release and drops prereleases by the same eligibility rule. GitHub has no final-only listing (lgse/strata#1781).
+- The release list ignores the installed version, unlike the update offer, because choosing an older release is how a user rolls back (lgse/strata#1779, lgse/strata#1781).
+- A chosen release always shows its identity rows, since it may be a rollback (lgse/strata#1781).
 - Every parse fails closed to Stable: unknown config values, missing keys, and unparsable build metadata (lgse/strata#97).
 - RC outranks nightly at equal core version, matching semver's ordering of `nightly` before `rc` (lgse/strata#97).
 - Return to stable is gated on the running build being a prerelease, not on the selected channel. Otherwise a user who already chose Stable would be stranded on an RC (lgse/strata#97).

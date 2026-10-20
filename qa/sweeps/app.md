@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, and directory-load log privacy.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, and the UI-thread stall watchdog.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -23,6 +23,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - AT-SPI dumps from `tests/e2e/harness/tree.py` or an ad-hoc `gi.repository.Atspi` script under `/tmp`; `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/e2e/harness/keyboard_layout.py` does. Restore `us` afterwards; never change the desktop's layout.
+- For UI-thread stall probes, an sshfs mount of a local folder; stop its daemon with `kill -STOP` and resume it with `kill -CONT`.
 - `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
 - A client-decorating compositor for title bar probes: `weston --backend=x11-backend.so` or a nested `mutter --nested` on the private display, with Strata launched against its Wayland socket.
 - Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -display :N -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
@@ -154,13 +155,25 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open Settings → Updates on the proxy-failed state, click Check now five times quickly, then restore the network and click once.
 - Compare the installed-release expander on the plain build, the prerelease build, and a build tagged with no GitHub release.
 - Serve release bodies through the proxy that hold a `<!-->` short form, a comment inside a fenced code block, and `-->` mid-paragraph; read the expander, the Available card, and the update dialog.
+- Serve 250 signed releases through the proxy with page 3 answering HTTP 500, then open the release menu.
+
+### app/updates/release-picker
+
+- Open the menu with the network failing, then restore the network and reopen it.
+- Switch the channel in a second window while the menu is open, and again while it shows "Loading releases…".
+- Pick a release while another install runs from the Updates row or a second window.
+- Pick a release, then close Settings before the dialog opens.
+- Open the menu on the plain build and on the prerelease build, and compare the check mark and the button label.
 
 ### app/updates/release-channels
 
 - On the prerelease build, select Stable with no newer stable release; then select Preview and Nightly and read the button, status, and labels after each change.
-- Open the update dialog for a nightly, switch the channel to Stable in a second window, and click the dialog's button.
+- Open the update dialog for a nightly offer, switch the channel to Stable in a second window, and click the dialog's button.
+- Repeat with a release candidate chosen from the release list in place of the nightly offer.
 - Write `channel = "beta"` and an empty value into `settings.toml` and read the menu after restart.
 - Hand-edit the cached release list so a tag reads `v0.10.0-rc.0` and another `0.10.0-RC.1`; neither may be offered.
+- Serve a release list holding a stable tag GitHub flags as a prerelease; open the menu on each channel.
+- Serve both `v1.0.0` and `1.0.0`, choose the one entry the menu shows, and press Install release; read the tag the dialog names.
 
 ### app/updates/install
 
@@ -169,6 +182,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Cancel at 10 %, at "Verifying update…", and during "Finalizing update…" from the row and from the dialog; then press Escape and click the backdrop during each phase.
 - Run the install with a second window open, a chooser process running, and a copy operation in flight; list which processes receive SIGTERM and whether the restart waits.
 - Replace the staged binary with one that exits 1 on `--gvfs-probe`, then one that sleeps 3 s; read the error and check `.strata-update-rollback`.
+- Install an older release chosen from the list, then make the relaunched binary exit 1 within 20 s; read which version runs afterwards.
 
 ### app/updates/package-managed
 
@@ -176,6 +190,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch with the unreadable marker and with the marker holding `channel = "preview"` and unknown keys; the page must offer no download.
 - Point the AUR check at a package version equal to, below, and above the installed one through the proxy; only the last may show a notice.
 - Click "Open AUR Update" with the helper removed from `PATH` after the page rendered.
+- On fake AUR and Omarchy installs with no terminal on `PATH`, click the dialog's action twice quickly, then once more after the error.
 - On a fake Omarchy install with an update offered, put a stub `omarchy-launch-floating-terminal-with-presentation` on `PATH` that records its arguments; click Open Omarchy Update with the stub present, absent, and not executable, from the Updates row and from the update dialog.
 
 ### app/infrastructure
@@ -185,6 +200,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 - Run Strata under `strace -f -e trace=execve`, open a folder of 200 text files named `.mp4` and `.png` in Icons, and count `ffprobe` launches; repeat with one real clip among them.
 - Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
+- Start Strata with `STRATA_UI_STALL_MS=250`, open a folder on the sshfs mount, and stop its daemon. Arrow through folders, type a path there, open a context menu, and press Ctrl+Z; read the log after resuming.
+- Start Strata with `STRATA_UI_STALL_MS` set to `0`, `-5`, `abc`, and ` 250 `; check for the watchdog thread `strata-ui-stalls`.
 
 ## Hand-offs
 
@@ -194,6 +211,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Sidebar toggle steps and tooltip text → `browser`.
 - Sidebar automatic rail → `preview`.
 - Settings layer mechanics and pages other than Updates, including Window buttons and text size controls → `settings`.
+- Settings search terms that find "Install a specific release" → `settings`.
+- The "Not responding" notice and request lanes on a stalled mount → `browser`.
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.
 - 10xer-mode key variants and footer prompts → `integration`.

@@ -3,7 +3,7 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
@@ -59,6 +59,7 @@ Creating an empty file or folder in the current directory from the background me
 ### Undo
 
 - Ctrl+Z after New Folder or New File moves the created item to Trash. lgse/strata#1097
+- A cancel that arrives after a local New File create has started reports the file as created, and Ctrl+Z still trashes it. lgse/strata#1729
 
 ### New Folder with Selection
 

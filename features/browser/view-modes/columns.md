@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
@@ -56,7 +56,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 ### Refreshing
 
-- F5 or auto-refresh keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544
+- F5 keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544, lgse/strata#1729
 - After a reload removes an open rename field, F2 renames that row again and Menu or Shift+F10 opens its context menu. lgse/strata#1438, lgse/strata#1554
 
 ### Column header

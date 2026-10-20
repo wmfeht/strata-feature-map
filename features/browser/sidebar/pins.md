@@ -3,7 +3,7 @@ title: Pinned folders
 status: shipped
 origin: {issue: null, pr: lgse/strata#67}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs, src/ui/window/pinned_drop.rs, src/ui/window/pinned_drop/**, src/adapters/directory_validation.rs]
 tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs, src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/e2e/scenarios/test_sidebar_pinning.py, tests/e2e/fixtures/file_drag_source.py]
@@ -61,6 +61,9 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 ### Shared bookmarks file
 
 - Every pin, unpin, or reorder re-reads the bookmarks file first, so pins made in another Strata window or by Nautilus survive. lgse/strata#674
+- A pin, unpin, or reorder in one window updates the PINNED section of every open Strata window. lgse/strata#1729
+- A new window shows the pins Strata last read, then re-reads the bookmarks file in the background. lgse/strata#1729
+- When another program changes the file between Strata's read and save, Strata rereads it and reapplies the change, at most twice more. lgse/strata#1729
 - When the bookmarks file cannot be read or saved, an "Unable to update pinned folders" dialog appears and the shown pins stay unchanged. lgse/strata#674
 - With `gtk-3.0/bookmarks` a user-owned symlink, as from a dotfiles manager, a pin, unpin, or reorder writes the link's target and keeps the link. lgse/strata#1455, lgse/strata#1544
 - A dangling link, or one owned by another user, still shows "Unable to update pinned folders" and leaves the file unchanged. lgse/strata#1544 (unverified)
@@ -76,13 +79,14 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - Items whose deletion failed or was cancelled keep their pins, as do pins on disconnected drives or unavailable network locations. lgse/strata#1373
 - Restoring a folder, including with Ctrl+Z, does not restore its pins. lgse/strata#1373
 - Deleting a symlink removes pins under the link's path and keeps pins to its target. lgse/strata#1373
+- Pins of folders a deletion or restore run removed leave every sidebar in one update when the run ends, also when it is cancelled. lgse/strata#1729
 - When the bookmarks file cannot be updated after a deletion, an error is reported and the deletion still counts as successful. lgse/strata#1373
 
 ## Design
 
 - Pins live in GTK's bookmarks file, not in Strata's preferences, so other GTK applications share them ([docs/preferences.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/preferences.md)).
 - Saves follow the config-file symlink rules in `settings/preferences/storage`; before, any symlinked bookmarks file was refused (lgse/strata#1455, lgse/strata#1544).
-- Each window used to rewrite the whole file from its startup snapshot, deleting pins made elsewhere (lgse/strata#647). Mutations now read the file, apply the change, save atomically, and adopt the result only after the save succeeds (lgse/strata#674). This preserves sequential edits, not simultaneous ones.
+- Each window used to rewrite the whole file from its startup snapshot, deleting pins made elsewhere (lgse/strata#647). Mutations now read the file, apply the change, save atomically, and adopt the result only after the save succeeds (lgse/strata#674). This preserves sequential edits, not simultaneous ones. Since lgse/strata#1729 each change is one job on a background writer that checks the file is unchanged just before its rename.
 - Reading with `read_to_string` turned one bad byte into an empty list that the next pin overwrote, so the file is parsed as bytes (lgse/strata#648, lgse/strata#713).
 - Pinning uses dedicated gaps, separate from row bodies, which stay file-transfer targets; the two drop targets are visually distinct (lgse/strata#1690). Before, pinning took two steps: the menu, then a drag into place.
 - Drags from Strata carry a snapshot of locations, display names, and an all-folders flag, so hovering a gap needs no filesystem probe. Foreign drags are validated once per drag, shared by every gap, so hover never blocks ([docs/architecture.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/architecture.md), lgse/strata#1692).
@@ -91,7 +95,7 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - Each gap remembers both neighbours, because other windows do not watch the bookmarks file (lgse/strata#1692).
 - A pinned row's drag payload is `pinned:<index>` into the stored list. The prefix keeps pins and built-in places apart, and the index keeps hidden standard-folder bookmarks in place (lgse/strata#202).
 - Home and the standard folders report pin status Unavailable, so they cannot be pinned twice (lgse/strata#67). Where pinning can never apply, the control is hidden rather than insensitive, because some themes render insensitive labels unreadably (lgse/strata#438, lgse/strata#457).
-- Deletion cleanup runs in the deletion provider, so it survives the originating window closing. It retries an etag conflict twice and notifies every sidebar through a shared watcher list (lgse/strata#1373).
+- Deletion cleanup runs in the deletion provider, so it survives the originating window closing. It retries twice when another program changed the file and notifies every sidebar through a shared watcher list (lgse/strata#1373, lgse/strata#1729).
 - Cleanup acts only on confirmed deletions. It does not scan for missing paths, since unavailability is not evidence of deletion (lgse/strata#1372, lgse/strata#1373).
 
 ## History
@@ -109,5 +113,5 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 
 ## Known gaps
 
-- A pin made in one window appears in other open windows only after they change a pin or Strata deletes an item; there is no file monitor. lgse/strata#647, lgse/strata#674
+- Bookmarks another program changes reach open windows only when Strata next changes a pin or deletes an item. A new window also reads them. There is no file monitor. lgse/strata#647, lgse/strata#674, lgse/strata#1729
 - When deleting a parent fails after removing some children, pins to those removed children are kept. lgse/strata#1372

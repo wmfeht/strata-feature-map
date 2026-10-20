@@ -3,10 +3,10 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
-tests: [src/ui/open_with/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/e2e/scenarios/test_open_with.py]
+tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/e2e/scenarios/test_open_with.py]
 docs: []
 related: [integration/10xer-mode, preview/preview-panel, browser/context-menu]
 ---
@@ -24,6 +24,7 @@ Opening files in their default application, choosing another application from th
 - Outside Flatpak, activating a file with no default application opens the Open With chooser for it instead of an error. lgse/strata#1012, lgse/strata#1635
 - When that chooser has no application to offer, it shows "No application is registered for this file" with Open disabled. lgse/strata#1012
 - Closing the fallback chooser returns focus to the activated entry. lgse/strata#1012
+- The fallback chooser opens only if the window is visible and shows no other dialog when the Recently Used history read finishes. Pressing Enter twice on such a file opens one chooser. lgse/strata#1729
 - Activating an item in Trash shows "Unable to open item" with "Items in Trash cannot be opened" and launches nothing. lgse/strata#995
 - A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
@@ -105,6 +106,8 @@ Applications come from GIO metadata; Strata does not parse `.desktop` files (lgs
 - Inside Flatpak, GIO sees only the runtime's desktop entries, so files go to the OpenURI portal through `gtk::FileLauncher`. Open With sets `always_ask`, so the desktop's chooser picks the application (lgse/strata#1503, lgse/strata#1635).
 - Portal launches run one file at a time so desktop choosers do not stack (lgse/strata#1635).
 - Type lookups run asynchronously and are discarded when the menu closes or the selection changes (lgse/strata#578, lgse/strata#625).
+- The chooser waits for the Recently Used history read before it opens (lgse/strata#1729).
+- Run takes the file's type and mode from its asynchronous query. It spawns the program on the reaper thread, so a dead mount cannot freeze the window (lgse/strata#1729).
 
 ## History
 

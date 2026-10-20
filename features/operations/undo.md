@@ -3,7 +3,7 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: []
 tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs]
@@ -68,7 +68,8 @@ One undo history and one redo history for file operations, shared by every Strat
 - An undo that reverts only some items leaves the rest for the next Ctrl+Z. lgse/strata#301
 - After a multi-item move undo where one conflict was answered with Skip, Ctrl+Shift+Z moves forward only the items that went back. lgse/strata#1120
 - A redo that applies only some items records an undo entry for just those items. lgse/strata#1120
-- Undo of a move, copy, create, Restore, or compression skips items no longer where the operation left them. lgse/strata#301, lgse/strata#444 (unverified)
+- Undo of a move, copy, create, Restore, or compression skips items proven gone from where the operation left them. lgse/strata#301, lgse/strata#444, lgse/strata#1729 (unverified)
+- Ctrl+Z after moving a dangling symlink moves it back. lgse/strata#1729
 - Redo of a move or Move to Trash skips items no longer where the undo left them. lgse/strata#1120 (unverified)
 - When no items remain, that Ctrl+Z or Ctrl+Shift+Z only discards the entry; the next press reaches the entry before it. lgse/strata#444, lgse/strata#1120 (unverified)
 - If another operation is recorded while a move undo's conflict dialog is open, answering the dialog reverts nothing. lgse/strata#301 (unverified)

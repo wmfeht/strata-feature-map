@@ -3,8 +3,8 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+review: draft
 code: [src/ui/window/devices.rs]
 tests: [src/ui/window/devices/tests.rs]
 docs: []
@@ -25,6 +25,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A mount whose volume is already listed gets no second row. lgse/strata#536
 - With no volumes, mounts, password drives, or pending releases, neither the DEVICES heading nor its separator renders. lgse/strata#536
 - Plugging in, mounting, unmounting, or removing a device updates Devices without a restart. lgse/strata#536
+- A row's udev encryption hint appears once a worker has read it; Devices rebuilds when the hint changes. lgse/strata#1729 (unverified)
 
 ### Mounting
 
@@ -41,6 +42,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - Visibility policy belongs to GIO, GVfs, and udisks2, as in Nautilus, Nemo, Thunar, and Dolphin. lgse/strata#493 added a raw `/proc/self/mountinfo` fallback to surface USB drives (lgse/strata#441). It reinstated mounts the backend hides on purpose, so lgse/strata#536 removed it from the sidebar (lgse/strata#532).
 - An empty device list is a valid answer. A union volume monitor does not reveal which backend is active, so Strata does not infer a degraded backend from a short list (lgse/strata#532).
 - Global search still reads the raw mount table for its roots; that policy is separate (lgse/strata#533).
+- Removable Send To destinations and encryption hints are checked off the UI thread, cached, and refreshed on volume monitor signals. Remembered Send To folders are checked again each time a menu is built. Destination and folder checks run on the mount's request lane, so a stalled mount cannot freeze the menu (lgse/strata#1729).
 - Sidebar mounts run through the browser's mount flow, so volumes share the themed authentication prompt, quiet cancellation, and retries used by remote locations (lgse/strata#302, lgse/strata#493).
 - A desktop automounter may already own a mount job. Strata waits for it rather than cancelling it, and never disables the user's automounter (lgse/strata#537, lgse/strata#935).
 

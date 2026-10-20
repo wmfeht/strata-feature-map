@@ -3,22 +3,26 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
-code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/storage.rs]
-tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, tests/e2e/scenarios/test_preferences.py]
+code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/storage.rs, src/storage/writer.rs]
+tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, src/storage/writer/tests.rs, tests/e2e/scenarios/test_preferences.py]
 related: []
 ---
 
 ## Summary
 
-How application-wide preferences are loaded, saved to `settings.toml`, recovered from damaged files, and kept in step across every window of one Strata process. Every Settings row and every preference consumer goes through this store.
+How application-wide preferences are loaded, saved to `settings.toml`, recovered from damaged files, and kept in step across every window of one Strata process. Saves go through one background writer. Every Settings row and every preference consumer goes through this store.
 
 ## Behavior
 
 ### Saving
 
 - Each preference change is saved to `$XDG_CONFIG_HOME/strata/settings.toml`, normally `~/.config/strata/settings.toml`. lgse/strata#518
+- A preference change applies at once; one background writer thread saves it afterwards, in order with Strata's other settings and state files. lgse/strata#1729
+- While a save of `settings.toml` waits in the queue, a newer change replaces its contents, so only the newest values are written. lgse/strata#1729
+- Quitting waits up to 10 s for queued saves to finish. lgse/strata#1729
+- A crash before a queued save runs loses that change. lgse/strata#1729 (unverified)
 - A save writes a temporary file in the destination's directory, syncs it, and renames it into place. lgse/strata#39, lgse/strata#1544
 - A failed write leaves the previous `settings.toml` intact and removes the temporary file. lgse/strata#39
 - An existing `settings.toml` keeps its permission bits, so a 0644 file stays 0644; a missing one is created 0600. lgse/strata#1544
@@ -44,6 +48,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 - A save that fails while a browser window is active opens one dialog there: "Settings can't be saved", summary "Changes last only until Strata closes". lgse/strata#1455, lgse/strata#1544
 - Its detail reads "Strata couldn't write “<path>”: <reason>. It tries again with each change." lgse/strata#1544
+- When several saves of `settings.toml` are queued, only the newest one's failure can show the dialog. lgse/strata#1729 (unverified)
 - Further failed saves show no dialog until a save succeeds; the next failure after a success shows the dialog again. lgse/strata#1544
 - A save that fails with no active browser window, such as during an Omarchy theme update, is only logged. The next failure can still show the dialog. lgse/strata#1544
 - A save that fails from a portal file chooser window is only logged. lgse/strata#1544
@@ -67,7 +72,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 ## Design
 
-[docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md) carries the lifecycle, the consumer table, and the steps for adding a preference.
+[docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) carries the lifecycle, the consumer table, and the steps for adding a preference.
 
 - One binding call applies the current value at once and then each change, so there is no separate startup initializer to drift from the change handler (lgse/strata#518).
 - Settings only edits preferences. Folder peeking once applied only when the General page was built, so a saved choice was ignored until Settings opened (lgse/strata#515).
@@ -84,7 +89,10 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A malformed entry is salvaged key by key instead of resetting the file, which had silently lost every customization on the next save (lgse/strata#646).
 - A syntax error is preserved rather than repaired; saving stops until restart (lgse/strata#721, lgse/strata#728). No backup or recovery UI exists; a dialog at the first change says saving is off until restart (lgse/strata#1455, lgse/strata#1544).
 - A failed save was only logged, so changes were lost without notice. One notice per failure streak covers write failures; the unreadable file gets one notice per session (lgse/strata#1455, lgse/strata#1544).
-- The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/d0f7028cff2fc71087fde8cd27f3247e0761e999/docs/preferences.md), lgse/strata#1544).
+- The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md), lgse/strata#1544).
+- One background writer runs every save of Strata's own settings and state files, so no save blocks the UI thread on a slow mount. Startup reads stay synchronous as a documented exception (lgse/strata#1729, docs/preferences.md).
+- Quitting waits up to 10 s for queued saves; the design had 1 s (lgse/strata#1729).
+- The writer remembers the stamp of every file it wrote or read. Re-reads after another process's write cover folder views, custom themes, Omarchy state, and the default sort and thumbnail size in `settings.toml`. A change of this process still being saved wins (lgse/strata#1729).
 - Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field (lgse/strata#518).
 
 ## History

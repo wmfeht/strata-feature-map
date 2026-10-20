@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/e2e/scenarios/test_search_filter_sort.py]
@@ -42,13 +42,15 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - When indexing stops early, the footer shows "Partial results"; its description names each cause, such as "some folders could not be read". lgse/strata#72, lgse/strata#493, lgse/strata#1066
 - Hovering **Partial results** shows a tooltip with the same causes as its description; complete results clear the tooltip. lgse/strata#1667
 - A small tree with one unreadable folder reports the unreadable folder, not an entry limit. lgse/strata#493
+- A hit whose file was deleted is dropped before it shows. A hit whose check fails stays; only a hit proven gone is dropped. lgse/strata#1729
+- A file operation that renames, moves, or deletes a folder during an index walk stops the walk there. The results are then marked partial. lgse/strata#1729
 - While indexing adds results, the highlighted result stays selected by path and unchanged rows are not rebuilt. lgse/strata#758
 
 ### Search limits
 
 - Every index walk stops at the saved time or entry limit; with **No limit** it walks until its roots are exhausted. Depth stays capped at 64. lgse/strata#1667
 - Ctrl+K reads the saved limits each time it opens, including before Settings has opened; a changed limit applies at the next open. lgse/strata#1667
-- Rescans for outside changes, F5, and auto-refresh rebuild an index with the limits it was opened with. lgse/strata#1667
+- Rescans for outside changes, F5, and network-folder re-lists rebuild an index with the limits it was opened with. lgse/strata#1667, lgse/strata#1729 (unverified)
 - When the time or entry limit stopped the walk, the partial-search message ends "Raise the limits in Settings → General → Search & filtering." Other causes alone do not add it. lgse/strata#1667
 
 ### Outside changes
@@ -61,7 +63,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Hidden folders are skipped only while hidden files are off, and folders 64 or more levels deep are skipped too. lgse/strata#1544 (unverified)
 - For an index built without subfolders, only a change in its root folder triggers a rescan. lgse/strata#1544 (unverified)
 - When another program moves a folder inside a watched folder, indexes rooted at or below it follow it. They restart at the new path. lgse/strata#1544 (unverified)
-- F5, auto-refresh, and a monitor rescan also rescan every index listing that folder, coalesced the same way. lgse/strata#1544 (unverified)
+- F5, a network-folder re-list, and a monitor rescan also rescan every index listing that folder, coalesced the same way. lgse/strata#1544, lgse/strata#1729 (unverified)
 - While Ctrl+K is open, a change in a watched folder under its roots triggers a full Ctrl+K rescan, at most once a second. lgse/strata#1544
 
 ### Keyboard and activation
@@ -128,3 +130,4 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 - Remote shares such as SMB are not searched. lgse/strata#87
 - During bursts of outside changes, a rescan request can block the window for up to one scoring pass. lgse/strata#1544
 - Whether global search scans mounts the volume monitor hides, such as a cache subvolume, is undecided. lgse/strata#533
+- Index walks bypass the mount request lanes. A walk that reaches a dead mount waits until the server answers. lgse/strata#1729

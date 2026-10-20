@@ -3,17 +3,17 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
-code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs]
+code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs]
-docs: [docs/architecture.md, docs/performance-baseline.md]
+docs: [docs/architecture.md, docs/performance-baseline.md, docs/filesystem-compatibility.md]
 related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-How an open folder's listing is loaded, published to the view, and kept in step with the filesystem. Covers bounded loads, live updates from file monitors, F5 and the pane Refresh button, the auto-refresh timer, and how changes made by Strata's own file operations reach the listing.
+How an open folder's listing is loaded, published to the view, and kept in step with the filesystem. Covers bounded loads, live updates from file monitors, F5, and the pane Refresh button. It also covers mounts that stop answering and how Strata's own file operations reach the listing. Child: `browser/directory-monitoring/network-checks` (checks of folders that other computers change).
 
 ## Behavior
 
@@ -42,6 +42,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Renaming an open folder externally in Columns re-points its column and every open descendant to the new path. lgse/strata#1036, lgse/strata#1037
 - Deleting an open folder externally in Columns closes its column and every descendant column. lgse/strata#1036, lgse/strata#1037
 - URI locations such as `trash:///` and mounted GVfs shares receive live changes through GIO monitors. lgse/strata#463
+- A folder's monitor is created after its load has answered. A file created between the load and the monitor going live appears without F5. lgse/strata#1729
 
 ### Open folder departures
 
@@ -56,17 +57,19 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - With no reachable ancestor, as at a portal file chooser's navigation boundary, the folder shows its read error and never leaves the boundary. lgse/strata#1554
 - An open folder whose name starts with a dot reports its own removal like any other. lgse/strata#1554
 - On a backend without inode identity, such as a GVfs share, an outside rename of the open folder counts as a departure. lgse/strata#1554
+- On sshfs, exfat-fuse, and vboxsf, and for any folder on exFAT, an outside rename of the open folder also counts as a departure: the pane opens the nearest existing folder. lgse/strata#1729
 
-### Manual refresh and auto-refresh
+### Manual refresh
 
 - F5 reloads every open column in Columns, and the active pane in Icons and List. lgse/strata#173, lgse/strata#393
 - Each pane header has a Refresh button, tooltip "Refresh (F5)", that reloads only that pane. lgse/strata#173 (unverified)
-- Settings → General → Performance → "Auto-refresh folder" offers Off, 1 min, 5 min, and 10 min, saved as `auto_refresh_interval` = 0, 60, 300, or 600. lgse/strata#173
-- With an interval set, each tick runs the same reload as F5; Off stops the timer. lgse/strata#173
-- On load, a hand-written `auto_refresh_interval` other than 0, 60, 300, or 600 rounds up to the next choice. 1 becomes 60, 61 becomes 300, and 3600 becomes 600. lgse/strata#1456, lgse/strata#1544
-- Settings then shows that choice, such as "1 min" for 1, and the timer runs at it. lgse/strata#1456, lgse/strata#1544
-- The rounded value reaches `settings.toml` on the next save, not at startup. lgse/strata#1456, lgse/strata#1544
-- An auto-refresh tick is skipped while a new item is being named or a rename is in progress. lgse/strata#567 (unverified)
+
+### Mounts that stop answering
+
+- Once a request on a mount has gone 2 s without progress, opening another folder there fails at once with "The operation timed out". lgse/strata#1729
+- F5, Retry, or a monitor's rescan on such a mount keeps the shown rows instead of showing an error. lgse/strata#1729
+- A folder whose load failed while its mount answered keeps its error until Retry. lgse/strata#1729
+- A refresh that keeps a listing of more than 512 entries first shows all of its rows, never stopping at the first 128. lgse/strata#1729
 
 ### Changes from Strata's own operations
 
@@ -92,12 +95,14 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
 - After Strata's own operations, folders with a monitor rely on it and only folders without one reload, avoiding needless reloads (lgse/strata#1035). Until lgse/strata#1615 the test was native versus non-native, and the reload was skipped after a cancel or when another watched folder had rescanned.
 - A folder's own monitor reports deletion, rename, and move alike. Strata then looks in the parent, off the main thread, for the same device, inode, and birth time (lgse/strata#1554).
-- The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554).
+- The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554). Since lgse/strata#1729 the comparison starts from the load's change stamp and uses the mount's identity rule. Where nothing proves the folder, as on sshfs, exfat-fuse, and vboxsf or for exFAT folders, the rename is not followed.
 - A watch on the open folder's parent was rejected before merge. In a busy parent it delayed notifications from about 100 ms to 150 ms (lgse/strata#1435, lgse/strata#1554).
 - The owner chose the nearest existing ancestor with no history entry and followed renames in place. A move to another parent counts as a deletion (lgse/strata#1554).
-- Auto-refresh exists because monitors can miss changes on network shares or after errors (lgse/strata#172). It defaults to Off.
-- An unlisted interval rounds up rather than down or to Off: auto-refresh stays on and never runs more often than every 60 s. The preference store normalizes it, not the timer (lgse/strata#1456).
-- Every live change and every reload (F5, auto-refresh, rescan) asks the search service to rescan indexes listing that local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544).
+- An Auto-refresh timer, Off by default, was added because monitors can miss changes on network shares (lgse/strata#172, lgse/strata#173). lgse/strata#1729 removed it: the lab saw no inotify event for 300 changes made on other computers over NFS, SMB, and sshfs. Stamp checks in `browser/directory-monitoring/network-checks` replace it.
+- Every live change and every reload (F5, a check's re-list, rescan) asks the search service to rescan indexes listing that local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544, lgse/strata#1729).
+- Requests to each mount go through a lane that stalls after 2 s without progress. Hard NFS returned nothing in 62 s, SMB failed after about 207 s, and stopped FUSE daemons returned nothing in 31 to 40 s. Without lanes, each action on a dead mount parked another GLib worker, up to 330 (lgse/strata#1729).
+- Monitors are created and cancelled on one serial worker, off the interface thread, never on a stalled lane. GLib's inotify backend handles every monitor under one lock, and creating one walks its path (lgse/strata#1729).
+- The owner chose to keep the listing after 2 s without progress and answer requests at once as timed out. "Not responding" follows after 10 s (lgse/strata#1729).
 - lgse/strata#173 also bound Ctrl+R to refresh. lgse/strata#393 gave Ctrl+R to Rename, leaving F5 as the only refresh key.
 - Retired views once stayed alive through autoscroll, menu, and preference-listener cycles, so each folder switch added work (lgse/strata#1185, lgse/strata#1187, lgse/strata#1353).
 
@@ -105,6 +110,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1729 | fix | Replaced auto-refresh with network-folder checks, kept listings on mounts that stop answering, and created monitors off the interface thread. |
 | 2026-10-10 | lgse/strata#1554 | fix | Followed an open folder renamed outside Strata, and left one deleted or moved for its nearest existing ancestor. |
 | 2026-10-10 | lgse/strata#1539 | fix | Flagged a focus change caused by the focused entry's removal, so Columns can mirror the replacement. |
 | 2026-10-10 | lgse/strata#1544 | fix | Refreshed search indexes on outside changes and kept a focused filter's focus through live and held changes. |
@@ -122,3 +128,5 @@ Loading and file monitoring predate the PR history; the original monitor already
 ## Known gaps
 
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902
+- While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
+- Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729

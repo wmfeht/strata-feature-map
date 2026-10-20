@@ -3,11 +3,12 @@ title: Unmount and eject
 status: shipped
 origin: {issue: lgse/strata#295, pr: lgse/strata#296}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
-review: reviewed
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+review: draft
 code: [src/ui/window/device_release.rs]
 tests: [src/ui/window/device_release/tests.rs]
-related: [operations/clipboard]
+docs: [docs/filesystem-compatibility.md]
+related: [operations/clipboard, operations/filesystem-compatibility/open-files]
 ---
 
 ## Summary
@@ -26,6 +27,8 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 ### Releasing
 
 - Eject or Unmount while browsing inside the device navigates the pane Home before the flush starts. lgse/strata#296, lgse/strata#1193
+- Before the flush, Strata releases its own reads under the mount root, as file operations do. lgse/strata#1729
+- Unmount or Eject while the preview reads a file on the device does not fail as busy. lgse/strata#1729
 - Strata runs `syncfs` on the mount root off the GTK thread, then calls the GIO eject or unmount. lgse/strata#1193
 - If the flush fails, GIO is not called and "Unable to eject device" or "Unable to unmount device" shows the error. lgse/strata#1193 (unverified)
 - If the flush or GIO call fails while the volume is still mounted, the pane returns to the folder it left. lgse/strata#1193
@@ -52,6 +55,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - Eject is preferred because USB and optical media need the drive eject, not only an unmount. Unmount is the fallback. Hiding both on fixed disks avoids buttons that always fail (lgse/strata#295).
 - A user unmounted an NTFS stick the moment its row vanished and lost a folder still in the page cache (lgse/strata#1182). Release therefore flushes with `syncfs` before GIO and keeps the row pending until GIO resolves, as GNOME Files does.
 - The pane leaves the volume before the flush so its directory monitors close and do not hold the mount busy (lgse/strata#1193).
+- Strata's own reads under the mount root are released before the flush. An open file makes the unmount fail as busy, and a sandbox that binds a file keeps the filesystem mounted inside it (lgse/strata#1729).
 - The flush runs through `gio::spawn_blocking`, because even opening a stalled mount must not block the UI thread (lgse/strata#1193).
 - "Safe to remove" requires Eject, or a drive that is removable, media-removable, or ejectable. Lock and fixed-disk unmounts never claim it (lgse/strata#1193).
 - The copy-side flush from the same PR, "Writing to device…" before a copy to removable media reports success, belongs to the transfer operations (lgse/strata#1193).

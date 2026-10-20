@@ -3,7 +3,7 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
 tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/e2e/scenarios/test_browser_workers.py, tests/e2e/scenarios/test_thumbnail_worker_settings.py]
@@ -19,13 +19,15 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 
 ### Thumbnail workers setting
 
-- Settings → General → Performance has a Thumbnail workers −/+ stepper with a range of 1 to 16. lgse/strata#1081
-- Typing "thumbnail workers" in Search settings reveals the control. lgse/strata#1081 (unverified)
-- Each −/+ click saves `thumbnail_workers` and applies to every window without a restart or interrupting running jobs. lgse/strata#1081
-- At 16, Increase thumbnail workers is insensitive; at 1, Decrease thumbnail workers is insensitive. lgse/strata#1081 (unverified)
-- The number between − and + shows the count; clicking it, described as "Reset thumbnail workers", restores the default. lgse/strata#1081
+- Settings → General → Performance has a Thumbnail workers spin button from 1 to 16, with − before the number and + after it. lgse/strata#1081, lgse/strata#1778
+- Assistive technologies read the control as one spin button named "Thumbnail workers". lgse/strata#1778
+- Typing "thumbnail workers" in Search settings reveals the control. lgse/strata#1081, lgse/strata#1778
+- Clicking − or +, or typing a count and pressing Return, saves `thumbnail_workers`. It applies to every window without a restart or stopping running jobs. lgse/strata#1081, lgse/strata#1778
+- At 16, clicking + leaves the count at 16. lgse/strata#1778
+- + is insensitive at 16, and − at 1. lgse/strata#1778 (unverified)
+- Clicking the number edits it; there is no reset to the default. lgse/strata#1778
 - The default is the CPU count capped at 4, or 2 when detection fails. lgse/strata#1081
-- With no saved count, `STRATA_THUMBNAIL_WORKERS` sets the default and the reset value; an invalid value falls back to the CPU default. lgse/strata#1081
+- With no saved count, `STRATA_THUMBNAIL_WORKERS` sets the default; an invalid value falls back to the CPU default. lgse/strata#1081, lgse/strata#1778
 - Lowering the count lets busy jobs finish, then retires idle workers above the new limit. lgse/strata#1081
 - The count also caps the separate pool that renders image and document previews. lgse/strata#1222 (unverified)
 
@@ -62,6 +64,7 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 - Decoding untrusted files in-process and delegating to Tumbler were rejected (lgse/strata#516).
 - Results are cached for 30 seconds, keyed by path, device, inode, size, nanosecond modification and change times, and operation, so a 256 px thumbnail cannot satisfy a larger preview (lgse/strata#1222).
 - Space previews use a second pool so a scrolled folder's thumbnails cannot delay them (lgse/strata#516, lgse/strata#1222). Supervisor isolation itself belongs to `preview/preview-panel/sandbox`.
+- The setting uses the same spin button as Text size and Corner roundness. The earlier popover stepper stretched with its row and never matched them (lgse/strata#1778).
 
 ## History
 

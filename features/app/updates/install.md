@@ -3,8 +3,8 @@ title: In-place update install
 status: shipped
 origin: {issue: lgse/strata#24, pr: lgse/strata#26}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
-review: reviewed
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+review: draft
 code: [src/services/update_install.rs, src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py]
 tests: [src/services/update_install/tests.rs, src/services/update_install/review_tests.rs, src/services/update_install/archive/tests.rs, src/services/update_install/command/tests.rs, src/services/update_install/download/tests.rs, src/services/update_install/manifest/tests.rs, src/ui/settings/tests/update_dialog.rs, scripts/test_sign_update_manifest.py]
 docs: [site/src/reference/signed-updates.md]
@@ -19,7 +19,8 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 
 ### Starting
 
-- Install update on the Updates row, or Download update in the update dialog, starts the install without a further prompt. lgse/strata#26, lgse/strata#51
+- Install update on the Updates row, or Download update or Install release in the update dialog, starts the install without a prompt. lgse/strata#26, lgse/strata#51, lgse/strata#1781
+- A chosen release older than the installed build installs. lgse/strata#1781
 - Only one install runs per process; starting another shows "Another install is already running — try again shortly." and leaves its button usable. lgse/strata#97, lgse/strata#1499
 - A download location other than `https://github.com/lgse/strata/releases/download/<tag>/strata-<version>-<arch>-unknown-linux-gnu.tar.gz` is refused. lgse/strata#506
 
@@ -71,6 +72,7 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 - Other Strata windows and chooser processes running the old binary for the same user receive SIGTERM, then SIGKILL after 5 seconds. lgse/strata#1201
 - Preview helpers and Strata binaries from other install paths are left running. lgse/strata#1201
 - On success the status reads "Update installed — restart to apply", and Strata closes its windows and relaunches the new binary. lgse/strata#26, lgse/strata#1201
+- In a chosen-release dialog, success reads "Release installed — restart to apply" instead. lgse/strata#1781 (unverified)
 - A running file operation that guards closing blocks the restart and shows its close warning. lgse/strata#1519
 - If the relaunched binary exits with an error within 20 seconds, the previous binary is restored and launched. lgse/strata#506
 - The preserved previous binary is deleted 60 seconds after Strata starts. lgse/strata#506
@@ -87,6 +89,7 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 - A fixed 120-second download limit failed slow but live downloads. Per-wait idle limits replaced it, and cancellation is checked about every second (lgse/strata#1499).
 - Every install writes the same executable, so one guard spans all windows. Staging paths are also unique per install against leftovers from a killed process (lgse/strata#97).
 - Old instances are found through `/proc` and signalled through a pidfd, so a reused PID is never signalled (lgse/strata#1201).
+- The installer accepts a rollback because it compares the requested tag with the signed manifest's tag, not version order (lgse/strata#1781).
 - Desktop metadata is only refreshed, never created, so an update does not add a launcher the user never installed (lgse/strata#182).
 
 ## History

@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -17,10 +17,12 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - `python3 -m http.server 8765 --bind 127.0.0.1` over a folder of download fixtures: JPEG, BMP, static and animated WebP and GIF, APNG, a CMYK JPEG, an EXIF-rotated JPEG, a 17-megapixel JPEG, a 33 MiB BMP, a 301 redirect, and a 404. `scripts/portal-test.html` covers frontend routing only when a portal-aware browser is installed on the VM.
 - `busctl --user call org.freedesktop.FileManager1 /org/freedesktop/FileManager1 org.freedesktop.FileManager1 ShowItems ass N <uris> ""` on the private bus. A copy of `data/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the build goes in the throwaway `$XDG_DATA_HOME/dbus-1/services` for activation probes.
 - A fake `xdg-terminal-exec` first on `PATH` that appends its argv and cwd to a log; a second `PATH` without it and without any known emulator; fake `kitty` and `$TERMINAL` scripts that exit 127.
-- A fake `.desktop` default handler under `$XDG_DATA_HOME/applications` that logs its argv, in `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
+- Fake `ghostty` scripts on `PATH` that log argv and cwd and print `Ghostty 1.3.1`, `Ghostty 1.2.3`, `ghostty 1.3`, or nothing for `--version`. Real Ghostty 1.3 with `gtk-single-instance = true`, when the VM has it.
+- A fake `.desktop` default handler under `$XDG_DATA_HOME/applications`, without `Path=`, that logs its argv and cwd. Add `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount. Typed-name and Trash-refusal probes use them.
+- An NTFS loop image attached with `udisksctl loop-setup` and mounted through `ntfs-3g` (`fuseblk`), so it lists under Send to. It holds a link to a folder off the device and a link to a folder on it. A script stops its `ntfs-3g` process with `kill -STOP` and resumes it with `kill -CONT`.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - Keyboard layout `fr` from the E2E `keyboard_layout` fixture or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the fixture lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
@@ -51,6 +53,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Narrow a chooser with no preview until the sidebar rails, step to hidden and to full, then narrow and widen again; open a preview at each step. Read the toggle's tooltip and accessible name.
 - With 10xer mode on, arm `g` with focus on a PDF page in the preview, press Ctrl+0, then press `d`; read the chord panel, the page width, and the location.
 - In Send to, press Ctrl+Shift+B, and press Ctrl+B with focus in the path entry; in Move to, step the sidebar through a cycle with the New Folder editor open.
+- In Send to on the `ntfs-3g` loop device, open the link that leaves the device and the link that stays on it. Then type a `../` path. Repeat with its `ntfs-3g` process stopped while a check runs, and click in the window before resuming it.
 - Toggle the mode with the chooser sidebar full, on the rail, and hidden; read the toggle's tooltip after each, then press Ctrl+B and Ctrl+N.
 - With 10xer mode on, open F1 in a chooser and turn the mode off from a browser window. Press Ctrl+plus, Ctrl+3, Ctrl+A, and Enter. Press Escape twice and read the response code.
 - Select a filter result, then press Shift+Space in Name under `save` and Space while an input method composes. Press Space on a sidebar row and a header button.
@@ -116,6 +119,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Type a path under a 50k-folder tree and press Enter before the search settles; Tab on `.alc` with hidden files off; query `10:30` and a path containing `:`.
 - Open `z` with an empty history, `Z` with 200 entries, press Up past the last candidate, and press Enter twice while the list is still updating.
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
+- With Downloads on the sshfs mount stopped by `kill -STOP`, press `g d`, then `g h` before 2 s pass.
 - On `fr` and `ch(de)`, press `g` then the keys that type `+` and `-`, on a pinned folder, an unpinned one, and the tenth pin.
 
 ### integration/10xer-mode/search
@@ -127,6 +131,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Delete the cursor file from a shell while the `s` stream is still running. Repeat while an `f` prompt has focus in Columns with a child column open.
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
+- Type a Ctrl+F filter of `^gam 'report md$`, toggling the mode on and off after each word. Then commit it and toggle twice more.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
 - Fill two `f` hits, rest the cursor on an unfilled hit, then cancel a Shift+Delete dialog, Tab out and back, and close Quick Look; read which hit holds focus and whether the fill changed.
 - Rename a folder two levels above an `s` search while its stream is still running. Rename one back before the monitor fires, and rename one while a copy runs into it.
@@ -140,6 +145,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
 - Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
+- On ext4 with casefold and on the sshfs mount, `ln a.txt link.txt`, then `rename ›` `a.txt` to `link.txt` and `Link.txt`.
 - On the vfat mount, submit `CON`, `a.`, ` lead`, `x:y`, and a name with U+200B in `create ›` and `rename ›`. On vfat and casefold, `rename ›` `Notes.txt` to `notes.txt`.
 - On the sshfs mount, press `d` until Trash is refused, then `d` again before and after F5, and from a second window; read each dialog.
 - Press `x` on a file, then `p` into a folder holding the same name, choose the focused button, and press Ctrl+Z.
@@ -162,6 +168,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Check Always use for two types at once, with `mimeapps.list` at mode 444, and cancel with it checked; compare with `xdg-mime query default`.
 - In the Flatpak build, activate a `.sh`, an AppImage, and a file on an exFAT mount; press Open With… on three files of different types and dismiss the second desktop chooser; hand a video from the preview to the player.
 - On a GVfs FUSE mount, open with a `%f` handler and a `%u` handler; skip when no mount exists and say so.
+- Start Strata from a folder on the sshfs mount. Activate a file and use Open With… with the fake handler and a `Path=/tmp` twin; read each cwd.
+- Press Enter twice fast on a file with no handler, once with a modal open, and once in a second window. Count the choosers.
 
 ### integration/open-with/recent-apps
 
@@ -177,6 +185,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
 - In Columns, click a folder and press Ctrl+Alt+T with the pointer over a grandparent, and after selecting a second folder in the parent; repeat with the folder opened by keyboard.
 - Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits. Count Strata's children and threads with `ps -L` afterwards.
+- With each fake `ghostty`, set `$TERMINAL` to `ghostty`, `ghostty --class=x`, a path ending in `/ghostty`, and `ghostty-wrapper`. Press Ctrl+Alt+T, run a `.sh`, and press any shown update row; read the argv.
+- Swap the fake `ghostty` for one printing another version mid-session, then press Ctrl+Alt+T again.
+- With real Ghostty 1.3, press Ctrl+Alt+T on a non-home folder with Ghostty running, then not running. Repeat without `com.mitchellh.ghostty.service`; skip without Ghostty and say so.
+- Put the only terminal's `PATH` entry, then the target folder, on the sshfs mount stopped by `kill -STOP`. Press Ctrl+Alt+T and click in the window.
 
 ### integration/custom-actions
 
@@ -185,6 +197,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Run on 1,000 selected files with newline and non-UTF-8 names in per-item and whole modes; check `STRATA_ACTION_PATHS` bytes, `RUN_DIR` mode and removal, each cwd choice, a forked child, `processed > total`, malformed JSON, and a relative output path.
 - Cancel a per-item run at item 3 of 10 with a script ignoring SIGTERM, then close the last window while jobs are queued; hand-edit `prefix-{path}` and `{paths}` in per-item mode into a manifest and reload.
 - Open the action editor at corner roundness 0%, 40%, and 200%, under each theme. Hover each tab, focus it by keyboard, and read the Confirm toggle and footer buttons.
+- Open the item menu, then from a shell edit the listed action's manifest, add `confirm = true`, or delete its folder. Choose the action, then repeat through `; 1`.
+- Put `$XDG_CONFIG_HOME` on the sshfs mount, stop it with `kill -STOP`, and open the item menu, Settings → Actions, and Import….
 - Derive Id from `Ünïcode Name!!`, switch runtimes three times with edits, and apply a recipe over an edited draft. Duplicate three times, Export into an existing folder, and Import a folder with extra files and a symlinked entrypoint. Run Batch rename with a colliding target and one created between check and rename.
 
 ### integration/file-manager-interface
@@ -209,3 +223,4 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
 - The browser window's sidebar steps, the saved `sidebar_compact` state, and the rail's row sizing → `browser`.
+- Network-folder change checks, including the pause while a chooser is hidden → `browser`.

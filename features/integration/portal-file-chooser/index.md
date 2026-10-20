@@ -3,10 +3,10 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
 related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout]
 ---
@@ -99,6 +99,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Invoking another destination command while one is open presents the existing chooser instead of opening a second. lgse/strata#1384 (unverified)
 - Closing the originating window closes its chooser; Cancel leaves the files and the window's location unchanged. lgse/strata#1384
 - For Send to, the sidebar and its toggle are hidden, and Ctrl+B or Ctrl+N in 10xer mode leaves the sidebar hidden. Navigating outside the device shows "Choose an existing folder inside this removable device." lgse/strata#1384 (unverified)
+- In Send to, a link on the device to a folder off the device stays listed. Opening it shows "Choose an existing folder inside this removable device." lgse/strata#1729
 - Move to, Copy to, and Extract to offer New Folder. Enter in the path entry navigates; Ctrl+Enter in the file list or the action button confirms. lgse/strata#1384
 - Send to disables New Folder in the menu, the toolbar, and Ctrl+Shift+N. lgse/strata#1384 (unverified)
 
@@ -118,6 +119,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
 - The chooser's 10xer key map and command allowlist belong to `integration/10xer-mode`.
 - The chooser keeps its sidebar steps for the dialog only and does not save them (lgse/strata#1606).
+- A device chooser checks containment by path on the UI thread and where a folder really leads on a worker. Its listing, monitor, and search start only once that check places the folder inside the device (lgse/strata#1729).
 
 ## History
 

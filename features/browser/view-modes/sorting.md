@@ -3,7 +3,7 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/app/browser/sorting.rs, src/services/mime_type.rs]
 tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs]

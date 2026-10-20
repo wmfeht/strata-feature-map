@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/trash_support.rs, src/adapters/local_operations/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/trash_support/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs]
@@ -60,6 +60,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - After a batch whose trash moves on a FUSE mount were refused as unsupported, new empty `.Trash-$uid` or `.Trash/$uid` folders are removed from its root. lgse/strata#1614
 - That cleanup is skipped on a mount where any item in the batch was trashed. lgse/strata#1614
 - A Trash move that reports success while the item is still in place fails as Trash unsupported, and records no Undo. lgse/strata#1615
+- When another item took the name during the Trash call, Undo and saved views follow the newest Trash entry made for that path. lgse/strata#1729
 
 ### Browsing Trash
 
@@ -86,7 +87,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 - GIO reports `can-trash` on writable FUSE roots, so a refusal shows only mid-attempt. `access()` is not trusted, because sshfs answers success without `default_permissions`; mode and sticky bits are read (lgse/strata#1614).
 - A refusal is remembered per mount instance so a remount retries, and Reload clears every record rather than probe a possibly hung folder (lgse/strata#1614).
 - A failure in the home Trash says nothing about the mount, so items on the home device are excluded (lgse/strata#1614).
-- GLib 2.86.0 to 2.88.4 can report success without trashing anything on some FUSE mounts (GLib #4060), so a trashed local item is checked gone first (lgse/strata#1615).
+- GLib 2.86.0 to 2.88.4 can report success without trashing anything on some FUSE mounts (GLib #4060), so a trashed local item is checked gone first (lgse/strata#1615). The check uses the mount's identity rule and holds the item across GLib's call, except on NFS, where a hold leaves a `.nfs…` file (lgse/strata#1729).
 - GVfs can move or delete whole trashed items but not their children, so actions on nested Trash children are hidden rather than left to fail (lgse/strata#433).
 - Undo finds the trashed items through home-trash `.trashinfo` metadata before `trash:///`, because GVfs can miss an item re-trashed under the same name (lgse/strata#228).
 - URI locations are monitored through GIO, so `trash:///` receives `gvfsd-trash` change events; events about the watched root itself are dropped, except its removal (lgse/strata#432, lgse/strata#463).
@@ -111,3 +112,4 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 - A persistent or per-mount "Use Trash" setting, and recovery declared by a provider, are deferred. lgse/strata#1614
 - Through a symlink alias, the dialog's mount sentence and remote wording fall back to local wording. lgse/strata#1614
+- On NFS, nothing holds the item across GLib's Trash call, so an item swapped in at the name during the call is not noticed. lgse/strata#1729

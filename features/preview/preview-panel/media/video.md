@@ -3,8 +3,8 @@ title: Video previews
 status: shipped
 origin: {issue: lgse/strata#1417, pr: lgse/strata#1474}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
-review: reviewed
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+review: draft
 code: [src/ui/preview/video.rs, src/ui/preview/video, src/media/storyboard.rs, src/media/storyboard, src/ui/media/ambient.rs, src/ui/media/ambient]
 tests: [src/ui/preview/tests/video.rs, src/ui/preview/video/badges/tests.rs, src/ui/preview/video/details/tests.rs, src/ui/preview/video/storyboard/tests.rs, src/media/storyboard/tests.rs, src/ui/media/ambient/tests.rs, src/ui/window/tests/keyboard_dispatch/video_clips.rs, tests/e2e/scenarios/test_preview_video.py]
 related: [preview/preview-panel/media/audio, browser/properties, integration/open-with, settings/themes]
@@ -30,6 +30,7 @@ The now-playing view for video files: the frame, a header with technical badges,
 - A playback error shows its title and detail inside the view; play is disabled and previous and next stay usable. lgse/strata#1474
 - Badges under the title show resolution class (SD to 8K), HDR10 or HLG, bit depth, rounded frame rate, video codec, and audio codec with channel layout. lgse/strata#1474
 - A captions badge, "CC" or "CC ×N", counts embedded subtitle tracks plus `srt`, `vtt`, `ass`, `ssa`, or `sub` sidecars named after the video, such as `clip.en.vtt`. lgse/strata#1474
+- A sidecar subtitle scan refused by a file operation is not cached as a failure; the next visit reads the badges again. lgse/strata#1729 (unverified)
 - Subtitles are never drawn on the frame. lgse/strata#1474
 - Until the probe answers, empty pills hold the row; a failed probe leaves it empty. lgse/strata#1474
 

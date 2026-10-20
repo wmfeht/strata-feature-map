@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
@@ -66,6 +66,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Under Flatpak, once the selected types resolve, the multi-selection menu shows Open above Open With…, even with different or no defaults. lgse/strata#1635 (unverified)
 - When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
+- In the background menu of a folder, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
 - Custom action rows appear after the opening group and before Cut. lgse/strata#1085 (unverified)
 - Actions hidden for the current target leave no empty group or doubled separator. lgse/strata#1210
 - Open With… shows AppWindow, Duplicate CopyPlus, Copy path(s) Route, Copy name(s) FileType, Move to… FolderInput, and Copy to… FolderOutput. lgse/strata#1210

@@ -1,13 +1,13 @@
 ---
 title: Operations sweep
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
 ---
 
 ## Scope
 
-Everything that changes files on disk from the browser: New Folder and New File, inline rename, copy, cut, and paste with their name conflicts, Move to and Copy to, Send to, drag and drop with its copy-or-move policy and column autoscroll, filesystem-safe placement, copying, and name fixing, Trash with restore, Empty Trash and the flight animation, permanent deletion, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
+Everything that changes files on disk from the browser: New Folder and New File, inline rename, copy, cut, and paste with their name conflicts, Move to and Copy to, Send to, drag and drop with its copy-or-move policy and column autoscroll, filesystem-safe placement, copying, identity, and name fixing, releasing open files, leftover recovery, Trash with restore, Empty Trash and the flight animation, permanent deletion, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
 
 Left to other sweeps: pointer gestures and selection before a drag starts, the sidebar Trash row as a place to navigate to, the modal dialog shell, rendering of archive members in the preview panel, the devices Send to lists, provider destinations inside Send to…, folder reloads after operations, and the 10xer-mode key variants.
 
@@ -21,6 +21,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - A real USB stick formatted vfat, and one exFAT, for flush and unplug probes; the lab's loop devices live in RAM.
 - An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals. The lab has no rclone; skip those probes and say so when it is unavailable.
 - A 9p or virtiofs share and a mergerfs pool, for deletion wording. The lab has neither; skip those probes and say so when unavailable.
+- A holder for open files on the NFS, SMB, and sshfs mounts: `less` or `tail -f` run from a terminal app, and the same run as a plain process outside any app unit.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/e2e/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
@@ -74,7 +75,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Paste a folder over a folder, a file over a folder, and a folder over a file; take each choice with Apply to all, then cancel midway through a batch of 20.
 - Keep both twice on the same source and read the suffix sequence.
 - On vfat, paste `a:b` where `a_b` exists, then where both `a_b` and `A_B` exist; answer Keep Both on a cut-paste and undo.
-- Replace and Merge on tmpfs, where Trash is unavailable; cancel midway, then list hidden `.strata-replaced-*` and `.strata-merge-*` names.
+- Replace and Merge on tmpfs, where Trash is unavailable; cancel midway, then list hidden `.strata-originals-*` and `.strata-merge-*` names.
+- Merge without Trash on NFS while another program holds one replaced file open; then cancel a second such merge.
 - After a Merge, edit one placed file, only `touch` another, then undo.
 
 ### operations/clipboard/send-to
@@ -112,6 +114,28 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Paste onto a stick reached through two nested symlinks, and onto a bind mount of it.
 - Move 300 files to a rotational USB disk and to an SSD; watch for "Writing to device…" and count files on arrival.
 - Produce every report section in one transfer, in a narrow window, while a Send to notice is visible.
+- On an SMB share, look up a folder under a second spelling so the client drops `serverino`. Then move a folder off the share and Replace a file on it.
+- On a vfat stick, Replace a file after a remount between the prompt and the copy, so the kernel renumbers its entries.
+
+### operations/filesystem-compatibility/open-files
+
+- Hold a file below a folder on NFS, SMB, and sshfs, and unlink it from a shell. Then Delete, Move to another disk, and Move to Trash the folder.
+- Repeat with each holder from Setup, and with the holder owned by another user.
+- Delete 50 held folders at once and time the wait.
+- On SMB without and with POSIX extensions, rename and move a folder while a file below it is open in another program.
+- Play a video in the preview and move its folder to another disk from a second window, on NFS and on a local disk.
+- Start a Delete while a thumbnail of a large image in that folder is still loading.
+
+### operations/filesystem-compatibility/leftovers
+
+- Make each kind by hand: `.strata-originals-<uuid>/`, `.strata-merge-<uuid>/`, `.strata-copy-<uuid>`, `.strata-extraction-<uuid>`, an older `.strata-replaced-<uuid>`, `.strata-replacement-ab12Cd`, and `.strata-copy-notes`. Open the folder in Columns, List, Icons, the portal chooser, and a peek.
+- Restore an originals folder whose names are taken by a file, a folder, and a symlink; restore a merge folder whose subfolders were deleted.
+- Open the review, remove one item from a shell, then press Restore and Delete… on it.
+- Close the folder before pressing Review on the card; reopen the same folder in a second window in the same session.
+- Kill Strata with `kill -9` during a Replace on sshfs and on NFS, then open the folder.
+- Open an `sftp://` folder holding leftovers.
+- Unplug an ntfs3 stick during a Replace without Trash, then plug it in with udisks' default options and open the folder.
+- Mount a vfat stick last written in a time zone to the west that holds a fresh `.strata-probe-*`.
 
 ### operations/trash
 
@@ -137,6 +161,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Restore a mixed selection where one original lives on an unmounted volume.
 - Restore 200 items at once and cancel midway.
 - Restore on the ntfs-3g and sshfs mounts, and from an exFAT stick's Trash into a folder on another disk, cancelling one copy midway.
+- On vfat and ext4, Delete `notes.txt`, then create and trash another `notes.txt` from a shell within the same second, and press Ctrl+Z.
+- With `GIO_USE_VFS=local`, undo a Replace on a USB stick whose `.Trash-$uid` is a symlink, then one owned by another user.
 
 ### operations/trash/empty
 
@@ -182,6 +208,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - After that run, list the destination with hidden files shown.
 - Extract into a sshfs folder and onto a vfat stick an archive holding `10:00/` and `10_00/`, a symlink, a hard link to it, and `c:notes`.
 - On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
+- On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.
 - Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
 
 ### operations/archives/rar
@@ -225,6 +252,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Change an operation's target from a shell, then undo it; expect a clear failure and an intact history.
 - Press Ctrl+Z in a second window and in the file chooser.
 - Move the folder built for `operations/filesystem-compatibility` onto vfat, rename one fixed name on the stick, then undo and redo.
+- Move a dangling symlink and a link into a stopped sshfs mount, then undo.
 
 ## Hand-offs
 
@@ -232,6 +260,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - The sidebar Trash row as a navigation target → `browser`.
 - Modal dialog shell: blur, Escape, backdrop, focus return → `app`.
 - Rendering of archive members and documents inside the preview panel → `preview`.
+- Preview playback stopping, the sandbox wait, and the preview following a renamed item during an operation → `preview`.
+- Thumbnails asked for again after an operation stopped them → `browser`.
+- Releasing reads under a mount root before an unmount → `devices`.
 - Mounting, unmounting, and ejecting the devices Send to lists → `devices`.
 - Provider destinations inside Send to… and their protocol → `remote`.
 - Folder reloads and monitor events after an operation ends → `browser`.

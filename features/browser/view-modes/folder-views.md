@@ -3,7 +3,7 @@ title: Per-folder sort and thumbnail size
 status: shipped
 origin: {issue: lgse/strata#1563, pr: lgse/strata#1565}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
 review: draft
 code: [src/ui/preferences/folder_view_settings.rs, src/ui/preferences/folder_views.rs, src/ui/preferences/folder_views/**, src/app/browser/folder_sorts.rs]
 tests: [src/ui/preferences/folder_views/tests.rs, src/app/browser/tests/folder_sorts.rs]
@@ -60,6 +60,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - A Merge into an existing folder keeps that folder's own values; a move to a place that is not remembered drops them. lgse/strata#1565
 - Values follow renames and moves whether or not the switch is on. lgse/strata#1565
 - Moving a folder to Trash in Strata drops its values; Put back or undo restores them for the session. A permanent delete drops them. lgse/strata#1565
+- On vfat, a folder the kernel renumbered in Trash still gets its values back on Put back or undo. On exFAT, it gets them back only if its inode number is unchanged. lgse/strata#1729
 - Opening a deleted local folder drops its values only when its parent lists other entries and holds no mount points. A drive root keeps them. lgse/strata#1565
 
 ### Storage file
