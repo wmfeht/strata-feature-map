@@ -38,6 +38,15 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - With Sort by or Appearance open, a wheel tick outside it closes it and scrolls only the listing under the pointer; over the sidebar or other chrome it only closes. lgse/strata#590
 - Wheel ticks inside an open Sort by or Appearance panel keep it open. lgse/strata#590
 
+### Content density
+
+- At Content Airy, Columns and List rows have a 42 px minimum height and 8 px vertical margins; Columns row content keeps 4 px. lgse/strata#168 (unverified)
+- At Content Airy, Icons has 5 px grid padding, 3 px cell margins, and 5 by 7 px card padding. lgse/strata#168, lgse/strata#747 (unverified)
+- A Custom Content value N sets N px vertical margins on Columns and List row children, and min(N, 4) px on Columns row content. lgse/strata#1776 (unverified)
+- A Custom Content value scales row minimum height, Icons grid padding, cell margins, and card padding linearly through the Compact and Airy values, clamped at 0 and rounded. lgse/strata#1776
+- Icons shows at most 20 columns at Content Compact and at most 16 at Airy. lgse/strata#1776
+- A Custom Content value below 8 px caps Icons at 20 columns; 8 px or more caps it at 16. lgse/strata#1776 (unverified)
+
 ### Loading and names
 
 - A directory that loads within 150 ms shows no loading skeleton; a slower load shows a skeleton shaped like the current view. lgse/strata#343, lgse/strata#584

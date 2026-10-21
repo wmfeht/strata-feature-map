@@ -139,4 +139,4 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Markdown cannot be edited or rendered with Pandoc or Quarto from the preview. lgse/strata#1127
 - A touchpad flick can end early when newly measured rows change the scroll range or content origin. lgse/strata#1752
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752
-- This PR did not speed up the initial loading of large rendered previews. GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752
+- Initial loading of large rendered previews is not measurably faster. GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752

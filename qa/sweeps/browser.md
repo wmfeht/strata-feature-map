@@ -91,6 +91,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Press Ctrl+1, Ctrl+2, and Ctrl+3 with Russian active beside US, with only Russian configured, on Dvorak, and with Caps Lock on; then with keypad digits and Num Lock on.
 - Scroll List and Icons with cut files in view under a 25% CPU quota, and again after the window sat idle for 10 s; stop on cut rows and watch when their styling and dates settle.
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
+- At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
 
 ### browser/view-modes/columns
@@ -169,12 +170,11 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 ### browser/view-modes/density
 
 - Drag both sliders across their full range in Columns, Icons, and List, at text size 8 and 48; watch for jumps at each preset and clipped headers or rows.
-- Write `frame_density = "custom"` with `frame_density_custom_px = 200`, `browser_density = "bogus"`, and `browser_density_custom_px = 3` with `browser_density = "compact"`; start and read the sliders and the file after one change.
+- Write `frame_density = "custom"` with `frame_density_custom_px = 200` and `browser_density = "bogus"`; start and read the sliders and the file after one change.
+- In a separate run, write `browser_density = "compact"` with `browser_density_custom_px = 3`; start and read the Content slider.
 - Set Frame 7 and Content 11, quit, and restart; then open a second window and the portal file chooser and compare their spacing.
 - Open Appearance in two windows and drag a slider in one; then press a snap button in the other.
 - With the menu scrolled, wheel over each slider; then focus one and press Page Up at the maximum and Page Down at 0.
-- At Frame 12, rail the sidebar, open the preview, open eight tabs, and open a Miller column with its header actions; check the bars line up.
-- At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Read each slider and snap button with Orca while moving between presets and Custom values.
 
 ### browser/view-modes/text-size

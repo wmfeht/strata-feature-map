@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/window/density_slider.rs]
-tests: [src/ui/window/tests/appearance_density.rs, src/ui/theme/tests/density.rs]
+tests: [src/ui/window/tests/appearance_density.rs, src/ui/theme/tests/density.rs, src/ui/preferences/tests/preferences.rs]
 docs: [docs/preferences.md]
 related: [settings/themes, browser/view-modes/columns, browser/view-modes/icons, browser/view-modes/list, browser/sidebar, browser/tabs, preview/preview-panel/layout, settings/preferences/storage]
 ---
@@ -40,21 +40,7 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 - Each change is saved immediately. lgse/strata#1776
 - A Custom value above the maximum loads clamped: 200 loads as Frame 12 or Content 16. lgse/strata#1776 (unverified)
 - A settings file with only `browser_density` loads, with Frame at Compact, 0 px. lgse/strata#1776
-
-### Content spacing
-
-- Content Airy gives Columns and List rows a 42 px minimum height and 8 px vertical margins, and Icons 5 px grid padding, 3 px cell margins, and 5 by 7 px card padding. lgse/strata#1776 (unverified)
-- A Custom Content value N sets N px vertical margins on Columns and List row children, and min(N, 4) px on the Columns row content. lgse/strata#1776 (unverified)
-- A Custom Content value scales row minimum height, Icons grid padding, cell margins, and card padding linearly through the Compact and Airy values, clamped at 0 and rounded. lgse/strata#1776
-- Icons shows at most 20 columns below Content 8 px and at most 16 at 8 px or more. lgse/strata#1776 (unverified)
-
-### Frame spacing
-
-- Frame N above 0 adds N px top and bottom padding to the browser header, tab strip, Icons and List pane header, preview header, and sidebar rows. lgse/strata#1776
-- Frame N above 0 gives Miller column headers N px top and N+2 px bottom padding. lgse/strata#1776
-- Frame N above 0 adds an N px left margin to the action buttons in those bars, including List navigation buttons. lgse/strata#1776
-- The sidebar toggle keeps its margin at every Frame value. lgse/strata#1776
-- Frame 0, Compact, adds no style, leaving the bars as before the setting existed. lgse/strata#1776
+- An unrecognized mode such as `browser_density = "bogus"` loads as Compact. lgse/strata#1776 (unverified)
 
 ## Design
 
@@ -65,7 +51,7 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 - One Frame inset applies in lock step to every bar, so the header, tab strip, sidebar rows, and Miller, Icons/List, and preview headers keep aligned heights (lgse/strata#1776).
 - Both settings implement `DensityScale`, whose Compact and Airy values are snap points. `from_px` maps a snap value to its preset, so a slider on a preset saves the preset (lgse/strata#1776).
 - Custom Content values extrapolate linearly through the static Compact and Airy rules, so the slider never jumps at a preset (lgse/strata#1776).
-- The generated CSS loads into one provider above the static stylesheet. It reloads only when either density changes, so dragging never reapplies the theme (lgse/strata#1776).
+- `settings/themes` records how the generated density CSS is loaded and reloaded (lgse/strata#1776).
 - Frame uses padding and `margin-left` only, so fixed minimum heights and button widths still hold (lgse/strata#1776).
 
 ## History

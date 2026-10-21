@@ -153,6 +153,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - With `XDG_CONFIG_HOME` unset, then set to another directory, create `style.css` in each place; read which one applies.
 - With the hostile setup, also name `StrataEmpty` in `settings.ini` and launch under `GTK_THEME=StrataEmpty`; walk the screenshot set and compare with a clean run.
 - With the user GtkSourceView setup, open a Rust, Markdown, and shell preview, switch themes twice, and follow Omarchy; compare syntax colors with a run without it and read the log.
+- With a user stylesheet that sets `.sidebar-row` padding, set Frame 7 px and Content Custom 11 px. Then switch theme, follow Omarchy, and open and Cancel an editor preview. Read bar and row spacing in both windows after each.
+- At Frame 12, rail the sidebar, open the preview, open eight tabs, and open a Miller column with its header actions. Check that the bars line up.
 
 ### settings/themes/icons
 

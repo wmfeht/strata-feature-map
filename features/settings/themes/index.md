@@ -132,6 +132,15 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Without the file, Strata's appearance is unchanged. lgse/strata#1758
 - Corner roundness does not scale radii set in the user stylesheet. lgse/strata#1758 (unverified)
 
+### Frame density
+
+- Frame N above 0 adds N px top and bottom padding to the browser header, tab strip, Icons and List pane header, and preview header. lgse/strata#1776
+- Frame N above 0 adds N px top and bottom padding to sidebar rows. lgse/strata#1776
+- Frame N above 0 gives Miller column headers N px top and N+2 px bottom padding. lgse/strata#1776
+- Frame N above 0 adds an N px left margin to the action buttons in those bars, including List navigation buttons. lgse/strata#1776
+- The sidebar toggle stays aligned with the sidebar icons at every Frame value. lgse/strata#1776 (unverified)
+- Frame 0, Compact, adds no style, leaving the bars as before the setting existed. lgse/strata#1776
+
 ## Design
 
 [docs/themes.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
@@ -158,7 +167,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - lgse/strata#1697 rejected a property list in place of `all: unset`, a short hand-picked reset, dropping isolation, and redirecting `XDG_CONFIG_HOME`. The last moves settings and leaks into launched apps.
 - `GTK_THEME` bypasses GTK's settings, so startup re-execs without it, through the same path as the Cairo renderer. Editing the environment after threads start was avoided (lgse/strata#1680).
 - Stylesheets above user priority win only for properties they set. A reset provider unsets every property just above user priority; the built-in theme, Strata's stylesheet, and its tokens follow in rising priority (lgse/strata#1681, lgse/strata#1682).
-- Generated density CSS has its own provider between Strata's stylesheet and the tokens. It reloads only when a density changes, so dragging a density slider never re-applies the theme (lgse/strata#1776, docs/preferences.md).
+- Generated density CSS has its own provider between Strata's stylesheet and the tokens. It reloads only when a density changes, so dragging a density slider never re-applies the theme (lgse/strata#1776).
 - The source-preview style scheme is built in memory as a one-file resource, and the style manager searches only that resource folder. Saving it to the cache and rescanning listed the user's folders on the UI thread (lgse/strata#1729).
 - Language lookups keep GtkSourceView's bundled and system folders and drop those under the user's data and home folders. The first preview had listed them on the UI thread (lgse/strata#1729).
 - Tokyo Night became the default at the maintainer's request; Azure Glow stayed the missing-theme fallback (lgse/strata#541, lgse/strata#542).
