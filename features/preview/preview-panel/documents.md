@@ -3,11 +3,11 @@ title: Rendered document previews
 status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
-code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
-tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/e2e/scenarios/test_quick_preview.py]
-docs: [site/src/reference/document-previews.md]
+code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/scrollbar.rs, src/ui/virtual_preview/scrollbar/position.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
+tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/virtual_preview/scrollbar/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/e2e/scenarios/test_quick_preview.py, tests/e2e/mutations/preview-scrollbar.patch]
+docs: [site/src/reference/document-previews.md, docs/document-previews.md]
 related: [preview/preview-panel/sandbox, preview/preview-panel/find, settings/preferences, settings/themes]
 ---
 
@@ -43,6 +43,21 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Turning wrap off while a rendered document is open returns rows to their unwrapped height with no blank gaps between them. lgse/strata#1612, lgse/strata#1610
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187
 - Every rendered code block shows a **Copy code** button that copies the whole block. lgse/strata#187
+
+### Scrolling
+
+- In a rendered Markdown or large plain-text preview, holding the scrollbar thumb still keeps the content at one position. lgse/strata#1752, lgse/strata#1749
+- Dragging the thumb downward never moves the content backward, and the content passes through interior positions on the way. lgse/strata#1752
+- Dragging the thumb to the top or bottom of the track shows the document's first or last line, even while new rows are measured. lgse/strata#1752
+- Releasing the thumb, including with the pointer over the content, leaves the content where it is; the next wheel input scrolls it and the thumb follows. lgse/strata#1752
+- Closing the preview while holding the thumb ends the drag; after reopening, the thumb follows scrolling again. lgse/strata#1752 (unverified)
+- Setting the scrollbar to its minimum or maximum from the keyboard or an accessibility tool shows the document's exact start or end. lgse/strata#1752
+- Wheel or touchpad scrolling forward over the content never moves the thumb backward; scrolling backward never moves it forward; stopping leaves it still. lgse/strata#1752
+- With the first row's top in view the thumb sits at the top of the track; with the last row's end in view, at the bottom. lgse/strata#1752 (unverified)
+- A touchpad flick's momentum stops, instead of jumping, when newly measured rows change the scroll range or shift the content origin by 2 px or more. lgse/strata#1752
+- After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752
+- Document previews in the Open and Save file chooser scroll the same way as in the browser. lgse/strata#1752
+- The vertical scrollbar sits beside the content instead of overlaying it, and hides when the whole document fits. lgse/strata#1752 (unverified)
 
 ### HTML and links
 
@@ -87,12 +102,14 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 ## Design
 
-[docs/document-previews.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/document-previews.md) is the maintained contract for formats, limits, tables, and the trust boundary.
+[docs/document-previews.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/document-previews.md) is the maintained contract for formats, limits, tables, and the trust boundary.
 
 - HTML must not turn the preview into a browser. A native renderer for a documented subset was chosen over Chromium, Electron, WebKitGTK, or external converters (lgse/strata#89).
 - Markdown, HTML, RTF, CSV, and TSV are parsed in-process by pure-Rust parsers off the GTK thread. They see only the bounded source string and emit escaped Pango markup (lgse/strata#187).
 - Calamine and `docx-rs` can allocate whole sheets or decompress every part, so workbooks and DOCX run in the preview sandbox under a 20 MiB input limit. Only validated JSON returns; DOCX HTML is reparsed by the same bounded HTML parser (lgse/strata#729, lgse/strata#1086).
-- Large source and rendered views use recycled, virtualized rows, so only visible rows own layouts. Selection is kept in document coordinates and copy reads the model (lgse/strata#187).
+- Large source and rendered views use recycled, virtualized rows, so only visible rows own layouts. Selection is kept in document coordinates and copy reads the model (lgse/strata#187). Rendered rows build their text, tables, and media only once mapped; source rows bind eagerly so thumb seeking uses measured heights (lgse/strata#1752).
+- GTK estimates unmeasured row heights and re-anchors its pixel value, so a thumb mirroring those pixels jumped. The thumb now follows a separate document position, rows plus a text-offset fraction, while GTK's pixel adjustment still drives native input and kinetic scrolling (lgse/strata#1749, lgse/strata#1752).
+- GTK's kinetic trajectory stores an absolute pixel origin, so stale momentum is cancelled rather than corrected. A 2 px tolerance absorbs GTK's integer rounding. A second scroll engine, disabled momentum, and two-frame `scroll_to` corrections were rejected (lgse/strata#1752).
 - Unwrapped source rows already widened to their text, but rendered rows only got a height and clipped at the pane edge. Unwrapped rendered rows now widen to their longest line (lgse/strata#1610, lgse/strata#1612).
 - Wrap toggles remeasure rows after GTK has re-laid them out, because measuring right after `set_wrap_mode` returned the previous mode's height (lgse/strata#1612).
 - Virtual rows cannot take native input, so word, line, and Shift selection is computed in the document model. The selector had ignored click count and modifiers (lgse/strata#1557).
@@ -119,3 +136,6 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Workbooks preview only their first worksheet; multi-sheet navigation was deferred. lgse/strata#723
 - PPTX, PPT, ODP, DOC, and ODT files have no rendered preview. lgse/strata#730, lgse/strata#244
 - Markdown cannot be edited or rendered with Pandoc or Quarto from the preview. lgse/strata#1127
+- A touchpad flick can end early when newly measured rows change the scroll range or content origin. lgse/strata#1752
+- A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752
+- Large rendered previews still load slowly; GTK and Pango layout and mixed-table construction remain the main cost. lgse/strata#1752

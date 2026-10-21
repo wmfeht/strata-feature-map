@@ -3,7 +3,7 @@ title: Themed icons
 status: shipped
 origin: {issue: lgse/strata#169, pr: lgse/strata#170}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/assets.rs, src/assets/vector.rs, src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin/**, scripts/catppuccin_icons.py, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg, data/icons/scalable/actions/strata-chevron-down-symbolic.svg, data/icons/scalable/actions/strata-minus-symbolic.svg, data/icons/scalable/actions/strata-plus-symbolic.svg]
 tests: [src/assets/tests.rs, src/assets/vector/tests.rs, src/ui/browser/entry/tests.rs, src/ui/theme/tests.rs]

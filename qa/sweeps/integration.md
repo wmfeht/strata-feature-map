@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
 ---
 
@@ -58,6 +58,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With 10xer mode on, open F1 in a chooser and turn the mode off from a browser window. Press Ctrl+plus, Ctrl+3, Ctrl+A, and Enter. Press Escape twice and read the response code.
 - Select a filter result, then press Shift+Space in Name under `save` and Space while an input method composes. Press Space on a sidebar row and a header button.
 - Right-click an item on the sshfs mount, a mix of sshfs and Home items, and an item on a `fuseblk` mount; read the delete entries.
+- Under `save` in Columns, move the cursor onto a file with arrow keys, type into Name, then click that file; repeat with a double-click, a Ctrl+click, and a Shift+click. Read Name after each.
+- Under `save`, right-click and middle-click the highlighted file, click a file in filter results, and click a file then double-click a folder at once; repeat with 10xer mode on. Read Name after each.
 
 ### integration/portal-file-chooser/setup
 

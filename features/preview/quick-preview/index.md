@@ -3,7 +3,7 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/preview/keyboard.rs]
 tests: [tests/e2e/scenarios/test_quick_preview.py, tests/e2e/mutations/quick-preview.patch]

@@ -3,7 +3,7 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
@@ -77,4 +77,4 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 
 ## Known gaps
 
-- docs/portal-file-chooser.md still describes a first-launch offer and a Settings "System file chooser → Configure…" dialog, both removed. lgse/strata#947
+None known.

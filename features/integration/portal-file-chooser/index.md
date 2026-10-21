@@ -3,7 +3,7 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/e2e/scenarios/test_chooser_selection.py]
@@ -87,6 +87,11 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In a Save request, accepting without clicking a row saves into the displayed folder, not its first subfolder. lgse/strata#1138
 - In a Save request, a single-clicked folder becomes the destination without the chooser navigating into it. lgse/strata#892
 - In a Save request, selecting a file copies its name into Name without accepting; selecting a folder leaves Name unchanged. lgse/strata#1138
+- In a Save request, clicking the file row highlighted automatically on load replaces Name with that file's name in List, Columns, and Icons, and the request stays open. lgse/strata#1785, lgse/strata#1786
+- In a Save request, editing Name and then clicking the file still selected replaces the edit with that file's name. lgse/strata#1785, lgse/strata#1786
+- In a Save request, the automatic highlight alone keeps the suggested name, and a focus or selection echo on the same file keeps a typed name. lgse/strata#1785, lgse/strata#1786
+- In a Save request, a Ctrl or Shift click that leaves several items selected, or a click on a folder row, leaves Name unchanged. lgse/strata#1786
+- With 10xer mode on, clicking a file in a Save request leaves Name unchanged. lgse/strata#1786 (unverified)
 - In a Save request, after selecting or activating a file with a non-UTF-8 name, Save with Name unedited opens Replace for that exact file. lgse/strata#1427, lgse/strata#1533
 - In a Save request, edited Name text is saved literally, so an edited lossy name keeps its U+FFFD characters; retyping the exact lossy text targets the original file again. lgse/strata#1427, lgse/strata#1533
 - Saving with a file selected in Recent uses that file's containing folder as the destination. lgse/strata#1138
@@ -105,13 +110,14 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 ## Design
 
-[docs/portal-file-chooser.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/portal-file-chooser.md) carries the user-facing contract, installation, keyboard map, and local test tools.
+[docs/portal-file-chooser.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/portal-file-chooser.md) carries the user-facing contract, installation, keyboard map, and local test tools.
 
 - The chooser is local-only because the backend contract returns normalized `file://` URIs. Resolving GVfs locations to their FUSE paths is deferred (lgse/strata#176).
 - Requests come from other applications, so strings, globs, and choices are bounded. Filter-list size is not treated as abuse: count and rule budgets warn instead of refusing, since refusal left uploads silently broken (lgse/strata#465, lgse/strata#498).
 - The chooser reuses the browser view, sidebar, and preview drawer. Differences from the main window were treated as bugs and aligned (lgse/strata#384, lgse/strata#1163, lgse/strata#1195).
 - The automatic first-row selection is a keyboard cursor, not a choice. Destination resolution ignores it, because callers such as Chromium persist the returned folder and the error compounds (lgse/strata#1137, lgse/strata#1015).
 - Name holds only lossy UTF-8 text. The chooser records the exact name it filled from the filesystem and uses it while Name still shows that text unchanged (lgse/strata#1427, lgse/strata#1533).
+- GTK emits no selection change when a click keeps the same row selected, and the Name cache ignores unchanged selections to keep typed names. So an explicit primary press on a file row clears the cache once the row's own handler has run; focus and selection echoes still pass through it (lgse/strata#1785, lgse/strata#1786).
 - That check compares text, not an edited flag, so an edit that restores the text still targets the original. Rebuilding bytes from an edited name would be guesswork, so edits save literally (lgse/strata#1427).
 - Default-map Enter shares the confirm path of Open and the 10xer map. Routing only activation would still return one file, because List and Icons collapse the selection first (lgse/strata#1426, lgse/strata#1533).
 - `current_file` for a nonexistent file is accepted for Qt interoperability, though the specification describes existing files (lgse/strata#699).
@@ -125,6 +131,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-20 | lgse/strata#1786 | fix | Refilled Save names on clicks that keep a file selected, which GTK reports as no selection change. |
 | 2026-10-17 | lgse/strata#1714 | fix | Yielded chooser shortcuts to an open reference and typed Space in the Name and location entries with a hit selected. |
 | 2026-10-11 | lgse/strata#1570 | fix | Kept the selection on plain clicks in the chooser's showing preview; sidebar clicks still clear it. |
 | 2026-10-10 | lgse/strata#1554 | fix | Delegated folder identity lookups so the chooser follows an open folder renamed or removed outside the app. |

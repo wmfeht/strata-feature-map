@@ -3,7 +3,7 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/e2e/scenarios/test_selection.py, tests/e2e/scenarios/test_background_selection.py, tests/e2e/scenarios/test_escape_selection.py, tests/e2e/scenarios/test_preselected_hover.py, tests/e2e/scenarios/test_monitor_selection.py]

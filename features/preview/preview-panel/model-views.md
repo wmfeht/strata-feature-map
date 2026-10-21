@@ -3,7 +3,7 @@ title: Model camera views
 status: shipped
 origin: {issue: lgse/strata#1633, pr: lgse/strata#1644}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/preview/model.rs, src/sandbox/model.rs]
 tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, tests/e2e/scenarios/test_quick_preview.py]

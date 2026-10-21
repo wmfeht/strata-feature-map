@@ -3,7 +3,7 @@ title: List column order and visibility
 status: shipped
 origin: {issue: lgse/strata#1597, pr: lgse/strata#1651}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/browser_modes/column_options.rs]
 tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs, src/ui/chooser/tests/column_widths.rs, tests/e2e/scenarios/test_view_switching.py]

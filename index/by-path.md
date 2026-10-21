@@ -67,6 +67,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete.md) | — |
 | `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/catppuccin_icons.py` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `scripts/e2e-mutation-check.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/e2e-native.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/e2e.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/fslab/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
@@ -697,6 +698,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Interface font](../features/settings/themes/interface-font.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/theme/tests/density.rs` | tests | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/thumbnail.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
@@ -716,6 +718,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/udiskie_preferences.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/udiskie_preferences/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/virtual_preview.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/line_numbers.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar/position.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -732,6 +738,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/composition/tabs/tests.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tenxer_splash.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/composition/tenxer_splash/tests.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `src/ui/window/density_slider.rs` | code | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/device_labels.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_labels/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release.rs` | code | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -764,6 +771,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/sidebar.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/sidebar_drop_feedback.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/sidebar_drop_feedback/tests.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `src/ui/window/tests/appearance_density.rs` | tests | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/tests/bookmarks.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch.rs` | tests | [Window chrome and structure](../features/app/window.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/audio_tracks.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -812,6 +820,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/e2e/mutations/drag-and-drop.patch` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/e2e/mutations/filter-results.patch` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `tests/e2e/mutations/popover-scrolling.patch` | tests | [Scrolling](../features/browser/scrolling.md) | — |
+| `tests/e2e/mutations/preview-scrollbar.patch` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/e2e/mutations/quick-preview.patch` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
 | `tests/e2e/mutations/rename-caret.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/e2e/mutations/view-switching.patch` | tests | [View modes](../features/browser/view-modes/index.md) | — |

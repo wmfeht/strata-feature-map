@@ -3,7 +3,7 @@ title: Folder and file customization
 status: shipped
 origin: {issue: lgse/strata#211, pr: lgse/strata#294}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs]
 tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs]

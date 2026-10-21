@@ -3,7 +3,7 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/preview/player_layout.rs, src/ui/browser/preview.rs]
 tests: [tests/e2e/scenarios/test_preview_session.py, tests/e2e/scenarios/test_quick_preview.py, src/ui/preview/tests.rs]

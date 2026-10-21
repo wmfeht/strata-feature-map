@@ -3,12 +3,12 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]
-related: [browser/view-modes/text-size, preview/preview-panel]
+related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density]
 ---
 
 ## Summary
@@ -134,7 +134,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -158,6 +158,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - lgse/strata#1697 rejected a property list in place of `all: unset`, a short hand-picked reset, dropping isolation, and redirecting `XDG_CONFIG_HOME`. The last moves settings and leaks into launched apps.
 - `GTK_THEME` bypasses GTK's settings, so startup re-execs without it, through the same path as the Cairo renderer. Editing the environment after threads start was avoided (lgse/strata#1680).
 - Stylesheets above user priority win only for properties they set. A reset provider unsets every property just above user priority; the built-in theme, Strata's stylesheet, and its tokens follow in rising priority (lgse/strata#1681, lgse/strata#1682).
+- Generated density CSS has its own provider between Strata's stylesheet and the tokens. It reloads only when a density changes, so dragging a density slider never re-applies the theme (lgse/strata#1776, docs/preferences.md).
 - The source-preview style scheme is built in memory as a one-file resource, and the style manager searches only that resource folder. Saving it to the cache and rescanning listed the user's folders on the UI thread (lgse/strata#1729).
 - Language lookups keep GtkSourceView's bundled and system folders and drop those under the user's data and home folders. The first preview had listed them on the UI thread (lgse/strata#1729).
 - Tokyo Night became the default at the maintainer's request; Azure Glow stayed the missing-theme fallback (lgse/strata#541, lgse/strata#542).
@@ -201,6 +202,5 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Known gaps
 
-- docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
 - Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566

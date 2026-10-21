@@ -3,7 +3,7 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs]
@@ -19,7 +19,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 ### Loading
 
-- A folder load, other than a camera photo library, stops at 100,000 entries or 10 seconds. The pane header then shows a warning icon described "This directory has more entries than could be loaded; showing a partial listing." lgse/strata#154, lgse/strata#834
+- A folder load, other than a camera photo library, stops at 250,000 entries or 10 seconds. The pane header then shows a warning icon described "This directory has more entries than could be loaded; showing a partial listing." lgse/strata#154, lgse/strata#834, lgse/strata#1792
 - Refreshing or navigating away while a folder is loading discards the rows still arriving for the old request; they never appear in the new listing. lgse/strata#593
 - A load that fails discards its staged rows and shows the error instead of a partial listing. lgse/strata#593 (unverified)
 - Sorted by Size or Modified, a folder reads sizes and dates during the load; sorted otherwise, it lists names first and fills them for visible rows. lgse/strata#274 (unverified)
@@ -86,7 +86,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
 
-- An unbounded load of 200,000 entries froze the UI for minutes (lgse/strata#137). The 100,000-entry and 10-second caps match the published baseline, past which per-batch merging stops feeling responsive (lgse/strata#154).
+- An unbounded load of 200,000 entries froze the UI for minutes (lgse/strata#137). The 100,000-entry and 10-second caps matched the published baseline, past which per-batch merging stopped feeling responsive (lgse/strata#154). The entry cap is now 250,000, because memory sets the ceiling: about 0.8 KiB resident per listed entry, or about 490 MiB at the cap. The 10-second budget is unchanged (lgse/strata#1792).
 - Native folders are enumerated off the GTK thread, staged, and published after redraw in bounded slices; remote folders keep a first-batch-then-coalesced path (lgse/strata#274, lgse/strata#593).
 - Publication tails run at idle priority 130, after GDK redraw (120) and before default idle (200), within 8 ms slices. Chunks start at 512 rows and adapt between 128 and 2,048 against a 12 ms budget (lgse/strata#601).
 - Before a live change or operation batch splices rows, any unpublished tail is drained, so positional updates always land on rows the view already has (lgse/strata#1037).

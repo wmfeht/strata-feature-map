@@ -1,19 +1,20 @@
 ---
 title: Browser sweep
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py, tests/e2e/fixtures/file_drag_source.py]
 ---
 
 ## Scope
 
-Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
+Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
 Left to other sweeps: file drags once a press becomes one, drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
 ## Setup
 
 - `scripts/generate-fixture.sh <root>` builds `1000`, `10000`, and `100000` entry folders, a 256-level `deep` tree, and `edge-cases` with a broken symlink and a non-UTF-8 name. Add dot-files, a `.hidden` file naming one visible entry, a 255-byte name, two names differing only by case, and a symlink to a folder.
+- Two oversized folders built with `touch`: one of 200,000 entries and one of 260,000.
 - An unreadable folder (`chmod 000`) inside the fixture, and a folder to remove while it is open (`rm -rf` or `mv` from a shell), in every view.
 - A slow directory: 2,000 images across every thumbnail format, plus 50 PDFs and 50 videos, with `$XDG_CACHE_HOME/thumbnails` emptied first so decoding is visible.
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
@@ -90,6 +91,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Press Ctrl+1, Ctrl+2, and Ctrl+3 with Russian active beside US, with only Russian configured, on Dvorak, and with Caps Lock on; then with keypad digits and Num Lock on.
 - Scroll List and Icons with cut files in view under a 25% CPU quota, and again after the window sat idle for 10 s; stop on cut rows and watch when their styling and dates settle.
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
+- Group by file type in List and open the 200,000-entry folder; mid-load, change the sort key, flip its direction, and toggle Folders first. Compare the headings with a reload.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
 
 ### browser/view-modes/columns
@@ -163,6 +165,17 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Set a folder's sort, make another sort the default, then open the folder's sort menu and read which actions show.
 - Rename a sorted folder from a shell, then delete it and reopen its parent; repeat for a folder on the unmounted drive.
 - Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
+
+### browser/view-modes/density
+
+- Drag both sliders across their full range in Columns, Icons, and List, at text size 8 and 48; watch for jumps at each preset and clipped headers or rows.
+- Write `frame_density = "custom"` with `frame_density_custom_px = 200`, `browser_density = "bogus"`, and `browser_density_custom_px = 3` with `browser_density = "compact"`; start and read the sliders and the file after one change.
+- Set Frame 7 and Content 11, quit, and restart; then open a second window and the portal file chooser and compare their spacing.
+- Open Appearance in two windows and drag a slider in one; then press a snap button in the other.
+- With the menu scrolled, wheel over each slider; then focus one and press Page Up at the maximum and Page Down at 0.
+- At Frame 12, rail the sidebar, open the preview, open eight tabs, and open a Miller column with its header actions; check the bars line up.
+- At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
+- Read each slider and snap button with Orca while moving between presets and Custom values.
 
 ### browser/view-modes/text-size
 
@@ -384,6 +397,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - `mv` the open folder during a 2,000-file copy into it. Then `mv` it twice within 100 ms and press Escape during the second.
 - `rm -rf` and recreate the open folder within 100 ms; `chmod 000` it; `mv` a dot-named open folder with hidden files off.
 - `mv` an open folder on an `sftp://` share, the ntfs-3g partition, an `sshfs` mount, and a kernel exFAT partition; read the pane and history.
+- Open the 200,000-entry folder, then the 260,000-entry one, locally, over `sftp://`, and on an `sshfs` mount; read the pane header after each load settles.
 - Paste 50 files into an open `sftp://` folder and an sshfs folder, cancel halfway, then repeat to completion; count reloads and rows each time.
 
 ### browser/directory-monitoring/network-checks
