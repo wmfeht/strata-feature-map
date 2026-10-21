@@ -46,15 +46,15 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 ### Scrolling
 
-- In a rendered Markdown or large plain-text preview, holding the scrollbar thumb still keeps the content at one position. lgse/strata#1752, lgse/strata#1749
+- In a rendered document or a large plain-text Source preview, holding the scrollbar thumb still keeps the content at one position. lgse/strata#1752, lgse/strata#1749
 - Dragging the thumb downward never moves the content backward, and the content passes through interior positions on the way. lgse/strata#1752
 - Dragging the thumb to the top or bottom of the track shows the document's first or last line, even while new rows are measured. lgse/strata#1752
-- Releasing the thumb, including with the pointer over the content, leaves the content where it is; the next wheel input scrolls it and the thumb follows. lgse/strata#1752
+- Releasing the thumb, even with the pointer over the content, leaves the content in place. The next wheel input scrolls it and the thumb follows. lgse/strata#1752
 - Closing the preview while holding the thumb ends the drag; after reopening, the thumb follows scrolling again. lgse/strata#1752 (unverified)
 - Setting the scrollbar to its minimum or maximum from the keyboard or an accessibility tool shows the document's exact start or end. lgse/strata#1752
 - Wheel or touchpad scrolling forward over the content never moves the thumb backward; scrolling backward never moves it forward; stopping leaves it still. lgse/strata#1752
 - With the first row's top in view the thumb sits at the top of the track; with the last row's end in view, at the bottom. lgse/strata#1752 (unverified)
-- A touchpad flick's momentum stops, instead of jumping, when newly measured rows change the scroll range or shift the content origin by 2 px or more. lgse/strata#1752
+- Touchpad momentum stops when the scroll range changes or the content origin shifts by 2 px or more. lgse/strata#1752
 - After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752
 - Document previews in the Open and Save file chooser scroll the same way as in the browser. lgse/strata#1752
 - The vertical scrollbar sits beside the content instead of overlaying it, and hides when the whole document fits. lgse/strata#1752 (unverified)
@@ -76,6 +76,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - CSV, TSV, and workbook output stops at 100,000 values, 4 MiB of cell text, or 256 columns. lgse/strata#729
 - A limited table shows "Table preview reached its text, column, or value budget; open the file to see all data." lgse/strata#729
 - Dragging across cells and pressing Ctrl+C copies the range as tab-separated rows in displayed sort order. lgse/strata#729
+- Closing the preview during a table cell drag ends the drag and its autoscroll. lgse/strata#1752 (unverified)
 - With focus on the table, Ctrl+C copies every loaded row in the current sort order, including offscreen rows. lgse/strata#729
 - With focus on the table, Ctrl+Shift+C, Ctrl+Alt+C, and Ctrl+Super+C copy nothing. lgse/strata#1576
 - With a cell range selected, Ctrl+A or Ctrl+Shift+A clears the range; Ctrl+Alt+A leaves it. lgse/strata#729, lgse/strata#1576
@@ -138,4 +139,4 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Markdown cannot be edited or rendered with Pandoc or Quarto from the preview. lgse/strata#1127
 - A touchpad flick can end early when newly measured rows change the scroll range or content origin. lgse/strata#1752
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752
-- Large rendered previews still load slowly; GTK and Pango layout and mixed-table construction remain the main cost. lgse/strata#1752
+- This PR did not speed up the initial loading of large rendered previews. GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752

@@ -31,7 +31,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Material Vivid draws text in #9e9e9e, 6.01:1 on its background. lgse/strata#1570, lgse/strata#1459
 - Clicking a card applies that theme immediately and marks the card with a check. lgse/strata#96
 - A fresh install without Omarchy starts with Tokyo Night; a saved selection survives restart. lgse/strata#542
-- A saved theme id that matches no bundled or custom theme falls back to Azure Glow at startup. lgse/strata#542 (unverified)
+- A saved theme id that matches no bundled or custom theme falls back to Azure Glow at startup. lgse/strata#542, lgse/strata#1794
 
 ### Custom themes
 
@@ -134,7 +134,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.

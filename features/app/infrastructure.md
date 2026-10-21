@@ -78,14 +78,14 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - The directory loader dropped unconvertible entries without a trace. Logging each skip keeps a future conversion failure visible (lgse/strata#1424, lgse/strata#1533).
 - A stopped NFS, SMB, sshfs, or FUSE server gives no timely error, so disk calls run off the UI thread ([docs/filesystem-compatibility.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/filesystem-compatibility.md), "What a dead server does"). Debug assertions, the stall watchdog, and `scripts/trace-main-io.py` check that (lgse/strata#1590, lgse/strata#1729).
 - [docs/e2e-testing.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/e2e-testing.md) describes the trace script: it runs E2E scenarios with the UI thread under `strace`, and `tests/e2e/main-io-allowlist.toml` lists only documented exceptions (lgse/strata#1729).
-- Exact but slow consistency checks sit behind the `invariant-checks` Cargo feature. Both E2E runners and `cargo test --all-features` enable it; plain `cargo build` leaves it off ([docs/e2e-testing.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/e2e-testing.md), lgse/strata#1792).
+- The selection position cache's comparison against a full listing scan sits behind the `invariant-checks` Cargo feature. Both E2E runners and `cargo test --all-features` enable it; plain `cargo build` leaves it off ([docs/e2e-testing.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/e2e-testing.md), lgse/strata#1792).
 - The `fstatat` fallback widens `st_nlink` through a generic helper, because it is `u32` on aarch64 and `u64` on x86_64 (lgse/strata#1753, lgse/strata#1755).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-21 | lgse/strata#1794 | docs | Corrected the theme count, default theme, 10xer exit key, and Settings paths in the README and docs. |
+| 2026-10-21 | lgse/strata#1794 | docs | Corrected the theme count, default theme, 10xer exit key, and Settings paths in the README and docs so they match the app. |
 | 2026-10-18 | lgse/strata#1755 | fix | Widened `st_nlink` in the legacy stat fallback so the aarch64 release builds again. |
 | 2026-10-17 | lgse/strata#1737 | ci | Moved the E2E suite to a manual-dispatch workflow and split Rust tests into four shards, since E2E gated every PR. |
 | 2026-10-15 | lgse/strata#1701 | test | Made the Open With and release tar test fixtures independent of the host's applications and `tar` location, for Nix builds. |

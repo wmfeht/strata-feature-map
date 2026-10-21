@@ -87,11 +87,10 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In a Save request, accepting without clicking a row saves into the displayed folder, not its first subfolder. lgse/strata#1138
 - In a Save request, a single-clicked folder becomes the destination without the chooser navigating into it. lgse/strata#892
 - In a Save request, selecting a file copies its name into Name without accepting; selecting a folder leaves Name unchanged. lgse/strata#1138
-- In a Save request, clicking the file row highlighted automatically on load replaces Name with that file's name in List, Columns, and Icons, and the request stays open. lgse/strata#1785, lgse/strata#1786
+- In a Save request, clicking the file row highlighted automatically on load replaces Name with that file's name, in List, Columns, and Icons. The request stays open. lgse/strata#1785, lgse/strata#1786
 - In a Save request, editing Name and then clicking the file still selected replaces the edit with that file's name. lgse/strata#1785, lgse/strata#1786
-- In a Save request, the automatic highlight alone keeps the suggested name, and a focus or selection echo on the same file keeps a typed name. lgse/strata#1785, lgse/strata#1786
-- In a Save request, a Ctrl or Shift click that leaves several items selected, or a click on a folder row, leaves Name unchanged. lgse/strata#1786
-- With 10xer mode on, clicking a file in a Save request leaves Name unchanged. lgse/strata#1786 (unverified)
+- In a Save request, the automatic highlight on load alone leaves the suggested name in Name. lgse/strata#1785, lgse/strata#1786
+- With 10xer mode on, clicking a file in a Save request leaves Name unchanged. lgse/strata#1311, lgse/strata#1786
 - In a Save request, after selecting or activating a file with a non-UTF-8 name, Save with Name unedited opens Replace for that exact file. lgse/strata#1427, lgse/strata#1533
 - In a Save request, edited Name text is saved literally, so an edited lossy name keeps its U+FFFD characters; retyping the exact lossy text targets the original file again. lgse/strata#1427, lgse/strata#1533
 - Saving with a file selected in Recent uses that file's containing folder as the destination. lgse/strata#1138
@@ -117,7 +116,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - The chooser reuses the browser view, sidebar, and preview drawer. Differences from the main window were treated as bugs and aligned (lgse/strata#384, lgse/strata#1163, lgse/strata#1195).
 - The automatic first-row selection is a keyboard cursor, not a choice. Destination resolution ignores it, because callers such as Chromium persist the returned folder and the error compounds (lgse/strata#1137, lgse/strata#1015).
 - Name holds only lossy UTF-8 text. The chooser records the exact name it filled from the filesystem and uses it while Name still shows that text unchanged (lgse/strata#1427, lgse/strata#1533).
-- GTK emits no selection change when a click keeps the same row selected, and the Name cache ignores unchanged selections to keep typed names. So an explicit primary press on a file row clears the cache once the row's own handler has run; focus and selection echoes still pass through it (lgse/strata#1785, lgse/strata#1786).
+- GTK emits no selection change when a click keeps the same row selected, and the Name cache ignores unchanged selections to keep typed names. So an explicit primary press on a file row clears the cache after the row's own handler runs. Focus and selection echoes still pass through the cache (lgse/strata#1785, lgse/strata#1786).
 - That check compares text, not an edited flag, so an edit that restores the text still targets the original. Rebuilding bytes from an edited name would be guesswork, so edits save literally (lgse/strata#1427).
 - Default-map Enter shares the confirm path of Open and the 10xer map. Routing only activation would still return one file, because List and Icons collapse the selection first (lgse/strata#1426, lgse/strata#1533).
 - `current_file` for a nonexistent file is accepted for Qt interoperability, though the specification describes existing files (lgse/strata#699).

@@ -44,7 +44,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Open Settings in both windows, close one with a backdrop click and the other with Escape, reopen each; note which page shows.
 - Open Settings from the gear and close it by backdrop click with the cursor folder empty, still loading, and deleted from a terminal meanwhile; press Down after each.
 - Focus a filter result, open Settings with the gear, and press Escape; repeat with the filter field focused but empty, and with the filter in a non-active Columns pane.
-- Resize the window across the 900 and 1250 px panel widths at text size 8 and 48, crossed with Frame and Content density at 0 and at 12 and 16 px. Check the navigation, the search popover with a query typed, and dependent rows with arrows.
+- Resize the window across the 900 and 1250 px panel widths at text size 8 and 48, crossed with Frame 0 and 12 px and Content 0 and 16 px. Check the navigation, the search popover with a query typed, and dependent rows with arrows.
 - In a debug and a release build, compare the About Version row, the Copy version info clipboard text under `language = "ja"`, and the Updates page's version text.
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
 - Set Default directory to a Unicode path, then `rm -rf` it, `chmod 000` it, and replace it with a symlink to `/dev/shm`; open a new window after each and read the row.
@@ -179,7 +179,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Step from 0 to 200 in window A while window B shows Icons with a context menu, a modal dialog, and a rename editor open; screenshot each at 0, 60, and 200.
 - At 0 and 200, look at switches, check boxes, tooltips, popovers, the search palette, progress dialogs, the file chooser, and the theme cards' swatches; note any corner that keeps its shape.
 - At 0, 40, 50, 60, and 200, compare a switch on a Settings page with the Confirm switch in the action editor and a switch in a menu; read the track and knob corner shapes, on and off.
-- At 0 and 200, cross text size 8 and 48 with Frame and Content density at 0 and at 12 and 16 px; look for clipped corners and mismatched switch thumbs.
+- At 0 and 200, cross text size 8 and 48 with Frame 0 and 12 px and Content 0 and 16 px; look for clipped corners and mismatched switch thumbs.
 - Change roundness during an editor preview and while following Omarchy; then Cancel and compare every window.
 
 ### settings/themes/interface-font
