@@ -520,7 +520,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 shipped · draft · reviewed at [`4b9a6ac`](https://github.com/lgse/strata/tree/4b9a6ace71017888b3a2124d7d911c5c664cc767) · ? PRs since · origin issue [lgse/strata#1774](https://github.com/lgse/strata/issues/1774), pr [lgse/strata#1776](https://github.com/lgse/strata/issues/1776)
 
-Two spacing settings in the Appearance menu's DENSITY section: Frame, the vertical inset of the window's bars, and Content, the spacing of rows and Icons cards. Each is a px slider with Compact and Airy snap points.
+Two spacing settings in the Appearance menu's DENSITY section. Frame is the vertical inset of the window's bars, and Content the spacing of rows and Icons cards. Each is a px slider with Compact and Airy snap points.
 
 - Code: [`src/ui/window/density_slider.rs`](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/src/ui/window/density_slider.rs)
 - Tests: [`src/ui/window/tests/appearance_density.rs`](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/src/ui/window/tests/appearance_density.rs), [`src/ui/theme/tests/density.rs`](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/src/ui/theme/tests/density.rs)

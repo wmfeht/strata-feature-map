@@ -91,7 +91,6 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Press Ctrl+1, Ctrl+2, and Ctrl+3 with Russian active beside US, with only Russian configured, on Dvorak, and with Caps Lock on; then with keypad digits and Num Lock on.
 - Scroll List and Icons with cut files in view under a 25% CPU quota, and again after the window sat idle for 10 s; stop on cut rows and watch when their styling and dates settle.
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
-- Group by file type in List and open the 200,000-entry folder; mid-load, change the sort key, flip its direction, and toggle Folders first. Compare the headings with a reload.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
 
 ### browser/view-modes/columns
@@ -133,6 +132,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Shrink Name to its minimum, then double-click each heading edge with the 255-byte name and a `drwxrwxrwx  777` row visible.
 - Group by file type with hidden files on, sort by Type descending, toggle Folders first; read the group order top to bottom.
 - Read the Size cell of a folder holding only dot-files, the unreadable folder, `100000`, and an `sftp://` folder; then sort by Size.
+- Group by file type in List and open the 200,000-entry folder; mid-load, change the sort key, flip its direction, and toggle Folders first. Compare the headings with a reload.
 
 ### browser/view-modes/list/column-layout
 

@@ -40,7 +40,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 - Appearance → Group by file type is sensitive only in List. lgse/strata#510
 - With grouping on, folders form a Folder group first, then files group under their MIME descriptions A–Z with Other last, keeping the pane's sort inside each group. lgse/strata#235, lgse/strata#946
-- While sorted by Type, groups follow the sort: Descending reverses them with Other first, and Folder leads only when Folders first is on. lgse/strata#946, lgse/strata#1792 (unverified)
+- While sorted by Type, groups follow the sort: Descending reverses them with Other first, and Folder leads only when Folders first is on. lgse/strata#946 (unverified)
 - The setting is saved across restarts. lgse/strata#235
 - Grouping is not applied in Recent or in a Camera Photos library while it loads or uses Device order. lgse/strata#1029 (unverified)
 
