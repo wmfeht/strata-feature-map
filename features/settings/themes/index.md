@@ -6,14 +6,14 @@ branch: null
 reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
-tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
+tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]
 related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density]
 ---
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, and an optional user stylesheet. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
 
 ## Behavior
 
@@ -137,7 +137,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Frame N above 0 adds N px top and bottom padding to the browser header, tab strip, Icons and List pane header, and preview header. lgse/strata#1776
 - Frame N above 0 adds N px top and bottom padding to sidebar rows. lgse/strata#1776
 - Frame N above 0 gives Miller column headers N px top and N+2 px bottom padding. lgse/strata#1776
-- Frame N above 0 adds an N px left margin to the action buttons in those bars, including List navigation buttons. lgse/strata#1776
+- Frame N above 0 adds an N px left margin to action buttons in the browser header, tab strip, Miller column headers, pane header, and preview header. lgse/strata#1776
+- Frame N above 0 adds an N px left margin to List navigation buttons. lgse/strata#1776
 - The sidebar toggle stays aligned with the sidebar icons at every Frame value. lgse/strata#1776 (unverified)
 - Frame 0, Compact, adds no style, leaving the bars as before the setting existed. lgse/strata#1776
 

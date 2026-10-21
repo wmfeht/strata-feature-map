@@ -700,6 +700,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/tests.rs` | tests | [Interface font](../features/settings/themes/interface-font.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/density.rs` | tests | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/theme/tests/density.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/thumbnail.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |

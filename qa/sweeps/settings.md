@@ -7,7 +7,7 @@ tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, the user stylesheet, Interface font, Corner roundness, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
@@ -206,7 +206,7 @@ For every control this sweep proves the binding: the file changes, the other win
 ## Hand-offs
 
 - Browsing mode, click counts, folder peeking, sort defaults, and text size as they act in the file views → `browser`.
-- Frame and Content density, set by the sliders in the titlebar Appearance menu, and their spacing in chrome and file views → `browser`.
+- Frame and Content sliders in the titlebar Appearance menu, and Content spacing in file views → `browser`.
 - Properties dialog timestamps and sizes → `browser`.
 - System file chooser opt-in under Desktop integration and the chooser itself → `integration`.
 - 10xer mode toggle and custom actions pages, including the action editor's toggles, tabs, and footer → `integration`.

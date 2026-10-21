@@ -55,7 +55,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Wheel or touchpad scrolling forward over the content never moves the thumb backward; scrolling backward never moves it forward; stopping leaves it still. lgse/strata#1752
 - With the first row's top in view the thumb sits at the top of the track; with the last row's end in view, at the bottom. lgse/strata#1752 (unverified)
 - Touchpad momentum stops when the scroll range changes or the content origin shifts by 2 px or more. lgse/strata#1752
-- After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752
+- After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752 (unverified)
 - Document previews in the Open and Save file chooser scroll the same way as in the browser. lgse/strata#1752
 - The vertical scrollbar sits beside the content instead of overlaying it, and hides when the whole document fits. lgse/strata#1752 (unverified)
 
@@ -108,7 +108,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - HTML must not turn the preview into a browser. A native renderer for a documented subset was chosen over Chromium, Electron, WebKitGTK, or external converters (lgse/strata#89).
 - Markdown, HTML, RTF, CSV, and TSV are parsed in-process by pure-Rust parsers off the GTK thread. They see only the bounded source string and emit escaped Pango markup (lgse/strata#187).
 - Calamine and `docx-rs` can allocate whole sheets or decompress every part, so workbooks and DOCX run in the preview sandbox under a 20 MiB input limit. Only validated JSON returns; DOCX HTML is reparsed by the same bounded HTML parser (lgse/strata#729, lgse/strata#1086).
-- Large source and rendered views use recycled, virtualized rows, so only visible rows own layouts. Selection is kept in document coordinates and copy reads the model (lgse/strata#187). Rendered rows build their text, tables, and media only once mapped; source rows bind eagerly so thumb seeking uses measured heights (lgse/strata#1752).
+- Large source and rendered views use recycled, virtualized rows. Selection is kept in document coordinates and copy reads the model (lgse/strata#187). Rendered rows build their text, tables, and media only once mapped, and visited widgets may stay in GTK's bounded recycling pool. Source rows bind eagerly so thumb seeking uses measured heights (lgse/strata#1752).
 - GTK estimates unmeasured row heights and re-anchors its pixel value, so a thumb mirroring those pixels jumped. The thumb now follows a separate document position, rows plus a text-offset fraction, while GTK's pixel adjustment still drives native input and kinetic scrolling (lgse/strata#1749, lgse/strata#1752).
 - GTK's kinetic trajectory stores an absolute pixel origin, so stale momentum is cancelled rather than corrected. A 2 px tolerance absorbs GTK's integer rounding. A second scroll engine, disabled momentum, and two-frame `scroll_to` corrections were rejected (lgse/strata#1752).
 - Unwrapped source rows already widened to their text, but rendered rows only got a height and clipped at the pane edge. Unwrapped rendered rows now widen to their longest line (lgse/strata#1610, lgse/strata#1612).
@@ -139,4 +139,4 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Markdown cannot be edited or rendered with Pandoc or Quarto from the preview. lgse/strata#1127
 - A touchpad flick can end early when newly measured rows change the scroll range or content origin. lgse/strata#1752
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752
-- Initial loading of large rendered previews is not measurably faster. GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752
+- Large rendered previews have an initial-loading delay, where GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752
