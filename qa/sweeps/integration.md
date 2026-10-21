@@ -59,7 +59,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Select a filter result, then press Shift+Space in Name under `save` and Space while an input method composes. Press Space on a sidebar row and a header button.
 - Right-click an item on the sshfs mount, a mix of sshfs and Home items, and an item on a `fuseblk` mount; read the delete entries.
 - Under `save` in Columns, move the cursor onto a file with arrow keys, type into Name, then click that file; repeat with a double-click, a Ctrl+click, and a Shift+click. Read Name after each.
-- Under `save`, right-click and middle-click the highlighted file, click a file in filter results, and click a file then double-click a folder at once; repeat with 10xer mode on. Read Name after each.
+- Under `save`, right-click and middle-click the highlighted file, and click a file in filter results. Click a file, then immediately double-click a folder. Repeat each with 10xer mode on and read Name after each.
 
 ### integration/portal-file-chooser/setup
 
