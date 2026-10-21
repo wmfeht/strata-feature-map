@@ -13,7 +13,7 @@ related: [browser/search, preview/preview-panel, browser/view-modes/density]
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/density` covers the Frame and Content density sliders, `browser/view-modes/text-size` interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/density` covers the Frame and Content density sliders. `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
 ## Behavior
 
@@ -43,7 +43,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - At Content Airy, Columns and List rows have a 42 px minimum height and 8 px vertical margins; Columns row content keeps 4 px. lgse/strata#168 (unverified)
 - At Content Airy, Icons has 5 px grid padding, 3 px cell margins, and 5 by 7 px card padding. lgse/strata#168, lgse/strata#747 (unverified)
 - A Custom Content value N sets N px vertical margins on Columns and List row children, and min(N, 4) px on Columns row content. lgse/strata#1776 (unverified)
-- A Custom Content value scales row minimum height, Icons grid padding, cell margins, and card padding linearly through the Compact and Airy values, clamped at 0 and rounded. lgse/strata#1776
+- A Custom Content value scales row minimum height, Icons grid padding, cell margins, and card padding linearly through the Compact and Airy values. Results clamp at 0 and round. lgse/strata#1776
 - Icons shows at most 20 columns at Content Compact and at most 16 at Airy. lgse/strata#1776
 - A Custom Content value below 8 px caps Icons at 20 columns; 8 px or more caps it at 16. lgse/strata#1776 (unverified)
 
@@ -87,7 +87,6 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-21 | lgse/strata#1792 | perf | Stopped re-sorting type groups on every published chunk and raised the folder listing cap to 250,000 entries. |
 | 2026-10-15 | lgse/strata#1673 | perf | Settled List and Icons row refreshes 25 ms after the last scroll instead of every frame, and dropped the `list-fast-scroll` class. |
 | 2026-10-15 | lgse/strata#1611 | fix | Routed a focus request for a pane showing results to their cursor hit instead of the hidden listing. |
 | 2026-10-11 | lgse/strata#1568 | fix | Cached Icons and List view-to-source maps and selected listing positions, so marquee changes no longer rescan large folders. |

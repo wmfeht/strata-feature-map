@@ -85,6 +85,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-21 | lgse/strata#1792 | perf | Stopped re-sorting type groups on every published chunk and raised the folder listing cap to 250,000 entries. |
 | 2026-10-21 | lgse/strata#1794 | docs | Corrected the theme count, default theme, 10xer exit key, and Settings paths in the README and docs so they match the app. |
 | 2026-10-18 | lgse/strata#1755 | fix | Widened `st_nlink` in the legacy stat fallback so the aarch64 release builds again. |
 | 2026-10-17 | lgse/strata#1737 | ci | Moved the E2E suite to a manual-dispatch workflow and split Rust tests into four shards, since E2E gated every PR. |

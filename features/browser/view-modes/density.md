@@ -36,7 +36,7 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 ### Saved settings
 
 - `frame_density` and `browser_density` hold `"compact"`, `"airy"`, or `"custom"`; `frame_density_custom_px` and `browser_density_custom_px` are read only for `"custom"`. lgse/strata#1776
-- A slider resting on a preset's value saves the preset: Content at 4 px saves `browser_density = "compact"`, Frame at 4 px saves `frame_density = "airy"`. lgse/strata#1776
+- A slider resting on a preset's value saves the preset. Content at 4 px saves `browser_density = "compact"`; Frame at 4 px saves `frame_density = "airy"`. lgse/strata#1776
 - Each change is saved immediately. lgse/strata#1776
 - A Custom value above the maximum loads clamped: 200 loads as Frame 12 or Content 16. lgse/strata#1776 (unverified)
 - A settings file with only `browser_density` loads, with Frame at Compact, 0 px. lgse/strata#1776
@@ -48,7 +48,7 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 
 - Frame and content density are separate settings. The issue, lgse/strata#1774, rejected widening the single density setting, presets without a custom value, and a control per component.
 - The issue asked for accordion rows, each with Compact, Airy, and a custom pixel control. The PR shipped two sliders with preset ticks instead (lgse/strata#1774, lgse/strata#1776).
-- One Frame inset applies in lock step to every bar, so the header, tab strip, sidebar rows, and Miller, Icons/List, and preview headers keep aligned heights (lgse/strata#1776).
+- One Frame inset applies in lock step to every bar. The header, tab strip, sidebar rows, and Miller, Icons/List, and preview headers keep aligned heights (lgse/strata#1776).
 - Both settings implement `DensityScale`, whose Compact and Airy values are snap points. `from_px` maps a snap value to its preset, so a slider on a preset saves the preset (lgse/strata#1776).
 - Custom Content values extrapolate linearly through the static Compact and Airy rules, so the slider never jumps at a preset (lgse/strata#1776).
 - `settings/themes` records how the generated density CSS is loaded and reloaded (lgse/strata#1776).

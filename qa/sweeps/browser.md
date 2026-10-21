@@ -169,7 +169,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 ### browser/view-modes/density
 
-- Drag both sliders across their full range in Columns, Icons, and List, at text size 8 and 48; watch for jumps at each preset and clipped headers or rows.
+- Drag both sliders across their full range in Columns, Icons, and List, at text size 8 and 48. Watch for jumps at each preset and clipped headers or rows.
 - Write `frame_density = "custom"` with `frame_density_custom_px = 200` and `browser_density = "bogus"`; start and read the sliders and the file after one change.
 - In a separate run, write `browser_density = "compact"` with `browser_density_custom_px = 3`; start and read the Content slider.
 - Set Frame 7 and Content 11, quit, and restart; then open a second window and the portal file chooser and compare their spacing.
