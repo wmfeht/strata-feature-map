@@ -3,10 +3,10 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
-tests: [src/ui/browser/columns/tests.rs, tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
+tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
 related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences]
 ---
@@ -45,6 +45,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - In a column with no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
+- Return on a folder whose validation outlasts the 75 ms mirror delay opens it in the next column, with focus moving into that column. lgse/strata#1771
 
 ### Returning to an ancestor
 

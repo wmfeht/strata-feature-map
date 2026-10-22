@@ -1,8 +1,8 @@
 ---
 title: Browser sweep
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
-tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py, tests/e2e/fixtures/file_drag_source.py]
+tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
 
 ## Scope
@@ -20,9 +20,9 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
 - Type to search on and off per probe: it changes what `h`, `j`, `k`, `l`, `p`, `/`, and plain letters do. `docs/keyboard-navigation.md` holds the key rules and `docs/preferences.md` the setting keys.
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
-- Keyboard layouts set with `setxkbmap` for layout probes: `us,ru`, `ru`, `fr`, `de`, `ch` (Swiss German), `cz`, `is`, and `us` with variant `dvorak`. `docs/keyboard-shortcuts.md` holds the matching rules; `tests/e2e/harness/keyboard_layout.py` names the layouts the E2E suite covers.
+- Keyboard layouts set with `setxkbmap` for layout probes: `us,ru`, `ru`, `fr`, `de`, `ch` (Swiss German), `cz`, `is`, and `us` with variant `dvorak`. `docs/keyboard-shortcuts.md` holds the matching rules. The QA scenarios cover only the `us`, `ru`, `ru-only`, `fr`, `de`, `caps-lock`, and `cn-altgr-pinyin` layouts in `tests/fixtures/harness.json`, so `ch`, `cz`, `is`, and `dvorak` are manual only. `docs/testing.md` "Keyboard layouts" explains the switch.
 - fcitx5 with pinyin under `GTK_IM_MODULE=fcitx` on X11 for input-method probes.
-- Foreign drags for pin probes: Nautilus or Dolphin, and `tests/e2e/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
+- Foreign drags for pin probes: Nautilus or Dolphin, and `tests/qa/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
@@ -31,7 +31,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
 - Network mounts for change-check and stalled-mount probes: NFSv3 and NFSv4.2 exports, a `cifs` SMB share, an `sshfs` mount, and a 9p or virtiofs share. Each must be writable from the server. Stall a mount by stopping its server or sending SIGSTOP to the FUSE daemon. `powerprofilesctl` switches power-saver mode.
 - Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition, a kernel exFAT partition, and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
-- `tests/e2e/mutations/` holds the `click-modes`, `filter-results`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
+- `tests/qa/mutations/` holds the `click-modes`, `click-mode-preference`, `shift-click-range`, `filter-results`, `keyboard-navigation`, `location-entry`, `popover-scrolling`, and `view-switching` patches; `./scripts/qa-mutation.sh <name>` is evidence when those areas changed.
 
 ## Probes
 
@@ -98,6 +98,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 - Open `deep` to 20 columns, click a title eight columns back, press Escape twice, then Backspace; count the columns after each step.
 - Hold Down across a folder, a PDF, and a plain file with single-click previews on; time the child column against 75 ms.
+- Press Return on a folder on a stalled network mount, then on one the open turns away (`chmod 000`), with Mirror columns selection on; press Down before the open lands.
 - Drag a column edge below 300 px, autofit a column holding the 255-byte name, restart, and read `browser_column_width`.
 - Open a context menu in column 2, move the pointer to column 4, press Escape; check which header shows its actions.
 - With Mirror columns selection off, then on, press Home on a folder, End on a PDF, and Shift+Home. Then press keypad End with Num Lock on and off.
@@ -357,6 +358,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Open Properties on a file you cannot chmod, the broken symlink, and the 255-byte name. Toggle a bit, press Escape before it applies, and read AT-SPI states.
 - Press Alt+Enter with nothing selected, with the sidebar focused, and in Recent; set each date format and reread MODIFIED.
 - Copy path for a name holding `'` and a space, and for a file in `trash:///`; paste each in a shell.
+- Copy path from the empty-space Properties of the current folder, from a symlink to a folder, from a symlink to a file, and from the broken symlink.
 
 ### browser/properties/media
 

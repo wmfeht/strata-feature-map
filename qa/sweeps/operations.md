@@ -1,8 +1,8 @@
 ---
 title: Operations sweep
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
-tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/e2e-mutation-check.sh, tests/e2e/fixtures/content-encrypted.7z, tests/e2e/mutations]
+tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
 
 ## Scope
@@ -23,11 +23,11 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - A 9p or virtiofs share and a mergerfs pool, for deletion wording. The lab has neither; skip those probes and say so when unavailable.
 - A holder for open files on the NFS, SMB, and sshfs mounts: `less` or `tail -f` run from a terminal app, and the same run as a plain process outside any app unit.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
-- Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/e2e/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
+- Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/qa/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
-- A desktop session running `gvfsd` for `trash:///` listings. The E2E container sets `GIO_USE_VFS=local` and cannot browse Trash.
+- A desktop session running `gvfsd` for `trash:///` listings. The pinned test container sets `GIO_USE_VFS=local` and cannot browse Trash.
 - Verify every operation on disk with `ls -la`, `stat`, and `cmp`, never in the listing alone. Watch the log for GTK criticals during dialogs and animations.
-- `tests/e2e/mutations/` holds deliberate defects the suite must catch; `./scripts/e2e-mutation-check.sh drag-and-drop` or `rename-caret` is evidence when those areas changed.
+- `tests/qa/mutations/` holds deliberate defects the QA scenarios must catch; `./scripts/qa-mutation.sh drag-and-drop` or `rename-caret` is evidence when those areas changed.
 
 ## Probes
 
@@ -191,6 +191,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Compress a selection with hidden files, a symlink, a non-UTF-8 name, and an empty folder in each format; list the result with `unzip -l`, `7z l`, and `tar tvf` and compare entries, modes, and mtimes.
 - Extract each format into an empty folder, a folder with a same-named entry, and a read-only folder; the destination must be clean after each refusal.
 - Feed the hostile archives: `../` member, absolute path, symlink out, size-lying header.
+- Extract a ZIP and a TAR whose first entry is a `.\` directory marker, built with a script since `zip` and `tar` write `./`.
+- Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.
 - Fill the small tmpfs and extract into it; compare ZIP, 7Z, and TAR behavior at the boundary.
 - Cancel a large extraction at about a third and compare cleanup with `docs/archives.md`.
 - Enter a wrong password three times, then the right one, on `content-encrypted.7z`.

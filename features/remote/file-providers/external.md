@@ -3,10 +3,10 @@ title: External file providers
 status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
-tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, tests/e2e/scenarios/test_file_providers.py]
+tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, tests/qa/scenarios/file_providers]
 docs: [site/src/reference/file-providers.md, docs/file-providers.md]
 related: [integration/custom-actions, browser/thumbnails, operations/clipboard/send-to, remote/file-providers/integrations, remote/file-providers/kde-connect, remote/file-providers/localsend]
 ---

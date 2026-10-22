@@ -3,10 +3,10 @@ title: List column order and visibility
 status: shipped
 origin: {issue: lgse/strata#1597, pr: lgse/strata#1651}
 branch: null
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/browser_modes/column_options.rs]
-tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs, src/ui/chooser/tests/column_widths.rs, tests/e2e/scenarios/test_view_switching.py]
+tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs, src/ui/chooser/tests/column_widths.rs, tests/qa/scenarios/view_switching]
 docs: [docs/preferences.md]
 related: [browser/view-modes, browser/view-modes/sorting, browser/view-modes/folder-views, browser/selection/pointer-intent, integration/portal-file-chooser]
 ---

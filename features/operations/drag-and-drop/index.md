@@ -3,10 +3,10 @@ title: Drag and drop
 status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+review: draft
 code: []
-tests: [tests/e2e/scenarios/test_drag_and_drop.py, tests/e2e/scenarios/test_drag_animation.py, tests/e2e/scenarios/test_sidebar_file_drops.py, tests/e2e/mutations/drag-and-drop.patch]
+tests: [tests/qa/scenarios/drag_and_drop, tests/qa/scenarios/drag_animation, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]
 docs: [docs/preferences.md]
 related: [operations/trash, operations/clipboard, browser/selection, browser/tabs]
 ---

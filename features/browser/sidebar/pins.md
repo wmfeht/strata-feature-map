@@ -3,10 +3,10 @@ title: Pinned folders
 status: shipped
 origin: {issue: null, pr: lgse/strata#67}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs, src/ui/window/pinned_drop.rs, src/ui/window/pinned_drop/**, src/adapters/directory_validation.rs]
-tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs, src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/e2e/scenarios/test_sidebar_pinning.py, tests/e2e/fixtures/file_drag_source.py]
+tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs, src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/qa/scenarios/sidebar_pinning, tests/qa/fixtures/file_drag_source.py]
 related: [operations/trash, operations/delete, browser/properties, integration/10xer-mode, operations/drag-and-drop, integration/portal-file-chooser, browser/sidebar/connect-to-server]
 ---
 

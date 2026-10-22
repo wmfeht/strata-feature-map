@@ -1,7 +1,7 @@
 ---
 title: Remote sweep
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
-tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py]
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
@@ -12,7 +12,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 
 ## Setup
 
-- `GIO_USE_VFS` must not be `local` and `GIO_USE_VOLUME_MONITOR` must be unset for every probe here. The E2E environment sets `GIO_USE_VFS=local`, which disables GVfs; drop that variable, keep the private D-Bus session, and start `gvfsd` on it before launching Strata.
+- `GIO_USE_VFS` must not be `local` and `GIO_USE_VOLUME_MONITOR` must be unset for every probe here. The QA harness environment in `tests/fixtures/harness.json` sets `GIO_USE_VFS=local` and `GIO_USE_VOLUME_MONITOR=unix`, which disable GVfs. Drop both, keep the private D-Bus session, and start `gvfsd` on it before launching Strata.
 - `scripts/sftp-fixture.sh --port 2222` for a working `sftp://` location; `--keep` and a second run on the same port for a changed host key; `STRATA_SFTP_PASSWORD` for password prompts. An isolated `known_hosts` and a non-loopback relay for trust questions, per `docs/remote-sftp.md`.
 - An `smb://` URI that does not resolve (`smb://no-such-host.invalid/share`) and one that refuses (`smb://127.0.0.1:1/share`). When Samba is installed, a local share with a guest-readable folder, a password-protected folder, and a 20k-entry folder.
 - A fake provider under `$XDG_CONFIG_HOME/strata/providers/<id>/provider.json`: a Python script that answers from a scenario file so delays, malformed frames, oversized frames, silence, and exits can be switched per request without restarting Strata. `docs/file-providers.md` gives the frames.

@@ -1,8 +1,8 @@
 ---
 title: Settings sweep
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
-tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, tests/e2e/harness/environment.py]
+tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
@@ -13,8 +13,8 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ## Setup
 
-- Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `tests/e2e/harness/environment.py` is the baseline; every seeded file starts from it.
-- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variant = "darker"`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
+- Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `scripts/headless/environment.py`, read from the `preferences` table of `tests/fixtures/harness.json`, is the baseline; every seeded file starts from it.
+- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variants = { <fake theme name> = "lighter" }`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
@@ -197,8 +197,13 @@ For every control this sweep proves the binding: the file changes, the other win
 
 - With the fake state, enable Follow Omarchy and edit `colors.toml` live: an invalid `background`, a missing `accent`, `selection = "nope"`, only `color5`-style keys, then a light palette. Read both windows after each save.
 - Run the rename script at 0, 1, and 5 s gaps, then point the `current/theme` symlink at a missing target, truncate `theme.name` and `colors.toml` to 0 bytes, and `chmod 000` the directory.
-- Seed `mode = "omarchy"` with no state, `omarchy_variant = "HIGH_CONTRAST"`, `"darker "`, and `"neon"`; read the Appearance page and the file after one change.
-- Apply Darker and High contrast to a pure white and a pure black palette; measure text, border, and accent contrast from screenshots of a menu, a dialog, and a code preview.
+- Seed `mode = "omarchy"` with no state, then an `[omarchy_variants]` entry for the fake theme set to `"HIGH_CONTRAST"`, `"darker "`, and `"neon"`, beside a valid `theme` and `text_size`; read the Appearance page and the file after one change.
+- Apply Contrast to a pure white and a pure black palette, and to a mid-gray `background` with no `mode`; measure text, border, and accent contrast from screenshots of a menu, a dialog, and a code preview.
+- Set `lighter_background` equal to `background`, then drop `dark_background`, `muted`, `lighter_background`, and `selection` one at a time; under each variant, screenshot a hovered row, a selected row, a border, and a pane header.
+- Under Contrast, set `mode = "light"` on a dark `background` and `mode = "dark"` on a light one, then `mode = "LIGHT"` and a numeric `mode`.
+- Give three fake themes Lighter, Darker, and Contrast, then switch among them in varied order with Settings open in both windows; read `settings.toml` and both dropdowns after each switch.
+- Write `theme.name` with a trailing newline, then with trailing spaces, then with different letter case; read which `[omarchy_variants]` key each switch reads and writes.
+- Start with a legacy global `omarchy_variant = "high_contrast"` and no Quattro state, change an unrelated preference, then create the state; repeat with an `[omarchy_variants]` entry already present for the active theme.
 - While following, write a 12-digit hex `foreground`, `magenta = "#fff0000ff"`, an 8-digit `#rrggbbaa` `accent`, and an `rgba()` `selection` into `colors.toml`; open a new code preview and the Settings preview after each save.
 - Truncate `colors.toml` mid-switch while window B opens a Markdown preview and window A opens Appearance; then restart with the state still invalid and read both.
 - Turn Follow Omarchy off in window A while `colors.toml` is being rewritten, then `rm -rf` the state while the variant row has keyboard focus.

@@ -3,10 +3,10 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
-tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/e2e/scenarios/test_open_with.py]
+tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/open_with/**]
 docs: []
 related: [integration/10xer-mode, preview/preview-panel, browser/context-menu]
 ---

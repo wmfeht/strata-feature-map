@@ -3,10 +3,10 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/preview/player_layout.rs, src/ui/browser/preview.rs]
-tests: [tests/e2e/scenarios/test_preview_session.py, tests/e2e/scenarios/test_quick_preview.py, src/ui/preview/tests.rs]
+tests: [tests/qa/scenarios/preview_session, tests/qa/scenarios/quick_preview, src/ui/preview/tests.rs]
 docs: [docs/preview-panel-layout.md]
 related: [preview/quick-preview, browser/view-modes, browser/sidebar]
 ---
