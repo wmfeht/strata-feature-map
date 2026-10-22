@@ -886,7 +886,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
 | `tests/qa/scenarios/file_providers` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `tests/qa/scenarios/filter_results` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `tests/qa/scenarios/hidden_files` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `tests/qa/scenarios/hidden_files` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `tests/qa/scenarios/inline_renaming` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/qa/scenarios/keyboard_navigation` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/locations` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |

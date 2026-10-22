@@ -56,6 +56,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Rename an image while its thumbnail is still loading; the thumbnail must follow the new name.
 - In Columns, toggle Show sizes in Columns view while a rename editor is open, then commit and cancel.
 - With hidden files off, rename a file and a folder to dot names in each mode. Then create a file there from a shell, and repeat with hidden files on.
+- With airy spacing, commit a rename that stays visible, then click into another folder before the reveal ends.
+- Create an item in a slot that is already visible, with the list scrolled partway.
 
 ### operations/clipboard
 
@@ -100,6 +102,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Drop from `/dev/shm` to home and back under each preference value; cancel the ask dialog and check the source is untouched.
 - Drop between two folders on a bind-mounted path to see which device the detection reports.
 - Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device. Mount or unmount a device while hovering.
+- Answer the Always Ask dialog by keyboard in List and Icons.
 
 ### operations/filesystem-compatibility
 
@@ -191,7 +194,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Compress a selection with hidden files, a symlink, a non-UTF-8 name, and an empty folder in each format; list the result with `unzip -l`, `7z l`, and `tar tvf` and compare entries, modes, and mtimes.
 - Extract each format into an empty folder, a folder with a same-named entry, and a read-only folder; the destination must be clean after each refusal.
 - Feed the hostile archives: `../` member, absolute path, symlink out, size-lying header.
-- Extract a TAR and a RAR whose first entry is a `.\` or `./` directory marker, built with a script, since `tar` writes `./`.
+- Extract a TAR whose first directory entry is `.\`, and a RAR whose first entry is `.\` or `./`. Build the `.\` TAR with a script, since `tar` writes only `./`.
 - Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.
 - Fill the small tmpfs and extract into it; compare ZIP, 7Z, and TAR behavior at the boundary.
 - Cancel a large extraction at about a third and compare cleanup with `docs/archives.md`.
@@ -212,6 +215,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
 - On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.
 - Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
+- Compress in Columns into the active child column, a parent column, and a column four levels deep.
 
 ### operations/archives/rar
 

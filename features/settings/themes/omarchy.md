@@ -52,7 +52,7 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 - Contrast raises code-preview syntax colors to 4.5:1 against the window and pane surfaces. lgse/strata#1816 (unverified)
 - Contrast keeps the theme's surfaces and selection unless pure white, or black on a light palette, falls below 7:1 on one. That surface then moves toward black, or white on a light palette, until it reaches 7:1. lgse/strata#1816
 - Contrast keeps a palette light with `mode = "light"` in `colors.toml`, and dark with `mode = "dark"`. lgse/strata#1816
-- Without `mode`, Contrast treats a Quattro `background` with relative luminance above 0.45 as light. lgse/strata#1816 (unverified)
+- Without `mode`, or with any value other than `light` or `dark`, Contrast treats a Quattro `background` with relative luminance above 0.45 as light. lgse/strata#1816 (unverified)
 - Variants never change bundled or custom themes or the desktop theme. lgse/strata#1482
 
 ### Per-theme memory
