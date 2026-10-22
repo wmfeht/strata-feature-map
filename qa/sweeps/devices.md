@@ -42,7 +42,6 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Hide the overlay, switch the theme accent, open Properties on the pending row, and press Eject on it again before GIO resolves.
 - Attach an ISO as a CD-ROM and a non-removable virtio ext4 disk; release each and compare the closing overlay.
 - Eject while the preview plays audio from the stick, while a PDF preview's sandbox holds a file there, and while Icons thumbnails load; then select a stick file before GIO resolves.
-- Eject on the icon rail, then step the sidebar to full and back before and after GIO resolves; read the row's accessible name at each step.
 
 ### devices/volumes/encrypted
 
@@ -69,7 +68,6 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Format while a shell sits inside the mount, and with an Eject pending on the same row. Cancel the polkit prompt at the unmount step, then at the format step.
 - Open the unlocked LUKS volume's Properties and Format Drive after `dmsetup suspend` on its mapping; close each before its facts arrive, then `dmsetup resume`.
 - Replug another stick while Format Drive loads its facts, and again while it formats.
-- Step the sidebar to the icon rail with a Strata-labeled stick and an unlabeled one; read each row's accessible name, then change the label while railed and expand.
 
 ### devices/volumes/camera
 

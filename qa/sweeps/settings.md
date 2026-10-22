@@ -197,12 +197,14 @@ For every control this sweep proves the binding: the file changes, the other win
 
 - With the fake state, enable Follow Omarchy and edit `colors.toml` live: an invalid `background`, a missing `accent`, `selection = "nope"`, only `color5`-style keys, then a light palette. Read both windows after each save.
 - Run the rename script at 0, 1, and 5 s gaps, then point the `current/theme` symlink at a missing target, truncate `theme.name` and `colors.toml` to 0 bytes, and `chmod 000` the directory.
-- Seed `mode = "omarchy"` with no state, then an `[omarchy_variants]` entry for the fake theme set to `"HIGH_CONTRAST"`, `"darker "`, and `"neon"`, beside a valid `theme` and `text_size`; read the Appearance page and the file after one change.
+- Seed `mode = "omarchy"` with no state, beside a valid `theme` and `text_size`. In `[omarchy_variants]`, give one theme a valid variant and another `"HIGH_CONTRAST"`, `"darker "`, or `"neon"`.
+- After that seeding, restart and read both themes' variants on the Appearance page and in the file, then again after one change.
 - Apply Contrast to a pure white and a pure black palette, and to a mid-gray `background` with no `mode`; measure text, border, and accent contrast from screenshots of a menu, a dialog, and a code preview.
-- Set `lighter_background` equal to `background`, then drop `dark_background`, `muted`, `lighter_background`, and `selection` one at a time; under each variant, screenshot a hovered row, a selected row, a border, and a pane header.
+- Set `lighter_background` equal to `background`, then drop `dark_background`, `muted`, `lighter_background`, and `selection` one at a time.
+- For each of those surface-key cases, under each variant, screenshot a hovered row, a selected row, a border, and a pane header.
 - Under Contrast, set `mode = "light"` on a dark `background` and `mode = "dark"` on a light one, then `mode = "LIGHT"` and a numeric `mode`.
 - Give three fake themes Lighter, Darker, and Contrast, then switch among them in varied order with Settings open in both windows; read `settings.toml` and both dropdowns after each switch.
-- Write `theme.name` with a trailing newline, then with trailing spaces, then with different letter case; read which `[omarchy_variants]` key each switch reads and writes.
+- Write `theme.name` with a leading tab, then with an inner space, then with different letter case, then empty; read which `[omarchy_variants]` key each switch reads and writes.
 - Start with a legacy global `omarchy_variant = "high_contrast"` and no Quattro state, change an unrelated preference, then create the state; repeat with an `[omarchy_variants]` entry already present for the active theme.
 - While following, write a 12-digit hex `foreground`, `magenta = "#fff0000ff"`, an 8-digit `#rrggbbaa` `accent`, and an `rgba()` `selection` into `colors.toml`; open a new code preview and the Settings preview after each save.
 - Truncate `colors.toml` mid-switch while window B opens a Markdown preview and window A opens Appearance; then restart with the state still invalid and read both.

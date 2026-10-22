@@ -90,7 +90,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - GTK's text bindings miss an editing key that only the layout fallback recognizes. After the window actions, the focused `gtk::Text` or `TextView` runs that action itself (lgse/strata#1576).
 - One guard covers dialogs and name fields. It skips the action's own layer, so Ctrl+K still closes the palette it opened (lgse/strata#1432, lgse/strata#1438, lgse/strata#1554).
 - Editable controls and native single-pane selection must not fall through to browser commands, which is why a stage can hand a key to GTK (lgse/strata#544).
-- The file-manager launch path sets the GLib prgname and X11 program class to the application id. The portal chooser keeps its own id. AT-SPI reports the application under the prgname, `io.github.lgse.Strata`; the removed E2E harness found it by that name (lgse/strata#812, lgse/strata#957, lgse/strata#1807).
+- The file-manager launch path sets the GLib prgname and X11 program class to the application id. The portal chooser keeps its own id. AT-SPI reports the application under the prgname, `io.github.lgse.Strata` (lgse/strata#812, lgse/strata#957).
 
 ## History
 

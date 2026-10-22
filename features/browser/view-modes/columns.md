@@ -45,7 +45,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - In a column with no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
-- Return on a folder whose validation outlasts the 75 ms mirror delay opens it in the next column, with focus moving into that column. lgse/strata#1771
+- With Mirror columns selection on, Return on a folder still validating when the 75 ms mirror fires opens it in the next column. Focus lands on its first entry. lgse/strata#1771 (unverified)
 
 ### Returning to an ancestor
 

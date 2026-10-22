@@ -878,6 +878,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/dialogs_and_menus` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus` | tests | [Window chrome and structure](../features/app/window.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_animation` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/entry_management` | tests | [New Folder and New File](../features/operations/create.md) | — |

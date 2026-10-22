@@ -43,8 +43,6 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - Hovering a labelled button, menu item, label, entry, file row, breadcrumb, or status indicator shows no tooltip. The one exception is a truncated name on an Icons-view card (`browser/view-modes/icons`). lgse/strata#1359, lgse/strata#1553
 - Hovering an icon-only button shows its tooltip, such as "Search (Ctrl+K)" on the header Search button. lgse/strata#1359
 - In the collapsed sidebar rail, each row shows its name as a tooltip; expanding the sidebar removes those tooltips. lgse/strata#1359
-- In the collapsed sidebar rail, each row's accessible name is its row name, such as "Home"; expanding the sidebar clears that name. lgse/strata#1771 (unverified)
-- A railed drive row that is still writing data keeps its own name, "Writing data to the drive. Do not unplug it." lgse/strata#1771 (unverified)
 - Text that tooltips carried before, such as a sidebar place's or breadcrumb's full path, is now the control's accessible description. lgse/strata#1359
 
 ## Design
@@ -52,7 +50,8 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 [docs/testing.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/testing.md) ("Accessible names are product surface") states the contract this node owns.
 
 - GUI tests locate controls only by accessible role and name. When one cannot identify a control, the fix is to name it in the application, never a test-only API (lgse/strata#341).
-- QA scenarios read those names, descriptions, and states from the app's own widget tree, not AT-SPI. In `qa` builds this node's setters record each value for that reader (lgse/strata#1771, lgse/strata#1807, unverified).
+- QA scenarios read those names, descriptions, and states from the app's own widget tree, not AT-SPI. GTK has no public getter for accessible labels, relations, or states. In `qa` builds this node's naming helpers therefore record what they set for the QA reader (lgse/strata#1771).
+- A feature's own label always wins over a stand-in label, such as the icon rail's row name (lgse/strata#1771).
 - An entry's name and description sit on the list item, not the row content, because the item carries the `list item` or `table cell` role and the selected and focused states (lgse/strata#415).
 - Panes use the group role because GTK drops a label set on a plain `GtkBox`, whose generic role ARIA forbids naming (lgse/strata#415).
 - The pane, not the entry list, carries the directory and view, because an empty directory replaces the list with a placeholder (lgse/strata#415).

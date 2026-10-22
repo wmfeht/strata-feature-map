@@ -191,7 +191,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Compress a selection with hidden files, a symlink, a non-UTF-8 name, and an empty folder in each format; list the result with `unzip -l`, `7z l`, and `tar tvf` and compare entries, modes, and mtimes.
 - Extract each format into an empty folder, a folder with a same-named entry, and a read-only folder; the destination must be clean after each refusal.
 - Feed the hostile archives: `../` member, absolute path, symlink out, size-lying header.
-- Extract a ZIP and a TAR whose first entry is a `.\` directory marker, built with a script since `zip` and `tar` write `./`.
+- Extract a TAR and a RAR whose first entry is a `.\` or `./` directory marker, built with a script, since `tar` writes `./`.
 - Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.
 - Fill the small tmpfs and extract into it; compare ZIP, 7Z, and TAR behavior at the boundary.
 - Cancel a large extraction at about a third and compare cleanup with `docs/archives.md`.

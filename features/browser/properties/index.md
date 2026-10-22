@@ -6,7 +6,7 @@ branch: null
 reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/browser/properties.rs]
-tests: [tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl]
+tests: [tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl, tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl]
 docs: []
 related: [browser/sidebar, operations/rename, integration/open-with, settings/preferences/date-format]
 ---

@@ -44,8 +44,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
-- Collapse the sidebar to the rail and dump each row's name: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
-- Compare a railed row's AT-SPI name with the QA snapshot's name for the same row, with the interface in ja.
+- Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
 
 ### app/dialogs
 

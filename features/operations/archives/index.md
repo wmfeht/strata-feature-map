@@ -103,11 +103,9 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Where no placement step can place the output, extraction fails and the members stay in the staging folder. lgse/strata#1615 (unverified)
 - The error then ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586, lgse/strata#1615 (unverified)
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
-- A ZIP, 7Z, or TAR directory entry named `.`, `./`, or `././` is skipped, and the other members extract instead of failing. lgse/strata#494, lgse/strata#1814
-- A ZIP directory entry named `.\` is skipped the same way. lgse/strata#1814
-- A TAR directory entry named `.\` is skipped the same way. lgse/strata#1814 (unverified)
-- A RAR directory entry that names only the archive root is skipped the same way. lgse/strata#1814 (unverified)
-- A file member named `.`, or a directory member `../` or `foo/../`, fails with "Refusing empty archive path: <name>" and writes nothing. lgse/strata#1814
+- A ZIP, 7Z, or TAR directory entry named `.`, `./`, or `././`, or a ZIP one named `.\`, is skipped. The other members extract instead of failing. lgse/strata#494, lgse/strata#1814
+- TAR and 7Z `.\` directory entries, and a RAR directory entry naming only the root, are skipped the same way. lgse/strata#1814 (unverified)
+- A ZIP whose only member is a file or link named `.`, or a directory `../` or `foo/../`, fails and writes nothing. The error is "Refusing empty archive path: <name>". lgse/strata#1814
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677
 - Every member of a solid 7Z archive is extracted. lgse/strata#406
 
@@ -156,7 +154,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Member paths are untrusted. Writes go through one pinned destination descriptor with `openat2` and per-component `NOFOLLOW`, so traversal names and swapped symlinks cannot escape (lgse/strata#109, lgse/strata#116).
 - The destination itself may be reached through ordinary symlinks; it is resolved with `RESOLVE_IN_ROOT` and pinned, as copy and compress already did (lgse/strata#644, lgse/strata#678).
 - `..` components are clamped at the destination instead of aborting the whole archive (lgse/strata#1189, lgse/strata#1191).
-- Root markers such as `./` are skipped once, in `ExtractionSession::extract_member`, for every decoder; TAR's own check was removed. The skip covers directory members only, so empty-path validation still refuses a file named `.` (lgse/strata#1801, lgse/strata#1814).
+- Directory members that name only the archive root are skipped in `ExtractionSession::extract_member`, so every decoder shares one check. File members with the same spelling still reach empty-path validation (lgse/strata#1801, lgse/strata#1814).
 - All decoders feed one `ExtractionSession` that owns conflicts, progress, cancellation, and cleanup (lgse/strata#557, lgse/strata#562).
 - Extraction stages into a hidden folder and decides single-root or bundled publication after decoding. Bundling after writing into the parent renamed members against the wrong folder and could not clean up failures (lgse/strata#1419, lgse/strata#1471).
 - Partial output is kept, not deleted: removing it would mean undoing conflict renames, and the cancel summary already says completed changes stay (lgse/strata#1419).
