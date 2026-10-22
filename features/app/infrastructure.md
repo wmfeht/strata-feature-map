@@ -79,7 +79,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - A stopped NFS, SMB, sshfs, or FUSE server gives no timely error, so disk calls run off the UI thread ([docs/filesystem-compatibility.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/filesystem-compatibility.md), "What a dead server does"). Debug assertions, the stall watchdog, and `scripts/trace-main-io.py` check that (lgse/strata#1590, lgse/strata#1729).
 - [docs/testing.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/testing.md) ("Main-thread I/O audit") describes the trace script. It runs QA scenarios through `scripts/qa.sh`, and `tests/qa/main_io.rs` starts each launch with its UI thread under `strace` (lgse/strata#1729, lgse/strata#1807).
 - `tests/qa/main-io-allowlist.toml` lists only documented exceptions. QA mode's own disk reads run on a helper thread, so an audit sees only calls a release build makes (lgse/strata#1729, lgse/strata#1807).
-- The selection position cache's comparison against a full listing scan sits behind the `invariant-checks` Cargo feature. `scripts/qa.sh`, `scripts/qa-drive.sh`, and `cargo test --all-features` enable it; plain `cargo build` leaves it off ([docs/testing.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/testing.md), lgse/strata#1792, lgse/strata#1807).
+- The selection position cache's comparison against a full listing scan sits behind the `invariant-checks` Cargo feature. `scripts/qa.sh`, `scripts/qa-drive.sh`, and `cargo test --all-features` enable it; plain `cargo build` leaves it off ([docs/testing.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/testing.md), lgse/strata#1771, lgse/strata#1792, lgse/strata#1807).
 - The `--qa` launch mode, its JSON protocol, and its in-process XTEST input sit behind the `qa` Cargo feature, never in releases. Without it, `launch_mode` treats `--qa` as the plain application launch mode (lgse/strata#1771, unverified).
 - CI fails when `x11rb`, the `qa` feature's X11 client, is in the default dependency tree. The release workflow fails when a binary contains `usage: strata --qa` (lgse/strata#1771, unverified).
 - `tests/qa.rs` refuses to run without the `STRATA_QA_CONTAINER=1` that `scripts/qa.sh` sets, unless `STRATA_QA_HOST=1` is set ([docs/testing.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/testing.md), lgse/strata#1771).
@@ -91,7 +91,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-22 | lgse/strata#1807 | test | Removed the Python E2E suite so QA scenarios are the only GUI suite, pruned a third of them, and moved the main-thread I/O audit to the QA runner. |
+| 2026-10-22 | lgse/strata#1807 | test | Removed the Python E2E suite, pruned 134 QA scenarios, and moved the main-thread I/O audit to the QA runner. |
 | 2026-10-22 | lgse/strata#1809 | chore | Added the committed pr-review agent skill and documented it in AGENTS.md. |
 | 2026-10-22 | lgse/strata#1771 | feat | Added the `qa`-feature `--qa` JSON harness with QA scenarios beside each E2E test, and the qa-scenarios, qa-drive, and qa-quality agent skills. |
 | 2026-10-21 | lgse/strata#1792 | perf | Stopped re-sorting type groups on every published chunk and raised the folder listing cap to 250,000 entries. |
