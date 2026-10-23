@@ -3,7 +3,7 @@ title: udiskie unlock handler
 status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
 tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
@@ -13,7 +13,7 @@ related: [app/packaging/installer, devices/volumes/encrypted, integration/portal
 
 ## Summary
 
-An opt-in integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row; the installer step is on `app/packaging/installer`.
+An integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row. The installer step is on `app/packaging/installer`; since lgse/strata#1825 it is on by default when `udiskie` is on `PATH`.
 
 ## Behavior
 

@@ -273,6 +273,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/assets/vector/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/child_environment.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/child_environment/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -538,6 +540,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/document_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/enter_target.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/enter_target/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers.rs` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -753,6 +757,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/composition/tabs.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tabs/**` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tabs/tests.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `src/ui/window/composition/tabs/tests/reopen.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tenxer_splash.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/composition/tenxer_splash/tests.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/density_slider.rs` | code | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -856,6 +861,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/mutations/rename-error-dialog.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/qa/mutations/rename-escape.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/qa/mutations/shift-click-range.patch` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `tests/qa/mutations/stl-thumbnails-live-preference.patch` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `tests/qa/mutations/trash.patch` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `tests/qa/mutations/view-switching.patch` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `tests/qa/scenarios/accessibility` | tests | [Accessibility](../features/app/accessibility.md) | — |

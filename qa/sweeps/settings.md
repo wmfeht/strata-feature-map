@@ -1,20 +1,20 @@
 ---
 title: Settings sweep
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails switch, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
 ## Setup
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `scripts/headless/environment.py`, read from the `preferences` table of `tests/fixtures/harness.json`, is the baseline; every seeded file starts from it.
-- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variants = { <fake theme name> = "lighter" }`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
+- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variants = { <fake theme name> = "lighter" }`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `stl_thumbnails = true`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
@@ -133,6 +133,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Cross `GSK_RENDERER=gl`, `vulkan`, and `cairo` with text sizes 8, 10, and 13 and `text-scaling-factor` 1.0, 1.1818, and 1.25 on a 1.25× monitor. Repeat under hint style none and full and with antialiasing off; zoom on `T`, `E`, and `I` in the sidebar and file list.
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
+- Search settings for "3d", "mesh", and "printing", then switch Language to Deutsch and Japanese and search again; read which rows show.
+- Toggle STL model thumbnails in window A with Show thumbnails off, then turn Show thumbnails on from window B; read both switches in each window and `settings.toml`.
+- Write `stl_thumbnails = "yes"` and `stl_thumbnails = 1` into `settings.toml` before launch; read the switch and whether other keys survive.
 - With a custom theme selected, rewrite its file by atomic rename, then by in-place truncate-and-write; read both windows after each.
 - Make the selected theme file a symlink into `$HOME/dotfiles`, then into `/dev/shm`; edit the target and read the window.
 - With the hostile `gtk.css` and `settings.ini`, walk the screenshot set in all three modes under a light and a dark theme, then compare against a run without them; any difference is a lead.
@@ -230,7 +233,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Focus return after closing the search palettes → `browser`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
 - What Watch network folders checks and re-reads in open folders → `browser`.
-- Thumbnail workers, thumbnail rendering, and what Show thumbnails changes in the file views → `browser`.
+- Thumbnail workers, thumbnail rendering, and what Show thumbnails and STL model thumbnails change in the file views → `browser`.
 - Remember sort and icon size per folder, Default sort, Forget all folder settings, and `folder-views.toml` → `browser`.
 - Show sizes in Columns view as it acts on the Columns badge → `browser`.
 - Search time limit and Search entry limit as they act on global search, pane filters, and the Partial results hint → `browser`.

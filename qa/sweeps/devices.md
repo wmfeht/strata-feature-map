@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 tools: [docs/preview-sandbox.md, data/udiskie/unlock]
 ---
 
@@ -84,6 +84,6 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - The "Writing to device…" flush before a copy to removable media reports success → `operations`.
 - Device rows as navigation targets, sidebar keyboard order, and drops onto rows → `browser`.
 - SMB, SFTP, and other network mounts with their credential prompts → `remote`.
-- `install.sh` step wording, `--with-udiskie-unlock`, and Omarchy detection → `app`.
+- `install.sh` step wording, its default selection, `--with-udiskie-unlock`, `--without-udiskie-unlock`, and Omarchy detection → `app`.
 - Previewing camera photos in the preview panel → `preview`.
 - The Settings page shell around the "Unlock encrypted volumes" row → `settings`.

@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]
@@ -59,6 +59,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 ### Contents
 
 - In the default map, the sections are Columns, Icons, or List navigation for the current view, then Files and selection, Search and tools, and Preview media. lgse/strata#358, lgse/strata#1272
+- Search and tools lists Ctrl+Shift+T, "Reopen the last closed tab", in the default map. In 10xer mode it is listed outside the file chooser only. lgse/strata#1800
 - Switching views with Ctrl+1, 2, or 3 replaces the navigation section with the new view's. While the reference is open, Ctrl+1, 2, and 3 do nothing. lgse/strata#358 (unverified)
 - In 10xer mode, the reference lists only the 10xer map, adding Places, Preview, and a "10xer mode" section that collects the keys the default map lacks. lgse/strata#1272
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272

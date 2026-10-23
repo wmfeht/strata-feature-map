@@ -3,10 +3,10 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
-tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
+tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings, tests/qa/mutations/stl-thumbnails-live-preference.patch]
 docs: [docs/preferences.md]
 related: [preview/preview-panel/sandbox, settings/preferences]
 ---
@@ -42,10 +42,13 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 - With Landlock ABI 3 and `magick` and `convert` hidden from Strata, PNG and JPEG thumbnails still appear: GDK Pixbuf's glycin loaders decode them inside the worker. lgse/strata#1660
 - The persistent worker runs with `GLYCIN_DISABLE_SANDBOX=i-know-the-risks` in its environment; one-shot sandboxes do not set it. lgse/strata#1660
 - CBZ, CBR, and EPUB cover thumbnails skip the pool and always run in a one-shot sandbox. lgse/strata#1325 (unverified)
+- STL model thumbnails skip the pool and always run in a one-shot sandbox. lgse/strata#1789
 
 ### Admission
 
 - RAW, PDF, video, and 3D-model thumbnails and media-detail probes together occupy at most one fewer worker than the limit, minimum 1. lgse/strata#1081
+- At most one STL model thumbnail renders at a time across all windows; other thumbnail kinds keep rendering meanwhile. lgse/strata#1789
+- An interactive Quick Preview of a model does not wait for that STL slot and can run beside it. lgse/strata#1789
 - At most one media-detail probe runs at a time, and it gets a turn after every four thumbnail admissions while both wait. lgse/strata#1081
 - A file that changes while it is decoded gets no thumbnail from that run. lgse/strata#1081 (unverified)
 
@@ -64,14 +67,17 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 - Decoding untrusted files in-process and delegating to Tumbler were rejected (lgse/strata#516).
 - Results are cached for 30 seconds, keyed by path, device, inode, size, nanosecond modification and change times, and operation, so a 256 px thumbnail cannot satisfy a larger preview (lgse/strata#1222).
 - Space previews use a second pool so a scrolled folder's thumbnails cannot delay them (lgse/strata#516, lgse/strata#1222). Supervisor isolation itself belongs to `preview/preview-panel/sandbox`.
+- One STL render at a time bounds memory. On the lgse/strata#1788 prototype, three background helpers against one used 764 against 423 MiB of summed RSS. Eight PNGs took 0.49 s against 1.0 s; the issue calls these prototype figures.
+- A cancelled or timed-out STL thumbnail frees its slot before the helper is reaped. A helper stuck in kernel I/O therefore cannot hold the slot. The reaper belongs to `preview/preview-panel/model-views` ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
 - The setting uses the same spin button as Text size and Corner roundness. The earlier popover stepper stretched with its row and never matched them (lgse/strata#1778).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-22 | lgse/strata#1789 | feat | Added opt-in rendered STL thumbnails, one background render at a time, so STL files stop sharing one generic icon. |
 | 2026-09-18 | lgse/strata#1081 | perf | Replaced per-file sandboxes with a reusable worker pool and added the Thumbnail workers setting. |
 
 ## Known gaps
 
-None known.
+- A killed STL helper stuck in kernel I/O can still run while a later STL render starts. lgse/strata#1789

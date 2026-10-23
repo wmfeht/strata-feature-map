@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -214,6 +214,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Call `ShowItemProperties` with two files in one folder, with a folder, and with a Trash URI; call `ShowFolders` on a folder already open in a window and with the mode on.
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
 - After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed.
+- With Strata closed and xdg-desktop-portal 1.22 running, reveal a download from a browser's Show in folder; time the window and read the portal journal. Repeat with `GDK_DEBUG=misc` and `GDK_DEBUG=NO-PORTALS` set for the service.
 
 ## Hand-offs
 
@@ -229,3 +230,4 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
 - The browser window's sidebar steps, the saved `sidebar_compact` state, and the rail's row sizing → `browser`.
 - Network-folder change checks, including the pause while a chooser is hidden → `browser`.
+- The `GDK_DEBUG` re-exec on service activation, and the original value seen by programs Strata launches → `app`.

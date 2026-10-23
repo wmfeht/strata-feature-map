@@ -3,12 +3,12 @@ title: FileManager1 D-Bus interface
 status: shipped
 origin: {issue: lgse/strata#290, pr: lgse/strata#317}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/adapters/file_manager1.rs, data/io.github.lgse.Strata.FileManager1.service]
 tests: [src/adapters/file_manager1/tests.rs, tests/qa/scenarios/file_manager_interface/**]
 docs: [docs/packaging.md]
-related: [app/packaging/installer, integration/portal-file-chooser/setup, browser/navigation, browser/properties, browser/tabs/session-restore]
+related: [app/packaging/installer, integration/portal-file-chooser/setup, browser/navigation, browser/properties, browser/tabs/session-restore, app/infrastructure]
 ---
 
 ## Summary
@@ -50,6 +50,9 @@ Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GT
 - A call is grouped into one request per directory, so items from one folder share one window and its selection (lgse/strata#317).
 - Targets are identified by location, not display name. Each target is rebuilt as `parent.child(name)`, as listings build entries, so URI spellings compare equal. Matching lossy names had selected both of two colliding non-UTF-8 files (lgse/strata#1428, lgse/strata#1499).
 - D-Bus reveals share one entry point, `reveal_locations`, with `strata <file>`, Open file location, Ctrl+K Enter, and typed paths (lgse/strata#1499). The hidden-file toggle lives in that shared selection path (lgse/strata#932).
+- A cold activation through xdg-desktop-portal 1.22.1 waited about 25 s. The portal's `OpenDirectory` waits for `ShowItems`, while GTK startup queries that portal first (lgse/strata#1810).
+- So a `--gapplication-service` launch re-executes before GTK starts with `no-portals` added to `GDK_DEBUG`. Programs it launches get the original value back. The re-exec lives in `app/infrastructure` (lgse/strata#1811, docs/packaging.md).
+- The override is scoped to that process, not a replacement for asynchronous dispatch in the portal. Packages must keep `--gapplication-service` in the activation command (lgse/strata#1811, docs/packaging.md).
 
 ## History
 

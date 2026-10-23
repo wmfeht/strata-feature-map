@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -140,7 +140,9 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 - Hide the sort column with Remember per folder off, then with Group by file type on; hide it in the file chooser while a browser window sorts by it.
 - Drag Name to the last position, then press within 8 px of each heading's right edge and drag; then drag a heading 9 px and 11 px and release.
-- Drag a heading past two neighbours in one motion, then press Escape mid-drag; read `list_column_order` after each.
+- Drag a heading past two neighbours in one motion and release, then repeat and press Escape mid-drag; read `list_column_order` and the insertion line after each.
+- Drag a heading out of the heading row and back in before releasing, then drag it with Size and Type hidden; repeat in the portal file chooser while a browser window shows List.
+- Drag Modified to the end with the List pane scrolled horizontally, and drag a heading while a folder of `100000` loads.
 - Write `list_hidden_columns = ["name", "size", "size", "bogus"]` and `list_column_order = ["type", "type"]` in settings.toml and start.
 - Hide Mode in one window while a second shows Icons and the portal file chooser shows List; return the second window to List.
 - Hide every column but Name, shrink the window to 400 px, and reset; then repeat at text size 8 and 48 with 10xer mode on and off.
@@ -287,6 +289,11 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Type `duck  txt` and `txt duck` in Columns with Include subfolders off, then in Icons and List with it on.
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
+- Type a query in `100000` in each view and read which row is outlined as batches arrive; then wheel-scroll once mid-load and keep typing.
+- Ctrl+click a hit, then create a matching file from a shell, and edit the query; repeat with the pick being the top row.
+- Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
+- Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
+- Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
 
 ### browser/sidebar
 
@@ -339,6 +346,10 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Turn Show thumbnails off mid-load in the slow directory, then on within 200 ms while videos' durations stream into Icons captions; repeat in a folder peek and a Ctrl+K result list.
 - With Show thumbnails off, open the portal file chooser and a second window, then turn it on from Settings and scroll each.
 - Open a folder of the RAW samples with and without `dcraw` and `simple_dcraw`; compare orientation and Icons captions.
+- Turn STL model thumbnails on in a folder of 50 STL files and images, scroll, and turn it off mid-render in a second window.
+- Turn STL model thumbnails on with Show thumbnails off, then turn Show thumbnails on; open the folder in a peek, Ctrl+K results, and the portal file chooser.
+- Open `.stl` and `.STL` files on an `smb://` share with `gvfsd-fuse`, on an sshfs mount, and in a camera library; compare with the local copy.
+- Render an ASCII STL, a zero-triangle STL, and a 127 MiB binary STL; change a rendered file's bytes and reopen the folder.
 
 ### browser/thumbnails/cache
 
@@ -351,6 +362,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Set workers to 1 in the slow directory, then 16 mid-load, and count sandbox processes with `pgrep`; kill one with SIGKILL during a scroll.
 - Set `STRATA_THUMBNAIL_WORKERS=99`, then `abc`, and `STRATA_THUMBNAIL_IDLE_SECONDS=1`; read the shown default and watch process exit.
 - Type 0, 17, `abc`, and an empty value into the Thumbnail workers spin button, pressing Return, then Tab, after each; read `thumbnail_workers` back.
+- With workers at 1 and STL thumbnails on, open a folder of 20 STL files beside a folder of PDFs in a second window; open Quick Preview on an STL meanwhile.
+- Put an STL on an NFS or sshfs native path, stall the server mid-render, and scroll on to other STL files.
 - Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
 
 ### browser/properties
@@ -437,6 +450,12 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
 - With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
+- Close 25 tabs one by one, then press Ctrl+Shift+T 21 times; read each reopened tab's location and position.
+- Close a tab, then press Ctrl+Shift+T in a second window, in the location editor, on `ru`, and with Properties open.
+- Close a tab on an `sftp://` share, unmount it, and reopen; close a tab on `trash:///` and reopen after emptying the Trash.
+- Close tab 3 of 5, close two more tabs, reopen once, then drag tabs and reopen again.
+- Read the window title with `xprop` on `~`, `/`, `trash:///`, `network:///`, a 60-character folder, and a non-UTF-8 name, in `de` and `ja`.
+- Switch tabs with Ctrl+Tab, close the active tab, and navigate a background tab during a long copy; read the title after each.
 - With the window idle, rename a tab's folder from a shell and change text size from another window; check the underline matches the new tab bounds.
 
 ### browser/tabs/session-restore
