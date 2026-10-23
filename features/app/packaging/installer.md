@@ -34,8 +34,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - The recommended setup's hint reads "Everything this system supports: launcher, folders, file chooser, and optional integrations." lgse/strata#1825
 - The recommended setup selects every option the menu offers for the system. lgse/strata#1825
 - "Customize installation" opens "Make Strata yours" with every offered option checked; unchecking an option declines it. lgse/strata#1825
-- The plan reads "Your default apps and shortcuts will stay unchanged." only in one case. lgse/strata#1825 (unverified)
-- That case is no selected option beyond Application launcher, Windows network shares, and Camera RAW support. lgse/strata#1825 (unverified)
+- The plan reads "Your default apps and shortcuts will stay unchanged." only when nothing beyond Application launcher, Windows network shares, and Camera RAW support is selected. lgse/strata#1825 (unverified)
 - On an Arch-based system, the menu adds Windows network shares when `gvfs-smb` is missing, and Camera RAW support when `imagemagick`, `libraw`, or `dcraw` is missing. lgse/strata#1730
 - Omarchy file-manager shortcuts is offered only when Omarchy 3 or 4 is detected. lgse/strata#1727, lgse/strata#1730
 - Encrypted-drive unlock is offered only on an Arch-based system or Omarchy with `udiskie` on `PATH`. lgse/strata#1047, lgse/strata#1730, lgse/strata#1825

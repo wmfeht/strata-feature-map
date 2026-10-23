@@ -218,7 +218,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 ### integration/file-manager-interface/service-activation
 
-- From the activated process, open a terminal, a custom action, Open With, and a file provider, then read each child's `GDK_DEBUG` and `STRATA_ORIGINAL_GDK_DEBUG`.
+- Activate with an original `GDK_DEBUG` holding non-UTF-8 bytes, then with it unset. Open a terminal and a custom action, and read each child's `GDK_DEBUG` and `STRATA_ORIGINAL_GDK_DEBUG`.
 - In the activated process, toggle udiskie unlock in Settings, then read the restarted udiskie's `/proc/<pid>/environ`.
 - From the activated process, open a Flatpak GTK app and use its file chooser.
 

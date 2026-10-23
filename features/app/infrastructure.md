@@ -74,7 +74,6 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - `strata`, `strata /tmp`, `strata -- --gapplication-service`, `--portal`, and `--preview-helper` launches add no override and do not re-exec for it. lgse/strata#1811
 - A `GDK_DEBUG` that already holds `no-portals` as any `:`, `;`, `,`, space, or tab-separated flag, in any case, adds nothing and does not re-exec for it. lgse/strata#1811 (unverified)
 - Later `strata` launches open in the activated process, so GTK portals stay off until that process exits. lgse/strata#1811
-- Programs launched from the activated process get the original `GDK_DEBUG`; see `integration/file-manager-interface/service-activation`. lgse/strata#1811
 
 ## Design
 

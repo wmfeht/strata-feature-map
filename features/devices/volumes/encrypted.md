@@ -46,7 +46,7 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 
 ## Design
 
-- Mounts Strata starts present Strata's own prompt rather than GTK's default dialog or another file manager's (lgse/strata#302, lgse/strata#537). Desktop automounters may still prompt on their own; `devices/volumes/udiskie-unlock` is the handoff. The installer turns that integration on by default since lgse/strata#1825; Settings keeps it opt-in.
+- Mounts Strata starts present Strata's own prompt rather than GTK's default dialog or another file manager's (lgse/strata#302, lgse/strata#537). Desktop automounters may still prompt on their own; `devices/volumes/udiskie-unlock` is the handoff. The installer turns that integration on by default since lgse/strata#1825.
 - Successor matching uses exact GIO object identity and the LUKS UUID. Accepting any encrypted partition on the same physical drive could open the wrong volume (lgse/strata#935).
 - An unlocked volume exposes its filesystem UUID, not the LUKS UUID that keys the saved passphrase. Strata recovers the LUKS UUID from the dm UUID, a `luks-<uuid>` device name, or udev data (lgse/strata#935).
 - Saved passphrases are searched in the Secret Service under both `gvfs-luks-uuid` and `gvfs.crypto.luks.uuid`, because GVfs and GNOME Disks use different attribute names (lgse/strata#935).
