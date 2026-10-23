@@ -8,7 +8,7 @@ tools: [docs/preview-sandbox.md, data/udiskie/unlock]
 
 Everything the sidebar's Devices section does with a physical or virtual block device. Discovery and mounting of volumes, mounts, and password drives. Unmount and Eject with the flush, the pending row, and "Safe to remove". Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails.
 
-Left to other sweeps: the Send to lists, device rows as navigation targets, network mounts and their credentials, and the installer's handling of `--with-udiskie-unlock`.
+Left to other sweeps: the Send to lists, device rows as navigation targets, network mounts and their credentials, and the installer's default selection and its `--with-udiskie-unlock` and `--without-udiskie-unlock` flags.
 
 ## Setup
 

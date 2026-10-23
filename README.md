@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `bf26829` · 127 features, 9 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `bf26829` · 127 features, 8 reviewed
 
 ## app
 
@@ -86,7 +86,7 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 | [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `fd63272` | ? |
 | ↳ [Camera photos](features/devices/volumes/camera.md) | `devices/volumes/camera` | shipped | draft | `fd63272` | ? |
 | ↳ [Drive format, label, and properties](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | draft | `c94eeb0` | ? |
-| ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | reviewed | `b893886` | 0 |
+| ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | draft | `bf26829` | ? |
 | ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `c94eeb0` | ? |
 | ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `bf26829` | ? |
 

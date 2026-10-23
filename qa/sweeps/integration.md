@@ -214,7 +214,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Call `ShowItemProperties` with two files in one folder, with a folder, and with a Trash URI; call `ShowFolders` on a folder already open in a window and with the mode on.
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
 - After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed.
-- With Strata closed and xdg-desktop-portal 1.22 running, reveal a download from a browser's Show in folder; time the window and read the portal journal. Repeat with `GDK_DEBUG=misc` and `GDK_DEBUG=NO-PORTALS` set for the service.
+- With Strata closed and xdg-desktop-portal 1.22.1 running, reveal a download from a browser's Show in folder; time the window and read the portal journal.
 
 ## Hand-offs
 

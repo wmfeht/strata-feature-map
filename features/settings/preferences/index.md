@@ -69,6 +69,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - On a package-managed install, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
+- Searching "3d", "mesh", or "printing" shows Appearance's STL model thumbnails row. lgse/strata#1789 (unverified)
 - Searching "font" shows Appearance's Interface font row. lgse/strata#1696
 - Searching "typeface" or "family" shows the Interface font row. lgse/strata#1696 (unverified)
 - Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735

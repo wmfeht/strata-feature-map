@@ -51,7 +51,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ### Background thumbnail renders
 
-- Cancelling a background STL thumbnail render, or passing its 12 s wall deadline, sends SIGKILL to the helper. The thumbnail worker and STL slot free without waiting for the helper to exit. lgse/strata#1789
+- Cancelling a background STL thumbnail render, passing its 12 s wall deadline, or failing to monitor it sends SIGKILL to the helper. The thumbnail worker and STL slot free without waiting for the helper to exit. lgse/strata#1789
 - A detached waiter then reaps the helper. The helper's private output and file-operation hold stay alive until reaping and namespace cleanup finish. lgse/strata#1789
 
 ### Details
@@ -73,7 +73,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - A header spinner replaced a loading card over the model. The buttons stay sensitive during view renders so focus and the keyboard-owner bar survive a render (lgse/strata#1644). They stay insensitive until the first image exists (lgse/strata#1764).
 - A centred progress card returned for the first load, then was removed again because it flashed for small models. The header spinner carries the stage in its accessible label (lgse/strata#1764).
 - Model badges take their own badge area in the shared player layout instead of the video timeline slot (lgse/strata#1764).
-- Background STL thumbnail renders do not wait for a killed helper to be reaped. A helper stuck in uninterruptible I/O on NFS, sshfs, or FUSE used to hold the STL slot, a heavy slot, and a worker for the life of the process. A brief overlap of two helpers was judged acceptable. Interactive Quick Preview keeps waiting for the helper to exit (lgse/strata#1789).
+- Background STL thumbnail renders do not wait for a killed helper to be reaped. Otherwise a helper stuck in uninterruptible I/O on NFS, sshfs, or FUSE would hold the STL slot, a heavy slot, and a worker indefinitely. A brief overlap of two helpers was judged acceptable. Interactive Quick Preview keeps waiting for the helper to exit (lgse/strata#1789).
 - The sandbox boundary rejects a mesh result that does not identify the requested view, so a stale render cannot show under the wrong camera. It also rejects a format mismatch, 0 triangles, more than 2 million, or an STL without mesh details (lgse/strata#1644).
 
 ## History

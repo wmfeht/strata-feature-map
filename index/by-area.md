@@ -652,12 +652,12 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 ### [Encrypted volumes](../features/devices/volumes/encrypted.md) `devices/volumes/encrypted`
 
-shipped · reviewed · reviewed at [`b893886`](https://github.com/lgse/strata/tree/b8938864dc95d2e041a0a442b3b7a63755681f4e) · 0 PRs since · origin pr [lgse/strata#935](https://github.com/lgse/strata/issues/935)
+shipped · draft · reviewed at [`bf26829`](https://github.com/lgse/strata/tree/bf26829b4fd74c1f25ac170aad9521a633234a30) · ? PRs since · origin pr [lgse/strata#935](https://github.com/lgse/strata/issues/935)
 
 Unlocking and locking LUKS volumes from their Devices rows with Strata's themed passphrase prompt, and forgetting a saved passphrase when locking. For users who keep encrypted USB drives or partitions.
 
-- Code: [`src/ui/window/volume_password.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/ui/window/volume_password.rs)
-- Tests: [`src/ui/window/volume_password/tests.rs`](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/src/ui/window/volume_password/tests.rs)
+- Code: [`src/ui/window/volume_password.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/window/volume_password.rs)
+- Tests: [`src/ui/window/volume_password/tests.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/window/volume_password/tests.rs)
 - Related: [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md)
 
 ### [Unmount and eject](../features/devices/volumes/release.md) `devices/volumes/release`
@@ -675,7 +675,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 shipped · draft · reviewed at [`bf26829`](https://github.com/lgse/strata/tree/bf26829b4fd74c1f25ac170aad9521a633234a30) · ? PRs since · origin issue [lgse/strata#537](https://github.com/lgse/strata/issues/537), pr [lgse/strata#1047](https://github.com/lgse/strata/issues/1047)
 
-An integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row. The installer step is on `app/packaging/installer`; since lgse/strata#1825 it is on by default when `udiskie` is on `PATH`.
+An integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row. The installer step is on `app/packaging/installer`; since lgse/strata#1825 it is on by default on an Arch-based system with `udiskie` on `PATH`.
 
 - Code: [`src/ui/window/unlock_argument.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/window/unlock_argument.rs), [`src/portal_setup/udiskie.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/portal_setup/udiskie.rs), [`src/ui/udiskie_preferences.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/udiskie_preferences.rs), [`data/udiskie/unlock`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/data/udiskie/unlock)
 - Tests: [`src/ui/window/unlock_argument/tests.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/window/unlock_argument/tests.rs), [`src/portal_setup/udiskie/tests.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/portal_setup/udiskie/tests.rs), [`src/ui/udiskie_preferences/tests.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/udiskie_preferences/tests.rs)

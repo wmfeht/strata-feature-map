@@ -93,9 +93,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A background that cannot be parsed gets Mocha file icons. lgse/strata#1588 (unverified)
 - The File icons group has a Show thumbnails switch after File icon colors, on by default; its choice is saved as `show_thumbnails` and survives restart. lgse/strata#1651
 - Searching "Show thumbnails" or "photos", or "Miniaturansichten" under Deutsch, in Search settings shows the Show thumbnails row. lgse/strata#1651 (unverified)
-- The File icons group has an STL model thumbnails switch after Show thumbnails, off by default. Its subtitle reads "Render local STL models as file thumbnails, one at a time. Requires Show thumbnails." lgse/strata#1789
-- The STL model thumbnails choice is saved as `stl_thumbnails`; a missing key reads as off. lgse/strata#1789
-- Searching "stl" in Search settings shows the STL model thumbnails row. lgse/strata#1789
+- The File icons group has an STL model thumbnails switch, off by default. Its subtitle reads "Render local STL models as file thumbnails, one at a time. Requires Show thumbnails." lgse/strata#1789
+- The STL model thumbnails switch sits after Show thumbnails. Its choice is saved as `stl_thumbnails`, and a missing key reads as off. lgse/strata#1789 (unverified)
 
 ### Styling and effects
 

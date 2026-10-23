@@ -13,7 +13,7 @@ related: [app/packaging/installer, devices/volumes/encrypted, integration/portal
 
 ## Summary
 
-An integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row. The installer step is on `app/packaging/installer`; since lgse/strata#1825 it is on by default when `udiskie` is on `PATH`.
+An integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row. The installer step is on `app/packaging/installer`; since lgse/strata#1825 it is on by default on an Arch-based system with `udiskie` on `PATH`.
 
 ## Behavior
 

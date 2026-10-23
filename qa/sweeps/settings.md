@@ -44,6 +44,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Open Settings in both windows, close one with a backdrop click and the other with Escape, reopen each; note which page shows.
 - Open Settings from the gear and close it by backdrop click with the cursor folder empty, still loading, and deleted from a terminal meanwhile; press Down after each.
 - Focus a filter result, open Settings with the gear, and press Escape; repeat with the filter field focused but empty, and with the filter in a non-active Columns pane.
+- Search settings for "3d", "mesh", and "printing", then switch Language to Deutsch and Japanese and search again; read which rows show.
 - Resize the window across the 900 and 1250 px panel widths at text size 8 and 48, crossed with Frame 0 and 12 px and Content 0 and 16 px. Check the navigation, the search popover with a query typed, and dependent rows with arrows.
 - In a debug and a release build, compare the About Version row, the Copy version info clipboard text under `language = "ja"`, and the Updates page's version text.
 - Search "tezt size", "  ", "keybind", "シ" in a Japanese run, and a query matching only an Updates row on a package-managed build; clear each with Escape and count visible rows.
@@ -65,6 +66,7 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ### settings/preferences/storage
 
+- Write `stl_thumbnails = "yes"` and `stl_thumbnails = 1` into `settings.toml` before launch; read the switch and whether other keys survive.
 - Hand-edit while running: `show_hidden = "yes"`, a deleted `theme` key, an unknown key, a trailing `[` on the last line. Restart after each, read the log, change one preference, and diff the file.
 - Replace `settings.toml` with a FIFO, and with a 0600 file in a `chmod 555` directory; change a preference and `ls -la` for leftover temporary files.
 - Symlink `settings.toml` into `/dev/shm`, through a relative chain of three links, into a `chmod 555` target folder, and to a hard-linked file. Change a preference, restart, and `ls -li` every link and target.
@@ -133,9 +135,6 @@ For every control this sweep proves the binding: the file changes, the other win
 - Cross `GSK_RENDERER=gl`, `vulkan`, and `cairo` with text sizes 8, 10, and 13 and `text-scaling-factor` 1.0, 1.1818, and 1.25 on a 1.25× monitor. Repeat under hint style none and full and with antialiasing off; zoom on `T`, `E`, and `I` in the sidebar and file list.
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
-- Search settings for "3d", "mesh", and "printing", then switch Language to Deutsch and Japanese and search again; read which rows show.
-- Toggle STL model thumbnails in window A with Show thumbnails off, then turn Show thumbnails on from window B; read both switches in each window and `settings.toml`.
-- Write `stl_thumbnails = "yes"` and `stl_thumbnails = 1` into `settings.toml` before launch; read the switch and whether other keys survive.
 - With a custom theme selected, rewrite its file by atomic rename, then by in-place truncate-and-write; read both windows after each.
 - Make the selected theme file a symlink into `$HOME/dotfiles`, then into `/dev/shm`; edit the target and read the window.
 - With the hostile `gtk.css` and `settings.ini`, walk the screenshot set in all three modes under a light and a dark theme, then compare against a run without them; any difference is a lead.
