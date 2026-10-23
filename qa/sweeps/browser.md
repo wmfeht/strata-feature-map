@@ -141,7 +141,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Hide the sort column with Remember per folder off, then with Group by file type on; hide it in the file chooser while a browser window sorts by it.
 - Drag Name to the last position, then press within 8 px of each heading's right edge and drag; then drag a heading 9 px and 11 px and release.
 - Drag a heading past two neighbours in one motion and release, then repeat and press Escape mid-drag; read `list_column_order` and the insertion line after each.
-- Drag a heading out of the heading row and back in before releasing, then drag it with Size and Type hidden; repeat in the portal file chooser while a browser window shows List.
+- Drag a heading out of the heading row and back in before releasing, then drag it with Size and Type hidden. Repeat in the portal file chooser while a browser window shows List.
 - Drag Modified to the end with the List pane scrolled horizontally, and drag a heading while a folder of `100000` loads.
 - Write `list_hidden_columns = ["name", "size", "size", "bogus"]` and `list_column_order = ["type", "type"]` in settings.toml and start.
 - Hide Mode in one window while a second shows Icons and the portal file chooser shows List; return the second window to List.
@@ -290,7 +290,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
 - Type a query in `100000` in each view and read which row is outlined as batches arrive; then wheel-scroll once mid-load and keep typing.
-- Ctrl+click a hit, then create a matching file from a shell, and edit the query; repeat with the pick being the top row.
+- Ctrl+click the top hit, then create a matching file from a shell, and edit the query.
 - Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
 - Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
 - Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
@@ -362,7 +362,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Set workers to 1 in the slow directory, then 16 mid-load, and count sandbox processes with `pgrep`; kill one with SIGKILL during a scroll.
 - Set `STRATA_THUMBNAIL_WORKERS=99`, then `abc`, and `STRATA_THUMBNAIL_IDLE_SECONDS=1`; read the shown default and watch process exit.
 - Type 0, 17, `abc`, and an empty value into the Thumbnail workers spin button, pressing Return, then Tab, after each; read `thumbnail_workers` back.
-- With workers at 1 and STL thumbnails on, open a folder of 20 STL files beside a folder of PDFs in a second window; open Quick Preview on an STL meanwhile.
+- With workers at 1 and STL thumbnails on, open a folder of 20 STL files beside a folder of PDFs in a second window. Open Quick Preview on an STL meanwhile.
 - Put an STL on an NFS or sshfs native path, stall the server mid-render, and scroll on to other STL files.
 - Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
 

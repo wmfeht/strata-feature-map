@@ -83,10 +83,12 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 
 ### Enter target
 
-- With the field focused and a query matching several results, the top result has a 1 px accent outline and nothing is selected. This holds in Columns, Icons, and List. lgse/strata#1822
+- With the field focused and a query matching several results, the top result has a 1 px accent outline. This holds in Columns, Icons, and List. lgse/strata#1822
+- In search results the outline comes with no selection; the in-place filter keeps the listing's selection. lgse/strata#1822
 - Moving focus from the field to a result or elsewhere removes the outline. lgse/strata#1822
-- In Icons and List, Enter in the field with no pick opens the outlined top result, for search results and for a filter that narrows rows in place. lgse/strata#1822
-- A pick, such as Ctrl+click on `old-reports` then a click back in the field, moves the outline and Enter to it. A pick is an arrow key, Down from the field, a click, a Ctrl+click, or another user selection change. lgse/strata#1822
+- In Icons and List, Enter in the field with no pick opens the outlined top result. This holds for search results and for a filter that narrows rows in place. lgse/strata#1822
+- A pick, such as Ctrl+click on `old-reports` then a click back in the field, removes the outline; Enter then opens the pick. lgse/strata#1822
+- A pick is an arrow key, Down from the field, a click, a Ctrl+click, or another user selection change. lgse/strata#1822
 - Deselecting every result after a pick returns the outline and Enter to the top result. lgse/strata#1822 (unverified)
 - Editing the query text drops the pick and the results' selection; the outline moves to the new top result. lgse/strata#1822
 - In Trash, Recent, or a network share, where the filter narrows rows in place, a query edit keeps the selection but drops the pick. lgse/strata#1822
@@ -148,7 +150,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - lgse/strata#1628 selected the first match on each query change and was closed with a request to keep the selection ([comment](https://github.com/lgse/strata/pull/1628#issuecomment-6150008036)). lgse/strata#1643 first proposed keeping it. After pushback ([comment](https://github.com/lgse/strata/issues/1643#issuecomment-6154138056)), its description changed so a new query returns to the first match ([comment](https://github.com/lgse/strata/issues/1643#issuecomment-6237184764)).
 - The top result is outlined, not selected. lgse/strata#1765 selected row 0, so Space in the field previewed the hit and multi-word queries broke ([comment](https://github.com/lgse/strata/pull/1765#issuecomment-6304253858), [review](https://github.com/lgse/strata/pull/1765#issuecomment-6307467566)).
 - The same review asked that later batches follow row 0, that Columns be covered, and that the Shift-click anchor not go stale. lgse/strata#1822 marks the top on each batch, covers Columns, and drops the anchor with the selection.
-- One module, `src/ui/enter_target.rs`, owns the pick rule. Picks are user selection and focus changes; each surface's own writes and restored focus do not count (lgse/strata#1822).
+- One module, `src/ui/enter_target.rs`, owns the pick rule. Picks are user selection and focus changes; each surface's own writes do not count (lgse/strata#1822).
 - The in-place filter keeps the listing's selection because that selection belongs to the browser, not the filter (lgse/strata#1822).
 - Icons and List share one result collection with view-specific presentation; Columns keeps its native collection (lgse/strata#1155, lgse/strata#1167).
 - List and Icons results are one Tab stop, like the listings, because Tab otherwise took one press per result (lgse/strata#1550, lgse/strata#1575).

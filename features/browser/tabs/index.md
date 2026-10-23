@@ -32,9 +32,9 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Ctrl+Shift+T, or the window action `win.reopen-tab`, reopens the last closed tab at its location and former position, and selects it. lgse/strata#1800
 - Repeated Ctrl+Shift+T reopens closed tabs newest first, up to 20; a 21st close drops the oldest entry. lgse/strata#1800
 - Ctrl+W, the X button, a middle-click, 10xer `t` then `x`, and closing an inactive tab each record the closed tab. lgse/strata#1800 (unverified)
-- Closed tabs belong to their window: Ctrl+Shift+T in another window opens nothing, and closing the window discards them. lgse/strata#1800 (unverified)
+- Closed tabs belong to their window: Ctrl+Shift+T in another window opens nothing, and closing the window discards them. lgse/strata#1800
 - Closed tabs are not saved, so they cannot be reopened after a restart. lgse/strata#1800 (unverified)
-- A reopened tab keeps only its location and position; selection, navigation history, and preview start fresh. lgse/strata#1800 (unverified)
+- A reopened tab starts with fresh selection, navigation history, and preview. lgse/strata#1800
 - When fewer tabs are open than the former position, the reopened tab stays at the right end. lgse/strata#1800 (unverified)
 - With no closed tab recorded, Ctrl+Shift+T opens nothing and the active tab stays selected. lgse/strata#1800
 - A close blocked by a modal dialog or by running operations records nothing. lgse/strata#1800

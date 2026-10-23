@@ -1313,7 +1313,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Code: [`src/adapters/gio_location.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/adapters/gio_location.rs), [`src/app/browser/remote.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/app/browser/remote.rs)
 - Tests: [`src/adapters/gio_location/tests.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/adapters/gio_location/tests.rs), [`src/app/browser/remote/tests.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/app/browser/remote/tests.rs), [`scripts/sftp-fixture.sh`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/scripts/sftp-fixture.sh)
 - Docs: [`site/src/reference/remote-sftp.md`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/site/src/reference/remote-sftp.md)
-- Related: [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md), [Devices and volumes](../features/devices/volumes/index.md), [Pinned folders](../features/browser/sidebar/pins.md), [Connect to server dialog](../features/browser/sidebar/connect-to-server.md)
+- Related: [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md), [Devices and volumes](../features/devices/volumes/index.md), [Pinned folders](../features/browser/sidebar/pins.md), [Connect to server dialog](../features/browser/sidebar/connect-to-server.md), [Browser tabs](../features/browser/tabs/index.md)
 
 ## settings
 
