@@ -39,7 +39,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/icons/scalable/actions/strata-stethoscope.svg` | code | [Diagnostics](../features/settings/diagnostics.md) | — |
 | `data/icons/scalable/actions/strata-video.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/apps/io.github.lgse.Strata.svg` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
-| `data/io.github.lgse.Strata.FileManager1.service` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
+| `data/io.github.lgse.Strata.FileManager1.service` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `data/io.github.lgse.Strata.desktop` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `data/licenses` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/locales/counts.json` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -106,8 +106,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/directory_summary/**` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/adapters/directory_validation.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/adapters/directory_validation/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
-| `src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
+| `src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
+| `src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `src/adapters/gio_close.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/gio_close/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/gio_location.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -273,8 +273,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/assets/vector/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/child_environment.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/child_environment/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/child_environment.rs` | code | [Portal-free service activation](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
+| `src/child_environment/tests.rs` | tests | [Portal-free service activation](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
 | `src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -861,7 +861,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/mutations/rename-error-dialog.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/qa/mutations/rename-escape.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/qa/mutations/shift-click-range.patch` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `tests/qa/mutations/stl-thumbnails-live-preference.patch` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `tests/qa/mutations/stl-thumbnails-live-preference.patch` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `tests/qa/mutations/trash.patch` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `tests/qa/mutations/view-switching.patch` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `tests/qa/scenarios/accessibility` | tests | [Accessibility](../features/app/accessibility.md) | — |
@@ -889,7 +889,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/drag_animation` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/entry_management` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/escape_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
+| `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `tests/qa/scenarios/file_providers` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `tests/qa/scenarios/filter_results` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/hidden_files` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |

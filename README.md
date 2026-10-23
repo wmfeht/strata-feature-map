@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `bf26829` · 127 features, 8 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `bf26829` · 128 features, 8 reviewed
 
 ## app
 
@@ -103,7 +103,8 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | draft | `027d698` | ? |
 | ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | draft | `bf26829` | ? |
 | [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | draft | `c94eeb0` | ? |
-| [FileManager1 D-Bus interface](features/integration/file-manager-interface.md) | `integration/file-manager-interface` | shipped | draft | `bf26829` | ? |
+| [FileManager1 D-Bus interface](features/integration/file-manager-interface/index.md) | `integration/file-manager-interface` | shipped | draft | `bf26829` | ? |
+| ↳ [Portal-free service activation](features/integration/file-manager-interface/service-activation.md) | `integration/file-manager-interface/service-activation` | shipped | draft | `bf26829` | ? |
 | [Opening files and Open With](features/integration/open-with/index.md) | `integration/open-with` | shipped | draft | `bf26829` | ? |
 | ↳ [Recently used applications](features/integration/open-with/recent-apps.md) | `integration/open-with/recent-apps` | shipped | draft | `fd63272` | ? |
 | ↳ [Open in Terminal](features/integration/open-with/terminal.md) | `integration/open-with/terminal` | shipped | draft | `bf26829` | ? |
@@ -172,7 +173,7 @@ QA sweep: [`qa/sweeps/remote.md`](qa/sweeps/remote.md)
 | ↳ [Integrations catalog](features/remote/file-providers/integrations.md) | `remote/file-providers/integrations` | shipped | draft | `c94eeb0` | ? |
 | ↳ [KDE Connect integration](features/remote/file-providers/kde-connect.md) | `remote/file-providers/kde-connect` | shipped | draft | `c94eeb0` | ? |
 | ↳ [LocalSend integration](features/remote/file-providers/localsend.md) | `remote/file-providers/localsend` | shipped | draft | `e0f7397` | ? |
-| ↳ [Network locations (SMB, SFTP)](features/remote/file-providers/network-locations.md) | `remote/file-providers/network-locations` | shipped | draft | `fd63272` | ? |
+| ↳ [Network locations (SMB, SFTP)](features/remote/file-providers/network-locations.md) | `remote/file-providers/network-locations` | shipped | draft | `bf26829` | ? |
 
 ## settings
 

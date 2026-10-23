@@ -71,9 +71,9 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 ### Filter field
 
-- Enter in a column's filter field with no result selected opens the top result. Before, Enter did nothing until a result was selected. lgse/strata#1822
+- Enter in a column's filter field with no result selected opens the top result. lgse/strata#1822
 - Down from a column's filter field selects the outlined top result and makes it the pick. lgse/strata#1822 (unverified)
-- Right in a column's filter field with no picked result moves the caret; it does not open the top result. lgse/strata#1822 (unverified)
+- Right in a column's filter field with no selected result moves the caret; it does not open the top result. lgse/strata#1822 (unverified)
 
 ### Open-path marker
 

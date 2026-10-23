@@ -6,7 +6,7 @@ branch: null
 reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
-tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings, tests/qa/mutations/stl-thumbnails-live-preference.patch]
+tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
 docs: [docs/preferences.md]
 related: [preview/preview-panel/sandbox, settings/preferences]
 ---
@@ -67,7 +67,7 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 - Decoding untrusted files in-process and delegating to Tumbler were rejected (lgse/strata#516).
 - Results are cached for 30 seconds, keyed by path, device, inode, size, nanosecond modification and change times, and operation, so a 256 px thumbnail cannot satisfy a larger preview (lgse/strata#1222).
 - Space previews use a second pool so a scrolled folder's thumbnails cannot delay them (lgse/strata#516, lgse/strata#1222). Supervisor isolation itself belongs to `preview/preview-panel/sandbox`.
-- One STL render at a time bounds memory. On the lgse/strata#1788 prototype, three background helpers against one used 764 against 423 MiB of summed RSS. Eight PNGs took 0.49 s against 1.0 s; the issue calls these prototype figures.
+- One STL render at a time bounds memory. On the lgse/strata#1788 prototype, three background helpers against one peaked at 530 against 229 MiB of cgroup anonymous memory. The issue calls these prototype figures and notes summed RSS double-counts shared pages.
 - A cancelled or timed-out STL thumbnail frees its slot before the helper is reaped. A helper stuck in kernel I/O therefore cannot hold the slot. The reaper belongs to `preview/preview-panel/model-views` ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
 - The setting uses the same spin button as Text size and Corner roundness. The earlier popover stepper stretched with its row and never matched them (lgse/strata#1778).
 
@@ -80,4 +80,4 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 
 ## Known gaps
 
-- A killed STL helper stuck in kernel I/O can still run while a later STL render starts. lgse/strata#1789
+None known.

@@ -6,7 +6,7 @@ branch: null
 reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
-tests: [src/ui/thumbnail/tests.rs, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
+tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [site/src/reference/preview-sandbox.md]
 related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera, browser/properties/raw-metadata, preview/preview-panel/sandbox]
 ---
@@ -121,5 +121,4 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 ## Known gaps
 
 - Under Flatpak the sandbox helper cannot create namespaces, so no native-format thumbnails render. lgse/strata#1503
-- STL thumbnails render only for local files; remote STL files keep their icon. lgse/strata#1789
 - Thumbnail reads bypass the mount request lanes. A thumbnail of a file on a dead mount waits until the server answers. lgse/strata#1729

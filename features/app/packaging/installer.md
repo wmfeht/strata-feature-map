@@ -67,22 +67,23 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - The installer downloads the latest stable release only; a latest tag not shaped `vX.Y.Z` exits with an error. lgse/strata#330 (unverified)
 - Without `openssl`, `curl`, `tar`, `sha256sum`, `wc`, `install`, or `sed` on `PATH`, the installer exits with "Required command not found: <command>" before downloading anything. lgse/strata#1825
 - Before the archive, it downloads `strata-update-manifest.json` (at most 32,768 bytes) and `strata-update-manifest.signatures.json` (at most 8,192 bytes) from the release. lgse/strata#1825
-- A larger manifest or signatures file stops the install with "<file> is larger than <N> bytes; refusing to continue." lgse/strata#1825 (unverified)
+- curl refuses a larger manifest or signatures file, failing its download step. lgse/strata#1825
+- When the server sends no Content-Length, an oversized file instead stops the install with "<file> is larger than <N> bytes; refusing to continue." lgse/strata#1825 (unverified)
 - A release with no manifest or signatures file fails "Download the signed release manifest" or "Download the release signatures" before the archive is requested. lgse/strata#1825
 - When no signature verifies against a key pinned in `RELEASE_PUBLIC_KEYS`, the step "Verify the release signature" fails with "No trusted release key signed strata-update-manifest.json." lgse/strata#1825
 - One valid signature from any pinned key is enough. lgse/strata#1825 (unverified)
 - A signed manifest for another repository or tag stops the install with "The signed manifest does not describe Strata <version> from lgse/strata." lgse/strata#1825
 - A signed manifest without the archive for the detected target stops it with "The signed manifest does not list <archive> for <target>." lgse/strata#1825
 - A signed archive size over 134,217,728 bytes stops it with "The signed manifest lists an archive larger than 134217728 bytes." lgse/strata#1825 (unverified)
-- The archive download is capped at the signed size. lgse/strata#1825
-- An archive whose size or SHA-256 differs from the signed entry fails "Verify the signed SHA-256 digest" before extraction. lgse/strata#1825
+- An archive larger than its signed size fails the download step, because curl caps the download at that size. lgse/strata#1825
+- A shorter or altered archive fails "Verify the signed SHA-256 digest" with "<archive> is <n> bytes; the signed manifest expects <m>." or "<archive> has SHA-256 <d>; the signed manifest expects <e>." before extraction. lgse/strata#1825
 - The installer never uses `gh`, the release's `.sha256` file, or `gh attestation verify`, and prints no GitHub CLI note. lgse/strata#1825
 - A failed download, signature, or digest check installs no package and writes nothing to `~/.local/bin`. lgse/strata#1730, lgse/strata#1825
 - Ctrl+C during the download stops the transfer and exits with status 130, installing no package and no binary. lgse/strata#1730 (unverified)
 - An archive without an executable `strata`, the desktop entry, or the icon exits before installing. lgse/strata#330 (unverified)
 - With `--with-file-chooser`, a release without `portal/strata.portal` exits with "This release does not include file chooser integration. Install a newer release." before installing. lgse/strata#1730, lgse/strata#1825 (unverified)
 - With `--with-udiskie-unlock`, a release without `udiskie/unlock` exits with "This release does not include encrypted-volume integration. Install a newer release." before installing packages or the binary. lgse/strata#1047, lgse/strata#1730, lgse/strata#1825 (unverified)
-- When either integration was selected by default instead, the installer warns "This release does not include <file chooser or encrypted-volume> integration; skipping it." and the heading reads "Installed with warnings". lgse/strata#1825 (unverified)
+- When either integration was selected without its `--with-*` flag, including from the menus, the installer warns "This release does not include <file chooser or encrypted-volume> integration; skipping it." and the heading reads "Installed with warnings". lgse/strata#1825 (unverified)
 - In a full-size terminal, the download shows a 27-cell bar with curl's real percentage, ending in a green ✓. lgse/strata#1730
 - While the download total is unknown, a spinner replaces the bar. lgse/strata#1730
 - In a full-size terminal, other steps show a spinner beside their label, then "✓ <label>". lgse/strata#1730
@@ -185,4 +186,4 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 
 ## Known gaps
 
-- The README still leads with piping `install.sh` from the mutable `main` branch, so that installer runs before anything authenticates it. A release-attested `install.sh` with a `.sha256` is the pinned alternative. lgse/strata#334, lgse/strata#1825
+- The README still leads with piping `install.sh` from the mutable `main` branch, so that installer runs before anything authenticates it. A release-asset `install.sh` checked with `gh attestation verify` is the authenticated alternative. lgse/strata#334, lgse/strata#1825

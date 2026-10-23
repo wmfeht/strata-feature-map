@@ -451,7 +451,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
 - With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
 - Close 25 tabs one by one, then press Ctrl+Shift+T 21 times; read each reopened tab's location and position.
-- Close a tab, then press Ctrl+Shift+T in a second window, in the location editor, on `ru`, and with Properties open.
+- Close a tab with 10xer `t` then `x` and reopen it; then reopen while the location editor is open on another tab.
 - Close a tab on an `sftp://` share, unmount it, and reopen; close a tab on `trash:///` and reopen after emptying the Trash.
 - Close tab 3 of 5, close two more tabs, reopen once, then drag tabs and reopen again.
 - Read the window title with `xprop` on `~`, `/`, `trash:///`, `network:///`, a 60-character folder, and a non-UTF-8 name, in `de` and `ja`.

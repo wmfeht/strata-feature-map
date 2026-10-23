@@ -36,8 +36,9 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 
 ### Reordering
 
-- Pressing a heading and dragging it horizontally shows a grabbing cursor and an accent insertion line at the drop point; the headings do not move during the drag. lgse/strata#1651, lgse/strata#1800
-- The line sits on the left edge of the heading the column would precede, or on the last heading's right edge for a drop at the end. lgse/strata#1800 (unverified)
+- Pressing a heading and dragging it horizontally shows a grabbing cursor and a 3 px accent inset line at the drop point. The headings do not move during the drag. lgse/strata#1651, lgse/strata#1800
+- The line sits on the left edge of the heading the column would precede. lgse/strata#1800 (unverified)
+- For a drop at the end, the line sits on the last heading's right edge. lgse/strata#1800 (unverified)
 - Releasing over the headings moves the column to the marked point; one drag can move it several positions. lgse/strata#1800
 - A drop on the column's current position shows no line and changes nothing. lgse/strata#1800 (unverified)
 - Moving the pointer outside the heading row hides the line, and releasing there leaves the order unchanged. lgse/strata#1800

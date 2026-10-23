@@ -19,7 +19,6 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ### Window
 
-- A browser window is titled "Strata" until its first folder opens; then the title follows its active tab's folder (see `browser/tabs`). lgse/strata#957, lgse/strata#1827
 - A new browser window opens with a default size of 1200×760. lgse/strata#580 (unverified)
 - On X11, `WM_CLASS` instance and class are both `io.github.lgse.Strata`, matching the desktop file's `StartupWMClass` and `_GTK_APPLICATION_ID`. lgse/strata#957
 - The file chooser portal keeps its separate identity, `io.github.lgse.Strata.FileChooser`. lgse/strata#957

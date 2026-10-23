@@ -32,12 +32,13 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Ctrl+Shift+T, or the window action `win.reopen-tab`, reopens the last closed tab at its location and former position, and selects it. lgse/strata#1800
 - Repeated Ctrl+Shift+T reopens closed tabs newest first, up to 20; a 21st close drops the oldest entry. lgse/strata#1800
 - Ctrl+W, the X button, a middle-click, 10xer `t` then `x`, and closing an inactive tab each record the closed tab. lgse/strata#1800 (unverified)
-- Closed tabs belong to their window: Ctrl+Shift+T in another window opens nothing, and closing the window discards them. lgse/strata#1800
+- Closed tabs belong to their window: Ctrl+Shift+T in another window opens nothing, and closing the window discards them. lgse/strata#1800 (unverified)
 - Closed tabs are not saved, so they cannot be reopened after a restart. lgse/strata#1800 (unverified)
-- A reopened tab keeps only its location and position; selection, navigation history, and preview start fresh. lgse/strata#1800
-- When fewer tabs are open than the former position, the reopened tab stays at the right end. lgse/strata#1800
+- A reopened tab keeps only its location and position; selection, navigation history, and preview start fresh. lgse/strata#1800 (unverified)
+- When fewer tabs are open than the former position, the reopened tab stays at the right end. lgse/strata#1800 (unverified)
 - With no closed tab recorded, Ctrl+Shift+T opens nothing and the active tab stays selected. lgse/strata#1800
-- A close blocked by a modal dialog or by running operations records nothing; closing the last tab closes the window. lgse/strata#1800
+- A close blocked by a modal dialog or by running operations records nothing. lgse/strata#1800
+- Closing the last tab closes the window and records nothing. lgse/strata#1800
 - While a modal dialog is open, Ctrl+Shift+T does nothing and keeps the history, so it works once the dialog closes. lgse/strata#1800 (unverified)
 - Reopening a folder deleted after the close shows the location-unavailable overlay with Retry; Retry loads it once the folder exists again. lgse/strata#1800 (unverified)
 - Ctrl+Shift+T works from text fields such as the location editor, in both key maps and on a Russian layout. lgse/strata#1800
@@ -161,4 +162,3 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 ## Known gaps
 
 - Each tab holds one pane; split or dual-pane browsing is undecided. lgse/strata#47
-- The window title carries the folder name, not its path, so a script cannot read the focused window's folder path from it. lgse/strata#1824
