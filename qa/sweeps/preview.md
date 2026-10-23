@@ -25,6 +25,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
 - Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. In a QA scenario, `{"layout":"ru-only"}`, `{"layout":"ru"}`, and `{"layout":"caps-lock"}` steps match those three setups through `tests/qa/keyboard.rs`. They read the layouts in `tests/fixtures/harness.json`, and `us` is restored afterwards. `docs/testing.md` "Keyboard layouts" has the rules.
 - An NFS or SMB mount holding a music folder, a RAW folder, and a model folder with the FreeCAD file and the embedded-PNG 3MF, for probes that rename or delete what the preview reads.
+- For STL model thumbnails: a folder of 20 STLs on an NFS mount at a native path, not a GVfs SMB share, plus a local folder of 20 STLs.
 - Reduce motion and Element glow each on and off, under the GL renderer and `GSK_RENDERER=cairo`. Two windows of the same build on one media folder for volume sync, the four-player cap, and width isolation.
 
 ## Probes
@@ -154,8 +155,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Switch from a model to a text file mid-render; watch the header spinner.
 - Preview a garbage file named `.stl` on a first load, then compare with a failure after the first image.
 - With STL model thumbnails on, open Quick Preview on the near-2-million-triangle STL while a folder of STLs builds thumbnails; step views and watch the bwrap count.
-- With STL model thumbnails on, hang an NFS mount with an `iptables` drop while its STL folder renders. Then open a local STL folder.
-- Compare the bwrap count before and after that mount recovers.
+- With STL model thumbnails on, hang the NFS mount with an `iptables` drop while its STL folder renders. Open the local STL folder, and compare the bwrap count before and after the mount recovers.
 - Toggle STL model thumbnails off while the near-2-million-triangle STL thumbnail renders, then on again; check for a second helper and a leftover private output directory.
 
 ### preview/preview-panel/sandbox

@@ -34,7 +34,8 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - The recommended setup's hint reads "Everything this system supports: launcher, folders, file chooser, and optional integrations." lgse/strata#1825
 - The recommended setup selects every option the menu offers for the system. lgse/strata#1825
 - "Customize installation" opens "Make Strata yours" with every offered option checked; unchecking an option declines it. lgse/strata#1825
-- The plan reads "Your default apps and shortcuts will stay unchanged." only when no option beyond Application launcher, Windows network shares, and Camera RAW support is selected. lgse/strata#1825 (unverified)
+- The plan reads "Your default apps and shortcuts will stay unchanged." only in one case. lgse/strata#1825 (unverified)
+- That case is no selected option beyond Application launcher, Windows network shares, and Camera RAW support. lgse/strata#1825 (unverified)
 - On an Arch-based system, the menu adds Windows network shares when `gvfs-smb` is missing, and Camera RAW support when `imagemagick`, `libraw`, or `dcraw` is missing. lgse/strata#1730
 - Omarchy file-manager shortcuts is offered only when Omarchy 3 or 4 is detected. lgse/strata#1727, lgse/strata#1730
 - Encrypted-drive unlock is offered only on an Arch-based system or Omarchy with `udiskie` on `PATH`. lgse/strata#1047, lgse/strata#1730, lgse/strata#1825
@@ -65,25 +66,27 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 ### Download and verification
 
 - The installer downloads the latest stable release only; a latest tag not shaped `vX.Y.Z` exits with an error. lgse/strata#330 (unverified)
-- Without `openssl`, `curl`, `tar`, `sha256sum`, `wc`, `install`, or `sed` on `PATH`, the installer exits with "Required command not found: <command>" before downloading anything. lgse/strata#1825
+- Without `openssl` on `PATH`, the installer exits with "Required command not found: openssl" before downloading anything. lgse/strata#1825
+- A missing `curl`, `tar`, `sha256sum`, `wc`, `install`, or `sed` exits the same way. lgse/strata#1825 (unverified)
 - Before the archive, it downloads `strata-update-manifest.json` (at most 32,768 bytes) and `strata-update-manifest.signatures.json` (at most 8,192 bytes) from the release. lgse/strata#1825
 - curl refuses a larger manifest or signatures file, failing its download step. lgse/strata#1825
-- When the server sends no Content-Length, an oversized file instead stops the install with "<file> is larger than <N> bytes; refusing to continue." lgse/strata#1825 (unverified)
 - A release with no manifest or signatures file fails "Download the signed release manifest" or "Download the release signatures" before the archive is requested. lgse/strata#1825
 - When no signature verifies against a key pinned in `RELEASE_PUBLIC_KEYS`, the step "Verify the release signature" fails with "No trusted release key signed strata-update-manifest.json." lgse/strata#1825
-- One valid signature from any pinned key is enough. lgse/strata#1825 (unverified)
+- One valid signature from any pinned key is enough. lgse/strata#1825
 - A signed manifest for another repository or tag stops the install with "The signed manifest does not describe Strata <version> from lgse/strata." lgse/strata#1825
 - A signed manifest without the archive for the detected target stops it with "The signed manifest does not list <archive> for <target>." lgse/strata#1825
 - A signed archive size over 134,217,728 bytes stops it with "The signed manifest lists an archive larger than 134217728 bytes." lgse/strata#1825 (unverified)
 - An archive larger than its signed size fails the download step, because curl caps the download at that size. lgse/strata#1825
-- A shorter or altered archive fails "Verify the signed SHA-256 digest" with "<archive> is <n> bytes; the signed manifest expects <m>." or "<archive> has SHA-256 <d>; the signed manifest expects <e>." before extraction. lgse/strata#1825
+- A shorter or altered archive fails "Verify the signed SHA-256 digest" before extraction. lgse/strata#1825
+- That step prints "<archive> is <n> bytes; the signed manifest expects <m>." or "<archive> has SHA-256 <d>; the signed manifest expects <e>." lgse/strata#1825
 - The installer never uses `gh`, the release's `.sha256` file, or `gh attestation verify`, and prints no GitHub CLI note. lgse/strata#1825
 - A failed download, signature, or digest check installs no package and writes nothing to `~/.local/bin`. lgse/strata#1730, lgse/strata#1825
 - Ctrl+C during the download stops the transfer and exits with status 130, installing no package and no binary. lgse/strata#1730 (unverified)
 - An archive without an executable `strata`, the desktop entry, or the icon exits before installing. lgse/strata#330 (unverified)
 - With `--with-file-chooser`, a release without `portal/strata.portal` exits with "This release does not include file chooser integration. Install a newer release." before installing. lgse/strata#1730, lgse/strata#1825 (unverified)
 - With `--with-udiskie-unlock`, a release without `udiskie/unlock` exits with "This release does not include encrypted-volume integration. Install a newer release." before installing packages or the binary. lgse/strata#1047, lgse/strata#1730, lgse/strata#1825 (unverified)
-- When either integration was selected without its `--with-*` flag, including from the menus, the installer warns "This release does not include <file chooser or encrypted-volume> integration; skipping it." and the heading reads "Installed with warnings". lgse/strata#1825 (unverified)
+- When either integration was selected without its `--with-*` flag, including from the menus, the installer skips it instead. lgse/strata#1825 (unverified)
+- It then warns "This release does not include <file chooser or encrypted-volume> integration; skipping it.", and the heading reads "Installed with warnings". lgse/strata#1825 (unverified)
 - In a full-size terminal, the download shows a 27-cell bar with curl's real percentage, ending in a green ✓. lgse/strata#1730
 - While the download total is unknown, a spinner replaces the bar. lgse/strata#1730
 - In a full-size terminal, other steps show a spinner beside their label, then "✓ <label>". lgse/strata#1730
@@ -163,8 +166,8 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 - Packages install in one transaction, after the release is verified, with the package manager's own confirmation (lgse/strata#1730).
 - Installer strings live in `data/locales/installer.json`, and `scripts/installer_messages.py --write` embeds them into `install.sh`. The installer needs no translation files, Python, or Strata binary at run time (lgse/strata#1730, docs/internationalization.md).
 - A `.sha256` file from the same release proves integrity but not authenticity, and most first installs have no authenticated `gh` for attestation. Making `gh` mandatory was rejected (lgse/strata#1817, https://github.com/lgse/strata/issues/1817#issuecomment-6366875203). This replaces the SHA-256-plus-optional-attestation check (lgse/strata#731).
-- The installer verifies the updater's Ed25519-signed manifest, so one trust root is rotated with overlapping signatures. A rotation updates `data/update-keys.json` and `RELEASE_PUBLIC_KEYS` together (lgse/strata#1825, docs/signed-updates.md).
-- `openssl` is required because Python's standard library has no Ed25519 and a custom crypto implementation was ruled out (https://github.com/lgse/strata/issues/1817#issuecomment-6367178656).
+- Reusing the updater's Ed25519-signed manifest leaves one trust root to rotate, and rotation already supports overlapping signatures (https://github.com/lgse/strata/issues/1817#issuecomment-6366875203, docs/signed-updates.md). A rotation updates `data/update-keys.json` and `RELEASE_PUBLIC_KEYS` together (lgse/strata#1825).
+- Bash has no Ed25519 and a bespoke implementation was ruled out (https://github.com/lgse/strata/issues/1817#issuecomment-6366875203). The planned `python3` fallback was dropped because its standard library cannot verify Ed25519 (https://github.com/lgse/strata/issues/1817#issuecomment-6367178656).
 - Every integrity failure stops the install before the archive is unpacked (lgse/strata#1825, docs/signed-updates.md).
 - The session bus reads service directories only at startup or on `ReloadConfig`, so the installer reloads it as the Settings path already did. The call is bounded to 5 s, and a failure does not stop the install: the service still works after the next login (lgse/strata#1699, lgse/strata#1728).
 - Omarchy detection prints nothing rather than guess. Taking any `3` or `4` read a dev build's commit hash as Omarchy 3 and wrote bindings Omarchy 4 never loads (lgse/strata#652).
@@ -186,4 +189,4 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 
 ## Known gaps
 
-- The README still leads with piping `install.sh` from the mutable `main` branch, so that installer runs before anything authenticates it. A release-asset `install.sh` checked with `gh attestation verify` is the authenticated alternative. lgse/strata#334, lgse/strata#1825
+None known.

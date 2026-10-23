@@ -215,14 +215,12 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Call `ShowItemProperties` with two files in one folder, with a folder, and with a Trash URI; call `ShowFolders` on a folder already open in a window and with the mode on.
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
 - After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed.
-- With Strata closed and xdg-desktop-portal 1.22.1 running, reveal a download from a browser's Show in folder; time the window and read the portal journal.
 
 ### integration/file-manager-interface/service-activation
 
-- With Strata stopped, call the portal's `org.freedesktop.portal.OpenURI.OpenDirectory` on a file and time the reply. Repeat with activation `GDK_DEBUG` set to `misc` and to `misc:no-portals`.
-- In the activated process, read `/proc/<pid>/environ`. Open a terminal, a custom action, Open With, and a file provider, then read each child's `GDK_DEBUG` and `STRATA_ORIGINAL_GDK_DEBUG`.
+- From the activated process, open a terminal, a custom action, Open With, and a file provider, then read each child's `GDK_DEBUG` and `STRATA_ORIGINAL_GDK_DEBUG`.
 - In the activated process, toggle udiskie unlock in Settings, then read the restarted udiskie's `/proc/<pid>/environ`.
-- Launch `strata` and `strata <dir>` while the activated process runs, then open a Flatpak GTK app's file chooser from it.
+- From the activated process, open a Flatpak GTK app and use its file chooser.
 
 ## Hand-offs
 
@@ -238,3 +236,4 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
 - The browser window's sidebar steps, the saved `sidebar_compact` state, and the rail's row sizing → `browser`.
 - Network-folder change checks, including the pause while a chooser is hidden → `browser`.
+- The `GDK_DEBUG` re-exec on service activation and how long a cold activation takes → `app`.

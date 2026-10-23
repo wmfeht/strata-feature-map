@@ -154,4 +154,3 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
 - Each first visit to a camera view rereads and reparses the mesh before a full CPU render; parsed meshes are not retained. lgse/strata#1644
 - With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622
-- After a filter query edit drops a previewed pick, Columns and Icons keep the drawer open with "No preview for this selection"; List closes it. lgse/strata#1822

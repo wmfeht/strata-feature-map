@@ -51,7 +51,8 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ### Background thumbnail renders
 
-- Cancelling a background STL thumbnail render, passing its 12 s wall deadline, or failing to monitor it sends SIGKILL to the helper. The thumbnail worker and STL slot free without waiting for the helper to exit. lgse/strata#1789
+- Cancelling a background STL thumbnail render, or passing its 12 s wall deadline, sends SIGKILL to the helper. The thumbnail worker and STL slot free without waiting for the helper to exit. lgse/strata#1789
+- A background STL thumbnail render whose helper cannot be monitored is killed and freed the same way. lgse/strata#1789 (unverified)
 - A detached waiter then reaps the helper. The helper's private output and file-operation hold stay alive until reaping and namespace cleanup finish. lgse/strata#1789
 
 ### Details

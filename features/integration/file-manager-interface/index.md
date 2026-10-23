@@ -8,12 +8,12 @@ review: draft
 code: [src/adapters/file_manager1.rs, data/io.github.lgse.Strata.FileManager1.service]
 tests: [src/adapters/file_manager1/tests.rs, tests/qa/scenarios/file_manager_interface/**]
 docs: [docs/packaging.md]
-related: [app/packaging/installer, integration/portal-file-chooser/setup, browser/navigation, browser/properties, browser/tabs/session-restore, app/infrastructure]
+related: [app/packaging/installer, integration/portal-file-chooser/setup, browser/navigation, browser/properties, browser/tabs/session-restore]
 ---
 
 ## Summary
 
-Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GTK/GNOME apps call for "Open file location" and "Show in Folder". It answers `ShowFolders`, `ShowItems`, and `ShowItemProperties`, and ships a per-user D-Bus activation service. The Settings row that installs that service is `integration/portal-file-chooser/setup`. Its child `service-activation` runs a D-Bus-activated Strata without GTK portals.
+Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GTK/GNOME apps call for "Open file location" and "Show in Folder". It answers `ShowFolders`, `ShowItems`, and `ShowItemProperties`, and ships a per-user D-Bus activation service. The Settings row that installs that service is `integration/portal-file-chooser/setup`. Its child `service-activation` restores `GDK_DEBUG` for programs a D-Bus-activated Strata launches.
 
 ## Behavior
 
@@ -50,7 +50,7 @@ Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GT
 - A call is grouped into one request per directory, so items from one folder share one window and its selection (lgse/strata#317).
 - Targets are identified by location, not display name. Each target is rebuilt as `parent.child(name)`, as listings build entries, so URI spellings compare equal. Matching lossy names had selected both of two colliding non-UTF-8 files (lgse/strata#1428, lgse/strata#1499).
 - D-Bus reveals share one entry point, `reveal_locations`, with `strata <file>`, Open file location, Ctrl+K Enter, and typed paths (lgse/strata#1499). The hidden-file toggle lives in that shared selection path (lgse/strata#932).
-- Service activation runs without GTK portals to avoid a 25 s portal stall; see `integration/file-manager-interface/service-activation` (lgse/strata#1811).
+- Service activation runs without GTK portals to avoid a 25 s portal stall, as `app/infrastructure` describes; `integration/file-manager-interface/service-activation` restores launched programs' environment (lgse/strata#1811).
 
 ## History
 
