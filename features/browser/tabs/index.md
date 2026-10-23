@@ -37,8 +37,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - A reopened tab starts with fresh selection, navigation history, and preview. lgse/strata#1800
 - When fewer tabs are open than the former position, the reopened tab stays at the right end. lgse/strata#1800 (unverified)
 - With no closed tab recorded, Ctrl+Shift+T opens nothing and the active tab stays selected. lgse/strata#1800
-- A close blocked by a modal dialog or by running operations records nothing. lgse/strata#1800
-- Closing the last tab closes the window and records nothing. lgse/strata#1800
+- A close blocked by a modal dialog or by running operations, or a close of the last tab, records nothing. lgse/strata#1800 (unverified)
 - While a modal dialog is open, Ctrl+Shift+T does nothing and keeps the history, so it works once the dialog closes. lgse/strata#1800 (unverified)
 - Reopening a folder deleted after the close shows the location-unavailable overlay with Retry; Retry loads it once the folder exists again. lgse/strata#1800 (unverified)
 - Ctrl+Shift+T works from text fields such as the location editor, in both key maps and on a Russian layout. lgse/strata#1800

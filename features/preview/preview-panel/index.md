@@ -77,7 +77,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
 - A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
 - A model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276
-- Model previews in the drawer and Quick Preview keep the theme's opaque surface behind the model; STL file thumbnails render on a transparent background. lgse/strata#1789
+- Model previews in the drawer and Quick Preview keep the theme's opaque surface behind the model. lgse/strata#1789
 - CBZ and CBR files show their first naturally ordered image, and EPUB files their declared cover; a file without one shows an error. lgse/strata#1325
 
 ### Media stepping

@@ -57,7 +57,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 - Entries of a mounted GVfs location keep their `smb://`-style URI and never show the `/run/user/$UID/gvfs/…` FUSE path. lgse/strata#31
 - At `smb://host/`, activating a share by mouse or keyboard in Columns, List, or Icons mounts it if needed and opens its contents. lgse/strata#990
-- Column headings, peek headings, and window titles show percent-decoded remote names, such as "My Share" for `My%20Share`. lgse/strata#740
+- Column headings and peek headings show percent-decoded remote names, such as "My Share" for `My%20Share`. lgse/strata#740
 - A remote entry whose name is not valid UTF-8, such as `\xff name` over SFTP, is listed. lgse/strata#1533
 - Ejecting or unmounting a non-SMB remote mount, such as SFTP, from its DEVICES row while browsing inside it returns the browser to Home. lgse/strata#352, lgse/strata#296
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661

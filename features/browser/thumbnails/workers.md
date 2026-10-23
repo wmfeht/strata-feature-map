@@ -68,7 +68,7 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 - Results are cached for 30 seconds, keyed by path, device, inode, size, nanosecond modification and change times, and operation, so a 256 px thumbnail cannot satisfy a larger preview (lgse/strata#1222).
 - Space previews use a second pool so a scrolled folder's thumbnails cannot delay them (lgse/strata#516, lgse/strata#1222). Supervisor isolation itself belongs to `preview/preview-panel/sandbox`.
 - One STL render at a time bounds memory. On the lgse/strata#1788 prototype, three background helpers against one peaked at 530 against 229 MiB of cgroup anonymous memory. The issue calls these prototype figures and notes summed RSS double-counts shared pages.
-- A cancelled or timed-out STL thumbnail frees its slot before the helper is reaped. A helper stuck in kernel I/O therefore cannot hold the slot, though it may overlap a later render. The reaper belongs to `preview/preview-panel/model-views` ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
+- A cancelled or timed-out STL thumbnail frees its slot before the helper is reaped. The reaper and its rationale belong to `preview/preview-panel/model-views` ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
 - The setting uses the same spin button as Text size and Corner roundness. The earlier popover stepper stretched with its row and never matched them (lgse/strata#1778).
 
 ## History

@@ -347,7 +347,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - With Show thumbnails off, open the portal file chooser and a second window, then turn it on from Settings and scroll each.
 - Open a folder of the RAW samples with and without `dcraw` and `simple_dcraw`; compare orientation and Icons captions.
 - Turn STL model thumbnails on in a folder of 50 STL files and images, scroll, and turn it off mid-render in a second window.
-- Turn STL model thumbnails on with Show thumbnails off, then turn Show thumbnails on; open the folder in a peek, Ctrl+K results, and the portal file chooser.
+- Turn STL model thumbnails on with Show thumbnails off, then turn Show thumbnails on. Open the folder in a peek, Ctrl+K results, and the portal file chooser.
 - Open `.stl` and `.STL` files on an `smb://` share with `gvfsd-fuse`, on an sshfs mount, and in a camera library; compare with the local copy.
 - Render an ASCII STL, a zero-triangle STL, and a 127 MiB binary STL; change a rendered file's bytes and reopen the folder.
 

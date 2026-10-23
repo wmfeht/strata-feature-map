@@ -83,14 +83,14 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 
 ### Enter target
 
-- With the field focused and a query matching several results, the top result has a 1 px accent outline. This holds in Columns, Icons, and List. lgse/strata#1822
+- With the field focused and a query with results, the top result has a 1 px accent outline. This holds in Columns, Icons, and List. lgse/strata#1822
 - In search results the outline comes with no selection; the in-place filter keeps the listing's selection. lgse/strata#1822
 - Moving focus from the field to a result or elsewhere removes the outline. lgse/strata#1822
 - In Icons and List, Enter in the field with no pick opens the outlined top result. This holds for search results and for a filter that narrows rows in place. lgse/strata#1822
 - A pick, such as Ctrl+click on `old-reports` then a click back in the field, removes the outline; Enter then opens the pick. lgse/strata#1822
-- A pick is an arrow key, Down from the field, a click, a Ctrl+click, or another user selection change. lgse/strata#1822
+- A pick is an arrow key, Down from the field, a click, a Ctrl+click, focus moving into the results, or another user selection change. lgse/strata#1822
 - Deselecting every result after a pick returns the outline and Enter to the top result. lgse/strata#1822 (unverified)
-- Editing the query text drops the pick and the results' selection; the outline moves to the new top result. lgse/strata#1822
+- In search results, editing the query text drops the pick and the results' selection; the outline moves to the new top result. lgse/strata#1822
 - In Trash, Recent, or a network share, where the filter narrows rows in place, a query edit keeps the selection but drops the pick. lgse/strata#1822
 - A same-query update, such as another program creating a matching file, keeps the pick, the selection, and its preview. lgse/strata#1822
 - While the field has focus, the list keeps the top result scrolled into view as results arrive. lgse/strata#1822
