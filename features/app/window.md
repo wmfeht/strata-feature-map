@@ -3,7 +3,7 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/decoration.rs]
 tests: [src/ui/decoration/tests.rs, src/ui/window/tests/keyboard_dispatch.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus]
@@ -19,7 +19,6 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ### Window
 
-- A browser window's title is "Strata". lgse/strata#957
 - A new browser window opens with a default size of 1200×760. lgse/strata#580 (unverified)
 - On X11, `WM_CLASS` instance and class are both `io.github.lgse.Strata`, matching the desktop file's `StartupWMClass` and `_GTK_APPLICATION_ID`. lgse/strata#957
 - The file chooser portal keeps its separate identity, `io.github.lgse.Strata.FileChooser`. lgse/strata#957
@@ -96,6 +95,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-23 | lgse/strata#1827 | feat | Titled each browser window after its active tab's folder, so taskbars and switchers can tell windows apart. |
 | 2026-10-17 | lgse/strata#1714 | fix | Stopped window actions such as F5 behind an open F1 reference, and limited Space on a selected filter hit to the filter. |
 | 2026-10-14 | lgse/strata#1680 | feat | Registered a hidden titlebar so GTK stops adding its default title bar on client-decorated desktops, and drew a hairline in place of its shadow. |
 | 2026-10-11 | lgse/strata#1570 | fix | Gave the preview and sidebar marquee origins click policies, so a click in the preview keeps the selection. |

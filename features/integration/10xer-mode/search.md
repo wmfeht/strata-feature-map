@@ -3,7 +3,7 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs]

@@ -3,17 +3,17 @@ title: Release installer
 status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [install.sh, data/locales/installer.json, scripts/installer_messages.py]
 tests: [scripts/test_installer.py]
-docs: [docs/internationalization.md]
+docs: [docs/internationalization.md, docs/signed-updates.md]
 related: [integration/file-manager-interface, integration/portal-file-chooser/setup, devices/volumes/udiskie-unlock, settings/preferences/language]
 ---
 
 ## Summary
 
-`install.sh`, a localized Bash installer for the latest verified stable release, installed to `~/.local/bin/strata`. It checks the system and offers a recommended setup or a menu of the integrations the system supports. It runs interactively or unattended with `--with-*` flags. What the "Open file location", file chooser, and udiskie unlock steps install belongs to `integration/file-manager-interface`, `integration/portal-file-chooser/setup`, and `devices/volumes/udiskie-unlock`.
+`install.sh`, a localized Bash installer for the latest stable release, installed to `~/.local/bin/strata`. It authenticates the release through its signed update manifest. It checks the system and installs every integration the system supports, or a custom selection from a menu. It runs interactively or unattended with `--with-*` and `--without-*` flags. What the "Open file location", file chooser, and udiskie unlock steps install belongs to `integration/file-manager-interface`, `integration/portal-file-chooser/setup`, and `devices/volumes/udiskie-unlock`.
 
 ## Behavior
 
@@ -31,12 +31,13 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 ### Setup menu
 
 - An interactive run shows "Choose your setup" with "Install Strata (recommended)" and "Customize installation". lgse/strata#1730
-- The recommended setup selects only the application launcher. On Arch it still installs missing required packages, and the plan reads "Your default apps and shortcuts will stay unchanged." lgse/strata#1730
-- "Customize installation" opens "Make Strata yours": Application launcher checked, and Default file manager, Open file location, and Open and Save dialogs unchecked. lgse/strata#1730
+- The recommended setup's hint reads "Everything this system supports: launcher, folders, file chooser, and optional integrations." lgse/strata#1825
+- The recommended setup selects every option the menu offers for the system. lgse/strata#1825
+- "Customize installation" opens "Make Strata yours" with every offered option checked; unchecking an option declines it. lgse/strata#1825
+- The plan reads "Your default apps and shortcuts will stay unchanged." only when nothing beyond Application launcher, Windows network shares, and Camera RAW support is selected. lgse/strata#1825 (unverified)
 - On an Arch-based system, the menu adds Windows network shares when `gvfs-smb` is missing, and Camera RAW support when `imagemagick`, `libraw`, or `dcraw` is missing. lgse/strata#1730
 - Omarchy file-manager shortcuts is offered only when Omarchy 3 or 4 is detected. lgse/strata#1727, lgse/strata#1730
-- Encrypted-drive unlock is offered, unchecked, only on an Arch-based system or Omarchy with `udiskie` on `PATH`. lgse/strata#1047, lgse/strata#1730
-- Every option the menu adds for the system starts unchecked, so the recommended setup leaves them all off. lgse/strata#1730 (unverified)
+- Encrypted-drive unlock is offered only on an Arch-based system or Omarchy with `udiskie` on `PATH`. lgse/strata#1047, lgse/strata#1730, lgse/strata#1825
 - Checking Default file manager also checks Application launcher and Open file location; unchecking either of those unchecks Default file manager. lgse/strata#1730 (unverified)
 - In a terminal of at least 24 rows and 64 columns, menus take keys. Up and Down or `k` and `j` move with wrapping. lgse/strata#1730
 - In such a menu, Space toggles an option and Enter continues or installs. lgse/strata#1730
@@ -64,16 +65,27 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 ### Download and verification
 
 - The installer downloads the latest stable release only; a latest tag not shaped `vX.Y.Z` exits with an error. lgse/strata#330 (unverified)
-- The archive must pass `sha256sum --check` against its published `.sha256` file before anything is extracted. lgse/strata#330, lgse/strata#775
-- Without `gh`, it notes "GitHub CLI is unavailable; continuing after HTTPS download and checksum verification." and continues. lgse/strata#775, lgse/strata#1730
-- With `gh` logged out, the note reads "GitHub CLI is not authenticated; …". lgse/strata#775, lgse/strata#1730
-- The missing or logged-out `gh` note does not count as a warning, so the summary can still read "Ready to explore". lgse/strata#1730
-- With an authenticated `gh`, it runs `gh attestation verify`, and a failed verification stops the install. lgse/strata#775
-- A failed checksum or provenance check installs no package and writes nothing to `~/.local/bin`. lgse/strata#1730
+- Without `openssl` on `PATH`, the installer exits with "Required command not found: openssl" before downloading anything. lgse/strata#1825
+- A missing `curl`, `tar`, `sha256sum`, `wc`, `install`, or `sed` exits the same way. lgse/strata#1825 (unverified)
+- Before the archive, it downloads `strata-update-manifest.json` (at most 32,768 bytes) and `strata-update-manifest.signatures.json` (at most 8,192 bytes) from the release. lgse/strata#1825
+- curl refuses a larger manifest or signatures file, failing its download step. lgse/strata#1825
+- A release with no manifest or signatures file fails "Download the signed release manifest" or "Download the release signatures" before the archive is requested. lgse/strata#1825
+- When no signature verifies against a key pinned in `RELEASE_PUBLIC_KEYS`, the step "Verify the release signature" fails with "No trusted release key signed strata-update-manifest.json." lgse/strata#1825
+- One valid signature from any pinned key is enough. lgse/strata#1825
+- A signed manifest for another repository or tag stops the install with "The signed manifest does not describe Strata <version> from lgse/strata." lgse/strata#1825
+- A signed manifest without the archive for the detected target stops it with "The signed manifest does not list <archive> for <target>." lgse/strata#1825
+- A signed archive size over 134,217,728 bytes stops it with "The signed manifest lists an archive larger than 134217728 bytes." lgse/strata#1825 (unverified)
+- An archive larger than its signed size fails the download step, because curl caps the download at that size. lgse/strata#1825
+- A shorter or altered archive fails "Verify the signed SHA-256 digest" before extraction. lgse/strata#1825
+- That step prints "<archive> is <n> bytes; the signed manifest expects <m>." or "<archive> has SHA-256 <d>; the signed manifest expects <e>." lgse/strata#1825
+- The installer never uses `gh`, the release's `.sha256` file, or `gh attestation verify`, and prints no GitHub CLI note. lgse/strata#1825
+- A failed download, signature, or digest check installs no package and writes nothing to `~/.local/bin`. lgse/strata#1730, lgse/strata#1825
 - Ctrl+C during the download stops the transfer and exits with status 130, installing no package and no binary. lgse/strata#1730 (unverified)
 - An archive without an executable `strata`, the desktop entry, or the icon exits before installing. lgse/strata#330 (unverified)
-- With Open and Save dialogs selected, a release without `portal/strata.portal` exits with "This release does not include file chooser integration. Install a newer release." before installing. lgse/strata#1730 (unverified)
-- With Encrypted-drive unlock selected, a release without `udiskie/unlock` exits with "This release does not include encrypted-volume integration. Install a newer release." before installing packages or the binary. lgse/strata#1047, lgse/strata#1730 (unverified)
+- With `--with-file-chooser`, a release without `portal/strata.portal` exits with "This release does not include file chooser integration. Install a newer release." before installing. lgse/strata#1730, lgse/strata#1825 (unverified)
+- With `--with-udiskie-unlock`, a release without `udiskie/unlock` exits with "This release does not include encrypted-volume integration. Install a newer release." before installing packages or the binary. lgse/strata#1047, lgse/strata#1730, lgse/strata#1825 (unverified)
+- When either integration was selected without its `--with-*` flag, including from the menus, the installer skips it instead. lgse/strata#1825 (unverified)
+- It then warns "This release does not include <file chooser or encrypted-volume> integration; skipping it.", and the heading reads "Installed with warnings". lgse/strata#1825 (unverified)
 - In a full-size terminal, the download shows a 27-cell bar with curl's real percentage, ending in a green ✓. lgse/strata#1730
 - While the download total is unknown, a spinner replaces the bar. lgse/strata#1730
 - In a full-size terminal, other steps show a spinner beside their label, then "✓ <label>". lgse/strata#1730
@@ -101,7 +113,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 - When the first set of `LC_ALL`, `LC_MESSAGES`, and `LANG` is exactly `C` or `POSIX`, or when none is set, catalog text is English. lgse/strata#1730
 - Otherwise catalog text follows the first supported `LANGUAGE` entry, then the `LC_ALL`, `LC_MESSAGES`, or `LANG` value. lgse/strata#1730
-- Error lines such as "Unknown option: …" and the `gh` notes stay English in every locale. lgse/strata#1730 (unverified)
+- Error lines such as "Unknown option: …" and the signature and digest errors stay English in every locale. lgse/strata#1730, lgse/strata#1825 (unverified)
 - With `LANGUAGE=zz:fr` and `LC_ALL=C.UTF-8`, the plan reads "Installer dans <path>". lgse/strata#1730 (unverified)
 - With `LANGUAGE=fr` and `LC_ALL=C`, the plan reads "Install to <path>". lgse/strata#1730 (unverified)
 - `zh_TW`, `zh_HK`, `zh_MO`, and `zh-Hant…` show Traditional Chinese messages; every other `zh` locale shows Simplified Chinese. lgse/strata#1745
@@ -119,7 +131,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - When the reload fails, times out, or `gdbus` is missing, the service stays installed and the installer warns "…could not reload the session bus. Log out and back in…" and continues. lgse/strata#1728
 - A failed service write, or another per-user FileManager1 provider, exits the installer before any reload; later integrations do not run. lgse/strata#1728
 - Checking Open and Save dialogs, or passing `--with-file-chooser`, runs the installed binary with `--install-portal`. lgse/strata#175, lgse/strata#1730
-- The recommended setup, the option left unchecked, or `--without-file-chooser` runs `--dismiss-portal-prompt` when the release ships `portal/strata.portal`. lgse/strata#1730
+- Open and Save dialogs left unchecked, or `--without-file-chooser`, runs `--dismiss-portal-prompt` when the release ships `portal/strata.portal`. lgse/strata#1730, lgse/strata#1825
 
 ### Omarchy keybinds
 
@@ -131,25 +143,31 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 ### Unattended mode
 
-- `--non-interactive` never prompts and installs only required packages and the binary. lgse/strata#332
-- Any `--with-*` or `--without-file-chooser` flag implies `--non-interactive`; integrations not named are declined. lgse/strata#332
+- `--non-interactive` never prompts and installs every integration the system supports. lgse/strata#1825
+- Any `--with-*` or `--without-*` flag implies `--non-interactive`. lgse/strata#332, lgse/strata#1825
+- `--without-smb`, `--without-raw`, `--without-desktop-entry`, `--without-folder-association`, `--without-file-manager`, `--without-file-chooser`, `--without-omarchy-keybinds`, and `--without-udiskie-unlock` each decline one integration. lgse/strata#1825
+- `--without-desktop-entry` and `--without-file-manager` also decline folder association. lgse/strata#1825
+- Unattended on an Arch-based system, Windows network shares and Camera RAW support are planned even when their packages are already installed. lgse/strata#1825 (unverified)
 - `--with-folder-association` also selects `--with-desktop-entry` and `--with-file-manager`. lgse/strata#332, lgse/strata#317
 - Unattended package installs run `sudo -n pacman --noconfirm`; when that fails, the error says passwordless sudo or cached credentials may be required. lgse/strata#332
 - Unattended mode on a non-Arch system exits with "Non-interactive dependency installation currently supports Arch-based systems only." lgse/strata#332 (unverified)
 - `--with-omarchy-keybinds` without Omarchy 3 or 4 exits with "--with-omarchy-keybinds requires Omarchy 3 or 4." before any download or package install. lgse/strata#332, lgse/strata#1730
 - On an Arch-based system or Omarchy without `udiskie` on `PATH`, `--with-udiskie-unlock` exits with "--with-udiskie-unlock requires an Arch-based system with udiskie on PATH." before any download. lgse/strata#1730
-- `--non-interactive` leaves Encrypted-drive unlock declined unless `--with-udiskie-unlock` is passed. lgse/strata#1047
+- `--non-interactive` on an Arch-based system with `udiskie` on `PATH` installs Encrypted-drive unlock unless `--without-udiskie-unlock` is passed. lgse/strata#1825
 - `--help` prints the options, including `--verbose`; an unknown option exits with "Unknown option: <option> (run with --help for usage)." lgse/strata#332, lgse/strata#1730 (unverified)
 
 ## Design
 
 The manual archive steps were accurate but hard to follow safely: pick the architecture, install dependencies, find the release, verify it, place desktop metadata, and edit two Omarchy keybind formats. One verified installer was chosen over an unverified curl-only script or separate scripts per Omarchy version (lgse/strata#329).
 
-- Optional integrations stay opt-in. Unattended mode enabling every integration was rejected because associations and keybinds would be too invasive (lgse/strata#331).
+- Every supported integration installs by default, with a `--without-*` flag to decline each one, at the owner's request (lgse/strata#1825). This reverses the earlier opt-in rule, which held associations and keybinds too invasive (lgse/strata#331).
 - The installer offers only integrations the system supports and rejects unsupported explicit flags before changing anything, so an unsupported integration never fails after the install has begun. On Manjaro without Omarchy, accepting the keybind question aborted after everything else was installed (lgse/strata#1727, lgse/strata#1730).
 - Packages install in one transaction, after the release is verified, with the package manager's own confirmation (lgse/strata#1730).
 - Installer strings live in `data/locales/installer.json`, and `scripts/installer_messages.py --write` embeds them into `install.sh`. The installer needs no translation files, Python, or Strata binary at run time (lgse/strata#1730, docs/internationalization.md).
-- The SHA-256 check is mandatory. Attestation runs only with an authenticated `gh`, because `gh attestation verify` needs a login even for a public repository. Dropping attestation was rejected: it proves CI built the release (lgse/strata#731).
+- A `.sha256` file from the same release proves integrity but not authenticity, and most first installs have no authenticated `gh` for attestation. Making `gh` mandatory was rejected (lgse/strata#1817, https://github.com/lgse/strata/issues/1817#issuecomment-6366875203). This replaces the SHA-256-plus-optional-attestation check (lgse/strata#731).
+- Reusing the updater's Ed25519-signed manifest leaves one trust root to rotate, and rotation already supports overlapping signatures (https://github.com/lgse/strata/issues/1817#issuecomment-6366875203, docs/signed-updates.md). A rotation updates `data/update-keys.json` and `RELEASE_PUBLIC_KEYS` together (lgse/strata#1825).
+- Bash has no Ed25519 and a bespoke implementation was ruled out (https://github.com/lgse/strata/issues/1817#issuecomment-6366875203). The planned `python3` fallback was dropped because its standard library cannot verify Ed25519 (https://github.com/lgse/strata/issues/1817#issuecomment-6367178656).
+- Every integrity failure stops the install before the archive is unpacked (lgse/strata#1825, docs/signed-updates.md).
 - The session bus reads service directories only at startup or on `ReloadConfig`, so the installer reloads it as the Settings path already did. The call is bounded to 5 s, and a failure does not stop the install: the service still works after the next login (lgse/strata#1699, lgse/strata#1728).
 - Omarchy detection prints nothing rather than guess. Taking any `3` or `4` read a dev build's commit hash as Omarchy 3 and wrote bindings Omarchy 4 never loads (lgse/strata#652).
 - Prompts, including pacman's, read from `/dev/tty`, because `curl … | bash` binds stdin to the script (lgse/strata#682).
@@ -159,6 +177,7 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-23 | lgse/strata#1825 | feat | Verified releases through the signed update manifest instead of `gh`, and installed every supported integration by default with `--without-*` flags. |
 | 2026-10-17 | lgse/strata#1728 | fix | Reloaded the session bus after installing the FileManager1 service, so "Open file location" uses Strata without a re-login. |
 | 2026-10-17 | lgse/strata#1730 | fix | Replaced per-step questions with a recommended setup or a menu of supported integrations, and rejected unsupported flags up front. |
 | 2026-09-13 | lgse/strata#743 | fix | Required a whole version token for the Omarchy major so dev-build hashes no longer select Omarchy 3. |
@@ -169,4 +188,4 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 
 ## Known gaps
 
-- The README pipes `install.sh` from the mutable `main` branch, so the installer runs before anything authenticates it. lgse/strata#334
+None known.

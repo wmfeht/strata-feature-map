@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, and the UI-thread stall watchdog, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -17,8 +17,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Network control for update checks and downloads. Point `HTTPS_PROXY` at a closed port for a fast failure and at a `nc -l` socket for a stall; run under `unshare -rn` when the proxy is ignored. Live GitHub checks are capped at 60 per hour, so plan them.
 - A fake package-managed install: copy the binary to `<prefix>/bin/strata` and write `<prefix>/share/strata/install-source.toml` in the shape `docs/packaging.md` gives. Keep one marker per manager and channel, one with unknown keys, and one made unreadable with `chmod 000`.
 - The installer is never run on the host outside the stubs and throwaway `HOME` below. Evidence is `python3 scripts/test_installer.py`, `bash install.sh --help`, and the script read against its Behavior; a fake `omarchy` on `PATH` and `~/.local/share/omarchy/version` under the throwaway `HOME` feed the detection cases.
-- Installer menus: drive `install.sh` through a pseudo-terminal in a throwaway `HOME`. Put stub `curl`, `pacman`, `sudo`, `gh`, and `gdbus` on `PATH`, as the `scripts/test_installer.py` fixture does.
+- Installer menus: drive `install.sh` through a pseudo-terminal in a throwaway `HOME`. Put stub `curl`, `pacman`, `sudo`, and `gdbus` on `PATH`, as the `scripts/test_installer.py` fixture does.
 - Set the pseudo-terminal's size with `stty rows N cols M`.
+- Cold activation: a private session bus from `dbus-run-session`, with the FileManager1 service file pointing at the build and xdg-desktop-portal 1.22.1 on that bus. Set `GDK_DEBUG` for activated services with `dbus-update-activation-environment`.
+- Signed release fixtures: a local release directory served to the stub `curl`, holding a manifest and signatures file signed with a throwaway Ed25519 key. For a full run, copy `install.sh` with the `RELEASE_PUBLIC_KEYS` entry replaced by the fixture key, as `InstallerFixture` in `scripts/test_installer.py` does. Source it with `STRATA_INSTALLER_TESTING=1` only to call single functions.
 - Animation and scale: the harness `settings.ini` sets `gtk-enable-animations=false`, so set it `true` for animation probes and toggle `reduce_motion` in `settings.toml`. Set `text_size = 8` and `48` for layout probes.
 - AT-SPI dumps from an ad-hoc `gi.repository.Atspi` script under `/tmp`. `./scripts/qa-drive.sh start` in the pinned image opens a separate `--qa` session whose `{"query":"state"}` reads the widget tree, not AT-SPI. Use `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
@@ -110,7 +112,12 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Run `python3 scripts/test_installer.py` and `bash install.sh --help`; compare the printed flags with the `--with-*` and `--without-*` options the script parses.
 - Feed Omarchy detection `dev (b280f130)`, `Omarchy 2.3.1`, `3.10`, `4.0-beta`, and an empty file through the fake `omarchy` and the `~/.local/share/omarchy/version` file.
-- Drive the download step against a local copy of a release with a wrong `.sha256`, a missing `.sha256`, and an archive lacking the icon; nothing may land in `~/.local/bin`.
+- Drive the download step against signed release fixtures with two signatures from the pinned key, the first bad and the second good.
+- Drive it against a signed release whose archive lacks the icon.
+- Serve a manifest of exactly 32,768 bytes and one of 32,769 bytes, and an archive one byte longer than its signed size.
+- Run with `openssl` present but lacking Ed25519 support, such as a LibreSSL or an OpenSSL 1.0 build.
+- Run `--with-folder-association --without-file-manager` and `--without-desktop-entry --with-folder-association`, in both orders; read the plan's `+` lines.
+- Run `--non-interactive` on Arch with `gvfs-smb` and the RAW packages already installed, then the interactive recommended setup on the same system; compare the two plans.
 - Write a bindings file with the marker block already present, run the keybind step twice, and diff; then make `hyprctl` report an error and check the backup restores.
 - Drive the menus at 23×80, 24×63, and 24×64, with `TERM=dumb`, and with stdout piped to `cat`; press Escape and `q` in each menu.
 - In the custom menu, toggle Default file manager, Open file location, and Application launcher in every order, then read the plan's `+` lines.
@@ -203,10 +210,14 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
 - Start Strata with `STRATA_UI_STALL_MS=250`, open a folder on the sshfs mount, and stop its daemon. Arrow through folders, type a path there, open a context menu, and press Ctrl+Z; read the log after resuming.
 - Start Strata with `STRATA_UI_STALL_MS` set to `0`, `-5`, `abc`, and ` 250 `; check for the watchdog thread `strata-ui-stalls`.
+- With Strata stopped, call the portal's `org.freedesktop.portal.OpenURI.OpenDirectory` on a file and time the reply. Repeat with activation `GDK_DEBUG` set to `misc` and to `misc:no-portals`, and read `/proc/<pid>/environ`.
+- Launch `strata` and `strata <dir>` while the activated process runs, and read the new window's process id.
 - Run `strata --qa <dir>`, `strata --qa`, and `strata <dir> --qa` on a plain `cargo build` and a release build; read which window opens and whether stdin is read.
 
 ## Hand-offs
 
+- Window title text after a folder opens → `browser`.
+- The `GDK_DEBUG` value programs launched from a service-activated Strata see → `integration`.
 - Per-mode movement, selection, the keyboard cursor after reloads, and type-to-search → `browser`.
 - Context menu items, placement, and Open With → `browser`.
 - The sidebar as a navigation surface, the Trash row, and the update notice's text and layout → `browser`.

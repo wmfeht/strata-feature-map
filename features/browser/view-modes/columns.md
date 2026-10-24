@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background]
@@ -68,6 +68,12 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
 - A dialog, popover, or focused filter field that opens before a rebuilt column's deferred refocus keeps keyboard focus. lgse/strata#1430, lgse/strata#1441, lgse/strata#1533
+
+### Filter field
+
+- Enter in a column's filter field with no pick since the last query edit opens the top result. lgse/strata#1822
+- Down from a column's filter field selects the outlined top result and makes it the pick. lgse/strata#1822 (unverified)
+- Right in a column's filter field with no selected result moves the caret; it does not open the top result. lgse/strata#1822 (unverified)
 
 ### Open-path marker
 

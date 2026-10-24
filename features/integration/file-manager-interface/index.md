@@ -3,7 +3,7 @@ title: FileManager1 D-Bus interface
 status: shipped
 origin: {issue: lgse/strata#290, pr: lgse/strata#317}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/adapters/file_manager1.rs, data/io.github.lgse.Strata.FileManager1.service]
 tests: [src/adapters/file_manager1/tests.rs, tests/qa/scenarios/file_manager_interface/**]
@@ -13,7 +13,7 @@ related: [app/packaging/installer, integration/portal-file-chooser/setup, browse
 
 ## Summary
 
-Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GTK/GNOME apps call for "Open file location" and "Show in Folder". It answers `ShowFolders`, `ShowItems`, and `ShowItemProperties`, and ships a per-user D-Bus activation service. The Settings row that installs that service is `integration/portal-file-chooser/setup`.
+Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GTK/GNOME apps call for "Open file location" and "Show in Folder". It answers `ShowFolders`, `ShowItems`, and `ShowItemProperties`, and ships a per-user D-Bus activation service. The Settings row that installs that service is `integration/portal-file-chooser/setup`. Its child `service-activation` restores `GDK_DEBUG` for programs a D-Bus-activated Strata launches.
 
 ## Behavior
 
@@ -45,11 +45,12 @@ Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GT
 [docs/packaging.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/packaging.md) carries the packaging rule for the service file.
 
 - Browsers such as Firefox and Zen, and GTK/GNOME apps, call `org.freedesktop.FileManager1` directly instead of `xdg-open` and `mimeapps.list`. Without it, Nautilus or Dolphin opened even when Strata owned `inode/directory` (lgse/strata#290).
-- Activation is an explicit per-user choice. Packages must not install the service into a system directory: several providers of one name in one directory are chosen arbitrarily, and installing Strata must not change the preferred file manager (lgse/strata#317).
+- Packages must not install the service into a system directory, and `install.sh` installs it per user, by default since lgse/strata#1825. In a system directory, several providers of one name are chosen arbitrarily, and installing a package must not change the preferred file manager (lgse/strata#317).
 - A per-user service takes precedence over the system providers other file managers ship, so the per-user conflict check is the only one needed (lgse/strata#317).
 - A call is grouped into one request per directory, so items from one folder share one window and its selection (lgse/strata#317).
 - Targets are identified by location, not display name. Each target is rebuilt as `parent.child(name)`, as listings build entries, so URI spellings compare equal. Matching lossy names had selected both of two colliding non-UTF-8 files (lgse/strata#1428, lgse/strata#1499).
 - D-Bus reveals share one entry point, `reveal_locations`, with `strata <file>`, Open file location, Ctrl+K Enter, and typed paths (lgse/strata#1499). The hidden-file toggle lives in that shared selection path (lgse/strata#932).
+- Service activation runs without GTK portals to avoid a 25 s portal stall, as `app/infrastructure` describes; `integration/file-manager-interface/service-activation` restores launched programs' environment (lgse/strata#1811).
 
 ## History
 

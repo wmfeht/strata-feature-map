@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -25,6 +25,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - An NTFS loop image attached with `udisksctl loop-setup` and mounted through `ntfs-3g` (`fuseblk`), so it lists under Send to. It holds a link to a folder off the device and a link to a folder on it. A script stops its `ntfs-3g` process with `kill -STOP` and resumes it with `kill -CONT`.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - Keyboard layout `fr` from a QA `layout` step or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the `layouts` list in `tests/fixtures/harness.json` lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
+- Cold activation: a private session bus from `dbus-run-session`, with the FileManager1 service copy pointing at the build and xdg-desktop-portal 1.22.1 on that bus. Set `GDK_DEBUG` for activated services with `dbus-update-activation-environment`.
 - A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
@@ -215,6 +216,12 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
 - After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed.
 
+### integration/file-manager-interface/service-activation
+
+- Activate with an original `GDK_DEBUG` holding non-UTF-8 bytes, then with it unset. Open a terminal and a custom action, and read each child's `GDK_DEBUG` and `STRATA_ORIGINAL_GDK_DEBUG`.
+- In the activated process, toggle udiskie unlock in Settings, then read the restarted udiskie's `/proc/<pid>/environ`.
+- From the activated process, open a Flatpak GTK app and use its file chooser.
+
 ## Hand-offs
 
 - The installer, `.desktop` entries, application ID, single-instance activation, and the modal dialog shell → `app`.
@@ -229,3 +236,4 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
 - The browser window's sidebar steps, the saved `sidebar_compact` state, and the rail's row sizing → `browser`.
 - Network-folder change checks, including the pause while a chooser is hidden → `browser`.
+- The `GDK_DEBUG` re-exec on service activation and how long a cold activation takes → `app`.

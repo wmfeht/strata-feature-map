@@ -3,12 +3,12 @@ title: Shared location model and listing adapter
 status: shipped
 origin: {issue: lgse/strata#14, pr: lgse/strata#27}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, docs/assets/strata-themes.png, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, Cargo.toml, Cargo.lock, mise.toml, mise.lock, scripts/benchmark-scroll.py, src/build_info.rs, src/services/native_fs.rs, src/ui/keys/bindings.rs, src/ui/keys/bindings/**, build.rs, deny.toml, .github/workflows/ci.yml, .github/workflows/integrations.yml, .github/ISSUE_TEMPLATE/bug_report.yml, scripts/quality.sh, scripts/quality_ci.py, scripts/test-headless.py, scripts/integration_tests.py, src/ui/settings/install_command.rs, src/adapters/local_operations/fs_ops.rs, src/adapters/local_operations/native_fs.rs, src/adapters/local_operations/work_queue.rs, src/trusted_command.rs, src/adapters/gio_close.rs, src/adapters/volume/mount_watch.rs, src/adapters/volume/mount_lanes.rs, src/adapters/local_operations/probes.rs, src/util/ui_thread.rs, src/util/ui_thread/**, scripts/trace-main-io.py, tests/qa/main-io-allowlist.toml, .agents/skills, .claude/skills, .gitignore, .cursor/CLOUD.md, .dockerignore, CONTRIBUTING.md, .github/workflows/release.yml, .github/workflows/test-image.yml, scripts/check.sh, src/qa.rs, src/qa/**, src/ui/accessibility/qa.rs, scripts/qa*.sh, scripts/qa_*.py, scripts/lib/qa-container.sh, scripts/headless/**, scripts/image_*.py, tests/container/**, tests/fixtures/harness.json]
 tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, scripts/test_benchmark_scroll.py, src/build_info/tests.rs, scripts/test_quality_ci.py, scripts/test_quality_runner.py, scripts/test_headless_runner.py, scripts/test_integration_tests.py, src/ui/settings/install_command/tests.rs, src/trusted_command/tests.rs, src/adapters/gio_close/tests.rs, src/adapters/local_operations/tests/closes.rs, src/adapters/volume/mount_watch/tests.rs, src/adapters/volume/mount_lanes/tests.rs, src/adapters/local_operations/probes/tests.rs, src/adapters/local_operations/fs_ops/tests.rs, src/adapters/volume/mounts/tests/byte_paths.rs, scripts/test_trace_main_io.py, tests/qa.rs, tests/qa/*.rs, tests/qa/foreign_drag_source.py, tests/qa/baselines/**, src/qa/tests.rs, src/qa/tests/**, scripts/test_qa_*.py, scripts/test_image_*.py, tests/qa/scenarios/visual_baselines]
-docs: [docs/performance-baseline.md, docs/hardened-configuration.md, docs/unsafe-code.md, docs/testing.md]
-related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring, preview/preview-panel, preview/preview-panel/sandbox, app/updates/install, settings/diagnostics, operations/filesystem-compatibility, operations/delete]
+docs: [docs/performance-baseline.md, docs/hardened-configuration.md, docs/unsafe-code.md, docs/testing.md, docs/packaging.md]
+related: [remote/file-providers/network-locations, operations/trash, browser/navigation/location-bar, browser/directory-monitoring, preview/preview-panel, preview/preview-panel/sandbox, app/updates/install, settings/diagnostics, operations/filesystem-compatibility, operations/delete, integration/file-manager-interface/service-activation]
 ---
 
 ## Summary
@@ -67,6 +67,14 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - A helper in a configured directory whose canonical target lies outside those roots is rejected, and the search moves to the next directory. lgse/strata#1746
 - With no trusted copy in any directory, the lookup fails closed. lgse/strata#1055, lgse/strata#1746
 
+### File manager activation
+
+- Started with `--gapplication-service` before any `--`, Strata re-execs before GTK starts, with `no-portals` appended to `GDK_DEBUG`, such as `misc:no-portals`. lgse/strata#1811
+- A portal `OpenDirectory` request, such as Chromium's Show in folder, while Strata is not running, opens Strata without the 25 s `ShowItems` timeout. lgse/strata#1810, lgse/strata#1811
+- `strata`, `strata /tmp`, `strata -- --gapplication-service`, `--portal`, and `--preview-helper` launches add no override and do not re-exec for it. lgse/strata#1811
+- A `GDK_DEBUG` that already holds `no-portals` as any `:`, `;`, `,`, space, or tab-separated flag, in any case, adds nothing and does not re-exec for it. lgse/strata#1811 (unverified)
+- Later `strata` launches open in the activated process, so GTK portals stay off until that process exits. lgse/strata#1811
+
 ## Design
 
 [docs/performance-baseline.md](https://github.com/lgse/strata/blob/aee71335dfecd059b9af23efeac2ed52c43e3b19/docs/performance-baseline.md) states the log privacy levels: default logs carry request ids, backend names, counts, and timings only.
@@ -85,6 +93,9 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - `tests/qa.rs` refuses to run without the `STRATA_QA_CONTAINER=1` that `scripts/qa.sh` sets, unless `STRATA_QA_HOST=1` is set ([docs/testing.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/testing.md), lgse/strata#1771).
 - QA scenarios are the only GUI suite. Keeping the Python E2E suite in parity doubled the cost of every GUI change for no extra coverage (lgse/strata#1806, lgse/strata#1807).
 - QA in CI runs only on manual dispatch, and no required check depends on it (lgse/strata#1806, lgse/strata#1807).
+- On service activation, xdg-desktop-portal 1.22.1 waits in `OpenDirectory` for the `ShowItems` reply, while GTK's startup queries that portal before FileManager1 is exported. Replying earlier in the handler cannot break that wait (lgse/strata#1810, lgse/strata#1811).
+- The override is set by re-exec before GTK starts, not by changing the environment after threads may run. It shares the Cairo renderer and `GTK_THEME` restart path (lgse/strata#1811).
+- The override is scoped to service activation and is not a substitute for asynchronous dispatch in the portal. Packagers keep `--gapplication-service` in activation commands and do not set `no-portals` globally (lgse/strata#1811, docs/packaging.md).
 - The `fstatat` fallback widens `st_nlink` through a generic helper, because it is `u32` on aarch64 and `u64` on x86_64 (lgse/strata#1753, lgse/strata#1755).
 
 ## History

@@ -3,7 +3,7 @@ title: Job queue and Jobs dashboard
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: reviewed
 code: [src/services/jobs.rs, src/ui/jobs.rs, src/adapters/local_jobs.rs]
 tests: [src/services/jobs/tests.rs, src/ui/jobs/tests.rs, src/adapters/local_jobs/tests.rs, src/adapters/local_jobs/tests/lifecycle.rs]

@@ -3,10 +3,10 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
-tests: [src/ui/thumbnail/tests.rs, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
+tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [site/src/reference/preview-sandbox.md]
 related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera, browser/properties/raw-metadata, preview/preview-panel/sandbox]
 ---
@@ -50,8 +50,22 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - MP3, FLAC, M4A, M4B, MKA, AIFF, AIF, and WMA files with embedded cover art show the art at its aspect ratio; files without art keep the audio icon. lgse/strata#1162
 - Ogg, Opus, and WAV files never get album-art thumbnails. lgse/strata#1162
 - An `.AppImage` shows its embedded `.DirIcon`, else the root `.desktop` entry's `Icon=` image; without `unsquashfs` or an icon it keeps the generic icon. lgse/strata#1077
-- 3MF and FreeCAD files with exactly one usable embedded PNG show it; STL files and models with none or several keep their icon. lgse/strata#1276
+- 3MF and FreeCAD files with exactly one usable embedded PNG show it; models with none or several keep their icon. lgse/strata#1276, lgse/strata#1789
 - CBZ and CBR files show their first image in natural order, and EPUB files their declared cover; missing or damaged covers keep the icon. lgse/strata#1325
+
+### STL model thumbnails
+
+- With default settings, a local `.stl` file keeps its file-type icon, and nothing is rendered or cached. lgse/strata#1789
+- With **Show thumbnails** and **STL model thumbnails** both on, a local `.stl` file shows a 256×256 rendered model in its tile. lgse/strata#1789
+- The render has a transparent background and is written to the shared `thumbnails/large` cache. lgse/strata#1789
+- The render uses the default camera view and neutral `#cccccc` shading, whatever the theme. lgse/strata#1789 (unverified)
+- The extension match ignores case, so `.STL` files render too. lgse/strata#1789 (unverified)
+- The rendered model shows in Columns, List, Icons, search and filter results, folder peeks, and the portal chooser. lgse/strata#1789
+- Turning **STL model thumbnails** off hides STL artwork in every open window at once and cancels pending STL requests; turning it on restores it. lgse/strata#1789
+- Turning **STL model thumbnails** off leaves image and other thumbnails shown. lgse/strata#1789
+- Turning **STL model thumbnails** off leaves rendered PNGs in `thumbnails/large`, where other freedesktop clients can still show them. lgse/strata#1789
+- An STL file on a GVfs share with a FUSE mirror, or on a gphoto2 camera, keeps its icon with both switches on. lgse/strata#1789
+- A truncated binary STL, an STL over 128 MiB, or one over 2,000,000 triangles keeps its icon and stays listed. lgse/strata#1789
 
 ### Remote files
 
@@ -78,6 +92,10 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 - Failures are cached for 30 seconds to stop retry loops on malformed files, and identical requests share one job (lgse/strata#57).
 - Requests rank visible, then overscan, then offscreen. Offscreen work is demoted rather than run (lgse/strata#274). Ranking runs from idle or the frame clock, never inside GTK bind or layout callbacks (lgse/strata#1081).
 - With two or more workers, RAW, PDF, video, audio-art, model, and cover jobs leave one render slot free for ordinary images (lgse/strata#1081).
+- STL rendering in file tiles is opt-in. lgse/strata#1276 kept geometry out of browser thumbnails; lgse/strata#1788 proposed a bounded opt-in extension that reuses the sandboxed software renderer and the PNG cache.
+- External thumbnailers were rejected: they need installing and do not fit Strata's provider architecture (lgse/strata#1788).
+- STL renders have a transparent background because the shared freedesktop cache must not depend on the theme ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
+- Disabling the switch keeps cached PNGs, like **Show thumbnails**. A private cache was offered only if renders had to be hidden from other clients, and not adopted ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
 - **Show thumbnails** is an explicit switch. Zero workers as a hidden off switch and deleting cached files were rejected as workarounds (lgse/strata#1664).
 - A fallback icon's height scale is cached per texture, weakly keyed and pruned at 512 entries, instead of scanning the texture on each icon change (lgse/strata#1675).
 - A GVfs FUSE path is a render input only; navigation and identity keep the URI (lgse/strata#1080).
