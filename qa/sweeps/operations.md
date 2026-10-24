@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
@@ -24,6 +24,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - A holder for open files on the NFS, SMB, and sshfs mounts: `less` or `tail -f` run from a terminal app, and the same run as a plain process outside any app unit.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/qa/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
+- A second local user (`useradd`) to own pre-created paths, and a Python Action that sleeps 30 s.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
 - A desktop session running `gvfsd` for `trash:///` listings. The pinned test container sets `GIO_USE_VFS=local` and cannot browse Trash.
 - Verify every operation on disk with `ls -la`, `stat`, and `cmp`, never in the listing alone. Watch the log for GTK criticals during dialogs and animations.
@@ -251,6 +252,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/progress/jobs
 
 - Queue five custom-action invocations on a 100-item selection, cancel from the dashboard, then restart Strata with jobs pending.
+- Run a Python Action that sleeps 30 s under each `XDG_RUNTIME_DIR` and `XDG_CACHE_HOME` combination, and list `strata/actions/` while it runs.
+- Run a Python Action with `XDG_RUNTIME_DIR` unset and `/tmp/strata/actions` owned by another user.
 
 ### operations/undo
 

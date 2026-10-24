@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `bf26829` · 128 features, 8 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `2218357` · 129 features, 7 reviewed
 
 ## app
 
@@ -18,7 +18,7 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `c94eeb0` | ? |
 | [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `bf26829` | ? |
 | [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts.md) | `app/keyboard-shortcuts` | shipped | draft | `e0f7397` | ? |
-| [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `bf26829` | ? |
+| [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `2218357` | ? |
 | ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | reviewed | `c94eeb0` | ? |
 | ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | draft | `bf26829` | ? |
 | [Keyboard shortcut reference and footer](features/app/shortcut-reference.md) | `app/shortcut-reference` | shipped | draft | `bf26829` | ? |
@@ -102,7 +102,7 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places.md) | `integration/10xer-mode/places` | shipped | draft | `fd63272` | ? |
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | draft | `027d698` | ? |
 | ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | draft | `bf26829` | ? |
-| [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | draft | `c94eeb0` | ? |
+| [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | draft | `2218357` | ? |
 | [FileManager1 D-Bus interface](features/integration/file-manager-interface/index.md) | `integration/file-manager-interface` | shipped | draft | `bf26829` | ? |
 | ↳ [Launched-program GDK_DEBUG restore](features/integration/file-manager-interface/service-activation.md) | `integration/file-manager-interface/service-activation` | shipped | draft | `bf26829` | ? |
 | [Opening files and Open With](features/integration/open-with/index.md) | `integration/open-with` | shipped | draft | `bf26829` | ? |
@@ -136,7 +136,7 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Releasing open files before a change](features/operations/filesystem-compatibility/open-files.md) | `operations/filesystem-compatibility/open-files` | shipped | draft | `fd63272` | ? |
 | [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | draft | `fd63272` | ? |
 | ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | draft | `fd63272` | ? |
-| ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | reviewed | `bf26829` | ? |
+| ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | draft | `2218357` | ? |
 | [Inline rename](features/operations/rename.md) | `operations/rename` | shipped | draft | `c94eeb0` | ? |
 | [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | draft | `442d325` | 0 |
@@ -150,15 +150,16 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | draft | `bf26829` | ? |
-| ↳ [Rendered document previews](features/preview/preview-panel/documents.md) | `preview/preview-panel/documents` | shipped | draft | `bf26829` | ? |
-| ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | draft | `c94eeb0` | ? |
-| ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `bf26829` | ? |
-| ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `c94eeb0` | ? |
+| [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | draft | `2218357` | ? |
+| ↳ [Rendered document previews](features/preview/preview-panel/documents/index.md) | `preview/preview-panel/documents` | shipped | draft | `2218357` | ? |
+| &emsp;↳ [ODT and OTT document previews](features/preview/preview-panel/documents/odt.md) | `preview/preview-panel/documents/odt` | shipped | draft | `2218357` | ? |
+| ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | draft | `2218357` | ? |
+| ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `2218357` | ? |
+| ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `2218357` | ? |
 | &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | draft | `c94eeb0` | ? |
 | &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Model camera views](features/preview/preview-panel/model-views.md) | `preview/preview-panel/model-views` | shipped | draft | `bf26829` | ? |
-| ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | draft | `bf26829` | ? |
+| ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | draft | `2218357` | ? |
 | [Quick preview](features/preview/quick-preview/index.md) | `preview/quick-preview` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Folder peek](features/preview/quick-preview/folder-peek.md) | `preview/quick-preview/folder-peek` | shipped | reviewed | `c94eeb0` | ? |
 

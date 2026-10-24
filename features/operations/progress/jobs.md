@@ -3,8 +3,8 @@ title: Job queue and Jobs dashboard
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
-review: reviewed
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+review: draft
 code: [src/services/jobs.rs, src/ui/jobs.rs, src/adapters/local_jobs.rs]
 tests: [src/services/jobs/tests.rs, src/ui/jobs/tests.rs, src/adapters/local_jobs/tests.rs, src/adapters/local_jobs/tests/lifecycle.rs]
 docs: [site/src/reference/custom-actions.md]
@@ -25,6 +25,14 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 - An invocation succeeds only when its process exits with status 0; a reported 100% does not count as success. lgse/strata#1085
 - Up to 20 finished jobs are kept; the oldest finished jobs are evicted first, and active jobs are never evicted. lgse/strata#1085 (unverified)
 - Each invocation keeps the newest 8 KiB of its output, prefixed with "…" when trimmed; a job keeps the newest 64 KiB across invocations. lgse/strata#1085 (unverified)
+
+### Run directory
+
+- Each invocation gets a private 0700 run directory in `STRATA_ACTION_RUN_DIR`, which is removed afterwards. lgse/strata#1085
+- With `XDG_RUNTIME_DIR` set, the run directory is `$XDG_RUNTIME_DIR/strata/actions/<pid>-<n>`. lgse/strata#1085, lgse/strata#1830 (unverified)
+- With `XDG_RUNTIME_DIR` and `XDG_CACHE_HOME` unset, run directories go under `~/.cache/strata/actions/`, and nothing is created under `/tmp/strata`. lgse/strata#1830
+- With `XDG_RUNTIME_DIR` unset and `XDG_CACHE_HOME` set, run directories go under `$XDG_CACHE_HOME/strata/actions/`. lgse/strata#1830 (unverified)
+- An empty `XDG_RUNTIME_DIR` or `XDG_CACHE_HOME` counts as unset. lgse/strata#1830 (unverified)
 
 ### Cancellation
 
@@ -57,6 +65,7 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 - Percentages are never invented. Scripts without progress show elapsed time and an indeterminate bar, and exit status decides success (lgse/strata#36).
 - History is bounded and session-local. There is no pause, resume, restart, or automatic retry of possibly destructive work (lgse/strata#36).
 - A cancelling job keeps its slot until its process exits or the 10-second deadline passes, so cancelling never admits a third job early (lgse/strata#1085).
+- Run directories never fall back to the shared temp directory. lgse/strata#1821 reported that another user who pre-created `/tmp/strata` might swap a run directory and the Python modules an Action imports. The reporters did not reproduce it. Its suggested fixes included refusing to run without a private runtime directory, or checking every path component. lgse/strata#1830 moved the fallback to the user's cache directory instead.
 - Copy, move, and archive operations were left to a later migration (lgse/strata#36). lgse/strata#1393 gave them the progress dock instead of Jobs.
 
 ## History

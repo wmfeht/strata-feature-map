@@ -3,7 +3,7 @@ title: Find in preview
 status: shipped
 origin: {issue: lgse/strata#1558, pr: lgse/strata#1559}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 review: draft
 code: [src/ui/preview/find.rs]
 tests: [src/ui/preview/tests/find.rs, tests/qa/scenarios/quick_preview]
@@ -42,6 +42,7 @@ A find bar below the preview header that searches the text loaded in the open pr
 ### Scope
 
 - Find searches small source buffers, large virtualized source, rendered Markdown, HTML, and RTF prose and code, and DOCX prose. lgse/strata#1559, lgse/strata#1558
+- Find searches rendered ODT and OTT prose the same way as DOCX. lgse/strata#1834 (unverified)
 - Rendered table cells, PDF pages, images, archives, and media are not searched. lgse/strata#1559
 - In Rendered view, a document holding only tables shows no find button; its Source view is searchable. lgse/strata#1559
 - Switching View source or View rendered keeps the query and runs it on the new view. lgse/strata#1559, lgse/strata#1558

@@ -3,7 +3,7 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/readiness.rs, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
@@ -50,7 +50,6 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - An argument with a token inside other text, such as `prefix-{path}`, is refused on save. So is `{path}` in whole-selection mode or `{paths}` in per-item mode. lgse/strata#1085
 - Each invocation gets `STRATA_ACTION_*` variables for version, id, mode, source (`selection` or `background`), count, and 1-based per-item position. lgse/strata#1085
 - Input paths go in a NUL-delimited, byte-exact file named by `STRATA_ACTION_PATHS`, so names with newlines or invalid UTF-8 arrive intact. lgse/strata#1085
-- Each invocation gets a private 0700 scratch folder in `STRATA_ACTION_RUN_DIR`, which is removed afterwards. lgse/strata#1085
 - The working directory is the invoking folder by default. Users can choose Home or the action's own folder instead. lgse/strata#1085
 - A script that appends `{"event": "progress", "processed": N, "total": M}` lines to `$STRATA_ACTION_PROGRESS` updates its job's progress. lgse/strata#1085
 - `{"event": "output", "path": …}` lines record an absolute output path. Relative paths, malformed lines, and unknown lines are ignored. lgse/strata#1085
@@ -112,6 +111,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-23 | lgse/strata#1830 | fix | Moved the Actions run directory out of the shared temp directory when `XDG_RUNTIME_DIR` is unset, closing a cross-user substitution risk. |
 | 2026-10-10 | lgse/strata#1554 | fix | Made the actions list and broken-action problems take part in Settings search. |
 | 2026-09-20 | lgse/strata#1085 | feat | Added manifest-defined Python, Bash, and command actions with a Settings editor and recipe library, as agreed in lgse/strata#36. |
 

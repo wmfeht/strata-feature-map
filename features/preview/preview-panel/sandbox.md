@@ -3,7 +3,7 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
@@ -37,6 +37,8 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - A helper sees one read-only input file, a private output directory, a 512 MiB private `/tmp`, a cleared environment with `HOME=/nonexistent`, and no network, session bus, or display. lgse/strata#17
 - Image, RAW, and PDF helpers run under a 2 GiB address-space limit, a 10-second CPU limit, a 512 MiB file-size limit, and a 12-second wall deadline. lgse/strata#17, lgse/strata#45, lgse/strata#55
 - An image, RAW, or PDF preview input over 512 MiB fails with "Preview input exceeds the supported size limit" before any renderer starts. lgse/strata#17 (unverified)
+- A DOCX, ODT, or OTT preview input over 20 MiB fails with "Preview input exceeds the supported size limit" before the helper starts. lgse/strata#1086, lgse/strata#1834 (unverified)
+- A DOCX or ODT the helper cannot read, such as a ZIP without `content.xml` named `.odt`, fails with "The sandboxed preview renderer failed". lgse/strata#1834 (unverified)
 - Changing selection or closing the preview kills the helper's whole process tree. lgse/strata#17
 - After `bwrap` exits, killed or not, Strata waits on a pidfd, at most 1 s, until the sandbox's namespace releases the input file. lgse/strata#1729
 - An image or PDF helper receives no GPU device and no `/sys` mount. lgse/strata#17, lgse/strata#45
@@ -79,7 +81,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ## Design
 
-[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
+[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/2218357c2e91c0c3e6cd02638356f7a91c08bcae/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
 
 - Files become visible by browsing, so any parser reachable from a listing is attacker-facing. Parsing moves out of process, and crashes or timeouts degrade to a fallback icon or message (lgse/strata#6).
 - There is no unsandboxed fallback. A hijacked `bwrap` would silently reintroduce one, so host helpers are resolved by trusted absolute path and never through `PATH` (lgse/strata#1045, lgse/strata#1055).
@@ -96,6 +98,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - Previews promote ImageMagick only when GDK Pixbuf sees a thumbnail-sized image. Thumbnails keep the cheaper order, because ImageMagick would demosaic every RAW in a folder (lgse/strata#1698).
 - libjpeg decodes at 1/2, 1/4, or 1/8 scale from compressed data. The `jpeg:size` hint makes ImageMagick use it, so oversized JPEGs fit the budget. The area limit stops any unhinted full decode (lgse/strata#1698).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
+- Format crosses the sandbox boundary explicitly, including for symlinks (lgse/strata#1276). Document previews pass `docx` or `odt` to the helper the way comic covers pass their format (lgse/strata#1834).
 - The `fchmodat2` denylist entry uses syscall number 452 directly, because libc omits the constant on aarch64 (lgse/strata#1111).
 - With bubblewrap 0.12.0 the sandbox's namespace, and its bind of the user's file, outlived `bwrap` after nearly every exit. On NFS, SMB, and FUSE that left hidden leftovers and blocked folder deletes. The wait costs about 2 ms after a kill and 0.1 ms after a normal exit (lgse/strata#1729).
 - `bwrap` reports the namespace init's pid through `--info-fd` on stderr, which every sandbox already discarded (lgse/strata#1729).
