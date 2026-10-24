@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `2218357` · 128 features, 7 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `2218357` · 129 features, 7 reviewed
 
 ## app
 
@@ -151,7 +151,8 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | draft | `2218357` | ? |
-| ↳ [Rendered document previews](features/preview/preview-panel/documents.md) | `preview/preview-panel/documents` | shipped | draft | `2218357` | ? |
+| ↳ [Rendered document previews](features/preview/preview-panel/documents/index.md) | `preview/preview-panel/documents` | shipped | draft | `2218357` | ? |
+| &emsp;↳ [ODT and OTT document previews](features/preview/preview-panel/documents/odt.md) | `preview/preview-panel/documents/odt` | shipped | draft | `2218357` | ? |
 | ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | draft | `2218357` | ? |
 | ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `2218357` | ? |
 | ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `2218357` | ? |

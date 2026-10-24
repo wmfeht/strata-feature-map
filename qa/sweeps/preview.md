@@ -40,6 +40,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Select each zero-byte sample; every one must settle to empty text or a message, never a spinner or a crash.
 - Preview the text named `.odt`.
 - Preview `report.odt`, `report.ott`, and `REPORT.ODT` from a remote mount.
+- Open the 5,000-character ODT paragraph in one window, then toggle wrap 10 times from a text preview in a second window.
 - Select each lying-extension sample; nothing may render as the extension claims, and the ELF named `notes.txt` must not be executed or previewed as a binary dump.
 - Open the 2000-page PDF, press End, scroll back fast, Ctrl+A then Ctrl+C, then Print and cancel near page 500.
 - Toggle word wrap on the 20 MiB single-line file in one window while the other shows the 2 MiB text file; check the 1 MiB cap in both.
@@ -103,11 +104,14 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Close the drawer mid-drag, reopen a different document or switch to Source, then drag the thumb again.
 - Close the preview during a table cell drag at the bottom edge, reopen it, and rest the pointer at the bottom edge with no button held.
 - Change interface text size up and back with the 2 MiB text file open in Source and compare line numbers with their lines.
+- In the 5,000-character ODT paragraph, double-click and Shift+End across its 2 KiB row boundaries.
+
+### preview/preview-panel/documents/odt
+
 - Open the ODT tables without a header-row group and with two header rows and a merged cell; sort each column and copy a range.
 - Open the ODT with the outline-level-9 heading, and compare the indentation of list levels 9 and 10 with level 8.
 - Open the ODT holding a link inside `Preformatted Text` and a `mailto:` link, and click each link.
 - Open the pandoc ODT, growing its tables until the size notice appears.
-- Open the 5,000-character ODT paragraph in one window. Toggle wrap 10 times from a text preview in a second window. Then double-click and Shift+End across the ODT's 2 KiB row boundaries.
 
 ### preview/preview-panel/find
 

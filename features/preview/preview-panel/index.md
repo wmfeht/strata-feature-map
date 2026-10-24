@@ -43,6 +43,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A text file starting with a UTF-16 LE or BE byte-order mark previews as decoded text. lgse/strata#1638
 - **Toggle word wrap** in the header wraps text previews; the choice defaults to off, applies in every open window, and survives restart. lgse/strata#921
 - Rendered DOCX, ODT, OTT, and workbook previews hide **Toggle word wrap**. lgse/strata#1086, lgse/strata#1834 (unverified)
+- DOCX, ODT, and OTT paragraphs always wrap, with no horizontal scrollbar, whatever the wrap preference. lgse/strata#1834
 - Text with a recognized language, or plain text within 128 KiB, 512 lines, and 2 KiB per line, opens in a source view. lgse/strata#187, lgse/strata#762
 - That source view shows a caret. lgse/strata#1559, lgse/strata#1557
 - In that source view, Shift+arrow keys select text and Ctrl+C copies it; the file stays read-only. lgse/strata#1559, lgse/strata#1557
@@ -119,6 +120,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
 - PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
+- Word processors store each paragraph as one line, so unwrapped DOCX and ODT showed one line per paragraph behind a horizontal scrollbar. Both now always wrap; workbook tables keep their layout (lgse/strata#1834).
 - Models, PDFs, workbooks, DOCX, and ODT share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276, lgse/strata#1834). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
 - A hidden caret in a read-only GtkSourceView disables native Shift+arrow selection, so source previews show the caret and stay non-editable (lgse/strata#1557).
 - PDF zoom reset skips the view-center correction, because the list view re-anchors the visible page itself; correcting it jumped to page 1 (lgse/strata#1622).

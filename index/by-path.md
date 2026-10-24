@@ -45,7 +45,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/locales/counts.json` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `data/locales/dates.json` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `data/locales/installer.json` | code | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
-| `data/math-renderer.js` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `data/math-renderer.js` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `data/portal` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `data/strata.gresource.xml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/theme-empty.css` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -68,7 +68,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `mise.lock` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `mise.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `packaging/aur` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
-| `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete.md) | — |
 | `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -339,8 +339,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/sandbox_helper/archive_cover/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/sandbox_helper/archive_rar.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `src/sandbox_helper/archive_rar/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/sandbox_helper/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/sandbox_helper/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/sandbox_helper/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/sandbox_helper/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/sandbox_helper/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -359,14 +359,14 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/camera_preview/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/services/diagnostics.rs` | code | [Diagnostics](../features/settings/diagnostics.md) | — |
 | `src/services/diagnostics/tests.rs` | tests | [Diagnostics](../features/settings/diagnostics.md) | — |
-| `src/services/document.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx/namespaces.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx/namespaces/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/document.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/document/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/docx.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/docx/namespaces.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/docx/namespaces/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/docx/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/file_activity.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/services/file_activity/tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/services/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -390,8 +390,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/services/odt.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/odt/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/odt.rs` | code | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/odt/tests.rs` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/package_manager.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/services/package_manager/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/services/path_match.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -402,8 +402,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/release_channel/tests.rs` | tests | [Release channels](../features/app/updates/release-channels.md) | [Updates](../features/app/updates/index.md) |
 | `src/services/remote_download.rs` | code | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/services/remote_download/tests.rs` | tests | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/services/rtf.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/rtf/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/rtf.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/rtf/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/search.rs` | code | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/directory.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/services/search/directory/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
@@ -416,8 +416,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/search/tests/performance.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/refresh.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/scope.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/transfer_action.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/services/transfer_action/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/services/update_check.rs` | code | [Updates](../features/app/updates/index.md) | — |
@@ -539,9 +539,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/decoration.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
 | `src/ui/decoration/tests.rs` | tests | [Window chrome and structure](../features/app/window.md) | — |
 | `src/ui/desktop_integration.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/ui/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/document_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/document_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/enter_target.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/enter_target/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -701,9 +701,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/shortcut_reference.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
 | `src/ui/sidebar_toggle.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/sidebar_toggle/tests.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
-| `src/ui/table_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/table_view/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/table_view/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/table_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/table_view/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/table_view/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/tabs_session.rs` | code | [Tab session restore](../features/browser/tabs/session-restore.md) | [Browser tabs](../features/browser/tabs/index.md) |
 | `src/ui/tabs_session/tests.rs` | tests | [Tab session restore](../features/browser/tabs/session-restore.md) | [Browser tabs](../features/browser/tabs/index.md) |
 | `src/ui/tenxer_mode.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
@@ -740,14 +740,14 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/top_bar_navigation/tests.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/udiskie_preferences.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/udiskie_preferences/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/virtual_preview.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/line_numbers.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/scrollbar.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/scrollbar/position.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/scrollbar/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/line_numbers.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar/position.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/window/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/window/composition.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
@@ -835,11 +835,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/util/ui_thread.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/util/ui_thread/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/container/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/fixtures/documents/report.docx` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/fixtures/documents/report.odt` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/fixtures/documents/README.md` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/fixtures/documents/report.docx` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/fixtures/documents/report.odt` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/fixtures/harness.json` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/rar/**` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `tests/fixtures/spreadsheets` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/fixtures/spreadsheets` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/*.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/baselines/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -911,11 +912,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/preview_video` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/properties_media` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `tests/qa/scenarios/properties_size` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `tests/qa/scenarios/quick_preview` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/recent` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/rename_visibility` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/qa/scenarios/search_filter_sort` | tests | [Search](../features/browser/search/index.md) | — |
