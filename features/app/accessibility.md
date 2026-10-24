@@ -3,11 +3,11 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/accessibility.rs]
-tests: [src/ui/accessibility/tests.rs, tests/e2e/scenarios/test_accessibility.py]
-docs: [docs/e2e-testing.md]
+tests: [src/ui/accessibility/tests.rs, tests/qa/scenarios/accessibility]
+docs: [docs/testing.md]
 related: [browser/navigation/location-bar, browser/sidebar, settings/preferences/language, browser/context-menu, app/dialogs]
 ---
 
@@ -47,9 +47,11 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 ## Design
 
-[docs/e2e-testing.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/e2e-testing.md) ("Accessible names are product surface") states the contract this node owns.
+[docs/testing.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/testing.md) ("Accessible names are product surface") states the contract this node owns.
 
-- The E2E harness locates controls only by accessible role and name. When it cannot identify a control, the fix is to name it in the application, never a test-only API (lgse/strata#341).
+- GUI tests locate controls only by accessible role and name. When one cannot identify a control, the fix is to name it in the application, never a test-only API (lgse/strata#341).
+- QA scenarios read those names, descriptions, and states from the app's own widget tree, not AT-SPI. GTK has no public getter for accessible labels, relations, or states. In `qa` builds this node's naming helpers therefore record what they set for the QA reader (lgse/strata#1771).
+- A feature's own label always wins over a stand-in label, such as the icon rail's row name (lgse/strata#1771).
 - An entry's name and description sit on the list item, not the row content, because the item carries the `list item` or `table cell` role and the selected and focused states (lgse/strata#415).
 - Panes use the group role because GTK drops a label set on a plain `GtkBox`, whose generic role ARIA forbids naming (lgse/strata#415).
 - The pane, not the entry list, carries the directory and view, because an empty directory replaces the list with a placeholder (lgse/strata#415).
@@ -60,7 +62,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
 - Exclusive choices are radio menu items and on/off options are check menu items, because screen readers announce their checked state (lgse/strata#1467, lgse/strata#1544).
-- Chosen states are product surface too: E2E checks read `checked` or `pressed` from AT-SPI and never infer them from check-icon children (lgse/strata#1544).
+- Chosen states are product surface too: GUI checks read `checked` or `pressed` as accessible state and never infer them from check-icon children (lgse/strata#1544).
 - A menu option's `checked` state mirrors its check icon's own visibility, because a closed popover hides every option's ancestors (lgse/strata#1544, unverified).
 
 ## History

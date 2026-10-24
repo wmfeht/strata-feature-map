@@ -3,10 +3,10 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/preview/keyboard.rs]
-tests: [tests/e2e/scenarios/test_quick_preview.py, tests/e2e/mutations/quick-preview.patch]
+tests: [tests/qa/scenarios/quick_preview, tests/qa/mutations/quick-preview.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection]
 ---

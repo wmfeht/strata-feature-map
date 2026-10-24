@@ -3,10 +3,10 @@ title: Startup location arguments
 status: shipped
 origin: {issue: lgse/strata#649, pr: lgse/strata#673}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
-review: reviewed
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+review: draft
 code: [src/ui/window/open_argument.rs]
-tests: [src/ui/window/open_argument/tests.rs, tests/e2e/scenarios/test_startup_arguments.py]
+tests: [src/ui/window/open_argument/tests.rs, tests/qa/scenarios/startup_arguments]
 related: [integration/file-manager-interface, remote/file-providers]
 ---
 

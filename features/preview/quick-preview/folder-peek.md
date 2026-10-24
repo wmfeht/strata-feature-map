@@ -3,7 +3,7 @@ title: Folder peek
 status: shipped
 origin: {issue: null, pr: lgse/strata#132}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: reviewed
 code: [src/app/peek.rs, src/ui/browser/peek.rs]
 tests: [src/app/peek/tests.rs, src/ui/browser/peek/tests.rs]

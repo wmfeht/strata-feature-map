@@ -3,17 +3,17 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
-tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
+tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]
-related: [browser/view-modes/text-size, preview/preview-panel]
+related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density]
 ---
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, and an optional user stylesheet. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
 
 ## Behavior
 
@@ -31,7 +31,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Material Vivid draws text in #9e9e9e, 6.01:1 on its background. lgse/strata#1570, lgse/strata#1459
 - Clicking a card applies that theme immediately and marks the card with a check. lgse/strata#96
 - A fresh install without Omarchy starts with Tokyo Night; a saved selection survives restart. lgse/strata#542
-- A saved theme id that matches no bundled or custom theme falls back to Azure Glow at startup. lgse/strata#542 (unverified)
+- A saved theme id that matches no bundled or custom theme falls back to Azure Glow at startup. lgse/strata#542, lgse/strata#1794
 
 ### Custom themes
 
@@ -93,6 +93,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A background that cannot be parsed gets Mocha file icons. lgse/strata#1588 (unverified)
 - The File icons group has a Show thumbnails switch after File icon colors, on by default; its choice is saved as `show_thumbnails` and survives restart. lgse/strata#1651
 - Searching "Show thumbnails" or "photos", or "Miniaturansichten" under Deutsch, in Search settings shows the Show thumbnails row. lgse/strata#1651 (unverified)
+- The File icons group has an STL model thumbnails switch, off by default. Its subtitle reads "Render local STL models as file thumbnails, one at a time. Requires Show thumbnails." lgse/strata#1789
+- The STL model thumbnails switch sits after Show thumbnails. Its choice is saved as `stl_thumbnails`, and a missing key reads as off. lgse/strata#1789 (unverified)
 
 ### Styling and effects
 
@@ -132,9 +134,19 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Without the file, Strata's appearance is unchanged. lgse/strata#1758
 - Corner roundness does not scale radii set in the user stylesheet. lgse/strata#1758 (unverified)
 
+### Frame density
+
+- Frame N above 0 adds N px top and bottom padding to the browser header, tab strip, Icons and List pane header, and preview header. lgse/strata#1776
+- Frame N above 0 adds N px top and bottom padding to sidebar rows. lgse/strata#1776
+- Frame N above 0 gives Miller column headers N px top and N+2 px bottom padding. lgse/strata#1776
+- Frame N above 0 adds an N px left margin to action buttons in the browser header, tab strip, Miller column headers, pane header, and preview header. lgse/strata#1776
+- Frame N above 0 adds an N px left margin to List navigation buttons. lgse/strata#1776
+- The sidebar toggle stays aligned with the sidebar icons at every Frame value. lgse/strata#1776 (unverified)
+- Frame 0, Compact, adds no style, leaving the bars as before the setting existed. lgse/strata#1776
+
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -158,6 +170,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - lgse/strata#1697 rejected a property list in place of `all: unset`, a short hand-picked reset, dropping isolation, and redirecting `XDG_CONFIG_HOME`. The last moves settings and leaks into launched apps.
 - `GTK_THEME` bypasses GTK's settings, so startup re-execs without it, through the same path as the Cairo renderer. Editing the environment after threads start was avoided (lgse/strata#1680).
 - Stylesheets above user priority win only for properties they set. A reset provider unsets every property just above user priority; the built-in theme, Strata's stylesheet, and its tokens follow in rising priority (lgse/strata#1681, lgse/strata#1682).
+- Generated density CSS has its own provider between Strata's stylesheet and the tokens. It reloads only when a density changes, so dragging a density slider never re-applies the theme (lgse/strata#1776).
 - The source-preview style scheme is built in memory as a one-file resource, and the style manager searches only that resource folder. Saving it to the cache and rescanning listed the user's folders on the UI thread (lgse/strata#1729).
 - Language lookups keep GtkSourceView's bundled and system folders and drop those under the user's data and home folders. The first preview had listed them on the UI thread (lgse/strata#1729).
 - Tokyo Night became the default at the maintainer's request; Azure Glow stayed the missing-theme fallback (lgse/strata#541, lgse/strata#542).
@@ -179,6 +192,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-22 | lgse/strata#1816 | feat | Mapped Omarchy's own surface keys instead of `color8`, and replaced the variants with Lighter, Darker, and Contrast, remembered per theme. |
 | 2026-10-20 | lgse/strata#1773 | perf | Pinned GTK's theme to an empty bundled theme. GTK no longer matches widgets against a hidden `Default` copy. |
 | 2026-10-18 | lgse/strata#1758 | feat | Loaded an optional `~/.config/strata/style.css` above Strata's stylesheets, re-read live, so users can restyle layout beyond the color tokens. |
 | 2026-10-17 | lgse/strata#1724 | fix | Lifted bundled themes' dim text to the body-text contrast floors and stopped desaturating Settings icons, so secondary text no longer reads as disabled. |
@@ -201,6 +215,5 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Known gaps
 
-- docs/themes.md still names Azure Glow as the default, but fresh installs start with Tokyo Night. lgse/strata#541
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
 - Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566

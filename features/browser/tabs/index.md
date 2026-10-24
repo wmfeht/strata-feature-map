@@ -3,17 +3,17 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
-tests: [src/ui/window/composition/tabs/tests.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/e2e/scenarios/test_tabs.py]
+tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs]
 docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md]
 related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling]
 ---
 
 ## Summary
 
-Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, and move tabs. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Files dropped on a tab transfer into that tab's directory. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
+Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, reopen, and move tabs. The window title follows the active tab. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Files dropped on a tab transfer into that tab's directory. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
 
 ## Behavior
 
@@ -26,6 +26,21 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Ctrl+W, a tab's X button, or 10xer `t` then `x` closes that tab; closing the last tab closes the window. lgse/strata#1484
 - Middle-clicking a tab closes it. lgse/strata#1484 (unverified)
 - Closing the active tab selects its right neighbour, or its left neighbour when it was last. lgse/strata#1484 (unverified)
+
+### Reopening
+
+- Ctrl+Shift+T, or the window action `win.reopen-tab`, reopens the last closed tab at its location and former position, and selects it. lgse/strata#1800
+- Repeated Ctrl+Shift+T reopens closed tabs newest first, up to 20; a 21st close drops the oldest entry. lgse/strata#1800
+- Ctrl+W, the X button, a middle-click, 10xer `t` then `x`, and closing an inactive tab each record the closed tab. lgse/strata#1800 (unverified)
+- Closed tabs belong to their window: Ctrl+Shift+T in another window opens nothing, and closing the window discards them. lgse/strata#1800
+- Closed tabs are not saved, so they cannot be reopened after a restart. lgse/strata#1800 (unverified)
+- A reopened tab starts with fresh selection, navigation history, and preview. lgse/strata#1800
+- When fewer tabs are open than the former position, the reopened tab stays at the right end. lgse/strata#1800 (unverified)
+- With no closed tab recorded, Ctrl+Shift+T opens nothing and the active tab stays selected. lgse/strata#1800
+- A close blocked by a modal dialog or by running operations, or a close of the last tab, records nothing. lgse/strata#1800 (unverified)
+- While a modal dialog is open, Ctrl+Shift+T does nothing and keeps the history, so it works once the dialog closes. lgse/strata#1800 (unverified)
+- Reopening a folder deleted after the close shows the location-unavailable overlay with Retry; Retry loads it once the folder exists again. lgse/strata#1800 (unverified)
+- Ctrl+Shift+T works from text fields such as the location editor, in both key maps and on a Russian layout. lgse/strata#1800
 
 ### Opening folders in a new tab or window
 
@@ -84,11 +99,23 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 ### Tab names
 
 - A tab is named after its active directory: `~` for the home folder, `/` for the root, and Trash, Recent, or Network for those locations. lgse/strata#1484 (unverified)
+- The Home, Trash, Recent, Network, and Location names follow the interface language, such as "Papierkorb" in German. lgse/strata#1827
 - Names longer than 22 characters are ellipsized. lgse/strata#1484 (unverified)
 - In Columns, pressing on a folder keeps the tab's previous name until release, then shows the folder's name with no parent name in between. lgse/strata#1507
 - A cancelled click, a folder drag, a folder deleted before release, or a refused navigation restores the active directory's name. lgse/strata#1507
 - Moving keyboard focus to a parent column renames the tab to the parent; a child column shown by Up or Down keeps the parent's name. lgse/strata#1507
 - On a remote location, the name changes only after the new location validates; a rejected or superseded navigation releases it. lgse/strata#1507
+
+### Window title
+
+- A window whose active tab is at folder `docs` is titled `docs — Strata`, with an em dash. lgse/strata#1824, lgse/strata#1827
+- Navigating the active tab, or selecting another tab, retitles the window after the active tab's folder. lgse/strata#1827
+- A window with no folder open yet is titled "Strata". lgse/strata#1827
+- The title uses the tab's name, so Trash, Recent, and Network titles are translated, such as "Netzwerk — Strata". lgse/strata#1827
+- The home folder titles the window `~ — Strata` and the root `/ — Strata`. lgse/strata#1827 (unverified)
+- In Columns, pressing on a folder keeps the previous title until release, like the tab name. lgse/strata#1827
+- A background tab that navigates leaves the window title unchanged. lgse/strata#1827 (unverified)
+- The title shows a folder name over 22 characters in full, though the tab label ellipsizes it. lgse/strata#1827 (unverified)
 
 ### File drops
 
@@ -108,6 +135,8 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - A reorder drag carries a random per-window token, so only this window's tab drags reorder and file drags never do (lgse/strata#1484).
 - One close guard checks every tab, so a background operation in a hidden tab still blocks closing the window (lgse/strata#1484).
 - Closing a tab disposes its content and releases its observers (lgse/strata#108, lgse/strata#1484).
+- A closed tab is remembered as only its location and position, so its view is not kept alive. Reopening reuses the new-tab and reorder paths (lgse/strata#1800).
+- Windows are titled `<folder> — Strata` so taskbars, switchers, and shortcut scripts can tell them apart, like Nautilus (lgse/strata#1824, [comment](https://github.com/lgse/strata/issues/1824#issuecomment-6361147216)). The title uses the tab strip's name (lgse/strata#1827).
 - Ctrl+click was rejected for opening in a new tab because it toggles multi-selection. Ctrl+N was rejected for a new window because 10xer uses it for the sidebar (lgse/strata#1540).
 - A folder opened in a new tab or window reuses the startup argument's connecting and unavailable overlays and `present_target`, rather than new windowing (lgse/strata#1540, lgse/strata#1543).
 - The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI (lgse/strata#1543).
@@ -119,6 +148,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-23 | lgse/strata#1800 | feat | Added Ctrl+Shift+T to reopen up to 20 closed tabs per window at their former positions. |
 | 2026-10-15 | lgse/strata#1677 | perf | Moved the tab underline to the layout pass and animated it only while moving, so an idle window stops drawing frames. |
 | 2026-10-10 | lgse/strata#1539 | fix | Recorded the folder a pending click opens, so the Columns preview slot lends no width before its column takes focus. |
 | 2026-10-10 | lgse/strata#1543 | feat | Opened folders in a new tab or window from the item menu, a middle-click, and Ctrl+Enter or Shift+Enter. |

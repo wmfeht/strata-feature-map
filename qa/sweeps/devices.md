@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 tools: [docs/preview-sandbox.md, data/udiskie/unlock]
 ---
 
@@ -8,7 +8,7 @@ tools: [docs/preview-sandbox.md, data/udiskie/unlock]
 
 Everything the sidebar's Devices section does with a physical or virtual block device. Discovery and mounting of volumes, mounts, and password drives. Unmount and Eject with the flush, the pending row, and "Safe to remove". Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails.
 
-Left to other sweeps: the Send to lists, device rows as navigation targets, network mounts and their credentials, and the installer's handling of `--with-udiskie-unlock`.
+Left to other sweeps: the Send to lists, device rows as navigation targets, network mounts and their credentials, and the installer's default selection and its `--with-udiskie-unlock` and `--without-udiskie-unlock` flags.
 
 ## Setup
 
@@ -84,6 +84,6 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - The "Writing to device…" flush before a copy to removable media reports success → `operations`.
 - Device rows as navigation targets, sidebar keyboard order, and drops onto rows → `browser`.
 - SMB, SFTP, and other network mounts with their credential prompts → `remote`.
-- `install.sh` step wording, `--with-udiskie-unlock`, and Omarchy detection → `app`.
+- `install.sh` step wording, its default selection, `--with-udiskie-unlock`, `--without-udiskie-unlock`, and Omarchy detection → `app`.
 - Previewing camera photos in the preview panel → `preview`.
 - The Settings page shell around the "Unlock encrypted volumes" row → `settings`.

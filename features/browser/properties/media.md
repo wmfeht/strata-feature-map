@@ -3,10 +3,10 @@ title: Media details in Properties
 status: shipped
 origin: {issue: lgse/strata#979, pr: lgse/strata#984}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+review: draft
 code: [src/ui/browser/properties/media.rs, src/sandbox/metadata.rs]
-tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/e2e/scenarios/test_properties_media.py]
+tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/qa/scenarios/properties_media]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/preview-panel]
 ---

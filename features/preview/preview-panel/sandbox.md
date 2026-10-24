@@ -3,12 +3,12 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
-related: [preview/preview-panel/media, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
+related: [preview/preview-panel/media, preview/preview-panel/model-views, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
 ---
 
 ## Summary

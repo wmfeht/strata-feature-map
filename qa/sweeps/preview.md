@@ -1,7 +1,7 @@
 ---
 title: Preview sweep
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
-tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, tests/e2e/harness/keyboard_layout.py]
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
@@ -18,13 +18,14 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - RAW samples: a lossless compressed Fuji X-T5 `.RAF`, a Pentax portrait `.DNG`, a GoPro `.GPR`, and an uppercase `.ARQ`. Also a JPEG panorama over 134 MP (`magick -size 42374x10529 xc:gray pano.jpg`) with and without a small EXIF thumbnail. Hide `dcraw`, `simple_dcraw`, and ImageMagick in turn by bind-mounting `/dev/null` over them inside `unshare -rm`.
 - Model samples: a binary STL, a one-triangle ASCII STL, and an STL just under 2 million triangles. Also a geometry-only 3MF, a 3MF with one embedded PNG, and a FreeCAD file.
 - Zero-byte files for every previewed extension. Lying extensions: an MP4 as `.jpg`, a PNG as `.pdf`, a ZIP as `.epub` and `.docx`, an ELF as `notes.txt`, a TIFF as `.ARW`.
-- Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, and the `any_sheets.*` and `report.docx` fixtures.
+- Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, and the `any_sheets.*` and `report.docx` fixtures. Generated Markdown of 400 blocks cycling headings, prose, fenced code, tables, and lists, plus a copy with relative PNGs beside it.
 - A second build with `STRATA_TRUSTED_COMMAND_PATH` set, and a prebuilt binary to launch with `STRATA_SANDBOX_*` variables; `RUST_LOG=strata::sandbox=warn` shows ignored overrides.
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
-- Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. `tests/e2e/harness/keyboard_layout.py` switches the layout, locks the XKB group, and restores `us` afterwards.
+- Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. In a QA scenario, `{"layout":"ru-only"}`, `{"layout":"ru"}`, and `{"layout":"caps-lock"}` steps match those three setups through `tests/qa/keyboard.rs`. They read the layouts in `tests/fixtures/harness.json`, and `us` is restored afterwards. `docs/testing.md` "Keyboard layouts" has the rules.
 - An NFS or SMB mount holding a music folder, a RAW folder, and a model folder with the FreeCAD file and the embedded-PNG 3MF, for probes that rename or delete what the preview reads.
+- For STL model thumbnails, a folder of 20 STLs on an NFS mount at a native path, not a GVfs SMB share. Also a local folder of 20 STLs.
 - Reduce motion and Element glow each on and off, under the GL renderer and `GSK_RENDERER=cairo`. Two windows of the same build on one media folder for volume sync, the four-player cap, and width isolation.
 
 ## Probes
@@ -92,6 +93,13 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
 - With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
 - Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
+- Hold the scrollbar thumb at ten interior positions in both copies of the generated 400-block Markdown and in the 2 MiB text file, with wrap off and on, then in a file chooser preview.
+- Release a touchpad flick into a region of tall code blocks, tables, and images still loading, in both directions.
+- Drag the thumb to each end, release over the content, then press Page Down and Page Up.
+- Focus the scrollbar and press Home and End, then set its value from Accerciser to the minimum, the maximum, and an interior value.
+- Close the drawer mid-drag, reopen a different document or switch to Source, then drag the thumb again.
+- Close the preview during a table cell drag at the bottom edge, reopen it, and rest the pointer at the bottom edge with no button held.
+- Change interface text size up and back with the 2 MiB text file open in Source and compare line numbers with their lines.
 
 ### preview/preview-panel/find
 
@@ -146,6 +154,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the FreeCAD file and the embedded-PNG 3MF from the network mount; read the header and badges before the image lands.
 - Switch from a model to a text file mid-render; watch the header spinner.
 - Preview a garbage file named `.stl` on a first load, then compare with a failure after the first image.
+- With STL model thumbnails on, open Quick Preview on the near-2-million-triangle STL while a folder of STLs builds thumbnails. Step views and watch the bwrap count.
+- With STL model thumbnails on, hang the NFS mount with an `iptables` drop while its STL folder renders. Open the local STL folder, and compare the bwrap count before and after the mount recovers.
+- Toggle STL model thumbnails off while the near-2-million-triangle STL thumbnail renders, then on again; check for a second helper and a leftover private output directory.
 
 ### preview/preview-panel/sandbox
 
@@ -183,7 +194,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 ## Hand-offs
 
-- Thumbnails in the listing and the thumbnail worker pool → `browser`.
+- Thumbnails in the listing, including STL model thumbnails, and the thumbnail worker pool → `browser`.
 - The RAW extension list, including `.ptx` and `.crf` → `browser`.
 - Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.

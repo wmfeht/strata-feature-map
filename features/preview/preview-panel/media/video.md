@@ -3,10 +3,10 @@ title: Video previews
 status: shipped
 origin: {issue: lgse/strata#1417, pr: lgse/strata#1474}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/preview/video.rs, src/ui/preview/video, src/media/storyboard.rs, src/media/storyboard, src/ui/media/ambient.rs, src/ui/media/ambient]
-tests: [src/ui/preview/tests/video.rs, src/ui/preview/video/badges/tests.rs, src/ui/preview/video/details/tests.rs, src/ui/preview/video/storyboard/tests.rs, src/media/storyboard/tests.rs, src/ui/media/ambient/tests.rs, src/ui/window/tests/keyboard_dispatch/video_clips.rs, tests/e2e/scenarios/test_preview_video.py]
+tests: [src/ui/preview/tests/video.rs, src/ui/preview/video/badges/tests.rs, src/ui/preview/video/details/tests.rs, src/ui/preview/video/storyboard/tests.rs, src/media/storyboard/tests.rs, src/ui/media/ambient/tests.rs, src/ui/window/tests/keyboard_dispatch/video_clips.rs, tests/qa/scenarios/preview_video]
 related: [preview/preview-panel/media/audio, browser/properties, integration/open-with, settings/themes]
 ---
 

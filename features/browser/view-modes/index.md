@@ -3,17 +3,17 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
-tests: [tests/e2e/scenarios/test_view_switching.py, tests/e2e/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
+tests: [tests/qa/scenarios/view_switching, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/search, preview/preview-panel]
+related: [browser/search, preview/preview-panel, browser/view-modes/density]
 ---
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/density` covers the Frame and Content density sliders. `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
 ## Behavior
 
@@ -33,11 +33,19 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 ### Appearance menu
 
-- The Appearance menu's DENSITY section offers Compact, the default, and Airy; the choice is saved. lgse/strata#168 (unverified)
-- Columns, Icons, List, Compact, and Airy are radio menu items, and Group by file type is a check menu item. lgse/strata#1467, lgse/strata#1544
+- Columns, Icons, and List are radio menu items, and Group by file type is a check menu item. lgse/strata#1467, lgse/strata#1544, lgse/strata#1776
 - Each option's accessible checked state matches its check icon, including after Ctrl+1 to Ctrl+3 and switches in other windows. lgse/strata#1467, lgse/strata#1544
 - With Sort by or Appearance open, a wheel tick outside it closes it and scrolls only the listing under the pointer; over the sidebar or other chrome it only closes. lgse/strata#590
 - Wheel ticks inside an open Sort by or Appearance panel keep it open. lgse/strata#590
+
+### Content density
+
+- At Content Airy, Columns and List rows have a 42 px minimum height and 8 px vertical margins; Columns row content keeps 4 px. lgse/strata#168 (unverified)
+- At Content Airy, Icons has 5 px grid padding, 3 px cell margins, and 5 by 7 px card padding. lgse/strata#168, lgse/strata#747 (unverified)
+- A Custom Content value N sets N px vertical margins on Columns and List row children, and min(N, 4) px on Columns row content. lgse/strata#1776 (unverified)
+- A Custom Content value scales row minimum height, Icons grid padding, cell margins, and card padding linearly through the Compact and Airy values. Results clamp at 0 and round. lgse/strata#1776
+- Icons shows at most 20 columns at Content Compact and at most 16 at Airy. lgse/strata#1776
+- A Custom Content value below 8 px caps Icons at 20 columns; 8 px or more caps it at 16. lgse/strata#1776 (unverified)
 
 ### Loading and names
 
@@ -66,6 +74,7 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 - Inactive panes drop their filename models (lgse/strata#1186). A cached inactive pane is reused only while its location, grouping, and List heading sort still match (lgse/strata#907).
 - lgse/strata#266 rebuilt the target before showing it to avoid a blank frame. lgse/strata#310 shows it first, because a ListView rebuilt while hidden measured a one-row viewport.
 - Icons and List map displayed positions to source entries through `SourceIndexMap` in O(1), so activation, drag, and selection hit the clicked entry after filtering or sorting (lgse/strata#305).
+- The List type-group sorter re-sorts only when a sort preference changes. Spliced rows rely on GTK's sorted insertion, and each row's model value carries its type group, so comparisons neither allocate nor guess MIME types (lgse/strata#1791, lgse/strata#1792).
 - The pane filter query is window-local: it is carried across a switch but never saved (lgse/strata#851).
 - An empty, unreadable, or loading folder focuses the existing page stack rather than its status label. Up, Delete, and the context menu already key off that stack. It is focusable only off the content page, so populated listings gain no unnamed Tab stop (lgse/strata#1466).
 - GTK moves focus off a removed or hidden row at the next paint. The pane settles focus first, so a reload never sends it out of the listing (lgse/strata#1466, lgse/strata#1533).
@@ -78,6 +87,7 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-23 | lgse/strata#1800 | feat | Previewed List heading drags with an insertion line and applied the column move once, on release. |
 | 2026-10-15 | lgse/strata#1673 | perf | Settled List and Icons row refreshes 25 ms after the last scroll instead of every frame, and dropped the `list-fast-scroll` class. |
 | 2026-10-15 | lgse/strata#1611 | fix | Routed a focus request for a pane showing results to their cursor hit instead of the hidden listing. |
 | 2026-10-11 | lgse/strata#1568 | fix | Cached Icons and List view-to-source maps and selected listing positions, so marquee changes no longer rescan large folders. |

@@ -3,10 +3,10 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
-tests: [src/adapters/local_operations/tests/create_entry.rs, tests/e2e/scenarios/test_created_entry_columns.py, tests/e2e/scenarios/test_entry_management.py]
+tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management, tests/qa/mutations/new-entry-collision.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
 ---

@@ -3,10 +3,10 @@ title: Integrations catalog
 status: shipped
 origin: {issue: lgse/strata#1741, pr: lgse/strata#1748}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
-tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs, tests/e2e/scenarios/test_integrations.py]
+tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs]
 docs: [docs/file-providers.md, integrations/README.md]
 related: [remote/file-providers/external, remote/file-providers/kde-connect, remote/file-providers/localsend, settings/preferences, app/infrastructure]
 ---

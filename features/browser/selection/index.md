@@ -3,10 +3,10 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
-tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/e2e/scenarios/test_selection.py, tests/e2e/scenarios/test_background_selection.py, tests/e2e/scenarios/test_escape_selection.py, tests/e2e/scenarios/test_preselected_hover.py, tests/e2e/scenarios/test_monitor_selection.py]
+tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode]
 ---

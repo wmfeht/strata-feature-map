@@ -3,10 +3,10 @@ title: Archive preview
 status: shipped
 origin: {issue: lgse/strata#1151, pr: lgse/strata#1090}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/preview/archive.rs, src/adapters/local_operations/archive/listing.rs]
-tests: [src/adapters/local_operations/archive/listing/tests.rs, tests/e2e/scenarios/test_archive_preview.py]
+tests: [src/adapters/local_operations/archive/listing/tests.rs, tests/qa/scenarios/archive_preview]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [preview/preview-panel, preview/preview-panel/sandbox, preview/quick-preview, integration/10xer-mode]
 ---

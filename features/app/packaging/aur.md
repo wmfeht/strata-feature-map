@@ -3,7 +3,7 @@ title: AUR packages
 status: shipped
 origin: {issue: lgse/strata#50, pr: lgse/strata#183}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: reviewed
 code: [packaging/aur, scripts/update_aur.py, .github/workflows/packaging.yml, .github/workflows/publish-aur.yml]
 tests: [scripts/test_update_aur.py]

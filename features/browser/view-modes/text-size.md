@@ -3,10 +3,10 @@ title: Text size
 status: shipped
 origin: {issue: lgse/strata#155, pr: lgse/strata#252}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/preferences/text_size.rs]
-tests: [src/ui/preferences/tests/text_size.rs, src/ui/theme/tests/text_size.rs, tests/e2e/scenarios/test_text_size.py]
+tests: [src/ui/preferences/tests/text_size.rs, src/ui/theme/tests/text_size.rs, tests/qa/scenarios/text_size]
 docs: [docs/preferences.md]
 related: [settings/preferences, settings/themes, preview/preview-panel, browser/view-modes/thumbnail-size]
 ---
