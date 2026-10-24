@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -23,6 +23,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Signed release fixtures: a local release directory served to the stub `curl`, holding a manifest and signatures file signed with a throwaway Ed25519 key. For a full run, copy `install.sh` with the `RELEASE_PUBLIC_KEYS` entry replaced by the fixture key, as `InstallerFixture` in `scripts/test_installer.py` does. Source it with `STRATA_INSTALLER_TESTING=1` only to call single functions.
 - Animation and scale: the harness `settings.ini` sets `gtk-enable-animations=false`, so set it `true` for animation probes and toggle `reduce_motion` in `settings.toml`. Set `text_size = 8` and `48` for layout probes.
 - AT-SPI dumps from an ad-hoc `gi.repository.Atspi` script under `/tmp`. `./scripts/qa-drive.sh start` in the pinned image opens a separate `--qa` session whose `{"query":"state"}` reads the widget tree, not AT-SPI. Use `xprop WM_CLASS _NET_WM_NAME WM_NAME` for identity. Run a minimal window manager such as `openbox` on the private display before any Maximize, Minimize, or focus-out probe.
+- For icon probes, a desktop shell whose dock background can be changed, with Adwaita and an icon theme that ships no Strata icon, such as MacTahoe. Skip those probes and say so when no such shell is available.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/qa/keyboard.rs` does. `tests/fixtures/harness.json` lists the layouts QA scenarios cover. Restore `us` afterwards; never change the desktop's layout.
 - For UI-thread stall probes, an sshfs mount of a local folder; stop its daemon with `kill -STOP` and resume it with `kill -CONT`.
@@ -107,6 +108,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version` with the Settings → Updates version line in each.
 - Install with `mise run install-local` into a throwaway `HOME`, read `Exec=` in the installed entry, uninstall, and list what remains.
 - Read the launcher's generic name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, and `zh_MO.UTF-8`.
+- View the installed icon at 16, 24, 32, and 48 px on white, mid-grey, and near-black dock backgrounds.
+- Compare its size and corners with neighboring icons under Adwaita and under an icon theme with no Strata icon, such as MacTahoe.
 
 ### app/packaging/installer
 

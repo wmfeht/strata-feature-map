@@ -3,17 +3,17 @@ title: Rendered document previews
 status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 review: draft
-code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/scrollbar.rs, src/ui/virtual_preview/scrollbar/position.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
-tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/virtual_preview/scrollbar/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/qa/scenarios/quick_preview]
+code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/odt.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/scrollbar.rs, src/ui/virtual_preview/scrollbar/position.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
+tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/odt/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/virtual_preview/scrollbar/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/report.odt, tests/qa/scenarios/quick_preview]
 docs: [site/src/reference/document-previews.md, docs/document-previews.md]
 related: [preview/preview-panel/sandbox, preview/preview-panel/find, settings/preferences, settings/themes]
 ---
 
 ## Summary
 
-Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX, ODS, and DOCX files in the preview panel. Text formats switch between Rendered and Source; nothing uses a web engine or runs document scripts.
+Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX, ODS, DOCX, ODT, and OTT files in the preview panel. Text formats switch between Rendered and Source; nothing uses a web engine or runs document scripts.
 
 ## Behavior
 
@@ -22,7 +22,6 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Selecting a local Markdown, HTML, RTF, CSV, or TSV file with **Render documents by default** on shows the rendered document; with it off, the source. lgse/strata#187, lgse/strata#729, lgse/strata#1086
 - **View source** and **View rendered** in the preview header switch the current document without changing the saved preference. lgse/strata#187
 - Remote Markdown and HTML files preview as source only. lgse/strata#187
-- A remote XLS, XLSX, ODS, or DOCX file shows "Copy this file locally before previewing it" instead of a preview. lgse/strata#729, lgse/strata#1086 (unverified)
 - A malformed, truncated, timed-out, or limit-exceeding document opens in Source, hides the view switch, and shows the reason above the source. lgse/strata#187
 - Documents over 1 MiB, 20,000 parser events, nesting depth 32, 4 MiB of markup, or 500 ms of parsing fall back to Source. lgse/strata#187
 - A Markdown or HTML table row over 256 columns also falls back to Source. lgse/strata#729
@@ -37,10 +36,10 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - In the default key map, plain Left in a document returns focus to the listing. lgse/strata#1559 (unverified)
 - A click past the end of a wrapped line places the caret at that display line's end. lgse/strata#1559 (unverified)
 - A Shift-click or double-click on a link selects text without opening the link; only a plain single click opens it. lgse/strata#1559 (unverified)
-- With word wrap off, each rendered document row widens to its longest line, so the horizontal scrollbar reaches every line. lgse/strata#1612, lgse/strata#1610
-- Touchpad, Shift+wheel, and the scrollbar all scroll an unwrapped rendered document sideways. lgse/strata#1612
-- Turning wrap on while a rendered document is open reflows each paragraph to its full wrapped height without reopening. lgse/strata#1612, lgse/strata#1610
-- Turning wrap off while a rendered document is open returns rows to their unwrapped height with no blank gaps between them. lgse/strata#1612, lgse/strata#1610
+- With word wrap off, each rendered Markdown, HTML, or RTF row widens to its longest line, so the horizontal scrollbar reaches every line. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
+- Touchpad, Shift+wheel, and the scrollbar all scroll an unwrapped rendered Markdown, HTML, or RTF document sideways. lgse/strata#1612, lgse/strata#1834
+- Turning wrap on while a rendered Markdown, HTML, or RTF document is open reflows each paragraph to its full wrapped height without reopening. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
+- Turning wrap off while a rendered Markdown, HTML, or RTF document is open returns rows to their unwrapped height, with no gaps. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187
 - Every rendered code block shows a **Copy code** button that copies the whole block. lgse/strata#187
 
@@ -93,17 +92,39 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Copying a selection containing inline math keeps its original `$` delimiters. lgse/strata#1075
 - Changing the theme while a diagram or equation is open recolors it. lgse/strata#1075
 
-### RTF and DOCX
+### RTF, DOCX, and ODT
 
 - RTF renders paragraphs, bold, italic, underline, strikethrough, Windows-1252 `\'hh` escapes, and `\uN` escapes, and keeps its Source view. lgse/strata#1086
 - DOCX renders headings, `Title`, `Subtitle`, quotes, inline formatting, nested bulleted and numbered lists, and tables with the first row as sortable titles. lgse/strata#1086
 - DOCX has no Source view; images, hyperlink targets, headers, footers, footnotes, and comments are omitted. lgse/strata#1086
 - DOCX files with alternate XML namespace prefixes or default namespaces keep their Word content. lgse/strata#1086
-- DOCX paragraphs never wrap, and lines wider than the pane scroll sideways. lgse/strata#1612 (unverified)
+- DOCX, ODT, and OTT paragraphs always wrap, with no horizontal scrollbar, whatever the wrap preference. lgse/strata#1834
+- Selecting a local `.odt` or `.ott` file shows its rendered document with no Source view, instead of "No preview for this selection". lgse/strata#1834
+- An uppercase `REPORT.ODT` or `REPORT.OTT` renders the same way. lgse/strata#1834 (unverified)
+- An ODT copied without an extension, which GIO types `application/vnd.oasis.opendocument.text`, also renders. lgse/strata#1834 (unverified)
+- ODT renders `text:h` headings at their outline level, and paragraphs styled `Title`, `Subtitle`, or `Heading N` as headings. lgse/strata#1834
+- An ODT outline level above 6 renders as a level-6 heading; `Title` renders at level 1 and `Subtitle` at level 2. lgse/strata#1834 (unverified)
+- ODT paragraphs styled `Quotations`, `Quote`, or `Intense Quote` render as quotations. lgse/strata#1834
+- Consecutive ODT `Preformatted Text` paragraphs render as one code block that keeps their indentation. lgse/strata#1834
+- That code block drops bold, italic, and other inline formatting. lgse/strata#1834 (unverified)
+- ODT bold, italic, underline, strikethrough, and `Source Text` or `Teletype` monospace render from automatic styles, named styles, and their parents. lgse/strata#1834
+- Emphasis set on a whole paragraph's style renders on plain and quotation paragraphs. lgse/strata#1834
+- Paragraph-style emphasis is ignored on headings and preformatted text; table cells keep it. lgse/strata#1834 (unverified)
+- In ODT, `http` and `https` links are clickable outside `Preformatted Text`. Links inside it, and links with other schemes, keep only their text. lgse/strata#1834 (unverified)
+- ODT nested bulleted and numbered lists keep their nesting; lists deeper than eight levels continue at the eighth. lgse/strata#1834
+- The first row of an ODT table's `table:table-header-rows` group becomes the column titles. Later header rows stay in the table as bold, sortable rows. A merged cell leaves an empty cell so the columns stay aligned. lgse/strata#1834 (unverified)
+- An ODT table cell joins its paragraphs with a space, and a nested table's or list's text flattens into the cell. lgse/strata#1834
+- An ODT table row over 256 cells (`TABLE_COLUMN_LIMIT`) truncates the document with the size-budget notice instead of falling back to Source. lgse/strata#1834 (unverified)
+- In ODT, `text:line-break` renders as a line break, and `text:list-header` as a list item. lgse/strata#1834 (unverified)
+- A heading inside an ODT table cell renders as cell text, not a heading; its style's emphasis still applies. lgse/strata#1834 (unverified)
+- An ODT table without a header-row group shows "Column 1", "Column 2", and onward as titles, where DOCX would use its first row. lgse/strata#1834 (unverified)
+- ODT images, drawings, text boxes, footnotes, comments, tracked deletions, headers, and footers are omitted. lgse/strata#1834
+- Omitted ODT content shows no omission notice. lgse/strata#1834 (unverified)
+- An ODT over the parser's size or event budget renders only its start. It shows "Document preview reached its size budget; open the file to see all content." lgse/strata#1834
 
 ## Design
 
-[docs/document-previews.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/document-previews.md) is the maintained contract for formats, limits, tables, and the trust boundary.
+[docs/document-previews.md](https://github.com/lgse/strata/blob/2218357c2e91c0c3e6cd02638356f7a91c08bcae/docs/document-previews.md) is the maintained contract for formats, limits, tables, and the trust boundary.
 
 - HTML must not turn the preview into a browser. A native renderer for a documented subset was chosen over Chromium, Electron, WebKitGTK, or external converters (lgse/strata#89).
 - Markdown, HTML, RTF, CSV, and TSV are parsed in-process by pure-Rust parsers off the GTK thread. They see only the bounded source string and emit escaped Pango markup (lgse/strata#187).
@@ -114,9 +135,13 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Unwrapped source rows already widened to their text, but rendered rows only got a height and clipped at the pane edge. Unwrapped rendered rows now widen to their longest line (lgse/strata#1610, lgse/strata#1612).
 - Wrap toggles remeasure rows after GTK has re-laid them out, because measuring right after `set_wrap_mode` returned the previous mode's height (lgse/strata#1612).
 - Virtual rows cannot take native input, so word, line, and Shift selection is computed in the document model. The selector had ignored click count and modifiers (lgse/strata#1557).
-- One table renderer serves CSV, TSV, workbooks, Markdown, HTML, and DOCX tables, replacing the 200-row capped grid (lgse/strata#723, lgse/strata#729).
+- One table renderer serves CSV, TSV, workbooks, Markdown, HTML, DOCX, and ODT tables, replacing the 200-row capped grid (lgse/strata#723, lgse/strata#729, lgse/strata#1834).
 - Images are opened beneath the document directory, copied to private files, and decoded in the sandbox. Mermaid uses `mermaid-svg`; equations use pinned MathJax in QuickJS with no host bindings, as a string argument (lgse/strata#1075).
 - `mermaid-rs-renderer` was replaced by `mermaid-svg` to drop the unmaintained `ttf-parser` (lgse/strata#1074).
+- ODT has its own streaming `quick-xml` reader, which reads only `content.xml` and `styles.xml` in the sandbox under the same 20 MiB limit (lgse/strata#1813, lgse/strata#1834).
+- That reader emits the DOCX HTML subset, so the HTML parser, layout, and size notice are shared with DOCX (lgse/strata#1834).
+- LibreOffice headless conversion was rejected as too slow and a heavy dependency; the embedded thumbnail alone shows only the first page (lgse/strata#1813).
+- Word processors store each paragraph as one line, so unwrapped DOCX and ODT showed one line per paragraph behind a horizontal scrollbar. Both now always wrap; workbook tables keep their layout (lgse/strata#1834).
 - RTF uses a hand-written converter, because `rtf-parser` 0.4.3 dropped `\par`, mis-decoded `\'93`, and corrupted `\uN` fallbacks (lgse/strata#1086).
 - At most 16 media items are kept per preview and four render at once in the pooled preview worker (lgse/strata#1075, lgse/strata#1222).
 
@@ -135,7 +160,11 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 ## Known gaps
 
 - Workbooks preview only their first worksheet; multi-sheet navigation was deferred. lgse/strata#723
-- PPTX, PPT, ODP, DOC, and ODT files have no rendered preview. lgse/strata#730, lgse/strata#244
+- PPTX, PPT, ODP, and DOC files have no rendered preview. lgse/strata#730, lgse/strata#244
+- ODT images from `Pictures/` and the `Thumbnails/thumbnail.png` fallback for unreadable files are not shown. lgse/strata#1834, lgse/strata#1813
+- Flat XML `.fodt` documents have no rendered preview. lgse/strata#1834
+- Rendered documents break paragraphs over 2 KiB mid-word, which now shows in every long DOCX or ODT paragraph. lgse/strata#1861
+- RTF emoji written as surrogate-pair `\uN` escapes are dropped. lgse/strata#1861
 - Markdown cannot be edited or rendered with Pandoc or Quarto from the preview. lgse/strata#1127
 - A touchpad flick can end early when newly measured rows change the scroll range or content origin. lgse/strata#1752
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752

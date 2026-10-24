@@ -3,7 +3,7 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/pdf_text.rs, src/ui/preview/components.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/archive_cover.rs]
 tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/qa/scenarios/preview_media_layout]
@@ -27,18 +27,22 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
 - A local binary file named `.json` or `.md` whose bytes match no previewable type shows "No visual preview" instead of text. lgse/strata#1638
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
+- A local file named `.odt` or `.ott` holding text also previews as text. lgse/strata#1834 (unverified)
 - An SVG previews as an image although its bytes are text. lgse/strata#1638
 - Local `app.ts`, `Component.tsx`, and `module.mts` files holding TypeScript preview as highlighted source, whatever the installed MIME database says. lgse/strata#1638, lgse/strata#1631
 - A local file with an unsupported binary type previews as text when its first 8 KiB look like text. Workbook, 3D model, CBZ, CBR, and EPUB names still route by extension. lgse/strata#1638 (unverified)
 - Remote files are not sampled; an uncertain name takes the content type the location reports, otherwise the name decides. lgse/strata#1638 (unverified)
 - On remote locations, PDFs, GIF images, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
-- 3D models, comic covers, workbooks, and DOCX preview only from local files. lgse/strata#1276, lgse/strata#1325 (unverified)
+- 3D models, comic covers, workbooks, DOCX, ODT, and OTT preview only from local files. lgse/strata#1276, lgse/strata#1325, lgse/strata#1834 (unverified)
+- Selecting a remote XLS, XLSX, ODS, DOCX, ODT, or OTT file shows "No preview for this selection". Its context menu has no Quick preview item. lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
+- A remote file whose name does not reveal its type, but whose content type does, shows "Copy this file locally before previewing it". lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
 
 ### Text
 
 - Text previews show at most the first 1 MiB of the file. lgse/strata#89
 - A text file starting with a UTF-16 LE or BE byte-order mark previews as decoded text. lgse/strata#1638
 - **Toggle word wrap** in the header wraps text previews; the choice defaults to off, applies in every open window, and survives restart. lgse/strata#921
+- Rendered DOCX, ODT, OTT, and workbook previews hide **Toggle word wrap**. lgse/strata#1086, lgse/strata#1834 (unverified)
 - Text with a recognized language, or plain text within 128 KiB, 512 lines, and 2 KiB per line, opens in a source view. lgse/strata#187, lgse/strata#762
 - That source view shows a caret. lgse/strata#1559, lgse/strata#1557
 - In that source view, Shift+arrow keys select text and Ctrl+C copies it; the file stays read-only. lgse/strata#1559, lgse/strata#1557
@@ -106,7 +110,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 ## Design
 
-[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preview-sandbox.md) documents the providers, the remote still-image boundary, and model limits. Children inherit it.
+[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/2218357c2e91c0c3e6cd02638356f7a91c08bcae/docs/preview-sandbox.md) documents the providers, the remote still-image boundary, and model limits. Children inherit it.
 
 - Every browsed file is untrusted. Native parsing runs in the sandbox, and only bounded PNG, text, or validated JSON reaches the drawer (lgse/strata#6).
 - Eligibility is guessed from the name so listing stays cheap. An uncertain guess defers to the loader, which queries the content type of the one previewed file; listing and sorting stay name-only (lgse/strata#964).
@@ -115,7 +119,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
 - PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
-- Models, PDFs, workbooks, and DOCX share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
+- Models, PDFs, workbooks, DOCX, and ODT share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276, lgse/strata#1834). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
 - A hidden caret in a read-only GtkSourceView disables native Shift+arrow selection, so source previews show the caret and stay non-editable (lgse/strata#1557).
 - PDF zoom reset skips the view-center correction, because the list view re-anchors the visible page itself; correcting it jumped to page 1 (lgse/strata#1622).
 - Ctrl+0 on a focused PDF is consumed even at fitted width, so a reset meant for the page never resets the saved text size (lgse/strata#1622).
@@ -130,6 +134,7 @@ The drawer beside the file views that shows the selected file's contents: text, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-24 | lgse/strata#1834 | feat | Rendered ODT and OTT documents with a sandboxed `quick-xml` reader feeding the DOCX HTML path, and always wrapped DOCX and ODT paragraphs. |
 | 2026-10-20 | lgse/strata#1752 | fix | Tracked document preview scrollbars in document positions so held, dragged, and touchpad-scrolled thumbs stop jumping; deferred hidden rendered rows and cut source and table overhead. |
 | 2026-10-20 | lgse/strata#1764 | refactor | Shared the media preview header, navigation, badges, and layout; Next now turns the model camera clockwise and mesh details show during the first render. |
 | 2026-10-18 | lgse/strata#1644 | feat | Added four camera views, an orbit indicator, and mesh badges to rendered STL and 3MF previews, so every side of a model can be seen. |
@@ -153,4 +158,5 @@ The drawer beside the file views that shows the selected file's contents: text, 
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
 - Each first visit to a camera view rereads and reparses the mesh before a full CPU render; parsed meshes are not retained. lgse/strata#1644
+- A bare `.h264` stream shows "No visual preview" on systems such as Arch, whose MIME database types it `application/octet-stream`. lgse/strata#1861, lgse/strata#1333
 - With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

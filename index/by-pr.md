@@ -6,6 +6,9 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
+| [lgse/strata#1838](https://github.com/lgse/strata/issues/1838) | 2026-10-24 | feat | [Packaging and installation](../features/app/packaging/index.md) | Put the colored logo on a dark rounded gradient tile so the icon reads on light and dark docks. |
+| [lgse/strata#1834](https://github.com/lgse/strata/issues/1834) | 2026-10-24 | feat | [Preview panel](../features/preview/preview-panel/index.md) | Rendered ODT and OTT documents with a sandboxed `quick-xml` reader feeding the DOCX HTML path, and always wrapped DOCX and ODT paragraphs. |
+| [lgse/strata#1830](https://github.com/lgse/strata/issues/1830) | 2026-10-23 | fix | [Custom actions](../features/integration/custom-actions.md) | Moved the Actions run directory out of the shared temp directory when `XDG_RUNTIME_DIR` is unset, closing a cross-user substitution risk. |
 | [lgse/strata#1827](https://github.com/lgse/strata/issues/1827) | 2026-10-23 | feat | [Window chrome and structure](../features/app/window.md) | Titled each browser window after its active tab's folder, so taskbars and switchers can tell windows apart. |
 | [lgse/strata#1825](https://github.com/lgse/strata/issues/1825) | 2026-10-23 | feat | [Release installer](../features/app/packaging/installer.md) | Verified releases through the signed update manifest instead of `gh`, and installed every supported integration by default with `--without-*` flags. |
 | [lgse/strata#1811](https://github.com/lgse/strata/issues/1811) | 2026-10-23 | fix | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | Re-exec'd service-activated Strata without GTK portals to stop a 25 s FileManager1 stall, and restored `GDK_DEBUG` for launched programs. |

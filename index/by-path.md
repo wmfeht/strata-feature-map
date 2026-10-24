@@ -390,6 +390,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
+| `src/services/odt.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/odt/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/package_manager.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/services/package_manager/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/services/path_match.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -833,6 +835,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/util/ui_thread.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/util/ui_thread/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/container/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/fixtures/documents/report.docx` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/fixtures/documents/report.odt` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/fixtures/harness.json` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/rar/**` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `tests/fixtures/spreadsheets` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
