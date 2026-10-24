@@ -3,10 +3,10 @@ title: Pointer intent
 status: shipped
 origin: {issue: lgse/strata#517, pr: lgse/strata#522}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/pointer.rs]
-tests: [src/ui/pointer/**, tests/e2e/scenarios/test_pointer_intent.py]
+tests: [src/ui/pointer/**, tests/qa/scenarios/pointer_intent]
 related: [operations/drag-and-drop, preview/preview-panel, operations/rename]
 ---
 

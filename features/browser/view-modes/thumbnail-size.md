@@ -3,10 +3,10 @@ title: Thumbnail size shortcuts
 status: shipped
 origin: {issue: lgse/strata#1720, pr: lgse/strata#1721}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/browser_modes/thumbnail_size.rs]
-tests: [src/ui/browser_modes/thumbnail_size/tests.rs, src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs, tests/e2e/scenarios/test_thumbnail_size.py]
+tests: [src/ui/browser_modes/thumbnail_size/tests.rs, src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs]
 docs: [docs/preferences.md, docs/10xer-mode.md]
 related: [browser/view-modes/icons, browser/view-modes/folder-views, browser/view-modes/text-size, integration/10xer-mode, integration/portal-file-chooser, app/shortcut-reference, operations/progress/dock]
 ---

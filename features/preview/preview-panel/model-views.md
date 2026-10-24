@@ -3,16 +3,16 @@ title: Model camera views
 status: shipped
 origin: {issue: lgse/strata#1633, pr: lgse/strata#1644}
 branch: null
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/preview/model.rs, src/sandbox/model.rs]
-tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, tests/e2e/scenarios/test_quick_preview.py]
+tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, tests/qa/scenarios/quick_preview]
 related: [preview/preview-panel/media/video, preview/preview-panel/layout, preview/quick-preview, settings/themes]
 ---
 
 ## Summary
 
-Camera controls and mesh details for rendered STL and 3MF previews in the drawer and Quick Preview. Users step through four preset views around the model, guided by a top-down orbit indicator, with format and triangle-count badges.
+Camera controls and mesh details for rendered STL and 3MF previews in the drawer and Quick Preview. Users step through four preset views around the model, guided by a top-down orbit indicator, with format and triangle-count badges. It also owns how a cancelled background STL thumbnail render is reaped.
 
 ## Behavior
 
@@ -49,6 +49,12 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - After the first image, a failed view render or image decode keeps the previous image and shows an error under the controls; the buttons retry. lgse/strata#1644, lgse/strata#1764
 - A first load that fails shows "Preview unavailable" and its error in the drawer, with no camera controls. lgse/strata#1764
 
+### Background thumbnail renders
+
+- Cancelling a background STL thumbnail render, or passing its 12 s wall deadline, sends SIGKILL to the helper. The thumbnail worker and STL slot free without waiting for the helper to exit. lgse/strata#1789
+- A background STL thumbnail render whose helper cannot be monitored is killed and freed the same way. lgse/strata#1789 (unverified)
+- A detached waiter then reaps the helper. The helper's private output and file-operation hold stay alive until reaping and namespace cleanup finish. lgse/strata#1789
+
 ### Details
 
 - A badge row above the controls shows "Binary STL", "ASCII STL", or "3MF", and a count such as "1 triangle" or "N triangles". lgse/strata#1644
@@ -68,6 +74,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - A header spinner replaced a loading card over the model. The buttons stay sensitive during view renders so focus and the keyboard-owner bar survive a render (lgse/strata#1644). They stay insensitive until the first image exists (lgse/strata#1764).
 - A centred progress card returned for the first load, then was removed again because it flashed for small models. The header spinner carries the stage in its accessible label (lgse/strata#1764).
 - Model badges take their own badge area in the shared player layout instead of the video timeline slot (lgse/strata#1764).
+- Background STL thumbnail renders do not wait for a killed helper to be reaped. Otherwise a helper stuck in uninterruptible I/O on NFS, sshfs, or FUSE would hold the STL slot, a heavy slot, and a worker indefinitely. A brief overlap of two helpers was judged acceptable. Interactive Quick Preview keeps waiting for the helper to exit (lgse/strata#1789).
 - The sandbox boundary rejects a mesh result that does not identify the requested view, so a stale render cannot show under the wrong camera. It also rejects a format mismatch, 0 triangles, more than 2 million, or an STL without mesh details (lgse/strata#1644).
 
 ## History
@@ -77,4 +84,4 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ## Known gaps
 
-None known.
+- A killed STL thumbnail helper stuck in kernel I/O can overlap a later render until the kernel lets it exit. lgse/strata#1789

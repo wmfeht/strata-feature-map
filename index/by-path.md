@@ -6,14 +6,20 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 
 | Path | Kind | Node | Ancestors |
 | --- | --- | --- | --- |
+| `.agents/skills` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `.claude/skills` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `.cursor/CLOUD.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `.dockerignore` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `.github/ISSUE_TEMPLATE/bug_report.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `.github/workflows/ci.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `.github/workflows/e2e-cache.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `.github/workflows/e2e.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `.github/workflows/integrations.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `.github/workflows/packaging.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `.github/workflows/publish-aur.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
+| `.github/workflows/release.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `.github/workflows/test-image.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `.gitignore` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `AGENTS.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `CONTRIBUTING.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `Cargo.lock` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `Cargo.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `README.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -33,7 +39,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/icons/scalable/actions/strata-stethoscope.svg` | code | [Diagnostics](../features/settings/diagnostics.md) | — |
 | `data/icons/scalable/actions/strata-video.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/apps/io.github.lgse.Strata.svg` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
-| `data/io.github.lgse.Strata.FileManager1.service` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
+| `data/io.github.lgse.Strata.FileManager1.service` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `data/io.github.lgse.Strata.desktop` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `data/licenses` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/locales/counts.json` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -67,22 +73,26 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete.md) | — |
 | `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/catppuccin_icons.py` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `scripts/e2e-mutation-check.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `scripts/e2e-native.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `scripts/e2e.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/check.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/fslab/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `scripts/headless/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/image_*.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/installer_messages.py` | code | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/integration_tests.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/lib/qa-container.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/qa*.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/qa_*.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/quality.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/quality_ci.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/sftp-fixture.sh` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `scripts/sign_update_manifest.py` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `scripts/test-headless.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_benchmark_scroll.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `scripts/test_e2e_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_headless_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_image_*.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_installer.py` | tests | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/test_integration_tests.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_qa_*.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_quality_ci.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_quality_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_sign_update_manifest.py` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
@@ -96,8 +106,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/directory_summary/**` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/adapters/directory_validation.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/adapters/directory_validation/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
-| `src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
+| `src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
+| `src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `src/adapters/gio_close.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/gio_close/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/gio_location.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -263,6 +273,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/assets/vector/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/child_environment.rs` | code | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
+| `src/child_environment/tests.rs` | tests | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
 | `src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -295,6 +307,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/portal_setup/tests.rs` | tests | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/portal_setup/udiskie.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/portal_setup/udiskie/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/qa.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/qa/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/qa/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/qa/tests/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/rar_extraction.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `src/rar_extraction/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `src/sandbox.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -422,6 +438,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/trusted_command.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/trusted_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/accessibility.rs` | code | [Accessibility](../features/app/accessibility.md) | — |
+| `src/ui/accessibility/qa.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/accessibility/tests.rs` | tests | [Accessibility](../features/app/accessibility.md) | — |
 | `src/ui/actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/ui/blur.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
@@ -523,6 +540,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/document_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/enter_target.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/enter_target/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers.rs` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -738,6 +757,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/composition/tabs.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tabs/**` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tabs/tests.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `src/ui/window/composition/tabs/tests/reopen.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/composition/tenxer_splash.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/composition/tenxer_splash/tests.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/density_slider.rs` | code | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -812,88 +832,99 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/util/tests.rs` | tests | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/util/ui_thread.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/util/ui_thread/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/e2e/Dockerfile` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/e2e/baselines/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/e2e/conftest.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/e2e/fixtures/file_drag_source.py` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `tests/e2e/harness/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/e2e/main-io-allowlist.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/e2e/mutations/clipboard.patch` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `tests/e2e/mutations/drag-and-drop.patch` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/e2e/mutations/filter-results.patch` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `tests/e2e/mutations/popover-scrolling.patch` | tests | [Scrolling](../features/browser/scrolling.md) | — |
-| `tests/e2e/mutations/preview-scrollbar.patch` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/mutations/quick-preview.patch` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
-| `tests/e2e/mutations/rename-caret.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/e2e/mutations/view-switching.patch` | tests | [View modes](../features/browser/view-modes/index.md) | — |
-| `tests/e2e/scenarios/test_accessibility.py` | tests | [Accessibility](../features/app/accessibility.md) | — |
-| `tests/e2e/scenarios/test_archive_activation.py` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `tests/e2e/scenarios/test_archive_conflicts.py` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `tests/e2e/scenarios/test_archive_errors.py` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `tests/e2e/scenarios/test_archive_preview.py` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
-| `tests/e2e/scenarios/test_archive_reveal.py` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `tests/e2e/scenarios/test_background_selection.py` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `tests/e2e/scenarios/test_browser_workers.py` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `tests/e2e/scenarios/test_chooser_image_conversion.py` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `tests/e2e/scenarios/test_chooser_selection.py` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
-| `tests/e2e/scenarios/test_click_modes.py` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
-| `tests/e2e/scenarios/test_clipboard.py` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `tests/e2e/scenarios/test_column_background.py` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
-| `tests/e2e/scenarios/test_column_headers.py` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
-| `tests/e2e/scenarios/test_copy_conflicts.py` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `tests/e2e/scenarios/test_created_entry_columns.py` | tests | [New Folder and New File](../features/operations/create.md) | — |
-| `tests/e2e/scenarios/test_cross_volume_drop.py` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `tests/e2e/scenarios/test_custom_actions.py` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
-| `tests/e2e/scenarios/test_dialogs_and_menus.py` | tests | [Window chrome and structure](../features/app/window.md) | — |
-| `tests/e2e/scenarios/test_drag_and_drop.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/e2e/scenarios/test_drag_animation.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/e2e/scenarios/test_entry_management.py` | tests | [New Folder and New File](../features/operations/create.md) | — |
-| `tests/e2e/scenarios/test_escape_selection.py` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `tests/e2e/scenarios/test_file_manager_interface.py` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface.md) | — |
-| `tests/e2e/scenarios/test_file_providers.py` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `tests/e2e/scenarios/test_filter_results.py` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `tests/e2e/scenarios/test_inline_renaming.py` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/e2e/scenarios/test_integrations.py` | tests | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `tests/e2e/scenarios/test_kdeconnect_provider.py` | tests | [KDE Connect integration](../features/remote/file-providers/kde-connect.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `tests/e2e/scenarios/test_keyboard_navigation.py` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
-| `tests/e2e/scenarios/test_locations.py` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
-| `tests/e2e/scenarios/test_marquee_scrolling.py` | tests | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
-| `tests/e2e/scenarios/test_monitor_selection.py` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `tests/e2e/scenarios/test_open_with.py` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
-| `tests/e2e/scenarios/test_pointer_intent.py` | tests | [Pointer intent](../features/browser/selection/pointer-intent.md) | [Selection](../features/browser/selection/index.md) |
-| `tests/e2e/scenarios/test_popover_scrolling.py` | tests | [Scrolling](../features/browser/scrolling.md) | — |
-| `tests/e2e/scenarios/test_preferences.py` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `tests/e2e/scenarios/test_preselected_hover.py` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `tests/e2e/scenarios/test_preview_media_controls.py` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/scenarios/test_preview_media_layout.py` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `tests/e2e/scenarios/test_preview_session.py` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/scenarios/test_preview_video.py` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/scenarios/test_properties_media.py` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `tests/e2e/scenarios/test_properties_size.py` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `tests/e2e/scenarios/test_quick_preview.py` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/scenarios/test_quick_preview.py` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/scenarios/test_quick_preview.py` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/scenarios/test_quick_preview.py` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/e2e/scenarios/test_quick_preview.py` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
-| `tests/e2e/scenarios/test_recent.py` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
-| `tests/e2e/scenarios/test_rename_visibility.py` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/e2e/scenarios/test_search_filter_sort.py` | tests | [Search](../features/browser/search/index.md) | — |
-| `tests/e2e/scenarios/test_selection.py` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `tests/e2e/scenarios/test_settings_search.py` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
-| `tests/e2e/scenarios/test_sidebar_file_drops.py` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/e2e/scenarios/test_sidebar_pinning.py` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `tests/e2e/scenarios/test_sidebar_reordering.py` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
-| `tests/e2e/scenarios/test_startup_arguments.py` | tests | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |
-| `tests/e2e/scenarios/test_tabs.py` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
-| `tests/e2e/scenarios/test_terminal.py` | tests | [Open in Terminal](../features/integration/open-with/terminal.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
-| `tests/e2e/scenarios/test_text_size.py` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
-| `tests/e2e/scenarios/test_thumbnail_size.py` | tests | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
-| `tests/e2e/scenarios/test_thumbnail_worker_settings.py` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `tests/e2e/scenarios/test_view_switching.py` | tests | [View modes](../features/browser/view-modes/index.md) | — |
-| `tests/e2e/scenarios/test_view_switching.py` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
-| `tests/e2e/unit/test_harness.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `tests/e2e/unit/test_keyboard_layout.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/container/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/fixtures/harness.json` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/rar/**` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `tests/fixtures/spreadsheets` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/qa/*.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/qa/baselines/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/qa/fixtures/content-encrypted.7z` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `tests/qa/fixtures/file_drag_source.py` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/foreign_drag_source.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/qa/main-io-allowlist.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `tests/qa/mutations/click-mode-preference.patch` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/mutations/click-modes.patch` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/mutations/clipboard.patch` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `tests/qa/mutations/cut.patch` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `tests/qa/mutations/drag-and-drop.patch` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/mutations/filter-results.patch` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/mutations/keep-both.patch` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `tests/qa/mutations/keyboard-navigation.patch` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/mutations/location-entry.patch` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/mutations/new-entry-collision.patch` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/mutations/popover-scrolling.patch` | tests | [Scrolling](../features/browser/scrolling.md) | — |
+| `tests/qa/mutations/quick-preview.patch` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/mutations/rename-caret.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/mutations/rename-click-away.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/mutations/rename-enter.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/mutations/rename-error-dialog.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/mutations/rename-escape.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/mutations/shift-click-range.patch` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `tests/qa/mutations/stl-thumbnails-live-preference.patch` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
+| `tests/qa/mutations/trash.patch` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `tests/qa/mutations/view-switching.patch` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `tests/qa/scenarios/accessibility` | tests | [Accessibility](../features/app/accessibility.md) | — |
+| `tests/qa/scenarios/archive_activation` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `tests/qa/scenarios/archive_conflicts` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `tests/qa/scenarios/archive_errors` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `tests/qa/scenarios/archive_preview` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `tests/qa/scenarios/archive_reveal` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `tests/qa/scenarios/background_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `tests/qa/scenarios/browser_workers` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `tests/qa/scenarios/chooser_image_conversion/**` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `tests/qa/scenarios/chooser_selection/**` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/click_modes` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/clipboard` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `tests/qa/scenarios/column_background` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/copy_conflicts` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `tests/qa/scenarios/created_entry_columns` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/cross_volume_drop` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `tests/qa/scenarios/custom_actions/**` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus` | tests | [Window chrome and structure](../features/app/window.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_animation` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/entry_management` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/escape_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
+| `tests/qa/scenarios/file_providers` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `tests/qa/scenarios/filter_results` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/hidden_files` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `tests/qa/scenarios/inline_renaming` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/keyboard_navigation` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/locations` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/marquee_scrolling` | tests | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/monitor_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `tests/qa/scenarios/open_with/**` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
+| `tests/qa/scenarios/pointer_intent` | tests | [Pointer intent](../features/browser/selection/pointer-intent.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/popover_scrolling` | tests | [Scrolling](../features/browser/scrolling.md) | — |
+| `tests/qa/scenarios/preferences` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `tests/qa/scenarios/preview_media_layout` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `tests/qa/scenarios/preview_session` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/preview_video` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/properties_media` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `tests/qa/scenarios/properties_size` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `tests/qa/scenarios/quick_preview` | tests | [Rendered document previews](../features/preview/preview-panel/documents.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/recent` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/rename_visibility` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/search_filter_sort` | tests | [Search](../features/browser/search/index.md) | — |
+| `tests/qa/scenarios/selection` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `tests/qa/scenarios/sidebar_file_drops` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/sidebar_pinning` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/scenarios/sidebar_reordering` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `tests/qa/scenarios/startup_arguments` | tests | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/tabs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `tests/qa/scenarios/terminal/**` | tests | [Open in Terminal](../features/integration/open-with/terminal.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
+| `tests/qa/scenarios/text_size` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/thumbnail_worker_settings` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `tests/qa/scenarios/view_switching` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `tests/qa/scenarios/view_switching` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/visual_baselines` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `typos.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |

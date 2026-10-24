@@ -3,7 +3,7 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
@@ -59,7 +59,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 
 ## Design
 
-- Replacement is opt-in and reversible. Setup keeps the previous backends listed after `strata` and records enough state to undo only its own edits (lgse/strata#175).
+- Replacement is reversible. Settings and the CLI install it only on request; since lgse/strata#1825 the installer installs it by default. Setup keeps the previous backends listed after `strata` and records enough state to undo only its own edits (lgse/strata#175).
 - The D-Bus service runs whatever path it names, so the executable path must be trusted and must parse without shell quoting (lgse/strata#175).
 - Portal selection happens before a request reaches Strata. The fallback backends cover a missing Strata install, not a crash mid-request (lgse/strata#175).
 - Open and Save dialogs, folder opening, and Reveal are separate XDG mechanisms. Users enabling the chooser expected Reveal to follow (lgse/strata#632).

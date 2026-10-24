@@ -3,10 +3,10 @@ title: KDE Connect integration
 status: shipped
 origin: {issue: lgse/strata#1703, pr: lgse/strata#1704}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [integrations/kdeconnect/provider.py, integrations/kdeconnect/messages.json, integrations/kdeconnect/catalog.toml, integrations/kdeconnect/LICENSE]
-tests: [integrations/kdeconnect/tests, tests/e2e/scenarios/test_kdeconnect_provider.py]
+tests: [integrations/kdeconnect/tests]
 docs: [integrations/kdeconnect/README.md]
 related: [remote/file-providers/external, remote/file-providers/integrations, operations/clipboard/send-to]
 ---

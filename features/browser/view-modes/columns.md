@@ -3,10 +3,10 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
-tests: [src/ui/browser/columns/tests.rs, tests/e2e/scenarios/test_column_headers.py, tests/e2e/scenarios/test_column_background.py]
+tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
 related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences]
 ---
@@ -45,6 +45,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - In a column with no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
+- With Mirror columns selection on, Return on a folder still validating when the 75 ms mirror fires opens it in the next column. Focus lands on its first entry. lgse/strata#1771 (unverified)
 
 ### Returning to an ancestor
 
@@ -67,6 +68,12 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
 - A dialog, popover, or focused filter field that opens before a rebuilt column's deferred refocus keeps keyboard focus. lgse/strata#1430, lgse/strata#1441, lgse/strata#1533
+
+### Filter field
+
+- Enter in a column's filter field with no pick since the last query edit opens the top result. lgse/strata#1822
+- Down from a column's filter field selects the outlined top result and makes it the pick. lgse/strata#1822 (unverified)
+- Right in a column's filter field with no selected result moves the caret; it does not open the top result. lgse/strata#1822 (unverified)
 
 ### Open-path marker
 

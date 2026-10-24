@@ -3,10 +3,10 @@ title: Properties dialog
 status: shipped
 origin: {issue: lgse/strata#71, pr: lgse/strata#243}
 branch: null
-reviewed_at: 0562724ad97c8e83a4c81b85e556bf275be3b025
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/browser/properties.rs]
-tests: []
+tests: [tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl, tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl]
 docs: []
 related: [browser/sidebar, operations/rename, integration/open-with, settings/preferences/date-format]
 ---
@@ -57,7 +57,9 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - Files, Trash locations, and standard places always in the sidebar show no Pin or Unpin action. lgse/strata#457
 - Rename is hidden for Trash locations. lgse/strata#499 (unverified)
 - Open opens the item and closes the dialog. lgse/strata#1012 (unverified)
-- Copy path copies the shell-escaped native path with a trailing `/`, even for a file such as `/home/u/a.txt/`, and relabels the button "Copied". A non-native location copies its display path without the `/`. lgse/strata#230 (unverified)
+- Copy path copies a file's shell-escaped native path with no trailing `/`, such as `/tmp/report.txt`, and a folder's with one. lgse/strata#230, lgse/strata#1805
+- After Copy path, the button reads "Copied". lgse/strata#230 (unverified)
+- A non-native location copies its display path without a trailing `/`. lgse/strata#230 (unverified)
 - In the portal file chooser, closing Properties leaves the chooser open with the selection kept. lgse/strata#175
 - In the portal file chooser, Properties omits Open and Pin. lgse/strata#175 (unverified)
 
@@ -76,6 +78,7 @@ The dialog is a modal layer over the blurred window, built once and filled in by
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-22 | lgse/strata#1805 | fix | Copy path in Properties stopped adding a trailing slash to file paths, matching the context-menu action. |
 | 2026-10-10 | lgse/strata#1544 | fix | Exposed permission bits as named toggle buttons whose pressed state follows the requested mode. |
 | 2026-09-04 | lgse/strata#243 | feat | Made the permission grid editable and added an execute checkbox for files. |
 

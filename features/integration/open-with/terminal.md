@@ -3,10 +3,10 @@ title: Open in Terminal
 status: shipped
 origin: {issue: lgse/strata#160, pr: lgse/strata#161}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 review: draft
 code: [src/ui/terminal.rs]
-tests: [src/ui/terminal/tests.rs, tests/e2e/scenarios/test_terminal.py]
+tests: [src/ui/terminal/tests.rs, tests/qa/scenarios/terminal/**]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [integration/10xer-mode, browser/tabs, app/updates]
 ---

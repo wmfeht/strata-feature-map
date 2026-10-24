@@ -1,8 +1,8 @@
 ---
 title: Browser sweep
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
-tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/e2e/mutations, tests/e2e/harness/keyboard_layout.py, tests/e2e/fixtures/file_drag_source.py]
+tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
 
 ## Scope
@@ -20,9 +20,9 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
 - Type to search on and off per probe: it changes what `h`, `j`, `k`, `l`, `p`, `/`, and plain letters do. `docs/keyboard-navigation.md` holds the key rules and `docs/preferences.md` the setting keys.
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
-- Keyboard layouts set with `setxkbmap` for layout probes: `us,ru`, `ru`, `fr`, `de`, `ch` (Swiss German), `cz`, `is`, and `us` with variant `dvorak`. `docs/keyboard-shortcuts.md` holds the matching rules; `tests/e2e/harness/keyboard_layout.py` names the layouts the E2E suite covers.
+- Keyboard layouts set with `setxkbmap` for layout probes: `us,ru`, `ru`, `fr`, `de`, `ch` (Swiss German), `cz`, `is`, and `us` with variant `dvorak`. `docs/keyboard-shortcuts.md` holds the matching rules. The QA scenarios cover only the `us`, `ru`, `ru-only`, `fr`, and `de` layouts and the `caps-lock` and `cn-altgr-pinyin` layout entries in `tests/fixtures/harness.json`. So `ch`, `cz`, `is`, and `dvorak` are manual only. `docs/testing.md` "Keyboard layouts" explains the switch.
 - fcitx5 with pinyin under `GTK_IM_MODULE=fcitx` on X11 for input-method probes.
-- Foreign drags for pin probes: Nautilus or Dolphin, and `tests/e2e/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
+- Foreign drags for pin probes: Nautilus or Dolphin, and `tests/qa/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
@@ -31,7 +31,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
 - Network mounts for change-check and stalled-mount probes: NFSv3 and NFSv4.2 exports, a `cifs` SMB share, an `sshfs` mount, and a 9p or virtiofs share. Each must be writable from the server. Stall a mount by stopping its server or sending SIGSTOP to the FUSE daemon. `powerprofilesctl` switches power-saver mode.
 - Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition, a kernel exFAT partition, and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
-- `tests/e2e/mutations/` holds the `click-modes`, `filter-results`, `keyboard-navigation`, `popover-scrolling`, and `view-switching` patches; `./scripts/e2e-mutation-check.sh <name>` is evidence when those areas changed.
+- `tests/qa/mutations/` holds the `click-modes`, `click-mode-preference`, `shift-click-range`, `filter-results`, `keyboard-navigation`, `location-entry`, `popover-scrolling`, and `view-switching` patches; `./scripts/qa-mutation.sh <name>` is evidence when those areas changed.
 
 ## Probes
 
@@ -98,6 +98,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 - Open `deep` to 20 columns, click a title eight columns back, press Escape twice, then Backspace; count the columns after each step.
 - Hold Down across a folder, a PDF, and a plain file with single-click previews on; time the child column against 75 ms.
+- Press Return on a folder on a stalled network mount, then on one the open turns away (`chmod 000`), with Mirror columns selection on; press Down before the open lands.
 - Drag a column edge below 300 px, autofit a column holding the 255-byte name, restart, and read `browser_column_width`.
 - Open a context menu in column 2, move the pointer to column 4, press Escape; check which header shows its actions.
 - With Mirror columns selection off, then on, press Home on a folder, End on a PDF, and Shift+Home. Then press keypad End with Num Lock on and off.
@@ -139,7 +140,9 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 - Hide the sort column with Remember per folder off, then with Group by file type on; hide it in the file chooser while a browser window sorts by it.
 - Drag Name to the last position, then press within 8 px of each heading's right edge and drag; then drag a heading 9 px and 11 px and release.
-- Drag a heading past two neighbours in one motion, then press Escape mid-drag; read `list_column_order` after each.
+- Drag a heading past two neighbours in one motion and release, then repeat and press Escape mid-drag; read `list_column_order` and the insertion line after each.
+- Drag a heading out of the heading row and back in before releasing, then drag it with Size and Type hidden. Repeat in the portal file chooser while a browser window shows List.
+- Drag Modified to the end with the List pane scrolled horizontally, and drag a heading while a folder of `100000` loads.
 - Write `list_hidden_columns = ["name", "size", "size", "bogus"]` and `list_column_order = ["type", "type"]` in settings.toml and start.
 - Hide Mode in one window while a second shows Icons and the portal file chooser shows List; return the second window to List.
 - Hide every column but Name, shrink the window to 400 px, and reset; then repeat at text size 8 and 48 with 10xer mode on and off.
@@ -286,6 +289,11 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Type `duck  txt` and `txt duck` in Columns with Include subfolders off, then in Icons and List with it on.
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
+- Type a query in `100000` in each view and read which row is outlined as batches arrive; then wheel-scroll once mid-load and keep typing.
+- Ctrl+click the top hit, then create a matching file from a shell, and edit the query.
+- Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
+- Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
+- Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
 
 ### browser/sidebar
 
@@ -338,6 +346,10 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Turn Show thumbnails off mid-load in the slow directory, then on within 200 ms while videos' durations stream into Icons captions; repeat in a folder peek and a Ctrl+K result list.
 - With Show thumbnails off, open the portal file chooser and a second window, then turn it on from Settings and scroll each.
 - Open a folder of the RAW samples with and without `dcraw` and `simple_dcraw`; compare orientation and Icons captions.
+- Turn STL model thumbnails on in a folder of 50 STL files and images, scroll, and turn it off mid-render in a second window.
+- Turn STL model thumbnails on with Show thumbnails off, then turn Show thumbnails on. Open the folder in a peek, Ctrl+K results, and the portal file chooser.
+- Open `.stl` and `.STL` files on an `smb://` share with `gvfsd-fuse`, on an sshfs mount, and in a camera library; compare with the local copy.
+- Render an ASCII STL, a zero-triangle STL, and a 127 MiB binary STL; change a rendered file's bytes and reopen the folder.
 
 ### browser/thumbnails/cache
 
@@ -350,6 +362,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Set workers to 1 in the slow directory, then 16 mid-load, and count sandbox processes with `pgrep`; kill one with SIGKILL during a scroll.
 - Set `STRATA_THUMBNAIL_WORKERS=99`, then `abc`, and `STRATA_THUMBNAIL_IDLE_SECONDS=1`; read the shown default and watch process exit.
 - Type 0, 17, `abc`, and an empty value into the Thumbnail workers spin button, pressing Return, then Tab, after each; read `thumbnail_workers` back.
+- With workers at 1 and STL thumbnails on, open a folder of 20 STL files beside a folder of PDFs in a second window. Open Quick Preview on an STL meanwhile.
+- Put an STL on an NFS or sshfs native path, stall the server mid-render, and scroll on to other STL files.
 - Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
 
 ### browser/properties
@@ -357,6 +371,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Open Properties on a file you cannot chmod, the broken symlink, and the 255-byte name. Toggle a bit, press Escape before it applies, and read AT-SPI states.
 - Press Alt+Enter with nothing selected, with the sidebar focused, and in Recent; set each date format and reread MODIFIED.
 - Copy path for a name holding `'` and a space, and for a file in `trash:///`; paste each in a shell.
+- Copy path from the empty-space Properties of the current folder, from a symlink to a folder, from a symlink to a file, and from the broken symlink.
 
 ### browser/properties/media
 
@@ -435,6 +450,12 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
 - With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
+- Close 25 tabs one by one, then press Ctrl+Shift+T 21 times; read each reopened tab's location and position.
+- Close a tab with 10xer `t` then `x` and reopen it; then reopen while the location editor is open on another tab.
+- Close a tab on an `sftp://` share, unmount it, and reopen; close a tab on `trash:///` and reopen after emptying the Trash.
+- Close tab 3 of 5, close two more tabs, reopen once, then drag tabs and reopen again.
+- Read the window title with `xprop` on `~`, `/`, `trash:///`, `network:///`, a 60-character folder, and a non-UTF-8 name, in `de` and `ja`.
+- Switch tabs with Ctrl+Tab, close the active tab, and navigate a background tab during a long copy; read the title after each.
 - With the window idle, rename a tab's folder from a shell and change text size from another window; check the underline matches the new tab bounds.
 
 ### browser/tabs/session-restore

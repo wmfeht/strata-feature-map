@@ -3,10 +3,10 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
-tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/e2e/scenarios/test_archive_activation.py, tests/e2e/scenarios/test_archive_conflicts.py, tests/e2e/scenarios/test_archive_errors.py, tests/e2e/scenarios/test_archive_reveal.py]
+tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z]
 docs: [site/src/reference/archives.md, site/src/reference/keyboard-navigation.md, docs/archives.md]
 related: [integration/10xer-mode, operations/progress, operations/trash, operations/filesystem-compatibility]
 ---
@@ -103,7 +103,9 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Where no placement step can place the output, extraction fails and the members stay in the staging folder. lgse/strata#1615 (unverified)
 - The error then ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586, lgse/strata#1615 (unverified)
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
-- A TAR whose first entry is `./` extracts its contents instead of failing. lgse/strata#494
+- A ZIP, 7Z, or TAR directory entry named `.`, `./`, or `././`, or a ZIP one named `.\`, is skipped. The other members extract instead of failing. lgse/strata#494, lgse/strata#1814
+- TAR and 7Z `.\` directory entries, and a RAR directory entry naming only the root, are skipped the same way. lgse/strata#1814 (unverified)
+- A ZIP whose only member is a file or link named `.`, or a directory `../` or `foo/../`, fails and writes nothing. The error is "Refusing empty archive path: <name>". lgse/strata#1814
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677
 - Every member of a solid 7Z archive is extracted. lgse/strata#406
 
@@ -147,11 +149,12 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 ## Design
 
-[docs/archives.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/archives.md) carries the extraction safety model, output rules, metadata handling, compression policy per format, and cancellation.
+[docs/archives.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/archives.md) carries the extraction safety model, output rules, metadata handling, compression policy per format, and cancellation.
 
 - Member paths are untrusted. Writes go through one pinned destination descriptor with `openat2` and per-component `NOFOLLOW`, so traversal names and swapped symlinks cannot escape (lgse/strata#109, lgse/strata#116).
 - The destination itself may be reached through ordinary symlinks; it is resolved with `RESOLVE_IN_ROOT` and pinned, as copy and compress already did (lgse/strata#644, lgse/strata#678).
 - `..` components are clamped at the destination instead of aborting the whole archive (lgse/strata#1189, lgse/strata#1191).
+- Directory members that name only the archive root are skipped in `ExtractionSession::extract_member`, so every decoder shares one check. File members with the same spelling still reach empty-path validation (lgse/strata#1801, lgse/strata#1814).
 - All decoders feed one `ExtractionSession` that owns conflicts, progress, cancellation, and cleanup (lgse/strata#557, lgse/strata#562).
 - Extraction stages into a hidden folder and decides single-root or bundled publication after decoding. Bundling after writing into the parent renamed members against the wrong folder and could not clean up failures (lgse/strata#1419, lgse/strata#1471).
 - Partial output is kept, not deleted: removing it would mean undoing conflict renames, and the cancel summary already says completed changes stay (lgse/strata#1419).
@@ -173,6 +176,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-22 | lgse/strata#1814 | fix | Skipped root directory markers such as ZIP's `./` for every decoder, so those archives extract instead of failing. |
 | 2026-10-20 | lgse/strata#1729 | fix | Tried every Keep Both number, set replaced archives aside in an originals folder, and removed SMB stages on cancel. |
 | 2026-10-15 | lgse/strata#1605 | fix | Dropped the pending navigation when Extract to… fails, so the next extraction stays put. |
 | 2026-10-14 | lgse/strata#1617 | fix | Numbered a taken single-root folder after its whole name, so `strata-1.0.0` becomes `strata-1.0.0 (2)`, not `strata-1.0 (2).0`. |

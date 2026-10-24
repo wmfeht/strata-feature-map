@@ -3,7 +3,7 @@ title: RAW photo details
 status: shipped
 origin: {issue: lgse/strata#1168, pr: lgse/strata#1171}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/raw_details.rs, src/sandbox/raw_metadata.rs, src/sandbox_helper/raw_metadata.rs]
 tests: [src/ui/raw_details/tests.rs, src/sandbox/raw_metadata/tests.rs, src/sandbox_helper/raw_metadata/tests.rs]

@@ -3,10 +3,10 @@ title: Click modes
 status: shipped
 origin: {issue: lgse/strata#213, pr: lgse/strata#220}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: []
-tests: [tests/e2e/scenarios/test_click_modes.py]
+tests: [tests/qa/scenarios/click_modes, tests/qa/mutations/click-modes.patch, tests/qa/mutations/click-mode-preference.patch]
 related: [preview/quick-preview, operations/rename, browser/sidebar, browser/view-modes/columns]
 ---
 

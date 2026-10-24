@@ -1,7 +1,7 @@
 ---
 title: Integration sweep
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
-tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, tests/e2e/harness/portal.py, docs/keyboard-shortcuts.md, tests/e2e/harness/keyboard_layout.py]
+reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
@@ -13,7 +13,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 ## Setup
 
 - `mise run chooser-dev`, or `scripts/portal-test.py <case> --binary target/debug/strata`, gives a private bus and backend with disposable settings. Cases: `single`, `multiple`, `directory`, `filters`, `png`, `save`, `savefiles`; `--view`, `--choices`, `--filter-count N`, `--cancel-after S`, and `--folder` vary them. The client prints the response code and URIs. Never run `--install-portal` against the VM's real session.
-- `open_file_request` in `tests/e2e/harness/portal.py` starts the backend on the E2E private bus and sends one OpenFile request, for scripted keyboard probes under pytest.
+- A scenario under `tests/qa/scenarios/<folder>/` with `session_bus` and `portal` set in its header, run with `scripts/qa.sh <name>`, serves scripted keyboard probes. `portal_open` sends one OpenFile request; `portal_response` reads the answer.
 - `python3 -m http.server 8765 --bind 127.0.0.1` over a folder of download fixtures: JPEG, BMP, static and animated WebP and GIF, APNG, a CMYK JPEG, an EXIF-rotated JPEG, a 17-megapixel JPEG, a 33 MiB BMP, a 301 redirect, and a 404. `scripts/portal-test.html` covers frontend routing only when a portal-aware browser is installed on the VM.
 - `busctl --user call org.freedesktop.FileManager1 /org/freedesktop/FileManager1 org.freedesktop.FileManager1 ShowItems ass N <uris> ""` on the private bus. A copy of `data/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the build goes in the throwaway `$XDG_DATA_HOME/dbus-1/services` for activation probes.
 - A fake `xdg-terminal-exec` first on `PATH` that appends its argv and cwd to a log; a second `PATH` without it and without any known emulator; fake `kitty` and `$TERMINAL` scripts that exit 127.
@@ -24,7 +24,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount. Typed-name and Trash-refusal probes use them.
 - An NTFS loop image attached with `udisksctl loop-setup` and mounted through `ntfs-3g` (`fuseblk`), so it lists under Send to. It holds a link to a folder off the device and a link to a folder on it. A script stops its `ntfs-3g` process with `kill -STOP` and resumes it with `kill -CONT`.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
-- Keyboard layout `fr` from the E2E `keyboard_layout` fixture or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the fixture lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
+- Keyboard layout `fr` from a QA `layout` step or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the `layouts` list in `tests/fixtures/harness.json` lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
+- Cold activation: a private session bus from `dbus-run-session`, with the FileManager1 service copy pointing at the build and xdg-desktop-portal 1.22.1 on that bus. Set `GDK_DEBUG` for activated services with `dbus-update-activation-environment`.
 - A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
@@ -166,6 +167,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - Activate a file whose default is the `%u`, `%f`, `NoDisplay`, and `OnlyShowIn=KDE` fake; by Enter, double-click, and Space, in each view; then a type with no handler.
 - Run a `.sh` without a shebang, with CRLF endings, with a space in its path, an executable symlink to a non-executable, and an AppImage with a registered type; with no terminal on `PATH`.
+- Accept Open With… with Always use unchecked from a file's menu, a folder's menu, and the background menu.
 - Install 300 fake `.desktop` files; search by desktop id, wrap Up and Down, Tab with a non-empty search, press Escape twice; select three types sharing one handler, and a broken symlink plus a file.
 - Check Always use for two types at once, with `mimeapps.list` at mode 444, and cancel with it checked; compare with `xdg-mime query default`.
 - In the Flatpak build, activate a `.sh`, an AppImage, and a file on an exFAT mount; press Open With… on three files of different types and dismiss the second desktop chooser; hand a video from the preview to the player.
@@ -201,6 +203,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Open the action editor at corner roundness 0%, 40%, and 200%, under each theme. Hover each tab, focus it by keyboard, and read the Confirm toggle and footer buttons.
 - Open the item menu, then from a shell edit the listed action's manifest, add `confirm = true`, or delete its folder. Choose the action, then repeat through `; 1`.
 - Put `$XDG_CONFIG_HOME` on the sshfs mount, stop it with `kill -STOP`, and open the item menu, Settings → Actions, and Import….
+- Create an action with a two-line Arguments field, reopen it from Settings → Actions, edit Name, and press Escape; diff `action.toml` against the first save.
+- Apply the Batch rename recipe with Confirm on to two files selected in reverse order; accept, then read the Jobs dashboard Details.
 - Derive Id from `Ünïcode Name!!`, switch runtimes three times with edits, and apply a recipe over an edited draft. Duplicate three times, Export into an existing folder, and Import a folder with extra files and a symlinked entrypoint. Run Batch rename with a colliding target and one created between check and rename.
 
 ### integration/file-manager-interface
@@ -211,6 +215,12 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Call `ShowItemProperties` with two files in one folder, with a folder, and with a Trash URI; call `ShowFolders` on a folder already open in a window and with the mode on.
 - Call `ShowItems` on `sftp://localhost/…`, cancel the password, then repeat and accept it; skip without GVfs and say so.
 - After an install with only Open file location chosen, read the services directory. Call `ShowItems` with Strata closed.
+
+### integration/file-manager-interface/service-activation
+
+- Activate with an original `GDK_DEBUG` holding non-UTF-8 bytes, then with it unset. Open a terminal and a custom action, and read each child's `GDK_DEBUG` and `STRATA_ORIGINAL_GDK_DEBUG`.
+- In the activated process, toggle udiskie unlock in Settings, then read the restarted udiskie's `/proc/<pid>/environ`.
+- From the activated process, open a Flatpak GTK app and use its file chooser.
 
 ## Hand-offs
 
@@ -226,3 +236,4 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
 - The browser window's sidebar steps, the saved `sidebar_compact` state, and the rail's row sizing → `browser`.
 - Network-folder change checks, including the pause while a chooser is hidden → `browser`.
+- The `GDK_DEBUG` re-exec on service activation and how long a cold activation takes → `app`.

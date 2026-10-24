@@ -3,10 +3,10 @@ title: Chooser PNG conversion
 status: shipped
 origin: {issue: lgse/strata#1386, pr: lgse/strata#1387}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/chooser/image_conversion.rs, src/services/image_conversion.rs, src/sandbox_helper/image_conversion.rs]
-tests: [src/ui/chooser/tests/image_conversion.rs, src/services/image_conversion/tests.rs, src/sandbox_helper/image_conversion/tests.rs, tests/e2e/scenarios/test_chooser_image_conversion.py]
+tests: [src/ui/chooser/tests/image_conversion.rs, src/services/image_conversion/tests.rs, src/sandbox_helper/image_conversion/tests.rs, tests/qa/scenarios/chooser_image_conversion/**]
 related: [integration/portal-file-chooser/url-download, preview/preview-panel]
 ---
 

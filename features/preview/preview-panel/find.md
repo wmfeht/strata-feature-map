@@ -3,10 +3,10 @@ title: Find in preview
 status: shipped
 origin: {issue: lgse/strata#1558, pr: lgse/strata#1559}
 branch: null
-reviewed_at: 4b9a6ace71017888b3a2124d7d911c5c664cc767
+reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
 review: draft
 code: [src/ui/preview/find.rs]
-tests: [src/ui/preview/tests/find.rs, tests/e2e/scenarios/test_quick_preview.py]
+tests: [src/ui/preview/tests/find.rs, tests/qa/scenarios/quick_preview]
 docs: [site/src/reference/document-previews.md]
 related: [preview/preview-panel/documents, integration/10xer-mode/preview-keys, preview/quick-preview]
 ---
