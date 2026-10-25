@@ -44,7 +44,8 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 - With the caret in preview text, Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+D, and Delete act on the text, not on files. lgse/strata#670
 - With a file focused in List or Columns and the preview open, Right moves focus into the preview. Its header shows an accent top border while it holds focus. lgse/strata#1343
-- With a password-protected PDF's message shown, Right moves focus to its Open button, which shows an inset focus ring. lgse/strata#1840
+- With a password-protected PDF's message shown in List or Columns, Right moves focus to its Open button, which shows an inset focus ring. lgse/strata#1840
+- With focus in that preview's content box, Down or Right also moves focus to the Open button. lgse/strata#1840
 - On that button, Return opens the PDF in the default application, Left returns focus to the listing, and Up, Down, and Right keep focus there. lgse/strata#1840
 
 ## Design

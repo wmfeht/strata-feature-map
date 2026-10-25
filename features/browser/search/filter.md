@@ -208,4 +208,4 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - In List and Icons, a reload briefly hides the filter field, so a character typed in that instant can be dropped. lgse/strata#1544
 - In List and Icons, renaming a hit moves focus to the hit now in its slot. lgse/strata#1544
 - The filter cannot search file contents. lgse/strata#1211
-- In List and Icons, selecting a filter result does not move GTK's range origin, so a following Shift+arrow can extend from a stale entry. lgse/strata#1871
+- In List and Icons, selecting a filter result leaves GTK's range origin in place. A following Shift+arrow can extend from a stale entry. lgse/strata#1871

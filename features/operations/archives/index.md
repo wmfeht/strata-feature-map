@@ -118,8 +118,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A TAR hard link links to the earlier member of that name; a hard link to a member not extracted fails the extraction. lgse/strata#1478
 - On vfat, exFAT, exfat-fuse, or an SMB mount without hard links, a TAR hard link to an extracted file becomes a copy of it. Later members still extract. lgse/strata#1848, lgse/strata#1870
 - That copy takes space of its own and gets the member's stored mode and modification time. lgse/strata#1870
-- A hard link that the mount refuses for another reason, such as no space or an I/O error, still fails with "Could not link “<member>” to “<target>”: <reason>". lgse/strata#1870
-- When the mount holds no hard links and the target cannot be reopened for the copy, the error gives the reopen failure after "Could not link". lgse/strata#1870
+- A hard link the mount refuses for another reason, such as no space or an I/O error, still fails. The error reads "Could not link “<member>” to “<target>”: <reason>". lgse/strata#1870
+- The mount may hold no hard links while the target cannot be reopened for the copy. The error then gives the reopen failure after "Could not link". lgse/strata#1870
 - A TAR FIFO or device member fails the extraction with a message naming the member. lgse/strata#1478
 - Each member gets its stored mode, masked by the umask with setuid, setgid, and sticky removed, and its stored modification time. lgse/strata#1478
 - On FAT and exFAT, modes and times are skipped without error. lgse/strata#1478

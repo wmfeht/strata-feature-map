@@ -23,7 +23,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - Ctrl+click toggles one entry in or out of the selection and moves the range anchor to it. lgse/strata#526
 - Shift+click selects every entry from the range anchor to the clicked entry. lgse/strata#526
 - After a navigation auto-selects the first entry, the first Shift+click ranges from that entry, in all three views. lgse/strata#526
-- A click re-anchors Shift+Down and Shift+Up, so keyboard extension continues from the clicked entry. lgse/strata#526, lgse/strata#1871
+- A click re-anchors Shift+Down and Shift+Up, so keyboard extension continues from the clicked entry. lgse/strata#526
 - Ctrl+click or Shift+click on an entry's name or icon moves keyboard focus to that entry, so the preview follows it. lgse/strata#1164, lgse/strata#797
 - Releasing Shift before the mouse button keeps the pressed range, including a press on blank row space in Columns and List. lgse/strata#786, lgse/strata#797
 - Releasing Ctrl before the mouse button on blank row space still adds the row. lgse/strata#797
@@ -33,7 +33,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 ### Keyboard selection
 
 - Shift+Up and Shift+Down extend the selection by one entry from the range anchor. lgse/strata#526
-- Click the first of five entries and Ctrl+click the third. Shift+Down in List or Shift+Right in Icons then selects the third and fourth, as in Columns. lgse/strata#1851, lgse/strata#1871
+- Click the first of five entries and Ctrl+click the third. Shift+Down in List or Shift+Right in Icons then selects only the third and fourth, as in Columns. lgse/strata#1851, lgse/strata#1871
 - Shift+Page Up and Shift+Page Down extend or shrink the selection by one page from the range anchor. lgse/strata#1313
 - The file chooser leaves Shift+Page Up and Shift+Page Down to GTK. lgse/strata#1313
 - Shift+Down with nothing selected selects only the first entry; the next Shift+Down selects two. lgse/strata#738

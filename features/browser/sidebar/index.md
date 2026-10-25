@@ -13,7 +13,7 @@ related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/p
 
 ## Summary
 
-The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places, open them in new tabs, step the panel between full, icon rail, and hidden, and reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file, including drag-to-pin) and `browser/sidebar/connect-to-server` (the Network row's Connect to server dialog). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
+The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places and open them in new tabs. They step the panel between full, icon rail, and hidden, and reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file, including drag-to-pin) and `browser/sidebar/connect-to-server` (the Network row's Connect to server dialog). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
 
 ## Behavior
 
@@ -37,7 +37,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Hiding a built-in place leaves pins and devices unchanged. lgse/strata#1025
 - Right-clicking Home, Network, or a standard folder offers Unpin and Properties; Unpin hides the place and turns its chip off. lgse/strata#1025
 - The Trash row's menu offers Unpin and Properties, plus Empty Trash… only while Trash holds items. lgse/strata#1025
-- Right-clicking Recent offers Unpin and Properties; Unpin hides Recent and turns its chip off. lgse/strata#1831 (unverified)
+- Right-clicking Recent offers Open in New Tab, Unpin, and Properties; Unpin hides Recent and turns its chip off. lgse/strata#1831 (unverified)
 
 ### Opening in a new tab
 

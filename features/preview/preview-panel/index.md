@@ -87,13 +87,12 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
 - A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
 - A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
-- A model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276
+- An STL, 3MF, or FreeCAD model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276, lgse/strata#1864
 - Model previews in the drawer and Quick Preview keep the theme's opaque surface behind the model. lgse/strata#1789
 - CBZ and CBR files show their first naturally ordered image, and EPUB files their declared cover; a file without one shows an error. lgse/strata#1325
 - A local text `.gcode` or `.gco` file without a usable embedded thumbnail previews as its text. lgse/strata#1864
 - A binary `.bgcode` file without one shows "This G-code file has no usable embedded thumbnail". lgse/strata#1864
 - Changing the theme while a narrow window hides a model or route preview reloads it with the new theme when the window widens again. lgse/strata#1842
-- A route preview's header shows "N of M in folder", counting the GPX, FIT, and KML files in listing order. lgse/strata#1842
 
 ### Media stepping
 

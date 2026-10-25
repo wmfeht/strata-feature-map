@@ -77,7 +77,6 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 - Local sidebar rows take file payloads ahead of the pinned-place reorder target, which accepts only string payloads (lgse/strata#350).
 - GTK's drag-end `delete_data` arrives before Strata's asynchronous transfer and cannot prove the source moved. The source row therefore never plays an exit animation; filesystem events remove it after a move (lgse/strata#598, lgse/strata#637). A downward settle animation was proposed and closed as not planned (lgse/strata#337).
 - Opening the destination after a drop surprised users, so it became an opt-in setting (lgse/strata#859, lgse/strata#933). Paste and Move/Copy to… still reveal their destination independently.
-- Escape cancellation is owned by `browser/tabs` (lgse/strata#1831, lgse/strata#1865).
 - Spring navigation during a held drag is distinct from that post-drop setting (lgse/strata#1498). It ignores drop validity so the source folder can spring open although dropping on it is forbidden (lgse/strata#1487).
 - Single-item drag previews show an icon because short filenames disappeared behind the cursor (lgse/strata#1487). This replaced the filename-only Explorer preview from lgse/strata#350.
 

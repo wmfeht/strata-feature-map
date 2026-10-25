@@ -19,7 +19,8 @@ Offline previews of GPS activity and route files (GPX, FIT, and KML) in the draw
 ### Showing a route
 
 - Space on a local `.gpx`, `.fit`, or `.kml` file shows the route in an image named "Route preview", with no map tiles or network access. lgse/strata#1842
-- Its header shows the file name, with badges for the format, such as "GPX", and the route distance, such as "0.6 km". lgse/strata#1842
+- Its header shows "N of M in folder", counting the GPX, FIT, and KML files in listing order. lgse/strata#1842
+- Its header also shows the file name, with badges for the format, such as "GPX", and the route distance, such as "0.6 km". lgse/strata#1842
 - A route with two distinct timestamps adds a duration badge: elapsed time including pauses, with hours on long activities, such as "10:17:50". lgse/strata#1842
 - An untimed route shows no duration badge. lgse/strata#1842
 - With recorded altitude on a connected pair of points, an "Elevation profile" image shows, headed "Elevation" and its range, such as "10–30 m". lgse/strata#1842
@@ -51,7 +52,7 @@ Offline previews of GPS activity and route files (GPX, FIT, and KML) in the draw
 
 - Distances show in kilometres and heights in metres by default. With Settings → General → Units on Imperial, they show in miles and feet. lgse/strata#1842
 - Changing Units updates open route previews in every window, including the chooser, without resetting playback. lgse/strata#1842
-- The Units choice applies to later files and survives restart. lgse/strata#1842
+- The Units choice applies to later files. lgse/strata#1842
 - The route preview has no unit selector of its own. lgse/strata#1842
 
 ### Errors and limits

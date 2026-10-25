@@ -66,7 +66,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Move the cursor onto a file in a folder that a slow move to another disk is copying, during and after the move.
 - Preview `password-protected.pdf` from an sftp mount, and its RC4 copy.
 - Preview the text G-code without a thumbnail and a `.bgcode` from an sftp mount.
-- With a model open, narrow the window until the preview hides, change the theme from a second window, then widen.
+- With a model in one window and a route in another, narrow both until their previews hide, change the theme twice, then widen both.
 
 ### preview/preview-panel/layout
 
@@ -181,7 +181,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 ### preview/preview-panel/gcode
 
 - Preview each G-code sample; time the 2 GiB toolpath file against the text G-code without a thumbnail.
-- Preview a `.gcode` holding only a QOI thumbnail, then only a JPEG one, and a file whose larger thumbnail is truncated base64.
+- Preview a `.gcode` whose only thumbnail uses `; thumbnail_JPEG begin`, and a `.bgcode` whose header declares a version other than 1.
 
 ### preview/preview-panel/routes
 
@@ -220,7 +220,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - `rm` the previewed file from a shell while a video plays, while a PDF print dialog is open, and remove its parent folder.
 - With Single-click file previews off, click, double-click, and start a drag on a supported file; no preview may open.
 - Press Right into a PDF preview in List, then Ctrl+A, Ctrl+C, Delete, and Ctrl+X; the folder's file count must not change.
-- On the Open button under a password-protected PDF, press Tab, Shift+Tab, Space, and Escape; repeat in Columns and Icons.
+- On the Open button under a password-protected PDF, press Tab, Shift+Tab, Space, and Escape; repeat in Columns.
 - With a filter result selected, press Space, keypad Space, Ctrl+Space, and Alt+Space on the `ru` layout and with Caps Lock on.
 
 ### preview/quick-preview/folder-peek

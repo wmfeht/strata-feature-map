@@ -18,12 +18,13 @@ Previews of sliced 3D-printer files from the image the slicer embedded in them, 
 
 - A local text `.gcode` or `.gco` file shows the base64 image between its `; thumbnail begin` and `; thumbnail end` comments. lgse/strata#1864
 - The `thumbnail_PNG`, `thumbnail_JPG`, and `thumbnail_QOI` comment forms are read the same way. lgse/strata#1864
+- The `thumbnail_JPEG` comment form is also read. lgse/strata#1864 (unverified)
 - PNG, JPEG, and QOI thumbnails decode. lgse/strata#1864
 - A local binary `.bgcode` file shows the image from its thumbnail blocks. lgse/strata#1864
 - With several thumbnails, the preview shows the largest one that decodes. lgse/strata#1864
 - When the largest thumbnail is corrupt, the next largest shows. lgse/strata#1864
 - Thumbnail comments with CRLF line endings decode. lgse/strata#1864
-- The image scales down to fit and is never enlarged: a 313×173 thumbnail shows at 256×141 in a 256-pixel request. lgse/strata#1864 (unverified)
+- In the drawer, the thumbnail scales down to fit the pane and is never enlarged. lgse/strata#1864 (unverified)
 - Text reading stops at the first command, or after 2 MiB (`MAX_GCODE_HEADER_BYTES`). A thumbnail block already started is read to its end. lgse/strata#1864
 - Binary reading stops at the first G-code block, and a compressed thumbnail block is skipped. lgse/strata#1864
 - A very large G-code file shows its thumbnail without its toolpath being read. lgse/strata#1864

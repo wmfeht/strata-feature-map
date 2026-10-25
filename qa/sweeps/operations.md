@@ -90,7 +90,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/drag-and-drop
 
 - Drop onto the source folder, onto a descendant of the dragged folder, onto a read-only place, onto the sidebar Trash row, onto a tab header, and onto another window.
-- Hover a folder until it spring-loads, move away before it opens, then let it open and press Escape mid-drag.
+- Hover a folder until it spring-loads, move away before it opens, then let it open.
 - Start a drag in Icons from caption whitespace and from tile content, and in List from an unselected row.
 - Start a multi-selection drag in the large fixture folder in List, Icons, and Columns, and hover several folders before dropping.
 
@@ -192,7 +192,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/archives
 
-- Compress a selection with hidden files, a symlink, a non-UTF-8 name, and an empty folder in each format; list the result with `unzip -l`, `7z l`, and `tar tvf` and compare entries, modes, and mtimes.
+- Compress a selection with hidden files, a symlink, a non-UTF-8 name, and an empty folder in each format. List each result with `unzip -l`, `7z l`, and `tar tvf`; compare entries, modes, and mtimes.
 - Extract each format into an empty folder, a folder with a same-named entry, and a read-only folder; the destination must be clean after each refusal.
 - Feed the hostile archives: `../` member, absolute path, symlink out, size-lying header.
 - Extract a TAR whose first directory entry is `.\`, and a RAR whose first entry is `.\` or `./`. Build the `.\` TAR with a script, since `tar` writes only `./`.
@@ -212,7 +212,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
 - On the ntfs-3g mount, extract a large ZIP built with `zip -D`, so it lists no folder entries. Mid-extraction, chmod one of its nested staging folders to `0000`.
 - After that run, list the destination with hidden files shown.
-- Extract a TAR holding a file, a hard link to it, and a link to that link onto the real vfat and exFAT sticks and an SMB share; compare `stat -c '%h %i'`.
+- Extract a TAR holding a file, a hard link to it, and a link to that link. Use the real vfat and exFAT sticks and an SMB share; compare `stat -c '%h %i'`.
 - Extract that TAR onto a nearly full vfat stick, and cancel one with a 1 GiB hard-linked file while its copy is written.
 - Extract into a sshfs folder and onto a vfat stick an archive holding `10:00/` and `10_00/`, a symlink, a hard link to it, and `c:notes`.
 - On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
@@ -278,3 +278,4 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Provider destinations inside Send to… and their protocol → `remote`.
 - Folder reloads and monitor events after an operation ends → `browser`.
 - 10xer-mode key variants of these operations → `integration`.
+- Escape cancelling a file drag → `browser`.
