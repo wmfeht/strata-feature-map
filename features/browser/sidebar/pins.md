@@ -3,7 +3,7 @@ title: Pinned folders
 status: shipped
 origin: {issue: null, pr: lgse/strata#67}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs, src/ui/window/pinned_drop.rs, src/ui/window/pinned_drop/**, src/adapters/directory_validation.rs]
 tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs, src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/qa/scenarios/sidebar_pinning, tests/qa/fixtures/file_drag_source.py]

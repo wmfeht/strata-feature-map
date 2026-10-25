@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
@@ -212,6 +212,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
 - On the ntfs-3g mount, extract a large ZIP built with `zip -D`, so it lists no folder entries. Mid-extraction, chmod one of its nested staging folders to `0000`.
 - After that run, list the destination with hidden files shown.
+- Extract a TAR holding a file, a hard link to it, and a link to that link onto the real vfat and exFAT sticks and an SMB share; compare `stat -c '%h %i'`.
+- Extract that TAR onto a nearly full vfat stick, and cancel one with a 1 GiB hard-linked file while its copy is written.
 - Extract into a sshfs folder and onto a vfat stick an archive holding `10:00/` and `10_00/`, a symlink, a hard link to it, and `c:notes`.
 - On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
 - On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.

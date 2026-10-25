@@ -75,4 +75,4 @@ One shared module replaced separate Columns and Icons/List implementations so ch
 
 ## Known gaps
 
-None known.
+- In List and Icons, a marquee selection does not move GTK's range origin, so a following Shift+arrow can extend from a stale entry. lgse/strata#1871

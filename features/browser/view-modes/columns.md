@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background]

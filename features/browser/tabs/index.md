@@ -3,17 +3,17 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs]
-docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md]
-related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling]
+docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md, docs/keyboard-navigation.md]
+related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling, browser/sidebar]
 ---
 
 ## Summary
 
-Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, reopen, and move tabs. The window title follows the active tab. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Files dropped on a tab transfer into that tab's directory. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
+Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, reopen, and move tabs. The window title follows the active tab. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Sidebar locations and folder-only drags open new tabs when dropped on the strip or the New tab button. Files dropped on a tab transfer into that tab's directory. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
 
 ## Behavior
 
@@ -82,9 +82,35 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Ctrl+Shift+Page Up and Ctrl+Shift+Page Down move the active tab one position left or right without changing the selected tab. lgse/strata#1506
 - Moving stops at either end of the strip instead of wrapping. lgse/strata#1506
 - Moving keeps the tab's location, selection, and location-editor focus. lgse/strata#1506
-- Dragging a tab label onto another tab moves it to that position, and the drag image shows the tab's label. lgse/strata#1484, lgse/strata#1506
+- Dragging a tab label over the strip shows an accent insertion line. It sits before the first tab whose midpoint is right of the pointer, or after the last tab. lgse/strata#1831 (unverified)
+- Releasing a tab drag moves the tab into the marked gap, and the drag image shows the tab's label. lgse/strata#1484, lgse/strata#1506, lgse/strata#1831
+- Dropping a tab on the New tab button moves it to the right end of the strip. lgse/strata#1831 (unverified)
 - Numbered shortcuts and Ctrl+Page Up and Page Down follow the reordered strip. lgse/strata#1484, lgse/strata#1506
 - The F1 shortcut reference lists the tab switching and moving shortcuts in both key maps. lgse/strata#1506
+
+### Opening from drags
+
+- During a sidebar row drag or a folder-only drag, a strip of two or more tabs marks an insertion line after the last tab. lgse/strata#1831
+- Folder-only drags from Columns, Icons, and List open tabs this way. lgse/strata#1831
+- Folder-only drags from the preview header and from Ctrl+F results also open tabs this way. lgse/strata#1831 (unverified)
+- Over the strip, that line moves to the gap nearest the pointer. Releasing opens the dragged location in a new tab at that gap. lgse/strata#1831
+- A drag of several folders opens one tab per folder, in drag order, from the marked gap; the last one opened is selected. lgse/strata#1831 (unverified)
+- With one tab the strip stays hidden during these drags; dropping on the header's New tab button opens the tab. lgse/strata#1831
+- The New tab button under a sidebar, folder, or tab drag shows an accent tint. lgse/strata#1831 (unverified)
+- A folder-only drag released over a tab header opens a new tab and moves or copies nothing into that tab. lgse/strata#1831
+- A folder-only drag held over a tab does not select it. lgse/strata#1831 (unverified)
+- Dropping a sidebar row on the strip or the New tab button changes neither the sidebar order nor the pins. The original tab keeps its location and selection. lgse/strata#1831
+- Folders dragged from another application are not opened as tabs; dropped on a tab header, they transfer into that tab. lgse/strata#1831 (unverified)
+- While a modal dialog is open, drops on the strip or the New tab button open and move no tabs. lgse/strata#1831 (unverified)
+
+### Drag cancellation
+
+- Escape during a file drag in Columns, List, or Icons cancels it in both key maps. Releasing over a folder then transfers nothing, on X11 too. lgse/strata#630, lgse/strata#1843, lgse/strata#1865
+- Escape also cancels a drag from the preview header or a Ctrl+F result, and one pressed before the pointer reaches a target. lgse/strata#1865
+- Escape during a tab drag, a sidebar row drag, or a folder drag from a listing cancels it. Releasing over the strip or the New tab button then opens or moves no tab. lgse/strata#1831, lgse/strata#1865
+- After an Escape-cancelled drag, the strip shows no insertion line. lgse/strata#1831
+- Escape that cancels a drag dismisses nothing else: the selection, an open preview, and the Ctrl+F filter stay. lgse/strata#1831, lgse/strata#1865
+- After a cancelled drag, the next Escape clears the selection or closes the preview, and a new drag transfers normally. lgse/strata#1865
 
 ### Strip
 
@@ -119,7 +145,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 
 ### File drops
 
-- Dropping files on another tab transfers them into that tab's current directory: a same-volume drop moves, and holding Ctrl copies. lgse/strata#1484
+- Dropping files, or a selection mixing files and folders, on another tab transfers them into that tab's current directory: a same-volume drop moves, and holding Ctrl copies. lgse/strata#1484, lgse/strata#1831
 - Holding a file drag over a tab for 450 ms selects it, so the drop can land on a folder in its listing. lgse/strata#1484
 - A tab under a file drag accents its label and shows no drop outline. lgse/strata#1484
 
@@ -142,12 +168,20 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI (lgse/strata#1543).
 - Choosers have no tabs and Ctrl+Enter there accepts the folder, so chooser key dispatch skips the open-in-new handling (lgse/strata#1543).
 - The name hold tracks navigation settlement explicitly rather than using a timer. Cancelled, refused, and same-directory navigation release it, and an older validation completion cannot release a newer click (lgse/strata#1507).
+- Tabs stay above the toolbar. The request to move them below it, or make that configurable, was declined (lgse/strata#1823, [comment](https://github.com/lgse/strata/issues/1823#issuecomment-6386782486), lgse/strata#1831).
+- One drop target on the strip handles tab reorders and new-tab drops by insertion index, replacing a drop target on each tab (lgse/strata#1831).
+- Strata's own drags carry an all-folders flag (lgse/strata#1692). Tab drops read it, so a folder-only drag opens tabs instead of transferring; files and mixed selections keep transferring (lgse/strata#1831).
+- The tab header's file-drop handler keeps GTK's file-list type and action checks beside the folder exclusion. Without them, any non-file drag triggered hover-switching (lgse/strata#1831, [comment](https://github.com/lgse/strata/pull/1831#issuecomment-6389450544)).
+- Location drags leave a hidden strip hidden. Revealing it moved the sidebar and listing under the pointer, so sidebar reorders, pin insertion, and spring-loading missed their targets (lgse/strata#1831, [comment](https://github.com/lgse/strata/pull/1831#issuecomment-6389607557)).
+- The tab window's capture-phase key handler cancels the active tab, sidebar, or file drag on Escape. It runs before the browser dispatcher, so the Escape dismisses nothing else (lgse/strata#1831, lgse/strata#1865).
+- Escape cancels by emitting `GdkDrag::cancel`. `DragSource::drag_cancel()` ends only the GTK source and keeps the X11 pointer grab, so the release still dropped (lgse/strata#1843, lgse/strata#1865).
 - The underline follows the selected tab from the layout pass. Its tick callback runs only while it moves, so an idle window stops drawing frames (lgse/strata#1671, lgse/strata#1677).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-24 | lgse/strata#1831 | feat | Opened sidebar locations, and folder-only drags dropped on the strip, in new tabs. |
 | 2026-10-23 | lgse/strata#1800 | feat | Added Ctrl+Shift+T to reopen up to 20 closed tabs per window at their former positions. |
 | 2026-10-15 | lgse/strata#1677 | perf | Moved the tab underline to the layout pass and animated it only while moving, so an idle window stops drawing frames. |
 | 2026-10-10 | lgse/strata#1539 | fix | Recorded the folder a pending click opens, so the Columns preview slot lends no width before its column takes focus. |

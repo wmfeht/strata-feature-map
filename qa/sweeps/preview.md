@@ -1,12 +1,12 @@
 ---
 title: Preview sweep
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs, 3D models, comic and EPUB covers, and Print. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
+Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones, 3D models, comic and EPUB covers, and Print. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
 
 Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, archive member listing and the archive preview, and preview keys in 10xer mode. Also media runtime packaging and launch dependencies, the Settings pages as controls, and mounting the remote locations that remote previews read.
 
@@ -17,6 +17,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Byte-sniffing samples: an MPEG-TS clip (`ffmpeg -f lavfi -i testsrc2=duration=3 -f mpegts recording.ts`) and TypeScript as `app.ts` and `Component.tsx`. Also a UTF-16 BE text file with and without a BOM, and text files named `.xlsx` and `.odt`.
 - RAW samples: a lossless compressed Fuji X-T5 `.RAF`, a Pentax portrait `.DNG`, a GoPro `.GPR`, and an uppercase `.ARQ`. Also a JPEG panorama over 134 MP (`magick -size 42374x10529 xc:gray pano.jpg`) with and without a small EXIF thumbnail. Hide `dcraw`, `simple_dcraw`, and ImageMagick in turn by bind-mounting `/dev/null` over them inside `unshare -rm`.
 - Model samples: a binary STL, a one-triangle ASCII STL, and an STL just under 2 million triangles. Also a geometry-only 3MF, a 3MF with one embedded PNG, and a FreeCAD file.
+- G-code samples: the `mini_cube_*` `.gcode` and `.bgcode` files from `prusa3d/libbgcode` `tests/data`, a text G-code with no thumbnail, and one appending 2 GiB of toolpath. Also one whose thumbnail block starts just before 2 MiB, one with a 5 MiB thumbnail, and a `.bgcode` with a compressed thumbnail block.
+- Route samples, synthetic only, never personal activity files: a timed GPX with altitude, a GPX crossing the date line, one at 89° latitude, and one with 250,001 points. Also a 32 MiB plus one byte GPX, a KML of only polygons, a KMZ, a GPX with a DOCTYPE entity, and a FITS image named `.fit`.
+- PDFs from `tests/fixtures/documents` with `qpdf`: `password-protected.pdf`, `owner-restricted.pdf`, and an RC4 40-bit copy needing the password `preview`.
+- For the output-folder sweep, a toolbox or distrobox container sharing `/tmp` with a second Strata build, and a `strata-preview-<pid>-<n>` folder owned by another user.
 - Zero-byte files for every previewed extension. Lying extensions: an MP4 as `.jpg`, a PNG as `.pdf`, a ZIP as `.epub`, `.docx`, and `.odt`, an ELF as `notes.txt`, a TIFF as `.ARW`.
 - Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, and the `any_sheets.*`, `report.docx`, and `report.odt` fixtures. Generated Markdown of 400 blocks cycling headings, prose, fenced code, tables, and lists, plus a copy with relative PNGs beside it.
 - ODT samples: `report.odt` copied as `report.ott` and `REPORT.ODT`. From LibreOffice Writer, a table without a header-row group, and one with two header rows and a merged cell. Also an ODT with a 5,000-character paragraph, and one with a heading at outline level 9 and lists nested 8, 9, and 10 levels. Also a link inside `Preformatted Text`, a `mailto:` link, and a file over 20 MiB. From pandoc, an ODT whose tables hold many short bold paragraphs per cell.
@@ -60,6 +64,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Play a song from a folder on the network mount, reached once directly and once through a symlinked folder; rename the folder from a second window, then Shift+Delete it.
 - With a video playing, paste a large file into the same folder, then rename a sibling of the playing file.
 - Move the cursor onto a file in a folder that a slow move to another disk is copying, during and after the move.
+- Preview `password-protected.pdf` from an sftp mount, and its RC4 copy.
+- Preview the text G-code without a thumbnail and a `.bgcode` from an sftp mount.
+- With a model open, narrow the window until the preview hides, change the theme from a second window, then widen.
 
 ### preview/preview-panel/layout
 
@@ -171,6 +178,20 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With STL model thumbnails on, hang the NFS mount with an `iptables` drop while its STL folder renders. Open the local STL folder, and compare the bwrap count before and after the mount recovers.
 - Toggle STL model thumbnails off while the near-2-million-triangle STL thumbnail renders, then on again; check for a second helper and a leftover private output directory.
 
+### preview/preview-panel/gcode
+
+- Preview each G-code sample; time the 2 GiB toolpath file against the text G-code without a thumbnail.
+- Preview a `.gcode` holding only a QOI thumbnail, then only a JPEG one, and a file whose larger thumbnail is truncated base64.
+
+### preview/preview-panel/routes
+
+- Open each route sample, then a symlink to the timed GPX and the timed GPX on an sftp mount.
+- Press Ctrl+Alt+Space repeatedly while sweeping the pointer across both images, then press Ctrl+Alt+Left and Right at the route ends.
+- Play a route, minimise the window for 10 s, and restore it.
+- Change Units from a second window's Settings during playback, with a route also open in a file chooser.
+- Read both images and the play button in Accerciser during playback, then at rest.
+- Step through a folder mixing GPX, FIT, KML, and text files with the arrow keys while a route plays.
+
 ### preview/preview-panel/sandbox
 
 - With `bwrap` dropped from `PATH`, every native preview must still work. With `/dev/null` over `/usr/bin/bwrap`, image, PDF, SVG, DOCX, ODT, model, video, and GIF must each fail closed. No decoder may appear in `ps`.
@@ -189,6 +210,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the RAF with ImageMagick hidden, and step through a folder of 50 RAF files with the preview open.
 - Preview and thumbnail the panorama with ImageMagick hidden, with and without its EXIF thumbnail.
 - On the network mount, preview a RAW file, move the selection mid-render, and delete its folder at once; look for `.nfs…` or `.__smbfile_silly…` files in the parent.
+- Preview media, then `kill -9` Strata. Start the container's Strata and preview there, then start the host Strata, preview once, and `ls -ld /tmp/strata-preview-*`.
+- With the other user's `strata-preview-<pid>-<n>` folder present and `TMPDIR` on a filesystem without `flock` support, preview a PNG.
 
 ### preview/quick-preview
 
@@ -197,6 +220,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - `rm` the previewed file from a shell while a video plays, while a PDF print dialog is open, and remove its parent folder.
 - With Single-click file previews off, click, double-click, and start a drag on a supported file; no preview may open.
 - Press Right into a PDF preview in List, then Ctrl+A, Ctrl+C, Delete, and Ctrl+X; the folder's file count must not change.
+- On the Open button under a password-protected PDF, press Tab, Shift+Tab, Space, and Escape; repeat in Columns and Icons.
 - With a filter result selected, press Space, keypad Space, Ctrl+Space, and Alt+Space on the `ru` layout and with Caps Lock on.
 
 ### preview/quick-preview/folder-peek
@@ -208,7 +232,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 ## Hand-offs
 
-- Thumbnails in the listing, including STL model thumbnails, and the thumbnail worker pool → `browser`.
+- Thumbnails in the listing, including STL model and G-code thumbnails, and the thumbnail worker pool → `browser`.
 - The RAW extension list, including `.ptx` and `.crf` → `browser`.
 - Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
@@ -219,5 +243,5 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Unmounting a drive while a preview reads a file on it → `devices`.
 - Preview keys and track stepping in 10xer mode → `integration`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.
-- The Settings controls for autoplay, backend, document rendering, and folder peeking → `settings`.
+- The Settings controls for autoplay, backend, document rendering, units, and folder peeking → `settings`.
 - Mounting the sftp, MTP, and camera locations that remote previews read → `remote`.

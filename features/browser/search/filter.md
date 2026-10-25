@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/inline_search.rs, src/ui/enter_target.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/ui/enter_target/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results, tests/qa/mutations/filter-results.patch]
@@ -208,3 +208,4 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - In List and Icons, a reload briefly hides the filter field, so a character typed in that instant can be dropped. lgse/strata#1544
 - In List and Icons, renaming a hit moves focus to the hit now in its slot. lgse/strata#1544
 - The filter cannot search file contents. lgse/strata#1211
+- In List and Icons, selecting a filter result does not move GTK's range origin, so a following Shift+arrow can extend from a stale entry. lgse/strata#1871

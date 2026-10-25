@@ -3,7 +3,7 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch]
@@ -23,7 +23,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - Ctrl+click toggles one entry in or out of the selection and moves the range anchor to it. lgse/strata#526
 - Shift+click selects every entry from the range anchor to the clicked entry. lgse/strata#526
 - After a navigation auto-selects the first entry, the first Shift+click ranges from that entry, in all three views. lgse/strata#526
-- A click re-anchors Shift+Down and Shift+Up, so keyboard extension continues from the clicked entry. lgse/strata#526
+- A click re-anchors Shift+Down and Shift+Up, so keyboard extension continues from the clicked entry. lgse/strata#526, lgse/strata#1871
 - Ctrl+click or Shift+click on an entry's name or icon moves keyboard focus to that entry, so the preview follows it. lgse/strata#1164, lgse/strata#797
 - Releasing Shift before the mouse button keeps the pressed range, including a press on blank row space in Columns and List. lgse/strata#786, lgse/strata#797
 - Releasing Ctrl before the mouse button on blank row space still adds the row. lgse/strata#797
@@ -33,6 +33,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 ### Keyboard selection
 
 - Shift+Up and Shift+Down extend the selection by one entry from the range anchor. lgse/strata#526
+- Click the first of five entries and Ctrl+click the third. Shift+Down in List or Shift+Right in Icons then selects the third and fourth, as in Columns. lgse/strata#1851, lgse/strata#1871
 - Shift+Page Up and Shift+Page Down extend or shrink the selection by one page from the range anchor. lgse/strata#1313
 - The file chooser leaves Shift+Page Up and Shift+Page Down to GTK. lgse/strata#1313
 - Shift+Down with nothing selected selects only the first entry; the next Shift+Down selects two. lgse/strata#738
@@ -79,6 +80,8 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - A Ctrl or Shift press claims its gesture on release, so GTK's unmodified release cannot replace the pressed range (lgse/strata#786, lgse/strata#797). The claim waits for release so a marquee can still start (lgse/strata#1174).
 - A plain press on an entry inside a multi-selection keeps the group, so the press can drag every selected entry (lgse/strata#1174).
 - Escape was chosen over clicking empty space, which a full pane lacks, and over a dedicated shortcut. Transient surfaces keep precedence (lgse/strata#528).
+- List and Icons leave Shift+arrow to GTK, which extends from its own range origin. Their click handler claims modified clicks, so GTK never moves that origin. A Ctrl+click now moves it with `list.select-item`, then restores the selection (lgse/strata#1851, lgse/strata#1871).
+- Shift+arrow stays on GTK's binding in List and Icons by design. The app's own range walk uses source order, which is wrong for sorted, filtered, and grouped views ([comment](https://github.com/lgse/strata/issues/1851#issuecomment-6387122579)).
 - Refresh snapshots selected locations and re-applies them after GTK reconnects its selection model (lgse/strata#922).
 - After a reload the neighbour takes the cursor, not the selection, matching deletes and lgse/strata#1410 (lgse/strata#1434, lgse/strata#1544).
 - The replacement after a removal skips hidden entries. Monitor updates and batched operation updates share this rule (lgse/strata#1415).
@@ -87,6 +90,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1871 | fix | Moved GTK's Shift+arrow origin to the Ctrl+clicked entry in List and Icons, so ranges extend from it. |
 | 2026-10-07 | lgse/strata#1415 | fix | Moved focus after a removal to the nearest visible entry instead of a hidden one. |
 | 2026-09-28 | lgse/strata#1313 | feat | Extended the selection by a page with Shift+Page Up/Down. |
 | 2026-09-16 | lgse/strata#1043 | fix | Moved focus to the neighbor of a removed entry instead of clearing it. |

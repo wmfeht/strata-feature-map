@@ -3,7 +3,7 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/storage.rs, src/storage/writer.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, src/storage/writer/tests.rs, tests/qa/scenarios/preferences]
@@ -62,6 +62,12 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A missing `settings.toml` starts with defaults and saves normally on the first change. lgse/strata#728
 - A value of the wrong type, such as `show_hidden = "yes"`, or a missing required key falls back to its default alone; every other entry loads. lgse/strata#671
 - Startup does not rewrite a file with invalid entries; the next change saves the recovered values. lgse/strata#671
+- A list or table with one invalid entry, such as `search_exclusions = [".venv", 12, "/tmp/skip"]`, loads without that entry; its other entries load. lgse/strata#1869
+- One unrecognized value in `[omarchy_variants]`, such as `broken = "not-a-variant"`, drops only that key; the other variants load. lgse/strata#1844, lgse/strata#1869
+- A nested list keeps its valid entries too: one bad path in a device's `send_to_recent_destinations` list drops only that path. lgse/strata#1869
+- A value of the wrong shape, such as a string where a table belongs, falls back to its default as a whole. lgse/strata#1869
+- One invalid width in `browser_list_columns` or `chooser_list_columns` resets that whole record to its default. lgse/strata#1869
+- After a partly invalid collection loads, the next save writes back its kept entries and omits only the invalid ones. lgse/strata#1869
 - A `settings.toml` that cannot be read or is not valid TOML logs a warning, and Strata starts with defaults. lgse/strata#728
 - After such a load failure, changes apply in memory but the file is never written until it is repaired and Strata restarts. lgse/strata#728
 
@@ -87,6 +93,9 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - The temporary file is created in the target's directory, so the rename never crosses filesystems. The regular-file check repeats on the target before the rename, which never follows a link (lgse/strata#1455).
 - Existing permission bits are kept because replacing a 0644 dotfile would silently make it 0600 (lgse/strata#1455).
 - A malformed entry is salvaged key by key instead of resetting the file, which had silently lost every customization on the next save (lgse/strata#646).
+- Serde rejects a whole list or map for one bad element, so key-by-key salvage reset the collection and the next save erased it. A failing list or table is now salvaged entry by entry, recursing into nested lists (lgse/strata#1844, lgse/strata#1869).
+- A record with required fields resets as a unit rather than inventing defaults for its other fields (lgse/strata#1869).
+- Each entry is tried alone, then the kept entries are checked together, so salvage stays linear. Trying each with its kept siblings took 6.6 s for a 5,000-entry `folder_colors` table in a debug build (lgse/strata#1869).
 - A syntax error is preserved rather than repaired; saving stops until restart (lgse/strata#721, lgse/strata#728). No backup or recovery UI exists; a dialog at the first change says saving is off until restart (lgse/strata#1455, lgse/strata#1544).
 - A failed save was only logged, so changes were lost without notice. One notice per failure streak covers write failures; the unreadable file gets one notice per session (lgse/strata#1455, lgse/strata#1544).
 - The notice opens after the failing setter returns, and only in the active browser window, because the change came from the user there. Timers and the chooser only log ([docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md), lgse/strata#1544).
@@ -99,6 +108,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1869 | fix | Salvaged a malformed list or table entry by entry, so one bad value no longer erases the whole collection on the next save. |
 | 2026-10-10 | lgse/strata#1544 | fix | Wrote config files through user-owned symlinks, kept file modes, and showed a notice when settings cannot be saved. |
 | 2026-09-18 | lgse/strata#1109 | refactor | Moved preference storage, notifications, and bindings from `ThemeManager` to `PreferenceManager`. |
 | 2026-09-10 | lgse/strata#728 | fix | Logged unreadable or invalid TOML and stopped saving instead of overwriting it with defaults. |

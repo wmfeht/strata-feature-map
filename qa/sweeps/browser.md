@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -9,7 +9,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
-Left to other sweeps: file drags once a press becomes one, drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
+Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
 ## Setup
 
@@ -46,6 +46,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Press F5 during a `100000` load, then after a sort change, each with 20 entries selected across the viewport.
 - On an `sftp://` share with hidden files off, put the cursor on the last entry and delete the last three server-side; dot-files precede them. Then F5.
 - On an `sftp://` share in Columns, open the cursor folder's child column, delete that folder server-side, and press F5.
+- In List and Icons, group by type and sort by size descending. Click an entry, Ctrl+click one in another group, then press Shift+arrow toward each neighbour.
+- Ctrl+click a selected entry to remove it, then press Shift+arrow; repeat after Ctrl+click on blank row space.
 
 ### browser/selection/click-modes
 
@@ -314,6 +316,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Drag Trash slowly across Home's upper half, the gap below Home, and Home's lower half, releasing at each; restart and read the order in both windows.
 - In the file chooser, reorder Home and Downloads, unpin Music, and right-click a pin; then open a browser window and compare.
 - Drag files over the Trash row with a selection inside Trash and with one on a read-only mount; then shrink the sidebar to the rail mid-drag.
+- Middle-click and choose Open in New Tab on Trash, Recent, Network, an unmounted `sftp://` pin, a mounted USB drive, and an unmounted volume; then do both on the icon rail.
+- Double middle-click a sidebar row, and middle-press one and drag past the threshold before release; count the tabs.
 
 ### browser/sidebar/pins
 
@@ -350,6 +354,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Turn STL model thumbnails on with Show thumbnails off, then turn Show thumbnails on. Open the folder in a peek, Ctrl+K results, and the portal file chooser.
 - Open `.stl` and `.STL` files on an `smb://` share with `gvfsd-fuse`, on an sshfs mount, and in a camera library; compare with the local copy.
 - Render an ASCII STL, a zero-triangle STL, and a 127 MiB binary STL; change a rendered file's bytes and reopen the folder.
+- Open a folder of `.gcode`, `.GCO`, and `.bgcode` files with STL model thumbnails off, then on; repeat on an `smb://` share and in the portal file chooser.
 
 ### browser/thumbnails/cache
 
@@ -364,6 +369,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Type 0, 17, `abc`, and an empty value into the Thumbnail workers spin button, pressing Return, then Tab, after each; read `thumbnail_workers` back.
 - With workers at 1 and STL thumbnails on, open a folder of 20 STL files beside a folder of PDFs in a second window. Open Quick Preview on an STL meanwhile.
 - Put an STL on an NFS or sshfs native path, stall the server mid-render, and scroll on to other STL files.
+- With workers at 1, load a 600 MiB `.gcode` with its thumbnail in the header beside a folder of PDFs; then one with no thumbnail, and one stalled on sshfs.
 - Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
 
 ### browser/properties
@@ -457,6 +463,13 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Read the window title with `xprop` on `~`, `/`, `trash:///`, `network:///`, a 60-character folder, and a non-UTF-8 name, in `de` and `ja`.
 - Switch tabs with Ctrl+Tab, close the active tab, and navigate a background tab during a long copy; read the title after each.
 - With the window idle, rename a tab's folder from a shell and change text size from another window; check the underline matches the new tab bounds.
+- With 12 tabs overflowing the strip, drag a sidebar row to the strip's scrolled-off ends and release on each tab's left and right halves; read each new tab's position.
+- Drag three folders, then a folder plus a file, from each view onto the strip; drag a folder from Nautilus onto a tab header.
+- Drag a sidebar row onto the other window's strip and its New tab button. Then drag a tab onto the other window's strip.
+- Start a sidebar drag, close tabs from the keyboard down to one, and release over where the strip was; then press Escape mid-drag with a modal dialog open.
+- With a modal dialog open, drag a sidebar row and a folder from another window onto this window's strip and New tab button.
+- Press Escape mid-drag on Wayland and on X11: over a tab header, a sidebar row, a breadcrumb, and a spring-opened folder. Release over a folder each time.
+- Press Escape during a multi-selection drag, during a drag from another application, and while dragging out to another window.
 
 ### browser/tabs/session-restore
 
@@ -472,7 +485,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 ## Hand-offs
 
-- Drag and drop once a press is read as a file drag, drops on tabs and sidebar rows, and every file operation → `operations`.
+- Drag and drop once a press is read as a file drag, except Escape cancellation, which `browser/tabs` owns → `operations`.
+- File transfers dropped on tabs and sidebar rows, and every file operation → `operations`.
 - DEVICES rows, Set label…, mounting, and ejecting → `devices`.
 - Remote shares beyond the typed URI rejections and credential masking covered here, including the mounts and sign-in prompts behind Connect to server → `remote`.
 - The action editor's tabs, toggles, and footer beyond arrow focus → `integration`.

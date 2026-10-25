@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/qa/scenarios/view_switching, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
@@ -111,3 +111,4 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 ## Known gaps
 
 - In List and Icons, a selection change that takes focus while filter results show still focuses the hidden listing. lgse/strata#1611
+- In List and Icons, programmatic selection updates by position leave GTK's range origin in place. A following Shift+arrow can extend from a stale entry. lgse/strata#1871

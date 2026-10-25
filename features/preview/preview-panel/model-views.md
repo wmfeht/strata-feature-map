@@ -3,7 +3,7 @@ title: Model camera views
 status: shipped
 origin: {issue: lgse/strata#1633, pr: lgse/strata#1644}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/preview/model.rs, src/sandbox/model.rs]
 tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, tests/qa/scenarios/quick_preview]
@@ -12,7 +12,7 @@ related: [preview/preview-panel/media/video, preview/preview-panel/layout, previ
 
 ## Summary
 
-Camera controls and mesh details for rendered STL and 3MF previews in the drawer and Quick Preview. Users step through four preset views around the model, guided by a top-down orbit indicator, with format and triangle-count badges. It also owns how a cancelled background STL thumbnail render is reaped.
+Camera controls and mesh details for rendered STL and 3MF previews in the drawer and Quick Preview, and the details header that FreeCAD and G-code image previews share. Users step through four preset views around the model, guided by a top-down orbit indicator, with format and triangle-count badges. It also owns how a cancelled background STL thumbnail render is reaped.
 
 ## Behavior
 
@@ -22,6 +22,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - **Previous model view** turns it anticlockwise: from Front left it goes to Front right. lgse/strata#1644, lgse/strata#1764
 - Only the two buttons change the view; no key binding does. lgse/strata#1644 (unverified)
 - Once loaded, a 3MF with one usable embedded PNG, or a FreeCAD file, shows its saved image without camera buttons, indicator, or badges. lgse/strata#1644, lgse/strata#1633, lgse/strata#1764
+- A local G-code file with an embedded thumbnail also shows its image without camera buttons, indicator, or badges. lgse/strata#1864
 
 ### Indicator
 
@@ -40,6 +41,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - Previous and Next are insensitive until the first image is ready; clicking them does nothing. lgse/strata#1764
 - A loading FreeCAD file or embedded-image 3MF shows the same details and inactive camera controls, then switches to the plain image. lgse/strata#1764
 - A FreeCAD file's loading badge reads "FCSTD". lgse/strata#1764 (unverified)
+- A local G-code file loads with the same details and inactive camera controls; its badge reads "GCODE", "GCO", or "BGCODE". lgse/strata#1864 (unverified)
 - No loading card covers the model; the header spinner left of Open is the only indicator, shown at once for first loads and view changes. lgse/strata#1764
 - While another view renders, the last image stays at opacity 0.3 with a wait cursor. lgse/strata#1644
 - The header spinner's accessible label reads "Loading preview…", then "Reading model…", "Rendering N triangles…", and "Finishing preview…"; embedded images read "Reading thumbnail…" instead of the count. lgse/strata#1276, lgse/strata#1644, lgse/strata#1764
@@ -62,6 +64,7 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 - That position follows the listing's current sort and filter. lgse/strata#1644
 - With search results in place of the listing, the eyebrow reads "N of M in results". lgse/strata#1644 (unverified)
 - FreeCAD and thumbnail-only 3MF files count toward that total. lgse/strata#1644 (unverified)
+- Local G-code files count toward that total too. lgse/strata#1864 (unverified)
 - The model and its controls form one vertically centred block, so a taller window keeps them together. lgse/strata#1644
 - The model picture keeps the grab cursor and file drag. lgse/strata#1633, lgse/strata#1644 (unverified)
 
@@ -85,3 +88,4 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 ## Known gaps
 
 - A killed STL thumbnail helper stuck in kernel I/O can overlap a later render until the kernel lets it exit. lgse/strata#1789
+- A text G-code file without a thumbnail briefly shows the model loading view, with inactive camera controls, before its text arrives. lgse/strata#1864

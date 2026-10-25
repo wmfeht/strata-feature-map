@@ -35,7 +35,9 @@ operations/trash/animation: Visual effect with no user-facing setting to documen
 operations/trash/empty: No upstream user doc covered Empty Trash; its testing doc stays upstream.
 operations/trash/restore: Covered by the Everyday operations guide page; its upstream doc, docs/trash-restore-testing.md, is testing guidance and stays upstream.
 preview/preview-panel/documents/odt: New since v1.0.0; the next release docs run places it.
+preview/preview-panel/gcode: New since v1.0.0; the next release docs run places it.
 preview/preview-panel/model-views: New since v1.0.0; the next release docs run places it.
+preview/preview-panel/routes: New since v1.0.0; the next release docs run places it.
 remote/file-providers: Parent with no Behavior of its own; its children are on the SFTP locations and External file providers pages.
 remote/file-providers/integrations: New since v1.0.0; the next release docs run places it.
 remote/file-providers/kde-connect: New since v1.0.0; the next release docs run places it.

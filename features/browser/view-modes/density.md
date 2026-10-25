@@ -3,7 +3,7 @@ title: Frame and content density
 status: shipped
 origin: {issue: lgse/strata#1774, pr: lgse/strata#1776}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/window/density_slider.rs]
 tests: [src/ui/window/tests/appearance_density.rs, src/ui/theme/tests/density.rs, src/ui/preferences/tests/preferences.rs]

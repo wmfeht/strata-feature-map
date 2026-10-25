@@ -3,7 +3,7 @@ title: Drag and drop
 status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: []
 tests: [tests/qa/scenarios/drag_and_drop, tests/qa/scenarios/drag_animation, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]
@@ -44,10 +44,11 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 - Dropping onto the background of a pane or column showing another folder transfers into that folder. lgse/strata#587 (unverified)
 - Sidebar Home, standard places, pinned folders, and mounted native devices accept file drops from every view; Network and other URI locations except Trash do not. lgse/strata#350, lgse/strata#626
 - Parent breadcrumbs accept file drops. lgse/strata#1487
+- A breadcrumb under a file drag shows an accent tint and an accent inset ring, not GTK's green border. lgse/strata#1831
 - Folder rows and panes for Trash and Recent accept no file drops. lgse/strata#350 (unverified)
 - Dropping a folder onto itself or its descendants, or items onto their own folder, transfers nothing and opens no progress dialog. lgse/strata#587
 - When a dropped selection mixes items already in the destination with others, the others still transfer. lgse/strata#502
-- Pressing Escape or releasing outside every drop target ends the drag without transferring. lgse/strata#630
+- Releasing outside every drop target ends the drag without transferring. lgse/strata#630
 - A file list dragged from another application transfers like an internal drag; image, text, and web-link payloads are refused. lgse/strata#1545
 - Dragged items are offered as a GDK file list and a `text/uri-list`, so other applications can receive them. lgse/strata#292 (unverified)
 
@@ -76,6 +77,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 - Local sidebar rows take file payloads ahead of the pinned-place reorder target, which accepts only string payloads (lgse/strata#350).
 - GTK's drag-end `delete_data` arrives before Strata's asynchronous transfer and cannot prove the source moved. The source row therefore never plays an exit animation; filesystem events remove it after a move (lgse/strata#598, lgse/strata#637). A downward settle animation was proposed and closed as not planned (lgse/strata#337).
 - Opening the destination after a drop surprised users, so it became an opt-in setting (lgse/strata#859, lgse/strata#933). Paste and Move/Copy to… still reveal their destination independently.
+- Escape cancellation is owned by `browser/tabs` (lgse/strata#1831, lgse/strata#1865).
 - Spring navigation during a held drag is distinct from that post-drop setting (lgse/strata#1498). It ignores drop validity so the source folder can spring open although dropping on it is forbidden (lgse/strata#1487).
 - Single-item drag previews show an icon because short filenames disappeared behind the cursor (lgse/strata#1487). This replaced the filename-only Explorer preview from lgse/strata#350.
 
@@ -83,6 +85,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1865 | fix | Cancelled file drags on Escape through `GdkDrag::cancel`, so releasing over a folder no longer drops on X11. |
 | 2026-10-05 | lgse/strata#1487 | feat | Added 750 ms spring-loaded navigation during held drags, icon drag previews, and selection-style drop outlines. |
 | 2026-09-16 | lgse/strata#1049 | fix | Made the clipped-column reveal overlay non-targetable so drags start in narrow windows. |
 | 2026-09-13 | lgse/strata#933 | feat | Stopped opening the destination after a drop by default and added the Open folder after dropping files setting. |

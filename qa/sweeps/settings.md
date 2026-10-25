@@ -1,20 +1,20 @@
 ---
 title: Settings sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
 ## Setup
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `scripts/headless/environment.py`, read from the `preferences` table of `tests/fixtures/harness.json`, is the baseline; every seeded file starts from it.
-- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variants = { <fake theme name> = "lighter" }`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `stl_thumbnails = true`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`.
+- A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variants = { <fake theme name> = "lighter" }`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `stl_thumbnails = true`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`, `unit_system = "imperial"`.
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
@@ -62,6 +62,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Set Default directory to a folder on the sshfs mount, stop the daemon, and open a new window. Resume after 1 s and after 30 s; then delete the folder on the server while stopped and resume.
 - Set Default directory to a folder, then delete it from an otherwise empty parent, and again from a parent that also holds a mount point; open a new window after each and read the row.
 - Click Restart now five times within a second after a renderer change, then with Properties open in another window; count Strata processes after the relaunch.
+- Switch Units in window A before window B has ever opened Settings, then open B's General page and read its buttons and `settings.toml`.
+- Seed `unit_system = "nautical"`, `unit_system = 1`, and `unit_system = "Imperial"`; launch, read the Units row, change another preference, and diff `settings.toml`.
+- Search "kilometres", "kml", and "feet" under English and `language = "ja"`; read which rows show and which page opens.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 
 ### settings/preferences/storage
@@ -75,6 +78,10 @@ For every control this sweep proves the binding: the file changes, the other win
 - With saves failing, toggle switches by keyboard in window A while B is focused, with Properties open, and during an Omarchy theme change. Count dialogs, then `chmod 755` and fail again.
 - Seed a broken `settings.toml`, then make the first change from the file chooser, from window B while A is focused, and from a second Settings page. Count dialogs per session.
 - Run the failing-save cases under `language = "ja"` and `"de"` with a 200-character path; check the dialog text wraps and the path stays whole.
+- Seed `sidebar_order`, `folder_colors`, and `custom_icons` each with one bad entry among valid ones, then with only bad entries. Launch, change one preference, and diff `settings.toml`.
+- Seed `send_to_recent_destinations` with one device whose value is a table and one whose list holds an integer; launch, open Send to, and diff after one change.
+- Seed `chooser_list_columns` with `size = "wide"` beside valid `browser_list_columns`; open the file chooser and a List pane and read both widths.
+- Seed a 5,000-entry `folder_colors` table with one bad value; time startup to the first painted window and read the colors.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
 - In two windows, sort the Trash and an SFTP folder differently in each. Read each window's sort, then restart and read them again.
@@ -230,6 +237,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Restore open tabs under General → Startup and the tab session it controls → `browser`.
 - Focus return after closing dialogs other than Settings → `app`.
 - Focus return after closing the search palettes → `browser`.
+- Units as it acts on route previews, open and new, in the browser and the chooser → `preview`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
 - What Watch network folders checks and re-reads in open folders → `browser`.
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails and STL model thumbnails change in the file views → `browser`.

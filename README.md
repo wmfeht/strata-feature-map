@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `2218357` · 129 features, 7 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `d6c7474` · 131 features, 6 reviewed
 
 ## app
 
@@ -38,7 +38,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `bf26829` | ? |
 | [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `4b9a6ac` | ? |
 | ↳ [Network folder change checks](features/browser/directory-monitoring/network-checks.md) | `browser/directory-monitoring/network-checks` | shipped | draft | `fd63272` | ? |
-| [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | draft | `bf26829` | ? |
+| [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | draft | `d6c7474` | ? |
 | [Navigation](features/browser/navigation/index.md) | `browser/navigation` | shipped | draft | `fd63272` | ? |
 | ↳ [Folder jump](features/browser/navigation/folder-jump.md) | `browser/navigation/folder-jump` | shipped | draft | `fd63272` | ? |
 | ↳ [Location bar and breadcrumbs](features/browser/navigation/location-bar.md) | `browser/navigation/location-bar` | shipped | draft | `c94eeb0` | ? |
@@ -51,27 +51,27 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | [Scrolling](features/browser/scrolling.md) | `browser/scrolling` | shipped | draft | `c94eeb0` | ? |
 | [Search](features/browser/search/index.md) | `browser/search` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Global search exclusions](features/browser/search/exclusions.md) | `browser/search/exclusions` | shipped | reviewed | `b893886` | 0 |
-| ↳ [Pane filter](features/browser/search/filter.md) | `browser/search/filter` | shipped | draft | `bf26829` | ? |
-| [Selection](features/browser/selection/index.md) | `browser/selection` | shipped | draft | `c94eeb0` | ? |
+| ↳ [Pane filter](features/browser/search/filter.md) | `browser/search/filter` | shipped | draft | `d6c7474` | ? |
+| [Selection](features/browser/selection/index.md) | `browser/selection` | shipped | draft | `d6c7474` | ? |
 | ↳ [Click modes](features/browser/selection/click-modes.md) | `browser/selection/click-modes` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Keyboard navigation in views](features/browser/selection/keyboard-navigation.md) | `browser/selection/keyboard-navigation` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Marquee selection](features/browser/selection/marquee.md) | `browser/selection/marquee` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Pointer intent](features/browser/selection/pointer-intent.md) | `browser/selection/pointer-intent` | shipped | draft | `c94eeb0` | ? |
-| [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `bf26829` | ? |
+| [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `d6c7474` | ? |
 | ↳ [Connect to server dialog](features/browser/sidebar/connect-to-server.md) | `browser/sidebar/connect-to-server` | shipped | draft | `fd63272` | ? |
-| ↳ [Pinned folders](features/browser/sidebar/pins.md) | `browser/sidebar/pins` | shipped | draft | `c94eeb0` | ? |
-| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `bf26829` | ? |
+| ↳ [Pinned folders](features/browser/sidebar/pins.md) | `browser/sidebar/pins` | shipped | draft | `d6c7474` | ? |
+| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `d6c7474` | ? |
 | ↳ [Tab session restore](features/browser/tabs/session-restore.md) | `browser/tabs/session-restore` | shipped | draft | `fd63272` | ? |
-| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | draft | `bf26829` | ? |
+| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | draft | `d6c7474` | ? |
 | ↳ [Thumbnail disk cache](features/browser/thumbnails/cache.md) | `browser/thumbnails/cache` | shipped | draft | `e0f7397` | ? |
-| ↳ [Thumbnail workers](features/browser/thumbnails/workers.md) | `browser/thumbnails/workers` | shipped | draft | `bf26829` | ? |
-| [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `bf26829` | ? |
-| ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `bf26829` | ? |
-| ↳ [Frame and content density](features/browser/view-modes/density.md) | `browser/view-modes/density` | shipped | draft | `bf26829` | ? |
+| ↳ [Thumbnail workers](features/browser/thumbnails/workers.md) | `browser/thumbnails/workers` | shipped | draft | `d6c7474` | ? |
+| [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `d6c7474` | ? |
+| ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `d6c7474` | ? |
+| ↳ [Frame and content density](features/browser/view-modes/density.md) | `browser/view-modes/density` | shipped | draft | `d6c7474` | ? |
 | ↳ [Per-folder sort and thumbnail size](features/browser/view-modes/folder-views.md) | `browser/view-modes/folder-views` | shipped | draft | `fd63272` | ? |
 | ↳ [Icons view](features/browser/view-modes/icons.md) | `browser/view-modes/icons` | shipped | draft | `027d698` | ? |
-| ↳ [List view](features/browser/view-modes/list/index.md) | `browser/view-modes/list` | shipped | draft | `bf26829` | ? |
-| &emsp;↳ [List column order and visibility](features/browser/view-modes/list/column-layout.md) | `browser/view-modes/list/column-layout` | shipped | draft | `bf26829` | ? |
+| ↳ [List view](features/browser/view-modes/list/index.md) | `browser/view-modes/list` | shipped | draft | `d6c7474` | ? |
+| &emsp;↳ [List column order and visibility](features/browser/view-modes/list/column-layout.md) | `browser/view-modes/list/column-layout` | shipped | draft | `d6c7474` | ? |
 | ↳ [Position restore on return and refresh](features/browser/view-modes/position-restore.md) | `browser/view-modes/position-restore` | shipped | draft | `fd63272` | ? |
 | ↳ [Sorting](features/browser/view-modes/sorting.md) | `browser/view-modes/sorting` | shipped | draft | `fd63272` | ? |
 | ↳ [Text size](features/browser/view-modes/text-size.md) | `browser/view-modes/text-size` | shipped | draft | `c94eeb0` | ? |
@@ -100,7 +100,7 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | ↳ [10xer mode in the file chooser](features/integration/10xer-mode/file-chooser.md) | `integration/10xer-mode/file-chooser` | shipped | draft | `bf26829` | ? |
 | ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `fd63272` | ? |
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places.md) | `integration/10xer-mode/places` | shipped | draft | `fd63272` | ? |
-| ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | draft | `027d698` | ? |
+| ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | draft | `d6c7474` | ? |
 | ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | draft | `bf26829` | ? |
 | [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | draft | `2218357` | ? |
 | [FileManager1 D-Bus interface](features/integration/file-manager-interface/index.md) | `integration/file-manager-interface` | shipped | draft | `bf26829` | ? |
@@ -109,9 +109,9 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | ↳ [Recently used applications](features/integration/open-with/recent-apps.md) | `integration/open-with/recent-apps` | shipped | draft | `fd63272` | ? |
 | ↳ [Open in Terminal](features/integration/open-with/terminal.md) | `integration/open-with/terminal` | shipped | draft | `bf26829` | ? |
 | [System file chooser](features/integration/portal-file-chooser/index.md) | `integration/portal-file-chooser` | shipped | draft | `bf26829` | ? |
-| ↳ [Chooser PNG conversion](features/integration/portal-file-chooser/image-conversion.md) | `integration/portal-file-chooser/image-conversion` | shipped | draft | `c94eeb0` | ? |
+| ↳ [Chooser PNG conversion](features/integration/portal-file-chooser/image-conversion.md) | `integration/portal-file-chooser/image-conversion` | shipped | draft | `d6c7474` | ? |
 | ↳ [File chooser and file manager setup](features/integration/portal-file-chooser/setup.md) | `integration/portal-file-chooser/setup` | shipped | draft | `bf26829` | ? |
-| ↳ [Name field filenames and URL downloads](features/integration/portal-file-chooser/url-download.md) | `integration/portal-file-chooser/url-download` | shipped | reviewed | `b893886` | 0 |
+| ↳ [Name field filenames and URL downloads](features/integration/portal-file-chooser/url-download.md) | `integration/portal-file-chooser/url-download` | shipped | draft | `d6c7474` | ? |
 | ↳ [Chooser window size and placement](features/integration/portal-file-chooser/window-placement.md) | `integration/portal-file-chooser/window-placement` | shipped | reviewed | `b893886` | 0 |
 
 ## operations
@@ -120,15 +120,15 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Archives](features/operations/archives/index.md) | `operations/archives` | shipped | draft | `c94eeb0` | ? |
+| [Archives](features/operations/archives/index.md) | `operations/archives` | shipped | draft | `d6c7474` | ? |
 | ↳ [Archive preview](features/operations/archives/preview.md) | `operations/archives/preview` | shipped | draft | `c94eeb0` | ? |
 | ↳ [RAR extraction](features/operations/archives/rar.md) | `operations/archives/rar` | shipped | reviewed | `fd63272` | ? |
-| [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | draft | `c94eeb0` | ? |
+| [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | draft | `d6c7474` | ? |
 | ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | draft | `fd63272` | ? |
 | [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `c94eeb0` | ? |
 | [Permanent deletion](features/operations/delete.md) | `operations/delete` | shipped | draft | `fd63272` | ? |
-| [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | draft | `c94eeb0` | ? |
+| [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | draft | `d6c7474` | ? |
 | ↳ [Columns drag autoscroll](features/operations/drag-and-drop/column-autoscroll.md) | `operations/drag-and-drop/column-autoscroll` | shipped | reviewed | `b893886` | 0 |
 | ↳ [Drop copy-or-move policy](features/operations/drag-and-drop/copy-or-move.md) | `operations/drag-and-drop/copy-or-move` | shipped | draft | `c94eeb0` | ? |
 | [Filesystem-safe placement and copying](features/operations/filesystem-compatibility/index.md) | `operations/filesystem-compatibility` | shipped | draft | `c94eeb0` | ? |
@@ -150,17 +150,19 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | draft | `2218357` | ? |
-| ↳ [Rendered document previews](features/preview/preview-panel/documents/index.md) | `preview/preview-panel/documents` | shipped | draft | `2218357` | ? |
+| [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | draft | `d6c7474` | ? |
+| ↳ [Rendered document previews](features/preview/preview-panel/documents/index.md) | `preview/preview-panel/documents` | shipped | draft | `d6c7474` | ? |
 | &emsp;↳ [ODT and OTT document previews](features/preview/preview-panel/documents/odt.md) | `preview/preview-panel/documents/odt` | shipped | draft | `2218357` | ? |
-| ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | draft | `2218357` | ? |
-| ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `2218357` | ? |
+| ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | draft | `d6c7474` | ? |
+| ↳ [G-code thumbnail previews](features/preview/preview-panel/gcode.md) | `preview/preview-panel/gcode` | shipped | draft | `d6c7474` | ? |
+| ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `d6c7474` | ? |
 | ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `2218357` | ? |
 | &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | draft | `c94eeb0` | ? |
 | &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | draft | `c94eeb0` | ? |
-| ↳ [Model camera views](features/preview/preview-panel/model-views.md) | `preview/preview-panel/model-views` | shipped | draft | `bf26829` | ? |
-| ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | draft | `2218357` | ? |
-| [Quick preview](features/preview/quick-preview/index.md) | `preview/quick-preview` | shipped | draft | `c94eeb0` | ? |
+| ↳ [Model camera views](features/preview/preview-panel/model-views.md) | `preview/preview-panel/model-views` | shipped | draft | `d6c7474` | ? |
+| ↳ [Offline route previews](features/preview/preview-panel/routes.md) | `preview/preview-panel/routes` | shipped | draft | `d6c7474` | ? |
+| ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | draft | `d6c7474` | ? |
+| [Quick preview](features/preview/quick-preview/index.md) | `preview/quick-preview` | shipped | draft | `d6c7474` | ? |
 | ↳ [Folder peek](features/preview/quick-preview/folder-peek.md) | `preview/quick-preview/folder-peek` | shipped | reviewed | `c94eeb0` | ? |
 
 ## remote
@@ -183,10 +185,10 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Diagnostics](features/settings/diagnostics.md) | `settings/diagnostics` | shipped | draft | `fd63272` | ? |
-| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `bf26829` | ? |
+| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `d6c7474` | ? |
 | ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | draft | `fd63272` | ? |
 | ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `e0f7397` | ? |
-| ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `bf26829` | ? |
+| ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `d6c7474` | ? |
 | [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `bf26829` | ? |
 | ↳ [Corner roundness](features/settings/themes/corner-roundness.md) | `settings/themes/corner-roundness` | shipped | draft | `c94eeb0` | ? |
 | ↳ [Themed icons](features/settings/themes/icons.md) | `settings/themes/icons` | shipped | draft | `c94eeb0` | ? |

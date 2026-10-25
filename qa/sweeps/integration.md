@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -77,6 +77,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Paste the 301, the 404, a server that stalls after its headers, `http://user:pw@127.0.0.1:8765/a.txt`, and a `file://` URL; watch the ring and the action bar.
 - Paste the same URL twice, delete its folder from a shell, paste again; then backdate a `strata-download-*` folder 25 hours and start a download.
 - In a 10k-file fixture, type a folder name, a hidden file's name with hidden files off, and a filter-rejected name before the listing finishes.
+- Download under `umask 0000` and under `umask 0077`, then paste the same URL again; `stat` the `strata-download-*` folder and its file as a second local user.
 
 ### integration/portal-file-chooser/image-conversion
 
@@ -84,6 +85,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Switch the filter to All files, then edit Name, while a conversion is running; press Open again after each.
 - Compare the converted PNG with `identify -verbose` and `exiftool`: dimensions, alpha, orientation, and profile.
 - Repeat the JPEG download under `filters` with Images, then Text files, selected.
+- Under `umask 0000`, convert a JPEG, then download a PNG named `.jpg` under `png` so it is renamed; `stat` both folders and files as a second local user.
 
 ### integration/portal-file-chooser/window-placement
 
@@ -113,6 +115,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
 - With the drawer closed, press `i` on a locked archive and type `j`; step `j`/`k` across a second locked archive, then press `l`, a wrong password, and Enter.
 - Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
+- Press `l` on `tests/fixtures/documents/password-protected.pdf`, then `j`, Right, Down, `k`, and Tab; read the focus ring and the F1 footer. Repeat in the chooser and after clicking the message.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
 ### integration/10xer-mode/places
