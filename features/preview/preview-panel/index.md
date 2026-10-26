@@ -180,6 +180,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 - Images cannot be rotated in the preview; the change is unmerged. lgse/strata#987, lgse/strata#1388
 - A growing log file does not update while previewed. lgse/strata#847
+- The preview's media seek and volume sliders have no accessible name; naming them needs new strings in every catalog. lgse/strata#1896
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
 - Each first visit to a camera view rereads and reparses the mesh before a full CPU render; parsed meshes are not retained. lgse/strata#1644
 - A bare `.h264` stream shows "No visual preview" on systems such as Arch, whose MIME database types it `application/octet-stream`. lgse/strata#1861, lgse/strata#1333

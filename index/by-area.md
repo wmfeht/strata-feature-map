@@ -503,7 +503,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - Code: [`src/ui/browser_modes.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/browser_modes.rs), [`src/ui/browser_modes/events.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/browser_modes/events.rs), [`src/ui/browser/pane_header.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/browser/pane_header.rs), [`src/ui/browser/presentation.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/browser/presentation.rs), [`src/ui/loading_skeleton.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/loading_skeleton.rs), [`src/ui/loading_skeleton/**`](https://github.com/lgse/strata/tree/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/loading_skeleton)
 - Tests: [`tests/qa/scenarios/view_switching`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/tests/qa/scenarios/view_switching), [`tests/qa/mutations/view-switching.patch`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/tests/qa/mutations/view-switching.patch), [`src/ui/loading_skeleton/delay/tests.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/loading_skeleton/delay/tests.rs), [`src/ui/browser_modes/tests.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/browser_modes/tests.rs), [`src/ui/browser/presentation/tests.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/browser/presentation/tests.rs)
 - Docs: [`docs/architecture.md`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/architecture.md), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/site/src/reference/keyboard-navigation.md)
-- Related: [Search](../features/browser/search/index.md), [Preview panel](../features/preview/preview-panel/index.md), [Frame and content density](../features/browser/view-modes/density.md), [Accessibility](../features/app/accessibility.md)
+- Related: [Search](../features/browser/search/index.md), [Preview panel](../features/preview/preview-panel/index.md), [Frame and content density](../features/browser/view-modes/density.md), [Accessibility](../features/app/accessibility.md), [Inline rename](../features/operations/rename.md)
 - Children: [Columns view](../features/browser/view-modes/columns.md), [Frame and content density](../features/browser/view-modes/density.md), [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md), [Icons view](../features/browser/view-modes/icons.md), [List view](../features/browser/view-modes/list/index.md), [Position restore on return and refresh](../features/browser/view-modes/position-restore.md), [Sorting](../features/browser/view-modes/sorting.md), [Text size](../features/browser/view-modes/text-size.md), [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md)
 
 ### [Columns view](../features/browser/view-modes/columns.md) `browser/view-modes/columns`
@@ -652,13 +652,13 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 ### [Encrypted volumes](../features/devices/volumes/encrypted.md) `devices/volumes/encrypted`
 
-shipped · draft · reviewed at [`bf26829`](https://github.com/lgse/strata/tree/bf26829b4fd74c1f25ac170aad9521a633234a30) · ? PRs since · origin pr [lgse/strata#935](https://github.com/lgse/strata/issues/935)
+shipped · draft · reviewed at [`be3343a`](https://github.com/lgse/strata/tree/be3343a5992a2a5497b1a2ee7faa525be18e988f) · ? PRs since · origin pr [lgse/strata#935](https://github.com/lgse/strata/issues/935)
 
 Unlocking and locking LUKS volumes from their Devices rows with Strata's themed passphrase prompt, and forgetting a saved passphrase when locking. For users who keep encrypted USB drives or partitions.
 
-- Code: [`src/ui/window/volume_password.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/window/volume_password.rs)
-- Tests: [`src/ui/window/volume_password/tests.rs`](https://github.com/lgse/strata/blob/bf26829b4fd74c1f25ac170aad9521a633234a30/src/ui/window/volume_password/tests.rs)
-- Related: [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md)
+- Code: [`src/ui/window/volume_password.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/window/volume_password.rs)
+- Tests: [`src/ui/window/volume_password/tests.rs`](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/src/ui/window/volume_password/tests.rs)
+- Related: [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md), [Accessibility](../features/app/accessibility.md)
 
 ### [Unmount and eject](../features/devices/volumes/release.md) `devices/volumes/release`
 

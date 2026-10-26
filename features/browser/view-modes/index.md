@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/qa/scenarios/view_switching, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility]
+related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename]
 ---
 
 ## Summary
@@ -64,9 +64,6 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - The focused pane draws a 2 px accent focus ring only while GTK shows focus, as after keyboard input. lgse/strata#1466, lgse/strata#1533 (unverified)
 - When entries appear in a folder whose pane held focus, focus moves to the keyboard cursor row. lgse/strata#1466, lgse/strata#1533
 - F5 keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533, lgse/strata#1729
-- In a scrolled List, after a rename moves a file from the bottom to near the top, each Down advances selection and focus. lgse/strata#1890
-- In List and Icons, a deferred cursor restore after a row splice or Page Down is dropped once a key moves the cursor. lgse/strata#1890 (unverified)
-- In List and Icons, after Ctrl+H hides hidden files, renaming the focused file to a dot name moves the cursor to its visible neighbor. lgse/strata#1874 (unverified)
 - Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
 - While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
 - In List, cut styling, hidden-file dimming, and live dates of visible rows refresh once scrolling has been still for 25 ms. lgse/strata#1673
@@ -98,7 +95,7 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-25 | lgse/strata#1890 | fix | Dropped a deferred cursor restore once a key press moves the cursor, so arrow keys work after a rename re-sorts the list. |
+| 2026-10-25 | lgse/strata#1890 | fix | Dropped stale deferred cursor restores in `browser_modes` once a newer cursor supersedes them, so arrow keys work after a rename re-sorts List. |
 | 2026-10-23 | lgse/strata#1800 | feat | Previewed List heading drags with an insertion line and applied the column move once, on release. |
 | 2026-10-15 | lgse/strata#1673 | perf | Settled List and Icons row refreshes 25 ms after the last scroll instead of every frame, and dropped the `list-fast-scroll` class. |
 | 2026-10-15 | lgse/strata#1611 | fix | Routed a focus request for a pane showing results to their cursor hit instead of the hidden listing. |

@@ -37,6 +37,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, changes to dot-files are ignored, and a dot-file renamed to a visible name appears as a new entry. lgse/strata#1266 (unverified)
+- In List and Icons, after Ctrl+H hides hidden files, renaming the focused file to a dot name moves the cursor to its visible neighbor. lgse/strata#1874 (unverified)
 - More than 4,096 pending changes in one batch, an unmount, or an unrecognized monitor event reload the whole folder instead. lgse/strata#75, lgse/strata#1266 (unverified)
 - Files created, renamed, or removed externally while a large folder is still loading are not overridden by late enumeration rows. lgse/strata#1037
 - Renaming an open folder externally in Columns re-points its column and every open descendant to the new path. lgse/strata#1036, lgse/strata#1037
@@ -106,6 +107,8 @@ Loading and file monitoring predate the PR history; the original monitor already
 - lgse/strata#173 also bound Ctrl+R to refresh. lgse/strata#393 gave Ctrl+R to Rename, leaving F5 as the only refresh key.
 - Retired views once stayed alive through autoscroll, menu, and preference-listener cycles, so each folder switch added work (lgse/strata#1185, lgse/strata#1187, lgse/strata#1353).
 
+- In-app renames and monitor-reported moves share one code path, whatever hidden-files setting the monitor started with (lgse/strata#1874).
+
 ## History
 
 | Date | PR | Type | Change |
@@ -130,4 +133,4 @@ Loading and file monitoring predate the PR history; the original monitor already
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902
 - While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
 - Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729
-- With hidden files off, a dot-file another program creates does not appear after Ctrl+H shows hidden files, until F5. Ctrl+H does not restart the folder's monitor. lgse/strata#1862, lgse/strata#1874
+- With hidden files off, a dot-file another program creates does not appear after Ctrl+H shows hidden files, until F5. Ctrl+H does not restart the folder's monitor. lgse/strata#1862, lgse/strata#1874 (unverified)

@@ -26,7 +26,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
-- GNOME Shell and KDE Plasma Wayland sessions, plus two monitors of different heights, for context menu placement probes.
+- GNOME Shell, KDE Plasma, and Hyprland Wayland sessions and an X11 session, plus two monitors of different heights, for context menu placement probes.
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
@@ -96,7 +96,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
 - At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
-- In List, scrolled to the bottom of `1000`, rename a new file so it sorts first and press Down immediately after Enter, as one scripted key sequence. Repeat after Page Down and in Icons.
+- In List at the bottom of `1000`, rename a new file to sort first, then press Down right after Enter in one scripted sequence. Repeat in Icons.
 
 ### browser/view-modes/columns
 
@@ -305,7 +305,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
 - Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
 - Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
-- Click a filtered file once in Columns, Icons, and List with files on two clicks and single-click previews off; then double-click one with files on one click.
+- In Columns, Icons, and List, click a filtered file while a result batch is arriving. Then Ctrl+click it and plain-click it again.
 - Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
 - In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
 - In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
@@ -421,7 +421,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.
 - Open the menu on a file on a virtiofs share, a 9p share, and a mergerfs mount.
-- Shrink the window to 400×300 and right-click entries at its bottom and right edges; then press Shift+F10 there with nothing selected.
+- Shrink the window to 400×300 and right-click an entry at its right edge; then press Shift+F10 there with nothing selected.
 - Move the window against the monitor's bottom edge and right-click the last row, then open the multi-selection menu of 50 entries there.
 - With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.

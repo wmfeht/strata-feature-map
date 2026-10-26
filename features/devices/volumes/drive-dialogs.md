@@ -50,7 +50,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Typed or pasted label text past the limit is cut to what fits: six emoji on exFAT leave five, with Continue enabled. lgse/strata#1875
 - On FAT32, typing `ÉTIQUETTE12` leaves `ÉTIQUETTE1`, because `É` counts 2 bytes. lgse/strata#1875
 - Switching filesystem trims the label to the new limit in its unit: six emoji typed under NTFS leave two under FAT32. lgse/strata#1875
-- The remaining-count caption under the label counts in the selected filesystem's unit, so `ÉTÉ-2026` on FAT32 shows 1 remaining. lgse/strata#1875
+- The remaining-count caption under the label counts in the selected filesystem's unit. lgse/strata#1875
 - A label with a character the filesystem forbids fails with "Invalid label: …" before unmounting. lgse/strata#1393
 - Continue shows a summary and "This permanently erases ALL DATA on this volume. This cannot be undone."; formatting starts only when Format is pressed. lgse/strata#1331
 - Cancel before Format changes nothing. lgse/strata#1331

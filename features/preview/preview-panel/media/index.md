@@ -116,4 +116,3 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 ## Known gaps
 
 - Application RSS grows across preview cycles through glibc arena retention; reusable parent-side workers are under investigation. lgse/strata#841
-- The preview's media seek and volume sliders have no accessible name; naming them needs new strings in every catalog. lgse/strata#1896

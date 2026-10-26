@@ -42,7 +42,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Hide the overlay, switch the theme accent, open Properties on the pending row, and press Eject on it again before GIO resolves.
 - Attach an ISO as a CD-ROM and a non-removable virtio ext4 disk; release each and compare the closing overlay.
 - Eject while the preview plays audio from the stick, while a PDF preview's sandbox holds a file there, and while Icons thumbnails load; then select a stick file before GIO resolves.
-- Dump the sidebar with a removable drive, an unmounted encrypted drive, and an unlocked one, expanded and as the rail.
+- Dump the sidebar with a removable drive, expanded and as the rail.
 
 ### devices/volumes/encrypted
 
@@ -51,6 +51,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Hide the "Unlocking volume" overlay and navigate to Home before unlock completes; then repeat with the pane already inside the mount.
 - Lock the login keyring with `secret-tool lock`, then Lock a volume with a saved passphrase; confirm the mount and the secret both survive.
 - Open the volume with `cryptsetup open` but no mount, then press Unlock and Lock on its row.
+- Dump the sidebar with an unmounted encrypted drive and an unlocked one, expanded and as the rail.
 
 ### devices/volumes/udiskie-unlock
 

@@ -167,14 +167,13 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Saved widths are unscaled by text size, so text-size changes scale them without compounding. Browser and chooser defaults are independent (lgse/strata#1338).
 - A monitored move to a hidden name, in a column that hides hidden files, is handled like a removal. A monitor started with hidden files shown keeps reporting moves after Ctrl+H, so leaving it to the monitor's removal was dropped (lgse/strata#1852, lgse/strata#1874).
 - Deeper columns close in place, not through a reload of the parent, which put the cursor on the first row and lost the neighbor (lgse/strata#1874).
-- In-app renames and monitor-reported moves share one code path, whatever hidden-files setting the monitor started with (lgse/strata#1874).
 - The "square" beside the scrollbar was the sidebar's paned handle showing through a transparent trough, so the mode scrollers' horizontal trough is opaque (lgse/strata#702).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-25 | lgse/strata#1874 | fix | Closed an open folder's columns and moved the cursor to its visible neighbor when the folder is renamed to a hidden name, so F2 works again. |
+| 2026-10-25 | lgse/strata#1874 | fix | Closed an open folder's columns and moved the cursor to its visible neighbor on a rename to a hidden name, so F2 works. |
 | 2026-10-15 | lgse/strata#1674 | perf | Faded size badges only on pointer hover and indexed clipboard marks, to cut arrow-key and scroll cost. |
 | 2026-10-15 | lgse/strata#1677 | perf | Updated column reveal buttons after each layout pass instead of every frame, so an idle window stops drawing frames. |
 | 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the hover badge and added a setting to hide Columns sizes. |

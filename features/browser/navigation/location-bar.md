@@ -111,4 +111,4 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 ## Known gaps
 
-- A path too deep for the bar shrinks each crumb to its first letter and an ellipsis, such as "l…", instead of scrolling. lgse/strata#1862
+- Deep breadcrumbs shrink to labels such as "l…" instead of overflowing to scroll. lgse/strata#1862

@@ -22,7 +22,6 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - A device row shows an eject button and an Eject menu entry when its volume or mount reports `can_eject`. lgse/strata#296
 - A row whose mount reports only `can_unmount` shows the same button with the tooltip and menu entry "Unmount". lgse/strata#296
 - The eject button's accessible name equals its tooltip, "Eject" or "Unmount". lgse/strata#1895 (unverified)
-- An encrypted drive's row button is named "Unlock" or "Lock", after its action. lgse/strata#1895 (unverified)
 - A fixed internal disk that reports neither shows no eject button and no Eject or Unmount entry. lgse/strata#296
 - The eject button stays visible and clickable when the sidebar's overlay scrollbar is shown. lgse/strata#935
 

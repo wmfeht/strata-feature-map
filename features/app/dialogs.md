@@ -54,7 +54,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Enter with an invalid Compress name such as `../escape` keeps the dialog open and writes no archive. lgse/strata#464
 - Enter in a multi-line text field inserts a newline instead of submitting. lgse/strata#464
 - A form text field can be limited in bytes or UTF-16 units. Typed or pasted text is cut to the longest leading part that fits, on a whole character. lgse/strata#1875
-- That field's "N chars remaining" caption counts in the same unit: `ÉTÉ-2026` under an 11-byte limit leaves 1. lgse/strata#1875
+- That field's "N chars remaining" caption counts in the same unit: `ÉTÉ-2026` under an 11-byte limit reads "1 char remaining". lgse/strata#1875
 - Changing a field's limit or unit trims its current text to fit. lgse/strata#1875
 - An install command's copy button is named "Copy install command", then "Install command copied" for 2 s after a click. lgse/strata#1895 (unverified)
 

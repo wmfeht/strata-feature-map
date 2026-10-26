@@ -98,7 +98,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - On service activation, xdg-desktop-portal 1.22.1 waits in `OpenDirectory` for the `ShowItems` reply, while GTK's startup queries that portal before FileManager1 is exported. Replying earlier in the handler cannot break that wait (lgse/strata#1810, lgse/strata#1811).
 - The override is set by re-exec before GTK starts, not by changing the environment after threads may run. It shares the Cairo renderer and `GTK_THEME` restart path (lgse/strata#1811).
 - The override is scoped to service activation and is not a substitute for asynchronous dispatch in the portal. Packagers keep `--gapplication-service` in activation commands and do not set `no-portals` globally (lgse/strata#1811, docs/packaging.md).
-- A paste Replace without Trash exchanges the files, so the monitor reports the name arriving, then leaving, in one batch. The coalescer keeps the arrival, and the follow-up lookup decides whether the row stays, rather than forcing a rescan (lgse/strata#1858, lgse/strata#1890).
+- A paste Replace without Trash exchanges the files, so the monitor reports the name arriving, then leaving, in one batch. The coalescer keeps the arrival, and the follow-up lookup decides whether the row stays, without adding operation-specific refresh logic (lgse/strata#1858, lgse/strata#1890).
 - The `fstatat` fallback widens `st_nlink` through a generic helper, because it is `u32` on aarch64 and `u64` on x86_64 (lgse/strata#1753, lgse/strata#1755).
 
 ## History

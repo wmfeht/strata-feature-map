@@ -58,8 +58,8 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - The focusable pane of an empty, unreadable, or loading directory carries the directory as its name and the shown status as its description (lgse/strata#1466).
 - Menu accelerators go in the description so the shortcut text is not read as part of the item's name (lgse/strata#415).
 - Tooltips are not a reliable name source. One field exposed its tooltip as its name (lgse/strata#811), while tooltip-only location controls had no name (lgse/strata#1131). Controls get explicit names instead (lgse/strata#1132).
-- An icon-only button sets its tooltip and accessible name in one call, so a tooltip that changes, such as "Path copied", keeps the name in step (lgse/strata#1895).
-- A field under a visible label is linked to it, so its name follows the label. A field without one takes text it already shows, so no catalog strings were added (lgse/strata#1896).
+- An icon-only button sets its tooltip and accessible name in one call. A tooltip that changes, such as "Path copied", keeps the name in step (lgse/strata#1895).
+- Most fields under a visible label are linked to it, so the name follows the label. Others, such as the drive label and chooser Name fields, copy the text they show. No catalog strings were added (lgse/strata#1896).
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
