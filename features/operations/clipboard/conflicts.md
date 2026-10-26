@@ -7,7 +7,7 @@ reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs]
 tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch]
-related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers]
+related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers, app/infrastructure]
 ---
 
 ## Summary

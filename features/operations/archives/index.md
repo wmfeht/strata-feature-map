@@ -115,7 +115,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Two members that resolve to `report.txt` extract as `report.txt` and `report (2).txt`. lgse/strata#116, lgse/strata#1191
 - An absolute member path or a member written through an existing symlink fails the extraction without writing outside the destination. lgse/strata#116, lgse/strata#1478
 - A ZIP with members `before.txt`, `names/c:notes`, and `after.txt` extracts all three, with `c:notes` inside `names/`. lgse/strata#1855, lgse/strata#1872
-- A member path that starts with a drive prefix, such as `C:marker`, `./c:notes`, or `safe/../c:notes`, fails the extraction with "Refusing unsafe archive path: <name>". lgse/strata#1855, lgse/strata#1872
+- A member path whose first component, after `.` is skipped and `..` resolved, is a drive prefix, such as `C:marker`, `./c:notes`, or `safe/../c:notes`, fails the extraction with "Refusing unsafe archive path: <name>". lgse/strata#1855, lgse/strata#1872
 - A TAR hard link whose target is `names/c:notes` links to that extracted member. lgse/strata#1872
 - Symlink members are recreated with their stored targets, including absolute ones. lgse/strata#1478
 - A TAR hard link links to the earlier member of that name; a hard link to a member not extracted fails the extraction. lgse/strata#1478
@@ -161,7 +161,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Member paths are untrusted. Writes go through one pinned destination descriptor with `openat2` and per-component `NOFOLLOW`, so traversal names and swapped symlinks cannot escape (lgse/strata#109, lgse/strata#116).
 - The destination itself may be reached through ordinary symlinks; it is resolved with `RESOLVE_IN_ROOT` and pinned, as copy and compress already did (lgse/strata#644, lgse/strata#678).
 - `..` components are clamped at the destination instead of aborting the whole archive (lgse/strata#1189, lgse/strata#1191).
-- A drive prefix is refused only as the first component left after `.` is skipped and `..` popped, so `safe/../c:notes` stays refused. A colon in a later component is an ordinary name on Linux (lgse/strata#1855, lgse/strata#1872).
+- A drive prefix is refused only as the first component left after `.` is skipped and `..` popped, so `safe/../c:notes` stays refused. A colon in a later component is an ordinary name (lgse/strata#1855, lgse/strata#1872).
 - Directory members that name only the archive root are skipped in `ExtractionSession::extract_member`, so every decoder shares one check. File members with the same spelling still reach empty-path validation (lgse/strata#1801, lgse/strata#1814).
 - All decoders feed one `ExtractionSession` that owns conflicts, progress, cancellation, and cleanup (lgse/strata#557, lgse/strata#562).
 - Extraction stages into a hidden folder and decides single-root or bundled publication after decoding. Bundling after writing into the parent renamed members against the wrong folder and could not clean up failures (lgse/strata#1419, lgse/strata#1471).

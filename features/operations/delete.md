@@ -6,7 +6,7 @@ branch: null
 reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/dissolve_delete.rs, src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh]
-tests: [src/adapters/local_operations/tests/deletion.rs]
+tests: [src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
 related: [operations/trash, operations/progress, operations/filesystem-compatibility/open-files]
 ---
 
@@ -41,7 +41,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - A selected 11 B symlink to a 100 kB file lists "11 B", and the subtitle reads "1 item · 11 B will be permanently deleted". lgse/strata#1853, lgse/strata#1880
 - The browser's size column still shows that link as "100 kB". lgse/strata#1880
 - A file link's row shows "—" until its own size is measured. lgse/strata#1880 (unverified)
-- The "Move N items to Trash?" confirmation, such as from 10xer `d` or a leftover's Delete…, also lists a file link at its own size. lgse/strata#1880
+- The "Move N items to Trash?" confirmation, such as from 10xer `d` or a leftover's Delete…, also lists a file link at its own size. lgse/strata#1880 (unverified)
 - It renders at most 50 rows and adds "… and N more items"; confirming still deletes every selected item. lgse/strata#703
 - While the total calculates, a spinner shows beside a kind subtitle. lgse/strata#1134 (unverified)
 - That subtitle reads "N files" when every item is a file or file link, "N folders" when every item is a real folder, otherwise "N items". lgse/strata#1134, lgse/strata#1627 (unverified)
@@ -50,8 +50,8 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - For a remote selection the subtitle reads "N items · X will be deleted". lgse/strata#1614
 - A selected symlink to a folder counts as 1 item of 0 B; its target's contents are not counted. lgse/strata#1627
 - A selected dangling symlink does not make the finished subtitle read "At least". lgse/strata#1627, lgse/strata#1880 (unverified)
-- With 51 selected 11 B file links, the subtitle reads "51 items · 561 B will be permanently deleted", counting links past the 50 rows. lgse/strata#1880
-- A selected file link removed before it is measured shows "—", and the subtitle reads "At least 1 item · at least 0 B will be permanently deleted". lgse/strata#1880
+- With 51 selected 11 B file links, the subtitle reads "51 items · 561 B will be permanently deleted", counting links past the 50 rows. lgse/strata#1880 (unverified)
+- A selected file link removed before it is measured shows "—", and the subtitle reads "At least 1 item · at least 0 B will be permanently deleted". lgse/strata#1880 (unverified)
 - When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
 - For a remote selection, it ends "…will be deleted" instead. lgse/strata#1614
 - After Shift+Delete, Permanently delete, or Delete without Trash, the confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266, lgse/strata#1533, lgse/strata#1614

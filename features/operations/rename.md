@@ -80,7 +80,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - When the renamed row is still fully visible after sorting, the listing does not scroll. lgse/strata#619
 - Icons focuses and reveals a committed rename the same way. lgse/strata#1148
 - Scrolling or clicking before the reveal finishes cancels it. lgse/strata#1148
-- In a scrolled List, renaming a new file so it sorts near the top, then pressing Down, moves selection and focus to the next file. They stay there. lgse/strata#1890
+- In a scrolled List, renaming a new file so it sorts near the top, then pressing Down, moves selection and focus to the next file. Both stay on that file for at least 500 ms, rather than returning to the renamed file. lgse/strata#1890
 - A second Down then selects the file after that. lgse/strata#1890
 
 ## Design

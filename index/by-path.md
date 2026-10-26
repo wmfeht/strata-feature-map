@@ -912,6 +912,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `tests/qa/scenarios/drag_animation` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/entry_management` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl` | tests | [Permanent deletion](../features/operations/delete.md) | — |
 | `tests/qa/scenarios/escape_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `tests/qa/scenarios/file_providers` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
