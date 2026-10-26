@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -26,6 +26,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
+- GNOME Shell and KDE Plasma Wayland sessions, plus two monitors of different heights, for context menu placement probes.
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
@@ -95,6 +96,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
 - At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
+- In List, scrolled to the bottom of `1000`, rename a new file so it sorts first and press Down within one frame. Repeat after Page Down and in Icons.
 
 ### browser/view-modes/columns
 
@@ -121,6 +123,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With badges on, rest the pointer on an unselected row and hold Down through it; then move the pointer 1 px. Hover a row and leave it within 120 ms.
 - Wheel-scroll a column with the pointer over it and badges on; then kinetic-scroll the strip so a parent is clipped, stop, and compare its reveal button with its visible width.
 - With recursive filter results in a column, cancel a dialog opened from a hit, switch views, and hide the preview with the mouse; note which hit has focus each time.
+- With hidden files on, open `deep` to column 5, press Ctrl+H, and rename the column 3 folder to a dot name; then press Back.
+- Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
+- Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 
 ### browser/view-modes/icons
 
@@ -169,6 +174,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Change the sort of one folder in the portal chooser and the main window within 500 ms; quit both and read the file.
 - With the switch off, change the default sort from the portal chooser and watch a main window that never opened Settings.
 - Set a folder's sort, make another sort the default, then open the folder's sort menu and read which actions show.
+- Change the default sort in the portal chooser while the main window saves text wrap; then change the main window's default size before the chooser's save lands.
 - Rename a sorted folder from a shell, then delete it and reopen its parent; repeat for a folder on the unmounted drive.
 - Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
 
@@ -296,6 +302,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
 - Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
 - Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
+- Click a filtered file once in Columns, Icons, and List with files on one click, then two, each with single-click previews on and off.
+- Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
+- In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
+- In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
 
 ### browser/sidebar
 
@@ -408,6 +418,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.
 - Open the menu on a file on a virtiofs share, a 9p share, and a mergerfs mount.
+- Shrink the window to 400×300 and right-click entries at its bottom and right edges; then press Shift+F10 there with nothing selected.
+- Move the window against the monitor's bottom edge and right-click the last row, then open the multi-selection menu of 50 entries there.
+- With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
+- Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 
 ### browser/directory-monitoring
 

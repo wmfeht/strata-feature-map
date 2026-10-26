@@ -3,7 +3,7 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/dissolve_delete.rs, src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs]
@@ -38,6 +38,10 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - Its text reads "This item will be deleted without using Trash. Strata can't undo this; whether it can be recovered depends on the storage provider." lgse/strata#1571, lgse/strata#1614
 - It lists each item with its icon, name, and size, "—" when the size is unknown, or "Folder" for folders, scrolling past 10 items. lgse/strata#1134 (unverified)
 - A symlink to a folder is listed with "Folder link" in place of a size. lgse/strata#1627
+- A selected 11 B symlink to a 100 kB file lists "11 B", and the subtitle reads "1 item · 11 B will be permanently deleted". lgse/strata#1853, lgse/strata#1880
+- The browser's size column still shows that link as "100 kB". lgse/strata#1880
+- A file link's row shows "—" until its own size is measured. lgse/strata#1880 (unverified)
+- The "Move N items to Trash?" confirmation, such as from 10xer `d` or a leftover's Delete…, also lists a file link at its own size. lgse/strata#1880
 - It renders at most 50 rows and adds "… and N more items"; confirming still deletes every selected item. lgse/strata#703
 - While the total calculates, a spinner shows beside a kind subtitle. lgse/strata#1134 (unverified)
 - That subtitle reads "N files" when every item is a file or file link, "N folders" when every item is a real folder, otherwise "N items". lgse/strata#1134, lgse/strata#1627 (unverified)
@@ -45,7 +49,9 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - When the walk finishes, the spinner hides and the subtitle reads "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134
 - For a remote selection the subtitle reads "N items · X will be deleted". lgse/strata#1614
 - A selected symlink to a folder counts as 1 item of 0 B; its target's contents are not counted. lgse/strata#1627
-- A selected symlink whose size is unknown, such as a dangling link, does not make the finished subtitle read "At least". lgse/strata#1627 (unverified)
+- A selected dangling symlink does not make the finished subtitle read "At least". lgse/strata#1627, lgse/strata#1880 (unverified)
+- With 51 selected 11 B file links, the subtitle reads "51 items · 561 B will be permanently deleted", counting links past the 50 rows. lgse/strata#1880
+- A selected file link removed before it is measured shows "—", and the subtitle reads "At least 1 item · at least 0 B will be permanently deleted". lgse/strata#1880
 - When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
 - For a remote selection, it ends "…will be deleted" instead. lgse/strata#1614
 - After Shift+Delete, Permanently delete, or Delete without Trash, the confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266, lgse/strata#1533, lgse/strata#1614
@@ -88,6 +94,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 - The confirmation renders at most 50 rows because one GTK row per item on the main thread froze the UI at 1000 items (lgse/strata#622, lgse/strata#703).
 - A selected folder hides its nested contents behind one "Folder" row. The subtitle therefore reuses Empty Trash's bounded directory summary and reports a lower bound when truncated (lgse/strata#900, lgse/strata#1134).
 - A selected symlink root is counted as one item and never walked, because enumerating a root follows the link even with no-follow flags on its children (lgse/strata#1592, lgse/strata#1627).
+- The listing stats with follow, so the browser's size column keeps showing a file link's target size. The confirmation queries each file link without following it, once, for both its row and the total (lgse/strata#1853, lgse/strata#1880).
 - A network or cloud provider may keep its own copy, so wording that promises permanent loss is kept for local storage. A mixed selection keeps the stronger local warning (lgse/strata#1571, lgse/strata#1614).
 - Reach is judged from the path as shown, without resolving symlinks on the main thread (lgse/strata#1614).
 - Confirm takes initial focus, matching Finder, so Enter confirms and Escape cancels (lgse/strata#1204). Trash's no-Trash fallback is the exception (`operations/trash`, lgse/strata#1425). Enter honors the focused button because always confirming was a data-loss path (lgse/strata#854).
@@ -104,6 +111,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1880 | fix | Sized a selected file symlink as the link itself on the confirmation, since it showed the target's size. |
 | 2026-10-15 | lgse/strata#1627 | fix | Counted a symlink to a folder as one 0 B "Folder link" item on the confirmation, since only the link is deleted. |
 | 2026-10-05 | lgse/strata#1486 | fix | Targeted the cursor row or open folder for Delete and Shift+Delete in Columns view. |
 | 2026-10-05 | lgse/strata#1490 | fix | Restored the dissolve after operation docking dropped it. |

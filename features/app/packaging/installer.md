@@ -3,7 +3,7 @@ title: Release installer
 status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [install.sh, data/locales/installer.json, scripts/installer_messages.py]
 tests: [scripts/test_installer.py]
@@ -67,6 +67,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - The installer downloads the latest stable release only; a latest tag not shaped `vX.Y.Z` exits with an error. lgse/strata#330 (unverified)
 - Without `openssl` on `PATH`, the installer exits with "Required command not found: openssl" before downloading anything. lgse/strata#1825
 - A missing `curl`, `tar`, `sha256sum`, `wc`, `install`, or `sed` exits the same way. lgse/strata#1825 (unverified)
+- A missing `timeout` exits with "Required command not found: timeout" at the same check. lgse/strata#1876
 - Before the archive, it downloads `strata-update-manifest.json` (at most 32,768 bytes) and `strata-update-manifest.signatures.json` (at most 8,192 bytes) from the release. lgse/strata#1825
 - curl refuses a larger manifest or signatures file, failing its download step. lgse/strata#1825
 - A release with no manifest or signatures file fails "Download the signed release manifest" or "Download the release signatures" before the archive is requested. lgse/strata#1825
@@ -124,11 +125,14 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 - Application launcher installs the icon and entry under `$XDG_DATA_HOME`, with `Exec` set to the installed binary. lgse/strata#330, lgse/strata#1730
 - Default file manager sets Strata as the `inode/directory` default and exits with an error if `xdg-mime query` then reports another handler. lgse/strata#330 (unverified)
+- An `xdg-mime default` or `query` call that runs past 5 s fails the step with "Strata is installed, but setup did not finish." and status 124. lgse/strata#1876
 - Open file location writes `$XDG_DATA_HOME/dbus-1/services/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the installed binary. lgse/strata#317, lgse/strata#1730
 - After writing the "Open file location" service, the installer calls `org.freedesktop.DBus.ReloadConfig` on the session bus with a 5 s timeout. lgse/strata#1728
+- That call runs under `timeout 5`, so a session bus socket that accepts the connection and never answers ends it after 5 s. lgse/strata#1876
 - Strata then answers reveal requests in that session without a re-login. lgse/strata#1699, lgse/strata#1728
 - A successful reload prints `Strata now handles "Open file location" requests.` lgse/strata#1728
-- When the reload fails, times out, or `gdbus` is missing, the service stays installed and the installer warns "…could not reload the session bus. Log out and back in…" and continues. lgse/strata#1728
+- When the reload fails, times out, or `gdbus` is missing, the service stays installed and the installer warns "…could not reload the session bus. Log out and back in…" and continues. lgse/strata#1728, lgse/strata#1876
+- After that warning on a silent bus, the file chooser, Omarchy keybind, and udiskie steps and the summary still run. lgse/strata#1876
 - A failed service write, or another per-user FileManager1 provider, exits the installer before any reload; later integrations do not run. lgse/strata#1728
 - Checking Open and Save dialogs, or passing `--with-file-chooser`, runs the installed binary with `--install-portal`. lgse/strata#175, lgse/strata#1730
 - Open and Save dialogs left unchecked, or `--without-file-chooser`, runs `--dismiss-portal-prompt` when the release ships `portal/strata.portal`. lgse/strata#1730, lgse/strata#1825
@@ -168,7 +172,9 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 - Reusing the updater's Ed25519-signed manifest leaves one trust root to rotate, and rotation already supports overlapping signatures (https://github.com/lgse/strata/issues/1817#issuecomment-6366875203, docs/signed-updates.md). A rotation updates `data/update-keys.json` and `RELEASE_PUBLIC_KEYS` together (lgse/strata#1825).
 - Bash has no Ed25519 and a bespoke implementation was ruled out (https://github.com/lgse/strata/issues/1817#issuecomment-6366875203). The planned `python3` fallback was dropped because its standard library cannot verify Ed25519 (https://github.com/lgse/strata/issues/1817#issuecomment-6367178656).
 - Every integrity failure stops the install before the archive is unpacked (lgse/strata#1825, docs/signed-updates.md).
-- The session bus reads service directories only at startup or on `ReloadConfig`, so the installer reloads it as the Settings path already did. The call is bounded to 5 s, and a failure does not stop the install: the service still works after the next login (lgse/strata#1699, lgse/strata#1728).
+- The session bus reads service directories only at startup or on `ReloadConfig`, so the installer reloads it as the Settings path already did. The call is bounded to 5 s, and a failure does not stop the install: the service still works after the next login (lgse/strata#1699, lgse/strata#1728, lgse/strata#1876).
+- `gdbus --timeout` counts only the method call, which starts after connect, authentication, and `Hello`. A peer that never answers `AUTH` blocks it forever, so the 5 s deadline is on the process (lgse/strata#1850, lgse/strata#1876).
+- `xdg-mime` on a desktop it does not recognize, such as Hyprland, calls `dbus-send`, which blocks on a silent bus the same way. Both `xdg-mime` calls are bounded too (lgse/strata#1876).
 - Omarchy detection prints nothing rather than guess. Taking any `3` or `4` read a dev build's commit hash as Omarchy 3 and wrote bindings Omarchy 4 never loads (lgse/strata#652).
 - Prompts, including pacman's, read from `/dev/tty`, because `curl … | bash` binds stdin to the script (lgse/strata#682).
 - Keybind changes are backed up, validated by Hyprland, and rolled back on error (lgse/strata#330).
@@ -177,6 +183,7 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1876 | fix | Bounded the ReloadConfig and xdg-mime calls with a 5 s process deadline, so a session bus that never answers no longer hangs the installer. |
 | 2026-10-23 | lgse/strata#1825 | feat | Verified releases through the signed update manifest instead of `gh`, and installed every supported integration by default with `--without-*` flags. |
 | 2026-10-17 | lgse/strata#1728 | fix | Reloaded the session bus after installing the FileManager1 service, so "Open file location" uses Strata without a re-login. |
 | 2026-10-17 | lgse/strata#1730 | fix | Replaced per-step questions with a recommended setup or a menu of supported integrations, and rejected unsupported flags up front. |

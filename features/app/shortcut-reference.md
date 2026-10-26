@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]
@@ -135,4 +135,4 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ## Known gaps
 
-None known.
+- The footer's selection size adds a selected file symlink's target size, not the link's own size. lgse/strata#1853

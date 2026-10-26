@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background]
@@ -59,6 +59,15 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 - F5 keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544, lgse/strata#1729
 - After a reload removes an open rename field, F2 renames that row again and Menu or Shift+F10 opens its context menu. lgse/strata#1438, lgse/strata#1554
+
+### Renaming to a hidden name
+
+- With hidden files off, renaming a folder whose child column is open to a dot name closes that column and every deeper one. lgse/strata#1874
+- The cursor and selection then move to the folder's visible neighbor in the same column, and F2 starts a rename on it. lgse/strata#1874
+- The same holds when the column was loaded with hidden files on and Ctrl+H hid them before the rename. lgse/strata#1874
+- The columns close without reloading the parent column or adding a Back history entry. lgse/strata#1874
+- The parent column keeps its scroll position through that close. lgse/strata#1874 (unverified)
+- With hidden files on, or on a rename to a visible name, the row and its open columns follow the rename to the new path. lgse/strata#1874
 
 ### Column header
 
@@ -156,12 +165,16 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Horizontal scroll is routed in the capture phase because nested vertical listings consume horizontal events (lgse/strata#1124).
 - Autofit is detected as two drag starts on the same edge within 400 ms. A separate click gesture would compete with the drag for the event (lgse/strata#114).
 - Saved widths are unscaled by text size, so text-size changes scale them without compounding. Browser and chooser defaults are independent (lgse/strata#1338).
+- A monitored move to a hidden name, in a column that hides hidden files, is handled like a removal. A monitor started with hidden files shown keeps reporting moves after Ctrl+H, so leaving it to the monitor's removal was dropped (lgse/strata#1852, lgse/strata#1874).
+- Deeper columns close in place, not through a reload of the parent, which put the cursor on the first row and lost the neighbor (lgse/strata#1874).
+- In-app renames and monitor-reported moves share one code path, whatever hidden-files setting the monitor started with (lgse/strata#1874).
 - The "square" beside the scrollbar was the sidebar's paned handle showing through a transparent trough, so the mode scrollers' horizontal trough is opaque (lgse/strata#702).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1874 | fix | Closed an open folder's columns and moved the cursor to its visible neighbor when the folder is renamed to a hidden name, so F2 works again. |
 | 2026-10-15 | lgse/strata#1674 | perf | Faded size badges only on pointer hover and indexed clipboard marks, to cut arrow-key and scroll cost. |
 | 2026-10-15 | lgse/strata#1677 | perf | Updated column reveal buttons after each layout pass instead of every frame, so an idle window stops drawing frames. |
 | 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the hover badge and added a setting to hide Columns sizes. |

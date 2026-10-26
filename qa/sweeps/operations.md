@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
@@ -59,6 +59,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - With hidden files off, rename a file and a folder to dot names in each mode. Then create a file there from a shell, and repeat with hidden files on.
 - With airy spacing, commit a rename that stays visible, then click into another folder before the reveal ends.
 - Create an item in a slot that is already visible, with the list scrolled partway.
+- In Icons and Columns, scrolled to the bottom, rename a new file so it sorts near the top, then press Down twice. Repeat with Page Down, and with Up.
 
 ### operations/clipboard
 
@@ -81,6 +82,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Replace and Merge on tmpfs, where Trash is unavailable; cancel midway, then list hidden `.strata-originals-*` and `.strata-merge-*` names.
 - Merge without Trash on NFS while another program holds one replaced file open; then cancel a second such merge.
 - After a Merge, edit one placed file, only `touch` another, then undo.
+- On tmpfs and on a vfat stick, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
 
 ### operations/clipboard/send-to
 
@@ -187,6 +189,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete 1 to 15 rows above other rows in each mode and watch whether deleted rows vanish and reappear before the dissolve.
 - Start a second Shift+Delete while the first dissolve plays, then click a row.
 - Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
+- Shift+Delete a link to a file link, a link to a folder link, and a file link whose target lives on a stalled NFS mount.
+- Shift+Delete 60 items with file links, folder links, and dangling links both before and after the 50th row.
+- Press 10xer `d` on 60 file links, then confirm while their rows still show "—".
 - Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
 - Shift+Delete through a symlink alias into an NFS folder.
 
@@ -215,6 +220,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract a TAR holding a file, a hard link to it, and a link to that link. Use the real vfat and exFAT sticks and an SMB share; compare `stat -c '%h %i'`.
 - Extract that TAR onto a nearly full vfat stick, and cancel one with a 1 GiB hard-linked file while its copy is written.
 - Extract into a sshfs folder and onto a vfat stick an archive holding `10:00/` and `10_00/`, a symlink, a hard link to it, and `c:notes`.
+- Extract ZIP, 7Z, and RAR archives holding `names/c:notes`, `names/C:/x`, and a TAR hard link to `names/c:notes` onto the vfat and exFAT sticks.
+- Extract archives whose second member is `C:\evil`, `.\c:notes`, or `a/b/../../c:x`, with a third member after it; list what remains with hidden files shown.
 - On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
 - On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.
 - Extract into a folder open in a second window that has no monitor, such as an SFTP folder.

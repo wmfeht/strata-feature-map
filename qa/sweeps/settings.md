@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -84,6 +84,10 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed a 5,000-entry `folder_colors` table with one bad value; time startup to the first painted window and read the colors.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
+- Run the browser and the portal chooser on one HOME; change different keys in each, then the same key, then `device_labels` and `browser_list_columns` in both. Diff `settings.toml` after each save.
+- Seed a search limit of 45 and an unknown key, launch two processes, change a different key in each, and diff `settings.toml`.
+- Make `settings.toml` invalid TOML while two processes run, change a preference in each, then repair the file and change another.
+- Hold a `flock` on `~/.config/strata` from a shell, change preferences in two processes, release it, and diff `settings.toml`; repeat on the sshfs mount.
 - In two windows, sort the Trash and an SFTP folder differently in each. Read each window's sort, then restart and read them again.
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
 - Change ten preferences within one second and quit at once; relaunch and diff `settings.toml` against the last values shown.
@@ -143,7 +147,11 @@ For every control this sweep proves the binding: the file changes, the other win
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
 - With a custom theme selected, rewrite its file by atomic rename, then by in-place truncate-and-write; read both windows after each.
-- Make the selected theme file a symlink into `$HOME/dotfiles`, then into `/dev/shm`; edit the target and read the window.
+- Link the selected theme file to a target on `/dev/shm`, through a relative link, and to a target without a `.toml` extension; edit each target and read the window.
+- Link the selected theme through a two-hop chain, then repoint the middle link at another file; rewrite both files and read the window.
+- Point a link into a folder that does not exist yet, then create the folder and the target while Strata runs; read the theme list.
+- Link two themes into one dotfiles folder, remove one link, then rewrite the other target and a sibling file beside it; read the window and the log.
+- Under a light theme with Element glow off, then on, open path completion in the location entry, a folder peek popover, and the 10xer candidates popover; zoom on each popover's edge.
 - With the hostile `gtk.css` and `settings.ini`, walk the screenshot set in all three modes under a light and a dark theme, then compare against a run without them; any difference is a lead.
 - With the hostile setup, launch under `GTK_THEME=Adwaita:dark`, under `GTK_THEME=HighContrast`, and as the portal chooser, then with desktop high contrast and the dark color scheme on; read the log and the window.
 - Edit `~/.config/gtk-4.0/gtk.css` while Strata runs, then switch themes and open a new window; read Settings, a context menu, and a modal dialog.

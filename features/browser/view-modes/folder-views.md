@@ -3,7 +3,7 @@ title: Per-folder sort and thumbnail size
 status: shipped
 origin: {issue: lgse/strata#1563, pr: lgse/strata#1565}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/preferences/folder_view_settings.rs, src/ui/preferences/folder_views.rs, src/ui/preferences/folder_views/**, src/app/browser/folder_sorts.rs]
 tests: [src/ui/preferences/folder_views/tests.rs, src/app/browser/tests/folder_sorts.rs]
@@ -69,7 +69,8 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - A slider drag produces one write, and pending changes are written when Strata or the portal chooser quits. lgse/strata#1565
 - Writes land 500 ms after the last change, and refuse to follow a symlink in place of the file. lgse/strata#1565 (unverified)
 - When another Strata process, such as the portal chooser, saves, this process merges those values instead of overwriting them, and open views follow. lgse/strata#1565
-- Each process also follows a default sort and size another process saves to `settings.toml`. lgse/strata#1565
+- Each process also follows a default sort and size another process saves to `settings.toml`, even while an unrelated save of its own is in flight. lgse/strata#1565, lgse/strata#1877
+- Only an unsaved change of its own to the default sort, direction, or icon size keeps this process's value. lgse/strata#1877
 - A missing file starts empty, and the first change creates it. lgse/strata#1563, lgse/strata#1565
 - An unreadable file, invalid TOML, or an unknown `version` loads no values and is never overwritten that session. lgse/strata#1563, lgse/strata#1565
 - The first change in a browser window then shows the notice "Folder settings file can't be read" once. lgse/strata#1563, lgse/strata#1565

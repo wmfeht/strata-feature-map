@@ -3,7 +3,7 @@ title: Shared location model and listing adapter
 status: shipped
 origin: {issue: lgse/strata#14, pr: lgse/strata#27}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/model/mod.rs, src/adapters/local_files.rs, src/ui/mod.rs, src/main.rs, src/app/mod.rs, src/adapters/mod.rs, src/services/mod.rs, src/ui/resize_feedback.rs, src/ui/preferences/trashed.rs, src/adapters/volume/mounts.rs, src/adapters/volume/mount_snapshot.rs, README.md, docs/assets/strata-themes.png, THIRD_PARTY_LICENSES.md, data/licenses, data/strata.gresource.xml, AGENTS.md, typos.toml, clippy.toml, Cargo.toml, Cargo.lock, mise.toml, mise.lock, scripts/benchmark-scroll.py, src/build_info.rs, src/services/native_fs.rs, src/ui/keys/bindings.rs, src/ui/keys/bindings/**, build.rs, deny.toml, .github/workflows/ci.yml, .github/workflows/integrations.yml, .github/ISSUE_TEMPLATE/bug_report.yml, scripts/quality.sh, scripts/quality_ci.py, scripts/test-headless.py, scripts/integration_tests.py, src/ui/settings/install_command.rs, src/adapters/local_operations/fs_ops.rs, src/adapters/local_operations/native_fs.rs, src/adapters/local_operations/work_queue.rs, src/trusted_command.rs, src/adapters/gio_close.rs, src/adapters/volume/mount_watch.rs, src/adapters/volume/mount_lanes.rs, src/adapters/local_operations/probes.rs, src/util/ui_thread.rs, src/util/ui_thread/**, scripts/trace-main-io.py, tests/qa/main-io-allowlist.toml, .agents/skills, .claude/skills, .gitignore, .cursor/CLOUD.md, .dockerignore, CONTRIBUTING.md, .github/workflows/release.yml, .github/workflows/test-image.yml, scripts/check.sh, src/qa.rs, src/qa/**, src/ui/accessibility/qa.rs, scripts/qa*.sh, scripts/qa_*.py, scripts/lib/qa-container.sh, scripts/headless/**, scripts/image_*.py, tests/container/**, tests/fixtures/harness.json]
 tests: [src/model/tests.rs, src/adapters/local_files/tests.rs, src/adapters/local_files/tests/browse.rs, src/adapters/volume/mounts/tests.rs, src/test_support.rs, src/test_support/**, scripts/test_benchmark_scroll.py, src/build_info/tests.rs, scripts/test_quality_ci.py, scripts/test_quality_runner.py, scripts/test_headless_runner.py, scripts/test_integration_tests.py, src/ui/settings/install_command/tests.rs, src/trusted_command/tests.rs, src/adapters/gio_close/tests.rs, src/adapters/local_operations/tests/closes.rs, src/adapters/volume/mount_watch/tests.rs, src/adapters/volume/mount_lanes/tests.rs, src/adapters/local_operations/probes/tests.rs, src/adapters/local_operations/fs_ops/tests.rs, src/adapters/volume/mounts/tests/byte_paths.rs, scripts/test_trace_main_io.py, tests/qa.rs, tests/qa/*.rs, tests/qa/foreign_drag_source.py, tests/qa/baselines/**, src/qa/tests.rs, src/qa/tests/**, scripts/test_qa_*.py, scripts/test_image_*.py, tests/qa/scenarios/visual_baselines]
@@ -32,6 +32,8 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - Copying a file into an open local folder shows no `#<inode>` entry while it is written; the file appears once, under its final name. lgse/strata#1615
 - A file linked into a watched folder is queried once, so its row updates once. lgse/strata#1615 (unverified)
 - Moving a file out of an open folder and creating a file under its old name in the same moment shows the new file. lgse/strata#1615 (unverified)
+- Pasting Replace onto a same-named file in an open folder without Trash, such as `/dev/shm`, keeps the row listed with the new contents. lgse/strata#1858, lgse/strata#1890
+- A file exchanged into a watched folder and deleted before the monitor flushes its batch loses its row. lgse/strata#1890
 
 ### Media metadata
 
@@ -42,7 +44,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 - At the default log level, a directory load logs its request id and backend name, never the browsed path or URI. lgse/strata#27
 - With `RUST_LOG=strata=debug`, a directory load also logs its location, including the full native path. lgse/strata#27
-- Logged URI locations omit user info, authentication parameters, query, and fragment at every log level. lgse/strata#27
+- Logged URI locations omit user info, authentication parameters, query, and fragment at every log level. lgse/strata#27, lgse/strata#1873
 
 ### UI thread
 
@@ -96,12 +98,14 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - On service activation, xdg-desktop-portal 1.22.1 waits in `OpenDirectory` for the `ShowItems` reply, while GTK's startup queries that portal before FileManager1 is exported. Replying earlier in the handler cannot break that wait (lgse/strata#1810, lgse/strata#1811).
 - The override is set by re-exec before GTK starts, not by changing the environment after threads may run. It shares the Cairo renderer and `GTK_THEME` restart path (lgse/strata#1811).
 - The override is scoped to service activation and is not a substitute for asynchronous dispatch in the portal. Packagers keep `--gapplication-service` in activation commands and do not set `no-portals` globally (lgse/strata#1811, docs/packaging.md).
+- A paste Replace without Trash exchanges the files, so the monitor reports the name arriving, then leaving, in one batch. The coalescer keeps the arrival, and the follow-up lookup decides whether the row stays, rather than forcing a rescan (lgse/strata#1858, lgse/strata#1890).
 - The `fstatat` fallback widens `st_nlink` through a generic helper, because it is `u32` on aarch64 and `u64` on x86_64 (lgse/strata#1753, lgse/strata#1755).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1890 | fix | Kept an arrival over a later removal of the same name in one monitor batch, so a no-Trash Replace no longer hides the row until F5. |
 | 2026-10-22 | lgse/strata#1807 | test | Removed the Python E2E suite, pruned 134 QA scenarios, and moved the main-thread I/O audit to the QA runner. |
 | 2026-10-22 | lgse/strata#1809 | chore | Added the committed pr-review agent skill and documented it in AGENTS.md. |
 | 2026-10-22 | lgse/strata#1771 | feat | Added the `qa`-feature `--qa` JSON harness with QA scenarios beside each E2E test, and the qa-scenarios, qa-drive, and qa-quality agent skills. |
@@ -121,4 +125,4 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 ## Known gaps
 
-None known.
+- `Location::parent` copies a URI location's credentials into its parent location. lgse/strata#1873

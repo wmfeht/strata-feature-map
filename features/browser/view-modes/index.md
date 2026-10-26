@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/qa/scenarios/view_switching, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
@@ -56,6 +56,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - The focused pane draws a 2 px accent focus ring only while GTK shows focus, as after keyboard input. lgse/strata#1466, lgse/strata#1533 (unverified)
 - When entries appear in a folder whose pane held focus, focus moves to the keyboard cursor row. lgse/strata#1466, lgse/strata#1533
 - F5 keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533, lgse/strata#1729
+- In List and Icons, a cursor restore deferred after a row splice or Page Up or Page Down is dropped once a key press moves the cursor. lgse/strata#1890 (unverified)
+- In List and Icons, after Ctrl+H hides hidden files, renaming the focused file to a dot name moves the cursor to its visible neighbor. lgse/strata#1874 (unverified)
 - Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
 - While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
 - In List, cut styling, hidden-file dimming, and live dates of visible rows refresh once scrolling has been still for 25 ms. lgse/strata#1673

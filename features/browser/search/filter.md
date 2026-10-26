@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/inline_search.rs, src/ui/enter_target.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/ui/enter_target/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results, tests/qa/mutations/filter-results.patch]
@@ -103,7 +103,14 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 
 - Down from the field focuses a result; in Icons and List, the outlined top result or the result picked since the last query change. Up from the first result returns to the field with the query kept. lgse/strata#995, lgse/strata#1018, lgse/strata#1822
 - In List and Icons, Tab from a focused result leaves the results in one press. Shift+Tab then returns to the result that held the cursor. lgse/strata#1550, lgse/strata#1575
-- One unmodified click or Enter opens a result, whatever the click-count and preview preferences. lgse/strata#697
+- Enter on a focused result opens it, file or folder, whatever the click-count and preview preferences. lgse/strata#697
+- One plain click on a folder result opens it, whatever the click-count preferences. lgse/strata#697, lgse/strata#1888
+- A plain click on a file result follows the click-count and single-click preview preferences, in Columns, Icons, and List. lgse/strata#1881, lgse/strata#1888
+- With files opening on one click, one plain click on a file result opens it once, with no preview. lgse/strata#1888
+- With files opening on two clicks and single-click previews on, one plain click selects and previews a previewable file result; a double-click opens it once. lgse/strata#1881, lgse/strata#1888
+- With files opening on two clicks and single-click previews off, one plain click on a file result only selects it. lgse/strata#1888 (unverified)
+- In the file chooser and in Trash, a plain click never opens a file result. It previews the file with single-click previews on, otherwise only selects it. lgse/strata#1888
+- A plain click on a selected file result starts no slow-click rename. lgse/strata#1888
 - In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
 - In the filter field or its results, Space toggles quick preview for the selected file result and keeps the query; Shift+Space types a space. lgse/strata#585, lgse/strata#1714
 - With a file result selected, Space in the location bar, the preview find bar, or the archive password field types a space. lgse/strata#1714
@@ -158,7 +165,9 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - Results are pruned by checking that each path still exists, rather than tracking each operation's old and new paths (lgse/strata#800).
 - The same check runs whenever a listing splice removes rows, whoever removed them, so outside deletions leave before the rescan. It costs at most 100 stat calls (lgse/strata#1439, lgse/strata#1544). Since lgse/strata#1729 it runs on a worker, and only a proven absence removes a result.
 - Changes below the watched folders appear only on refresh. The GIO monitor watches only open folders, and recursive watching hits inotify limits (lgse/strata#1439).
-- Filtered results ignore the click-count and preview preferences, which keep governing unfiltered rows (lgse/strata#681, lgse/strata#697).
+- Filtered folders ignore the click-count preferences and open on one plain click (lgse/strata#681, lgse/strata#697).
+- Filtered files follow the unfiltered click-count and preview rules. Always opening them left users with previews on unable to select or preview a filtered file (lgse/strata#1881, lgse/strata#1888).
+- One rule decides a plain click on a filtered file in Columns, search results, and the in-place filter, so the three paths cannot drift apart. Chooser and trashed files never open from it (lgse/strata#1888).
 - Columns dismisses on any outside click through one window-level gesture, because focus stays in the entry when non-focusable widgets are clicked (lgse/strata#887).
 - The field and its results together count as the filter owning focus. Escape, view switches, and loads therefore treat a focused result like the field. Backspace dismissal stays field-only (lgse/strata#1440).
 - Escape dismisses the filter before closing quick preview, the same order as in the field, the file chooser, and 10xer `f` results (lgse/strata#1440, lgse/strata#1533).
@@ -173,6 +182,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1888 | fix | Made a plain click on a filtered file follow the click-count and single-click preview preferences, so previews work on filtered files. |
 | 2026-10-22 | lgse/strata#1822 | feat | Outlined the top result Enter opens and kept it in view until a pick or scroll, so Enter is predictable. |
 | 2026-10-20 | lgse/strata#1768 | feat | Matched space-separated queries when the name contains every word, ranking whole-phrase hits first. |
 | 2026-10-15 | lgse/strata#1632 | fix | Returned focus to the next result, or the filter field, after deleting a focused List or Icons result. |

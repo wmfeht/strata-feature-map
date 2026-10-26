@@ -3,7 +3,7 @@ title: Connect to server dialog
 status: shipped
 origin: {issue: lgse/strata#1725, pr: lgse/strata#1726}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/window/network_location.rs, src/ui/window/network_location/**]
 tests: [src/ui/window/network_location/tests.rs]

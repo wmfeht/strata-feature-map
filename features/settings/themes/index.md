@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
@@ -40,13 +40,17 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A custom file with an invalid color is skipped at startup and on each re-read, unless it is the selected theme. lgse/strata#762, lgse/strata#1620 (unverified)
 - A custom file with a GTK-only color form, such as 9-digit hex, loads with colors as `#rrggbb`, or `#rrggbbaa` when translucent; the file is not rewritten. lgse/strata#1554, lgse/strata#1429
 - With a custom theme selected, rewriting its `.toml` file, such as changing `accent`, re-applies the new colors in every open window without a restart. lgse/strata#1620
+- With a selected custom theme whose `.toml` file is a symlink, such as into `~/dotfiles`, rewriting the link's target re-applies its colors in every open window without a restart. lgse/strata#1887
+- A `.toml` link whose target does not exist yet stays watched; once the target is written, the theme appears in the list, and later rewrites re-apply live. lgse/strata#1887
+- Each re-read recomputes the watched link targets, so links added, removed, or repointed in the themes directory take effect from the next re-read. lgse/strata#1887
+- A dangling `.toml` link whose target's folder does not exist is not watched until a later re-read finds that folder. lgse/strata#1887 (unverified)
 - A live re-apply also recolors interface icons and code-preview syntax colors. lgse/strata#1620
 - `.toml` changes in the themes directory less than 75 ms apart trigger one re-read, 75 ms after the last. lgse/strata#1620
 - When a selected file whose stem matches no bundled theme is caught mid-write, invalid, or deleted, its colors stay until the next valid write. lgse/strata#1620
 - While such a file is unreadable, its theme stays in the theme list. lgse/strata#1620
-- Only `.toml` files directly in `~/.config/strata/themes` trigger a re-read; other extensions and subdirectories do not. lgse/strata#1620 (unverified)
+- Only `.toml` files directly in `~/.config/strata/themes`, and the resolved target of each `.toml` symlink there, trigger a re-read. Other extensions, subdirectories, and files beside a link target do not. lgse/strata#1620, lgse/strata#1887 (unverified)
 - Saving a theme from the editor re-arms the watch, so a themes directory that the save creates is watched. lgse/strata#1620
-- When `~/.config/strata/themes` is missing at startup, files created there later are not re-read until an editor save or a restart. lgse/strata#1620 (unverified)
+- When `~/.config/strata/themes` is missing at startup, files and links created there later are not re-read until an editor save or a restart. lgse/strata#1620, lgse/strata#1887
 - While following Omarchy, rewriting a custom theme file changes no colors. lgse/strata#1620 (unverified)
 - During an editor preview, rewriting the selected file keeps the preview applied. lgse/strata#1620 (unverified)
 - Deleting or breaking a selected custom `tokyo-night.toml` applies the bundled theme's colors at once, and the bundled theme replaces it in the list. lgse/strata#1620 (unverified)
@@ -112,6 +116,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Otherwise the light variant applies; the desktop color scheme is ignored. lgse/strata#1680, lgse/strata#1682
 - Element glow, on by default, adds accent glow to dialogs, menus, theme cards, and animated feedback. lgse/strata#920
 - Turning Element glow off removes that glow in every window at once, keeps focus outlines and depth shadows, and persists across restart. lgse/strata#920
+- With Element glow off, the path completion and folder peek popovers draw no shadow, so no white halo shows on light themes. With it on, each shows only the accent glow. lgse/strata#1891
+- The 10xer footer's candidates popover draws the same shadow as the path completion popover, with Element glow on or off. lgse/strata#1891 (unverified)
 - Interface renderer offers GTK default and Cairo; choosing a value other than the startup one shows Restart now. lgse/strata#1218
 - After restart, Cairo renders the interface; an explicit `GSK_RENDERER` environment variable overrides the saved choice. lgse/strata#1218
 - On GTK 4.16 or later, Strata sets `gtk-font-rendering` to manual for its own process at startup; the desktop's setting is unchanged. lgse/strata#1601
@@ -146,7 +152,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files on change, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files and symlink targets on change, with a matugen template, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -177,11 +183,14 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - The editor preview is process-wide: one style provider serves every window. The manager stores the preview tokens, so appearance refreshes re-apply the preview rather than the saved theme (lgse/strata#1457, lgse/strata#1533).
 - Every Settings close route, and the layer unrealizing, runs a hook that discards the preview. A closed window never runs `hide` (lgse/strata#1457, lgse/strata#1533).
 - Each preview carries a generation number, so an editor cancels only the preview it started, never a newer one from another window (lgse/strata#1533).
-- Custom files are re-read on change so theme generators such as matugen work without a restart. lgse/strata#1619 rejected restarting, which loses session state, and re-saving, which is manual and easy to forget. Re-reading on window focus was heavier and still delayed; a built-in matugen integration was too opinionated (lgse/strata#1619).
+- Custom files are re-read on change so theme generators such as matugen work without a restart. lgse/strata#1619 rejected restarting, which loses session state, and re-saving, which is manual and easy to forget. Re-reading on window focus was heavier and still delayed; a built-in matugen integration was too opinionated (lgse/strata#1619). lgse/strata#1868 offered a matugen template as docs or a bundled example; it shipped as docs only (lgse/strata#1892).
 - The directory watch uses a 75 ms debounce, the pattern of the Omarchy state watcher (lgse/strata#1620).
+- A write through a symlink fires no event on the themes directory, only on the target's. Strata also watches each link target's directory, feeding the same debounced re-read (lgse/strata#1886, lgse/strata#1887).
+- A dangling link resolves through its canonical parent folder, so that folder stays watched until the file appears. Resolving with `canonicalize` alone dropped such links, so themes linked before the generator first wrote them never reloaded (lgse/strata#1887).
 - A refresh keeps the selected theme's last valid entry while its file is unreadable. Dropping it would leave the saved selection pointing at no theme, so appearance changes such as text size would stop applying (lgse/strata#1620).
 - Theme files may be dotfile symlinks. A file that failed to load may be a broken dotfile the user still wants, so saving never replaces an existing file (lgse/strata#1455, lgse/strata#1544).
 - Glow got its own switch because changing themes could not tone down dialog glow (lgse/strata#919).
+- The path completion and folder peek popovers had a second shadow in `@strata_bg`, which the glow switch never controlled. They now match the breadcrumb popover's glow-only shadow (lgse/strata#1883, lgse/strata#1891).
 - GTK's GL and Vulkan renderers lose a top glyph pixel at some scales (GTK issue 8395). Cairo avoids it but costs CPU and is inherited by launched apps, so it stays opt-in (lgse/strata#1216, lgse/strata#1218). The manual font rendering pin fixes it on GTK 4.16 and later (lgse/strata#1601).
 - GTK's automatic font rendering hints glyphs slightly but not their metrics. GSK sizes GPU atlas slots from the unhinted extents, so the hinted top row lands in padding the quad never samples. Cairo draws glyphs directly (lgse/strata#1600, lgse/strata#1601).
 - Manual mode hints metrics too, so the extents match the raster. Application-set GTK settings outrank the settings portal, which on Wayland overrides `settings.ini` (lgse/strata#1310, lgse/strata#1600, lgse/strata#1601).
@@ -192,6 +201,9 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1891 | fix | Dropped the background-colored second shadow from the path completion and folder peek popovers, which showed as a white halo on light themes with Element glow off. |
+| 2026-10-25 | lgse/strata#1892 | docs | Documented a matugen template, its config entry, and the Material color mapping so wallpaper-following themes need no hand mapping. |
+| 2026-10-25 | lgse/strata#1887 | fix | Watched the directories of symlinked theme targets so dotfiles-linked custom themes live-reload. |
 | 2026-10-22 | lgse/strata#1816 | feat | Mapped Omarchy's own surface keys instead of `color8`, and replaced the variants with Lighter, Darker, and Contrast, remembered per theme. |
 | 2026-10-20 | lgse/strata#1773 | perf | Pinned GTK's theme to an empty bundled theme. GTK no longer matches widgets against a hidden `Default` copy. |
 | 2026-10-18 | lgse/strata#1758 | feat | Loaded an optional `~/.config/strata/style.css` above Strata's stylesheets, re-read live, so users can restyle layout beyond the color tokens. |
@@ -217,3 +229,4 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
 - Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566
+- Only a link chain's final file's folder is watched, so repointing an intermediate link, such as a directory symlink, does not reload the theme. lgse/strata#1887

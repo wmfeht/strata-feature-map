@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -48,6 +48,11 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
+- Dump the tree in states the naming scenarios skip: a playing video and an audio preview, an archive preview two folders deep, and the file chooser's Save and URL views.
+- Repeat the dump with the theme editor, the drive Label and Format Drive dialogs, a sign-in dialog, and each 10xer footer prompt open.
+- Repeat it with a removable drive, an unmounted encrypted drive, and an unlocked one in the sidebar, expanded and as the rail.
+- Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms. Repeat on an install command's copy button.
+- With the interface in de and ja, read the names of the pane header buttons, the filter field, and the media buttons against their tooltips.
 
 ### app/dialogs
 
@@ -63,6 +68,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open the action editor from an action row in Settings and save an edit so the row re-renders. Then press Tab.
 - In Settings → Actions, remove a custom action's folder from a shell, delete its row, confirm, close the error by mouse, and read focus and ring.
 - Close a dialog by keyboard, switch to a second window before the 200 ms close animation ends, then return and read the ring.
+- In a byte-limited field, paste text whose limit falls inside a multi-byte character, with the cursor at the start, middle, and end; then undo and redo.
+- Type into a limited field with an input method composing, and drop text onto it by drag and drop.
 
 ### app/shortcut-reference
 
@@ -128,6 +135,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run with `LANGUAGE=zz`, `LANGUAGE=zh-Hant-TW`, `LANG=zh_SG.UTF-8`, `LC_ALL=POSIX`, and `LC_MESSAGES=ko_KR.UTF-8` with `LANG=fr_FR.UTF-8`; read the banner, menus, and failure lines.
 - Install Open file location with the stub `gdbus` exiting 1 and then absent; read the heading and whether the log is kept.
 - Repeat with the real `gdbus` and `DBUS_SESSION_BUS_ADDRESS` pointing at a socket that accepts and never answers, such as `socat UNIX-LISTEN:<path> -`.
+- On that silent socket, select Default file manager with `XDG_CURRENT_DESKTOP` unset, `Hyprland`, and `GNOME`; read the failure lines, exit status, and leftover `dbus-send` processes.
+- Repeat the silent-socket run with Open and Save dialogs and udiskie selected, and time the whole install.
+- Point the socket at a peer that answers the handshake after 4 s, and one that answers only after 6 s.
+- Remove `timeout` from the stub `PATH`, then run `--help`, `--non-interactive`, and the interactive menu.
 - Fail the package step, the desktop-entry step, and the udiskie step in turn; read the failure lines and the retained log.
 - Run with `TMPDIR` unset, pointing at a read-only directory, and at a path with spaces.
 
@@ -208,9 +219,13 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Browse a native folder, Trash, Recent, and the SFTP fixture once at `RUST_LOG=info` and once at `RUST_LOG=strata=debug`; grep both logs for each path, host, and user name.
 - Open `sftp://user:secret@host/dir?token=x#frag` with debug logging on and grep the log for `secret`, `token`, and `frag`.
+- Launch `strata` with `sftp://alice@host/f?token=x#frag` and `smb://CORP;alice:pw@host/share` as arguments, with `RUST_LOG` unset and at debug. Open each in a new tab, remove it from Recent, then grep for `alice`, `CORP`, and `pw`.
 - Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 - Run Strata under `strace -f -e trace=execve`, open a folder of 200 text files named `.mp4` and `.png` in Icons, and count `ffprobe` launches; repeat with one real clip among them.
 - Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
+- With Trash unavailable, paste Replace onto a same-named file in an open folder on tmpfs, vfat, NFS, and an sshfs mount, in each mode. Read the row, size, and date without F5.
+- Repeat with the replaced file selected, with a filter active, and with a second tab open on the same folder.
+- Swap two files with `RENAME_EXCHANGE` from a shell in an open folder, then delete one at once from a shell.
 - Start Strata with `STRATA_UI_STALL_MS=250`, open a folder on the sshfs mount, and stop its daemon. Arrow through folders, type a path there, open a context menu, and press Ctrl+Z; read the log after resuming.
 - Start Strata with `STRATA_UI_STALL_MS` set to `0`, `-5`, `abc`, and ` 250 `; check for the watchdog thread `strata-ui-stalls`.
 - With Strata stopped, call the portal's `org.freedesktop.portal.OpenURI.OpenDirectory` on a file and time the reply. Repeat with activation `GDK_DEBUG` set to `misc` and to `misc:no-portals`, and read `/proc/<pid>/environ`.
@@ -238,3 +253,5 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - The contents and outcome of operation dialogs such as paste conflicts, Compress, and progress → `operations`.
 - The mount authentication dialog and remote paths in the search palette → `remote`.
 - Thumbnail size steps and the size notice → `browser`.
+- Format Drive label limits and units per filesystem → `devices`.
+- The Settings file chooser row on a silent session bus → `integration`.

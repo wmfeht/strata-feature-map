@@ -3,7 +3,7 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, packaging/media-runtime]
 tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/tests.rs, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]
@@ -116,3 +116,4 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 ## Known gaps
 
 - Application RSS grows across preview cycles through glibc arena retention; reusable parent-side workers are under investigation. lgse/strata#841
+- The preview's media seek and volume sliders have no accessible name; naming them needs new strings in every catalog. lgse/strata#1896
