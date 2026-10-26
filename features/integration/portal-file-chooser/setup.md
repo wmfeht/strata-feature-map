@@ -82,4 +82,4 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 
 ## Known gaps
 
-None known.
+- When the bus reload fails, Complete setup still reports success; the "log out and back in" warning never shows in Settings. lgse/strata#1876

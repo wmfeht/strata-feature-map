@@ -115,8 +115,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A member named `../report.txt` or `folder/../report.txt` extracts as `report.txt` inside the destination, and later members still extract. lgse/strata#1191
 - Two members that resolve to `report.txt` extract as `report.txt` and `report (2).txt`. lgse/strata#116, lgse/strata#1191
 - An absolute member path or a member written through an existing symlink fails the extraction without writing outside the destination. lgse/strata#116, lgse/strata#1478
-- A ZIP with members `before.txt`, `names/c:notes`, and `after.txt` extracts all three, with `c:notes` inside `names/`. lgse/strata#1855, lgse/strata#1872
-- A member path whose first component, after `.` is skipped and `..` resolved, is a drive prefix, such as `C:marker`, `./c:notes`, or `safe/../c:notes`, fails the extraction with "Refusing unsafe archive path: <name>". lgse/strata#1855, lgse/strata#1872
+- A ZIP with members `before.txt`, `names/c:notes`, and `after.txt` extracts all three onto a destination that allows `:`, such as ext4, with `c:notes` inside `names/`. lgse/strata#1855, lgse/strata#1872
+- A member path whose first component is a drive prefix, after `.` is skipped and `..` resolved, fails the extraction. Examples are `C:marker`, `./c:notes`, and `safe/../c:notes`. The error reads "Refusing unsafe archive path: <name>". lgse/strata#1855, lgse/strata#1872
 - A TAR hard link whose target is `names/c:notes` links to that extracted member. lgse/strata#1872
 - Symlink members are recreated with their stored targets, including absolute ones. lgse/strata#1478
 - A TAR hard link links to the earlier member of that name; a hard link to a member not extracted fails the extraction. lgse/strata#1478

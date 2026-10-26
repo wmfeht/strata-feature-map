@@ -106,7 +106,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-25 | lgse/strata#1890 | fix | Focused an unallocated renamed row and dropped stale cursor restores, so arrow keys work after a rename moves a row. |
+| 2026-10-25 | lgse/strata#1890 | fix | Focused a renamed row before its widget is allocated, so arrow keys work after a rename moves a row. |
 | 2026-10-17 | lgse/strata#1714 | fix | Kept an inline rename open while the window is inactive, so switching input methods no longer commits it. |
 | 2026-10-15 | lgse/strata#1675 | perf | Looked up each row's rename editor by list item instead of scanning every bound row on bind and unbind. |
 | 2026-10-11 | lgse/strata#1564 | feat | Restored the Columns size badge after a rename only when Show sizes in Columns view is on. |

@@ -64,8 +64,8 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 - Switching to another theme with `omarchy-theme-set` applies that theme's saved variant, and the dropdown updates live in every window. lgse/strata#1815, lgse/strata#1816
 - Saved `original` and `high_contrast` values load as Lighter and Contrast. lgse/strata#1816
 - A legacy global `omarchy_variant = "high_contrast"` becomes Contrast for the Omarchy theme active at the next start. lgse/strata#1816
-- Once an Omarchy theme is active at startup, any other legacy global `omarchy_variant` value is dropped. lgse/strata#1816 (unverified)
-- Once an Omarchy theme is active at startup, the legacy `omarchy_variant` key is migrated and the next save removes it from `settings.toml`. Without Omarchy, the key stays through saves. lgse/strata#1816, lgse/strata#1877 (unverified)
+- Once an Omarchy theme is detected, at startup or later, any other legacy global `omarchy_variant` value is dropped. lgse/strata#1816 (unverified)
+- Once an Omarchy theme is detected, at startup or later, the legacy `omarchy_variant` key is migrated and the next save removes it from `settings.toml`. Without Omarchy, the key stays through saves. lgse/strata#1816, lgse/strata#1877 (unverified)
 
 ## Design
 

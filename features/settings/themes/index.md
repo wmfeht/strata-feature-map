@@ -50,7 +50,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - While such a file is unreadable, its theme stays in the theme list. lgse/strata#1620
 - Only `.toml` files directly in `~/.config/strata/themes`, and the resolved target of each `.toml` symlink there, trigger a re-read. Other extensions, subdirectories, and files beside a link target do not. lgse/strata#1620, lgse/strata#1887 (unverified)
 - Saving a theme from the editor re-arms the watch, so a themes directory that the save creates is watched. lgse/strata#1620
-- When `~/.config/strata/themes` is missing at startup, files and links created there later are not re-read until a restart. lgse/strata#1887
+- When `~/.config/strata/themes` is missing at startup, files and links created there later are not re-read until an editor save or a restart. lgse/strata#1620, lgse/strata#1887
 - While following Omarchy, rewriting a custom theme file changes no colors. lgse/strata#1620 (unverified)
 - During an editor preview, rewriting the selected file keeps the preview applied. lgse/strata#1620 (unverified)
 - Deleting or breaking a selected custom `tokyo-night.toml` applies the bundled theme's colors at once, and the bundled theme replaces it in the list. lgse/strata#1620 (unverified)
@@ -202,7 +202,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-25 | lgse/strata#1891 | fix | Dropped the background-colored second shadow from the path completion and folder peek popovers, which showed as a white halo on light themes with Element glow off. |
+| 2026-10-25 | lgse/strata#1891 | fix | Dropped the background-colored second shadow from the path completion and folder peek popovers, a white halo on light themes. |
 | 2026-10-25 | lgse/strata#1892 | docs | Documented a matugen template, its config entry, and the Material color mapping so wallpaper-following themes need no hand mapping. |
 | 2026-10-25 | lgse/strata#1887 | fix | Watched the directories of symlinked theme targets so dotfiles-linked custom themes live-reload. |
 | 2026-10-22 | lgse/strata#1816 | feat | Mapped Omarchy's own surface keys instead of `color8`, and replaced the variants with Lighter, Darker, and Contrast, remembered per theme. |
@@ -230,4 +230,4 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
 - Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566
-- Only the final file in a link chain has its folder watched, so repointing an intermediate link, such as a directory symlink like `~/.config/omarchy/current/theme`, does not reload the theme. lgse/strata#1887
+- Only the final file in a link chain has its folder watched. Repointing an intermediate link, such as `~/.config/omarchy/current/theme`, does not reload the theme. lgse/strata#1887

@@ -147,11 +147,11 @@ For every control this sweep proves the binding: the file changes, the other win
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
 - With a custom theme selected, rewrite its file by atomic rename, then by in-place truncate-and-write; read both windows after each.
-- Link the selected theme file to a target on `/dev/shm`, through a relative link, and to a target without a `.toml` extension; edit each target and read the window.
+- Link the selected theme file to a target on `/dev/shm`, through a relative link, and to a target without `.toml`. Edit each target and read the window.
 - Link the selected theme through a two-hop chain, then repoint the middle link at another file; rewrite both files and read the window.
 - Point a link into a folder that does not exist yet, then create the folder and the target while Strata runs; read the theme list.
 - Link two themes into one dotfiles folder, remove one link, then rewrite the other target and a sibling file beside it; read the window and the log.
-- Under a light theme with Element glow off, then on, open path completion in the location entry, a folder peek popover, and the 10xer candidates popover; zoom on each popover's edge.
+- Under a light theme with Element glow off, then on, open path completion, a folder peek, and the 10xer candidates popover. Zoom on each popover's edge.
 - With the hostile `gtk.css` and `settings.ini`, walk the screenshot set in all three modes under a light and a dark theme, then compare against a run without them; any difference is a lead.
 - With the hostile setup, launch under `GTK_THEME=Adwaita:dark`, under `GTK_THEME=HighContrast`, and as the portal chooser, then with desktop high contrast and the dark color scheme on; read the log and the window.
 - Edit `~/.config/gtk-4.0/gtk.css` while Strata runs, then switch themes and open a new window; read Settings, a context menu, and a modal dialog.

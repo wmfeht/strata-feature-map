@@ -117,7 +117,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - An external default sort or thumbnail size is adopted unless this process has an unsaved change to those keys. Merging saves made the old in-flight-save gate unnecessary (lgse/strata#1877).
 - Settings are not per process: the browser and the portal chooser share one `settings.toml`. Missing live sync is intended, but one process overwriting the other's keys was a bug (lgse/strata#1845).
 - A save rereads the file and merges its changed keys while holding a lock on the file's folder. The lock stays held through the rename, so no other save lands between merge and replace (lgse/strata#1877).
-- The lock is taken by the same `lock_saves` helper as `folder-views.toml` saves. The two files live in different folders, so their saves never wait on each other (unverified).
+- The lock is taken by the same `lock_saves` helper as `folder-views.toml` saves (lgse/strata#1877). The two files live in different folders, so their saves never wait on each other (unverified).
 - A save that cannot take the lock goes ahead unlocked, as folder views do at exit. Filesystems without directory locks would otherwise fail every save (lgse/strata#1877).
 - The five maps merge per entry. `ListColumns` and other records stay whole on purpose. Merging their fields separately could mix fields from two processes (lgse/strata#1877).
 - Startup repairs are recorded as changed keys and merged like any change. Rewriting a repaired file whole would drop another process's keys (lgse/strata#1877).
