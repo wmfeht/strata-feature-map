@@ -45,7 +45,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - A bindings link, or a target reached through one, owned by another user makes Complete setup and Restore default fail, leaving the target unchanged. lgse/strata#1544 (unverified)
 - With a symlinked bindings file, the `strata-keybind-backup-` copy is created in the link's directory. lgse/strata#1544 (unverified)
 - On a session bus that accepts connections and never answers, each `systemctl --user`, `gdbus`, and `xdg-mime` call ends after 5 seconds. lgse/strata#1876
-- So on that bus, Complete setup and Restore default finish instead of staying on "Completing setup…" or "Restoring defaults…". lgse/strata#1876
+- So on that bus, Complete setup and Restore default finish instead of staying on "Completing setup…" or "Restoring defaults…", without showing the reload warning. lgse/strata#1876 (unverified)
 - Complete setup is hidden once every line is configured, and Restore default appears while any part is installed. lgse/strata#947 (unverified)
 - Complete setup fails with "Another per-user FileManager1 provider is already installed" when another user service owns that name. lgse/strata#947 (unverified)
 - Restore default removes the FileManager1 service and portal, and returns `inode/directory` to the recorded handler, or Nautilus when none was recorded. lgse/strata#947

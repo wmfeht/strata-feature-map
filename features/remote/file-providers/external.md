@@ -74,10 +74,10 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - A `feedback` that is neither a string nor `null` is an invalid frame and disconnects the provider. So does `feedback` on a `query`, `menu`, or `error` reply or an `invalidate` event. lgse/strata#1578 (unverified)
 - An `unknown` outcome shows its counts as "at least N/M accepted". lgse/strata#1385
 - If the provider disconnects after an action was sent, the dialog says it may already have been accepted; an unsent action says it was not sent. lgse/strata#1385
-- When a reload interrupts a pending activation, the provider keeps running until it replies; its notice, no-feedback, or dialog outcome then appears unchanged. lgse/strata#1878
+- When a reload interrupts a pending activation, the provider keeps running until it replies. Its notice or dialog then appears, as for a live activation; a reply with no feedback shows nothing. lgse/strata#1878
 - If that retiring provider exits or goes offline first, the sent action shows the "may already have been accepted" dialog. A still-queued one shows "was not sent". lgse/strata#1878
 - A retiring provider's process ends once every activation it owes is settled; no wall-clock cutoff applies beyond the 8-second request timeout. lgse/strata#1878
-- After a retiring provider's reply is shown, the live provider with the same id re-queries visible badges and open menus. lgse/strata#1878
+- After a retiring provider replies, a running provider with the same id has its cached answers invalidated, as after a live activation reply. lgse/strata#1878
 - When the provider's queue is full, the dialog says the provider is busy or unavailable and the action was not sent. lgse/strata#1385
 - No action is retried automatically, including after a lost reply. lgse/strata#1385
 - After an activation reply, Strata re-queries that provider's visible badges and open menus. lgse/strata#1385 (unverified)

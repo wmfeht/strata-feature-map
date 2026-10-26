@@ -108,8 +108,9 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - A plain click on a file result follows the click-count and single-click preview preferences, in Columns, Icons, and List. lgse/strata#1881, lgse/strata#1888
 - With files opening on one click, one plain click on a file result opens it once, with no preview. lgse/strata#1888
 - With files opening on two clicks and single-click previews on, one plain click selects and previews a previewable file result; a double-click opens it once. lgse/strata#1881, lgse/strata#1888
+- With files opening on two clicks and single-click previews on, one plain click on a file result with no quick preview only selects it. lgse/strata#1888 (unverified)
 - With files opening on two clicks and single-click previews off, one plain click on a file result only selects it. lgse/strata#1888 (unverified)
-- In the file chooser and in Trash, a plain click never opens a file result. It previews the file with single-click previews on, otherwise only selects it. lgse/strata#1888
+- In the file chooser and in Trash, a plain click never opens a file result. It previews a previewable file with single-click previews on, otherwise only selects it. lgse/strata#1888
 - A plain click on a selected file result starts no slow-click rename. lgse/strata#1888
 - In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
 - In the filter field or its results, Space toggles quick preview for the selected file result and keeps the query; Shift+Space types a space. lgse/strata#585, lgse/strata#1714

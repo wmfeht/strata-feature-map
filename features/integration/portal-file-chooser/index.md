@@ -8,7 +8,7 @@ review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
-related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout]
+related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter]
 ---
 
 ## Summary
@@ -56,7 +56,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Dragging from blank space draws a marquee only in multiple-selection requests. A blank click in the file list or sidebar clears the selection in every request. lgse/strata#1164
 - With folders set to single-click in Icons or List, a single click on a folder opens it; a single click on a file only selects it. lgse/strata#1196
 - With the single-click preview preference on, clicking a previewable file opens the shared preview pane; Space toggles it. lgse/strata#385
-- One plain click on a filtered file never returns or opens it, even with file clicks at one. With single-click previews on, it previews, in Columns, Icons, and List. lgse/strata#1888
+- One plain click on a filtered file never returns or opens it, even with file clicks at one. With single-click previews on, it previews a file that supports quick preview, in Columns, Icons, and List. lgse/strata#1888
 - Ctrl+0 on a focused PDF page in the chooser's preview resets its zoom, not the saved text size, with 10xer mode on or off. lgse/strata#1622
 - Dragging a Miller column's right edge resizes it, and double-clicking the edge fits it to its content. lgse/strata#1315
 - A resized Miller column or List heading becomes the default for the next chooser, stored apart from browser windows' defaults. lgse/strata#1339

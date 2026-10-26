@@ -53,7 +53,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 ### Field names
 
-- The Ctrl+F filter field is named after its toggle: "Filter this pane (Ctrl+F)" in Columns and "Filter icons (Ctrl+F)" in Icons. lgse/strata#810, lgse/strata#1896
+- The Ctrl+F filter field is named after its toggle: "Filter this pane (Ctrl+F)" in Columns and "Filter icons (Ctrl+F)" in Icons. lgse/strata#1896
 - In List, the filter field is named "Filter list (Ctrl+F)". lgse/strata#1896 (unverified)
 - The Ctrl+K search palette field is named "Search files and folders…", and the F1 reference's search field "Search actions or keys…". lgse/strata#1896
 - Connect to server's address field is named "Server address". lgse/strata#1896

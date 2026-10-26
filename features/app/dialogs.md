@@ -53,7 +53,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Enter in a form field does nothing while the primary button is disabled. lgse/strata#464
 - Enter with an invalid Compress name such as `../escape` keeps the dialog open and writes no archive. lgse/strata#464
 - Enter in a multi-line text field inserts a newline instead of submitting. lgse/strata#464
-- A form text field limited in bytes or UTF-16 units keeps the longest leading part of typed or pasted text that fits, ending on a whole character. lgse/strata#1875
+- A form text field can be limited in bytes or UTF-16 units. Typed or pasted text is cut to the longest leading part that fits, on a whole character. lgse/strata#1875
 - That field's "N chars remaining" caption counts in the same unit: `ÉTÉ-2026` under an 11-byte limit leaves 1. lgse/strata#1875
 - Changing a field's limit or unit trims its current text to fit. lgse/strata#1875
 

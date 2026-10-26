@@ -106,6 +106,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-10-25 | lgse/strata#1890 | fix | Kept an arrival over a later removal of the same name in one monitor batch, so a no-Trash Replace no longer hides the row until F5. |
+| 2026-10-25 | lgse/strata#1873 | fix | Logged open-target, new-tab, and Recent events with scheme, host, and path only, and sanitized their error text. |
 | 2026-10-22 | lgse/strata#1807 | test | Removed the Python E2E suite, pruned 134 QA scenarios, and moved the main-thread I/O audit to the QA runner. |
 | 2026-10-22 | lgse/strata#1809 | chore | Added the committed pr-review agent skill and documented it in AGENTS.md. |
 | 2026-10-22 | lgse/strata#1771 | feat | Added the `qa`-feature `--qa` JSON harness with QA scenarios beside each E2E test, and the qa-scenarios, qa-drive, and qa-quality agent skills. |
@@ -125,4 +126,4 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 ## Known gaps
 
-- `Location::parent` copies a URI location's credentials into its parent location. lgse/strata#1873
+- `Location::parent` copies a URI location's credentials into its parent location. lgse/strata#1846, lgse/strata#1873

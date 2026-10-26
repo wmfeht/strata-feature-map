@@ -96,7 +96,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
 - At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
-- In List, scrolled to the bottom of `1000`, rename a new file so it sorts first and press Down within one frame. Repeat after Page Down and in Icons.
+- In List, scrolled to the bottom of `1000`, rename a new file so it sorts first and press Down immediately after Enter, as one scripted key sequence. Repeat after Page Down and in Icons.
 
 ### browser/view-modes/columns
 
@@ -174,7 +174,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Change the sort of one folder in the portal chooser and the main window within 500 ms; quit both and read the file.
 - With the switch off, change the default sort from the portal chooser and watch a main window that never opened Settings.
 - Set a folder's sort, make another sort the default, then open the folder's sort menu and read which actions show.
-- Change the default sort in the portal chooser while the main window saves text wrap; then change the main window's default size before the chooser's save lands.
+- Change the default sort in the portal chooser while the main window saves text wrap; read both windows and `settings.toml`.
+- Change the main window's default icon size, then change the chooser's default sort before the main window's save lands.
 - Rename a sorted folder from a shell, then delete it and reopen its parent; repeat for a folder on the unmounted drive.
 - Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
 
@@ -302,7 +303,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
 - Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
 - Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
-- Click a filtered file once in Columns, Icons, and List with files on one click, then two, each with single-click previews on and off.
+- Click a filtered file once in Columns, Icons, and List with files on two clicks and single-click previews off; then double-click one with files on one click.
 - Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
 - In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
 - In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.

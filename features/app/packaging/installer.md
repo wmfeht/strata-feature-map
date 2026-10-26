@@ -125,14 +125,15 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 
 - Application launcher installs the icon and entry under `$XDG_DATA_HOME`, with `Exec` set to the installed binary. lgse/strata#330, lgse/strata#1730
 - Default file manager sets Strata as the `inode/directory` default and exits with an error if `xdg-mime query` then reports another handler. lgse/strata#330 (unverified)
-- An `xdg-mime default` or `query` call that runs past 5 s fails the step with "Strata is installed, but setup did not finish." and status 124. lgse/strata#1876
+- An `xdg-mime default` or `query` call that runs past 5 s fails the step with status 124. The installer prints "Strata is installed, but setup did not finish." lgse/strata#1876
 - Open file location writes `$XDG_DATA_HOME/dbus-1/services/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the installed binary. lgse/strata#317, lgse/strata#1730
 - After writing the "Open file location" service, the installer calls `org.freedesktop.DBus.ReloadConfig` on the session bus with a 5 s timeout. lgse/strata#1728
 - That call runs under `timeout 5`, so a session bus socket that accepts the connection and never answers ends it after 5 s. lgse/strata#1876
 - Strata then answers reveal requests in that session without a re-login. lgse/strata#1699, lgse/strata#1728
 - A successful reload prints `Strata now handles "Open file location" requests.` lgse/strata#1728
 - When the reload fails, times out, or `gdbus` is missing, the service stays installed and the installer warns "…could not reload the session bus. Log out and back in…" and continues. lgse/strata#1728, lgse/strata#1876
-- After that warning on a silent bus, the file chooser, Omarchy keybind, and udiskie steps and the summary still run. lgse/strata#1876
+- When `xdg-mime` returns, the file chooser, Omarchy keybind, and udiskie steps and the summary still run after that warning. lgse/strata#1876
+- Folder association runs before the reload, so an `xdg-mime` blocked on a silent bus stops the install there with status 124. lgse/strata#1876
 - A failed service write, or another per-user FileManager1 provider, exits the installer before any reload; later integrations do not run. lgse/strata#1728
 - Checking Open and Save dialogs, or passing `--with-file-chooser`, runs the installed binary with `--install-portal`. lgse/strata#175, lgse/strata#1730
 - Open and Save dialogs left unchecked, or `--without-file-chooser`, runs `--dismiss-portal-prompt` when the release ships `portal/strata.portal`. lgse/strata#1730, lgse/strata#1825

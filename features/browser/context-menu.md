@@ -84,10 +84,11 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Placement
 
 - Right-clicking an entry anywhere in a long, scrolled list shows its menu at the click. lgse/strata#306, lgse/strata#1894
-- In a small window, right-clicking an entry near the bottom edge opens the menu at the click; it extends past the window and stays fully on screen. lgse/strata#1893, lgse/strata#1894
-- A menu opens below the click, and flips above it when the screen has no room below. lgse/strata#1894 (unverified)
-- A menu with no room on screen above or below the click shrinks and scrolls instead of moving away from the click. lgse/strata#1894 (unverified)
-- A menu opened near the screen's left or right edge slides horizontally to stay on screen. lgse/strata#1894 (unverified)
+- In a small window, right-clicking an entry near the bottom edge opens the menu at the click. lgse/strata#1893, lgse/strata#1894
+- That menu extends past the window when needed and stays fully on screen. lgse/strata#1893, lgse/strata#1894
+- A menu opens below the click, and flips above it when the screen has no room below. lgse/strata#1894
+- A menu with no room on screen above or below the click shrinks and scrolls instead of moving away from the click. lgse/strata#1894
+- A menu opened near the screen's left or right edge slides horizontally to stay on screen. lgse/strata#1894
 - A menu's height is capped at the monitor height less 16 px at each edge; a taller menu scrolls. lgse/strata#1894 (unverified)
 - A keyboard-opened background menu is not held inside the window; like a pointer-opened menu, it may extend past it. lgse/strata#1894 (unverified)
 - In Columns, the entries targeted by an open menu stay highlighted as selected while the column lacks focus. lgse/strata#616

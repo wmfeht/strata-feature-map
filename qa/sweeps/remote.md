@@ -57,7 +57,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Set `icon` to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
 - With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
 - Start Strata with no provider registered and browse a folder in Icons for a second. Then register one while it runs; scroll, open item menus, and restart, checking when its badges and sections first appear.
-- Press Refresh on Settings → Integrations while an item menu with provider actions is open in another window, and while an activation reply is still pending.
+- Press Refresh on Settings → Integrations while an item menu with provider actions is open in another window.
 - Start a `notice` activation on a provider that answers after 5 s, press Refresh twice before it answers, then let it reply. Read the notices and `ps` for its processes.
 - Start an activation, press Refresh, then SIGKILL the retiring provider; repeat with two activations queued behind it, and with the replacement crashing instead.
 - Start an activation, add a `disabled` file, and press Refresh, so discovery finds no provider. Let the reply arrive, then check the old process exits.

@@ -130,4 +130,4 @@ Loading and file monitoring predate the PR history; the original monitor already
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902
 - While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
 - Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729
-- With hidden files off, a dot-file another program creates does not appear after Ctrl+H shows hidden files, until F5. Ctrl+H does not restart the folder's monitor. lgse/strata#1862
+- With hidden files off, a dot-file another program creates does not appear after Ctrl+H shows hidden files, until F5. Ctrl+H does not restart the folder's monitor. lgse/strata#1862, lgse/strata#1874

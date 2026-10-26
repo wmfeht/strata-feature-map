@@ -48,7 +48,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
-- Dump the tree in states the naming scenarios skip: a playing video and an audio preview, an archive preview two folders deep, and the file chooser's Save and URL views.
+- Dump the tree in states the naming scenarios skip: a playing video, an audio preview, and an archive preview two folders deep. Repeat in the file chooser's Save and URL views.
 - Repeat the dump with the theme editor, the drive Label and Format Drive dialogs, a sign-in dialog, and each 10xer footer prompt open.
 - Repeat it with a removable drive, an unmounted encrypted drive, and an unlocked one in the sidebar, expanded and as the rail.
 - Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms. Repeat on an install command's copy button.
@@ -68,7 +68,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open the action editor from an action row in Settings and save an edit so the row re-renders. Then press Tab.
 - In Settings → Actions, remove a custom action's folder from a shell, delete its row, confirm, close the error by mouse, and read focus and ring.
 - Close a dialog by keyboard, switch to a second window before the 200 ms close animation ends, then return and read the ring.
-- In a byte-limited field, paste text whose limit falls inside a multi-byte character, with the cursor at the start, middle, and end; then undo and redo.
+- In a byte-limited field, paste text whose limit falls inside a multi-byte character. Paste with the cursor at the start, middle, and end, then undo and redo.
 - Type into a limited field with an input method composing, and drop text onto it by drag and drop.
 
 ### app/shortcut-reference
@@ -225,7 +225,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
 - With Trash unavailable, paste Replace onto a same-named file in an open folder on tmpfs, vfat, NFS, and an sshfs mount, in each mode. Read the row, size, and date without F5.
 - Repeat with the replaced file selected, with a filter active, and with a second tab open on the same folder.
-- Swap two files with `RENAME_EXCHANGE` from a shell in an open folder, then delete one at once from a shell.
+- With the folder open in two tabs and a filter matching the file, swap it with `RENAME_EXCHANGE` from a shell, then delete it at once.
 - Start Strata with `STRATA_UI_STALL_MS=250`, open a folder on the sshfs mount, and stop its daemon. Arrow through folders, type a path there, open a context menu, and press Ctrl+Z; read the log after resuming.
 - Start Strata with `STRATA_UI_STALL_MS` set to `0`, `-5`, `abc`, and ` 250 `; check for the watchdog thread `strata-ui-stalls`.
 - With Strata stopped, call the portal's `org.freedesktop.portal.OpenURI.OpenDirectory` on a file and time the reply. Repeat with activation `GDK_DEBUG` set to `misc` and to `misc:no-portals`, and read `/proc/<pid>/environ`.

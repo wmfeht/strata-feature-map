@@ -70,7 +70,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - Writes land 500 ms after the last change, and refuse to follow a symlink in place of the file. lgse/strata#1565 (unverified)
 - When another Strata process, such as the portal chooser, saves, this process merges those values instead of overwriting them, and open views follow. lgse/strata#1565
 - Each process also follows a default sort and size another process saves to `settings.toml`, even while an unrelated save of its own is in flight. lgse/strata#1565, lgse/strata#1877
-- Only an unsaved change of its own to the default sort, direction, or icon size keeps this process's value. lgse/strata#1877
+- An unsaved change of its own to any of the default sort, direction, or icon size keeps all three of this process's values. lgse/strata#1877
 - A missing file starts empty, and the first change creates it. lgse/strata#1563, lgse/strata#1565
 - An unreadable file, invalid TOML, or an unknown `version` loads no values and is never overwritten that session. lgse/strata#1563, lgse/strata#1565
 - The first change in a browser window then shows the notice "Folder settings file can't be read" once. lgse/strata#1563, lgse/strata#1565

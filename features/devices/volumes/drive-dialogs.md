@@ -7,7 +7,7 @@ reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/window/drive_dialogs.rs, src/ui/window/drive_dialogs/**, src/ui/window/drive_ops.rs, src/ui/window/device_labels.rs, src/ui/missing_tools.rs, src/services/package_manager.rs]
 tests: [src/ui/window/drive_dialogs/tests.rs, src/ui/window/drive_ops/tests.rs, src/ui/window/device_labels/tests.rs, src/ui/missing_tools/tests.rs, src/services/package_manager/tests.rs]
-related: [browser/sidebar, operations/progress]
+related: [browser/sidebar, operations/progress, app/dialogs]
 ---
 
 ## Summary
@@ -49,7 +49,6 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - On FAT32, typing `ÉTIQUETTE12` leaves `ÉTIQUETTE1`, because `É` counts 2 bytes. lgse/strata#1875
 - Switching filesystem trims the label to the new limit in its unit: six emoji typed under NTFS leave two under FAT32. lgse/strata#1875
 - The remaining-count caption under the label counts in the selected filesystem's unit, so `ÉTÉ-2026` on FAT32 shows 1 remaining. lgse/strata#1875
-- A label over its filesystem's limit is refused with "Filesystem label is too long." before the drive is unmounted. lgse/strata#1849, lgse/strata#1875
 - A label with a character the filesystem forbids fails with "Invalid label: …" before unmounting. lgse/strata#1393
 - Continue shows a summary and "This permanently erases ALL DATA on this volume. This cannot be undone."; formatting starts only when Format is pressed. lgse/strata#1331
 - Cancel before Format changes nothing. lgse/strata#1331
@@ -70,9 +69,9 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - lgse/strata#1331 ran mkfs tools through `pkexec`. lgse/strata#1393 replaced that with UDisks2 `Block.Format` and `update-partition-type`, so the partition type and reprobe change together. Quick format skips zeroing; FAT32 passes `-F 32`.
 - Tool lookups, the package manager, the mount table, and drive facts are read on a worker, so a stalled mount cannot freeze the window (lgse/strata#1729).
 - Progress is indeterminate because the supported tools report no consistent percentage (lgse/strata#1331).
-- Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393). Until lgse/strata#1875, an exFAT label of 12 to 32 characters passed, unmounted the drive, then failed in UDisks (lgse/strata#1849).
+- Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393). Until lgse/strata#1875, an exFAT label of 12 to 32 characters passed, unmounted the drive, then failed in UDisks (lgse/strata#1849, lgse/strata#1875).
 - Label limits and units match the libblockdev checks UDisks runs before wiping: 11 UTF-16 units for exFAT, 11 bytes for FAT32. Strata's NTFS limit of 32 units is below the backend's 128 (lgse/strata#1849, lgse/strata#1875).
-- GTK's own maximum length counts characters, so the label field trims each insert in the filesystem's unit, as its caption counts (lgse/strata#1875).
+- The field trims in the filesystem's unit through the shared form field limit that `app/dialogs` records (lgse/strata#1875).
 
 ## History
 
