@@ -85,9 +85,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
 - Run the browser and the portal chooser on one HOME; change different keys in each, then the same key, then `device_labels` and `browser_list_columns` in both. Diff `settings.toml` after each save.
-- Seed a search limit of 45 and an unknown key, launch two processes, change a different key in each, and diff `settings.toml`.
+- Seed `search_time_limit = 45` and an unknown key, change a different key in each of two processes, quit them in either order, and relaunch; diff `settings.toml` each time.
 - Make `settings.toml` invalid TOML while two processes run, change a preference in each, then repair the file and change another.
-- Hold a `flock` on `~/.config/strata` from a shell, change preferences in two processes, release it, and diff `settings.toml`; repeat on the sshfs mount.
+- Hold a `flock` on `~/.config/strata` from a shell, change preferences in two processes, release it, and diff `settings.toml`; repeat with `XDG_CONFIG_HOME` on the sshfs mount.
 - In two windows, sort the Trash and an SFTP folder differently in each. Read each window's sort, then restart and read them again.
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
 - Change ten preferences within one second and quit at once; relaunch and diff `settings.toml` against the last values shown.

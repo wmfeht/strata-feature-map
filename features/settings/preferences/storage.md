@@ -34,13 +34,14 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 ### Saves from several processes
 
 - A save writes only the keys this process changed or repaired since its last successful save, over `settings.toml` as it is on disk. lgse/strata#1877
-- With the browser and the portal chooser on one `settings.toml`, turning 10xer mode on in one, then changing preview text wrap in the other, leaves both changes in the file. lgse/strata#1845, lgse/strata#1877
+- The browser and the portal chooser share one `settings.toml`. Turning 10xer mode on in one, then changing preview text wrap in the other, leaves both changes in the file. lgse/strata#1845, lgse/strata#1877
 - A key this version does not know, such as `future_setting`, stays in `settings.toml` across saves. lgse/strata#1877
 - Entries two processes add to `folder_colors`, `custom_icons`, `device_labels`, `send_to_recent_destinations`, or `omarchy_variants` all survive, because these maps merge entry by entry. lgse/strata#1877
 - Other table settings, such as `browser_list_columns` and `chooser_list_columns`, are written whole, so a changed one replaces the other process's value. lgse/strata#1877
 - When two processes change the same setting, the later save wins. lgse/strata#1877
 - When `settings.toml` becomes unreadable or invalid TOML while Strata runs, a save leaves it unchanged and fails with the "Settings can't be saved" notice. lgse/strata#1877
-- A save waits up to 500 ms for the lock on the settings folder, shared with `folder-views.toml` saves, then saves unlocked. lgse/strata#1877 (unverified)
+- A save waits up to 500 ms to lock the folder holding `settings.toml`, then saves unlocked. lgse/strata#1877
+- When `settings.toml` is deleted while Strata runs, the next save writes every setting this process holds. lgse/strata#1877 (unverified)
 
 ### Symlinked settings file
 
@@ -72,7 +73,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - Saved non-default values govern behavior from the first interaction after launch, before Settings is opened. lgse/strata#518
 - A missing `settings.toml` starts with defaults and saves normally on the first change. lgse/strata#728
 - A value of the wrong type, such as `show_hidden = "yes"`, or a missing required key falls back to its default alone; every other entry loads. lgse/strata#671
-- Startup does not rewrite a file with invalid entries. The next save writes the repaired keys, such as search limit 45 clamped to 60, and keeps every other key on disk. lgse/strata#671, lgse/strata#1877
+- Startup does not rewrite a file with invalid entries. The next save writes the repaired keys, such as `search_time_limit = 45` saved as 60, the next listed choice, and keeps every other key on disk. lgse/strata#671, lgse/strata#1877
 - A list or table with one invalid entry, such as `search_exclusions = [".venv", 12, "/tmp/skip"]`, loads without that entry; its other entries load. lgse/strata#1869
 - One unrecognized value in `[omarchy_variants]`, such as `broken = "not-a-variant"`, drops only that key; the other variants load. lgse/strata#1844, lgse/strata#1869
 - A nested list keeps its valid entries too: one bad path in a device's `send_to_recent_destinations` list drops only that path. lgse/strata#1869
@@ -115,9 +116,10 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - The writer remembers the stamp of every file it wrote or read. Re-reads after another process's write cover folder views, custom themes, Omarchy state, and the default sort and thumbnail size in `settings.toml` (lgse/strata#1729).
 - An external default sort or thumbnail size is adopted unless this process has an unsaved change to those keys. Merging saves made the old in-flight-save gate unnecessary (lgse/strata#1877).
 - Settings are not per process: the browser and the portal chooser share one `settings.toml`. Missing live sync is intended, but one process overwriting the other's keys was a bug (lgse/strata#1845).
-- A save rereads the file and merges its changed keys under the directory lock that `folder-views.toml` uses. The lock stays held through the rename, so no other save lands between merge and replace (lgse/strata#1877).
-- A save that cannot take the lock goes ahead unlocked, as folder views do at exit. Dropping the save failed every save on filesystems without directory locks (lgse/strata#1877).
-- The five maps merge per entry. `ListColumns` and other records stay whole, because merging their fields separately could mix fields from two processes (lgse/strata#1877).
+- A save rereads the file and merges its changed keys while holding a lock on the file's folder. The lock stays held through the rename, so no other save lands between merge and replace (lgse/strata#1877).
+- The lock is taken by the same `lock_saves` helper as `folder-views.toml` saves. The two files live in different folders, so their saves never wait on each other (unverified).
+- A save that cannot take the lock goes ahead unlocked, as folder views do at exit. Filesystems without directory locks would otherwise fail every save (lgse/strata#1877).
+- The five maps merge per entry. `ListColumns` and other records stay whole on purpose. Merging their fields separately could mix fields from two processes (lgse/strata#1877).
 - Startup repairs are recorded as changed keys and merged like any change. Rewriting a repaired file whole would drop another process's keys (lgse/strata#1877).
 - Every new preference must extend an exhaustive fixture with no `..Default` escape, and tests compare changed keys with every serialized field (lgse/strata#518).
 

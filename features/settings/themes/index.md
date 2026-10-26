@@ -40,7 +40,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A custom file with an invalid color is skipped at startup and on each re-read, unless it is the selected theme. lgse/strata#762, lgse/strata#1620 (unverified)
 - A custom file with a GTK-only color form, such as 9-digit hex, loads with colors as `#rrggbb`, or `#rrggbbaa` when translucent; the file is not rewritten. lgse/strata#1554, lgse/strata#1429
 - With a custom theme selected, rewriting its `.toml` file, such as changing `accent`, re-applies the new colors in every open window without a restart. lgse/strata#1620
-- With a selected custom theme whose `.toml` file is a symlink, such as into `~/dotfiles`, rewriting the link's target re-applies its colors in every open window without a restart. lgse/strata#1887
+- A selected custom theme's `.toml` file may be a symlink, such as into `~/dotfiles`. Rewriting the link's target re-applies its colors in every open window without a restart. lgse/strata#1887
 - A `.toml` link whose target does not exist yet stays watched; once the target is written, the theme appears in the list, and later rewrites re-apply live. lgse/strata#1887
 - Each re-read recomputes the watched link targets, so links added, removed, or repointed in the themes directory take effect from the next re-read. lgse/strata#1887
 - A dangling `.toml` link whose target's folder does not exist is not watched until a later re-read finds that folder. lgse/strata#1887 (unverified)
@@ -50,7 +50,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - While such a file is unreadable, its theme stays in the theme list. lgse/strata#1620
 - Only `.toml` files directly in `~/.config/strata/themes`, and the resolved target of each `.toml` symlink there, trigger a re-read. Other extensions, subdirectories, and files beside a link target do not. lgse/strata#1620, lgse/strata#1887 (unverified)
 - Saving a theme from the editor re-arms the watch, so a themes directory that the save creates is watched. lgse/strata#1620
-- When `~/.config/strata/themes` is missing at startup, files and links created there later are not re-read until an editor save or a restart. lgse/strata#1620, lgse/strata#1887
+- When `~/.config/strata/themes` is missing at startup, files and links created there later are not re-read until a restart. lgse/strata#1887
 - While following Omarchy, rewriting a custom theme file changes no colors. lgse/strata#1620 (unverified)
 - During an editor preview, rewriting the selected file keeps the preview applied. lgse/strata#1620 (unverified)
 - Deleting or breaking a selected custom `tokyo-night.toml` applies the bundled theme's colors at once, and the bundled theme replaces it in the list. lgse/strata#1620 (unverified)
@@ -152,7 +152,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files and symlink targets on change, with a matugen template, and its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files and symlink targets on change, with a matugen template. Its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -183,7 +183,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - The editor preview is process-wide: one style provider serves every window. The manager stores the preview tokens, so appearance refreshes re-apply the preview rather than the saved theme (lgse/strata#1457, lgse/strata#1533).
 - Every Settings close route, and the layer unrealizing, runs a hook that discards the preview. A closed window never runs `hide` (lgse/strata#1457, lgse/strata#1533).
 - Each preview carries a generation number, so an editor cancels only the preview it started, never a newer one from another window (lgse/strata#1533).
-- Custom files are re-read on change so theme generators such as matugen work without a restart. lgse/strata#1619 rejected restarting, which loses session state, and re-saving, which is manual and easy to forget. Re-reading on window focus was heavier and still delayed; a built-in matugen integration was too opinionated (lgse/strata#1619). lgse/strata#1868 offered a matugen template as docs or a bundled example; it shipped as docs only (lgse/strata#1892).
+- Custom files are re-read on change so theme generators such as matugen work without a restart. lgse/strata#1619 rejected restarting, which loses session state, and re-saving, which is manual and easy to forget. Re-reading on window focus was heavier and still delayed; a built-in matugen integration was too opinionated (lgse/strata#1619). lgse/strata#1868 offered a matugen template as docs or a bundled example. It shipped as docs only (lgse/strata#1892).
 - The directory watch uses a 75 ms debounce, the pattern of the Omarchy state watcher (lgse/strata#1620).
 - A write through a symlink fires no event on the themes directory, only on the target's. Strata also watches each link target's directory, feeding the same debounced re-read (lgse/strata#1886, lgse/strata#1887).
 - A dangling link resolves through its canonical parent folder, so that folder stays watched until the file appears. Resolving with `canonicalize` alone dropped such links, so themes linked before the generator first wrote them never reloaded (lgse/strata#1887).
@@ -229,4 +229,4 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
 - Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566
-- Only a link chain's final file's folder is watched, so repointing an intermediate link, such as a directory symlink, does not reload the theme. lgse/strata#1887
+- Only the final file in a link chain has its folder watched, so repointing an intermediate link, such as a directory symlink like `~/.config/omarchy/current/theme`, does not reload the theme. lgse/strata#1887
