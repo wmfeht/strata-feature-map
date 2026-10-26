@@ -239,6 +239,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Click a row at its bottom edge.
 - With the preview open, hold Down through a mix of plain and password-protected archives in each view and with each key map; then press Right in Icons on a locked archive.
 - Type a wrong password, then move the cursor away and back to the archive.
+- Dump the tree in an archive preview two folders deep.
 
 ### operations/progress
 

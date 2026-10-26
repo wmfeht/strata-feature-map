@@ -61,6 +61,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - In Search settings, Search themes, and Search templates, Ctrl+A selects the query on any keyboard layout. Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
 - A query with no match shows "No settings match your search." under the title Search results. lgse/strata#849
 - Escape in a non-empty search field clears the query and restores every row; the next Escape closes Settings. lgse/strata#849
+- The clear buttons of Search settings, Search themes, and Search templates share one helper, so each is named "Clear search". lgse/strata#1895 (unverified)
 - Searching changes no saved preference. lgse/strata#849
 - Searching "keybindings" finds Show F1 Shortcuts button. lgse/strata#1376
 - Searching "license" opens About with the License row; searching "custom actions" opens Actions with the custom-actions list. lgse/strata#1554, lgse/strata#1453

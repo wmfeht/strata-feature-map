@@ -31,10 +31,12 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 ### Choosing a color
 
 - The COLOR row offers a "Default (Theme color)" button, seven presets (Red, Orange, Yellow, Green, Blue, Purple, Gray), and a "Custom color…" button. lgse/strata#294
+- The default color swatch's accessible name is "Default (Theme color)". lgse/strata#1895
 - Clicking a preset applies it at once and checks it; clicking the checked preset or the Theme button removes the saved color. lgse/strata#294
 - The custom-color button opens "Custom Folder Color" or "Custom File Color" with a color chooser that recolors the dialog's header icon live. lgse/strata#294
 - Apply saves the chosen color as `#rrggbb`; the custom button then shows that color with a check and the tooltip "Custom (#rrggbb)". lgse/strata#294 (unverified)
 - In the custom color dialog, Escape from the editor returns to the palette, and Escape from the palette closes the dialog without applying. lgse/strata#294 (unverified)
+- The custom color dialog's back button is named "Back to palette". lgse/strata#1895
 - Closing the custom color dialog by Apply, Cancel, Escape, or a click outside it returns focus to the custom color button. lgse/strata#1433, lgse/strata#1533
 - The custom color button's accessible name follows its tooltip: "Custom color…" or "Custom (#rrggbb)". lgse/strata#1433, lgse/strata#1533
 

@@ -38,34 +38,6 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - Accessible names and descriptions that name a shortcut use the interface language's key names, such as "Strg" in German. lgse/strata#1576
 - Strata's modal dialogs have the dialog role and are named after their title. lgse/strata#415
 
-### Button names
-
-- In List and Icons, the pane header's buttons are named "Back (Alt+←)", "Forward (Alt+→)", and "Parent folder (Alt+↑)". lgse/strata#1895
-- The path bar's copy button is named "Copy path"; after a click it is named "Path copied", then "Copy path" again 2 s later. lgse/strata#1895
-- The List view's Columns menu button is named "Columns". lgse/strata#1895
-- In Customize Folder, the default color swatch is named "Default (Theme color)" and the custom-color view's back button "Back to palette". lgse/strata#1895
-- An install command's copy button is named "Copy install command", then "Install command copied" for 2 s after a click. lgse/strata#1895 (unverified)
-- The media preview's play button is named "Play/Pause (<shortcut>)" and its mute button "Mute/unmute (<shortcut>)". lgse/strata#1895 (unverified)
-- Inside an archive preview's subfolder, the up button is named "Go up one level". lgse/strata#1895 (unverified)
-- The file chooser's header close button is named "Cancel file selection (Escape)". lgse/strata#1895 (unverified)
-- The Settings theme search's clear button is named "Clear search". lgse/strata#1895 (unverified)
-- A sidebar drive's release button is named "Eject" or "Unmount", and an encrypted drive's button "Unlock" or "Lock". lgse/strata#1895 (unverified)
-
-### Field names
-
-- The Ctrl+F filter field is named after its toggle: "Filter this pane (Ctrl+F)" in Columns and "Filter icons (Ctrl+F)" in Icons. lgse/strata#1896
-- In List, the filter field is named "Filter list (Ctrl+F)". lgse/strata#1896 (unverified)
-- The Ctrl+K search palette field is named "Search files and folders…", and the F1 reference's search field "Search actions or keys…". lgse/strata#1896
-- Connect to server's address field is named "Server address". lgse/strata#1896
-- Compress's fields are named "Archive name" and, with password protection on, "Password" and "Confirm password". lgse/strata#1896
-- The Icons Thumbnail size slider is named "Thumbnail size". lgse/strata#1896
-- The mount sign-in dialog's username, domain, and password fields are named after their visible labels. lgse/strata#1896 (unverified)
-- A 10xer footer prompt's entry is named after the prompt label it shows, and the name changes with each prompt. lgse/strata#1896 (unverified)
-- Open With's search field is named "Search applications…". lgse/strata#1896 (unverified)
-- The file chooser's Save and URL name fields are named "Name". lgse/strata#1896 (unverified)
-- The theme editor's name field is named "Theme name", and each color picker after its row label. lgse/strata#1896 (unverified)
-- The drive Label dialog's field is named "Label shown in Strata", and Format Drive's label field "Filesystem label". lgse/strata#1896 (unverified)
-
 ### Tooltips
 
 - Hovering a labelled button, menu item, label, entry, file row, breadcrumb, or status indicator shows no tooltip. The one exception is a truncated name on an Icons-view card (`browser/view-modes/icons`). lgse/strata#1359, lgse/strata#1553

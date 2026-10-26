@@ -145,3 +145,4 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 - NAS shares mounted by the system at native paths do not appear unless GIO reports them. lgse/strata#1209
 - PINNED and DEVICES cannot be collapsed; the implementation is unmerged. lgse/strata#1389, lgse/strata#1390
+- After Alt+Up, Back, or location-bar navigation, the sidebar location tint can stay on the previous row, and two rows can be tinted at once. lgse/strata#1862

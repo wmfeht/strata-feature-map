@@ -245,6 +245,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In `deep` at level 30, choose level 3 from the hierarchy menu, then from the scrolled crumbs, in each view; then choose the current crumb.
 - Type `/tmp/./x/..`, `~/../..`, `/a/b/../../..`, `smb://host/share/../x`, a symlinked folder followed by `/..`, and a file path followed by `/..`; press Alt+Up after each.
 - Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon. Open a new tab on that mount and type before its first load ends.
+- Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms.
+- Dump a sign-in dialog's fields for an SMB share that asks for a domain and for an SFTP server.
 
 ### browser/navigation/recent
 

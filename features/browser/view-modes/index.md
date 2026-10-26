@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/qa/scenarios/view_switching, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/search, preview/preview-panel, browser/view-modes/density]
+related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility]
 ---
 
 ## Summary
@@ -37,6 +37,14 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - Each option's accessible checked state matches its check icon, including after Ctrl+1 to Ctrl+3 and switches in other windows. lgse/strata#1467, lgse/strata#1544
 - With Sort by or Appearance open, a wheel tick outside it closes it and scrolls only the listing under the pointer; over the sidebar or other chrome it only closes. lgse/strata#590
 - Wheel ticks inside an open Sort by or Appearance panel keep it open. lgse/strata#590
+
+### Pane header names
+
+- In List and Icons, the pane header's buttons are named "Back (Alt+←)", "Forward (Alt+→)", and "Parent folder (Alt+↑)". lgse/strata#1895
+- The List view's Columns menu button is named "Columns". lgse/strata#1895
+- The Ctrl+F filter field is named after its toggle: "Filter this pane (Ctrl+F)" in Columns and "Filter icons (Ctrl+F)" in Icons. lgse/strata#1896
+- In List, the filter field is named "Filter list (Ctrl+F)". lgse/strata#1896 (unverified)
+- The Icons Thumbnail size slider is named "Thumbnail size". lgse/strata#1896
 
 ### Content density
 

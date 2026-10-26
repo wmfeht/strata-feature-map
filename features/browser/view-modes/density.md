@@ -62,4 +62,4 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 
 ## Known gaps
 
-None known.
+- The Compact and Airy snap buttons under a density slider overlap. lgse/strata#1862

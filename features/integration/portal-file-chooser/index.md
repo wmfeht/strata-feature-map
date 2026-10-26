@@ -71,6 +71,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In that state, text-size and thumbnail-size shortcuts still apply to the chooser. lgse/strata#1714, lgse/strata#1721 (unverified)
 - With a filter result selected, Space in the Name or location entry types a space and opens no preview. lgse/strata#1714
 - Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
+- The header close button is named "Cancel file selection (Escape)". lgse/strata#1895 (unverified)
 - Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533
 - With 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533
 
@@ -87,6 +88,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In a multiple-selection Open request, Enter with a file focused on a selection of a folder and files returns only the files. lgse/strata#1533 (unverified)
 - In a Save request, accepting without clicking a row saves into the displayed folder, not its first subfolder. lgse/strata#1138
 - In a Save request, a single-clicked folder becomes the destination without the chooser navigating into it. lgse/strata#892
+- The Name field of a Save request and of a file Open request, where a URL can be typed, is named "Name". lgse/strata#1896 (unverified)
 - In a Save request, selecting a file copies its name into Name without accepting; selecting a folder leaves Name unchanged. lgse/strata#1138
 - In a Save request, clicking the file row highlighted automatically on load replaces Name with that file's name, in List, Columns, and Icons. The request stays open. lgse/strata#1785, lgse/strata#1786
 - In a Save request, editing Name and then clicking the file still selected replaces the edit with that file's name. lgse/strata#1785, lgse/strata#1786

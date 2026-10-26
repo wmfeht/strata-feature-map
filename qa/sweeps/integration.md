@@ -64,6 +64,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With file clicks at one, then two, and single-click previews on, then off, click a filtered file once and twice. Use Columns recursive results, Icons and List search results, and an in-place filter on Recent. Read the preview, selection, and response code.
 - Filter to a non-previewable file and to a folder, and click each once under each click setting.
 - Under `save`, right-click and middle-click the highlighted file, and click a file in filter results. Click a file, then immediately double-click a folder. Repeat each with 10xer mode on and read Name after each.
+- Dump the tree in the file chooser's Save and URL views.
 
 ### integration/portal-file-chooser/setup
 

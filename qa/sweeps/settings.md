@@ -172,6 +172,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - With the user GtkSourceView setup, open a Rust, Markdown, and shell preview, switch themes twice, and follow Omarchy; compare syntax colors with a run without it and read the log.
 - With a user stylesheet that sets `.sidebar-row` padding, set Frame 7 px and Content Custom 11 px. Then switch theme, follow Omarchy, and open and Cancel an editor preview. Read bar and row spacing in both windows after each.
 - At Frame 12, rail the sidebar, open the preview, open eight tabs, and open a Miller column with its header actions. Check that the bars line up.
+- Dump the tree with the theme editor open, which the naming scenarios skip.
 
 ### settings/themes/icons
 

@@ -98,6 +98,10 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 - In Icons, media previous and next skip an entry whose metadata fill found no positive duration, such as text named `clip.mp4`. lgse/strata#1638 (unverified)
 
+### Media controls
+
+- The media preview's play button is named "Play/Pause" and its mute button "Mute/unmute", each followed by its shortcut in parentheses. lgse/strata#1895 (unverified)
+
 ### File operations
 
 - A file operation that changes the previewed item or a folder holding it clears the preview first, in the browser and the file chooser. lgse/strata#1729

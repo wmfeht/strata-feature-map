@@ -57,6 +57,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - With a bundled theme selected, creating a custom file with its id, such as `dracula.toml`, applies that file's colors without a restart. lgse/strata#1620 (unverified)
 - In an open Settings page, a re-read never redraws existing theme cards; a new file's card appears when a re-read changes the selected colors, or at the next theme or preference change. lgse/strata#1620 (unverified)
 - Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
+- In that panel the name field is named "Theme name", and each color picker is named after its row label. lgse/strata#1896 (unverified)
 - Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
 - Reopening Add theme after Cancel or after Settings closes starts from the selected theme's colors, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
 - Pressing Add theme while the editor is open keeps the current draft. lgse/strata#1533 (unverified)

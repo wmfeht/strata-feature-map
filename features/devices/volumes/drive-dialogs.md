@@ -32,6 +32,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - A saved label replaces the row name in Devices in every open window and in Properties. lgse/strata#1393
 - Saving an empty label restores the system name. lgse/strata#1393
 - The label field stops at 255 characters; a control character shows "Labels cannot contain control characters." inline and disables Save label. lgse/strata#1393 (unverified)
+- The Set label field is named "Label shown in Strata". lgse/strata#1896 (unverified)
 - Save label is disabled while the text matches the saved label. lgse/strata#1393 (unverified)
 - Set label is offered only for devices with a volume UUID or a mount root URI. lgse/strata#1393 (unverified)
 
@@ -45,6 +46,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - On Arch and Omarchy the suggested NTFS package is `ntfsprogs`. lgse/strata#1331
 - The Format Drive dialog offers FAT32, NTFS, and exFAT, preselects the current filesystem marked "(current)", and checks Quick format. lgse/strata#1331, lgse/strata#1393
 - The label field stops at 11 bytes on FAT32, 11 UTF-16 units on exFAT, and 32 UTF-16 units on NTFS. lgse/strata#1393, lgse/strata#1875
+- Format Drive's label field is named "Filesystem label". lgse/strata#1896 (unverified)
 - Typed or pasted label text past the limit is cut to what fits: six emoji on exFAT leave five, with Continue enabled. lgse/strata#1875
 - On FAT32, typing `ÉTIQUETTE12` leaves `ÉTIQUETTE1`, because `É` counts 2 bytes. lgse/strata#1875
 - Switching filesystem trims the label to the new limit in its unit: six emoji typed under NTFS leave two under FAT32. lgse/strata#1875

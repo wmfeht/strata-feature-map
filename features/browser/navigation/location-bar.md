@@ -7,7 +7,7 @@ reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/location.rs, src/ui/browser/location/**]
 tests: [src/ui/browser/location/tests.rs, src/ui/browser/location/completion/tests.rs, src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations, tests/qa/mutations/location-entry.patch]
-related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop]
+related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility]
 ---
 
 ## Summary
@@ -36,6 +36,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - A URI scheme other than smb, sftp, ftp, ftps, dav, davs, trash, network, or recent is rejected with "The <scheme>:// scheme isn't supported." and a list that omits trash and network. lgse/strata#20 (unverified)
 - Submitting `smb://alice:secret@host/share` or `smb://alice;password=secret@host/share` shows `smb://alice@host/share` in the entry while mounting and uses the password for that one attempt. lgse/strata#145
 - A typed password is never saved; failed credentials open the normal sign-in dialog. lgse/strata#145
+- The sign-in dialog's fields are named after their visible labels: "Username", "Domain", and "Password" or "Passphrase". lgse/strata#1896 (unverified)
 - Submitting a non-ASCII URI such as `smb://host/café` keeps the decoded text in the entry while mounting. lgse/strata#1424, lgse/strata#1533
 - A submitted `smb://host/share/café x` is stored as `smb://host/share/caf%C3%A9%20x`, so creating or deleting an entry there refreshes the open column. lgse/strata#1424, lgse/strata#1533
 - Ctrl+L with `<dir>/sub/../other` opens `<dir>/other`, and the breadcrumbs show no `..` crumb; Alt+Up then opens `<dir>`. lgse/strata#1445, lgse/strata#1570
@@ -74,6 +75,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - The overflow scrollbar sits in its own row below the crumbs, hidden at rest and shown on hover or scroll, never covering labels. lgse/strata#820
 - Crumb labels longer than 32 characters are shortened in the middle. lgse/strata#1143
 - The current crumb's Copy path button copies the path and shows a check and "Path copied" for 2 seconds. lgse/strata#316 (unverified)
+- The Copy path button is named "Copy path"; after a click it is named "Path copied", then "Copy path" again 2 s later. lgse/strata#1895
 
 ## Design
 
@@ -109,4 +111,4 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 ## Known gaps
 
-None known.
+- A path too deep for the bar shrinks each crumb to its first letter and an ellipsis, such as "l…", instead of scrolling. lgse/strata#1862

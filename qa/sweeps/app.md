@@ -48,10 +48,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
-- Dump the tree in states the naming scenarios skip: a playing video, an audio preview, and an archive preview two folders deep. Repeat in the file chooser's Save and URL views.
-- Repeat the dump with the theme editor, the drive Label and Format Drive dialogs, a sign-in dialog, and each 10xer footer prompt open.
-- Repeat it with a removable drive, an unmounted encrypted drive, and an unlocked one in the sidebar, expanded and as the rail.
-- Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms. Repeat on an install command's copy button.
 - With the interface in de and ja, read the names of the pane header buttons, the filter field, and the media buttons against their tooltips.
 
 ### app/dialogs
@@ -70,6 +66,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Close a dialog by keyboard, switch to a second window before the 200 ms close animation ends, then return and read the ring.
 - In a byte-limited field, paste text whose limit falls inside a multi-byte character. Paste with the cursor at the start, middle, and end, then undo and redo.
 - Type into a limited field with an input method composing, and drop text onto it by drag and drop.
+- Click an install command's copy button twice within 2 s, then close its dialog before 2 s pass; read the button's name every 500 ms.
 
 ### app/shortcut-reference
 
@@ -90,6 +87,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In 10xer mode, type `~` in the global search field, Settings search, a rename field, and the Compress name field.
 - Focus an F1 category and press `~`.
 - In Icons, search F1 for `ctrl+alt+0`, `+`, and `thumbnail` in both maps, with the interface in English and German.
+- Open each 10xer footer prompt in turn, then switch from one prompt to another without closing it; dump the entry after each step.
 
 ### app/window
 

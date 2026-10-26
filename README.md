@@ -87,7 +87,7 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 | ↳ [Camera photos](features/devices/volumes/camera.md) | `devices/volumes/camera` | shipped | draft | `fd63272` | ? |
 | ↳ [Drive format, label, and properties](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | draft | `be3343a` | ? |
 | ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | draft | `bf26829` | ? |
-| ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `c94eeb0` | ? |
+| ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `be3343a` | ? |
 | ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `bf26829` | ? |
 
 ## integration

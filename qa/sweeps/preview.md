@@ -67,6 +67,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview `password-protected.pdf` from an sftp mount, and its RC4 copy.
 - Preview the text G-code without a thumbnail and a `.bgcode` from an sftp mount.
 - With a model in one window and a route in another, narrow both until their previews hide, change the theme twice, then widen both.
+- Dump the media bar in a playing video and in an audio preview, which the naming scenarios skip.
 
 ### preview/preview-panel/layout
 
