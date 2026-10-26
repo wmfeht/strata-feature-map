@@ -137,4 +137,4 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ## Known gaps
 
-- The footer's selection size adds a selected file symlink's target size, not the link's own size. lgse/strata#1853
+- The footer's selection size adds a selected file symlink's target size, not the link's own size. lgse/strata#1853, lgse/strata#1880

@@ -37,13 +37,22 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, changes to dot-files are ignored, and a dot-file renamed to a visible name appears as a new entry. lgse/strata#1266 (unverified)
-- In List and Icons, after Ctrl+H hides hidden files, renaming the focused file to a dot name moves the cursor to its visible neighbor. lgse/strata#1874 (unverified)
 - More than 4,096 pending changes in one batch, an unmount, or an unrecognized monitor event reload the whole folder instead. lgse/strata#75, lgse/strata#1266 (unverified)
 - Files created, renamed, or removed externally while a large folder is still loading are not overridden by late enumeration rows. lgse/strata#1037
 - Renaming an open folder externally in Columns re-points its column and every open descendant to the new path. lgse/strata#1036, lgse/strata#1037
 - Deleting an open folder externally in Columns closes its column and every descendant column. lgse/strata#1036, lgse/strata#1037
 - URI locations such as `trash:///` and mounted GVfs shares receive live changes through GIO monitors. lgse/strata#463
 - A folder's monitor is created after its load has answered. A file created between the load and the monitor going live appears without F5. lgse/strata#1729
+
+### Renaming to a hidden name
+
+- In Columns with hidden files off, renaming a folder whose child column is open to a dot name closes that column and every deeper one. lgse/strata#1874
+- The Columns cursor and selection then move to the folder's visible neighbor in the same column, and F2 starts a rename on it. lgse/strata#1874
+- The same holds in Columns when the column was loaded with hidden files on and Ctrl+H hid them before the rename. lgse/strata#1874
+- Those Columns close without reloading the parent column or adding a Back history entry. lgse/strata#1874
+- The parent Columns column keeps its scroll position through that close. lgse/strata#1874 (unverified)
+- With hidden files on, or on a rename to a visible name, the row and its open Columns follow the rename to the new path. lgse/strata#1874
+- In List and Icons, after Ctrl+H hides hidden files, renaming the focused file to a dot name moves the cursor to its visible neighbor. lgse/strata#1874 (unverified)
 
 ### Open folder departures
 
@@ -107,6 +116,8 @@ Loading and file monitoring predate the PR history; the original monitor already
 - lgse/strata#173 also bound Ctrl+R to refresh. lgse/strata#393 gave Ctrl+R to Rename, leaving F5 as the only refresh key.
 - Retired views once stayed alive through autoscroll, menu, and preference-listener cycles, so each folder switch added work (lgse/strata#1185, lgse/strata#1187, lgse/strata#1353).
 
+- A monitored move to a hidden name, in a listing that hides hidden files, is handled like a removal. A monitor started with hidden files shown keeps reporting moves after Ctrl+H, so leaving it to the monitor's removal was dropped (lgse/strata#1852, lgse/strata#1874).
+- In Columns, deeper columns close in place, not through a reload of the parent, which put the cursor on the first row and lost the neighbor (lgse/strata#1874).
 - In-app renames and monitor-reported moves share one code path, whatever hidden-files setting the monitor started with (lgse/strata#1874).
 
 ## History
@@ -133,4 +144,5 @@ Loading and file monitoring predate the PR history; the original monitor already
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902
 - While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
 - Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729
-- With hidden files off, a dot-file another program creates does not appear after Ctrl+H shows hidden files, until F5. Ctrl+H does not restart the folder's monitor. lgse/strata#1862, lgse/strata#1874 (unverified)
+- With hidden files off, a dot-file another program creates does not appear after Ctrl+H shows hidden files, until F5. Ctrl+H does not restart the folder's monitor. lgse/strata#1862, lgse/strata#1874
+- When another program removes an open folder, the cursor lands on the first row instead of a neighbor. lgse/strata#1874

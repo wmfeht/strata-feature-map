@@ -82,7 +82,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Replace and Merge on tmpfs, where Trash is unavailable; cancel midway, then list hidden `.strata-originals-*` and `.strata-merge-*` names.
 - Merge without Trash on NFS while another program holds one replaced file open; then cancel a second such merge.
 - After a Merge, edit one placed file, only `touch` another, then undo.
-- On tmpfs and on a vfat stick, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
+- On tmpfs and on `/dev/shm`, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
 
 ### operations/clipboard/send-to
 
@@ -220,7 +220,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract a TAR holding a file, a hard link to it, and a link to that link. Use the real vfat and exFAT sticks and an SMB share; compare `stat -c '%h %i'`.
 - Extract that TAR onto a nearly full vfat stick, and cancel one with a 1 GiB hard-linked file while its copy is written.
 - Extract into a sshfs folder and onto a vfat stick an archive holding `10:00/` and `10_00/`, a symlink, a hard link to it, and `c:notes`.
-- Extract ZIP, 7Z, and RAR archives holding `names/c:notes` and `names/C:/x` onto the vfat and exFAT sticks; repeat with a TAR holding a hard link to `names/c:notes`.
+- Extract ZIP, 7Z, and RAR archives holding `names/c:notes` and `names/C:/x` onto the vfat and exFAT sticks. Repeat with a TAR holding a hard link to `names/c:notes`.
 - Extract archives whose second member is `C:\evil`, `.\c:notes`, or `a/b/../../c:x`, with a third member after it; list what remains with hidden files shown.
 - On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
 - On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.

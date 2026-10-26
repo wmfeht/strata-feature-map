@@ -123,9 +123,6 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With badges on, rest the pointer on an unselected row and hold Down through it; then move the pointer 1 px. Hover a row and leave it within 120 ms.
 - Wheel-scroll a column with the pointer over it and badges on; then kinetic-scroll the strip so a parent is clipped, stop, and compare its reveal button with its visible width.
 - With recursive filter results in a column, cancel a dialog opened from a hit, switch views, and hide the preview with the mouse; note which hit has focus each time.
-- With hidden files on, open `deep` to column 5, press Ctrl+H, and rename the column 3 folder to a dot name; then press Back.
-- Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
-- Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 
 ### browser/view-modes/icons
 
@@ -437,6 +434,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - `mv` an open folder on an `sftp://` share, the ntfs-3g partition, an `sshfs` mount, and a kernel exFAT partition; read the pane and history.
 - Open the 200,000-entry folder, then the 260,000-entry one, locally, over `sftp://`, and on an `sshfs` mount; read the pane header after each load settles.
 - Paste 50 files into an open `sftp://` folder and an sshfs folder, cancel halfway, then repeat to completion; count reloads and rows each time.
+- With hidden files on, open `deep` to column 5, press Ctrl+H, and rename the column 3 folder to a dot name; then press Back.
+- Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
+- Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 
 ### browser/directory-monitoring/network-checks
 

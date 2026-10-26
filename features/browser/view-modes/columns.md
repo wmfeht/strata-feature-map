@@ -60,15 +60,6 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - F5 keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544, lgse/strata#1729
 - After a reload removes an open rename field, F2 renames that row again and Menu or Shift+F10 opens its context menu. lgse/strata#1438, lgse/strata#1554
 
-### Renaming to a hidden name
-
-- With hidden files off, renaming a folder whose child column is open to a dot name closes that column and every deeper one. lgse/strata#1874
-- The cursor and selection then move to the folder's visible neighbor in the same column, and F2 starts a rename on it. lgse/strata#1874
-- The same holds when the column was loaded with hidden files on and Ctrl+H hid them before the rename. lgse/strata#1874
-- The columns close without reloading the parent column or adding a Back history entry. lgse/strata#1874
-- The parent column keeps its scroll position through that close. lgse/strata#1874 (unverified)
-- With hidden files on, or on a rename to a visible name, the row and its open columns follow the rename to the new path. lgse/strata#1874
-
 ### Column header
 
 - The header shows the folder name, middle-ellipsized within the column, vertically centered with its actions. lgse/strata#805, lgse/strata#1143
@@ -165,8 +156,6 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Horizontal scroll is routed in the capture phase because nested vertical listings consume horizontal events (lgse/strata#1124).
 - Autofit is detected as two drag starts on the same edge within 400 ms. A separate click gesture would compete with the drag for the event (lgse/strata#114).
 - Saved widths are unscaled by text size, so text-size changes scale them without compounding. Browser and chooser defaults are independent (lgse/strata#1338).
-- A monitored move to a hidden name, in a column that hides hidden files, is handled like a removal. A monitor started with hidden files shown keeps reporting moves after Ctrl+H, so leaving it to the monitor's removal was dropped (lgse/strata#1852, lgse/strata#1874).
-- Deeper columns close in place, not through a reload of the parent, which put the cursor on the first row and lost the neighbor (lgse/strata#1874).
 - The "square" beside the scrollbar was the sidebar's paned handle showing through a transparent trough, so the mode scrollers' horizontal trough is opaque (lgse/strata#702).
 
 ## History

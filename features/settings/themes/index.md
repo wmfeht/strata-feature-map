@@ -41,7 +41,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A custom file with a GTK-only color form, such as 9-digit hex, loads with colors as `#rrggbb`, or `#rrggbbaa` when translucent; the file is not rewritten. lgse/strata#1554, lgse/strata#1429
 - With a custom theme selected, rewriting its `.toml` file, such as changing `accent`, re-applies the new colors in every open window without a restart. lgse/strata#1620
 - A selected custom theme's `.toml` file may be a symlink, such as into `~/dotfiles`. Rewriting the link's target re-applies its colors in every open window without a restart. lgse/strata#1887
-- A `.toml` link whose target does not exist yet stays watched; once the target is written, the theme appears in the list, and later rewrites re-apply live. lgse/strata#1887
+- A `.toml` link whose target does not exist yet stays watched. Once the target is written, the theme appears in the list, and later rewrites re-apply live. lgse/strata#1887
 - Each re-read recomputes the watched link targets, so links added, removed, or repointed in the themes directory take effect from the next re-read. lgse/strata#1887
 - A dangling `.toml` link whose target's folder does not exist is not watched until a later re-read finds that folder. lgse/strata#1887 (unverified)
 - A live re-apply also recolors interface icons and code-preview syntax colors. lgse/strata#1620

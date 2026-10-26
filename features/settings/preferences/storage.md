@@ -74,6 +74,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A missing `settings.toml` starts with defaults and saves normally on the first change. lgse/strata#728
 - A value of the wrong type, such as `show_hidden = "yes"`, or a missing required key falls back to its default alone; every other entry loads. lgse/strata#671
 - Startup does not rewrite a file with invalid entries. The next save writes the repaired keys, such as `search_time_limit = 45` saved as 60, the next listed choice, and keeps every other key on disk. lgse/strata#671, lgse/strata#1877
+- A `theme` or `mode` normalized at startup is written as a repaired key on the next save. Other keys keep their on-disk values. lgse/strata#1877 (unverified)
 - A list or table with one invalid entry, such as `search_exclusions = [".venv", 12, "/tmp/skip"]`, loads without that entry; its other entries load. lgse/strata#1869
 - One unrecognized value in `[omarchy_variants]`, such as `broken = "not-a-variant"`, drops only that key; the other variants load. lgse/strata#1844, lgse/strata#1869
 - A nested list keeps its valid entries too: one bad path in a device's `send_to_recent_destinations` list drops only that path. lgse/strata#1869

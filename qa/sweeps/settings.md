@@ -15,7 +15,7 @@ For every control this sweep proves the binding: the file changes, the other win
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `scripts/headless/environment.py`, read from the `preferences` table of `tests/fixtures/harness.json`, is the baseline; every seeded file starts from it.
 - A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variants = { <fake theme name> = "lighter" }`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `stl_thumbnails = true`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`, `unit_system = "imperial"`.
-- Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
+- Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases. The portal chooser runs on that HOME through `scripts/chooser-dev.sh`.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
 - Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the twelve languages is right-to-left.
@@ -84,8 +84,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed a 5,000-entry `folder_colors` table with one bad value; time startup to the first painted window and read the colors.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
-- Run the browser and the portal chooser on one HOME; change different keys in each, then the same key, then `device_labels` and `browser_list_columns` in both. Diff `settings.toml` after each save.
-- Seed `search_time_limit = 45` and an unknown key, change a different key in each of two processes, quit them in either order, and relaunch; diff `settings.toml` each time.
+- Run the browser and the portal chooser on one HOME. Edit `send_to_recent_destinations` and `omarchy_variants` in both, and `chooser_list_columns` from the real chooser. Diff `settings.toml` after each save.
 - Make `settings.toml` invalid TOML while two processes run, change a preference in each, then repair the file and change another.
 - Hold a `flock` on `~/.config/strata` from a shell, change preferences in two processes, release it, and diff `settings.toml`; repeat with `XDG_CONFIG_HOME` on the sshfs mount.
 - In two windows, sort the Trash and an SFTP folder differently in each. Read each window's sort, then restart and read them again.
@@ -150,7 +149,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Link the selected theme file to a target on `/dev/shm`, through a relative link, and to a target without `.toml`. Edit each target and read the window.
 - Link the selected theme through a two-hop chain, then repoint the middle link at another file; rewrite both files and read the window.
 - Point a link into a folder that does not exist yet, then create the folder and the target while Strata runs; read the theme list.
-- Link two themes into one dotfiles folder, remove one link, then rewrite the other target and a sibling file beside it; read the window and the log.
+- Link two themes into one dotfiles folder and remove one link. Rewrite the other target and a sibling file beside it, then read the window and the log.
 - Under a light theme with Element glow off, then on, open path completion, a folder peek, and the 10xer candidates popover. Zoom on each popover's edge.
 - With the hostile `gtk.css` and `settings.ini`, walk the screenshot set in all three modes under a light and a dark theme, then compare against a run without them; any difference is a lead.
 - With the hostile setup, launch under `GTK_THEME=Adwaita:dark`, under `GTK_THEME=HighContrast`, and as the portal chooser, then with desktop high contrast and the dark color scheme on; read the log and the window.
