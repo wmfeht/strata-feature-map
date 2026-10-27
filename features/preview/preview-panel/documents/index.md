@@ -40,10 +40,12 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Touchpad, Shift+wheel, and the scrollbar all scroll an unwrapped rendered Markdown, HTML, or RTF document sideways. lgse/strata#1612, lgse/strata#1834
 - Turning wrap on while a rendered Markdown, HTML, or RTF document is open reflows each paragraph to its full wrapped height without reopening. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
 - Turning wrap off while a rendered Markdown, HTML, or RTF document is open returns rows to their unwrapped height, with no gaps. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
-- A rendered paragraph over 2 KiB with spaces between its words breaks into rows of at most 2 KiB, each ending just after whitespace. lgse/strata#1901
-- In such a paragraph, a word under 1 KiB is never split across rows. lgse/strata#1901 (unverified)
+- A rendered paragraph over 2 KiB with spaces breaks into rows of at most 2 KiB. A row ends just after the last whitespace in its window. lgse/strata#1901
+- A row whose window holds no whitespace ends at the limit instead. lgse/strata#1901 (unverified)
+- In such a paragraph, a word under 1,000 bytes is never split across rows. lgse/strata#1901 (unverified)
 - Copying a paragraph broken this way returns its plain text unchanged, including text inside bold spans. lgse/strata#1901
-- A whitespace-free token over 2 KiB still breaks at the 2 KiB limit, on a character boundary. lgse/strata#1901
+- A whitespace-free token over 2 KiB breaks on character boundaries into rows of at most 2 KiB. lgse/strata#1901, lgse/strata#187
+- Once under 4 KiB of the token remains, the last two rows split it about evenly. lgse/strata#187 (unverified)
 - CJK text whose only separators are U+3000 ideographic spaces breaks just after a U+3000. lgse/strata#1901
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187
 - Every rendered code block shows a **Copy code** button that copies the whole block. lgse/strata#187

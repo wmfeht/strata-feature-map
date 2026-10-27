@@ -102,7 +102,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Render a 257-line Mermaid block, a 4 KiB plus-one equation, prose containing `$5 and $10`, and an escaped `\$`.
 - Open a 20 MiB plus-one XLSX, an XLSX whose first row has 300 columns, and the ZIP renamed `.docx`.
 - Sort a table, drag-select a range, change the theme, then switch Source and Rendered while an image row is still rendering; close mid-render and check for leaked helpers.
-- Double-click and triple-click a whitespace-free token over 2 KiB split across two virtual rows, an emoji with a skin-tone modifier, a combining accent, and a link; Shift-click from prose into a table.
+- Double-click and triple-click a whitespace-free token over 2 KiB split across two rows, an emoji with a skin-tone modifier, a combining accent, and a link.
+- Shift-click from prose into a table.
 - Press Shift+End on a 2 KiB pathological line and Ctrl+Shift+Right through CJK text and punctuation runs, then Ctrl+C.
 - On the `ru` layout, drag-select a table cell range, click one cell's text, then press Ctrl+C and Ctrl+A; repeat with Caps Lock on and on `us,ru`.
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
@@ -116,7 +117,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Close the preview during a table cell drag at the bottom edge, reopen it, and rest the pointer at the bottom edge with no button held.
 - Change interface text size up and back with the 2 MiB text file open in Source and compare line numbers with their lines.
 - In the 5,000-character ODT paragraph, double-click and Shift+End across its 2 KiB row boundaries.
-- Render paragraphs over 2 KiB whose only separators are tabs, no-break spaces, or thin spaces, and one with a single early space before a 5 KiB unbroken token; copy each whole.
+- Render paragraphs over 2 KiB whose only separators are tabs, no-break spaces, or thin spaces; copy each whole.
+- Render a paragraph with one early space before a 5 KiB unbroken token; copy it whole.
 - Place an emoji, a combining accent, and a skin-tone sequence right where a whitespace-free token reaches 2 KiB.
 - End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.

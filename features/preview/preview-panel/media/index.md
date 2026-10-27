@@ -22,7 +22,8 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Previews play the whole source with no 30-second cap; files without a reported duration play to their end with seeking disabled until it is known. lgse/strata#888
 - Animated GIFs play and loop instead of showing their first frame. lgse/strata#119
 - Audio-only files with no video stream, such as a mono `.ogg`, play their audio instead of failing. lgse/strata#817
-- Raw H.264 and HEVC elementary streams, such as a bare `.h264` file, play from the start and seek, even without the extension. lgse/strata#1346, lgse/strata#1861
+- Raw H.264 and HEVC elementary streams that reach the player, such as a bare `.h264` file, play from the start and seek. lgse/strata#1346, lgse/strata#1861
+- The player detects a raw stream from its probed format, not its file name, so a renamed copy still seeks. lgse/strata#1346
 - Video decodes at the pane's size times display scale, capped at 1280 px on either axis and never enlarged beyond the source. lgse/strata#823, lgse/strata#839
 - Growing the pane restarts decoding at the current position only when the frame would grow by 8% or more; shrinking never restarts. lgse/strata#839 (unverified)
 - Mute and volume are saved and apply live to every open player. lgse/strata#167, lgse/strata#839
