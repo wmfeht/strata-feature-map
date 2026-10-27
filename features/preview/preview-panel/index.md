@@ -3,7 +3,7 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/pdf_text.rs, src/ui/preview/components.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/archive_cover.rs]
 tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/preview_media_layout]
@@ -25,6 +25,8 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local file's first 8 KiB decide its preview family: a file named `.png` or `.mp4` holding plain text previews as source text. lgse/strata#1638
 - A local `photo.txt` holding PNG bytes previews as an image, and `paper.txt` holding a PDF previews as a PDF. lgse/strata#1638
 - A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
+- A local raw stream named `.h264` or `.H264` previews as video, even where the MIME database types it `application/octet-stream`. lgse/strata#1901, lgse/strata#1861
+- A text or empty file named `notes.h264` previews as text and is never handed to the media decoder. lgse/strata#1901
 - A local binary file named `.json` or `.md` whose bytes match no previewable type shows "No visual preview" instead of text. lgse/strata#1638
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
 - A local file named `.odt` or `.ott` holding text also previews as text. lgse/strata#1834 (unverified)
@@ -96,7 +98,8 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 ### Media stepping
 
-- In Icons, media previous and next skip an entry whose metadata fill found no positive duration, such as text named `clip.mp4`. lgse/strata#1638 (unverified)
+- In Icons, media previous and next skip an entry whose metadata fill found no duration and no video dimensions, such as text named `clip.mp4`. lgse/strata#1638, lgse/strata#1901 (unverified)
+- Media previous and next, and the position count, keep a video with known dimensions but no duration, such as a raw `.h264` stream. lgse/strata#1901
 
 ### Media controls
 
@@ -117,6 +120,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Print on an extensionless file the loader cannot render shows "This file type cannot be printed." lgse/strata#965
 - Print on a PDF that needs an opening password shows "Unable to prepare file for printing" with "This PDF is password protected." lgse/strata#1840 (unverified)
 - Print on a route file shows "This file type cannot be printed." lgse/strata#1842 (unverified)
+- The item menu of a `.h264` file offers no **Print**. lgse/strata#1901 (unverified)
 - Printing a PDF shows "Preparing PDF" with page progress while every page renders; Cancel or Escape stops it. lgse/strata#286 (unverified)
 - Printing a text file over 16 MiB shows "This text file is too large to print safely." lgse/strata#286 (unverified)
 
@@ -149,12 +153,15 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Route previews use the preview cache keyed by format and theme palette (lgse/strata#1842).
 - Camera views render on demand and share the 128 MiB preview cache, keyed by view. The single heavy-preview permit keeps four angles from multiplying peak memory (lgse/strata#1644, lgse/strata#1633).
 - Audio, video, and model previews share a details header and navigation row; video and model also share a badge row and a player layout with named areas. One universal player was rejected because artwork, the spectrum, and the camera need different content; playback, seeking, camera motion, and loading stay per preview (lgse/strata#1659, lgse/strata#1764).
+- `.h264` is recognized by name in the shared filename classifier, before the MIME database. The byte-content guards and the sandboxed decoder are reused, with no new decoder or file reads. One classifier keeps preview, navigation, Properties, and printing in agreement (lgse/strata#1901, lgse/strata#1861).
+- Elementary streams report dimensions but no duration, so navigation keeps a video with known dimensions even without a duration (lgse/strata#1901).
 - The stream-copy video and native GIF paths from lgse/strata#318 were replaced by sandboxed streaming (lgse/strata#839).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1901 | fix | Broke long rendered paragraphs after whitespace, decoded RTF surrogate pairs, and recognized `.h264` by name so raw streams preview and step. |
 | 2026-10-25 | lgse/strata#1842 | feat | Added offline GPX, FIT, and KML route previews with an elevation profile, playback, and a saved Units preference. |
 | 2026-10-25 | lgse/strata#1864 | feat | Showed the embedded slicer thumbnail of `.gcode`, `.gco`, and `.bgcode` files in the preview, keeping text for files without one. |
 | 2026-10-24 | lgse/strata#1840 | fix | Explained password-protected PDF failures with a translated message and an Open button, instead of the generic renderer error. |
@@ -183,5 +190,4 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - The preview's media seek and volume sliders have no accessible name; naming them needs new strings in every catalog. lgse/strata#1896
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
 - Each first visit to a camera view rereads and reparses the mesh before a full CPU render; parsed meshes are not retained. lgse/strata#1644
-- A bare `.h264` stream shows "No visual preview" on systems such as Arch, whose MIME database types it `application/octet-stream`. lgse/strata#1861, lgse/strata#1333
 - With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

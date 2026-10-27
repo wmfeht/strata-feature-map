@@ -3,7 +3,7 @@ title: Media details in Properties
 status: shipped
 origin: {issue: lgse/strata#979, pr: lgse/strata#984}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/browser/properties/media.rs, src/sandbox/metadata.rs]
 tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/qa/scenarios/properties_media]
@@ -18,6 +18,8 @@ Source-media details for a single local image, audio, or video file in Propertie
 ## Behavior
 
 - For a local file whose MIME type is `image/*`, `audio/*`, or `video/*`, Properties shows a MEDIA row reading "Loading…" until inspection finishes. lgse/strata#984 (unverified)
+- A local file typed `application/octet-stream` whose name classifies as image, audio, or video, such as `.h264`, also gets the MEDIA row. lgse/strata#1901 (unverified)
+- Alt+Enter on a raw 320 × 180 H.264 stream named `alpha.h264` shows RESOLUTION "320 × 180 pixels". lgse/strata#1901
 - A PNG of 1600 × 900 shows RESOLUTION "1600 × 900 pixels" and no DURATION, FRAME RATE, or AUDIO CODEC. lgse/strata#984
 - An H.264/AAC MP4 shows RESOLUTION, DURATION as `H:MM:SS`, BITRATE, VIDEO CODEC "h264", FRAME RATE "24.00 fps", AUDIO CODEC "aac", SAMPLE RATE "48.0 kHz", and CHANNELS "2 (Stereo)". lgse/strata#984
 - A mono WAV shows DURATION, AUDIO CODEC "pcm_s16le", SAMPLE RATE "44.1 kHz", CHANNELS "1 (Mono)", and BITRATE, with no RESOLUTION or VIDEO CODEC. lgse/strata#984
@@ -42,12 +44,14 @@ Inspection runs in the preview sandbox; [docs/preview-sandbox.md](https://github
 - The sandbox stays network-isolated and gets no GPU access for metadata; only the BLAS/LAPACK files FFmpeg needs on Debian were added (lgse/strata#984).
 - The scope first included the preview pane. The owner then kept detailed media metadata in Properties only, to keep the preview uncluttered (lgse/strata#979 comments).
 - Unavailable fields are omitted rather than shown empty (lgse/strata#979).
+- Generic octet-stream files go through the shared filename classifier, so preview, navigation, Properties, and printing agree on raw `.h264` streams (lgse/strata#1901).
 - `ffprobe` runs with a four-second timeout and a 256 KiB JSON limit. Only validated numbers and bounded codec identifiers reach the UI, not arbitrary tags (docs/preview-sandbox.md).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1901 | fix | Classified generic octet-stream files by name before the media check, so raw `.h264` streams show media details. |
 | 2026-09-14 | lgse/strata#984 | feat | Added sandboxed source-media details to file Properties, kept out of the preview pane. |
 
 ## Known gaps

@@ -6,6 +6,12 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
+| [lgse/strata#1908](https://github.com/lgse/strata/issues/1908) | 2026-10-27 | fix | [Modal dialogs](../features/app/dialogs.md) | Halved the confirmation file list radius to 3px so it reaches 6px, not 12px, at the 200% roundness maximum. |
+| [lgse/strata#1906](https://github.com/lgse/strata/issues/1906) | 2026-10-27 | fix | [Modal dialogs](../features/app/dialogs.md) | Rounded the confirmation file list in the delete, restore, and leftovers dialogs to match other dialog inset boxes. |
+| [lgse/strata#1901](https://github.com/lgse/strata/issues/1901) | 2026-10-27 | fix | [Preview panel](../features/preview/preview-panel/index.md) | Broke long rendered paragraphs after whitespace, decoded RTF surrogate pairs, and recognized `.h264` by name so raw streams preview and step. |
+| [lgse/strata#1901](https://github.com/lgse/strata/issues/1901) | 2026-10-27 | fix | [Media details in Properties](../features/browser/properties/media.md) | Classified generic octet-stream files by name before the media check, so raw `.h264` streams show media details. |
+| [lgse/strata#1899](https://github.com/lgse/strata/issues/1899) | 2026-10-27 | feat | [Pane filter](../features/browser/search/filter.md) | Shared the filter's term and typo matcher with Ctrl+K so multi-word global queries match every term. |
+| [lgse/strata#1898](https://github.com/lgse/strata/issues/1898) | 2026-10-27 | fix | [System file chooser](../features/integration/portal-file-chooser/index.md) | Selected only the suggested name's stem in Save, which the idle focus restore had reselected whole. |
 | [lgse/strata#1896](https://github.com/lgse/strata/issues/1896) | 2026-10-25 | fix | [Accessibility](../features/app/accessibility.md) | Named text fields and the Icons thumbnail slider that had only a placeholder or an unlinked label. |
 | [lgse/strata#1895](https://github.com/lgse/strata/issues/1895) | 2026-10-25 | fix | [Accessibility](../features/app/accessibility.md) | Gave icon-only buttons that had only a tooltip an accessible name equal to it, kept in step when it changes. |
 | [lgse/strata#1894](https://github.com/lgse/strata/issues/1894) | 2026-10-25 | fix | [Context menus](../features/browser/context-menu.md) | Anchored menus at the click and capped their height to the monitor, so they extend past a small window instead of being squeezed or shifted. |

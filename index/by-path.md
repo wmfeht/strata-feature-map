@@ -425,6 +425,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/search/tests/multi_root.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/performance.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/refresh.rs` | tests | [Search](../features/browser/search/index.md) | — |
+| `src/services/search/tests/scope.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/scope.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
 | `src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -540,6 +541,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/chooser/tests/filtered_preview.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/image_conversion.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/tests/keyboard.rs` | tests | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/chooser/tests/keyboard.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/sizing.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/collection_edit.rs` | code | [Inline rename](../features/operations/rename.md) | — |
 | `src/ui/collection_interaction.rs` | code | [Selection](../features/browser/selection/index.md) | — |

@@ -3,7 +3,7 @@ title: Leftovers after a crash or unplug
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/adapters/local_operations/leftovers.rs, src/app/browser/leftovers.rs, src/ui/browser/leftovers.rs]
 tests: [src/adapters/local_operations/tests/leftovers.rs, src/app/browser/tests/leftovers.rs, src/ui/browser/leftovers/tests.rs]
@@ -34,6 +34,7 @@ Recognising the hidden `.strata-*` names a crash, kill, or unplug leaves in a fo
 ### Review
 
 - The review lists each item with its kind, contents, date, and hidden name, above "Another program or computer may still be using these items. Restore never replaces an existing item." lgse/strata#1729
+- The review's item list has square corners at corner roundness 0, 1.8px corners at the default 60, and 6px at 200. lgse/strata#1906, lgse/strata#1908
 - Originals and merge folders, older builds' originals, and possible originals offer Restore and Show. Incomplete copies offer Show and Delete…. lgse/strata#1729
 - An item still held open by another program, or gone, shows no Restore; a gone item reads "No longer here". lgse/strata#1729
 - Show reveals the item and turns hidden files on. lgse/strata#1729

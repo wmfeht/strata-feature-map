@@ -3,7 +3,7 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus]
@@ -89,6 +89,8 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1908 | fix | Halved the confirmation file list radius to 3px so it reaches 6px, not 12px, at the 200% roundness maximum. |
+| 2026-10-27 | lgse/strata#1906 | fix | Rounded the confirmation file list in the delete, restore, and leftovers dialogs to match other dialog inset boxes. |
 | 2026-10-10 | lgse/strata#1554 | fix | Shared the closing-layer check so window accelerators skip a dialog that is animating closed. |
 | 2026-10-10 | lgse/strata#1544 | fix | Refocused a dialog's opener inside a modal left open, kept focus rings after keyboard closes, and gave menu options radio and checkbox roles. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to a dialog's origin when on screen, otherwise to the cursor row, so closing a dialog no longer leaves nothing focused. |

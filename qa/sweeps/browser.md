@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -268,6 +268,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 - Set both search limits to No limit and Ctrl+K over an `sshfs` or rclone mount under Home; then 10 s and 200,000 over two `100000` copies, and hover Partial results.
 - Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
+- In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`; then two terms split across folder and filename beside a file holding both in its name.
+- Search a multi-word query no file's terms satisfy, with and without a path containing a literal space that could fuzzy-match it.
 
 ### browser/search/exclusions
 
@@ -393,6 +395,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Open Properties on a 0-byte `.mp4`, a WAV renamed `.png`, a rotated phone video, and an MP3 with cover art.
 - Close the dialog within 100 ms of opening it on a long video; reopen after rewriting the file externally.
+- Open Properties on a text file and an empty file named `notes.h264`, a raw stream named `.H264`, and raw streams named `.h265`, `.hevc`, and `.264`.
 
 ### browser/properties/raw-metadata
 

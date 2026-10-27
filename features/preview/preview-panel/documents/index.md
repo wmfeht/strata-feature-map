@@ -3,7 +3,7 @@ title: Rendered document previews
 status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/scrollbar.rs, src/ui/virtual_preview/scrollbar/position.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
 tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/virtual_preview/scrollbar/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/README.md, tests/qa/scenarios/quick_preview]
@@ -40,6 +40,10 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Touchpad, Shift+wheel, and the scrollbar all scroll an unwrapped rendered Markdown, HTML, or RTF document sideways. lgse/strata#1612, lgse/strata#1834
 - Turning wrap on while a rendered Markdown, HTML, or RTF document is open reflows each paragraph to its full wrapped height without reopening. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
 - Turning wrap off while a rendered Markdown, HTML, or RTF document is open returns rows to their unwrapped height, with no gaps. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
+- A rendered paragraph over 2 KiB with spaces between its words breaks into rows of at most 2 KiB, each ending just after whitespace, never mid-word. lgse/strata#1901
+- Copying a paragraph broken this way returns its source text exactly, including bold spans. lgse/strata#1901
+- A whitespace-free token over 2 KiB still breaks at the 2 KiB limit, on a character boundary. lgse/strata#1901
+- CJK text separated by U+3000 ideographic spaces breaks just after a U+3000. lgse/strata#1901
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187
 - Every rendered code block shows a **Copy code** button that copies the whole block. lgse/strata#187
 
@@ -95,6 +99,10 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 ### RTF and DOCX
 
 - RTF renders paragraphs, bold, italic, underline, strikethrough, Windows-1252 `\'hh` escapes, and `\uN` escapes, and keeps its Source view. lgse/strata#1086
+- RTF `{\rtf1\ansi\uc1 A [\u-10179?\u-8704?] B}` renders `A [😀] B`; a surrogate pair takes the style of its high unit. lgse/strata#1901
+- An unpaired RTF surrogate, including a high unit followed by text, `\line`, `\par`, or the document end, renders as U+FFFD instead of being dropped. lgse/strata#1901
+- An RTF `\uN` value outside -32768 to 65535 renders as U+FFFD. lgse/strata#1901 (unverified)
+- An escaped newline inside an ignored `{\*…}` destination does not end the open RTF paragraph. lgse/strata#1901
 - DOCX renders headings, `Title`, `Subtitle`, quotes, inline formatting, nested bulleted and numbered lists, and tables with the first row as sortable titles. lgse/strata#1086
 - DOCX has no Source view; images, hyperlink targets, headers, footers, footnotes, and comments are omitted. lgse/strata#1086
 - DOCX files with alternate XML namespace prefixes or default namespaces keep their Word content. lgse/strata#1086
@@ -116,6 +124,8 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Images are opened beneath the document directory, copied to private files, and decoded in the sandbox. Mermaid uses `mermaid-svg`; equations use pinned MathJax in QuickJS with no host bindings, as a string argument (lgse/strata#1075).
 - `mermaid-rs-renderer` was replaced by `mermaid-svg` to drop the unmaintained `ttf-parser` (lgse/strata#1074).
 - RTF uses a hand-written converter, because `rtf-parser` 0.4.3 dropped `\par`, mis-decoded `\'93`, and corrupted `\uN` fallbacks (lgse/strata#1086).
+- Long paragraphs keep the 2 KiB row bound and the 1 MiB input bound; whitespace is only preferred. A line is checked for whitespace once, so unbroken tokens are not rescanned per row (lgse/strata#1901, lgse/strata#1861).
+- RTF `\uN` values are UTF-16 units. Pairs go through the standard UTF-16 decoder, and malformed units are replaced rather than lost (lgse/strata#1901, lgse/strata#1861).
 - At most 16 media items are kept per preview and four render at once in the pooled preview worker (lgse/strata#1075, lgse/strata#1222).
 
 ## History
@@ -134,8 +144,6 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 - Workbooks preview only their first worksheet; multi-sheet navigation was deferred. lgse/strata#723
 - PPTX, PPT, ODP, and DOC files have no rendered preview. lgse/strata#730, lgse/strata#244
-- Rendered documents break paragraphs over 2 KiB mid-word, which now shows in every long DOCX or ODT paragraph. lgse/strata#1861
-- RTF emoji written as surrogate-pair `\uN` escapes are dropped. lgse/strata#1861
 - Markdown cannot be edited or rendered with Pandoc or Quarto from the preview. lgse/strata#1127
 - A touchpad flick can end early when newly measured rows change the scroll range or content origin. lgse/strata#1752
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752

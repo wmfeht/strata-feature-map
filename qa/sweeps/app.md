@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---

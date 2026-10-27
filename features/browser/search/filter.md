@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/inline_search.rs, src/ui/enter_target.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/ui/enter_target/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results, tests/qa/mutations/filter-results.patch]
@@ -183,6 +183,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1899 | feat | Shared the filter's term and typo matcher with Ctrl+K so multi-word global queries match every term. |
 | 2026-10-25 | lgse/strata#1888 | fix | Made a plain click on a filtered file follow the click-count and single-click preview preferences, so previews work on filtered files. |
 | 2026-10-22 | lgse/strata#1822 | feat | Outlined the top result Enter opens and kept it in view until a pick or scroll, so Enter is predictable. |
 | 2026-10-20 | lgse/strata#1768 | feat | Matched space-separated queries when the name contains every word, ranking whole-phrase hits first. |

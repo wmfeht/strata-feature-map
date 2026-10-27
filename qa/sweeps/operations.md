@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
@@ -142,6 +142,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Open an `sftp://` folder holding leftovers.
 - Unplug an ntfs3 stick during a Replace without Trash, then plug it in with udisks' default options and open the folder.
 - Mount a vfat stick last written in a time zone to the west that holds a fresh `.strata-probe-*`.
+- At corner roundness 200, open a review long enough to scroll and scroll to each end.
 
 ### operations/trash
 
@@ -158,6 +159,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On sshfs without `default_permissions` and on rclone, Delete a file, a read-only file, and a selection spanning both mounts. List the mount roots with `ls -la`.
 - After a refusal, open the same folder in a second window and in the file chooser, then reload each way: F5, the pane refresh button, the folder menu, chooser F5.
 - Kill the sshfs process mid-delete, then Delete again; remount and Delete again.
+- At corner roundness 0 and 200, open the Shift+Delete, no-Trash, and Restore dialogs with one item and with enough items to scroll; scroll to each end and check the corners clip the rows.
 
 ### operations/trash/restore
 
