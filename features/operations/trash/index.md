@@ -76,7 +76,8 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 
 ### Confirmation file list
 
-- The file list in the Shift+Delete confirmation has square corners at corner roundness 0, 1.8px corners at the default 60, and 6px at 200. lgse/strata#1906, lgse/strata#1908
+- The file list in the Shift+Delete and no-Trash confirmations has square corners at corner roundness 0, 1.8px at the default 60, and 6px at 200. lgse/strata#1906, lgse/strata#1908
+- The file list in the "Move N items to Trash?" confirmation has the same corners at each roundness. lgse/strata#1906, lgse/strata#1908 (unverified)
 - The file list in the "Restore N items?" confirmation has the same corners at each roundness. lgse/strata#1906, lgse/strata#1908
 
 ## Design

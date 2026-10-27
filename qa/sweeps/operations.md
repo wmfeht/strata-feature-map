@@ -159,7 +159,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On sshfs without `default_permissions` and on rclone, Delete a file, a read-only file, and a selection spanning both mounts. List the mount roots with `ls -la`.
 - After a refusal, open the same folder in a second window and in the file chooser, then reload each way: F5, the pane refresh button, the folder menu, chooser F5.
 - Kill the sshfs process mid-delete, then Delete again; remount and Delete again.
-- At corner roundness 0 and 200, open the Shift+Delete, no-Trash, and Restore dialogs with one item and with enough items to scroll; scroll to each end and check the corners clip the rows.
+- At corner roundness 0 and 200, open the Shift+Delete, no-Trash, "Move N items to Trash?", and Restore dialogs with one item and with enough items to scroll; scroll to each end.
 
 ### operations/trash/restore
 
