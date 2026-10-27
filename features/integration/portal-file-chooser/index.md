@@ -33,7 +33,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - A folder hint that is relative, inaccessible, or unanswered within 3 seconds falls back to the same default folder. lgse/strata#993 (unverified)
 - A SaveFile `current_file` naming a file that does not exist yet, in an accessible folder, opens that folder with the full name in Name. lgse/strata#700
 - With 10xer mode off, a SaveFile request with `current_name` `report.draft.pdf` opens with focus in Name and only `report.draft` selected. lgse/strata#1898
-- That selection survives the focus restore after the window presents, so typing replaces the name and keeps `.pdf`. lgse/strata#1898
+- That selection survives the idle focus restore after the window presents, so typing replaces `report.draft` and keeps `.pdf`. lgse/strata#1898
 - The selection ends at the last dot after the first character, as in rename: `archive.tar.gz` selects `archive.tar`; `.bashrc` and `notes` select all. lgse/strata#1898 (unverified)
 - With 10xer mode on, Tab from the header into Name in a SaveFile request selects only the part before the last dot. lgse/strata#1898
 - A Wayland parent handle makes the chooser transient for the caller; an X11 parent handle is ignored and the chooser opens standalone. lgse/strata#175
@@ -138,7 +138,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-27 | lgse/strata#1898 | fix | Selected only the suggested name's stem in Save, which the idle focus restore had reselected whole. |
+| 2026-10-27 | lgse/strata#1898 | fix | Selected only the suggested name's stem in Save, at build, on present, and in the idle focus restore, which had selected it whole. |
 | 2026-10-20 | lgse/strata#1786 | fix | Refilled Save names on clicks that keep a file selected, which GTK reports as no selection change. |
 | 2026-10-17 | lgse/strata#1714 | fix | Yielded chooser shortcuts to an open reference and typed Space in the Name and location entries with a hit selected. |
 | 2026-10-11 | lgse/strata#1570 | fix | Kept the selection on plain clicks in the chooser's showing preview; sidebar clicks still clear it. |
