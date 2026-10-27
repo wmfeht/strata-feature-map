@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/browser/properties/media.rs, src/sandbox/metadata.rs]
-tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/qa/scenarios/properties_media]
+tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/qa/scenarios/properties_media, tests/qa/scenarios/preview_video/video-preview-badges-next-video.jsonl]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/preview-panel]
 ---
@@ -19,7 +19,7 @@ Source-media details for a single local image, audio, or video file in Propertie
 
 - For a local file whose MIME type is `image/*`, `audio/*`, or `video/*`, Properties shows a MEDIA row reading "Loading…" until inspection finishes. lgse/strata#984 (unverified)
 - A local file typed `application/octet-stream` whose name classifies as image, audio, or video, such as `.h264`, also gets the MEDIA row. lgse/strata#1901 (unverified)
-- Alt+Enter on a raw 320 × 180 H.264 stream named `alpha.h264` shows RESOLUTION "320 × 180 pixels". lgse/strata#1901
+- With a raw 320 × 180 H.264 stream named `alpha.h264` previewed, Alt+Enter shows RESOLUTION "320 × 180 pixels". lgse/strata#1901
 - A PNG of 1600 × 900 shows RESOLUTION "1600 × 900 pixels" and no DURATION, FRAME RATE, or AUDIO CODEC. lgse/strata#984
 - An H.264/AAC MP4 shows RESOLUTION, DURATION as `H:MM:SS`, BITRATE, VIDEO CODEC "h264", FRAME RATE "24.00 fps", AUDIO CODEC "aac", SAMPLE RATE "48.0 kHz", and CHANNELS "2 (Stereo)". lgse/strata#984
 - A mono WAV shows DURATION, AUDIO CODEC "pcm_s16le", SAMPLE RATE "44.1 kHz", CHANNELS "1 (Mono)", and BITRATE, with no RESOLUTION or VIDEO CODEC. lgse/strata#984

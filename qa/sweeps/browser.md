@@ -161,6 +161,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Turn per-folder views off, sort in column 3, open a new column from column 1, then turn per-folder views back on.
 - Toggle Folders first in one window while another shows Recent, a filter, and a Camera Photos library.
 - Sort a folder holding `.GPR`, `.ARQ`, `.ORI`, `.DNG`, and extensionless files by Type in List, in both directions.
+- Group by type a folder holding `clip.H264`, `clip.h264.txt`, and an extensionless raw stream, under German and C locales.
 
 ### browser/view-modes/folder-views
 
@@ -268,8 +269,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 - Set both search limits to No limit and Ctrl+K over an `sshfs` or rclone mount under Home; then 10 s and 200,000 over two `100000` copies, and hover Partial results.
 - Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
-- In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`; then two terms split across folder and filename beside a file holding both in its name.
-- Search a multi-word query no file's terms satisfy, with and without a path containing a literal space that could fuzzy-match it.
+- In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`.
+- In Ctrl+K, separate two terms with a Tab, then a double space; then use a term found only in the searched root's own path.
 
 ### browser/search/exclusions
 
