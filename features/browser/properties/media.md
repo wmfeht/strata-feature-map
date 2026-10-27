@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/browser/properties/media.rs, src/sandbox/metadata.rs]
-tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/qa/scenarios/properties_media, tests/qa/scenarios/preview_video/video-preview-badges-next-video.jsonl]
+tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/qa/scenarios/properties_media]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/preview-panel]
 ---

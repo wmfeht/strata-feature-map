@@ -931,7 +931,6 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/preview_media_layout` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `tests/qa/scenarios/preview_session` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/preview_video` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/qa/scenarios/preview_video/video-preview-badges-next-video.jsonl` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `tests/qa/scenarios/properties_media` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `tests/qa/scenarios/properties_size` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `tests/qa/scenarios/quick_preview` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |

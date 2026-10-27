@@ -33,8 +33,9 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 - Type sorts by the MIME description guessed from the filename; ascending puts unrecognized files last, descending puts them first, with names A–Z within each type. lgse/strata#946
 - A RAW file that shared-mime-info does not type as an image, such as `GOPR0001.GPR`, is typed `image/x-dcraw` instead of Other. lgse/strata#1698
 - Its Type shows that type's description, "Digital raw image" in English. lgse/strata#1698
-- Any file named `*.h264`, including text or empty files, is typed `video/h264`; its Type reads "video/h264 type" in the C locale, not Other. lgse/strata#1901
-- Sorted or grouped by Type, `.h264` files fall among the known types rather than with Other. lgse/strata#1901 (unverified)
+- A `.h264` file's Type reads "video/h264 type" instead of Other. lgse/strata#1901
+- The type comes from the name alone, so text or empty files named `.h264` read the same. lgse/strata#1901 (unverified)
+- Sorted by Type, `.h264` files sort among the known types rather than with Other. lgse/strata#1901 (unverified)
 - With Folders first on, the default, folders stay ahead of files in both directions. lgse/strata#946
 - Entries tied on Size, Modified, or Type are ordered by name. lgse/strata#946 (unverified)
 - Choosing Size or Modified loads any missing sizes or dates for that folder before reordering. lgse/strata#274 (unverified)

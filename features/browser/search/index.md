@@ -13,7 +13,7 @@ related: [browser/navigation, devices/volumes, integration/10xer-mode, settings/
 
 ## Summary
 
-Ctrl+K global search finds files and folders by fuzzy name or path, or by every term of a multi-word query, across Home and mounted local drives, from any folder. It runs on a bounded in-memory index built by the same service as the pane filter. Children: `browser/search/filter` (the Ctrl+F pane filter) and `browser/search/exclusions` (user-defined global search exclusions).
+Ctrl+K global search finds files and folders across Home and mounted local drives, from any folder. It matches by fuzzy name or path, or by every term of a multi-word query. It runs on a bounded in-memory index built by the same service as the pane filter. Children: `browser/search/filter` (the Ctrl+F pane filter) and `browser/search/exclusions` (user-defined global search exclusions).
 
 ## Behavior
 
@@ -36,7 +36,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path, or by every 
 - Query terms may fall in different path parts: `subfolder txt` finds `nested/subfolder/notes.txt`. lgse/strata#1899
 - `quarterly` lists `quarterly-summary.txt` and `quarterly-summary.md`; `quarterly txt` keeps the `.txt` file and drops the `.md` file. lgse/strata#1899
 - Results rank in tiers: whole query in the name, whole query in the path, every term in the name, every term in the path, then fuzzy matches. lgse/strata#1899
-- Path length, depth, folder type, and an exact-name bonus never move a result across tiers. A `duck txt.md` 63 levels deep, under a 200-character folder name, ranks above `duck txt archive/notes.md`. lgse/strata#1899
+- Path length, depth, folder type, and an exact-name bonus never move a result across tiers. A file named 200 `x`s then `duck txt.md`, 63 folders deep, ranks above `duck txt archive/notes.md`. lgse/strata#1899
 - In a multi-word query, each term of four or more letters or digits tolerates one typo against a name or path word: `abc text` matches `abc_tent.doc`. A one-word query gets no typo tolerance. lgse/strata#1899 (unverified)
 - A multi-word query is not a strict filter: a fuzzy-only match still shows, ranked below every term match. lgse/strata#1899
 - The fuzzy match keeps a multi-word query's spaces, so it matches only paths that contain a space. lgse/strata#1899 (unverified)

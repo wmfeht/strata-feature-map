@@ -49,6 +49,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - An alphanumeric query of 4 or more characters also matches a name word one edit away: `trahs` finds `strata-trash.svg`. lgse/strata#1119
 - In a query with spaces, each word of 4 or more alphanumerics allows one edit: `abc text` matches `abc_tent.doc`, but `abc tex` does not. lgse/strata#1768
 - Literal matches rank above typo matches. A name containing the whole query ranks above names matching scattered words: with Include subfolders on, `duck txt` lists `duck txt notes.md` before `ducks_in_the_pool.txt`. lgse/strata#1119, lgse/strata#1768
+- A name containing the whole query ranks above non-contiguous matches at any depth. lgse/strata#1899
 - Where the filter narrows rows in place, editing `abc tex` to `abc text` shows `abc_tent.doc` at once. lgse/strata#1768
 - `*` matches zero or more characters across the whole name: `*.MOV` matches `clip.MOV` but not `clip.MOV.bak`. lgse/strata#989
 - `IMG*.MOV` matches only names starting with `IMG` and ending in `.MOV`; `*` alone matches every name. lgse/strata#989
