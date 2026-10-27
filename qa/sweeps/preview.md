@@ -118,6 +118,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In the 5,000-character ODT paragraph, double-click and Shift+End across its 2 KiB row boundaries.
 - Render paragraphs over 2 KiB whose only separators are tabs, no-break spaces, or thin spaces, and one with a single early space before a 5 KiB unbroken token; copy each whole.
 - Place an emoji, a combining accent, and a skin-tone sequence right where a whitespace-free token reaches 2 KiB.
+- End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
 

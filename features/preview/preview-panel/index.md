@@ -26,6 +26,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local `photo.txt` holding PNG bytes previews as an image, and `paper.txt` holding a PDF previews as a PDF. lgse/strata#1638
 - A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
 - A local raw stream named `.h264` or `.H264` previews as video, even where the MIME database types it `application/octet-stream`. lgse/strata#1901, lgse/strata#1861
+- Raw streams named `.h265`, `.hevc`, or `.264` still preview as video only where the MIME database types them as video. lgse/strata#1901 (unverified)
 - A text or empty file named `notes.h264` previews as text and is never handed to the media decoder. lgse/strata#1901
 - A local binary file named `.json` or `.md` whose bytes match no previewable type shows "No visual preview" instead of text. lgse/strata#1638
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
@@ -120,7 +121,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Print on an extensionless file the loader cannot render shows "This file type cannot be printed." lgse/strata#965
 - Print on a PDF that needs an opening password shows "Unable to prepare file for printing" with "This PDF is password protected." lgse/strata#1840 (unverified)
 - Print on a route file shows "This file type cannot be printed." lgse/strata#1842 (unverified)
-- The item menu of a `.h264` file offers no **Print**. lgse/strata#1901 (unverified)
+- The item menu of a `.h264` file, including text named `notes.h264`, offers no **Print**. lgse/strata#1901 (unverified)
 - Printing a PDF shows "Preparing PDF" with page progress while every page renders; Cancel or Escape stops it. lgse/strata#286 (unverified)
 - Printing a text file over 16 MiB shows "This text file is too large to print safely." lgse/strata#286 (unverified)
 

@@ -40,10 +40,11 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Touchpad, Shift+wheel, and the scrollbar all scroll an unwrapped rendered Markdown, HTML, or RTF document sideways. lgse/strata#1612, lgse/strata#1834
 - Turning wrap on while a rendered Markdown, HTML, or RTF document is open reflows each paragraph to its full wrapped height without reopening. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
 - Turning wrap off while a rendered Markdown, HTML, or RTF document is open returns rows to their unwrapped height, with no gaps. lgse/strata#1612, lgse/strata#1610, lgse/strata#1834
-- A rendered paragraph over 2 KiB with spaces between its words breaks into rows of at most 2 KiB, each ending just after whitespace, never mid-word. lgse/strata#1901
-- Copying a paragraph broken this way returns its source text exactly, including bold spans. lgse/strata#1901
+- A rendered paragraph over 2 KiB with spaces between its words breaks into rows of at most 2 KiB, each ending just after whitespace. lgse/strata#1901
+- In such a paragraph, a word under 1 KiB is never split across rows. lgse/strata#1901 (unverified)
+- Copying a paragraph broken this way returns its plain text unchanged, including text inside bold spans. lgse/strata#1901
 - A whitespace-free token over 2 KiB still breaks at the 2 KiB limit, on a character boundary. lgse/strata#1901
-- CJK text separated by U+3000 ideographic spaces breaks just after a U+3000. lgse/strata#1901
+- CJK text whose only separators are U+3000 ideographic spaces breaks just after a U+3000. lgse/strata#1901
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187
 - Every rendered code block shows a **Copy code** button that copies the whole block. lgse/strata#187
 
@@ -101,7 +102,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - RTF renders paragraphs, bold, italic, underline, strikethrough, Windows-1252 `\'hh` escapes, and `\uN` escapes, and keeps its Source view. lgse/strata#1086
 - RTF `{\rtf1\ansi\uc1 A [\u-10179?\u-8704?] B}` renders `A [😀] B`; a surrogate pair takes the style of its high unit. lgse/strata#1901
 - An unpaired RTF surrogate, including a high unit followed by text, `\line`, `\par`, or the document end, renders as U+FFFD instead of being dropped. lgse/strata#1901
-- An RTF `\uN` value outside -32768 to 65535 renders as U+FFFD. lgse/strata#1901 (unverified)
+- An RTF `\uN` value just outside -32768 to 65535, such as `\u65536` or `\u-32769`, renders as U+FFFD. lgse/strata#1901 (unverified)
 - An escaped newline inside an ignored `{\*…}` destination does not end the open RTF paragraph. lgse/strata#1901
 - DOCX renders headings, `Title`, `Subtitle`, quotes, inline formatting, nested bulleted and numbered lists, and tables with the first row as sortable titles. lgse/strata#1086
 - DOCX has no Source view; images, hyperlink targets, headers, footers, footnotes, and comments are omitted. lgse/strata#1086
