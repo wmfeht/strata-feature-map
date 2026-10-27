@@ -26,7 +26,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local `photo.txt` holding PNG bytes previews as an image, and `paper.txt` holding a PDF previews as a PDF. lgse/strata#1638
 - A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
 - A local raw stream named `.h264` or `.H264` previews as video, even where the MIME database types it `application/octet-stream`. lgse/strata#1901, lgse/strata#1861
-- Raw streams with any other name, such as `.h265`, `.hevc`, `.264`, or no extension, preview as video only where the MIME database types them as video. lgse/strata#1901 (unverified)
+- Raw streams named otherwise, such as `.h265`, `.hevc`, `.264`, or extensionless, preview as video only where the MIME database types them as video. lgse/strata#1901 (unverified)
 - A text or empty file named `notes.h264` previews as text and is never handed to the media decoder. lgse/strata#1901
 - A local binary file named `.json` or `.md` whose bytes match no previewable type shows "No visual preview" instead of text. lgse/strata#1638
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
@@ -99,7 +99,8 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 ### Media stepping
 
-- In Icons, media previous and next skip an audio entry with no duration, or a video entry with neither duration nor known dimensions, such as text named `clip.mp4`. lgse/strata#1638, lgse/strata#1901 (unverified)
+- In Icons, media previous and next skip an audio entry whose metadata fill found no duration. lgse/strata#1638, lgse/strata#1901 (unverified)
+- In Icons, media previous and next skip a video entry with neither duration nor known dimensions, such as text named `clip.mp4`. lgse/strata#1638, lgse/strata#1901 (unverified)
 - Media previous and next, and the position count, keep a video with known dimensions but no duration, such as a raw `.h264` stream. lgse/strata#1901
 
 ### Media controls
