@@ -49,7 +49,8 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Python actions can call `from strata_actions import context` with nothing installed through pip. lgse/strata#1085
 - `ctx.log` escapes non-UTF-8 bytes, so logging a native path succeeds when the locale's stdout is strict UTF-8. lgse/strata#1267
 - Custom action slot N picks the Nth action Settings → Actions lists, disabled ones included. lgse/strata#1885
-- A slot's action runs only when it is enabled, its program is found, and every selected item matches it. lgse/strata#1885
+- A slot's action runs only when it is enabled, its program is found, and the selection is native local. lgse/strata#1885
+- The selection's item count and every selected item must also match the action's rules. lgse/strata#1885
 - Settings → Actions lists loaded actions by folder name, so slot order follows folder names, not action names. lgse/strata#1885 (unverified)
 
 ### Settings → Actions
@@ -116,4 +117,4 @@ User-defined Python, Bash, or command actions in the file and folder context men
 
 - Actions accept only native local paths; remote inputs are deferred. Trash, remote mounts, and the file chooser are excluded. lgse/strata#1085
 - Parameter forms, parallel per-item runs, and restart or resume were deferred from the first release. lgse/strata#1085
-- Adding or removing a custom action can shift the actions listed after it to other slots. Renaming or disabling one does not. lgse/strata#1885
+- Adding or removing a custom action can shift the actions listed after it to other slots. Renaming an action's Name or disabling it does not. lgse/strata#1885

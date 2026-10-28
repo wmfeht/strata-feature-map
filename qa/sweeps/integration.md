@@ -25,7 +25,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - An NTFS loop image attached with `udisksctl loop-setup` and mounted through `ntfs-3g` (`fuseblk`), so it lists under Send to. It holds a link to a folder off the device and a link to a folder on it. A script stops its `ntfs-3g` process with `kill -STOP` and resumes it with `kill -CONT`.
 - A silent session bus: a Unix socket that accepts connections and never replies, such as `socat UNIX-LISTEN:<path>,fork EXEC:'sleep infinity'`, named by `DBUS_SESSION_BUS_ADDRESS`.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
-- Keymap overrides written in `settings.toml` before launch, or added in Settings → Keyboard. Under `[keymap.default]`: keys on `custom_action.1` to `custom_action.10`, and Ctrl or Super keys on `history_back`, `parent_folder`, and `home_folder`. Under `[keymap.tenxer]`: keys on `first_item`, `last_item`, `toggle_hidden_files`, and the sort steps. Settings refuses a key another command holds, so such probes hand-edit the file.
+- Keymap overrides written in `settings.toml` before launch, or added in Settings → Keyboard. Under `[keymap.default]`: keys on `"custom_action.1"` to `"custom_action.10"` (dotted ids quoted), and Ctrl or Super keys on `history_back`, `history_forward`, `parent_folder`, and `home_folder`. Under `[keymap.tenxer]`: keys on `parent_folder`, `home_folder`, `first_item`, `last_item`, `toggle_hidden_files`, and the quoted sort steps. Settings refuses a key another command holds, so such probes hand-edit the file.
 - Keyboard layout `fr` from a QA `layout` step or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the `layouts` list in `tests/fixtures/harness.json` lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - Cold activation: a private session bus from `dbus-run-session`, with the FileManager1 service copy pointing at the build and xdg-desktop-portal 1.22.1 on that bus. Set `GDK_DEBUG` for activated services with `dbus-update-activation-environment`.
 - A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
@@ -71,7 +71,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In List, press Escape mid-drag with three files selected, then press Escape again.
 - In the file view, press F2 and Ctrl+R with two items selected. Press Alt+Enter on a filter result and Shift+F10 with focus in Name. Read what opens.
 - With a preview showing, press on its blank chrome and drag out into the file list. Repeat in a multiple-selection request. Read the selection and the marquee.
-- Rebind `parent_folder`, `home_folder`, and `history_back` to Ctrl keys, then to Super keys. Press each in the file view, in Name under `save`, in the filter, and with 10xer mode on; read the location.
+- Rebind `parent_folder`, `home_folder`, `history_back`, and `history_forward` to Ctrl keys, then to Super keys, in each table. Press each in the file view, in Name under `save`, in the filter, and with 10xer mode on; read the location.
 - Hand-edit `parent_folder = ["<Control>h"]` into `settings.toml`, open a chooser, and press Ctrl+H with the file view focused.
 
 ### integration/portal-file-chooser/setup
@@ -174,8 +174,9 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press `x` on a file, then `p` into a folder holding the same name, choose the focused button, and press Ctrl+Z.
 - On `fr`, press `;` then each digit-row key with and without Shift, with 10 and with 3 matching actions.
 - Press a slot key on a selection where only some items match its action, and on an unselected focused row. Repeat over filter results and with focus in the sidebar.
-- Hand-edit `"sort.size" = ["z"]` and `"sort.modified" = ["<Shift>a"]` under `[keymap.tenxer]`. Press `, z`, `, Z`, `, a`, and `, A`; read the sort after each.
+- Rebind `"sort.size"` under `[keymap.tenxer]` to `5`, then to `<Control>s`, and press each with and without Shift. Repeat on `fr`, rebinding a step to a key whose Shift form types another symbol.
 - Press a slot key for a `confirm = true` action, cancel, then press it again with 10xer mode on.
+- In Columns, press a slot key and a direct Move to key on an unselected row in a second column. Repeat in Icons.
 
 ### integration/10xer-mode/file-chooser
 

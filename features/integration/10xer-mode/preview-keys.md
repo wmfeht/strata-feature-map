@@ -64,6 +64,8 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - Inside a preview, the `g` chord panel lists the same steps with Top first, including `m` for Music. lgse/strata#1576
 - A `g` place chord such as `g 3` returns the keys to the listing and runs there; `g z` flashes `Unknown chord` and keeps the keys in the preview. lgse/strata#1296, lgse/strata#1340
 - Window commands such as F1, F5, Ctrl+L, Ctrl+1 to Ctrl+3, and Ctrl+N work without moving the keys out of the preview. lgse/strata#1304, lgse/strata#1340
+- A plain letter added to a 10xer listing command, such as `rename = ["r", "e"]`, returns the keys from a focused text preview and runs there. lgse/strata#1885
+- A 10xer key bound to jump to folder or arrow scope works from a focused preview without moving the keys out. lgse/strata#1885 (unverified)
 - A hidden-files key that types nothing, such as a rebound Alt+H, toggles hidden files from a focused preview and keeps the keys there. lgse/strata#1885
 
 ## Design
