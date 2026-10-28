@@ -3,12 +3,12 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
 tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
 docs: [docs/preferences.md]
-related: [preview/preview-panel/sandbox, settings/preferences]
+related: [preview/preview-panel/sandbox, settings/preferences, preview/preview-panel/gcode]
 ---
 
 ## Summary
@@ -46,11 +46,12 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 
 ### Admission
 
-- RAW, PDF, video, and 3D-model thumbnails and media-detail probes together occupy at most one fewer worker than the limit, minimum 1. lgse/strata#1081
+- RAW, PDF, video, 3D-model, and G-code thumbnails and media-detail probes together occupy at most one fewer worker than the limit, minimum 1. lgse/strata#1081, lgse/strata#1864
 - At most one STL model thumbnail renders at a time across all windows, except a killed helper still awaiting reap. Other thumbnail kinds keep rendering meanwhile. lgse/strata#1789
 - An interactive Quick Preview of a model does not wait for that STL slot and can run beside it. lgse/strata#1789
 - At most one media-detail probe runs at a time, and it gets a turn after every four thumbnail admissions while both wait. lgse/strata#1081
 - A file that changes while it is decoded gets no thumbnail from that run. lgse/strata#1081 (unverified)
+- A G-code file larger than 512 MiB still gets a thumbnail; the browser input size limit does not apply to it. lgse/strata#1864 (unverified)
 
 ## Design
 

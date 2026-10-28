@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
@@ -83,11 +83,14 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 ### Placement
 
-- Right-clicking an entry anywhere in a long, scrolled list shows a menu that fits inside the window. lgse/strata#306
-- A menu opens below the click when there is at least as much room below as above, otherwise above it. lgse/strata#306
-- A menu taller than the room on its side shifts toward the other side instead of scrolling. lgse/strata#702
-- A menu scrolls only when it is taller than the window less 16 px at each edge. lgse/strata#702
-- A keyboard-opened background menu stays inside the window. lgse/strata#1155
+- Right-clicking an entry anywhere in a long, scrolled list shows its menu at the click. lgse/strata#306, lgse/strata#1894
+- In a small window, right-clicking an entry near the bottom edge opens the menu at the click. lgse/strata#1893, lgse/strata#1894
+- That menu extends past the window when needed and stays fully on screen. lgse/strata#1893, lgse/strata#1894
+- A menu opens below the click, and flips above it when the screen has no room below. lgse/strata#1893, lgse/strata#1894
+- A menu with no room on screen above or below the click shrinks and scrolls instead of moving away from the click. lgse/strata#1893, lgse/strata#1894
+- A menu opened near the screen's left or right edge slides horizontally to stay on screen. lgse/strata#1893, lgse/strata#1894
+- A menu's height is capped at the monitor height less 16 px at each edge; a taller menu scrolls. lgse/strata#1894 (unverified)
+- A keyboard-opened background menu is not held inside the window; like a pointer-opened menu, it may extend past it. lgse/strata#1894 (unverified)
 - In Columns, the entries targeted by an open menu stay highlighted as selected while the column lacks focus. lgse/strata#616
 
 ### Appearance
@@ -107,7 +110,9 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - Keyboard menus anchor to the focused entry because the pointer may be elsewhere or absent (lgse/strata#583).
 - A popup appearing under a stationary pointer is not pointer movement. The keyboard keeps ownership until the pointer actually moves, so a resting pointer cannot steal initial focus (lgse/strata#1155).
 - Focusing a submenu's owner row alone left arrows routed to the hidden branch. Left therefore hides the submenu and clears GTK's open-submenu state (lgse/strata#1155).
-- Popovers parented to list views vanished for rows mid-list, so menus live in the window overlay (lgse/strata#303, lgse/strata#306). GTK never shifts a popover's anchor, so Strata measures the menu and shifts it (lgse/strata#702).
+- Popovers parented to list views vanished for rows mid-list, so menus live in the window overlay (lgse/strata#303, lgse/strata#306).
+- Menus are `xdg_popup`s, so Strata anchors them at the click, requests placement below, and caps their height at the monitor. Clamping to the window squeezed or displaced menus in small windows (lgse/strata#1893, lgse/strata#1894).
+- GTK and the compositor flip, slide, or shrink the popup to keep it on screen. That covers the mid-list case, so measuring and shifting the anchor (lgse/strata#702) was dropped (lgse/strata#1894).
 - Open stays a top-level row and Open in… holds only New Tab and New Window, so the submenu header performs no action. Flat rows were rejected for a compact submenu (lgse/strata#1540, lgse/strata#1543).
 - Grouping follows Open, Edit, Transfer, Transform, Organize/Inspect, Destructive, without visible headings to save height. Compress stays a singleton group rather than join an unrelated one (lgse/strata#1207).
 - Icons are secondary cues; labels carry meaning. CircleX gives irreversible deletion a distinct shape, not only a color (lgse/strata#1207).
@@ -125,6 +130,7 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1894 | fix | Anchored menus at the click and capped their height to the monitor, so they extend past a small window instead of being squeezed or shifted. |
 | 2026-10-16 | lgse/strata#1695 | fix | Built the item menu without a model and repicked pointer focus before unparenting, so menu actions no longer crash on GTK 4.14. |
 | 2026-10-15 | lgse/strata#1611 | fix | Added and removed the Open in… row in its own nested section, so item-menu teardown no longer logs GLib-CRITICALs. |
 | 2026-10-15 | lgse/strata#1621 | fix | Dropped a menu button release that arrives before any press, so a quick right click on niri no longer runs the row under the pointer. |

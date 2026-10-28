@@ -3,7 +3,7 @@ title: External file providers
 status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
 tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, tests/qa/scenarios/file_providers]
@@ -20,12 +20,13 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 ### Registration
 
 - A provider registers as `<id>/provider.json` under `$XDG_CONFIG_HOME/strata/providers/`, default `~/.config/strata/providers/`, and loads at startup. lgse/strata#1385
-- Refresh on Settings → Integrations, or a successful install, update, removal, or switch change there, stops every provider and rediscovers the registrations without a restart. Other edits apply on restart. lgse/strata#1748
+- Refresh on Settings → Integrations, or a successful install, update, removal, or switch change there, rediscovers the registrations without a restart. Other edits apply on restart. lgse/strata#1748
+- That reload stops every provider at once, except one still owing an answer to an activation, and discards pending queries and menus. lgse/strata#1748, lgse/strata#1878
 - During that reload, badges clear until the new providers answer. lgse/strata#1748 (unverified)
 - A registration directory holding a file named `disabled` beside `provider.json` is skipped, so its badges and actions do not load. lgse/strata#1748
 - A registration whose directory, manifest, or icon is a symlink, is group- or world-writable, or is owned by neither the user nor root is rejected. The executable gets the same ownership and permission check after its symlinks are resolved. lgse/strata#1385
 - A manifest whose `id` differs from its directory name, or whose command does not start with an absolute executable, is rejected; no shell or PATH lookup runs. lgse/strata#1385
-- At most 8 providers load, from at most 64 directory entries, one child process each. lgse/strata#1385
+- At most 8 providers load, from at most 64 directory entries, one child process each. After a reload, a retiring child runs beside its replacement. lgse/strata#1385, lgse/strata#1878
 - Icons are PNG files beside the manifest, at most 16, each at most 64 KiB and 256×256. lgse/strata#1385
 - A manifest `icon` that names no entry in its `icons` rejects the registration; an absent or `null` `icon` is accepted. lgse/strata#1578 (unverified)
 
@@ -73,6 +74,10 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - A `feedback` that is neither a string nor `null` is an invalid frame and disconnects the provider. So does `feedback` on a `query`, `menu`, or `error` reply or an `invalidate` event. lgse/strata#1578 (unverified)
 - An `unknown` outcome shows its counts as "at least N/M accepted". lgse/strata#1385
 - If the provider disconnects after an action was sent, the dialog says it may already have been accepted; an unsent action says it was not sent. lgse/strata#1385
+- When a reload interrupts a pending activation, the provider keeps running until it replies. Its notice or dialog then appears, as for a live activation; a reply with no feedback shows nothing. lgse/strata#1878
+- If that retiring provider exits or goes offline first, the sent action shows the "may already have been accepted" dialog. A still-queued one shows "was not sent". lgse/strata#1878
+- A retiring provider's process ends once every activation it owes is settled; no wall-clock cutoff applies beyond the 8-second request timeout. lgse/strata#1878
+- After a retiring provider replies, a running provider with the same id has its cached answers invalidated, as after a live activation reply. lgse/strata#1878
 - When the provider's queue is full, the dialog says the provider is busy or unavailable and the action was not sent. lgse/strata#1385
 - No action is retried automatically, including after a lost reply. lgse/strata#1385
 - After an activation reply, Strata re-queries that provider's visible badges and open menus. lgse/strata#1385 (unverified)
@@ -88,7 +93,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 ## Design
 
-[docs/file-providers.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/file-providers.md) is the protocol 1 specification: registration, transport, methods, Send to… placement, activation feedback, revisions, bounds, and failure handling (lgse/strata#1742, lgse/strata#1704, lgse/strata#1756).
+[docs/file-providers.md](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/file-providers.md) is the protocol 1 specification: registration, transport, methods, Send to… placement, activation feedback, revisions, bounds, and failure handling (lgse/strata#1742, lgse/strata#1704, lgse/strata#1756, lgse/strata#1878).
 
 - Static custom actions cannot express live eligibility or badges; they would appear for unrelated files and fail only after activation (lgse/strata#1356).
 - Embedding a cloud client was rejected as coupling Strata to one project. Strata has no provider-specific code (lgse/strata#1356).
@@ -101,8 +106,10 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - Without an ancestor overlay, a notice falls back to the dialog (lgse/strata#1578).
 - GTK section titles cannot hold an image, so a heading icon replaces the title with a custom row styled like one (lgse/strata#1578).
 - Unsent and uncertain actions are reported differently. A disconnect after submission is not proof that nothing happened, so nothing is replayed (lgse/strata#1385).
+- A reload retires a provider owing an activation instead of dropping it. Dropping its client stopped the worker reading, so the reply never matched and nothing appeared (lgse/strata#1857, lgse/strata#1878).
+- Retiring has no time cutoff. The 8-second request timeout already settles every waiting action, and a cutoff would end queued activations silently (lgse/strata#1878).
 - Caches hold at most 2,048 path answers and 32 menu selections per provider, and track at most 1,024 mapped thumbnail slots (lgse/strata#1385).
-- Discovery runs at startup and again on each reload from Settings → Integrations, never by watching the providers directory. When it finds no providers, the hub's 100 ms timer stops and thumbnail slots are no longer tracked, so the hub no longer wakes an idle window. A reload restarts the timer (lgse/strata#1671, lgse/strata#1677, lgse/strata#1748).
+- Discovery runs at startup and again on each reload from Settings → Integrations, never by watching the providers directory. With no providers found and none retiring, the hub's 100 ms timer stops and thumbnail slots go untracked. The hub then no longer wakes an idle window. A reload restarts the timer (lgse/strata#1671, lgse/strata#1677, lgse/strata#1748, lgse/strata#1878).
 - Some integrations are destinations. A heading section duplicated Send to… and forced label suffixes such as "via KDE Connect", so placed actions sit beside removable drives with bare labels (lgse/strata#1740).
 - `placement` is additive with no handshake: older hosts ignore it, and unknown values keep the section. A dedicated Send to… method or device-list reply was rejected as more host code and a second tree model (lgse/strata#1740, lgse/strata#1742).
 - Each provider's destinations sit in a submenu named after it, like a removable drive (lgse/strata#1704).
@@ -113,6 +120,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1878 | fix | Kept a provider owing an activation answer running through a Refresh, so the action's notice or dialog still appears. |
 | 2026-10-18 | lgse/strata#1704 | feat | Added the KDE Connect integration and gave each provider's Send to… destinations their own submenu with its icon or category icon. |
 | 2026-10-18 | lgse/strata#1742 | feat | Let providers place root actions inside Send to… with `placement: "send-to"`, so destinations sit beside removable drives. |
 | 2026-10-15 | lgse/strata#1677 | perf | Stopped the 100 ms hub timer and slot tracking once discovery finds no providers, so the provider hub stops waking an idle window. |

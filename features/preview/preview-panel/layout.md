@@ -3,7 +3,7 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/preview/player_layout.rs, src/ui/browser/preview.rs]
 tests: [tests/qa/scenarios/preview_session, tests/qa/scenarios/quick_preview, src/ui/preview/tests.rs]
@@ -32,8 +32,9 @@ How the preview panel shares the window with the file views: its width, the rese
 - In Columns with an automatic width, widening or narrowing the window resizes the preview or empty slot in one frame, without the boundary jumping back and forth. lgse/strata#1502
 - Images, GIFs, and video are centered within 1280 px and enlarged at most 2× their native size. lgse/strata#888
 - In a preview wider than 1280 px, PDF pages and wrapped rendered Markdown, HTML, and RTF stop at 1280 px, centered; Ctrl+wheel PDF zoom scales from that width. lgse/strata#1539, lgse/strata#1612
-- With word wrap off, every row of a rendered document starts at the left edge, including in previews wider than 1280 px. lgse/strata#1612
-- DOCX, XLS, XLSX, and ODS previews start at the left edge instead of centering at 1280 px. lgse/strata#1612 (unverified)
+- In a preview wider than 1280 px, DOCX, ODT, and OTT text stops at 1280 px, centered, whatever the wrap setting. lgse/strata#1834 (unverified)
+- With word wrap off, every row of a rendered Markdown, HTML, or RTF document starts at the left edge. This holds in previews wider than 1280 px too. lgse/strata#1612, lgse/strata#1834
+- XLS, XLSX, and ODS previews start at the left edge instead of centering at 1280 px. lgse/strata#1612, lgse/strata#1834 (unverified)
 - Source views and standalone tables keep the full preview width. lgse/strata#1539
 - The preview header uses 16 px icons and compact buttons, and its close button lines up with the header bar's close button. lgse/strata#829
 

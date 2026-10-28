@@ -3,7 +3,7 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/qa/scenarios/inline_renaming, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch]
@@ -80,6 +80,8 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - When the renamed row is still fully visible after sorting, the listing does not scroll. lgse/strata#619
 - Icons focuses and reveals a committed rename the same way. lgse/strata#1148
 - Scrolling or clicking before the reveal finishes cancels it. lgse/strata#1148
+- In a scrolled List, renaming a new file so it sorts near the top, then pressing Down, moves selection and focus to the next file. Both stay on that file for at least 500 ms, rather than returning to the renamed file. lgse/strata#1890
+- A second Down then selects the file after that. lgse/strata#1890
 
 ## Design
 
@@ -104,6 +106,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1890 | fix | Focused a renamed row before its widget is allocated, so arrow keys work after a rename moves a row. |
 | 2026-10-17 | lgse/strata#1714 | fix | Kept an inline rename open while the window is inactive, so switching input methods no longer commits it. |
 | 2026-10-15 | lgse/strata#1675 | perf | Looked up each row's rename editor by list item instead of scanning every bound row on bind and unbind. |
 | 2026-10-11 | lgse/strata#1564 | feat | Restored the Columns size badge after a rename only when Show sizes in Columns view is on. |

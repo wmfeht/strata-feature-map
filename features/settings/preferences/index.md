@@ -3,17 +3,17 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files]
 docs: [docs/preferences.md]
-related: [settings/themes, settings/diagnostics, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode, browser/directory-monitoring]
+related: [settings/themes, settings/diagnostics, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode, browser/directory-monitoring, preview/preview-panel/routes]
 ---
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Show F1 Shortcuts button, Watch network folders, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Units, Show F1 Shortcuts button, Watch network folders, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 
@@ -61,6 +61,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - In Search settings, Search themes, and Search templates, Ctrl+A selects the query on any keyboard layout. Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
 - A query with no match shows "No settings match your search." under the title Search results. lgse/strata#849
 - Escape in a non-empty search field clears the query and restores every row; the next Escape closes Settings. lgse/strata#849
+- The clear buttons of Search settings, Search themes, and Search templates share one helper, so each is named "Clear search". lgse/strata#1895 (unverified)
 - Searching changes no saved preference. lgse/strata#849
 - Searching "keybindings" finds Show F1 Shortcuts button. lgse/strata#1376
 - Searching "license" opens About with the License row; searching "custom actions" opens Actions with the custom-actions list. lgse/strata#1554, lgse/strata#1453
@@ -79,11 +80,20 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
 
+### Units
+
+- Settings → General shows a Units row with Metric and Imperial buttons; Metric is selected by default. lgse/strata#1842
+- The Units row sits directly after the Language row. lgse/strata#1842 (unverified)
+- The row reads "For things like distances, heights and volumes." lgse/strata#1842
+- The choice saves as `unit_system` in `settings.toml` and is restored on the next launch. lgse/strata#1842
+- Choosing Imperial in one window's Settings selects Imperial in another window's open Settings. lgse/strata#1842 (unverified)
+- Searching "miles", "gpx", or "elevation" shows the Units row. lgse/strata#1842 (unverified)
+
 ### Watch network folders
 
 - Settings → General → Performance shows a Watch network folders switch before Thumbnail workers, on by default; the Auto-refresh folder row is gone. lgse/strata#1729
 - The row reads "Check open folders on network shares every few seconds for changes made on other computers. When off, those changes show only after a refresh." lgse/strata#1729
-- The choice saves as `watch_network_folders`; a saved `auto_refresh_interval` is ignored and dropped from `settings.toml` on the next save. lgse/strata#1729
+- The choice saves as `watch_network_folders`; a saved `auto_refresh_interval` is ignored and dropped from `settings.toml` on the next save. lgse/strata#1729, lgse/strata#1877
 
 ### Show sizes in Columns view
 

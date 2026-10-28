@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs]
@@ -41,6 +41,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 ### Finding a shortcut
 
 - Opening the reference focuses "Search actions or keys…" and scrolls the list to the top. lgse/strata#1296
+- The reference's search field is named "Search actions or keys…". lgse/strata#1896
 - Reopening the reference keeps the previous search text and selected category. lgse/strata#1296 (unverified)
 - Typing keeps rows whose keys, key context, or action contain the text, ignoring case and matching translated text; no match shows "No matching shortcuts". lgse/strata#1296, lgse/strata#1519
 - With no match, "No matching shortcuts" wraps and sits centered in the results area. lgse/strata#1648
@@ -93,6 +94,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In the default map, a Ctrl+F query shows the displayed result total, such as "1 item", and "0 items" on a miss. lgse/strata#1554, lgse/strata#1442
 - Selecting results keeps the result total; its accessible description gives the results' file and folder breakdown. lgse/strata#1554, lgse/strata#1442
 - Escape clearing the filter restores the directory count or selection summary. lgse/strata#1554 (unverified)
+- A 10xer footer prompt's entry is named after the prompt label it shows, and the name changes with each prompt. lgse/strata#1896 (unverified)
 - While a typed query's search has not reported back, the count keeps describing the directory instead of reading "0 items". lgse/strata#1554
 - In the default map, the footer shows no `filter:` or `search:` mark and no hit path; those appear only in 10xer mode. lgse/strata#1554, lgse/strata#1442
 - Copying or cutting files shows a "Files on clipboard" badge left of the count, whose description reads "Press Ctrl+V to paste into a supported directory." lgse/strata#358, lgse/strata#499
@@ -135,4 +137,4 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ## Known gaps
 
-None known.
+- The footer's selection size adds a selected file symlink's target size, not the link's own size. lgse/strata#1853, lgse/strata#1880

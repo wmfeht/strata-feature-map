@@ -3,7 +3,7 @@ title: Connect to server dialog
 status: shipped
 origin: {issue: lgse/strata#1725, pr: lgse/strata#1726}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/window/network_location.rs, src/ui/window/network_location/**]
 tests: [src/ui/window/network_location/tests.rs]
@@ -22,6 +22,7 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 - The file chooser's sidebar has no Network row, so the dialog opens only from a browser window. lgse/strata#1726 (unverified)
 - Choosing it opens a dialog titled "Connect to server", subtitled "Connect to a share or remote server". lgse/strata#1726
 - The dialog has a focused "Server address" field, a "Pin to sidebar" checkbox, and Cancel and Connect buttons. lgse/strata#1726
+- The address field is named after its "Server address" label. lgse/strata#1896
 - The address field's placeholder is `smb://server/share` in every language. lgse/strata#1726
 - Enter in the address field presses Connect. lgse/strata#1726 (unverified)
 

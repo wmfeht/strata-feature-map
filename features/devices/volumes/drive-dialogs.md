@@ -3,11 +3,11 @@ title: Drive format, label, and properties
 status: shipped
 origin: {issue: lgse/strata#1293, pr: lgse/strata#1331}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/window/drive_dialogs.rs, src/ui/window/drive_dialogs/**, src/ui/window/drive_ops.rs, src/ui/window/device_labels.rs, src/ui/missing_tools.rs, src/services/package_manager.rs]
 tests: [src/ui/window/drive_dialogs/tests.rs, src/ui/window/drive_ops/tests.rs, src/ui/window/device_labels/tests.rs, src/ui/missing_tools/tests.rs, src/services/package_manager/tests.rs]
-related: [browser/sidebar, operations/progress]
+related: [browser/sidebar, operations/progress, app/dialogs]
 ---
 
 ## Summary
@@ -32,6 +32,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - A saved label replaces the row name in Devices in every open window and in Properties. lgse/strata#1393
 - Saving an empty label restores the system name. lgse/strata#1393
 - The label field stops at 255 characters; a control character shows "Labels cannot contain control characters." inline and disables Save label. lgse/strata#1393 (unverified)
+- The Set label field is named "Label shown in Strata". lgse/strata#1896 (unverified)
 - Save label is disabled while the text matches the saved label. lgse/strata#1393 (unverified)
 - Set label is offered only for devices with a volume UUID or a mount root URI. lgse/strata#1393 (unverified)
 
@@ -44,7 +45,12 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Missing tools shows a copyable pacman, apt, dnf, or zypper install command, or generic guidance on an unrecognized distribution. lgse/strata#1331
 - On Arch and Omarchy the suggested NTFS package is `ntfsprogs`. lgse/strata#1331
 - The Format Drive dialog offers FAT32, NTFS, and exFAT, preselects the current filesystem marked "(current)", and checks Quick format. lgse/strata#1331, lgse/strata#1393
-- The label field stops at 11 characters on FAT32 and 32 on NTFS and exFAT. lgse/strata#1393 (unverified)
+- The label field stops at 11 bytes on FAT32, 11 UTF-16 units on exFAT, and 32 UTF-16 units on NTFS. lgse/strata#1393, lgse/strata#1875
+- Format Drive's label field is named "Filesystem label". lgse/strata#1896 (unverified)
+- Typed or pasted label text past the limit is cut to what fits: six emoji on exFAT leave five, with Continue enabled. lgse/strata#1875
+- On FAT32, typing `ÉTIQUETTE12` leaves `ÉTIQUETTE1`, because `É` counts 2 bytes. lgse/strata#1875
+- Switching filesystem trims the label to the new limit in its unit: six emoji typed under NTFS leave two under FAT32. lgse/strata#1875
+- The remaining-count caption under the label counts in the selected filesystem's unit. lgse/strata#1875
 - A label with a character the filesystem forbids fails with "Invalid label: …" before unmounting. lgse/strata#1393
 - Continue shows a summary and "This permanently erases ALL DATA on this volume. This cannot be undone."; formatting starts only when Format is pressed. lgse/strata#1331
 - Cancel before Format changes nothing. lgse/strata#1331
@@ -65,14 +71,17 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - lgse/strata#1331 ran mkfs tools through `pkexec`. lgse/strata#1393 replaced that with UDisks2 `Block.Format` and `update-partition-type`, so the partition type and reprobe change together. Quick format skips zeroing; FAT32 passes `-F 32`.
 - Tool lookups, the package manager, the mount table, and drive facts are read on a worker, so a stalled mount cannot freeze the window (lgse/strata#1729).
 - Progress is indeterminate because the supported tools report no consistent percentage (lgse/strata#1331).
-- Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393).
+- Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393). Until lgse/strata#1875, an exFAT label of 12 to 32 characters passed, unmounted the drive, then failed in UDisks (lgse/strata#1849, lgse/strata#1875).
+- Label limits and units match the libblockdev checks UDisks runs before wiping: 11 UTF-16 units for exFAT, 11 bytes for FAT32. Strata's NTFS limit of 32 units is below the backend's 128 (lgse/strata#1849, lgse/strata#1875).
+- The field trims in the filesystem's unit through the shared form field limit that `app/dialogs` records (lgse/strata#1875).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1875 | fix | Limited exFAT labels to 11 UTF-16 units and FAT32 to 11 bytes, so a long label no longer unmounts the drive then fails. |
 | 2026-09-30 | lgse/strata#1331 | feat | Added Format, Rename, and Properties for removable drives, with missing-tool install guidance. |
 
 ## Known gaps
 
-None known.
+- An exFAT label containing `*`, `?`, `:`, `/`, `\`, `|`, `<`, `>`, or `"` is refused, though `mkfs.exfat` accepts each of them. lgse/strata#1875

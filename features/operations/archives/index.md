@@ -3,7 +3,7 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
 tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z]
@@ -27,6 +27,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A name such as `../outside` is rejected in the dialog and nothing is written outside the shown folder. lgse/strata#147
 - An archive name the location would store as another, such as `a:b.zip` on vfat, is refused before anything is written. lgse/strata#1615
 - Protection (No password / Password protected) shows only for ZIP and 7Z; switching to TAR or TAR.GZ hides it and resets it to No password. lgse/strata#81, lgse/strata#745
+- The Compress fields are named "Archive name" and, with Password protected chosen, "Password" and "Confirm password". lgse/strata#1896
 - Password protected with an empty password shows "Password required"; differing fields show "Passwords do not match"; no archive is written. lgse/strata#81, lgse/strata#745
 - A password-protected 7Z of 4 MiB of zeros packs to hundreds of bytes, like the unprotected one, and lists no member names without the password. lgse/strata#745
 - Compressing a symlink stores the link in ZIP and TAR without the target's contents. lgse/strata#407
@@ -114,8 +115,15 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A member named `../report.txt` or `folder/../report.txt` extracts as `report.txt` inside the destination, and later members still extract. lgse/strata#1191
 - Two members that resolve to `report.txt` extract as `report.txt` and `report (2).txt`. lgse/strata#116, lgse/strata#1191
 - An absolute member path or a member written through an existing symlink fails the extraction without writing outside the destination. lgse/strata#116, lgse/strata#1478
+- A ZIP with members `before.txt`, `names/c:notes`, and `after.txt` extracts all three onto a destination that allows `:`, such as ext4, with `c:notes` inside `names/`. lgse/strata#1855, lgse/strata#1872
+- A member path whose first component is a drive prefix, after `.` is skipped and `..` resolved, fails the extraction. Examples are `C:marker`, `./c:notes`, and `safe/../c:notes`. The error starts with "Refusing unsafe archive path: <name>". lgse/strata#1855, lgse/strata#1872
+- A TAR hard link whose target is `names/c:notes` links to that extracted member. lgse/strata#1872
 - Symlink members are recreated with their stored targets, including absolute ones. lgse/strata#1478
 - A TAR hard link links to the earlier member of that name; a hard link to a member not extracted fails the extraction. lgse/strata#1478
+- On vfat, exFAT, exfat-fuse, or an SMB mount without hard links, a TAR hard link to an extracted file becomes a copy of it. Later members still extract. lgse/strata#1848, lgse/strata#1870
+- That copy takes space of its own and gets the member's stored mode and modification time. lgse/strata#1870
+- A hard link the mount refuses for another reason, such as no space or an I/O error, still fails. The error reads "Could not link “<member>” to “<target>”: <reason>". lgse/strata#1870
+- The mount may hold no hard links while the target cannot be reopened for the copy. The error then gives the reopen failure after "Could not link". lgse/strata#1870
 - A TAR FIFO or device member fails the extraction with a message naming the member. lgse/strata#1478
 - Each member gets its stored mode, masked by the umask with setuid, setgid, and sticky removed, and its stored modification time. lgse/strata#1478
 - On FAT and exFAT, modes and times are skipped without error. lgse/strata#1478
@@ -149,11 +157,12 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 ## Design
 
-[docs/archives.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/archives.md) carries the extraction safety model, output rules, metadata handling, compression policy per format, and cancellation.
+[docs/archives.md](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/archives.md) carries the extraction safety model, output rules, metadata handling, compression policy per format, and cancellation.
 
 - Member paths are untrusted. Writes go through one pinned destination descriptor with `openat2` and per-component `NOFOLLOW`, so traversal names and swapped symlinks cannot escape (lgse/strata#109, lgse/strata#116).
 - The destination itself may be reached through ordinary symlinks; it is resolved with `RESOLVE_IN_ROOT` and pinned, as copy and compress already did (lgse/strata#644, lgse/strata#678).
 - `..` components are clamped at the destination instead of aborting the whole archive (lgse/strata#1189, lgse/strata#1191).
+- A drive prefix is refused only as the first component left after `.` is skipped and `..` popped, so `safe/../c:notes` stays refused. A colon in a later component is an ordinary name (lgse/strata#1855, lgse/strata#1872).
 - Directory members that name only the archive root are skipped in `ExtractionSession::extract_member`, so every decoder shares one check. File members with the same spelling still reach empty-path validation (lgse/strata#1801, lgse/strata#1814).
 - All decoders feed one `ExtractionSession` that owns conflicts, progress, cancellation, and cleanup (lgse/strata#557, lgse/strata#562).
 - Extraction stages into a hidden folder and decides single-root or bundled publication after decoding. Bundling after writing into the parent renamed members against the wrong folder and could not clean up failures (lgse/strata#1419, lgse/strata#1471).
@@ -164,6 +173,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Zip bombs are bounded by free space and declared sizes only. Other file managers rely on cancellation, so ratio and entry-count caps were rejected (lgse/strata#479, lgse/strata#605).
 - Password retries depend on a structured `PasswordFailure` kind from the decoders, never on message text, which can contain member names (lgse/strata#691, lgse/strata#1499).
 - Metadata restoration matches `tar` and `unzip` for a normal user: no owner, group, xattrs, or ACLs; folder metadata applies only on completion so partial output stays writable (lgse/strata#1422).
+- A hard link the mount cannot hold degrades to a copy, as symbolic links degrade to being left out. `EPERM`, `ENOSYS`, and `EOPNOTSUPP` mean no hard links, matching the copy engine's placement probe (lgse/strata#1848, lgse/strata#1870).
+- The copy is re-dispatched through the regular file path, so declared size, free space, and cancellation apply. A taken name is not treated as missing support (lgse/strata#1870).
 - Extraction and compression publish through the placement ladder of `operations/filesystem-compatibility`, and compression publishes off the UI thread (lgse/strata#1615).
 - Before that, without `RENAME_NOREPLACE`, a folder published by an exclusive `mkdirat` of the name, so `EEXIST` drove the numbering, and files were hard-linked in (lgse/strata#1585, lgse/strata#1586). Staging removal first restores owner access so `0555` folders cannot block it (lgse/strata#1586).
 - A single-root conflict name places the suffix as Paste's Keep Both does: a folder takes ` (n)` after its whole name, a file before its extension. The root's type is read without following symlinks, so a symlink is numbered like a file (lgse/strata#1616, lgse/strata#1617).
@@ -176,6 +187,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1872 | fix | Refused a drive prefix only at the start of a member path, so `names/c:notes` extracts instead of aborting. |
+| 2026-10-25 | lgse/strata#1870 | fix | Copied a TAR hard link from its target where the mount cannot hold hard links, so later members still extract. |
 | 2026-10-22 | lgse/strata#1814 | fix | Skipped root directory markers such as ZIP's `./` for every decoder, so those archives extract instead of failing. |
 | 2026-10-20 | lgse/strata#1729 | fix | Tried every Keep Both number, set replaced archives aside in an originals folder, and removed SMB stages on cancel. |
 | 2026-10-15 | lgse/strata#1605 | fix | Dropped the pending navigation when Extract to… fails, so the next extraction stays put. |
@@ -217,3 +230,5 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 ## Known gaps
 
 - There is no option to delete the archive after a successful extraction. lgse/strata#759
+- A hard link to an extracted symlink fails the extraction where the mount holds symlinks but not hard links. sshfs without its hardlink extension is one such mount. lgse/strata#1870
+- An extraction that fails on a member does not name the later members it never wrote. lgse/strata#1870

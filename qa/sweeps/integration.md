@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -23,6 +23,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount. Typed-name and Trash-refusal probes use them.
 - An NTFS loop image attached with `udisksctl loop-setup` and mounted through `ntfs-3g` (`fuseblk`), so it lists under Send to. It holds a link to a folder off the device and a link to a folder on it. A script stops its `ntfs-3g` process with `kill -STOP` and resumes it with `kill -CONT`.
+- A silent session bus: a Unix socket that accepts connections and never replies, such as `socat UNIX-LISTEN:<path>,fork EXEC:'sleep infinity'`, named by `DBUS_SESSION_BUS_ADDRESS`.
 - 10xer mode toggled through Settings → General → Browsing or `tenxer_mode = true` in `settings.toml`; two windows of the same build.
 - Keyboard layout `fr` from a QA `layout` step or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the `layouts` list in `tests/fixtures/harness.json` lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - Cold activation: a private session bus from `dbus-run-session`, with the FileManager1 service copy pointing at the build and xdg-desktop-portal 1.22.1 on that bus. Set `GDK_DEBUG` for activated services with `dbus-update-activation-environment`.
@@ -60,7 +61,11 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Select a filter result, then press Shift+Space in Name under `save` and Space while an input method composes. Press Space on a sidebar row and a header button.
 - Right-click an item on the sshfs mount, a mix of sshfs and Home items, and an item on a `fuseblk` mount; read the delete entries.
 - Under `save` in Columns, move the cursor onto a file with arrow keys, type into Name, then click that file; repeat with a double-click, a Ctrl+click, and a Shift+click. Read Name after each.
+- With file clicks at one, then two, and single-click previews on, then off, click a filtered file once and twice. Use Columns recursive results, Icons and List search results, and an in-place filter on Recent. Read the preview, selection, and response code.
+- Filter to a non-previewable file and to a folder, and click each once under each click setting.
 - Under `save`, right-click and middle-click the highlighted file, and click a file in filter results. Click a file, then immediately double-click a folder. Repeat each with 10xer mode on and read Name after each.
+- Send SaveFile with `current_name` set to `.bashrc`, `archive.tar.gz`, `noext`, `a.`, and `résumé.pdf`; read Name's selection after the window settles with 10xer mode off, and after Tab from the header with it on.
+- Dump the tree in the file chooser's Save and URL views.
 
 ### integration/portal-file-chooser/setup
 
@@ -69,6 +74,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Complete setup with a foreign per-user FileManager1 service present, then Restore default with no Nautilus on `PATH` and no recorded handler; read each message.
 - Run Complete setup twice and Restore default twice; diff the data and config directories between the two runs of each.
 - On an Omarchy VM, edit the Strata shortcut block by hand before Restore default, and break `bindings.conf` before Complete setup; skip elsewhere.
+- Against the silent session bus, run Complete setup, Restore default, `--install-portal`, and `--uninstall-portal`; time each and read the status lines. Check `ps` for leftover `gdbus`, `dbus-send`, or `systemctl`.
+- Repeat the silent-bus Complete setup with `XDG_CURRENT_DESKTOP=Hyprland`, so `xdg-mime` takes its `dbus-send` path, then with the bus restored mid-setup.
 - On an Omarchy VM, make `bindings.conf` a relative link, a two-link chain, a dangling link, and a link from a read-only directory. Run Complete setup with a target that fails `hyprctl configerrors`. Read the link, target, and backup location.
 
 ### integration/portal-file-chooser/url-download
@@ -77,6 +84,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Paste the 301, the 404, a server that stalls after its headers, `http://user:pw@127.0.0.1:8765/a.txt`, and a `file://` URL; watch the ring and the action bar.
 - Paste the same URL twice, delete its folder from a shell, paste again; then backdate a `strata-download-*` folder 25 hours and start a download.
 - In a 10k-file fixture, type a folder name, a hidden file's name with hidden files off, and a filter-rejected name before the listing finishes.
+- Download under `umask 0000` and under `umask 0077`, then paste the same URL again; `stat` the `strata-download-*` folder and its file as a second local user.
 
 ### integration/portal-file-chooser/image-conversion
 
@@ -84,6 +92,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Switch the filter to All files, then edit Name, while a conversion is running; press Open again after each.
 - Compare the converted PNG with `identify -verbose` and `exiftool`: dimensions, alpha, orientation, and profile.
 - Repeat the JPEG download under `filters` with Images, then Text files, selected.
+- Under `umask 0000`, convert a JPEG, then download a PNG named `.jpg` under `png` so it is renamed; `stat` both folders and files as a second local user.
 
 ### integration/portal-file-chooser/window-placement
 
@@ -113,6 +122,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - From inside the preview press `g 3` with no pin 3, `; 1`, `t n`, F2, and Ctrl+1 to Ctrl+3; then click the listing and press `j`.
 - With the drawer closed, press `i` on a locked archive and type `j`; step `j`/`k` across a second locked archive, then press `l`, a wrong password, and Enter.
 - Press `/` and keypad `/` in a PDF, an image, an archive tree, and a media preview. Repeat in a CSV table and a loading document. Read which prompt opens and whether the drawer stays.
+- Press `l` on `tests/fixtures/documents/password-protected.pdf`, then `j`, Right, Down, `k`, and Tab; read the focus ring and the F1 footer. Repeat in the chooser and after clicking the message.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 
 ### integration/10xer-mode/places

@@ -3,12 +3,12 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
-related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences]
+related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring]
 ---
 
 ## Summary
@@ -162,6 +162,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1874 | fix | Closed an open folder's columns and moved the cursor to its visible neighbor on a rename to a hidden name, so F2 works. |
 | 2026-10-15 | lgse/strata#1674 | perf | Faded size badges only on pointer hover and indexed clipboard marks, to cut arrow-key and scroll cost. |
 | 2026-10-15 | lgse/strata#1677 | perf | Updated column reveal buttons after each layout pass instead of every frame, so an idle window stops drawing frames. |
 | 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the hover badge and added a setting to hide Columns sizes. |

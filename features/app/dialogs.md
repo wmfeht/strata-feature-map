@@ -3,7 +3,7 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus]
@@ -53,6 +53,10 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Enter in a form field does nothing while the primary button is disabled. lgse/strata#464
 - Enter with an invalid Compress name such as `../escape` keeps the dialog open and writes no archive. lgse/strata#464
 - Enter in a multi-line text field inserts a newline instead of submitting. lgse/strata#464
+- A form text field can be limited in bytes or UTF-16 units. Typed or pasted text is cut to the longest leading part that fits, on a whole character. lgse/strata#1875
+- That field's "N chars remaining" caption counts in the same unit: `ÉTÉ-2026` under an 11-byte limit reads "1 char remaining". lgse/strata#1875
+- Changing a field's limit or unit trims its current text to fit. lgse/strata#1875
+- An install command's copy button is named "Copy install command", then "Install command copied" for 2 s after a click. lgse/strata#1895 (unverified)
 
 ### Layout
 
@@ -78,12 +82,15 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533).
 - A layer closed while another modal stays open restores focus inside that modal; the window restore order applies only once no modal is left. A layer opened while another closes takes over the closing layer's opener (lgse/strata#1544, unverified).
 - Disabling the focused control on a keyboard dismissal makes GTK hide focus rings on the key release. The layer records whether rings showed before that and re-shows them once focus is back (lgse/strata#1544, unverified).
+- GTK's own maximum length counts characters, so a field limited in bytes or UTF-16 units trims insertions at its text delegate's `insert-text` signal (lgse/strata#1875).
 - [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1908 | fix | Halved the confirmation file list radius to 3px so it reaches 6px, not 12px, at the 200% roundness maximum. |
+| 2026-10-27 | lgse/strata#1906 | fix | Rounded the confirmation file list in the delete, restore, and leftovers dialogs to match other dialog inset boxes. |
 | 2026-10-10 | lgse/strata#1554 | fix | Shared the closing-layer check so window accelerators skip a dialog that is animating closed. |
 | 2026-10-10 | lgse/strata#1544 | fix | Refocused a dialog's opener inside a modal left open, kept focus rings after keyboard closes, and gave menu options radio and checkbox roles. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to a dialog's origin when on screen, otherwise to the cursor row, so closing a dialog no longer leaves nothing focused. |
@@ -97,4 +104,4 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 ## Known gaps
 
-None known.
+- The read-only install command field beside the "Copy install command" button has no accessible name. lgse/strata#1896

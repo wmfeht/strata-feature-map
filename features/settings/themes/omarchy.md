@@ -3,7 +3,7 @@ title: Omarchy theme following
 status: shipped
 origin: {issue: lgse/strata#1198, pr: lgse/strata#1482}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/theme/omarchy.rs]
 tests: [src/ui/theme/omarchy/tests.rs, src/ui/theme/tests.rs, src/ui/settings/theme/tests.rs]
@@ -64,8 +64,8 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 - Switching to another theme with `omarchy-theme-set` applies that theme's saved variant, and the dropdown updates live in every window. lgse/strata#1815, lgse/strata#1816
 - Saved `original` and `high_contrast` values load as Lighter and Contrast. lgse/strata#1816
 - A legacy global `omarchy_variant = "high_contrast"` becomes Contrast for the Omarchy theme active at the next start. lgse/strata#1816
-- Any other legacy global `omarchy_variant` value is dropped. lgse/strata#1816
-- Strata never writes `omarchy_variant` back; after the next save, `settings.toml` has no such key. lgse/strata#1816 (unverified)
+- Once an Omarchy theme is detected, at startup or later, any other legacy global `omarchy_variant` value is dropped. lgse/strata#1816 (unverified)
+- Once an Omarchy theme is detected, at startup or later, the legacy `omarchy_variant` key is migrated and the next save removes it from `settings.toml`. Without Omarchy, the key stays through saves. lgse/strata#1816, lgse/strata#1877 (unverified)
 
 ## Design
 

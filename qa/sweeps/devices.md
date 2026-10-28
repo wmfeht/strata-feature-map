@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 tools: [docs/preview-sandbox.md, data/udiskie/unlock]
 ---
 
@@ -42,6 +42,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Hide the overlay, switch the theme accent, open Properties on the pending row, and press Eject on it again before GIO resolves.
 - Attach an ISO as a CD-ROM and a non-removable virtio ext4 disk; release each and compare the closing overlay.
 - Eject while the preview plays audio from the stick, while a PDF preview's sandbox holds a file there, and while Icons thumbnails load; then select a stick file before GIO resolves.
+- Dump the sidebar with a removable drive, expanded and as the rail.
 
 ### devices/volumes/encrypted
 
@@ -50,6 +51,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Hide the "Unlocking volume" overlay and navigate to Home before unlock completes; then repeat with the pane already inside the mount.
 - Lock the login keyring with `secret-tool lock`, then Lock a volume with a saved passphrase; confirm the mount and the secret both survive.
 - Open the volume with `cryptsetup open` but no mount, then press Unlock and Lock on its row.
+- Dump the sidebar with an unmounted encrypted drive and an unlocked one, expanded and as the rail.
 
 ### devices/volumes/udiskie-unlock
 
@@ -64,10 +66,13 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Open Properties on each attached device: unmounted and mounted sticks, locked and unlocked LUKS, the CD-ROM, the loop mount, and the virtio disk. Compare Capacity, Used, and Free with `df -B1`.
 - Set label to 255 characters, emoji, RTL text, whitespace only, a pasted tab, and the same text on both same-label sticks. Then relabel one with `fatlabel` from a shell and replug.
 - Delete `mkfs.exfat` only and open Format for each filesystem; then format with a label at the exact limit and a lowercase FAT label.
+- On exFAT, NTFS, and FAT32, type, then paste, labels of emoji, accented Latin, CJK, and a flag sequence, at and past the limit. Paste into the middle of a label. Read the field, the caption, and `lsblk -o LABEL` after formatting.
+- Type a long emoji label under NTFS, then switch to FAT32, exFAT, and NTFS. Read the field, the caption, and Continue after each switch.
 - Open Format Drive, detach the disk before Continue, reattach, and press Format.
 - Format while a shell sits inside the mount, and with an Eject pending on the same row. Cancel the polkit prompt at the unmount step, then at the format step.
 - Open the unlocked LUKS volume's Properties and Format Drive after `dmsetup suspend` on its mapping; close each before its facts arrive, then `dmsetup resume`.
 - Replug another stick while Format Drive loads its facts, and again while it formats.
+- Dump the tree with the drive Label and Format Drive dialogs open.
 
 ### devices/volumes/camera
 

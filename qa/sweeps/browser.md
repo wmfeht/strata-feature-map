@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -9,7 +9,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
-Left to other sweeps: file drags once a press becomes one, drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
+Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
 ## Setup
 
@@ -24,8 +24,10 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - fcitx5 with pinyin under `GTK_IM_MODULE=fcitx` on X11 for input-method probes.
 - Foreign drags for pin probes: Nautilus or Dolphin, and `tests/qa/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
+- Raw H.264 samples: `ffmpeg -f lavfi -i testsrc2=size=320x180:rate=24:duration=3 -c:v libx264 -pix_fmt yuv420p -an alpha.h264`. Copy it as `.H264`, `.264`, `clip.h264.txt`, and with no extension; encode an HEVC stream as `.h265` and `.hevc`. Put plain text in `notes.h264` and leave an empty `empty.h264`.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
+- GNOME Shell, KDE Plasma, and Hyprland Wayland sessions and an X11 session, plus two monitors of different heights, for context menu placement probes.
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
@@ -46,6 +48,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Press F5 during a `100000` load, then after a sort change, each with 20 entries selected across the viewport.
 - On an `sftp://` share with hidden files off, put the cursor on the last entry and delete the last three server-side; dot-files precede them. Then F5.
 - On an `sftp://` share in Columns, open the cursor folder's child column, delete that folder server-side, and press F5.
+- In List and Icons, group by type and sort by size descending. Click an entry, Ctrl+click one in another group, then press Shift+arrow toward each neighbour.
+- Ctrl+click a selected entry to remove it, then press Shift+arrow; repeat after Ctrl+click on blank row space.
 
 ### browser/selection/click-modes
 
@@ -93,6 +97,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
 - At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
+- In List at the bottom of `1000`, rename a new file to sort first, then press Down right after Enter in one scripted sequence. Repeat in Icons.
 
 ### browser/view-modes/columns
 
@@ -157,6 +162,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Turn per-folder views off, sort in column 3, open a new column from column 1, then turn per-folder views back on.
 - Toggle Folders first in one window while another shows Recent, a filter, and a Camera Photos library.
 - Sort a folder holding `.GPR`, `.ARQ`, `.ORI`, `.DNG`, and extensionless files by Type in List, in both directions.
+- Sort by Type a folder holding the `.H264` copy, `clip.h264.txt`, the extensionless copy, and `notes.h264`, in both directions, under German and C locales.
 
 ### browser/view-modes/folder-views
 
@@ -167,6 +173,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Change the sort of one folder in the portal chooser and the main window within 500 ms; quit both and read the file.
 - With the switch off, change the default sort from the portal chooser and watch a main window that never opened Settings.
 - Set a folder's sort, make another sort the default, then open the folder's sort menu and read which actions show.
+- Change the default sort in the portal chooser while the main window saves text wrap; read both windows and `settings.toml`.
+- Change the main window's default icon size, then change the chooser's default sort before the main window's save lands.
 - Rename a sorted folder from a shell, then delete it and reopen its parent; repeat for a folder on the unmounted drive.
 - Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
 
@@ -236,6 +244,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - In `deep` at level 30, choose level 3 from the hierarchy menu, then from the scrolled crumbs, in each view; then choose the current crumb.
 - Type `/tmp/./x/..`, `~/../..`, `/a/b/../../..`, `smb://host/share/../x`, a symlinked folder followed by `/..`, and a file path followed by `/..`; press Alt+Up after each.
 - Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon. Open a new tab on that mount and type before its first load ends.
+- Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms.
+- Dump a sign-in dialog's fields for an SMB share that asks for a domain and for an SFTP server.
 
 ### browser/navigation/recent
 
@@ -260,6 +270,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 - Set both search limits to No limit and Ctrl+K over an `sshfs` or rclone mount under Home; then 10 s and 200,000 over two `100000` copies, and hover Partial results.
 - Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
+- In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`.
+- In Ctrl+K, separate two terms with a Tab, then a double space; then use a term found only in the searched root's own path.
 
 ### browser/search/exclusions
 
@@ -294,6 +306,10 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
 - Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
 - Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
+- In Columns, Icons, and List, click a filtered file while a result batch is arriving. Then Ctrl+click it and plain-click it again.
+- Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
+- In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
+- In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
 
 ### browser/sidebar
 
@@ -314,6 +330,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Drag Trash slowly across Home's upper half, the gap below Home, and Home's lower half, releasing at each; restart and read the order in both windows.
 - In the file chooser, reorder Home and Downloads, unpin Music, and right-click a pin; then open a browser window and compare.
 - Drag files over the Trash row with a selection inside Trash and with one on a read-only mount; then shrink the sidebar to the rail mid-drag.
+- Middle-click and choose Open in New Tab on Trash, Recent, Network, an unmounted `sftp://` pin, a mounted USB drive, and an unmounted volume; then do both on the icon rail.
+- Double middle-click a sidebar row, and middle-press one and drag past the threshold before release; count the tabs.
 
 ### browser/sidebar/pins
 
@@ -350,6 +368,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Turn STL model thumbnails on with Show thumbnails off, then turn Show thumbnails on. Open the folder in a peek, Ctrl+K results, and the portal file chooser.
 - Open `.stl` and `.STL` files on an `smb://` share with `gvfsd-fuse`, on an sshfs mount, and in a camera library; compare with the local copy.
 - Render an ASCII STL, a zero-triangle STL, and a 127 MiB binary STL; change a rendered file's bytes and reopen the folder.
+- Open a folder of `.gcode`, `.GCO`, and `.bgcode` files with STL model thumbnails off, then on; repeat on an `smb://` share and in the portal file chooser.
 
 ### browser/thumbnails/cache
 
@@ -364,6 +383,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Type 0, 17, `abc`, and an empty value into the Thumbnail workers spin button, pressing Return, then Tab, after each; read `thumbnail_workers` back.
 - With workers at 1 and STL thumbnails on, open a folder of 20 STL files beside a folder of PDFs in a second window. Open Quick Preview on an STL meanwhile.
 - Put an STL on an NFS or sshfs native path, stall the server mid-render, and scroll on to other STL files.
+- With workers at 1, load a 600 MiB `.gcode` with its thumbnail in the header beside a folder of PDFs; then one with no thumbnail, and one stalled on sshfs.
 - Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
 
 ### browser/properties
@@ -377,6 +397,7 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 - Open Properties on a 0-byte `.mp4`, a WAV renamed `.png`, a rotated phone video, and an MP3 with cover art.
 - Close the dialog within 100 ms of opening it on a long video; reopen after rewriting the file externally.
+- Open Properties on `notes.h264`, `empty.h264`, the `.H264` and `.264` copies, and the `.h265` and `.hevc` streams.
 
 ### browser/properties/raw-metadata
 
@@ -402,6 +423,10 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.
 - Open the menu on a file on a virtiofs share, a 9p share, and a mergerfs mount.
+- Shrink the window to 400×300 and right-click an entry at its right edge; then press Shift+F10 there with nothing selected.
+- Move the window against the monitor's bottom edge and right-click the last row, then open the multi-selection menu of 50 entries there.
+- With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
+- Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 
 ### browser/directory-monitoring
 
@@ -414,6 +439,9 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - `mv` an open folder on an `sftp://` share, the ntfs-3g partition, an `sshfs` mount, and a kernel exFAT partition; read the pane and history.
 - Open the 200,000-entry folder, then the 260,000-entry one, locally, over `sftp://`, and on an `sshfs` mount; read the pane header after each load settles.
 - Paste 50 files into an open `sftp://` folder and an sshfs folder, cancel halfway, then repeat to completion; count reloads and rows each time.
+- With hidden files on, open `deep` to column 5, press Ctrl+H, and rename the column 3 folder to a dot name; then press Back.
+- Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
+- Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 
 ### browser/directory-monitoring/network-checks
 
@@ -457,6 +485,13 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 - Read the window title with `xprop` on `~`, `/`, `trash:///`, `network:///`, a 60-character folder, and a non-UTF-8 name, in `de` and `ja`.
 - Switch tabs with Ctrl+Tab, close the active tab, and navigate a background tab during a long copy; read the title after each.
 - With the window idle, rename a tab's folder from a shell and change text size from another window; check the underline matches the new tab bounds.
+- With 12 tabs overflowing the strip, drag a sidebar row to the strip's scrolled-off ends and release on each tab's left and right halves; read each new tab's position.
+- Drag three folders, then a folder plus a file, from each view onto the strip; drag a folder from Nautilus onto a tab header.
+- Drag a sidebar row onto the other window's strip and its New tab button. Then drag a tab onto the other window's strip.
+- Start a sidebar drag, close tabs from the keyboard down to one, and release over where the strip was; then press Escape mid-drag with a modal dialog open.
+- With a modal dialog open, drag a sidebar row and a folder from another window onto this window's strip and New tab button.
+- Press Escape mid-drag on Wayland and on X11: over a tab header, a sidebar row, a breadcrumb, and a spring-opened folder. Release over a folder each time.
+- Press Escape during a multi-selection drag, during a drag from another application, and while dragging out to another window.
 
 ### browser/tabs/session-restore
 
@@ -472,7 +507,8 @@ Left to other sweeps: file drags once a press becomes one, drops on tabs and sid
 
 ## Hand-offs
 
-- Drag and drop once a press is read as a file drag, drops on tabs and sidebar rows, and every file operation → `operations`.
+- Drag and drop once a press is read as a file drag, except Escape cancellation, which `browser/tabs` owns → `operations`.
+- File transfers dropped on tabs and sidebar rows, and every file operation → `operations`.
 - DEVICES rows, Set label…, mounting, and ejecting → `devices`.
 - Remote shares beyond the typed URI rejections and credential masking covered here, including the mounts and sign-in prompts behind Connect to server → `remote`.
 - The action editor's tabs, toggles, and footer beyond arrow focus → `integration`.

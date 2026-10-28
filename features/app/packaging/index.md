@@ -3,7 +3,7 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
 review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg]
 tests: [src/tests.rs]
@@ -23,6 +23,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The entry declares `MimeType=inode/directory;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler. lgse/strata#182
 - The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, de, es, ja, pt_BR, ko, vi, it, ru, zh_CN, and zh_TW. lgse/strata#1519, lgse/strata#1583, lgse/strata#1745 (unverified)
 - The application icon is bundled in the GResource and set as GTK's default window icon name. lgse/strata#182
+- The application icon draws the logo in blue and violet gradients on a rounded tile. The tile fades from `#414868` at the top to `#1b1c27` at the bottom. lgse/strata#1838 (unverified)
 - Release archives contain `io.github.lgse.Strata.desktop` and `io.github.lgse.Strata.svg` beside the `strata` binary. lgse/strata#182
 - By default, `mise run install-local` installs the binary to `~/.local/bin`, the icon under `~/.local/share/icons/hicolor`, and the entry under `~/.local/share/applications`. lgse/strata#182, lgse/strata#663
 - The entry ships with `Exec=strata %U`; `mise run install-local` rewrites it to the installed binary's absolute path. lgse/strata#182, lgse/strata#663
@@ -40,7 +41,11 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 [docs/packaging.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/packaging.md) carries the packaging layout and the rules for desktop metadata.
 
 - Linux has no portable icon-on-a-process property. Shells match the window's application ID to a `.desktop` file and use its `Icon`, so the entry's file name is the application ID (lgse/strata#49).
-- The icon is the Lucide `layers` glyph on a backdrop original to Strata. It keeps fixed colors because shells render application icons outside Strata's theming (lgse/strata#182).
+- The icon keeps fixed colors because shells render application icons outside Strata's theming (lgse/strata#182).
+- The earlier white logo nearly vanished on light docks (lgse/strata#1832). lgse/strata#1832 proposed light and dark variants, theme-aware selection, or one SVG that contrasts on both; lgse/strata#1838 shipped one SVG.
+- The tile is a gradient with a faint light edge because a flat `#1b1c27` tile blended into dark docks (lgse/strata#1838).
+- Linux desktops draw the hicolor SVG unmasked, so the icon rounds its own corners. Icon themes such as MacTahoe reshape only the apps they ship icons for (lgse/strata#1838).
+- The tile spans 228 of 284 units per side (about 80%), with a 51-unit corner radius (about 22% of the tile side). These are the usual macOS and Adwaita proportions, so the icon matches neighboring icons in size (lgse/strata#1838).
 - Desktop metadata ships inside the release archive, so the installer, packages, and updater always install the copy that matches the binary (lgse/strata#182, docs/packaging.md).
 - `--version` prints `build_info::displayed_version()`, built on `installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917, lgse/strata#1676).
 - Debug builds scroll and load noticeably slower, so they carry `+debug` to tell them apart in reports. The suffix is display-only; update checks keep the plain version (lgse/strata#1671, lgse/strata#1676, unverified).
@@ -50,6 +55,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-24 | lgse/strata#1838 | feat | Put the colored logo on a dark rounded gradient tile so the icon reads on light and dark docks. |
 | 2026-09-13 | lgse/strata#918 | feat | Added `--version` so scripts and packaging checks can read the installed version without the GUI. |
 | 2026-09-03 | lgse/strata#182 | feat | Added the application icon and a desktop entry named after the application ID, and shipped both in release archives. |
 
