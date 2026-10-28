@@ -233,7 +233,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Visit ten folders, press button 8 ten times fast, then button 9 ten times; the breadcrumb must match at each step, including over the sidebar.
 - Press Alt+Up at `/`, at `trash:///`, and in a folder whose parent was deleted externally; then Backspace in the root column at `/`.
-- Under `[keymap.default]`, bind `parent_folder` to `<Control>e`, `home_folder` to `<Super>h`, and `history_back` to `<Control><Shift>b`; repeat under `[keymap.tenxer]` in 10xer mode; press each with the file list, the sidebar, the location entry, and the filter field focused.
+- Under `[keymap.default]`, bind `parent_folder` to `<Control>e`, `home_folder` to `<Super>h`, and `history_back` to `<Control><Shift>b`. Repeat under `[keymap.tenxer]` in 10xer mode. Press each with the file list, sidebar, location entry, and filter field focused.
 - Bind `parent_folder` to a Ctrl key another command already holds, such as `<Control>r`, by hand in the file; press it in each view.
 
 ### browser/navigation/folder-jump
@@ -256,7 +256,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Dump a sign-in dialog's fields for an SMB share that asks for a domain and for an SFTP server.
 - Type a file path, a folder path, a symlink to a file, and a symlink to a folder; repeat with the parent already open and with Quick Preview dismissed first.
 - Type a path to a binary file with no previewer, an empty file, and a 2 GB file.
-- Type a file path whose parent is an unmounted share or a stalled sshfs mount; before it loads, press Back, click a sidebar place, or submit a second path. Then select the file by hand.
+- Type a file path whose parent is an unmounted share or a stalled sshfs mount. Before it loads, press Back, click a sidebar place, or submit a second path. Then select the file by hand.
 - Type a file path and press Back and Forward fast, five times, while the parent loads.
 - Type a file path in the portal file chooser's location field.
 
@@ -266,6 +266,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type `/usr`, `/usr/`, `~`, and a folder whose only sibling match is itself; compare each list with `ls`.
 - Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon.
 - Hold Page Down through 50 suggestions, then Page Up past the first; note where the highlight wraps.
+- Rebind `page_down` to `<Control>n` and add F7 to `focus_next`; press each, then Page Down, with suggestions showing and while a list is pending.
 
 ### browser/navigation/recent
 
@@ -323,7 +324,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
 - In Columns, focus a filter result in column 2 and press Ctrl+F, then `/`; repeat with Include subfolders off and with the preview open.
-- In Columns, filter a folder to ten results, compare their order with List, select three, and choose each sort.
+- In Columns, filter with Include subfolders on and off, and with a pointer and a keyboard multi-selection, then choose each sort.
 
 ### browser/search/filter/enter-target
 
@@ -363,7 +364,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Pin a folder, `chmod 444` the bookmarks file, unpin; then pin a folder on `/dev/shm`, trash it from the other window, and press Ctrl+Z.
 - With Type to search off press `p` on a file, a pinned folder, a standard folder, and a folder inside Trash.
 - With the bookmarks file symlinked, delete a pinned folder from the other window; read `ls -l` and the file.
-- In Columns, click a folder and press `p`; then reach the same folder by arrows, by Enter, and by a typed path, and press `p` each time.
+- In Columns, reach a folder by arrows, by Enter, and by a typed path, and press `p` each time.
 - Pin from one window while Nautilus rewrites the bookmarks file in a loop; then reorder in a second window and open a third.
 - Pin 50 folders, trash them all, cancel midway, and watch PINNED in two windows.
 

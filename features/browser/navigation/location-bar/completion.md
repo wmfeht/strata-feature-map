@@ -7,7 +7,7 @@ reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser/location/completion.rs]
 tests: [src/ui/browser/location/completion/tests.rs]
-related: []
+related: [app/keyboard-shortcuts/remapping]
 ---
 
 ## Summary
@@ -22,7 +22,9 @@ The folder suggestions shown under the location entry while a path is typed. The
 - When the typed text names an existing folder and at most one sibling matches it, the popover lists that folder's children instead. lgse/strata#388 (unverified)
 - Each suggestion shows a folder icon, the name with the typed prefix highlighted, and its parent folder, with home shortened to `~`. lgse/strata#388 (unverified)
 - Down and Up move through suggestions, wrapping at the ends, and Page Down and Page Up move by 5. lgse/strata#388 (unverified)
+- Page Down and Page Up still move by 5 after `page_down` or `page_up` is rebound, since completion reads the physical keys. lgse/strata#1885 (unverified)
 - Tab inserts the highlighted suggestion, the only suggestion, or a longer common prefix and closes the popover; Down reopens it. lgse/strata#388
+- A key added to `focus_next` or `focus_previous`, such as F7 or Ctrl+F7, completes the path as Tab does. lgse/strata#1885
 - When Tab has nothing longer to insert, it highlights the next suggestion instead. lgse/strata#388 (unverified)
 - Enter on a highlighted suggestion opens that folder. lgse/strata#388
 - Hidden folders are suggested only when hidden files are shown or the typed name starts with `.`. lgse/strata#388 (unverified)
