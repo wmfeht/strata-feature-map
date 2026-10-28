@@ -66,7 +66,8 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - Window commands such as F1, F5, Ctrl+L, Ctrl+1 to Ctrl+3, and Ctrl+N work without moving the keys out of the preview. lgse/strata#1304, lgse/strata#1340
 - A plain letter added to a 10xer listing command, such as `rename = ["r", "e"]`, returns the keys from a focused text preview and runs there. lgse/strata#1885
 - A 10xer key bound to jump to folder or arrow scope works from a focused preview without moving the keys out. lgse/strata#1885 (unverified)
-- A hidden-files key that types nothing, such as a rebound Alt+H, toggles hidden files from a focused preview and keeps the keys there. lgse/strata#1885
+- From a focused preview in 10xer mode, a hidden-files key that types nothing toggles hidden files only when both tables hold it, as Ctrl+H does. lgse/strata#1885 (unverified)
+- A hidden-files key held only under `[keymap.tenxer]`, such as Alt+H, leaves the keys in the preview and toggles nothing. lgse/strata#1885 (unverified)
 
 ## Design
 
