@@ -485,7 +485,7 @@ class GlobTest(unittest.TestCase):
             ("src/trash/**", "src/trash/a/b.rs", True),
             ("src/**/tests.rs", "src/tests.rs", True),
             ("src/**/tests.rs", "src/a/b/tests.rs", True),
-            ("tests/e2e/test_?.py", "tests/e2e/test_a.py", True),
+            ("tests/qa/scenarios/tab?/*.jsonl", "tests/qa/scenarios/tabs/reopen.jsonl", True),
         ]
         for pattern, path, expected in cases:
             with self.subTest(pattern=pattern, path=path):
@@ -555,7 +555,7 @@ class RadiusTest(unittest.TestCase):
                 {"code": ["src/ui/fly.rs"], "tests": [], "related": ["browser/tabs"]},
                 {"Behavior": "- Fly. lgse/strata#3", "History": HISTORY}),
             "features/browser/tabs.md": feature(
-                {"code": ["src/ui/tabs.rs"], "tests": ["tests/e2e/scenarios/test_tabs.py"]},
+                {"code": ["src/ui/tabs.rs"], "tests": ["tests/qa/scenarios/tabs"]},
                 {"Behavior": "- Tabs. lgse/strata#4", "History": HISTORY}),
             "qa/sweeps/browser.md": sweep({"title": "Browser sweep", "triggers": ["src/ui/window/**"]},
                                           {"Probes": "- Resize the window."}),
@@ -600,7 +600,7 @@ class RadiusTest(unittest.TestCase):
             ("src/a/mod.rs", "a"),
             ("src/main.rs", None),
             ("src/ui/pointer/**", None),
-            ("tests/e2e/scenarios/test_x.py", None),
+            ("tests/qa/scenarios/tabs/reopen-closed-tabs.jsonl", None),
             ("scripts/test_installer.py", None),
         ]
         for path, expected in cases:
@@ -612,12 +612,12 @@ class PlanTest(unittest.TestCase):
     def setUp(self):
         self.fixture = Fixture({
             "features/operations/trash/fly.md": feature(
-                {"code": ["src/ui/fly.rs"], "tests": ["tests/e2e/scenarios/test_fly.py", "src/ui/fly/tests.rs"],
+                {"code": ["src/ui/fly.rs"], "tests": ["tests/qa/scenarios/fly/fly-to-sidebar.jsonl", "src/ui/fly/tests.rs"],
                  "related": ["browser/tabs"]},
                 {"Behavior": "### Flights\n\n- Fly to the sidebar. lgse/strata#3", "History": HISTORY,
                  "Known gaps": "- Flights skip hidden rows. lgse/strata#9"}),
             "features/browser/tabs.md": feature(
-                {"code": ["src/ui/tabs.rs"], "tests": ["tests/e2e/scenarios/test_tabs.py"]},
+                {"code": ["src/ui/tabs.rs"], "tests": ["tests/qa/scenarios/tabs"]},
                 {"Behavior": "- Tabs. lgse/strata#4", "History": HISTORY}),
             "qa/sweeps/browser.md": sweep({"title": "Browser sweep", "triggers": ["src/ui/window/**"]},
                                           {"Probes": "- Resize the window."}),
@@ -640,7 +640,7 @@ class PlanTest(unittest.TestCase):
         self.assertIn("#### `operations/trash` — Trash (regression, tier 1: ancestor of `operations/trash/fly`)", text)
         self.assertIn("Probes:\n\n- Trash from each view mode.", text)
         self.assertIn("### Sweep-wide probes\n\n- Watch the log for GTK criticals.", text)
-        self.assertIn("- `./scripts/e2e.sh tests/e2e/scenarios/test_fly.py`", text)
+        self.assertIn("- `./scripts/qa.sh fly-to-sidebar` (runs in the pinned container)", text)
         self.assertIn("- `./scripts/test-headless.py -- trash::tests ui::fly::tests`", text)
         self.assertIn("- Docs: `docs/trash.md`", text)
         self.assertIn("## Known gaps on primary nodes", text)
@@ -722,7 +722,7 @@ class IndexTest(unittest.TestCase):
 
     def test_qa_index_lists_sweeps_probes_and_gaps(self):
         f = Fixture({"features/operations/trash/restore.md": RESTORE.replace(
-            "- src/trash/restore/**", "- src/trash/restore/**\n- tests/e2e/scenarios/test_restore.py")})
+            "- src/trash/restore/**", "- src/trash/restore/**\n- tests/qa/scenarios/restore")})
         self.addCleanup(f.close)
         fm.write_index(f.root)
         qa = (f.root / "index/qa.md").read_text()
@@ -731,14 +731,181 @@ class IndexTest(unittest.TestCase):
         self.assertIn("| [Trash](../features/operations/trash/index.md) `operations/trash` | 1 | — | 1 | "
                       f"[`docs/trash.md`](https://github.com/lgse/strata/blob/{SHA}/docs/trash.md) |", qa)
         self.assertIn("| ↳ [Restore](../features/operations/trash/restore.md) `operations/trash/restore` | 0 | "
-                      f"[`tests/e2e/scenarios/test_restore.py`](https://github.com/lgse/strata/blob/{SHA}/"
-                      "tests/e2e/scenarios/test_restore.py) | 1 | "
+                      f"[`tests/qa/scenarios/restore`](https://github.com/lgse/strata/blob/{SHA}/"
+                      "tests/qa/scenarios/restore) | 1 | "
                       f"[`docs/trash.md`](https://github.com/lgse/strata/blob/{SHA}/docs/trash.md) (inherited) |", qa)
-        without_probes = qa.split("## Nodes without probes")[1].split("## Nodes without E2E")[0]
+        without_probes = qa.split("## Nodes without probes")[1].split("## Nodes without QA scenarios")[0]
         self.assertIn("`operations/trash/restore`", without_probes)
         self.assertNotIn("`operations/trash` ", without_probes)
-        self.assertIn("## Nodes without E2E scenarios (0)", qa)
+        self.assertIn("| Node | Probes | QA scenarios | Other tests | Docs |", qa)
+        self.assertIn("## Nodes without QA scenarios (0)", qa)
         self.assertIn("QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)", (f.root / "README.md").read_text())
+
+
+class DriftTest(unittest.TestCase):
+    def test_pr_mapped_by_scope_alone_appears_under_its_node(self):
+        f = Fixture({
+            "features/app/infrastructure.md": feature(
+                {"title": "Infrastructure", "code": ["src/model.rs"], "tests": []},
+                {"Behavior": "- Model. lgse/strata#5", "History": HISTORY}),
+            "scopes.yaml": "fallback: [app/infrastructure]\nscopes:\n  trash: operations/trash\n",
+        })
+        self.addCleanup(f.close)
+        tree, scopes = fm.load_tree(f.root), fm.load_scopes(f.root)
+        merged = "c" * 40
+        row = {"number": 20, "title": "fix(trash): share the model", "scope": "trash", "files": ["src/model.rs"],
+               "merge_commit": merged, "merged_at": "2026-10-01T00:00:00Z", "body": "## Description\n\nShares it."}
+        before = {"number": 19, "title": "fix: old", "scope": "trash", "files": ["src/model.rs"],
+                  "merge_commit": OLD_SHA, "merged_at": "2026-09-01T00:00:00Z"}
+        dataset = {20: row, 19: before}
+        stale = fm.stale_rows(tree, scopes, dataset, lambda sha: {merged})
+        self.assertEqual([r["number"] for r in stale["operations/trash"]], [20])
+        self.assertEqual([r["number"] for r in stale["app/infrastructure"]], [20])
+        self.assertNotIn("operations/trash/restore", stale)
+        report = fm.render_drift("lgse/strata", OLD_SHA, merged, 1, [(row, fm.assign(tree, scopes, row))],
+                                 stale, tree, scopes, [])
+        trash = report.split("### `operations/trash` ")[1].split("\n### ")[0]
+        self.assertIn("#### lgse/strata#20 · fix(trash): share the model · 2026-10-01\n\nHistory row here.", trash)
+        self.assertIn("> Shares it.", trash)
+        infra = report.split("### `app/infrastructure` ")[1].split("\n### ")[0]
+        self.assertIn("Touches this feature; its row belongs on `operations/trash`.", infra)
+        self.assertIn("## Triage\n\nNone.", report)
+
+
+class ScenarioCommandTest(unittest.TestCase):
+    def test_entries_become_scenario_names(self):
+        cases = [
+            (["tests/qa/scenarios/tabs/reopen-closed-tabs.jsonl"], "./scripts/qa.sh reopen-closed-tabs"),
+            (["tests/qa/scenarios/tabs"], "./scripts/qa.sh $(basename -a -s .jsonl tests/qa/scenarios/tabs/*.jsonl)"),
+            (["tests/qa/scenarios/terminal/**", "tests/qa/scenarios/tabs/"],
+             "./scripts/qa.sh $(basename -a -s .jsonl tests/qa/scenarios/tabs/*.jsonl "
+             "tests/qa/scenarios/terminal/*.jsonl)"),
+            (["tests/qa/scenarios/b/z.jsonl", "tests/qa/scenarios/a/y.jsonl", "tests/qa/scenarios/q/x-*.jsonl"],
+             "./scripts/qa.sh y z $(basename -a -s .jsonl tests/qa/scenarios/q/x-*.jsonl)"),
+            (["tests/qa/scenarios/**"], "./scripts/qa.sh $(basename -a -s .jsonl tests/qa/scenarios/*/*.jsonl)"),
+        ]
+        for entries, expected in cases:
+            with self.subTest(entries=entries):
+                self.assertEqual(fm.scenario_command(entries), expected)
+
+
+ISSUE_BODY = "## Problem\n\nTabs lose focus."
+COMMENT = {"author": "maintainer", "created_at": "2026-10-02T09:00:00Z", "body": "Confirmed."}
+
+# One merged PR as each API returns it; both must yield the same pr_row().
+GRAPHQL_PR = {
+    "number": 1900, "title": "fix(keyboard): preserve focus (#1900)", "body": "## Description\n\nKeeps focus.\n\nFixes #1880",
+    "mergedAt": "2026-10-26T10:00:00Z", "headRefOid": "a" * 40, "mergeCommit": {"oid": "b" * 40},
+    "author": {"login": "dependabot"}, "labels": {"nodes": [{"name": "bug"}]},
+    "files": {"pageInfo": {"hasNextPage": False, "endCursor": None},
+              "nodes": [{"path": "src/ui/b.rs"}, {"path": "src/ui/a.rs"}]},
+    "closingIssuesReferences": {"nodes": [{
+        "number": 1880, "title": "Focus lost", "state": "CLOSED", "body": ISSUE_BODY,
+        "repository": {"nameWithOwner": "lgse/strata"},
+        "comments": {"nodes": [{"author": {"login": "maintainer"}, "createdAt": COMMENT["created_at"],
+                                "body": "Confirmed."},
+                               {"author": None, "createdAt": "2026-10-03T09:00:00Z", "body": "Ghost."}]},
+    }]},
+}
+
+REST = {
+    "repos/lgse/strata/pulls/1900": {
+        "number": 1900, "title": GRAPHQL_PR["title"], "body": GRAPHQL_PR["body"], "state": "closed",
+        "merged_at": "2026-10-26T10:00:00Z", "merge_commit_sha": "b" * 40, "head": {"sha": "a" * 40},
+        "user": {"login": "dependabot[bot]", "type": "Bot"}, "labels": [{"name": "bug", "color": "red"}],
+    },
+    "repos/lgse/strata/pulls/1900/files?per_page=100": [{"filename": "src/ui/b.rs"}, {"filename": "src/ui/a.rs"}],
+    "repos/lgse/strata/issues/1880": {
+        "number": 1880, "title": "Focus lost", "state": "closed", "body": ISSUE_BODY,
+        "repository_url": "https://api.github.com/repos/lgse/strata",
+    },
+    "repos/lgse/strata/issues/1880/comments?per_page=100": [
+        {"user": {"login": "maintainer", "type": "User"}, "created_at": COMMENT["created_at"], "body": "Confirmed."},
+        {"user": None, "created_at": "2026-10-03T09:00:00Z", "body": "Ghost."},
+    ],
+}
+
+
+class FakeRest:
+    def __init__(self, payloads):
+        self.payloads, self.calls = payloads, []
+
+    def __call__(self, path, paginate=False):
+        self.calls.append((path, paginate))
+        if path not in self.payloads:
+            raise fm.NotFound(path)
+        return self.payloads[path]
+
+
+class GitHubTest(unittest.TestCase):
+    def patch(self, name, value):
+        original = getattr(fm, name)
+        setattr(fm, name, value)
+        self.addCleanup(setattr, fm, name, original)
+
+    def failing_graphql(self, *args, **kwargs):
+        raise fm.GraphQLError("gh api graphql failed: GraphQL is not available (HTTP 403)")
+
+    def test_rest_row_matches_graphql_row(self):
+        graphql_row = fm.pr_row(GRAPHQL_PR, [f["path"] for f in GRAPHQL_PR["files"]["nodes"]])
+        fake = FakeRest(REST)
+        self.patch("rest", fake)
+        self.assertEqual(fm.rest_pr("lgse/strata", 1900), graphql_row)
+        self.assertEqual(graphql_row["issues"][0]["state"], "CLOSED")
+        self.assertEqual(graphql_row["author"], "dependabot")
+        self.assertTrue(all(paginate for path, paginate in fake.calls if "files" in path or "comments" in path))
+
+    def test_fetch_prs_falls_back_to_rest_when_graphql_fails(self):
+        self.patch("graphql", self.failing_graphql)
+        self.patch("rest", FakeRest(REST))
+        rows = list(fm.fetch_prs("lgse/strata", [1900, 1901]))
+        self.assertEqual([r["number"] for r in rows], [1900])
+        self.assertEqual(rows[0], fm.pr_row(GRAPHQL_PR, ["src/ui/a.rs", "src/ui/b.rs"]))
+
+    def test_rest_is_forced_by_the_environment(self):
+        self.patch("graphql", lambda *a, **k: self.fail("GraphQL called while REST is forced"))
+        self.patch("rest", FakeRest(REST))
+        old = fm.os.environ.get(fm.REST_ENV)
+        fm.os.environ[fm.REST_ENV] = "1"
+        self.addCleanup(lambda: fm.os.environ.pop(fm.REST_ENV) if old is None else fm.os.environ.update({fm.REST_ENV: old}))
+        self.assertEqual([r["number"] for r in fm.fetch_prs("lgse/strata", [1900])], [1900])
+
+    def test_open_pr_has_no_merge_commit(self):
+        pr = dict(REST["repos/lgse/strata/pulls/1900"], merged_at=None, state="open")
+        self.assertIsNone(fm.rest_to_graphql(pr, [])["mergeCommit"])
+
+    def test_merged_pr_list_falls_back_to_rest_and_keeps_merged_only(self):
+        self.patch("graphql", self.failing_graphql)
+        fake = FakeRest({"repos/lgse/strata/pulls?state=closed&base=main&sort=created&direction=asc&per_page=100": [
+            {"number": 1, "merged_at": "2026-01-01T00:00:00Z"}, {"number": 2, "merged_at": None},
+            {"number": 3, "merged_at": "2026-01-03T00:00:00Z"}]})
+        self.patch("rest", fake)
+        self.assertEqual(fm.merged_pr_numbers("lgse/strata", "main"), [1, 3])
+        self.assertTrue(fake.calls[0][1])
+
+    def test_closing_refs_parse_keywords_and_skip_prs(self):
+        body = ("Closes #12, fixes: lgse/strata#3. Resolved https://github.com/other/repo/issues/7\n"
+                "Refs #99. prefix #98. CLOSES #12")
+        self.assertEqual(fm.closing_refs("lgse/strata", body),
+                         [("lgse/strata", 3), ("lgse/strata", 12), ("other/repo", 7)])
+        self.patch("rest", FakeRest({"repos/lgse/strata/issues/5": {"number": 5, "pull_request": {}}}))
+        self.assertIsNone(fm.rest_issue("lgse/strata", 5))
+        self.assertIsNone(fm.rest_issue("lgse/strata", 6))
+
+    def test_rest_paginates_and_flattens_pages(self):
+        calls = []
+
+        def run(args, **kwargs):
+            calls.append(args)
+            if args[2] == "repos/x/y/pulls/9":
+                return fm.subprocess.CompletedProcess(args, 1, "", "gh: Not Found (HTTP 404)")
+            return fm.subprocess.CompletedProcess(args, 0, json.dumps([[{"n": 1}], [{"n": 2}]]), "")
+
+        self.patch("subprocess", type("S", (), {"run": staticmethod(run), "CompletedProcess": fm.subprocess.CompletedProcess}))
+        self.assertEqual(fm.rest("repos/x/y/pulls?state=closed", paginate=True), [{"n": 1}, {"n": 2}])
+        self.assertEqual(calls[0][-2:], ["--paginate", "--slurp"])
+        with self.assertRaises(fm.NotFound):
+            fm.rest("repos/x/y/pulls/9")
 
 
 class ParsingTest(unittest.TestCase):

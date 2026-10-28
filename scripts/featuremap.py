@@ -41,7 +41,8 @@ SWEEP_SECTIONS = ("Scope", "Setup", "Probes", "Hand-offs")
 SWEEP_REQUIRED = ("title", "reviewed_at")
 SWEEP_OPTIONAL = ("triggers", "tools")
 HANDOFF_RE = re.compile(r"^(.+?)\s*→\s*`([a-z][a-z0-9-]*)`\.?$")
-E2E_PREFIX = "tests/e2e/"
+SCENARIO_PREFIX = "tests/qa/scenarios/"
+SCENARIO_SUFFIX = ".jsonl"
 TIERS = {1: "family", 2: "related", 3: "inbound related"}
 SITE_TIERS = ("guide", "reference")
 SITE_SRC = "site/src"
@@ -1193,9 +1194,9 @@ def inherited_docs(tree: Tree, node_id: str) -> list[str]:
     return [d for a in tree.ancestors(node_id) for d in tree.nodes[a].listed("docs")]
 
 
-def e2e_entries(tree: Tree, node_id: str, subtree: bool = False) -> list[str]:
+def scenario_entries(tree: Tree, node_id: str, subtree: bool = False) -> list[str]:
     ids = tree.subtree(node_id) if subtree else [node_id]
-    return sorted({t for n in ids for t in tree.nodes[n].listed("tests") if t.startswith(E2E_PREFIX)})
+    return sorted({t for n in ids for t in tree.nodes[n].listed("tests") if t.startswith(SCENARIO_PREFIX)})
 
 
 def changes_since(tree: Tree, node_id: str, dataset: dict[int, dict]) -> str:
@@ -1392,27 +1393,27 @@ def render_qa(tree: Tree, sweeps: Sweeps, repo: str) -> str:
             lines.append("- Hand-offs: " + "; ".join(f"{what} → [`{t}`](../qa/sweeps/{t}.md)" for what, t in sweep.handoffs))
         if lines:
             out += [""] + lines
-        out += ["", "| Node | Probes | E2E scenarios | Other tests | Docs |", "| --- | --- | --- | --- | --- |"]
+        out += ["", "| Node | Probes | QA scenarios | Other tests | Docs |", "| --- | --- | --- | --- | --- |"]
         for node_id in nodes:
             node = tree.nodes[node_id]
             node_sha = node.reviewed_at()
             indent = "&emsp;" * (node.depth - 3) + "↳ " if node.depth > 2 else ""
-            e2e = [path_link(repo, node_sha, t) for t in node.listed("tests") if t.startswith(E2E_PREFIX)]
-            other = len(node.listed("tests")) - len(e2e)
+            scenarios = [path_link(repo, node_sha, t) for t in node.listed("tests") if t.startswith(SCENARIO_PREFIX)]
+            other = len(node.listed("tests")) - len(scenarios)
             docs = [path_link(repo, node_sha, d) for d in node.listed("docs")]
             docs += [path_link(repo, node_sha, d) + " (inherited)" for d in inherited_docs(tree, node_id)]
             out.append(
                 f"| {indent}{node_link(tree, node_id, '../')} `{node_id}` | {len(sweep.probes.get(node_id, []))} | "
-                f"{', '.join(e2e) or '—'} | {other} | {', '.join(docs) or '—'} |"
+                f"{', '.join(scenarios) or '—'} | {other} | {', '.join(docs) or '—'} |"
             )
     unprobed = [n for n in tree.ordered() if not (sweeps.sweeps.get(n.split("/")[0]) or Sweep("", "", {}, {})).probes.get(n)]
     out += ["", f"## Nodes without probes ({len(unprobed)})", "",
             "Their Behavior bullets are the whole checklist."]
     out += [""] + [f"- {node_link(tree, n, '../')} `{n}`" for n in unprobed] if unprobed else ["", "None."]
-    no_e2e = [n for n in tree.ordered() if not e2e_entries(tree, n, subtree=True)]
-    out += ["", f"## Nodes without E2E scenarios ({len(no_e2e)})", "",
-            "Neither the node nor its subtree cites a `tests/e2e/` scenario, so QA here is manual or Rust-level."]
-    out += [""] + [f"- {node_link(tree, n, '../')} `{n}`" for n in no_e2e] if no_e2e else ["", "None."]
+    unscripted = [n for n in tree.ordered() if not scenario_entries(tree, n, subtree=True)]
+    out += ["", f"## Nodes without QA scenarios ({len(unscripted)})", "",
+            f"Neither the node nor its subtree cites a `{SCENARIO_PREFIX}` scenario, so QA here is manual or Rust-level."]
+    out += [""] + [f"- {node_link(tree, n, '../')} `{n}`" for n in unscripted] if unscripted else ["", "None."]
     return "\n".join(out) + "\n"
 
 
@@ -1547,7 +1548,34 @@ query($owner: String!, $name: String!, $number: Int!, $cursor: String) {
 }"""
 
 
-def graphql(query: str, **variables: object) -> dict:
+REST_ENV = "FEATUREMAP_REST"
+CLOSING_RE = re.compile(
+    r"\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s*:?\s+"
+    r"(?:https://github\.com/([\w.-]+/[\w.-]+)/issues/|([\w.-]+/[\w.-]+)?#)(\d+)\b",
+    re.I,
+)
+MAX_CLOSING = 10
+
+
+class GraphQLError(Exception):
+    """`gh api graphql` failed; the caller falls back to REST."""
+
+
+class NotFound(Exception):
+    """A REST resource answered 404."""
+
+
+def rest_forced() -> bool:
+    """`FEATUREMAP_REST=1` skips GraphQL, for sessions that block it and to exercise the fallback."""
+    return os.environ.get(REST_ENV, "") not in ("", "0")
+
+
+def fallback_note(error: Exception) -> None:
+    print(f"{error}; falling back to the REST API", file=sys.stderr)
+
+
+def graphql(query: str, missing_ok: bool = False, **variables: object) -> dict:
+    """`missing_ok` returns partial data when every error is NOT_FOUND, such as an issue number asked for as a PR."""
     args = ["gh", "api", "graphql", "-f", f"query={query}"]
     for key, value in variables.items():
         args += ["-F" if isinstance(value, int) else "-f", f"{key}={value}"]
@@ -1555,13 +1583,38 @@ def graphql(query: str, **variables: object) -> dict:
     try:
         data = json.loads(result.stdout)
     except json.JSONDecodeError:
-        raise SystemExit(f"gh api graphql failed: {result.stderr.strip()}")
-    if result.returncode or data.get("errors"):
-        raise SystemExit(f"gh api graphql failed: {data.get('errors') or result.stderr.strip()}")
+        raise GraphQLError(f"gh api graphql failed: {result.stderr.strip()}")
+    errors = data.get("errors") or []
+    if missing_ok and errors and data.get("data") and all(e.get("type") == "NOT_FOUND" for e in errors):
+        return data["data"]
+    if result.returncode or errors:
+        raise GraphQLError(f"gh api graphql failed: {data.get('errors') or result.stderr.strip()}")
     return data["data"]
 
 
+def rest(path: str, paginate: bool = False) -> object:
+    """`gh api <path>`; with `paginate`, every page of a list endpoint joined into one list."""
+    args = ["gh", "api", path] + (["--paginate", "--slurp"] if paginate else [])
+    result = subprocess.run(args, capture_output=True, text=True)
+    if result.returncode:
+        if "HTTP 404" in result.stderr:
+            raise NotFound(path)
+        raise SystemExit(f"gh api {path} failed: {result.stderr.strip()}")
+    data = json.loads(result.stdout)
+    return [item for page in data for item in page] if paginate else data
+
+
 def merged_pr_numbers(repo: str, branch: str) -> list[int]:
+    if rest_forced():
+        return rest_merged_pr_numbers(repo, branch)
+    try:
+        return graphql_merged_pr_numbers(repo, branch)
+    except GraphQLError as e:
+        fallback_note(e)
+        return rest_merged_pr_numbers(repo, branch)
+
+
+def graphql_merged_pr_numbers(repo: str, branch: str) -> list[int]:
     owner, name = repo.split("/")
     numbers: list[int] = []
     cursor = None
@@ -1574,29 +1627,120 @@ def merged_pr_numbers(repo: str, branch: str) -> list[int]:
         cursor = page["pageInfo"]["endCursor"]
 
 
+def rest_merged_pr_numbers(repo: str, branch: str) -> list[int]:
+    query = urllib.parse.urlencode({"state": "closed", "base": branch, "sort": "created", "direction": "asc",
+                                    "per_page": 100})
+    pulls = rest(f"repos/{repo}/pulls?{query}", paginate=True)
+    return [pr["number"] for pr in pulls if pr.get("merged_at")]
+
+
 def fetch_prs(repo: str, numbers: list[int], batch: int = 10):
-    owner, name = repo.split("/")
+    """`pr_row()` for each PR that exists, through GraphQL, or REST once GraphQL fails or is forced off."""
+    use_rest = rest_forced()
     for start in range(0, len(numbers), batch):
         chunk = numbers[start : start + batch]
-        aliases = " ".join(f"pr{n}: pullRequest(number: {n}) {{ ...F }}" for n in chunk)
-        query = (
-            f"query($owner: String!, $name: String!) {{ repository(owner: $owner, name: $name) {{ {aliases} }} }}"
-            f" fragment F on PullRequest {{ {PR_FIELDS} }}"
-        )
-        data = graphql(query, owner=owner, name=name)["repository"]
-        for number in chunk:
-            pr = data.get(f"pr{number}")
-            if pr is None:
-                continue
-            files = [f["path"] for f in pr["files"]["nodes"]]
-            page = pr["files"]["pageInfo"]
-            while page["hasNextPage"]:
-                more = graphql(FILES_QUERY, owner=owner, name=name, number=number, cursor=page["endCursor"])
-                more = more["repository"]["pullRequest"]["files"]
-                files += [f["path"] for f in more["nodes"]]
-                page = more["pageInfo"]
-            yield pr_row(pr, files)
+        rows: list[dict] = []
+        if not use_rest:
+            try:
+                rows = list(graphql_prs(repo, chunk))
+            except GraphQLError as e:
+                fallback_note(e)
+                use_rest = True
+        if use_rest:
+            rows = [row for n in chunk if (row := rest_pr(repo, n)) is not None]
+        yield from rows
         print(f"fetched {min(start + batch, len(numbers))}/{len(numbers)} PRs", file=sys.stderr)
+
+
+def graphql_prs(repo: str, chunk: list[int]):
+    owner, name = repo.split("/")
+    aliases = " ".join(f"pr{n}: pullRequest(number: {n}) {{ ...F }}" for n in chunk)
+    query = (
+        f"query($owner: String!, $name: String!) {{ repository(owner: $owner, name: $name) {{ {aliases} }} }}"
+        f" fragment F on PullRequest {{ {PR_FIELDS} }}"
+    )
+    data = graphql(query, missing_ok=True, owner=owner, name=name)["repository"]
+    for number in chunk:
+        pr = data.get(f"pr{number}")
+        if pr is None:
+            continue
+        files = [f["path"] for f in pr["files"]["nodes"]]
+        page = pr["files"]["pageInfo"]
+        while page["hasNextPage"]:
+            more = graphql(FILES_QUERY, owner=owner, name=name, number=number, cursor=page["endCursor"])
+            more = more["repository"]["pullRequest"]["files"]
+            files += [f["path"] for f in more["nodes"]]
+            page = more["pageInfo"]
+        yield pr_row(pr, files)
+
+
+def rest_login(user: dict | None) -> str | None:
+    """REST names apps `dependabot[bot]`; GraphQL, whose rows the dataset holds, names them `dependabot`."""
+    if not user:
+        return None
+    login = user.get("login")
+    if user.get("type") == "Bot" and isinstance(login, str):
+        return login.removesuffix("[bot]")
+    return login
+
+
+def closing_refs(repo: str, body: str) -> list[tuple[str, int]]:
+    """Issues a PR body closes with `Closes/Fixes/Resolves` and `#n`, `owner/repo#n`, or an issue URL.
+
+    Sorted by number, the order GraphQL's `closingIssuesReferences` returns."""
+    refs = {(m.group(1) or m.group(2) or repo, int(m.group(3))) for m in CLOSING_RE.finditer(body or "")}
+    return sorted(refs, key=lambda ref: (ref[0].lower(), ref[1]))[:MAX_CLOSING]
+
+
+def rest_issue(repo: str, number: int) -> dict | None:
+    """One closing issue in GraphQL's shape, or None when it is missing or is a PR."""
+    try:
+        issue = rest(f"repos/{repo}/issues/{number}")
+    except NotFound:
+        return None
+    if "pull_request" in issue:
+        return None
+    comments = rest(f"repos/{repo}/issues/{number}/comments?per_page=100", paginate=True)
+    return {
+        "number": issue["number"],
+        "title": issue["title"],
+        "state": issue["state"].upper(),
+        "body": issue.get("body"),
+        "repository": {"nameWithOwner": issue.get("repository_url", "").partition("/repos/")[2] or repo},
+        "comments": {"nodes": [
+            {"author": {"login": rest_login(c.get("user"))} if c.get("user") else None,
+             "createdAt": c["created_at"], "body": c.get("body") or ""}
+            for c in comments
+        ]},
+    }
+
+
+def rest_pr(repo: str, number: int) -> dict | None:
+    """`pr_row()` built from the REST API, or None when the PR does not exist."""
+    try:
+        pr = rest(f"repos/{repo}/pulls/{number}")
+    except NotFound:
+        return None
+    files = [f["filename"] for f in rest(f"repos/{repo}/pulls/{number}/files?per_page=100", paginate=True)]
+    issues = [i for r, n in closing_refs(repo, pr.get("body") or "") if (i := rest_issue(r, n)) is not None]
+    return pr_row(rest_to_graphql(pr, issues), files)
+
+
+def rest_to_graphql(pr: dict, issues: list[dict]) -> dict:
+    """A REST pull request in the GraphQL shape `pr_row()` reads."""
+    login = rest_login(pr.get("user"))
+    return {
+        "number": pr["number"],
+        "title": pr["title"],
+        "body": pr.get("body"),
+        "mergedAt": pr.get("merged_at"),
+        "headRefOid": (pr.get("head") or {}).get("sha"),
+        # REST also reports a test merge commit for open PRs; GraphQL has none until the PR merges.
+        "mergeCommit": {"oid": pr["merge_commit_sha"]} if pr.get("merged_at") and pr.get("merge_commit_sha") else None,
+        "author": {"login": login} if login else None,
+        "labels": {"nodes": [{"name": label["name"]} for label in pr.get("labels") or []]},
+        "closingIssuesReferences": {"nodes": issues},
+    }
 
 
 def pr_row(pr: dict, files: list[str]) -> dict:
@@ -1649,6 +1793,39 @@ def pr_section(body: str, name: str) -> str:
         return ""
     end = re.compile(rf"^#{{1,{len(m.group(1))}}}\s", re.M).search(body, m.end())
     return re.sub(r"\n{3,}", "\n\n", body[m.end() : end.start() if end else len(body)]).strip()
+
+
+def stale_rows(tree: Tree, scopes: Scopes, dataset: dict[int, dict], since) -> dict[str, list[dict]]:
+    """Node id -> PRs merged after its `reviewed_at` that touch its paths or that `assign` gives it.
+
+    `since(sha)` returns the first-parent merge commits from `sha` to head. The second clause keeps a PR mapped
+    by scope alone, or to a parent whose own paths it misses, under the node that takes its History row."""
+    ranges: dict[str, set[str]] = {}
+    stale: dict[str, list[dict]] = {}
+    for node_id, node in tree.nodes.items():
+        sha = node.reviewed_at()
+        if sha is None:
+            continue
+        if sha not in ranges:
+            ranges[sha] = since(sha)
+        rows = [
+            row
+            for row in dataset.values()
+            if row.get("merge_commit") in ranges[sha]
+            and any(matches(p, f) for f in row.get("files") or [] for p in node.patterns())
+        ]
+        if rows:
+            stale[node_id] = rows
+    reached = set().union(*ranges.values())
+    for row in dataset.values():
+        if row.get("merge_commit") not in reached:
+            continue
+        target = assign(tree, scopes, row).node
+        sha = tree.nodes[target].reviewed_at() if target in tree.nodes else None
+        listed = {r["number"] for r in stale.get(target, [])}
+        if sha and row.get("merge_commit") in ranges[sha] and row["number"] not in listed:
+            stale.setdefault(target, []).append(row)
+    return stale
 
 
 def quote(text: str) -> list[str]:
@@ -1792,14 +1969,35 @@ def demote(text: str) -> list[str]:
     return [f"**{line[4:].strip()}**" if line.startswith("### ") else line for line in text.splitlines()]
 
 
+def scenario_command(entries: list[str]) -> str:
+    """`./scripts/qa.sh` with scenario names: a `.jsonl` entry is one name, a folder or glob every scenario in it.
+
+    Scenarios live one folder deep, `tests/qa/scenarios/<folder>/<name>.jsonl`, and `qa.sh` takes their names."""
+    names, globs = set(), set()
+    for entry in entries:
+        wild = any(c in entry for c in "*?")
+        if entry.endswith(SCENARIO_SUFFIX):
+            if wild:
+                globs.add(entry)
+            else:
+                names.add(entry.rsplit("/", 1)[-1][: -len(SCENARIO_SUFFIX)])
+            continue
+        folder = re.sub(r"(?:/\*\*?)+$", "", entry.rstrip("/"))
+        globs.add(folder + ("/*" if folder == SCENARIO_PREFIX.rstrip("/") else "") + "/*" + SCENARIO_SUFFIX)
+    args = sorted(names)
+    if globs:
+        args.append(f"$(basename -a -s {SCENARIO_SUFFIX} {' '.join(sorted(globs))})")
+    return "./scripts/qa.sh " + " ".join(args)
+
+
 def run_lines(tree: Tree, nodes: list[str]) -> list[str]:
     tests = sorted({t for n in nodes for t in tree.nodes[n].listed("tests")})
-    e2e = [t for t in tests if t.startswith(E2E_PREFIX)]
+    scenarios = [t for t in tests if t.startswith(SCENARIO_PREFIX)]
     rust = sorted({f for t in tests if (f := rust_filter(t))})
-    rest = [t for t in tests if not t.startswith(E2E_PREFIX) and rust_filter(t) is None]
+    rest = [t for t in tests if not t.startswith(SCENARIO_PREFIX) and rust_filter(t) is None]
     out = []
-    if e2e:
-        out.append("- `./scripts/e2e.sh " + " ".join(e2e) + "`")
+    if scenarios:
+        out.append(f"- `{scenario_command(scenarios)}` (runs in the pinned container)")
     if rust:
         filters = rust[0] if len(rust) == 1 else "-- " + " ".join(rust)
         out.append(f"- `./scripts/test-headless.py {filters}` (confirm the filter collected tests)")
@@ -1983,22 +2181,7 @@ def cmd_drift(args: argparse.Namespace) -> int:
     if missing:
         collect(root, repo, missing, dataset)
     new_prs = [(dataset[n], assign(tree, scopes, dataset[n])) for n in sorted(numbers) if n in dataset]
-    stale: dict[str, list[dict]] = {}
-    ranges: dict[str, set[str]] = {}
-    for node_id, node in tree.nodes.items():
-        sha = node.reviewed_at()
-        if sha is None:
-            continue
-        if sha not in ranges:
-            ranges[sha] = upstream.commits(sha, head)
-        rows = [
-            row
-            for row in dataset.values()
-            if row.get("merge_commit") in ranges[sha]
-            and any(matches(p, f) for f in row.get("files") or [] for p in node.patterns())
-        ]
-        if rows:
-            stale[node_id] = rows
+    stale = stale_rows(tree, scopes, dataset, lambda sha: upstream.commits(sha, head))
     report = render_drift(repo, base, head, len(commits), new_prs, stale, tree, scopes, direct)
     if args.out:
         args.out.write_text(report)

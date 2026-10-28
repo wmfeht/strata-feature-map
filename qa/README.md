@@ -51,20 +51,20 @@ scripts/featuremap.py qa --node operations/trash/restore
 
 ## Cross-cutting changes
 
-Run a full sweep, not a targeted one, when a PR touches `tests/e2e/harness/**`, `scripts/e2e*`, `Cargo.toml`, `Cargo.lock`, `.github/**`, or primary nodes in more than two areas. The plan's "Unmapped changes" line lists files no node or trigger owns; read those files before deciding the radius is complete.
+Run a full sweep, not a targeted one, when a PR touches the QA runner (`tests/qa.rs`, `tests/qa/*.rs`, `tests/fixtures/harness.json`, `tests/container/**`, `scripts/qa*.sh`, `scripts/lib/qa-container.sh`), `Cargo.toml`, `Cargo.lock`, `.github/**`, or primary nodes in more than two areas. The plan's "Unmapped changes" line lists files no node or trigger owns; read those files before deciding the radius is complete.
 
 ## Environment
 
-Strata's own rules apply: `AGENTS.md` and `docs/e2e-testing.md` in the Strata checkout. The points that matter most for a sweep:
+Strata's own rules apply: `AGENTS.md` and `docs/testing.md` in the Strata checkout. The points that matter most for a sweep:
 
 - **Worktree per PR.** `git -C <strata> fetch https://github.com/lgse/strata.git pull/<n>/head:qa-<n> && git -C <strata> worktree add ../strata-qa-<n> qa-<n>`. Merge the latest `main` into it before building if the PR is stale. Remove the worktree when the report is done.
 - **Build once.** `mise run build` or `cargo build` in the worktree. Note the binary path and the exact commit in the report.
 - **Private display and bus.** Every GUI check runs on a private Xvfb and a private D-Bus session with inherited display variables cleared. The user's desktop and session bus are never used. A missing isolated display stops the run; it is never a reason to fall back.
-- **Throwaway HOME.** Launch `strata <fixture dir>` with `HOME` and the `XDG_*` directories pointed at a temporary directory so preferences start at their defaults and real Trash is never touched. `tests/e2e/harness/environment.py` lists the variables the E2E suite sets, including `GIO_USE_VFS=local` and `GSETTINGS_BACKEND=memory`; copy them. Preferences live in `$XDG_CONFIG_HOME/strata/settings.toml`.
-- **Drive through accessibility.** Discover and read state over AT-SPI and send input with XTEST, the way `tests/e2e/harness/browser.py`, `interaction.py`, and `xtest.py` do. `~/dev/strata-mcp-harness` wraps the same harness for exploratory driving. Ad-hoc scripts stay in `/tmp`.
-- **Fixtures.** `tests/e2e/harness/fixtures.py` builds the standard tree; `scripts/generate-fixture.sh` builds large ones. Use disposable fixtures only.
+- **Throwaway HOME.** Launch `strata <fixture dir>` with `HOME` and the `XDG_*` directories pointed at a temporary directory so preferences start at their defaults and real Trash is never touched. The `environment` block of `tests/fixtures/harness.json` lists the variables the QA runner sets, including `GIO_USE_VFS=local` and `GSETTINGS_BACKEND=memory`; copy them. Preferences live in `$XDG_CONFIG_HOME/strata/settings.toml`.
+- **Drive a session.** `./scripts/qa-drive.sh` keeps one `strata --qa` session open in the pinned container with its own Xvfb, bus, HOME, and fixture: `start`, `send` JSON commands, `screenshot`, `exec`, `log`, `stop`. Commands send real XTEST input and read state by the names `src/ui/accessibility.rs` sets. "Driving a session by hand" in `docs/testing.md` lists them. It shares `./scripts/qa.sh`'s build cache, so never run the two at once. Ad-hoc scripts stay in `/tmp`.
+- **Fixtures.** `tests/fixtures/harness.json` defines the standard `canonical` tree, which `qa-drive.sh start --tree` takes; `scripts/generate-fixture.sh` builds large ones. Use disposable fixtures only.
 - **Evidence.** Screenshots with ImageMagick `import` on the private display, the app log with `RUST_LOG` set, and the exact commands run. Store them next to the report.
-- **Automation as evidence.** Run the E2E and Rust commands the plan prints. `./scripts/e2e.sh <scenario paths>` runs in the pinned container; `./scripts/test-headless.py <filter>` runs Rust tests on a private display. Confirm the selection collected tests. Automation never replaces the probes.
+- **Automation as evidence.** Run the QA scenario and Rust commands the plan prints. `./scripts/qa.sh <scenario names>` runs `tests/qa/scenarios` in the pinned container; `./scripts/test-headless.py <filter>` runs Rust tests on a private display. Confirm the selection collected tests. Automation never replaces the probes.
 
 ## Probing style
 
@@ -135,4 +135,4 @@ Agents never file issues, comment on PRs, or change the PR. A person does that w
 
 ## Keeping this current
 
-`AGENTS.md` holds the rules. In short: a sweep owns its area by directory, so new nodes are covered without an edit; a changed Behavior means re-reading that node's probes and moving the sweep's `reviewed_at`; `check` fails on an area without a sweep, a probe heading that is not a node, a hand-off to a sweep that does not exist, or a trigger or tool that is missing upstream; `index/qa.md` lists nodes without probes and nodes without E2E scenarios.
+`AGENTS.md` holds the rules. In short: a sweep owns its area by directory, so new nodes are covered without an edit; a changed Behavior means re-reading that node's probes and moving the sweep's `reviewed_at`; `check` fails on an area without a sweep, a probe heading that is not a node, a hand-off to a sweep that does not exist, or a trigger or tool that is missing upstream; `index/qa.md` lists nodes without probes and nodes without QA scenarios.
