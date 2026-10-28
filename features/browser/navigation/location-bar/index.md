@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: []
-tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, tests/qa/mutations/location-entry.patch]
+tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/mutations/location-entry.patch]
 related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility]
 ---
 
@@ -26,7 +26,6 @@ The header control that shows the active location as breadcrumbs and switches to
 - The entry and its buttons have the accessible names "Location (Ctrl+L)", "Navigate (Enter)", and "Cancel (Escape)". lgse/strata#1132
 - While the entry has focus, Ctrl+K and Ctrl+1–3 reach the entry instead of opening search or switching view mode. lgse/strata#914
 - A location that cannot be opened shows an "Unable to open location" dialog and the breadcrumbs return to the current path. lgse/strata#1206 (unverified)
-- Opening a folder Strata may not read shows an "Unable to open directory" dialog saying you do not have permission. lgse/strata#1807 (unverified)
 - Escape cancels the edit even while suggestions are showing, closing the popover with it. lgse/strata#1206 (unverified)
 - Closing and reopening the editor shows no stale or flashing suggestion list. lgse/strata#1206
 - A folder load that ends while the entry is open and focused, as in a new tab, leaves the entry open with its text. lgse/strata#1729

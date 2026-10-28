@@ -13,7 +13,7 @@ related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/p
 
 ## Summary
 
-The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places and open them in new tabs. They reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders stored in the GTK bookmarks file, with drag-to-pin as its child), `browser/sidebar/rail` (stepping the panel between full, icon rail, and hidden), and `browser/sidebar/connect-to-server` (the Network row's Connect to server dialog). Which devices DEVICES lists, and when, belongs to `devices/volumes`.
+The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places and open them in new tabs. They reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders in the GTK bookmarks file, with drag-to-pin as its child) and `browser/sidebar/rail` (full, icon rail, or hidden). A third child, `browser/sidebar/connect-to-server`, is the Network row's Connect to server dialog. Which devices DEVICES lists, and when, belongs to `devices/volumes`.
 
 ## Behavior
 
@@ -32,6 +32,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 ### Visibility
 
+- The sidebar shows Recent only when GTK recent files are enabled, GIO supports `recent://`, and "Show Recent in sidebar" is on. lgse/strata#1083
 - Settings → General → Sidebar has one chip per built-in place; turning a chip off hides that place in every open window and survives a restart. lgse/strata#1025, lgse/strata#1342
 - Hiding a built-in place leaves pins and devices unchanged. lgse/strata#1025
 - Right-clicking Home, Network, or a standard folder offers Unpin and Properties; Unpin hides the place and turns its chip off. lgse/strata#1025

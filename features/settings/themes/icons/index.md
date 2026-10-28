@@ -77,7 +77,6 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 | 2026-10-20 | lgse/strata#1778 | fix | Drew dropdown arrows and spin-button steps from bundled Lucide icons. Their shape no longer changes with the desktop icon theme. |
 | 2026-10-15 | lgse/strata#1675 | perf | Checked the icon texture cache before loading and recoloring an icon's SVG source. |
 | 2026-10-12 | lgse/strata#1589 | fix | Redrew video as a clapperboard and archives as a folder-archive, and mapped 10 more video and 8 more archive extensions. |
-| 2026-10-12 | lgse/strata#1588 | feat | Replaced the language glyphs with Catppuccin file icons in Mocha and Latte flavors and added a File icon colors preference. |
 | 2026-10-10 | lgse/strata#1561 | fix | Outlined the language glyphs at folder stroke weight in padded view boxes and replaced the custom Java glyph with Devicon's. |
 | 2026-10-08 | lgse/strata#1529 | feat | Added 42 accent-tinted language glyphs and used the same icons in search results. |
 | 2026-10-05 | lgse/strata#1416 | feat | Mapped more file types to Lucide icons and thinned Icons-view outlines at large sizes. |

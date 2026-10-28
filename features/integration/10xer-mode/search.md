@@ -67,7 +67,6 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - Without an `s` hit under the cursor, `g f` flashes `Nothing to reveal` and stays put. lgse/strata#1297 (unverified)
 - `i` on a directory hit opens an unfocused column or folder peek, and on a file hit toggles the preview. lgse/strata#1297
 - In List and Columns, `h` dismisses the search unless a preview owns the keys. lgse/strata#1297
-- With hits filled by Space or `v`/`V`, a cancelled dialog, Tab-in, or closing Quick Look returns focus to the cursor's hit. This holds when the hit is unfilled, and the fill is unchanged. lgse/strata#1611 (unverified)
 
 ### Focus return to results
 
@@ -79,6 +78,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - With several results selected and GTK's row unselected, focus goes to the last selected result in list order. lgse/strata#1611 (unverified)
 - Closing Quick Look over results returns focus to the cursor's result by the same rule. lgse/strata#1611
 - While a result is being renamed, a focus return leaves focus in the rename field. lgse/strata#1611
+- With hits filled by Space or `v`/`V`, a focus return lands on the cursor's hit, even an unfilled one. The fill is unchanged. lgse/strata#1611 (unverified)
 
 ## Design
 

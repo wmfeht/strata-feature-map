@@ -24,6 +24,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 - Items that fail validation are left out of the confirmation, which lists their names and reasons below the valid items. lgse/strata#502 (unverified)
 - When every selected item fails validation, an "Unable to restore" dialog lists the reasons and no confirmation appears. lgse/strata#502 (unverified)
 - A destination lookup that stalls for 2 seconds fails with "Timed out looking up the original location". lgse/strata#502 (unverified)
+- A timed-out lookup frees its slot for the next one while its blocking worker keeps running. More than 8 lookups can then be in flight. lgse/strata#733 (unverified)
 
 ### Destination validation
 

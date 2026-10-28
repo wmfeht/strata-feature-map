@@ -89,6 +89,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - With 2 of 5 items selected, the count's accessible description reads "2 of 5 items selected. Size includes selected files only; folder contents are not counted." lgse/strata#1034, lgse/strata#1519 (unverified)
 - With a selection, the count shows a folder and file breakdown with the selected files' total size, such as "1 folder, 2 files selected (64 MB)"; folder contents are not counted. lgse/strata#1034
 - When some selected file sizes are unknown the size reads "(3 B known; size incomplete)", and when none are known "(size unavailable)". lgse/strata#1034
+- With a file symlink selected, the selection size counts its target's size, as the size column shows it. lgse/strata#1034, lgse/strata#1880 (unverified)
 - Selecting every item shows the folder and file breakdown without a size, such as "1 folder, 2 files selected". lgse/strata#1266 (unverified)
 - Selecting more than 64 items, but not all, shows "N items selected" without a size. lgse/strata#1266 (unverified)
 - An empty folder shows "0 items", and clearing the selection restores the directory total. lgse/strata#1034
@@ -138,4 +139,4 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ## Known gaps
 
-- The footer's selection size adds a selected file symlink's target size, not the link's own size; the fix for the delete prompt kept followed browser metadata. lgse/strata#1880
+None known.

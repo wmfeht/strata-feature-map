@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
 docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md, docs/keyboard-navigation.md]
-related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling, browser/sidebar, browser/selection, browser/selection/keyboard-navigation]
+related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling, browser/sidebar, browser/selection, browser/selection/keyboard-navigation, browser/navigation/startup-arguments]
 ---
 
 ## Summary
@@ -53,8 +53,6 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - In the portal file chooser with 10xer mode on, Ctrl+Enter on a folder still chooses it and opens no tab. lgse/strata#1543
 - A folder opened in a new tab gets a new tab at the right end of the strip. The tab is selected, then navigated there. lgse/strata#1543 (unverified)
 - A new window opened for a folder opens at the default size on that folder. lgse/strata#1543 (unverified)
-- A target still unresolved after 1 s shows "Connecting to location…" in the new tab or window. lgse/strata#1543 (unverified)
-- A missing or unreachable target then shows the location-unavailable overlay with Retry; a missing local folder shows it at once. lgse/strata#1543 (unverified)
 - While a modal dialog is open, opening a folder in a new tab does nothing. lgse/strata#1543 (unverified)
 
 ### Switching
@@ -118,7 +116,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Selecting a tab scrolls it into view. lgse/strata#1484
 - Selecting the last tab also scrolls the New tab button into view. lgse/strata#1484 (unverified)
 - Hovering an inactive tab accents its label; its X turns accent only while the pointer is over the X itself. lgse/strata#1484
-- Assistive technologies read the strip as a tab list named "Tabs", each tab by its name with the active one selected, and each X as "Close tab". lgse/strata#1484 (unverified)
+- Assistive technologies read the strip as a tab list named "Tabs", and each X as "Close tab". Each tab reads as its name, with the active one selected. lgse/strata#1484 (unverified)
 
 ### Tab names
 

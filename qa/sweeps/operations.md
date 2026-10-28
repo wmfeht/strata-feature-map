@@ -73,7 +73,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Paste an image copied from a browser, and paste into a read-only folder.
 - Move to… and Copy to…: reach the destination through the dialog's search, pick Trash, pick a remote location, and pick the source folder itself.
 - On the ntfs-3g mount, copy a folder and cancel the moment the progress bar fills; list the destination's parent with `ls -la`.
-- Drag a multi-selection onto another device in List and Icons, dismiss the Copy or move? prompt with Escape and with a click outside it, then press Down.
+- Drag a multi-selection onto another device in List and Icons. Dismiss the Copy or move? prompt with Escape and with a click outside it, then press Down.
+- Drop onto another device from a Ctrl+F result and from the preview header, then answer the Copy or move? prompt by keyboard.
 
 ### operations/clipboard/conflicts
 
@@ -103,10 +104,10 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/drag-and-drop/copy-or-move
 
-- Drop from `/dev/shm` to home and back under each preference value; cancel the ask dialog and check the source is untouched.
+- Drop from `/dev/shm` to home and back under each preference value.
 - Drop between two folders on a bind-mounted path to see which device the detection reports.
 - Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device. Mount or unmount a device while hovering.
-- Drop onto another device from a Ctrl+F result and from the preview header, then answer the prompt by keyboard.
+- Drop onto another device from a Ctrl+F result and from the preview header under Always copy and Always move.
 
 ### operations/filesystem-compatibility
 
@@ -152,13 +153,12 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
 - Delete in a read-only tmpfs mount.
 - Open and Delete in folders whose first listed entry is a dangling symlink, or a symlink into a stalled or unmounted network mount.
-- Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
 - Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
 - Drop a link to a folder on a stalled or unmounted network mount onto the sidebar Trash row.
 - At corner roundness 0 and 200, open the Shift+Delete, no-Trash, "Move N items to Trash?", and Restore dialogs with one item and with enough items to scroll; scroll to each end.
-- In the deletion confirmations: Escape, backdrop click, Enter, and Tab order, both after Shift+Delete and after Delete in `/dev/shm`.
+- In the Shift+Delete and `/dev/shm` no-Trash confirmations: Escape, backdrop click, Enter, and Tab order; confirm the payload still exists on disk.
 - Dismiss the Shift+Delete confirmation by backdrop click in a second tab, with the filter field open, and in each view mode; press Down after each.
 - Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
 - Shift+Delete a link to a file link, a link to a folder link, and a file link whose target lives on a stalled NFS mount.
@@ -212,7 +212,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Compress a selection with hidden files, a symlink, a non-UTF-8 name, and an empty folder in each format. List each result with `unzip -l`, `7z l`, and `tar tvf`; compare entries, modes, and mtimes.
 - Extract each format into an empty folder, a folder with a same-named entry, and a read-only folder; the destination must be clean after each refusal.
-- Extract, in each format, an archive whose header understates a member's size, and one that overstates it.
+- Extract a 7Z, a TAR, and a TAR.GZ whose header understates a member's size, and ones that overstate it.
 - Fill the small tmpfs and extract into it; compare ZIP, 7Z, and TAR behavior at the boundary.
 - Cancel a large extraction at about a third and compare cleanup with `docs/archives.md`.
 - Enter a wrong password three times, then the right one, on `content-encrypted.7z`.
@@ -234,7 +234,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/archives/extraction-safety
 
-- Feed the hostile archives: `../` member, absolute path, and a symlink member pointing outside followed by a member written through it.
+- Feed the hostile archives as RAR, and as password-protected ZIP and 7Z through the password retry.
 - Extract a TAR whose first directory entry is `.\`, and a RAR whose first entry is `.\` or `./`. Build the `.\` TAR with a script, since `tar` writes only `./`.
 - Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.
 - On the ntfs-3g mount, extract into a folder reached through a symlink.
@@ -306,3 +306,5 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Folder reloads and monitor events after an operation ends → `browser`.
 - 10xer-mode key variants of these operations → `integration`.
 - Escape cancelling a file drag → `browser`.
+- Item-menu Move to Trash, Permanently delete, Delete without Trash, and Restore entries and their visibility → `browser`.
+- The Trash pane's Empty Trash header button → `browser`.

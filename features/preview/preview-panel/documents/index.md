@@ -30,7 +30,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - A click, then a Shift-click farther along, selects from the first click to the second. lgse/strata#1559, lgse/strata#1557
 - With focus in a rendered or large source document, Shift+Left/Right, Shift+Up/Down, Shift+Home/End, and Ctrl+Shift+Left/Right extend the selection by character, line, line edge, or word. lgse/strata#1559, lgse/strata#1557
 - Ctrl+Home and Ctrl+End move the caret to the start and end of the loaded document. lgse/strata#1559
-- With focus in a rendered or large source document, Ctrl+A selects the whole loaded document. lgse/strata#1559 (unverified)
+- With focus in a rendered or large source document, Ctrl+A selects the whole loaded document. lgse/strata#187, lgse/strata#1576 (unverified)
 - Keyboard selection crosses recycled rows and does not change the listing's selection. lgse/strata#1559
 - Shift+Left/Right steps over a whole grapheme cluster, such as an emoji with a skin-tone modifier. lgse/strata#1559 (unverified)
 - Right with a selection collapses it to its end. lgse/strata#1559 (unverified)

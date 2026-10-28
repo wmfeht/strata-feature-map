@@ -6,14 +6,14 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs]
-tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl]
+tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…. The copy engine, placement, and name rules behind them belong to `operations/filesystem-compatibility`. It also covers copying paths, names, and pasted images. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
+Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…. The copy engine, placement, and name rules behind them belong to `operations/filesystem-compatibility`. It also covers copying paths, names, and pasted images, and the cross-device "Copy or move?" drop prompt. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
 
 ## Behavior
 
@@ -76,7 +76,13 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### Cross-device drop prompt
 
-- Closing the "Copy or move?" prompt with Copy, Cancel, Escape, its close button, or a click outside it returns keyboard focus to the dragged item, in Columns, List, and Icons. Up or Left then moves the cursor from it. lgse/strata#1900
+- A plain drop onto another device under Always ask (`operations/drag-and-drop/copy-or-move`) opens "Copy or move?" naming the item count and destination, with Copy focused. lgse/strata#502
+- The prompt states "The destination is on a different device.", or "Strata could not determine whether the destination is on the same device." when the lookup did not resolve. lgse/strata#502
+- Enter activates the focused Copy, Move, or Cancel button. lgse/strata#502
+- Cancel, Escape, the close button, or a click outside the prompt transfers nothing and leaves the source in place. lgse/strata#502
+- Copy keeps the source; Move removes it after the transfer. lgse/strata#502
+- Closing the prompt returns keyboard focus to the dragged item, in Columns, List, and Icons. This holds for Copy, Cancel, Escape, its close button, and a click outside. lgse/strata#1900
+- Up or Left then moves the cursor from the dragged item. lgse/strata#1900
 
 ### Undo
 

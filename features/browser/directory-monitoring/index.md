@@ -25,7 +25,8 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Sorted by Size or Modified, a folder reads sizes and dates during the load; sorted otherwise, it lists names first and fills them for visible rows. lgse/strata#274 (unverified)
 - An SMB or other GVfs folder whose entries lack `standard::is-hidden` or `standard::is-symlink` loads them as not hidden and not symlinks, without GLib critical warnings. lgse/strata#74
 - Alternating dozens of times between a folder of several hundred files and a small folder keeps load time flat instead of slowing with each switch. lgse/strata#1187, lgse/strata#1353
-- Closing a Columns column sorted by Size while its sizes are still loading leaves the parent column's selection usable, and the closed column shows no late rows. lgse/strata#1054
+- Close a Columns column sorted by Size while its sizes are still loading. The parent column's selection stays usable, and the closed column shows no late rows. lgse/strata#1054
+- A folder peek drops hidden entries after its 64-entry load cap. A folder whose first 64 enumerated entries are hidden peeks as nearly or fully empty. lgse/strata#1449 (unverified)
 
 ### Row publication
 
@@ -36,7 +37,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 - Files created, deleted, renamed, or modified by another program appear, disappear, or update in the open folder within about 100 ms, without F5. lgse/strata#803 (unverified)
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
-- While another program keeps changing files in the open folder, such as `/tmp`, a wheel-scrolled listing stays where it was and keyboard focus does not move. lgse/strata#803
+- Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, changes to dot-files are ignored, and a dot-file renamed to a visible name appears as a new entry. lgse/strata#1266 (unverified)
 - More than 4,096 pending changes in one batch, an unmount, or an unrecognized monitor event reload the whole folder instead. lgse/strata#75, lgse/strata#1266 (unverified)

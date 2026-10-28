@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/keyboard/chooser.rs]
-tests: []
+tests: [src/ui/chooser/tests/keyboard.rs]
 docs: [site/src/reference/portal-file-chooser.md]
 related: [integration/portal-file-chooser]
 ---

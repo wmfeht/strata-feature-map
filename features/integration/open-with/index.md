@@ -30,7 +30,7 @@ Opening files in their default application, choosing another application from th
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
 - After Strata launches a file in an application, the file is added to the desktop's recent-file history, so it appears in Recent. lgse/strata#1083
-- Launching a folder in an application adds nothing to the recent-file history. lgse/strata#1083 (unverified)
+- Launching a folder in an application adds nothing to the recent-file history. lgse/strata#1083, lgse/strata#1150
 - Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474, lgse/strata#1635
 - When Strata runs outside Flatpak, Flatpak installs of mpv, VLC, and Celluloid also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474, lgse/strata#1635 (unverified)
 

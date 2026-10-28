@@ -22,7 +22,7 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 - Columns and Icons pane headers have a "Choose sort field" button whose SORT BY menu lists Name, Size, Modified, Type, and Folders first; choosing an option applies it and closes the menu. lgse/strata#168
 - In the SORT BY menu, the sort fields, Recency and Device order included, are radio menu items. Folders first is a check menu item. lgse/strata#1467, lgse/strata#1544
 - The direction button beside Sort by has the tooltip "Ascending — click to reverse" or "Descending — click to reverse" and reverses that pane's order when clicked. lgse/strata#40 (unverified)
-- In Recent the menu adds Recency and omits Folders first; in Camera Photos it adds Device order. lgse/strata#1029, lgse/strata#1083 (unverified)
+- In Recent the menu adds Recency, which sorts in either direction, and omits Folders first. In Camera Photos it adds Device order. lgse/strata#1029, lgse/strata#1083 (unverified)
 - While Device order is active, the direction button is disabled with the tooltip "Device order follows discovery; choose a sort field to reverse its direction". lgse/strata#1029 (unverified)
 
 ### Order

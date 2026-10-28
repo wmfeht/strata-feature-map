@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, src/sandbox_helper/archive_cover.rs]
-tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/pdf-zoom-keeps-text-size.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
+tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/pdf-zoom-keeps-text-size.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-metadata, operations/archives/preview, operations/drag-and-drop]
 ---
@@ -20,7 +20,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 ### Which files preview
 
 - A non-executable extensionless dotfile such as `.steampath` previews as plain text. lgse/strata#224
-- On a location that is not sampled, an executable extensionless dotfile does not use this fallback; a local one whose first 8 KiB look like text still previews as text. lgse/strata#224, lgse/strata#1638 (unverified)
+- On a location that is not sampled, an executable extensionless dotfile does not use this fallback. A local one whose first 8 KiB look like text still previews as text. lgse/strata#224, lgse/strata#1638 (unverified)
 - A file whose name gives an uncertain type, such as `some notes`, opens in the preview; text content shows as text and other content shows "No visual preview". lgse/strata#965
 - `.yaml`, `.yml`, and other `text/plain` subtypes preview as highlighted text with their type label, not "No visual preview". lgse/strata#1228
 - A local file's first 8 KiB decide its preview family: a file named `.png` or `.mp4` holding plain text previews as source text. lgse/strata#1638
@@ -42,10 +42,10 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local `.kml` or `.gpx` file previews as a route, never as XML text. lgse/strata#1842 (unverified)
 - 3D models, comic covers, workbooks, DOCX, ODT, and OTT preview only from local files. lgse/strata#1276, lgse/strata#1325, lgse/strata#1834 (unverified)
 - Selecting a remote XLS, XLSX, ODS, DOCX, ODT, or OTT file shows "No preview for this selection". Its context menu has no Quick preview item. lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
-- A remote file whose name does not reveal its type, but whose content type shows a workbook, DOCX, ODT, or OTT, shows "Copy this file locally before previewing it". lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
+- Some remote files reveal their type only by content type. When it shows a workbook, DOCX, ODT, or OTT, the preview shows "Copy this file locally before previewing it". lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
 - A remote file whose content type shows a PDF fails with "Remote PDF previews are not supported; copy the file locally first". lgse/strata#834 (unverified)
 - A remote media file other than MOV or MP4 fails with "Copy this media format locally before previewing it". lgse/strata#834 (unverified)
-- A remote 3D model or cover fails with "Remote model previews are not supported; copy the file locally first" or the same for cover previews. lgse/strata#1276, lgse/strata#1325 (unverified)
+- A remote 3D model fails with "Remote model previews are not supported; copy the file locally first". A remote cover fails with the same message for cover previews. lgse/strata#1276, lgse/strata#1325 (unverified)
 - The item menu shows Quick preview only for files the preview supports. lgse/strata#385 (unverified)
 
 ### Text
@@ -95,7 +95,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 ### Media controls
 
-- On the plain media bar, as for an animated GIF, the play button's tooltip and accessible name read "Play/Pause" followed by its shortcut in parentheses. lgse/strata#1895 (unverified)
+- On the plain media bar, as for an animated GIF, the play button's tooltip and accessible name read "Play/Pause" and its shortcut in parentheses. lgse/strata#1895 (unverified)
 - The mute button's tooltip and accessible name read "Mute/unmute" followed by its shortcut in parentheses. lgse/strata#1895 (unverified)
 
 ### File operations
@@ -114,8 +114,9 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Print on a PDF that needs an opening password shows "Unable to prepare file for printing" with "This PDF is password protected." lgse/strata#1840 (unverified)
 - Print on a route file shows "This file type cannot be printed." lgse/strata#1842 (unverified)
 - The item menu of a `.h264` file, including text named `notes.h264`, offers no **Print**. lgse/strata#1901 (unverified)
-- The header shows **Print** only for text, Source documents, still images, and PDFs; models, covers, routes, media, archives, and rendered documents hide it. lgse/strata#286 (unverified)
-- Printing a file named as a PDF shows "Preparing PDF" with "Rendering page N of M" while every page renders, up to 10,000 pages; Cancel or Escape stops it. lgse/strata#286 (unverified)
+- The header shows **Print** for text, still images, PDFs, and Markdown, HTML, RTF, CSV, and TSV in either view. lgse/strata#286 (unverified)
+- Models, covers, routes, media, archives, and DOCX, ODT, OTT, and workbook previews hide **Print** in the header. lgse/strata#286 (unverified)
+- Printing a file named as a PDF shows "Preparing PDF" with "Rendering page N of M" while every page renders, up to 10,000 pages. Cancel or Escape stops it. lgse/strata#286 (unverified)
 - Printing a text file over 16 MiB shows "This text file is too large to print safely." lgse/strata#286 (unverified)
 
 ### Header
@@ -176,8 +177,8 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 ## Known gaps
 
-- Images cannot be rotated in the preview; the change is an open PR. lgse/strata#987
+- Images cannot be rotated in the preview. lgse/strata#987
 - A growing log file does not update while previewed. lgse/strata#847
-- The preview's media seek and volume sliders have no accessible name; naming them needs new strings in every catalog. lgse/strata#1896
+- The volume slider and the plain media bar's seek slider have no accessible name. Naming them needs new strings in every catalog. lgse/strata#1896
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#834
 - With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

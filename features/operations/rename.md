@@ -127,5 +127,5 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ## Known gaps
 
-- Typing `docs/note.txt` as a new file's name is rejected instead of creating the folder; the feature is unmerged. lgse/strata#1511, lgse/strata#1512
+- Typing `docs/` or `docs/note.txt` as a new file's name is rejected instead of creating the folder or nested file; the fix is unmerged. lgse/strata#1511, lgse/strata#1512
 - With fcitx5 through GTK's input method module, the first composed key replaces the preselected stem as a raw character; IBus is unaffected. lgse/strata#1715

@@ -101,4 +101,4 @@ Creating an empty file or folder in the current directory from the background me
 
 ## Known gaps
 
-- Typing `docs/` or `docs/note.txt` as a new file's name is rejected instead of creating the folder or nested file; the fix is unmerged. lgse/strata#1511, lgse/strata#1512
+None known.

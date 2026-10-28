@@ -66,10 +66,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `save`, right-click and middle-click the highlighted file, and click a file in filter results. Click a file, then immediately double-click a folder. Repeat each with 10xer mode on and read Name after each.
 - Send SaveFile with `current_name` set to `.bashrc`, `archive.tar.gz`, `noext`, `a.`, and `résumé.pdf`; read Name's selection after the window settles with 10xer mode off, and after Tab from the header with it on.
 - Dump the tree in the file chooser's Save and URL views.
-- During a List heading drag, press Escape with 10xer mode on, with a Space preview open, with the filter open, and with focus in Name under `save`; read the response code, the selection, and `list_column_order` after each.
+- During a List heading drag, press Escape with 10xer mode on, a Space preview open, the filter open, or focus in Name under `save`. Read the response code, the selection, and `list_column_order` after each.
 - In List, press Escape mid-drag with three files selected, then press Escape again.
-- In the file view, press F2 and Ctrl+R with two items selected, Alt+Enter on a filter result, and Shift+F10 with focus in Name; read what opens.
-- With a preview showing, press on its blank chrome and drag out into the file list, then repeat in a multiple-selection request; read the selection and the marquee.
+- In the file view, press F2 and Ctrl+R with two items selected. Press Alt+Enter on a filter result and Shift+F10 with focus in Name. Read what opens.
+- With a preview showing, press on its blank chrome and drag out into the file list. Repeat in a multiple-selection request. Read the selection and the marquee.
 
 ### integration/portal-file-chooser/setup
 
@@ -102,7 +102,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - On nested Hyprland, request from a client whose app ID matches two windows, one unmapped window, and a mixed-case class; read the chooser size with `hyprctl clients`.
 - Use a 1152×720 monitor with a bar and a 3840×2160 monitor at scale 2; move the chooser between them after a manual resize.
-- On nested Hyprland, request from a client whose window is smaller than the monitor, then from one larger than a 1152×720 monitor; compare the chooser size with `hyprctl clients`.
+- On nested Hyprland, request from a client whose window is smaller than the monitor, then from one larger than a 1152×720 monitor. Compare the chooser size with `hyprctl clients`.
 - Reload the Hyprland config between two requests and count `strata-file-chooser-center` in `hyprctl rules`; then stop the IPC socket and request again.
 - Open Move to… from a Strata window resized to 500×400, and from one maximized on the large monitor.
 - Under Xvfb, request at `xrandr` sizes 800×600 and 2560×1440 with no parent; measure the window.
@@ -117,7 +117,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.
 - With fcitx5 pinyin, compose in `rename ›`, `create ›`, `go ›`, and `move to ›`; press Enter mid-composition, then again after the commit.
 - In a browser window railed by width, press Ctrl+N three times, then Ctrl+B; repeat with the preview owning the keys and with the sidebar focused by Ctrl+Shift+B.
-- Arm `g`, `c`, `,`, `;`, and `t` in a 640 px window, at 32 px text size, and with the clipboard badge showing; read where each panel sits and whether focus left the listing. Alt+Tab away while one is armed and back.
+- Arm `g`, `c`, `,`, `;`, and `t` in a 640 px window, at 32 px text size, and with the clipboard badge showing. Read where each panel sits and whether focus left the listing. Alt+Tab away while one is armed and back.
 
 ### integration/10xer-mode/preview-keys
 
@@ -149,7 +149,6 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Delete the cursor file from a shell while the `s` stream is still running. Repeat while an `f` prompt has focus in Columns with a child column open.
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
-- With 10xer mode on, move the cursor with `f` results and a fill, open and cancel a dialog, then close Quick Look; note which hit has the focus ring.
 - Type a Ctrl+F filter of `^gam 'report md$`, toggling the mode on and off after each word. Then commit it and toggle twice more.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
 - Fill two `f` hits, rest the cursor on an unfilled hit, then cancel a Shift+Delete dialog, Tab out and back, and close Quick Look; read which hit holds focus and whether the fill changed.
@@ -250,6 +249,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Typed `.` and `..` resolution in `go ›`, and where a keyboard sort is saved → `browser`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
-- The browser window's sidebar steps, the saved `sidebar_compact` state, and the rail's row sizing → `browser`.
+- The browser window's sidebar steps and the rail's row sizing → `browser`.
+- The saved `sidebar_compact` state of browser windows → `app`.
 - Network-folder change checks, including the pause while a chooser is hidden → `browser`.
 - The `GDK_DEBUG` re-exec on service activation and how long a cold activation takes → `app`.

@@ -7,7 +7,7 @@ tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-up
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -109,9 +109,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
 - With F1 open from Columns, List, and Icons, press F5, Ctrl+K, Ctrl+Alt+T, and Ctrl+\\ with focus on a category, then on the results.
 - Close F1 and press the same keys again.
-- Start a List heading drag, then press Escape with a footer prompt open, with the filter field showing, and with a 10xer chord armed; release the mouse after each.
+- Start a List heading drag, then press Escape with a footer prompt open, with the filter field showing, and with a 10xer chord armed. Release the mouse after each.
 - Ctrl+wheel with a touchpad: scroll half a step, reverse, then continue; repeat after switching between a wheel mouse and the touchpad mid-gesture.
-- Ctrl+Shift+wheel over Columns, List, and the sidebar in each mode, then Ctrl+Alt+wheel and Ctrl+Super+wheel over Icons.
+- Ctrl+Shift+wheel over a long Columns and List listing and the sidebar in each mode, with a touchpad and a mouse. Then Ctrl+Alt+wheel and Ctrl+Super+wheel over Icons.
 - With a PDF open in the preview, Ctrl+wheel over its scrollbars, its page margin, the listing, and the sidebar, with keyboard focus in the PDF and then in the listing.
 - Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
 - Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.

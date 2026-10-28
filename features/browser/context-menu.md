@@ -64,7 +64,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Open in… is a submenu of New Tab, shown with Ctrl+Enter, and New Window, shown with Shift+Enter. A file's menu has no Open in…. lgse/strata#1543, lgse/strata#1576
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - A single file result's menu during a filter or search offers **Open file location**, which opens its folder with the file selected. lgse/strata#1041
-- A file's menu in Trash never offers Open file location; elsewhere, with no filter or search, it offers it only for a file outside the shown folder. lgse/strata#1041 (unverified)
+- A file's menu in Trash never offers Open file location. Elsewhere, with no filter or search, it offers it only for a file outside the shown folder. lgse/strata#1041 (unverified)
 - The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
 - While the selection's types are looked up, the item and multi-selection menus show Open With… insensitive, described "Looking for compatible applications…". lgse/strata#578
 - Outside Flatpak, when every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155, lgse/strata#1635
@@ -75,7 +75,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - The background menu offers Open With… and Open in Terminal for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#161, lgse/strata#1083
 - In the background menu, Open in Terminal is insensitive when the folder has no local path. lgse/strata#161 (unverified)
 - The item menu shows Open in Terminal for a single folder with a local path, outside Trash. lgse/strata#161
-- In Recent, the background menu hides Open With…, Open in Terminal, and Properties. lgse/strata#1083 (unverified)
+- In Recent, the background menu also hides Properties. lgse/strata#1083 (unverified)
 - In Recent, the item menu hides New Folder with Selection. lgse/strata#1083 (unverified)
 - In Recent, the item menu offers Remove from Recent when every selected row has a recent-history entry. lgse/strata#1500
 - Remove from Recent is absent from the same file's menu in its real folder. lgse/strata#1500

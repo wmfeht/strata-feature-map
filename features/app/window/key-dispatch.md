@@ -28,11 +28,11 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - With a 10xer chord armed, Ctrl+0 on a focused PDF drops the chord before resetting the page zoom. lgse/strata#1622
 - A key pressed while a modal is open and focus is outside it moves focus into the modal and does nothing else. lgse/strata#544 (unverified)
 - While a popover menu has focus or is visible, keys go to the menu rather than to browser shortcuts. lgse/strata#544 (unverified)
-- With no dialog or menu open, Escape during a List heading drag cancels only the drag: the file selection stays and the footer chord mark clears. lgse/strata#1900
+- With no dialog or menu open, Escape during a List heading drag cancels only the drag. The file selection stays and the footer chord mark clears. lgse/strata#1900
 - With a text field focused, Ctrl+C, Ctrl+X, Ctrl+V, and Ctrl+A act on its text, not on the selected files. lgse/strata#544
 - With only a Russian layout configured, Ctrl+C/X/V/A/Z/Y and Ctrl+Shift+Z in a focused text field copy, cut, paste, select all, undo, and redo its text. lgse/strata#1576
 - With 10xer mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning the mode off restores them. lgse/strata#1271, lgse/strata#1576
-- With 10xer mode on, Ctrl+Alt+T opens no terminal from the file list; turning the mode off restores it. lgse/strata#1576 (unverified)
+- With 10xer mode on, Ctrl+Alt+T in the file list still opens a terminal. lgse/strata#1576
 
 ### Sidebar focus
 
@@ -44,6 +44,8 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - Ctrl+wheel changes the text size by 1 px per notch, accumulating smooth touchpad deltas into whole steps. lgse/strata#1069, lgse/strata#1140
 - Ctrl+Alt+wheel and Ctrl+Super+wheel leave the text size unchanged and scroll as a plain wheel would. lgse/strata#1069 (unverified)
 - Ctrl+Shift+wheel does not change the text size; in Icons it steps the thumbnail size instead. lgse/strata#1721
+- In Columns or List, Ctrl+Shift+wheel resizes nothing and passes through to the view. lgse/strata#1721
+- The portal file chooser has no wheel zoom: Ctrl+Shift+wheel there does not step the thumbnail size. lgse/strata#1721
 - In Icons, each Ctrl+Shift+wheel notch steps the thumbnail size once, up for larger and down for smaller. Smooth touchpad deltas accumulate into whole steps. lgse/strata#1721
 - In Icons, a Ctrl+Shift+wheel that arrives as horizontal scrolling steps the thumbnail size the same way. lgse/strata#1721
 - Ctrl+wheel never changes the Icons thumbnail size. lgse/strata#1721
@@ -75,5 +77,6 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 
 ## Known gaps
 
+- In 10xer mode, Ctrl+Alt+T still opens a terminal from the file list, and Ctrl+Shift+K still acts from a non-menu popover. Unbinding them awaits a decision. lgse/strata#1576
 - Each stage re-reads and classifies the focused widget, and every key press walks the widget tree for modal layers and open menus. Resolving the input owner once per press is proposed. lgse/strata#1716
 - Fifteen call sites cancel an armed 10xer chord by hand; one that forgets leaves a stale chord mark that swallows the next key. lgse/strata#1718

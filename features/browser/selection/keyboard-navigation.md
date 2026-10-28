@@ -62,7 +62,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - With two tabs open, Ctrl+1, Ctrl+2, or Ctrl+3 keeps keyboard focus on the visible tab's cursor entry, and arrows then move in that tab. lgse/strata#1900
 - A hidden tab applies the switched view without taking keyboard focus; selecting it later restores its own cursor. lgse/strata#1900
 - While a modal dialog such as a delete confirmation is open, a listing reload or view switch behind it leaves keyboard focus in the dialog. lgse/strata#1900
-- While a delete confirmation or an error dialog is open, a docked compression that finishes and selects its new archive leaves keyboard focus on the dialog's focused button, in Columns, Icons, and List. lgse/strata#1900
+- A docked compression finishes and selects its new archive while a delete confirmation or an error dialog is open. Keyboard focus stays on the dialog's focused button, in Columns, Icons, and List. lgse/strata#1900
 
 ### Focus ring
 

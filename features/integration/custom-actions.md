@@ -44,6 +44,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Choosing an action whose definition changed since the menu or `;` listed it runs nothing. It shows "Unable to run action" with "Actions changed". lgse/strata#1729
 - Choosing an action whose folder was removed since the menu listed it runs nothing. It shows "Unable to run action" with "The action “<id>” no longer exists". lgse/strata#1729 (unverified)
 - An action with `confirm = true` opens "Run this action?" with the action name and item count, and Run focused. Cancel runs nothing. lgse/strata#1085, lgse/strata#1206
+- A command argument that is exactly `{path}`, `{paths}`, or `{parent}` expands to absolute paths, one argument each. Other arguments pass through literally. lgse/strata#1085
 - An argument with a token inside other text, such as `prefix-{path}`, is refused on save. So is `{path}` in whole-selection mode or `{paths}` in per-item mode. lgse/strata#1085
 - Python actions can call `from strata_actions import context` with nothing installed through pip. lgse/strata#1085
 - `ctx.log` escapes non-UTF-8 bytes, so logging a native path succeeds when the locale's stdout is strict UTF-8. lgse/strata#1267

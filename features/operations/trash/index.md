@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs]
-tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl]
+tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
 docs: [docs/trash-restore-testing.md]
 related: [operations/delete, integration/10xer-mode/file-verbs, operations/filesystem-compatibility, browser/context-menu]
 ---
@@ -44,6 +44,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - In the "Completed with errors" list, a trash-unsupported item reads "<name>: This location doesn't support Trash." lgse/strata#1614
 - A read-only location reads "<name>: This location is read-only.", and a full disk "<name>: Not enough space to move to Trash." lgse/strata#1614
 - Both fallbacks apply to docked deletions as well as foreground ones. lgse/strata#1533
+- A foreground operation that fails while a quick permanent delete runs leaves that delete's dissolve (`operations/delete/dissolve`) to play. lgse/strata#1539
 
 ### Deletion confirmations
 
@@ -54,14 +55,15 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - Its text reads "This item will be permanently deleted. This action cannot be undone.", or "These items…" for several. lgse/strata#1614
 - For a remote selection, the title reads "Delete N items without Trash?" and the button "Delete N items". lgse/strata#1571, lgse/strata#1614
 - Its text reads "This item will be deleted without using Trash. Strata can't undo this; whether it can be recovered depends on the storage provider." lgse/strata#1571, lgse/strata#1614
-- The "Move N items to Trash?" confirmation, such as from 10xer `d` or a leftover's Delete…, reads "This item can be restored from Trash." and shows no total. lgse/strata#1306 (unverified)
-- It lists each item with its icon, name, and size, "—" when the size is unknown, or "Folder" for folders, scrolling past 10 items. lgse/strata#1134 (unverified)
+- For several, it reads "These items will be deleted without using Trash. Strata can't undo this; whether they can be recovered depends on the storage provider." lgse/strata#1571, lgse/strata#1614
+- Each deletion confirmation lists every item with its icon, name, and size, "—" when the size is unknown, or "Folder" for folders, scrolling past 10 items. lgse/strata#1134 (unverified)
 - A symlink to a folder is listed with "Folder link" in place of a size. lgse/strata#1627
 - A selected 11 B symlink to a 100 kB file lists "11 B", while the size column shows "100 kB". The subtitle reads "1 item · 11 B will be permanently deleted". lgse/strata#1853, lgse/strata#1880
 - A file link's row shows "—" until its own size is measured. lgse/strata#1880 (unverified)
+- The "Move N items to Trash?" confirmation opens from routes such as 10xer `d` or a leftover's Delete…. It reads "This item can be restored from Trash." and shows no total. lgse/strata#1306 (unverified)
 - The "Move N items to Trash?" confirmation also lists a file link at its own size. lgse/strata#1880 (unverified)
-- It renders at most 50 rows and adds "… and N more items"; confirming still deletes every selected item. lgse/strata#703
-- While the total calculates, a spinner shows beside a kind subtitle. lgse/strata#1134 (unverified)
+- Each deletion confirmation renders at most 50 rows and adds "… and N more items"; confirming still acts on every selected item. lgse/strata#703
+- In the permanent-delete and no-Trash confirmations, a spinner shows beside a kind subtitle while the total calculates. lgse/strata#1134 (unverified)
 - That subtitle reads "N files" when every item is a file or file link, "N folders" when every item is a real folder, otherwise "N items". lgse/strata#1134, lgse/strata#1627 (unverified)
 - A single selected symlink to a folder reads "1 item" beside the spinner; a folder link plus a file reads "2 items". lgse/strata#1627 (unverified)
 - When the walk finishes, the spinner hides and the subtitle reads "N items · X will be permanently deleted", counting folder contents recursively. lgse/strata#1134

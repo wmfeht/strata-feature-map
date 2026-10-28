@@ -7,7 +7,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 ## Scope
 
-Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
+Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
 Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
@@ -50,7 +50,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - On an `sftp://` share in Columns, open the cursor folder's child column, delete that folder server-side, and press F5.
 - In List and Icons, group by type and sort by size descending. Click an entry, Ctrl+click one in another group, then press Shift+arrow toward each neighbour.
 - Ctrl+click a selected entry to remove it, then press Shift+arrow; repeat after Ctrl+click on blank row space.
-- Middle-click a folder row while a rename editor is open, on a symlink to a folder, and on a Ctrl+F result in another folder; repeat with Ctrl held.
+- Middle-click a folder row while a rename editor is open, on a symlink to a folder, and on a Ctrl+F result in another folder. Repeat with Ctrl held, with Ctrl+Shift held, and in the file chooser.
 
 ### browser/selection/click-modes
 
@@ -90,7 +90,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/view-modes
 
-- Cycle Ctrl+1, Ctrl+2, Ctrl+3 while `100000` is loading; the skeleton must never outlive the load or take a click.
+- Cycle Ctrl+1, Ctrl+2, Ctrl+3 while `100000` is loading; then click where the skeleton shows.
 - Switch with 500 entries Shift-selected, then with a filter open; compare the selection count and query after each switch.
 - Write `browser_mode = "grid"`, then `"explorer"`, then `"tiles"` in settings.toml; start and note the view and the Appearance icon.
 - Focus the last row of a folder and delete every entry externally; then add one back. Repeat in the unreadable folder after `chmod 755` and F5.
@@ -127,7 +127,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Toggle Show sizes in Columns view from Appearance with Settings open in a second window and a recursive search column open.
 - With one entry selected, create 4,200 files in the active column's folder from a shell, then press Down and the 10xer next-entry key.
 - With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
-- Hover and select the 255-byte name in a light and a dark theme, and on an open-path folder row; check that no name text shows through the badge.
+- Hover and select the 255-byte name in a light and a dark theme, and on an open-path folder row.
 - Scroll the strip so a parent column is clipped, then press 5 px and 1 px left of its edge and 4 px right of it and drag; repeat after arrow keys moved the strip.
 - With badges on, rest the pointer on an unselected row and hold Down through it; then move the pointer 1 px. Hover a row and leave it within 120 ms.
 - Wheel-scroll a column with the pointer over it and badges on; then kinetic-scroll the strip so a parent is clipped, stop, and compare its reveal button with its visible width.
@@ -207,7 +207,6 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/view-modes/thumbnail-size
 
-- Ctrl+Shift+wheel in Columns and List over a long listing, with a touchpad and a mouse.
 - Press Ctrl+Alt+keypad + and Ctrl+Alt+keypad −, then on `de` and `fr` Ctrl+Alt with the keys that type + and −.
 - Drag the slider to 100 px and step up and down; drag it to 33 px and step down twice.
 - Press Ctrl+Alt+0 in Trash, an `sftp://` folder, and a remembered local folder, with per-folder sizes on and off; read `folder-views.toml` and `settings.toml` after each.
@@ -271,7 +270,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Launch with a folder, a file, the broken symlink, and the non-UTF-8 name in one command, then again while the first instance is open; count the windows.
 - Launch with the unreadable folder, press Retry after `chmod 755`; then with `sftp://unreachable.invalid/f.txt`, navigate away before Cancel.
-- Open a folder on a stopped sshfs mount with Open in New Tab, then with Open in New Window; press Cancel in one and Retry in the other after resuming the daemon.
+- Open a folder on a stopped sshfs mount with Open in New Tab, then with Open in New Window. Press Cancel in one and Retry in the other after resuming the daemon.
 
 ### browser/search
 
@@ -342,12 +341,12 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 ### browser/sidebar/rail
 
 - Turn off every place chip; press Ctrl+B in one window until the sidebar hides while the other's sidebar has focus, then press Ctrl+Shift+B there.
-- Open a 1200 px and a 700 px window; press Ctrl+B through three full cycles in the narrow one, reading both windows and `settings.toml` after each press.
+- Open a 1200 px and a 700 px window. Press Ctrl+B through three full cycles in the narrow one, reading both windows and `settings.toml` after each press.
 - Choose the rail in a wide window, then narrow it, open and close the preview in Columns, and widen it again.
 - Step from hidden to full in a narrow window, then resize by 1 px, by 300 px, and open the preview.
-- With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18; compare rail icons and the update notice icon against the header toggle.
+- With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18. Compare rail icons and the update notice icon against the header toggle.
 - Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
-- Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`, and read its accessible name after each step.
+- Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`. Read its accessible name after each step.
 
 ### browser/sidebar/pins
 
@@ -462,7 +461,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With hidden files on, open `deep` to column 5, press Ctrl+H, and rename the column 3 folder to a dot name; then press Back.
 - Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
 - Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
-- Sort a 2,000-entry `sftp://` folder by Size, close its Columns column while sizes load, then click in the parent column.
+- Sort a 2,000-entry folder on a stalled sshfs mount by Size; while sizes load, press F5, go Back, and switch to Icons and List.
 
 ### browser/directory-monitoring/network-checks
 

@@ -13,7 +13,7 @@ related: [browser/sidebar, browser/search, operations/clipboard/send-to, remote/
 
 ## Summary
 
-Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
+Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. It also supplies the removable destinations Send to… offers and the drive roots Ctrl+K searches. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
 
 ## Behavior
 
@@ -45,7 +45,6 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 ### Global search roots
 
 - Ctrl+K search covers Home and every mounted local drive. lgse/strata#222, lgse/strata#493
-- A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 
 ## Design
 

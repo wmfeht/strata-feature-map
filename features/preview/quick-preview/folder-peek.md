@@ -8,7 +8,7 @@ review: draft
 code: [src/app/peek.rs, src/ui/browser/peek.rs]
 tests: [src/app/peek/tests.rs, src/ui/browser/peek/tests.rs]
 docs: [docs/preferences.md]
-related: [settings/preferences, browser/view-modes, operations/drag-and-drop, integration/10xer-mode]
+related: [settings/preferences, browser/view-modes, browser/directory-monitoring, operations/drag-and-drop, integration/10xer-mode]
 ---
 
 ## Summary
@@ -33,8 +33,7 @@ A transient popover that lists up to 8 entries of a folder when the pointer rest
 - The popover lists at most 8 entries with thumbnails or type icons; folders show a trailing chevron. lgse/strata#43 (unverified)
 - Long names are ellipsized in the middle, keeping the extension visible. lgse/strata#1143
 - Hidden entries are left out unless hidden files are shown. lgse/strata#201, lgse/strata#1449
-- Entries appear in the order the folder enumerates them, not the browser's sort order, so a folder of over 8 entries peeks an arbitrary subset. lgse/strata#1449
-- Hidden entries are dropped after the 64-entry load cap, so a folder whose first 64 enumerated entries are hidden peeks as nearly or fully empty. lgse/strata#1449
+- Entries appear in the order the folder enumerates them, not the browser's sort order. A folder of over 8 entries peeks an arbitrary subset. lgse/strata#1449 (unverified)
 
 ### Placement and closing
 

@@ -8,7 +8,7 @@ review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
-related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list]
+related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list]
 ---
 
 ## Summary
@@ -41,7 +41,6 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Folder-only requests hide regular files in folder listings and in recursive filter results. lgse/strata#1155
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
 - Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not. lgse/strata#1070
-- `browser/directory-monitoring` owns how the chooser follows an open folder renamed, moved, or deleted outside Strata. lgse/strata#1554
 - The header toggle and Ctrl+B (Ctrl+N in 10xer mode) step the chooser sidebar full, rail, hidden, full, except in Send to. lgse/strata#1606
 - In a chooser too narrow for the full sidebar, stepping from hidden shows the full sidebar until the fit next changes. lgse/strata#1606 (unverified)
 - Chooser sidebar steps apply to that dialog only and are not saved. lgse/strata#1606
@@ -60,23 +59,23 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Ctrl+0 on a focused PDF page in the chooser's preview resets its zoom, not the saved text size, with 10xer mode on or off. lgse/strata#1622
 - Dragging a Miller column's right edge in the chooser resizes it, and double-clicking the edge fits it to its content. lgse/strata#1315
 - With a preview open in Columns, the column beside the preview keeps its own resize edge; the divider has a wide handle. lgse/strata#1539 (unverified)
-- `browser/view-modes/columns` and `browser/view-modes/list` own the chooser's saved column widths, kept apart from browser windows' widths. lgse/strata#1339
 - The item menu offers Rename, Properties, and, for one previewable file, Quick preview; empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
 - The item menu also offers Compress… for native entries, plus Move to Trash and Permanently delete where the location allows them. lgse/strata#950, lgse/strata#1352
 - When every selected item is on a network or cloud mount, Permanently delete in the item menu reads Delete without Trash. A `fuseblk` mount or a local FUSE overlay such as mergerfs keeps Permanently delete. lgse/strata#1614
 - With the file view focused, Shift+Delete asks to delete permanently. Delete moves the selection to Trash, except as below. lgse/strata#950, lgse/strata#1533
 - Where every selected item's open folder reports no Trash support but allows deletion, Delete opens the `operations/trash` explained permanent confirmation instead. lgse/strata#1533
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
-- With the file view focused and no text field active, F2 or Ctrl+R renames the one selected item, and Alt+Enter opens Properties for the focused item. lgse/strata#175, lgse/strata#393 (unverified)
+- With the file view focused and no text field active, F2 or Ctrl+R renames the one selected item. Alt+Enter opens Properties for the focused item. lgse/strata#175, lgse/strata#393 (unverified)
 - The Menu key or Shift+F10 opens the item menu for the focused item, except in a text field or popover. lgse/strata#666 (unverified)
 - Ctrl+F opens the filter, Ctrl+L edits the location, and Ctrl+Shift+N creates a folder. lgse/strata#175 (unverified)
-- Ctrl+Shift+B moves focus to the active sidebar place, opening a hidden sidebar first; pressed again, it returns focus to where it was. lgse/strata#175 (unverified)
+- With 10xer mode off, Ctrl+Shift+B moves focus to the active sidebar place, opening a hidden sidebar first. Pressed again, it returns focus to where it was. lgse/strata#175 (unverified)
+- With 10xer mode on, Ctrl+Shift+B focuses the active place of a visible sidebar and does nothing while the sidebar is hidden. lgse/strata#1284 (unverified)
 - A shortcut reference can stay open after 10xer mode is turned off in another window. Then F5, Ctrl+H, Ctrl+., Ctrl+1/2/3, and Alt+Up/Left/Home leave the folder, view, and hidden files unchanged. lgse/strata#1714
 - In that state, Escape closes the reference and keeps the request open. lgse/strata#1714
 - In that state, text-size and thumbnail-size shortcuts still apply to the chooser. lgse/strata#1714, lgse/strata#1721 (unverified)
 - With a filter result selected, Space in the Name or location entry types a space and opens no preview. lgse/strata#1714
 - Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
-- In List, Escape during a column heading drag cancels the drag, keeps the request open, and keeps the file selection; a later heading drag still works. lgse/strata#1900
+- In List, Escape during a column heading drag cancels the drag, keeps the request open, and keeps the file selection. A later heading drag still works. lgse/strata#1900
 - The header close button is named "Cancel file selection (Escape)". lgse/strata#1895 (unverified)
 - Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533
 - With 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533

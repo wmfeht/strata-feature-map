@@ -37,7 +37,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Switching view from the View menu with a query typed gives the results focus once they show. lgse/strata#1441, lgse/strata#1533
 - Press Ctrl+F while a large Icons or List folder is loading. When the load completes, focus stays in the field, so Ctrl+A and Backspace edit the query. lgse/strata#1444, lgse/strata#1533
 - In Columns, a click outside the filtered column closes and clears its filter; a click inside that column keeps it. lgse/strata#887
-- In Columns, Ctrl+F with a filter result focused moves focus back to that column's open filter field. lgse/strata#1226 (unverified)
+- In Columns, after moving through filter results with the keyboard, Ctrl+F returns focus to that column's open filter field with its query. With Type to search on, `/` does the same. lgse/strata#1226 (unverified)
 
 ### Matching
 

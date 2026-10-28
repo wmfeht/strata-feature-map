@@ -63,6 +63,8 @@ Issue lgse/strata#868 asked for List's viewport and selection to survive enterin
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-09 | lgse/strata#1533 | fix | Focused the pane instead of the hidden list when history returns to an empty folder. |
+| 2026-10-06 | lgse/strata#1499 | fix | Let an explicit reveal target beat the remembered List position. |
 
 ## Known gaps
 

@@ -25,7 +25,7 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 - A drag from blank preview pane space selects in the pane nearest it: the last open column, or the Icons or List pane. lgse/strata#1164 (unverified)
 - In Icons and List with recursive search results showing, a drag from blank sidebar or preview space selects in the results. lgse/strata#1164
 - A press on a button, text entry, label, image, slider, scrollbar, or sidebar place keeps that control's own behavior and starts no marquee. lgse/strata#203, lgse/strata#1164
-- In Columns with folders set to open on one click, a click on a folder in a partly hidden parent column opens it, even when the column scrolls into view during the press. lgse/strata#1502
+- In Columns with folders set to open on one click, a click on a folder in a partly hidden parent column opens it. It opens even when the column scrolls into view during the press. lgse/strata#1502
 - A drag from a pane corner at text sizes 13 and 28 selects files and leaves the sidebar width unchanged. lgse/strata#838
 - During a sidebar-started marquee, the target pane takes keyboard focus, so Ctrl+C copies the marqueed files. lgse/strata#838
 - Taking that focus keeps a scrolled list's position rather than jumping to an off-screen cursor. lgse/strata#838

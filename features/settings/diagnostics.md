@@ -87,8 +87,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - Checks exercise the feature itself, such as a real sandbox, the worker pool, and the thumbnail path, rather than only looking for binaries (lgse/strata#1734, lgse/strata#1735).
 - Helper tools are looked up on the sandbox's configured `STRATA_SANDBOX_PATH`, not the user's `PATH`, because helpers run inside the sandbox (lgse/strata#1735, lgse/strata#1746).
 - The update check uses `api.github.com/rate_limit` because that request does not count against the rate limit (lgse/strata#1735).
-- Package names with options or shell syntax get no install command, because Run in terminal passes the command's words as arguments (lgse/strata#1735, lgse/strata#1704).
-- Run in terminal passes the command's words as arguments to a fixed `sh -c` script, never parsed by a shell (lgse/strata#1735, lgse/strata#1704).
+- Run in terminal passes the prompt and the command's words as positional arguments to a fixed `sh -c` script. The shell never parses them as syntax. Package names with options or shell syntax therefore get no install command (lgse/strata#1735, lgse/strata#1704).
 - Linked libraries such as GTK, Poppler, and GStreamer core cannot be checked in-app, because the loader fails first (docs/diagnostics.md).
 - The package manager and the terminal are resolved on a blocking worker when Run starts, and the copied report reuses that package manager (lgse/strata#1729).
 - Checks that need GTK objects run on the GTK thread. The rest run on workers that a timer polls through a weak page reference (lgse/strata#1735).

@@ -12,14 +12,14 @@ related: [operations/filesystem-compatibility]
 
 ## Summary
 
-How extraction writes untrusted archive members into the destination folder: member path sanitizing, confinement to the destination, link members, metadata, and names the destination cannot store. It applies to every decoder, RAR included.
+How extraction writes untrusted archive members into the destination folder: member path sanitizing, confinement to the destination, link members, metadata, and names the destination cannot store. Member path rules apply to every decoder, RAR included. RAR link members extract as regular files (`operations/archives/rar`).
 
 ## Behavior
 
 ### Destination
 
 - Extracting into a folder reached through a symlink writes into the resolved folder. lgse/strata#678
-- Extract to… accepts a write-only folder, such as mode `0733`, then fails with "Could not open extraction destination: Permission denied". lgse/strata#1729
+- Extract to… accepts a write-only drop box, such as a mode `0733` folder owned by another user, then fails with "Could not open extraction destination: Permission denied". lgse/strata#1729
 
 ### Member paths
 

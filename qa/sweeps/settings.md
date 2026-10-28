@@ -7,7 +7,7 @@ tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
@@ -66,8 +66,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed `unit_system = "nautical"`, `unit_system = 1`, and `unit_system = "Imperial"`; launch, read the Units row, change another preference, and diff `settings.toml`.
 - Search "kilometres", "kml", and "feet" under English and `language = "ja"`; read which rows show and which page opens.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
-- Press Ctrl+, and click the gear over Properties, Compress, a delete confirmation, Customize…, and a dialog animating closed; then over a dialog in another tab of the same window. Read Settings and the focused control.
-- Click the backdrop at each corner and edge strip around the Settings panel in a 640 px and a maximized window, at text size 8 and 48; then click the panel padding, the navigation gap, and a scrollbar.
+- Press Ctrl+, and click the gear over Properties, Compress, a delete confirmation, Customize…, and a dialog animating closed. Repeat over a dialog in another tab of the same window. Read Settings and the focused control each time.
+- Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 
 ### settings/preferences/storage
 
@@ -125,8 +125,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Close the window mid-run and quit the last window mid-run; list `$TMPDIR` for leftover `strata-diagnostics-*` directories.
 - Copy the report under `language = "ja"` and `"zh-TW"` and paste it into a text editor; compare section names, statuses, and the System fields with the page.
 - Run with no terminal resolvable, then with a terminal that exits at once; press Run in terminal and read the row under each install command.
+- Repeat both on an Integrations install command, and with `$TERMINAL` set to a missing program. Press the button twice quickly and read the row and the process list.
+- On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
-- Press Run in terminal on a Diagnostics and an Integrations install command with `$TERMINAL` set to a missing program, to a terminal that exits at once, and unset with no `xdg-terminal-exec`; press it twice quickly and read the row and the process list.
 
 ### settings/themes
 

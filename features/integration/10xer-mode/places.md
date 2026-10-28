@@ -99,4 +99,4 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 ## Known gaps
 
-- A QA sweep reported that the `g +` flash leaves out the digit for pins 1 to 4; a later investigation could not reproduce it. lgse/strata#1862
+- After `g +`, the `Pinned … as` flash can omit the pin digit. The pin reads the sidebar before the bookmark write finishes. lgse/strata#1862

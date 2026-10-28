@@ -40,10 +40,10 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 ### Pane header
 
-- List and Icons pane headers show Back, Forward, and Parent folder buttons, each insensitive when its target is unavailable. lgse/strata#485 (unverified)
-- The pane header shows a trash icon button with tooltip "Empty Trash" only at `trash:///`, not in Trash subfolders or other locations. lgse/strata#53
-- In every view mode, the header button is insensitive while the Trash pane lists 0 items and becomes sensitive when an item appears. lgse/strata#138
-- With `gvfsd` running, a Trash holding only an item whose name is not valid UTF-8 enables the header button. lgse/strata#1533
+- In List and Icons, the pane header's Back, Forward, and Parent folder buttons are each insensitive when their target is unavailable. lgse/strata#1895 (unverified)
+- In List and Icons, the pane header shows a trash icon button with tooltip "Empty Trash" only at `trash:///`, not in Trash subfolders or other locations. lgse/strata#53
+- In List and Icons, the header button is insensitive while the Trash pane lists 0 items and becomes sensitive when an item appears. lgse/strata#138
+- With `gvfsd` running, a Trash holding only an item whose name is not valid UTF-8 enables the header button. lgse/strata#1533 (unverified)
 
 ### Pane header names
 
@@ -62,8 +62,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - One plain click on a folder result opens it, whatever the click-count preferences. lgse/strata#697, lgse/strata#1888
 - A plain click on a file result follows the click-count and single-click preview preferences, in Columns, Icons, and List. lgse/strata#1881, lgse/strata#1888
 - With files opening on one click, one plain click on a file result opens it once, with no preview. lgse/strata#1888
-- With files opening on two clicks and single-click previews on, one plain click selects and previews a previewable file result; a double-click opens it once. lgse/strata#1881, lgse/strata#1888
-- With files opening on two clicks and single-click previews on, one plain click on a file result with no quick preview only selects it. lgse/strata#1888 (unverified)
+- With files opening on two clicks and single-click previews on, one plain click selects and previews a previewable file result. A double-click opens it once. lgse/strata#1881, lgse/strata#1888
+- With files opening on two clicks and single-click previews on, a plain click on a file result with no quick preview only selects it. lgse/strata#1888 (unverified)
 - With files opening on two clicks and single-click previews off, one plain click on a file result only selects it. lgse/strata#1888 (unverified)
 - In the file chooser and in Trash, a plain click never opens a file result. It previews a previewable file with single-click previews on, otherwise only selects it. lgse/strata#1888
 - A plain click on a selected file result starts no slow-click rename. lgse/strata#1888
@@ -88,7 +88,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - F5 keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533, lgse/strata#1729
 - Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
 - While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
-- A view switch or a navigation key drops any cursor refocus still queued from an earlier focus, so it never pulls focus back to the earlier row. lgse/strata#1900 (unverified)
+- A view switch or navigation key drops queued cursor refocus from an earlier focus. Focus never returns to the earlier row. lgse/strata#1900
 - In List, cut styling, hidden-file dimming, and live dates of visible rows refresh once scrolling has been still for 25 ms. lgse/strata#1673
 - In Icons, cut styling, hidden-file dimming, and accessible descriptions of visible cards refresh once scrolling has been still for 25 ms. lgse/strata#1673 (unverified)
 - After 10 s without progress on a folder's mount, "Not responding. This list may be out of date." shows above its listing in Columns, Icons, and List. lgse/strata#1729

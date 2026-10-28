@@ -37,7 +37,7 @@ Opening the paths and URIs given to `strata` on the command line, for example fr
 - An unavailable `sftp://user:secret@host/file.txt` argument shows `sftp://user@host/file.txt` in the error, never the password. lgse/strata#755 (unverified)
 - Navigating elsewhere or closing the window during the check abandons it without later navigation or errors. lgse/strata#755
 - Launching with stdout or stderr connected to a closed pipe still opens the window instead of aborting. lgse/strata#1399
-- Open in New Tab or Open in New Window on a folder shows the same delayed "Connecting to location…" status, and the unavailable message with Retry, in the new tab or window. lgse/strata#1543
+- Open in New Tab or Open in New Window on a folder uses the same checks. The new tab or window shows the delayed "Connecting to location…" status, and the unavailable message with Retry. lgse/strata#1543
 - A target that cannot be opened is logged without its user name, SMB domain, query, or fragment. lgse/strata#1873 (unverified)
 
 ## Design

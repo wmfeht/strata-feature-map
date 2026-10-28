@@ -12,7 +12,7 @@ related: [settings/themes/icons, browser/view-modes/icons]
 
 ## Summary
 
-The bundled Catppuccin icon set and the mapping from a file's name to its file-type icon. Code and config files get Catppuccin icons; pictures, media, archives, documents, and keys keep Lucide icons from the parent `settings/themes/icons`, which also colors and rasterizes both sets.
+The bundled Catppuccin icon set and the mapping from a file's name to its file-type icon. Code and config files get Catppuccin icons; pictures, media, archives, documents, and keys keep Lucide icons. The parent `settings/themes/icons` owns the Lucide set and colors and rasterizes both sets.
 
 ## Behavior
 
@@ -51,12 +51,13 @@ The bundled Catppuccin icon set and the mapping from a file's name to its file-t
 - Code and config files use the Catppuccin VSCode icon set, v1.26.0, MIT. A uniform monochrome set did not help recognize file types at a glance (lgse/strata#1587, lgse/strata#1588).
 - The outlined Simple Icons and Devicons language glyphs from lgse/strata#1529 and lgse/strata#1561, and their outline render path, were removed (lgse/strata#1588).
 - `scripts/catppuccin_icons.py` regenerates the SVGs, the gresource entries, and `src/ui/browser/entry/catppuccin.rs` from an upstream checkout, importing 1075 filename and 532 extension associations (lgse/strata#1588).
-- Lookup order is exact file name, ignoring case, then Strata's case-sensitive name patterns, then the longest dotted suffix in the Catppuccin table, then Strata's own extension table (lgse/strata#1588, unverified).
+- Lookup tries the exact file name first, ignoring case, then Strata's case-sensitive name patterns. Next comes the longest dotted suffix in the Catppuccin table, then Strata's own extension table (lgse/strata#1588, unverified).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-12 | lgse/strata#1588 | feat | Replaced the language glyphs with Catppuccin file icons in Mocha and Latte flavors and added a File icon colors preference. |
 
 ## Known gaps
 

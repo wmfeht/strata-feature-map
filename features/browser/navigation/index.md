@@ -6,23 +6,27 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/composition/input.rs]
-tests: [src/app/browser/tests/navigation.rs]
+tests: [src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/tabs, browser/view-modes, browser/view-modes/position-restore, integration/10xer-mode]
 ---
 
 ## Summary
 
-Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), and `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders). Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`, selecting the folder you came from in Columns to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`.
+Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), and `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders). Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`.
 
 ## Behavior
 
 ### Back, Forward, and Parent
 
 - Alt+Left, Alt+Right, and Alt+Up go Back, Forward, and to the parent folder in every view mode and key map. lgse/strata#358
-- Alt+Home opens the home folder. lgse/strata#358 (unverified)
+- Alt+Home opens the home folder. lgse/strata#1576 (unverified)
 - Backspace in Columns closes the focused nested column and its descendants. From the root column it opens the parent folder, selecting the root column's folder. lgse/strata#58, lgse/strata#1437, lgse/strata#1544
 - Backspace in List and Icons opens the parent folder. lgse/strata#485
+
+### Unreadable folders
+
+- Selecting or opening a folder Strata may not read, such as after `chmod 000`, shows an "Unable to open directory" dialog saying you do not have permission. lgse/strata#1807 (unverified)
 
 ### Mouse buttons
 

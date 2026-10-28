@@ -8,7 +8,7 @@ tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, in
 
 Everything that reaches Strata from somewhere other than a local disk. Network locations: GIO/GVfs `smb://`, `sftp://`, and `network:///` with on-demand mounting, and the sign-in, passphrase, and host-key dialogs. They also cover failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe. External file providers: registration, reload, and process lifecycle, badges, menu sections and heading icons, and Send to… placement. They also cover activation dialogs and notices, and invalidation. Integrations: the Settings catalog that installs, updates, turns off, and removes bundled providers. KDE Connect and LocalSend: the two bundled providers. `remote/file-providers` itself has no Behavior; its children carry every check.
 
-Left to other sweeps: sidebar rows, the Connect to server dialog, and location-field parsing and history; Settings navigation and search; copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, and mounting, unmounting, and ejecting local devices.
+Left to other sweeps: sidebar rows, the Connect to server dialog, and location-field parsing and history; Settings navigation and search; copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, mounting, unmounting, and ejecting local devices, and unmounting a remote mount from its DEVICES row.
 
 ## Setup
 
@@ -77,7 +77,6 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Use the fixture catalog's category chips with the window at one-, two-, and three-column widths, with a card expanded in each.
 - Open the page in Settings opened from the file chooser, and with `XDG_CONFIG_HOME` pointing at a missing directory.
 - Repeat the page in an RTL language and in the compact Settings layout.
-- Press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and `PATH` holding no listed terminal; then install one and press it again without Refresh.
 
 ### remote/file-providers/kde-connect
 
@@ -99,6 +98,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Sidebar Network place, DEVICES rows, pins, the Connect to server dialog, and the location field's parsing and history → `browser`.
 - The Send to… row, removable-drive groups beside provider submenus, and copying to a drive → `operations`.
 - Settings navigation to Integrations and Settings search aliases for it → `settings`.
+- Run in terminal on an install command, including the message with no terminal emulator → `settings`.
 - Copy, move, paste, rename, and delete with a remote folder as source or target → `operations`.
 - Preview panel and quick preview of remote files, and thumbnails on remote entries → `preview`.
 - Mounting, unmounting, and ejecting local volumes and removable media, and unmounting a remote mount from its DEVICES row → `devices`.

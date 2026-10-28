@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
-tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl]
+tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
 related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter]
 ---
@@ -64,6 +64,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 - The header shows the folder name, middle-ellipsized within the column, vertically centered with its actions. lgse/strata#805, lgse/strata#1143
 - Header actions (Empty Trash at `trash:///`, Refresh, sort direction, Sort by, filter, Close) show only in the column targeted by the latest pointer or keyboard input. lgse/strata#555
+- The `trash:///` column's Empty Trash button is insensitive while the column lists 0 items and becomes sensitive when an item appears. lgse/strata#138
 - While an item or background context menu is open in a column, that column keeps the header actions even when the pointer moves over another column. lgse/strata#555
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
@@ -76,6 +77,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Right in a column's filter field with no selected result moves the caret; it does not open the top result. lgse/strata#1822 (unverified)
 - In Columns, opening a filter in one column closes and clears any other column's filter. lgse/strata#887
 - In Columns, moving focus out of the filtered column closes the filter; focus in its own results, a popover, or a dialog keeps it. lgse/strata#896
+- In the file chooser, or while 10xer mode hides the chrome, moving focus out of the filtered column leaves the filter open. lgse/strata#1004, lgse/strata#1267 (unverified)
 - In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
 
 ### Open-path marker
@@ -187,7 +189,6 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 | 2026-09-07 | lgse/strata#523 | fix | Focused and revealed a column when its empty space or header is clicked. |
 | 2026-09-06 | lgse/strata#411 | fix | Stopped header spinners left running after view switches. |
 | 2026-09-03 | lgse/strata#171 | feat | Opened folders on single click and closed a child column by clicking its folder again. |
-| 2026-09-01 | lgse/strata#131 | fix | Made the Columns size badge an opaque chip that stays visible on selected rows and hid it on rows with no size. |
 | 2026-09-01 | lgse/strata#114 | feat | Added double-click autofit on column resize edges. |
 
 ## Known gaps

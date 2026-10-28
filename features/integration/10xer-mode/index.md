@@ -53,10 +53,10 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ### Chord panel
 
-- Arming a chord (`g`, `c`, `,`, `;`, or `t`) shows its pill, such as `g-`, beside the `10X` pill, with a panel above it. lgse/strata#1304
+- Arming a chord (`g`, `c`, `,`, `;`, or `t`) shows its pill, such as `g-`, beside the `10X` pill, with a panel above it. lgse/strata#1304, lgse/strata#1306, lgse/strata#1308, lgse/strata#1484
 - The panel lists each valid second key as a keycap beside its action, and closes when the chord completes or Esc cancels it. lgse/strata#1304
 - The panel never takes focus, so the next key still completes the chord. lgse/strata#1304
-- The `g` panel lists `g` First item, `f` Follow search result, the place keys, the pin digits, `+` / `-` Pin / unpin folder, and Space Type a path. lgse/strata#1304, lgse/strata#1342 (unverified)
+- The `g` panel lists `g` First item, `f` Follow search result, the place keys, and the pin digits. It also lists `+` / `-` Pin / unpin folder and Space Type a path. lgse/strata#1304, lgse/strata#1342 (unverified)
 - The `c` panel lists Copy path and Copy name; the `,` panel lists Name, Modified, Size, Type, and Shift for Reverse. lgse/strata#1306, lgse/strata#1308 (unverified)
 
 ### Movement

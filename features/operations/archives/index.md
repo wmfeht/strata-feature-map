@@ -6,14 +6,14 @@ branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/extraction.rs]
-tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z, tests/qa/scenarios/dialogs_and_menus/compress-then-chooser-extracts.jsonl]
+tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z, tests/qa/scenarios/dialogs_and_menus/compress-then-chooser-extracts.jsonl, tests/qa/scenarios/dialogs_and_menus/invalid-archive-name-keeps-dialog.jsonl]
 docs: [site/src/reference/archives.md, site/src/reference/keyboard-navigation.md, docs/archives.md]
 related: [integration/10xer-mode, operations/progress, operations/trash, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting local archives with Extract here, Extract to…, or by activating them. Covers passwords, name conflicts, extraction safety, and error reporting. Children: `operations/archives/rar` (RAR extraction), `operations/archives/preview` (browsing an archive's members in the preview), and `operations/archives/extraction-safety` (member paths, confinement, links, and metadata during extraction).
+Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting local archives with Extract here, Extract to…, or by activating them. Covers passwords, name conflicts, output publication, and error reporting. Children: `operations/archives/rar` (RAR extraction), `operations/archives/preview` (browsing an archive's members in the preview), and `operations/archives/extraction-safety` (member paths, confinement, links, and metadata during extraction).
 
 ## Behavior
 
@@ -105,7 +105,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677
 - Every member of a solid 7Z archive is extracted. lgse/strata#406
-- A folder an archive lists twice gets the later entry's stored mode and modification time, each taken from the earlier entry when the later one lacks it. lgse/strata#1499 (unverified)
+- A folder an archive lists twice gets the later entry's stored mode and modification time. Each falls back to the earlier entry's value when the later one lacks it. lgse/strata#1499 (unverified)
 - A TAR FIFO or device member fails the extraction with a message naming the member. lgse/strata#1478
 
 ### Passwords

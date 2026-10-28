@@ -30,7 +30,7 @@ A text layer over rendered PDF pages, so text can be selected and copied from a 
 
 ## Design
 
-- PDFs render in the sandbox, so the text layer travels with each page as a bounded `result.text` sidecar to the PNG, the same pattern as `result.meta` (lgse/strata#1220, lgse/strata#1223).
+- PDFs render in the sandbox, so the text layer travels with each page as a bounded `result.text` sidecar to the PNG. It follows the `result.meta` pattern (lgse/strata#1220, lgse/strata#1223).
 - Selection flows through the text like a document viewer. Rectangular block selection was rejected because it copies in visual order (lgse/strata#1220).
 - The existing pan gesture decides per press: a press near glyphs selects, any other press pans (lgse/strata#1223).
 - Ctrl+A and Ctrl+C reuse the preview's focus and keyboard dispatch (lgse/strata#1223).

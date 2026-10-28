@@ -29,7 +29,6 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 ### Invocation
 
 - Programs and interpreters get argv entries directly, never through a shell. lgse/strata#1085
-- A command argument that is exactly `{path}`, `{paths}`, or `{parent}` expands to absolute paths, one argument each. Other arguments pass through literally. lgse/strata#1085
 - Each invocation gets `STRATA_ACTION_*` variables for version, id, mode, source (`selection` or `background`), count, and 1-based per-item position. lgse/strata#1085
 - Input paths go in a NUL-delimited, byte-exact file named by `STRATA_ACTION_PATHS`, so names with newlines or invalid UTF-8 arrive intact. lgse/strata#1085
 - The working directory is the invoking folder by default. An action can choose Home or its own folder instead. lgse/strata#1085

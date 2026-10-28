@@ -43,7 +43,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - An `smb://` location without its GVfs backend fails with a message naming common packages `gvfs-smb` or `gvfs-backends`. lgse/strata#31, lgse/strata#233
 - An unresolvable host, refused connection, timeout, or unreachable host each shows its own message, such as "That host couldn’t be found. Check the address and DNS settings." lgse/strata#233
 - Backend error text shown in a dialog has URI user info, query, and fragment removed. lgse/strata#233
-- At the default log level, a mount logs only the backend name and outcome; the location appears only at DEBUG, without user info, query, or fragment. lgse/strata#233
+- At the default log level, a mount logs only the backend name and outcome. The location appears only at DEBUG, without user info, query, or fragment. lgse/strata#233
 
 ### Sidebar
 
@@ -61,7 +61,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - A remote entry whose name is not valid UTF-8, such as `\xff name` over SFTP, is listed. lgse/strata#1533
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
-- After F5 on a remote folder whose cursor file was deleted on the server, the cursor moves to a neighbouring row once the last batch is shown; focus outside the pane stays put. lgse/strata#1544
+- After F5 on a remote folder whose cursor file was deleted on the server, the cursor moves to a neighbouring row. It moves once the last batch is shown, and focus outside the pane stays put. lgse/strata#1544
 - When `gvfsd` does not answer a 2-second startup probe, the window still opens, using local file and volume support for that session. lgse/strata#56
 
 ## Design

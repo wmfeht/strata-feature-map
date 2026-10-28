@@ -79,6 +79,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 | 2026-10-12 | lgse/strata#1583 | feat | Added Simplified Chinese as the eleventh language, auto-detected for every Chinese locale, with a shared sentence joiner and Han/kana Settings search matching. |
 | 2026-10-08 | lgse/strata#1542 | fix | Reviewed every catalog against English and fixed mistranslations and inconsistent terms. |
 | 2026-10-08 | lgse/strata#1519 | feat | Added ten compiled-in languages, locale detection, and a restart-to-apply Language setting. |
+| 2026-09-09 | lgse/strata#698 | fix | Rounded a file size before choosing its unit, so 999,950 bytes shows 1 MB instead of 1000 kB. |
 
 ## Known gaps
 

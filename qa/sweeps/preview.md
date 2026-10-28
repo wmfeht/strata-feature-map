@@ -6,7 +6,7 @@ tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-l
 
 ## Scope
 
-Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones and zoom, comic and EPUB covers, and Print. PDF text selection is its own child. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection; its scrollbar child covers the document-position thumb and momentum. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover STL, 3MF, and FreeCAD rendering, embedded thumbnails, model limits, the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
+Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones and zoom, comic and EPUB covers, and Print. PDF text selection is its own child. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Its scrollbar child covers the document-position thumb and momentum. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover STL, 3MF, and FreeCAD rendering, embedded thumbnails, model limits, the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
 
 Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, archive member listing and the archive preview, and preview keys in 10xer mode. Also media runtime packaging and launch dependencies, the Settings pages as controls, and mounting the remote locations that remote previews read.
 
@@ -77,7 +77,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Select from page 1 to page 3 of the 2000-page PDF, scroll to page 1500, then press Ctrl+C.
 - Double-click, then drag across a page break; triple-click the last line of a page that has no trailing line break.
 - Drag from a scanned page onto a text page in a PDF that mixes both, and from a page margin onto text.
-- Select text at 1× zoom, Ctrl+wheel to 4×, and compare the highlight bands with the glyphs, on lines with and without descenders and on accented text.
+- Select text at 1× zoom and Ctrl+wheel to 4×. Compare the highlight bands with the glyphs on lines with and without descenders and on accented text.
 - Select text in a right-to-left or vertical-script PDF and copy it.
 
 ### preview/preview-panel/layout
@@ -129,7 +129,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 ### preview/preview-panel/documents/scrollbar
 
-- Hold the scrollbar thumb at ten interior positions in both copies of the generated 400-block Markdown and in the 2 MiB text file, with wrap off and on, then in a file chooser preview.
+- Hold the scrollbar thumb at ten interior positions in both copies of the generated 400-block Markdown and in the 2 MiB text file. Repeat with wrap off and on, then in a file chooser preview.
 - Release a touchpad flick into a region of tall code blocks, tables, and images still loading, in both directions.
 - Drag the thumb to each end, release over the content, then press Page Down and Page Up.
 - Focus the scrollbar and press Home and End, then set its value from Accerciser to the minimum, the maximum, and an interior value.
@@ -187,7 +187,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 ### preview/preview-panel/model-views
 
 - Pick Back right, change the theme twice, then select the next model file and come back.
-- Preview a 3MF with two usable PNGs, a 3MF with one PNG plus geometry, and a FreeCAD file with no thumbnail.
+- Preview a 3MF with one usable and one corrupt PNG, a 3MF with one PNG plus geometry, and a FreeCAD file with no thumbnail.
 - Preview an STL of exactly 128 MiB and one byte over, and an ASCII STL just over 2 million triangles.
 - Step through all four views on the STL near 2 million triangles, clicking Next again before each render ends; watch the bwrap count.
 - Pick a view, then switch view mode between Columns, Icons, and List with the preview open.
@@ -262,7 +262,6 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - The RAW extension list, including `.ptx` and `.crf` → `browser`.
 - Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
 - Columns keyboard mirroring, including whether Up or Down onto a file opens a preview → `browser`.
-- Which files the item menu offers Print for → `settings`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
 - F1 reference rows for preview find and media keys → `app`.
 - Layout fallback, Caps Lock, keypad, and translated key names for every shortcut → `app`.

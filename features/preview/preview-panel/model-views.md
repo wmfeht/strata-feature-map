@@ -23,6 +23,7 @@ Sandboxed previews of local STL, 3MF, and FreeCAD models in the drawer and Quick
 - Changing the theme re-renders the open model preview with the new accent and keeps the selected camera view. lgse/strata#1276, lgse/strata#1644
 - A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
 - A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
+- A FreeCAD file without a usable thumbnail shows "This FreeCAD file has no usable embedded thumbnail" and renders no geometry. lgse/strata#1276 (unverified)
 - A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
 - An STL, 3MF, or FreeCAD model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276, lgse/strata#1864
 
