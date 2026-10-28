@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -64,6 +64,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With file clicks at one, then two, and single-click previews on, then off, click a filtered file once and twice. Use Columns recursive results, Icons and List search results, and an in-place filter on Recent. Read the preview, selection, and response code.
 - Filter to a non-previewable file and to a folder, and click each once under each click setting.
 - Under `save`, right-click and middle-click the highlighted file, and click a file in filter results. Click a file, then immediately double-click a folder. Repeat each with 10xer mode on and read Name after each.
+- Send SaveFile with `current_name` set to `.bashrc`, `archive.tar.gz`, `noext`, `a.`, and `résumé.pdf`; read Name's selection after the window settles with 10xer mode off, and after Tab from the header with it on.
 - Dump the tree in the file chooser's Save and URL views.
 
 ### integration/portal-file-chooser/setup

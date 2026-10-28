@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/trash_support.rs, src/adapters/local_operations/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/trash_support/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch]
@@ -73,6 +73,12 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - With `gvfsd` running, Trash lists a file whose name holds byte `\xe9` as `caf�.txt (invalid encoding)`. lgse/strata#1533
 - The footer counts such an item. lgse/strata#1533
 - The path bar and Properties show such an item's percent-encoded URI, such as `trash:///caf%E9.txt`. lgse/strata#1533
+
+### Confirmation file list
+
+- The file list in the Shift+Delete and no-Trash confirmations has square corners at corner roundness 0, 1.8px at the default 60, and 6px at 200. lgse/strata#1906, lgse/strata#1908
+- The file list in the "Move N items to Trash?" confirmation has the same corners at each roundness. lgse/strata#1906, lgse/strata#1908 (unverified)
+- The file list in the "Restore N items?" confirmation has the same corners at each roundness. lgse/strata#1906, lgse/strata#1908
 
 ## Design
 

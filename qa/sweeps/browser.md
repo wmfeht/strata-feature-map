@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -24,6 +24,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - fcitx5 with pinyin under `GTK_IM_MODULE=fcitx` on X11 for input-method probes.
 - Foreign drags for pin probes: Nautilus or Dolphin, and `tests/qa/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
+- Raw H.264 samples: `ffmpeg -f lavfi -i testsrc2=size=320x180:rate=24:duration=3 -c:v libx264 -pix_fmt yuv420p -an alpha.h264`. Copy it as `.H264`, `.264`, `clip.h264.txt`, and with no extension; encode an HEVC stream as `.h265` and `.hevc`. Put plain text in `notes.h264` and leave an empty `empty.h264`.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
 - GNOME Shell, KDE Plasma, and Hyprland Wayland sessions and an X11 session, plus two monitors of different heights, for context menu placement probes.
@@ -161,6 +162,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Turn per-folder views off, sort in column 3, open a new column from column 1, then turn per-folder views back on.
 - Toggle Folders first in one window while another shows Recent, a filter, and a Camera Photos library.
 - Sort a folder holding `.GPR`, `.ARQ`, `.ORI`, `.DNG`, and extensionless files by Type in List, in both directions.
+- Sort by Type a folder holding the `.H264` copy, `clip.h264.txt`, the extensionless copy, and `notes.h264`, in both directions, under German and C locales.
 
 ### browser/view-modes/folder-views
 
@@ -268,6 +270,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 - Set both search limits to No limit and Ctrl+K over an `sshfs` or rclone mount under Home; then 10 s and 200,000 over two `100000` copies, and hover Partial results.
 - Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
+- In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`.
+- In Ctrl+K, separate two terms with a Tab, then a double space; then use a term found only in the searched root's own path.
 
 ### browser/search/exclusions
 
@@ -393,6 +397,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Open Properties on a 0-byte `.mp4`, a WAV renamed `.png`, a rotated phone video, and an MP3 with cover art.
 - Close the dialog within 100 ms of opening it on a long video; reopen after rewriting the file externally.
+- Open Properties on `notes.h264`, `empty.h264`, the `.H264` and `.264` copies, and the `.h265` and `.hevc` streams.
 
 ### browser/properties/raw-metadata
 

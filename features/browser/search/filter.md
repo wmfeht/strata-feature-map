@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/inline_search.rs, src/ui/enter_target.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/ui/enter_target/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results, tests/qa/mutations/filter-results.patch]
@@ -49,6 +49,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - An alphanumeric query of 4 or more characters also matches a name word one edit away: `trahs` finds `strata-trash.svg`. lgse/strata#1119
 - In a query with spaces, each word of 4 or more alphanumerics allows one edit: `abc text` matches `abc_tent.doc`, but `abc tex` does not. lgse/strata#1768
 - Literal matches rank above typo matches. A name containing the whole query ranks above names matching scattered words: with Include subfolders on, `duck txt` lists `duck txt notes.md` before `ducks_in_the_pool.txt`. lgse/strata#1119, lgse/strata#1768
+- A name containing the whole query ranks above non-contiguous matches at any depth. lgse/strata#1899
 - Where the filter narrows rows in place, editing `abc tex` to `abc text` shows `abc_tent.doc` at once. lgse/strata#1768
 - `*` matches zero or more characters across the whole name: `*.MOV` matches `clip.MOV` but not `clip.MOV.bak`. lgse/strata#989
 - `IMG*.MOV` matches only names starting with `IMG` and ending in `.MOV`; `*` alone matches every name. lgse/strata#989
@@ -183,6 +184,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1899 | feat | Shared the filter's term and typo matcher with Ctrl+K so multi-word global queries match every term. |
 | 2026-10-25 | lgse/strata#1888 | fix | Made a plain click on a filtered file follow the click-count and single-click preview preferences, so previews work on filtered files. |
 | 2026-10-22 | lgse/strata#1822 | feat | Outlined the top result Enter opens and kept it in view until a pick or scroll, so Enter is predictable. |
 | 2026-10-20 | lgse/strata#1768 | feat | Matched space-separated queries when the name contains every word, ranking whole-phrase hits first. |

@@ -3,10 +3,10 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/keyboard.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
 related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter]
 ---
@@ -32,6 +32,10 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Without a usable folder hint, Open, SaveFile, and SaveFiles start in `XDG_DOWNLOAD_DIR`, or Home when it is undefined. lgse/strata#993
 - A folder hint that is relative, inaccessible, or unanswered within 3 seconds falls back to the same default folder. lgse/strata#993 (unverified)
 - A SaveFile `current_file` naming a file that does not exist yet, in an accessible folder, opens that folder with the full name in Name. lgse/strata#700
+- With 10xer mode off, a SaveFile request with `current_name` `report.draft.pdf` opens with focus in Name and only `report.draft` selected. lgse/strata#1898
+- That selection survives the idle focus restore after the window presents, so typing replaces `report.draft` and keeps `.pdf`. lgse/strata#1898
+- The selection ends at the last dot after the first character, as in rename: `archive.tar.gz` selects `archive.tar`; `.bashrc` and `notes` select all. lgse/strata#1898 (unverified)
+- With 10xer mode on, Tab from the header into Name in a SaveFile request selects only the part before the last dot. lgse/strata#1898
 - A Wayland parent handle makes the chooser transient for the caller; an X11 parent handle is ignored and the chooser opens standalone. lgse/strata#175
 - The backend exits once no request has been active for 120 seconds, checked every 10 seconds; an open chooser keeps it running. lgse/strata#1201
 
@@ -121,6 +125,8 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - That check compares text, not an edited flag, so an edit that restores the text still targets the original. Rebuilding bytes from an edited name would be guesswork, so edits save literally (lgse/strata#1427).
 - GTK emits no selection change when a click keeps the same row selected, and the Name cache ignores unchanged selections to keep typed names. So an explicit primary press on a file row clears the cache after the row's own handler runs. Focus and selection echoes still pass through the cache (lgse/strata#1785, lgse/strata#1786).
 - Default-map Enter shares the confirm path of Open and the 10xer map. Routing only activation would still return one file, because List and Icons collapse the selection first (lgse/strata#1426, lgse/strata#1533).
+- GTK's text focus handler selects all text on a plain focus grab. The chooser focuses Name without selecting, then selects the stem, also in the idle focus restore (lgse/strata#1897, lgse/strata#1898).
+- The stem rule is rename's, so a Save name and a rename select the same part (lgse/strata#1898).
 - `current_file` for a nonexistent file is accepted for Qt interoperability, though the specification describes existing files (lgse/strata#699).
 - The backend is D-Bus activated and exits when idle. A request arriving during shutdown is refused rather than raced (lgse/strata#1200).
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
@@ -132,6 +138,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1898 | fix | Selected only the suggested name's stem in Save, at build, on present, and in the idle focus restore, which had selected it whole. |
 | 2026-10-20 | lgse/strata#1786 | fix | Refilled Save names on clicks that keep a file selected, which GTK reports as no selection change. |
 | 2026-10-17 | lgse/strata#1714 | fix | Yielded chooser shortcuts to an open reference and typed Space in the Name and location entries with a hit selected. |
 | 2026-10-11 | lgse/strata#1570 | fix | Kept the selection on plain clicks in the chooser's showing preview; sidebar clicks still clear it. |
