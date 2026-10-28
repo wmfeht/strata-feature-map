@@ -25,7 +25,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - Delete on a selected Ctrl+F filter result moves that result to Trash and leaves the hidden directory selection untouched. lgse/strata#915
 - A Trash move that reports success while the item is still in place fails as Trash unsupported, and records no Undo. lgse/strata#1615
 - When another item took the name during the Trash call, Undo and saved views follow the newest Trash entry made for that path. lgse/strata#1729
-- In Columns, in the default key map, Delete after deselecting the focused row moves that row to Trash. lgse/strata#1885 (unverified)
+- In Columns, in the default key map, Delete after Ctrl+click deselects the only selected row moves that row to Trash. lgse/strata#1885 (unverified)
 
 ### Locations without Trash
 
@@ -76,7 +76,8 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
 - For a remote selection, it ends "…will be deleted" instead. lgse/strata#1614
 - After Shift+Delete, Permanently delete, or Delete without Trash, the confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266, lgse/strata#1533, lgse/strata#1614
-- Left or `h` focuses Cancel and Right or `l` focuses confirm; Enter and keypad Enter activate the focused button. lgse/strata#1052
+- The `left` keys, Left or `h` by default, focus Cancel and the `right` keys, Right or `l`, focus confirm. lgse/strata#1052, lgse/strata#1885
+- Enter and keypad Enter activate the focused button. lgse/strata#1052
 - With Cancel or Close focused, Enter dismisses the dialog and the files stay. lgse/strata#1052
 - In 10xer mode, `d` in the "Move N items to Trash?" confirmation confirms it; in the permanent and no-Trash confirmations `d` does not confirm. lgse/strata#1340, lgse/strata#1508, lgse/strata#1533
 - A backdrop click, Escape, Cancel, or Close dismisses the permanent-delete confirmation without deleting anything. lgse/strata#1052, lgse/strata#1206, lgse/strata#1900

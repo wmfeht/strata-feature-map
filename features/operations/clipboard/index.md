@@ -59,7 +59,6 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - In a path that is not valid UTF-8, only the `/`-separated components that are not valid UTF-8 or contain a newline are `$'...'`-quoted; others keep backslash escaping. lgse/strata#1626 (unverified)
 - Inside `$'...'`, valid UTF-8 characters stay literal, `'` and `\` get a backslash, and each byte of a control character becomes `\xHH`. lgse/strata#1626 (unverified)
 - With several items selected, Copy paths copies one path per line. lgse/strata#230 (unverified)
-- In the default key map, `y` copies nothing while Ctrl+F filter results are showing. lgse/strata#1885 (unverified)
 - Copy name and Copy names copy the display names, one per line. lgse/strata#704
 - Pasting while the clipboard holds an image and no files writes `image.png`, then `image (1).png`, into a local destination. lgse/strata#882
 - The folder menu's Paste is sensitive only while the clipboard holds files or a PNG image. lgse/strata#882
