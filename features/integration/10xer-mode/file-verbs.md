@@ -20,9 +20,10 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `y`, `x`, `d`, `c c`, and `c n` act on the focused pane's fill, or its cursor item when nothing is filled. `f` and `s` results count. lgse/strata#1306
 - A hovered row, a parent folder, and a Miller column's open-path marker are never targets. lgse/strata#1306
-- Default-map direct verbs act on the selection only. lgse/strata#1885
-- With the focused row unselected in List view, Open With flashes `Nothing to open`, Move to `Nothing to move`, and Copy to and Copy as name `Nothing to copy`. lgse/strata#1885 (unverified)
-- Compress flashes `Nothing to compress` and Extract to `Nothing to extract`; no prompt, dialog, or clipboard change follows. lgse/strata#1885 (unverified)
+- Default-map direct verbs act on the selection, never on the cursor item. lgse/strata#1885
+- In the default map, in List view with the focused row unselected, direct Open With flashes `Nothing to open` and Move to `Nothing to move`. lgse/strata#1885 (unverified)
+- In that state, direct Copy to and Copy as name flash `Nothing to copy`. lgse/strata#1885 (unverified)
+- In that state, direct Compress flashes `Nothing to compress` and Extract to `Nothing to extract`. No prompt, dialog, or clipboard change follows. lgse/strata#1885 (unverified)
 - In Columns, with nothing selected in a non-root column, a default-map direct verb targets the folder that column descends from, as Copy does. lgse/strata#1885 (unverified)
 - In an empty folder, `y`, `x`, `d`, and `r` flash `Nothing to yank`, `Nothing to cut`, `Nothing to delete`, and `Nothing to rename`. lgse/strata#1306, lgse/strata#1308
 

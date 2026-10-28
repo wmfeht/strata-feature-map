@@ -65,10 +65,11 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The clear buttons of Search settings, Search themes, and Search templates share one helper, so each is named "Clear search". lgse/strata#1895 (unverified)
 - Searching changes no saved preference. lgse/strata#849
 - Searching "keybindings" opens General at Show F1 Shortcuts button and also lists every Keyboard row. lgse/strata#1376, lgse/strata#1885 (unverified)
-- Searching "Rename" or "F2" opens Keyboard with only the Rename rows. lgse/strata#1885
+- Searching "Rename" or "F2" opens Keyboard on the Default table, which shows only the Rename row. lgse/strata#1885
 - Searching "Ctrl+R" lists every row that has both a Ctrl key in either map and a word starting with "r", such as Redo; Undo stays hidden. lgse/strata#1885 (unverified)
-- While a Settings search matches a Keyboard row, the Default/10xer switch stays shown, even when only the 10xer table holds the match, as for "Sort chord". lgse/strata#1885 (unverified)
-- Searching a custom action's name shows the Keyboard row of the slot that runs it. lgse/strata#1885 (unverified)
+- While a Settings search matches a Keyboard row, the Default/10xer switch stays shown. lgse/strata#1885 (unverified)
+- That holds even when only the 10xer table matches, as for "Sort chord". lgse/strata#1885 (unverified)
+- Searching a custom action's name shows the Keyboard row of the slot that runs it. lgse/strata#1885
 - Searching "hotkeys", "keymap", "rebind", or "remap" opens Keyboard with every row listed. lgse/strata#1885 (unverified)
 - A query whose best match is a setting's title or alias opens that setting's page, even when an action name matches it equally. lgse/strata#1885 (unverified)
 - Searching "license" opens About with the License row; searching "custom actions" opens Actions with the custom-actions list. lgse/strata#1554, lgse/strata#1453

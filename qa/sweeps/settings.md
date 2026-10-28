@@ -23,7 +23,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
 - A user stylesheet at `$XDG_CONFIG_HOME/strata/style.css` with a valid rule using `@strata_accent`, a rule GTK rejects such as `label { color: nope; }`, and a layout rule such as `.sidebar-shell { margin: 12px; }`; a 1 MB copy and a non-UTF-8 copy beside it.
-- An uncomposited X11 session: the private Xvfb alone, then Xvfb with openbox and no compositor, with no client owning the `_NET_WM_CM_S0` selection, as python-xlib's `get_selection_owner` reports. `picom` or `xcompmgr`, installed but not started, so a script can start and stop it while Strata runs.
+- An uncomposited X11 session: the private Xvfb alone, then Xvfb with openbox and no compositor. No client owns the `_NET_WM_CM_S0` selection, as python-xlib's `get_selection_owner` reports. `picom` or `xcompmgr`, installed but not started, so a script can start and stop it while Strata runs.
 - Icon themes for the control icons: Breeze, Yaru, and Adwaita installed, plus a theme without symbolic icons, each selected through `settings.ini` before launch.
 - A user GtkSourceView setup: `~/.local/share/gtksourceview-5/styles/strata-current.xml` and a `rust.lang` under `~/.local/share/gtksourceview-5/language-specs/`, and a `chmod 555` `~/.cache/strata`.
 - An sshfs mount whose daemon a script stops with `kill -STOP` and resumes with `kill -CONT`, for the Default directory and save cases.
@@ -70,7 +70,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Press Ctrl+, and click the gear over Properties, Compress, a delete confirmation, Customize…, and a dialog animating closed. Repeat over a dialog in another tab of the same window. Read Settings and the focused control each time.
 - With Settings opened on General and the Keyboard page not yet built, then after it is built, search "rename", "Ctrl+E", and "remap"; read the opened page and which table shows.
 - Search a key only the 10xer map gives, and a word shared by a General row and an action name; then clear with Escape and count visible rows on Keyboard.
-- Rebind an action in `settings.toml`, then search its old and new keys under English and `language = "ja"`.
+- Rebind an action in `settings.toml` before launch, then search its old and new keys under English and `language = "ja"`.
 - Compare the navigation's icon column with the search field's icon at text size 8 and 48, labelled and icon-only.
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 
