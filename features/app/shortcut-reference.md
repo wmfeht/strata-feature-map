@@ -78,6 +78,8 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - With F1 open, unbinding Ctrl+K for global search removes its row without reopening the reference. lgse/strata#1885
 - With `[keymap.default] toggle_hidden_files = ["F7"]`, F1 lists F7 for toggling hidden files. lgse/strata#1885
 - In the default map, a "Custom actions" section lists each custom action slot that has a key, as "Custom action N". lgse/strata#1885
+- With Close tab unbound, its tooltip and accessible label read "Close tab", not "Close tab ()". lgse/strata#1885
+- With its keys unbound, a legend hint such as "%{keys} navigate" is hidden. lgse/strata#1885 (unverified)
 - Movement keys are described directly; the `h / j / k / l` row reads "Same as ← ↓ ↑ → (type-to-search off)" and no row names Vim. lgse/strata#826
 - In a translated interface, actions and key context such as "on a file" are translated, and key names follow the interface language: German shows Strg+B and Rücktaste. lgse/strata#1519, lgse/strata#1576
 

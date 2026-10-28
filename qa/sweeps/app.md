@@ -119,7 +119,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
 - Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
 - Hold Ctrl+Shift and scroll a touchpad slowly, then fast; then release Shift mid-scroll and keep scrolling.
-- Rebind `pdf_zoom_reset` and `text_reset` to shared and separate keys, then press them with a PDF, a text preview, and the listing focused, with a 10xer chord armed.
+- Rebind `pdf_zoom_reset` and `text_reset` to shared and separate keys. Press them with a PDF, a text preview, and the listing focused, with a 10xer chord armed.
 - With three windows open, toggle 10xer mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ from the file list. Close one window and check again.
 
 ### app/packaging
@@ -189,22 +189,23 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Launch with each keymap fixture, then rebind one key in Settings; diff the file against the fixture and read the log for each rejected entry.
 - Hand-edit a key two commands share in one table, and one key on the same command in both tables; launch, read the log, and press the key in each mode and view.
-- Put the same key twice in one entry, and a key equal to a shipped key of another surface, such as a preview key on a window command.
+- Put the same key twice in one entry. Then give a window command a key another surface ships, such as a preview key.
 - Arm a 10xer chord in one window, then rebind its trigger or a step in Settings in a second window; press the old and new keys in the first.
 - Rebind a 10xer chord trigger, then press the old trigger, the new one, and each step and digit after it.
-- Capture keys on `fr` (AZERTY), `de`, `ch`, `ru`, and `us,ru` with Russian active: top-row digits with and without Shift, AltGr symbols, and Ctrl with a non-Latin letter; read the chip and the saved accelerator.
+- Capture keys on `fr` (AZERTY), `de`, `ch`, `ru`, and `us,ru` with Russian active. Use top-row digits with and without Shift, AltGr symbols, and Ctrl with a non-Latin letter; read the chip and saved accelerator.
 - Capture with an input-method composition pending, and with fcitx5 or IBus switch keys.
 - Start a capture, then switch the table, close Settings, switch windows, or toggle 10xer mode from another window; press a key after each.
 - Arm captures in two windows and press keys in each in turn.
-- Drop Escape from `escape`, add `<Control>bracketleft`, then cancel a dialog, a rename, a footer prompt, F1, a popover menu, and the portal chooser with each key.
+- Drop Escape from `escape` and add `<Control>bracketleft`. Cancel a dialog, a rename, a footer prompt, F1, a popover menu, and the portal chooser with each key.
 - Give Enter, Tab, and the arrows a Ctrl key and a plain letter; use them in the action editor's multi-line field, Settings, a document table, the media timeline, and the sidebar.
 - With type-to-search on, then off, bind plain letters to a window command and to a structural key; type them in the file list, the filter, and global search.
 - Bind each direct command in the other map to a Ctrl key and an F key; run it on a selection, an unselected focused row, search hits, an empty folder, and Trash.
 - Bind Custom action 1 and 2, then add, delete, reorder, disable, and rename actions in Settings → Actions; read the slot names and press each key after each change.
 - Search the page for a 10xer-only action, a slot's action name, and a key label in German; switch tables with the query kept.
+- Leave a 10xer trigger unbound with its steps bound, and leave Escape out of `escape`; read each row's notes and chips in both tables.
 - With the fixture holding unknown ids, press **Reset all** and dismiss the dialog by Escape and by the backdrop; then confirm and diff the file.
 - Edit `settings.toml` while Strata runs, then save a rebind from Settings; read the file and the keys after relaunch.
-- With the interface in de and ja, read every chip, note, and the Reset all dialog at text size 8 and 48 and at the narrowest Settings width.
+- With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
 
 ### app/updates
 
