@@ -50,7 +50,7 @@ A node's id is its path under `features/` without `.md` or `/index`, such as
 | --- | --- |
 | Inheritance | Children inherit the parent's `docs` and Design and record only what differs. Everything else is per node. |
 | Behavior | Owned by exactly one node: the one whose `code` implements it, even when another node's feature triggers it. A parent's Behavior covers only what no child owns. |
-| History | A PR's row goes on the node `drift` names, never on both a parent and its child. A batch PR that bundles independent fixes gets a row on each node whose code it changed. See "Row placement" under Sync contract. |
+| History | A PR's row goes on the node `drift` names, never on both a parent and its child. A batch PR that bundles independent fixes gets one row per fix, on the node owning most of that fix's lines. See "Row placement" under Sync contract. |
 | Coverage | A parent's effective code and tests are the union of its own and its subtree's. |
 | Staleness | Each node has its own `reviewed_at`. A parent's effective staleness is its oldest descendant's. |
 | Status | Per node. A shipped parent may have an in-progress child. |
@@ -69,7 +69,7 @@ branch: null
 reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**]
-tests: [src/ui/window/composition/tabs/tests.rs, tests/e2e/scenarios/test_tabs.py]
+tests: [src/ui/window/composition/tabs/tests.rs, tests/qa/scenarios/tabs]
 docs: [docs/keyboard-navigation.md]
 related: [integration/10xer-mode]
 ---
@@ -110,7 +110,7 @@ maintained Strata doc when one carries the design, and summarize it here.
 | `reviewed_at` | yes | Full 40-character upstream SHA the content was last verified against. |
 | `review` | yes | `draft` or `reviewed`. Only the owner sets `reviewed`, or the bot at Sync contract step 7. |
 | `code` | yes | Upstream paths or globs (`*`, `**`) owning the feature. A plain path also matches everything under it. Used to map PRs to nodes, so be specific: no shared modules, except on a `fallback` node. |
-| `tests` | yes | Upstream test files or globs that cover the feature: Rust test modules and E2E scenarios. May be `[]`. |
+| `tests` | yes | Upstream test files or globs that cover the feature: Rust test modules and QA scenarios (`tests/qa/scenarios/…`). May be `[]`. |
 | `docs` | no | Maintained docs: a site page such as `site/src/reference/archives.md`, or an upstream contributor doc such as `docs/architecture.md`. Children inherit them. |
 | `related` | no | Node ids whose behavior moves when this one changes. |
 
@@ -135,18 +135,23 @@ repository.
 - **Design.** Prose and bullets. A design change needs a linked issue or PR that
   justifies it.
 - **History.** One table, newest first. `Date` is the merge date (YYYY-MM-DD),
-  `PR` a ref, `Type` the Conventional Commit type, `Change` one line on what
-  changed and why. Refactor and perf PRs get a row and no Behavior edit.
-  Trivial PRs (typos, formatting) need no row.
+  in UTC from GitHub's `mergedAt`. `PR` a ref, `Type` the Conventional Commit
+  type of the PR title, `Change` one line on what changed and why. Refactor and
+  perf PRs get a row, and a Behavior edit only where they changed shipped
+  behavior. Trivial PRs (typos, formatting) need no row; neither does a `deps` PR.
 - **Known gaps.** Bullets, each citing an issue: open issues, deferred work,
   intended behavior not yet shipped. A limitation stated in a merged PR body,
-  with no issue, cites that PR. A gap goes on the node whose code would fix it.
+  with no issue, cites that PR; so does one a maintainer states in a review or
+  merge comment. A gap whose issue closed without fixing it all cites the closing
+  PR when its body states the remainder; otherwise drop the gap and list it in
+  the PR description. A gap goes on the node whose code would fix it.
   `None known.` when there are none.
 
 ## Writing rules
 
-- Every claim traces to a PR, an issue, an issue comment, or a maintained doc:
-  a site page, or an upstream doc that stayed upstream.
+- Every claim traces to a PR, an issue, an issue or PR comment, or a maintained
+  doc: a site page, or an upstream doc that stayed upstream. A maintainer's
+  review comment on the PR counts, and so does a commit message in the merged PR.
   Read the PR body's Description and How to test sections and the linked issue
   with its comments; design discussion lives in the comments.
 - Code is the source of truth for current behavior. When a PR and the code at
@@ -186,7 +191,7 @@ trigger that a node's `code` already covers is a warning: drop it.
   another sweep owns, or `None.`
 
 A node without probes is fine; its Behavior is its whole checklist. `index/qa.md`
-lists those nodes and the nodes with no E2E scenario.
+lists those nodes and the nodes with no QA scenario.
 
 `featuremap.py qa` turns a PR, a diff, a node, or a sweep into a plan: primary
 nodes from the changed paths, then tier 1 (ancestors and descendants), tier 2
@@ -199,10 +204,10 @@ triggers fired. Plans and reports are output; they never enter this repository.
 
 | Command | Purpose |
 | --- | --- |
-| `scripts/featuremap.py extract` | Pull every merged upstream PR into `data/prs.jsonl`. |
+| `scripts/featuremap.py extract` | Pull every merged upstream PR into `data/prs.jsonl`. Falls back to the REST API when GraphQL is blocked; `FEATUREMAP_REST=1` forces it. |
 | `scripts/featuremap.py index` | Regenerate `README.md` and `index/`, including `index/qa.md`, plus `site/src/SUMMARY.md` and the book title. |
 | `scripts/featuremap.py check` | Validate the tree, the sweeps, and the site. `--offline` skips the upstream path and release checks. |
-| `scripts/featuremap.py drift` | Extract PRs after the watermark, map them, and print the drift report. |
+| `scripts/featuremap.py drift` | Extract PRs after the watermark, map them, and print the drift report. Same REST fallback. |
 | `scripts/featuremap.py qa --pr N \| --files F \| --node ID \| --sweep AREA \| --all` | Render a QA plan to stdout or `--out`. `--tier 1..3` bounds the radius. |
 | `scripts/featuremap.py release-docs --tag vX.Y.Z [--bump]` | Map a stable release's PRs to the site pages they affect; `--bump` moves the site to the release. |
 
@@ -251,7 +256,8 @@ On each scheduled run:
 2. For each affected node, append History rows, edit Behavior only where shipped
    behavior changed, and set `reviewed_at` to the new head. Keep `review` as it
    is unless content changed; a content change, a new History row included,
-   sets `review: draft`.
+   sets `review: draft`. A front-matter change alone (`code`, `tests`, `docs`,
+   `related`, `reviewed_at`) is not a content change.
 3. For each affected node, reread its probes in `qa/sweeps/<area>.md`. Add
    probes for new behavior, retire probes for removed behavior, and set the
    sweep's `reviewed_at` to the new head.
@@ -265,31 +271,58 @@ On each scheduled run:
    changes" an owner in the same PR (see the ownership rule below).
 6. Set `watermark` in `sources.yaml` to the head `drift` reported, run `index` and
    `check`, and open a PR. A person reviews and merges.
-7. Once the PR's adversarial review passes and the owner has resolved its open
-   questions, set `review: reviewed` on the PR's draft nodes in a follow-up commit.
+7. Merging a sync PR accepts it and resolves its open questions. At the start of
+   each run, set `review: reviewed` on every draft node on `main` whose last
+   change came from a merged sync PR. A node named under that PR's "Needs a
+   person" stays draft until a person resolves the item or a later sync settles it.
 
 Rules:
 
 - Append to History; never rewrite earlier rows.
 - **Row placement.** A PR gets one History row, on the node `drift` names
-  ("History row here"). Other nodes whose bullets the PR changes cite it there
-  without a row. Never put rows on both a parent and child. Exceptions:
-  - A batch PR of independent fixes (a "triage batch" title, or a body listing
-    separate fixes) gets a row on each node whose code each fix changed.
+  ("History row here"). That holds when another node owns more of its files, or
+  when its scope names a node whose code it did not change. Other nodes whose
+  bullets the PR changes cite it there without a row. A node touched only through
+  a signature, a test hook, or a shared test file gets only `reviewed_at`, even
+  in a batch PR. A new node created for a PR that `drift` names
+  elsewhere leaves the row there; its History may stay empty. Never put rows on
+  both a parent and child. Exceptions:
+  - A batch PR of independent fixes (a "triage batch" title, or a body or closing
+    issue listing separate fixes) gets one row per fix, on the node owning most of
+    that fix's lines. When that ties a parent and its child, the child takes it.
+    Two fixes landing on one node share one row. Only the title, body, or closing
+    issue makes a PR a batch; a second fix seen only in a commit does not.
   - A PR in triage gets a new node when it passes the Nest rule, and that node
-    takes the row. Otherwise the row goes on the fallback node.
+    takes the row. Otherwise the single node whose behavior it changed takes the
+    row; a docs-only PR goes to the node whose `docs` lists the doc. The
+    fallback node takes it only for tooling, or when no single node fits.
+  - A PR in an ignored scope (`deps`, `ci`, `test`, `style`, `logging`, …) gets
+    no row unless it changes shipped source under `src/`; then the fallback does.
+  - Splitting a child from a node leaves earlier rows on the parent. The child
+    cites them in Behavior; its History starts with its next PR.
   - When a PR touches only fallback files, its scope decides: a scope mapped in
     `scopes.yaml` takes the row, otherwise the fallback does. Follow `drift`;
     do not reargue it.
 - **Behavior placement.** A Behavior bullet lives on the node whose `code`
   implements it, even when another node's feature triggers it. Other nodes
-  link the owner through `related`.
+  link the owner through `related`. When no node's `code` lists the implementing
+  file, such as a sweep trigger, or `app/infrastructure` owns it, the bullet goes
+  on the node whose feature it serves. A child may also describe behavior coded
+  in an ancestor's `code`, since the ancestor's effective code includes it. No
+  other exception: a bullet coded in a sibling's or another branch's file moves
+  to that node.
+- A large file whose lines mostly serve several sibling features is a shared
+  module: it goes to `app/infrastructure`, and its bullets stay on the features
+  they serve.
+- A user-visible style change (a radius, inset, hover, or alignment) stated by a
+  PR or comment is Behavior, on the node whose control it styles.
 - Edit Behavior only when the PR changed shipped behavior, and cite it on the
   changed bullet.
 - Edit Design only with a linked issue or PR that justifies the change.
-- Create a child node only with an origin PR or issue. When a parent section
-  gathers three or more History rows about one sub-behavior, propose the child
-  in the PR description rather than creating it.
+- Create a child node only with an origin PR or issue. A synced PR whose feature
+  passes the Nest rule gets its node in the same sync, in triage or not. When a
+  parent gathers three or more History rows about one sub-behavior, create the
+  child if it passes the Nest rule; otherwise keep it in the parent.
 - Mark anything inferred rather than sourced `(unverified)`.
 - Never guess a mapping. An unmapped PR stays in triage for a person.
 - Renaming a node renames its probe subheading; `check` reports the stale one.
@@ -299,7 +332,7 @@ Rules:
 - Every upstream file a synced PR changes needs an owner. Assign each unmapped
   file to the first that fits:
   1. The node whose behavior it implements: `code` for source, `tests` for a test
-     file or fixture.
+     file or fixture, `docs` for an upstream doc that describes it.
   2. A new node, when the file carries a feature of its own that passes the Nest
      rule.
   3. `app/infrastructure`, for a shared module, a module root, test support, or a
@@ -314,10 +347,19 @@ Rules:
   trigger.
   Name each assignment and its reason in the PR description. Never give a file to
   a node whose behavior it does not implement just to empty the list.
+- A test file that covers several nodes goes in the `tests` of their lowest
+  common ancestor, or `app/infrastructure` when they share none. Never list one
+  test path on two nodes.
+- Fix any ownership error you find, in `code`, `tests`, `docs`, or a misplaced
+  Behavior bullet, even outside the synced PRs' files. Name each fix in the PR
+  description.
+- The bot may add a `scopes.yaml` entry for a spelling variant of a mapped scope
+  (`themes` for `theme`), or for a scope whose PRs all landed on one node.
 - When a PR, issue comment, or the code shows a bug that no issue covers, search
   `lgse/strata` issues, open and closed, and list it in the PR description. File
   an issue there only when a person asks, then cite it in Known gaps. Say "found
-  by code reading" when no source states the bug. A maintained upstream doc that
+  by code reading" when no source states the bug. Also record its observable
+  behavior on the code owner's Behavior, marked `(unverified)`. A maintained upstream doc that
   contradicts the code at `reviewed_at` is such a bug: list it, never record it
   in a node.
 - Probes never record results, dates, or verdicts.
