@@ -41,7 +41,6 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - A key in the 10xer table works only in 10xer mode: rebinding 10xer Rename leaves the default map's F2 and Ctrl+R working. lgse/strata#1885
 - A rebound command keeps its binding's modifiers required: refresh rebound to Ctrl+R does not run on a plain R. lgse/strata#1885
 - A plain printable key a user adds, such as `rename = ["e"]`, types in a focused text field, a popover, and active type-to-search. lgse/strata#1885
-- Thumbnail resizing reads the default table in both modes. lgse/strata#1885
 
 ### Escape, Enter, Tab and the arrows
 
@@ -64,6 +63,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - Ctrl+Space, or Shift with an arrow, Home, End, Page Up, or Page Down, is refused on a command the file list or chooser matches. lgse/strata#1885
 - Ctrl+Space or Super+Space is refused on a command that acts while a text field has focus. lgse/strata#1885
 - Ctrl+Shift with a tab digit, and Backspace with or without Shift or Super, are refused as fixed keys. lgse/strata#1885
+- The tab-digit refusal skips the chooser, search, and Trash dialog commands; the Backspace refusal skips the Trash dialog. lgse/strata#1885 (unverified)
 - In the 10xer table, Space on a file-list command, and a digit on a Go, Action, or Tabs step, are refused. lgse/strata#1885
 - Space is refused on any media preview command. lgse/strata#1885
 - Page Up and Page Down are refused on seek start, seek end, and volume steps. Home is refused on seek end and volume steps. End is refused on volume steps only. lgse/strata#1885

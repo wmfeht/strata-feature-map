@@ -27,6 +27,7 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 - In 10xer mode, with the Icons listing focused, plain +, =, or − steps the size; Ctrl+Alt++ and Ctrl+Alt+− still work. lgse/strata#1721
 - In Columns or List, none of these keys resizes anything. lgse/strata#1721
 - The portal file chooser accepts the key shortcuts. lgse/strata#1721
+- The Ctrl+Alt step keys come from `[keymap.default]` in both modes, so a rebind there applies in 10xer mode too. lgse/strata#1885
 
 ### Reset
 
