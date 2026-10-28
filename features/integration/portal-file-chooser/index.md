@@ -3,7 +3,7 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
@@ -68,6 +68,8 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - With the file view focused and no text field active, F2 or Ctrl+R renames the one selected item. Alt+Enter opens Properties for the focused item. lgse/strata#175, lgse/strata#393 (unverified)
 - The Menu key or Shift+F10 opens the item menu for the focused item, except in a text field or popover. lgse/strata#666 (unverified)
 - Ctrl+F opens the filter, Ctrl+L edits the location, and Ctrl+Shift+N creates a folder. lgse/strata#175 (unverified)
+- With the file view focused, Back, Forward, Parent folder, or Home rebound to a Ctrl key runs that jump. An example is `parent_folder = ["<Control>e"]`. lgse/strata#1885
+- In 10xer mode, the chooser reads Parent folder and Home from the 10xer table, and Back and Forward from the default table. lgse/strata#1885 (unverified)
 - With 10xer mode off, Ctrl+Shift+B moves focus to the active sidebar place, opening a hidden sidebar first. Pressed again, it returns focus to where it was. lgse/strata#175 (unverified)
 - With 10xer mode on, Ctrl+Shift+B focuses the active place of a visible sidebar and does nothing while the sidebar is hidden. lgse/strata#1284 (unverified)
 - A shortcut reference can stay open after 10xer mode is turned off in another window. Then F5, Ctrl+H, Ctrl+., Ctrl+1/2/3, and Alt+Up/Left/Home leave the folder, view, and hidden files unchanged. lgse/strata#1714

@@ -3,17 +3,17 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/**, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
 docs: [site/src/reference/custom-actions.md, docs/custom-actions.md]
-related: [operations/progress/jobs, integration/10xer-mode, remote/file-providers, browser/context-menu]
+related: [operations/progress/jobs, integration/10xer-mode, remote/file-providers, browser/context-menu, app/keyboard-shortcuts/remapping]
 ---
 
 ## Summary
 
-User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs; `operations/progress/jobs` owns how an invocation is launched and what it receives. `browser/context-menu` places the actions section in the menus. In 10xer mode, `;` then a digit runs the first ten matching actions (`integration/10xer-mode`).
+User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs; `operations/progress/jobs` owns how an invocation is launched and what it receives. `browser/context-menu` places the actions section in the menus. In 10xer mode, `;` then a digit runs the first ten matching actions (`integration/10xer-mode`). In the default map, a key bound to a Custom action slot in Settings → Keyboard runs an action by its place in the list (`app/keyboard-shortcuts/remapping`).
 
 ## Behavior
 
@@ -48,6 +48,10 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - An argument with a token inside other text, such as `prefix-{path}`, is refused on save. So is `{path}` in whole-selection mode or `{paths}` in per-item mode. lgse/strata#1085
 - Python actions can call `from strata_actions import context` with nothing installed through pip. lgse/strata#1085
 - `ctx.log` escapes non-UTF-8 bytes, so logging a native path succeeds when the locale's stdout is strict UTF-8. lgse/strata#1267
+- Custom action slot N picks the Nth action Settings → Actions lists, disabled ones included. lgse/strata#1885
+- A slot's action runs only when it is enabled, its program is found, and the selection is native local. lgse/strata#1885
+- The selection's item count and every selected item must also match the action's rules. lgse/strata#1885
+- Settings → Actions lists loaded actions by folder name, so slot order follows folder names, not action names. lgse/strata#1885 (unverified)
 
 ### Settings → Actions
 
@@ -98,6 +102,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - A broken definition is reported under Problems and never hides other actions (lgse/strata#1085).
 - The actions folder is read and written on the background settings writer, never on the UI thread. Interpreter lookups, imports, and exports run on a separate worker under the per-mount request limits (lgse/strata#1729).
 - Menus show a cached catalog so opening one reads no disk; rereading at the choice keeps that cache from running a stale definition (lgse/strata#1729).
+- Slots follow Settings → Actions order, disabled ones included, so turning one action off never moves another to a new slot (lgse/strata#1885).
 - Rename recipes are not transactions and offer no undo. Cancelling or an I/O error can leave earlier files renamed (lgse/strata#1085).
 
 ## History
@@ -112,3 +117,4 @@ User-defined Python, Bash, or command actions in the file and folder context men
 
 - Actions accept only native local paths; remote inputs are deferred. Trash, remote mounts, and the file chooser are excluded. lgse/strata#1085
 - Parameter forms, parallel per-item runs, and restart or resume were deferred from the first release. lgse/strata#1085
+- Adding or removing a custom action can shift the actions listed after it to other slots. Renaming an action's Name or disabling it does not. lgse/strata#1885

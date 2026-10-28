@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
@@ -13,7 +13,7 @@ related: [browser/view-modes/text-size, preview/preview-panel, browser/view-mode
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, the uncomposited popup fallback, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
 
 ## Behavior
 
@@ -140,6 +140,16 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Without the file, Strata's appearance is unchanged. lgse/strata#1758
 - Corner roundness does not scale radii set in the user stylesheet. lgse/strata#1758 (unverified)
 
+### Uncomposited displays
+
+- On an uncomposited display, such as bare Xvfb, context menus, popovers, and tooltips draw square corners and no shadow. lgse/strata#1912
+- On that display, a context menu shows no black frame or black corner tips around it. lgse/strata#1912
+- On a composited display, popovers, menus, and tooltips keep their shadows and corner radii. lgse/strata#1912 (unverified)
+- Starting or stopping a compositing manager while Strata runs squares or restores popup corners and shadows without a restart. lgse/strata#1912
+- Without a compositor, a `popover contents { border-radius: 12px; box-shadow: 0 0 8px black; }` rule in `style.css` still applies. lgse/strata#1912
+- Without a compositor, Corner roundness leaves popover, menu, and tooltip corners square at every value, 200 included. lgse/strata#1912
+- Without a compositor, the folder peek card keeps its shadow and rounded corners. lgse/strata#1912
+
 ### Frame density
 
 - Frame N above 0 adds N px top and bottom padding to the browser header, tab strip, Icons and List pane header, and preview header. lgse/strata#1776
@@ -152,7 +162,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ## Design
 
-[docs/themes.md](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files and symlink targets on change, with a matugen template. Its User stylesheet section covers `style.css`. [docs/preferences.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
+[docs/themes.md](https://github.com/lgse/strata/blob/73b3258ff9da7fd5f8b279e442e4fbf576850deb/docs/themes.md) carries the token model, custom file format, Base16 mapping, and Omarchy integration. Its Live updates section covers re-reading custom files and symlink targets on change, with a matugen template. Its User stylesheet section covers `style.css`, and its isolation list covers the uncomposited popup fallback. [docs/preferences.md](https://github.com/lgse/strata/blob/c94eeb0020fa1154e11c741888f1b56d92ce70d6/docs/preferences.md) covers File icon colors, the interface renderer, and the font rendering pin.
 
 - Every color comes from nine semantic tokens: background, surface, text, accent, danger, muted, highlight, border, and dim text. Bundled themes are the fallback on any Linux desktop.
 - lgse/strata#82 weighed a curated catalog, Base16 file import, terminal theme import, and a downloadable catalog. lgse/strata#96 chose an offline curated catalog of Tinted Theming Base16 palettes, recording upstream revision and MIT attribution.
@@ -167,7 +177,11 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - The `@strata_*` namespace hardens against name collisions; the trigger reported in lgse/strata#1096 was not reproduced (lgse/strata#1412).
 - Strata no longer leaves user CSS at GTK's higher user priority, as lgse/strata#1412 did. Desktop themes changed padding, row heights, and spacing, and user `gtk.css` could recolor or resize widgets. Documenting that user stylesheets win was rejected (lgse/strata#1679, lgse/strata#1680).
 - An opt-in `~/.config/strata/style.css` restores layout overrides beyond the nine tokens, which `gtk.css` could no longer reach. Unlike `gtk.css`, it exists only when the user creates it, so default isolation stays intact (lgse/strata#1710, lgse/strata#1758).
-- The user stylesheet loads one priority above the token provider, so its rules win over every Strata stylesheet. A missing or unreadable file clears it, and its watch debounces 75 ms, as custom themes do (lgse/strata#1758).
+- The user stylesheet loads above the token provider and the uncomposited fallback, so its rules win over every Strata stylesheet. A missing or unreadable file clears it, and its watch debounces 75 ms, as custom themes do (lgse/strata#1758, lgse/strata#1912).
+- Without an X11 compositing manager, a popup's transparent shadow and corner pixels render black, so the fallback removes them (lgse/strata#1911, lgse/strata#1912).
+- The fallback is its own CSS provider, loaded or emptied from the display's `composited` property and its change notification, not a static rule (lgse/strata#1912).
+- It sits one priority above the token provider, so it overrides Strata's scaled radii and token rules. It sits one below the user stylesheet, so a user rule can override it (lgse/strata#1912).
+- It selects only popup surfaces: `tooltip`, `popover`, and `popover contents`. The folder peek card is an in-window revealer that renders fine uncomposited, so squaring it was dropped as a regression (lgse/strata#1912).
 - A Floating sidebar toggle in Settings and patching Strata's stylesheet before each build were the alternatives in lgse/strata#1710. Class names are not a stable interface and may change between releases (docs/themes.md).
 - GTK's theme setting and regular contrast are set as application values, which outrank the settings portal and `settings.ini`. They are set even when they match, because only application values survive later portal updates (lgse/strata#1680).
 - The pinned theme is `StrataEmpty`, an empty stylesheet bundled as `gtk.css` and `gtk-dark.css` resources. `Default` is still restated above the reset (lgse/strata#1697, lgse/strata#1773).
@@ -201,6 +215,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-28 | lgse/strata#1912 | fix | Dropped popover, menu, and tooltip shadows and corner radii on displays without a compositor, where their transparent pixels render black. |
 | 2026-10-25 | lgse/strata#1891 | fix | Dropped the background-colored second shadow from the path completion and folder peek popovers, a white halo on light themes. |
 | 2026-10-25 | lgse/strata#1892 | docs | Documented a matugen template, its config entry, and the Material color mapping so wallpaper-following themes need no hand mapping. |
 | 2026-10-25 | lgse/strata#1887 | fix | Watched the directories of symlinked theme targets so dotfiles-linked custom themes live-reload. |

@@ -3,7 +3,7 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl]

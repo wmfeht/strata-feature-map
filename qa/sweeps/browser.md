@@ -1,8 +1,8 @@
 ---
 title: Browser sweep
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
-tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
+tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
 
 ## Scope
@@ -20,6 +20,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
 - Type to search on and off per probe: it changes what `h`, `j`, `k`, `l`, `p`, `/`, and plain letters do. `docs/keyboard-navigation.md` holds the key rules and `docs/preferences.md` the setting keys.
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
+- Rebinding probes put overrides under `[keymap.default]` and `[keymap.tenxer]` in that file before launch; `docs/keymap.md` lists the command ids.
 - Keyboard layouts set with `setxkbmap` for layout probes: `us,ru`, `ru`, `fr`, `de`, `ch` (Swiss German), `cz`, `is`, and `us` with variant `dvorak`. `docs/keyboard-shortcuts.md` holds the matching rules. The QA scenarios cover only the `us`, `ru`, `ru-only`, `fr`, and `de` layouts and the `caps-lock` and `cn-altgr-pinyin` layout entries in `tests/fixtures/harness.json`. So `ch`, `cz`, `is`, and `dvorak` are manual only. `docs/testing.md` "Keyboard layouts" explains the switch.
 - fcitx5 with pinyin under `GTK_IM_MODULE=fcitx` on X11 for input-method probes.
 - Foreign drags for pin probes: Nautilus or Dolphin, and `tests/qa/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
@@ -232,6 +233,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Visit ten folders, press button 8 ten times fast, then button 9 ten times; the breadcrumb must match at each step, including over the sidebar.
 - Press Alt+Up at `/`, at `trash:///`, and in a folder whose parent was deleted externally; then Backspace in the root column at `/`.
+- Under `[keymap.default]`, bind `parent_folder` to `<Control>e`, `home_folder` to `<Super>h`, and `history_back` to `<Control><Shift>b`. Repeat under `[keymap.tenxer]` in 10xer mode. Press each with the file list, sidebar, location entry, and filter field focused.
+- Bind `parent_folder` to a Ctrl key another command already holds, such as `<Control>r`, by hand in the file; press it in each view.
 
 ### browser/navigation/folder-jump
 
@@ -251,6 +254,11 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open a new tab on a stalled sshfs mount and type a path before its first load ends.
 - Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms.
 - Dump a sign-in dialog's fields for an SMB share that asks for a domain and for an SFTP server.
+- Type a file path, a folder path, a symlink to a file, and a symlink to a folder; repeat with the parent already open and with Quick Preview dismissed first.
+- Type a path to a binary file with no previewer, an empty file, and a 2 GB file.
+- Type a file path whose parent is an unmounted share or a stalled sshfs mount. Before it loads, press Back, click a sidebar place, or submit a second path. Then select the file by hand.
+- Type a file path and press Back and Forward fast, five times, while the parent loads.
+- Type a file path in the portal file chooser's location field.
 
 ### browser/navigation/location-bar/completion
 
@@ -258,6 +266,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type `/usr`, `/usr/`, `~`, and a folder whose only sibling match is itself; compare each list with `ls`.
 - Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon.
 - Hold Page Down through 50 suggestions, then Page Up past the first; note where the highlight wraps.
+- Rebind `page_down` to `<Control>n`; press it, then Page Down, with suggestions showing and while a list is pending.
 
 ### browser/navigation/recent
 
@@ -315,6 +324,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
 - In Columns, focus a filter result in column 2 and press Ctrl+F, then `/`; repeat with Include subfolders off and with the preview open.
+- In Columns, filter with Include subfolders on and off, and with a pointer and a keyboard multi-selection, then choose each sort.
 
 ### browser/search/filter/enter-target
 
@@ -354,6 +364,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Pin a folder, `chmod 444` the bookmarks file, unpin; then pin a folder on `/dev/shm`, trash it from the other window, and press Ctrl+Z.
 - With Type to search off press `p` on a file, a pinned folder, a standard folder, and a folder inside Trash.
 - With the bookmarks file symlinked, delete a pinned folder from the other window; read `ls -l` and the file.
+- In Columns, reach a folder by arrows, by Enter, and by a typed path, and press `p` each time.
 - Pin from one window while Nautilus rewrites the bookmarks file in a loop; then reorder in a second window and open a third.
 - Pin 50 folders, trash them all, cancel midway, and watch PINNED in two windows.
 
@@ -446,6 +457,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Move the window against the monitor's bottom edge and right-click the last row, then open the multi-selection menu of 50 entries there.
 - With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
+- Open a file menu in one window, rebind Rename and Copy in Settings → Keyboard from a second window, and read the hints; repeat in 10xer mode and in German.
 
 ### browser/directory-monitoring
 

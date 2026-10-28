@@ -1,13 +1,13 @@
 ---
 title: Settings sweep
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search (including Keyboard rows), About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, the uncomposited popup fallback, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
@@ -23,6 +23,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
 - A user stylesheet at `$XDG_CONFIG_HOME/strata/style.css` with a valid rule using `@strata_accent`, a rule GTK rejects such as `label { color: nope; }`, and a layout rule such as `.sidebar-shell { margin: 12px; }`; a 1 MB copy and a non-UTF-8 copy beside it.
+- An uncomposited X11 session: the private Xvfb alone, then Xvfb with openbox and no compositor. No client owns the `_NET_WM_CM_S0` selection, as python-xlib's `get_selection_owner` reports. `picom` or `xcompmgr`, installed but not started, so a script can start and stop it while Strata runs.
 - Icon themes for the control icons: Breeze, Yaru, and Adwaita installed, plus a theme without symbolic icons, each selected through `settings.ini` before launch.
 - A user GtkSourceView setup: `~/.local/share/gtksourceview-5/styles/strata-current.xml` and a `rust.lang` under `~/.local/share/gtksourceview-5/language-specs/`, and a `chmod 555` `~/.cache/strata`.
 - An sshfs mount whose daemon a script stops with `kill -STOP` and resumes with `kill -CONT`, for the Default directory and save cases.
@@ -67,6 +68,10 @@ For every control this sweep proves the binding: the file changes, the other win
 - Search "kilometres", "kml", and "feet" under English and `language = "ja"`; read which rows show and which page opens.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 - Press Ctrl+, and click the gear over Properties, Compress, a delete confirmation, Customize…, and a dialog animating closed. Repeat over a dialog in another tab of the same window. Read Settings and the focused control each time.
+- With Settings opened on General and the Keyboard page not yet built, then after it is built, search "rename", "Ctrl+E", and "remap"; read the opened page and which table shows.
+- Search a key only the 10xer map gives, and a word shared by a General row and an action name; then clear with Escape and count visible rows on Keyboard.
+- Rebind an action in `settings.toml` before launch, then search its old and new keys under English and `language = "ja"`.
+- Compare the navigation's icon column with the search field's icon at text size 8 and 48, labelled and icon-only.
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 
 ### settings/preferences/storage
@@ -176,6 +181,11 @@ For every control this sweep proves the binding: the file changes, the other win
 - With a user stylesheet that sets `.sidebar-row` padding, set Frame 7 px and Content Custom 11 px. Then switch theme, follow Omarchy, and open and Cancel an editor preview. Read bar and row spacing in both windows after each.
 - At Frame 12, rail the sidebar, open the preview, open eight tabs, and open a Miller column with its header actions. Check that the bars line up.
 - Dump the tree with the theme editor open, which the naming scenarios skip.
+- In the uncomposited session, open a file context menu, the Appearance menu, a tooltip, path completion, a breadcrumb popover, and a folder peek; zoom on each edge. Repeat under openbox.
+- With one of those popups open, start the compositor, then stop it; reopen each popup after each change and read a second window too.
+- Uncomposited, add `popover contents { border-radius: 12px; box-shadow: 0 0 8px black; }` to the user stylesheet while running, then delete it; zoom on a context menu after each.
+- Uncomposited, cross Element glow on and off with a light and a dark theme; open the 10xer candidates popover and a modal dialog.
+- Launch the portal chooser uncomposited and open its context menu and path completion.
 
 ### settings/themes/icons
 
@@ -208,6 +218,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - At 0, 40, 50, 60, and 200, compare a switch on a Settings page with the Confirm switch in the action editor and a switch in a menu; read the track and knob corner shapes, on and off.
 - At 0 and 200, cross text size 8 and 48 with Frame 0 and 12 px and Content 0 and 16 px; look for clipped corners and mismatched switch thumbs.
 - Change roundness during an editor preview and while following Omarchy; then Cancel and compare every window.
+- In the uncomposited session, step roundness from 0 to 200 with a context menu, a tooltip, and a folder peek open; start the compositor at 200 and reopen each.
 
 ### settings/themes/interface-font
 
@@ -249,6 +260,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Terminal launch and custom actions behind a failing Diagnostics check → `integration`.
 - Automatic updates, release channel, and the Updates page → `app`.
 - Window buttons rows and the F1 shortcuts reference → `app`.
+- The Keyboard page's tables, key capture, conflict notes, and Reset all → `app`.
 - Input-method and dead-key composition in Settings fields → `app`.
 - Restore open tabs under General → Startup and the tab session it controls → `browser`.
 - Focus return after closing dialogs other than Settings → `app`.

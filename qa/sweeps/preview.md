@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -126,6 +126,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
+- Under `[keymap.default]`, set `first_item = ["F7"]` and `last_item = ["F8"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, Ctrl+End, F7, and F8.
 
 ### preview/preview-panel/documents/scrollbar
 
@@ -159,9 +160,6 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Start five players across two windows, pause one for 31 s, retry the fifth, then close a window holding two players.
 - Run `automatic`, `vaapi`, `vulkan`, and acceleration off on the 4K HEVC 10-bit file; switch the setting mid-play and count ffmpeg processes per player.
 - With autoplay on, select a 9 s clip, an 11 s clip, and a muted state; seek during the fade; let a 40 s GIF loop twice with four players active.
-- With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
-- With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
-- With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
 - Scroll the fallback seek slider with a touchpad.
@@ -248,6 +246,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Press Right into a PDF preview in List, then Ctrl+A, Ctrl+C, Delete, and Ctrl+X; the folder's file count must not change.
 - On the Open button under a password-protected PDF, press Tab, Shift+Tab, Space, and Escape; repeat in Columns.
 - With a filter result selected, press Space, keypad Space, Ctrl+Space, and Alt+Space on the `ru` layout and with Caps Lock on.
+- With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
+- With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
+- With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
+- Under `[keymap.default]`, set `last_item = ["F8"]`, `page_down = ["F11"]`, `media_seek_end = ["F9"]`, and `media_volume_step_up = ["F10"]`. On a focused playing timeline, press End, Page Down, `G`, F8, F11, F9, `+`, `=`, and F10.
 
 ### preview/quick-preview/folder-peek
 
@@ -269,6 +271,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Releasing Strata's reads before an operation, and leftovers on network mounts → `operations`.
 - Unmounting a drive while a preview reads a file on it → `devices`.
 - Preview keys and track stepping in 10xer mode → `integration`.
+- Quick Preview opened by Enter on a typed file path → `browser`.
+- A rebound document zoom reset and other `[keymap.*]` overrides while a preview has focus → `app`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.
 - The Settings controls for autoplay, backend, document rendering, units, and folder peeking → `settings`.
 - Mounting the sftp, MTP, and camera locations that remote previews read → `remote`.

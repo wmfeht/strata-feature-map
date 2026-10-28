@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
@@ -25,6 +25,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - Delete on a selected Ctrl+F filter result moves that result to Trash and leaves the hidden directory selection untouched. lgse/strata#915
 - A Trash move that reports success while the item is still in place fails as Trash unsupported, and records no Undo. lgse/strata#1615
 - When another item took the name during the Trash call, Undo and saved views follow the newest Trash entry made for that path. lgse/strata#1729
+- In Columns, in the default key map, Ctrl+click on the only selected row, then Delete, moves that row to Trash. lgse/strata#1885 (unverified)
 
 ### Locations without Trash
 
@@ -75,9 +76,11 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - When the walk is truncated, the subtitle reads "At least N items · at least X will be permanently deleted". lgse/strata#1134
 - For a remote selection, it ends "…will be deleted" instead. lgse/strata#1614
 - After Shift+Delete, Permanently delete, or Delete without Trash, the confirm button is focused and can be activated while the total is still calculating. lgse/strata#1206, lgse/strata#1266, lgse/strata#1533, lgse/strata#1614
-- Left or `h` focuses Cancel and Right or `l` focuses confirm; Enter and keypad Enter activate the focused button. lgse/strata#1052
+- The `left` keys, Left or `h` by default, focus Cancel and the `right` keys, Right or `l`, focus confirm. lgse/strata#1052, lgse/strata#1885
+- The `activate` keys, Enter and keypad Enter by default, activate the focused button. lgse/strata#1052, lgse/strata#1885
 - With Cancel or Close focused, Enter dismisses the dialog and the files stay. lgse/strata#1052
-- In 10xer mode, `d` in the "Move N items to Trash?" confirmation confirms it; in the permanent and no-Trash confirmations `d` does not confirm. lgse/strata#1340, lgse/strata#1508, lgse/strata#1533
+- In 10xer mode, the `confirm_trash` key, `d` by default, confirms the "Move N items to Trash?" confirmation. lgse/strata#1340, lgse/strata#1508, lgse/strata#1885
+- In the permanent and no-Trash confirmations, that key does not confirm. lgse/strata#1533
 - A backdrop click, Escape, Cancel, or Close dismisses the permanent-delete confirmation without deleting anything. lgse/strata#1052, lgse/strata#1206, lgse/strata#1900
 - Each of those returns keyboard focus to the listing's cursor row, so arrow keys then move in the visible pane. lgse/strata#1900
 - The no-Trash and "Move N items to Trash?" confirmations return focus the same way. lgse/strata#1900 (unverified)

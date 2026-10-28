@@ -3,7 +3,7 @@ title: Corner roundness
 status: shipped
 origin: {issue: lgse/strata#1678, pr: lgse/strata#1680}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/preferences/corner_roundness.rs, src/ui/theme/roundness.rs]
 tests: [src/ui/theme/roundness/tests.rs]
@@ -27,7 +27,7 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 ### Applying the scale
 
 - At 0, every pixel corner radius in Strata's stylesheet becomes 0px; at 200, each doubles, so 5px becomes 10px. lgse/strata#1680
-- A change applies at once in every open window, dialog, menu, and rebuilt view; a saved value applies before Settings opens. lgse/strata#1680
+- A change applies at once in every open window, dialog, menu, and rebuilt view; a saved value applies before Settings opens. Without a compositor, menus, popovers, and tooltips stay square (`settings/themes`). lgse/strata#1680, lgse/strata#1912
 - Percentage radii, which draw circles, and radii written as `0` stay unchanged at every value. lgse/strata#1680
 - A scaled radius is rounded to 0.01 px, so 9px at 40% becomes 3.6px. lgse/strata#1680 (unverified)
 - Radii that GTK's built-in theme supplied, such as on buttons, entries, popovers, and check boxes, scale with the setting. lgse/strata#1680

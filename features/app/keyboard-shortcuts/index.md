@@ -3,7 +3,7 @@ title: Shortcuts on any keyboard layout
 status: shipped
 origin: {issue: lgse/strata#1538, pr: lgse/strata#1576}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/keys.rs, src/ui/keys/label.rs, src/ui/keys/composition.rs]
 tests: [src/ui/keys/tests.rs]
@@ -13,7 +13,7 @@ related: [app/window, app/shortcut-reference, integration/10xer-mode, settings/p
 
 ## Summary
 
-Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the label formatter and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it.
+Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the label formatter and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it. Its child `app/keyboard-shortcuts/remapping` lets users rebind keys per map.
 
 ## Behavior
 
@@ -36,6 +36,8 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - With Russian active, Ctrl and the key that types ю act as Ctrl+. and toggle hidden files. lgse/strata#1576
 - In 10xer mode on German, ö in the file list arms the actions chord, as `;` does. lgse/strata#1576
 - Hyper and Meta are not shortcut modifiers: a shortcut pressed with either held acts as without it. lgse/strata#1576
+- In 10xer mode with a chord such as `g` armed, pressing AltGr alone leaves the chord armed. lgse/strata#1885
+- A lone layout-switch press, such as `ISO_Next_Group`, also leaves an armed 10xer chord armed. lgse/strata#1885 (unverified)
 - On plain `cn`, every shortcut is the US one. lgse/strata#1583
 
 ### Typing and input methods
@@ -59,6 +61,8 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - Shown shortcuts list modifiers in the order Ctrl, Alt, Shift, Super, and an uppercase letter after a modifier, such as Ctrl+Shift+N. lgse/strata#1576
 - A plain letter shows as typed (`j`), Shift+letter as the uppercase letter (`J`), and chord steps are separated by a space (`g h`). lgse/strata#1576
 - Shown shortcuts write minus as −, and arrows as ↑ ↓ ← →. lgse/strata#1576
+- With type-to-search on and `e` added to default Rename, labels show Rename as F2 / Ctrl+R; with it off, F2 / Ctrl+R / e. lgse/strata#1885
+- Labels leave out a key that never fires, such as `<Shift>exclam`, or a key on `yank` in the default map. lgse/strata#1885
 
 ## Design
 
@@ -67,6 +71,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - Handlers compared the typed character with Latin letters, so Cyrillic с never matched Ctrl+C. GTK accelerators were unaffected because GTK falls back to the physical key (lgse/strata#1538).
 - One adapter, `ui::keys`, normalizes each event once into a `KeyPress`. `clippy.toml` bans `connect_key_pressed`, `connect_key_released` and `set_accels_for_action` outside it (lgse/strata#1576).
 - Every shortcut is a named constant in one binding catalog. Handlers, the F1 reference, menus and hints refer to the same constants, so a shown shortcut always works (lgse/strata#1576).
+- Each catalog shortcut is now a `Command` with a stable id and its own keys per map, so it can be rebound. See `app/keyboard-shortcuts/remapping` (lgse/strata#1885).
 - The adapter is built on GDK: `KeyEvent::match_()` handles Caps Lock, consumed modifiers and case, and `Display::map_keycode` gives other layouts' characters. A roughly 50-entry US table covers keymaps with no Latin layout; no crate was added (lgse/strata#1576).
 - `KeyEvent::matches()` per binding was rejected. In the ordered dispatcher a physical-key match could beat a later exact match, and each check queries the keymap again (lgse/strata#1576).
 - The fallback reads the level Shift selects, because Caps Lock raises the event's level for letters (lgse/strata#1576).

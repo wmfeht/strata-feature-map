@@ -3,16 +3,16 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl]
-related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions, app/keyboard-shortcuts]
+related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions, app/keyboard-shortcuts, app/keyboard-shortcuts/remapping]
 ---
 
 ## Summary
 
-Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename, move, copy, restore, sort, hidden files, Open With, custom actions, and archive commands. They act on the focused pane's filled selection, or its cursor item when nothing is filled.
+Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename, move, copy, restore, sort, hidden files, Open With, custom actions, and archive commands. They act on the focused pane's filled selection, or its cursor item when nothing is filled. This node also runs the default map's Custom action slot keys, which `app/keyboard-shortcuts/remapping` dispatches.
 
 ## Behavior
 
@@ -20,6 +20,11 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 - `y`, `x`, `d`, `c c`, and `c n` act on the focused pane's fill, or its cursor item when nothing is filled. `f` and `s` results count. lgse/strata#1306
 - A hovered row, a parent folder, and a Miller column's open-path marker are never targets. lgse/strata#1306
+- Default-map direct verbs act on the selection, never on the cursor item. lgse/strata#1885
+- In the default map, in List view with the focused row unselected, direct Open With flashes `Nothing to open` and Move to `Nothing to move`. lgse/strata#1885 (unverified)
+- In that state, direct Copy to and Copy as name flash `Nothing to copy`. lgse/strata#1885 (unverified)
+- In that state, direct Compress flashes `Nothing to compress` and Extract to `Nothing to extract`. No prompt, dialog, or clipboard change follows. lgse/strata#1885 (unverified)
+- In Columns, with nothing selected in a non-root column, a default-map direct verb targets the folder that column descends from, as Copy does. lgse/strata#1885 (unverified)
 - In an empty folder, `y`, `x`, `d`, and `r` flash `Nothing to yank`, `Nothing to cut`, `Nothing to delete`, and `Nothing to rename`. lgse/strata#1306, lgse/strata#1308
 
 ### Clipboard
@@ -65,6 +70,8 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 ### Listing commands
 
 - `, a`, `, m`, `, s`, and `, e` sort the focused pane by name, modified time, size, or type; Shift sorts descending. lgse/strata#1308
+- With a sort step rebound under `[keymap.tenxer]`, Shift with the new key sorts descending. lgse/strata#1885
+- A hand-edited key bound to one step wins over another step's Shift-reversed key: with `sort.type = ["<Shift>a"]`, `, A` sorts by type ascending. lgse/strata#1885 (unverified)
 - A keyboard sort keeps the cursor on the same item and leaves other Miller columns in their order. lgse/strata#1308
 - `browser/view-modes/folder-views` and `browser/view-modes/sorting` own where a keyboard sort is saved. lgse/strata#1308, lgse/strata#1565
 - After a keyboard sort, a List heading click reverses the sort that is applied. lgse/strata#1308
@@ -80,6 +87,10 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `; 1` to `; 9` and `; 0` run that action; a vacant slot flashes `No action N` and runs nothing. lgse/strata#1308
 - If the targets or the action list changed since `;`, the digit flashes `Selection changed` or `Actions changed` and runs nothing. lgse/strata#1308
 - A confirming action asks first, and a run appears in Jobs as from the context menu. lgse/strata#1308
+- In the default map, a Custom action slot key whose slot has no action flashes `No action N` and runs nothing. lgse/strata#1885
+- A slot key whose action cannot run on the targets flashes `No matching actions` and runs nothing else. lgse/strata#1885
+- In List view, a slot key whose slot holds an action, pressed with the focused row unselected, flashes `No matching actions`. lgse/strata#1885 (unverified)
+- A slot key whose action matches runs it as `; 1` does, confirmation included. lgse/strata#1885
 - `; t` opens a terminal in the keyboard-focused folder. lgse/strata#1340
 - `; t` in Trash or a non-local folder flashes `Can’t open a terminal here` and opens no dialog. lgse/strata#1340 (unverified)
 - `; c` opens the Compress dialog for the targets. lgse/strata#1340

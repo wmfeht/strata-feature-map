@@ -3,17 +3,17 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/preview/keyboard.rs]
 tests: [tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl, tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl, tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl, tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl, tests/qa/mutations/quick-preview.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection]
+related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection, browser/navigation/location-bar]
 ---
 
 ## Summary
 
-Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers default-keymap key ownership while a preview is open; 10xer preview keys belong to `integration/10xer-mode/preview-keys`. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
+Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers default-keymap key ownership while a preview is open, and the key map shared by focused audio and video timelines. 10xer preview keys belong to `integration/10xer-mode/preview-keys`. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
 
 ## Behavior
 
@@ -46,6 +46,17 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 - With a password-protected PDF's message shown in List or Columns, Right moves focus to its Open button, which shows an inset focus ring. lgse/strata#1840
 - With focus in that preview's content box, Down or Right also moves focus to the Open button. lgse/strata#1840
 - On that button, Return opens the PDF in the default application, Left returns focus to the listing, and Up, Down, and Right keep focus there. lgse/strata#1840
+
+### Media timeline keys
+
+- With an audio or video timeline focused, Left/Right seek 5 s, and Shift+Left/Right or Page Down/Page Up seek 30 s back or forward. lgse/strata#1570, lgse/strata#1451
+- With the timeline focused, Home, `0`, or Shift+0 seeks to the start, and End or `G` to the last frame, so playback does not stop. lgse/strata#1570, lgse/strata#1451, lgse/strata#1576
+- Home, End, Page Up, and Page Down keep these seeks after `first_item`, `last_item`, `page_up`, or `page_down` is rebound. lgse/strata#1885
+- With Caps Lock on, the g key without Shift on a focused timeline does not seek. lgse/strata#1576
+- With the timeline focused, `+`, `=`, `-`, and keypad +/− change the volume by 0.1; reaching 0 mutes and keeps the volume to restore. lgse/strata#1570, lgse/strata#1451
+- The paging, jump, and volume keys have no Ctrl+Alt form; Ctrl+Alt+Page Up in the default key map leaves media unchanged. lgse/strata#1570
+- A key added to `media_seek_end`, shipped as Shift+G in both maps, seeks a focused timeline to its last frame. lgse/strata#1885 (unverified)
+- `media_volume_step_up` ships with both `+` and `=`; removing one leaves the other raising a focused timeline's volume. lgse/strata#1885 (unverified)
 
 ## Design
 
