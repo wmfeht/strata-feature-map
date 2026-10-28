@@ -24,7 +24,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 - With `parent_folder = ["<Control>e"]` and the file list focused, Ctrl+E opens the parent folder. lgse/strata#1885
 - `history_back`, `history_forward`, and `home_folder` bound to a Ctrl or Super key work the same way with the file list focused. lgse/strata#1885
 - That Ctrl+E binding also fires on Ctrl+Shift+E, since these jumps ignore Shift. lgse/strata#1885 (unverified)
-- These jumps read `history_back` from `[keymap.default]` in 10xer mode too. lgse/strata#1885
+- In 10xer mode, a key added to `history_back` under `[keymap.default]` also goes Back. lgse/strata#1885
 - So does `history_forward`; 10xer's own Back and Forward keys come from `[keymap.tenxer]`. lgse/strata#1885 (unverified)
 - Backspace in Columns closes the focused nested column and its descendants. From the root column it opens the parent folder, selecting the root column's folder. lgse/strata#58, lgse/strata#1437, lgse/strata#1544
 - Backspace in List and Icons opens the parent folder. lgse/strata#485

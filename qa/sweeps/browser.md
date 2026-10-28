@@ -266,7 +266,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type `/usr`, `/usr/`, `~`, and a folder whose only sibling match is itself; compare each list with `ls`.
 - Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon.
 - Hold Page Down through 50 suggestions, then Page Up past the first; note where the highlight wraps.
-- Rebind `page_down` to `<Control>n` and add F7 to `focus_next`; press each, then Page Down, with suggestions showing and while a list is pending.
+- Rebind `page_down` to `<Control>n`; press it, then Page Down, with suggestions showing and while a list is pending.
 
 ### browser/navigation/recent
 

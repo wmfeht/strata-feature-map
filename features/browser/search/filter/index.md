@@ -103,7 +103,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - If no selected result remains, focus goes to the result now in the deleted one's slot, or to the last result. Escape then closes the filter. lgse/strata#1632
 - Deleting the last remaining result that way moves focus to the filter field; Escape then closes the filter. lgse/strata#1632
 - Icons shows results as an icon grid and List as rows. lgse/strata#1155
-- In Columns with a pane filter, results list their names in reverse order. lgse/strata#1885 (unverified)
+- In Columns with a pane filter, results list their names in the reverse of the chosen sort order. lgse/strata#1885 (unverified)
 - In Columns with a pane filter, choosing a sort drops a multi-selection. lgse/strata#1885 (unverified)
 
 ## Design
