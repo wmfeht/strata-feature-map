@@ -3,7 +3,7 @@ title: Frame and content density
 status: shipped
 origin: {issue: lgse/strata#1774, pr: lgse/strata#1776}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/window/density_slider.rs]
 tests: [src/ui/window/tests/appearance_density.rs, src/ui/theme/tests/density.rs, src/ui/preferences/tests/preferences.rs]
@@ -62,4 +62,4 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 
 ## Known gaps
 
-None known.
+- The Compact and Airy snap buttons under a density slider overlap. lgse/strata#1862

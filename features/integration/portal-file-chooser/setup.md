@@ -3,7 +3,7 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
@@ -24,6 +24,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Installation records what it changed in `$XDG_DATA_HOME/strata/portal-install/state.toml`. lgse/strata#175
 - After installing or removing, Strata stops its backend unit, reloads D-Bus, and restarts `xdg-desktop-portal.service`. lgse/strata#175
 - When a stop, reload, or restart step fails, `--install-portal` and `--uninstall-portal` print "Could not reload every portal service. Ensure xdg-desktop-portal is installed, then log out and back in before testing." lgse/strata#175 (unverified)
+- On a session bus that accepts connections and never answers, `--install-portal` and `--uninstall-portal` print that warning after the deadlines instead of hanging. lgse/strata#1876 (unverified)
 - An executable path containing whitespace, quotes, or backslashes is refused as unsupported by D-Bus activation. lgse/strata#175
 - An executable path with a component not owned by the user or root, or writable by other users, is refused. lgse/strata#175
 - `strata --uninstall-portal` restores the original configuration, or deletes the copy it created, when the file is unchanged since installation; otherwise it removes only `strata` from the preference. lgse/strata#175
@@ -43,6 +44,8 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - With a dangling bindings link, Restore default leaves the shortcuts and the link unchanged. lgse/strata#1544 (unverified)
 - A bindings link, or a target reached through one, owned by another user makes Complete setup and Restore default fail, leaving the target unchanged. lgse/strata#1544 (unverified)
 - With a symlinked bindings file, the `strata-keybind-backup-` copy is created in the link's directory. lgse/strata#1544 (unverified)
+- On a session bus that accepts connections and never answers, each `systemctl --user`, `gdbus`, and `xdg-mime` call ends after 5 seconds. lgse/strata#1876
+- So on that bus, Complete setup and Restore default finish instead of staying on "Completing setup…" or "Restoring defaults…", without showing the reload warning. lgse/strata#1876 (unverified)
 - Complete setup is hidden once every line is configured, and Restore default appears while any part is installed. lgse/strata#947 (unverified)
 - Complete setup fails with "Another per-user FileManager1 provider is already installed" when another user service owns that name. lgse/strata#947 (unverified)
 - Restore default removes the FileManager1 service and portal, and returns `inode/directory` to the recorded handler, or Nautilus when none was recorded. lgse/strata#947
@@ -66,6 +69,8 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - lgse/strata#632 proposed independent controls. The owner chose one combined opt-in instead, so one row sets all three (lgse/strata#947).
 - The first-launch offer and the Configure… dialog were replaced by the inline status list in lgse/strata#947. No launch path reads the `portal-opt-in-v1` marker since then.
 - Bindings writes follow the config-file symlink rules in `settings/preferences/storage`; before, a symlinked bindings file was refused (lgse/strata#1455, lgse/strata#1544).
+- `gdbus --timeout` counts only the method call, after the connection handshake, so a silent bus blocked it. The 5-second deadline is on the process instead (lgse/strata#1850, lgse/strata#1876).
+- Each helper runs in its own process group, killed whole at the deadline, so `xdg-mime`'s `dbus-send` dies with it (lgse/strata#1876).
 - A stale backend is detected by comparing the running process's executable inode with the installed file. A backend from another Strata installation is left alone (lgse/strata#474).
 
 ## History
@@ -77,4 +82,4 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 
 ## Known gaps
 
-None known.
+- When the bus reload fails, Complete setup still reports success; the "log out and back in" warning never shows in Settings. lgse/strata#1876

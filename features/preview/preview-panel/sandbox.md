@@ -3,7 +3,7 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
@@ -39,6 +39,11 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - An image, RAW, or PDF preview input over 512 MiB fails with "Preview input exceeds the supported size limit" before any renderer starts. lgse/strata#17 (unverified)
 - A DOCX, ODT, or OTT preview input over 20 MiB fails with "Preview input exceeds the supported size limit" before the helper starts. lgse/strata#1086, lgse/strata#1834 (unverified)
 - A DOCX or ODT the helper cannot read, such as a ZIP without `content.xml` named `.odt`, fails with "The sandboxed preview renderer failed". lgse/strata#1834 (unverified)
+- A route file over 32 MiB fails with "This route file exceeds the 32 MiB preview limit." before the helper starts. lgse/strata#1842
+- A G-code file over 128 MiB is not refused by size; STL, 3MF, and FreeCAD inputs keep the 128 MiB model limit. lgse/strata#1864
+- A PDF that needs an opening password fails with "This PDF is password protected." lgse/strata#1840
+- A PDF that opens without a password, such as `owner-restricted.pdf` with an empty user password, previews normally. lgse/strata#1840
+- A damaged PDF keeps "The sandboxed preview renderer failed", even when its text reads "This PDF is password protected." lgse/strata#1840
 - Changing selection or closing the preview kills the helper's whole process tree. lgse/strata#17
 - After `bwrap` exits, killed or not, Strata waits on a pidfd, at most 1 s, until the sandbox's namespace releases the input file. lgse/strata#1729
 - An image or PDF helper receives no GPU device and no `/sys` mount. lgse/strata#17, lgse/strata#45
@@ -73,6 +78,14 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - An image renderer output that is a symlink, FIFO, directory, empty file, or over 32 MiB is rejected; a symlinked `result.meta` falls back to page `(0, 0)`. lgse/strata#669
 - An image renderer must return a PNG within the operation's bounds: 800×800 for a still or RAW preview, 256×256 for a thumbnail. Other output is rejected. lgse/strata#17, lgse/strata#1698 (unverified)
 
+### Private output folders
+
+- The first sandbox output folder a process creates starts a background sweep of the temp directory; that render does not wait for it. lgse/strata#1866
+- The sweep removes `strata-preview-<pid>-<n>` folders that the user owns and no running Strata holds, such as those left by `kill -9`. lgse/strata#1866
+- It keeps folders a running Strata holds, including one in another pid namespace that shares `/tmp`, such as toolbox or distrobox. lgse/strata#1866
+- It keeps files, symlinks, other users' folders, and names other than `strata-preview-<digits>-<digits>`. lgse/strata#1866
+- A new output folder skips a leftover folder with the same name instead of failing the preview. lgse/strata#1866
+
 ### Pooled preview worker
 
 - Still-image previews, Markdown images, Mermaid diagrams, and equations run on a preview pool separate from the thumbnail pool, so a thumbnail backlog does not delay a Space preview. lgse/strata#1222
@@ -81,7 +94,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ## Design
 
-[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/2218357c2e91c0c3e6cd02638356f7a91c08bcae/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
+[docs/preview-sandbox.md](https://github.com/lgse/strata/blob/d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9/docs/preview-sandbox.md) is the maintained contract: providers, isolation, limits, packaging variables, and the worker pools.
 
 - Files become visible by browsing, so any parser reachable from a listing is attacker-facing. Parsing moves out of process, and crashes or timeouts degrade to a fallback icon or message (lgse/strata#6).
 - There is no unsandboxed fallback. A hijacked `bwrap` would silently reintroduce one, so host helpers are resolved by trusted absolute path and never through `PATH` (lgse/strata#1045, lgse/strata#1055).
@@ -99,6 +112,9 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - libjpeg decodes at 1/2, 1/4, or 1/8 scale from compressed data. The `jpeg:size` hint makes ImageMagick use it, so oversized JPEGs fit the budget. The area limit stops any unhinted full decode (lgse/strata#1698).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
 - Format crosses the sandbox boundary explicitly, including for symlinks (lgse/strata#1276). Document previews pass `docx` or `odt` to the helper the way comic covers pass their format (lgse/strata#1834).
+- The PDF helper detects protection from Poppler's typed `Encrypted` error, not message text or file names. It writes a structured code to the existing bounded `result.error` output (lgse/strata#1636, lgse/strata#1840).
+- Output folders outlived their process: the browser pools are statics; the media, peaks, storyboard, and model workers detach; and a killed process runs no `Drop` (lgse/strata#1847, lgse/strata#1866).
+- Each output folder holds an exclusive `flock`, and the sweep removes only folders it can lock. A pid-based sweep was replaced: it deleted live folders in other pid namespaces, and a recycled pid kept an orphan whose name failed a later preview (lgse/strata#1866).
 - The `fchmodat2` denylist entry uses syscall number 452 directly, because libc omits the constant on aarch64 (lgse/strata#1111).
 - With bubblewrap 0.12.0 the sandbox's namespace, and its bind of the user's file, outlived `bwrap` after nearly every exit. On NFS, SMB, and FUSE that left hidden leftovers and blocked folder deletes. The wait costs about 2 ms after a kill and 0.1 ms after a normal exit (lgse/strata#1729).
 - `bwrap` reports the namespace init's pid through `--info-fd` on stderr, which every sandbox already discarded (lgse/strata#1729).
@@ -108,6 +124,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1866 | fix | Swept orphaned preview output folders by lock on a process's first sandbox job, so leftovers from exited or killed runs stop piling up in the temp directory. |
 | 2026-10-18 | lgse/strata#1746 | feat | Added build-time trusted helper directories and launch-time sandbox paths, so prebuilt releases run the sandbox without a rebuild and Nix packages need no source patch. |
 | 2026-10-16 | lgse/strata#1698 | fix | Rendered RAW previews from the embedded camera JPEG and reduced-decoded oversized JPEGs, so RAF previews no longer time out and DNG previews fill the pane. |
 | 2026-10-14 | lgse/strata#1660 | fix | Bound Debian's `glx--*` GL dispatch links so helpers start, and let glycin decode inside pooled workers. |
@@ -126,3 +143,4 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ## Known gaps
 
 - Inside Flatpak, bubblewrap cannot create namespaces, so native-format previews and thumbnails show "Preview unavailable". lgse/strata#1503, lgse/strata#936
+- Output folders still owned at exit are not removed then; the next process that creates one sweeps them. lgse/strata#1866, lgse/strata#1847

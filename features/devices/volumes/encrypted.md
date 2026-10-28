@@ -3,11 +3,11 @@ title: Encrypted volumes
 status: shipped
 origin: {issue: null, pr: lgse/strata#935}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/window/volume_password.rs]
 tests: [src/ui/window/volume_password/tests.rs]
-related: [devices/volumes/udiskie-unlock]
+related: [devices/volumes/udiskie-unlock, app/accessibility]
 ---
 
 ## Summary
@@ -21,6 +21,7 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - A volume counts as encrypted when GVfs marks it with a padlock emblem, its icon name contains "encrypted", its drive starts with a password, or udev reports a crypto device. lgse/strata#935 (unverified)
 - An encrypted device stays listed in Devices while locked, including a password-start drive with no listed volume. lgse/strata#935
 - A locked encrypted row shows a lock button and an Unlock menu entry; an unlocked one shows an open-lock button and Lock. lgse/strata#935
+- The lock button is named after its action, "Unlock" or "Lock". lgse/strata#1895 (unverified)
 - Rows for non-encrypted devices have no lock button. lgse/strata#935
 
 ### Unlocking

@@ -3,7 +3,7 @@ title: Interface font
 status: shipped
 origin: {issue: lgse/strata#1217, pr: lgse/strata#1696}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/theme/font.rs]
 tests: [src/ui/theme/tests.rs, src/ui/settings/theme/tests.rs]

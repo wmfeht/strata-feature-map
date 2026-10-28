@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort]
@@ -13,7 +13,7 @@ related: [browser/navigation, devices/volumes, integration/10xer-mode, settings/
 
 ## Summary
 
-Ctrl+K global search finds files and folders by fuzzy name or path across Home and mounted local drives, from any folder. It runs on a bounded in-memory index built by the same service as the pane filter. Children: `browser/search/filter` (the Ctrl+F pane filter) and `browser/search/exclusions` (user-defined global search exclusions).
+Ctrl+K global search finds files and folders across Home and mounted local drives, from any folder. It matches by fuzzy name or path, or by every term of a multi-word query. It runs on a bounded in-memory index built by the same service as the pane filter. Children: `browser/search/filter` (the Ctrl+F pane filter) and `browser/search/exclusions` (user-defined global search exclusions).
 
 ## Behavior
 
@@ -23,6 +23,7 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 - Search covers Home and every mounted local drive, regardless of the open folder. lgse/strata#222, lgse/strata#493
 - An ejected drive's results are gone the next time search opens. lgse/strata#493
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
+- The search field is named "Search files and folders…". lgse/strata#1896
 - A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - On open, the empty query shows "Type to search Home and mounted local drives"; clearing a typed query adds "Fuzzy matching · try a name or path fragment". lgse/strata#493 (unverified)
 - The status text sits centered horizontally and vertically in the results area, with wrapped lines center-justified. lgse/strata#1648
@@ -30,7 +31,16 @@ Ctrl+K global search finds files and folders by fuzzy name or path across Home a
 ### Matching and results
 
 - A query also matches paths that contain its characters in order: `cat-01` matches `bucket-cat/file-01-noise.jpg`, below `cat-01-photo.jpg`. lgse/strata#695, lgse/strata#758
-- Name matches rank above path-only matches, and a shallower duplicate ranks above a deeper one. lgse/strata#307, lgse/strata#493 (unverified)
+- Name matches rank above path-only matches, and a shallower duplicate ranks above a deeper one. lgse/strata#307, lgse/strata#493, lgse/strata#1899 (unverified)
+- With `duck txt notes.md`, `ducks_in_the_pool.txt`, `duck.md`, and `goose.txt` under Home, `duck txt` lists only the first two, phrase match first. lgse/strata#1899
+- Query terms may fall in different path parts: `subfolder txt` finds `nested/subfolder/notes.txt`. lgse/strata#1899
+- `quarterly` lists `quarterly-summary.txt` and `quarterly-summary.md`; `quarterly txt` keeps the `.txt` file and drops the `.md` file. lgse/strata#1899
+- Results rank in tiers: whole query in the name, whole query in the path, every term in the name, every term in the path, then fuzzy matches. lgse/strata#1899
+- Path length, depth, folder type, and an exact-name bonus never move a result across tiers. A file named 200 `x`s then `duck txt.md`, 63 folders deep, ranks above `duck txt archive/notes.md`. lgse/strata#1899
+- In a multi-word query, each term of four or more letters or digits tolerates one typo against a name or path word: `abc text` matches `abc_tent.doc`. A one-word query gets no typo tolerance. lgse/strata#1899 (unverified)
+- A multi-word query is not a strict filter: a fuzzy-only match still shows, ranked below every term match. lgse/strata#1899
+- The fuzzy match keeps a multi-word query's spaces, so it matches only paths that contain a space. lgse/strata#1899 (unverified)
+- Terms match the path below the searched root, not the root's own path. lgse/strata#1899 (unverified)
 - A contiguous match of accented or CJK characters ranks above the same characters separated by `_`. lgse/strata#739
 - An NFC query such as `résumé` matches an NFD filename, and an NFD query matches an NFC filename. lgse/strata#813
 - Dotfiles are indexed only while hidden files are shown. lgse/strata#376
@@ -104,6 +114,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 - Refreshes for outside changes coalesce to about one walk per second per index. A constantly changing folder, such as build output, cannot run walks back to back (lgse/strata#1439, lgse/strata#1544).
 - The pruned-folder check caches its glob set per root; rebuilding it per change stalled the window for up to 1.8 s during bursts (lgse/strata#1544).
 - Unreadable folders are reported apart from size limits, because a walker error had been described as a very large tree (lgse/strata#431).
+- Matches sit in fixed score tiers, so length, depth, and fuzzy bonuses cannot invert their order. The fuzzy fallback stays on purpose, so a multi-word query is not a strict AND filter (lgse/strata#1899).
 - Queries and indexed names are folded with lowercase and NFC, with an ASCII fast path (lgse/strata#809, lgse/strata#813).
 - Ctrl+Shift+K reuses this dialog to rank visited folders; that folder jump belongs to `browser/navigation`.
 

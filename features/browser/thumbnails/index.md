@@ -3,12 +3,12 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
 tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
-docs: [site/src/reference/preview-sandbox.md]
-related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera, browser/properties/raw-metadata, preview/preview-panel/sandbox]
+docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
+related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera, browser/properties/raw-metadata, preview/preview-panel/sandbox, preview/preview-panel/gcode]
 ---
 
 ## Summary
@@ -51,6 +51,9 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Ogg, Opus, and WAV files never get album-art thumbnails. lgse/strata#1162
 - An `.AppImage` shows its embedded `.DirIcon`, else the root `.desktop` entry's `Icon=` image; without `unsquashfs` or an icon it keeps the generic icon. lgse/strata#1077
 - 3MF and FreeCAD files with exactly one usable embedded PNG show it; models with none or several keep their icon. lgse/strata#1276, lgse/strata#1789
+- With Show thumbnails on, `.gcode`, `.gco`, and `.bgcode` files show their embedded PNG, JPEG, or QOI slicer thumbnail as the file icon. lgse/strata#1864
+- G-code thumbnails appear whenever Show thumbnails is on, whether STL model thumbnails is on or off. lgse/strata#1864
+- A G-code file with no usable embedded image keeps its file icon. lgse/strata#1864
 - CBZ and CBR files show their first image in natural order, and EPUB files their declared cover; missing or damaged covers keep the icon. lgse/strata#1325
 
 ### STL model thumbnails

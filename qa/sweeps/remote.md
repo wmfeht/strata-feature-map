@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 
@@ -57,7 +57,10 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Set `icon` to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
 - With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
 - Start Strata with no provider registered and browse a folder in Icons for a second. Then register one while it runs; scroll, open item menus, and restart, checking when its badges and sections first appear.
-- Press Refresh on Settings → Integrations while an item menu with provider actions is open in another window, and while an activation reply is still pending.
+- Press Refresh on Settings → Integrations while an item menu with provider actions is open in another window.
+- Start a `notice` activation on a provider that answers after 5 s, press Refresh twice before it answers, then let it reply. Read the notices and `ps` for its processes.
+- Start an activation, press Refresh, then SIGKILL the retiring provider; repeat with two activations queued behind it, and with the replacement crashing instead.
+- Start an activation, add a `disabled` file, and press Refresh, so discovery finds no provider. Let the reply arrive, then check the old process exits.
 - Create a `disabled` file by hand in a running provider's directory, then press Refresh; then delete it and restart instead.
 - Return two `send-to` root actions and one unplaced action; then add a `send-to-entry` action beside them; then nest a `send-to-entry` child under a `send-to` parent.
 - Flip one provider between a lone `send-to-entry` and a `send-to` destination on every `invalidate` while Send to… is open. Mount and unmount a removable drive at the same time.

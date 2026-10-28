@@ -3,7 +3,7 @@ title: 10xer preview key ownership
 status: shipped
 origin: {issue: lgse/strata#1242, pr: lgse/strata#1295}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/window/keyboard/preview.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/preview_ownership.rs]
@@ -49,6 +49,9 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - In a media preview, `+`, `=`, `-`, and keypad + and − step the volume. lgse/strata#1570, lgse/strata#1451
 - With an audio or video preview open, `<` and `>` step to the previous or next file of that type and keep playing. They work from the listing too. lgse/strata#1289, lgse/strata#1474
 - A focused preview button or slider keeps GTK's own Space, Enter, and arrow handling. lgse/strata#1295
+- On a preview message with an Open button, such as a password-protected PDF, Down or Right from the content box focuses the button. lgse/strata#1840
+- With a preview message's Open button focused, Left returns the keys to the listing, and Up, Down, and Right keep focus on the button. lgse/strata#1840
+- `j` and `l` also focus a preview message's Open button from the content box. Once it is focused, `h` returns the keys and `j`, `k`, and `l` stay on it. lgse/strata#1840 (unverified)
 - Enter or `o` in a document or media preview returns the keys to the listing and opens the file there; the drawer stays open. lgse/strata#1340
 - Outside Flatpak, Enter on a video preview opens it in the default player where the preview stopped. lgse/strata#1474, lgse/strata#1635
 

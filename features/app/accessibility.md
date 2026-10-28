@@ -3,7 +3,7 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/qa/scenarios/accessibility]
@@ -58,6 +58,8 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - The focusable pane of an empty, unreadable, or loading directory carries the directory as its name and the shown status as its description (lgse/strata#1466).
 - Menu accelerators go in the description so the shortcut text is not read as part of the item's name (lgse/strata#415).
 - Tooltips are not a reliable name source. One field exposed its tooltip as its name (lgse/strata#811), while tooltip-only location controls had no name (lgse/strata#1131). Controls get explicit names instead (lgse/strata#1132).
+- An icon-only button sets its tooltip and accessible name in one call. A tooltip that changes, such as "Path copied", keeps the name in step (lgse/strata#1895).
+- Most fields under a visible label are linked to it, so the name follows the label. Others, such as the drive label and chooser Name fields, copy the text they show. No catalog strings were added (lgse/strata#1896).
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
@@ -69,10 +71,12 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1896 | fix | Named text fields and the Icons thumbnail slider that had only a placeholder or an unlinked label. |
+| 2026-10-25 | lgse/strata#1895 | fix | Gave icon-only buttons that had only a tooltip an accessible name equal to it, kept in step when it changes. |
 | 2026-10-10 | lgse/strata#1544 | fix | Added checked and pressed state helpers, and a sync that keeps a menu option's checked state equal to its check icon. |
 | 2026-10-09 | lgse/strata#1533 | fix | Named and described the focusable pane of an empty, unreadable, or loading directory so focus is never lost there. |
 | 2026-10-01 | lgse/strata#1359 | fix | Limited tooltips to icon-only buttons and moved tooltip text into accessible descriptions. |
 
 ## Known gaps
 
-- The Ctrl+F pane filter field has no accessible name; the issue was closed without a fix. lgse/strata#810
+- The inner increment and decrement buttons of a GTK `SpinButton` have no accessible name. lgse/strata#1895

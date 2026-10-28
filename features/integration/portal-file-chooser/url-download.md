@@ -3,8 +3,8 @@ title: Name field filenames and URL downloads
 status: shipped
 origin: {issue: lgse/strata#1279, pr: lgse/strata#1285}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
-review: reviewed
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+review: draft
 code: [src/services/remote_download.rs, src/ui/chooser/download.rs]
 tests: [src/services/remote_download/tests.rs]
 related: []
@@ -28,6 +28,7 @@ The Name field in file-open choosers. Typing an existing filename opens it, and 
 
 - Pasting a direct `http://` or `https://` URL in Name and pressing Enter or Open downloads it and returns a local `file://` URI. lgse/strata#1285
 - Downloads land in a new `strata-download-*` folder in the temporary directory and remain after the chooser closes. lgse/strata#1285
+- Each `strata-download-*` folder is created with mode 0700 and the downloaded file with mode 0600, so other local users cannot list or read them. lgse/strata#1866
 - The file is named from `Content-Disposition` `filename*` or `filename`, else the last URL path segment, else `download`. lgse/strata#1285
 - While downloading, the bottom-left of the action bar shows a circular progress ring and a cancel button; unknown sizes show a spinner and bytes downloaded. lgse/strata#1285
 - Escape or the cancel button stops the download and leaves the chooser open for another name or URL. lgse/strata#1285
@@ -46,6 +47,7 @@ The Windows common dialog accepts a pasted file URL and hands the application a 
 - GVfs `http://` mounts were rejected: the backend is often absent and cannot map to a native path (lgse/strata#1279).
 - Each download gets its own temporary folder, so names never collide. A shared cache was rejected for simpler cleanup (lgse/strata#1279).
 - Files outlive the chooser because the caller opens them after the request completes. A one-day sweep removes them instead (lgse/strata#1285).
+- Download folders stay in the shared temp directory, not `$XDG_RUNTIME_DIR`. logind caps that at 10% of RAM by default, too small for arbitrary downloads (lgse/strata#1866).
 - Redirects are refused so a remote server cannot point the portal at host-only services (lgse/strata#1285).
 - Server-provided names are reduced to a single safe component of at most 255 bytes, keeping an extension of up to 20 bytes (lgse/strata#1285).
 - URLs enter only through Name. The address bar stays navigation-only, and the interaction was moved there at the owner's request (lgse/strata#1285).
@@ -54,6 +56,7 @@ The Windows common dialog accepts a pasted file URL and hands the application a 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1866 | fix | Created download folders 0700 and files 0600, so other local users cannot read downloads before the one-day sweep. |
 | 2026-10-01 | lgse/strata#1285 | feat | Added a Name field to file-open choosers that opens typed filenames and downloads pasted HTTP(S) URLs. |
 
 ## Known gaps

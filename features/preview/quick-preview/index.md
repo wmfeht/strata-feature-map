@@ -3,7 +3,7 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 review: draft
 code: [src/ui/preview/keyboard.rs]
 tests: [tests/qa/scenarios/quick_preview, tests/qa/mutations/quick-preview.patch]
@@ -44,6 +44,9 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 - With the caret in preview text, Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+D, and Delete act on the text, not on files. lgse/strata#670
 - With a file focused in List or Columns and the preview open, Right moves focus into the preview. Its header shows an accent top border while it holds focus. lgse/strata#1343
+- With a password-protected PDF's message shown in List or Columns, Right moves focus to its Open button, which shows an inset focus ring. lgse/strata#1840
+- With focus in that preview's content box, Down or Right also moves focus to the Open button. lgse/strata#1840
+- On that button, Return opens the PDF in the default application, Left returns focus to the listing, and Up, Down, and Right keep focus there. lgse/strata#1840
 
 ## Design
 

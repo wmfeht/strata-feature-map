@@ -3,7 +3,7 @@ title: Chooser PNG conversion
 status: shipped
 origin: {issue: lgse/strata#1386, pr: lgse/strata#1387}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
 review: draft
 code: [src/ui/chooser/image_conversion.rs, src/services/image_conversion.rs, src/sandbox_helper/image_conversion.rs]
 tests: [src/ui/chooser/tests/image_conversion.rs, src/services/image_conversion/tests.rs, src/sandbox_helper/image_conversion/tests.rs, tests/qa/scenarios/chooser_image_conversion/**]
@@ -35,6 +35,7 @@ An opt-in conversion to PNG for images downloaded through the chooser's Name fie
 - Cancel, Escape, or a failed conversion leaves the chooser open and returns nothing. lgse/strata#1387
 - Changing Name or the selected filter while checking or converting stops the job and shows "The name or filter changed. Press Open to try again." lgse/strata#1387
 - The converted PNG is written to a new `strata-download-*` folder and kept, with the original, until the one-day sweep. lgse/strata#1387
+- The converted PNG's folder is created with mode 0700 and the PNG with mode 0600, so other local users cannot read it. lgse/strata#1866
 
 ## Design
 
@@ -51,6 +52,7 @@ An opt-in conversion to PNG for images downloaded through the chooser's Name fie
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-25 | lgse/strata#1866 | fix | Created converted PNG folders 0700 and files 0600 through the download helpers, so other local users cannot read them. |
 | 2026-10-03 | lgse/strata#1387 | feat | Offered sandboxed PNG conversion for downloaded images that the selected filter rejects. |
 
 ## Known gaps
