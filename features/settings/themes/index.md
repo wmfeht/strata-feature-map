@@ -13,7 +13,7 @@ related: [browser/view-modes/text-size, preview/preview-panel, browser/view-mode
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, the uncomposited popup fallback, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
 
 ## Behavior
 
