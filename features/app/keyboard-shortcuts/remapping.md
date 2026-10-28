@@ -41,7 +41,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - A key in the 10xer table works only in 10xer mode: rebinding 10xer Rename leaves the default map's F2 and Ctrl+R working. lgse/strata#1885
 - A rebound command keeps its binding's modifiers required: refresh rebound to Ctrl+R does not run on a plain R. lgse/strata#1885
 - A plain printable key a user adds, such as `rename = ["e"]`, types in a focused text field, a popover, and active type-to-search. lgse/strata#1885
-- The file chooser's own keys and thumbnail resizing read the default table in both modes. lgse/strata#1885
+- Thumbnail resizing reads the default table in both modes. lgse/strata#1885
 
 ### Escape, Enter, Tab and the arrows
 
@@ -54,7 +54,6 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - A plain printable arrow alias moves through the file list, sidebar, header, preview, footer panels, file chooser, and delete confirmations. lgse/strata#1885
 - It does not move through other dialogs, Settings, document tables, or the media timeline. lgse/strata#1885
 - In a text box with several lines, a key added to `activate` or `focus_next` inserts no new line or tab. lgse/strata#1885
-- A key added to `focus_next` completes location paths as Tab does. lgse/strata#1885
 
 ### Conflict checks
 
@@ -66,15 +65,16 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - Ctrl+Space or Super+Space is refused on a command that acts while a text field has focus. lgse/strata#1885
 - Ctrl+Shift with a tab digit, and Backspace with or without Shift or Super, are refused as fixed keys. lgse/strata#1885
 - In the 10xer table, Space on a file-list command, and a digit on a Go, Action, or Tabs step, are refused. lgse/strata#1885
-- Space, Home, End, and the page keys are refused on a media preview command, which they already play or seek. lgse/strata#1885
+- Space is refused on any media preview command. lgse/strata#1885
+- Page Up and Page Down are refused on seek start, seek end, and volume steps. Home is refused on seek end and volume steps. End is refused on volume steps only. lgse/strata#1885
 - A step on its own trigger's key, such as `g g`, `c c`, or `t t`, is valid. lgse/strata#1885
 - A plain key in the default map while type-to-search is on saves with a note and a **Turn off type-to-search** button. lgse/strata#1885
 - A plain key on an action that also runs in text fields saves with a note that focused text fields keep typing it. lgse/strata#1885
-- An alias on a key text fields bind themselves, such as Ctrl+A for `up`, saves with a note that the field usually wins. lgse/strata#1885
+- An alias on a key text fields bind themselves, such as Ctrl+Backspace for `down`, saves with a note that the field usually wins. lgse/strata#1885
 - A key another action takes first in some states, such as a preview command's key, saves with a note naming that action. lgse/strata#1885
 - Alt with a letter saves with a note that the file chooser may take it for its accept button. lgse/strata#1885
 - A hand-edited entry for a command its map cannot run, such as `yank` under `[keymap.default]`, never blocks another command's key. lgse/strata#1885
-- A lone Num Lock or Scroll Lock press during a capture records nothing, and the capture keeps waiting. lgse/strata#1885 (unverified)
+- A lone Num Lock or Scroll Lock press during a capture records nothing, and the capture keeps waiting. lgse/strata#1885
 
 ### Settings → Keyboard
 
@@ -84,7 +84,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - The switch shows one table at a time and opens on the active mode. lgse/strata#1885
 - Typing `rename` in **Search keybinds** lists only the Rename row; text matching no action shows "No matching shortcuts". lgse/strata#1885
 - The search also matches a slot row by the name of the custom action it runs. lgse/strata#1885
-- A search that matches no row in the shown table but some in the other switches to the other table. lgse/strata#1885 (unverified)
+- A page or Settings-wide search that matches rows only in the other table switches to it: `Sort chord` shows the 10xer table. lgse/strata#1885 (unverified)
 - Rows follow the F1 reference's sections, and each table lists only actions its mode can run. lgse/strata#1885
 - The default table leaves out 10xer chord triggers, and the 10xer table lists no custom action slots. lgse/strata#1885
 - A 10xer chord step's row shows its trigger's key in front of its own. lgse/strata#1885

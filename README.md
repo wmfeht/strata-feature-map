@@ -166,7 +166,7 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 | ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | draft | `73b3258` | 0 |
 | ↳ [G-code thumbnail previews](features/preview/preview-panel/gcode.md) | `preview/preview-panel/gcode` | shipped | draft | `86df474` | 0 |
 | ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | draft | `86df474` | 0 |
-| ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `86df474` | 1 |
+| ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `73b3258` | 0 |
 | &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | draft | `73b3258` | 0 |
 | &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | draft | `73b3258` | 0 |
 | ↳ [3D model previews](features/preview/preview-panel/model-views.md) | `preview/preview-panel/model-views` | shipped | draft | `86df474` | 0 |

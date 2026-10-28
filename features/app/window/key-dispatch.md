@@ -33,7 +33,7 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - With no dialog or menu open, Escape during a List heading drag cancels only the drag. The file selection stays and the footer chord mark clears. lgse/strata#1900
 - With a text field focused, Ctrl+C, Ctrl+X, Ctrl+V, and Ctrl+A act on its text, not on the selected files. lgse/strata#544
 - In the default key map, with Ctrl+F filter or search results showing and no text field focused, `y` copies no path. lgse/strata#800, lgse/strata#1885 (unverified)
-- In that state, only Copy, Cut, Paste, Select all, Delete, and the arrows and their aliases act on the results. lgse/strata#800, lgse/strata#1885 (unverified)
+- In that state, a key no earlier stage claims does nothing, except Copy, Cut, Paste, Select all, Delete, and the arrows and their aliases. lgse/strata#800, lgse/strata#1885 (unverified)
 - With only a Russian layout configured, Ctrl+C/X/V/A/Z/Y and Ctrl+Shift+Z in a focused text field copy, cut, paste, select all, undo, and redo its text. lgse/strata#1576
 - With 10xer mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning the mode off restores them. lgse/strata#1271, lgse/strata#1576
 - With 10xer mode on, Ctrl+Alt+T in the file list still opens a terminal. lgse/strata#1576
