@@ -48,3 +48,14 @@ settings/preferences/language: Covered by the Settings guide page; its upstream 
 settings/preferences/storage: Covered by the Settings guide page; its upstream doc, docs/preferences.md, stays upstream.
 settings/themes/corner-roundness: New since v1.0.0; the next release docs run places it.
 settings/themes/interface-font: New since v1.0.0; the next release docs run places it.
+app/window/key-dispatch: New since v1.0.0; the next release docs run places it.
+operations/archives/extraction-safety: New since v1.0.0; the next release docs run places it.
+browser/search/filter/enter-target: New since v1.0.0; the next release docs run places it.
+settings/themes/icons/catppuccin: New since v1.0.0; the next release docs run places it.
+preview/preview-panel/pdf: New since v1.0.0; the next release docs run places it.
+preview/preview-panel/documents/scrollbar: New since v1.0.0; the next release docs run places it.
+browser/sidebar/rail: New since v1.0.0; the next release docs run places it.
+browser/sidebar/pins/drag-to-pin: New since v1.0.0; the next release docs run places it.
+browser/navigation/location-bar/completion: New since v1.0.0; the next release docs run places it.
+operations/delete/dissolve: New since v1.0.0; the next release docs run places it.
+operations/trash/fuse-refusals: New since v1.0.0; the next release docs run places it.

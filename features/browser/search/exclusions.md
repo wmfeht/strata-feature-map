@@ -3,7 +3,7 @@ title: Global search exclusions
 status: shipped
 origin: {issue: lgse/strata#1062, pr: lgse/strata#1064}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: reviewed
 code: [src/services/search/exclusions.rs, src/ui/settings/exclusions.rs]
 tests: [src/services/search/exclusions/tests.rs, src/ui/settings/exclusions/tests.rs]

@@ -3,11 +3,11 @@ title: Trash flight animation
 status: shipped
 origin: {issue: null, pr: lgse/strata#626}
 branch: null
-reviewed_at: 442d325be108ff95391f0fe76cbd89da8db9e129
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/fly_to_trash.rs]
 tests: [src/ui/browser/fly_to_trash/tests.rs]
-related: []
+related: [operations/delete/dissolve]
 ---
 
 ## Summary
@@ -38,7 +38,7 @@ Flights are prepared from the rows' positions before the operation and played af
 - Fill-level and open-lid Trash icons added in lgse/strata#1119 were replaced by the single Lucide trash icon in lgse/strata#1155.
 - Docking a deletion discarded its prepared flight (lgse/strata#1266), and deletions dock at start since lgse/strata#1393. lgse/strata#1562 keeps the flight on the docked request and plays it on that request's success.
 - The flight is dropped when the deletion's card is presented, so a slow Move to Trash never locks the window behind an animation (lgse/strata#1562).
-- The permanent-delete dissolve added alongside this in lgse/strata#626 belongs to permanent deletion, not to Trash.
+- The permanent-delete dissolve added alongside this in lgse/strata#626 belongs to permanent deletion (`operations/delete/dissolve`). Both share row capture and frame timing through `entry_animation.rs`.
 
 ## History
 

@@ -3,7 +3,7 @@ title: G-code thumbnail previews
 status: shipped
 origin: {issue: lgse/strata#1863, pr: lgse/strata#1864}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/sandbox_helper/model/gcode.rs]
 tests: [src/sandbox_helper/model/gcode/tests.rs]
@@ -21,6 +21,7 @@ Previews of sliced 3D-printer files from the image the slicer embedded in them, 
 - The `thumbnail_JPEG` comment form is also read. lgse/strata#1864 (unverified)
 - PNG, JPEG, and QOI thumbnails decode. lgse/strata#1864
 - A local binary `.bgcode` file shows the image from its thumbnail blocks. lgse/strata#1864
+- A binary `.bgcode` file without a usable thumbnail shows "This G-code file has no usable embedded thumbnail". lgse/strata#1864
 - With several thumbnails, the preview shows the largest one that decodes. lgse/strata#1864
 - When the largest thumbnail is corrupt, the next largest shows. lgse/strata#1864
 - Thumbnail comments with CRLF line endings decode. lgse/strata#1864

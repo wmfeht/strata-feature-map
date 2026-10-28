@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
-triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs]
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, and the capture-phase key dispatcher; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -94,17 +94,29 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch `strata <dir>` while a window is open, then with a different directory, then with no argument; count windows and read each title with `xprop`.
 - Turn each window-button preference on and off with two windows open, restart, and compare the header order in both.
 - Maximize, restore, and maximize again by button, by the window manager, and by double-clicking the header; the icon, tooltip, and accessible name must follow the state each time.
+- Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
+- With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
+- Under the client-decorating compositor, open a window, a second window, a new tab, and the portal chooser; drag each edge and corner, then maximize, tile, and fullscreen and read the window border each time.
+- Under the client-decorating compositor, open a modal dialog and the search palette and check that the blur covers the header.
+- Save `sidebar_compact = true` with `sidebar_expanded = false`, then `sidebar_compact = "yes"`; start a 400 px and a 1920 px window and press Ctrl+B once in each.
+
+### app/window/key-dispatch
+
 - Press Delete, Ctrl+V, Ctrl+1, and Ctrl+Q in three states: a popover menu open; a modal open with focus on the window; the location field focused.
 - Navigate by keyboard, park the pointer over another column, press Ctrl+V twice, move the pointer 1 px, and paste again; follow the Input precedence rules in `docs/keyboard-navigation.md`.
 - In 10xer mode, open the footer rename with `r` and press Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, Ctrl+\\, and F5; then rename in a Columns child column with the palette open.
 - On a Russian-only keymap, run Ctrl+Z, Ctrl+Shift+Z, Ctrl+Y, and Ctrl+A in the location field, a rename, the global search field, and Settings search.
-- Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
-- With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
 - With animations on, press Escape on a dialog and at once press each gated key, then Delete and Ctrl+V; repeat with Settings and with a second tab active.
-- Under the client-decorating compositor, open a window, a second window, a new tab, and the portal chooser; drag each edge and corner, then maximize, tile, and fullscreen and read the window border each time.
-- Under the client-decorating compositor, open a modal dialog and the search palette and check that the blur covers the header.
 - With F1 open from Columns, List, and Icons, press F5, Ctrl+K, Ctrl+Alt+T, and Ctrl+\\ with focus on a category, then on the results.
 - Close F1 and press the same keys again.
+- Start a List heading drag, then press Escape with a footer prompt open, with the filter field showing, and with a 10xer chord armed. Release the mouse after each.
+- Ctrl+wheel with a touchpad: scroll half a step, reverse, then continue; repeat after switching between a wheel mouse and the touchpad mid-gesture.
+- Ctrl+Shift+wheel over a long Columns and List listing and the sidebar in each mode, with a touchpad and a mouse. Then Ctrl+Alt+wheel and Ctrl+Super+wheel over Icons.
+- With a PDF open in the preview, Ctrl+wheel over its scrollbars, its page margin, the listing, and the sidebar, with keyboard focus in the PDF and then in the listing.
+- Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
+- Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
+- Hold Ctrl+Shift and scroll a touchpad slowly, then fast; then release Shift mid-scroll and keep scrolling.
+- With three windows open, toggle 10xer mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ from the file list. Close one window and check again.
 
 ### app/packaging
 

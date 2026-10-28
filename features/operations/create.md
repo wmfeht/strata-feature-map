@@ -3,10 +3,10 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/adapters/local_operations/create_entry.rs]
-tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management, tests/qa/mutations/new-entry-collision.patch]
+tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl, tests/qa/mutations/new-entry-collision.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
 ---
@@ -101,4 +101,4 @@ Creating an empty file or folder in the current directory from the background me
 
 ## Known gaps
 
-- Typing `docs/` or `docs/note.txt` as a new file's name is rejected instead of creating the folder or nested file; the fix is unmerged. lgse/strata#1511, lgse/strata#1512
+None known.

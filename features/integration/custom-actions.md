@@ -3,17 +3,17 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
-tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/readiness.rs, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
+tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/**, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
 docs: [site/src/reference/custom-actions.md, docs/custom-actions.md]
-related: [operations/progress/jobs, integration/10xer-mode, remote/file-providers]
+related: [operations/progress/jobs, integration/10xer-mode, remote/file-providers, browser/context-menu]
 ---
 
 ## Summary
 
-User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs (`operations/progress/jobs`). In 10xer mode, `;` then a digit runs the first ten matching actions (`integration/10xer-mode`).
+User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs; `operations/progress/jobs` owns how an invocation is launched and what it receives. `browser/context-menu` places the actions section in the menus. In 10xer mode, `;` then a digit runs the first ten matching actions (`integration/10xer-mode`).
 
 ## Behavior
 
@@ -37,7 +37,6 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - The folder background menu matches actions against the open folder as a single folder input. lgse/strata#1085
 - A selection that includes Trash or a non-native GVfs item shows no custom actions. lgse/strata#1085
 - Actions with `menu = "top"` appear in the menu body. Others appear under an Actions submenu. Both groups are sorted by name, ignoring case. lgse/strata#1085 (unverified)
-- Custom actions sit in their own section after the open, print, and extract commands and before Cut and Copy. lgse/strata#1085
 - Menus, the 10xer action chord, and Settings → Actions show the actions as last read. An action changed outside Strata appears once a background reread finishes. lgse/strata#1729
 
 ### Invocation
@@ -45,14 +44,8 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - Choosing an action whose definition changed since the menu or `;` listed it runs nothing. It shows "Unable to run action" with "Actions changed". lgse/strata#1729
 - Choosing an action whose folder was removed since the menu listed it runs nothing. It shows "Unable to run action" with "The action “<id>” no longer exists". lgse/strata#1729 (unverified)
 - An action with `confirm = true` opens "Run this action?" with the action name and item count, and Run focused. Cancel runs nothing. lgse/strata#1085, lgse/strata#1206
-- Programs and interpreters get argv entries directly, never through a shell. lgse/strata#1085
 - A command argument that is exactly `{path}`, `{paths}`, or `{parent}` expands to absolute paths, one argument each. Other arguments pass through literally. lgse/strata#1085
 - An argument with a token inside other text, such as `prefix-{path}`, is refused on save. So is `{path}` in whole-selection mode or `{paths}` in per-item mode. lgse/strata#1085
-- Each invocation gets `STRATA_ACTION_*` variables for version, id, mode, source (`selection` or `background`), count, and 1-based per-item position. lgse/strata#1085
-- Input paths go in a NUL-delimited, byte-exact file named by `STRATA_ACTION_PATHS`, so names with newlines or invalid UTF-8 arrive intact. lgse/strata#1085
-- The working directory is the invoking folder by default. Users can choose Home or the action's own folder instead. lgse/strata#1085
-- A script that appends `{"event": "progress", "processed": N, "total": M}` lines to `$STRATA_ACTION_PROGRESS` updates its job's progress. lgse/strata#1085
-- `{"event": "output", "path": …}` lines record an absolute output path. Relative paths, malformed lines, and unknown lines are ignored. lgse/strata#1085
 - Python actions can call `from strata_actions import context` with nothing installed through pip. lgse/strata#1085
 - `ctx.log` escapes non-UTF-8 bytes, so logging a native path succeeds when the locale's stdout is strict UTF-8. lgse/strata#1267
 
@@ -117,5 +110,5 @@ User-defined Python, Bash, or command actions in the file and folder context men
 
 ## Known gaps
 
-- Actions accept only native local paths. Trash, remote mounts, and the file chooser are excluded. lgse/strata#36, lgse/strata#1085
-- Built-in parameter forms and enforced sandboxing were deferred from the first release. lgse/strata#36
+- Actions accept only native local paths; remote inputs are deferred. Trash, remote mounts, and the file chooser are excluded. lgse/strata#1085
+- Parameter forms, parallel per-item runs, and restart or resume were deferred from the first release. lgse/strata#1085

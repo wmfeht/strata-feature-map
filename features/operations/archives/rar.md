@@ -3,8 +3,8 @@ title: RAR extraction
 status: shipped
 origin: {issue: lgse/strata#816, pr: lgse/strata#832}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
-review: reviewed
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+review: draft
 code: [src/adapters/local_operations/archive/decoders/rar.rs, src/rar_extraction.rs, src/sandbox/archive.rs, src/sandbox_helper/archive_rar.rs]
 tests: [src/adapters/local_operations/archive/decoders/rar/tests.rs, src/rar_extraction/tests.rs, src/sandbox/archive/tests.rs, src/sandbox_helper/archive_rar/tests.rs, tests/fixtures/rar/**]
 related: [browser/thumbnails, preview/preview-panel/sandbox]
@@ -54,4 +54,4 @@ UnRAR's C parser handles attacker-controlled bytes, so it runs outside the main 
 
 ## Known gaps
 
-- RAR symlinks and hard links extract as regular files; the link follow-up from the link extraction work is not done. lgse/strata#1421, lgse/strata#1478
+- RAR symlinks and hard links extract as regular files; the link follow-up from the link extraction work is not done. lgse/strata#1478

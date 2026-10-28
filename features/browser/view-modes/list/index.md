@@ -3,10 +3,10 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser_modes/list_factory.rs]
-tests: []
+tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl]
 related: [browser/navigation]
 ---
 
@@ -66,7 +66,6 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the Size column, matching Icons. |
-| 2026-10-09 | lgse/strata#1533 | fix | Focused the pane instead of the hidden list when history returns to an empty folder. |
 | 2026-09-19 | lgse/strata#1116 | fix | Made double-click autofit work on List heading resize edges. |
 | 2026-09-12 | lgse/strata#893 | feat | Restored selection, cursor, and scroll position when returning to a List folder. |
 | 2026-09-08 | lgse/strata#608 | refactor | Moved List item setup, binding, and thumbnail cancellation into a factory module. |

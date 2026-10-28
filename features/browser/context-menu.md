@@ -3,12 +3,12 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/**]
-tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs]
+code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs]
+tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [browser/selection, browser/tabs, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility]
+related: [browser/selection, browser/search/filter, browser/tabs, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility, browser/navigation/recent, integration/open-with, integration/open-with/terminal, operations/trash, operations/trash/restore, operations/delete]
 ---
 
 ## Summary
@@ -19,6 +19,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 ### Opening
 
+- Right-clicking an unselected entry makes it the only selected entry and the keyboard cursor. lgse/strata#666
+- Right-clicking an entry inside a multi-selection keeps the whole selection. lgse/strata#666
 - Menu alone or Shift+F10 opens the menu of the focused selected entry in Columns, Icons, and List. lgse/strata#666
 - Ctrl+Shift+F10, Shift+Menu, and Ctrl+Menu open no menu. lgse/strata#666 (unverified)
 - Menu or Shift+F10 with Hyper or Meta held opens the menu as without them. lgse/strata#1576
@@ -61,19 +63,36 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - A folder's menu adds Open in Terminal, then Open in…, to the opening group, and Pin to sidebar before Customize…. lgse/strata#1210, lgse/strata#1543
 - Open in… is a submenu of New Tab, shown with Ctrl+Enter, and New Window, shown with Shift+Enter. A file's menu has no Open in…. lgse/strata#1543, lgse/strata#1576
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
+- A single file result's menu during a filter or search offers **Open file location**, which opens its folder with the file selected. lgse/strata#1041
+- A file's menu in Trash never offers Open file location. Elsewhere, with no filter or search, it offers it only for a file outside the shown folder. lgse/strata#1041 (unverified)
 - The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
+- While the selection's types are looked up, the item and multi-selection menus show Open With… insensitive, described "Looking for compatible applications…". lgse/strata#578
 - Outside Flatpak, when every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155, lgse/strata#1635
 - Under Flatpak, once the selected types resolve, the multi-selection menu shows Open above Open With…, even with different or no defaults. lgse/strata#1635 (unverified)
 - When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
+- Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543 (unverified)
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
+- The background menu offers Open With… and Open in Terminal for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#161, lgse/strata#1083
+- In the background menu, Open in Terminal is insensitive when the folder has no local path. lgse/strata#161 (unverified)
+- The item menu shows Open in Terminal for a single folder with a local path, outside Trash. lgse/strata#161
+- In Recent, the background menu also hides Properties. lgse/strata#1083 (unverified)
+- In Recent, the item menu hides New Folder with Selection. lgse/strata#1083 (unverified)
+- In Recent, the item menu offers Remove from Recent when every selected row has a recent-history entry. lgse/strata#1500
+- Remove from Recent is absent from the same file's menu in its real folder. lgse/strata#1500
 - In the background menu of a folder, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
-- Custom action rows appear after the opening group and before Cut. lgse/strata#1085 (unverified)
+- Custom actions sit in their own section after the open, print, and extract commands and before Cut and Copy. lgse/strata#1085
 - Actions hidden for the current target leave no empty group or doubled separator. lgse/strata#1210
 - Open With… shows AppWindow, Duplicate CopyPlus, Copy path(s) Route, Copy name(s) FileType, Move to… FolderInput, and Copy to… FolderOutput. lgse/strata#1210
 - Compress… shows PackagePlus, Extract here PackageOpen, and Extract to… FolderArchive. lgse/strata#1210
 - Permanently delete shows CircleX with a red label and icon; Move to Trash keeps the Trash icon. lgse/strata#1210
-- Outside Trash, the item and multi-selection menus show "Delete without Trash" in place of Permanently delete when every selected item is remote. lgse/strata#1614
-- Remote means on an NFS, SMB, or sshfs mount, or at an `sftp://` or `smb://` location. lgse/strata#1614
+- Outside Trash, the item menu shows "Permanently delete" with a Shift+Del hint below Move to Trash, for single and multiple selections. lgse/strata#164
+- The menu hides "Permanently delete" when `access::can-delete` reports false for the folder's contents, and shows it when the query is unresolved. lgse/strata#361
+- In a folder without write permission, such as after `chmod 555`, neither Move to Trash nor Permanently delete appears in the item menu. lgse/strata#361
+- Outside Trash, the item context menu hides Move to Trash when the folder's listing reports `access::can-trash` false, and shows it when the value is unknown. lgse/strata#314
+- Trash menus omit Rename, Compress, New Folder, New File, and paste destinations. lgse/strata#499
+- Top-level Trash items keep Restore, Cut, Move to…, Copy, and permanent deletion in their menus. lgse/strata#499
+- Restore appears in the item menu only when every selected item is a top-level Trash item. lgse/strata#499
+- Outside Trash, the item and multi-selection menus show "Delete without Trash" in place of Permanently delete when every selected item is remote, as `operations/trash` defines it. lgse/strata#1614
 - Delete without Trash has the CircleX icon, a red label, and the Shift+Del hint. A mixed local and remote selection keeps Permanently delete. lgse/strata#1614
 - An action with a shortcut shows it at the row's right, such as Ctrl+C beside Copy. lgse/strata#666
 - Shortcut hints use one notation: Enter beside Open, "F2 / Ctrl+R" beside Rename, and Alt+Enter beside Properties. lgse/strata#1576

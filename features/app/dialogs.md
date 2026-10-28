@@ -3,12 +3,12 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
-tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus]
+tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/progress, app/window, settings/preferences]
+related: [operations/progress, operations/trash, operations/clipboard, app/window/key-dispatch, settings/preferences]
 ---
 
 ## Summary
@@ -37,7 +37,8 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 ### Focus after closing
 
-- Closing the last open dialog by any route returns focus to the widget focused before the first one opened, if still on screen. Progress dialogs and dialogs chained on them use the progress rule instead (`operations/progress`). lgse/strata#1331, lgse/strata#1533
+- Closing the last open dialog by any route returns focus to the widget focused before the first one opened, if still on screen. lgse/strata#1331, lgse/strata#1533
+- A dialog registered as changing the listing, such as file operation progress, and any dialog chained on it skip that widget. Closing them focuses the active tab's cursor row. lgse/strata#1533
 - When that widget is gone, such as a closed inline rename editor, focus goes to the active tab's cursor row. In an empty, unreadable, or loading folder it goes to the pane. lgse/strata#1533
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
 - Closing a dialog over a modal that stays open, such as the action editor over Settings, refocuses its opener there. lgse/strata#1544
@@ -51,7 +52,6 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 - Enter in a single-line text or password field of the Compress, archive password, or mount authentication dialog activates the primary button. lgse/strata#464
 - Enter in a form field does nothing while the primary button is disabled. lgse/strata#464
-- Enter with an invalid Compress name such as `../escape` keeps the dialog open and writes no archive. lgse/strata#464
 - Enter in a multi-line text field inserts a newline instead of submitting. lgse/strata#464
 - A form text field can be limited in bytes or UTF-16 units. Typed or pasted text is cut to the longest leading part that fits, on a whole character. lgse/strata#1875
 - That field's "N chars remaining" caption counts in the same unit: `ÉTÉ-2026` under an 11-byte limit reads "1 char remaining". lgse/strata#1875
@@ -79,7 +79,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - Before lgse/strata#1533 there was no shared close path: some dialogs restored focus, some called `focus_active()` by hand, and the rest did nothing. GTK4 clears window focus when the focused widget in a closing layer hides, so the next Down reached the header (lgse/strata#1430).
 - One restore order serves every dialog: focus taken meanwhile, an explicit restore, the origin if still in the window, then a window fallback. The window and each tab register the active browser as that fallback (lgse/strata#1430, lgse/strata#1533).
 - Layers that are hidden rather than removed use a visibility-keyed variant: they capture the origin on each show and restore it when the hide completes (lgse/strata#1430).
-- Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533).
+- Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533). The delete confirmation, for Trash and permanent delete, and the Copy-or-move prompt reuse that listing variant in place of their own `focus_active()` calls (lgse/strata#1900).
 - A layer closed while another modal stays open restores focus inside that modal; the window restore order applies only once no modal is left. A layer opened while another closes takes over the closing layer's opener (lgse/strata#1544, unverified).
 - Disabling the focused control on a keyboard dismissal makes GTK hide focus rings on the key release. The layer records whether rings showed before that and re-shows them once focus is back (lgse/strata#1544, unverified).
 - GTK's own maximum length counts characters, so a field limited in bytes or UTF-16 units trims insertions at its text delegate's `insert-text` signal (lgse/strata#1875).

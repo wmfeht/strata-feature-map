@@ -3,7 +3,7 @@ title: Folder jump
 status: shipped
 origin: {issue: lgse/strata#276, pr: lgse/strata#959}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/navigation_history.rs]
 tests: [src/services/navigation_history/tests.rs]
@@ -12,24 +12,16 @@ related: [browser/search, integration/10xer-mode]
 
 ## Summary
 
-A keyboard palette, Ctrl+Shift+K, that reopens folders previously visited in Strata, ranked by how often and how recently each was opened. Strata learns the list from browsing, separately from pinned folders.
+A keyboard palette, Ctrl+Shift+K, that reopens folders previously visited in Strata, ranked by how often and how recently each was opened. Strata learns the list from browsing, separately from pinned folders. The palette dialog, its keys and empty states, and visit recording are in `browser/search`, whose code carries them.
 
 ## Behavior
 
-- Ctrl+Shift+K opens a "Jump to a folder…" palette; Ctrl+K still opens global file search. lgse/strata#959
 - With an empty query, the palette lists visited folders by frequency and recency of visits. lgse/strata#959
 - Typing narrows the list to visited folders whose name or path fuzzily matches the text. lgse/strata#959
 - Each space-separated term may match anywhere in a folder's full path, so `dev str` finds `~/dev/strata`. lgse/strata#1403
 - Terms accept fzf's `'exact`, `^prefix`, `suffix$`, and `!excluded` forms; `strata !notes` hides folders whose path matches `notes`. lgse/strata#1403
 - Folders whose names match more terms rank higher, and an exact name ranks first among them. lgse/strata#1403
-- Arrow keys choose a row, and Enter opens the chosen folder. lgse/strata#959
 - The palette lists at most 100 folders. lgse/strata#959 (unverified)
-- Only local folders that finish loading are recorded. lgse/strata#959
-- A folder that fails to load is recorded after a successful retry. lgse/strata#959 (unverified)
-- Before any folder is recorded, the palette shows "No folder history yet". lgse/strata#959 (unverified)
-- A query that matches no visited folder shows "No matching folders". lgse/strata#959 (unverified)
-- Pressing Ctrl+Shift+K while the search palette is open closes it. lgse/strata#959 (unverified)
-- Closing the palette with Escape returns focus to the control that opened it, such as the file list's cursor row. lgse/strata#1430, lgse/strata#1533
 
 ## Design
 

@@ -3,17 +3,17 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/composition/tenxer_splash.rs]
+code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/composition/tenxer_splash.rs, data/brand/tenxer-splash.png, src/ui/shortcut_footer/chord_panel.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/composition/tenxer_splash/tests.rs]
-docs: [site/src/reference/10xer-mode.md]
-related: [browser/selection, browser/tabs, settings/preferences, app/keyboard-shortcuts, app/shortcut-reference]
+docs: [site/src/reference/10xer-mode.md, docs/10xer-mode.md]
+related: [browser/selection, browser/tabs, settings/preferences, app/keyboard-shortcuts, app/shortcut-reference, app/window, browser/sidebar, app/window/key-dispatch]
 ---
 
 ## Summary
 
-An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the default map, hides pane chrome, and uses the footer for typed commands. Children: `integration/10xer-mode/preview-keys` (keys inside an open preview), `integration/10xer-mode/places` (`g` chords, `go ›`, `z` / `Z`, the folder picker), `integration/10xer-mode/search` (`/`, `f`, `s`), `integration/10xer-mode/file-verbs` (file commands and their chords), and `integration/10xer-mode/file-chooser` (the mode in the portal file chooser).
+An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the default map, hides pane chrome, and uses the footer for typed commands and the shared chord key panel. Children: `integration/10xer-mode/preview-keys` (keys inside an open preview), `integration/10xer-mode/places` (`g` chords, `go ›`, `z` / `Z`, the folder picker), `integration/10xer-mode/search` (`/`, `f`, `s`), `integration/10xer-mode/file-verbs` (file commands and their chords), and `integration/10xer-mode/file-chooser` (the mode in the portal file chooser).
 
 ## Behavior
 
@@ -44,13 +44,20 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - With the file list focused, `h`/`j`/`k`/`l`, other letters, Space, Ctrl+D, Ctrl+F, Ctrl+B, and Ctrl+R never also run their default-map action. lgse/strata#1271
 - Ctrl+C/X/V, Delete, Shift+Delete, F2, F5, Ctrl+L, Ctrl+K, Ctrl+1/2/3, Ctrl+Shift+N, Alt+Enter, Menu, and text-size keys keep working. lgse/strata#1271
 - In the location field or an inline rename, letters such as `q`, `d`, and `p` are typed and no file command runs. lgse/strata#1271
-- With the mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning it off restores them. lgse/strata#1271, lgse/strata#1576
 - Ctrl+N takes the sidebar toggle's step and Ctrl+B pages up. lgse/strata#1304, lgse/strata#1606
 - An Enter that an input method consumes while composing never submits a footer prompt; an Enter it passes back submits it. lgse/strata#1583
 - A `create ›` or `rename ›` name check still running when the prompt is dismissed or edited creates or renames nothing. lgse/strata#1615 (unverified)
 - F1, or `~` outside text fields, toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272, lgse/strata#1714
 - Context-menu hints hide the default `y` copy path, Space preview, and Ctrl+R rename hints while the mode is on. lgse/strata#1272, lgse/strata#1576
 - After returning from another window, `g`, `f`, and `s` act on the listing without first clicking a row. lgse/strata#1393
+
+### Chord panel
+
+- Arming a chord (`g`, `c`, `,`, `;`, or `t`) shows its pill, such as `g-`, beside the `10X` pill, with a panel above it. lgse/strata#1304, lgse/strata#1306, lgse/strata#1308, lgse/strata#1484
+- The panel lists each valid second key as a keycap beside its action, and closes when the chord completes or Esc cancels it. lgse/strata#1304
+- The panel never takes focus, so the next key still completes the chord. lgse/strata#1304
+- The `g` panel lists `g` First item, `f` Follow search result, the place keys, and the pin digits. It also lists `+` / `-` Pin / unpin folder and Space Type a path. lgse/strata#1304, lgse/strata#1342 (unverified)
+- The `c` panel lists Copy path and Copy name; the `,` panel lists Name, Modified, Size, Type, and Shift for Reverse. lgse/strata#1306, lgse/strata#1308 (unverified)
 
 ### Movement
 
@@ -66,8 +73,6 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ### Sidebar and header
 
-- Ctrl+Shift+B focuses a visible sidebar and leaves a hidden one hidden. lgse/strata#1284
-- In the sidebar, `j`/`k` and Up/Down move between places, `l`/Enter/Space activate, and `h`/Left/Backspace return to the files with the selection kept. lgse/strata#1284
 - After a sidebar place opens another folder, focus is on that folder's listing. lgse/strata#1284
 - Tab from the file list focuses the window header; Enter and Space activate the header control, and `h` or `j` return to the files. lgse/strata#1284
 

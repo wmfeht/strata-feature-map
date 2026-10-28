@@ -3,10 +3,10 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
-tests: [src/ui/shortcut_footer/tests.rs]
+tests: [src/ui/shortcut_footer/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [settings/preferences, integration/10xer-mode, integration/10xer-mode/file-chooser, browser/context-menu, operations/clipboard, app/keyboard-shortcuts]
 ---
@@ -86,8 +86,10 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In Columns, Icons, and List, the footer shows "F1 Shortcuts" at the left and the clipboard badge and item count at the right. lgse/strata#1034, lgse/strata#1688
 - The hovered F1 Shortcuts button's highlight is inset equally from the footer's left, top, and bottom edges. lgse/strata#1680
 - With nothing selected, the count reads "N items", and its accessible description gives the file and folder breakdown. lgse/strata#1034
+- With 2 of 5 items selected, the count's accessible description reads "2 of 5 items selected. Size includes selected files only; folder contents are not counted." lgse/strata#1034, lgse/strata#1519 (unverified)
 - With a selection, the count shows a folder and file breakdown with the selected files' total size, such as "1 folder, 2 files selected (64 MB)"; folder contents are not counted. lgse/strata#1034
 - When some selected file sizes are unknown the size reads "(3 B known; size incomplete)", and when none are known "(size unavailable)". lgse/strata#1034
+- With a file symlink selected, the selection size counts its target's size, as the size column shows it. lgse/strata#1034, lgse/strata#1880 (unverified)
 - Selecting every item shows the folder and file breakdown without a size, such as "1 folder, 2 files selected". lgse/strata#1266 (unverified)
 - Selecting more than 64 items, but not all, shows "N items selected" without a size. lgse/strata#1266 (unverified)
 - An empty folder shows "0 items", and clearing the selection restores the directory total. lgse/strata#1034
@@ -137,4 +139,4 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ## Known gaps
 
-- The footer's selection size adds a selected file symlink's target size, not the link's own size. lgse/strata#1853, lgse/strata#1880
+None known.

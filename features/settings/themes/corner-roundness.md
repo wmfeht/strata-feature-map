@@ -3,11 +3,11 @@ title: Corner roundness
 status: shipped
 origin: {issue: lgse/strata#1678, pr: lgse/strata#1680}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preferences/corner_roundness.rs, src/ui/theme/roundness.rs]
-tests: [src/ui/theme/roundness/tests.rs, src/ui/theme/tests.rs, src/ui/settings/theme/tests.rs]
-related: []
+tests: [src/ui/theme/roundness/tests.rs]
+related: [settings/themes, settings/preferences]
 ---
 
 ## Summary
@@ -23,7 +23,6 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 - With no `corner_roundness` key in `settings.toml`, the stepper reads 60; a saved value, such as 100, is kept. lgse/strata#1688
 - The value is saved as the integer `corner_roundness`; a saved value below 0 or above 200 loads as 0 or 200. lgse/strata#1680 (unverified)
 - Changing the stepper in one window updates the stepper in every other open Settings window; building the control writes nothing to `settings.toml`. lgse/strata#1680 (unverified)
-- Searching "Corner roundness", "radius", or "rounded" in Search settings shows the row on Appearance. lgse/strata#1680 (unverified)
 
 ### Applying the scale
 

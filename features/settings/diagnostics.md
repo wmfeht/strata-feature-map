@@ -3,12 +3,12 @@ title: Diagnostics
 status: shipped
 origin: {issue: lgse/strata#1734, pr: lgse/strata#1735}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/diagnostics.rs, src/ui/settings/diagnostics.rs, data/icons/scalable/actions/strata-stethoscope.svg]
 tests: [src/services/diagnostics/tests.rs, src/ui/settings/diagnostics/tests.rs]
 docs: [docs/diagnostics.md]
-related: [settings/preferences, preview/preview-panel/sandbox, browser/thumbnails/workers, preview/preview-panel/media, operations/archives/rar, app/updates, devices/volumes/drive-dialogs, integration/open-with/terminal, integration/custom-actions]
+related: [settings/preferences, app/infrastructure, preview/preview-panel/sandbox, browser/thumbnails/workers, preview/preview-panel/media, operations/archives/rar, app/updates, devices/volumes/drive-dialogs, integration/open-with/terminal, integration/custom-actions]
 ---
 
 ## Summary
@@ -68,12 +68,16 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 
 - A non-passing row with a package shows "Install with:" and the install command for the distribution in `os-release`: pacman, apt, dnf, or zypper. lgse/strata#1735
 - When the distribution has no known command, the row reads "Install <package> or your distribution's equivalent." with the Arch package name. lgse/strata#1735
-- Every install command shows a Run in terminal button, with or without a terminal emulator. lgse/strata#1729
-- Run in terminal opens the terminal running the install command. Afterwards the row reads "The command opened in your terminal. Run diagnostics again when it finishes." lgse/strata#1735, lgse/strata#1704
-- With no terminal emulator found, Run in terminal shows "No terminal emulator was found." under the command. It suggests `xdg-terminal-exec` with `~/.config/xdg-terminals.list`, setting `$TERMINAL`, or a listed terminal. lgse/strata#1729 (unverified)
-- When the install command ends, the terminal prints "Press Enter to close." and stays open until Enter. lgse/strata#1735, lgse/strata#1704
+- After Run in terminal opens a row's install command, the row reads "The command opened in your terminal. Run diagnostics again when it finishes." lgse/strata#1735, lgse/strata#1704
 - Copy report copies "Strata diagnostics", the System fields, and every result by group as `[Status] Title: message`, then shows "Copied" for 1.5 s. lgse/strata#1735 (unverified)
 - The System box lists Version, Commit, Installation, Toolkit, GStreamer, Kernel, Desktop environment, Display server, Interface renderer, and Language. lgse/strata#1735
+
+### Run in terminal
+
+- Every install command on Settings → Diagnostics and Settings → Integrations shows a Run in terminal button, with or without a terminal emulator. lgse/strata#1729
+- Run in terminal opens the user's terminal running the install command. lgse/strata#1735, lgse/strata#1704
+- With no terminal emulator found, Run in terminal shows "No terminal emulator was found." under the command. It suggests `xdg-terminal-exec` with `~/.config/xdg-terminals.list`, setting `$TERMINAL`, or a listed terminal. lgse/strata#1729 (unverified)
+- When the install command ends, the terminal prints "Press Enter to close." and stays open until Enter. lgse/strata#1735, lgse/strata#1704
 
 ## Design
 
@@ -83,7 +87,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - Checks exercise the feature itself, such as a real sandbox, the worker pool, and the thumbnail path, rather than only looking for binaries (lgse/strata#1734, lgse/strata#1735).
 - Helper tools are looked up on the sandbox's configured `STRATA_SANDBOX_PATH`, not the user's `PATH`, because helpers run inside the sandbox (lgse/strata#1735, lgse/strata#1746).
 - The update check uses `api.github.com/rate_limit` because that request does not count against the rate limit (lgse/strata#1735).
-- Run in terminal passes the command's words as arguments to a fixed script, not through a shell. Package names with options or shell syntax get no command (lgse/strata#1735, lgse/strata#1704).
+- Run in terminal passes the prompt and the command's words as positional arguments to a fixed `sh -c` script. The shell never parses them as syntax. Package names with options or shell syntax therefore get no install command (lgse/strata#1735, lgse/strata#1704).
 - Linked libraries such as GTK, Poppler, and GStreamer core cannot be checked in-app, because the loader fails first (docs/diagnostics.md).
 - The package manager and the terminal are resolved on a blocking worker when Run starts, and the copied report reuses that package manager (lgse/strata#1729).
 - Checks that need GTK objects run on the GTK thread. The rest run on workers that a timer polls through a weak page reference (lgse/strata#1735).

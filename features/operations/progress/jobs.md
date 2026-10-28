@@ -3,7 +3,7 @@ title: Job queue and Jobs dashboard
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/jobs.rs, src/ui/jobs.rs, src/adapters/local_jobs.rs]
 tests: [src/services/jobs/tests.rs, src/ui/jobs/tests.rs, src/adapters/local_jobs/tests.rs, src/adapters/local_jobs/tests/lifecycle.rs]
@@ -25,6 +25,15 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 - An invocation succeeds only when its process exits with status 0; a reported 100% does not count as success. lgse/strata#1085
 - Up to 20 finished jobs are kept; the oldest finished jobs are evicted first, and active jobs are never evicted. lgse/strata#1085 (unverified)
 - Each invocation keeps the newest 8 KiB of its output, prefixed with "…" when trimmed; a job keeps the newest 64 KiB across invocations. lgse/strata#1085 (unverified)
+
+### Invocation
+
+- Programs and interpreters get argv entries directly, never through a shell. lgse/strata#1085
+- Each invocation gets `STRATA_ACTION_*` variables for version, id, mode, source (`selection` or `background`), count, and 1-based per-item position. lgse/strata#1085
+- Input paths go in a NUL-delimited, byte-exact file named by `STRATA_ACTION_PATHS`, so names with newlines or invalid UTF-8 arrive intact. lgse/strata#1085
+- The working directory is the invoking folder by default. An action can choose Home or its own folder instead. lgse/strata#1085
+- A script that appends `{"event": "progress", "processed": N, "total": M}` lines to `$STRATA_ACTION_PROGRESS` updates its job's progress. lgse/strata#1085
+- `{"event": "output", "path": …}` lines record an absolute output path. Relative paths, malformed lines, and unknown lines are ignored. lgse/strata#1085
 
 ### Run directory
 

@@ -3,16 +3,16 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs]
-related: [browser/search]
+tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]
+related: [browser/search, browser/search/filter]
 ---
 
 ## Summary
 
-The three footer name prompts of 10xer mode: `/` and `?` find in the listing without hiding rows, `f` filters the current folder, and `s` searches paths below it the way fzf does.
+The three footer name prompts of 10xer mode: `/` and `?` find in the listing without hiding rows, `f` filters the current folder, and `s` searches paths below it the way fzf does. Its result-selection module also returns focus to the results' cursor in every mode, including the default Ctrl+F filter.
 
 ## Behavior
 
@@ -64,9 +64,21 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - With hits showing, `j`/`k` in List and Columns and the direction keys in Icons move among the hits. lgse/strata#1297
 - `g g` and `G` reach the first and last hit. lgse/strata#1297
 - `g f` opens the folder holding the focused hit, selects it there, and ends the search. lgse/strata#1297
+- Without an `s` hit under the cursor, `g f` flashes `Nothing to reveal` and stays put. lgse/strata#1297 (unverified)
 - `i` on a directory hit opens an unfocused column or folder peek, and on a file hit toggles the preview. lgse/strata#1297
 - In List and Columns, `h` dismisses the search unless a preview owns the keys. lgse/strata#1297
-- With hits filled by Space or `v`/`V`, a cancelled dialog, Tab-in, or closing Quick Look returns focus to the cursor's hit. This holds when the hit is unfilled, and the fill is unchanged. lgse/strata#1611 (unverified)
+
+### Focus return to results
+
+- After a dialog or overlay opened from a result closes, focus returns to the result under the results' cursor in Columns, Icons, and List. The selection is unchanged. lgse/strata#1611, lgse/strata#1632
+- In List, Ctrl+F `txt`, Down twice, Shift+Delete, then Escape: the second result has the focus ring and Up moves to the first. lgse/strata#1611
+- In Icons, Ctrl+F `txt`, Down then Right, Shift+Delete, then Escape: Left moves to the first result. lgse/strata#1611
+- Tabbing into the pane while results show also returns focus to the cursor's result. lgse/strata#1611
+- When GTK's last focused result is selected it keeps focus; otherwise focus moves to the selected result. lgse/strata#1611
+- With several results selected and GTK's row unselected, focus goes to the last selected result in list order. lgse/strata#1611 (unverified)
+- Closing Quick Look over results returns focus to the cursor's result by the same rule. lgse/strata#1611
+- While a result is being renamed, a focus return leaves focus in the rename field. lgse/strata#1611
+- With hits filled by Space or `v`/`V`, a focus return lands on the cursor's hit, even an unfilled one. The fill is unchanged. lgse/strata#1611 (unverified)
 
 ## Design
 
@@ -80,6 +92,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 - Outside the mode, global search and the default Ctrl+F filter keep their own matching (lgse/strata#1403).
 - The footer refreshes on every window focus change, because GTK can move focus after the selection change is reported (lgse/strata#1473, lgse/strata#1554).
 - The refresh does not reuse the search-selection signal, because preview and chooser subscribers treat that signal as a selection change (lgse/strata#1473).
+- GTK's `ListView::grab_focus` refocuses the row it last focused, which stays behind when Find or a 10xer prompt moves the cursor without focus. Returning focus therefore targets the cursor's result explicitly, without rewriting the selection (lgse/strata#1549, lgse/strata#1611).
 
 ## History
 

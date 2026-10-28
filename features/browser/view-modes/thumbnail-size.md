@@ -3,12 +3,12 @@ title: Thumbnail size shortcuts
 status: shipped
 origin: {issue: lgse/strata#1720, pr: lgse/strata#1721}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser_modes/thumbnail_size.rs]
 tests: [src/ui/browser_modes/thumbnail_size/tests.rs, src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs]
-docs: [docs/preferences.md, docs/10xer-mode.md]
-related: [browser/view-modes/icons, browser/view-modes/folder-views, browser/view-modes/text-size, integration/10xer-mode, integration/portal-file-chooser, app/shortcut-reference, operations/progress/dock]
+docs: [docs/preferences.md]
+related: [browser/view-modes/icons, browser/view-modes/folder-views, browser/view-modes/text-size, integration/10xer-mode, integration/portal-file-chooser, app/shortcut-reference, operations/progress/dock, app/window/key-dispatch]
 ---
 
 ## Summary
@@ -24,11 +24,9 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 - In Icons, Ctrl+Alt+− moves the size one step smaller along the same sizes. lgse/strata#1721
 - From a size between two steps, such as 100 px, one step up lands on 112 and one step down on 96. lgse/strata#1721
 - A step up at 256 px stays at 256, and a step down at 32 px stays at 32. lgse/strata#1721 (unverified)
-- In Icons, each Ctrl+Shift+wheel notch steps the size once, up for larger and down for smaller. Smooth touchpad deltas accumulate into whole steps. lgse/strata#1721
-- In Icons, a Ctrl+Shift+wheel that arrives as horizontal scrolling steps the size the same way. lgse/strata#1721
 - In 10xer mode, with the Icons listing focused, plain +, =, or − steps the size; Ctrl+Alt++ and Ctrl+Alt+− still work. lgse/strata#1721
-- In Columns or List, none of these keys resizes anything, and Ctrl+Shift+wheel passes through to the view. lgse/strata#1721
-- The portal file chooser accepts the key shortcuts but not Ctrl+Shift+wheel. lgse/strata#1721
+- In Columns or List, none of these keys resizes anything. lgse/strata#1721
+- The portal file chooser accepts the key shortcuts. lgse/strata#1721
 
 ### Reset
 

@@ -1,12 +1,12 @@
 ---
 title: Preview sweep
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones, 3D models, comic and EPUB covers, and Print. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
+Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones and zoom, comic and EPUB covers, and Print. PDF text selection is its own child. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Its scrollbar child covers the document-position thumb and momentum. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover STL, 3MF, and FreeCAD rendering, embedded thumbnails, model limits, the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
 
 Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, archive member listing and the archive preview, and preview keys in 10xer mode. Also media runtime packaging and launch dependencies, the Settings pages as controls, and mounting the remote locations that remote previews read.
 
@@ -16,7 +16,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Media samples from ffmpeg: a 4K HEVC 10-bit MP4 with chapters and two subtitle streams, an MP4 with `-vn`, one with `-an`, and a bare `.h264` stream. Copy the raw stream as `.H264`, `.264`, `clip.h264.txt`, and with no extension; encode an HEVC stream with `-c:v libx265` as `.h265` and `.hevc`. Put plain text in `notes.h264`. Also a VFR clip, 3.9 s and 4.1 s clips, a 2-hour FLAC, and a truncated faststart MP4 (`head -c`).
 - Byte-sniffing samples: an MPEG-TS clip (`ffmpeg -f lavfi -i testsrc2=duration=3 -f mpegts recording.ts`) and TypeScript as `app.ts` and `Component.tsx`. Also a UTF-16 BE text file with and without a BOM, and text files named `.xlsx` and `.odt`.
 - RAW samples: a lossless compressed Fuji X-T5 `.RAF`, a Pentax portrait `.DNG`, a GoPro `.GPR`, and an uppercase `.ARQ`. Also a JPEG panorama over 134 MP (`magick -size 42374x10529 xc:gray pano.jpg`) with and without a small EXIF thumbnail. Hide `dcraw`, `simple_dcraw`, and ImageMagick in turn by bind-mounting `/dev/null` over them inside `unshare -rm`.
-- Model samples: a binary STL, a one-triangle ASCII STL, and an STL just under 2 million triangles. Also a geometry-only 3MF, a 3MF with one embedded PNG, and a FreeCAD file.
+- Model samples: a binary STL, a one-triangle ASCII STL, and an STL just under 2 million triangles. Also a geometry-only 3MF, a 3MF with one embedded PNG, one with two, and a FreeCAD file with and without a thumbnail. Pad an STL to 128 MiB and to 128 MiB plus one byte.
+- PDF text samples: `tests/fixtures/documents/text.pdf`, a PDF mixing scanned and text pages, and a right-to-left PDF.
 - G-code samples: the `mini_cube_*` `.gcode` and `.bgcode` files from `prusa3d/libbgcode` `tests/data`, a text G-code with no thumbnail, and one appending 2 GiB of toolpath. Also one whose thumbnail block starts just before 2 MiB, one with a 5 MiB thumbnail, and a `.bgcode` with a compressed thumbnail block.
 - Route samples, synthetic only, never personal activity files: a timed GPX with altitude, a GPX crossing the date line, one at 89° latitude, and one with 250,001 points. Also a 32 MiB plus one byte GPX, a KML of only polygons, a KMZ, a GPX with a DOCTYPE entity, and a FITS image named `.fit`.
 - PDFs from `tests/fixtures/documents` with `qpdf`: `password-protected.pdf`, `owner-restricted.pdf`, and an RC4 40-bit copy needing the password `preview`.
@@ -48,11 +49,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Select each lying-extension sample; nothing may render as the extension claims, and the ELF named `notes.txt` must not be executed or previewed as a binary dump.
 - Open the 2000-page PDF, press End, scroll back fast, Ctrl+A then Ctrl+C, then Print and cancel near page 500.
 - Toggle word wrap on the 20 MiB single-line file in one window while the other shows the 2 MiB text file; check the 1 MiB cap in both.
-- Preview the 200 MP PNG with and without an EXIF thumbnail, a 3MF with two usable PNGs, and a CBZ whose first entry is a folder.
+- Preview the 200 MP PNG with and without an EXIF thumbnail, and a CBZ whose first entry is a folder.
 - In a 600-line `.rs` preview and a plain-text file with a 2 KiB line, type letters, Backspace, Ctrl+V, and Ctrl+X.
 - In the same files, press Shift+Down past the last line, then Ctrl+C.
 - Zoom a PDF to 3× with Ctrl+wheel, then press Ctrl+keypad 0 with Num Lock on and off, and Ctrl+Shift+0.
-- In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout and with Caps Lock on.
 - Preview the UTF-16 BE samples with and without a BOM, and the text named `.xlsx`.
 - Preview a Latin-1 file whose control bytes are just over 1 in 32, and one just under.
 - Preview MP4 and Ogg bytes named `.txt` and `.md`.
@@ -60,7 +60,6 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Ctrl+wheel with a touchpad over a PDF's scrollbar, on X11 and on Wayland.
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
 - Preview the `.GPR` and `.ARQ` samples from a local folder and from an sftp mount.
-- Pick Back right, change the theme twice, then select the next model file and come back.
 - Play a song from a folder on the network mount, reached once directly and once through a symlinked folder; rename the folder from a second window, then Shift+Delete it.
 - With a video playing, paste a large file into the same folder, then rename a sibling of the playing file.
 - Move the cursor onto a file in a folder that a slow move to another disk is copying, during and after the move.
@@ -71,6 +70,15 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the raw stream copies and `notes.h264`, on a host whose MIME database types `.h264` as video and on one that types it `application/octet-stream`.
 - Open the item menu on the `.H264`, `.hevc`, and `clip.h264.txt` copies and on `notes.h264`; compare Print and Quick preview with what each preview shows.
 - Preview the `.h264` stream from an sftp mount.
+
+### preview/preview-panel/pdf
+
+- In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout and with Caps Lock on.
+- Select from page 1 to page 3 of the 2000-page PDF, scroll to page 1500, then press Ctrl+C.
+- Double-click, then drag across a page break; triple-click the last line of a page that has no trailing line break.
+- Drag from a scanned page onto a text page in a PDF that mixes both, and from a page margin onto text.
+- Select text at 1× zoom and Ctrl+wheel to 4×. Compare the highlight bands with the glyphs on lines with and without descenders and on accented text.
+- Select text in a right-to-left or vertical-script PDF and copy it.
 
 ### preview/preview-panel/layout
 
@@ -109,11 +117,6 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
 - With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
 - Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
-- Hold the scrollbar thumb at ten interior positions in both copies of the generated 400-block Markdown and in the 2 MiB text file, with wrap off and on, then in a file chooser preview.
-- Release a touchpad flick into a region of tall code blocks, tables, and images still loading, in both directions.
-- Drag the thumb to each end, release over the content, then press Page Down and Page Up.
-- Focus the scrollbar and press Home and End, then set its value from Accerciser to the minimum, the maximum, and an interior value.
-- Close the drawer mid-drag, reopen a different document or switch to Source, then drag the thumb again.
 - Close the preview during a table cell drag at the bottom edge, reopen it, and rest the pointer at the bottom edge with no button held.
 - Change interface text size up and back with the 2 MiB text file open in Source and compare line numbers with their lines.
 - In the 5,000-character ODT paragraph, double-click and Shift+End across its 2 KiB row boundaries.
@@ -123,6 +126,15 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
+
+### preview/preview-panel/documents/scrollbar
+
+- Hold the scrollbar thumb at ten interior positions in both copies of the generated 400-block Markdown and in the 2 MiB text file. Repeat with wrap off and on, then in a file chooser preview.
+- Release a touchpad flick into a region of tall code blocks, tables, and images still loading, in both directions.
+- Drag the thumb to each end, release over the content, then press Page Down and Page Up.
+- Focus the scrollbar and press Home and End, then set its value from Accerciser to the minimum, the maximum, and an interior value.
+- Close the drawer mid-drag, reopen a different document or switch to Source, then drag the thumb again.
+- Shrink a document until it fits while holding the thumb, by toggling wrap from a second window.
 
 ### preview/preview-panel/documents/odt
 
@@ -174,6 +186,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 ### preview/preview-panel/model-views
 
+- Pick Back right, change the theme twice, then select the next model file and come back.
+- Preview a 3MF with one usable and one corrupt PNG, a 3MF with one PNG plus geometry, and a FreeCAD file with no thumbnail.
+- Preview an STL of exactly 128 MiB and one byte over, and an ASCII STL just over 2 million triangles.
 - Step through all four views on the STL near 2 million triangles, clicking Next again before each render ends; watch the bwrap count.
 - Pick a view, then switch view mode between Columns, Icons, and List with the preview open.
 - With a filter typed and a reversed sort, read the position eyebrow over a folder mixing STL, 3MF, FreeCAD, and non-model files.
@@ -246,6 +261,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Thumbnails in the listing, including STL model and G-code thumbnails, and the thumbnail worker pool → `browser`.
 - The RAW extension list, including `.ptx` and `.crf` → `browser`.
 - Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
+- Columns keyboard mirroring, including whether Up or Down onto a file opens a preview → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.
 - F1 reference rows for preview find and media keys → `app`.
 - Layout fallback, Caps Lock, keypad, and translated key names for every shortcut → `app`.

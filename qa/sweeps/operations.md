@@ -1,13 +1,13 @@
 ---
 title: Operations sweep
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
-triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs]
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
 
 ## Scope
 
-Everything that changes files on disk from the browser: New Folder and New File, inline rename, copy, cut, and paste with their name conflicts, Move to and Copy to, Send to, drag and drop with its copy-or-move policy and column autoscroll, filesystem-safe placement, copying, identity, and name fixing, releasing open files, leftover recovery, Trash with restore, Empty Trash and the flight animation, permanent deletion, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
+Everything that changes files on disk from the browser: New Folder and New File, inline rename, copy, cut, and paste with their name conflicts, Move to and Copy to, Send to, drag and drop with its copy-or-move policy and column autoscroll, filesystem-safe placement, copying, identity, and name fixing, releasing open files, leftover recovery, Trash with restore, Empty Trash, the flight animation, and FUSE refusals, permanent deletion with its dissolve, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
 
 Left to other sweeps: pointer gestures and selection before a drag starts, the sidebar Trash row as a place to navigate to, the modal dialog shell, rendering of archive members in the preview panel, the devices Send to lists, provider destinations inside Send to…, folder reloads after operations, and the 10xer-mode key variants.
 
@@ -73,6 +73,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Paste an image copied from a browser, and paste into a read-only folder.
 - Move to… and Copy to…: reach the destination through the dialog's search, pick Trash, pick a remote location, and pick the source folder itself.
 - On the ntfs-3g mount, copy a folder and cancel the moment the progress bar fills; list the destination's parent with `ls -la`.
+- Drag a multi-selection onto another device in List and Icons. Dismiss the Copy or move? prompt with Escape and with a click outside it, then press Down.
+- Drop onto another device from a Ctrl+F result and from the preview header, then answer the Copy or move? prompt by keyboard.
 
 ### operations/clipboard/conflicts
 
@@ -102,10 +104,10 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/drag-and-drop/copy-or-move
 
-- Drop from `/dev/shm` to home and back under each preference value; cancel the ask dialog and check the source is untouched.
+- Drop from `/dev/shm` to home and back under each preference value.
 - Drop between two folders on a bind-mounted path to see which device the detection reports.
 - Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device. Mount or unmount a device while hovering.
-- Answer the Always Ask dialog by keyboard in List and Icons.
+- Drop onto another device from a Ctrl+F result and from the preview header under Always copy and Always move.
 
 ### operations/filesystem-compatibility
 
@@ -151,15 +153,19 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Delete a recursive Ctrl+F result selection mixing `/dev/shm` and home items.
 - Delete in a read-only tmpfs mount.
 - Open and Delete in folders whose first listed entry is a dangling symlink, or a symlink into a stalled or unmounted network mount.
-- Dismiss each no-Trash dialog by Escape and by backdrop click, then confirm the payload still exists on disk.
 - Under `gvfsd`, re-trash a restored non-UTF-8 name and delete it permanently from Trash.
 - Trash the folder open in another window and watch how that window recovers.
 - Watch for GTK criticals while the Trash pane refreshes during an open Restore or Empty dialog.
 - Drop a link to a folder on a stalled or unmounted network mount onto the sidebar Trash row.
-- On sshfs without `default_permissions` and on rclone, Delete a file, a read-only file, and a selection spanning both mounts. List the mount roots with `ls -la`.
-- After a refusal, open the same folder in a second window and in the file chooser, then reload each way: F5, the pane refresh button, the folder menu, chooser F5.
-- Kill the sshfs process mid-delete, then Delete again; remount and Delete again.
 - At corner roundness 0 and 200, open the Shift+Delete, no-Trash, "Move N items to Trash?", and Restore dialogs with one item and with enough items to scroll; scroll to each end.
+- In the Shift+Delete and `/dev/shm` no-Trash confirmations: Escape, backdrop click, Enter, and Tab order; confirm the payload still exists on disk.
+- Dismiss the Shift+Delete confirmation by backdrop click in a second tab, with the filter field open, and in each view mode; press Down after each.
+- Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
+- Shift+Delete a link to a file link, a link to a folder link, and a file link whose target lives on a stalled NFS mount.
+- Shift+Delete 60 items with file links, folder links, and dangling links both before and after the 50th row.
+- Press 10xer `d` on 60 file links, then confirm while their rows still show "—".
+- Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
+- Shift+Delete through a symlink alias into an NFS folder.
 
 ### operations/trash/restore
 
@@ -182,28 +188,31 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Trash with reduce motion on and off, with the sidebar hidden, and with the Trash row scrolled out of view; the animation must never delay the operation or move focus.
 - Move to Trash 15 items, then a folder that takes about 350 ms; switch tabs during a quick one.
 
+### operations/trash/fuse-refusals
+
+- On sshfs without `default_permissions` and on rclone, Delete a file, a read-only file, and a selection spanning both mounts. List the mount roots with `ls -la`.
+- After a refusal, open the same folder in a second window and in the file chooser, then reload each way: F5, the pane refresh button, the folder menu, chooser F5.
+- Kill the sshfs process mid-delete, then Delete again; remount and Delete again.
+- Pre-create an empty `.Trash-$uid` on the sshfs root, then Delete there and list the root.
+
 ### operations/delete
 
 - Shift+Delete with no selection in each mode, inside a read-only folder, and on a selection mixing Trash and non-Trash items reached through search.
-- In the confirmation: Escape, backdrop click, Enter, and Tab order, both after Shift+Delete and after Delete in `/dev/shm`.
 - Delete a 10k-entry folder, cancel at about half, and count what remains.
+- Shift+Delete a deep tree on a rotational USB disk while a shell loop renames one of its subfolders.
+
+### operations/delete/dissolve
+
 - Shift+Delete 15 items, then a folder that takes about 350 ms; switch tabs or view mode during a quick one.
 - Shift+Delete 1 to 15 rows above other rows in each mode and watch whether deleted rows vanish and reappear before the dissolve.
 - Start a second Shift+Delete while the first dissolve plays, then click a row.
-- Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
-- Shift+Delete a link to a file link, a link to a folder link, and a file link whose target lives on a stalled NFS mount.
-- Shift+Delete 60 items with file links, folder links, and dangling links both before and after the 50th row.
-- Press 10xer `d` on 60 file links, then confirm while their rows still show "—".
-- Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
-- Shift+Delete through a symlink alias into an NFS folder.
+- Shift+Delete the last items of a folder in Columns while a sibling column is open.
 
 ### operations/archives
 
 - Compress a selection with hidden files, a symlink, a non-UTF-8 name, and an empty folder in each format. List each result with `unzip -l`, `7z l`, and `tar tvf`; compare entries, modes, and mtimes.
 - Extract each format into an empty folder, a folder with a same-named entry, and a read-only folder; the destination must be clean after each refusal.
-- Feed the hostile archives: `../` member, absolute path, symlink out, size-lying header.
-- Extract a TAR whose first directory entry is `.\`, and a RAR whose first entry is `.\` or `./`. Build the `.\` TAR with a script, since `tar` writes only `./`.
-- Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.
+- Extract a 7Z, a TAR, and a TAR.GZ whose header understates a member's size, and ones that overstate it.
 - Fill the small tmpfs and extract into it; compare ZIP, 7Z, and TAR behavior at the boundary.
 - Cancel a large extraction at about a third and compare cleanup with `docs/archives.md`.
 - Enter a wrong password three times, then the right one, on `content-encrypted.7z`.
@@ -215,19 +224,25 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract by Enter in List and after a password retry, then press Ctrl+Z from a second window.
 - On the ntfs-3g mount, take `name` with a file and `name (2)` with a folder, then extract a single-root folder archive named `name`.
 - On local disk and on the ntfs-3g mount, extract a single-root archive whose root is a symlink to a folder, named `v1.2`, where that name is taken.
-- On the ntfs-3g mount, extract into a folder reached through a symlink.
 - On the ntfs-3g mount, extract an archive holding a nested `0555` folder and a symlink member.
 - On the ntfs-3g mount, extract a large ZIP built with `zip -D`, so it lists no folder entries. Mid-extraction, chmod one of its nested staging folders to `0000`.
 - After that run, list the destination with hidden files shown.
+- On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
+- On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.
+- Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
+- Compress in Columns into the active child column, a parent column, and a column four levels deep.
+
+### operations/archives/extraction-safety
+
+- Feed the hostile archives as RAR, and as password-protected ZIP and 7Z through the password retry.
+- Extract a TAR whose first directory entry is `.\`, and a RAR whose first entry is `.\` or `./`. Build the `.\` TAR with a script, since `tar` writes only `./`.
+- Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.
+- On the ntfs-3g mount, extract into a folder reached through a symlink.
 - Extract a TAR holding a file, a hard link to it, and a link to that link. Use the real vfat and exFAT sticks and an SMB share; compare `stat -c '%h %i'`.
 - Extract that TAR onto a nearly full vfat stick, and cancel one with a 1 GiB hard-linked file while its copy is written.
 - Extract into a sshfs folder and onto a vfat stick an archive holding `10:00/` and `10_00/`, a symlink, a hard link to it, and `c:notes`.
 - Extract ZIP, 7Z, and RAR archives holding `names/c:notes` and `names/C:/x` onto the vfat and exFAT sticks. Repeat with a TAR holding a hard link to `names/c:notes`.
 - Extract archives whose second member is `C:\evil`, `.\c:notes`, or `a/b/../../c:x`, with a third member after it; list what remains with hidden files shown.
-- On tmpfs, compress with Replace over an existing archive, cancel once, then let it finish and press Ctrl+Z.
-- On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.
-- Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
-- Compress in Columns into the active child column, a parent column, and a column four levels deep.
 
 ### operations/archives/rar
 
@@ -266,6 +281,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Queue five custom-action invocations on a 100-item selection, cancel from the dashboard, then restart Strata with jobs pending.
 - Run a Python Action that sleeps 30 s under each `XDG_RUNTIME_DIR` and `XDG_CACHE_HOME` combination, and list `strata/actions/` while it runs.
 - Run a Python Action with `XDG_RUNTIME_DIR` unset and `/tmp/strata/actions` owned by another user.
+- Run on 1,000 selected files with newline and non-UTF-8 names in per-item and whole modes; check `STRATA_ACTION_PATHS` bytes, `RUN_DIR` mode and removal, each cwd choice, a forked child, `processed > total`, malformed JSON, and a relative output path.
+- Cancel a per-item run at item 3 of 10 with a script ignoring SIGTERM, then close the last window while jobs are queued.
 
 ### operations/undo
 
@@ -289,3 +306,5 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Folder reloads and monitor events after an operation ends → `browser`.
 - 10xer-mode key variants of these operations → `integration`.
 - Escape cancelling a file drag → `browser`.
+- Item-menu Move to Trash, Permanently delete, Delete without Trash, and Restore entries and their visibility → `browser`.
+- The Trash pane's Empty Trash header button → `browser`.

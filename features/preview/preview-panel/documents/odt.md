@@ -3,10 +3,10 @@ title: ODT and OTT document previews
 status: shipped
 origin: {issue: lgse/strata#1813, pr: lgse/strata#1834}
 branch: null
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/odt.rs]
-tests: [src/services/odt/tests.rs, tests/fixtures/documents/report.odt, tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl]
+tests: [src/services/odt/tests.rs, tests/fixtures/documents/report.odt]
 related: [preview/preview-panel/sandbox, preview/preview-panel/find]
 ---
 
@@ -24,6 +24,8 @@ Rendered previews of local OpenDocument text files (`.odt`) and templates (`.ott
 - ODT paragraphs styled `Quotations`, `Quote`, or `Intense Quote` render as quotations. lgse/strata#1834
 - Consecutive ODT `Preformatted Text` paragraphs render as one code block that keeps their indentation. lgse/strata#1834
 - That code block drops bold, italic, and other inline formatting. lgse/strata#1834 (unverified)
+- Outside `Preformatted Text`, runs of spaces, tabs, `text:s`, and line feeds collapse to one space; inside it, `text:s` and tabs keep their width. lgse/strata#1834 (unverified)
+- Empty `Preformatted Text` paragraphs between code paragraphs become blank lines in the block; trailing ones are dropped. lgse/strata#1834 (unverified)
 - ODT bold, italic, underline, strikethrough, and `Source Text` or `Teletype` monospace render from automatic styles, named styles, and their parents. lgse/strata#1834
 - Emphasis set on a whole paragraph's style renders on plain and quotation paragraphs. lgse/strata#1834
 - Paragraph-style emphasis is ignored on headings and preformatted text; table cells keep it. lgse/strata#1834 (unverified)
@@ -35,6 +37,8 @@ Rendered previews of local OpenDocument text files (`.odt`) and templates (`.ott
 - An ODT table row over 256 cells (`TABLE_COLUMN_LIMIT`) truncates the document with the size-budget notice instead of falling back to Source. lgse/strata#1834 (unverified)
 - In ODT, `text:line-break` renders as a line break, and `text:list-header` as a list item. lgse/strata#1834 (unverified)
 - A heading inside an ODT table cell renders as cell text, not a heading; its style's emphasis still applies. lgse/strata#1834 (unverified)
+- Only the outermost ODT table renders as a table; a nested table's rows never become table rows. lgse/strata#1834 (unverified)
+- An ODT whose `content.xml` or `styles.xml` unpacks to over 64 MiB, or whose XML declares a DTD, fails with "The sandboxed preview renderer failed". lgse/strata#1834 (unverified)
 - ODT images, drawings, text boxes, footnotes, comments, tracked deletions, headers, and footers are omitted. lgse/strata#1834
 - Omitted ODT content shows no omission notice. lgse/strata#1834 (unverified)
 - An ODT over the parser's size or event budget renders only its start. It shows "Document preview reached its size budget; open the file to see all content." lgse/strata#1834
@@ -53,5 +57,5 @@ Rendered previews of local OpenDocument text files (`.odt`) and templates (`.ott
 
 ## Known gaps
 
-- ODT images from `Pictures/` and the `Thumbnails/thumbnail.png` fallback for unreadable files are not shown. lgse/strata#1834, lgse/strata#1813
+- ODT images from `Pictures/` and the `Thumbnails/thumbnail.png` fallback for unreadable files are not shown. lgse/strata#1834
 - Flat XML `.fodt` documents have no rendered preview. lgse/strata#1834

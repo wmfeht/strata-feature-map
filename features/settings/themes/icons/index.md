@@ -3,16 +3,16 @@ title: Themed icons
 status: shipped
 origin: {issue: lgse/strata#169, pr: lgse/strata#170}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/assets.rs, src/assets/vector.rs, src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin/**, scripts/catppuccin_icons.py, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg, data/icons/scalable/actions/strata-chevron-down-symbolic.svg, data/icons/scalable/actions/strata-minus-symbolic.svg, data/icons/scalable/actions/strata-plus-symbolic.svg]
-tests: [src/assets/tests.rs, src/assets/vector/tests.rs, src/ui/browser/entry/tests.rs, src/ui/theme/tests.rs]
-related: [browser/view-modes/icons, browser/folder-customization]
+code: [src/assets.rs, src/assets/vector.rs, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg, data/icons/scalable/actions/strata-chevron-down-symbolic.svg, data/icons/scalable/actions/strata-minus-symbolic.svg, data/icons/scalable/actions/strata-plus-symbolic.svg]
+tests: [src/assets/tests.rs, src/assets/vector/tests.rs]
+related: [browser/view-modes/icons, browser/folder-customization, settings/themes/icons/catppuccin]
 ---
 
 ## Summary
 
-Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, GTK control icons, chrome icon sizing, stroke weight, file-type icon choice, and the icon texture cache.
+Strata's bundled interface and file-type icons, rasterized at the size and density they are drawn. Interface icons and generic file types are Lucide outlines in the theme's accent; code and config files use Catppuccin icons in their own palette by default, or the accent under Theme colors. Covers icon coloring, GTK control icons, chrome icon sizing, stroke weight, and the icon texture cache. Its child `settings/themes/icons/catppuccin` owns the bundled Catppuccin set and which icon each file name gets.
 
 ## Behavior
 
@@ -48,33 +48,6 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 - In List rows, a Catppuccin icon's strokes draw at three quarters of the folder icon's weight. lgse/strata#1588 (unverified)
 - Icons rasterize at the display's pixel density, so 2× displays get sharp strokes. lgse/strata#1416
 
-### File-type icons
-
-- Code and config files show a Catppuccin icon: `main.rs` the Rust icon, `package.json` the package-json icon, `Cargo.toml` the Cargo icon. lgse/strata#1588
-- JSON, YAML, XML, SQL, database, `.toml`, and Markdown files show Catppuccin icons. lgse/strata#1588
-- An exact filename wins over the extension: `Makefile`, `Dockerfile`, `Cargo.lock`, `vite.config.ts`, `README`, and `LICENSE` get their own Catppuccin icons. lgse/strata#1588
-- Exact filename matching ignores case, so `MAKEFILE` shows the Makefile icon. lgse/strata#1588 (unverified)
-- Next, case-sensitive name patterns apply: `Dockerfile.*` shows Docker, `.env.*` env, `tsconfig.*.json` TypeScript config, `*_history` a terminal file, and `*.lock` the Lucide cog. lgse/strata#1588 (unverified)
-- Otherwise the longest matching dotted suffix wins: `types.d.ts` and `app.test.ts` show specific icons, not the `.ts` icon. lgse/strata#1588
-- `docker-compose.override.yml` and `compose.yaml` show the Docker Compose icon; `deploy.yml` shows the YAML icon. lgse/strata#1588
-- `archive.lock` and other lowercase `.lock` files without their own association show the Lucide cog icon. lgse/strata#1588
-- `ARCHIVE.LOCK` shows the Catppuccin config icon. lgse/strata#1588 (unverified)
-- `.m` shows the MATLAB icon and `.v` the V icon. lgse/strata#1588
-- `boot.s` shows the assembly icon and `run.ps1` the PowerShell icon. lgse/strata#1588
-- `.asm` and `.nasm` show the assembly icon; `.sv`, `.svh`, and `.vhdl` the Verilog icon; `.bat` and `.cmd` the Batch icon. lgse/strata#1588 (unverified)
-- Shell rc files such as `.BASHRC` show the Catppuccin Bash icon. lgse/strata#1588
-- Shell scripts and `.zshrc` show the Catppuccin Bash icon. lgse/strata#1588 (unverified)
-- `view.qml` and `app.tcl` show the generic code icon. lgse/strata#1588
-- `.qrc` and `.ui` files show the generic code icon. lgse/strata#1588 (unverified)
-- Pictures, plain text, spreadsheets, and keys keep Lucide icons: `photo.png`, `photo.svg`, `notes.txt`, `report.csv`, `server.pem`, and `id_ed25519`. lgse/strata#1587, lgse/strata#1588
-- Search results use the same file-type icons as Columns, List, and Icons views. lgse/strata#1529
-- `.mp4`, `.mkv`, `.webm`, `.mov`, `.avi`, `.m4v`, `.mpeg`, `.mpg`, `.ogv`, `.3gp`, `.3g2`, `.flv`, `.wmv`, `.asf`, `.m2ts`, and `.vob` files show the Lucide clapperboard icon. lgse/strata#1589
-- `.zip`, `.7z`, `.tar`, `.gz`, `.tgz`, `.bz2`, `.xz`, `.zst`, `.rar`, `.lz`, `.lzma`, `.lzo`, `.rz`, `.sz`, `.cab`, `.arj`, and `.cpio` files show the Lucide folder-archive icon, distinct from documents. lgse/strata#1416, lgse/strata#1589
-- Spreadsheets, presentations, fonts, disk images, and keys each show their own Lucide icon. lgse/strata#1416
-- `app.apk` shows the Catppuccin Android icon and `app.jar` the Java archive icon. lgse/strata#1588
-- `.nupkg` and `.vsix` show Catppuccin icons; `.deb`, `.rpm`, and `.exe` keep the Lucide package icon. lgse/strata#1588 (unverified)
-- A file with an unrecognized extension shows the document icon. lgse/strata#1416
-
 ### Cache
 
 - The icon texture cache holds 256 textures and evicts only the least recently used one when full. lgse/strata#1400
@@ -85,11 +58,8 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 - Dropdown and menu-button arrows and spin-button steps came from the desktop icon theme, so their shape changed with it; Breeze drew a filled triangle (lgse/strata#1777).
 - The arrow uses a recolored `-gtk-icon-source`, as the table sort caret does. Spin steps swap their icon names for bundled ones (lgse/strata#1778).
 - The control SVGs outline Lucide's 2 px round strokes as filled paths, because older GTK recolors only the fill of symbolic icons (lgse/strata#1778).
-- Code and config files use the Catppuccin VSCode icon set, v1.26.0, MIT. A uniform monochrome set did not help recognize file types at a glance (lgse/strata#1587, lgse/strata#1588).
 - This reverses the earlier rejection of full-color brand icons for breaking theme sync (lgse/strata#1528, lgse/strata#1529). Mocha on dark backgrounds and Latte on light ones keep them legible on built-in, custom, and Omarchy themes; Theme colors keeps the accent-only look (lgse/strata#1587, lgse/strata#1588).
-- The outlined Simple Icons and Devicons language glyphs from lgse/strata#1529 and lgse/strata#1561, and their outline render path, were removed (lgse/strata#1588).
 - SVGs are copied unchanged from upstream's `icons/css-variables`. Their `var(--vscode-ctp-*)` colors are replaced at render time from 16-color Mocha and Latte tables (lgse/strata#1588).
-- `scripts/catppuccin_icons.py` regenerates the SVGs, the gresource entries, and `src/ui/browser/entry/catppuccin.rs` from an upstream checkout, importing 1075 filename and 532 extension associations (lgse/strata#1588).
 - Catppuccin draws 1-unit strokes on a 16-unit grid where Lucide draws 2 on 24. Icons-view textures scale Catppuccin strokes by 4/3 so they match the folder (lgse/strata#1588) (unverified).
 - Catppuccin textures are cached under the flavor name, or the accent under Theme colors, so a palette change never reuses a stale texture (lgse/strata#1588) (unverified).
 - The video and archive icons are Lucide's clapperboard and folder-archive, so archives no longer resemble documents (lgse/strata#1589).
@@ -116,5 +86,4 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 ## Known gaps
 
-- Custom themes cannot supply their own icons. lgse/strata#1525
 - Generic file-type icons, such as documents, pictures, media, and archives, cannot be colored by category; they use the accent. lgse/strata#1510

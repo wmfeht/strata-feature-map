@@ -3,17 +3,17 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
-tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/open_with/**]
+tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, tests/qa/scenarios/open_with/**, tests/qa/scenarios/dialogs_and_menus/executable-menu-confirmed-run.jsonl, tests/qa/scenarios/dialogs_and_menus/executable-requires-confirmation.jsonl]
 docs: []
-related: [integration/10xer-mode, preview/preview-panel, browser/context-menu]
+related: [integration/10xer-mode, preview/preview-panel, browser/context-menu, browser/navigation/recent]
 ---
 
 ## Summary
 
-Opening files in their default application, choosing another application from the Open With chooser, setting a new default, and running executable files. Children: `integration/open-with/recent-apps` (the chooser's Recently Used section) and `integration/open-with/terminal` (Open in Terminal).
+Opening files in their default application, choosing another application from the Open With chooser, setting a new default, and running executable files. Children: `integration/open-with/recent-apps` (the chooser's Recently Used section) and `integration/open-with/terminal` (Open in Terminal). The menus that offer these commands belong to `browser/context-menu`.
 
 ## Behavior
 
@@ -29,6 +29,8 @@ Opening files in their default application, choosing another application from th
 - A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
+- After Strata launches a file in an application, the file is added to the desktop's recent-file history, so it appears in Recent. lgse/strata#1083
+- Launching a folder in an application adds nothing to the recent-file history. lgse/strata#1083, lgse/strata#1150
 - Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474, lgse/strata#1635
 - When Strata runs outside Flatpak, Flatpak installs of mpv, VLC, and Celluloid also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474, lgse/strata#1635 (unverified)
 
@@ -45,13 +47,10 @@ Opening files in their default application, choosing another application from th
 
 ### Menu entries
 
-- The item menu offers Open With… for one or several selected files or folders. lgse/strata#421, lgse/strata#625
-- While types are looked up, Open With… is insensitive and described "Looking for compatible applications…". lgse/strata#578
 - A broken symbolic link in the selection disables Open With… with "Broken symbolic links cannot be opened with an application". lgse/strata#578
 - Outside Flatpak, a selection no visible application can open disables Open With… with "No compatible applications were found", or "No application can open all selected file types" for several types. lgse/strata#578, lgse/strata#1635
 - Outside Flatpak, a multi-selection menu shows Open only when every selected type has the same default; Open launches that application with all items. lgse/strata#578, lgse/strata#1635
 - Outside Flatpak, selected types with common handlers but different defaults get Open With… and no Open. lgse/strata#578, lgse/strata#1635
-- The folder background menu offers Open With… for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#1083
 
 ### Chooser
 

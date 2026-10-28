@@ -1,22 +1,39 @@
 ---
-title: Model camera views
+title: 3D model previews
 status: shipped
-origin: {issue: lgse/strata#1633, pr: lgse/strata#1644}
+origin: {issue: lgse/strata#1225, pr: lgse/strata#1276}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/preview/model.rs, src/sandbox/model.rs]
-tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, tests/qa/scenarios/quick_preview]
+code: [src/ui/preview/model.rs, src/sandbox/model.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs]
+tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, tests/qa/scenarios/quick_preview/model-preview-reports-limits.jsonl]
 related: [preview/preview-panel/media/video, preview/preview-panel/layout, preview/quick-preview, settings/themes]
 ---
 
 ## Summary
 
-Camera controls and mesh details for rendered STL and 3MF previews in the drawer and Quick Preview, and the details header that FreeCAD and G-code image previews share. Users step through four preset views around the model, guided by a top-down orbit indicator, with format and triangle-count badges. It also owns how a cancelled background STL thumbnail render is reaped.
+Sandboxed previews of local STL, 3MF, and FreeCAD models in the drawer and Quick Preview, for checking a 3D part without a CAD tool. Geometry renders in software; 3MF and FreeCAD files with a saved thumbnail show that image instead. Rendered models step through four preset camera views, guided by a top-down orbit indicator, with format and triangle-count badges. The node also owns the details header that G-code image previews share, and how a cancelled background STL thumbnail render is reaped.
 
 ## Behavior
 
+### Rendering
+
+- An STL file first renders from the Front left camera, looking diagonally down at the model, tinted with the theme accent. lgse/strata#1276, lgse/strata#1644
+- Model previews in the drawer and Quick Preview keep the theme's opaque surface behind the model. lgse/strata#1789
+- Changing the theme re-renders the open model preview with the new accent and keeps the selected camera view. lgse/strata#1276, lgse/strata#1644
+- A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
+- A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
+- A FreeCAD file without a usable thumbnail shows "This FreeCAD file has no usable embedded thumbnail" and renders no geometry. lgse/strata#1276 (unverified)
+- A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
+- An STL, 3MF, or FreeCAD model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276, lgse/strata#1864
+
 ### Camera views
+
+- Selecting another file resets the camera view to Front left. lgse/strata#1644, lgse/strata#1633
+- While camera views change, the header content type stays `model/stl` or `model/3mf`. lgse/strata#1644
+- All four camera views of a model share one bounding-box fit on a square canvas, so switching views never changes its scale or centring. lgse/strata#1644
+- Revisiting a camera view of the same model at the same size and theme is served from the preview cache. lgse/strata#1644
+- A first visit to a camera view rereads and re-renders the mesh. lgse/strata#1644
 
 - **Next model view** turns the camera clockwise: Front left, Back left, Back right, Front right, then wraps to Front left. lgse/strata#1644, lgse/strata#1764
 - **Previous model view** turns it anticlockwise: from Front left it goes to Front right. lgse/strata#1644, lgse/strata#1764
@@ -70,6 +87,8 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ## Design
 
+- 3MF and FreeCAD prefer embedded thumbnails at the owner's request; geometry is the fallback (lgse/strata#1225).
+- Camera views render on demand and share the 128 MiB preview cache, keyed by view. The single heavy-preview permit keeps four angles from multiplying peak memory (lgse/strata#1644, lgse/strata#1633).
 - Preset views replace free rotation. Continuous rotation would need frequent software renders or a new interactive renderer; presets fit the sandboxed renderer (lgse/strata#1633).
 - The controls borrow the video player: the play button becomes the camera dot, and previous and next step the camera. The orbit diagram carries the view, so no visible label is shown (lgse/strata#1633, lgse/strata#1644).
 - The renderer and the indicator share the camera directions. View names follow the model axes: +X right, −Y front, +Z up (lgse/strata#1644).
@@ -87,5 +106,6 @@ Camera controls and mesh details for rendered STL and 3MF previews in the drawer
 
 ## Known gaps
 
+- Each first visit to a camera view rereads and reparses the mesh before a full CPU render; parsed meshes are not retained. lgse/strata#1644
 - A killed STL thumbnail helper stuck in kernel I/O can overlap a later render until the kernel lets it exit. lgse/strata#1789
 - A text G-code file without a thumbnail briefly shows the model loading view, with inactive camera controls, before its text arrives. lgse/strata#1864

@@ -3,7 +3,7 @@ title: LocalSend integration
 status: shipped
 origin: {issue: lgse/strata#1754, pr: lgse/strata#1756}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [integrations/localsend/provider.py, integrations/localsend/messages.json, integrations/localsend/catalog.toml, integrations/localsend/LICENSE]
 tests: [integrations/localsend/tests/test_provider.py]

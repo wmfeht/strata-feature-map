@@ -3,7 +3,7 @@ title: Pointer intent
 status: shipped
 origin: {issue: lgse/strata#517, pr: lgse/strata#522}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/pointer.rs]
 tests: [src/ui/pointer/**, tests/qa/scenarios/pointer_intent]

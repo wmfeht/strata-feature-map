@@ -3,7 +3,7 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
@@ -143,4 +143,4 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ## Known gaps
 
 - Inside Flatpak, bubblewrap cannot create namespaces, so native-format previews and thumbnails show "Preview unavailable". lgse/strata#1503, lgse/strata#936
-- Output folders still owned at exit are not removed then; the next process that creates one sweeps them. lgse/strata#1866, lgse/strata#1847
+- Output folders still owned at exit are not removed then; the next process that creates one sweeps them. lgse/strata#1866

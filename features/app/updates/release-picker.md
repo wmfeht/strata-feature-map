@@ -3,7 +3,7 @@ title: Install a specific release
 status: shipped
 origin: {issue: lgse/strata#1779, pr: lgse/strata#1781}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/settings/release_picker.rs]
 tests: [src/ui/settings/tests/release_picker.rs]

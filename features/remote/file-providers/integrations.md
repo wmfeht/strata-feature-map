@@ -3,12 +3,12 @@ title: Integrations catalog
 status: shipped
 origin: {issue: lgse/strata#1741, pr: lgse/strata#1748}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
 tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs]
 docs: [docs/file-providers.md, integrations/README.md]
-related: [remote/file-providers/external, remote/file-providers/kde-connect, remote/file-providers/localsend, settings/preferences, app/infrastructure]
+related: [remote/file-providers/external, remote/file-providers/kde-connect, remote/file-providers/localsend, settings/preferences, integration/open-with/terminal, app/infrastructure, settings/diagnostics]
 ---
 
 ## Summary
@@ -38,8 +38,7 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - A card's footer reads "Requirements" with a check when every requirement is met, a red X when any is missing, and no mark while the check runs. lgse/strata#1748, lgse/strata#1704
 - Selecting the footer expands it to "Requires:" with one Available or Missing chip per requirement, the runtime first, and relabels it "Hide requirements". It shows "Checking…" until results arrive. lgse/strata#1748, lgse/strata#1704
 - For each missing requirement with a package for the detected pacman, apt, dnf, or zypper, the expanded footer shows "Install missing dependencies with:" and the copyable command. lgse/strata#1748
-- Each install command has a Run in terminal button. After the terminal opens, the page says "The command opened in your terminal. Select Refresh when it finishes." lgse/strata#1704, lgse/strata#1729
-- When no terminal emulator resolves, selecting Run in terminal shows "No terminal emulator was found." under the command. It suggests `xdg-terminal-exec` with `~/.config/xdg-terminals.list`, setting `$TERMINAL`, or a listed terminal. lgse/strata#1729 (unverified)
+- After Run in terminal opens an install command, the page says "The command opened in your terminal. Select Refresh when it finishes." lgse/strata#1704, lgse/strata#1729
 - A `command` requirement is met when its name or one of its `alternatives` resolves in a trusted system directory. lgse/strata#1748, lgse/strata#1756
 - A `command` requirement is also met through a link in a search directory, such as `/usr/bin/localsend` → `/opt/localsend/localsend`. lgse/strata#1756
 - That link counts only when root owns the target and every directory above it, and none is group- or world-writable. lgse/strata#1756

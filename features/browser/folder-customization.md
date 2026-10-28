@@ -3,10 +3,10 @@ title: Folder and file customization
 status: shipped
 origin: {issue: lgse/strata#211, pr: lgse/strata#294}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs]
-tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs]
+tests: [tests/qa/scenarios/dialogs_and_menus/customization-follows-move-and-trash.jsonl, tests/qa/scenarios/dialogs_and_menus/customize-takes-focus-single-escape.jsonl, tests/qa/scenarios/dialogs_and_menus/background-customize-ancestor-column.jsonl]
 docs: [docs/preferences.md]
 related: [browser/sidebar, browser/thumbnails, browser/properties, settings/themes/icons, settings/preferences/storage, operations/rename, browser/context-menu, browser/view-modes/folder-views]
 ---
@@ -37,6 +37,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - Apply saves the chosen color as `#rrggbb`; the custom button then shows that color with a check and the tooltip "Custom (#rrggbb)". lgse/strata#294 (unverified)
 - In the custom color dialog, Escape from the editor returns to the palette, and Escape from the palette closes the dialog without applying. lgse/strata#294 (unverified)
 - The custom color dialog's back button is named "Back to palette". lgse/strata#1895
+- The custom color editor's spin buttons show Strata's bundled plus and minus icons, whatever the desktop icon theme. lgse/strata#1778 (unverified)
 - Closing the custom color dialog by Apply, Cancel, Escape, or a click outside it returns focus to the custom color button. lgse/strata#1433, lgse/strata#1533
 - The custom color button's accessible name follows its tooltip: "Custom color…" or "Custom (#rrggbb)". lgse/strata#1433, lgse/strata#1533
 
@@ -80,6 +81,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - Customizations persist across restarts in `settings.toml`, under `[folder_colors]` and `[custom_icons]`, keyed by absolute path. lgse/strata#294
 - Colors are saved as a lowercase preset name or a hex value; icons as a bundled icon name or `emoji:` followed by the emoji. lgse/strata#294 (unverified)
 - A saved icon that is not one of the 16 choices, or an emoji over 64 bytes or containing control characters, is ignored. lgse/strata#294 (unverified)
+- Keys are paths decoded lossily as UTF-8, so two items whose non-UTF-8 names decode to the same text share one color and icon. lgse/strata#1452 (unverified)
 
 ## Design
 
@@ -109,4 +111,4 @@ The request was Finder's folder labels (lgse/strata#211). Folders follow the the
 
 ## Known gaps
 
-- Keys are lossy UTF-8 paths, so non-UTF-8 names that decode to the same text share one customization. lgse/strata#1452
+None known.

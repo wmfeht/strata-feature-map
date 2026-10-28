@@ -3,10 +3,10 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: 2218357c2e91c0c3e6cd02638356f7a91c08bcae
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg]
-tests: [src/tests.rs]
+tests: []
 docs: [site/src/reference/install.md, docs/packaging.md]
 related: [app/updates/install, app/updates/package-managed, app/window]
 ---

@@ -3,7 +3,7 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
@@ -50,7 +50,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Complete setup fails with "Another per-user FileManager1 provider is already installed" when another user service owns that name. lgse/strata#947 (unverified)
 - Restore default removes the FileManager1 service and portal, and returns `inode/directory` to the recorded handler, or Nautilus when none was recorded. lgse/strata#947
 - Restore default leaves `inode/directory` unchanged when it no longer points to Strata. lgse/strata#947 (unverified)
-- With no recorded handler and no Nautilus, Restore default fails with "No previous folder handler was recorded and Nautilus was not detected." lgse/strata#947 (unverified)
+- With no recorded handler and no Nautilus, Restore default fails with "No previous folder handler was recorded and Nautilus was not detected. Choose another default file manager first, then retry Restore default." lgse/strata#947, lgse/strata#1542 (unverified)
 - On Omarchy, Restore default replaces the Strata shortcut block with `nautilus --new-window` bindings. lgse/strata#947 (unverified)
 - When Nautilus is not detected, Restore default keeps the Strata shortcuts and reports "Nautilus was not detected; the Strata keyboard shortcuts were left unchanged." lgse/strata#947 (unverified)
 - When the Strata shortcut block was edited by hand, Restore default fails and leaves it unchanged. lgse/strata#947 (unverified)

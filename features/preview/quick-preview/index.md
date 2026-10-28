@@ -3,10 +3,10 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preview/keyboard.rs]
-tests: [tests/qa/scenarios/quick_preview, tests/qa/mutations/quick-preview.patch]
+tests: [tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl, tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl, tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl, tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl, tests/qa/mutations/quick-preview.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection]
 ---
@@ -23,7 +23,6 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 - With Type to search on, Space on a focused file opens the preview instead of starting a search. lgse/strata#416
 - Space on an unsupported file opens no preview. lgse/strata#416
 - Space on a selected folder enters it in every view without opening or loading the preview. lgse/strata#1231
-- The item menu shows Quick preview only for files the preview supports. lgse/strata#385 (unverified)
 - With Single-click file previews on, the default, a single click on a supported file opens its preview without Space. lgse/strata#385 (unverified)
 
 ### Following the selection
@@ -76,4 +75,4 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 ## Known gaps
 
-- A floating Finder-style Quick Look popup, separate from the docked drawer, is proposed but unmerged. lgse/strata#999, lgse/strata#1183
+None known.

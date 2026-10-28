@@ -3,7 +3,7 @@ title: FileManager1 D-Bus interface
 status: shipped
 origin: {issue: lgse/strata#290, pr: lgse/strata#317}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/adapters/file_manager1.rs, data/io.github.lgse.Strata.FileManager1.service]
 tests: [src/adapters/file_manager1/tests.rs, tests/qa/scenarios/file_manager_interface/**]
@@ -31,6 +31,7 @@ Strata's implementation of `org.freedesktop.FileManager1`, which browsers and GT
 - `ShowItems` on a remote URI such as `sftp://host/dir/file` opens the parent as a remote location and selects the file once it is mounted; a failed or cancelled mount drops the reveal. lgse/strata#1499
 - The `StartupId` argument is ignored. lgse/strata#317 (unverified)
 - A call whose arguments are not `(as, s)` fails with `org.freedesktop.DBus.Error.InvalidArgs`. lgse/strata#317 (unverified)
+- A call to any other method of the interface fails with `org.freedesktop.DBus.Error.UnknownMethod`. lgse/strata#317 (unverified)
 
 ### Activation and installation
 

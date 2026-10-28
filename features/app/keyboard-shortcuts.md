@@ -3,7 +3,7 @@ title: Shortcuts on any keyboard layout
 status: shipped
 origin: {issue: lgse/strata#1538, pr: lgse/strata#1576}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/keys.rs, src/ui/keys/label.rs, src/ui/keys/composition.rs]
 tests: [src/ui/keys/tests.rs]

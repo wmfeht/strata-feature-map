@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 
@@ -8,7 +8,7 @@ tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, in
 
 Everything that reaches Strata from somewhere other than a local disk. Network locations: GIO/GVfs `smb://`, `sftp://`, and `network:///` with on-demand mounting, and the sign-in, passphrase, and host-key dialogs. They also cover failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe. External file providers: registration, reload, and process lifecycle, badges, menu sections and heading icons, and Send to… placement. They also cover activation dialogs and notices, and invalidation. Integrations: the Settings catalog that installs, updates, turns off, and removes bundled providers. KDE Connect and LocalSend: the two bundled providers. `remote/file-providers` itself has no Behavior; its children carry every check.
 
-Left to other sweeps: sidebar rows, the Connect to server dialog, and location-field parsing and history; Settings navigation and search; copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, and mounting, unmounting, and ejecting local devices.
+Left to other sweeps: sidebar rows, the Connect to server dialog, and location-field parsing and history; Settings navigation and search; copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, mounting, unmounting, and ejecting local devices, and unmounting a remote mount from its DEVICES row.
 
 ## Setup
 
@@ -98,9 +98,10 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Sidebar Network place, DEVICES rows, pins, the Connect to server dialog, and the location field's parsing and history → `browser`.
 - The Send to… row, removable-drive groups beside provider submenus, and copying to a drive → `operations`.
 - Settings navigation to Integrations and Settings search aliases for it → `settings`.
+- Run in terminal on an install command, including the message with no terminal emulator → `settings`.
 - Copy, move, paste, rename, and delete with a remote folder as source or target → `operations`.
 - Preview panel and quick preview of remote files, and thumbnails on remote entries → `preview`.
-- Mounting, unmounting, and ejecting local volumes and removable media → `devices`.
+- Mounting, unmounting, and ejecting local volumes and removable media, and unmounting a remote mount from its DEVICES row → `devices`.
 - How a provider notice stacks with progress cards and replaces another visible notice in the dock → `operations`.
 - Thumbnail rendering that provider badges share, and search inside a remote location → `browser`.
 - How a non-UTF-8 or `%2F` URI displays, skipped-entry warnings, and directory-load log redaction → `app`.

@@ -3,12 +3,12 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
-docs: [site/src/reference/remote-sftp.md]
-related: [browser/navigation/location-bar, devices/volumes, browser/sidebar/pins, browser/sidebar/connect-to-server, browser/tabs]
+docs: [site/src/reference/remote-sftp.md, docs/remote-sftp.md]
+related: [browser/navigation/location-bar, devices/volumes, devices/volumes/release, browser/sidebar/pins, browser/sidebar/connect-to-server, browser/tabs]
 ---
 
 ## Summary
@@ -43,7 +43,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - An `smb://` location without its GVfs backend fails with a message naming common packages `gvfs-smb` or `gvfs-backends`. lgse/strata#31, lgse/strata#233
 - An unresolvable host, refused connection, timeout, or unreachable host each shows its own message, such as "That host couldn’t be found. Check the address and DNS settings." lgse/strata#233
 - Backend error text shown in a dialog has URI user info, query, and fragment removed. lgse/strata#233
-- At the default log level, a mount logs only the backend name and outcome; the location appears only at DEBUG, without user info. lgse/strata#233
+- At the default log level, a mount logs only the backend name and outcome. The location appears only at DEBUG, without user info, query, or fragment. lgse/strata#233
 
 ### Sidebar
 
@@ -59,9 +59,9 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - At `smb://host/`, activating a share by mouse or keyboard in Columns, List, or Icons mounts it if needed and opens its contents. lgse/strata#990
 - Column headings and peek headings show percent-decoded remote names, such as "My Share" for `My%20Share`. lgse/strata#740
 - A remote entry whose name is not valid UTF-8, such as `\xff name` over SFTP, is listed. lgse/strata#1533
-- Ejecting or unmounting a non-SMB remote mount, such as SFTP, from its DEVICES row while browsing inside it returns the browser to Home. lgse/strata#352, lgse/strata#296
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
+- After F5 on a remote folder whose cursor file was deleted on the server, the cursor moves to a neighbouring row. It moves once the last batch is shown, and focus outside the pane stays put. lgse/strata#1544
 - When `gvfsd` does not answer a 2-second startup probe, the window still opens, using local file and volume support for that session. lgse/strata#56
 
 ## Design
@@ -101,8 +101,9 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 ## Known gaps
 
 - FTP, FTPS, WebDAV, and DAVS are unverified, with no plaintext-transport warning or explicit certificate trust flow. lgse/strata#64
-- There are no saved connections, Connections sidebar section, or Add connection form. lgse/strata#65
+- There are no saved connections or Connections sidebar section; Connect to server only opens an address or pins it. lgse/strata#65, lgse/strata#1726
 - Network discovery failures are generic, non-SMB network mounts appear as drives, and a vanished mount sends the browser Home instead of a retryable column. lgse/strata#62
 - SMB rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62
 - Mutating actions on remote locations are not gated by the backend's capabilities. lgse/strata#66
 - Recursive search cannot search a remote share and falls back to Home. lgse/strata#87
+- A connection dropped mid-load leaves a partial SFTP listing and F5 fails silently; unmounting in one window leaves other windows' listings stale with no notice. lgse/strata#1856

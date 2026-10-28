@@ -3,10 +3,10 @@ title: Columns drag autoscroll
 status: shipped
 origin: {issue: lgse/strata#1108, pr: lgse/strata#1095}
 branch: null
-reviewed_at: b8938864dc95d2e041a0a442b3b7a63755681f4e
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: reviewed
 code: [src/ui/browser/columns/drag_scroll.rs]
-tests: [src/ui/browser/columns/drag_scroll/tests.rs]
+tests: [src/ui/browser/columns/drag_scroll/tests.rs, tests/qa/scenarios/drag_and_drop/column-edge-scrolls-listing.jsonl, tests/qa/scenarios/drag_and_drop/strip-edge-scrolls-columns-in.jsonl]
 related: []
 ---
 

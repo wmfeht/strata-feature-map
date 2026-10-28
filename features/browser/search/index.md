@@ -3,12 +3,12 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
-tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort]
+tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*]
 docs: [docs/preferences.md]
-related: [browser/navigation, devices/volumes, integration/10xer-mode, settings/preferences]
+related: [browser/navigation/folder-jump, devices/volumes, integration/10xer-mode, settings/preferences]
 ---
 
 ## Summary
@@ -20,11 +20,11 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 ### Opening and scope
 
 - Ctrl+K or the header search button opens the search dialog over a blurred window; Ctrl+K again closes it. lgse/strata#222 (unverified)
-- Search covers Home and every mounted local drive, regardless of the open folder. lgse/strata#222, lgse/strata#493
+- Every search covers the global roots that `devices/volumes` lists, whatever folder is open. lgse/strata#222, lgse/strata#493
 - An ejected drive's results are gone the next time search opens. lgse/strata#493
+- A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
 - The search field is named "Search files and folders…". lgse/strata#1896
-- A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - On open, the empty query shows "Type to search Home and mounted local drives"; clearing a typed query adds "Fuzzy matching · try a name or path fragment". lgse/strata#493 (unverified)
 - The status text sits centered horizontally and vertically in the results area, with wrapped lines center-justified. lgse/strata#1648
 
@@ -49,6 +49,7 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 - At most 100 results are shown, best first. lgse/strata#473
 - Each result shows its name, its full path, and a thumbnail for images. lgse/strata#493, lgse/strata#548
 - A spinner shows in the search bar while indexing runs. lgse/strata#72 (unverified)
+- The footer shows key hints for navigate, open, and Alt+Enter "open containing folder", the last beside a folder-open icon. lgse/strata#1066, lgse/strata#1105
 - When indexing stops early, the footer shows "Partial results"; its description names each cause, such as "some folders could not be read". lgse/strata#72, lgse/strata#493, lgse/strata#1066
 - Hovering **Partial results** shows a tooltip with the same causes as its description; complete results clear the tooltip. lgse/strata#1667
 - A small tree with one unreadable folder reports the unreadable folder, not an entry limit. lgse/strata#493
@@ -93,6 +94,17 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 - Closing search with Escape, Ctrl+K, or a click outside the panel returns focus to its opener, such as the file list's cursor row. lgse/strata#1430, lgse/strata#1533
 - Opening a result, or Open containing folder, hands focus to the revealed item in the browser rather than the control that opened search. lgse/strata#1430, lgse/strata#1533
 
+### Folder jump palette
+
+- Ctrl+Shift+K opens this dialog as a "Jump to a folder…" palette; Ctrl+K still opens global file search. lgse/strata#959
+- Pressing Ctrl+Shift+K while the search palette is open closes it. lgse/strata#959 (unverified)
+- Arrow keys choose a row, and Enter opens the chosen folder. lgse/strata#959
+- Before any folder is recorded, the palette shows "No folder history yet". lgse/strata#959 (unverified)
+- A query that matches no visited folder shows "No matching folders". lgse/strata#959 (unverified)
+- Closing the palette with Escape returns focus to the control that opened it, such as the file list's cursor row. lgse/strata#1430, lgse/strata#1533
+- Only local folders that finish loading are recorded as visits. lgse/strata#959
+- A folder that fails to load is recorded after a successful retry. lgse/strata#959 (unverified)
+
 ## Design
 
 Global search and the pane filter are separate tools: Ctrl+K finds anything anywhere, and Ctrl+F finds within the current folder (lgse/strata#222).
@@ -116,7 +128,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 - Unreadable folders are reported apart from size limits, because a walker error had been described as a very large tree (lgse/strata#431).
 - Matches sit in fixed score tiers, so length, depth, and fuzzy bonuses cannot invert their order. The fuzzy fallback stays on purpose, so a multi-word query is not a strict AND filter (lgse/strata#1899).
 - Queries and indexed names are folded with lowercase and NFC, with an ASCII fast path (lgse/strata#809, lgse/strata#813).
-- Ctrl+Shift+K reuses this dialog to rank visited folders; that folder jump belongs to `browser/navigation`.
+- Ctrl+Shift+K reuses this dialog to rank visited folders; that folder jump belongs to `browser/navigation/folder-jump`.
 
 ## History
 

@@ -3,7 +3,7 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, packaging/media-runtime]
 tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/tests.rs, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]

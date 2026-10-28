@@ -3,17 +3,17 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation, tests/qa/mutations/keyboard-navigation.patch]
 docs: [docs/keyboard-navigation.md]
-related: [browser/sidebar, browser/navigation, integration/10xer-mode, app/dialogs, integration/custom-actions]
+related: [browser/sidebar, browser/navigation, integration/10xer-mode, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser]
 ---
 
 ## Summary
 
-Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file list, pane header, sidebar, and top bar in the default key map, and between controls in modal dialogs. Arrows move between interface regions rather than changing directories.
+Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file list, pane header, sidebar, and top bar in the default key map, and between controls in modal dialogs. Arrows move between interface regions rather than changing directories. Also covers the keyboard cursor outline and when a listing may take focus.
 
 ## Behavior
 
@@ -24,6 +24,8 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In List, Right keeps focus on the current entry and never opens it or changes directory. lgse/strata#358
 - In Columns, Right on a folder enters it or moves into its already open child column. lgse/strata#58, lgse/strata#358
 - In Columns, Right on a focused file does not open it; Enter opens it. lgse/strata#358
+- In Columns, Right on a focused file moves focus into the already open child column and does not open the file. lgse/strata#382
+- In Columns, Right on a focused file with no column to its right does nothing. lgse/strata#382
 - With Type to search off, `h`, `j`, `k`, and `l` act as Left, Down, Up, and Right in every view and the file chooser. lgse/strata#555
 - With Type to search on, `h`, `j`, `k`, and `l` pressed in the file list start a search instead of moving. lgse/strata#555 (unverified)
 - Enter on a sidebar place in Icons gives the opened folder's first item focus and selection. A remembered folder restores its cursor instead. lgse/strata#374, lgse/strata#379, lgse/strata#1544 (unverified)
@@ -54,6 +56,18 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - Tab from an inline rename field commits the rename and leaves the listing; in Columns it leaves the strip. lgse/strata#1431, lgse/strata#1533
 - In an empty, unreadable, or loading folder, Tab and Shift+Tab leave the focused pane as they leave a listing. Shift+Tab from the footer returns to it. lgse/strata#1466, lgse/strata#1533
 - 10xer mode keeps its own Tab handling. lgse/strata#1431, lgse/strata#1533 (unverified)
+
+### Focus after background changes
+
+- With two tabs open, Ctrl+1, Ctrl+2, or Ctrl+3 keeps keyboard focus on the visible tab's cursor entry, and arrows then move in that tab. lgse/strata#1900
+- A hidden tab applies the switched view without taking keyboard focus; selecting it later restores its own cursor. lgse/strata#1900
+- While a modal dialog such as a delete confirmation is open, a listing reload or view switch behind it leaves keyboard focus in the dialog. lgse/strata#1900
+- A docked compression finishes and selects its new archive while a delete confirmation or an error dialog is open. Keyboard focus stays on the dialog's focused button, in Columns, Icons, and List. lgse/strata#1900
+
+### Focus ring
+
+- During keyboard navigation in Columns or List, the keyboard cursor row shows a 1 px accent outline inset 1 px from the row edge. lgse/strata#1165
+- During keyboard navigation in Icons, the focused card's icon frame shows a 2 px accent outline; after pointer use it shows none. lgse/strata#1164 (unverified)
 
 ### Keep arrows in file list
 
@@ -87,15 +101,18 @@ Strata is positioned as keyboard-first; a Yazi user reported needing the trackpa
 - The List sort headings stay Tab stops: they are real controls and cost five stops, not one per row (lgse/strata#1431).
 - Modal arrow navigation collected only buttons, menu buttons, checkboxes, switches, and entries, so a tab strip was never a target. A notebook holds focus while a tab does, so the current tab stands in for the notebook (lgse/strata#1739).
 - The tab strip spans the whole notebook, so Up and Down treat it as directly above or below the control they leave (lgse/strata#1739).
+- Listing updates, view switches, and Columns rebuilds take focus only through one check, `browser_can_take_focus`. It refuses a listing in an inactive tab or under an open modal, and keeps startup focus, which can precede mapping (lgse/strata#1900).
 - The sidebar remembers a return target only while the file view holds focus. A header control as target trapped focus outside the listing (lgse/strata#1053).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1900 | fix | Kept listing updates from taking focus from a modal or a hidden tab, so view switches leave focus in the visible tab. |
 | 2026-10-17 | lgse/strata#1739 | fix | Let modal arrow navigation reach a notebook's current tab, so arrows reach the action editor's tabs. |
 | 2026-10-09 | lgse/strata#1533 | fix | Made each listing one Tab stop that lands on the keyboard cursor, with a focusable pane in empty folders. |
 | 2026-09-23 | lgse/strata#1088 | fix | Returned Right from the sidebar to the file list when the sidebar was entered from the header. |
+| 2026-09-20 | lgse/strata#1165 | fix | Drew the keyboard cursor outline in the accent color at 1 px, matching the side-panel selection border. |
 | 2026-09-14 | lgse/strata#942 | feat | Added Keep arrows in file list and its Ctrl+\ toggle. |
 | 2026-09-05 | lgse/strata#379 | fix | Focused the opened listing after Enter on a sidebar place in Icons. |
 | 2026-09-05 | lgse/strata#358 | fix | Routed plain arrows between files, pane header, sidebar, and top bar, and separated cursor, selection, and path visuals. |

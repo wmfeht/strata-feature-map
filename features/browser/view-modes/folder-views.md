@@ -3,7 +3,7 @@ title: Per-folder sort and thumbnail size
 status: shipped
 origin: {issue: lgse/strata#1563, pr: lgse/strata#1565}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preferences/folder_view_settings.rs, src/ui/preferences/folder_views.rs, src/ui/preferences/folder_views/**, src/app/browser/folder_sorts.rs]
 tests: [src/ui/preferences/folder_views/tests.rs, src/app/browser/tests/folder_sorts.rs]
@@ -98,4 +98,4 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 
 ## Known gaps
 
-- Subfolders cannot inherit a parent folder's sort or size; this was deferred. lgse/strata#1563
+None known.

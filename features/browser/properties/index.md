@@ -3,7 +3,7 @@ title: Properties dialog
 status: shipped
 origin: {issue: lgse/strata#71, pr: lgse/strata#243}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/properties.rs]
 tests: [tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl, tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl]
@@ -22,7 +22,7 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - Choosing Properties from an item's context menu opens the dialog for that item. lgse/strata#457
 - Alt+Enter with one item selected opens Properties for the focused item. lgse/strata#1130
 - Properties in the empty-space menu opens the dialog for the current folder. lgse/strata#558
-- The empty-space menu hides Properties in Recent, and the current-folder dialog never opens there. lgse/strata#1083 (unverified)
+- In Recent, the current-folder Properties dialog never opens. lgse/strata#1083 (unverified)
 - Escape, the Close button, or a click on the backdrop closes the dialog. lgse/strata#107
 - Closing the dialog returns focus to the previously focused item with its selection kept. lgse/strata#175, lgse/strata#666 (unverified)
 - When the window is too narrow for the dialog, the actions stack vertically and the execute checkbox reads "Executable (+x)". lgse/strata#1155 (unverified)

@@ -3,23 +3,24 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/pdf_text.rs, src/ui/preview/components.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/archive_cover.rs]
-tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/preview_media_layout]
+code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, src/sandbox_helper/archive_cover.rs]
+tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/pdf-zoom-keeps-text-size.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-metadata, operations/archives/preview, operations/drag-and-drop]
 ---
 
 ## Summary
 
-The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header for print and close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/model-views` (camera views and mesh details for rendered models), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
+The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header for print and close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/pdf` (PDF text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
 
 ## Behavior
 
 ### Which files preview
 
-- A non-executable extensionless dotfile such as `.steampath` previews as plain text; an executable one does not use this fallback. lgse/strata#224
+- A non-executable extensionless dotfile such as `.steampath` previews as plain text. lgse/strata#224
+- On a location that is not sampled, an executable extensionless dotfile does not use this fallback. A local one whose first 8 KiB look like text still previews as text. lgse/strata#224, lgse/strata#1638 (unverified)
 - A file whose name gives an uncertain type, such as `some notes`, opens in the preview; text content shows as text and other content shows "No visual preview". lgse/strata#965
 - `.yaml`, `.yml`, and other `text/plain` subtypes preview as highlighted text with their type label, not "No visual preview". lgse/strata#1228
 - A local file's first 8 KiB decide its preview family: a file named `.png` or `.mp4` holding plain text previews as source text. lgse/strata#1638
@@ -33,7 +34,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local file named `.odt` or `.ott` holding text also previews as text. lgse/strata#1834 (unverified)
 - An SVG previews as an image although its bytes are text. lgse/strata#1638
 - Local `app.ts`, `Component.tsx`, and `module.mts` files holding TypeScript preview as highlighted source, whatever the installed MIME database says. lgse/strata#1638, lgse/strata#1631
-- A local file with an unsupported binary type previews as text when its first 8 KiB look like text. Workbook, 3D model, CBZ, CBR, and EPUB names still route by extension. lgse/strata#1638 (unverified)
+- A local file with an unsupported binary type previews as text when its first 8 KiB look like text. Workbook, 3D model, route (GPX, FIT, KML), CBZ, CBR, and EPUB names still route by extension. lgse/strata#1638, lgse/strata#1842 (unverified)
 - Remote files are not sampled; an uncertain name takes the content type the location reports, otherwise the name decides. lgse/strata#1638 (unverified)
 - On remote locations, PDFs, GIF images, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
 - A remote `.gcode` file previews as text; only a local G-code file is read for its embedded thumbnail. lgse/strata#1864
@@ -41,11 +42,16 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local `.kml` or `.gpx` file previews as a route, never as XML text. lgse/strata#1842 (unverified)
 - 3D models, comic covers, workbooks, DOCX, ODT, and OTT preview only from local files. lgse/strata#1276, lgse/strata#1325, lgse/strata#1834 (unverified)
 - Selecting a remote XLS, XLSX, ODS, DOCX, ODT, or OTT file shows "No preview for this selection". Its context menu has no Quick preview item. lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
-- A remote file whose name does not reveal its type, but whose content type does, shows "Copy this file locally before previewing it". lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
+- Some remote files reveal their type only by content type. When it shows a workbook, DOCX, ODT, or OTT, the preview shows "Copy this file locally before previewing it". lgse/strata#729, lgse/strata#1086, lgse/strata#1834 (unverified)
+- A remote file whose content type shows a PDF fails with "Remote PDF previews are not supported; copy the file locally first". lgse/strata#834 (unverified)
+- A remote media file other than MOV or MP4 fails with "Copy this media format locally before previewing it". lgse/strata#834 (unverified)
+- A remote 3D model fails with "Remote model previews are not supported; copy the file locally first". A remote cover fails with the same message for cover previews. lgse/strata#1276, lgse/strata#1325 (unverified)
+- The item menu shows Quick preview only for files the preview supports. lgse/strata#385 (unverified)
 
 ### Text
 
 - Text previews show at most the first 1 MiB of the file. lgse/strata#89
+- A text preview cut at that limit shows "Preview limited to the first 1 MB". lgse/strata#89 (unverified)
 - A text file starting with a UTF-16 LE or BE byte-order mark previews as decoded text. lgse/strata#1638
 - **Toggle word wrap** in the header wraps text previews; the choice defaults to off, applies in every open window, and survives restart. lgse/strata#921
 - Rendered DOCX, ODT, OTT, and workbook previews hide **Toggle word wrap**. lgse/strata#1086, lgse/strata#1834 (unverified)
@@ -65,9 +71,6 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A RAW file on a GIO location previews after the original streams to a private temporary file, like other still images. lgse/strata#1698 (unverified)
 - PDF pages render at the preview pane's width, at most 1280 px, one page at a time across previews. lgse/strata#898, lgse/strata#823
 - Queued PDF pages that leave the view are cancelled before rendering. lgse/strata#898
-- Dragging across PDF text selects it, and Ctrl+C copies it in page order with its line breaks. lgse/strata#1223
-- In a PDF, double-click selects a word, triple-click a line, Shift+click extends across pages, and Ctrl+A selects all loaded pages. lgse/strata#1223
-- Dragging on a PDF margin or a page without a text layer, such as a scan, pans instead of selecting. lgse/strata#1223
 - Ctrl+wheel over a PDF, including its scrollbars, zooms its pages between 1× and 4× its fitted width; interface text size does not change. lgse/strata#1069, lgse/strata#1622 (unverified)
 - With keyboard focus in a zoomed PDF, Ctrl+0 returns its pages to fitted width on the same page; interface text size does not change. lgse/strata#1622
 - With Num Lock on, Ctrl+keypad 0 also resets a focused PDF's zoom. lgse/strata#1622 (unverified)
@@ -78,23 +81,10 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Under that message, an **Open** button hands the PDF to the default application. The file chooser shows the message without the button. lgse/strata#1840
 - Other preview failures, such as a damaged PDF, show no Open button under the message. lgse/strata#1840
 
-### Models and covers
+### Covers and G-code
 
-- An STL file first renders from the Front left camera, looking diagonally down at the model, tinted with the theme accent. lgse/strata#1276, lgse/strata#1644
-- Changing the theme re-renders the open model preview with the new accent and keeps the selected camera view. lgse/strata#1276, lgse/strata#1644
-- Selecting another file resets the camera view to Front left. lgse/strata#1644, lgse/strata#1633
-- While camera views change, the header content type stays `model/stl` or `model/3mf`. lgse/strata#1644
-- All four camera views of a model share one bounding-box fit on a square canvas, so switching views never changes its scale or centring. lgse/strata#1644
-- Revisiting a camera view of the same model at the same size and theme is served from the preview cache. lgse/strata#1644
-- A first visit to a camera view rereads and re-renders the mesh. lgse/strata#1644
-- A 3MF file with exactly one usable embedded PNG shows that image; with none or several, its geometry renders. lgse/strata#1276
-- A FreeCAD `.FCStd` file shows its saved thumbnail without FreeCAD installed. lgse/strata#1276
-- A 3MF model split across several model parts shows "Multipart model detected. Unable to render preview." unless one usable embedded image exists. lgse/strata#1276
-- An STL, 3MF, or FreeCAD model over 128 MiB or 2 million triangles shows a limit message instead of a render. lgse/strata#1276, lgse/strata#1864
-- Model previews in the drawer and Quick Preview keep the theme's opaque surface behind the model. lgse/strata#1789
 - CBZ and CBR files show their first naturally ordered image, and EPUB files their declared cover; a file without one shows an error. lgse/strata#1325
 - A local text `.gcode` or `.gco` file without a usable embedded thumbnail previews as its text. lgse/strata#1864
-- A binary `.bgcode` file without one shows "This G-code file has no usable embedded thumbnail". lgse/strata#1864
 - Changing the theme while a narrow window hides a model or route preview reloads it with the new theme when the window widens again. lgse/strata#1842
 
 ### Media stepping
@@ -105,7 +95,8 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 ### Media controls
 
-- The media preview's play button is named "Play/Pause" and its mute button "Mute/unmute", each followed by its shortcut in parentheses. lgse/strata#1895 (unverified)
+- On the plain media bar, as for an animated GIF, the play button's tooltip and accessible name read "Play/Pause" and its shortcut in parentheses. lgse/strata#1895 (unverified)
+- The mute button's tooltip and accessible name read "Mute/unmute" followed by its shortcut in parentheses. lgse/strata#1895 (unverified)
 
 ### File operations
 
@@ -123,7 +114,9 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Print on a PDF that needs an opening password shows "Unable to prepare file for printing" with "This PDF is password protected." lgse/strata#1840 (unverified)
 - Print on a route file shows "This file type cannot be printed." lgse/strata#1842 (unverified)
 - The item menu of a `.h264` file, including text named `notes.h264`, offers no **Print**. lgse/strata#1901 (unverified)
-- Printing a PDF shows "Preparing PDF" with page progress while every page renders; Cancel or Escape stops it. lgse/strata#286 (unverified)
+- The header shows **Print** for text, still images, PDFs, and Markdown, HTML, RTF, CSV, and TSV in either view. lgse/strata#286 (unverified)
+- Models, covers, routes, media, archives, and DOCX, ODT, OTT, and workbook previews hide **Print** in the header. lgse/strata#286 (unverified)
+- Printing a file named as a PDF shows "Preparing PDF" with "Rendering page N of M" while every page renders, up to 10,000 pages. Cancel or Escape stops it. lgse/strata#286 (unverified)
 - Printing a text file over 16 MiB shows "This text file is too large to print safely." lgse/strata#286 (unverified)
 
 ### Header
@@ -146,14 +139,11 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A hidden caret in a read-only GtkSourceView disables native Shift+arrow selection, so source previews show the caret and stay non-editable (lgse/strata#1557).
 - PDF zoom reset skips the view-center correction, because the list view re-anchors the visible page itself; correcting it jumped to page 1 (lgse/strata#1622).
 - Ctrl+0 on a focused PDF is consumed even at fitted width, so a reset meant for the page never resets the saved text size (lgse/strata#1622).
-- PDFs render in the sandbox, so the text layer travels with each page as a bounded sidecar to the PNG (lgse/strata#1220, lgse/strata#1223).
 - A password-protected PDF gets an explanation, not an unlock prompt, at the owner's request. Strata never asks for, stores, or submits PDF passwords, and never writes an unlocked copy (lgse/strata#1636, lgse/strata#1840).
 - The Open button reuses the header's Open action, so the file chooser, which never opens files externally, hides it (lgse/strata#1840).
-- Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833).
-- 3MF and FreeCAD prefer embedded thumbnails at the owner's request; geometry is the fallback (lgse/strata#1225).
+- Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833, lgse/strata#834).
 - G-code joined the model formats, which preview only from local files. Remote G-code would have lost its text preview, so it stays text (lgse/strata#1864).
 - Route previews use the preview cache keyed by format and theme palette (lgse/strata#1842).
-- Camera views render on demand and share the 128 MiB preview cache, keyed by view. The single heavy-preview permit keeps four angles from multiplying peak memory (lgse/strata#1644, lgse/strata#1633).
 - Audio, video, and model previews share a details header and navigation row; video and model also share a badge row and a player layout with named areas. One universal player was rejected because artwork, the spectrum, and the camera need different content; playback, seeking, camera motion, and loading stay per preview (lgse/strata#1659, lgse/strata#1764).
 - `.h264` is recognized by name in the shared filename classifier, before the MIME database. The byte-content guards and the sandboxed decoder are reused, with no new decoder or file reads. One classifier keeps preview, navigation, Properties, and printing in agreement (lgse/strata#1901, lgse/strata#1861).
 - Elementary streams can have known dimensions but no duration, so navigation keeps a video with known dimensions even without a duration (lgse/strata#1901).
@@ -187,9 +177,8 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 ## Known gaps
 
-- Images cannot be rotated in the preview; the change is unmerged. lgse/strata#987, lgse/strata#1388
+- Images cannot be rotated in the preview. lgse/strata#987
 - A growing log file does not update while previewed. lgse/strata#847
-- The preview's media seek and volume sliders have no accessible name; naming them needs new strings in every catalog. lgse/strata#1896
-- Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#833
-- Each first visit to a camera view rereads and reparses the mesh before a full CPU render; parsed meshes are not retained. lgse/strata#1644
+- The volume slider and the plain media bar's seek slider have no accessible name. Naming them needs new strings in every catalog. lgse/strata#1896
+- Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#834
 - With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

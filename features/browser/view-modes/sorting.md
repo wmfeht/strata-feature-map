@@ -3,10 +3,10 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/app/browser/sorting.rs, src/services/mime_type.rs]
-tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs]
+code: [src/app/browser/sorting.rs, src/services/mime_type.rs, src/ui/browser/pane_header.rs]
+tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl]
 docs: [docs/preferences.md]
 related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navigation/recent, devices/volumes/camera]
 ---
@@ -22,7 +22,7 @@ Ordering a folder's entries by Name, Size, Modified, or Type, ascending or desce
 - Columns and Icons pane headers have a "Choose sort field" button whose SORT BY menu lists Name, Size, Modified, Type, and Folders first; choosing an option applies it and closes the menu. lgse/strata#168
 - In the SORT BY menu, the sort fields, Recency and Device order included, are radio menu items. Folders first is a check menu item. lgse/strata#1467, lgse/strata#1544
 - The direction button beside Sort by has the tooltip "Ascending — click to reverse" or "Descending — click to reverse" and reverses that pane's order when clicked. lgse/strata#40 (unverified)
-- In Recent the menu adds Recency and omits Folders first; in Camera Photos it adds Device order. lgse/strata#1029, lgse/strata#1083 (unverified)
+- In Recent the menu adds Recency, which sorts in either direction, and omits Folders first. In Camera Photos it adds Device order. lgse/strata#1029, lgse/strata#1083 (unverified)
 - While Device order is active, the direction button is disabled with the tooltip "Device order follows discovery; choose a sort field to reverse its direction". lgse/strata#1029 (unverified)
 
 ### Order
@@ -75,5 +75,4 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 
 ## Known gaps
 
-- Folders first and Group by file type are application-wide, not remembered per folder. lgse/strata#1520
 - Filenames sort by code point, not by pinyin. lgse/strata#1583

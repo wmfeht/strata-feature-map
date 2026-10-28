@@ -3,7 +3,7 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: e0f73973926ff67e77c2c56cf288b7b7617bb2e5
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/i18n.rs, data/locales/counts.json]
 tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs]
@@ -46,6 +46,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 - Filenames, paths, user-defined names, and protocol identifiers are shown untranslated. lgse/strata#1519
 - Counts use each language's plural forms: Russian one, few, and many; French and Brazilian Portuguese singular for zero and one; Chinese, Japanese, Korean, and Vietnamese one form, such as `3 个项目`. lgse/strata#1519, lgse/strata#1583
 - Numbers, file sizes, and durations use the language's digit grouping, decimal separator, and unit symbols. lgse/strata#1519
+- A 999,950-byte file's size reads "1 MB", not "1000 kB", in the views and the preview; 999,950,000 bytes reads "1 GB". lgse/strata#698
 - Under 简体中文, numbers read `1,234,567.3`, durations read `45秒`, `2分5秒`, and `1小时2分`, and lists join with `、`. lgse/strata#1583
 - Under 正體中文, counts use one form, such as `3,000 個檔案`; numbers read `1,234,567.3`, durations read `45秒`, `2分5秒`, and `1小時2分`, and lists join with `、`. lgse/strata#1745
 - Under 简体中文, 正體中文, or 日本語, a sentence ending in `。`, `！`, or `？` gets no space before the next. This applies to archive extraction errors, FAT32 copy failures, transfer flush errors, and package-managed update text. lgse/strata#1583, lgse/strata#1745 (unverified)
@@ -78,10 +79,11 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 | 2026-10-12 | lgse/strata#1583 | feat | Added Simplified Chinese as the eleventh language, auto-detected for every Chinese locale, with a shared sentence joiner and Han/kana Settings search matching. |
 | 2026-10-08 | lgse/strata#1542 | fix | Reviewed every catalog against English and fixed mistranslations and inconsistent terms. |
 | 2026-10-08 | lgse/strata#1519 | feat | Added ten compiled-in languages, locale detection, and a restart-to-apply Language setting. |
+| 2026-09-09 | lgse/strata#698 | fix | Rounded a file size before choosing its unit, so 999,950 bytes shows 1 MB instead of 1000 kB. |
 
 ## Known gaps
 
 - Update-check failure reasons, such as "GitHub API rate limit reached", are translated lowercase in some languages because they normally follow a colon. lgse/strata#1542
 - Some progress messages, such as "%{items} deleted", lack count-aware forms for French and Brazilian Portuguese. lgse/strata#1542
 - Han glyph forms follow the process locale or `PANGO_LANGUAGE`, so choosing 简体中文 or 正體中文 on an `en_US` system can show another region's glyph forms. lgse/strata#1583, lgse/strata#1745
-- There is no zh-HK catalog; Hong Kong and Macau locales get the Taiwan catalog. lgse/strata#1613
+- There is no zh-HK catalog; Hong Kong and Macau locales get the Taiwan catalog. lgse/strata#1745

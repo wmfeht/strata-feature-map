@@ -3,11 +3,11 @@ title: Click modes
 status: shipped
 origin: {issue: lgse/strata#213, pr: lgse/strata#220}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: []
 tests: [tests/qa/scenarios/click_modes, tests/qa/mutations/click-modes.patch, tests/qa/mutations/click-mode-preference.patch]
-related: [preview/quick-preview, operations/rename, browser/sidebar, browser/view-modes/columns]
+related: [preview/quick-preview, operations/rename, browser/sidebar, browser/view-modes/columns, browser/selection/marquee]
 ---
 
 ## Summary
@@ -29,7 +29,6 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 - With Double set, one click on a folder only selects it. lgse/strata#220
 - With Double set, two clicks slower than the double-click interval select without opening. lgse/strata#220 (unverified)
 - With Single set, Ctrl+click or Shift+click on an entry changes the selection without opening it. lgse/strata#220, lgse/strata#203
-- With Single set in Columns, one click on a folder in a partly hidden parent column opens it, even if the column scrolls during the press. lgse/strata#1502
 - Arrow keys select entries without opening them in single-click mode. lgse/strata#220 (unverified)
 
 ### Selection after opening

@@ -1,14 +1,14 @@
 ---
 title: Devices sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
-tools: [docs/preview-sandbox.md, data/udiskie/unlock]
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
 ## Scope
 
-Everything the sidebar's Devices section does with a physical or virtual block device. Discovery and mounting of volumes, mounts, and password drives. Unmount and Eject with the flush, the pending row, and "Safe to remove". Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails.
+Everything the sidebar's Devices section does with a device or mount listed under DEVICES. Discovery and mounting of volumes, mounts, and password drives. Unmount and Eject with the flush, the pending row, and "Safe to remove", including a remote mount released from its DEVICES row. Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails. Which mounted devices Send to… offers, and the drives Ctrl+K searches.
 
-Left to other sweeps: the Send to lists, device rows as navigation targets, network mounts and their credentials, and the installer's default selection and its `--with-udiskie-unlock` and `--without-udiskie-unlock` flags.
+Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying to a device, device rows as navigation targets, network mounts and their credentials, and the installer's default selection and its `--with-udiskie-unlock` and `--without-udiskie-unlock` flags.
 
 ## Setup
 
@@ -19,6 +19,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - A throwaway HOME as in `qa/README.md`, plus a copy of `~/.config/udiskie` and `~/.local/share/strata` taken before each install probe, to diff the restore.
 - A real PTP camera or iPhone passed through with `-device usb-host`; GVfs gphoto2 mounts only USB devices. Without one, record the camera block as not exercised.
 - `RUST_LOG=debug` beside `journalctl -f -u udisks2`; a GTK critical at any plug, mount, unmount, or unplug event is a finding.
+- `scripts/sftp-fixture.sh --port 2222` with GVfs running, as in `qa/sweeps/remote.md`, for releasing a remote mount from its DEVICES row.
 
 ## Probes
 
@@ -33,6 +34,10 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Unplug a stick while its folder is open in Columns, Icons, and List, and once more while a copy into it is running.
 - Start a mount from the row while udiskie is prompting for the same volume. Cancel udiskie's prompt after 3 seconds, then on a fresh attempt after 10.
 - Loop-mount an image under `/mnt`, under `/run/media/$USER`, and with `udisksctl mount`; note which appear and which vanish on `umount`.
+- Mount one stick read-only with `mount -o ro` beside a writable one, then open Send to…. Remount it read-write from a shell and reopen the menu.
+- Clone a stick with `dd` so two carry one UUID, attach both, and open Send to….
+- Send a file to a stick folder through Choose folder…, delete that folder from a shell, and reopen the stick's submenu.
+- Loop-mount an image under `/mnt` and inside a mounted stick, and open an SMB share so it appears under `/run/user/$UID/gvfs`. Search Ctrl+K for a file on each.
 
 ### devices/volumes/release
 
@@ -43,6 +48,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 - Attach an ISO as a CD-ROM and a non-removable virtio ext4 disk; release each and compare the closing overlay.
 - Eject while the preview plays audio from the stick, while a PDF preview's sandbox holds a file there, and while Icons thumbnails load; then select a stick file before GIO resolves.
 - Dump the sidebar with a removable drive, expanded and as the rail.
+- Mount the SFTP fixture, browse two levels inside it in one window and at its root in a second. Unmount it from its DEVICES row; repeat with the fixture stopped first.
 
 ### devices/volumes/encrypted
 
@@ -63,6 +69,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 
 ### devices/volumes/drive-dialogs
 
+- Open the row menu on the three-partition disk's unmounted and unformatted partitions, on the CD-ROM with no disc, and on the virtio disk. Note which offer Mount, then mount one from a shell and reopen its menu.
 - Open Properties on each attached device: unmounted and mounted sticks, locked and unlocked LUKS, the CD-ROM, the loop mount, and the virtio disk. Compare Capacity, Used, and Free with `df -B1`.
 - Set label to 255 characters, emoji, RTL text, whitespace only, a pasted tab, and the same text on both same-label sticks. Then relabel one with `fatlabel` from a shell and replug.
 - Delete `mkfs.exfat` only and open Format for each filesystem; then format with a label at the exact limit and a lowercase FAT label.
@@ -85,7 +92,7 @@ Left to other sweeps: the Send to lists, device rows as navigation targets, netw
 
 ## Hand-offs
 
-- Send to entries for mounted and unmounted devices → `operations`.
+- The Send to… submenu rows, Choose folder…, and copying to a device → `operations`.
 - The "Writing to device…" flush before a copy to removable media reports success → `operations`.
 - Device rows as navigation targets, sidebar keyboard order, and drops onto rows → `browser`.
 - SMB, SFTP, and other network mounts with their credential prompts → `remote`.

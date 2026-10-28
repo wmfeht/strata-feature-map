@@ -3,17 +3,17 @@ title: Rendered document previews
 status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/scrollbar.rs, src/ui/virtual_preview/scrollbar/position.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
-tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/virtual_preview/scrollbar/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/README.md, tests/qa/scenarios/quick_preview]
+code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
+tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/README.md, tests/qa/scenarios/quick_preview/markdown-equations-keep-prose.jsonl, tests/qa/scenarios/quick_preview/markdown-preview-renders-media.jsonl, tests/qa/scenarios/quick_preview/rendered-document-word-selection.jsonl, tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl]
 docs: [site/src/reference/document-previews.md, docs/document-previews.md]
 related: [preview/preview-panel/sandbox, preview/preview-panel/find, settings/preferences, settings/themes]
 ---
 
 ## Summary
 
-Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX, ODS, DOCX, ODT, and OTT files in the preview panel. Text formats switch between Rendered and Source; nothing uses a web engine or runs document scripts. Child: `preview/preview-panel/documents/odt` (OpenDocument text and templates).
+Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX, ODS, DOCX, ODT, and OTT files in the preview panel. Text formats switch between Rendered and Source; nothing uses a web engine or runs document scripts. Children: `preview/preview-panel/documents/odt` (OpenDocument text and templates) and `preview/preview-panel/documents/scrollbar` (the document-position scrollbar).
 
 ## Behavior
 
@@ -21,7 +21,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 - Selecting a local Markdown, HTML, RTF, CSV, or TSV file with **Render documents by default** on shows the rendered document; with it off, the source. lgse/strata#187, lgse/strata#729, lgse/strata#1086
 - **View source** and **View rendered** in the preview header switch the current document without changing the saved preference. lgse/strata#187
-- Remote Markdown and HTML files preview as source only. lgse/strata#187
+- Remote Markdown, HTML, RTF, CSV, and TSV files preview as source only. lgse/strata#187, lgse/strata#729, lgse/strata#1086 (unverified)
 - A malformed, truncated, timed-out, or limit-exceeding document opens in Source, hides the view switch, and shows the reason above the source. lgse/strata#187
 - Documents over 1 MiB, 20,000 parser events, nesting depth 32, 4 MiB of markup, or 500 ms of parsing fall back to Source. lgse/strata#187
 - A Markdown or HTML table row over 256 columns also falls back to Source. lgse/strata#729
@@ -30,6 +30,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - A click, then a Shift-click farther along, selects from the first click to the second. lgse/strata#1559, lgse/strata#1557
 - With focus in a rendered or large source document, Shift+Left/Right, Shift+Up/Down, Shift+Home/End, and Ctrl+Shift+Left/Right extend the selection by character, line, line edge, or word. lgse/strata#1559, lgse/strata#1557
 - Ctrl+Home and Ctrl+End move the caret to the start and end of the loaded document. lgse/strata#1559
+- With focus in a rendered or large source document, Ctrl+A selects the whole loaded document. lgse/strata#187, lgse/strata#1576 (unverified)
 - Keyboard selection crosses recycled rows and does not change the listing's selection. lgse/strata#1559
 - Shift+Left/Right steps over a whole grapheme cluster, such as an emoji with a skin-tone modifier. lgse/strata#1559 (unverified)
 - Right with a selection collapses it to its end. lgse/strata#1559 (unverified)
@@ -50,22 +51,13 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - In a rendered line over 2 KiB that holds whitespace, a word under 1,000 bytes is never split across rows. lgse/strata#1901 (unverified)
 - Copying a line broken this way returns its plain text unchanged, including text inside bold spans. lgse/strata#1901
 - Fenced code with a known language hint renders with theme syntax highlighting. lgse/strata#187
+- A fenced block split across several rows, over about 32 KiB or holding a line over 2 KiB, renders without highlighting. lgse/strata#187 (unverified)
 - Every rendered code block shows a **Copy code** button that copies the whole block. lgse/strata#187
+- After a click, **Copy code** shows a check icon and reads "Code copied" for 2 s, then "Copy code" again. lgse/strata#187 (unverified)
 
 ### Scrolling
 
-- In a rendered document or a large plain-text Source preview, holding the scrollbar thumb still keeps the content at one position. lgse/strata#1752, lgse/strata#1749
-- Dragging the thumb downward never moves the content backward, and the content passes through interior positions on the way. lgse/strata#1752
-- Dragging the thumb to the top or bottom of the track shows the document's first or last line, even while new rows are measured. lgse/strata#1752
-- Releasing the thumb, even with the pointer over the content, leaves the content in place. The next wheel input scrolls it and the thumb follows. lgse/strata#1752
-- Closing the preview while holding the thumb ends the drag; after reopening, the thumb follows scrolling again. lgse/strata#1752 (unverified)
-- Setting the scrollbar to its minimum or maximum from the keyboard or an accessibility tool shows the document's exact start or end. lgse/strata#1752
-- Wheel or touchpad scrolling forward over the content never moves the thumb backward; scrolling backward never moves it forward; stopping leaves it still. lgse/strata#1752
-- With the first row's top in view the thumb sits at the top of the track; with the last row's end in view, at the bottom. lgse/strata#1752 (unverified)
-- Touchpad momentum stops when the scroll range changes or the content origin shifts by 2 px or more. lgse/strata#1752
 - After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752 (unverified)
-- Document previews in the Open and Save file chooser scroll the same way as in the browser. lgse/strata#1752
-- The vertical scrollbar sits beside the content instead of overlaying it, and hides when the whole document fits. lgse/strata#1752 (unverified)
 
 ### HTML and links
 
@@ -78,7 +70,9 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - CSV and TSV files render as a table whose first row is the column titles, with quoted multiline fields and ragged rows parsed. lgse/strata#729
 - XLS, XLSX, and ODS files show their first worksheet as a table with no Source view; formulas are not recalculated and macros never run. lgse/strata#729
 - Tables open sorted ascending by the first column; clicking a column title toggles ascending and descending. lgse/strata#729
-- Sorting puts numbers first, then case-insensitive text, then empty cells, and never changes the file. lgse/strata#729
+- Ascending sort puts numbers first, then case-insensitive text, then empty cells; descending reverses that order. Sorting never changes the file. lgse/strata#729 (unverified)
+- Changing the sort clears a selected cell range and scrolls the table to the top. lgse/strata#729 (unverified)
+- A table cell over 512 bytes shows shortened with "…"; copying the table keeps its full text. lgse/strata#187 (unverified)
 - Every column, including the last, resizes by dragging its divider. lgse/strata#729
 - Tables over 200 rows or 512 cells render in full. lgse/strata#729
 - CSV, TSV, and workbook output stops at 100,000 values, 4 MiB of cell text, or 256 columns. lgse/strata#729
@@ -88,6 +82,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - With focus on the table, Ctrl+C copies every loaded row in the current sort order, including offscreen rows. lgse/strata#729
 - With focus on the table, Ctrl+Shift+C, Ctrl+Alt+C, and Ctrl+Super+C copy nothing. lgse/strata#1576
 - With a cell range selected, Ctrl+A or Ctrl+Shift+A clears the range; Ctrl+Alt+A leaves it. lgse/strata#729, lgse/strata#1576
+- With a cell range selected, Escape, an arrow key, Home, or End also clears it. lgse/strata#729 (unverified)
 - With a non-Latin layout such as Russian active, Ctrl+A in a focused table cell selects that cell's text. lgse/strata#1576
 - With a non-Latin layout active and no cell range selected, Ctrl+C in a focused table cell copies its own selection, not the whole table. lgse/strata#1576
 
@@ -96,6 +91,8 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Markdown images with relative paths render PNG, JPEG, GIF, WebP, BMP, and SVG files inside the document's folder, including percent-encoded names. lgse/strata#1075
 - Absolute, `file:`, data, and remote image URLs are not loaded, and the notice "Remote and absolute image URLs are not loaded. Use images inside the document's folder." appears. lgse/strata#1075
 - A missing or undecodable image keeps its alt text and the rest of the document renders. lgse/strata#1075
+- A Markdown image inside a table cell is never loaded and shows as "[Image: alt]". lgse/strata#1075 (unverified)
+- Images over 8 MiB, Mermaid blocks over 16 KiB or 256 lines, and equations over 4 KiB are not rendered. lgse/strata#1075 (unverified)
 - Fenced `mermaid` blocks render as diagrams in theme colors, with **Copy diagram source**; invalid syntax keeps the source with a fallback notice. lgse/strata#1075
 - `$...$`, `$$...$$`, and fenced `latex` or `math` blocks render as equations; display equations offer **Copy equation source**. lgse/strata#1075
 - Copying a selection containing inline math keeps its original `$` delimiters. lgse/strata#1075
@@ -120,8 +117,6 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Markdown, HTML, RTF, CSV, and TSV are parsed in-process by pure-Rust parsers off the GTK thread. They see only the bounded source string and emit escaped Pango markup (lgse/strata#187).
 - Calamine and `docx-rs` can allocate whole sheets or decompress every part, so workbooks and DOCX run in the preview sandbox under a 20 MiB input limit. Only validated JSON returns; DOCX HTML is reparsed by the same bounded HTML parser (lgse/strata#729, lgse/strata#1086).
 - Large source and rendered views use recycled, virtualized rows. Selection is kept in document coordinates and copy reads the model (lgse/strata#187). Rendered rows build their text, tables, and media only once mapped, and visited widgets may stay in GTK's bounded recycling pool. Source rows bind eagerly so thumb seeking uses measured heights (lgse/strata#1752).
-- GTK estimates unmeasured row heights and re-anchors its pixel value, so a thumb mirroring those pixels jumped. The thumb now follows a separate document position, rows plus a text-offset fraction, while GTK's pixel adjustment still drives native input and kinetic scrolling (lgse/strata#1749, lgse/strata#1752).
-- GTK's kinetic trajectory stores an absolute pixel origin, so stale momentum is cancelled rather than corrected. A 2 px tolerance absorbs GTK's integer rounding. A second scroll engine, disabled momentum, and two-frame `scroll_to` corrections were rejected (lgse/strata#1752).
 - Unwrapped source rows already widened to their text, but rendered rows only got a height and clipped at the pane edge. Unwrapped rendered rows now widen to their longest line (lgse/strata#1610, lgse/strata#1612).
 - Wrap toggles remeasure rows after GTK has re-laid them out, because measuring right after `set_wrap_mode` returned the previous mode's height (lgse/strata#1612).
 - Virtual rows cannot take native input, so word, line, and Shift selection is computed in the document model. The selector had ignored click count and modifiers (lgse/strata#1557).
@@ -147,9 +142,6 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 ## Known gaps
 
-- Workbooks preview only their first worksheet; multi-sheet navigation was deferred. lgse/strata#723
-- PPTX, PPT, ODP, and DOC files have no rendered preview. lgse/strata#730, lgse/strata#244
-- Markdown cannot be edited or rendered with Pandoc or Quarto from the preview. lgse/strata#1127
-- A touchpad flick can end early when newly measured rows change the scroll range or content origin. lgse/strata#1752
+- Workbooks preview only their first worksheet. lgse/strata#729
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752
 - Large rendered previews have an initial-loading delay, where GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752

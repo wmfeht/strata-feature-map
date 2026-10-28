@@ -3,11 +3,11 @@ title: Name field filenames and URL downloads
 status: shipped
 origin: {issue: lgse/strata#1279, pr: lgse/strata#1285}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/remote_download.rs, src/ui/chooser/download.rs]
 tests: [src/services/remote_download/tests.rs]
-related: []
+related: [integration/portal-file-chooser, integration/portal-file-chooser/image-conversion]
 ---
 
 ## Summary
@@ -36,7 +36,6 @@ The Name field in file-open choosers. Typing an existing filename opens it, and 
 - A URL with credentials before the host is not downloaded. lgse/strata#1285
 - A network or HTTP failure, such as a 404, shows "Could not download the file: %{error}" in the action bar, and the request stays open. lgse/strata#1285
 - A download whose name the selected filter rejects shows "The file does not match the selected filter" and is not returned. lgse/strata#1285
-- Submitting the same URL again in the same chooser reuses the earlier download, while its file still exists, instead of fetching again. lgse/strata#1387
 - `strata-download-*` folders older than 24 hours are deleted when the portal starts and when a download begins. lgse/strata#1285
 - Folder, SaveFile, and SaveFiles requests do not download URLs, and the address bar and Ctrl+V never start a download. lgse/strata#1285
 

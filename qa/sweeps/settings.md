@@ -1,13 +1,13 @@
 ---
 title: Settings sweep
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search, About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
@@ -66,6 +66,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed `unit_system = "nautical"`, `unit_system = 1`, and `unit_system = "Imperial"`; launch, read the Units row, change another preference, and diff `settings.toml`.
 - Search "kilometres", "kml", and "feet" under English and `language = "ja"`; read which rows show and which page opens.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
+- Press Ctrl+, and click the gear over Properties, Compress, a delete confirmation, Customize…, and a dialog animating closed. Repeat over a dialog in another tab of the same window. Read Settings and the focused control each time.
+- Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 
 ### settings/preferences/storage
 
@@ -123,6 +125,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Close the window mid-run and quit the last window mid-run; list `$TMPDIR` for leftover `strata-diagnostics-*` directories.
 - Copy the report under `language = "ja"` and `"zh-TW"` and paste it into a text editor; compare section names, statuses, and the System fields with the page.
 - Run with no terminal resolvable, then with a terminal that exits at once; press Run in terminal and read the row under each install command.
+- Repeat both on an Integrations install command, and with `$TERMINAL` set to a missing program. Press the button twice quickly and read the row and the process list.
+- On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
 
 ### settings/themes
@@ -178,8 +182,6 @@ For every control this sweep proves the binding: the file changes, the other win
 - Switch themes with an Icons pane at 32 px and at 256 px and a List pane side by side; compare outline weight and color in the same screenshot, then repeat under `GDK_SCALE=2`.
 - Under `extreme.toml`, open the item menu on a Trash entry and the Empty Trash dialog; the destructive icon must take the danger color, not the accent.
 - Fill a folder with 300 distinct extensions and language files, scroll to the end and back in Icons and List; watch for icon flashes and criticals as the cache evicts.
-- Name files `Makefile`, `MAKEFILE`, `dockerfile.dev`, `Dockerfile.dev`, `.rs`, `Foo.D.TS`, `ARCHIVE.TAR.GZ`, `clip.MKV`, and a directory `lib.rs`; compare the icon in the listing, a Ctrl+F result, folder peek, and an archive preview.
-- Name files `backup.tbz2`, `backup.txz`, `backup.tar.zst`, `movie.ts`, and `notes.m`; read which icon each takes.
 - Put a folder beside Catppuccin and Lucide file icons in List and in Icons at 32, 64, 128, and 256 px. Repeat at text size 8 and 48 and under `GDK_SCALE=2`; compare stroke weight and edge clipping.
 - Give `main.rs` a saved custom color with no custom icon, then switch File icon colors between Brand and Theme colors; compare its icon in the listing and in Customize… preview.
 - Follow Omarchy and switch the variant and `colors.toml` between light and dark palettes with Catppuccin icons visible under both File icon colors choices; read both windows.
@@ -190,6 +192,12 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under each Setup icon theme, compare every Settings dropdown arrow, the Appearance menu buttons, and the drive format dialog dropdown; repeat under `GDK_SCALE=2` and at text size 48.
 - Step Text size, Corner roundness, and Thumbnail workers to each end so one step is disabled; hover each step under a light and a dark theme and read the icon color.
 - Open Customize… → Custom color… and switch to the custom editor under each Setup icon theme; read its spin-button steps, then change the theme while it is open.
+
+### settings/themes/icons/catppuccin
+
+- Name files `Makefile`, `MAKEFILE`, `dockerfile.dev`, `Dockerfile.dev`, `.rs`, `Foo.D.TS`, `ARCHIVE.TAR.GZ`, `clip.MKV`, and a directory `lib.rs`; compare the icon in the listing, a Ctrl+F result, folder peek, and an archive preview.
+- Name files `backup.tbz2`, `backup.txz`, `backup.tar.zst`, `movie.ts`, and `notes.m`; read which icon each takes.
+- Name files `Cargo.TOML`, `.env.local`, `.ENV.LOCAL`, `tsconfig.app.json`, `TSCONFIG.APP.JSON`, `bash_history`, `x.d.ts.bak`, and a name ending in a dot; read which icon each takes.
 
 ### settings/themes/corner-roundness
 

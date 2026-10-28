@@ -3,17 +3,17 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/devices.rs]
 tests: [src/ui/window/devices/tests.rs]
 docs: []
-related: [browser/sidebar, browser/search, operations/clipboard]
+related: [browser/sidebar, browser/search, operations/clipboard/send-to, remote/file-providers/network-locations]
 ---
 
 ## Summary
 
-Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
+Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. It also supplies the removable destinations Send to… offers and the drive roots Ctrl+K searches. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
 
 ## Behavior
 
@@ -31,11 +31,20 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 - Clicking a mounted volume's row navigates to its mount root. lgse/strata#536 (unverified)
 - Clicking an unmounted volume mounts it, then navigates into the mount. lgse/strata#493, lgse/strata#536
-- The row menu offers Mount for an unmounted volume on a removable drive that reports `can_mount`. lgse/strata#1331 (unverified)
 - Cancelling a mount's authentication prompt shows no error. lgse/strata#493
 - A mount failure other than cancellation, a rejected passphrase, or an in-flight mount shows "Unable to mount volume" with the GIO error text. lgse/strata#493 (unverified)
 - When another process is already mounting the volume, Strata shows "Connecting…" and waits up to 8 seconds without cancelling that job, then opens the mount. lgse/strata#935 (unverified)
 - If that wait ends with the volume still unmounted, Strata starts its own mount once. lgse/strata#935 (unverified)
+
+### Send to destinations
+
+- Send to… lists a mounted removable device only when its root is a local path and writable. lgse/strata#1278, lgse/strata#1393
+- Send to… device rows are sorted by name, ignoring case; devices sharing one identity are left out. lgse/strata#1278 (unverified)
+- A recent Send to… folder that no longer exists on the device is left out of its submenu. lgse/strata#1278 (unverified)
+
+### Global search roots
+
+- Ctrl+K search covers Home and every mounted local drive. lgse/strata#222, lgse/strata#493
 
 ## Design
 

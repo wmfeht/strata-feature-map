@@ -3,12 +3,12 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
-tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
+tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]
-related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density]
+related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density, settings/themes/corner-roundness, settings/themes/interface-font, settings/themes/omarchy]
 ---
 
 ## Summary
@@ -97,7 +97,6 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A theme gets Mocha file icons when its background's (299R + 587G + 114B) ÷ 1000 is below 128, otherwise Latte. lgse/strata#1588 (unverified)
 - A background that cannot be parsed gets Mocha file icons. lgse/strata#1588 (unverified)
 - The File icons group has a Show thumbnails switch after File icon colors, on by default; its choice is saved as `show_thumbnails` and survives restart. lgse/strata#1651
-- Searching "Show thumbnails" or "photos", or "Miniaturansichten" under Deutsch, in Search settings shows the Show thumbnails row. lgse/strata#1651 (unverified)
 - The File icons group has an STL model thumbnails switch, off by default. Its subtitle reads "Render local STL models as file thumbnails, one at a time. Requires Show thumbnails." lgse/strata#1789
 - The STL model thumbnails switch sits after Show thumbnails. Its choice is saved as `stl_thumbnails`, and a missing key reads as off. lgse/strata#1789 (unverified)
 
@@ -212,6 +211,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 | 2026-10-15 | lgse/strata#1651 | feat | Added the Show thumbnails switch to the File icons group and to Settings search. |
 | 2026-10-15 | lgse/strata#1682 | fix | Unset every property above GTK's user priority and restated the built-in theme, completing lgse/strata#1680's isolation, so a desktop `gtk.css` cannot restyle any widget property. |
 | 2026-10-14 | lgse/strata#1620 | feat | Re-applied the selected custom theme when its file changes on disk, so theme generators work without a restart. |
+| 2026-10-13 | lgse/strata#1601 | fix | Pinned GTK font rendering to manual so GL and Vulkan keep glyph top rows, and regenerated screenshot baselines. |
 | 2026-10-11 | lgse/strata#1570 | fix | Saved names without ASCII letters or digits as `custom-theme.toml`, raised Material text contrast, and themed the color chooser. |
 | 2026-10-10 | lgse/strata#1554 | fix | Loaded custom and Omarchy colors as CSS hex so GTK-only forms no longer blank icons and styling. |
 | 2026-10-10 | lgse/strata#1544 | fix | Saved custom themes under a free file name so an existing theme file is never overwritten. |
