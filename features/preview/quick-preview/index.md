@@ -13,7 +13,7 @@ related: [preview/preview-panel, integration/10xer-mode, browser/search, browser
 
 ## Summary
 
-Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers default-keymap key ownership while a preview is open; 10xer preview keys belong to `integration/10xer-mode/preview-keys`. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
+Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers default-keymap key ownership while a preview is open, and the key map shared by focused audio and video timelines; 10xer preview keys belong to `integration/10xer-mode/preview-keys`. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
 
 ## Behavior
 
@@ -49,7 +49,12 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 ### Media timeline keys
 
-- With an audio or video timeline focused, Home and End still seek to the start and last frame after `first_item` or `last_item` is rebound. lgse/strata#1885
+- With an audio or video timeline focused, Left/Right seek 5 s, and Shift+Left/Right or Page Down/Page Up seek 30 s back or forward. lgse/strata#1570, lgse/strata#1451
+- With the timeline focused, Home, `0`, or Shift+0 seeks to the start, and End or `G` to the last frame, so playback does not stop. lgse/strata#1570, lgse/strata#1451, lgse/strata#1576
+- Home, End, Page Up, and Page Down keep these seeks after `first_item`, `last_item`, `page_up`, or `page_down` is rebound. lgse/strata#1885
+- With Caps Lock on, the g key without Shift on a focused timeline does not seek. lgse/strata#1576
+- With the timeline focused, `+`, `=`, `-`, and keypad +/− change the volume by 0.1; reaching 0 mutes and keeps the volume to restore. lgse/strata#1570, lgse/strata#1451
+- The paging, jump, and volume keys have no Ctrl+Alt form; Ctrl+Alt+Page Up in the default key map leaves media unchanged. lgse/strata#1570
 - A key added to `media_seek_end`, shipped as Shift+G in both maps, seeks a focused timeline to its last frame. lgse/strata#1885 (unverified)
 - `media_volume_step_up` ships with both `+` and `=`; removing one leaves the other raising a focused timeline's volume. lgse/strata#1885 (unverified)
 

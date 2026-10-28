@@ -160,12 +160,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Start five players across two windows, pause one for 31 s, retry the fifth, then close a window holding two players.
 - Run `automatic`, `vaapi`, `vulkan`, and acceleration off on the 4K HEVC 10-bit file; switch the setting mid-play and count ffmpeg processes per player.
 - With autoplay on, select a 9 s clip, an 11 s clip, and a muted state; seek during the fade; let a 40 s GIF loop twice with four players active.
-- With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
-- With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
-- With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
-- Under `[keymap.default]`, set `last_item = ["F8"]`, `media_seek_end = ["F9"]`, and `media_volume_step_up = ["F10"]`. On a focused playing timeline, press End, `G`, F8, F9, `+`, `=`, and F10.
 - Scroll the fallback seek slider with a touchpad.
 - Play a song with `~/.cache/gstreamer-1.0` removed, then with the sound server stopped mid-play.
 
@@ -250,6 +246,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Press Right into a PDF preview in List, then Ctrl+A, Ctrl+C, Delete, and Ctrl+X; the folder's file count must not change.
 - On the Open button under a password-protected PDF, press Tab, Shift+Tab, Space, and Escape; repeat in Columns.
 - With a filter result selected, press Space, keypad Space, Ctrl+Space, and Alt+Space on the `ru` layout and with Caps Lock on.
+- With the timeline focused, press End then Right, Home then Left, and Page Up within 30 s of the end.
+- With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
+- With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
+- Under `[keymap.default]`, set `last_item = ["F8"]`, `page_down = ["F11"]`, `media_seek_end = ["F9"]`, and `media_volume_step_up = ["F10"]`. On a focused playing timeline, press End, Page Down, `G`, F8, F11, F9, `+`, `=`, and F10.
 
 ### preview/quick-preview/folder-peek
 
