@@ -3,11 +3,11 @@ title: Startup location arguments
 status: shipped
 origin: {issue: lgse/strata#649, pr: lgse/strata#673}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/open_argument.rs]
 tests: [src/ui/window/open_argument/tests.rs, tests/qa/scenarios/startup_arguments]
-related: [integration/file-manager-interface, remote/file-providers]
+related: [integration/file-manager-interface, remote/file-providers, browser/tabs]
 ---
 
 ## Summary
@@ -37,6 +37,8 @@ Opening the paths and URIs given to `strata` on the command line, for example fr
 - An unavailable `sftp://user:secret@host/file.txt` argument shows `sftp://user@host/file.txt` in the error, never the password. lgse/strata#755 (unverified)
 - Navigating elsewhere or closing the window during the check abandons it without later navigation or errors. lgse/strata#755
 - Launching with stdout or stderr connected to a closed pipe still opens the window instead of aborting. lgse/strata#1399
+- Open in New Tab or Open in New Window on a folder shows the same delayed "Connecting to location…" status, and the unavailable message with Retry, in the new tab or window. lgse/strata#1543
+- A target that cannot be opened is logged without its user name, SMB domain, query, or fragment. lgse/strata#1873 (unverified)
 
 ## Design
 

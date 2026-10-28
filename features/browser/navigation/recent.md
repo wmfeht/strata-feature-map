@@ -3,16 +3,16 @@ title: Recent
 status: shipped
 origin: {issue: lgse/strata#1082, pr: lgse/strata#1083}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: []
 tests: [src/app/browser/tests/recent.rs, tests/qa/scenarios/recent]
-related: [browser/sidebar, integration/open-with, settings/preferences]
+related: [browser/sidebar, browser/context-menu, browser/view-modes/sorting, integration/open-with, settings/preferences]
 ---
 
 ## Summary
 
-The `recent:///` collection of recently used files, read from the desktop's GTK and GIO recent-file history. It is a browsable location whose rows act on the real files, opened from the sidebar Recent place or the location bar.
+The `recent:///` collection of recently used files, read from the desktop's GTK and GIO recent-file history. It is a browsable location whose rows act on the real files, opened from the sidebar Recent place or the location bar. Which menu items Recent shows belongs to `browser/context-menu`, and its sort menu to `browser/view-modes/sorting`.
 
 ## Behavior
 
@@ -25,10 +25,8 @@ The `recent:///` collection of recently used files, read from the desktop's GTK 
 ### Listing
 
 - Recent lists files with the most recently used first, sorted by Recency with folders-first off. lgse/strata#1083
-- In Recent, the sort menu hides the Folders first option. lgse/strata#1083 (unverified)
 - A history entry whose target file is missing or unreadable is skipped, not listed. lgse/strata#1150
 - An entry whose name is not valid UTF-8 is listed. lgse/strata#1424, lgse/strata#1533
-- The Recency sort key is offered only in Recent, in both directions. lgse/strata#1083
 - Changing the sort in Recent does not change the sort of ordinary folders. lgse/strata#1083
 - An open Recent view reloads when the desktop's recent history changes. lgse/strata#1083
 - Deleting or moving a file, from Recent or another pane, removes its row from an open Recent view at once. lgse/strata#1157
@@ -39,12 +37,8 @@ The `recent:///` collection of recently used files, read from the desktop's GTK 
 
 - The item menu's Open, Open With…, Quick preview, Rename, Move to…, Move to Trash, Permanently delete, Properties, and Open file location act on each row's real file. lgse/strata#1083
 - New File, New Folder, Paste, and dropping files into Recent are unavailable or rejected. lgse/strata#1083
-- In Recent, the background menu also hides Open With…, Open in Terminal, and Properties. lgse/strata#1083 (unverified)
-- In Recent, the item menu hides New Folder with Selection. lgse/strata#1083 (unverified)
 - Launching a file in an application from Strata adds it to the desktop's recent history; folders are not added. lgse/strata#1083, lgse/strata#1150
-- In Recent, the item menu offers Remove from Recent when every selected row has a recent-history entry. lgse/strata#1500
 - Remove from Recent drops the selected rows from the history without a confirmation, leaves the files untouched, and persists across restarts. lgse/strata#1500
-- Remove from Recent is absent from the same file's menu in its real folder. lgse/strata#1500
 
 ## Design
 
@@ -66,5 +60,4 @@ Recent uses the platform's recent-file infrastructure instead of a Strata-specif
 
 ## Known gaps
 
-- Recent has no Open Full Path action that opens a row's whole folder hierarchy as columns. lgse/strata#1475
-- Renaming or moving a file in Strata does not update its recent-history URI, so it drops out of Recent. lgse/strata#1150
+- Renaming or moving a file in Strata does not update its recent-history URI, so it drops out of Recent; a moved file's new path is not a Recent member. lgse/strata#1157

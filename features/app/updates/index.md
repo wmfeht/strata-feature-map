@@ -3,7 +3,7 @@ title: Updates
 status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/update_check.rs]
 tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]

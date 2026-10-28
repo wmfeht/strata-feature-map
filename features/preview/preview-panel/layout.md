@@ -3,10 +3,10 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/preview/player_layout.rs, src/ui/browser/preview.rs]
-tests: [tests/qa/scenarios/preview_session, tests/qa/scenarios/quick_preview, src/ui/preview/tests.rs]
+tests: [tests/qa/scenarios/preview_session, tests/qa/scenarios/quick_preview/column-preview-fills-free-space.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-opens-preview.jsonl, tests/qa/scenarios/quick_preview/columns-preview-reopens-after-closing.jsonl, tests/qa/scenarios/quick_preview/narrow-window-keeps-last-column.jsonl, tests/qa/scenarios/quick_preview/preview-boundary-resizes-grabbed-side.jsonl]
 docs: [docs/preview-panel-layout.md]
 related: [preview/quick-preview, browser/view-modes, browser/sidebar]
 ---
@@ -78,7 +78,7 @@ How the preview panel shares the window with the file views: its width, the rese
 - When less than 240 px would remain beside the focused column, the preview content hides, media pauses, and loading is deferred. lgse/strata#888, lgse/strata#1405
 - Widening the window again restores the same file at the previous manual width. lgse/strata#888
 - In Columns, the reserved slot shrinks down to zero instead of disappearing, so the columns keep their offset. lgse/strata#1405
-- While a preview is present, an expanded sidebar rails once when the window is narrower than a sum. The sum is the full sidebar width, the focused column, and the preview width. The column counts at most 300 px in Columns and 300 px in Icons and List; the preview counts its manual width, at least 240 px. lgse/strata#1181, lgse/strata#1606 (unverified)
+- While a preview is present, an expanded sidebar rails once when the window is narrower than a sum. The sum is the full sidebar width, the focused column, and the preview width. The column counts its own width up to 300 px in Columns and a fixed 300 px in Icons and List; the preview counts its manual width, at least 240 px. lgse/strata#1181, lgse/strata#1606 (unverified)
 - An automatic rail from that rule releases only when the window is 24 px wider than that sum. lgse/strata#1181, lgse/strata#1606
 - In Columns, the empty reserved slot, and in Icons the empty placeholder, also apply that rule. lgse/strata#888, lgse/strata#1382, lgse/strata#1606
 - With no preview, placeholder, or reserved slot, an expanded sidebar rails once when the window narrows to at most the preferred sidebar width plus one standard column. lgse/strata#1606

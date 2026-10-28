@@ -3,10 +3,10 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser_modes/list_factory.rs]
-tests: []
+tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl]
 related: [browser/navigation]
 ---
 

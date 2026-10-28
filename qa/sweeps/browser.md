@@ -1,7 +1,7 @@
 ---
 title: Browser sweep
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
-triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
 
@@ -50,6 +50,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - On an `sftp://` share in Columns, open the cursor folder's child column, delete that folder server-side, and press F5.
 - In List and Icons, group by type and sort by size descending. Click an entry, Ctrl+click one in another group, then press Shift+arrow toward each neighbour.
 - Ctrl+click a selected entry to remove it, then press Shift+arrow; repeat after Ctrl+click on blank row space.
+- Middle-click a folder row while a rename editor is open, on a symlink to a folder, and on a Ctrl+F result in another folder; repeat with Ctrl held.
 
 ### browser/selection/click-modes
 
@@ -66,6 +67,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Tab and Shift+Tab around a listing with the preview panel open, closed, and showing a video; then from the unreadable folder's Retry button.
 - Start a rename in Columns and press Shift+Tab; then Tab out of a rename whose name collides with a sibling.
 - In Settings → Actions → New action, press Up from the bottom control of each tab's page until focus stops, then Down; repeat after switching tabs with Left and Right from the strip.
+- Open a second tab on `100000` and switch back to the first while it loads; press arrows as the hidden load finishes. Then open Properties while the visible Columns folder reloads after an external change.
+- Press Down in each view under a light and a dark theme, then move the pointer without clicking and press Down again; note when each focus outline shows and hides.
 
 ### browser/selection/marquee
 
@@ -98,6 +101,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
 - In List at the bottom of `1000`, rename a new file to sort first, then press Down right after Enter in one scripted sequence. Repeat in Icons.
+- In Columns, Icons, and List, click a filtered file while a result batch is arriving. Then Ctrl+click it and plain-click it again.
+- Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
+- In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
+- With two tabs open, press Ctrl+3 then Down within one frame while `100000` loads in the visible tab; repeat right after a rename commits. Note which row holds focus after 500 ms.
 
 ### browser/view-modes/columns
 
@@ -120,10 +127,12 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Toggle Show sizes in Columns view from Appearance with Settings open in a second window and a recursive search column open.
 - With one entry selected, create 4,200 files in the active column's folder from a shell, then press Down and the 10xer next-entry key.
 - With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
+- Hover and select the 255-byte name in a light and a dark theme, and on an open-path folder row; check that no name text shows through the badge.
 - Scroll the strip so a parent column is clipped, then press 5 px and 1 px left of its edge and 4 px right of it and drag; repeat after arrow keys moved the strip.
 - With badges on, rest the pointer on an unselected row and hold Down through it; then move the pointer 1 px. Hover a row and leave it within 120 ms.
 - Wheel-scroll a column with the pointer over it and badges on; then kinetic-scroll the strip so a parent is clipped, stop, and compare its reveal button with its visible width.
 - With recursive filter results in a column, cancel a dialog opened from a hit, switch views, and hide the preview with the mouse; note which hit has focus each time.
+- In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
 
 ### browser/view-modes/icons
 
@@ -148,6 +157,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Drag a heading past two neighbours in one motion and release, then repeat and press Escape mid-drag; read `list_column_order` and the insertion line after each.
 - Drag a heading out of the heading row and back in before releasing, then drag it with Size and Type hidden. Repeat in the portal file chooser while a browser window shows List.
 - Drag Modified to the end with the List pane scrolled horizontally, and drag a heading while a folder of `100000` loads.
+- Press Escape mid-drag with the Columns popover open, with a filter result focused, and with a rename field open; then drag the same heading again and release.
 - Write `list_hidden_columns = ["name", "size", "size", "bogus"]` and `list_column_order = ["type", "type"]` in settings.toml and start.
 - Hide Mode in one window while a second shows Icons and the portal file chooser shows List; return the second window to List.
 - Hide every column but Name, shrink the window to 400 px, and reset; then repeat at text size 8 and 48 with 10xer mode on and off.
@@ -190,10 +200,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/view-modes/text-size
 
-- Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
 - Press Ctrl++ with the location entry open, with Ctrl+K open, and in Settings; then set `text_size = 7`, `"huge"`, and `49` and start.
 - On `ch`, `cz`, and `fr`, press Ctrl with each top-row key that types `+`, `=`, or `-`, with and without Shift; then keypad + with Num Lock off.
-- Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
 - With a PDF's pages focused, press Ctrl++ and Ctrl+−, then Ctrl+keypad 0 with Num Lock on and off.
 - Press Ctrl++ at 48 and Ctrl+− at 8, then change the size from the Appearance buttons and from Settings while a size notice still shows.
 
@@ -202,7 +210,6 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Ctrl+Shift+wheel in Columns and List over a long listing, with a touchpad and a mouse.
 - Press Ctrl+Alt+keypad + and Ctrl+Alt+keypad −, then on `de` and `fr` Ctrl+Alt with the keys that type + and −.
 - Drag the slider to 100 px and step up and down; drag it to 33 px and step down twice.
-- Hold Ctrl+Shift and scroll a touchpad slowly, then fast; then release Shift mid-scroll and keep scrolling.
 - Press Ctrl+Alt+0 in Trash, an `sftp://` folder, and a remembered local folder, with per-folder sizes on and off; read `folder-views.toml` and `settings.toml` after each.
 - Step repeatedly at 32 and 256 px, and while a transfer notice shows; read the notice dock each time.
 - In 10xer mode, press +, =, and − with Ctrl+F results in Icons, with the filter field focused, and with the sidebar focused.
@@ -231,21 +238,27 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Visit 120 folders in `deep` and open the palette; count the rows, then query `'level-0 !marker`, `^level`, `000$`, and the non-UTF-8 name.
 - Visit a folder, delete it externally, open the palette, and choose it; then press Ctrl+Shift+K, Ctrl+K, Ctrl+Shift+K without closing.
-- Open the palette from the sidebar, the location entry, and a rename editor, then press Escape; note where focus lands each time.
 
 ### browser/navigation/location-bar
 
 - Type `~/`, `./`, `../`, `  ~/Documents  `, `~root`, `file:///etc`, `trash:///`, and `gopher://x` and record each result.
-- Tab-complete in `1000` with hidden files off, then on; click a crumb while the popover is open, and press Escape on a highlighted suggestion.
+- Click a crumb while the completion popover is open, and press Escape on a highlighted suggestion.
 - Type the path of a file in the open folder, of a dot-file, of a file inside the unreadable folder, and of the non-UTF-8 name.
 - Open a 200-level `deep` folder; scroll the overflowing crumbs with the wheel and open the hierarchy menu from the last crumb.
 - Type `smb://host/my share`, `smb://alice:pw@host/café`, and `sftp://host/a%2Fb` while the share is unmounted. Read the entry during the mount and the crumbs after.
 - Type `sftp://host/share/caf%E9` and `smb://host/share/x%2Fy` for existing remote names, then create and delete an entry in each opened folder.
 - In `deep` at level 30, choose level 3 from the hierarchy menu, then from the scrolled crumbs, in each view; then choose the current crumb.
 - Type `/tmp/./x/..`, `~/../..`, `/a/b/../../..`, `smb://host/share/../x`, a symlinked folder followed by `/..`, and a file path followed by `/..`; press Alt+Up after each.
-- Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon. Open a new tab on that mount and type before its first load ends.
+- Open a new tab on a stalled sshfs mount and type a path before its first load ends.
 - Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms.
 - Dump a sign-in dialog's fields for an SMB share that asks for a domain and for an SFTP server.
+
+### browser/navigation/location-bar/completion
+
+- Tab-complete in `1000` with hidden files off, then on; then type `.` and Tab again.
+- Type `/usr`, `/usr/`, `~`, and a folder whose only sibling match is itself; compare each list with `ls`.
+- Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon.
+- Hold Page Down through 50 suggestions, then Page Up past the first; note where the highlight wraps.
 
 ### browser/navigation/recent
 
@@ -258,6 +271,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Launch with a folder, a file, the broken symlink, and the non-UTF-8 name in one command, then again while the first instance is open; count the windows.
 - Launch with the unreadable folder, press Retry after `chmod 755`; then with `sftp://unreachable.invalid/f.txt`, navigate away before Cancel.
+- Open a folder on a stopped sshfs mount with Open in New Tab, then with Open in New Window; press Cancel in one and Retry in the other after resuming the daemon.
 
 ### browser/search
 
@@ -272,6 +286,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
 - In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`.
 - In Ctrl+K, separate two terms with a Tab, then a double space; then use a term found only in the searched root's own path.
+- Open the Ctrl+Shift+K palette from the sidebar, the location entry, and a rename editor, then press Escape; note where focus lands each time.
 
 ### browser/search/exclusions
 
@@ -296,20 +311,19 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Run a partial-coverage filter that returns results; check whether the status covers the first result row at text size 8 and 48.
 - In List and Icons, delete the last hit in sort order, a hit with several hits selected, and a hit through the item menu's Move to Trash. Repeat with Include subfolders off and the preview open.
 - Set Search entry limit to 200,000 and filter `100000` plus a second large folder below it; change the limit in another window's Settings and type one more character.
-- With 10xer mode on, move the cursor with `f` results and a fill, open and cancel a dialog, then close Quick Look; note which hit has the focus ring.
 - Select a file hit, then press Space in the location bar, the preview find bar, a sidebar row, and the sidebar toggle; repeat in the file chooser's name and location fields.
 - Type `duck  txt` and `txt duck` in Columns with Include subfolders off, then in Icons and List with it on.
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
+- In Columns, focus a filter result in column 2 and press Ctrl+F, then `/`; repeat with Include subfolders off and with the preview open.
+
+### browser/search/filter/enter-target
+
 - Type a query in `100000` in each view and read which row is outlined as batches arrive; then wheel-scroll once mid-load and keep typing.
 - Ctrl+click the top hit, then create a matching file from a shell, and edit the query.
 - Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
 - Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
 - Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
-- In Columns, Icons, and List, click a filtered file while a result batch is arriving. Then Ctrl+click it and plain-click it again.
-- Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
-- In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
-- In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
 
 ### browser/sidebar
 
@@ -317,14 +331,6 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Offer a nightly and a release candidate with the interface in ja and with the sidebar at its minimum width; read the notice text and its accessible name.
 - With a notice shown, set text size 8 and 48 and compare the notice row's height with an empty sidebar foot. Then step to the rail and on to full at each size.
 - Show a notice with the interface in ko, ru, and zh-CN at the default sidebar width, then drag the sidebar to its minimum.
-- Turn off every place chip; press Ctrl+B in one window until the sidebar hides while the other's sidebar has focus, then press Ctrl+Shift+B there.
-- Open a 1200 px and a 700 px window; press Ctrl+B through three full cycles in the narrow one, reading both windows and `settings.toml` after each press.
-- Choose the rail in a wide window, then narrow it, open and close the preview in Columns, and widen it again.
-- Step from hidden to full in a narrow window, then resize by 1 px, by 300 px, and open the preview.
-- With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18; compare rail icons and the update notice icon against the header toggle.
-- Save `sidebar_compact = true` with `sidebar_expanded = false`, then `sidebar_compact = "yes"`; start a 400 px and a 1920 px window and press Ctrl+B once in each.
-- Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
-- Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`, and read its accessible name after each step.
 - Unset `XDG_MUSIC_DIR` and point Documents at a missing folder in `user-dirs.dirs`; shrink the window to the icon rail and Tab through it.
 - Click an unmounted `sftp://` pin and cancel its password prompt, then enter a wrong password; click Network with `GIO_USE_VFS=local` in tab 2 and switch to tab 1.
 - Drag Trash slowly across Home's upper half, the gap below Home, and Home's lower half, releasing at each; restart and read the order in both windows.
@@ -333,19 +339,32 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Middle-click and choose Open in New Tab on Trash, Recent, Network, an unmounted `sftp://` pin, a mounted USB drive, and an unmounted volume; then do both on the icon rail.
 - Double middle-click a sidebar row, and middle-press one and drag past the threshold before release; count the tabs.
 
+### browser/sidebar/rail
+
+- Turn off every place chip; press Ctrl+B in one window until the sidebar hides while the other's sidebar has focus, then press Ctrl+Shift+B there.
+- Open a 1200 px and a 700 px window; press Ctrl+B through three full cycles in the narrow one, reading both windows and `settings.toml` after each press.
+- Choose the rail in a wide window, then narrow it, open and close the preview in Columns, and widen it again.
+- Step from hidden to full in a narrow window, then resize by 1 px, by 300 px, and open the preview.
+- With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18; compare rail icons and the update notice icon against the header toggle.
+- Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
+- Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`, and read its accessible name after each step.
+
 ### browser/sidebar/pins
 
 - Edit the bookmarks file externally with a CRLF line, a duplicate, a `file:///home/<user>` line, and `smb://u:p@h/s`; pin a folder and diff the file.
 - Pin a folder, `chmod 444` the bookmarks file, unpin; then pin a folder on `/dev/shm`, trash it from the other window, and press Ctrl+Z.
 - With Type to search off press `p` on a file, a pinned folder, a standard folder, and a folder inside Trash.
 - With the bookmarks file symlinked, delete a pinned folder from the other window; read `ls -l` and the file.
+- Pin from one window while Nautilus rewrites the bookmarks file in a loop; then reorder in a second window and open a third.
+- Pin 50 folders, trash them all, cancel midway, and watch PINNED in two windows.
+
+### browser/sidebar/pins/drag-to-pin
+
 - Unpin a pin's neighbour in one window, then drag three folders, one already pinned, into that gap in the other window.
 - From the drag-source fixture, offer a Move-only payload, a mixed file and folder payload, and 100 folders on an `sftp://` share; then drag a folder from Nautilus.
 - Start a foreign folder drag over a gap and plug in a USB drive before releasing.
 - Drag a folder from the Trash view, an `https://` link from a web browser, and a symlink to a folder over the gaps; then drag an SMB pin between two local pins.
 - With nothing pinned, drag a file over the sidebar and out again, then drag a folder in; repeat in the file chooser and on the icon rail.
-- Pin from one window while Nautilus rewrites the bookmarks file in a loop; then reorder in a second window and open a third.
-- Pin 50 folders, trash them all, cancel midway, and watch PINNED in two windows.
 
 ### browser/sidebar/connect-to-server
 
@@ -417,6 +436,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Right-click the last row of `100000` scrolled to the end at text size 28; then open a menu and press F5, Ctrl+2, and resize the window.
 - Press Menu with the filter field focused, the location entry focused, and a drive row focused; right-click a second entry while a menu is open.
 - Press Right on Open in… in a multi-selection of folders, then Left; open the menu on a folder in Trash and a Recent folder row.
+- Choose Open in… → New Window on three folders and two files, in Trash and Recent.
 - With the interface in German, then Japanese, open a file's, a folder's, and the background menu; compare each hint with its F1 row and press it.
 - On niri, quick-right-click on empty space near the bottom edge and where a submenu row lands; then reopen the menu with Menu and click a row.
 - Right-click a folder, choose Copy, reopen its menu within one frame, then alternate file, folder, and multi-selection menus while watching the log.
@@ -442,6 +462,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With hidden files on, open `deep` to column 5, press Ctrl+H, and rename the column 3 folder to a dot name; then press Back.
 - Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
 - Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
+- Sort a 2,000-entry `sftp://` folder by Size, close its Columns column while sizes load, then click in the parent column.
 
 ### browser/directory-monitoring/network-checks
 
@@ -460,6 +481,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Close the custom color dialog by a click outside it, then Customize the same way. Delete the item externally while Customize is open and press Escape.
 - Customize a folder, move it with Keep both, undo, and redo. Then trash it, trash a new folder from the same path, and Put back both.
 - Replace a customized folder by a copy, Merge one into a customized folder, and move one to an `sftp://` share; read settings.toml after each.
+- Customize two folders whose non-UTF-8 names decode to the same text, then Clear one; read settings.toml and both icons.
+- Open the custom color editor under the Adwaita and Papirus icon themes and compare its spin buttons.
 
 ### browser/scrolling
 
@@ -475,8 +498,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Press Ctrl+W with Properties open, then close every tab from the last one; change Show hidden files with three tabs on one folder and switch through them.
 - Open tabs on `trash:///`, `/`, and a 30-character folder name; press a Columns folder, drag 5 px, release, and read the tab name during and after.
 - Focus an empty folder's pane in tab 2, fill the folder from a shell, then switch away and back.
-- Middle-click a folder in the file chooser and on a Ctrl+F result, then Ctrl+Shift+middle-click one. Press Ctrl+Shift+Enter in both key maps.
-- Choose Open in… → New Window on three folders and two files, in Trash and Recent. Then open a new tab on the unreadable folder and an unmounted `sftp://` pin.
+- Press Ctrl+Enter on a folder among Ctrl+F results, then Ctrl+Shift+Enter on a folder in both key maps.
+- Open a new tab on the unreadable folder and an unmounted `sftp://` pin.
+- Start a 2,000-file copy in tab 2 and select tab 1. Middle-click tab 2, close the window, then cancel the copy and close again.
 - With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
 - Close 25 tabs one by one, then press Ctrl+Shift+T 21 times; read each reopened tab's location and position.
 - Close a tab with 10xer `t` then `x` and reopen it; then reopen while the location editor is open on another tab.

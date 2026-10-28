@@ -3,11 +3,11 @@ title: Recently used applications
 status: shipped
 origin: {issue: null, pr: lgse/strata#1354}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/recent_apps]
 tests: [src/ui/recent_apps/tests.rs]
-related: []
+related: [integration/open-with]
 ---
 
 ## Summary
@@ -16,18 +16,19 @@ A Recently Used section at the top of the Open With chooser, listing the applica
 
 ## Behavior
 
-- After an application opens files through Open With, it appears under Recently Used, above Recommended Applications, for files of the same MIME type. lgse/strata#1354
+- After an application opens files through Open With, it heads a Recently Used section above Recommended Applications for files of the same MIME type. lgse/strata#1354
 - Opening a file with its default application by activation or Open also records that application. lgse/strata#1354 (unverified)
+- Launching an application for files of a MIME type moves it to the front of that type's history, replacing its earlier entry. lgse/strata#1354 (unverified)
 - Recently Used lists the most recent application first and shows at most 5. lgse/strata#1354
 - An application shown under Recently Used is not repeated under Recommended or Other Applications. lgse/strata#1354
 - History is shared by files of one MIME type and independent between types. lgse/strata#1354
 - History persists across restarts. lgse/strata#1354
 - History is stored in `$XDG_DATA_HOME/strata/recent-apps.toml`. lgse/strata#1354 (unverified)
-- For a selection of several types, only applications recommended for every type are promoted. lgse/strata#1354 (unverified)
+- For a selection of several types, only applications recommended for every type are promoted to Recently Used. lgse/strata#1354 (unverified)
 - For a single type, an application previously chosen from Other Applications is also promoted. lgse/strata#1354 (unverified)
 - An uninstalled application is dropped from history at the next launch through Strata, unless no applications could be listed at all. lgse/strata#1354 (unverified)
 - A missing, malformed, or unsupported-version history file shows no Recently Used section and does not block launching. lgse/strata#1354 (unverified)
-- The chooser search filters Recently Used rows and hides the heading when none match. lgse/strata#1354 (unverified)
+- The chooser search filters Recently Used rows and hides that heading when none match. lgse/strata#1354 (unverified)
 
 ## Design
 

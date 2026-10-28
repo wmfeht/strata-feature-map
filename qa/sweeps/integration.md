@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -66,6 +66,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `save`, right-click and middle-click the highlighted file, and click a file in filter results. Click a file, then immediately double-click a folder. Repeat each with 10xer mode on and read Name after each.
 - Send SaveFile with `current_name` set to `.bashrc`, `archive.tar.gz`, `noext`, `a.`, and `résumé.pdf`; read Name's selection after the window settles with 10xer mode off, and after Tab from the header with it on.
 - Dump the tree in the file chooser's Save and URL views.
+- During a List heading drag, press Escape with 10xer mode on, with a Space preview open, with the filter open, and with focus in Name under `save`; read the response code, the selection, and `list_column_order` after each.
+- In List, press Escape mid-drag with three files selected, then press Escape again.
+- In the file view, press F2 and Ctrl+R with two items selected, Alt+Enter on a filter result, and Shift+F10 with focus in Name; read what opens.
+- With a preview showing, press on its blank chrome and drag out into the file list, then repeat in a multiple-selection request; read the selection and the marquee.
 
 ### integration/portal-file-chooser/setup
 
@@ -98,6 +102,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - On nested Hyprland, request from a client whose app ID matches two windows, one unmapped window, and a mixed-case class; read the chooser size with `hyprctl clients`.
 - Use a 1152×720 monitor with a bar and a 3840×2160 monitor at scale 2; move the chooser between them after a manual resize.
+- On nested Hyprland, request from a client whose window is smaller than the monitor, then from one larger than a 1152×720 monitor; compare the chooser size with `hyprctl clients`.
 - Reload the Hyprland config between two requests and count `strata-file-chooser-center` in `hyprctl rules`; then stop the IPC socket and request again.
 - Open Move to… from a Strata window resized to 500×400, and from one maximized on the large monitor.
 - Under Xvfb, request at `xrandr` sizes 800×600 and 2560×1440 with no parent; measure the window.
@@ -107,12 +112,12 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - On a slow sshfs mount, submit a `rename ›` name, then edit it or press Esc before the check returns; read the folder afterwards.
 - Press Ctrl+Shift+M over a modal, in the location field, in an inline rename, in the sidebar, in Settings, and in a chooser; toggle twice within 1.5 seconds.
 - Toggle the mode with a pane filter, a subfolder Ctrl+F scope, a `v` range, a folder peek, and an open preview active at once; toggle back and compare each pane.
-- With three windows open, toggle the mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K and Ctrl+\ from the file list. Close one window and check again.
 - In Columns, press `g g` and `G` in a newly opened column before any other key, with type grouping on and with hidden files shown.
 - Press `G` in an empty folder, Ctrl+U in a 10k folder, and `h` at `/`. Press `l` on a folder symlink and on a broken symlink, in each view.
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.
 - With fcitx5 pinyin, compose in `rename ›`, `create ›`, `go ›`, and `move to ›`; press Enter mid-composition, then again after the commit.
 - In a browser window railed by width, press Ctrl+N three times, then Ctrl+B; repeat with the preview owning the keys and with the sidebar focused by Ctrl+Shift+B.
+- Arm `g`, `c`, `,`, `;`, and `t` in a 640 px window, at 32 px text size, and with the clipboard badge showing; read where each panel sits and whether focus left the listing. Alt+Tab away while one is armed and back.
 
 ### integration/10xer-mode/preview-keys
 
@@ -144,6 +149,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Delete the cursor file from a shell while the `s` stream is still running. Repeat while an `f` prompt has focus in Columns with a child column open.
 - With an `f` filter active press Ctrl+F, Down onto a result, and Escape; with a Ctrl+F filter focused on a result, press `f`.
 - Leave the mode with an `f` filter in one window and `s` hits in another; re-enter and press `f` and `s`.
+- With 10xer mode on, move the cursor with `f` results and a fill, open and cancel a dialog, then close Quick Look; note which hit has the focus ring.
 - Type a Ctrl+F filter of `^gam 'report md$`, toggling the mode on and off after each word. Then commit it and toggle twice more.
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
 - Fill two `f` hits, rest the cursor on an unfilled hit, then cancel a Shift+Delete dialog, Tab out and back, and close Quick Look; read which hit holds focus and whether the fill changed.
@@ -184,6 +190,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - On a GVfs FUSE mount, open with a `%f` handler and a `%u` handler; skip when no mount exists and say so.
 - Start Strata from a folder on the sshfs mount. Activate a file and use Open With… with the fake handler and a `Path=/tmp` twin; read each cwd.
 - Press Enter twice fast on a file with no handler, once with a modal open, and once in a second window. Count the choosers.
+- Open a file, a folder, and three files at once through Open With…, then by activation; read `~/.local/share/recently-used.xbel` after each.
 
 ### integration/open-with/recent-apps
 
@@ -199,7 +206,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Remove `xdg-terminal-exec` from `PATH` mid-session and run a `.sh` file from Run; compare its dialog with Open in Terminal's.
 - In Columns, click a folder and press Ctrl+Alt+T with the pointer over a grandparent, and after selecting a second folder in the parent; repeat with the folder opened by keyboard.
 - Press Ctrl+Alt+T ten times in one second with a launcher that sleeps 5 seconds, then with one that forks and exits. Count Strata's children and threads with `ps -L` afterwards.
-- With each fake `ghostty`, set `$TERMINAL` to `ghostty`, `ghostty --class=x`, a path ending in `/ghostty`, and `ghostty-wrapper`. Press Ctrl+Alt+T, run a `.sh`, and press any shown update row; read the argv.
+- With each fake `ghostty`, set `$TERMINAL` to `ghostty`, `ghostty --class=x`, a path ending in `/ghostty`, and `ghostty-wrapper`. Press Ctrl+Alt+T, run a `.sh`, press any shown update row, and press a Run in terminal button in Settings; read the argv.
 - Swap the fake `ghostty` for one printing another version mid-session, then press Ctrl+Alt+T again.
 - With real Ghostty 1.3, press Ctrl+Alt+T on a non-home folder with Ghostty running, then not running. Repeat without `com.mitchellh.ghostty.service`; skip without Ghostty and say so.
 - Put the only terminal's `PATH` entry, then the target folder, on the sshfs mount stopped by `kill -STOP`. Press Ctrl+Alt+T and click in the window.
@@ -208,8 +215,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - Load manifests with `schema_version = 2`, an unknown key, `entrypoint = "../x.py"`, id `A-b`, a 65-character id, and a folder name unlike its id. Add a symlinked folder, a Python script with `#!/bin/bash`, `program = "bin/tool"`, and a missing interpreter; read Problems and each insensitive item's description.
 - Match `extensions = ["JPG"]` against `a.jpg`, `a.JPG`, and `a.jpg.bak`; `image/*` against `.svg` and an extensionless PNG; `min_items` and `max_items` at 0, 1, and 50; the background menu in Trash, Recent, a FUSE folder, and over `s` hits spanning folders.
-- Run on 1,000 selected files with newline and non-UTF-8 names in per-item and whole modes; check `STRATA_ACTION_PATHS` bytes, `RUN_DIR` mode and removal, each cwd choice, a forked child, `processed > total`, malformed JSON, and a relative output path.
-- Cancel a per-item run at item 3 of 10 with a script ignoring SIGTERM, then close the last window while jobs are queued; hand-edit `prefix-{path}` and `{paths}` in per-item mode into a manifest and reload.
+- Hand-edit `prefix-{path}` and `{paths}` in per-item mode into a manifest and reload.
 - Open the action editor at corner roundness 0%, 40%, and 200%, under each theme. Hover each tab, focus it by keyboard, and read the Confirm toggle and footer buttons.
 - Open the item menu, then from a shell edit the listed action's manifest, add `confirm = true`, or delete its folder. Choose the action, then repeat through `; 1`.
 - Put `$XDG_CONFIG_HOME` on the sshfs mount, stop it with `kill -STOP`, and open the item menu, Settings → Actions, and Import….

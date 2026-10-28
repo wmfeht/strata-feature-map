@@ -3,7 +3,7 @@ title: Launched-program GDK_DEBUG restore
 status: shipped
 origin: {issue: lgse/strata#1810, pr: lgse/strata#1811}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/child_environment.rs]
 tests: [src/child_environment/tests.rs]
@@ -18,6 +18,7 @@ A Strata that D-Bus activated for FileManager1 runs with `no-portals` added to `
 
 - From the activated process, default-app opens, Open With, the context-menu default app, Open in Terminal, and Omarchy maintenance commands from Settings see the original `GDK_DEBUG`, or none when it was unset. lgse/strata#1811
 - Executables and `.sh` files, custom actions, file providers, document-preview web links, the AUR package page opened by Settings' update action, and Restart now in Settings get the same restore. lgse/strata#1811
+- Terminals started by Settings' Run in terminal install commands get the same restore. lgse/strata#1811 (unverified)
 - None of those programs see `STRATA_ORIGINAL_GDK_DEBUG`. lgse/strata#1811
 - In a process not re-exec'd for `no-portals`, launched programs inherit `GDK_DEBUG` unchanged. lgse/strata#1811 (unverified)
 

@@ -3,7 +3,7 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
 tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
@@ -21,7 +21,6 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 
 - Settings → General → Performance has a Thumbnail workers spin button from 1 to 16, with − before the number and + after it. lgse/strata#1081, lgse/strata#1778
 - Assistive technologies read the control as one spin button named "Thumbnail workers". lgse/strata#1778
-- Typing "thumbnail workers" in Search settings reveals the control. lgse/strata#1081, lgse/strata#1778
 - Clicking − or +, or typing a count and pressing Return, saves `thumbnail_workers`. It applies to every window without a restart or stopping running jobs. lgse/strata#1081, lgse/strata#1778
 - At 16, clicking + leaves the count at 16. lgse/strata#1778
 - + is insensitive at 16, and − at 1. lgse/strata#1778 (unverified)

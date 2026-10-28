@@ -3,7 +3,7 @@ title: Icons view
 status: shipped
 origin: {issue: lgse/strata#322, pr: lgse/strata#328}
 branch: null
-reviewed_at: 027d6981a69ea7b526a763d3ec563fdecb19c66b
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**]
 tests: [src/ui/icons_cell/tests.rs]
@@ -22,7 +22,6 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 - The number of tile columns follows the viewport width and reflows when the window, sidebar, or preview panel changes width. lgse/strata#510
 - Each tile has a fixed-size thumbnail slot, a two-line filename, and one details line. lgse/strata#328, lgse/strata#1148
 - Filenames start directly below the thumbnail, top-aligned in their two-line area. lgse/strata#747
-- Airy density adds modest padding around tiles compared with Compact. lgse/strata#747
 - Hover feedback appears only over a tile's thumbnail and caption, not the gutters between tiles. lgse/strata#998
 
 ### Details line

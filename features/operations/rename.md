@@ -3,10 +3,10 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
-tests: [tests/qa/scenarios/inline_renaming, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch]
+tests: [tests/qa/scenarios/inline_renaming, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/create, browser/selection, operations/trash, browser/folder-customization, operations/filesystem-compatibility]
 ---
@@ -41,7 +41,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Ctrl+1, Ctrl+2, and Ctrl+3 reach the editor instead of switching view mode. lgse/strata#914
 - Typing a name containing `/` puts the field in the error style and sets its accessible description to "Names cannot contain /"; no tooltip shows. lgse/strata#445, lgse/strata#1359
 - For `.` or `..` the description is "That name is reserved", and for a whitespace-only name "Enter a name". lgse/strata#445 (unverified)
-- An empty field is not styled as an error. lgse/strata#30
+- An empty field is not styled as an error, even after the user clears it. lgse/strata#30, lgse/strata#31
 - In Columns, the row's size badge is hidden while editing. When the editor closes, it returns only with Show sizes in Columns view on and a size to show. lgse/strata#443, lgse/strata#1564
 - With a long name in a narrow Columns view, End, typing, and arrow keys keep the caret and extension visible. lgse/strata#591
 - Editor text is centered in Icons and left-aligned in List and Columns. lgse/strata#1155
@@ -123,6 +123,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 | 2026-09-06 | lgse/strata#443 | fix | Hid the Columns size badge while renaming so long names stay readable. |
 | 2026-09-06 | lgse/strata#445 | fix | Flagged invalid names instead of aborting on a RefCell panic. |
 | 2026-09-01 | lgse/strata#115 | fix | Cancelled a rename on click outside, which previously left the field open. |
+| 2026-08-31 | lgse/strata#35 | fix | Styled a cleared or submitted empty name as an error again; lgse/strata#31 later restored the plain empty field. |
 
 ## Known gaps
 

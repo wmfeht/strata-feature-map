@@ -3,7 +3,7 @@ title: Position restore on return and refresh
 status: shipped
 origin: {issue: lgse/strata#868, pr: lgse/strata#893}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser_modes/navigation.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/reload_cursor.rs]
@@ -63,7 +63,6 @@ Issue lgse/strata#868 asked for List's viewport and selection to survive enterin
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-09-12 | lgse/strata#893 | feat | Restored selection, cursor, and scroll position when returning to a List folder. |
 
 ## Known gaps
 

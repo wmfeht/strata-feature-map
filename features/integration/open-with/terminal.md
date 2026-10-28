@@ -3,17 +3,17 @@ title: Open in Terminal
 status: shipped
 origin: {issue: lgse/strata#160, pr: lgse/strata#161}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/terminal.rs]
 tests: [src/ui/terminal/tests.rs, tests/qa/scenarios/terminal/**]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [integration/10xer-mode, browser/tabs, app/updates]
+related: [integration/10xer-mode, browser/tabs, app/updates, browser/context-menu, settings/diagnostics, remote/file-providers/integrations]
 ---
 
 ## Summary
 
-Opening the user's terminal emulator in a local folder from the context menus or Ctrl+Alt+T. The same terminal resolution runs `.sh` files and the package-manager update rows in Settings.
+Opening the user's terminal emulator in a local folder from the context menus or Ctrl+Alt+T. The same terminal resolution runs `.sh` files, the package-manager update rows in Settings, and Settings' Run in terminal install commands. The menu items belong to `browser/context-menu`.
 
 ## Behavior
 
@@ -23,11 +23,9 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - In Columns with no single folder selected, Ctrl+Alt+T uses the Paste destination column: the hovered column after pointer input, otherwise the focused column. lgse/strata#358, lgse/strata#1605
 - When that column's one selected folder is open as the active column to its right, Ctrl+Alt+T opens in that folder. A just-clicked folder thus wins over its hovered parent. lgse/strata#1605, lgse/strata#867
 - Ctrl+Alt+T with Shift or Super also held does not open a terminal. lgse/strata#1484 (unverified)
-- The folder background menu shows Open in Terminal for the current folder, insensitive when the folder is not local. lgse/strata#161 (unverified)
-- The background menu omits Open in Terminal in Trash and Recent. lgse/strata#161, lgse/strata#1083
-- The item menu shows Open in Terminal for a single local folder outside Trash. lgse/strata#161
-- For a location without a local path, the shortcut shows "Unable to open terminal" with "This location is not a local folder". lgse/strata#161
-- In Trash, the shortcut shows "Unable to open terminal" with "Terminal cannot be opened in Trash". lgse/strata#161
+- Open in Terminal on a location without a local path shows "Unable to open terminal" with "This location is not a local folder". lgse/strata#161
+- Open in Terminal in Trash shows "Unable to open terminal" with "Terminal cannot be opened in Trash". lgse/strata#161
+- When no terminal resolves or it fails to start, Open in Terminal shows "Unable to open terminal" with the matching message under Errors. lgse/strata#470, lgse/strata#967
 
 ### Choosing the terminal
 
@@ -38,6 +36,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - Terminal output does not reach Strata's standard output or error. lgse/strata#161
 - After Ctrl+Alt+T starts a launcher that exits at once, no `<defunct>` launcher process stays a child of Strata. lgse/strata#1570, lgse/strata#1465
 - Open in Terminal from a menu and the Settings AUR and Omarchy update rows also reap their launcher after it exits. lgse/strata#1570, lgse/strata#1465
+- Settings' Run in terminal install commands start their terminal through the same resolution and reaper. lgse/strata#1704 (unverified)
 
 ### Ghostty
 
@@ -46,12 +45,13 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - Ghostty 1.2 or 1.1, or a first version line not starting with `Ghostty `, gets the plain `ghostty --working-directory=<folder>` launch. lgse/strata#1763
 - Extra words in `$TERMINAL`, such as `ghostty --class=x`, follow `+new-window`. lgse/strata#1763
 - `.sh` runs, the AUR update row, and the Omarchy row without Omarchy's presentation launcher start Ghostty with `-e` and no `+new-window`. lgse/strata#1763
+- Settings' Run in terminal install commands also start Ghostty with `-e` and no `+new-window`. lgse/strata#1763 (unverified)
 - Strata runs `ghostty --version` at most once per program path per session, and never for other terminals or `xdg-terminal-exec`. lgse/strata#1763
 - An `xdg-terminal-exec` that starts Ghostty itself gets no `+new-window`. lgse/strata#1763 (unverified)
 
 ### Errors
 
-- With no terminal found, the dialog says "No terminal emulator was found", suggests `xdg-terminal-exec` with `~/.config/xdg-terminals.list` or `$TERMINAL`, and lists the fallback emulators. lgse/strata#967
+- With no terminal found, the message says "No terminal emulator was found", suggests `xdg-terminal-exec` with `~/.config/xdg-terminals.list` or `$TERMINAL`, and lists the fallback emulators. lgse/strata#967
 - A resolved terminal that is missing at launch shows "Terminal “<program>” was not found on your PATH". lgse/strata#470, lgse/strata#967
 - Any other launch failure shows "Terminal “<program>” could not be started:" followed by the cause. lgse/strata#470, lgse/strata#967
 
@@ -62,7 +62,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 - Distributions such as CachyOS and vanilla Arch do not ship `xdg-terminal-exec`, so `$TERMINAL` and a `PATH` probe of known emulators back it up. `xdg-terminal-exec` became an optional package dependency (lgse/strata#966, lgse/strata#967).
 - A custom terminal command setting was deferred; `$TERMINAL` and `xdg-terminal-exec` cover preference (lgse/strata#160).
 - Errors name the program and where it was looked for, because the raw "No such file or directory (os error 2)" gave nothing to act on (lgse/strata#437).
-- One module resolves and builds every terminal command: Open in Terminal, `.sh` runs, and the AUR and Omarchy update rows. All share the no-terminal message; Open in Terminal and the update rows also share the launch-failure messages (lgse/strata#470, lgse/strata#1028).
+- One module resolves and builds every terminal command: Open in Terminal, `.sh` runs, and the AUR and Omarchy update rows. All share the no-terminal message; Open in Terminal and the update rows also share the launch-failure messages (lgse/strata#470, lgse/strata#1028). Settings' Run in terminal install commands reuse it (lgse/strata#1704) (unverified).
 - Non-local and Trash locations fail closed, since a terminal needs a real directory (lgse/strata#160).
 - Ctrl+T moved to tabs, so the terminal moved to Ctrl+Alt+T; 10xer keeps `;` then `t` (lgse/strata#1484).
 - A click opens a folder as the active column while the pointer still rests on its parent, so the opened folder is preferred there. Hovering an ancestor further up still uses that ancestor's folder (lgse/strata#867, lgse/strata#1605).

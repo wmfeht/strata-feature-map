@@ -3,7 +3,7 @@ title: Folder and selection size
 status: shipped
 origin: {issue: lgse/strata#556, pr: lgse/strata#558}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/adapters/directory_summary.rs]
 tests: [src/adapters/directory_summary/**, tests/qa/scenarios/properties_size]
@@ -68,5 +68,4 @@ The SIZE and CONTAINS rows of Properties: a recursive, bounded, cancellable meas
 
 ## Known gaps
 
-- Subfolders are measured one at a time, and each selected folder gets its own 300-second budget; bounded concurrency was closed as not planned. lgse/strata#1324
 - The measurement bypasses the mount request lanes. A walk that reaches a dead mount waits until the server answers. lgse/strata#1729

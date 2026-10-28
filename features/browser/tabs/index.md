@@ -3,12 +3,12 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs]
+code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
 docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md, docs/keyboard-navigation.md]
-related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling, browser/sidebar]
+related: [integration/10xer-mode, operations/drag-and-drop, operations/progress/dock, browser/context-menu, browser/scrolling, browser/sidebar, browser/selection, browser/selection/keyboard-navigation]
 ---
 
 ## Summary
@@ -26,6 +26,8 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Ctrl+W, a tab's X button, or 10xer `t` then `x` closes that tab; closing the last tab closes the window. lgse/strata#1484
 - Middle-clicking a tab closes it. lgse/strata#1484 (unverified)
 - Closing the active tab selects its right neighbour, or its left neighbour when it was last. lgse/strata#1484 (unverified)
+- Closing a tab whose folder has a file operation running shows "File operations are still active" and keeps the tab open. lgse/strata#1484
+- Closing the window while any tab, selected or not, has a file operation running shows the same notice and keeps the window open. lgse/strata#1484 (unverified)
 
 ### Reopening
 
@@ -44,16 +46,11 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 
 ### Opening folders in a new tab or window
 
-- Middle-clicking a folder row in Columns, Icons, or List opens that folder in a new tab. lgse/strata#1540, lgse/strata#1543
-- Ctrl+middle-click or Shift+middle-click on a folder row opens that folder in a new window. lgse/strata#1543
-- Middle-clicking a file row selects the file in its parent folder and opens nothing. lgse/strata#1543
-- A double middle-click on a folder opens one tab; a middle press dragged past the drag threshold opens nothing. lgse/strata#1543 (unverified)
 - In both key maps, Ctrl+Enter on a focused folder opens it in a new tab and Shift+Enter in a new window. Keypad Enter works too. lgse/strata#1543
 - Ctrl+Enter or Shift+Enter on a focused file opens it with its default application, like Enter. lgse/strata#1543
 - In the default key map Ctrl+Shift+Enter on a folder opens a tab; in 10xer mode it does nothing. lgse/strata#1543 (unverified)
 - Ctrl+Enter or Shift+Enter typed in a text field is left to the field. lgse/strata#1543 (unverified)
 - In the portal file chooser with 10xer mode on, Ctrl+Enter on a folder still chooses it and opens no tab. lgse/strata#1543
-- Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543 (unverified)
 - A folder opened in a new tab gets a new tab at the right end of the strip. The tab is selected, then navigated there. lgse/strata#1543 (unverified)
 - A new window opened for a folder opens at the default size on that folder. lgse/strata#1543 (unverified)
 - A target still unresolved after 1 s shows "Connecting to location…" in the new tab or window. lgse/strata#1543 (unverified)
@@ -121,6 +118,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Selecting a tab scrolls it into view. lgse/strata#1484
 - Selecting the last tab also scrolls the New tab button into view. lgse/strata#1484 (unverified)
 - Hovering an inactive tab accents its label; its X turns accent only while the pointer is over the X itself. lgse/strata#1484
+- Assistive technologies read the strip as a tab list named "Tabs", each tab by its name with the active one selected, and each X as "Close tab". lgse/strata#1484 (unverified)
 
 ### Tab names
 
@@ -168,6 +166,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI (lgse/strata#1543).
 - Choosers have no tabs and Ctrl+Enter there accepts the folder, so chooser key dispatch skips the open-in-new handling (lgse/strata#1543).
 - The name hold tracks navigation settlement explicitly rather than using a timer. Cancelled, refused, and same-directory navigation release it, and an older validation completion cannot release a newer click (lgse/strata#1507).
+- Split, dual-pane, and multi-pane layouts were declined; each tab holds one pane, and tabs or side-by-side windows serve that work (lgse/strata#1669, [comment](https://github.com/lgse/strata/issues/1669#issuecomment-6184017254), lgse/strata#1902, [comment](https://github.com/lgse/strata/issues/1902#issuecomment-6427717373)).
 - Tabs stay above the toolbar. The request to move them below it, or make that configurable, was declined (lgse/strata#1823, [comment](https://github.com/lgse/strata/issues/1823#issuecomment-6386782486), lgse/strata#1831).
 - One drop target on the strip handles tab reorders and new-tab drops by insertion index, replacing a drop target on each tab (lgse/strata#1831).
 - Strata's own drags carry an all-folders flag (lgse/strata#1692). Tab drops read it, so a folder-only drag opens tabs instead of transferring; files and mixed selections keep transferring (lgse/strata#1831).
@@ -194,4 +193,4 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 ## Known gaps
 
-- Each tab holds one pane; split or dual-pane browsing is undecided. lgse/strata#47
+None known.

@@ -3,12 +3,12 @@ title: Unmount and eject
 status: shipped
 origin: {issue: lgse/strata#295, pr: lgse/strata#296}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/device_release.rs]
 tests: [src/ui/window/device_release/tests.rs]
 docs: [docs/filesystem-compatibility.md]
-related: [operations/clipboard, operations/filesystem-compatibility/open-files, app/accessibility]
+related: [operations/clipboard, operations/filesystem-compatibility/open-files, remote/file-providers/network-locations, app/accessibility]
 ---
 
 ## Summary
@@ -28,6 +28,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 ### Releasing
 
 - Eject or Unmount while browsing inside the device navigates the pane Home before the flush starts. lgse/strata#296, lgse/strata#1193
+- Ejecting or unmounting a remote mount other than SMB, such as SFTP, from its DEVICES row while browsing inside it also sends the pane Home. lgse/strata#352, lgse/strata#296
 - Before the flush, Strata releases its own reads under the mount root, as file operations do. lgse/strata#1729
 - Unmount or Eject while the preview reads a file on the device does not fail as busy. lgse/strata#1729
 - Strata runs `syncfs` on the mount root off the GTK thread, then calls the GIO eject or unmount. lgse/strata#1193

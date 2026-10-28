@@ -3,7 +3,7 @@ title: Offline route previews
 status: shipped
 origin: {issue: lgse/strata#1841, pr: lgse/strata#1842}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/route_preview.rs, src/sandbox_helper/route.rs, src/sandbox_helper/route/fit.rs, src/sandbox_helper/route/geometry.rs, src/sandbox_helper/route/render.rs, src/sandbox_helper/route/xml.rs, src/ui/preview/route.rs, src/ui/preview/route/player.rs, src/ui/preview/route/plot.rs, src/ui/preview/route/position.rs]
 tests: [src/sandbox_helper/route/tests.rs, src/ui/preview/route/position/tests.rs, src/ui/preview/tests/route.rs, src/adapters/local_preview/tests/route_preview.rs, tests/qa/scenarios/quick_preview/route-preview-shows-offline-track-and-elevation.jsonl]
@@ -39,6 +39,7 @@ Offline previews of GPS activity and route files (GPX, FIT, and KML) in the draw
 - During playback, hover, and seeking, the elevation heading also shows the marker's height, such as "29 m". lgse/strata#1842
 - The control row shows the marker's distance on the left and the total on the right. lgse/strata#1842 (unverified)
 - Both images' accessible description is the marker's distance, such as "0.3 km". lgse/strata#1842
+- The play button's tooltip reads "Play/Pause" followed by its shortcut in parentheses; its accessible name is "Play or pause". lgse/strata#1842 (unverified)
 - Hovering either image pauses playback and moves both markers to the hovered point. lgse/strata#1842
 - Playback resumes only on an explicit play; moving the pointer between the images leaves it paused. lgse/strata#1842
 - Where route passes overlap, hovering keeps the pass nearest the current distance among lines within 2 px of the closest. lgse/strata#1842

@@ -3,12 +3,12 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/keyboard.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
-related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter]
+related: [integration/10xer-mode, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list]
 ---
 
 ## Summary
@@ -31,11 +31,6 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - `Request.Close` from the caller closes the chooser and the request returns response 1. lgse/strata#175
 - Without a usable folder hint, Open, SaveFile, and SaveFiles start in `XDG_DOWNLOAD_DIR`, or Home when it is undefined. lgse/strata#993
 - A folder hint that is relative, inaccessible, or unanswered within 3 seconds falls back to the same default folder. lgse/strata#993 (unverified)
-- A SaveFile `current_file` naming a file that does not exist yet, in an accessible folder, opens that folder with the full name in Name. lgse/strata#700
-- With 10xer mode off, a SaveFile request with `current_name` `report.draft.pdf` opens with focus in Name and only `report.draft` selected. lgse/strata#1898
-- That selection survives the idle focus restore after the window presents, so typing replaces `report.draft` and keeps `.pdf`. lgse/strata#1898
-- The selection ends at the last dot after the first character, as in rename: `archive.tar.gz` selects `archive.tar`; `.bashrc` and `notes` select all. lgse/strata#1898 (unverified)
-- With 10xer mode on, Tab from the header into Name in a SaveFile request selects only the part before the last dot. lgse/strata#1898
 - A Wayland parent handle makes the chooser transient for the caller; an X11 parent handle is ignored and the chooser opens standalone. lgse/strata#175
 - The backend exits once no request has been active for 120 seconds, checked every 10 seconds; an open chooser keeps it running. lgse/strata#1201
 
@@ -57,38 +52,42 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Ctrl+1, Ctrl+2, and Ctrl+3 switch the chooser to Columns, Icons, and List. lgse/strata#877
 - With the file view focused and type-to-search on (the default), a printable character opens the filter seeded with it; `/` opens an empty filter. lgse/strata#1164
 - Ctrl+click on a file focuses the item just toggled, so the preview follows it. lgse/strata#1164
+- In Columns, Right on a focused file behaves as in a browser window: it moves into the open child column, or does nothing. lgse/strata#382
 - Dragging from blank space draws a marquee only in multiple-selection requests. A blank click in the file list or sidebar clears the selection in every request. lgse/strata#1164
+- A plain click inside a preview that shows a file keeps the selection; a click in the empty preview slot still clears it. lgse/strata#1570
 - With folders set to single-click in Icons or List, a single click on a folder opens it; a single click on a file only selects it. lgse/strata#1196
 - With the single-click preview preference on, clicking a previewable file opens the shared preview pane; Space toggles it. lgse/strata#385
 - Ctrl+0 on a focused PDF page in the chooser's preview resets its zoom, not the saved text size, with 10xer mode on or off. lgse/strata#1622
-- Dragging a Miller column's right edge resizes it, and double-clicking the edge fits it to its content. lgse/strata#1315
-- A resized Miller column or List heading becomes the default for the next chooser, stored apart from browser windows' defaults. lgse/strata#1339
+- Dragging a Miller column's right edge in the chooser resizes it, and double-clicking the edge fits it to its content. lgse/strata#1315
+- With a preview open in Columns, the column beside the preview keeps its own resize edge; the divider has a wide handle. lgse/strata#1539 (unverified)
+- `browser/view-modes/columns` and `browser/view-modes/list` own the chooser's saved column widths, kept apart from browser windows' widths. lgse/strata#1339
 - The item menu offers Rename, Properties, and, for one previewable file, Quick preview; empty-space right-click offers New Folder. lgse/strata#175, lgse/strata#385
 - The item menu also offers Compress… for native entries, plus Move to Trash and Permanently delete where the location allows them. lgse/strata#950, lgse/strata#1352
 - When every selected item is on a network or cloud mount, Permanently delete in the item menu reads Delete without Trash. A `fuseblk` mount or a local FUSE overlay such as mergerfs keeps Permanently delete. lgse/strata#1614
 - With the file view focused, Shift+Delete asks to delete permanently. Delete moves the selection to Trash, except as below. lgse/strata#950, lgse/strata#1533
 - Where every selected item's open folder reports no Trash support but allows deletion, Delete opens the `operations/trash` explained permanent confirmation instead. lgse/strata#1533
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
+- With the file view focused and no text field active, F2 or Ctrl+R renames the one selected item, and Alt+Enter opens Properties for the focused item. lgse/strata#175, lgse/strata#393 (unverified)
+- The Menu key or Shift+F10 opens the item menu for the focused item, except in a text field or popover. lgse/strata#666 (unverified)
+- Ctrl+F opens the filter, Ctrl+L edits the location, and Ctrl+Shift+N creates a folder. lgse/strata#175 (unverified)
+- Ctrl+Shift+B moves focus to the active sidebar place, opening a hidden sidebar first; pressed again, it returns focus to where it was. lgse/strata#175 (unverified)
 - A shortcut reference can stay open after 10xer mode is turned off in another window. Then F5, Ctrl+H, Ctrl+., Ctrl+1/2/3, and Alt+Up/Left/Home leave the folder, view, and hidden files unchanged. lgse/strata#1714
 - In that state, Escape closes the reference and keeps the request open. lgse/strata#1714
 - In that state, text-size and thumbnail-size shortcuts still apply to the chooser. lgse/strata#1714, lgse/strata#1721 (unverified)
 - With a filter result selected, Space in the Name or location entry types a space and opens no preview. lgse/strata#1714
 - Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
+- In List, Escape during a column heading drag cancels the drag, keeps the request open, and keeps the file selection; a later heading drag still works. lgse/strata#1900
 - The header close button is named "Cancel file selection (Escape)". lgse/strata#1895 (unverified)
 - Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533
 - With 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533
 
-### Accepting
+### Saving
 
-- In a single-selection request, selecting another item replaces the selection, so Open returns one item. lgse/strata#175 (unverified)
-- File Open requests show an "Open files read-only" checkbox; checking it returns `writable` false. lgse/strata#175 (unverified)
-- In Columns, a selected filter result in a column other than the active one is returned on Open, not "Choose a file". lgse/strata#1004
-- In a folder request, accepting with only the automatic first-row selection returns the displayed folder; an explicitly selected child returns that child. lgse/strata#1016
-- Ctrl+Enter from the file list accepts a folder request. lgse/strata#175
-- In a multiple-selection Open request with files selected, Enter or Shift+Enter on a focused file returns every selected file, in every view. lgse/strata#1426, lgse/strata#1533
-- In a multiple-selection Open request, Enter on a focused file outside the selection returns the selection, not the focused file. lgse/strata#1426, lgse/strata#1533
-- In a multiple-selection Open request, Enter on a focused folder opens it, even with files selected. lgse/strata#1426, lgse/strata#1533
-- In a multiple-selection Open request, Enter with a file focused on a selection of a folder and files returns only the files. lgse/strata#1533 (unverified)
+- A SaveFile `current_file` naming a file that does not exist yet, in an accessible folder, opens that folder with the full name in Name. lgse/strata#700
+- With 10xer mode off, a SaveFile request with `current_name` `report.draft.pdf` opens with focus in Name and only `report.draft` selected. lgse/strata#1898
+- That selection survives the idle focus restore after the window presents, so typing replaces `report.draft` and keeps `.pdf`. lgse/strata#1898
+- The selection ends at the last dot after the first character, as in rename: `archive.tar.gz` selects `archive.tar`; `.bashrc` and `notes` select all. lgse/strata#1898 (unverified)
+- With 10xer mode on, Tab from the header into Name in a SaveFile request selects only the part before the last dot. lgse/strata#1898
 - In a Save request, accepting without clicking a row saves into the displayed folder, not its first subfolder. lgse/strata#1138
 - In a Save request, a single-clicked folder becomes the destination without the chooser navigating into it. lgse/strata#892
 - The Name field of a Save request and of a file Open request, where a URL can be typed, is named "Name". lgse/strata#1896 (unverified)
@@ -102,6 +101,18 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Saving with a file selected in Recent uses that file's containing folder as the destination. lgse/strata#1138
 - Saving over an existing file opens "Replace existing file?" with Cancel focused; Cancel keeps the chooser open and Replace returns the path. lgse/strata#175, lgse/strata#1311
 - Saving where a folder of the same name exists fails with "A folder named “name” already exists". lgse/strata#175 (unverified)
+
+### Accepting
+
+- In a single-selection request, selecting another item replaces the selection, so Open returns one item. lgse/strata#175 (unverified)
+- File Open requests show an "Open files read-only" checkbox; checking it returns `writable` false. lgse/strata#175 (unverified)
+- In Columns, a selected filter result in a column other than the active one is returned on Open, not "Choose a file". lgse/strata#1004
+- In a folder request, accepting with only the automatic first-row selection returns the displayed folder; an explicitly selected child returns that child. lgse/strata#1016
+- Ctrl+Enter from the file list accepts a folder request. lgse/strata#175
+- In a multiple-selection Open request with files selected, Enter or Shift+Enter on a focused file returns every selected file, in every view. lgse/strata#1426, lgse/strata#1533
+- In a multiple-selection Open request, Enter on a focused file outside the selection returns the selection, not the focused file. lgse/strata#1426, lgse/strata#1533
+- In a multiple-selection Open request, Enter on a focused folder opens it, even with files selected. lgse/strata#1426, lgse/strata#1533
+- In a multiple-selection Open request, Enter with a file focused on a selection of a folder and files returns only the files. lgse/strata#1533 (unverified)
 
 ### Destination choosers
 
@@ -163,6 +174,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 | 2026-09-09 | lgse/strata#700 | fix | Kept Qt's `current_file` suggestion for a file that does not exist yet. |
 | 2026-09-07 | lgse/strata#504 | fix | Accepted more than 32 filters and made the filter dropdown scroll. |
 | 2026-09-06 | lgse/strata#466 | fix | Accepted filters with many rules, which GitHub's attach button sends. |
+| 2026-09-05 | lgse/strata#382 | fix | Moved Right on a file in Columns into the already open child column, and gave the chooser the same Right behavior. |
 | 2026-09-05 | lgse/strata#385 | feat | Shared single-click and Quick preview behavior with the main window. |
 | 2026-09-05 | lgse/strata#175 | feat | Added the FileChooser v4 backend with Open, Save, Save Files, filters, choices, and previews. |
 

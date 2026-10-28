@@ -3,7 +3,7 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
@@ -18,7 +18,7 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 ### The `g` chord
 
-- `g` arms a chord: the footer shows a `g-` pill with a panel listing each valid second key, and the panel never takes focus. lgse/strata#1296, lgse/strata#1304
+- `g` arms the place chord; `integration/10xer-mode` owns its pill and key panel. lgse/strata#1296, lgse/strata#1304
 - While `g` is armed, the sidebar shows keycaps on Home, Downloads, Documents, Music, Pictures, Videos, Trash, Network, Recent, and visible pins. lgse/strata#1296, lgse/strata#1342
 - `g g` moves to the first item. lgse/strata#1296
 - `g h`, `g c`, `g d`, `g t`, `g n`, `g r`, `g k`, `g p`, and `g v` open Home, `~/.config`, Downloads, Trash, Network, Recent, Documents, Pictures, and Videos. lgse/strata#1296
@@ -99,4 +99,4 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 ## Known gaps
 
-None known.
+- A QA sweep reported that the `g +` flash leaves out the digit for pins 1 to 4; a later investigation could not reproduce it. lgse/strata#1862

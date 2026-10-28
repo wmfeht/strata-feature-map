@@ -3,7 +3,7 @@ title: Leftovers after a crash or unplug
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/adapters/local_operations/leftovers.rs, src/app/browser/leftovers.rs, src/ui/browser/leftovers.rs]
 tests: [src/adapters/local_operations/tests/leftovers.rs, src/app/browser/tests/leftovers.rs, src/ui/browser/leftovers/tests.rs]

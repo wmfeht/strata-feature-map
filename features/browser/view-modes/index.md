@@ -3,12 +3,12 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/pane_header.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
-tests: [tests/qa/scenarios/view_switching, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
+code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
+tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename]
+related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename, browser/search/filter, browser/selection, browser/navigation, operations/trash/empty]
 ---
 
 ## Summary
@@ -38,6 +38,13 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - With Sort by or Appearance open, a wheel tick outside it closes it and scrolls only the listing under the pointer; over the sidebar or other chrome it only closes. lgse/strata#590
 - Wheel ticks inside an open Sort by or Appearance panel keep it open. lgse/strata#590
 
+### Pane header
+
+- List and Icons pane headers show Back, Forward, and Parent folder buttons, each insensitive when its target is unavailable. lgse/strata#485 (unverified)
+- The pane header shows a trash icon button with tooltip "Empty Trash" only at `trash:///`, not in Trash subfolders or other locations. lgse/strata#53
+- In every view mode, the header button is insensitive while the Trash pane lists 0 items and becomes sensitive when an item appears. lgse/strata#138
+- With `gvfsd` running, a Trash holding only an item whose name is not valid UTF-8 enables the header button. lgse/strata#1533
+
 ### Pane header names
 
 - In List and Icons, the pane header's buttons are named "Back (Alt+←)", "Forward (Alt+→)", and "Parent folder (Alt+↑)". lgse/strata#1895
@@ -45,6 +52,21 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - The Ctrl+F filter field is named after its toggle: "Filter this pane (Ctrl+F)" in Columns and "Filter icons (Ctrl+F)" in Icons. lgse/strata#1896
 - In List, the filter field is named "Filter list (Ctrl+F)". lgse/strata#1896 (unverified)
 - The Icons Thumbnail size slider is named "Thumbnail size". lgse/strata#1896
+
+### Selection
+
+- Click the first of five entries and Ctrl+click the third. Shift+Down in List or Shift+Right in Icons then selects only the third and fourth, as in Columns. lgse/strata#1851, lgse/strata#1871
+
+### Filtered clicks
+
+- One plain click on a folder result opens it, whatever the click-count preferences. lgse/strata#697, lgse/strata#1888
+- A plain click on a file result follows the click-count and single-click preview preferences, in Columns, Icons, and List. lgse/strata#1881, lgse/strata#1888
+- With files opening on one click, one plain click on a file result opens it once, with no preview. lgse/strata#1888
+- With files opening on two clicks and single-click previews on, one plain click selects and previews a previewable file result; a double-click opens it once. lgse/strata#1881, lgse/strata#1888
+- With files opening on two clicks and single-click previews on, one plain click on a file result with no quick preview only selects it. lgse/strata#1888 (unverified)
+- With files opening on two clicks and single-click previews off, one plain click on a file result only selects it. lgse/strata#1888 (unverified)
+- In the file chooser and in Trash, a plain click never opens a file result. It previews a previewable file with single-click previews on, otherwise only selects it. lgse/strata#1888
+- A plain click on a selected file result starts no slow-click rename. lgse/strata#1888
 
 ### Content density
 
@@ -66,6 +88,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - F5 keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533, lgse/strata#1729
 - Opening a populated folder that loads within the 150 ms grace period never moves focus to the pane. lgse/strata#1466, lgse/strata#1533 (unverified)
 - While entries show, the pane itself is not a Tab stop. lgse/strata#1431, lgse/strata#1533
+- A view switch or a navigation key drops any cursor refocus still queued from an earlier focus, so it never pulls focus back to the earlier row. lgse/strata#1900 (unverified)
 - In List, cut styling, hidden-file dimming, and live dates of visible rows refresh once scrolling has been still for 25 ms. lgse/strata#1673
 - In Icons, cut styling, hidden-file dimming, and accessible descriptions of visible cards refresh once scrolling has been still for 25 ms. lgse/strata#1673 (unverified)
 - After 10 s without progress on a folder's mount, "Not responding. This list may be out of date." shows above its listing in Columns, Icons, and List. lgse/strata#1729
@@ -95,6 +118,7 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1900 | fix | Cancelled a List heading drag on Escape without saving an order or clearing the selection, and dropped cursor refocus work a newer focus superseded. |
 | 2026-10-25 | lgse/strata#1890 | fix | Dropped stale deferred cursor restores in `browser_modes` once a newer cursor supersedes them, so arrow keys work after a rename re-sorts List. |
 | 2026-10-23 | lgse/strata#1800 | feat | Previewed List heading drags with an insertion line and applied the column move once, on release. |
 | 2026-10-15 | lgse/strata#1673 | perf | Settled List and Icons row refreshes 25 ms after the last scroll instead of every frame, and dropped the `list-fast-scroll` class. |

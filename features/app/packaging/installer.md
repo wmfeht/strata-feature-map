@@ -3,10 +3,10 @@ title: Release installer
 status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [install.sh, data/locales/installer.json, scripts/installer_messages.py]
-tests: [scripts/test_installer.py]
+tests: [scripts/test_installer.py, scripts/testdata]
 docs: [docs/internationalization.md, docs/signed-updates.md]
 related: [integration/file-manager-interface, integration/portal-file-chooser/setup, devices/volumes/udiskie-unlock, settings/preferences/language]
 ---

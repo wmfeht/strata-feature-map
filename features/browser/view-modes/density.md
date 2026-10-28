@@ -3,10 +3,10 @@ title: Frame and content density
 status: shipped
 origin: {issue: lgse/strata#1774, pr: lgse/strata#1776}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/density_slider.rs]
-tests: [src/ui/window/tests/appearance_density.rs, src/ui/theme/tests/density.rs, src/ui/preferences/tests/preferences.rs]
+tests: [src/ui/window/tests/appearance_density.rs]
 docs: [docs/preferences.md]
 related: [settings/themes, browser/view-modes/columns, browser/view-modes/icons, browser/view-modes/list, browser/sidebar, browser/tabs, preview/preview-panel/layout, settings/preferences/storage]
 ---

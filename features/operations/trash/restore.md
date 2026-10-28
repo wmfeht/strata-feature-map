@@ -3,12 +3,12 @@ title: Restore from Trash
 status: shipped
 origin: {issue: lgse/strata#478, pr: lgse/strata#502}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/adapters/trash_restore.rs, src/adapters/local_operations/restore.rs]
 tests: [src/adapters/trash_restore/**, src/adapters/local_operations/tests/restore_safety.rs]
 docs: [docs/trash-restore-testing.md]
-related: [operations/filesystem-compatibility]
+related: [operations/filesystem-compatibility, browser/context-menu]
 ---
 
 ## Summary
@@ -19,7 +19,6 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 ### Lookup and confirmation
 
-- Restore appears in the item menu only when every selected item is a top-level Trash item. lgse/strata#499
 - Choosing Restore shows "Finding restore destinations…"; Cancel or Escape ends the lookup without moving files or deleting metadata. lgse/strata#502
 - After lookup, a "Restore N items?" confirmation lists each item with its full original path; Cancel or Escape changes nothing. lgse/strata#502
 - Items that fail validation are left out of the confirmation, which lists their names and reasons below the valid items. lgse/strata#502 (unverified)
@@ -95,7 +94,6 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 ## Known gaps
 
-- A lookup timeout frees its batch slot while the blocking worker may still run, so more than 8 lookups can be outstanding. lgse/strata#733
 - On sshfs, exfat-fuse, vboxsf, and msdos, alike files trashed from one path within one second both stay in Trash on Undo. lgse/strata#1729
 - On vfat and exFAT, that holds within one 10 ms tick. lgse/strata#1729
 - On renumbering mounts without birth times, Undo brings back the newest folder trashed from a path. lgse/strata#1729

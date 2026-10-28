@@ -3,12 +3,12 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
-tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background]
+tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
-related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring]
+related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter]
 ---
 
 ## Summary
@@ -74,6 +74,9 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Enter in a column's filter field with no pick since the last query edit opens the top result. lgse/strata#1822
 - Down from a column's filter field selects the outlined top result and makes it the pick. lgse/strata#1822 (unverified)
 - Right in a column's filter field with no selected result moves the caret; it does not open the top result. lgse/strata#1822 (unverified)
+- In Columns, opening a filter in one column closes and clears any other column's filter. lgse/strata#887
+- In Columns, moving focus out of the filtered column closes the filter; focus in its own results, a popover, or a dialog keeps it. lgse/strata#896
+- In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
 
 ### Open-path marker
 
@@ -113,6 +116,8 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 - Hovering or selecting a folder row, or a folder on the open path, shows "No items" or "N items" in the right-side badge. lgse/strata#1564
 - Files show their size in the same badge. lgse/strata#1564
+- A row with no size or count to show, such as a folder whose count is unknown, shows no badge. lgse/strata#131, lgse/strata#1564 (unverified)
+- The badge is an opaque chip in the theme's surface color with 5 px rounded corners; on an open-path folder row it takes the highlight color. lgse/strata#131
 - With Show sizes in Columns view off, the badge stays hidden for files and folders in every open window. lgse/strata#1564
 - With the setting off, Columns requests no folder counts. Turning it on fills counts for folder rows already shown. lgse/strata#1564
 - A count that arrives after the setting is turned off leaves the badge hidden. lgse/strata#1564
@@ -182,6 +187,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 | 2026-09-07 | lgse/strata#523 | fix | Focused and revealed a column when its empty space or header is clicked. |
 | 2026-09-06 | lgse/strata#411 | fix | Stopped header spinners left running after view switches. |
 | 2026-09-03 | lgse/strata#171 | feat | Opened folders on single click and closed a child column by clicking its folder again. |
+| 2026-09-01 | lgse/strata#131 | fix | Made the Columns size badge an opaque chip that stays visible on selected rows and hid it on rows with no size. |
 | 2026-09-01 | lgse/strata#114 | feat | Added double-click autofit on column resize edges. |
 
 ## Known gaps

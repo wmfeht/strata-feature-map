@@ -10,34 +10,35 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `.claude/skills` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `.cursor/CLOUD.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `.dockerignore` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `.github/ISSUE_TEMPLATE/bug_report.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `.github/workflows/ci.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `.github/workflows/integrations.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `.github/workflows/packaging.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
-| `.github/workflows/publish-aur.yml` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
-| `.github/workflows/release.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `.github/workflows/test-image.yml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `.gitattributes` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `.github` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `.gitignore` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `AGENTS.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `CLAUDE.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `CONTRIBUTING.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `Cargo.lock` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `Cargo.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `LICENSE` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `README.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `THIRD_PARTY_LICENSES.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `build.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `clippy.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `data/icons/catppuccin/**` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/brand/strata-logo-white.svg` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `data/brand/tenxer-splash.png` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `data/fonts` | code | [Interface font](../features/settings/themes/interface-font.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/catppuccin` | code | [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) | [Themed icons](../features/settings/themes/icons/index.md), [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/icons/scalable/actions/strata-blocks.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `data/icons/scalable/actions/strata-chevron-down-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-chevron-down-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-cloud.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `data/icons/scalable/actions/strata-file-archive.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-file-archive.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-git-branch.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `data/icons/scalable/actions/strata-minus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `data/icons/scalable/actions/strata-plus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-minus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-plus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-smartphone.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `data/icons/scalable/actions/strata-stethoscope.svg` | code | [Diagnostics](../features/settings/diagnostics.md) | — |
-| `data/icons/scalable/actions/strata-video.svg` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-video.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/apps/io.github.lgse.Strata.svg` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `data/io.github.lgse.Strata.FileManager1.service` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `data/io.github.lgse.Strata.desktop` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
@@ -53,7 +54,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/udiskie/unlock` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `data/update-keys.json` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `deny.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `docs/assets/strata-themes.png` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `docs/assets` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `docs/evidence` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `install.sh` | code | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `integrations/kdeconnect/LICENSE` | code | [KDE Connect integration](../features/remote/file-providers/kde-connect.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `integrations/kdeconnect/catalog.toml` | code | [KDE Connect integration](../features/remote/file-providers/kde-connect.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -70,42 +72,59 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `packaging/aur` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete.md) | — |
+| `rustfmt.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
 | `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `scripts/catppuccin_icons.py` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `scripts/catppuccin_icons.py` | code | [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) | [Themed icons](../features/settings/themes/icons/index.md), [Themes and appearance](../features/settings/themes/index.md) |
 | `scripts/check.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/chooser-dev.sh` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `scripts/discord_triage.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/fslab/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `scripts/generate-fixture.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/headless/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/image_*.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/installer_messages.py` | code | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/integration_tests.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/lib/qa-container.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/portal-test.html` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `scripts/portal-test.py` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `scripts/portal_test_environment.py` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `scripts/profile-fixture.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/qa*.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/qa_*.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/quality-durations.json` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/quality.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/quality_ci.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/release_version.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/sftp-fixture.sh` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `scripts/sign_update_manifest.py` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `scripts/start-dev.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test-headless.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_benchmark_scroll.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_discord_triage.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_headless_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_image_*.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_installer.py` | tests | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/test_integration_tests.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_makefile.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_portal_test_environment.py` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `scripts/test_qa_*.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_quality_ci.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_quality_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_release_version.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_sign_update_manifest.py` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `scripts/test_trace_main_io.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_update_aur.py` | tests | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
+| `scripts/testdata` | tests | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/trace-main-io.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/update_aur.py` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
-| `src/adapters/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `skills-lock.json` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/adapters/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `src/adapters/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/adapters/directory_summary.rs` | code | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/adapters/directory_summary/**` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/adapters/directory_validation.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/directory_validation/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `src/adapters/directory_validation.rs` | code | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `src/adapters/directory_validation/tests.rs` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
 | `src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `src/adapters/gio_close.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -135,8 +154,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/archive/decoders/rar.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `src/adapters/local_operations/archive/decoders/rar/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `src/adapters/local_operations/archive/decoders/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/destination.rs` | code | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/destination/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `src/adapters/local_operations/archive/destination.rs` | code | [Extraction safety](../features/operations/archives/extraction-safety.md) | [Archives](../features/operations/archives/index.md) |
+| `src/adapters/local_operations/archive/destination/tests.rs` | tests | [Extraction safety](../features/operations/archives/extraction-safety.md) | [Archives](../features/operations/archives/index.md) |
 | `src/adapters/local_operations/archive/extraction.rs` | code | [Archives](../features/operations/archives/index.md) | — |
 | `src/adapters/local_operations/archive/extraction/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `src/adapters/local_operations/archive/fixtures.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
@@ -148,7 +167,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/copy_engine/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/create_entry.rs` | code | [New Folder and New File](../features/operations/create.md) | — |
 | `src/adapters/local_operations/deferred_close.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/deletion.rs` | code | [Permanent deletion](../features/operations/delete.md) | — |
+| `src/adapters/local_operations/deletion.rs` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
 | `src/adapters/local_operations/environment.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/environment/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/fs_ops.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -175,7 +194,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/tests/conflicts.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/adapters/local_operations/tests/copy.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/tests/create_entry.rs` | tests | [New Folder and New File](../features/operations/create.md) | — |
-| `src/adapters/local_operations/tests/deletion.rs` | tests | [Permanent deletion](../features/operations/delete.md) | — |
+| `src/adapters/local_operations/tests/deletion.rs` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
 | `src/adapters/local_operations/tests/file_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/tests/folder_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/tests/fs_quirks.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
@@ -201,7 +220,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_preview/remote/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/tests/cover_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/model_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/adapters/local_preview/tests/model_preview.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/adapters/local_preview/tests/remote_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/tests/route_preview.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/adapters/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -209,8 +228,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/trash/tests.rs` | tests | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/trash_restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/trash_restore/**` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/trash_support.rs` | code | [Trash](../features/operations/trash/index.md) | — |
-| `src/adapters/trash_support/tests.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `src/adapters/trash_support.rs` | code | [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) | [Trash](../features/operations/trash/index.md) |
+| `src/adapters/trash_support/tests.rs` | tests | [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) | [Trash](../features/operations/trash/index.md) |
 | `src/adapters/volume.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/adapters/volume/mount_capabilities.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/volume/mount_lanes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -237,6 +256,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/loading/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/loading/metadata/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/loading/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/navigation_lifecycle.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/app/browser/operation_events.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/operation_events/background.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/operation_events/tests.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
@@ -253,7 +273,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/tests/camera_photos.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/app/browser/tests/folder_sorts.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/browser/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/app/browser/tests/location_input.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
+| `src/app/browser/tests/location_input.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `src/app/browser/tests/metadata.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/navigation.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
 | `src/app/browser/tests/operations.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
@@ -268,10 +289,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/navigation/selection.rs` | code | [Selection](../features/browser/selection/index.md) | — |
 | `src/app/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/app/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
-| `src/assets.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/assets/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/assets/vector.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/assets/vector/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/assets.rs` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/assets/tests.rs` | tests | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/assets/vector.rs` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/assets/vector/tests.rs` | tests | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/child_environment.rs` | code | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
@@ -279,6 +300,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/logging.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/logging/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/main.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/media/peaks` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -288,6 +311,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/media/storyboard.rs` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/media/storyboard/tests.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/metrics.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/metrics/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/model/action.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/model/action/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
@@ -326,8 +351,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/sandbox/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox/metadata.rs` | code | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/sandbox/metadata/tests.rs` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/sandbox/model.rs` | code | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/model/tests.rs` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/sandbox/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/sandbox/model/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox/raw_metadata.rs` | code | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/sandbox/raw_metadata/tests.rs` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/sandbox/runtime.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -346,12 +371,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/sandbox_helper/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/sandbox_helper/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/sandbox_helper/model/embedded.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/sandbox_helper/model/embedded/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/sandbox_helper/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/sandbox_helper/model/embedded.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/sandbox_helper/model/embedded/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/model/gcode.rs` | code | [G-code thumbnail previews](../features/preview/preview-panel/gcode.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/model/gcode/tests.rs` | tests | [G-code thumbnail previews](../features/preview/preview-panel/gcode.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/sandbox_helper/model/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/raw_metadata.rs` | code | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/sandbox_helper/raw_metadata/tests.rs` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/sandbox_helper/route.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -392,17 +417,21 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/item_identity/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/services/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/services/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `src/services/listeners.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/services/listeners/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/mime_type.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/services/mime_type/tests.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/model_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/services/model_preview.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
+| `src/services/network_error.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/services/network_error/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/odt.rs` | code | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/odt/tests.rs` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/package_manager.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/services/package_manager/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/services/package_manager.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/services/package_manager/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/path_match.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/services/path_match/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/services/preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
@@ -415,17 +444,17 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/rtf.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/rtf/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/search.rs` | code | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/directory.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/directory/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/services/search/directory.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/services/search/directory/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/services/search/exclusions.rs` | code | [Global search exclusions](../features/browser/search/exclusions.md) | [Search](../features/browser/search/index.md) |
 | `src/services/search/exclusions/tests.rs` | tests | [Global search exclusions](../features/browser/search/exclusions.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/pattern.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/pattern/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/services/search/pattern.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/services/search/pattern/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/services/search/tests.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/multi_root.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/performance.rs` | tests | [Search](../features/browser/search/index.md) | — |
 | `src/services/search/tests/refresh.rs` | tests | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/tests/scope.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/services/search/tests/scope.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/transfer_action.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
@@ -446,7 +475,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/storage/writer/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/test_support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/tests.rs` | tests | [Packaging and installation](../features/app/packaging/index.md) | — |
+| `src/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/trusted_command.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/trusted_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/accessibility.rs` | code | [Accessibility](../features/app/accessibility.md) | — |
@@ -460,28 +489,33 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/chooser_context.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/browser/clipboard.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/clipboard/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/ui/browser/collection.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/browser/collection/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/browser/collection.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/browser/collection/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/columns.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/drag_scroll.rs` | code | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/ui/browser/columns/drag_scroll/tests.rs` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/ui/browser/columns/reveal.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/rows.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/browser/columns/search.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/browser/columns/search.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/columns/tests.rs` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/context_menu.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
-| `src/ui/browser/context_menu/**` | code | [Context menus](../features/browser/context-menu.md) | — |
+| `src/ui/browser/context_menu/actions.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/browser/context_menu/actions/tests.rs` | tests | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `src/ui/browser/context_menu/commands.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
+| `src/ui/browser/context_menu/keyboard.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
+| `src/ui/browser/context_menu/presentation.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
+| `src/ui/browser/context_menu/tests.rs` | tests | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/browser/context_menu/tests/menus.rs` | tests | [Context menus](../features/browser/context-menu.md) | — |
-| `src/ui/browser/context_menu/tests/open_with.rs` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
+| `src/ui/browser/context_menu/tests/open_with.rs` | tests | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/browser/customization.rs` | code | [Folder and file customization](../features/browser/folder-customization.md) | — |
 | `src/ui/browser/desktop.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/browser/desktop/tests.rs` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/browser/destination.rs` | code | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/ui/browser/dissolve_delete.rs` | code | [Permanent deletion](../features/operations/delete.md) | — |
-| `src/ui/browser/entry.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/browser/entry/catppuccin.rs` | code | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/browser/entry/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/browser/dissolve_delete.rs` | code | [Permanent-delete dissolve animation](../features/operations/delete/dissolve.md) | [Permanent deletion](../features/operations/delete/index.md) |
+| `src/ui/browser/entry.rs` | code | [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) | [Themed icons](../features/settings/themes/icons/index.md), [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/browser/entry/catppuccin.rs` | code | [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) | [Themed icons](../features/settings/themes/icons/index.md), [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/browser/entry/tests.rs` | tests | [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) | [Themed icons](../features/settings/themes/icons/index.md), [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/browser/entry_animation.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/file_commands.rs` | code | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/find.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/find/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -492,11 +526,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/leftovers/tests.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/ui/browser/listing_filter.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/listing_search.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/browser/location.rs` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/ui/browser/location/**` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/ui/browser/location/completion/tests.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/ui/browser/location/tests.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/ui/browser/pane_header.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
+| `src/ui/browser/location.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/browser/location/completion.rs` | code | [Location path completion](../features/browser/navigation/location-bar/completion.md) | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [Navigation](../features/browser/navigation/index.md) |
+| `src/ui/browser/location/completion/tests.rs` | tests | [Location path completion](../features/browser/navigation/location-bar/completion.md) | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [Navigation](../features/browser/navigation/index.md) |
+| `src/ui/browser/location/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/browser/pane_header.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser/paths.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/ui/browser/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/ui/browser/presentation.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
@@ -534,27 +569,26 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/chooser/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/tests.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/acceptance.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
-| `src/ui/chooser/tests/column_widths.rs` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/chooser/tests/column_widths.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/confined.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/filtered_preview.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/tests/image_conversion.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/ui/chooser/tests/keyboard.rs` | tests | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/chooser/tests/keyboard.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `src/ui/chooser/tests/keyboard.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/chooser/tests/sizing.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `src/ui/close_guard.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/collection_edit.rs` | code | [Inline rename](../features/operations/rename.md) | — |
 | `src/ui/collection_interaction.rs` | code | [Selection](../features/browser/selection/index.md) | — |
 | `src/ui/collection_interaction/tests.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/ui/controls.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/controls/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
-| `src/ui/decoration.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
-| `src/ui/decoration/tests.rs` | tests | [Window chrome and structure](../features/app/window.md) | — |
+| `src/ui/decoration.rs` | code | [Window chrome and structure](../features/app/window/index.md) | — |
+| `src/ui/decoration/tests.rs` | tests | [Window chrome and structure](../features/app/window/index.md) | — |
 | `src/ui/desktop_integration.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/document_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/enter_target.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/enter_target/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/enter_target.rs` | code | [Filter Enter target](../features/browser/search/filter/enter-target.md) | [Pane filter](../features/browser/search/filter/index.md), [Search](../features/browser/search/index.md) |
+| `src/ui/enter_target/tests.rs` | tests | [Filter Enter target](../features/browser/search/filter/enter-target.md) | [Pane filter](../features/browser/search/filter/index.md), [Search](../features/browser/search/index.md) |
 | `src/ui/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers.rs` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -565,8 +599,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/icons_cell.rs` | code | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/icons_cell/**` | code | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/icons_cell/tests.rs` | tests | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/inline_search.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/inline_search/**` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/inline_search.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/inline_search/**` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/keys.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
@@ -611,10 +645,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/item_customizations.rs` | code | [Folder and file customization](../features/browser/folder-customization.md) | — |
 | `src/ui/preferences/save_notice.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/ui/preferences/tests/preferences.rs` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
-| `src/ui/preferences/tests/preferences.rs` | tests | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/preferences/tests/preferences.rs` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/preferences/tests/preferences.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/ui/preferences/tests/preferences.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/preferences/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/text_size.rs` | code | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/trashed.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -634,11 +665,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preview/keyboard.rs` | code | [Quick preview](../features/preview/quick-preview/index.md) | — |
 | `src/ui/preview/layout.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/media_layout.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/preview/model.rs` | code | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/preview/model/tests.rs` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/preview/pdf_ranges_tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/ui/preview/pdf_text.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/ui/preview/pdf_text/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `src/ui/preview/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/model/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/pdf_ranges_tests.rs` | tests | [PDF text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/pdf_text.rs` | code | [PDF text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/pdf_text/tests.rs` | tests | [PDF text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/player_layout.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/route.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/route/player.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -646,11 +677,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preview/route/position.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/route/position/tests.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/session.rs` | code | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/preview/tests.rs` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/tests/audio.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/find.rs` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/media_controls.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/preview/tests/model.rs` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/preview/tests/model.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/preview/tests/operations.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/tests/pdf.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preview/tests/route.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -677,14 +708,14 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/scrolling/tests.rs` | tests | [Scrolling](../features/browser/scrolling.md) | — |
 | `src/ui/search.rs` | code | [Search](../features/browser/search/index.md) | — |
 | `src/ui/search/tests.rs` | tests | [Search](../features/browser/search/index.md) | — |
-| `src/ui/search_session.rs` | code | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/search_session/tests.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/settings.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `src/ui/search_session.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/search_session/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/settings.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/settings/about.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/ui/settings/actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/ui/settings/actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/ui/settings/actions/tests/readiness.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `src/ui/settings/actions/tests/**` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/ui/settings/bindings.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/diagnostics.rs` | code | [Diagnostics](../features/settings/diagnostics.md) | — |
 | `src/ui/settings/diagnostics/tests.rs` | tests | [Diagnostics](../features/settings/diagnostics.md) | — |
@@ -708,16 +739,15 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/theme.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/editor.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/editor/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
-| `src/ui/settings/theme/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/settings/theme/tests.rs` | tests | [Interface font](../features/settings/themes/interface-font.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/settings/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/settings/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/wrap.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/shortcut_footer.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
 | `src/ui/shortcut_footer/candidates.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/shortcut_footer/chord_panel.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/shortcut_footer/tests.rs` | tests | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
 | `src/ui/shortcut_reference.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
-| `src/ui/sidebar_toggle.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
-| `src/ui/sidebar_toggle/tests.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `src/ui/sidebar_toggle.rs` | code | [Sidebar collapse and icon rail](../features/browser/sidebar/rail.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `src/ui/sidebar_toggle/tests.rs` | tests | [Sidebar collapse and icon rail](../features/browser/sidebar/rail.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/table_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -733,12 +763,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
-| `src/ui/theme/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/theme/tests.rs` | tests | [Themed icons](../features/settings/themes/icons.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/theme/tests.rs` | tests | [Interface font](../features/settings/themes/interface-font.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/theme/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/ui/theme/tests/density.rs` | tests | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/theme/tests/density.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/tests/density.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/thumbnail.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
@@ -759,17 +784,17 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/udiskie_preferences/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/virtual_preview.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/line_numbers.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/scrollbar.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/scrollbar/position.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/virtual_preview/scrollbar/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar.rs` | code | [Document preview scrollbar](../features/preview/preview-panel/documents/scrollbar.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar/position.rs` | code | [Document preview scrollbar](../features/preview/preview-panel/documents/scrollbar.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/virtual_preview/scrollbar/tests.rs` | tests | [Document preview scrollbar](../features/preview/preview-panel/documents/scrollbar.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/virtual_preview/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/window/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/ui/window/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/ui/window/composition.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
+| `src/ui/window/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `src/ui/window/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `src/ui/window/composition.rs` | code | [Window chrome and structure](../features/app/window/index.md) | — |
 | `src/ui/window/composition/input.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/ui/window/composition/layout.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
+| `src/ui/window/composition/layout.rs` | code | [Window chrome and structure](../features/app/window/index.md) | — |
 | `src/ui/window/composition/search.rs` | code | [Search](../features/browser/search/index.md) | — |
 | `src/ui/window/composition/settings.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/window/composition/settings/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
@@ -791,10 +816,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/drive_dialogs/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/drive_ops.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/drive_ops/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/window/keyboard.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
+| `src/ui/window/keyboard.rs` | code | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/keyboard/chooser.rs` | code | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/keyboard/chords.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/keyboard/commands.rs` | code | [Window chrome and structure](../features/app/window.md) | — |
+| `src/ui/window/keyboard/commands.rs` | code | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/keyboard/escape.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/keyboard/files.rs` | code | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/keyboard/focus.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
@@ -806,28 +831,26 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/network_location/tests.rs` | tests | [Connect to server dialog](../features/browser/sidebar/connect-to-server.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/window/open_argument.rs` | code | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/ui/window/open_argument/tests.rs` | tests | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/ui/window/pinned_drop.rs` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/ui/window/pinned_drop/**` | code | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/ui/window/pinned_drop/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `src/ui/window/pinned_drop.rs` | code | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `src/ui/window/pinned_drop/tests.rs` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/window/sidebar.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/sidebar_drop_feedback.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/sidebar_drop_feedback/tests.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/tests/appearance_density.rs` | tests | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/tests/bookmarks.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
-| `src/ui/window/tests/keyboard_dispatch.rs` | tests | [Window chrome and structure](../features/app/window.md) | — |
+| `src/ui/window/tests/keyboard_dispatch.rs` | tests | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/audio_tracks.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/context_menus.rs` | tests | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/escape_precedence.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/file_commands.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/file_verbs.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/filter_focus.rs` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/folder_jump.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/go_prompt.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/mode_exit.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/open_in_new.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/overlay_focus.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
-| `src/ui/window/tests/keyboard_dispatch/overlay_focus.rs` | tests | [Window chrome and structure](../features/app/window.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/pane_focus.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/preview_ownership.rs` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -835,11 +858,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs` | tests | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/video_clips.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/tests/keyboard_policy.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
-| `src/ui/window/tests/preferences.rs` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
-| `src/ui/window/tests/preferences.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
-| `src/ui/window/tests/preferences.rs` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/window/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
-| `src/ui/window/tests/rail.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `src/ui/window/tests/preferences.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/window/tests/rail.rs` | tests | [Sidebar collapse and icon rail](../features/browser/sidebar/rail.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/window/tests/sidebar.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/unlock_argument.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/unlock_argument/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -857,14 +877,16 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/fixtures/documents/password-protected.pdf` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `tests/fixtures/documents/report.docx` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/fixtures/documents/report.odt` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/fixtures/documents/text.pdf` | tests | [PDF text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/fixtures/harness.json` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/rar/**` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `tests/fixtures/signed-update` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `tests/fixtures/spreadsheets` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/*.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/baselines/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/fixtures/content-encrypted.7z` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `tests/qa/fixtures/file_drag_source.py` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/fixtures/file_drag_source.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/foreign_drag_source.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/main-io-allowlist.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/mutations/click-mode-preference.patch` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
@@ -872,10 +894,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/mutations/clipboard.patch` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `tests/qa/mutations/cut.patch` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `tests/qa/mutations/drag-and-drop.patch` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/qa/mutations/filter-results.patch` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/mutations/filter-results.patch` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/mutations/keep-both.patch` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `tests/qa/mutations/keyboard-navigation.patch` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
-| `tests/qa/mutations/location-entry.patch` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/mutations/location-entry.patch` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/mutations/new-entry-collision.patch` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/mutations/popover-scrolling.patch` | tests | [Scrolling](../features/browser/scrolling.md) | — |
 | `tests/qa/mutations/quick-preview.patch` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
@@ -905,23 +927,78 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/created_entry_columns` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/cross_volume_drop` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `tests/qa/scenarios/custom_actions/**` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `tests/qa/scenarios/dialogs_and_menus` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
-| `tests/qa/scenarios/dialogs_and_menus` | tests | [Window chrome and structure](../features/app/window.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/background-customize-ancestor-column.jsonl` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/compress-then-chooser-extracts.jsonl` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/customization-follows-move-and-trash.jsonl` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/customize-takes-focus-single-escape.jsonl` | tests | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/entry-menu-named-actions.jsonl` | tests | [Accessibility](../features/app/accessibility.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/executable-menu-confirmed-run.jsonl` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/executable-requires-confirmation.jsonl` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/invalid-archive-name-keeps-dialog.jsonl` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl` | tests | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
+| `tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl` | tests | [Context menus](../features/browser/context-menu.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
-| `tests/qa/scenarios/drag_and_drop` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl` | tests | [Context menus](../features/browser/context-menu.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl` | tests | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl` | tests | [Context menus](../features/browser/context-menu.md) | — |
+| `tests/qa/scenarios/drag_and_drop/column-edge-scrolls-listing.jsonl` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/empty-name-space-drag-starts-marquee.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
-| `tests/qa/scenarios/drag_animation` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/qa/scenarios/entry_management` | tests | [New Folder and New File](../features/operations/create.md) | — |
-| `tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl` | tests | [Permanent deletion](../features/operations/delete.md) | — |
+| `tests/qa/scenarios/drag_and_drop/filtered-result-to-sidebar-folder.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/folder-into-another-folder.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/strip-edge-scrolls-columns-in.jsonl` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl` | tests | [Permanent-delete dissolve animation](../features/operations/delete/dissolve.md) | [Permanent deletion](../features/operations/delete/index.md) |
+| `tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `tests/qa/scenarios/entry_management/delete-to-trash.jsonl` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
+| `tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl` | tests | [Undo and redo](../features/operations/undo.md) | — |
 | `tests/qa/scenarios/escape_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `tests/qa/scenarios/file_providers` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `tests/qa/scenarios/filter_results` | tests | [Pane filter](../features/browser/search/filter.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/delete-trashes-filtered-result.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/filter-enter-opens-top-match.jsonl` | tests | [Filter Enter target](../features/browser/search/filter/enter-target.md) | [Pane filter](../features/browser/search/filter/index.md), [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/space-completes-composition.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/hidden_files` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `tests/qa/scenarios/inline_renaming` | tests | [Inline rename](../features/operations/rename.md) | — |
 | `tests/qa/scenarios/keyboard_navigation` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
-| `tests/qa/scenarios/locations` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `tests/qa/scenarios/locations/named-location-controls.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `tests/qa/scenarios/locations/sidebar-place-navigates.jsonl` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `tests/qa/scenarios/locations/typed-path-navigates.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/marquee_scrolling` | tests | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/monitor_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/open_with/**` | tests | [Opening files and Open With](../features/integration/open-with/index.md) | — |
@@ -931,29 +1008,67 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/preview_media_layout` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `tests/qa/scenarios/preview_session` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/preview_video` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/qa/scenarios/properties_media` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `tests/qa/scenarios/properties_media/media-details-properties-only.jsonl` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `tests/qa/scenarios/properties_media/raw-details-preview-and-properties.jsonl` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `tests/qa/scenarios/properties_size` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `tests/qa/scenarios/quick_preview` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/qa/scenarios/quick_preview` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/qa/scenarios/quick_preview` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/qa/scenarios/quick_preview` | tests | [Model camera views](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/qa/scenarios/quick_preview` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/column-preview-fills-free-space.jsonl` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/columns-keyboard-opens-preview.jsonl` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/quick_preview/columns-preview-reopens-after-closing.jsonl` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/markdown-equations-keep-prose.jsonl` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/markdown-preview-renders-media.jsonl` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/model-preview-reports-limits.jsonl` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/narrow-window-keeps-last-column.jsonl` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `tests/qa/scenarios/quick_preview/pdf-preview-copies-text.jsonl` | tests | [PDF text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/pdf-zoom-keeps-text-size.jsonl` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `tests/qa/scenarios/quick_preview/preview-boundary-resizes-grabbed-side.jsonl` | tests | [Preview panel layout](../features/preview/preview-panel/layout.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/preview-find-navigates-content.jsonl` | tests | [Find in preview](../features/preview/preview-panel/find.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `tests/qa/scenarios/quick_preview/rendered-document-word-selection.jsonl` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview/route-preview-shows-offline-track-and-elevation.jsonl` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/tenxer-l-enters-preview.jsonl` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/recent` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/rename_visibility` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/qa/scenarios/search_filter_sort` | tests | [Search](../features/browser/search/index.md) | — |
+| `tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/search_filter_sort/global-search-*` | tests | [Search](../features/browser/search/index.md) | — |
+| `tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/sidebar_file_drops` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/qa/scenarios/sidebar_pinning` | tests | [Pinned folders](../features/browser/sidebar/pins.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `tests/qa/scenarios/sidebar_reordering` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `tests/qa/scenarios/sidebar_pinning` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
+| `tests/qa/scenarios/sidebar_reordering/pin-insertion-keeps-one-destination.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
 | `tests/qa/scenarios/startup_arguments` | tests | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/tabs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `tests/qa/scenarios/terminal/**` | tests | [Open in Terminal](../features/integration/open-with/terminal.md) | [Opening files and Open With](../features/integration/open-with/index.md) |
 | `tests/qa/scenarios/text_size` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/thumbnail_worker_settings` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `tests/qa/scenarios/view_switching` | tests | [View modes](../features/browser/view-modes/index.md) | — |
-| `tests/qa/scenarios/view_switching` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/view_switching/appearance-menu-switches-view-list.jsonl` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/view_switching/list-column-drag-applies-on-release.jsonl` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `tests/qa/scenarios/visual_baselines` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `typos.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |

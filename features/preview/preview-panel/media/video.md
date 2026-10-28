@@ -3,7 +3,7 @@ title: Video previews
 status: shipped
 origin: {issue: lgse/strata#1417, pr: lgse/strata#1474}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preview/video.rs, src/ui/preview/video, src/media/storyboard.rs, src/media/storyboard, src/ui/media/ambient.rs, src/ui/media/ambient]
 tests: [src/ui/preview/tests/video.rs, src/ui/preview/video/badges/tests.rs, src/ui/preview/video/details/tests.rs, src/ui/preview/video/storyboard/tests.rs, src/media/storyboard/tests.rs, src/ui/media/ambient/tests.rs, src/ui/window/tests/keyboard_dispatch/video_clips.rs, tests/qa/scenarios/preview_video]
@@ -22,6 +22,7 @@ The now-playing view for video files: the frame, a header with technical badges,
 - A video resuming where it stopped shows its nearest cached storyboard cell instead of the opening thumbnail. lgse/strata#1474
 - The first frame fades the stand-in out over 150 ms, or replaces it at once under reduced motion. lgse/strata#1474
 - Clicking the frame toggles playback. lgse/strata#1474
+- The play button's tooltip reads "Play/Pause" followed by its shortcut in parentheses; its accessible name is "Play or pause". lgse/strata#1474 (unverified)
 - With **Element glow** on and a GPU renderer, the frame's edge colors bleed into a 24 px band around it; it is off under reduced motion or Cairo and frozen while paused. lgse/strata#1474
 
 ### Header and badges

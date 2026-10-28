@@ -3,10 +3,10 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
-tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files]
+code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
+tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
 docs: [docs/preferences.md]
 related: [settings/themes, settings/diagnostics, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode, browser/directory-monitoring, preview/preview-panel/routes]
 ---
@@ -21,8 +21,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - Ctrl+, or the header Settings button opens Settings over the blurred window; the first open shows General. lgse/strata#849
 - Ctrl+Alt+, and Ctrl+Super+, do not open Settings. lgse/strata#1576
-- While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing. lgse/strata#912
-- Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849
+- While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing, and the dialog keeps focus. lgse/strata#912, lgse/strata#1900
+- Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849, lgse/strata#1900
+- A click on the Settings panel itself leaves Settings open. lgse/strata#1900
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
 - The navigation lists General, Appearance, Actions, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748
@@ -71,11 +72,15 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
 - Searching "3d", "mesh", or "printing" shows Appearance's STL model thumbnails row. lgse/strata#1789 (unverified)
+- Searching "Corner roundness", "radius", or "rounded" shows Appearance's Corner roundness row. lgse/strata#1680 (unverified)
+- Searching "Show thumbnails" or "photos", or "Miniaturansichten" under Deutsch, shows Appearance's Show thumbnails row. lgse/strata#1651 (unverified)
 - Searching "font" shows Appearance's Interface font row. lgse/strata#1696
 - Searching "typeface" or "family" shows the Interface font row. lgse/strata#1696 (unverified)
 - Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735
 - Searching "add-ons" or "plugins" opens the Integrations page. lgse/strata#1748
 - On an in-place install, searching "rollback", "downgrade", or "previous version" opens Updates with the Install a specific release row. lgse/strata#1781 (unverified)
+- Typing "thumbnail workers" in Search settings reveals the Thumbnail workers control. lgse/strata#1081, lgse/strata#1778
+- Searching Settings for "session", "reopen", or "startup" finds Restore open tabs. lgse/strata#1532 (unverified)
 - Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
@@ -157,6 +162,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Settings is a layer inside the window, built on first open. Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work. Integrations joined them (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
+- That check once looked only at the tab overlay that hosts Settings, so Properties, a window-level dialog, still let Ctrl+, open Settings beneath it. It now asks for any visible modal layer in the window (lgse/strata#1859, lgse/strata#1900).
+- The backdrop click is hit-tested against the `settings-dialog` panel. Testing the responsive bin around it, which fills the window, counted every click as inside (lgse/strata#1879, lgse/strata#1900).
 - Closing Settings returns focus to the file list, not to the gear or other chrome that opened it. Only a focused filter session gets its field or results back (owner decision, lgse/strata#1430, lgse/strata#1533).
 - Settings is hidden rather than removed, so it captures its focus origin on each show and restores focus when the hide completes. Every close route, and the layer unrealizing with its window, runs the same dismissal hooks (lgse/strata#1430, lgse/strata#1457, lgse/strata#1533).
 - A choice button's value goes in its description, so its name stays stable for E2E locators and Settings search. Options are radio menu items so screen readers announce the chosen one (lgse/strata#1467, lgse/strata#1544).
@@ -176,6 +183,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-27 | lgse/strata#1900 | fix | Refused Ctrl+, under window-level dialogs such as Properties and hit-tested outside clicks against the panel, so Settings closes on one. |
 | 2026-10-17 | lgse/strata#1719 | fix | Made Settings pages scroll vertically only and cleared the overshoot bands, so pages no longer pan sideways or draw dark stripes at scroll walls. |
 | 2026-10-15 | lgse/strata#1673 | perf | Drew the About logo in theme colors, so it no longer sits on a near-black tile in light themes, and changed the tagline to "Navigate every layer." |
 | 2026-10-11 | lgse/strata#1564 | feat | Added the Show sizes in Columns view switch to General → Browsing and to Settings search. |

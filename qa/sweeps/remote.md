@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 
@@ -77,6 +77,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Use the fixture catalog's category chips with the window at one-, two-, and three-column widths, with a card expanded in each.
 - Open the page in Settings opened from the file chooser, and with `XDG_CONFIG_HOME` pointing at a missing directory.
 - Repeat the page in an RTL language and in the compact Settings layout.
+- Press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and `PATH` holding no listed terminal; then install one and press it again without Refresh.
 
 ### remote/file-providers/kde-connect
 
@@ -100,7 +101,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Settings navigation to Integrations and Settings search aliases for it → `settings`.
 - Copy, move, paste, rename, and delete with a remote folder as source or target → `operations`.
 - Preview panel and quick preview of remote files, and thumbnails on remote entries → `preview`.
-- Mounting, unmounting, and ejecting local volumes and removable media → `devices`.
+- Mounting, unmounting, and ejecting local volumes and removable media, and unmounting a remote mount from its DEVICES row → `devices`.
 - How a provider notice stacks with progress cards and replaces another visible notice in the dock → `operations`.
 - Thumbnail rendering that provider badges share, and search inside a remote location → `browser`.
 - How a non-UTF-8 or `%2F` URI displays, skipped-entry warnings, and directory-load log redaction → `app`.

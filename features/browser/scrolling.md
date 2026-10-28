@@ -3,7 +3,7 @@ title: Scrolling
 status: shipped
 origin: {issue: lgse/strata#293, pr: lgse/strata#311}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/scrolling.rs, src/ui/scrolling/popover.rs]
 tests: [src/ui/scrolling/tests.rs, src/ui/scrolling/popover/tests.rs, tests/qa/scenarios/popover_scrolling, tests/qa/mutations/popover-scrolling.patch]

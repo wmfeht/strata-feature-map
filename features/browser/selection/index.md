@@ -3,17 +3,17 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode]
+related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode, browser/context-menu, browser/tabs]
 ---
 
 ## Summary
 
-Which entries are selected in Columns, Icons, and List, and how clicks, modifier clicks, Shift keys, Escape, and empty-space clicks change that. Children: `browser/selection/marquee` (rubber-band selection), `browser/selection/pointer-intent` (press-and-drag routing), `browser/selection/click-modes` (single- or double-click opening), and `browser/selection/keyboard-navigation` (arrow focus movement). Columns-specific empty-space clicks belong to `browser/view-modes/columns`.
+Which entries are selected in Columns, Icons, and List, and how clicks, modifier clicks, Shift keys, Escape, and empty-space clicks change that. Also covers what a middle click on a row opens. Children: `browser/selection/marquee` (rubber-band selection), `browser/selection/pointer-intent` (press-and-drag routing), `browser/selection/click-modes` (single- or double-click opening), and `browser/selection/keyboard-navigation` (arrow focus movement). Columns-specific empty-space clicks belong to `browser/view-modes/columns`.
 
 ## Behavior
 
@@ -27,13 +27,17 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - Ctrl+click or Shift+click on an entry's name or icon moves keyboard focus to that entry, so the preview follows it. lgse/strata#1164, lgse/strata#797
 - Releasing Shift before the mouse button keeps the pressed range, including a press on blank row space in Columns and List. lgse/strata#786, lgse/strata#797
 - Releasing Ctrl before the mouse button on blank row space still adds the row. lgse/strata#797
-- Right-clicking an unselected entry makes it the only selected entry and the keyboard cursor. lgse/strata#666
-- Right-clicking an entry inside a multi-selection keeps the whole selection. lgse/strata#666
+
+### Middle clicks
+
+- Middle-clicking a folder row in Columns, Icons, or List opens that folder in a new tab. lgse/strata#1540, lgse/strata#1543
+- Ctrl+middle-click or Shift+middle-click on a folder row opens that folder in a new window. lgse/strata#1543
+- Middle-clicking a file row selects the file in its parent folder and opens nothing. lgse/strata#1543
+- A double middle-click on a folder opens one tab; a middle press dragged past the drag threshold opens nothing. lgse/strata#1543 (unverified)
 
 ### Keyboard selection
 
 - Shift+Up and Shift+Down extend the selection by one entry from the range anchor. lgse/strata#526
-- Click the first of five entries and Ctrl+click the third. Shift+Down in List or Shift+Right in Icons then selects only the third and fourth, as in Columns. lgse/strata#1851, lgse/strata#1871
 - Shift+Page Up and Shift+Page Down extend or shrink the selection by one page from the range anchor. lgse/strata#1313
 - The file chooser leaves Shift+Page Up and Shift+Page Down to GTK. lgse/strata#1313
 - Shift+Down with nothing selected selects only the first entry; the next Shift+Down selects two. lgse/strata#738
@@ -67,7 +71,6 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 ### Hover
 
-- In List, the hover highlight and the click target cover the same row area. lgse/strata#327
 - An entry selected at startup or by keyboard folder entry shows hover feedback before any click, without changing selection. lgse/strata#805
 - After keyboard navigation, a parked pointer's row hover and pending folder peek are suppressed until the pointer moves. lgse/strata#358
 
@@ -104,4 +107,4 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 ## Known gaps
 
-- docs/keyboard-navigation.md says blank-column presses keep descendants; the code closes deeper columns. lgse/strata#1164, lgse/strata#1265
+None known.

@@ -3,17 +3,17 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/inline_search.rs, src/ui/enter_target.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
-tests: [src/ui/search_session/tests.rs, src/ui/enter_target/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results, tests/qa/mutations/filter-results.patch]
+code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
+tests: [src/ui/search_session/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results/delete-trashes-filtered-result.jsonl, tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl, tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl, tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl, tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl, tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl, tests/qa/scenarios/filter_results/space-completes-composition.jsonl, tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl, tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl, tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl, tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl, tests/qa/mutations/filter-results.patch]
 docs: [site/src/reference/keyboard-navigation.md, docs/preferences.md]
-related: [integration/10xer-mode, browser/view-modes, preview/quick-preview, browser/thumbnails]
+related: [integration/10xer-mode, browser/context-menu, browser/view-modes, preview/quick-preview, browser/thumbnails, browser/view-modes/columns, integration/10xer-mode/search]
 ---
 
 ## Summary
 
-The Ctrl+F filter narrows the focused pane by filename, in the current folder and, by default, its subfolders. It works in Columns, Icons, and List, and its results support the normal item actions.
+The Ctrl+F filter narrows the focused pane by filename, in the current folder and, by default, its subfolders. It works in Columns, Icons, and List, and its results support the normal item actions. Child: `browser/search/filter/enter-target` (the outlined result Enter opens).
 
 ## Behavior
 
@@ -36,9 +36,8 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Ctrl+1, Ctrl+2, or Ctrl+3 with a result focused moves focus to the carried-over results once they show. lgse/strata#1441, lgse/strata#1533
 - Switching view from the View menu with a query typed gives the results focus once they show. lgse/strata#1441, lgse/strata#1533
 - Press Ctrl+F while a large Icons or List folder is loading. When the load completes, focus stays in the field, so Ctrl+A and Backspace edit the query. lgse/strata#1444, lgse/strata#1533
-- In Columns, opening a filter in one column closes and clears any other column's filter. lgse/strata#887
 - In Columns, a click outside the filtered column closes and clears its filter; a click inside that column keeps it. lgse/strata#887
-- In Columns, moving focus out of the filtered column closes the filter; focus in its own results, a popover, or a dialog keeps it. lgse/strata#896
+- In Columns, Ctrl+F with a filter result focused moves focus back to that column's open filter field. lgse/strata#1226 (unverified)
 
 ### Matching
 
@@ -82,38 +81,11 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Dropped hits can leave fewer than 100 results while more candidates exist. The search then ranks twice as many candidates to fill them. lgse/strata#1729
 - When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544
 
-### Enter target
-
-- With the field focused and a query with results, the top result has a 1 px accent outline. This holds in Columns, Icons, and List. lgse/strata#1822
-- In search results the outline comes with no selection; the in-place filter keeps the listing's selection. lgse/strata#1822
-- Moving focus from the field to a result or elsewhere removes the outline. lgse/strata#1822
-- In Icons and List, Enter in the field with no pick opens the outlined top result. This holds for search results and for a filter that narrows rows in place. lgse/strata#1822
-- A pick, such as Ctrl+click on `old-reports` then a click back in the field, removes the outline; Enter then opens the pick. lgse/strata#1822
-- A pick is an arrow key, Down from the field, a click, a Ctrl+click, focus moving into the results, or another user selection change. lgse/strata#1822
-- Deselecting every result after a pick returns the outline and Enter to the top result. lgse/strata#1822 (unverified)
-- In search results, editing the query text drops the pick and the results' selection; the outline moves to the new top result. lgse/strata#1822
-- In Trash, Recent, or a network share, where the filter narrows rows in place, a query edit keeps the selection but drops the pick. lgse/strata#1822
-- A same-query update, such as another program creating a matching file, keeps the pick, the selection, and its preview. lgse/strata#1822
-- While the field has focus, the list keeps the top result scrolled into view as results arrive. lgse/strata#1822
-- A button press, wheel scroll, touch, or drag hover on the results stops that scrolling; the next query edit scrolls back to the top result. lgse/strata#1822
-- With only the outline showing, Space in the field types a space and opens no preview. lgse/strata#1822
-- With 10xer mode on, no result is outlined and a query edit keeps the selected result, in the Ctrl+F field too. lgse/strata#1822 (unverified)
-- In the file chooser, Enter in the filter field chooses the top result in Columns, Icons, and List. lgse/strata#1822
-
 ### Results
 
 - Down from the field focuses a result; in Icons and List, the outlined top result or the result picked since the last query change. Up from the first result returns to the field with the query kept. lgse/strata#995, lgse/strata#1018, lgse/strata#1822
 - In List and Icons, Tab from a focused result leaves the results in one press. Shift+Tab then returns to the result that held the cursor. lgse/strata#1550, lgse/strata#1575
 - Enter on a focused result opens it, file or folder, whatever the click-count and preview preferences. lgse/strata#697
-- One plain click on a folder result opens it, whatever the click-count preferences. lgse/strata#697, lgse/strata#1888
-- A plain click on a file result follows the click-count and single-click preview preferences, in Columns, Icons, and List. lgse/strata#1881, lgse/strata#1888
-- With files opening on one click, one plain click on a file result opens it once, with no preview. lgse/strata#1888
-- With files opening on two clicks and single-click previews on, one plain click selects and previews a previewable file result; a double-click opens it once. lgse/strata#1881, lgse/strata#1888
-- With files opening on two clicks and single-click previews on, one plain click on a file result with no quick preview only selects it. lgse/strata#1888 (unverified)
-- With files opening on two clicks and single-click previews off, one plain click on a file result only selects it. lgse/strata#1888 (unverified)
-- In the file chooser and in Trash, a plain click never opens a file result. It previews a previewable file with single-click previews on, otherwise only selects it. lgse/strata#1888
-- A plain click on a selected file result starts no slow-click rename. lgse/strata#1888
-- In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
 - In the filter field or its results, Space toggles quick preview for the selected file result and keeps the query; Shift+Space types a space. lgse/strata#585, lgse/strata#1714
 - With a file result selected, Space in the location bar, the preview find bar, or the archive password field types a space. lgse/strata#1714
 - In those fields Space opens no preview, in every view. lgse/strata#1714
@@ -124,7 +96,6 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Ctrl-click, Shift-click, Shift+Arrow, Ctrl+A, and marquee select results. lgse/strata#1018
 - Dragging, the item menu, Ctrl+C, and Ctrl+X act on the selected results at their real locations. lgse/strata#639, lgse/strata#1018
 - Right-click on empty result space still opens the background menu with New Folder and New File. lgse/strata#639
-- A single file result's menu offers **Open file location**, which opens its folder with the file selected. lgse/strata#1041
 - A result renamed, deleted, or moved through its menu leaves the results; a rename that still matches stays at its real parent. lgse/strata#800, lgse/strata#1155
 - As results update for the same query, rows still matching keep their widgets, thumbnails, and selection, without flashing. lgse/strata#639, lgse/strata#778, lgse/strata#1822
 - When the selected result disappears, the next result, or the last remaining one, is selected. lgse/strata#639
@@ -132,17 +103,6 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - If no selected result remains, focus goes to the result now in the deleted one's slot, or to the last result. Escape then closes the filter. lgse/strata#1632
 - Deleting the last remaining result that way moves focus to the filter field; Escape then closes the filter. lgse/strata#1632
 - Icons shows results as an icon grid and List as rows. lgse/strata#1155
-
-### Focus return
-
-- After a dialog or overlay opened from a result closes, focus returns to the result under the results' cursor in Columns, Icons, and List. The selection is unchanged. lgse/strata#1611, lgse/strata#1632
-- In List, Ctrl+F `txt`, Down twice, Shift+Delete, then Escape: the second result has the focus ring and Up moves to the first. lgse/strata#1611
-- In Icons, Ctrl+F `txt`, Down then Right, Shift+Delete, then Escape: Left moves to the first result. lgse/strata#1611
-- Tabbing into the pane while results show also returns focus to the cursor's result. lgse/strata#1611
-- When GTK's last focused result is selected it keeps focus; otherwise focus moves to the selected result. lgse/strata#1611
-- With several results selected and GTK's row unselected, focus goes to the last selected result in list order. lgse/strata#1611 (unverified)
-- Closing Quick Look over results returns focus to the cursor's result by the same rule. lgse/strata#1611
-- While a result is being renamed, a focus return leaves focus in the rename field. lgse/strata#1611
 
 ## Design
 
@@ -157,9 +117,6 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - The directory-only index reuses the GIO listing's symlink and `.hidden` rules so filter results match the visible listing (lgse/strata#692, lgse/strata#752).
 - Results are reconciled by full path, so progressive updates keep rows, thumbnails, focus, and selection (lgse/strata#620, lgse/strata#639, lgse/strata#719). Since lgse/strata#1822 search results keep their selection only across updates for the same query; the in-place filter keeps the listing's selection.
 - lgse/strata#1628 selected the first match on each query change and was closed with a request to keep the selection ([comment](https://github.com/lgse/strata/pull/1628#issuecomment-6150008036)). lgse/strata#1643 first proposed keeping it. After pushback ([comment](https://github.com/lgse/strata/issues/1643#issuecomment-6154138056)), its description changed so a new query returns to the first match ([comment](https://github.com/lgse/strata/issues/1643#issuecomment-6237184764)).
-- The top result is outlined, not selected. lgse/strata#1765 selected row 0, so Space in the field previewed the hit and multi-word queries broke ([comment](https://github.com/lgse/strata/pull/1765#issuecomment-6304253858), [review](https://github.com/lgse/strata/pull/1765#issuecomment-6307467566)).
-- The same review asked that later batches follow row 0, that Columns be covered, and that the Shift-click anchor not go stale. lgse/strata#1822 marks the top on each batch, covers Columns, and drops the anchor with the selection.
-- One module, `src/ui/enter_target.rs`, owns the pick rule. Picks are user selection and focus changes; each surface's own writes do not count (lgse/strata#1822).
 - The in-place filter keeps the listing's selection because that selection belongs to the browser, not the filter (lgse/strata#1822).
 - Icons and List share one result collection with view-specific presentation; Columns keeps its native collection (lgse/strata#1155, lgse/strata#1167).
 - List and Icons results are one Tab stop, like the listings, because Tab otherwise took one press per result (lgse/strata#1550, lgse/strata#1575).
@@ -176,7 +133,6 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - A background load or live change refocuses the listing only when the listing itself held focus, never the filter field or its results (lgse/strata#1444, lgse/strata#1533).
 - After an in-app delete, the focused widget is an unmapped row of the hidden listing, which cannot take keys. The results therefore reclaim focus from any unmapped list row, but only when focus was in the results (lgse/strata#1593, lgse/strata#1632).
 - A fallback of the selected results to the focused one was reverted: it would change copy, cut, chooser accept, and menu targets (lgse/strata#1632).
-- GTK's `ListView::grab_focus` refocuses the row it last focused, which stays behind when Find or a 10xer prompt moves the cursor without focus. Returning focus therefore targets the cursor's result explicitly, without rewriting the selection (lgse/strata#1549, lgse/strata#1611).
 - An outside deletion of the cursor entry follows that rule too. Before, deleting the cursor item outside the app left nothing focused (lgse/strata#1439, lgse/strata#1544).
 - 10xer mode drives this same field for its **f** filter and **s** search with fzf-style path terms, overriding the subfolder preference without saving it (lgse/strata#1297, lgse/strata#1403).
 
@@ -217,7 +173,6 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 ## Known gaps
 
-- In Columns, `/` or Ctrl+F from a focused result does not return focus to the filter field. lgse/strata#1226
 - In List and Icons, a reload briefly hides the filter field, so a character typed in that instant can be dropped. lgse/strata#1544
 - In List and Icons, renaming a hit moves focus to the hit now in its slot. lgse/strata#1544
 - The filter cannot search file contents. lgse/strata#1211

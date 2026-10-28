@@ -3,10 +3,10 @@ title: List column order and visibility
 status: shipped
 origin: {issue: lgse/strata#1597, pr: lgse/strata#1651}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser_modes/column_options.rs]
-tests: [src/ui/preferences/tests/preferences.rs, src/ui/window/tests/preferences.rs, src/ui/chooser/tests/column_widths.rs, tests/qa/scenarios/view_switching]
+tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view-list.jsonl, tests/qa/scenarios/view_switching/list-column-drag-applies-on-release.jsonl]
 docs: [docs/preferences.md]
 related: [browser/view-modes, browser/view-modes/sorting, browser/view-modes/folder-views, browser/selection/pointer-intent, integration/portal-file-chooser]
 ---
@@ -36,13 +36,15 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 
 ### Reordering
 
-- Pressing a heading and dragging it horizontally shows a grabbing cursor and a 3 px accent inset line at the drop point. The headings do not move during the drag. lgse/strata#1651, lgse/strata#1800
+- Pressing a List heading and dragging it horizontally shows a grabbing cursor and a 3 px accent inset line at the drop point. The headings do not move during the drag. lgse/strata#1651, lgse/strata#1800
 - The line sits on the left edge of the heading the column would precede. lgse/strata#1800 (unverified)
 - For a drop at the end, the line sits on the last heading's right edge. lgse/strata#1800 (unverified)
 - Releasing over the headings moves the column to the marked point; one drag can move it several positions. lgse/strata#1800
 - A drop on the column's current position shows no line and changes nothing. lgse/strata#1800 (unverified)
 - Moving the pointer outside the heading row hides the line, and releasing there leaves the order unchanged. lgse/strata#1800
 - A cancelled drag, or headings unmapped mid-drag, leaves the order unchanged and clears the line and cursor. lgse/strata#1800
+- Pressing Escape mid-drag and then releasing leaves the column order and the saved `list_column_order` unchanged, and keeps the file selection. lgse/strata#1900
+- After a drag cancelled with Escape, the next heading drag reorders and saves as usual. lgse/strata#1900
 - Moving the Name heading does not change the sort. lgse/strata#1800
 - A drag only starts after 10 px of horizontal movement; a shorter press and release stays a sort click. lgse/strata#1651 (unverified)
 - A press within 8 px of a heading's right edge resizes the column and never reorders it. lgse/strata#1651 (unverified)
@@ -71,7 +73,7 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 
 - Column presentation is independent of sorting. Earlier revisions fell back to sorting by Name when the sort column was hidden; that was removed so file order never jumps (lgse/strata#1651).
 - Changing the layout also updates a cached inactive List pane, because returning to List reuses it (lgse/strata#1651).
-- Columns move only on release, with one shared preference update, instead of rearranging and saving on every swap (lgse/strata#1800).
+- Columns move only on release, with one shared preference update, instead of rearranging and saving on every swap (lgse/strata#1800). Escape and release share one finisher, which clears the pending commit before resetting the gesture, so the `drag-end` that reset emits saves nothing ([review](https://github.com/lgse/strata/pull/1900#issuecomment-6434082322)).
 - Reordering moves Name off the first child, so rows and pointer hit testing find cells by CSS class (lgse/strata#1651).
 
 ## History

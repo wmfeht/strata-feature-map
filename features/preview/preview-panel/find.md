@@ -3,10 +3,10 @@ title: Find in preview
 status: shipped
 origin: {issue: lgse/strata#1558, pr: lgse/strata#1559}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preview/find.rs]
-tests: [src/ui/preview/tests/find.rs, tests/qa/scenarios/quick_preview]
+tests: [src/ui/preview/tests/find.rs, tests/qa/scenarios/quick_preview/preview-find-navigates-content.jsonl]
 docs: [site/src/reference/document-previews.md]
 related: [preview/preview-panel/documents, integration/10xer-mode/preview-keys, preview/quick-preview]
 ---
@@ -25,8 +25,10 @@ A find bar below the preview header that searches the text loaded in the open pr
 - Toggling 10xer mode updates the tooltip of an open preview's find button. lgse/strata#1559 (unverified)
 - In the default key map, Ctrl+F with focus in the preview opens the find bar with the entry focused and the previous query selected. lgse/strata#1559, lgse/strata#1558
 - With focus in the file listing, Ctrl+F still opens the filename filter, not preview find. lgse/strata#1559, lgse/strata#1558
+- Ctrl+F or `/` on a preview with no searchable text opens no find bar and passes the key on. lgse/strata#1559 (unverified)
+- In 10xer mode, Ctrl+F does not open find, and `/` typed inside the find entry is literal text. lgse/strata#1559 (unverified)
 - In 10xer mode, `/` or keypad `/` with a searchable preview owning the keys opens find. lgse/strata#1559
-- Escape, or the **Close find** button, hides the bar and returns keys to the document. lgse/strata#1559
+- Escape anywhere in the drawer, or the **Close find** button, hides the bar and returns keys to the document. lgse/strata#1559
 - After closing find, the preview stays open and the selected match stays selected for Ctrl+C. lgse/strata#1559
 
 ### Searching
@@ -34,6 +36,8 @@ A find bar below the preview header that searches the text loaded in the open pr
 - Typing a query selects and reveals the first literal, case-insensitive match, so "éclair" finds "ÉCLAIR". lgse/strata#1559, lgse/strata#1558
 - The status reads "Match 1 of N", or "No matches", and is hidden while the query is empty. lgse/strata#1559
 - Enter and **Next match** move to the next match, Shift+Enter and **Previous match** to the previous one, wrapping at either end. lgse/strata#1559
+- Enter and Shift+Enter step through matches only while focus is in the find entry. lgse/strata#1559 (unverified)
+- Each edit to the query clears the document selection, so with "No matches" nothing stays selected. lgse/strata#1559 (unverified)
 - With zero matches, **Next match** and **Previous match** are insensitive. lgse/strata#1559 (unverified)
 - Matches do not overlap: "aa" in "aaa" counts 1. lgse/strata#1559 (unverified)
 - The query field accepts at most 256 characters. lgse/strata#1559 (unverified)

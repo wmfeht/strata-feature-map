@@ -3,7 +3,7 @@ title: Chooser PNG conversion
 status: shipped
 origin: {issue: lgse/strata#1386, pr: lgse/strata#1387}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/chooser/image_conversion.rs, src/services/image_conversion.rs, src/sandbox_helper/image_conversion.rs]
 tests: [src/ui/chooser/tests/image_conversion.rs, src/services/image_conversion/tests.rs, src/sandbox_helper/image_conversion/tests.rs, tests/qa/scenarios/chooser_image_conversion/**]
@@ -34,6 +34,7 @@ An opt-in conversion to PNG for images downloaded through the chooser's Name fie
 - Inputs over 32 MiB or 16 megapixels, or a PNG output over 32 MiB, fail with the limit named in the error. lgse/strata#1387
 - Cancel, Escape, or a failed conversion leaves the chooser open and returns nothing. lgse/strata#1387
 - Changing Name or the selected filter while checking or converting stops the job and shows "The name or filter changed. Press Open to try again." lgse/strata#1387
+- Submitting the same URL again in the same chooser reuses the earlier download, while its file still exists, instead of fetching again. lgse/strata#1387
 - The converted PNG is written to a new `strata-download-*` folder and kept, with the original, until the one-day sweep. lgse/strata#1387
 - The converted PNG's folder is created with mode 0700 and the PNG with mode 0600, so other local users cannot read it. lgse/strata#1866
 

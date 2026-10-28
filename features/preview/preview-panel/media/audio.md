@@ -3,7 +3,7 @@ title: Audio previews
 status: shipped
 origin: {issue: lgse/strata#1288, pr: lgse/strata#1289}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/preview/audio.rs, src/ui/preview/audio, src/ui/preview/waveform.rs, src/ui/preview/waveform, src/media/peaks.rs, src/media/peaks]
 tests: [src/ui/preview/audio/tests.rs, src/ui/preview/audio/analysis/tests.rs, src/ui/preview/audio/details/tests.rs, src/ui/preview/tests/audio.rs, src/ui/preview/waveform/tests.rs, src/media/peaks/tests.rs, src/ui/window/tests/keyboard_dispatch/audio_tracks.rs]
@@ -23,7 +23,8 @@ The now-playing view for audio files: artwork, tags, a live spectrum, a waveform
 - Without any art, a theme-colored record spins in its place while playing. lgse/strata#1289
 - Remote audio files use embedded art only. lgse/strata#1289 (unverified)
 - Title, artist, and album come from tags; a file without a title tag shows its name without the extension. lgse/strata#1289
-- The caption shows the tagged track number, such as "Track 3 of 12"; without one it shows "3 of 12 in folder", or "3 of 12 in results" while filtered results replace the listing. lgse/strata#1289
+- The caption shows the tagged track number, such as "Track 3 of 12", or "Track 3" without a total tag. Without a track tag it shows "3 of 12 in folder", or "3 of 12 in results" while filtered results replace the listing. lgse/strata#1289
+- The play button's tooltip reads "Play/Pause" followed by its shortcut in parentheses; its accessible name is "Play or pause". lgse/strata#1289 (unverified)
 - A song's tags stay shown when a file operation stops the read of its folder cover. lgse/strata#1729
 - Details and folder art refused by a file operation are not cached as failures; the next visit reads them again. lgse/strata#1729 (unverified)
 - Tag and art rows keep their space while loading, so changing tracks does not shift the layout. lgse/strata#1289

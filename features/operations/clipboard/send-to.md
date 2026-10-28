@@ -3,7 +3,7 @@ title: Send to removable devices
 status: shipped
 origin: {issue: lgse/strata#1153, pr: lgse/strata#1278}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/browser/destination.rs]
 tests: [src/ui/browser/context_menu/actions/tests.rs]
@@ -17,12 +17,10 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 ## Behavior
 
 - The item menu shows Send to… only when items are selected. lgse/strata#1278
-- A mounted, writable, local removable device must exist, or a provider must place a destination there. lgse/strata#1278, lgse/strata#1393, lgse/strata#1742
+- The item menu shows Send to… only when a removable device destination (`devices/volumes`) or a provider destination exists. lgse/strata#1278, lgse/strata#1393, lgse/strata#1742
 - Removable devices come first in Send to…, then one entry per provider. lgse/strata#1742
 - A provider's entry is a submenu named after the provider, or the single row it asked for when that is its only destination. lgse/strata#1704, lgse/strata#1756
-- Device rows are sorted by name, ignoring case; devices sharing one identity are left out. lgse/strata#1278 (unverified)
 - Each device submenu offers Drive root, up to 3 recent folders labeled "<folder> (recent)", and Choose folder…. lgse/strata#1278
-- A recent folder that no longer exists on the device is left out of its submenu. lgse/strata#1278 (unverified)
 - Sending copies the selection, never moves it, and leaves the browser in its current folder. lgse/strata#1278
 - Choose folder… opens a floating chooser titled "Send to folder" whose navigation stays inside the device. lgse/strata#1384
 - The Send to folder chooser hides the sidebar, confirms with "Copy here", and offers no New Folder. lgse/strata#1384 (unverified)

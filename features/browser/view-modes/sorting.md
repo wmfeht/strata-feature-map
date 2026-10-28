@@ -3,10 +3,10 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/app/browser/sorting.rs, src/services/mime_type.rs]
-tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs]
+code: [src/app/browser/sorting.rs, src/services/mime_type.rs, src/ui/browser/pane_header.rs]
+tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl]
 docs: [docs/preferences.md]
 related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navigation/recent, devices/volumes/camera]
 ---
@@ -75,5 +75,4 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 
 ## Known gaps
 
-- Folders first and Group by file type are application-wide, not remembered per folder. lgse/strata#1520
 - Filenames sort by code point, not by pinyin. lgse/strata#1583

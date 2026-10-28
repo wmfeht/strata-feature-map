@@ -3,16 +3,16 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/browser/location.rs, src/ui/browser/location/**]
-tests: [src/ui/browser/location/tests.rs, src/ui/browser/location/completion/tests.rs, src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations, tests/qa/mutations/location-entry.patch]
+code: []
+tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, tests/qa/mutations/location-entry.patch]
 related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility]
 ---
 
 ## Summary
 
-The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, folder-name completion, revealing a typed file, and the breadcrumb hierarchy menu.
+The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, revealing a typed file, and the breadcrumb hierarchy menu. Child: `browser/navigation/location-bar/completion` (the folder suggestions under the entry).
 
 ## Behavior
 
@@ -26,6 +26,10 @@ The header control that shows the active location as breadcrumbs and switches to
 - The entry and its buttons have the accessible names "Location (Ctrl+L)", "Navigate (Enter)", and "Cancel (Escape)". lgse/strata#1132
 - While the entry has focus, Ctrl+K and Ctrl+1–3 reach the entry instead of opening search or switching view mode. lgse/strata#914
 - A location that cannot be opened shows an "Unable to open location" dialog and the breadcrumbs return to the current path. lgse/strata#1206 (unverified)
+- Opening a folder Strata may not read shows an "Unable to open directory" dialog saying you do not have permission. lgse/strata#1807 (unverified)
+- Escape cancels the edit even while suggestions are showing, closing the popover with it. lgse/strata#1206 (unverified)
+- Closing and reopening the editor shows no stale or flashing suggestion list. lgse/strata#1206
+- A folder load that ends while the entry is open and focused, as in a new tab, leaves the entry open with its text. lgse/strata#1729
 
 ### Typed paths
 
@@ -48,22 +52,6 @@ The header control that shows the active location as breadcrumbs and switches to
 - If that parent is already open, the file is selected in place, after a refresh when the file is new. lgse/strata#1219
 - A hidden file target turns on hidden files so the selection is visible. lgse/strata#1219
 - A file target missing from the loaded parent shows an "Unable to select file" dialog. lgse/strata#1219
-
-### Path completion
-
-- While editing, a popover under the entry, matching its width, lists child folders whose names start with the typed absolute, `~/`, or relative path, ignoring case. lgse/strata#388
-- A relative prefix completes against the current folder and inserts the folder's absolute path. lgse/strata#388 (unverified)
-- Down and Up move through suggestions, wrapping at the ends, and Page Down and Page Up move by 5. lgse/strata#388 (unverified)
-- Tab inserts the highlighted suggestion, the only suggestion, or a longer common prefix and closes the popover; Down reopens it. lgse/strata#388
-- When Tab has nothing longer to insert, it highlights the next suggestion instead. lgse/strata#388 (unverified)
-- Enter on a highlighted suggestion opens that folder. lgse/strata#388
-- Escape cancels the edit even while suggestions are showing, closing the popover with it. lgse/strata#1206 (unverified)
-- Hidden folders are suggested only when hidden files are shown or the typed name starts with `.`. lgse/strata#388 (unverified)
-- The popover does not appear while the breadcrumbs are showing. lgse/strata#388
-- Closing and reopening the editor shows no stale or flashing suggestion list. lgse/strata#1206
-- While the typed folder is being listed, the previous suggestions stay; only the latest text's list replaces them. lgse/strata#1729 (unverified)
-- Tab pressed during the listing waits for its list, and so do Down, Up, Page Down, and Page Up while suggestions show. Enter after one of them waits too; they then run in order. lgse/strata#1729
-- A folder load that ends while the entry is open and focused, as in a new tab, leaves the entry open with its text. lgse/strata#1729
 
 ### Breadcrumbs
 
@@ -89,7 +77,6 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - A typed URI is stored in the percent-encoded form its listed children use, so refreshes reach the open column. The entry keeps the decoded text (lgse/strata#1424, lgse/strata#1533).
 - URI credentials are parsed with GLib's password and auth-parameter flags and leave the text at once. They reach only the pending mount with saving disabled, and are then discarded (lgse/strata#111, lgse/strata#145).
 - A file path reuses validation: `NotDirectory` sends the parent through navigation with the file as a pending reveal, matching GTK and KDE choosers (lgse/strata#1139, lgse/strata#1219).
-- Completion scans at most 10,000 entries and lists at most 50 folders (lgse/strata#388). Since lgse/strata#1729 a worker lists the folder, one request per text change, so a dead mount cannot freeze typing.
 - Every exit path switches the stack to the breadcrumbs before resetting the text, so the entry's `changed` signal cannot reopen the popover (lgse/strata#1205).
 - The scrollbar moved from an overlay inside the 22 px crumb row to its own row, after the shared fixed-scrollbar class still cropped labels (lgse/strata#297, lgse/strata#819).
 

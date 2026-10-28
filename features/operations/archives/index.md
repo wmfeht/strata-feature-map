@@ -3,17 +3,17 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
-code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/destination.rs, src/adapters/local_operations/archive/extraction.rs]
-tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/destination/tests.rs, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z]
+code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/extraction.rs]
+tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z, tests/qa/scenarios/dialogs_and_menus/compress-then-chooser-extracts.jsonl]
 docs: [site/src/reference/archives.md, site/src/reference/keyboard-navigation.md, docs/archives.md]
 related: [integration/10xer-mode, operations/progress, operations/trash, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting local archives with Extract here, Extract to…, or by activating them. Covers passwords, name conflicts, extraction safety, and error reporting. Children: `operations/archives/rar` (RAR extraction) and `operations/archives/preview` (browsing an archive's members in the preview).
+Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting local archives with Extract here, Extract to…, or by activating them. Covers passwords, name conflicts, extraction safety, and error reporting. Children: `operations/archives/rar` (RAR extraction), `operations/archives/preview` (browsing an archive's members in the preview), and `operations/archives/extraction-safety` (member paths, confinement, links, and metadata during extraction).
 
 ## Behavior
 
@@ -68,7 +68,6 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - The extracted result that the browser selects keeps keyboard focus after the progress dialog closes, including in Columns. lgse/strata#1533
 - Extract to… opens the floating folder chooser, titled "Extract to", with an "Extract here" button and New Folder. After extraction, the window navigates to the chosen folder and selects the result. lgse/strata#81, lgse/strata#1384
 - Cancelling the Extract to… chooser starts no extraction. lgse/strata#1384
-- Extracting into a folder reached through a symlink writes into the resolved folder. lgse/strata#678
 - Extraction shows Processing archive… with completed-file counts in a foreground progress dialog. lgse/strata#81, lgse/strata#1393 (unverified)
 - Ctrl+Z after Extract here or Extract to… completes moves the extracted top-level file or folder to Trash. lgse/strata#1552, lgse/strata#1548
 - When extraction published `readme.txt` as `readme (2).txt` beside an existing one, Ctrl+Z trashes only `readme (2).txt`. lgse/strata#1552
@@ -104,33 +103,10 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Where no placement step can place the output, extraction fails and the members stay in the staging folder. lgse/strata#1615 (unverified)
 - The error then ends "Extracted entries remain in “.strata-extraction-<id>”." lgse/strata#1586, lgse/strata#1615 (unverified)
 - Cancelling extraction writes no further members, keeps the written ones, and the summary lists completed and pending entries. lgse/strata#410, lgse/strata#1478
-- A ZIP, 7Z, or TAR directory entry named `.`, `./`, or `././`, or a ZIP one named `.\`, is skipped. The other members extract instead of failing. lgse/strata#494, lgse/strata#1814
-- TAR and 7Z `.\` directory entries, and a RAR directory entry naming only the root, are skipped the same way. lgse/strata#1814 (unverified)
-- A ZIP whose only member is a file or link named `.`, or a directory `../` or `foo/../`, fails and writes nothing. The error is "Refusing empty archive path: <name>". lgse/strata#1814
 - A `git archive` or GitHub tarball extracts without a `pax_global_header` file. lgse/strata#677
 - Every member of a solid 7Z archive is extracted. lgse/strata#406
-
-### Member paths, links, and metadata
-
-- A member named `../report.txt` or `folder/../report.txt` extracts as `report.txt` inside the destination, and later members still extract. lgse/strata#1191
-- Two members that resolve to `report.txt` extract as `report.txt` and `report (2).txt`. lgse/strata#116, lgse/strata#1191
-- An absolute member path or a member written through an existing symlink fails the extraction without writing outside the destination. lgse/strata#116, lgse/strata#1478
-- A ZIP with members `before.txt`, `names/c:notes`, and `after.txt` extracts all three onto a destination that allows `:`, such as ext4, with `c:notes` inside `names/`. lgse/strata#1855, lgse/strata#1872
-- A member path whose first component is a drive prefix, after `.` is skipped and `..` resolved, fails the extraction. Examples are `C:marker`, `./c:notes`, and `safe/../c:notes`. The error starts with "Refusing unsafe archive path: <name>". lgse/strata#1855, lgse/strata#1872
-- A TAR hard link whose target is `names/c:notes` links to that extracted member. lgse/strata#1872
-- Symlink members are recreated with their stored targets, including absolute ones. lgse/strata#1478
-- A TAR hard link links to the earlier member of that name; a hard link to a member not extracted fails the extraction. lgse/strata#1478
-- On vfat, exFAT, exfat-fuse, or an SMB mount without hard links, a TAR hard link to an extracted file becomes a copy of it. Later members still extract. lgse/strata#1848, lgse/strata#1870
-- That copy takes space of its own and gets the member's stored mode and modification time. lgse/strata#1870
-- A hard link the mount refuses for another reason, such as no space or an I/O error, still fails. The error reads "Could not link “<member>” to “<target>”: <reason>". lgse/strata#1870
-- The mount may hold no hard links while the target cannot be reopened for the copy. The error then gives the reopen failure after "Could not link". lgse/strata#1870
+- A folder an archive lists twice gets the later entry's stored mode and modification time, each taken from the earlier entry when the later one lacks it. lgse/strata#1499 (unverified)
 - A TAR FIFO or device member fails the extraction with a message naming the member. lgse/strata#1478
-- Each member gets its stored mode, masked by the umask with setuid, setgid, and sticky removed, and its stored modification time. lgse/strata#1478
-- On FAT and exFAT, modes and times are skipped without error. lgse/strata#1478
-- Extracting where member names cannot be stored fixes them by the destination's rules, retrying refused names under stricter rules, and reports each change. lgse/strata#1615
-- Folders whose fixed names became one stay apart, such as `10_00 (2)/`. lgse/strata#1615
-- Links the destination cannot hold, and hard links to them, are left out and reported, and the extraction finishes. lgse/strata#1615
-- Extracted symlink times are not set on FUSE mounts. lgse/strata#1615
 
 ### Passwords
 
@@ -152,18 +128,12 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A member that produces more or fewer bytes than its header declares fails the extraction and is not kept. lgse/strata#605
 - A highly compressible archive with truthful headers extracts in full; there is no ratio or entry-count cap. lgse/strata#605
 - If the item stopped being a regular file after the menu opened, extraction fails with "Not an archive: “<name>”" before creating anything. lgse/strata#1478
-- Extract to… accepts a write-only folder, such as mode `0733`, then fails with "Could not open extraction destination: Permission denied". lgse/strata#1729
 - After Extract to… fails, such as into a read-only folder, the next Extract here stays in the current folder and selects its output. lgse/strata#864, lgse/strata#1605
 
 ## Design
 
 [docs/archives.md](https://github.com/lgse/strata/blob/be3343a5992a2a5497b1a2ee7faa525be18e988f/docs/archives.md) carries the extraction safety model, output rules, metadata handling, compression policy per format, and cancellation.
 
-- Member paths are untrusted. Writes go through one pinned destination descriptor with `openat2` and per-component `NOFOLLOW`, so traversal names and swapped symlinks cannot escape (lgse/strata#109, lgse/strata#116).
-- The destination itself may be reached through ordinary symlinks; it is resolved with `RESOLVE_IN_ROOT` and pinned, as copy and compress already did (lgse/strata#644, lgse/strata#678).
-- `..` components are clamped at the destination instead of aborting the whole archive (lgse/strata#1189, lgse/strata#1191).
-- A drive prefix is refused only as the first component left after `.` is skipped and `..` popped, so `safe/../c:notes` stays refused. A colon in a later component is an ordinary name (lgse/strata#1855, lgse/strata#1872).
-- Directory members that name only the archive root are skipped in `ExtractionSession::extract_member`, so every decoder shares one check. File members with the same spelling still reach empty-path validation (lgse/strata#1801, lgse/strata#1814).
 - All decoders feed one `ExtractionSession` that owns conflicts, progress, cancellation, and cleanup (lgse/strata#557, lgse/strata#562).
 - Extraction stages into a hidden folder and decides single-root or bundled publication after decoding. Bundling after writing into the parent renamed members against the wrong folder and could not clean up failures (lgse/strata#1419, lgse/strata#1471).
 - Partial output is kept, not deleted: removing it would mean undoing conflict renames, and the cancel summary already says completed changes stay (lgse/strata#1419).
@@ -172,9 +142,6 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - Multi-root archives are bundled like Finder. Always wrapping on activation produced `foo/foo/` for tidy archives and was replaced (lgse/strata#894, lgse/strata#1159, lgse/strata#1160).
 - Zip bombs are bounded by free space and declared sizes only. Other file managers rely on cancellation, so ratio and entry-count caps were rejected (lgse/strata#479, lgse/strata#605).
 - Password retries depend on a structured `PasswordFailure` kind from the decoders, never on message text, which can contain member names (lgse/strata#691, lgse/strata#1499).
-- Metadata restoration matches `tar` and `unzip` for a normal user: no owner, group, xattrs, or ACLs; folder metadata applies only on completion so partial output stays writable (lgse/strata#1422).
-- A hard link the mount cannot hold degrades to a copy, as symbolic links degrade to being left out. `EPERM`, `ENOSYS`, and `EOPNOTSUPP` mean no hard links, matching the copy engine's placement probe (lgse/strata#1848, lgse/strata#1870).
-- The copy is re-dispatched through the regular file path, so declared size, free space, and cancellation apply. A taken name is not treated as missing support (lgse/strata#1870).
 - Extraction and compression publish through the placement ladder of `operations/filesystem-compatibility`, and compression publishes off the UI thread (lgse/strata#1615).
 - Before that, without `RENAME_NOREPLACE`, a folder published by an exclusive `mkdirat` of the name, so `EEXIST` drove the numbering, and files were hard-linked in (lgse/strata#1585, lgse/strata#1586). Staging removal first restores owner access so `0555` folders cannot block it (lgse/strata#1586).
 - A single-root conflict name places the suffix as Paste's Keep Both does: a folder takes ` (n)` after its whole name, a file before its extension. The root's type is read without following symlinks, so a symlink is numbered like a file (lgse/strata#1616, lgse/strata#1617).
@@ -196,6 +163,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 | 2026-10-12 | lgse/strata#1586 | fix | Published extracted folders on filesystems without `RENAME_NOREPLACE`, such as ntfs-3g, instead of leaving them in staging. |
 | 2026-10-11 | lgse/strata#1552 | fix | Recorded the published extraction output for undo, so Ctrl+Z trashes it and never a pre-existing file. |
 | 2026-10-09 | lgse/strata#1533 | fix | Returned focus to the opener after the Compress, Extract password, and archive conflict dialogs close, including on Escape. |
+| 2026-10-06 | lgse/strata#1499 | fix | Accepted zero gzip padding, discarded staged output on password failures, and merged repeated folder metadata. |
 | 2026-10-05 | lgse/strata#1478 | fix | Staged extraction, kept partial output in the archive folder, restored links and metadata, and gated Extract on regular files. |
 | 2026-09-23 | lgse/strata#1160 | feat | Bundled multi-root extractions under the archive stem for every entry point, like Finder. |
 | 2026-09-23 | lgse/strata#1136 | fix | Removed the empty subfolder left by a failed activation extraction. |
@@ -230,5 +198,4 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 ## Known gaps
 
 - There is no option to delete the archive after a successful extraction. lgse/strata#759
-- A hard link to an extracted symlink fails the extraction where the mount holds symlinks but not hard links. sshfs without its hardlink extension is one such mount. lgse/strata#1870
 - An extraction that fails on a member does not name the later members it never wrote. lgse/strata#1870

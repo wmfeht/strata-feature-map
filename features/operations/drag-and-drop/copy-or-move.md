@@ -3,11 +3,11 @@ title: Drop copy-or-move policy
 status: shipped
 origin: {issue: lgse/strata#248, pr: lgse/strata#502}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/services/transfer_action.rs, src/adapters/volume.rs]
 tests: [src/services/transfer_action/tests.rs, src/adapters/volume/tests.rs, src/adapters/volume/tests/lookup_regressions.rs, tests/qa/scenarios/cross_volume_drop]
-related: []
+related: [operations/clipboard, operations/trash/restore, devices/volumes]
 ---
 
 ## Summary
@@ -31,7 +31,7 @@ How a drop chooses between copying and moving. Plain drops on the same filesyste
 - With Always ask, a plain drop onto another device opens "Copy or move?" naming the item count and destination, with Copy focused. lgse/strata#502
 - The dialog states "The destination is on a different device.", or "Strata could not determine whether the destination is on the same device." when the lookup did not resolve. lgse/strata#502
 - Enter activates the focused Copy, Move, or Cancel button. lgse/strata#502
-- Cancel, Escape, or the close button transfers nothing. lgse/strata#502
+- Cancel, Escape, the close button, or a click outside the dialog transfers nothing and leaves the source in place. lgse/strata#502, lgse/strata#1900
 - Copy keeps the source; Move removes it after the transfer. lgse/strata#502
 
 ### Volume detection

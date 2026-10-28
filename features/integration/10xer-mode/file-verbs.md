@@ -3,10 +3,10 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: fd6327265eaa3266f8420fe8bd25e965146344b0
+reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs]
+tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl]
 related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions, app/keyboard-shortcuts]
 ---
 
@@ -33,9 +33,9 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 ### Delete and restore
 
-- `d` and Delete ask before moving to Trash, and a second `d` confirms that dialog. lgse/strata#1306, lgse/strata#1340
-- Where every item's open folder reports `access::can-trash` false and `access::can-delete` true, `d` opens the explained permanent confirmation with Cancel focused. A second `d` does not confirm it. lgse/strata#1533
-- `D`, Shift+Delete, and `d` inside Trash open the permanent-delete confirmation with Permanently delete focused, and `d` there does not confirm. lgse/strata#1340, lgse/strata#1508
+- `d` and Delete ask before moving to Trash. lgse/strata#1306, lgse/strata#1340
+- Where every item's open folder reports `access::can-trash` false and `access::can-delete` true, `d` opens the explained permanent confirmation with Cancel focused. lgse/strata#1533
+- `D`, Shift+Delete, and `d` inside Trash open the permanent-delete confirmation with Permanently delete focused. lgse/strata#1340, lgse/strata#1508
 - In Columns, `d` on an open folder whose empty child column has focus asks to trash that folder instead of flashing `Nothing to delete`. lgse/strata#1508
 - While an `f` or `s` result list shows no hits, `d` and `D` flash `Nothing to delete` and leave the open folder alone. lgse/strata#1508 (unverified)
 - After `d` or `M`, the next item receives the cursor without joining the fill. lgse/strata#1340
