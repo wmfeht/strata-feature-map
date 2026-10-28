@@ -3,7 +3,7 @@ title: Location path completion
 status: shipped
 origin: {issue: null, pr: lgse/strata#388}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser/location/completion.rs]
 tests: [src/ui/browser/location/completion/tests.rs]

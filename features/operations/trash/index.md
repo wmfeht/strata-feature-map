@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
@@ -25,6 +25,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - Delete on a selected Ctrl+F filter result moves that result to Trash and leaves the hidden directory selection untouched. lgse/strata#915
 - A Trash move that reports success while the item is still in place fails as Trash unsupported, and records no Undo. lgse/strata#1615
 - When another item took the name during the Trash call, Undo and saved views follow the newest Trash entry made for that path. lgse/strata#1729
+- In Columns, in the default key map, Delete after deselecting the focused row moves that row to Trash. lgse/strata#1885 (unverified)
 
 ### Locations without Trash
 

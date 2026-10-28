@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -126,6 +126,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
+- Under `[keymap.default]`, set `first_item = ["<Control>h"]` and `last_item = ["<Control>l"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, Ctrl+End, and the new keys.
 
 ### preview/preview-panel/documents/scrollbar
 
@@ -269,6 +270,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Releasing Strata's reads before an operation, and leftovers on network mounts → `operations`.
 - Unmounting a drive while a preview reads a file on it → `devices`.
 - Preview keys and track stepping in 10xer mode → `integration`.
+- A rebound document zoom reset and other `[keymap.*]` overrides while a preview has focus → `app`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.
 - The Settings controls for autoplay, backend, document rendering, units, and folder peeking → `settings`.
 - Mounting the sftp, MTP, and camera locations that remote previews read → `remote`.

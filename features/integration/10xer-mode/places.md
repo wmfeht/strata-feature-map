@@ -3,7 +3,7 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
@@ -99,4 +99,5 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 ## Known gaps
 
+- The `Pinned “Name” as g N` flash has no keyless form for an unbound pin jump. lgse/strata#1885
 - After `g +`, the `Pinned … as` flash can omit the pin digit. The pin reads the sidebar before the bookmark write finishes. lgse/strata#1862

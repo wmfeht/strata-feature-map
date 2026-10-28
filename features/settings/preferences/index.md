@@ -3,17 +3,17 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
 docs: [docs/preferences.md]
-related: [settings/themes, settings/diagnostics, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode, browser/directory-monitoring, preview/preview-panel/routes]
+related: [settings/themes, settings/diagnostics, app/keyboard-shortcuts/remapping, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode, browser/directory-monitoring, preview/preview-panel/routes]
 ---
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Units, Show F1 Shortcuts button, Watch network folders, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Units, Show F1 Shortcuts button, Watch network folders, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 
@@ -26,7 +26,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A click on the Settings panel itself leaves Settings open. lgse/strata#1900
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
-- The navigation lists General, Appearance, Actions, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748
+- The navigation lists General, Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748, lgse/strata#1885
+- With labels shown, each navigation entry pads 11 px left and right, so its icon centres on the Search settings field's icon. lgse/strata#1885
 - The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
 - A sideways touchpad swipe or Shift+wheel over a Settings page does not move the page horizontally. lgse/strata#1719
 - Scrolling past the top or bottom of a Settings page, or of any scroller inside the Settings panel, draws no dark band at the edge. lgse/strata#1719
@@ -36,7 +37,6 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The Items shown in sidebar chips stay below their title and description at every panel width. lgse/strata#1032
 - When the panel is narrower than 1250 px at the default text size, a row's control moves below its title and description; switches stay beside it. lgse/strata#849, lgse/strata#924 (unverified)
 - When a dependent row's control stacks below it, the row's dependency arrow stays beside its heading. lgse/strata#924
-- Settings has no Keybindings page; the F1 reference is the only keybinding list. lgse/strata#1376
 
 ### Restart
 
@@ -65,6 +65,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The clear buttons of Search settings, Search themes, and Search templates share one helper, so each is named "Clear search". lgse/strata#1895 (unverified)
 - Searching changes no saved preference. lgse/strata#849
 - Searching "keybindings" finds Show F1 Shortcuts button. lgse/strata#1376
+- Searching an action name, such as "Rename", or a key either map gives it, such as "F2", opens Keyboard with only that action's rows. lgse/strata#1885
+- Searching a custom action's name shows the Keyboard row of the slot that runs it. lgse/strata#1885
+- Searching "hotkeys", "keymap", "rebind", or "remap" opens Keyboard with every row listed. lgse/strata#1885
+- A query whose best match is a setting's title or alias opens that setting's page, even when an action name matches it equally. lgse/strata#1885 (unverified)
 - Searching "license" opens About with the License row; searching "custom actions" opens Actions with the custom-actions list. lgse/strata#1554, lgse/strata#1453
 - Searching "render documents" or "markdown" shows General's Render documents by default row; a query it does not match hides it. lgse/strata#1554, lgse/strata#1454
 - A query that does not match Custom actions hides the installed-actions list and the broken-action problems, so "import" hides the list. lgse/strata#1554, lgse/strata#1453
@@ -172,6 +176,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Chinese and Japanese titles have no spaces between words but do around Latin words, so unspaced queries match inside words and against joined titles (lgse/strata#1583).
 - Search filters the existing bound rows instead of building copies, and the query is not saved. Installation-specific availability is tracked apart from search matches so clearing a query cannot reveal it (lgse/strata#849).
 - The Settings Keybindings page and the F1 reference were two hand-maintained catalogs that drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
+- A Keyboard page returned for remapping, with rows from the command registry in the F1 reference's sections (`app/keyboard-shortcuts/remapping`, lgse/strata#1885).
+- Action names score like aliases in Settings search, so a setting keeps a query it ties with an action (lgse/strata#1885).
 - Page scrollers refuse horizontal scrolling. GTK treats an `External` horizontal policy as scrollable, so sideways deltas panned the page with up to 100 px of overshoot even with no horizontal range (lgse/strata#1712, lgse/strata#1719).
 - A page bin reports no horizontal minimum and gives its content the viewport width. A content minimum can then neither restore the pan nor clip the right edge. It passes its child's request mode through, because a fixed one cached a single-line height for wrapped text (lgse/strata#1719).
 - The dark band at scroll walls was GTK's default overshoot gradient; Settings clears it as context menus and popovers already did (lgse/strata#1719).

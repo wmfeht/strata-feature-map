@@ -3,7 +3,7 @@ title: 10xer preview key ownership
 status: shipped
 origin: {issue: lgse/strata#1242, pr: lgse/strata#1295}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/window/keyboard/preview.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/preview_ownership.rs, tests/qa/scenarios/quick_preview/tenxer-l-enters-preview.jsonl]
@@ -40,6 +40,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - In a document or archive, `g g` goes to the top of the preview. lgse/strata#1296
 - In an archive tree, `j`/`k` or Up/Down move between members, and `l`, Right, or Enter opens a member folder. Nothing is extracted and no listing file opens. lgse/strata#1295
 - In an archive tree, Home and End or `G` move to the first and last member. lgse/strata#1295
+- With `first_item` or `last_item` rebound under `[keymap.tenxer]`, the new key moves to the top or end of a focused document, or the first or last archive member. lgse/strata#1885
 - In an archive tree, `h` or Left goes up one member level; at the archive root it returns the keys to the listing with the drawer open. lgse/strata#1295, lgse/strata#1343
 - A password prompt shown by `i` or cursor movement leaves focus in the listing with no owner bar. In List and Columns, `l` then hands its field the keys. lgse/strata#1295, lgse/strata#1684 (unverified)
 - A password field takes typed letters, including `h` and `j`, and its text-editing shortcuts until unlocked. Esc and Shift+Tab still close or return. lgse/strata#1295
@@ -62,6 +63,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - Inside a preview, the `g` chord panel lists the same steps with Top first, including `m` for Music. lgse/strata#1576
 - A `g` place chord such as `g 3` returns the keys to the listing and runs there; `g z` flashes `Unknown chord` and keeps the keys in the preview. lgse/strata#1296, lgse/strata#1340
 - Window commands such as F1, F5, Ctrl+L, Ctrl+1 to Ctrl+3, and Ctrl+N work without moving the keys out of the preview. lgse/strata#1304, lgse/strata#1340
+- A hidden-files key that types nothing, such as a rebound Alt+H, toggles hidden files from a focused preview and keeps the keys there. lgse/strata#1885 (unverified)
 
 ## Design
 

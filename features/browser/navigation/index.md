@@ -3,7 +3,7 @@ title: Navigation
 status: shipped
 origin: {issue: lgse/strata#70, pr: lgse/strata#118}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/window/composition/input.rs]
 tests: [src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl]
@@ -21,6 +21,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 
 - Alt+Left, Alt+Right, and Alt+Up go Back, Forward, and to the parent folder in every view mode and key map. lgse/strata#358
 - Alt+Home opens the home folder. lgse/strata#1576 (unverified)
+- With `history_back`, `history_forward`, `parent_folder`, or `home_folder` bound to a Ctrl or Super key, such as `parent_folder = ["<Control>e"]`, that key performs its jump in a browser window. lgse/strata#1885
 - Backspace in Columns closes the focused nested column and its descendants. From the root column it opens the parent folder, selecting the root column's folder. lgse/strata#58, lgse/strata#1437, lgse/strata#1544
 - Backspace in List and Icons opens the parent folder. lgse/strata#485
 

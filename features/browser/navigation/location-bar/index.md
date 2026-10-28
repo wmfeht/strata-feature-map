@@ -3,10 +3,10 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: []
-tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/mutations/location-entry.patch]
+tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch]
 related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility]
 ---
 
@@ -49,6 +49,12 @@ The header control that shows the active location as breadcrumbs and switches to
 - A URI keeps its `.` and `..` segments as typed. lgse/strata#1570 (unverified)
 - A path naming a file opens its parent folder with that file selected, in the main window and the portal file chooser. lgse/strata#1219
 - If that parent is already open, the file is selected in place, after a refresh when the file is new. lgse/strata#1219
+- In a browser window, Enter on a typed file path focuses the file and opens Quick Preview on it, whether or not its parent was already open. lgse/strata#1912
+- That preview opens even after the user dismissed Quick Preview. lgse/strata#1912 (unverified)
+- A typed folder path opens no preview. lgse/strata#1912 (unverified)
+- Back, Forward, a sidebar place, another typed path, or opening a subfolder before the file is selected cancels its preview. Selecting the file later opens none. lgse/strata#1912
+- A typed file path whose parent fails to open, for a reason other than being unmounted, leaves no pending preview. lgse/strata#1912
+- A typed file missing from its loaded parent leaves no pending preview after the "Unable to select file" dialog. lgse/strata#1912 (unverified)
 - A hidden file target turns on hidden files so the selection is visible. lgse/strata#1219
 - A file target missing from the loaded parent shows an "Unable to select file" dialog. lgse/strata#1219
 
@@ -75,7 +81,8 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - UNC and SCP shorthand are refused rather than guessed, so a typed URI is never rewritten into another scheme (lgse/strata#20).
 - A typed URI is stored in the percent-encoded form its listed children use, so refreshes reach the open column. The entry keeps the decoded text (lgse/strata#1424, lgse/strata#1533).
 - URI credentials are parsed with GLib's password and auth-parameter flags and leave the text at once. They reach only the pending mount with saving disabled, and are then discarded (lgse/strata#111, lgse/strata#145).
-- A file path reuses validation: `NotDirectory` sends the parent through navigation with the file as a pending reveal, matching GTK and KDE choosers (lgse/strata#1139, lgse/strata#1219).
+- A file path reuses validation: `NotDirectory` sends the parent through navigation with the file as a pending reveal, matching GTK and KDE choosers (lgse/strata#1139, lgse/strata#1219). The file is also recorded as a preview target, consumed when the reveal focuses it (lgse/strata#1912).
+- That preview target is a field beside the reveal, so every navigation path must clear it. Carrying it on the reveal selection is a possible follow-up (lgse/strata#1912).
 - Every exit path switches the stack to the breadcrumbs before resetting the text, so the entry's `changed` signal cannot reopen the popover (lgse/strata#1205).
 - The scrollbar moved from an overlay inside the 22 px crumb row to its own row, after the shared fixed-scrollbar class still cropped labels (lgse/strata#297, lgse/strata#819).
 
@@ -83,6 +90,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-28 | lgse/strata#1912 | fix | Opened Quick Preview on a file revealed from a typed path, and dropped that request when navigation moves on first. |
 | 2026-10-11 | lgse/strata#1570 | fix | Resolved `.` and `..` as text in typed paths, so crumbs and Parent follow the resolved path. |
 | 2026-10-10 | lgse/strata#1544 | fix | Made crumbs and the hierarchy menu select the folder you came from when they open an ancestor. |
 | 2026-10-09 | lgse/strata#1533 | fix | Stored typed remote URIs in GIO's percent-encoded form so they match their listed children, keeping decoded text in the entry. |
@@ -97,4 +105,5 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 ## Known gaps
 
+- A typed path to a file with no previewer still opens the preview drawer, as Space on it does. lgse/strata#1912
 - Deep breadcrumbs shrink to labels such as "l…" instead of overflowing to scroll. lgse/strata#1862

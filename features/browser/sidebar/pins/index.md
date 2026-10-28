@@ -3,7 +3,7 @@ title: Pinned folders
 status: shipped
 origin: {issue: null, pr: lgse/strata#67}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs]
 tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs]
@@ -23,6 +23,7 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 - Properties shows no pin control for files, Trash, or Home and the standard folders. lgse/strata#457
 - Right-clicking a pinned row offers Unpin and Properties, plus Customize… for a local folder. lgse/strata#457, lgse/strata#1370
 - In the default key map, with the file list focused and Type to search off, `p` pins the focused folder; Shift+p does not. Caps Lock+p acts as `p`. Files, Trash, and pinned or standard folders are ignored. lgse/strata#230, lgse/strata#1576 (unverified)
+- In Columns, in the default key map, `p` after clicking a folder pins nothing. lgse/strata#1885 (unverified)
 - Clicking a pinned remote location that is not mounted, such as an SMB share, mounts it and then opens it. lgse/strata#67
 
 ### Display and order
