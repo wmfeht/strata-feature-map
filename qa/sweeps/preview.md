@@ -126,7 +126,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
-- Under `[keymap.default]`, set `first_item = ["F7"]` and `last_item = ["F8"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, and Ctrl+End.
+- Under `[keymap.default]`, set `first_item = ["F7"]` and `last_item = ["F8"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, Ctrl+End, F7, and F8.
 
 ### preview/preview-panel/documents/scrollbar
 
