@@ -126,7 +126,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
-- Under `[keymap.default]`, set `first_item = ["<Control>h"]` and `last_item = ["<Control>l"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, Ctrl+End, and the new keys.
+- Under `[keymap.default]`, set `first_item = ["F7"]` and `last_item = ["F8"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, and Ctrl+End.
 
 ### preview/preview-panel/documents/scrollbar
 
@@ -165,6 +165,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Drag the volume slider to 0.05, then press Down; press `-` while muted; press `+` in a second window during playback.
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
+- Under `[keymap.default]`, set `last_item = ["F8"]`, `media_seek_end = ["F9"]`, and `media_volume_step_up = ["F10"]`. On a focused playing timeline, press End, `G`, F8, F9, `+`, `=`, and F10.
 - Scroll the fallback seek slider with a touchpad.
 - Play a song with `~/.cache/gstreamer-1.0` removed, then with the sound server stopped mid-play.
 
@@ -270,6 +271,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Releasing Strata's reads before an operation, and leftovers on network mounts → `operations`.
 - Unmounting a drive while a preview reads a file on it → `devices`.
 - Preview keys and track stepping in 10xer mode → `integration`.
+- Quick Preview opened by Enter on a typed file path → `browser`.
 - A rebound document zoom reset and other `[keymap.*]` overrides while a preview has focus → `app`.
 - Media runtime packaging and GStreamer launch dependencies → `app`.
 - The Settings controls for autoplay, backend, document rendering, units, and folder peeking → `settings`.

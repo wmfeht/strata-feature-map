@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/preview/keyboard.rs]
 tests: [tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl, tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl, tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl, tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl, tests/qa/mutations/quick-preview.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection]
+related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection, browser/navigation/location-bar]
 ---
 
 ## Summary
@@ -46,6 +46,12 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 - With a password-protected PDF's message shown in List or Columns, Right moves focus to its Open button, which shows an inset focus ring. lgse/strata#1840
 - With focus in that preview's content box, Down or Right also moves focus to the Open button. lgse/strata#1840
 - On that button, Return opens the PDF in the default application, Left returns focus to the listing, and Up, Down, and Right keep focus there. lgse/strata#1840
+
+### Media timeline keys
+
+- With an audio or video timeline focused, Home and End still seek to the start and last frame after `first_item` or `last_item` is rebound. lgse/strata#1885
+- A key added to `media_seek_end`, shipped as Shift+G in both maps, seeks a focused timeline to its last frame. lgse/strata#1885 (unverified)
+- `media_volume_step_up` ships with both `+` and `=`; removing one leaves the other raising a focused timeline's volume. lgse/strata#1885 (unverified)
 
 ## Design
 

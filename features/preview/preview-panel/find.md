@@ -22,7 +22,7 @@ A find bar below the preview header that searches the text loaded in the open pr
 - The header shows a **Find in preview** button only while the preview has searchable text. lgse/strata#1559
 - The find button sits after View source or View rendered and before Open. lgse/strata#1559 (unverified)
 - The button's tooltip reads "Find in preview (Ctrl+F)", or "Find in preview (/)" in 10xer mode. lgse/strata#1559
-- Toggling 10xer mode updates the tooltip of an open preview's find button. lgse/strata#1559 (unverified)
+- Toggling 10xer mode, or saving a `find_in_preview` rebind, updates the tooltip of an open preview's find button. lgse/strata#1559, lgse/strata#1885 (unverified)
 - In the default key map, Ctrl+F with focus in the preview opens the find bar with the entry focused and the previous query selected. lgse/strata#1559, lgse/strata#1558
 - With focus in the file listing, Ctrl+F still opens the filename filter, not preview find. lgse/strata#1559, lgse/strata#1558
 - Ctrl+F or `/` on a preview with no searchable text opens no find bar and passes the key on. lgse/strata#1559 (unverified)
