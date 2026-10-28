@@ -98,8 +98,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Shortcut hints use one notation: Enter beside Open, "F2 / Ctrl+R" beside Rename, and Alt+Enter beside Properties. lgse/strata#1576
 - With the interface in German, hints read Strg+C beside Copy and Entf beside Move to Trash. lgse/strata#1576
 - In 10xer mode, hints read lowercase `x`, `y`, and `d` beside Cut, Copy, and Move to Trash, and `D` beside Permanently delete. lgse/strata#1576
-- Rebinding Rename to Ctrl+E while its menu is open changes its hint and menu accelerator to Ctrl+E. Unbinding it removes both. lgse/strata#1885
-- With Type to search on, Copy path rebound to Alt+Y shows the hint Alt+Y. lgse/strata#1885 (unverified)
+- Rebinding Rename to Ctrl+E in the default table while its menu is open changes its hint and menu accelerator to Ctrl+E. Unbinding it removes both. lgse/strata#1885
+- With Type to search on, Copy path rebound to Alt+Y in the default table shows the hint Alt+Y. lgse/strata#1885
 - Screen readers get each row's label as its name and its shortcut as its description. lgse/strata#415 (unverified)
 
 ### Placement

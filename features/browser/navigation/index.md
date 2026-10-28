@@ -21,7 +21,10 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 
 - Alt+Left, Alt+Right, and Alt+Up go Back, Forward, and to the parent folder in every view mode and key map. lgse/strata#358
 - Alt+Home opens the home folder. lgse/strata#1576 (unverified)
-- With `history_back`, `history_forward`, `parent_folder`, or `home_folder` bound to a Ctrl or Super key, such as `parent_folder = ["<Control>e"]`, that key performs its jump in a browser window. lgse/strata#1885
+- With `parent_folder = ["<Control>e"]`, Ctrl+E opens the parent folder in a browser window. lgse/strata#1885
+- `history_back`, `history_forward`, and `home_folder` bound to a Ctrl or Super key work the same way. lgse/strata#1885
+- That Ctrl+E binding also fires on Ctrl+Shift+E, since these jumps ignore Shift. lgse/strata#1885 (unverified)
+- These jumps read `history_back` and `history_forward` from `[keymap.default]`, in 10xer mode too. 10xer's own Back and Forward keys come from `[keymap.tenxer]`. lgse/strata#1885 (unverified)
 - Backspace in Columns closes the focused nested column and its descendants. From the root column it opens the parent folder, selecting the root column's folder. lgse/strata#58, lgse/strata#1437, lgse/strata#1544
 - Backspace in List and Icons opens the parent folder. lgse/strata#485
 

@@ -233,7 +233,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Visit ten folders, press button 8 ten times fast, then button 9 ten times; the breadcrumb must match at each step, including over the sidebar.
 - Press Alt+Up at `/`, at `trash:///`, and in a folder whose parent was deleted externally; then Backspace in the root column at `/`.
-- Bind `parent_folder` to `<Control>e`, `home_folder` to `<Super>h`, and `history_back` to `<Control><Shift>b`; press each with the file list, the sidebar, the location entry, and the filter field focused.
+- Under `[keymap.default]`, bind `parent_folder` to `<Control>e`, `home_folder` to `<Super>h`, and `history_back` to `<Control><Shift>b`; repeat under `[keymap.tenxer]` in 10xer mode; press each with the file list, the sidebar, the location entry, and the filter field focused.
 - Bind `parent_folder` to a Ctrl key another command already holds, such as `<Control>r`, by hand in the file; press it in each view.
 
 ### browser/navigation/folder-jump
@@ -323,7 +323,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type `duck *.txt` and `* duck`, then filter `trash:///` and an `sftp://` share with a two-word query.
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
 - In Columns, focus a filter result in column 2 and press Ctrl+F, then `/`; repeat with Include subfolders off and with the preview open.
-- In Columns, filter a folder to ten results, compare their order with List, select three, and choose each sort; then press `y` and Delete on a result.
+- In Columns, filter a folder to ten results, compare their order with List, select three, and choose each sort.
 
 ### browser/search/filter/enter-target
 

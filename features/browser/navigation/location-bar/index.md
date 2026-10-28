@@ -7,7 +7,7 @@ reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: []
 tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch]
-related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility]
+related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility, preview/quick-preview]
 ---
 
 ## Summary
@@ -49,10 +49,11 @@ The header control that shows the active location as breadcrumbs and switches to
 - A URI keeps its `.` and `..` segments as typed. lgse/strata#1570 (unverified)
 - A path naming a file opens its parent folder with that file selected, in the main window and the portal file chooser. lgse/strata#1219
 - If that parent is already open, the file is selected in place, after a refresh when the file is new. lgse/strata#1219
-- In a browser window, Enter on a typed file path focuses the file and opens Quick Preview on it, whether or not its parent was already open. lgse/strata#1912
+- Enter on a typed file path focuses the file and opens Quick Preview on it, whether or not its parent was already open. lgse/strata#1912
+- The portal file chooser opens its preview drawer on a typed file path the same way. lgse/strata#1912 (unverified)
 - That preview opens even after the user dismissed Quick Preview. lgse/strata#1912 (unverified)
 - A typed folder path opens no preview. lgse/strata#1912 (unverified)
-- Back, Forward, a sidebar place, another typed path, or opening a subfolder before the file is selected cancels its preview. Selecting the file later opens none. lgse/strata#1912
+- Back, Forward, a sidebar place, another typed path, or opening a subfolder before the file is selected cancels its preview. Selecting the file later, with Quick Preview closed, does not open it. lgse/strata#1912
 - A typed file path whose parent fails to open, for a reason other than being unmounted, leaves no pending preview. lgse/strata#1912
 - A typed file missing from its loaded parent leaves no pending preview after the "Unable to select file" dialog. lgse/strata#1912 (unverified)
 - A hidden file target turns on hidden files so the selection is visible. lgse/strata#1219
