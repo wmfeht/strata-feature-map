@@ -27,7 +27,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
 - The navigation lists General, Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748, lgse/strata#1885
-- With labels shown, each navigation entry pads 11 px left and right, so its icon centres on the Search settings field's icon. lgse/strata#1885
+- With labels shown, each navigation entry pads 11 px left and right, so its icon centres on the Search settings field's icon. lgse/strata#1885 (unverified)
 - The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
 - A sideways touchpad swipe or Shift+wheel over a Settings page does not move the page horizontally. lgse/strata#1719
 - Scrolling past the top or bottom of a Settings page, or of any scroller inside the Settings panel, draws no dark band at the edge. lgse/strata#1719
@@ -65,7 +65,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The clear buttons of Search settings, Search themes, and Search templates share one helper, so each is named "Clear search". lgse/strata#1895 (unverified)
 - Searching changes no saved preference. lgse/strata#849
 - Searching "keybindings" finds Show F1 Shortcuts button. lgse/strata#1376
-- Searching an action name, such as "Rename", or a key either map gives it, such as "F2", opens Keyboard with only that action's rows. lgse/strata#1885
+- Searching "Rename" or "F2" opens Keyboard with only the Rename rows. lgse/strata#1885
+- Searching "Ctrl+R" lists every row with a Ctrl key in either map and any word starting with "r", such as Redo. lgse/strata#1885 (unverified)
 - Searching a custom action's name shows the Keyboard row of the slot that runs it. lgse/strata#1885
 - Searching "hotkeys", "keymap", "rebind", or "remap" opens Keyboard with every row listed. lgse/strata#1885
 - A query whose best match is a setting's title or alias opens that setting's page, even when an action name matches it equally. lgse/strata#1885 (unverified)

@@ -142,7 +142,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ### Uncomposited displays
 
-- On a display without a compositor, such as bare Xvfb or X11 without a compositing manager, context menus, popovers, and tooltips draw square corners and no shadow. lgse/strata#1912
+- On an uncomposited display, such as bare Xvfb, context menus, popovers, and tooltips draw square corners and no shadow. lgse/strata#1912
 - On that display, a context menu shows no black frame or black corner tips around it. lgse/strata#1912
 - On a composited display, popovers, menus, and tooltips keep their shadows and corner radii. lgse/strata#1912 (unverified)
 - Starting or stopping a compositing manager while Strata runs squares or restores popup corners and shadows without a restart. lgse/strata#1912
@@ -178,9 +178,9 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Strata no longer leaves user CSS at GTK's higher user priority, as lgse/strata#1412 did. Desktop themes changed padding, row heights, and spacing, and user `gtk.css` could recolor or resize widgets. Documenting that user stylesheets win was rejected (lgse/strata#1679, lgse/strata#1680).
 - An opt-in `~/.config/strata/style.css` restores layout overrides beyond the nine tokens, which `gtk.css` could no longer reach. Unlike `gtk.css`, it exists only when the user creates it, so default isolation stays intact (lgse/strata#1710, lgse/strata#1758).
 - The user stylesheet loads above the token provider and the uncomposited fallback, so its rules win over every Strata stylesheet. A missing or unreadable file clears it, and its watch debounces 75 ms, as custom themes do (lgse/strata#1758, lgse/strata#1912).
-- Without an X11 compositing manager, the transparent shadow and corner pixels of a popup surface render solid black, so the fallback removes them rather than drawing them (lgse/strata#1911, lgse/strata#1912).
+- Without an X11 compositing manager, a popup's transparent shadow and corner pixels render black, so the fallback removes them (lgse/strata#1911, lgse/strata#1912).
 - The fallback is its own CSS provider, loaded or emptied from the display's `composited` property and its change notification, not a static rule (lgse/strata#1912).
-- It sits one priority above the tokens and corner roundness, so it squares their radii, and one below the user stylesheet, so a user rule can override it (lgse/strata#1912).
+- It sits one priority above the token provider, so it overrides Strata's scaled radii and token rules. It sits one below the user stylesheet, so a user rule can override it (lgse/strata#1912).
 - It selects only popup surfaces: `tooltip`, `popover`, and `popover contents`. The folder peek card is an in-window revealer that renders fine uncomposited, so squaring it was dropped as a regression (lgse/strata#1912).
 - A Floating sidebar toggle in Settings and patching Strata's stylesheet before each build were the alternatives in lgse/strata#1710. Class names are not a stable interface and may change between releases (docs/themes.md).
 - GTK's theme setting and regular contrast are set as application values, which outrank the settings portal and `settings.ini`. They are set even when they match, because only application values survive later portal updates (lgse/strata#1680).

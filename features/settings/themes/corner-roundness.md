@@ -30,7 +30,7 @@ An app-wide scale for corner radii, set as a percent under Settings → Appearan
 - A change applies at once in every open window, dialog, menu, and rebuilt view; a saved value applies before Settings opens. Without a compositor, menus, popovers, and tooltips stay square (`settings/themes`). lgse/strata#1680, lgse/strata#1912
 - Percentage radii, which draw circles, and radii written as `0` stay unchanged at every value. lgse/strata#1680
 - A scaled radius is rounded to 0.01 px, so 9px at 40% becomes 3.6px. lgse/strata#1680 (unverified)
-- Radii that GTK's built-in theme supplied, such as on buttons, entries, popovers, and check boxes, scale with the setting. Popovers scale only on a composited display. lgse/strata#1680, lgse/strata#1912
+- Radii that GTK's built-in theme supplied, such as on buttons, entries, popovers, and check boxes, scale with the setting. lgse/strata#1680
 - Every switch, in Settings or elsewhere, has a 24px track radius and a 20px knob radius at 100%, so 14.4px and 12px at the 60% default. At 50% and above, including the 60% default, both are full circles. lgse/strata#1739
 - Below 50%, a switch's track and knob square off together and stay concentric, so at 40% the track radius is 9.6px and the knob's 8px. lgse/strata#1739 (unverified)
 
