@@ -3,7 +3,7 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: bf26829b4fd74c1f25ac170aad9521a633234a30
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/open_with/**]
@@ -62,6 +62,7 @@ Opening files in their default application, choosing another application from th
 - Other `NoDisplay` applications and those whose `OnlyShowIn` excludes the current desktop are not listed. lgse/strata#578
 - For items with no local path, only applications that accept URIs are listed. lgse/strata#578, lgse/strata#784
 - The search field has focus on open; typing filters rows by name, description, executable, or desktop id, ignoring case, and hides empty section headings. lgse/strata#821
+- The search field is named "Search applications…". lgse/strata#1896 (unverified)
 - A search with no match shows "No matching applications were found." and disables Open. lgse/strata#821
 - Up and Down in the search field move the selected row while focus stays in the field. lgse/strata#821
 - Enter opens the selected application with the items and closes the chooser. lgse/strata#421

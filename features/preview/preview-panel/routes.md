@@ -3,7 +3,7 @@ title: Offline route previews
 status: shipped
 origin: {issue: lgse/strata#1841, pr: lgse/strata#1842}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/services/route_preview.rs, src/sandbox_helper/route.rs, src/sandbox_helper/route/fit.rs, src/sandbox_helper/route/geometry.rs, src/sandbox_helper/route/render.rs, src/sandbox_helper/route/xml.rs, src/ui/preview/route.rs, src/ui/preview/route/player.rs, src/ui/preview/route/plot.rs, src/ui/preview/route/position.rs]
 tests: [src/sandbox_helper/route/tests.rs, src/ui/preview/route/position/tests.rs, src/ui/preview/tests/route.rs, src/adapters/local_preview/tests/route_preview.rs, tests/qa/scenarios/quick_preview/route-preview-shows-offline-track-and-elevation.jsonl]

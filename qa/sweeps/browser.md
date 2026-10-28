@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -24,8 +24,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - fcitx5 with pinyin under `GTK_IM_MODULE=fcitx` on X11 for input-method probes.
 - Foreign drags for pin probes: Nautilus or Dolphin, and `tests/qa/fixtures/file_drag_source.py`, which offers chosen locations with chosen actions.
 - An SMB share and an SFTP server for Connect to server probes, with one share requiring a password, plus a host name that does not resolve.
+- Raw H.264 samples: `ffmpeg -f lavfi -i testsrc2=size=320x180:rate=24:duration=3 -c:v libx264 -pix_fmt yuv420p -an alpha.h264`. Copy it as `.H264`, `.264`, `clip.h264.txt`, and with no extension; encode an HEVC stream as `.h265` and `.hevc`. Put plain text in `notes.h264` and leave an empty `empty.h264`.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
+- GNOME Shell, KDE Plasma, and Hyprland Wayland sessions and an X11 session, plus two monitors of different heights, for context menu placement probes.
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
@@ -95,6 +97,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In List and Icons, cancel a Shift+Delete dialog from a filter hit with several hits selected, then change the selection from a second window while results show.
 - At Content 0 and 16, drag a marquee in List and Icons and resize the window across the Icons column caps.
 - Stall an sshfs mount with three of its columns and one local column open. Wait 10 s, switch views, and resume the daemon; repeat over an error page and a first load.
+- In List at the bottom of `1000`, rename a new file to sort first, then press Down right after Enter in one scripted sequence. Repeat in Icons.
 
 ### browser/view-modes/columns
 
@@ -159,6 +162,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Turn per-folder views off, sort in column 3, open a new column from column 1, then turn per-folder views back on.
 - Toggle Folders first in one window while another shows Recent, a filter, and a Camera Photos library.
 - Sort a folder holding `.GPR`, `.ARQ`, `.ORI`, `.DNG`, and extensionless files by Type in List, in both directions.
+- Sort by Type a folder holding the `.H264` copy, `clip.h264.txt`, the extensionless copy, and `notes.h264`, in both directions, under German and C locales.
 
 ### browser/view-modes/folder-views
 
@@ -169,6 +173,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Change the sort of one folder in the portal chooser and the main window within 500 ms; quit both and read the file.
 - With the switch off, change the default sort from the portal chooser and watch a main window that never opened Settings.
 - Set a folder's sort, make another sort the default, then open the folder's sort menu and read which actions show.
+- Change the default sort in the portal chooser while the main window saves text wrap; read both windows and `settings.toml`.
+- Change the main window's default icon size, then change the chooser's default sort before the main window's save lands.
 - Rename a sorted folder from a shell, then delete it and reopen its parent; repeat for a folder on the unmounted drive.
 - Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
 
@@ -238,6 +244,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In `deep` at level 30, choose level 3 from the hierarchy menu, then from the scrolled crumbs, in each view; then choose the current crumb.
 - Type `/tmp/./x/..`, `~/../..`, `/a/b/../../..`, `smb://host/share/../x`, a symlinked folder followed by `/..`, and a file path followed by `/..`; press Alt+Up after each.
 - Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon. Open a new tab on that mount and type before its first load ends.
+- Click the path bar's copy button twice within 2 s, then switch tabs before 2 s pass; read its name every 500 ms.
+- Dump a sign-in dialog's fields for an SMB share that asks for a domain and for an SFTP server.
 
 ### browser/navigation/recent
 
@@ -262,6 +270,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter a folder in one window while another shows its parent. `mv` the folder from a shell, then its parent; read results and breadcrumbs.
 - Set both search limits to No limit and Ctrl+K over an `sshfs` or rclone mount under Home; then 10 s and 200,000 over two `100000` copies, and hover Partial results.
 - Change a search limit while Ctrl+K is open, `touch` a file in a watched folder, then close and reopen it.
+- In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`.
+- In Ctrl+K, separate two terms with a Tab, then a double space; then use a term found only in the searched root's own path.
 
 ### browser/search/exclusions
 
@@ -296,6 +306,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter `trash:///`, `recent:///`, and an `sftp://` share with a selected row, press Enter, then edit the query and press Down.
 - Type a query, add and then remove a trailing space, and press Enter; repeat with a case-only edit.
 - Turn 10xer mode on, open Ctrl+F, and type; then turn it off with the field still open.
+- In Columns, Icons, and List, click a filtered file while a result batch is arriving. Then Ctrl+click it and plain-click it again.
+- Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
+- In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
+- In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
 
 ### browser/sidebar
 
@@ -383,6 +397,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Open Properties on a 0-byte `.mp4`, a WAV renamed `.png`, a rotated phone video, and an MP3 with cover art.
 - Close the dialog within 100 ms of opening it on a long video; reopen after rewriting the file externally.
+- Open Properties on `notes.h264`, `empty.h264`, the `.H264` and `.264` copies, and the `.h265` and `.hevc` streams.
 
 ### browser/properties/raw-metadata
 
@@ -408,6 +423,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.
 - Open the menu on a file on a virtiofs share, a 9p share, and a mergerfs mount.
+- Shrink the window to 400×300 and right-click an entry at its right edge; then press Shift+F10 there with nothing selected.
+- Move the window against the monitor's bottom edge and right-click the last row, then open the multi-selection menu of 50 entries there.
+- With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
+- Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 
 ### browser/directory-monitoring
 
@@ -420,6 +439,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - `mv` an open folder on an `sftp://` share, the ntfs-3g partition, an `sshfs` mount, and a kernel exFAT partition; read the pane and history.
 - Open the 200,000-entry folder, then the 260,000-entry one, locally, over `sftp://`, and on an `sshfs` mount; read the pane header after each load settles.
 - Paste 50 files into an open `sftp://` folder and an sshfs folder, cancel halfway, then repeat to completion; count reloads and rows each time.
+- With hidden files on, open `deep` to column 5, press Ctrl+H, and rename the column 3 folder to a dot name; then press Back.
+- Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
+- Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 
 ### browser/directory-monitoring/network-checks
 

@@ -3,7 +3,7 @@ title: Archive preview
 status: shipped
 origin: {issue: lgse/strata#1151, pr: lgse/strata#1090}
 branch: null
-reviewed_at: c94eeb0020fa1154e11c741888f1b56d92ce70d6
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/preview/archive.rs, src/adapters/local_operations/archive/listing.rs]
 tests: [src/adapters/local_operations/archive/listing/tests.rs, tests/qa/scenarios/archive_preview]
@@ -23,6 +23,7 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 - Each folder lists its subfolders first, then its files, each in case-insensitive name order. lgse/strata#1090 (unverified)
 - File rows show their size; folder rows show a chevron. lgse/strata#1090 (unverified)
 - A breadcrumb row starts at "Contents"; clicking a crumb, or the back arrow "Go up one level", returns to that level. lgse/strata#1090 (unverified)
+- Inside a subfolder, the up button's accessible name is "Go up one level". lgse/strata#1895 (unverified)
 - An empty archive folder shows "This folder is empty". lgse/strata#1090 (unverified)
 - Previewing an archive never writes files to disk or opens member files. lgse/strata#1090, lgse/strata#1343
 - An encrypted ZIP or a 7z with encrypted headers shows "Password-protected archive" with a password field and Unlock button. lgse/strata#1090

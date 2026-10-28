@@ -4,7 +4,7 @@ upstream:
 fork:
   repo: wmfeht/strata
 # Last upstream commit the sync has processed. Set at backfill hand-off.
-watermark: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+watermark: 923b39ddf4950227e0779ef5b6216af7f4773727
 # The documentation site under site/: the stable release it describes and where it is published.
 site:
   release: v1.0.0

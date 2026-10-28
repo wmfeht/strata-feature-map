@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: 923b39ddf4950227e0779ef5b6216af7f4773727
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -15,7 +15,7 @@ For every control this sweep proves the binding: the file changes, the other win
 
 - Preferences live at `$XDG_CONFIG_HOME/strata/settings.toml` under the throwaway HOME. `DEFAULT_PREFERENCES` in `scripts/headless/environment.py`, read from the `preferences` table of `tests/fixtures/harness.json`, is the baseline; every seeded file starts from it.
 - A seeded file sets every key non-default before launch. Among them: `show_hidden = true`, `date_format = "iso"`, `language = "ja"`, `theme = "gruvbox-dark"`, `element_glow = false`, `text_size = 8`, `omarchy_variants = { <fake theme name> = "lighter" }`, `interface_renderer = "cairo"`, `columns_show_sizes = false`, `file_icon_colors = "theme"`, `show_thumbnails = false`, `stl_thumbnails = true`, `corner_roundness = 0`, `interface_font = "DejaVu Serif"`, `search_time_limit = 0`, `search_entry_limit = 5000000`, `unit_system = "imperial"`.
-- Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases.
+- Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases. The portal chooser runs on that HOME through `scripts/chooser-dev.sh`.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
 - Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the twelve languages is right-to-left.
@@ -84,6 +84,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed a 5,000-entry `folder_colors` table with one bad value; time startup to the first painted window and read the colors.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.
+- Run the browser and the portal chooser on one HOME. Edit `send_to_recent_destinations` and `omarchy_variants` in both, and `chooser_list_columns` from the real chooser. Diff `settings.toml` after each save.
+- Make `settings.toml` invalid TOML while two processes run, change a preference in each, then repair the file and change another.
+- Hold a `flock` on `~/.config/strata` from a shell, change preferences in two processes, release it, and diff `settings.toml`; repeat with `XDG_CONFIG_HOME` on the sshfs mount.
 - In two windows, sort the Trash and an SFTP folder differently in each. Read each window's sort, then restart and read them again.
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
 - Change ten preferences within one second and quit at once; relaunch and diff `settings.toml` against the last values shown.
@@ -143,7 +146,11 @@ For every control this sweep proves the binding: the file changes, the other win
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
 - With a custom theme selected, rewrite its file by atomic rename, then by in-place truncate-and-write; read both windows after each.
-- Make the selected theme file a symlink into `$HOME/dotfiles`, then into `/dev/shm`; edit the target and read the window.
+- Link the selected theme file to a target on `/dev/shm`, through a relative link, and to a target without `.toml`. Edit each target and read the window.
+- Link the selected theme through a two-hop chain, then repoint the middle link at another file; rewrite both files and read the window.
+- Point a link into a folder that does not exist yet, then create the folder and the target while Strata runs; read the theme list.
+- Link two themes into one dotfiles folder and remove one link. Rewrite the other target and a sibling file beside it, then read the window and the log.
+- Under a light theme with Element glow off, then on, open path completion, a folder peek, and the 10xer candidates popover. Zoom on each popover's edge.
 - With the hostile `gtk.css` and `settings.ini`, walk the screenshot set in all three modes under a light and a dark theme, then compare against a run without them; any difference is a lead.
 - With the hostile setup, launch under `GTK_THEME=Adwaita:dark`, under `GTK_THEME=HighContrast`, and as the portal chooser, then with desktop high contrast and the dark color scheme on; read the log and the window.
 - Edit `~/.config/gtk-4.0/gtk.css` while Strata runs, then switch themes and open a new window; read Settings, a context menu, and a modal dialog.
@@ -164,6 +171,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - With the user GtkSourceView setup, open a Rust, Markdown, and shell preview, switch themes twice, and follow Omarchy; compare syntax colors with a run without it and read the log.
 - With a user stylesheet that sets `.sidebar-row` padding, set Frame 7 px and Content Custom 11 px. Then switch theme, follow Omarchy, and open and Cancel an editor preview. Read bar and row spacing in both windows after each.
 - At Frame 12, rail the sidebar, open the preview, open eight tabs, and open a Miller column with its header actions. Check that the bars line up.
+- Dump the tree with the theme editor open, which the naming scenarios skip.
 
 ### settings/themes/icons
 

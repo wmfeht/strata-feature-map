@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: d6c74746cdb27e506a08e8cdefa3bc8cef7d10f9
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 review: draft
 code: [src/ui/settings.rs, src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/ui/window/tests/preferences.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files]
@@ -61,6 +61,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - In Search settings, Search themes, and Search templates, Ctrl+A selects the query on any keyboard layout. Ctrl+Shift+A, Ctrl+Alt+A, and Ctrl+Super+A do not. lgse/strata#1576
 - A query with no match shows "No settings match your search." under the title Search results. lgse/strata#849
 - Escape in a non-empty search field clears the query and restores every row; the next Escape closes Settings. lgse/strata#849
+- The clear buttons of Search settings, Search themes, and Search templates share one helper, so each is named "Clear search". lgse/strata#1895 (unverified)
 - Searching changes no saved preference. lgse/strata#849
 - Searching "keybindings" finds Show F1 Shortcuts button. lgse/strata#1376
 - Searching "license" opens About with the License row; searching "custom actions" opens Actions with the custom-actions list. lgse/strata#1554, lgse/strata#1453
@@ -92,7 +93,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - Settings → General → Performance shows a Watch network folders switch before Thumbnail workers, on by default; the Auto-refresh folder row is gone. lgse/strata#1729
 - The row reads "Check open folders on network shares every few seconds for changes made on other computers. When off, those changes show only after a refresh." lgse/strata#1729
-- The choice saves as `watch_network_folders`; a saved `auto_refresh_interval` is ignored and dropped from `settings.toml` on the next save. lgse/strata#1729
+- The choice saves as `watch_network_folders`; a saved `auto_refresh_interval` is ignored and dropped from `settings.toml` on the next save. lgse/strata#1729, lgse/strata#1877
 
 ### Show sizes in Columns view
 
