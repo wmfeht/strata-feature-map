@@ -99,5 +99,5 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 ## Known gaps
 
-- The `Pinned “Name” as g N` flash has no keyless form for an unbound pin jump. lgse/strata#1885
+- With the `g` trigger unbound, a new pin flashes `Pinned “Name” as` with no key after it. lgse/strata#1885
 - After `g +`, the `Pinned … as` flash can omit the pin digit. The pin reads the sidebar before the bookmark write finishes. lgse/strata#1862
