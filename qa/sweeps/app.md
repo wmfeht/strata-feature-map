@@ -69,7 +69,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In a byte-limited field, paste text whose limit falls inside a multi-byte character. Paste with the cursor at the start, middle, and end, then undo and redo.
 - Type into a limited field with an input method composing, and drop text onto it by drag and drop.
 - Type the path of a `chmod 000` folder so the error dialog offers Open as Administrator. Dismiss it by backdrop click, Escape, and Close, then press Down and read where focus lands.
-- Repeat with that dialog stacked over Properties, and with no GVfs `admin` backend installed.
+- Repeat with that dialog stacked over Properties.
+- With no GVfs `admin` backend, type the same path and read which button has focus.
 - Click an install command's copy button twice within 2 s, then close its dialog before 2 s pass; read the button's name every 500 ms.
 
 ### app/shortcut-reference

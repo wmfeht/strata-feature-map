@@ -7,7 +7,6 @@ reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: reviewed
 code: [src/services/install_source.rs]
 tests: [src/services/install_source/tests.rs]
-docs: [docs/packaging.md]
 related: [app/packaging/aur, integration/open-with/terminal]
 ---
 

@@ -118,7 +118,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - With `LANGUAGE=zz:fr` and `LC_ALL=C.UTF-8`, the plan reads "Installer dans <path>". lgse/strata#1730 (unverified)
 - With `LANGUAGE=fr` and `LC_ALL=C`, the plan reads "Install to <path>". lgse/strata#1730 (unverified)
 - `zh_TW`, `zh_HK`, `zh_MO`, and `zh-Hant…` show Traditional Chinese messages; every other `zh` locale shows Simplified Chinese. lgse/strata#1745
-- A `hu` locale, such as `LANG=hu_HU.UTF-8`, shows Hungarian messages: the banner reads "Interaktív telepítő" and the plan "Telepítés ide: <path>". lgse/strata#1918
+- A `hu` locale, such as `LANG=hu_HU.UTF-8`, shows Hungarian messages: the banner reads "Interaktív telepítő" and the plan "Telepítés ide: <path>". lgse/strata#1918 (unverified)
 - Paths in messages show literally, even when they hold `&` or `%{version}`. lgse/strata#1730 (unverified)
 - The installer ignores the language saved in Strata's Settings. lgse/strata#1730
 

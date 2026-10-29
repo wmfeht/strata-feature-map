@@ -53,9 +53,9 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - When a startup or manual check completes, every open Settings → Updates row shows its result. lgse/strata#1909
 - Check now in one Settings window leaves other windows' rows, including an offer's Install button, unchanged until its result lands. lgse/strata#1909
 - On a pacman or Omarchy install with a Preview or Nightly preference, a startup offer shows on the Updates row. lgse/strata#1909
-- That offer carries its package-managed action, such as "Check again" on pacman. lgse/strata#1909
-- Turning automatic checks off or changing the channel resets every open row to "Check for updates" and Check now. lgse/strata#1909 (unverified)
-- That reset skips a row mid-check or with an install underway. lgse/strata#1909 (unverified)
+- That offer carries its package-managed action, such as "Check again" on pacman. lgse/strata#1909 (unverified)
+- Turning automatic checks on or off, or changing the channel, resets every open row to "Check for updates" and Check now. lgse/strata#1909
+- That reset skips a row mid-check or with an install underway. lgse/strata#1909
 - An available update shows its notes inline, titled "Available release · vX" with its change count and publication date. lgse/strata#51
 - Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944, lgse/strata#1554
 - The Release channel menu is insensitive while automatic checks are off. lgse/strata#97 (unverified)
