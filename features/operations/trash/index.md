@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
@@ -38,6 +38,10 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - The last paragraph is the local or remote deletion sentence of the permanent-delete confirmation, below. lgse/strata#1533, lgse/strata#1614
 - That dialog focuses Cancel, still after the size summary loads, so Enter closes it and keeps the files. lgse/strata#1533
 - When the folder's `access::can-trash` value is unknown, or the item's folder is not open, Delete attempts the trash move first. lgse/strata#1533 (unverified)
+- A folder opened as administrator (`admin://`) counts as a no-Trash folder, whatever its `access::can-trash` reports. lgse/strata#1837
+- Delete, or 10xer `d`, on items in such a folder opens "Permanently delete N items?" at once, with Cancel focused. No trash move is attempted. lgse/strata#1837
+- That dialog's reason paragraph reads "Trash isn't available when browsing as administrator.", followed by the local deletion sentence. lgse/strata#1837
+- Dropping items from such a folder on the sidebar Trash row is refused, and no confirmation opens. lgse/strata#1837 (unverified)
 - In a read-only folder, where `access::can-trash` and `access::can-delete` are both false, Delete still attempts the trash move and opens no dialog first. lgse/strata#1533
 - When a trash move fails because every failed item's location lacks Trash, the same explained dialog opens with Cancel focused, for only those items. lgse/strata#225, lgse/strata#1425, lgse/strata#1533
 - When some items failed for other reasons, the error dialog's retry button opens the explained dialog for the trash-unsupported items only. lgse/strata#225, lgse/strata#1533
@@ -111,6 +115,8 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 - The trash-unsupported fallback reused the Shift+Delete dialog. lgse/strata#66 forbids silently substituting permanent deletion for Trash. The dialog now explains the missing Trash and focuses Cancel, because the user asked for Trash (lgse/strata#1425).
 - The up-front check uses the menu's `access::can-trash` signal. By owner decision it runs on every route, including drag-to-Trash. It requires `access::can-delete` true, so read-only folders still report "Permission denied" (lgse/strata#179, lgse/strata#1533).
 - Every selected entry is checked, because a search-result selection can span locations (lgse/strata#1425).
+- `gvfsd-admin` reports `access::can-trash` but has no trash operation, so admin folders are treated as lacking Trash up front (lgse/strata#1836, lgse/strata#1837).
+- The sidebar Trash place stays enabled while browsing as administrator, because it is the user's own Trash. Refusing drops from admin folders covers the gap (lgse/strata#1836).
 - GLib 2.86.0 to 2.88.4 can report success without trashing anything on some FUSE mounts (GLib #4060), so a trashed local item is checked gone first (lgse/strata#1615). The check uses the mount's identity rule and holds the item across GLib's call, except on NFS, where a hold leaves a `.nfs…` file (lgse/strata#1729).
 - GVfs can move or delete whole trashed items but not their children, so actions on nested Trash children are hidden rather than left to fail (lgse/strata#433).
 - Undo finds the trashed items through home-trash `.trashinfo` metadata before `trash:///`, because GVfs can miss an item re-trashed under the same name (lgse/strata#228).

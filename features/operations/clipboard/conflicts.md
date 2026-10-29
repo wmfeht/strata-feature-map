@@ -3,8 +3,8 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs]
 tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch]
 related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers, app/infrastructure]
@@ -28,6 +28,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - For example, `10:00` pasted onto FAT holding `10_00` explains "“10:00” will be saved as “10_00” in this location." lgse/strata#1615
 - The folder prompt then adds "Items whose names change to suit this location overwrite items with the new name." lgse/strata#1615
 - On a mount that already refused Trash, the conflict prompt adds "Replaced items can't be moved to Trash here and will be deleted." lgse/strata#1614
+- In a folder opened as administrator, the conflict prompt adds the same note and never offers Merge. lgse/strata#1837
 
 ### Choices
 
@@ -69,6 +70,8 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - Cancelling such a merge after it placed an item ends as Cancelled, with the originals back and no `.strata-merge-*` folder left. lgse/strata#1729
 - A merge whose aside folder only another program's open file keeps completes and reports the folder as still open. lgse/strata#1729
 - A Trash move that reports success without moving the original falls back to setting it aside. lgse/strata#1615
+- Replace onto a file in a folder opened as administrator overwrites it in place, with no staged copy and no original kept. lgse/strata#1837
+- Replace onto a folder there fails with "Safe replacement is unavailable at this destination" and keeps the existing folder. lgse/strata#1837 (unverified)
 
 ## Design
 
@@ -80,6 +83,7 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 - Keep Both was copy-only, because move undo and reveal assumed a move never renames its destination (lgse/strata#599). Undo now starts from where each item landed, so Keep Both is offered for moves (lgse/strata#1615).
 - The prompt works out the name the paste will use, off the main thread, so fixed names conflict as the user will see them (lgse/strata#1615).
 - Undo of a Merge or Replace records what it placed, up to 100,000 entries, and deletes only unchanged items, so later edits survive (lgse/strata#1615).
+- In an admin folder, Replace overwrites files in place and Merge is withheld, because both would stage originals in Trash, which `admin://` lacks (lgse/strata#1836, lgse/strata#1837).
 - Merge is copy-only, because undoing a merged move cannot tell which destination contents the source owned (lgse/strata#1092).
 - Incoming-wins merging with Trash staging was chosen over per-file prompts or Finder's newer-wins, to keep it predictable and undoable (lgse/strata#1091).
 - Same-folder paste never prompts, so pasting where an item already lives stays non-destructive. The engine also treats Replace of an item onto itself as a no-op (lgse/strata#395, lgse/strata#708).
@@ -97,4 +101,4 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 
 ## Known gaps
 
-None known.
+- Replacing a local file with one copied from an admin folder fails with "Safe replacement is unavailable for this source". Keep Both works. lgse/strata#1837

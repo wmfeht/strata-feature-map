@@ -3,8 +3,8 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, tests/qa/scenarios/open_with/**, tests/qa/scenarios/dialogs_and_menus/executable-menu-confirmed-run.jsonl, tests/qa/scenarios/dialogs_and_menus/executable-requires-confirmation.jsonl]
 docs: []
@@ -26,6 +26,8 @@ Opening files in their default application, choosing another application from th
 - Closing the fallback chooser returns focus to the activated entry. lgse/strata#1012
 - The fallback chooser opens only if the window is visible and shows no other dialog when the Recently Used history read finishes. Pressing Enter twice on such a file opens one chooser. lgse/strata#1729
 - Activating an item in Trash shows "Unable to open item" with "Items in Trash cannot be opened" and launches nothing. lgse/strata#995
+- Activating a file in a folder opened as administrator shows "Unable to open item" and launches nothing. lgse/strata#1837
+- That dialog reads "Other applications can't open files in a folder opened as administrator. Preview the file here, or copy it to another folder first." lgse/strata#1837
 - A file with no local path, such as a GVfs location without a FUSE path, opens only with a handler that accepts URIs (`%u`/`%U`). lgse/strata#578, lgse/strata#784
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
@@ -105,6 +107,7 @@ Applications come from GIO metadata; Strata does not parse `.desktop` files (lgs
 - A `.sh` script receives its path as an argument to `/bin/sh -c`, not as shell text, to keep its shebang and avoid injection (lgse/strata#1028).
 - Inside Flatpak, GIO sees only the runtime's desktop entries, so files go to the OpenURI portal through `gtk::FileLauncher`. Open With sets `always_ask`, so the desktop's chooser picks the application (lgse/strata#1503, lgse/strata#1635).
 - Portal launches run one file at a time so desktop choosers do not stack (lgse/strata#1635).
+- Files in a folder opened as administrator never go to another application. GVfs grants the `admin://` mount only to Strata, and such files have no local path (lgse/strata#1836, lgse/strata#1837).
 - Type lookups run asynchronously and are discarded when the menu closes or the selection changes (lgse/strata#578, lgse/strata#625).
 - The chooser waits for the Recently Used history read before it opens (lgse/strata#1729).
 - Run takes the file's type and mode from its asynchronous query. It spawns the program on the reaper thread, so a dead mount cannot freeze the window (lgse/strata#1729).

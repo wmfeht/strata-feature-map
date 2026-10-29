@@ -3,7 +3,7 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
@@ -38,6 +38,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 - The chooser's header bar has the same height and button and icon sizes as a browser window's header. lgse/strata#1696
 - Entering a remote URI in the address bar shows "The system file chooser supports local files and folders only." lgse/strata#175
+- Opening a folder the user can't read shows its permission error and never offers Open as Administrator. lgse/strata#1837
 - Folder-only requests hide regular files in folder listings and in recursive filter results. lgse/strata#1155
 - Changing the file-type filter refreshes the results and keeps an active filter query; only files the new filter accepts can be returned. lgse/strata#1155
 - Local drives mounted before the chooser opened appear under Devices in its sidebar once the dialog has painted; network shares do not. lgse/strata#1070

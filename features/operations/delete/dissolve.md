@@ -3,7 +3,7 @@ title: Permanent-delete dissolve animation
 status: shipped
 origin: {issue: null, pr: lgse/strata#626}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/browser/dissolve_delete.rs]
 tests: [tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl]

@@ -3,10 +3,10 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs]
+tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs, tests/qa/scenarios/sidebar_pinning/tenxer-pin-feedback-identifies-slot.jsonl]
 related: [browser/sidebar, browser/navigation, app/keyboard-shortcuts]
 ---
 
@@ -35,6 +35,8 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 ### Pins
 
 - `g +`, or `g` then keypad `+`, pins the folder under the cursor, or the current folder from a file. It flashes `Pinned “Name” as g N`. lgse/strata#1340
+- The `g +` flash appears once the bookmark is saved, so the 1st to 4th new pins read `Pinned “Name” as g 1` to `… as g 4`. lgse/strata#1909
+- When the bookmark save leaves the folder unpinned, `g +` flashes `Can’t pin “Name”` instead of `Pinned …`. lgse/strata#1909 (unverified)
 - A new pin outside the first nine visible pins flashes `Pinned “Name”` with no digit. lgse/strata#1340 (unverified)
 - `g -`, or `g` then keypad `-`, unpins it and flashes `Unpinned “Name”`; pinning twice flashes `“Name” is already pinned`. lgse/strata#1340
 - `g -` on a folder that is not pinned flashes `“Name” isn’t pinned`. lgse/strata#1340 (unverified)
@@ -92,6 +94,7 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-29 | lgse/strata#1909 | fix | Showed the `g +` flash after the bookmark is saved, so new pins in slots 1–4 show their digit. |
 | 2026-10-11 | lgse/strata#1570 | fix | Shared the folder picker's lexical `.` and `..` resolution with typed location input. |
 | 2026-09-28 | lgse/strata#1304 | feat | Added `z` and `Z` jumps over navigation history and the chord key panel. |
 | 2026-09-27 | lgse/strata#1302 | feat | Added the `go ›` prompt with folder completion and no retained credentials. |
@@ -100,4 +103,3 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 ## Known gaps
 
 - With the `g` trigger unbound, a new pin flashes `Pinned “Name” as` with no key after it. lgse/strata#1885
-- After `g +`, the `Pinned … as` flash can omit the pin digit. The pin reads the sidebar before the bookmark write finishes. lgse/strata#1862

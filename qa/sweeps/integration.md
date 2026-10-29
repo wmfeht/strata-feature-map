@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -21,6 +21,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A fake `.desktop` default handler under `$XDG_DATA_HOME/applications`, without `Path=`, that logs its argv and cwd. Add `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
+- A `chmod 000` folder in Home. For administrator probes, GVfs's `admin` backend (`gvfsd-admin`), a polkit agent, and a root-owned `0700` folder holding a text file, an executable `.sh`, and a subfolder; skip those probes without them and say so.
 - A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount. Typed-name and Trash-refusal probes use them.
 - An NTFS loop image attached with `udisksctl loop-setup` and mounted through `ntfs-3g` (`fuseblk`), so it lists under Send to. It holds a link to a folder off the device and a link to a folder on it. A script stops its `ntfs-3g` process with `kill -STOP` and resumes it with `kill -CONT`.
 - A silent session bus: a Unix socket that accepts connections and never replies, such as `socat UNIX-LISTEN:<path>,fork EXEC:'sleep infinity'`, named by `DBUS_SESSION_BUS_ADDRESS`.
@@ -73,6 +74,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With a preview showing, press on its blank chrome and drag out into the file list. Repeat in a multiple-selection request. Read the selection and the marquee.
 - Rebind `parent_folder`, `home_folder`, `history_back`, and `history_forward` to Ctrl keys, then to Super keys, in each table. Press each in the file view, in Name under `save`, in the filter, and with 10xer mode on; read the location.
 - Hand-edit `parent_folder = ["<Control>h"]` into `settings.toml`, open a chooser, and press Ctrl+H with the file view focused.
+- Under `directory` and `single`, open the `chmod 000` folder by click, Enter, and the address bar, and type `admin:///` into the address bar; read each error.
 
 ### integration/portal-file-chooser/setup
 
@@ -144,6 +146,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
 - With Downloads on the sshfs mount stopped by `kill -STOP`, press `g d`, then `g h` before 2 s pass.
 - On `fr` and `ch(de)`, press `g` then the keys that type `+` and `-`, on a pinned folder, an unpinned one, and the tenth pin.
+- Press `g +` with the bookmarks file read-only, then on two folders in quick succession, then on the 4th and 5th new pins; read each flash and the bookmarks file.
 
 ### integration/10xer-mode/search
 
@@ -177,6 +180,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Rebind `"sort.size"` under `[keymap.tenxer]` to `5`, then to `<Control>s`, and press each with and without Shift. Repeat on `fr`, rebinding a step to a key whose Shift form types another symbol.
 - Press a slot key for a `confirm = true` action, cancel, then press it again with 10xer mode on.
 - In Columns, press a slot key and a direct Move to key on an unselected row in a second column. Repeat in Icons.
+- In an `admin://` folder, press `O` on one file, on a fill mixing a file and a folder, and again after leaving the folder before the lookup ends.
 
 ### integration/10xer-mode/file-chooser
 
@@ -199,6 +203,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Start Strata from a folder on the sshfs mount. Activate a file and use Open With… with the fake handler and a `Path=/tmp` twin; read each cwd.
 - Press Enter twice fast on a file with no handler, once with a modal open, and once in a second window. Count the choosers.
 - Open a file, a folder, and three files at once through Open With…, then by activation; read `~/.local/share/recently-used.xbel` after each.
+- In an `admin://` folder, activate the text file by Enter, double-click, and the menu's Open, then the executable `.sh`; check the handler log stays empty.
 
 ### integration/open-with/recent-apps
 
@@ -263,4 +268,5 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - The browser window's sidebar steps and the rail's row sizing → `browser`.
 - The saved `sidebar_compact` state of browser windows → `app`.
 - Network-folder change checks, including the pause while a chooser is hidden → `browser`.
+- Opening a folder as administrator, the lock icon, and Open as Administrator → `browser`.
 - The `GDK_DEBUG` re-exec on service activation and how long a cold activation takes → `app`.
