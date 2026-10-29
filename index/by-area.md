@@ -135,7 +135,7 @@ Update checks and actions for Strata installed by a package manager: the officia
 
 - Code: [`src/services/install_source.rs`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/src/services/install_source.rs)
 - Tests: [`src/services/install_source/tests.rs`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/src/services/install_source/tests.rs)
-- Docs: [`docs/packaging.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/docs/packaging.md), [`docs/preferences.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/docs/preferences.md) (inherited), [`docs/packaging.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/docs/packaging.md) (inherited)
+- Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/docs/preferences.md) (inherited), [`docs/packaging.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/docs/packaging.md) (inherited)
 - Related: [AUR packages](../features/app/packaging/aur.md), [Open in Terminal](../features/integration/open-with/terminal.md)
 
 ### [Release channels](../features/app/updates/release-channels.md) `app/updates/release-channels`
@@ -249,7 +249,7 @@ Opening local folders the user can't read or enter through GVfs's `admin://` bac
 
 - Tests: [`src/app/browser/tests/administrator.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/app/browser/tests/administrator.rs)
 - Docs: [`docs/administrator-access.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/docs/administrator-access.md), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/site/src/reference/keyboard-navigation.md) (inherited)
-- Related: [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [View modes](../features/browser/view-modes/index.md), [Columns view](../features/browser/view-modes/columns.md), [Thumbnails](../features/browser/thumbnails/index.md), [Context menus](../features/browser/context-menu.md), [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md), [Tab session restore](../features/browser/tabs/session-restore.md), [Trash](../features/operations/trash/index.md), [Undo and redo](../features/operations/undo.md), [Paste name conflicts](../features/operations/clipboard/conflicts.md), [Opening files and Open With](../features/integration/open-with/index.md), [System file chooser](../features/integration/portal-file-chooser/index.md), [Accessibility](../features/app/accessibility.md)
+- Related: [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [View modes](../features/browser/view-modes/index.md), [Columns view](../features/browser/view-modes/columns.md), [Thumbnails](../features/browser/thumbnails/index.md), [Context menus](../features/browser/context-menu.md), [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md), [Tab session restore](../features/browser/tabs/session-restore.md), [Trash](../features/operations/trash/index.md), [Undo and redo](../features/operations/undo.md), [Paste name conflicts](../features/operations/clipboard/conflicts.md), [Opening files and Open With](../features/integration/open-with/index.md), [System file chooser](../features/integration/portal-file-chooser/index.md), [Accessibility](../features/app/accessibility.md), [Folder peek](../features/preview/quick-preview/folder-peek.md)
 
 ### [Folder jump](../features/browser/navigation/folder-jump.md) `browser/navigation/folder-jump`
 
@@ -1414,14 +1414,14 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 ### [Folder peek](../features/preview/quick-preview/folder-peek.md) `preview/quick-preview/folder-peek`
 
-shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#132](https://github.com/lgse/strata/issues/132)
+shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#132](https://github.com/lgse/strata/issues/132)
 
 A transient popover that lists up to 8 entries of a folder when the pointer rests on it in Icons or List. It is controlled by Settings → General → Browsing → Folder peeking, which is off by default.
 
 - Code: [`src/app/peek.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/app/peek.rs), [`src/ui/browser/peek.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/ui/browser/peek.rs)
 - Tests: [`src/app/peek/tests.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/app/peek/tests.rs), [`src/ui/browser/peek/tests.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/ui/browser/peek/tests.rs)
 - Docs: [`docs/preferences.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/docs/preferences.md), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/site/src/reference/keyboard-navigation.md) (inherited)
-- Related: [Settings window and general preferences](../features/settings/preferences/index.md), [View modes](../features/browser/view-modes/index.md), [Directory loading and monitoring](../features/browser/directory-monitoring/index.md), [Drag and drop](../features/operations/drag-and-drop/index.md), [10xer mode](../features/integration/10xer-mode/index.md)
+- Related: [Settings window and general preferences](../features/settings/preferences/index.md), [View modes](../features/browser/view-modes/index.md), [Directory loading and monitoring](../features/browser/directory-monitoring/index.md), [Drag and drop](../features/operations/drag-and-drop/index.md), [10xer mode](../features/integration/10xer-mode/index.md), [Administrator access](../features/browser/navigation/administrator-access.md)
 
 ## remote
 

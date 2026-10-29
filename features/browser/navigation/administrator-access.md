@@ -8,7 +8,7 @@ review: draft
 code: []
 tests: [src/app/browser/tests/administrator.rs]
 docs: [docs/administrator-access.md]
-related: [browser/navigation/location-bar, browser/view-modes, browser/view-modes/columns, browser/thumbnails, browser/context-menu, browser/selection/keyboard-navigation, browser/tabs/session-restore, operations/trash, operations/undo, operations/clipboard/conflicts, integration/open-with, integration/portal-file-chooser, app/accessibility]
+related: [browser/navigation/location-bar, browser/view-modes, browser/view-modes/columns, browser/thumbnails, browser/context-menu, browser/selection/keyboard-navigation, browser/tabs/session-restore, operations/trash, operations/undo, operations/clipboard/conflicts, integration/open-with, integration/portal-file-chooser, app/accessibility, preview/quick-preview/folder-peek]
 ---
 
 ## Summary
@@ -35,7 +35,6 @@ Opening local folders the user can't read or enter through GVfs's `admin://` bac
 - A sidebar place, bookmark, pin, or command-line argument to an unreadable folder offers the same button in its dialog, column, or pane. lgse/strata#1837 (unverified)
 - Open as Administrator opens the folder's `admin://` form. lgse/strata#1837
 - Where GIO has no `admin` scheme, no dialog, column, or pane offers Open as Administrator. lgse/strata#1837
-- A folder peek of an unreadable folder offers no Open as Administrator. lgse/strata#1837 (unverified)
 - Typing `admin:///path` in the location bar opens that folder as administrator. lgse/strata#1837
 
 ### Refusals
@@ -45,7 +44,7 @@ Opening local folders the user can't read or enter through GVfs's `admin://` bac
 
 ### Browsing as administrator
 
-- In an `admin://` folder, the breadcrumbs start at an "Administrator" crumb with a lock icon instead of `admin:`. lgse/strata#1837
+- In an `admin://` folder, the breadcrumbs start at an "Administrator" crumb with a lock icon instead of `admin:`. lgse/strata#1836, lgse/strata#1837
 
 ## Design
 

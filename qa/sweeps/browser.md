@@ -16,7 +16,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - `scripts/generate-fixture.sh <root>` builds `1000`, `10000`, and `100000` entry folders, a 256-level `deep` tree, and `edge-cases` with a broken symlink and a non-UTF-8 name. Add dot-files, a `.hidden` file naming one visible entry, a 255-byte name, two names differing only by case, and a symlink to a folder.
 - Two oversized folders built with `touch`: one of 200,000 entries and one of 260,000.
 - An unreadable folder (`chmod 000`) inside the fixture, and a folder to remove while it is open (`rm -rf` or `mv` from a shell), in every view.
-- For administrator-access probes: a root-owned `0700` folder on a USB drive, GVfs with `gvfsd-admin`, and a polkit agent in the session. The QA container has neither, so these probes run by hand.
+- For administrator-access probes: a root-owned `0700` folder on a USB drive, GVfs with `gvfsd-admin`, and a polkit agent in the session. The QA container has no GVfs or polkit agent, so these probes run by hand.
 - A slow directory: 2,000 images across every thumbnail format, plus 50 PDFs and 50 videos, with `$XDG_CACHE_HOME/thumbnails` emptied first so decoding is visible.
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
 - Type to search on and off per probe: it changes what `h`, `j`, `k`, `l`, `p`, `/`, and plain letters do. `docs/keyboard-navigation.md` holds the key rules and `docs/preferences.md` the setting keys.
@@ -201,7 +201,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open Appearance in two windows and drag a slider in one; then press a snap button in the other.
 - With the menu scrolled, wheel over each slider; then focus one and press Page Up at the maximum and Page Down at 0.
 - Read each slider and snap button with Orca while moving between presets and Custom values.
-- In each interface language, open Appearance in Icons and List at text size 8, 13, and 48; look for overlapping Compact and Airy buttons.
+- In each interface language, open Appearance in Icons and List at text size 8 and 48, with each slider at a Custom value.
 
 ### browser/view-modes/text-size
 

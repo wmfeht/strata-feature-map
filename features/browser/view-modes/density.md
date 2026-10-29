@@ -24,7 +24,7 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 - Content runs from 0 to 16 px, with Compact 4, the default, and Airy 8. lgse/strata#1776
 - Each slider's value label reads "Compact · N px" or "Airy · N px" at a preset, otherwise "Custom · N px". lgse/strata#1776
 - Each slider has tick marks at its Compact and Airy values, with "Compact" and "Airy" buttons under them. lgse/strata#1776
-- The Compact and Airy buttons sit at least 8 px apart, and the menu reserves their combined width, such as in Russian at 13 or 24 px. lgse/strata#1909
+- The Compact and Airy buttons sit at least 8 px apart. The menu reserves their combined width, such as in Russian at text size 13 or 24 px. lgse/strata#1909
 - In Traditional Chinese, the Airy button reads 寬鬆. lgse/strata#1909
 - Clicking "Compact" or "Airy" snaps that slider to the preset; the label of the current preset shows in the accent color. lgse/strata#1776 (unverified)
 - Dragging a slider or clicking a snap button leaves the Appearance menu open. lgse/strata#1776

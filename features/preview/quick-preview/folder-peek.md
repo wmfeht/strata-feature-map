@@ -4,11 +4,11 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#132}
 branch: null
 reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+review: draft
 code: [src/app/peek.rs, src/ui/browser/peek.rs]
 tests: [src/app/peek/tests.rs, src/ui/browser/peek/tests.rs]
 docs: [docs/preferences.md]
-related: [settings/preferences, browser/view-modes, browser/directory-monitoring, operations/drag-and-drop, integration/10xer-mode]
+related: [settings/preferences, browser/view-modes, browser/directory-monitoring, operations/drag-and-drop, integration/10xer-mode, browser/navigation/administrator-access]
 ---
 
 ## Summary
@@ -34,6 +34,7 @@ A transient popover that lists up to 8 entries of a folder when the pointer rest
 - Long names are ellipsized in the middle, keeping the extension visible. lgse/strata#1143
 - Hidden entries are left out unless hidden files are shown. lgse/strata#201, lgse/strata#1449
 - Entries appear in the order the folder enumerates them, not the browser's sort order. A folder of over 8 entries peeks an arbitrary subset. lgse/strata#1449 (unverified)
+- A peek of a folder Strata may not read shows its error with no Open as Administrator button. lgse/strata#1837 (unverified)
 
 ### Placement and closing
 

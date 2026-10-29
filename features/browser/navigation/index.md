@@ -31,7 +31,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 
 ### Unreadable folders
 
-- Where GIO has no `admin` scheme, opening an unreadable folder in Columns shows an "Unable to open directory" dialog. lgse/strata#1807, lgse/strata#1837 (unverified)
+- In Columns, opening an unreadable folder not yet marked locked, or any where GIO has no `admin` scheme, shows an "Unable to open directory" dialog. lgse/strata#1807, lgse/strata#1837 (unverified)
 
 ### Mouse buttons
 

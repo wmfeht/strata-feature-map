@@ -46,7 +46,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
 - With Mirror columns selection on, Return on a folder still validating when the 75 ms mirror fires opens it in the next column. Focus lands on its first entry. lgse/strata#1771 (unverified)
-- A column whose folder Strata may not read shows "Unable to read this directory" and the reason, with Open as Administrator and Retry buttons. Without GIO `admin` support only Retry shows. lgse/strata#1837
+- Where GIO supports `admin`, a column whose folder Strata may not read offers Open as Administrator above Retry on its error page. lgse/strata#1837
 - In an `admin://` folder, the "Browsing as administrator" lock notice shows on the root column only. lgse/strata#1837 (unverified)
 
 ### Returning to an ancestor
