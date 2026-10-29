@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg]
 tests: []
 docs: [site/src/reference/install.md, docs/packaging.md]

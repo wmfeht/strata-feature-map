@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/app/browser/freshness.rs, src/ui/presence.rs]
 tests: [src/app/browser/freshness/tests.rs, src/ui/presence/tests.rs]
 related: [settings/preferences, browser/view-modes, integration/portal-file-chooser, remote/file-providers/network-locations]

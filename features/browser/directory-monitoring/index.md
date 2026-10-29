@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl]
 docs: [docs/architecture.md, docs/performance-baseline.md, docs/filesystem-compatibility.md]

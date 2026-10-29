@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/app/browser/sorting.rs, src/services/mime_type.rs, src/ui/browser/pane_header.rs]
 tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl]
 docs: [docs/preferences.md]

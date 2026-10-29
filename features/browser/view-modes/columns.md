@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]

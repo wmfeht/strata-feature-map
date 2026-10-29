@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#816, pr: lgse/strata#832}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/adapters/local_operations/archive/decoders/rar.rs, src/rar_extraction.rs, src/sandbox/archive.rs, src/sandbox_helper/archive_rar.rs]
 tests: [src/adapters/local_operations/archive/decoders/rar/tests.rs, src/rar_extraction/tests.rs, src/sandbox/archive/tests.rs, src/sandbox_helper/archive_rar/tests.rs, tests/fixtures/rar/**]
 related: [browser/thumbnails, preview/preview-panel/sandbox]

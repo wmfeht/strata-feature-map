@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
 related: [app/packaging/installer, integration/file-manager-interface, settings/preferences, app/updates]

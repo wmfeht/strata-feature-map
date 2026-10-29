@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#213, pr: lgse/strata#220}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: []
 tests: [tests/qa/scenarios/click_modes, tests/qa/mutations/click-modes.patch, tests/qa/mutations/click-mode-preference.patch]
 related: [preview/quick-preview, operations/rename, browser/sidebar, browser/view-modes/columns, browser/selection/marquee]

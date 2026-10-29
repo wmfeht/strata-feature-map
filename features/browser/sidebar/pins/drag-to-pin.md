@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1690, pr: lgse/strata#1692}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/window/pinned_drop.rs, src/adapters/directory_validation.rs]
 tests: [src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/qa/scenarios/sidebar_pinning, tests/qa/scenarios/sidebar_reordering/pin-insertion-keeps-one-destination.jsonl]
 related: [operations/drag-and-drop, integration/portal-file-chooser, browser/sidebar]

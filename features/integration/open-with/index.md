@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, tests/qa/scenarios/open_with/**, tests/qa/scenarios/dialogs_and_menus/executable-menu-confirmed-run.jsonl, tests/qa/scenarios/dialogs_and_menus/executable-requires-confirmation.jsonl]
 docs: []
