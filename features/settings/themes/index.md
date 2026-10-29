@@ -246,4 +246,4 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
 - Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566
-- For a custom theme file, only the final file in a link chain has its folder watched. Repointing an intermediate directory link it passes through, such as `~/.config/omarchy/current/theme`, does not reload the theme. Follow Omarchy is not affected. lgse/strata#1887, lgse/strata#1909
+- For a custom theme file, only the final file in a link chain has its folder watched. Repointing an intermediate directory link it passes through, such as `~/.config/omarchy/current/theme`, does not reload the theme. lgse/strata#1887

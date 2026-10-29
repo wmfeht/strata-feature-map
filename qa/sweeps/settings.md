@@ -135,7 +135,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Repeat both on an Integrations install command, and with `$TERMINAL` set to a missing program. Press the button twice quickly and read the row and the process list.
 - On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
-- Run a `STRATA_UPDATER=disabled` build with and without network, then on a pacman-owned prefix and with the AUR install marker; read Installation, Update server, and the copied report.
+- Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker; read Installation, Update server, and the copied report.
 
 ### settings/themes
 

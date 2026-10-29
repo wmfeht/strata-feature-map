@@ -22,7 +22,8 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 - On first launch with no `settings.toml` and a valid Quattro state, Strata follows Omarchy. lgse/strata#542
 - While following, the theme library is insensitive and the Current theme description reads "Managed by Omarchy. Turn off Follow Omarchy to pick a theme manually." lgse/strata#849 (unverified)
 - Switching the Omarchy theme or editing `colors.toml` re-applies the palette in every window without restart. lgse/strata#1482
-- After `current/theme` is repointed to another theme folder, editing that folder's `colors.toml` in place, or replacing it by rename, re-applies the palette without restart. Switching back keeps this. lgse/strata#1909
+- After `current/theme` is repointed to another theme folder, editing that folder's `colors.toml` in place, or replacing it by rename, re-applies the palette without restart. Switching back to the first folder and editing its `colors.toml` re-applies the palette too. lgse/strata#1909
+- When `current/theme` points to a theme folder that is itself a link, repointing that inner link does not reload the palette. lgse/strata#1909 (unverified)
 - A Quattro color in a GTK-only form, such as `accent = "#7a7a2af7f"`, loads as `#rrggbb`; icons stay visible and the accent styling applies. lgse/strata#1554, lgse/strata#1429
 - While following, invalid Quattro state midway through a theme switch leaves the Settings preview and new document previews on the last applied palette. lgse/strata#1554, lgse/strata#1429
 - Deleting `~/.local/state/omarchy` while Strata runs hides Follow Omarchy, restores the previously selected theme, and saves `mode = "theme"`. lgse/strata#958

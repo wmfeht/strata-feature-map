@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `44bfeab` · 144 features, 85 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `44bfeab` · 144 features, 86 reviewed
 
 ## app
 
@@ -16,7 +16,7 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `44bfeab` | ? |
 | [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `44bfeab` | ? |
-| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `44bfeab` | ? |
+| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | reviewed | `44bfeab` | ? |
 | [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | draft | `73b3258` | ? |
 | ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `44bfeab` | ? |
 | [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `44bfeab` | ? |

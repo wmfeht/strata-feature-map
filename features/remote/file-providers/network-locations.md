@@ -42,8 +42,10 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 - An `smb://` location without its GVfs backend fails with a message naming common packages `gvfs-smb` or `gvfs-backends`. lgse/strata#31, lgse/strata#233
 - An unresolvable host, refused connection, timeout, or unreachable host each shows its own message, such as "That host couldn’t be found. Check the address and DNS settings." lgse/strata#233
-- Opening, listing, or mounting a URI location that fails with a typed GIO error, such as permission denied, shows its translated reason. lgse/strata#1909
-- Opening, listing, or mounting a URI location that fails with an unclassified GIO error shows the translated "An unexpected system error occurred", never the backend's text. lgse/strata#1909
+- Opening or listing a URI location that fails with a typed GIO error, such as permission denied, shows its translated reason. lgse/strata#1909
+- Mounting a URI location that fails with permission denied, or with untyped refused-credentials text, reopens the sign-in prompt instead of an error. lgse/strata#233, lgse/strata#1909
+- A mount that fails with any other typed error shows its translated reason, unless a missing-backend, host-key, or transport message applies. lgse/strata#233, lgse/strata#1909 (unverified)
+- Opening, listing, or mounting a URI location with any other unclassified GIO error shows "An unexpected system error occurred", translated. A mount does so only when no missing-backend, host-key, or transport message applies. lgse/strata#1909
 - Opening or listing a URI location that fails with an untyped error whose text names refused credentials, such as "Logon failure", shows "Permission denied". lgse/strata#1909
 - A mount failure on a location with a native path shows the translated reason for a typed error. An unclassified one shows the backend text with URI user info, query, and fragment removed. lgse/strata#233, lgse/strata#1909 (unverified)
 - The unclassified backend text goes only to the DEBUG log, sanitized. lgse/strata#1909
@@ -91,7 +93,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-29 | lgse/strata#1909 | fix | Showed translated text for unclassified GIO failures and "Permission denied" for untyped SMB credential rejections, so raw English backend text no longer reaches dialogs. |
+| 2026-10-29 | lgse/strata#1909 | fix | Showed translated text for unclassified GIO failures and "Permission denied" for untyped SMB credential rejections, so raw English backend text no longer reaches dialogs for URI locations. |
 | 2026-10-15 | lgse/strata#1634 | fix | Guarded optional GIO attributes in directory measurement, so measuring an SFTP folder for permanent delete logs no GLib-GIO critical. |
 | 2026-10-10 | lgse/strata#1544 | fix | Published the neighbour cursor after a remote reload removes the cursor file, without taking focus from outside the pane. |
 | 2026-10-09 | lgse/strata#1533 | fix | Kept GIO's percent-encoding in URI locations so names that are not valid UTF-8 are listed and `%2F` stays a name. |
