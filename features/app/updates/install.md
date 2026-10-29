@@ -3,8 +3,8 @@ title: In-place update install
 status: shipped
 origin: {issue: lgse/strata#24, pr: lgse/strata#26}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/services/update_install.rs, src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py]
 tests: [src/services/update_install/tests.rs, src/services/update_install/review_tests.rs, src/services/update_install/archive/tests.rs, src/services/update_install/command/tests.rs, src/services/update_install/download/tests.rs, src/services/update_install/manifest/tests.rs, src/ui/settings/tests/update_dialog.rs, scripts/test_sign_update_manifest.py, tests/fixtures/signed-update]
 docs: [site/src/reference/signed-updates.md]
@@ -21,6 +21,7 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 
 - Install update on the Updates row, or Download update or Install release in the update dialog, starts the install without a prompt. lgse/strata#26, lgse/strata#51, lgse/strata#1781
 - A chosen release older than the installed build installs. lgse/strata#1781
+- In a build made with `STRATA_UPDATER=disabled`, an install request fails with "In-app updates are disabled in this build." lgse/strata#1934 (unverified)
 - Only one install runs per process; starting another shows "Another install is already running — try again shortly." and leaves its button usable. lgse/strata#97, lgse/strata#1499
 - A download location other than `https://github.com/lgse/strata/releases/download/<tag>/strata-<version>-<arch>-unknown-linux-gnu.tar.gz` is refused. lgse/strata#506
 

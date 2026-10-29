@@ -3,8 +3,8 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -33,6 +33,8 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Confirmation dialogs open with the confirm button focused, so Enter confirms and Escape cancels: Permanently delete, Empty Trash, Restore, paste and archive Replace, Run, and Forget saved password. lgse/strata#1206
 - With focus outside a text field, Enter activates the focused button and toggles a focused checkbox or switch, so Enter with Cancel focused cancels. lgse/strata#1052, lgse/strata#175 (unverified)
 - With focus outside a text field, an unmodified arrow key moves focus to the nearest button, menu button, checkbox, switch, or entry in that direction; Down on a menu button opens its menu. lgse/strata#175 (unverified)
+- An error dialog that offers an action, such as Open as Administrator for an unreadable folder, opens with that accent button focused. lgse/strata#1837 (unverified)
+- In that dialog, Close, the close button, and Escape dismiss it without running the action. lgse/strata#1837 (unverified)
 - While a dialog is open, focus that moves outside it is returned to the dialog's layer, not to a button inside it. lgse/strata#1432
 
 ### Focus after closing

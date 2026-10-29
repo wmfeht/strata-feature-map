@@ -3,8 +3,8 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/qa/scenarios/accessibility, tests/qa/scenarios/dialogs_and_menus/entry-menu-named-actions.jsonl]
 docs: [docs/testing.md]
@@ -21,6 +21,8 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 - In every view, each entry is named with its display name and described as "Folder" or "File". lgse/strata#415
 - A symbolic link is described as "Folder link" or "File link", a dangling link as "Broken link", and any other file type as "Other". lgse/strata#415 (unverified)
+- A folder the user can't read or enter is described as "Folder that requires administrator access". lgse/strata#1837
+- A link to such a folder is described as "Folder link that requires administrator access". lgse/strata#1837 (unverified)
 - Each pane is a group named after its directory and described as "Columns view", "Icons view", or "List view". lgse/strata#415
 - The entry list inside a pane is named after its directory and described as "Files". lgse/strata#415
 - In an empty, unreadable, or still-loading directory, the focusable pane is named after the directory. lgse/strata#1533
