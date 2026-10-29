@@ -46,7 +46,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 
 ### Undo
 
-- Ctrl+Z after a copy answered with Replace restores the overwritten original from Trash. lgse/strata#1097
+- Ctrl+Z after a copy answered with Replace restores the overwritten original from Trash, outside folders opened as administrator. lgse/strata#1097, lgse/strata#1837
 - Ctrl+Z after a Merge removes what the merge created and restores the overwritten originals, leaving destination-only items. lgse/strata#1092, lgse/strata#1097
 - An item edited since the Merge or Replace stays on undo, its original stays in Trash, and the dialog says so. lgse/strata#1615
 - Where Trash is unavailable, a Merge undo deletes only created items it recorded and finds unchanged, and reports the rest. lgse/strata#1615
@@ -59,7 +59,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - A failed, cancelled, or disk-full Replace leaves the existing destination unchanged and removes the partial copy. lgse/strata#25
 - An item that appears at the destination after the dialog is answered is not overwritten. lgse/strata#25, lgse/strata#1097
 - Replacing a folder swaps the whole folder; none of its old contents remain. lgse/strata#25
-- Replace onto a destination without a local path fails with "Safe replacement is unavailable at this destination" and keeps the existing item. lgse/strata#25
+- Replace onto a destination without a local path, other than a folder opened as administrator, fails with "Safe replacement is unavailable at this destination". The existing item is kept. lgse/strata#25, lgse/strata#1837
 - Without Trash, Replace moves the original into a hidden `.strata-originals-<id>/` folder under its own name, then deletes it after the flush. lgse/strata#1615, lgse/strata#1729
 - An exchange Replace also runs through that folder, so a `.strata-copy-*` stage only ever holds a copy. lgse/strata#1729
 - A failure there puts the original back; Replace is refused before copying when no strategy is safe. lgse/strata#1615

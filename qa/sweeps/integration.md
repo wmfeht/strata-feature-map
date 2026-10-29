@@ -146,7 +146,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
 - With Downloads on the sshfs mount stopped by `kill -STOP`, press `g d`, then `g h` before 2 s pass.
 - On `fr` and `ch(de)`, press `g` then the keys that type `+` and `-`, on a pinned folder, an unpinned one, and the tenth pin.
-- Press `g +` with the bookmarks file read-only, then on two folders in quick succession, then on the 4th and 5th new pins. Read each flash and the bookmarks file.
+- Press `g +` with the bookmarks file read-only, then on two folders in quick succession, then on the 5th new pin. Read each flash and the bookmarks file.
 
 ### integration/10xer-mode/search
 
@@ -203,7 +203,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Start Strata from a folder on the sshfs mount. Activate a file and use Open With… with the fake handler and a `Path=/tmp` twin; read each cwd.
 - Press Enter twice fast on a file with no handler, once with a modal open, and once in a second window. Count the choosers.
 - Open a file, a folder, and three files at once through Open With…, then by activation; read `~/.local/share/recently-used.xbel` after each.
-- In an `admin://` folder, activate the text file by Enter, double-click, and the menu's Open, then the executable `.sh`; check the handler log stays empty.
+- In an `admin://` folder, activate the text file by Enter, double-click, and the menu's Open, then the executable `.sh`. Check the handler log stays empty.
 
 ### integration/open-with/recent-apps
 

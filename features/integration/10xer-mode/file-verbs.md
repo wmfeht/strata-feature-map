@@ -39,7 +39,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 ### Delete and restore
 
 - `d` and Delete ask before moving to Trash. lgse/strata#1306, lgse/strata#1340
-- `d` opens the explained permanent confirmation with Cancel focused where every item's open folder lacks Trash. That is a folder reporting `access::can-trash` false and `access::can-delete` true, or one opened as administrator. lgse/strata#1533, lgse/strata#1837
+- `d` opens the explained permanent confirmation with Cancel focused where every item's open folder lacks Trash. That is a folder reporting `access::can-trash` false and `access::can-delete` true, or every item is in a folder opened as administrator. lgse/strata#1533, lgse/strata#1837
 - `D`, Shift+Delete, and `d` inside Trash open the permanent-delete confirmation with Permanently delete focused. lgse/strata#1340, lgse/strata#1508
 - In Columns, `d` on an open folder whose empty child column has focus asks to trash that folder instead of flashing `Nothing to delete`. lgse/strata#1508
 - While an `f` or `s` result list shows no hits, `d` and `D` flash `Nothing to delete` and leave the open folder alone. lgse/strata#1508 (unverified)
@@ -83,7 +83,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `O` looks up types and applications without blocking keys, then opens Open With for the targets. lgse/strata#1308
 - Outside Flatpak, for a mixed selection, Recommended Applications lists only applications that handle every type. lgse/strata#1308, lgse/strata#1635
 - A newer key, a selection or focus change, navigation, leaving the mode, or closing the window drops an unfinished Open With lookup. lgse/strata#1308
-- `O` on any target in a folder opened as administrator opens no chooser. It flashes "Other applications can't open files in a folder opened as administrator. Preview the file here, or copy it to another folder first." lgse/strata#1837 (unverified)
+- When any `O` target is in a folder opened as administrator, `O` opens no chooser. It flashes "Other applications can't open files in a folder opened as administrator. Preview the file here, or copy it to another folder first." lgse/strata#1837 (unverified)
 - `;` arms a chord whose panel lists the first ten matching custom actions in context-menu order, then `t`, `c`, `e`, and `E`. lgse/strata#1308, lgse/strata#1340
 - `; 1` to `; 9` and `; 0` run that action; a vacant slot flashes `No action N` and runs nothing. lgse/strata#1308
 - If the targets or the action list changed since `;`, the digit flashes `Selection changed` or `Actions changed` and runs nothing. lgse/strata#1308

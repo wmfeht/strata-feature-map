@@ -37,10 +37,9 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - When a refusal was recorded for the first item's mount, the next paragraph reads "Trash isn't available on <mount point> (<type>)." lgse/strata#1614
 - The last paragraph is the local or remote deletion sentence of the permanent-delete confirmation, below. lgse/strata#1533, lgse/strata#1614
 - That dialog focuses Cancel, still after the size summary loads, so Enter closes it and keeps the files. lgse/strata#1533
-- When the folder's `access::can-trash` value is unknown, or the item's folder is not open, Delete attempts the trash move first. lgse/strata#1533 (unverified)
-- A folder opened as administrator (`admin://`) counts as a no-Trash folder, whatever its `access::can-trash` reports. lgse/strata#1837
-- Delete, or 10xer `d`, on items in such a folder opens "Permanently delete N items?" at once, with Cancel focused. No trash move is attempted. lgse/strata#1837
-- Its second paragraph reads "Trash isn't available when browsing as administrator.", followed by the local deletion sentence. lgse/strata#1837
+- When the folder's `access::can-trash` value is unknown, or the item's folder is not open, Delete attempts the trash move first, except for items under `admin://`. lgse/strata#1533, lgse/strata#1837 (unverified)
+- Any item in a folder opened as administrator (`admin://`) counts as lacking Trash. That holds whatever its `access::can-trash` reports, and whether or not its folder is open. lgse/strata#1837
+- For such items, the no-Trash dialog's second paragraph reads "Trash isn't available when browsing as administrator.", followed by the local deletion sentence. lgse/strata#1837
 - Dropping items from such a folder on the sidebar Trash row is refused, and no confirmation opens. lgse/strata#1837 (unverified)
 - In a read-only folder, where `access::can-trash` and `access::can-delete` are both false, Delete still attempts the trash move and opens no dialog first. lgse/strata#1533
 - When a trash move fails because every failed item's location lacks Trash, the same explained dialog opens with Cancel focused, for only those items. lgse/strata#225, lgse/strata#1425, lgse/strata#1533
@@ -54,7 +53,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 ### Deletion confirmations
 
 - A selection is remote only when every item is remote; a mixed selection gets the local wording. lgse/strata#1571, lgse/strata#1614
-- A remote item is a native path on a network mount, such as NFS, SMB, or sshfs, or a URI other than `trash:` or `admin:`. lgse/strata#1614, lgse/strata#1837
+- A remote item is a native path on a network mount, such as NFS, SMB, or sshfs. A URI other than `trash:` or `admin:` is remote too. lgse/strata#1614, lgse/strata#1837
 - Shift+Delete or Permanently delete in a folder opened as administrator opens the local-worded confirmation. A partial-failure retry button there reads "Delete Permanently". lgse/strata#1837 (unverified)
 - `fuseblk` drives and local FUSE overlays, such as mergerfs or gocryptfs, count as local. lgse/strata#1614
 - For a local or mixed selection, the permanent-delete dialog is titled "Permanently delete N items?" and its danger-styled button reads "Permanently delete N items". lgse/strata#164, lgse/strata#1614
