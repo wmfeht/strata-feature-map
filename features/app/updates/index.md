@@ -92,7 +92,7 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 - Strata caches instead of changing the source. A published `latest.json` was heavier, `releases.atom` carries HTML notes, and shipping an API token was rejected (lgse/strata#181).
 - GitHub answers unauthenticated conditional requests with `200`, so the 6-hour floor and the per-tag notes cache do the actual saving (lgse/strata#197).
 - The first automatic check of each session bypasses the cache so a fresh launch never shows stale release information. Disabling the cache for every check was rejected as wasteful (lgse/strata#325).
-- Results are broadcast to every window, and a window opened later gets the last offer as its sidebar notice (lgse/strata#866).
+- Results are broadcast to every window, and a window opened later gets the last offer as its sidebar notice (lgse/strata#866, lgse/strata#1909).
 - The last completed result, whether an offer, up to date, or a failure, is one shared snapshot. Every Settings → Updates row renders it, including rows opened later (lgse/strata#1909).
 - Check now clears only the shared snapshot and the sidebar notice. Clearing every row dropped another window's offer and Install button until the result arrived (lgse/strata#1909).
 - Each check carries a generation number. A result superseded by a newer check is dropped, so a Preview result cannot land after a switch to Stable (lgse/strata#97).

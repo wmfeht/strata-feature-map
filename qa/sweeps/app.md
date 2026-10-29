@@ -47,7 +47,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
-- Dump entries for a `chmod 000` folder, a `chmod 311` folder, a link to each, and a folder denied only by `setfacl -m u:$USER:---`; read each description, then `chmod 755` one and press F5.
+- Dump entries for a `chmod 000` folder, a `chmod 311` folder, a link to each, and a root-owned `0755` folder with `setfacl -m u:$USER:---`; read each description, then `chmod 755` one and press F5.
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
 - With the interface in de and ja, read the names of the pane header buttons, the filter field, and the media buttons against their tooltips.

@@ -33,9 +33,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - Confirmation dialogs open with the confirm button focused, so Enter confirms and Escape cancels: Permanently delete, Empty Trash, Restore, paste and archive Replace, Run, and Forget saved password. lgse/strata#1206
 - With focus outside a text field, Enter activates the focused button and toggles a focused checkbox or switch, so Enter with Cancel focused cancels. lgse/strata#1052, lgse/strata#175 (unverified)
 - With focus outside a text field, an unmodified arrow key moves focus to the nearest button, menu button, checkbox, switch, or entry in that direction; Down on a menu button opens its menu. lgse/strata#175 (unverified)
-- When only permissions block a folder and GIO supports `admin://`, the "Unable to open location" or "Unable to open directory" dialog offers Open as Administrator. lgse/strata#1837
-- That dialog opens with Open as Administrator focused. lgse/strata#1837 (unverified)
-- That dialog's cancel button reads Close. Close, the close button, Escape, and a backdrop click dismiss it without opening the folder. lgse/strata#1837 (unverified)
+- An error dialog that offers Open as Administrator opens with that button focused, and its cancel button reads Close. lgse/strata#1837 (unverified)
 - While a dialog is open, focus that moves outside it is returned to the dialog's layer, not to a button inside it. lgse/strata#1432
 
 ### Focus after closing
