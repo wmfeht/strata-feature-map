@@ -21,7 +21,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 - In every view, each entry is named with its display name and described as "Folder" or "File". lgse/strata#415
 - A symbolic link is described as "Folder link" or "File link", a dangling link as "Broken link", and any other file type as "Other". lgse/strata#415 (unverified)
-- A folder the user can't read or enter is described as "Folder that requires administrator access". lgse/strata#1837
+- Once metadata loads, a local folder the user can't read or enter is described as "Folder that requires administrator access". lgse/strata#1837
 - A link to such a folder is described as "Folder link that requires administrator access". lgse/strata#1837 (unverified)
 - Each pane is a group named after its directory and described as "Columns view", "Icons view", or "List view". lgse/strata#415
 - The entry list inside a pane is named after its directory and described as "Files". lgse/strata#415

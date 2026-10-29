@@ -224,6 +224,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Start an install from one Settings window, run Check now in another, then cancel the install; read both rows until the next check.
 - On fake pacman and Omarchy installs with the Nightly preference, let the startup check offer a release, then switch the channel in a second window.
 - Launch the disabled build with an `update-check.toml` holding an offer, checks on, and the Preview channel saved; open two windows and count requests at the proxy.
+- Build with `STRATA_UPDATER` set to ` disabled `, `DISABLED`, `enabled` followed by a newline, and an empty value; read whether each build fails and whether Settings lists Updates.
 
 ### app/updates/release-picker
 
@@ -276,7 +277,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Start Strata with `STRATA_UI_STALL_MS` set to `0`, `-5`, `abc`, and ` 250 `; check for the watchdog thread `strata-ui-stalls`.
 - With Strata stopped, call the portal's `org.freedesktop.portal.OpenURI.OpenDirectory` on a file and time the reply. Repeat with activation `GDK_DEBUG` set to `misc` and to `misc:no-portals`, and read `/proc/<pid>/environ`.
 - Launch `strata` and `strata <dir>` while the activated process runs, and read the new window's process id.
-- Build with `STRATA_UPDATER` set to ` disabled `, `DISABLED`, `enabled` followed by a newline, and an empty value; read whether each build fails and whether Settings lists Updates.
 - Run `strata --qa <dir>`, `strata --qa`, and `strata <dir> --qa` on a plain `cargo build` and a release build; read which window opens and whether stdin is read.
 
 ## Hand-offs
@@ -290,7 +290,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Sidebar automatic rail → `preview`.
 - Settings layer mechanics and pages other than Updates, including Window buttons and text size controls → `settings`.
 - Settings search terms that find "Install a specific release" → `settings`.
-- Settings search, navigation, and the Diagnostics Installation row in a build without the updater → `settings`.
+- Settings search and the Diagnostics Installation row in a build without the updater → `settings`.
 - Opening an unreadable folder as administrator, its breadcrumb root, and its notice → `browser`.
 - The "Not responding" notice and request lanes on a stalled mount → `browser`.
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.

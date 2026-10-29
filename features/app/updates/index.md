@@ -22,10 +22,12 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - A build made with `STRATA_UPDATER=disabled` has no Updates entry in the Settings navigation and no Updates page. lgse/strata#1934
 - Such a build never starts an automatic check, so the sidebar update notice never appears. lgse/strata#1934
 - A build with `STRATA_UPDATER` unset or `enabled` keeps the Updates page and update checks. lgse/strata#1934
+- `STRATA_UPDATER` is trimmed before it is read, and an empty value also keeps the updater. lgse/strata#1934 (unverified)
+- A build with any other value, such as `disable`, fails with `STRATA_UPDATER must be "enabled" or "disabled"`. lgse/strata#1934
 
 ### Checking
 
-- In a build with the updater, with "Check for updates automatically" on, a window's first themed frame starts a check unless one completed in this process within 24 hours. lgse/strata#944, lgse/strata#326
+- With "Check for updates automatically" on, a window's first themed frame starts a check unless one completed in this process within 24 hours. lgse/strata#944, lgse/strata#326
 - Automatic checks are on in a new profile. lgse/strata#1461
 - The first visit to Settings → Updates in a window starts an automatic check when one is due. lgse/strata#944
 - The first automatic check of a session ignores the on-disk cache. lgse/strata#326
@@ -50,8 +52,10 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - Settings → Updates opened after the startup check completed shows that check's result, without Check now or another request. lgse/strata#1909
 - When a startup or manual check completes, every open Settings → Updates row shows its result. lgse/strata#1909
 - Check now in one Settings window leaves other windows' rows, including an offer's Install button, unchanged until its result lands. lgse/strata#1909
-- On a pacman or Omarchy install with a Preview or Nightly preference, a startup offer shows on the row with its package-managed action, such as "Check again". lgse/strata#1909
-- Turning automatic checks off or changing the channel resets every open row to "Check for updates" and Check now, except a row mid-check or with an install underway. lgse/strata#1909 (unverified)
+- On a pacman or Omarchy install with a Preview or Nightly preference, a startup offer shows on the Updates row. lgse/strata#1909
+- That offer carries its package-managed action, such as "Check again" on pacman. lgse/strata#1909
+- Turning automatic checks off or changing the channel resets every open row to "Check for updates" and Check now. lgse/strata#1909 (unverified)
+- That reset skips a row mid-check or with an install underway. lgse/strata#1909 (unverified)
 - An available update shows its notes inline, titled "Available release · vX" with its change count and publication date. lgse/strata#51
 - Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944, lgse/strata#1554
 - The Release channel menu is insensitive while automatic checks are off. lgse/strata#97 (unverified)
@@ -88,8 +92,9 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 - Strata caches instead of changing the source. A published `latest.json` was heavier, `releases.atom` carries HTML notes, and shipping an API token was rejected (lgse/strata#181).
 - GitHub answers unauthenticated conditional requests with `200`, so the 6-hour floor and the per-tag notes cache do the actual saving (lgse/strata#197).
 - The first automatic check of each session bypasses the cache so a fresh launch never shows stale release information. Disabling the cache for every check was rejected as wasteful (lgse/strata#325).
-- Results are broadcast to every window (lgse/strata#866). The last completed result, whether an offer, up to date, or a failure, is one shared snapshot. Every Settings → Updates row renders it, including rows opened later (lgse/strata#1909).
-- Check now drops the shared snapshot and the sidebar notice, but other rows keep their rendering until the new result lands (lgse/strata#1909).
+- Results are broadcast to every window, and a window opened later gets the last offer as its sidebar notice (lgse/strata#866).
+- The last completed result, whether an offer, up to date, or a failure, is one shared snapshot. Every Settings → Updates row renders it, including rows opened later (lgse/strata#1909).
+- Check now clears only the shared snapshot and the sidebar notice. Clearing every row dropped another window's offer and Install button until the result arrived (lgse/strata#1909).
 - Each check carries a generation number. A result superseded by a newer check is dropped, so a Preview result cannot land after a switch to Stable (lgse/strata#97).
 - Checks and package-manager detection run off the GTK thread, after the first frame rather than on a fixed 8-second delay (lgse/strata#944).
 - A release-notes failure never blocks an eligible update; the GitHub release page stays available as a fallback (lgse/strata#48).

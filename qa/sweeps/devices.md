@@ -33,6 +33,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Attach the three-partition disk and count rows before and after mounting one partition from a shell.
 - Unplug a stick while its folder is open in Columns, Icons, and List, and once more while a copy into it is running.
 - Start a mount from the row while udiskie is prompting for the same volume. Cancel udiskie's prompt after 3 seconds, then on a fresh attempt after 10.
+- Hover a device row while its folder is the current location, then after Alt+Up leaves the pointer on it; repeat in a light and a dark theme.
 - Loop-mount an image under `/mnt`, under `/run/media/$USER`, and with `udisksctl mount`; note which appear and which vanish on `umount`.
 - Mount one stick read-only with `mount -o ro` beside a writable one, then open Send to…. Remount it read-write from a shell and reopen the menu.
 - Clone a stick with `dd` so two carry one UUID, attach both, and open Send to….

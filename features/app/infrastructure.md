@@ -69,11 +69,6 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - A helper in a configured directory whose canonical target lies outside those roots is rejected, and the search moves to the next directory. lgse/strata#1746
 - With no trusted copy in any directory, the lookup fails closed. lgse/strata#1055, lgse/strata#1746
 
-### Build switches
-
-- A build with `STRATA_UPDATER` set to a value other than `enabled` or `disabled`, such as `disable`, fails with `STRATA_UPDATER must be "enabled" or "disabled"`. lgse/strata#1934
-- A `STRATA_UPDATER` value is trimmed first, and an empty value builds with the updater. lgse/strata#1934 (unverified)
-
 ### File manager activation
 
 - Started with `--gapplication-service` before any `--`, Strata re-execs before GTK starts, with `no-portals` appended to `GDK_DEBUG`, such as `misc:no-portals`. lgse/strata#1811

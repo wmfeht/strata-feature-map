@@ -21,7 +21,6 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 
 - Install update on the Updates row, or Download update or Install release in the update dialog, starts the install without a prompt. lgse/strata#26, lgse/strata#51, lgse/strata#1781
 - A chosen release older than the installed build installs. lgse/strata#1781
-- In a build made with `STRATA_UPDATER=disabled`, an install request fails with "In-app updates are disabled in this build." lgse/strata#1934 (unverified)
 - Only one install runs per process; starting another shows "Another install is already running — try again shortly." and leaves its button usable. lgse/strata#97, lgse/strata#1499
 - A download location other than `https://github.com/lgse/strata/releases/download/<tag>/strata-<version>-<arch>-unknown-linux-gnu.tar.gz` is refused. lgse/strata#506
 
@@ -91,6 +90,7 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 - Every install writes the same executable, so one guard spans all windows. Staging paths are also unique per install against leftovers from a killed process (lgse/strata#97).
 - Old instances are found through `/proc` and signalled through a pidfd, so a reused PID is never signalled (lgse/strata#1201).
 - The installer accepts a rollback because it compares the requested tag with the signed manifest's tag, not version order (lgse/strata#1781).
+- A build made with `STRATA_UPDATER=disabled` has no Updates page, so no control starts an install. The install service still refuses to run there, as `docs/packaging.md` states (lgse/strata#1934).
 - Desktop metadata is only refreshed, never created, so an update does not add a launcher the user never installed (lgse/strata#182).
 
 ## History
