@@ -39,7 +39,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 ### Delete and restore
 
 - `d` and Delete ask before moving to Trash. lgse/strata#1306, lgse/strata#1340
-- Where every item's open folder reports `access::can-trash` false and `access::can-delete` true, `d` opens the explained permanent confirmation with Cancel focused. lgse/strata#1533
+- `d` opens the explained permanent confirmation with Cancel focused where every item's open folder lacks Trash. That is a folder reporting `access::can-trash` false and `access::can-delete` true, or one opened as administrator. lgse/strata#1533, lgse/strata#1837
 - `D`, Shift+Delete, and `d` inside Trash open the permanent-delete confirmation with Permanently delete focused. lgse/strata#1340, lgse/strata#1508
 - In Columns, `d` on an open folder whose empty child column has focus asks to trash that folder instead of flashing `Nothing to delete`. lgse/strata#1508
 - While an `f` or `s` result list shows no hits, `d` and `D` flash `Nothing to delete` and leave the open folder alone. lgse/strata#1508 (unverified)

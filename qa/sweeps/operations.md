@@ -86,7 +86,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Merge without Trash on NFS while another program holds one replaced file open; then cancel a second such merge.
 - After a Merge, edit one placed file, only `touch` another, then undo.
 - On tmpfs and on `/dev/shm`, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
-- In an `admin://` folder, paste a file over a file, a folder over a folder, and a file over a folder, by copy and by cut. Then copy a file from it over a same-named Home file and answer Replace, then Keep Both.
+- In an `admin://` folder, paste a file over a file, a folder over a folder, a file over a folder, and a folder over a file, by copy and by cut. Then copy a file from it over a same-named Home file and answer Replace, then Keep Both.
 
 ### operations/clipboard/send-to
 

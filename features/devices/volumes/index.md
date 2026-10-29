@@ -26,7 +26,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - With no volumes, mounts, password drives, or pending releases, neither the DEVICES heading nor its separator renders. lgse/strata#536
 - Plugging in, mounting, unmounting, or removing a device updates Devices without a restart. lgse/strata#536
 - A row's udev encryption hint appears once a worker has read it; Devices rebuilds when the hint changes. lgse/strata#1729 (unverified)
-- Hovering a device row tints it with the text color at 6%; only the current location's row keeps the accent fill. lgse/strata#1909
+- Hovering a device row tints it with the text color at 6%; only the current location's row keeps the accent fill. lgse/strata#1909 (unverified)
 
 ### Mounting
 

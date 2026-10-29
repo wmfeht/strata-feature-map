@@ -31,7 +31,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 
 - A folder whose first listed entry is a symlink into `/dev/shm` still offers Move to Trash, and Delete moves a regular file there to Trash. lgse/strata#1551, lgse/strata#1584
 - A no-Trash folder is an open folder reporting `access::can-trash` false and `access::can-delete` true, such as `/dev/shm`. lgse/strata#1533
-- Delete, or a drop on the sidebar Trash row from a folder not opened as administrator, opens "Permanently delete N items?" at once when every item is in a no-Trash folder. lgse/strata#1533, lgse/strata#1837
+- Delete opens "Permanently delete N items?" at once when every item is in a no-Trash folder. So does a drop on the sidebar Trash row, unless the folder is opened as administrator. lgse/strata#1533, lgse/strata#1837
 - In that case no trash move is attempted, so nothing reaches the Trash. lgse/strata#1533
 - That dialog's text opens with the paragraph "This location doesn't support Trash." lgse/strata#1533, lgse/strata#1614
 - When a refusal was recorded for the first item's mount, the next paragraph reads "Trash isn't available on <mount point> (<type>)." lgse/strata#1614
@@ -54,7 +54,8 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 ### Deletion confirmations
 
 - A selection is remote only when every item is remote; a mixed selection gets the local wording. lgse/strata#1571, lgse/strata#1614
-- A remote item is a native path on a network mount, such as NFS, SMB, or sshfs, or a non-`trash:` URI. lgse/strata#1614
+- A remote item is a native path on a network mount, such as NFS, SMB, or sshfs, or a URI other than `trash:` or `admin:`. lgse/strata#1614, lgse/strata#1837
+- Shift+Delete or Permanently delete in a folder opened as administrator opens the local-worded confirmation. A partial-failure retry button there reads "Delete Permanently". lgse/strata#1837 (unverified)
 - `fuseblk` drives and local FUSE overlays, such as mergerfs or gocryptfs, count as local. lgse/strata#1614
 - For a local or mixed selection, the permanent-delete dialog is titled "Permanently delete N items?" and its danger-styled button reads "Permanently delete N items". lgse/strata#164, lgse/strata#1614
 - Its text reads "This item will be permanently deleted. This action cannot be undone.", or "These items…" for several. lgse/strata#1614

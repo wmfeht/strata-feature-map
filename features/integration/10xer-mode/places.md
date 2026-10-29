@@ -34,10 +34,10 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 ### Pins
 
-- `g +`, or `g` then keypad `+`, pins the folder under the cursor, or the current folder from a file. It flashes `Pinned “Name” as g N`. lgse/strata#1340
-- The `g +` flash appears once the bookmark is saved, so a new pin in slots 1–4 reads `Pinned “Name” as g N`. lgse/strata#1909
+- `g +`, or `g` then keypad `+`, pins the folder under the cursor, or the current folder from a file. lgse/strata#1340
+- The `g +` flash waits for the bookmark save and names the saved slot, `Pinned “Name” as g 1` to `… as g 9`. lgse/strata#1340, lgse/strata#1909
 - When the bookmark save leaves the folder unpinned, `g +` flashes `Can’t pin “Name”` instead of `Pinned …`. lgse/strata#1909 (unverified)
-- A new pin outside the first nine visible pins flashes `Pinned “Name”` with no digit. lgse/strata#1340 (unverified)
+- A new pin outside the first nine visible pins flashes `Pinned “Name”` with no digit. lgse/strata#1340, lgse/strata#1909
 - `g -`, or `g` then keypad `-`, unpins it and flashes `Unpinned “Name”`; pinning twice flashes `“Name” is already pinned`. lgse/strata#1340
 - `g -` on a folder that is not pinned flashes `“Name” isn’t pinned`. lgse/strata#1340 (unverified)
 - `g` then Shift+keypad `+` or Shift+keypad `-` neither pins nor unpins. lgse/strata#1576
