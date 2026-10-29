@@ -18,7 +18,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases. The portal chooser runs on that HOME through `scripts/chooser-dev.sh`.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
-- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=hu_HU.UTF-8`, `LANGUAGE=xx:hu_HU:fr LANG=de_DE`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the thirteen languages is right-to-left.
+- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LC_MESSAGES=hu_HU.UTF-8 LANG=C`, `LANGUAGE=hu`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the thirteen languages is right-to-left.
 - A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`; and `~/.local/share/themes/StrataEmpty/gtk-4.0/gtk.css` holding the same rules.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
@@ -73,7 +73,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Rebind an action in `settings.toml` before launch, then search its old and new keys under English and `language = "ja"`.
 - Compare the navigation's icon column with the search field's icon at text size 8 and 48, labelled and icon-only.
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
-- In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation, then on a pacman-owned prefix; read the visible rows and navigation entries.
+- In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation. Repeat on a pacman-owned prefix, reading the visible rows and navigation entries.
 
 ### settings/preferences/storage
 
@@ -112,8 +112,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under 正體中文 on an `en_US` system, with only Noto Sans CJK SC installed, then only TC, read Settings and a file list for mixed glyph forms.
 - Under 简体中文, read the sidebar toggle tooltip in full, compact, and hidden states, and the password remember choices in a mount dialog.
 - Under 简体中文, read the Tasks icon name in Customize… and the Danger color label in Add theme.
-- Under Magyar, select 1, 2, and 3,000 items and read the footer count, a 1.5 MB size, a 1 234 567 byte Properties size, and a transfer rate. Fail a copy into a read-only folder and read the case after the colon.
-- Run Deutsch, Magyar, and Русский at the 1250 px panel width and in the destructive-delete dialog; look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
+- Under Magyar, select 1, 2, and 3,000 items and read the footer count. Read a 1.5 MB size, a 1 234 567 byte Properties size, and a transfer rate. Fail a copy into a read-only folder and read the case after the colon.
+- Run Deutsch, Magyar, and Русский at the 1250 px panel width and in the destructive-delete dialog. Look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
 
 ### settings/preferences/date-format
 
@@ -135,7 +135,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Repeat both on an Integrations install command, and with `$TERMINAL` set to a missing program. Press the button twice quickly and read the row and the process list.
 - On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
-- Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker; read Installation, Update server, and the copied report.
+- Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker. Read Installation, Update server, and the copied report.
 
 ### settings/themes
 
