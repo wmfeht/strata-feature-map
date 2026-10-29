@@ -3,7 +3,7 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
 tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
@@ -22,6 +22,9 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - A file shows its type icon while its thumbnail loads, and keeps it when rendering fails or the type is unsupported. lgse/strata#43
 - Folders never get thumbnails and keep their folder icon. lgse/strata#43
 - A file or folder with a custom icon shows that icon instead of a thumbnail. lgse/strata#294 (unverified)
+- Files in a folder opened through `admin://` get no thumbnail and show their type icon. lgse/strata#1837
+- A metadata fill can find a shown folder locked. Its row in Columns, List, or Icons then swaps to the lock icon in place. lgse/strata#1837
+- A locked folder with a custom icon keeps that icon. lgse/strata#1837 (unverified)
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
 - Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148
 - A fresh image decode fills the item's Icons caption with its source dimensions, such as `320×180`. lgse/strata#1081
@@ -100,6 +103,7 @@ Codecs read attacker-controlled bytes merely by a file becoming visible, so no d
 - STL renders have a transparent background because the shared freedesktop cache must not depend on the theme ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
 - Disabling the switch keeps cached PNGs, like **Show thumbnails**. A private cache was offered only if renders had to be hidden from other clients, and not adopted ([review](https://github.com/lgse/strata/pull/1789#issuecomment-6306979921)).
 - **Show thumbnails** is an explicit switch. Zero workers as a hidden off switch and deleting cached files were rejected as workarounds (lgse/strata#1664).
+- Files in `admin://` folders get no thumbnails. A root-only image would persist in `~/.cache/thumbnails`, readable by any user process, and background reads could raise an unasked polkit prompt (lgse/strata#1836, lgse/strata#1837).
 - A fallback icon's height scale is cached per texture, weakly keyed and pruned at 512 entries, instead of scanning the texture on each icon change (lgse/strata#1675).
 - A GVfs FUSE path is a render input only; navigation and identity keep the URI (lgse/strata#1080).
 

@@ -1,19 +1,19 @@
 ---
 title: App sweep
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates and Keyboard, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
 ## Setup
 
-- Two builds of the same commit: one plain, one with `STRATA_RELEASE_TAG=v0.0.1-rc.1 STRATA_BUILD_KIND=rc` exported before `cargo build`. The second drives Return to stable and build-kind labels.
+- Three builds of the same commit: one plain, one with `STRATA_RELEASE_TAG=v0.0.1-rc.1 STRATA_BUILD_KIND=rc` exported before `cargo build`, and one with `STRATA_UPDATER=disabled`. The second drives Return to stable and build-kind labels; the third has no updater.
 - Network control for update checks and downloads. Point `HTTPS_PROXY` at a closed port for a fast failure and at a `nc -l` socket for a stall; run under `unshare -rn` when the proxy is ignored. Live GitHub checks are capped at 60 per hour, so plan them.
 - A fake package-managed install: copy the binary to `<prefix>/bin/strata` and write `<prefix>/share/strata/install-source.toml` in the shape `docs/packaging.md` gives. Keep one marker per manager and channel, one with unknown keys, and one made unreadable with `chmod 000`.
 - The installer is never run on the host outside the stubs and throwaway `HOME` below. Evidence is `python3 scripts/test_installer.py`, `bash install.sh --help`, and the script read against its Behavior; a fake `omarchy` on `PATH` and `~/.local/share/omarchy/version` under the throwaway `HOME` feed the detection cases.
@@ -47,6 +47,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Hover every header, footer, breadcrumb, and sidebar control for 3 s at each sidebar width and list which tooltips appear.
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
+- Dump entries for a `chmod 000` folder, a `chmod 311` folder, a link to each, and a root-owned `0755` folder with `setfacl -m u:$USER:---`; read each description, then `chmod 755` one and press F5.
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
 - With the interface in de and ja, read the names of the pane header buttons, the filter field, and the media buttons against their tooltips.
@@ -67,6 +68,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Close a dialog by keyboard, switch to a second window before the 200 ms close animation ends, then return and read the ring.
 - In a byte-limited field, paste text whose limit falls inside a multi-byte character. Paste with the cursor at the start, middle, and end, then undo and redo.
 - Type into a limited field with an input method composing, and drop text onto it by drag and drop.
+- Type the path of a `chmod 000` folder so the error dialog offers Open as Administrator. Dismiss it by backdrop click, Escape, and Close, then press Down and read where focus lands.
+- Repeat with that dialog stacked over Properties.
+- With no GVfs `admin` backend, type the same path and read which button has focus.
 - Click an install command's copy button twice within 2 s, then close its dialog before 2 s pass; read the button's name every 500 ms.
 
 ### app/shortcut-reference
@@ -128,7 +132,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `strata --version`, `strata --version ~/Documents`, `strata ~/Documents --version`, and `strata --version` with `DISPLAY` unset; compare the output with the prerelease build and check no window appears.
 - Build the prerelease build once with `cargo build` and once with `cargo build --release`; compare `strata --version` with the Settings → Updates version line in each.
 - Install with `mise run install-local` into a throwaway `HOME`, read `Exec=` in the installed entry, uninstall, and list what remains.
-- Read the launcher's generic name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, and `zh_MO.UTF-8`.
+- Read the launcher's generic name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, `zh_MO.UTF-8`, and `hu_HU.UTF-8`.
 - View the installed icon at 16, 24, 32, and 48 px on white, mid-grey, and near-black dock backgrounds.
 - Compare its size and corners with neighboring icons under Adwaita and under an icon theme with no Strata icon, such as MacTahoe.
 
@@ -147,6 +151,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In the custom menu, toggle Default file manager, Open file location, and Application launcher in every order, then read the plan's `+` lines.
 - In a numbered menu, enter `0`, `99`, `1 2`, `01`, and an empty line in both menus.
 - Run with `LANGUAGE=zz`, `LANGUAGE=zh-Hant-TW`, `LANG=zh_SG.UTF-8`, `LC_ALL=POSIX`, and `LC_MESSAGES=ko_KR.UTF-8` with `LANG=fr_FR.UTF-8`; read the banner, menus, and failure lines.
+- Run with `LANG=hu_HU.UTF-8` and `LANGUAGE=HU` in an 80-column terminal; read the menus, plan, and summary for cut or wrapped lines.
 - Install Open file location with the stub `gdbus` exiting 1 and then absent; read the heading and whether the log is kept.
 - Repeat with the real `gdbus` and `DBUS_SESSION_BUS_ADDRESS` pointing at a socket that accepts and never answers, such as `socat UNIX-LISTEN:<path> -`.
 - On that silent socket, select Default file manager with `XDG_CURRENT_DESKTOP` unset, `Hyprland`, and `GNOME`; read the failure lines, exit status, and leftover `dbus-send` processes.
@@ -215,6 +220,12 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Compare the installed-release expander on the plain build, the prerelease build, and a build tagged with no GitHub release.
 - Serve release bodies through the proxy that hold a `<!-->` short form, a comment inside a fenced code block, and `-->` mid-paragraph; read the expander, the Available card, and the update dialog.
 - Serve 250 signed releases through the proxy with page 3 answering HTTP 500, then open the release menu.
+- Open Settings → Updates while the startup check is stalled at the proxy, release the proxy, then open a second Settings window; compare both rows and count requests.
+- With an offer shown in two Settings windows, press Check now in one with the proxy failing; read the other row before and after the failure lands.
+- Start an install from one Settings window, run Check now in another, then cancel the install; read both rows until the next check.
+- On fake pacman and Omarchy installs with the Nightly preference, let the startup check offer a release, then switch the channel in a second window.
+- Launch the disabled build with an `update-check.toml` holding an offer, checks on, and the Preview channel saved; open two windows and count requests at the proxy.
+- Build with `STRATA_UPDATER` set to ` disabled `, `DISABLED`, `enabled` followed by a newline, and an empty value; read whether each build fails and whether Settings lists Updates.
 
 ### app/updates/release-picker
 
@@ -280,6 +291,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Sidebar automatic rail → `preview`.
 - Settings layer mechanics and pages other than Updates, including Window buttons and text size controls → `settings`.
 - Settings search terms that find "Install a specific release" → `settings`.
+- Settings search and the Diagnostics Installation row in a build without the updater → `settings`.
+- Opening an unreadable folder as administrator, its breadcrumb root, and its notice → `browser`.
 - The "Not responding" notice and request lanes on a stalled mount → `browser`.
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.

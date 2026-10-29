@@ -3,7 +3,7 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: []
 tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl]
@@ -30,6 +30,9 @@ One undo history and one redo history for file operations, shared by every Strat
 - Redo is shared too: after Ctrl+Z in one window, Ctrl+Shift+Z in another window re-applies that operation. lgse/strata#1120
 - Repeated Ctrl+Z undoes earlier operations newest first, up to 32 entries; recording a 33rd drops the oldest. lgse/strata#444
 - A paste that created nothing records no entry, so Ctrl+Z still undoes the operation before it. lgse/strata#444
+- A copy into a folder opened as administrator records no entry, even when a conflict is answered Replace. So does a New Folder or New File there. Ctrl+Z then undoes the operation before it. lgse/strata#1837
+- Such a copy, New Folder, or New File leaves the redo history as it was. lgse/strata#1837 (unverified)
+- A rename, or a move into or out of such a folder, still records its entry. lgse/strata#1837
 - An undo records no undo entry of its own, so a second Ctrl+Z undoes the previous operation instead of reverting the undo. lgse/strata#301, lgse/strata#444
 - While an undo or redo runs, Ctrl+Z or Ctrl+Shift+Z in another window does not start it a second time. lgse/strata#228, lgse/strata#1120 (unverified)
 - A completed redo becomes the latest undo entry again, so Ctrl+Z after Ctrl+Shift+Z reverts it once more. lgse/strata#1120
@@ -86,6 +89,7 @@ Undo targets the latest reversible operation process-wide, matching common file 
 - Each claimed entry keeps a bucket of the items that actually applied. Unapplied items stay on the stack for retry, applied items become the opposite entry, and a replay that applied nothing pushes nothing (lgse/strata#1120).
 - Undo and redo share one replay core parameterized by direction and reuse the provider's undo operations, with no new provider API. Copy redo therefore restores the trashed copies rather than copying again (lgse/strata#1117, lgse/strata#1120).
 - Merge and Replace undos mix deletions and restores, which no single replay can re-apply, so they offer no redo (lgse/strata#1120).
+- Copies and new items in admin folders get no entry, because their undo moves items to Trash and `admin://` has none (lgse/strata#1836, lgse/strata#1837).
 - History is kept in memory only; persistence across restarts was ruled out of scope (lgse/strata#1059).
 
 ## History

@@ -3,7 +3,7 @@ title: Remappable shortcuts per map
 status: shipped
 origin: {issue: lgse/strata#1884, pr: lgse/strata#1885}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/keys/command.rs, src/ui/keys/alias.rs, src/ui/keys/capture.rs, src/ui/keys/conflicts.rs, src/ui/preferences/keymap.rs, src/ui/window/keyboard/direct.rs, src/ui/settings/keyboard.rs]
 tests: [src/ui/keys/command/tests.rs, src/ui/keys/alias/tests.rs, src/ui/keys/conflicts/tests.rs, src/ui/preferences/tests/keymap.rs, src/ui/settings/keyboard/tests.rs, src/ui/window/tests/keyboard_dispatch/keymap_overrides.rs, src/ui/window/tests/keyboard_dispatch/keymap_conflicts.rs, src/ui/window/tests/keyboard_dispatch/structural_aliases.rs, src/ui/window/tests/keyboard_dispatch/direct_commands.rs, tests/qa/scenarios/keymap]

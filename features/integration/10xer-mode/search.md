@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]
 related: [browser/search, browser/search/filter]

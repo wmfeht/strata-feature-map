@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl]
@@ -46,6 +46,8 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
 - With Mirror columns selection on, Return on a folder still validating when the 75 ms mirror fires opens it in the next column. Focus lands on its first entry. lgse/strata#1771 (unverified)
+- Where GIO supports `admin`, a column whose folder Strata may not read offers Open as Administrator above Retry on its error page. lgse/strata#1837
+- In an `admin://` folder, the "Browsing as administrator" lock notice shows on the root column only. lgse/strata#1837 (unverified)
 
 ### Returning to an ancestor
 

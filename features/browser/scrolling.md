@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#293, pr: lgse/strata#311}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/scrolling.rs, src/ui/scrolling/popover.rs]
 tests: [src/ui/scrolling/tests.rs, src/ui/scrolling/popover/tests.rs, tests/qa/scenarios/popover_scrolling, tests/qa/mutations/popover-scrolling.patch]
 related: [browser/tabs, browser/view-modes, browser/view-modes/columns, browser/view-modes/text-size, browser/selection, operations/drag-and-drop/column-autoscroll]

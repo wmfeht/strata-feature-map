@@ -3,7 +3,7 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl]
@@ -22,6 +22,8 @@ The left panel of every browser window and the file chooser: built-in places, th
 - By default the sidebar lists Home, Trash, Network, Recent, Desktop, Documents, Downloads, Music, Pictures, and Videos in one block, followed by PINNED and DEVICES. lgse/strata#1161, lgse/strata#1342
 - Desktop, Documents, Downloads, Music, Pictures, and Videos open the folders set in `user-dirs.dirs`; Music follows `XDG_MUSIC_DIR`. lgse/strata#1342
 - The row for the current location shows an 18% accent tint and an accent-coloured icon. lgse/strata#106
+- Hovering a place row that is not the current location shows a neutral 6% text-colour fill, not an accent tint. lgse/strata#1909
+- After Alt+Up, Back, or location-bar navigation with the pointer left on the old row, only the new current row keeps the accent tint. lgse/strata#1909
 - Clicking a place that fails to open, such as Network with `GIO_USE_VFS=local`, and dismissing the error leaves the pane and the highlight on the open place. lgse/strata#1605
 - While a place mounts before opening, the highlight stays on the open place; a failed or cancelled mount leaves it there. lgse/strata#1605
 - Home, standard folders, and local pins show the folder's saved colour and custom icon, and update in every open window when it changes. lgse/strata#1370
@@ -110,6 +112,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-29 | lgse/strata#1909 | fix | Made sidebar hover a neutral tint, so a hovered old place no longer looks like a second selected row. |
 | 2026-10-17 | lgse/strata#1726 | feat | Added Connect to server… to the Network row's menu, with an address field and an optional pin, so network locations can be added without typing in the location bar. |
 | 2026-10-15 | lgse/strata#1605 | fix | Returned the highlight to the open place after a rejected place click. |
 | 2026-10-13 | lgse/strata#1606 | fix | Made the header toggle step full, rail, hidden, saved the rail as `sidebar_compact`, and made the automatic rail edge-triggered under one fit rule. |
@@ -128,4 +131,3 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 - NAS shares mounted by the system at native paths do not appear unless GIO reports them. lgse/strata#1209
 - PINNED and DEVICES cannot be collapsed; the implementation is unmerged. lgse/strata#1389, lgse/strata#1390
-- After Alt+Up, Back, or location-bar navigation, the sidebar location tint can stay on the previous row, and two rows can be tinted at once. lgse/strata#1862

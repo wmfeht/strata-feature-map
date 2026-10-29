@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
@@ -27,6 +27,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - A second local user (`useradd`) to own pre-created paths, and a Python Action that sleeps 30 s.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
 - A desktop session running `gvfsd` for `trash:///` listings. The pinned test container sets `GIO_USE_VFS=local` and cannot browse Trash.
+- For administrator probes, GVfs's `admin` backend (`gvfsd-admin`), a polkit agent, and a root-owned `0700` folder opened through `admin://`. It holds files, a subfolder, and names shared with a Home folder. The pinned container has none of these; skip those probes and say so.
 - Verify every operation on disk with `ls -la`, `stat`, and `cmp`, never in the listing alone. Watch the log for GTK criticals during dialogs and animations.
 - `tests/qa/mutations/` holds deliberate defects the QA scenarios must catch; `./scripts/qa-mutation.sh drag-and-drop` or `rename-caret` is evidence when those areas changed.
 
@@ -85,6 +86,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Merge without Trash on NFS while another program holds one replaced file open; then cancel a second such merge.
 - After a Merge, edit one placed file, only `touch` another, then undo.
 - On tmpfs and on `/dev/shm`, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
+- In an `admin://` folder, paste by copy and by cut: a file over a file, a folder over a folder. Then a file over a folder, and a folder over a file. Then copy a file from it over a same-named Home file and answer Replace, then Keep Both.
 
 ### operations/clipboard/send-to
 
@@ -166,6 +168,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Press 10xer `d` on 60 file links, then confirm while their rows still show "—".
 - Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
 - Shift+Delete through a symlink alias into an NFS folder.
+- In an `admin://` folder, press Delete, Shift+Delete, and 10xer `d` on a file and on a folder. Then drag one item onto the sidebar Trash row.
 
 ### operations/trash/restore
 
@@ -291,6 +294,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Press Ctrl+Z in a second window and in the file chooser.
 - Move the folder built for `operations/filesystem-compatibility` onto vfat, rename one fixed name on the stick, then undo and redo.
 - Move a dangling symlink and a link into a stopped sshfs mount, then undo.
+- In an `admin://` folder, copy in, New Folder, a copy onto an existing file answered Replace, rename, and move out, pressing Ctrl+Z after each. Then undo a Home rename, copy into the admin folder, and press Ctrl+Shift+Z.
 
 ## Hand-offs
 
@@ -308,3 +312,4 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Escape cancelling a file drag → `browser`.
 - Item-menu Move to Trash, Permanently delete, Delete without Trash, and Restore entries and their visibility → `browser`.
 - The Trash pane's Empty Trash header button → `browser`.
+- Opening a folder as administrator, the lock icon, the admin notice, and Open as Administrator → `browser`.

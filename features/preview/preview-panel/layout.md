@@ -3,7 +3,7 @@ title: Preview panel layout
 status: shipped
 origin: {issue: lgse/strata#885, pr: lgse/strata#888}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/preview/layout.rs, src/ui/preview/session.rs, src/ui/preview/media_layout.rs, src/ui/preview/player_layout.rs, src/ui/browser/preview.rs]
 tests: [src/ui/preview/tests.rs, tests/qa/scenarios/preview_session, tests/qa/scenarios/quick_preview/column-preview-fills-free-space.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-opens-preview.jsonl, tests/qa/scenarios/quick_preview/columns-preview-reopens-after-closing.jsonl, tests/qa/scenarios/quick_preview/narrow-window-keeps-last-column.jsonl, tests/qa/scenarios/quick_preview/preview-boundary-resizes-grabbed-side.jsonl]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1643, pr: lgse/strata#1822}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/enter_target.rs]
 tests: [src/ui/enter_target/tests.rs, tests/qa/scenarios/filter_results/filter-enter-opens-top-match.jsonl]
 related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode]
