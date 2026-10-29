@@ -1,7 +1,7 @@
 ---
 title: Settings sweep
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
@@ -18,7 +18,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Two windows of one process, Settings open in both on different pages, plus a second process on the same HOME for the cross-process cases. The portal chooser runs on that HOME through `scripts/chooser-dev.sh`.
 - Custom themes under `$XDG_CONFIG_HOME/strata/themes/`: `extreme.toml` with `background = "#ff0000"`, `text = "#ffffff"`, and the other 12 colors pure red or white; `bad-color.toml`, `missing-key.toml`, `tokyo-night.toml`, and a file of unparseable TOML.
 - A screenshot set per theme with `import` on the private display, repeated in Columns, Icons, and List. It holds a context menu, a modal dialog, a rename editor, a cut item, a focused selection, a hovered row, a code preview, and the Settings panel.
-- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the twelve languages is right-to-left.
+- Locale runs: `LANGUAGE=ar:ja`, `LANGUAGE=pt_PT:fr LANG=C`, `LC_ALL= LC_MESSAGES=ko_KR.UTF-8`, `LANG=de_DE.UTF-8@euro`, `LANG=ru_RU.UTF-8`, `LANG=hu_HU.UTF-8`, `LANGUAGE=xx:hu_HU:fr LANG=de_DE`, `LANG=zh_TW.UTF-8`, `LANGUAGE=zh-Hant:ja`, `LC_ALL=zh_MO.UTF-8`, `LANG=zh_MY.UTF-8`, `LANGUAGE=zh-Hans-TW`, `LANGUAGE=zh-Hant-HK`, and all four empty. Install CJK fonts with Simplified and Traditional Chinese glyphs, such as Noto Sans CJK SC and TC, for the ja, ko, and zh runs; none of the thirteen languages is right-to-left.
 - A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`; and `~/.local/share/themes/StrataEmpty/gtk-4.0/gtk.css` holding the same rules.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
@@ -73,6 +73,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Rebind an action in `settings.toml` before launch, then search its old and new keys under English and `language = "ja"`.
 - Compare the navigation's icon column with the search field's icon at text size 8 and 48, labelled and icon-only.
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
+- In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation, then on a pacman-owned prefix; read the visible rows and navigation entries.
+- With hidden files off, create, rename, and delete dot-files from a shell in an open local folder, a folder on the sshfs mount, and a 10k-entry folder. Then press Ctrl+. and compare each view with `ls -A`.
 
 ### settings/preferences/storage
 
@@ -111,14 +113,15 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under 正體中文 on an `en_US` system, with only Noto Sans CJK SC installed, then only TC, read Settings and a file list for mixed glyph forms.
 - Under 简体中文, read the sidebar toggle tooltip in full, compact, and hidden states, and the password remember choices in a mount dialog.
 - Under 简体中文, read the Tasks icon name in Customize… and the Danger color label in Add theme.
-- Run Deutsch and Русский at the 1250 px panel width and in the destructive-delete dialog; look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
+- Under Magyar, select 1, 2, and 3,000 items and read the footer count, a 1.5 MB size, a 1 234 567 byte Properties size, and a transfer rate. Fail a copy into a read-only folder and read the case after the colon.
+- Run Deutsch, Magyar, and Русский at the 1250 px panel width and in the destructive-delete dialog; look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
 
 ### settings/preferences/date-format
 
 - Show the Setup date fixtures in Columns, Icons, List, and a preview under each format; compare the 61 s, 24 h 1 min, 7 day, and 31 day boundaries.
 - Run `TZ=America/New_York` on both DST days and `TZ=Pacific/Kiritimati`; compare the weekday and week buckets with `date -d`.
 - Change the format in window A while window B is idle for two minutes; watch the 30 s refresh relabel the 59 s and 59 min files.
-- Cross each format with ja, zh-CN, de, and ru: month and weekday names, Long format word order, and the separator in `2026-09-17 14:30`.
+- Cross each format with ja, zh-CN, de, hu, and ru: month and weekday names, Long format word order, and the separator in `2026-09-17 14:30`.
 - Seed `date_format = " ISO-8601 "`, `"LONG"`, and `"yesterday"`; read the menu and the file after one change.
 - Keep the format menu open across a minute boundary, then change the language and restart; read each option's AT-SPI description against its visible example.
 
@@ -133,6 +136,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Repeat both on an Integrations install command, and with `$TERMINAL` set to a missing program. Press the button twice quickly and read the row and the process list.
 - On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
+- Run a `STRATA_UPDATER=disabled` build with and without network, then on a pacman-owned prefix and with the AUR install marker; read Installation, Update server, and the copied report.
 
 ### settings/themes
 
@@ -245,6 +249,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - While following, write a 12-digit hex `foreground`, `magenta = "#fff0000ff"`, an 8-digit `#rrggbbaa` `accent`, and an `rgba()` `selection` into `colors.toml`; open a new code preview and the Settings preview after each save.
 - Truncate `colors.toml` mid-switch while window B opens a Markdown preview and window A opens Appearance; then restart with the state still invalid and read both.
 - Turn Follow Omarchy off in window A while `colors.toml` is being rewritten, then `rm -rf` the state while the variant row has keyboard focus.
+- Repoint `current/theme` with `ln -sfn`, by rename, and to a theme folder that is itself a symlink. After each, edit `colors.toml`, replace it by rename, and edit the old target; read both windows.
 
 ## Hand-offs
 

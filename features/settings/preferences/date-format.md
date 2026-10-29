@@ -3,8 +3,8 @@ title: Modified date format
 status: shipped
 origin: {issue: null, pr: lgse/strata#180}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/util/mod.rs, data/locales/dates.json]
 tests: [src/util/tests.rs]
 related: [browser/properties]
@@ -38,6 +38,7 @@ How file modification times read in lists and previews, and the Modified date fo
 - Relative labels refresh every 30 seconds while shown. lgse/strata#1102 (unverified)
 - Month and weekday names follow Strata's interface language, not the system locale. lgse/strata#1519
 - Under 正體中文, Long renders `2026年9月7日 14:30` and a weekday label reads `星期一`. lgse/strata#1745
+- Under Magyar, Long renders `2026. szeptember 7. 14:30` and a weekday label reads `hétfő`. lgse/strata#1918
 
 ## Design
 

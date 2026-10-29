@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 
@@ -41,6 +41,8 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Drop files onto a remote folder in the file pane and onto its DEVICES row. Then search with Ctrl+F inside the remote folder with Include subfolders on, and read what the UI says.
 - On the SFTP fixture, build a folder holding hidden files, a symlink to a folder, and nested folders. Press Delete on it, then open Properties on it alone and in a multi-selection, watching the log for GLib-GIO criticals.
 - Type `network:`, `network://`, and `network:///` in the location bar, then switch Strata's language while the Network column is open; read the heading, breadcrumbs, window title, and tab title.
+- On the real SFTP and Samba backends, `chmod 000` a server folder, delete a folder while it lists, and kill `gvfsd-sftp` mid-mount. Read each message under English and Français, and grep the DEBUG log.
+- On Samba, enter a wrong password, then disable the account, then exhaust its logon attempts; read the message and whether sign-in reopens.
 - Start Strata with `gvfsd` stopped and D-Bus activation masked, then with `gvfsd` running but `gvfsd-sftp` removed; compare startup time and the two failure texts.
 
 ### remote/file-providers/external

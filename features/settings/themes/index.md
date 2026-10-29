@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
@@ -215,6 +215,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-29 | lgse/strata#1909 | fix | Watched the resolved Omarchy theme folder and rebound it after a symlink switch, so `colors.toml` edits stay live without a restart. |
 | 2026-10-28 | lgse/strata#1912 | fix | Dropped popover, menu, and tooltip shadows and corner radii on displays without a compositor, where their transparent pixels render black. |
 | 2026-10-25 | lgse/strata#1891 | fix | Dropped the background-colored second shadow from the path completion and folder peek popovers, a white halo on light themes. |
 | 2026-10-25 | lgse/strata#1892 | docs | Documented a matugen template, its config entry, and the Material color mapping so wallpaper-following themes need no hand mapping. |
@@ -245,4 +246,4 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Theme cards show the selected theme only with a check icon and expose no checked state to assistive technology. lgse/strata#1544
 - Text is below 4.5:1 on highlight in 34 bundled themes and on the selected-row fill in 19. lgse/strata#1566
-- Only the final file in a link chain has its folder watched. Repointing an intermediate link, such as `~/.config/omarchy/current/theme`, does not reload the theme. lgse/strata#1887
+- For a custom theme file, only the final file in a link chain has its folder watched. Repointing an intermediate directory link it passes through, such as `~/.config/omarchy/current/theme`, does not reload the theme. Follow Omarchy is not affected. lgse/strata#1887, lgse/strata#1909

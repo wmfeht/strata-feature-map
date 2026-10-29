@@ -3,8 +3,8 @@ title: Diagnostics
 status: shipped
 origin: {issue: lgse/strata#1734, pr: lgse/strata#1735}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/services/diagnostics.rs, src/ui/settings/diagnostics.rs, data/icons/scalable/actions/strata-stethoscope.svg]
 tests: [src/services/diagnostics/tests.rs, src/ui/settings/diagnostics/tests.rs]
 docs: [docs/diagnostics.md]
@@ -61,6 +61,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - With no D-Bus session bus, Desktop portal and Password storage, and Removable drives when UDisks2 is present, are warnings reading "The D-Bus session bus isn't available." lgse/strata#1735 (unverified)
 - When a folder monitor cannot start, Folder change monitoring is a problem; with `fs.inotify.max_user_watches` below 8192, it is a warning naming the limit. lgse/strata#1735 (unverified)
 - Update server passes as "Connected to GitHub." when `api.github.com/rate_limit` answers. Otherwise it is a problem saying update checks and release notes are unavailable, with the network error. lgse/strata#1735
+- In a `STRATA_UPDATER=disabled` build, Update server still contacts `api.github.com/rate_limit` and reports the same problem when it fails. lgse/strata#1735, lgse/strata#1934 (unverified)
 - With no terminal found, Terminal is a problem; otherwise it reads "Found: <program>". lgse/strata#1735
 - An enabled custom action that cannot run, or an action directory that fails to load, makes Custom actions a warning. With none installed it passes. lgse/strata#1735
 
@@ -71,6 +72,8 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - After Run in terminal opens a row's install command, the row reads "The command opened in your terminal. Run diagnostics again when it finishes." lgse/strata#1735, lgse/strata#1704
 - Copy report copies "Strata diagnostics", the System fields, and every result by group as `[Status] Title: message`, then shows "Copied" for 1.5 s. lgse/strata#1735 (unverified)
 - The System box lists Version, Commit, Installation, Toolkit, GStreamer, Kernel, Desktop environment, Display server, Interface renderer, and Language. lgse/strata#1735
+- In a `STRATA_UPDATER=disabled` build, Installation reads "In-app updates are disabled in this build.", and Copy report carries the same line. lgse/strata#1735, lgse/strata#1934
+- That line shows only when no package manager owns the installation. A pacman-owned or AUR-marked disabled build shows its ownership summary; a default build reads "Self-managed". lgse/strata#1934 (unverified)
 
 ### Run in terminal
 

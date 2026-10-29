@@ -3,8 +3,8 @@ title: Omarchy theme following
 status: shipped
 origin: {issue: lgse/strata#1198, pr: lgse/strata#1482}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/ui/theme/omarchy.rs]
 tests: [src/ui/theme/omarchy/tests.rs]
 related: []
@@ -22,6 +22,7 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 - On first launch with no `settings.toml` and a valid Quattro state, Strata follows Omarchy. lgse/strata#542
 - While following, the theme library is insensitive and the Current theme description reads "Managed by Omarchy. Turn off Follow Omarchy to pick a theme manually." lgse/strata#849 (unverified)
 - Switching the Omarchy theme or editing `colors.toml` re-applies the palette in every window without restart. lgse/strata#1482
+- After `current/theme` is repointed to another theme folder, editing that folder's `colors.toml` in place, or replacing it by rename, re-applies the palette without restart. Switching back keeps this. lgse/strata#1909
 - A Quattro color in a GTK-only form, such as `accent = "#7a7a2af7f"`, loads as `#rrggbb`; icons stay visible and the accent styling applies. lgse/strata#1554, lgse/strata#1429
 - While following, invalid Quattro state midway through a theme switch leaves the Settings preview and new document previews on the last applied palette. lgse/strata#1554, lgse/strata#1429
 - Deleting `~/.local/state/omarchy` while Strata runs hides Follow Omarchy, restores the previously selected theme, and saves `mode = "theme"`. lgse/strata#958
@@ -74,6 +75,7 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 - Only Quattro's current-theme state is read. Legacy Omarchy layouts and alacritty color extraction are intentionally unsupported.
 - Surfaces come from Quattro's own keys: `background`, `dark_background`, `lighter_background`, `selection`, and `muted`. Missing ones derive from `background` and `foreground` (lgse/strata#1816).
 - ANSI `color8` was dropped. It is not part of Omarchy's `colors.toml` format and varies between themes; where it is bright gray, every surface turned gray (lgse/strata#1815).
+- The watch follows the resolved theme folder, not the stable `current/theme` spelling, and rebinds when the link points elsewhere. Keeping the lexical path had left the watch on the old target (lgse/strata#1862, lgse/strata#1909).
 - Availability is sampled at startup and re-checked by the state monitor on each change. The re-check accepts `current` plus `theme.name` so Omarchy's staged switch does not flicker following off (lgse/strata#857, lgse/strata#958).
 - Variants exist because terminals and Btop draw near-black backgrounds while Strata's mapping drew lighter surfaces from the same palette (lgse/strata#1198).
 - When Quattro state is briefly invalid, as midway through an Omarchy theme switch, previews keep the last applied palette. They do not fall back to the built-in theme (lgse/strata#1429, lgse/strata#1554).
