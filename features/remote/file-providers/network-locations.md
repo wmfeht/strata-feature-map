@@ -42,9 +42,10 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 - An `smb://` location without its GVfs backend fails with a message naming common packages `gvfs-smb` or `gvfs-backends`. lgse/strata#31, lgse/strata#233
 - An unresolvable host, refused connection, timeout, or unreachable host each shows its own message, such as "That host couldn’t be found. Check the address and DNS settings." lgse/strata#233
+- Opening, listing, or mounting a URI location that fails with a typed GIO error, such as permission denied, shows its translated reason. lgse/strata#1909
 - Opening, listing, or mounting a URI location that fails with an unclassified GIO error shows the translated "An unexpected system error occurred", never the backend's text. lgse/strata#1909
-- An SMB open or listing that fails with a generic error naming refused credentials, such as "logon failure" or "authentication failed" in any case, shows "Permission denied". lgse/strata#1909
-- A mount failure on a location with a native path, such as a FUSE volume, shows the backend text with URI user info, query, and fragment removed. lgse/strata#233, lgse/strata#1909
+- Opening or listing a URI location that fails with an untyped error whose text names refused credentials, such as "Logon failure", shows "Permission denied". lgse/strata#1909
+- A mount failure on a location with a native path shows the translated reason for a typed error. An unclassified one shows the backend text with URI user info, query, and fragment removed. lgse/strata#233, lgse/strata#1909 (unverified)
 - The unclassified backend text goes only to the DEBUG log, sanitized. lgse/strata#1909
 - At the default log level, a mount logs only the backend name and outcome. The location appears only at DEBUG, without user info, query, or fragment. lgse/strata#233
 

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1703, pr: lgse/strata#1704}
 branch: null
 reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+review: draft
 code: [integrations/kdeconnect/provider.py, integrations/kdeconnect/messages.json, integrations/kdeconnect/catalog.toml, integrations/kdeconnect/LICENSE]
 tests: [integrations/kdeconnect/tests]
 docs: [integrations/kdeconnect/README.md]
@@ -53,6 +53,7 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 
 - The catalog entry `kdeconnect` is in the `devices` category and requires `kdeconnect-cli` and the Python module `gi`, each with pacman, apt, dnf, and zypper packages. lgse/strata#1704
 - Provider messages follow `LC_ALL`, then `LC_MESSAGES`, then `LANG`, not Strata's language preference, with English as the fallback. lgse/strata#1704
+- Under `LANG=hu_HU.UTF-8`, provider messages read in Hungarian, such as "A KDE Connect nem válaszolt időben." lgse/strata#1918
 - `zh_HK` and `zh_MO` locales get the zh-TW messages. lgse/strata#1704
 
 ## Design

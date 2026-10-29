@@ -74,7 +74,6 @@ For every control this sweep proves the binding: the file changes, the other win
 - Compare the navigation's icon column with the search field's icon at text size 8 and 48, labelled and icon-only.
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 - In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation, then on a pacman-owned prefix; read the visible rows and navigation entries.
-- With hidden files off, create, rename, and delete dot-files from a shell in an open local folder, a folder on the sshfs mount, and a 10k-entry folder. Then press Ctrl+. and compare each view with `ls -A`.
 
 ### settings/preferences/storage
 
@@ -273,6 +272,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Units as it acts on route previews, open and new, in the browser and the chooser → `preview`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
 - What Watch network folders checks and re-reads in open folders → `browser`.
+- Dot-file changes made while hidden files are off → `browser`.
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails and STL model thumbnails change in the file views → `browser`.
 - Remember sort and icon size per folder, Default sort, Forget all folder settings, and `folder-views.toml` → `browser`.
 - Show sizes in Columns view as it acts on the Columns badge → `browser`.

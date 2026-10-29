@@ -72,8 +72,8 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - After Run in terminal opens a row's install command, the row reads "The command opened in your terminal. Run diagnostics again when it finishes." lgse/strata#1735, lgse/strata#1704
 - Copy report copies "Strata diagnostics", the System fields, and every result by group as `[Status] Title: message`, then shows "Copied" for 1.5 s. lgse/strata#1735 (unverified)
 - The System box lists Version, Commit, Installation, Toolkit, GStreamer, Kernel, Desktop environment, Display server, Interface renderer, and Language. lgse/strata#1735
-- In a `STRATA_UPDATER=disabled` build, Installation reads "In-app updates are disabled in this build.", and Copy report carries the same line. lgse/strata#1735, lgse/strata#1934
-- That line shows only when no package manager owns the installation. A pacman-owned or AUR-marked disabled build shows its ownership summary; a default build reads "Self-managed". lgse/strata#1934 (unverified)
+- In a `STRATA_UPDATER=disabled` build that no package manager owns, Installation and the copied report read "In-app updates are disabled in this build." lgse/strata#1934
+- A pacman-owned or AUR-marked disabled build reads its ownership instead, such as "Installed by pacman as strata-bin." lgse/strata#1934 (unverified)
 
 ### Run in terminal
 
