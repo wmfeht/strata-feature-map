@@ -31,7 +31,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 
 ### Unreadable folders
 
-- Where GIO has no `admin` scheme, clicking or opening a folder Strata may not read, such as after `chmod 000`, shows an "Unable to open directory" dialog saying you do not have permission. lgse/strata#1807, lgse/strata#1837
+- Where GIO has no `admin` scheme, clicking or opening a folder Strata may not read in Columns shows an "Unable to open directory" permission dialog. lgse/strata#1807, lgse/strata#1837 (unverified)
 
 ### Mouse buttons
 

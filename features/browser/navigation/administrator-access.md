@@ -8,7 +8,7 @@ review: draft
 code: []
 tests: [src/app/browser/tests/administrator.rs]
 docs: [docs/administrator-access.md]
-related: [browser/navigation/location-bar, browser/view-modes, browser/view-modes/columns, browser/thumbnails, browser/context-menu, browser/selection/keyboard-navigation, browser/tabs/session-restore, operations/trash, operations/undo, operations/clipboard/conflicts, integration/open-with, app/accessibility]
+related: [browser/navigation/location-bar, browser/view-modes, browser/view-modes/columns, browser/thumbnails, browser/context-menu, browser/selection/keyboard-navigation, browser/tabs/session-restore, operations/trash, operations/undo, operations/clipboard/conflicts, integration/open-with, integration/portal-file-chooser, app/accessibility]
 ---
 
 ## Summary
@@ -19,8 +19,8 @@ Opening local folders the user can't read or enter through GVfs's `admin://` bac
 
 ### Marking
 
-- A local folder the user can't read or enter, such as a root-owned `0700` folder, shows a lock icon once its metadata loads. lgse/strata#1837
-- A folder link to such a folder shows the lock icon too. lgse/strata#1837 (unverified)
+- A local folder the user can't read or enter, such as a root-owned `0700` folder, is marked locked with a lock icon. lgse/strata#1837
+- A folder link to such a folder is marked locked too. lgse/strata#1837 (unverified)
 - The check uses `access(2)`, so a folder readable only through an ACL is not marked. lgse/strata#1837
 - The lock icon shows even where GIO has no `admin` scheme. lgse/strata#1837 (unverified)
 
@@ -31,10 +31,10 @@ Opening local folders the user can't read or enter through GVfs's `admin://` bac
 - The polkit prompt appears while the current folder stays open; the tab switches only after the first read succeeds. lgse/strata#1837
 - A path with spaces, `%`, or non-UTF-8 bytes is percent-escaped in its `admin://` form. lgse/strata#1836, lgse/strata#1837
 - Moving the selection onto a locked folder with the arrow keys raises no polkit prompt. lgse/strata#1837
-- A typed path, sidebar place, bookmark, pin, or command-line argument to an unreadable folder shows the permission error dialog with an Open as Administrator button. lgse/strata#1837
-- Open as Administrator in that dialog opens the folder's `admin://` form. lgse/strata#1837
+- Where GIO supports `admin`, a typed path to an unreadable folder shows the permission error dialog with an Open as Administrator button. lgse/strata#1837
+- A sidebar place, bookmark, pin, or command-line argument to an unreadable folder offers the same button in its dialog, column, or pane. lgse/strata#1837 (unverified)
+- Open as Administrator opens the folder's `admin://` form. lgse/strata#1837
 - Where GIO has no `admin` scheme, no dialog, column, or pane offers Open as Administrator. lgse/strata#1837
-- The portal file chooser never offers Open as Administrator. lgse/strata#1837
 - A folder peek of an unreadable folder offers no Open as Administrator. lgse/strata#1837 (unverified)
 - Typing `admin:///path` in the location bar opens that folder as administrator. lgse/strata#1837
 
@@ -54,7 +54,7 @@ Opening local folders the user can't read or enter through GVfs's `admin://` bac
 - Only an explicit open prompts. Columns previews the selected folder, so prompting on selection would let arrow keys raise password prompts. GNOME Files behaves the same (lgse/strata#1836).
 - Validation runs the first `admin://` operation, so polkit prompts before the current folder is replaced (lgse/strata#1837).
 - GVfs reports a dismissed or refused prompt as `PERMISSION_DENIED`, not as cancelled. The prompt comes from the session's polkit agent, not from `GMountOperation`, so Strata needs no password form (lgse/strata#1836).
-- Polkit authorizes each operation for about five minutes, so a first visit may prompt twice: once for the `gvfsd-admin` helper and once for the first read (lgse/strata#1836).
+- Polkit authorizes each operation for about five minutes. A first visit may therefore prompt twice: once for the `gvfsd-admin` helper and once for the first read (lgse/strata#1836).
 - Access is read-write from the start, because writes already use the GIO paths Strata uses for SFTP and SMB (lgse/strata#1836).
 - Lock marking uses `access(2)` rather than mode bits, so ACLs count (lgse/strata#1837).
 - Running Strata as root, or through `pkexec strata`, was rejected as unsafe for a GUI and unlike other file managers (lgse/strata#1836).
@@ -68,4 +68,3 @@ Opening local folders the user can't read or enter through GVfs's `admin://` bac
 ## Known gaps
 
 - Strata can't unmount its `admin://` mount: it is private to the process and invisible to GIO's volume monitor. GVfs drops it when Strata exits. lgse/strata#1837
-- Metadata fills on visible `admin://` rows still go through GIO, so after the polkit grant expires they can raise a prompt the user did not ask for. lgse/strata#1837

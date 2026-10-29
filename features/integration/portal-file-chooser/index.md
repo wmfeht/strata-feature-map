@@ -8,7 +8,7 @@ review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
-related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list]
+related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access]
 ---
 
 ## Summary

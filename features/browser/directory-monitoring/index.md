@@ -150,3 +150,4 @@ Loading and file monitoring predate the PR history; the original monitor already
 - While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
 - Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729
 - When another program removes an open folder, the cursor lands on the first row instead of a neighbor. lgse/strata#1874
+- Metadata fills on visible `admin://` rows still go through GIO. After the polkit grant expires, they can raise a prompt the user did not ask for. lgse/strata#1837

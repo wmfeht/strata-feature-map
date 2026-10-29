@@ -22,7 +22,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - By default the sidebar lists Home, Trash, Network, Recent, Desktop, Documents, Downloads, Music, Pictures, and Videos in one block, followed by PINNED and DEVICES. lgse/strata#1161, lgse/strata#1342
 - Desktop, Documents, Downloads, Music, Pictures, and Videos open the folders set in `user-dirs.dirs`; Music follows `XDG_MUSIC_DIR`. lgse/strata#1342
 - The row for the current location shows an 18% accent tint and an accent-coloured icon. lgse/strata#106
-- Hovering a place or device row that is not the current location shows a neutral 6% text-colour fill, not an accent tint. lgse/strata#1909
+- Hovering a place row that is not the current location shows a neutral 6% text-colour fill, not an accent tint. lgse/strata#1909
 - After Alt+Up, Back, or location-bar navigation with the pointer left on the old row, only the new current row keeps the accent tint. lgse/strata#1909
 - Clicking a place that fails to open, such as Network with `GIO_USE_VFS=local`, and dismissing the error leaves the pane and the highlight on the open place. lgse/strata#1605
 - While a place mounts before opening, the highlight stays on the open place; a failed or cancelled mount leaves it there. lgse/strata#1605

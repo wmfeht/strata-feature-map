@@ -30,8 +30,9 @@ One undo history and one redo history for file operations, shared by every Strat
 - Redo is shared too: after Ctrl+Z in one window, Ctrl+Shift+Z in another window re-applies that operation. lgse/strata#1120
 - Repeated Ctrl+Z undoes earlier operations newest first, up to 32 entries; recording a 33rd drops the oldest. lgse/strata#444
 - A paste that created nothing records no entry, so Ctrl+Z still undoes the operation before it. lgse/strata#444
-- A copy, Merge, New Folder, or New File into a folder opened as administrator records no entry; Ctrl+Z then undoes the operation before it. lgse/strata#1837
-- A rename or move inside such a folder still records its entry. lgse/strata#1837
+- A copy, including one whose conflict is answered Replace, or a New Folder or New File, into a folder opened as administrator records no entry. Ctrl+Z then undoes the operation before it. lgse/strata#1837
+- Such a copy, New Folder, or New File leaves the redo history as it was. lgse/strata#1837 (unverified)
+- A rename, or a move into or out of such a folder, still records its entry. lgse/strata#1837
 - An undo records no undo entry of its own, so a second Ctrl+Z undoes the previous operation instead of reverting the undo. lgse/strata#301, lgse/strata#444
 - While an undo or redo runs, Ctrl+Z or Ctrl+Shift+Z in another window does not start it a second time. lgse/strata#228, lgse/strata#1120 (unverified)
 - A completed redo becomes the latest undo entry again, so Ctrl+Z after Ctrl+Shift+Z reverts it once more. lgse/strata#1120

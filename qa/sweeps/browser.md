@@ -242,10 +242,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/navigation/administrator-access
 
-- Open the locked folder by single click, double click with double-click folders, Enter, →, and context-menu Open, in each view; cancel the prompt each time.
+- Open the locked folder by single click, by double click with double-click folders, and by Enter, →, and context-menu Open. Do it in each view and cancel each prompt.
 - Lock folders named with spaces, `%`, and non-UTF-8 bytes; open each and read the location entry and breadcrumbs.
 - Deny access only through an ACL (`setfacl -m u:$USER:---`) on a `0755` folder; lock another through a symlink to a root-owned folder.
-- Open the locked folder from a sidebar pin, a bookmark, a command-line argument, and a FileManager1 reveal; press Escape on the dialog, then retry with Open as Administrator.
+- Open the locked folder from a sidebar pin, a bookmark, a command-line argument, and a FileManager1 reveal. Press Escape on each dialog, then retry with Open as Administrator.
 - Type `ADMIN:///root`, `admin:///`, `admin:///missing`, and `admin://host/x` in the location bar.
 - Run without a polkit agent, then with `gvfsd-admin` removed; open the locked folder and type `admin:///root`.
 - Stay in an admin folder past the 5-minute polkit grant, then scroll, press F5, and switch views; note when a prompt appears.
@@ -275,7 +275,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type a file path whose parent is an unmounted share or a stalled sshfs mount. Before it loads, press Back, click a sidebar place, or submit a second path. Then select the file by hand.
 - Type a file path and press Back and Forward fast, five times, while the parent loads.
 - Type a file path in the portal file chooser's location field.
-- Open ten nested folders with 40-character names in a 600 px window; open, submit, and cancel the entry there, then widen and narrow the window.
+- Open ten nested folders with 40-character names in a 600 px window. Open, submit, and cancel the entry there, then widen and narrow the window.
 
 ### browser/navigation/location-bar/completion
 
@@ -364,7 +364,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Drag files over the Trash row with a selection inside Trash and with one on a read-only mount; then shrink the sidebar to the rail mid-drag.
 - Middle-click and choose Open in New Tab on Trash, Recent, Network, an unmounted `sftp://` pin, a mounted USB drive, and an unmounted volume; then do both on the icon rail.
 - Double middle-click a sidebar row, and middle-press one and drag past the threshold before release; count the tabs.
-- Leave the pointer on a place or device row, then navigate with Alt+Up, Back, and the location bar; repeat in a light and a dark theme.
+- Leave the pointer on a place row, then navigate with Alt+Up, Back, and the location bar. Repeat in a light and a dark theme.
 
 ### browser/sidebar/rail
 
@@ -417,7 +417,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Render an ASCII STL, a zero-triangle STL, and a 127 MiB binary STL; change a rendered file's bytes and reopen the folder.
 - Open a folder of `.gcode`, `.GCO`, and `.bgcode` files with STL model thumbnails off, then on; repeat on an `smb://` share and in the portal file chooser.
 - Open the slow directory's images as administrator in each view; compare `$XDG_CACHE_HOME/thumbnails` before and after.
-- `chmod 000` a folder in view from a shell, with and without a custom icon, in each view; watch its icon once its metadata fills.
+- In each view, `chmod 000` a folder in view from a shell, with and without a custom icon. Watch its icon once its metadata fills.
 
 ### browser/thumbnails/cache
 
@@ -495,7 +495,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
 - Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 - Sort a 2,000-entry folder on a stalled sshfs mount by Size; while sizes load, press F5, go Back, and switch to Icons and List.
-- With hidden files off, create, rename, and delete dot-files from a shell in each view and on an `sftp://` folder, then press Ctrl+H.
+- With hidden files off, create, rename, and delete dot-files from a shell, then press Ctrl+H. Do it in each view, on an `sftp://` folder, on an sshfs mount, and in `10000`.
 
 ### browser/directory-monitoring/network-checks
 

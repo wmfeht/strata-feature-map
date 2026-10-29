@@ -21,7 +21,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - A fake `.desktop` default handler under `$XDG_DATA_HOME/applications`, without `Path=`, that logs its argv and cwd. Add `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
-- A `chmod 000` folder in Home. For administrator probes, GVfs's `admin` backend (`gvfsd-admin`), a polkit agent, and a root-owned `0700` folder holding a text file, an executable `.sh`, and a subfolder; skip those probes without them and say so.
+- A `chmod 000` folder in Home. Administrator probes need GVfs's `admin` backend (`gvfsd-admin`) and a polkit agent; skip them without these and say so. They use a root-owned `0700` folder holding a text file, an executable `.sh`, and a subfolder.
 - A vfat loop mount, an ext4 folder with casefold on, an sshfs mount of localhost, and an exfat-fuse or ntfs-3g (`fuseblk`) mount. Typed-name and Trash-refusal probes use them.
 - An NTFS loop image attached with `udisksctl loop-setup` and mounted through `ntfs-3g` (`fuseblk`), so it lists under Send to. It holds a link to a folder off the device and a link to a folder on it. A script stops its `ntfs-3g` process with `kill -STOP` and resumes it with `kill -CONT`.
 - A silent session bus: a Unix socket that accepts connections and never replies, such as `socat UNIX-LISTEN:<path>,fork EXEC:'sleep infinity'`, named by `DBUS_SESSION_BUS_ADDRESS`.
@@ -74,7 +74,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With a preview showing, press on its blank chrome and drag out into the file list. Repeat in a multiple-selection request. Read the selection and the marquee.
 - Rebind `parent_folder`, `home_folder`, `history_back`, and `history_forward` to Ctrl keys, then to Super keys, in each table. Press each in the file view, in Name under `save`, in the filter, and with 10xer mode on; read the location.
 - Hand-edit `parent_folder = ["<Control>h"]` into `settings.toml`, open a chooser, and press Ctrl+H with the file view focused.
-- Under `directory` and `single`, open the `chmod 000` folder by click, Enter, and the address bar, and type `admin:///` into the address bar; read each error.
+- Under `directory` and `single`, open the `chmod 000` folder by click, Enter, and the address bar. Then type `admin:///` into the address bar; read each error.
 
 ### integration/portal-file-chooser/setup
 
@@ -146,7 +146,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
 - With Downloads on the sshfs mount stopped by `kill -STOP`, press `g d`, then `g h` before 2 s pass.
 - On `fr` and `ch(de)`, press `g` then the keys that type `+` and `-`, on a pinned folder, an unpinned one, and the tenth pin.
-- Press `g +` with the bookmarks file read-only, then on two folders in quick succession, then on the 4th and 5th new pins; read each flash and the bookmarks file.
+- Press `g +` with the bookmarks file read-only, then on two folders in quick succession, then on the 4th and 5th new pins. Read each flash and the bookmarks file.
 
 ### integration/10xer-mode/search
 
@@ -180,7 +180,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Rebind `"sort.size"` under `[keymap.tenxer]` to `5`, then to `<Control>s`, and press each with and without Shift. Repeat on `fr`, rebinding a step to a key whose Shift form types another symbol.
 - Press a slot key for a `confirm = true` action, cancel, then press it again with 10xer mode on.
 - In Columns, press a slot key and a direct Move to key on an unselected row in a second column. Repeat in Icons.
-- In an `admin://` folder, press `O` on one file, on a fill mixing a file and a folder, and again after leaving the folder before the lookup ends.
+- In an `admin://` folder, press `O` on one file and on a fill mixing a file and a folder.
 
 ### integration/10xer-mode/file-chooser
 

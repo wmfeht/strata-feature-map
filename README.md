@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `44bfeab` · 144 features, 88 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `44bfeab` · 144 features, 85 reviewed
 
 ## app
 
@@ -90,7 +90,7 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | reviewed | `86df474` | ? |
+| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `44bfeab` | ? |
 | ↳ [Camera photos](features/devices/volumes/camera.md) | `devices/volumes/camera` | shipped | reviewed | `44bfeab` | ? |
 | ↳ [Drive format, label, and properties](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | reviewed | `86df474` | 0 |
@@ -186,8 +186,8 @@ QA sweep: [`qa/sweeps/remote.md`](qa/sweeps/remote.md)
 | [Remote locations and file providers](features/remote/file-providers/index.md) | `remote/file-providers` | shipped | reviewed | `86df474` | ? |
 | ↳ [External file providers](features/remote/file-providers/external.md) | `remote/file-providers/external` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Integrations catalog](features/remote/file-providers/integrations.md) | `remote/file-providers/integrations` | shipped | reviewed | `86df474` | 0 |
-| ↳ [KDE Connect integration](features/remote/file-providers/kde-connect.md) | `remote/file-providers/kde-connect` | shipped | reviewed | `44bfeab` | ? |
-| ↳ [LocalSend integration](features/remote/file-providers/localsend.md) | `remote/file-providers/localsend` | shipped | reviewed | `44bfeab` | ? |
+| ↳ [KDE Connect integration](features/remote/file-providers/kde-connect.md) | `remote/file-providers/kde-connect` | shipped | draft | `44bfeab` | ? |
+| ↳ [LocalSend integration](features/remote/file-providers/localsend.md) | `remote/file-providers/localsend` | shipped | draft | `44bfeab` | ? |
 | ↳ [Network locations (SMB, SFTP)](features/remote/file-providers/network-locations.md) | `remote/file-providers/network-locations` | shipped | draft | `44bfeab` | ? |
 
 ## settings

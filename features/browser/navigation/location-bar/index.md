@@ -68,7 +68,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - When crumbs overflow, the wheel scrolls them horizontally and edge fades mark the hidden part. lgse/strata#820
 - The overflow scrollbar sits in its own row below the crumbs, hidden at rest and shown on hover or scroll, never covering labels. lgse/strata#820
 - Crumb labels longer than 32 characters are shortened in the middle. lgse/strata#1143
-- Deep paths keep each crumb label at its text width, up to 32 characters, and the crumb row scrolls instead of shrinking labels to "l…". lgse/strata#1909
+- Deep paths keep each crumb label at its text width, up to 32 characters. The crumb row scrolls instead of shrinking labels to "l…". lgse/strata#1909
 - After navigation, or after submitting or cancelling the entry, the crumbs scroll to show the current crumb. lgse/strata#1909
 - The current crumb's Copy path button copies the path and shows a check and "Path copied" for 2 seconds. lgse/strata#316 (unverified)
 - The Copy path button is named "Copy path"; after a click it is named "Path copied", then "Copy path" again 2 s later. lgse/strata#1895

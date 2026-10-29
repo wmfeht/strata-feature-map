@@ -31,7 +31,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 
 - A folder whose first listed entry is a symlink into `/dev/shm` still offers Move to Trash, and Delete moves a regular file there to Trash. lgse/strata#1551, lgse/strata#1584
 - A no-Trash folder is an open folder reporting `access::can-trash` false and `access::can-delete` true, such as `/dev/shm`. lgse/strata#1533
-- Delete, or a drop on the sidebar Trash row, opens "Permanently delete N items?" at once when every item is in a no-Trash folder. lgse/strata#1533
+- Delete, or a drop on the sidebar Trash row from a folder not opened as administrator, opens "Permanently delete N items?" at once when every item is in a no-Trash folder. lgse/strata#1533, lgse/strata#1837
 - In that case no trash move is attempted, so nothing reaches the Trash. lgse/strata#1533
 - That dialog's text opens with the paragraph "This location doesn't support Trash." lgse/strata#1533, lgse/strata#1614
 - When a refusal was recorded for the first item's mount, the next paragraph reads "Trash isn't available on <mount point> (<type>)." lgse/strata#1614
@@ -40,7 +40,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - When the folder's `access::can-trash` value is unknown, or the item's folder is not open, Delete attempts the trash move first. lgse/strata#1533 (unverified)
 - A folder opened as administrator (`admin://`) counts as a no-Trash folder, whatever its `access::can-trash` reports. lgse/strata#1837
 - Delete, or 10xer `d`, on items in such a folder opens "Permanently delete N items?" at once, with Cancel focused. No trash move is attempted. lgse/strata#1837
-- That dialog's reason paragraph reads "Trash isn't available when browsing as administrator.", followed by the local deletion sentence. lgse/strata#1837
+- Its second paragraph reads "Trash isn't available when browsing as administrator.", followed by the local deletion sentence. lgse/strata#1837
 - Dropping items from such a folder on the sidebar Trash row is refused, and no confirmation opens. lgse/strata#1837 (unverified)
 - In a read-only folder, where `access::can-trash` and `access::can-delete` are both false, Delete still attempts the trash move and opens no dialog first. lgse/strata#1533
 - When a trash move fails because every failed item's location lacks Trash, the same explained dialog opens with Cancel focused, for only those items. lgse/strata#225, lgse/strata#1425, lgse/strata#1533
