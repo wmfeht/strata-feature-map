@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl]
@@ -73,6 +73,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543 (unverified)
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
 - The background menu offers Open With… and Open in Terminal for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#161, lgse/strata#1083
+- In a folder opened through `admin://`, the item, multi-selection, and background menus omit Open With…. lgse/strata#1837 (unverified)
 - In the background menu, Open in Terminal is insensitive when the folder has no local path. lgse/strata#161 (unverified)
 - The item menu shows Open in Terminal for a single folder with a local path, outside Trash. lgse/strata#161
 - In Recent, the background menu also hides Properties. lgse/strata#1083 (unverified)

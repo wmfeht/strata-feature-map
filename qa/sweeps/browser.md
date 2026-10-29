@@ -1,13 +1,13 @@
 ---
 title: Browser sweep
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
 
 ## Scope
 
-Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, and folder jump, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
+Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, folder jump, and opening unreadable folders as administrator, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
 Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
@@ -16,6 +16,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - `scripts/generate-fixture.sh <root>` builds `1000`, `10000`, and `100000` entry folders, a 256-level `deep` tree, and `edge-cases` with a broken symlink and a non-UTF-8 name. Add dot-files, a `.hidden` file naming one visible entry, a 255-byte name, two names differing only by case, and a symlink to a folder.
 - Two oversized folders built with `touch`: one of 200,000 entries and one of 260,000.
 - An unreadable folder (`chmod 000`) inside the fixture, and a folder to remove while it is open (`rm -rf` or `mv` from a shell), in every view.
+- For administrator-access probes: a root-owned `0700` folder on a USB drive, GVfs with `gvfsd-admin`, and a polkit agent in the session. The QA container has neither, so these probes run by hand.
 - A slow directory: 2,000 images across every thumbnail format, plus 50 PDFs and 50 videos, with `$XDG_CACHE_HOME/thumbnails` emptied first so decoding is visible.
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
 - Type to search on and off per probe: it changes what `h`, `j`, `k`, `l`, `p`, `/`, and plain letters do. `docs/keyboard-navigation.md` holds the key rules and `docs/preferences.md` the setting keys.
@@ -66,6 +67,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With Type to search off press `h` in the sidebar, the pane header, and the location entry; then toggle Keep arrows with Ctrl+\ while the header has focus and press Down.
 - In Columns with column 3 active, hover column 1 and Tab in from the header. Then Shift+Tab out with a filter open in column 2, and with none.
 - Tab and Shift+Tab around a listing with the preview panel open, closed, and showing a video; then from the unreadable folder's Retry button.
+- In Columns, Tab and Shift+Tab across a locked folder's error buttons with and without GVfs `admin` support; press Enter on each.
 - Start a rename in Columns and press Shift+Tab; then Tab out of a rename whose name collides with a sibling.
 - In Settings → Actions → New action, press Up from the bottom control of each tab's page until focus stops, then Down; repeat after switching tabs with Left and Right from the strip.
 - Open a second tab on `100000` and switch back to the first while it loads; press arrows as the hidden load finishes. Then open Properties while the visible Columns folder reloads after an external change.
@@ -106,6 +108,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Repeat those clicks on a non-previewable file, at a filtered `trash:///`, and with Include subfolders off.
 - In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
 - With two tabs open, press Ctrl+3 then Down within one frame while `100000` loads in the visible tab; repeat right after a rename commits. Note which row holds focus after 500 ms.
+- In List and Icons, `chmod 000` the open folder from a shell and press F5; click Open as Administrator and cancel the prompt. Then open an admin folder and switch views at 400 px wide.
 
 ### browser/view-modes/columns
 
@@ -198,6 +201,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open Appearance in two windows and drag a slider in one; then press a snap button in the other.
 - With the menu scrolled, wheel over each slider; then focus one and press Page Up at the maximum and Page Down at 0.
 - Read each slider and snap button with Orca while moving between presets and Custom values.
+- In each interface language, open Appearance in Icons and List at text size 8, 13, and 48; look for overlapping Compact and Airy buttons.
 
 ### browser/view-modes/text-size
 
@@ -236,6 +240,18 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Under `[keymap.default]`, bind `parent_folder` to `<Control>e`, `home_folder` to `<Super>h`, and `history_back` to `<Control><Shift>b`. Repeat under `[keymap.tenxer]` in 10xer mode. Press each with the file list, sidebar, location entry, and filter field focused.
 - Bind `parent_folder` to a Ctrl key another command already holds, such as `<Control>r`, by hand in the file; press it in each view.
 
+### browser/navigation/administrator-access
+
+- Open the locked folder by single click, double click with double-click folders, Enter, →, and context-menu Open, in each view; cancel the prompt each time.
+- Lock folders named with spaces, `%`, and non-UTF-8 bytes; open each and read the location entry and breadcrumbs.
+- Deny access only through an ACL (`setfacl -m u:$USER:---`) on a `0755` folder; lock another through a symlink to a root-owned folder.
+- Open the locked folder from a sidebar pin, a bookmark, a command-line argument, and a FileManager1 reveal; press Escape on the dialog, then retry with Open as Administrator.
+- Type `ADMIN:///root`, `admin:///`, `admin:///missing`, and `admin://host/x` in the location bar.
+- Run without a polkit agent, then with `gvfsd-admin` removed; open the locked folder and type `admin:///root`.
+- Stay in an admin folder past the 5-minute polkit grant, then scroll, press F5, and switch views; note when a prompt appears.
+- Press Alt+Up up to the Administrator crumb, then Back and Forward across the boundary between admin and ordinary folders.
+- Open the same folder as administrator in two tabs and two windows, close them all, and read `gio mount -l`.
+
 ### browser/navigation/folder-jump
 
 - Visit 120 folders in `deep` and open the palette; count the rows, then query `'level-0 !marker`, `^level`, `000$`, and the non-UTF-8 name.
@@ -259,6 +275,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type a file path whose parent is an unmounted share or a stalled sshfs mount. Before it loads, press Back, click a sidebar place, or submit a second path. Then select the file by hand.
 - Type a file path and press Back and Forward fast, five times, while the parent loads.
 - Type a file path in the portal file chooser's location field.
+- Open ten nested folders with 40-character names in a 600 px window; open, submit, and cancel the entry there, then widen and narrow the window.
 
 ### browser/navigation/location-bar/completion
 
@@ -347,6 +364,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Drag files over the Trash row with a selection inside Trash and with one on a read-only mount; then shrink the sidebar to the rail mid-drag.
 - Middle-click and choose Open in New Tab on Trash, Recent, Network, an unmounted `sftp://` pin, a mounted USB drive, and an unmounted volume; then do both on the icon rail.
 - Double middle-click a sidebar row, and middle-press one and drag past the threshold before release; count the tabs.
+- Leave the pointer on a place or device row, then navigate with Alt+Up, Back, and the location bar; repeat in a light and a dark theme.
 
 ### browser/sidebar/rail
 
@@ -398,6 +416,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open `.stl` and `.STL` files on an `smb://` share with `gvfsd-fuse`, on an sshfs mount, and in a camera library; compare with the local copy.
 - Render an ASCII STL, a zero-triangle STL, and a 127 MiB binary STL; change a rendered file's bytes and reopen the folder.
 - Open a folder of `.gcode`, `.GCO`, and `.bgcode` files with STL model thumbnails off, then on; repeat on an `smb://` share and in the portal file chooser.
+- Open the slow directory's images as administrator in each view; compare `$XDG_CACHE_HOME/thumbnails` before and after.
+- `chmod 000` a folder in view from a shell, with and without a custom icon, in each view; watch its icon once its metadata fills.
 
 ### browser/thumbnails/cache
 
@@ -458,6 +478,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 - Open a file menu in one window, rebind Rename and Copy in Settings → Keyboard from a second window, and read the hints; repeat in 10xer mode and in German.
+- In an admin folder, open the menu on a file, a folder, a mixed multi-selection, and empty space.
 
 ### browser/directory-monitoring
 
@@ -474,6 +495,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Rename an open folder to a dot name from a shell with hidden files off, then after Ctrl+H toggled them on and off mid-session.
 - Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 - Sort a 2,000-entry folder on a stalled sshfs mount by Size; while sizes load, press F5, go Back, and switch to Icons and List.
+- With hidden files off, create, rename, and delete dot-files from a shell in each view and on an `sftp://` folder, then press Ctrl+H.
 
 ### browser/directory-monitoring/network-checks
 
@@ -530,7 +552,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/tabs/session-restore
 
-- Save tabs on `sftp://host/x`, `smb://user@host/share`, `trash:///`, a folder deleted before relaunch, and the `chmod 000` folder; relaunch and read `tabs.toml` before and after.
+- Save tabs on `sftp://host/x`, `smb://user@host/share`, `trash:///`, `admin:///root`, a folder deleted before relaunch, and the `chmod 000` folder; relaunch and read `tabs.toml` before and after.
 - Run plain `strata` while a window is already open; count tabs in the new window, then change tabs in each window and quit both.
 - Hand-edit `tabs.toml` with 40 entries, an unknown `kind`, and duplicate entries; relaunch after each.
 - Open a tab on the non-UTF-8 folder beside two other tabs, select it, quit, and relaunch.
@@ -544,6 +566,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Drag and drop once a press is read as a file drag, except Escape cancellation, which `browser/tabs` owns → `operations`.
 - File transfers dropped on tabs and sidebar rows, and every file operation → `operations`.
+- Trash, Undo, and Replace inside `admin://` folders, and Trash drops from them → `operations`.
+- Open and Open With refusals for files in `admin://` folders → `integration`.
 - DEVICES rows, Set label…, mounting, and ejecting → `devices`.
 - Remote shares beyond the typed URI rejections and credential masking covered here, including the mounts and sign-in prompts behind Connect to server → `remote`.
 - The action editor's tabs, toggles, and footer beyond arrow focus → `integration`.

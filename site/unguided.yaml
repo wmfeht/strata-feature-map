@@ -6,6 +6,7 @@
 app/keyboard-shortcuts/remapping: New since v1.0.0; the next release docs run places it.
 app/updates/release-picker: New since v1.0.0; the next release docs run places it.
 browser/directory-monitoring/network-checks: New since v1.0.0; the next release docs run places it.
+browser/navigation/administrator-access: New since v1.0.0; the next release docs run places it.
 browser/navigation/recent: No upstream user doc covered Recent; the guide does not cover it yet.
 browser/properties/size: No upstream user doc covered Properties; the guide does not cover it yet.
 browser/search/exclusions: Covered by the Find files guide page; its upstream doc, docs/preferences.md, stays upstream as contributor material.

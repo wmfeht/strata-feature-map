@@ -3,8 +3,8 @@ title: Tab session restore
 status: shipped
 origin: {issue: lgse/strata#1531, pr: lgse/strata#1532}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+review: draft
 code: [src/ui/tabs_session.rs]
 tests: [src/ui/tabs_session/tests.rs]
 docs: [docs/preferences.md]
@@ -37,6 +37,7 @@ A plain launch reopens the previous session's tab locations in strip order, with
 - A saved folder whose check times out, as on a server that does not answer, keeps its tab and shows its error. It loads by itself once the mount answers. lgse/strata#1729
 - Trashed-item children (`trash:///x`) and non-root Recent entries (`recent:///x`) are skipped, while `trash:///` and `recent:///` restore. lgse/strata#1532
 - Camera roots such as `gphoto2://` are skipped. So is every scheme other than `smb`, `sftp`, `ftp`, `ftps`, `dav`, `davs`, `trash`, `network`, and `recent`. lgse/strata#1532 (unverified)
+- A saved `admin://` tab is skipped, so startup never raises a polkit prompt. lgse/strata#1837
 - When a skipped entry precedes the active tab, the restored selection still lands on the saved active location. lgse/strata#1532
 - When the saved active entry is skipped, the nearest kept tab to its left is selected. With none to its left, the first restored tab is. lgse/strata#1532 (unverified)
 - An active index beyond the last restorable tab selects the last restored tab. lgse/strata#1532 (unverified)

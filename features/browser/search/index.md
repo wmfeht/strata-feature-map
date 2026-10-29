@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: reviewed
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*]
