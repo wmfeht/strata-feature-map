@@ -40,7 +40,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, dot-files that another program creates, renames, or removes stay hidden but are tracked. Showing hidden files then lists their current names without F5. lgse/strata#1909
-- With hidden files off, a dot-file renamed to a visible name appears in the listing. lgse/strata#1266 (unverified)
+- With hidden files off, a dot-file renamed to a visible name appears in the listing. lgse/strata#1266, lgse/strata#1909 (unverified)
 - More than 4,096 pending changes in one batch, an unmount, or an unrecognized monitor event reload the whole folder instead. lgse/strata#75, lgse/strata#1266 (unverified)
 - Files created, renamed, or removed externally while a large folder is still loading are not overridden by late enumeration rows. lgse/strata#1037
 - Renaming an open folder externally in Columns re-points its column and every open descendant to the new path. lgse/strata#1036, lgse/strata#1037

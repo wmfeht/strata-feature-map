@@ -23,7 +23,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Folders never get thumbnails and keep their folder icon. lgse/strata#43
 - A file or folder with a custom icon shows that icon instead of a thumbnail. lgse/strata#294 (unverified)
 - Files in a folder opened through `admin://` get no thumbnail and show their type icon. lgse/strata#1837
-- A folder row already shown in Columns, List, or Icons swaps to the lock icon in place when its metadata fill finds it locked. lgse/strata#1837
+- A metadata fill can find a shown folder locked. Its row in Columns, List, or Icons then swaps to the lock icon in place. lgse/strata#1837
 - A locked folder with a custom icon keeps that icon. lgse/strata#1837 (unverified)
 - Ctrl+F filter results and recursive search results show thumbnails in Columns, List, and Icons, with none left over when the query changes. lgse/strata#548
 - Inline-renaming a file without changing its extension, size, or modification time keeps its thumbnail without decoding again. lgse/strata#1148

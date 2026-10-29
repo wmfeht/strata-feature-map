@@ -13,7 +13,7 @@ related: [browser/tabs, browser/view-modes, browser/view-modes/position-restore,
 
 ## Summary
 
-Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), `browser/navigation/startup-arguments` (locations passed on the command line), `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders), and `browser/navigation/administrator-access` (opening unreadable local folders through `admin://`). Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`.
+Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), and `browser/navigation/startup-arguments` (command-line locations). Also `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders) and `browser/navigation/administrator-access` (unreadable local folders through `admin://`). Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`.
 
 ## Behavior
 
@@ -31,7 +31,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 
 ### Unreadable folders
 
-- Where GIO has no `admin` scheme, clicking or opening a folder Strata may not read in Columns shows an "Unable to open directory" permission dialog. lgse/strata#1807, lgse/strata#1837 (unverified)
+- Where GIO has no `admin` scheme, opening an unreadable folder in Columns shows an "Unable to open directory" dialog. lgse/strata#1807, lgse/strata#1837 (unverified)
 
 ### Mouse buttons
 

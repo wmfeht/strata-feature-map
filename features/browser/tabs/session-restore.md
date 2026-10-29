@@ -36,7 +36,8 @@ A plain launch reopens the previous session's tab locations in strip order, with
 - When that tab is the only one, it opens the default folder instead. lgse/strata#1729 (unverified)
 - A saved folder whose check times out, as on a server that does not answer, keeps its tab and shows its error. It loads by itself once the mount answers. lgse/strata#1729
 - Trashed-item children (`trash:///x`) and non-root Recent entries (`recent:///x`) are skipped, while `trash:///` and `recent:///` restore. lgse/strata#1532
-- Camera roots such as `gphoto2://` are skipped. So is every scheme other than `smb`, `sftp`, `ftp`, `ftps`, `dav`, `davs`, `trash`, `network`, and `recent`, including `admin://`. lgse/strata#1532, lgse/strata#1837 (unverified)
+- Camera roots such as `gphoto2://` are skipped. So is every scheme other than `smb`, `sftp`, `ftp`, `ftps`, `dav`, `davs`, `trash`, `network`, and `recent`. lgse/strata#1532 (unverified)
+- A saved `admin://` tab is skipped, so relaunching raises no polkit prompt. lgse/strata#1837
 - When a skipped entry precedes the active tab, the restored selection still lands on the saved active location. lgse/strata#1532
 - When the saved active entry is skipped, the nearest kept tab to its left is selected. With none to its left, the first restored tab is. lgse/strata#1532 (unverified)
 - An active index beyond the last restorable tab selects the last restored tab. lgse/strata#1532 (unverified)

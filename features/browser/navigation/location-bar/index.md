@@ -36,7 +36,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - `~other-user/Documents` is rejected with "Only ~ and ~/ paths are supported for the current user's home directory." lgse/strata#242
 - A relative path such as `Documents` is rejected with "Enter an absolute path." lgse/strata#242 (unverified)
 - UNC paths (`\\host\share`, `//host/share`) and SCP addresses (`user@host:path`) are rejected with a message suggesting `smb://`, `sftp://`, `ftp://`, or `dav://` URIs. lgse/strata#20
-- A URI scheme other than smb, sftp, ftp, ftps, dav, davs, admin, trash, network, or recent is rejected with "The <scheme>:// scheme isn't supported." and a list that omits trash and network. lgse/strata#20, lgse/strata#1837 (unverified)
+- Accepted URI schemes are smb, sftp, ftp, ftps, dav, davs, admin, trash, network, and recent. Any other is rejected with "The <scheme>:// scheme isn't supported." The message lists the accepted schemes except trash and network. lgse/strata#20, lgse/strata#1837 (unverified)
 - Submitting `smb://alice:secret@host/share` or `smb://alice;password=secret@host/share` shows `smb://alice@host/share` in the entry while mounting and uses the password for that one attempt. lgse/strata#145
 - A typed password is never saved; failed credentials open the normal sign-in dialog. lgse/strata#145
 - The sign-in dialog's fields are named after their visible labels: "Username", "Domain", and "Password" or "Passphrase". lgse/strata#1896 (unverified)

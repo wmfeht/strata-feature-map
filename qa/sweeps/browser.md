@@ -7,7 +7,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 ## Scope
 
-Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, folder jump, and opening unreadable folders as administrator, plus Ctrl+K search, the Ctrl+F filter, and search exclusions. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
+Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, folder jump, and opening unreadable folders as administrator. Ctrl+K search, the Ctrl+F filter, and search exclusions belong here too. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
 Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
@@ -242,7 +242,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/navigation/administrator-access
 
-- Open the locked folder by single click, by double click with double-click folders, and by Enter, →, and context-menu Open. Do it in each view and cancel each prompt.
+- With double-click folders, open the locked folder in each view, cancelling each prompt. Repeat on a folder whose metadata fill has not marked it yet.
 - Lock folders named with spaces, `%`, and non-UTF-8 bytes; open each and read the location entry and breadcrumbs.
 - Deny access only through an ACL (`setfacl -m u:$USER:---`) on a `0755` folder; lock another through a symlink to a root-owned folder.
 - Open the locked folder from a sidebar pin, a bookmark, a command-line argument, and a FileManager1 reveal. Press Escape on each dialog, then retry with Open as Administrator.
@@ -364,7 +364,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Drag files over the Trash row with a selection inside Trash and with one on a read-only mount; then shrink the sidebar to the rail mid-drag.
 - Middle-click and choose Open in New Tab on Trash, Recent, Network, an unmounted `sftp://` pin, a mounted USB drive, and an unmounted volume; then do both on the icon rail.
 - Double middle-click a sidebar row, and middle-press one and drag past the threshold before release; count the tabs.
-- Leave the pointer on a place row, then navigate with Alt+Up, Back, and the location bar. Repeat in a light and a dark theme.
+- Hover the current row and rows on the icon rail, in a light and a dark theme.
 
 ### browser/sidebar/rail
 

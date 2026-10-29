@@ -90,6 +90,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - The menu hides "Permanently delete" when `access::can-delete` reports false for the folder's contents, and shows it when the query is unresolved. lgse/strata#361
 - In a folder without write permission, such as after `chmod 555`, neither Move to Trash nor Permanently delete appears in the item menu. lgse/strata#361
 - Outside Trash, the item context menu hides Move to Trash when the folder's listing reports `access::can-trash` false, and shows it when the value is unknown. lgse/strata#314
+- In an `admin://` folder, the item menu shows Permanently delete, not Move to Trash or Delete without Trash. lgse/strata#1837
 - Trash menus omit Rename, Compress, New Folder, New File, and paste destinations. lgse/strata#499
 - Top-level Trash items keep Restore, Cut, Move to…, Copy, and permanent deletion in their menus. lgse/strata#499
 - Restore appears in the item menu only when every selected item is a top-level Trash item. lgse/strata#499
