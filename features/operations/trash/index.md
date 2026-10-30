@@ -151,4 +151,4 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 - Through a symlink alias, the dialog's mount sentence and remote wording fall back to local wording. lgse/strata#1614
 - On NFS, nothing holds the item across GLib's Trash call, so an item swapped in at the name during the call is not noticed. lgse/strata#1729
-- On a large folder, the permanent-delete confirmation can stay on "Calculating total size…" for its full 5-minute budget. lgse/strata#1935
+- On a folder of about 300,000 files, the permanent-delete confirmation can stay on "Calculating total size…" for its full 5-minute budget. lgse/strata#1935

@@ -205,7 +205,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete a deep tree on a rotational USB disk while a shell loop renames one of its subfolders.
 - Permanently delete one large folder on an SFTP or SMB mount, and one large folder inside Trash; watch the progress until it ends.
 - Shift+Delete one folder whose deletion takes 250 to 350 ms.
-- Shift+Delete one folder on NFS holding a file another process keeps open. While the delete waits on that file, compare the count shown with `find | wc -l` taken beforehand, minus the `.nfs…` file.
+- Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
 
 ### operations/delete/dissolve
 
