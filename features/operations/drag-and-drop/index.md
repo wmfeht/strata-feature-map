@@ -3,7 +3,7 @@ title: Drag and drop
 status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 review: reviewed
 code: []
 tests: [tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl, tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl, tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl, tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl, tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl, tests/qa/scenarios/drag_and_drop/empty-name-space-drag-starts-marquee.jsonl, tests/qa/scenarios/drag_and_drop/filtered-result-to-sidebar-folder.jsonl, tests/qa/scenarios/drag_and_drop/folder-into-another-folder.jsonl, tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl, tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl, tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl, tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]

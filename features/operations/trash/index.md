@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
@@ -151,3 +151,4 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 - Through a symlink alias, the dialog's mount sentence and remote wording fall back to local wording. lgse/strata#1614
 - On NFS, nothing holds the item across GLib's Trash call, so an item swapped in at the name during the call is not noticed. lgse/strata#1729
+- On a large folder, the permanent-delete confirmation can stay on "Calculating total size…" for its full 5-minute budget. lgse/strata#1935

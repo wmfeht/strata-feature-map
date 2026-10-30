@@ -3,7 +3,7 @@ title: Releasing open files before a change
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 review: reviewed
 code: [src/adapters/local_operations/release.rs, src/adapters/local_operations/holders.rs, src/adapters/local_operations/deferred_close.rs, src/services/file_activity.rs]
 tests: [src/adapters/local_operations/tests/release.rs, src/adapters/local_operations/holders/tests.rs, src/services/file_activity/tests.rs]

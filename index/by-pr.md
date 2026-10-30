@@ -6,6 +6,10 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
+| [lgse/strata#1937](https://github.com/lgse/strata/issues/1937) | 2026-10-30 | fix | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | Refreshed shown folder counts after Strata's own file operations, without reloading the parent listing. |
+| [lgse/strata#1936](https://github.com/lgse/strata/issues/1936) | 2026-10-30 | fix | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | Accepted group write access on executable path components whose group only the user belongs to, for private-group distributions. |
+| [lgse/strata#1935](https://github.com/lgse/strata/issues/1935) | 2026-10-30 | fix | [Permanent deletion](../features/operations/delete/index.md) | Counted the entries a permanent delete removes, since one large folder showed 0% until it was gone. |
+| [lgse/strata#1932](https://github.com/lgse/strata/issues/1932) | 2026-10-30 | fix | [Browser tabs](../features/browser/tabs/index.md) | Saved a left tab's focus only inside its browser view, sidebar, or preview, so returning after a click or restore focuses the listing. |
 | [lgse/strata#1934](https://github.com/lgse/strata/issues/1934) | 2026-10-29 | feat | [Updates](../features/app/updates/index.md) | Added the `STRATA_UPDATER=disabled` build switch, which leaves the updater out for distributions whose packages deliver updates. |
 | [lgse/strata#1918](https://github.com/lgse/strata/issues/1918) | 2026-10-29 | feat | [Interface language](../features/settings/preferences/language.md) | Added Hungarian (Magyar) as the thirteenth language, with locale detection, no-break-space digit grouping, and lower-case error details after a colon. |
 | [lgse/strata#1909](https://github.com/lgse/strata/issues/1909) | 2026-10-29 | fix | [Themes and appearance](../features/settings/themes/index.md) | Watched the resolved Omarchy theme folder and rebound it after a symlink switch, so `colors.toml` edits stay live without a restart. |

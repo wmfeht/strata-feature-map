@@ -3,8 +3,8 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+review: draft
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, src/adapters/local_operations/progress.rs]
 tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -37,6 +37,13 @@ The progress and cancellation UI shared by file operations: the blocking progres
 - Until a speed is measured, the speed field reads "Calculating speed…". lgse/strata#1278
 - A copy onto removable media shows "Writing to device…" and is not reported done until the filesystem flush returns. lgse/strata#1193
 - A move that copies shows "Writing to device…" during its final flush on internal disks too, except onto SMB. lgse/strata#1615
+
+### Deletion progress
+
+- While one item is permanently deleted, the progress status reads "N items deleted" with the running count, and the bar pulses. lgse/strata#1935
+- A permanent delete of two or more items keeps the item percentage and shows no removed-entry count. lgse/strata#1935
+- After Cancel, removed-entry counts no longer change the progress status or bar. lgse/strata#1935 (unverified)
+- When the deleted item finishes, the bar stops pulsing and shows 100%. lgse/strata#1935 (unverified)
 
 ### Cancellation
 
