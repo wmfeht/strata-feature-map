@@ -34,7 +34,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
 - That dialog lists the first 8 errors as "name: reason" and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
 - Cancelling a permanent delete counts an item it had started as failed, and items not yet started as not attempted. lgse/strata#1615
-- A permanent local delete counts every file, symlink, and folder its workers remove, the selected folder included. lgse/strata#1935
+- A permanent local delete counts every file, symlink, and folder its workers remove. lgse/strata#1935
 - A leftover `.nfs…`, `.__smbfile_silly…`, or `.fuse_hidden…` file left in place is not counted as removed. lgse/strata#1935 (unverified)
 - The removed-entry count is sent to the progress view every 250 ms, and only when it changed. lgse/strata#1935
 - Move to Trash sends no removed-entry count. lgse/strata#1935
@@ -79,4 +79,4 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 ## Known gaps
 
 - Shift+Delete still opens the permanent-delete confirmation where `access::can-delete` is false; only the item menu is capability-gated. lgse/strata#66
-- On a 600,000-file folder, progress stayed at 0% for about 1.5 s after confirming, before any file was unlinked. lgse/strata#1935
+- After confirming a permanent delete of one large folder, progress shows 0% for about 1.5 s before the first entry is removed. lgse/strata#1935

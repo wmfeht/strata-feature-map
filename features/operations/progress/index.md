@@ -40,7 +40,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 
 ### Deletion progress
 
-- While one item is permanently deleted, the progress status reads "N items deleted" with the running count, and the bar pulses. lgse/strata#1935
+- While one local item is permanently deleted, the progress status reads "N items deleted" with the running count, and the bar pulses. lgse/strata#1935
 - A permanent delete of two or more items keeps the item percentage and shows no removed-entry count. lgse/strata#1935
 - After Cancel, removed-entry counts no longer change the progress status or bar. lgse/strata#1935 (unverified)
 - When the deleted item finishes, the bar stops pulsing and shows 100%. lgse/strata#1935 (unverified)
