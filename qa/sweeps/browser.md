@@ -418,7 +418,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open a folder of `.gcode`, `.GCO`, and `.bgcode` files with STL model thumbnails off, then on; repeat on an `smb://` share and in the portal file chooser.
 - Open the slow directory's images as administrator in each view; compare `$XDG_CACHE_HOME/thumbnails` before and after.
 - In each view, `chmod 000` a folder in view from a shell, with and without a custom icon. Watch its icon once its metadata fills.
-- Paste 200 files into a folder scrolled just past the margin in the `10000` fixture, start a second paste into it, cancel one, then scroll it into view.
+- In the `10000` fixture, paste 200 files into a folder scrolled just past the margin. Start a second paste into it, cancel one, then scroll it into view.
 
 ### browser/thumbnails/cache
 

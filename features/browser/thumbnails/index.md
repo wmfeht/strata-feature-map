@@ -88,6 +88,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - When a file operation ends, only folders in the viewport and its margin are recounted; offscreen folders are not. lgse/strata#1937
 - An offscreen folder whose count an operation changed is recounted once scrolled into view. lgse/strata#1937 (unverified)
 - A folder that two overlapping operations write into is recounted only after the last one ends. lgse/strata#1937
+- After a sibling sorting before the target is created or removed, a drop still updates the target's own count. lgse/strata#1937
 
 ## Design
 
