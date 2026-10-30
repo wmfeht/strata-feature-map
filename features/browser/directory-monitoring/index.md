@@ -101,13 +101,13 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Drag-copy or drag-move a file onto a shown empty folder in Icons, List, or Columns with sizes shown. Its count changes from "No items" to "1 item" without F5. lgse/strata#1917, lgse/strata#1937
 - A second drop shows "2 items"; Ctrl+Z twice shows "1 item", then "No items". lgse/strata#1937
 - The count updates without reloading the parent folder, and the selection stays. lgse/strata#1937
-- Every browser and window showing the parent folder updates the count. lgse/strata#1937
+- Every browser and window showing the parent folder updates the count. A browser not on screen updates when shown. lgse/strata#1937
 - Moving a file from one shown folder into another updates both folders' counts. lgse/strata#1937
 - After a copy into a folder, its subfolders shown in a deeper column keep their counts. After a recursive merge into it, they are recounted. lgse/strata#1937
-- An operation that ends while the parent listing is still loading recounts every folder in that listing once the load finishes. lgse/strata#1937
+- An operation that ends while the parent listing is still loading clears the count of every folder in that listing once the load finishes; folders in view are recounted. lgse/strata#1937
 - An operation ending while a folder's count is being read discards that read; other rows' metadata keeps filling. lgse/strata#1937
-- A folder keeps showing its last count until the new count arrives. lgse/strata#1937 (unverified)
-- Counts refresh after operations only in local folders; a folder on an `sftp://` or other GVfs location keeps its count until F5. lgse/strata#1937 (unverified)
+- A folder row that stays in view keeps showing its last count until the new count arrives. lgse/strata#1937 (unverified)
+- Counts refresh after operations only in folders with a filesystem path, including FUSE mounts. An `sftp://` or other GVfs folder keeps its count until it is re-listed. lgse/strata#1937 (unverified)
 
 ## Design
 

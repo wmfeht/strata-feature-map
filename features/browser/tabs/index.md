@@ -175,8 +175,8 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - Location drags leave a hidden strip hidden. Revealing it moved the sidebar and listing under the pointer, so sidebar reorders, pin insertion, and spring-loading missed their targets (lgse/strata#1831, [comment](https://github.com/lgse/strata/pull/1831#issuecomment-6389607557)).
 - The tab window's capture-phase key handler cancels the active tab, sidebar, or file drag on Escape. It runs before the browser dispatcher, so the Escape dismisses nothing else (lgse/strata#1831, lgse/strata#1865).
 - Escape cancels by emitting `GdkDrag::cancel`. `DragSource::drag_cancel()` ends only the GTK source and keeps the X11 pointer grab, so the release still dropped (lgse/strata#1843, lgse/strata#1865).
-- A tab saves focus only inside its browser view, sidebar, or preview. A tab button takes focus on click before `clicked` selects the tab, and the always-mapped strip kept that grab. A restored tab is left before its listing loads, with GTK's default focus on the footer (lgse/strata#1929, lgse/strata#1932).
-- lgse/strata#1929 proposed both disabling focus-on-click on tab buttons and saving only in-content focus. lgse/strata#1932 took the second, which also covers a restored tab's footer focus.
+- A tab saves focus only inside its browser view, sidebar, or preview. A click focuses a tab button before `clicked` selects the tab. The left tab saved that button, and returning re-grabbed it, since the strip is always mapped. A restored tab is left before its listing loads. It saved GTK's default footer focus and restored it on first show (lgse/strata#1929, lgse/strata#1932).
+- lgse/strata#1929 offered disabling focus-on-click on tab buttons, saving only in-content focus, or both. lgse/strata#1932 saves only in-content focus.
 - The sidebar and preview are kept so keyboard users return where they left ([comment](https://github.com/lgse/strata/pull/1932#issuecomment-6514795983)).
 - The underline follows the selected tab from the layout pass. Its tick callback runs only while it moves, so an idle window stops drawing frames (lgse/strata#1671, lgse/strata#1677).
 
