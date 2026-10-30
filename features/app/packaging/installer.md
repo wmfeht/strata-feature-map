@@ -3,7 +3,7 @@ title: Release installer
 status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 review: draft
 code: [install.sh, data/locales/installer.json, scripts/installer_messages.py]
 tests: [scripts/test_installer.py, scripts/testdata]
@@ -109,6 +109,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - Output from the file chooser and udiskie steps, such as service-restart notices, stays on screen and in the retained log. lgse/strata#1730
 - After such a notice and no warning, the heading reads "Installed — review setup details". lgse/strata#1730 (unverified)
 - When the udiskie step fails, the installer exits with "Encrypted-volume unlock setup failed. Strata is installed; retry with: <path> --install-udiskie-unlock". lgse/strata#1047, lgse/strata#1730 (unverified)
+- When the file chooser step fails, the installer exits with "File chooser setup failed. Strata is installed; retry in Settings → General → Desktop integration → System file manager." lgse/strata#1936
 
 ### Language
 

@@ -3,8 +3,8 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
 related: [app/packaging/installer, integration/file-manager-interface, settings/preferences, app/updates]
@@ -26,7 +26,14 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - When a stop, reload, or restart step fails, `--install-portal` and `--uninstall-portal` print "Could not reload every portal service. Ensure xdg-desktop-portal is installed, then log out and back in before testing." lgse/strata#175 (unverified)
 - On a session bus that accepts connections and never answers, `--install-portal` and `--uninstall-portal` print that warning after the deadlines instead of hanging. lgse/strata#1876 (unverified)
 - An executable path containing whitespace, quotes, or backslashes is refused as unsupported by D-Bus activation. lgse/strata#175
-- An executable path with a component not owned by the user or root, or writable by other users, is refused. lgse/strata#175
+- An executable path with a component owned by neither the user nor root is refused. lgse/strata#175
+- A world-writable path component is refused with "The Strata executable path must not be writable by other users", even when its group is private. lgse/strata#175, lgse/strata#1936
+- A `0775` path component whose group is private to the user is accepted by `--install-portal` and Complete setup. lgse/strata#1936
+- A group-writable path component whose group is shared, or not described by `/etc/passwd` and `/etc/group`, is refused with the same message. lgse/strata#1936
+- A group is private only when `/etc/passwd` lists the user, no other user there has it as primary group, and `/etc/group` lists it. lgse/strata#1936
+- A gid is shared when any of its `/etc/group` lines names a member other than the user's login. lgse/strata#1936
+- When `/etc/passwd` or `/etc/group` is unreadable or empty, every group-writable path component is refused, as for LDAP or sssd accounts. lgse/strata#1936
+- The same path check guards `--install-udiskie-unlock` and the Omarchy shortcut bindings in Complete setup. lgse/strata#1936 (unverified)
 - `strata --uninstall-portal` restores the original configuration, or deletes the copy it created, when the file is unchanged since installation; otherwise it removes only `strata` from the preference. lgse/strata#175
 - `strata --dismiss-portal-prompt` creates `$XDG_CONFIG_HOME/strata/portal-opt-in-v1` and leaves portal preferences unchanged. lgse/strata#175
 
@@ -71,12 +78,17 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Bindings writes follow the config-file symlink rules in `settings/preferences/storage`; before, a symlinked bindings file was refused (lgse/strata#1455, lgse/strata#1544).
 - `gdbus --timeout` counts only the method call, after the connection handshake, so a silent bus blocked it. The 5-second deadline is on the process instead (lgse/strata#1850, lgse/strata#1876).
 - Each helper runs in its own process group, killed whole at the deadline, so `xdg-mime`'s `dbus-send` dies with it (lgse/strata#1876).
+- Ubuntu-based distributions give each user a private group and a umask of 002, so `~/.local` is `0775`. Write access by a group only the user belongs to is not "other users" (lgse/strata#1936).
+- A group or user the local databases do not describe counts as shared, so LDAP and other NSS setups keep the earlier refusal (lgse/strata#1936).
+- Every `/etc/group` line for the gid must be private; accepting any one private line let a second line open the gid to others (lgse/strata#1936).
+- The group lookup is passed into the check, so tests do not depend on the accounts of the machine running them (lgse/strata#1936).
 - A stale backend is detected by comparing the running process's executable inode with the installed file. A backend from another Strata installation is left alone (lgse/strata#474).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-30 | lgse/strata#1936 | fix | Accepted group write access on executable path components whose group only the user belongs to, for private-group distributions. |
 | 2026-10-10 | lgse/strata#1544 | fix | Made Complete setup, Restore default, and rollback write Omarchy bindings through a symlinked bindings file instead of refusing it. |
 | 2026-09-14 | lgse/strata#947 | feat | Made System file manager also set the folder handler, FileManager1 service, and Omarchy shortcuts. |
 
