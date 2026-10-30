@@ -3,8 +3,8 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
 docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md, docs/keyboard-navigation.md]
@@ -69,7 +69,11 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Keypad Page Up and Page Down work like Page Up and Page Down, and Caps Lock does not block the shortcuts. lgse/strata#1506
 - Page Up and Page Down tab shortcuts with Alt or Super added do nothing to tabs. lgse/strata#1506, lgse/strata#1576
 - Tab shortcuts ignore a held Hyper or Meta, so Ctrl+Hyper+Page Down selects the next tab. lgse/strata#1576
-- Selecting a tab returns focus to the widget it last focused. When that widget is gone or can no longer take focus, its file view's cursor gets it. lgse/strata#1484, lgse/strata#1533
+- Selecting a tab refocuses the widget it last focused in its browser view, such as the filter field, its sidebar, or its preview. When that widget is gone or can no longer take focus, its file view's cursor gets it. lgse/strata#1484, lgse/strata#1533, lgse/strata#1932
+- Focus left on the tab strip, or in the tab's header or footer, is not restored: returning to the tab focuses its listing's cursor. lgse/strata#1932
+- Focus the listing in tab A, click tab B in the strip, then click tab A. Down then moves A's listing cursor. lgse/strata#1932
+- With Restore open tabs on, Ctrl+Shift+<n> to a restored tab never shown yet focuses its listing, not the footer's shortcuts button. lgse/strata#1932
+- Ctrl+F in a tab, then Ctrl+Tab and Ctrl+Shift+Tab back, returns focus to the filter field. lgse/strata#1932
 - While a modal dialog is open, tab shortcuts and the New tab button do not create, switch, close, or move tabs. lgse/strata#1506
 
 ### Reordering
@@ -172,12 +176,15 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - Location drags leave a hidden strip hidden. Revealing it moved the sidebar and listing under the pointer, so sidebar reorders, pin insertion, and spring-loading missed their targets (lgse/strata#1831, [comment](https://github.com/lgse/strata/pull/1831#issuecomment-6389607557)).
 - The tab window's capture-phase key handler cancels the active tab, sidebar, or file drag on Escape. It runs before the browser dispatcher, so the Escape dismisses nothing else (lgse/strata#1831, lgse/strata#1865).
 - Escape cancels by emitting `GdkDrag::cancel`. `DragSource::drag_cancel()` ends only the GTK source and keeps the X11 pointer grab, so the release still dropped (lgse/strata#1843, lgse/strata#1865).
+- A tab saves focus only inside its browser view, sidebar, or preview. A tab button takes focus on click before `clicked` selects the tab, and the always-mapped strip kept that grab. A restored tab is left before its listing loads, with GTK's default focus on the footer (lgse/strata#1929, lgse/strata#1932).
+- Saving only in-content focus was chosen over making tab buttons not focus on click. The sidebar and preview are kept so keyboard users return where they left (lgse/strata#1929, lgse/strata#1932, [comment](https://github.com/lgse/strata/pull/1932#issuecomment-6514795983)).
 - The underline follows the selected tab from the layout pass. Its tick callback runs only while it moves, so an idle window stops drawing frames (lgse/strata#1671, lgse/strata#1677).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-30 | lgse/strata#1932 | fix | Saved a left tab's focus only inside its browser view, sidebar, or preview, so returning after a click or restore focuses the listing. |
 | 2026-10-24 | lgse/strata#1831 | feat | Opened sidebar locations, and folder-only drags dropped on the strip, in new tabs. |
 | 2026-10-23 | lgse/strata#1800 | feat | Added Ctrl+Shift+T to reopen up to 20 closed tabs per window at their former positions. |
 | 2026-10-15 | lgse/strata#1677 | perf | Moved the tab underline to the layout pass and animated it only while moving, so an idle window stops drawing frames. |

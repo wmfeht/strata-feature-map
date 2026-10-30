@@ -3,10 +3,10 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs]
-tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl]
+tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl]
 docs: [docs/architecture.md, docs/performance-baseline.md, docs/filesystem-compatibility.md]
 related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations, operations/filesystem-compatibility]
 ---
@@ -96,6 +96,18 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - When an operation completes, fails, or is cancelled, each affected open folder without a monitor reloads once, native or remote. Folders with a monitor are left to it. lgse/strata#1615
 - A merge undo or restore that ends with errors removes from the view only what it removed; restored and kept items stay in the view. lgse/strata#1615
 
+### Folder counts after Strata's own operations
+
+- Drag-copy or drag-move a file onto a shown empty folder in Icons, List, or Columns with sizes shown. Its count changes from "No items" to "1 item" without F5. lgse/strata#1917, lgse/strata#1937
+- A second drop shows "2 items"; Ctrl+Z twice shows "1 item", then "No items". lgse/strata#1937
+- The count updates without reloading the parent folder, and the selection stays. lgse/strata#1937
+- Every browser and window showing the parent folder updates the count. lgse/strata#1937
+- After a sibling sorting before the target is created or removed, a drop still updates the target's own count. lgse/strata#1937
+- A copy into a folder invalidates only that folder's count. A recursive merge also invalidates the counts of folders inside the merged folder. lgse/strata#1937
+- An operation that ends while the parent listing is still loading recounts its folders once the load finishes. lgse/strata#1937
+- An operation ending while a folder's count is being read discards that read; other rows' metadata keeps filling. lgse/strata#1937
+- A folder keeps showing its last count until the new count arrives. lgse/strata#1937 (unverified)
+
 ## Design
 
 Loading and file monitoring predate the PR history; the original monitor already watched moves and coalesced events per path. [docs/architecture.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/architecture.md) documents directory-event routing and staged publication. [docs/performance-baseline.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/performance-baseline.md) carries the 100,000-entry fixtures and load timings.
@@ -123,12 +135,15 @@ Loading and file monitoring predate the PR history; the original monitor already
 - A monitored move to a hidden name, in a listing that hides hidden files, is handled like a removal. A monitor started with hidden files shown keeps reporting moves after Ctrl+H, so leaving it to the monitor's removal was dropped (lgse/strata#1852, lgse/strata#1874).
 - In Columns, deeper columns close in place, not through a reload of the parent, which put the cursor on the first row and lost the neighbor (lgse/strata#1874).
 - In-app renames and monitor-reported moves share one code path, whatever hidden-files setting the monitor started with (lgse/strata#1874).
+- Folder counts refresh by invalidating them on the shared operation-ended notice and re-admitting viewport targets, not by reloading the parent. Direct writes and recursive merges stay distinct (lgse/strata#1937).
+- A listing loading during an operation gets a follow-up invalidation, because enumeration stamps counts at listing time ([review](https://github.com/lgse/strata/pull/1937#issuecomment-6514027996)).
 - Browser folder monitors always include hidden entries, which stay in the model. Showing hidden files is then an in-memory filter change, with no rescan or monitor restart (lgse/strata#1909).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-30 | lgse/strata#1937 | fix | Refreshed shown folder counts after Strata's own file operations, without reloading the parent listing. |
 | 2026-10-20 | lgse/strata#1729 | fix | Replaced auto-refresh with network-folder checks, kept listings on mounts that stop answering, and created monitors off the interface thread. |
 | 2026-10-10 | lgse/strata#1554 | fix | Followed an open folder renamed outside Strata, and left one deleted or moved for its nearest existing ancestor. |
 | 2026-10-10 | lgse/strata#1539 | fix | Flagged a focus change caused by the focused entry's removal, so Columns can mirror the replacement. |
