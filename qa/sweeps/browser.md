@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -418,6 +418,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open a folder of `.gcode`, `.GCO`, and `.bgcode` files with STL model thumbnails off, then on; repeat on an `smb://` share and in the portal file chooser.
 - Open the slow directory's images as administrator in each view; compare `$XDG_CACHE_HOME/thumbnails` before and after.
 - In each view, `chmod 000` a folder in view from a shell, with and without a custom icon. Watch its icon once its metadata fills.
+- In the `10000` fixture, paste 200 files into a folder scrolled just past the margin. Start a second paste into it, cancel one, then scroll it into view.
 
 ### browser/thumbnails/cache
 
@@ -496,6 +497,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Rename a column's only visible entry, an open folder, to a dot name with hidden files off; then press F2 and Down.
 - Sort a 2,000-entry folder on a stalled sshfs mount by Size; while sizes load, press F5, go Back, and switch to Icons and List.
 - With hidden files off, create, rename, and delete dot-files from a shell, then press Ctrl+H. Do it in each view, on an `sftp://` folder, on an sshfs mount, and in `10000`.
+- Drop a file onto a folder shown in two windows, one in Columns with sizes off and one in List; turn sizes on afterwards.
+- Merge a same-named folder over one with open subfolders, then undo the merge; read every count in the open columns.
+- Drop a file onto a folder in the `100000` fixture while its parent is still loading, and onto an `sftp://` folder.
 
 ### browser/directory-monitoring/network-checks
 
@@ -549,6 +553,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With a modal dialog open, drag a sidebar row and a folder from another window onto this window's strip and New tab button.
 - Press Escape mid-drag on Wayland and on X11: over a tab header, a sidebar row, a breadcrumb, and a spring-opened folder. Release over a folder each time.
 - Press Escape during a multi-selection drag, during a drag from another application, and while dragging out to another window.
+- Leave a tab with focus on a breadcrumb, the header search button, a 10xer footer prompt, and the update notice; return by click and by Ctrl+Tab.
+- Leave a tab from a preview audio timeline and from a sidebar pin, then close that pane in a third tab before returning.
+- Restore 5 tabs and visit each by click, then by Ctrl+Shift+<n>, before and after their listings finish loading.
 
 ### browser/tabs/session-restore
 

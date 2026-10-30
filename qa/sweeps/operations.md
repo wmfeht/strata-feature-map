@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
@@ -203,6 +203,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete with no selection in each mode, inside a read-only folder, and on a selection mixing Trash and non-Trash items reached through search.
 - Delete a 10k-entry folder, cancel at about half, and count what remains.
 - Shift+Delete a deep tree on a rotational USB disk while a shell loop renames one of its subfolders.
+- Permanently delete one large folder on an SFTP or SMB mount, and one large folder inside Trash; watch the progress until it ends.
+- Shift+Delete one folder whose deletion takes 250 to 350 ms.
+- Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
 
 ### operations/delete/dissolve
 
@@ -268,6 +271,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Move the focused large tree to another folder, then press Down once the progress dialog closes.
 - Repeat with a move that ends in an error dialog.
 - Cancel a 300-file cross-disk move, a Trash delete, and a restore partway; compare the not-attempted count with what is on disk.
+- Shift+Delete one 200,000-file folder and cancel while the count runs; then Shift+Delete two folders, one of them that large.
+- Shift+Delete a single file, and a single folder that resolves through a symlinked parent.
 
 ### operations/progress/dock
 
@@ -278,6 +283,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Let a notice expire while a card runs, after the card completes, and after the card is pinned; click where the notice sits.
 - Trigger a notice with a long device or provider name in a narrow window.
 - Press Ctrl++ repeatedly while a transfer report notice shows, then finish two docked copies that both rename items.
+- Run two one-folder permanent deletes as docked cards at once in a narrow window, and cancel one with X while both count.
 
 ### operations/progress/jobs
 

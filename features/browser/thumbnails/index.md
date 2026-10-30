@@ -3,10 +3,10 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs]
-tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
+tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/viewport/tests/folder_counts.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
 related: [operations/trash, browser/view-modes, browser/search, devices/volumes/camera, browser/properties/raw-metadata, preview/preview-panel/sandbox, preview/preview-panel/gcode]
 ---
@@ -85,6 +85,10 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 - Scrolling an item away or rebinding its row cancels its pending work, and a late result never appears on a recycled row. lgse/strata#57, lgse/strata#1081
 - A file whose render failed is not retried for 30 seconds. lgse/strata#57
 - A thumbnail that a file operation stopped is not cached as failed; it is requested again once the operation ends. lgse/strata#1729
+- When a file operation ends, only folders in the viewport and its margin are recounted; offscreen folders are not. lgse/strata#1937
+- An offscreen folder whose count an operation changed is recounted once scrolled into view. lgse/strata#1937 (unverified)
+- A folder that two overlapping operations write into is recounted only after the last one ends. lgse/strata#1937
+- After a sibling sorting before the target is created or removed, a drop still updates the target's own count. lgse/strata#1937
 
 ## Design
 

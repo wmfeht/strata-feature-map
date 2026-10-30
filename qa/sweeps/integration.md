@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -86,6 +86,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Against the silent session bus, run Complete setup, Restore default, `--install-portal`, and `--uninstall-portal`; time each and read the status lines. Check `ps` for leftover `gdbus`, `dbus-send`, or `systemctl`.
 - Repeat the silent-bus Complete setup with `XDG_CURRENT_DESKTOP=Hyprland`, so `xdg-mime` takes its `dbus-send` path, then with the bus restored mid-setup.
 - On an Omarchy VM, make `bindings.conf` a relative link, a two-link chain, a dangling link, and a link from a read-only directory. Run Complete setup with a target that fails `hyprctl configerrors`. Read the link, target, and backup location.
+- Install from a `0775` `~/.local/bin` group-owned by: a gid on two `/etc/group` lines, another user's private group, a memberless gid nobody has as primary. Repeat as an LDAP or sssd account.
+- Run `--install-udiskie-unlock` and Complete setup on Omarchy from that `0775` private-group path, then with one ancestor `0757`.
 
 ### integration/portal-file-chooser/url-download
 

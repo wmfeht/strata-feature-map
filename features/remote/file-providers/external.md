@@ -3,8 +3,8 @@ title: External file providers
 status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+review: draft
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
 tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, tests/qa/scenarios/file_providers]
 docs: [site/src/reference/file-providers.md, docs/file-providers.md]
@@ -130,3 +130,4 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 ## Known gaps
 
 - Remote-only locations and non-UTF-8 filenames get no provider badges or actions. lgse/strata#1385
+- A registration directory, manifest, icon, or executable writable by the user's private group is still rejected, though portal setup accepts such a group. lgse/strata#1936
