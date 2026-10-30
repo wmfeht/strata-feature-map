@@ -130,4 +130,4 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 ## Known gaps
 
 - Remote-only locations and non-UTF-8 filenames get no provider badges or actions. lgse/strata#1385
-- A registration folder writable by the user's private group is still rejected, though portal setup now accepts such a group. lgse/strata#1936
+- A registration directory, manifest, icon, or executable writable by the user's private group is still rejected, though portal setup accepts such a group. lgse/strata#1936

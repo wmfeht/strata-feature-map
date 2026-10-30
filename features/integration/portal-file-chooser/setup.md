@@ -78,7 +78,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Bindings writes follow the config-file symlink rules in `settings/preferences/storage`; before, a symlinked bindings file was refused (lgse/strata#1455, lgse/strata#1544).
 - `gdbus --timeout` counts only the method call, after the connection handshake, so a silent bus blocked it. The 5-second deadline is on the process instead (lgse/strata#1850, lgse/strata#1876).
 - Each helper runs in its own process group, killed whole at the deadline, so `xdg-mime`'s `dbus-send` dies with it (lgse/strata#1876).
-- Ubuntu-based distributions give each user a private group and a umask of 002, so `~/.local` is `0775`. Write access by a group only the user belongs to is not "other users" (lgse/strata#1936).
+- Ubuntu-based distributions give each user a private group and a umask of 002, so `~/.local` is `0775`. Write access by a group no other user belongs to is not "other users" (lgse/strata#1936).
 - A group or user the local databases do not describe counts as shared, so LDAP and other NSS setups keep the earlier refusal (lgse/strata#1936).
 - Every `/etc/group` line for the gid must be private; accepting any one private line let a second line open the gid to others (lgse/strata#1936).
 - The group lookup is passed into the check, so tests do not depend on the accounts of the machine running them (lgse/strata#1936).
