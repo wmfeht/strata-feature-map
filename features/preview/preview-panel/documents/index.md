@@ -72,9 +72,9 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - XLS, XLSX, and ODS files show their first worksheet as a table with no Source view; formulas are not recalculated and macros never run. lgse/strata#729
 - Tables open sorted ascending by the first column; clicking a column title toggles ascending and descending. lgse/strata#729
 - Clicking a second column title sorts by it; rows with equal values keep the previous column's order and direction, then source order. lgse/strata#1946
-- Clicking the primary title again reverses its value groups; within a group, rows keep their secondary and source order, such as `a` before `A`. lgse/strata#1946
-- In a Markdown, HTML, DOCX, or ODT table sorted by two columns, scroll it away and back, then click the primary title. Equal rows fall back to source order. lgse/strata#1946 (unverified)
-- Single-clicking an 18,000-row, 4-column XLSX shows its table without freezing the window. lgse/strata#1946, lgse/strata#1939
+- Clicking the primary title again reverses its value groups; within a group, rows keep their secondary and source order, such as `a` and `A` keeping their source order. lgse/strata#1946
+- After a Markdown, HTML, DOCX, or ODT table sorted by two columns scrolls away and back, clicking the primary title sorts ties in source order. lgse/strata#1946 (unverified)
+- While an 18,000-row, 4-column XLSX preview loads after a single click, the window keeps repainting and accepting clicks. lgse/strata#1946, lgse/strata#1939
 - Ascending sort puts numbers first, then case-insensitive text, then empty cells; descending reverses that order. Sorting never changes the file. lgse/strata#729 (unverified)
 - Changing the sort clears a selected cell range and scrolls the table to the top. lgse/strata#729 (unverified)
 - A table cell over 512 bytes shows shortened with "…"; copying the table keeps its full text. lgse/strata#187 (unverified)
@@ -156,5 +156,4 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Workbooks preview only their first worksheet. lgse/strata#729
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752
 - Large rendered previews have an initial-loading delay, where GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752
-- Cold and warm header sorts on a 25,000-row table take about 12% and 101% more CPU than the PR's first revision; the cause is unprofiled. lgse/strata#1946
 - A document-embedded table rebuilt after scrolling restores only its primary sort column, so the next header click drops secondary tie-breaking. lgse/strata#1946

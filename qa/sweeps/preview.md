@@ -117,10 +117,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
 - With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
 - Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
-- Click three different column titles in turn on a CSV with repeated values in each column, then reverse the first and copy the table.
+- Click three different column titles in turn on a CSV with repeated values in each column, then click the first title twice and copy the table.
 - In Markdown holding two tables, sort each by two columns, scroll both out of view and back, then copy each table and click a title.
 - Sort the 25,000-row ragged CSV by every one of its 256 columns in turn, then scroll to the end.
-- In the 25,000-row XLSX, reverse a column full of equal values several times, scroll to the bottom, and drag-select a range there.
+- In the 25,000-row XLSX, reverse a column full of equal values 10 times, scroll to the bottom, and drag-select a range there.
 - Close the preview during a table cell drag at the bottom edge, reopen it, and rest the pointer at the bottom edge with no button held.
 - Change interface text size up and back with the 2 MiB text file open in Source and compare line numbers with their lines.
 - In the 5,000-character ODT paragraph, double-click and Shift+End across its 2 KiB row boundaries.
