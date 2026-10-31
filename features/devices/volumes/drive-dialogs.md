@@ -90,7 +90,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393). Until lgse/strata#1875, an exFAT label of 12 to 32 characters passed, unmounted the drive, then failed in UDisks (lgse/strata#1849, lgse/strata#1875).
 - Label limits and units match the libblockdev checks UDisks runs before wiping: 11 UTF-16 units for exFAT, 11 bytes for FAT32. Strata's NTFS limit of 32 units is below the backend's 128 (lgse/strata#1849, lgse/strata#1875).
 - The field trims in the filesystem's unit through the shared form field limit that `app/dialogs` records (lgse/strata#1875).
-- Container lock skips a block only when UDisks answers `InvalidArgs`, `UnknownInterface`, or `UnknownProperty`. Treating every read error as "not encrypted" hid real failures behind "device not found" after the unmount (lgse/strata#1952).
+- A failed `CleartextDevice` read skips the block only for `InvalidArgs`, `UnknownInterface`, or `UnknownProperty`; other errors surface. Treating every read error as "not encrypted" hid real failures behind "device not found" after the unmount (lgse/strata#1952).
 - Only `Encrypted.Lock` waits indefinitely, for the polkit prompt; lookups keep the default timeout so a hung udisksd fails instead of leaving Lock in flight (lgse/strata#1952).
 
 ## History

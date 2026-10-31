@@ -22,7 +22,7 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - An encrypted device stays listed in Devices while locked, including a password-start drive with no listed volume. lgse/strata#935
 - A locked encrypted row shows a lock button and an Unlock menu entry; an unlocked one shows an open-lock button and Lock. lgse/strata#935
 - With no GVfs padlock emblem, a volume whose dm-crypt mapping is open but whose filesystem is unmounted shows as unlocked and offers Lock. lgse/strata#1952
-- A GVfs padlock emblem, when present, decides the locked or unlocked state over the mount and mapping. lgse/strata#1952
+- A GVfs padlock emblem, when present, decides the locked or unlocked state over the mount and mapping. lgse/strata#935, lgse/strata#1952
 - The lock button is named after its action, "Unlock" or "Lock". lgse/strata#1895 (unverified)
 - Rows for non-encrypted devices have no lock button. lgse/strata#935
 
@@ -44,7 +44,7 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - On an internal disk with no stoppable drive, Lock closes the LUKS container after the unmount; `lsblk` shows no `crypt` child. lgse/strata#1952
 - Lock on an unlocked volume whose filesystem is already unmounted closes the mapping with no error dialog. lgse/strata#1923, lgse/strata#1952
 - Lock on a mount with no GIO volume, such as an fstab entry, finds its block device from the mount table and closes its container. lgse/strata#1952
-- Lock with a shell inside the mount shows the busy error, and the mapping stays open. lgse/strata#1952
+- Lock with a shell inside the mount shows "Unable to lock device" with GIO's busy unmount error, and the mapping stays open. lgse/strata#1952
 - When the volume's passphrase is saved, Lock first asks "Forget saved password?"; Cancel or Escape leaves both the password and the mount. lgse/strata#935
 - "Forget and lock" deletes the saved passphrase, then locks. lgse/strata#935
 - If the keyring needs a confirmation Strata cannot display, Lock stops with "Couldn't forget the saved password" and asks the user to remove it in the password manager. lgse/strata#935

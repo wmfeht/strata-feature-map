@@ -84,7 +84,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Replug another stick while Format Drive loads its facts, and again while it formats.
 - Dump the tree with the drive Label and Format Drive dialogs open.
 - Attach the virtio LUKS disk and its `dd` clone, unlock one, unmount its filesystem from a shell, and Lock it. Check which mapping `lsblk` shows closed.
-- Open the virtio LUKS mapping as another user with `udisksctl unlock`, then Lock it in Strata. Dismiss the polkit prompt, then repeat and authorize.
+- Open the virtio LUKS mapping as another user with `udisksctl unlock`, then Lock it in Strata. Dismiss the polkit prompt with Escape, then with its close button, then let it time out; finally authorize.
 - Unmount the virtio LUKS filesystem from a shell, then restart udisks2 and Lock at once; repeat with udisks2 stopped.
 
 ### devices/volumes/camera
