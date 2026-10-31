@@ -33,9 +33,9 @@ The folder suggestions shown under the location entry while a path is typed. The
 - Tab pressed during the listing waits for its list, and so do Down, Up, Page Down, and Page Up while suggestions show. Enter after one of them waits too; they then run in order. lgse/strata#1729
 - Switching to another window, minimising, or hiding Strata while suggestions show closes the popover. The typed path and location editing stay. lgse/strata#1943
 - A listing still pending when the window loses focus is cancelled, so its result does not reopen the popover. lgse/strata#1943
-- Editing the entry text while the window is not focused shows no suggestions. lgse/strata#1943 (unverified)
+- Editing the entry text while the window is not focused shows no suggestions. lgse/strata#1943
 - Refocusing the window does not reopen suggestions; the next text change shows them again. lgse/strata#1943
-- Hiding the location entry closes the popover and cancels a pending listing. lgse/strata#1943 (unverified)
+- Hiding the location entry closes the popover and cancels a pending listing. lgse/strata#1943
 - Switching tabs closes the previous tab's suggestions, since background tabs count as hidden. lgse/strata#1943 (unverified)
 - In the portal file chooser, focusing another window closes the location field's suggestions. lgse/strata#1943 (unverified)
 

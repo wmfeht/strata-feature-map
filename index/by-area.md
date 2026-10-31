@@ -318,13 +318,13 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 
 ### [Media details in Properties](../features/browser/properties/media.md) `browser/properties/media`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#979](https://github.com/lgse/strata/issues/979), pr [lgse/strata#984](https://github.com/lgse/strata/issues/984)
+shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · 0 PRs since · origin issue [lgse/strata#979](https://github.com/lgse/strata/issues/979), pr [lgse/strata#984](https://github.com/lgse/strata/issues/984)
 
 Source-media details for a single local image, audio, or video file in Properties: resolution, duration, bitrate, codecs, frame rate, sample rate, channels, HDR format, subtitles, and chapters. Camera RAW files get `browser/properties/raw-metadata` instead.
 
-- Code: [`src/ui/browser/properties/media.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/ui/browser/properties/media.rs), [`src/sandbox/metadata.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/sandbox/metadata.rs)
-- Tests: [`src/ui/browser/properties/media/tests.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/ui/browser/properties/media/tests.rs), [`src/sandbox/metadata/tests.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/sandbox/metadata/tests.rs), [`tests/qa/scenarios/properties_media/media-details-properties-only.jsonl`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/tests/qa/scenarios/properties_media/media-details-properties-only.jsonl)
-- Docs: [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/site/src/reference/preview-sandbox.md)
+- Code: [`src/ui/browser/properties/media.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/ui/browser/properties/media.rs), [`src/sandbox/metadata.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/sandbox/metadata.rs)
+- Tests: [`src/ui/browser/properties/media/tests.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/ui/browser/properties/media/tests.rs), [`src/sandbox/metadata/tests.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/sandbox/metadata/tests.rs), [`tests/qa/scenarios/properties_media/media-details-properties-only.jsonl`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/tests/qa/scenarios/properties_media/media-details-properties-only.jsonl)
+- Docs: [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/site/src/reference/preview-sandbox.md)
 - Related: [Preview panel](../features/preview/preview-panel/index.md)
 
 ### [RAW photo details](../features/browser/properties/raw-metadata.md) `browser/properties/raw-metadata`

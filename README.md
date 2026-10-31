@@ -49,7 +49,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Startup location arguments](features/browser/navigation/startup-arguments.md) | `browser/navigation/startup-arguments` | shipped | reviewed | `86df474` | 0 |
 | [Properties dialog](features/browser/properties/index.md) | `browser/properties` | shipped | reviewed | `44bfeab` | ? |
-| ↳ [Media details in Properties](features/browser/properties/media.md) | `browser/properties/media` | shipped | draft | `44bfeab` | ? |
+| ↳ [Media details in Properties](features/browser/properties/media.md) | `browser/properties/media` | shipped | draft | `965bd7e` | 0 |
 | ↳ [RAW photo details](features/browser/properties/raw-metadata.md) | `browser/properties/raw-metadata` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Folder and selection size](features/browser/properties/size.md) | `browser/properties/size` | shipped | reviewed | `86df474` | 0 |
 | [Scrolling](features/browser/scrolling.md) | `browser/scrolling` | shipped | reviewed | `86df474` | 0 |

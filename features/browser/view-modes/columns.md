@@ -68,7 +68,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Header actions (Empty Trash at `trash:///`, Refresh, sort direction, Sort by, filter, Close) show only in the column targeted by the latest pointer or keyboard input. lgse/strata#555
 - The `trash:///` column's Empty Trash button is insensitive while the column lists 0 items and becomes sensitive when an item appears. lgse/strata#138
 - While an item or background context menu is open in a column, that column keeps the header actions even when the pointer moves over another column. lgse/strata#555, lgse/strata#1942
-- Right-clicking a column's title or empty header space opens that column's folder menu at the click, the same menu as its empty area. lgse/strata#1942
+- Right-clicking a column's title or empty header space opens that column's folder menu at the click, the same menu as its empty area. lgse/strata#1916, lgse/strata#1942
 - New Folder from a parent column's header menu creates the folder inside that column's folder, not in a deeper open column. lgse/strata#1942
 - Escape on a header-opened folder menu returns arrow-key navigation to that column. lgse/strata#1942
 - Right-clicking a header button, menu button, or the filter field opens no folder menu; the control keeps its own behavior. lgse/strata#1942
