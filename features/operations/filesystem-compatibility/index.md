@@ -23,10 +23,10 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - There a file is hard-linked and its old name unlinked once the link proves its identity; a folder is renamed over an exclusive empty placeholder. lgse/strata#1615
 - On sshfs, vboxsf, rclone, and s3fs, a file is renamed over an exclusive empty placeholder after a check. lgse/strata#1615
 - On sshfs a folder is renamed over an exclusive empty placeholder. On vboxsf a folder is renamed to a name found free. lgse/strata#1615
-- A file pasted onto a KDE Connect sshfs mount of an Android phone arrives, instead of failing "Could not copy <name>: Permission denied". lgse/strata#1941, lgse/strata#1945
+- A file pasted onto a KDE Connect sshfs mount of an Android phone arrives. lgse/strata#1941, lgse/strata#1945
 - There `link()` returns `EACCES`, so the file goes over an exclusive reserved name, and later pastes on that mount skip the link. lgse/strata#1945
-- A symlink placed where `symlink()` returns `EACCES` goes on to the reserved-name step instead of failing with "Permission denied". lgse/strata#1945
-- A move within such a mount into a folder that refuses Strata's probe file too fails with "Permission denied", and never turns into a copy. lgse/strata#1945
+- A symlink moved within such a mount, where `symlink()` returns `EACCES`, is renamed over an exclusive reserved name. lgse/strata#1945
+- A move within such a mount, into a folder that also refuses Strata's probe file, fails with "Permission denied" and is not retried as a copy. lgse/strata#1945
 - On sshfs whose server lacks `posix-rename@openssh.com`, the move copies instead. lgse/strata#1615
 - A move copies only across devices, or where no placement step can place the item. lgse/strata#1615
 - An item that appears at the destination meanwhile is never overwritten, except in the reserved-name step's window. lgse/strata#1615
@@ -110,7 +110,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - A symlink the destination cannot store is left out and reported, and the paste goes on. lgse/strata#1615
 - This happens at once on FAT and exFAT, and after the first refusal on SMB without POSIX extensions. lgse/strata#1615
 - A move keeps such a link at the source, and Undo leaves its item out, naming it. lgse/strata#1615
-- A folder holding a symlink, copied from another disk onto KDE Connect sshfs, fails with "Permission denied" instead of leaving the link out. lgse/strata#1941, lgse/strata#1945 (unverified)
+- A symlink copied onto KDE Connect sshfs, alone or inside a folder, fails with "Permission denied" instead of being left out. lgse/strata#1941, lgse/strata#1945 (unverified)
 
 ### Completion report
 

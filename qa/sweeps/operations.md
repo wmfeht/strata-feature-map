@@ -53,7 +53,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Commit by Enter, by clicking another item, by clicking the background, and press F5 while editing.
 - Focus a second window mid-edit, then come back and press Escape.
 - Mid-edit, switch input methods with Super+Space under IBus and Ctrl+Space under fcitx5.
-- With the stem preselected, compose with fcitx5 under `GTK_IM_MODULE=fcitx` on X11 and on Wayland, and with `GTK_IM_MODULE` unset on Wayland.
+- With the stem preselected, compose with fcitx5 in List and Icons, after Ctrl+R, and on Wayland with `GTK_IM_MODULE` unset.
 - Leave an edit open while another window is active, then close the Strata window from the taskbar; read the name on disk.
 - On a vfat or SMB mount, rename to a case-only variant, to a name holding a tab or a combining mark, and to `notes.`; then undo each.
 - Rename to a name differing only by case, to an existing name, to a name containing `/`, and to a 255-byte name, in each mode.
