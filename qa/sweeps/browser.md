@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -82,6 +82,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Press Ctrl+A in `100000`, then draw a small Ctrl+Alt marquee in Icons and List; compare the footer count with the rows crossed.
 - Plain-click blank preview space while a PDF shows, while the placeholder shows, and while the drawer slides in; then drag from there into the listing.
 - Click a disabled header button and the gap between the preview header's icon and name. Repeat in the file chooser.
+- With overlay scrollbars on, drag the scrollbar handle in List, Icons, each open column, and inline search results; repeat with overlay scrolling off and with Alt held.
 - In the file chooser, Ctrl+click blank preview space with a file previewed, then plain-click the empty Columns preview slot. Repeat for a `single` and a `multiple` request.
 
 ### browser/selection/pointer-intent
@@ -137,6 +138,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Wheel-scroll a column with the pointer over it and badges on; then kinetic-scroll the strip so a parent is clipped, stop, and compare its reveal button with its visible width.
 - With recursive filter results in a column, cancel a dialog opened from a hit, switch views, and hide the preview with the mouse; note which hit has focus each time.
 - In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
+- Right-click a column header's spinner while it loads, its truncated-listing warning icon, and the gap hidden header actions leave in an inactive column.
+- Right-click the headers of `trash:///` and Recent columns, then repeat in the file chooser and in 10xer mode.
 
 ### browser/view-modes/icons
 
@@ -284,6 +287,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type a path into a stalled sshfs folder, press Tab, Down, and Enter before its list arrives, then resume the daemon.
 - Hold Page Down through 50 suggestions, then Page Up past the first; note where the highlight wraps.
 - Rebind `page_down` to `<Control>n`; press it, then Page Down, with suggestions showing and while a list is pending.
+- With suggestions showing, switch tabs with Ctrl+Page Down, then return and type one character.
+- Show suggestions in the portal file chooser's location field, then focus another application.
+- Type a path into a stalled sshfs folder, minimise the window, resume the daemon, restore, and press Down.
 
 ### browser/navigation/recent
 

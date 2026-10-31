@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
@@ -14,7 +14,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 
 - A guest from `~/dev/strata-qemu-testing` (`omarchy-4` and `arch`) with disks attached and detached over QMP `device_add` and `device_del`. Its `guest-tests/smoke-luks-hotplug.sh` and `smoke-udiskie-unlock.sh` show the hotplug and hook wiring. Every format, eject, and config rewrite runs there; the host never serves a destructive device probe.
 - USB stick images: `truncate -s 256M` then `mkfs.vfat -n STICK`, attached as removable `usb-storage`. Make a second with the same label, a third with no label, and an ext4 one labeled with raw bytes through `e2label`. A fourth carries three partitions, one unformatted.
-- A LUKS image: `truncate -s 128M luks.img && cryptsetup luksFormat --type luks2 luks.img`, attached as its own USB disk, plus one disk holding two LUKS partitions with the same passphrase. Keep a `losetup` twin on the host for detection checks only; never format it from Strata.
+- A LUKS image: `truncate -s 128M luks.img && cryptsetup luksFormat --type luks2 luks.img`, attached as its own USB disk, plus one disk holding two LUKS partitions with the same passphrase. Attach a LUKS partition on a non-removable virtio disk too, and a `dd` clone of it, for Lock without a stoppable drive. Give that volume an fstab `noauto,user,x-gvfs-show` entry, and add a second guest user to open its mapping. Keep a `losetup` twin on the host for detection checks only; never format it from Strata.
 - udisks2 running and udiskie installed in the guest; `udisksctl`, `lsblk`, `findmnt`, `udevadm monitor`, and `secret-tool` for ground truth after every action.
 - A throwaway HOME as in `qa/README.md`, plus a copy of `~/.config/udiskie` and `~/.local/share/strata` taken before each install probe, to diff the restore.
 - A real PTP camera or iPhone passed through with `-device usb-host`; GVfs gphoto2 mounts only USB devices. Without one, record the camera block as not exercised.
@@ -58,6 +58,8 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Hide the "Unlocking volume" overlay and navigate to Home before unlock completes; then repeat with the pane already inside the mount.
 - Lock the login keyring with `secret-tool lock`, then Lock a volume with a saved passphrase; confirm the mount and the secret both survive.
 - Open the volume with `cryptsetup open` but no mount, then press Unlock and Lock on its row.
+- Unmount the virtio LUKS filesystem with `udisksctl unmount`, then Lock from the row menu by keyboard instead of the row button.
+- Mount the virtio LUKS volume through an fstab `noauto,user,x-gvfs-show` entry, then Lock it with and without a saved passphrase.
 - Dump the sidebar with an unmounted encrypted drive and an unlocked one, expanded and as the rail.
 
 ### devices/volumes/udiskie-unlock
@@ -81,6 +83,9 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Open the unlocked LUKS volume's Properties and Format Drive after `dmsetup suspend` on its mapping; close each before its facts arrive, then `dmsetup resume`.
 - Replug another stick while Format Drive loads its facts, and again while it formats.
 - Dump the tree with the drive Label and Format Drive dialogs open.
+- Attach the virtio LUKS disk and its `dd` clone, unlock one, unmount its filesystem from a shell, and Lock it. Check which mapping `lsblk` shows closed.
+- Open the virtio LUKS mapping as another user with `udisksctl unlock`, then Lock it in Strata. Dismiss the polkit prompt with Escape, then with its close button, then let it time out; finally authorize.
+- Unmount the virtio LUKS filesystem from a shell, then restart udisks2 and Lock at once; repeat with udisks2 stopped.
 
 ### devices/volumes/camera
 

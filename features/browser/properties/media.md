@@ -3,8 +3,8 @@ title: Media details in Properties
 status: shipped
 origin: {issue: lgse/strata#979, pr: lgse/strata#984}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/ui/browser/properties/media.rs, src/sandbox/metadata.rs]
 tests: [src/ui/browser/properties/media/tests.rs, src/sandbox/metadata/tests.rs, tests/qa/scenarios/properties_media/media-details-properties-only.jsonl]
 docs: [site/src/reference/preview-sandbox.md]
@@ -44,7 +44,7 @@ Inspection runs in the preview sandbox; [docs/preview-sandbox.md](https://github
 - The sandbox stays network-isolated and gets no GPU access for metadata; only the BLAS/LAPACK files FFmpeg needs on Debian were added (lgse/strata#984).
 - The scope first included the preview pane. The owner then kept detailed media metadata in Properties only, to keep the preview uncluttered (lgse/strata#979 comments).
 - Unavailable fields are omitted rather than shown empty (lgse/strata#979).
-- Generic octet-stream files go through the shared filename classifier, so preview, navigation, Properties, and printing agree on raw `.h264` streams (lgse/strata#1901).
+- Generic octet-stream files go through the shared filename classifier, so preview, navigation, and Properties agree on raw `.h264` streams (lgse/strata#1901, lgse/strata#1950).
 - `ffprobe` runs with a four-second timeout and a 256 KiB JSON limit. Only validated numbers and bounded codec identifiers reach the UI, not arbitrary tags (docs/preview-sandbox.md).
 
 ## History

@@ -3,8 +3,8 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -93,6 +93,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1959 | fix | Let a press on a view's scrollbar keep its drag instead of starting a marquee, so overlay scrollbar handles scroll again. |
 | 2026-10-25 | lgse/strata#1871 | fix | Moved GTK's Shift+arrow origin to the Ctrl+clicked entry in List and Icons, so ranges extend from it. |
 | 2026-10-07 | lgse/strata#1415 | fix | Moved focus after a removal to the nearest visible entry instead of a hidden one. |
 | 2026-09-28 | lgse/strata#1313 | feat | Extended the selection by a page with Shift+Page Up/Down. |
