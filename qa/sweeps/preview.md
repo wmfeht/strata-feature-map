@@ -1,12 +1,12 @@
 ---
 title: Preview sweep
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones and zoom, comic and EPUB covers, and Print. PDF text selection is its own child. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Its scrollbar child covers the document-position thumb and momentum. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover STL, 3MF, and FreeCAD rendering, embedded thumbnails, model limits, the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
+Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones and zoom, and comic and EPUB covers. PDF text selection is its own child. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Its scrollbar child covers the document-position thumb and momentum. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover STL, 3MF, and FreeCAD rendering, embedded thumbnails, model limits, the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
 
 Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, archive member listing and the archive preview, and preview keys in 10xer mode. Also media runtime packaging and launch dependencies, the Settings pages as controls, and mounting the remote locations that remote previews read.
 
@@ -23,7 +23,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - PDFs from `tests/fixtures/documents` with `qpdf`: `password-protected.pdf`, `owner-restricted.pdf`, and an RC4 40-bit copy needing the password `preview`.
 - For the output-folder sweep, a toolbox or distrobox container sharing `/tmp` with a second Strata build, and a `strata-preview-<pid>-<n>` folder owned by another user.
 - Zero-byte files for every previewed extension. Lying extensions: an MP4 as `.jpg`, a PNG as `.pdf`, a ZIP as `.epub`, `.docx`, and `.odt`, an ELF as `notes.txt`, a TIFF as `.ARW`.
-- Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, and the `any_sheets.*`, `report.docx`, and `report.odt` fixtures. Generated Markdown of 400 blocks cycling headings, prose, fenced code, tables, and lists, plus a copy with relative PNGs beside it.
+- Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, a 25,000-row ragged CSV whose few long rows reach 256 columns, a 25,000-row 4-column XLSX, and the `any_sheets.*`, `report.docx`, and `report.odt` fixtures. Generated Markdown of 400 blocks cycling headings, prose, fenced code, tables, and lists, plus a copy with relative PNGs beside it.
 - ODT samples: `report.odt` copied as `report.ott` and `REPORT.ODT`. From LibreOffice Writer, a table without a header-row group, and one with two header rows and a merged cell. Also an ODT with a 5,000-character paragraph, and one with a heading at outline level 9 and lists nested 8, 9, and 10 levels. Also a link inside `Preformatted Text`, a `mailto:` link, and a file over 20 MiB. From pandoc, an ODT whose tables hold many short bold paragraphs per cell.
 - A second build with `STRATA_TRUSTED_COMMAND_PATH` set, and a prebuilt binary to launch with `STRATA_SANDBOX_*` variables; `RUST_LOG=strata::sandbox=warn` shows ignored overrides.
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
@@ -47,7 +47,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview `report.odt`, `report.ott`, and `REPORT.ODT` from a remote mount.
 - Open the 5,000-character ODT paragraph in one window, then toggle wrap 10 times from a text preview in a second window.
 - Select each lying-extension sample; nothing may render as the extension claims, and the ELF named `notes.txt` must not be executed or previewed as a binary dump.
-- Open the 2000-page PDF, press End, scroll back fast, Ctrl+A then Ctrl+C, then Print and cancel near page 500.
+- Open the 2000-page PDF, press End, scroll back fast, then Ctrl+A and Ctrl+C.
 - Toggle word wrap on the 20 MiB single-line file in one window while the other shows the 2 MiB text file; check the 1 MiB cap in both.
 - Preview the 200 MP PNG with and without an EXIF thumbnail, and a CBZ whose first entry is a folder.
 - In a 600-line `.rs` preview and a plain-text file with a 2 KiB line, type letters, Backspace, Ctrl+V, and Ctrl+X.
@@ -68,7 +68,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With a model in one window and a route in another, narrow both until their previews hide, change the theme twice, then widen both.
 - Dump the media bar in a playing video and in an audio preview, which the naming scenarios skip.
 - Preview the raw stream copies and `notes.h264`, on a host whose MIME database types `.h264` as video and on one that types it `application/octet-stream`.
-- Open the item menu on the `.H264`, `.hevc`, and `clip.h264.txt` copies and on `notes.h264`; compare Print and Quick preview with what each preview shows.
+- Open the item menu on the `.H264`, `.hevc`, and `clip.h264.txt` copies and on `notes.h264`; compare Quick preview with what each preview shows.
 - Preview the `.h264` stream from an sftp mount.
 
 ### preview/preview-panel/pdf
@@ -117,6 +117,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
 - With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
 - Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
+- Click three different column titles in turn on a CSV with repeated values in each column, then reverse the first and copy the table.
+- In Markdown holding two tables, sort each by two columns, scroll both out of view and back, then copy each table and click a title.
+- Sort the 25,000-row ragged CSV by every one of its 256 columns in turn, then scroll to the end.
+- In the 25,000-row XLSX, reverse a column full of equal values several times, scroll to the bottom, and drag-select a range there.
 - Close the preview during a table cell drag at the bottom edge, reopen it, and rest the pointer at the bottom edge with no button held.
 - Change interface text size up and back with the 2 MiB text file open in Source and compare line numbers with their lines.
 - In the 5,000-character ODT paragraph, double-click and Shift+End across its 2 KiB row boundaries.
@@ -241,7 +245,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 - Press Space with the caret in the filter input and a result selected, then on a mixed file-and-folder selection. Press Space on a symlink to a folder and on a broken symlink.
 - Hold Down through 500 files for 5 s with the preview open; only the landing file may load, per the log.
-- `rm` the previewed file from a shell while a video plays, while a PDF print dialog is open, and remove its parent folder.
+- `rm` the previewed file from a shell while a video plays, and remove its parent folder.
 - With Single-click file previews off, click, double-click, and start a drag on a supported file; no preview may open.
 - Press Right into a PDF preview in List, then Ctrl+A, Ctrl+C, Delete, and Ctrl+X; the folder's file count must not change.
 - On the Open button under a password-protected PDF, press Tab, Shift+Tab, Space, and Escape; repeat in Columns.

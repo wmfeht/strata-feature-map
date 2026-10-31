@@ -3,12 +3,12 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
-related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter]
+related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter, browser/context-menu]
 ---
 
 ## Summary
@@ -67,7 +67,12 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - The header shows the folder name, middle-ellipsized within the column, vertically centered with its actions. lgse/strata#805, lgse/strata#1143
 - Header actions (Empty Trash at `trash:///`, Refresh, sort direction, Sort by, filter, Close) show only in the column targeted by the latest pointer or keyboard input. lgse/strata#555
 - The `trash:///` column's Empty Trash button is insensitive while the column lists 0 items and becomes sensitive when an item appears. lgse/strata#138
-- While an item or background context menu is open in a column, that column keeps the header actions even when the pointer moves over another column. lgse/strata#555
+- While an item or background context menu is open in a column, that column keeps the header actions even when the pointer moves over another column. lgse/strata#555, lgse/strata#1942
+- Right-clicking a column's title or empty header space opens that column's folder menu at the click, the same menu as its empty area. lgse/strata#1942
+- New Folder from a parent column's header menu creates the folder inside that column's folder, not in a deeper open column. lgse/strata#1942
+- Escape on a header-opened folder menu returns arrow-key navigation to that column. lgse/strata#1942
+- Right-clicking a header button, menu button, or the filter field opens no folder menu; the control keeps its own behavior. lgse/strata#1942
+- In the file chooser, right-clicking a column's header opens the chooser's folder menu. lgse/strata#1942
 - The header spinner shows only while that column is loading and is hidden when idle, including after switching from another view. lgse/strata#411
 - Clicking a column's title focuses that column, keeps its selection, and leaves deeper columns open. lgse/strata#523
 - A dialog, popover, or focused filter field that opens before a rebuilt column's deferred refocus keeps keyboard focus. lgse/strata#1430, lgse/strata#1441, lgse/strata#1533
@@ -160,6 +165,8 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Suppressing the hover fade during wheel scrolling with a class on the scrolling column was rejected. Toggling the class restyled the whole column at scroll start and end (lgse/strata#1674).
 - Reveal buttons for clipped columns update after each layout pass instead of on every frame, so the frame clock can stop while the window is idle (lgse/strata#1671, lgse/strata#1677).
 - Folder counts use the formatter List and Icons share, and Columns asks for them only while the badge is on, saving `read_dir` work. A widened-column redesign was rejected (lgse/strata#1564).
+- A header right-click reuses the column's folder-menu trigger, so header and empty area open one menu with one target folder. It claims the click only on header background, leaving left-button gestures alone (lgse/strata#1942).
+- Letting the folder-menu installer accept extra trigger surfaces was deferred while the header is the only one (lgse/strata#1942).
 - Background focus fires on click release and is grouped with marquee selection, so neither gesture swallows the other (lgse/strata#523).
 - Home and End go through Strata's own jump, like Ctrl+Up and Ctrl+Down. GTK's native keys emit only a selection echo the mirror ignores, and mirroring that echo risked the reopen loops lgse/strata#1179 avoided (lgse/strata#1447).
 - Horizontal scroll is routed in the capture phase because nested vertical listings consume horizontal events (lgse/strata#1124).
@@ -171,6 +178,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1942 | feat | Opened a column's folder menu from its header, so New Folder and Paste stay reachable when entries fill the column. |
 | 2026-10-25 | lgse/strata#1874 | fix | Closed an open folder's columns and moved the cursor to its visible neighbor on a rename to a hidden name, so F2 works. |
 | 2026-10-15 | lgse/strata#1674 | perf | Faded size badges only on pointer hover and indexed clipboard marks, to cut arrow-key and scroll cost. |
 | 2026-10-15 | lgse/strata#1677 | perf | Updated column reveal buttons after each layout pass instead of every frame, so an idle window stops drawing frames. |

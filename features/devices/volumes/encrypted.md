@@ -3,11 +3,11 @@ title: Encrypted volumes
 status: shipped
 origin: {issue: null, pr: lgse/strata#935}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/ui/window/volume_password.rs]
 tests: [src/ui/window/volume_password/tests.rs]
-related: [devices/volumes/udiskie-unlock, app/accessibility]
+related: [devices/volumes/udiskie-unlock, devices/volumes/drive-dialogs, app/accessibility]
 ---
 
 ## Summary
@@ -21,6 +21,8 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - A volume counts as encrypted when GVfs marks it with a padlock emblem, its icon name contains "encrypted", its drive starts with a password, or udev reports a crypto device. lgse/strata#935 (unverified)
 - An encrypted device stays listed in Devices while locked, including a password-start drive with no listed volume. lgse/strata#935
 - A locked encrypted row shows a lock button and an Unlock menu entry; an unlocked one shows an open-lock button and Lock. lgse/strata#935
+- With no GVfs padlock emblem, a volume whose dm-crypt mapping is open but whose filesystem is unmounted shows as unlocked and offers Lock. lgse/strata#1952
+- A GVfs padlock emblem, when present, decides the locked or unlocked state over the mount and mapping. lgse/strata#1952
 - The lock button is named after its action, "Unlock" or "Lock". lgse/strata#1895 (unverified)
 - Rows for non-encrypted devices have no lock button. lgse/strata#935
 
@@ -37,12 +39,16 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 
 ### Locking
 
-- Lock on a mounted encrypted volume flushes and unmounts it, then stops its password drive, under a "Locking volume" overlay. lgse/strata#935, lgse/strata#1193
+- Lock on a mounted encrypted volume flushes and unmounts it, then locks it, under a "Locking volume" overlay. lgse/strata#935, lgse/strata#1193
+- On a removable password drive, Lock stops the drive after the unmount. lgse/strata#935, lgse/strata#1952
+- On an internal disk with no stoppable drive, Lock closes the LUKS container after the unmount; `lsblk` shows no `crypt` child. lgse/strata#1952
+- Lock on an unlocked volume whose filesystem is already unmounted closes the mapping with no error dialog. lgse/strata#1923, lgse/strata#1952
+- Lock with a shell inside the mount shows the busy error, and the mapping stays open. lgse/strata#1952
 - When the volume's passphrase is saved, Lock first asks "Forget saved password?"; Cancel or Escape leaves both the password and the mount. lgse/strata#935
 - "Forget and lock" deletes the saved passphrase, then locks. lgse/strata#935
 - If the keyring needs a confirmation Strata cannot display, Lock stops with "Couldn't forget the saved password" and asks the user to remove it in the password manager. lgse/strata#935
 - If the saved passphrase is in a locked keyring, "Forget and lock" stops with "Couldn't forget the saved password" and asks the user to unlock the keyring. lgse/strata#935 (unverified)
-- Lock on an unlocked but unmounted volume with no stop operation shows "Unable to lock device" and keeps the saved passphrase. lgse/strata#935
+- Lock on an unmounted volume with no stoppable drive, no device path, and no LUKS UUID shows "Unable to lock device" and keeps the saved passphrase. lgse/strata#935, lgse/strata#1952 (unverified)
 - A successful Lock never shows "Safe to remove". lgse/strata#1193
 
 ## Design
@@ -53,6 +59,8 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - Saved passphrases are searched in the Secret Service under both `gvfs-luks-uuid` and `gvfs.crypto.luks.uuid`, because GVfs and GNOME Disks use different attribute names (lgse/strata#935).
 - Unsupported locks fail before any saved passphrase is deleted, so an error never costs the user the passphrase (lgse/strata#935).
 - Mounted GVfs crypto volumes lock through unmount; the release path supplies the flush and pending row (lgse/strata#935, lgse/strata#1193).
+- GIO locks only a removable password drive, by stopping it. An internal disk has no stoppable drive, so Lock closes the container with UDisks2 `Encrypted.Lock`, as `udisksctl lock` does (lgse/strata#1923, lgse/strata#1952). `devices/volumes/drive-dialogs` owns that call.
+- The open-mapping check reads the cached crypto hint a worker fills, so the lock state adds no blocking work on the UI thread (lgse/strata#1952).
 
 ## History
 

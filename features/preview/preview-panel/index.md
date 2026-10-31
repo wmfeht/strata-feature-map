@@ -3,8 +3,8 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, src/sandbox_helper/archive_cover.rs]
 tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/pdf-zoom-keeps-text-size.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
 docs: [site/src/reference/preview-sandbox.md]
@@ -13,7 +13,7 @@ related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-meta
 
 ## Summary
 
-The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header for print and close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/pdf` (PDF text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
+The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header holding the Rendered/Source switch, Find, Open, Wrap, and Close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/pdf` (PDF text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
 
 ## Behavior
 
@@ -107,21 +107,10 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A preview refused with "This item is being changed by a file operation." after that operation ended loads again at once. lgse/strata#1729
 - A preview refused while an operation is still releasing shows "Preview unavailable" with that message, then reloads the focused entry when the operation ends. lgse/strata#1729 (unverified)
 
-### Printing
-
-- **Print** in the preview header and the item menu opens the system print dialog for that file. lgse/strata#286
-- Print on an extensionless file the loader cannot render shows "This file type cannot be printed." lgse/strata#965
-- Print on a PDF that needs an opening password shows "Unable to prepare file for printing" with "This PDF is password protected." lgse/strata#1840 (unverified)
-- Print on a route file shows "This file type cannot be printed." lgse/strata#1842 (unverified)
-- The item menu of a `.h264` file, including text named `notes.h264`, offers no **Print**. lgse/strata#1901 (unverified)
-- The header shows **Print** for text, still images, PDFs, and Markdown, HTML, RTF, CSV, and TSV in either view. lgse/strata#286 (unverified)
-- Models, covers, routes, media, archives, and DOCX, ODT, OTT, and workbook previews hide **Print** in the header. lgse/strata#286 (unverified)
-- Printing a file named as a PDF shows "Preparing PDF" with "Rendering page N of M" while every page renders, up to 10,000 pages. Cancel or Escape stops it. lgse/strata#286 (unverified)
-- Printing a text file over 16 MiB shows "This text file is too large to print safely." lgse/strata#286 (unverified)
-
 ### Header
 
 - The close button's tooltip and accessible name read "Close preview (Space)", or "Close preview (i)" in 10xer mode. lgse/strata#1576
+- The header has no Print button for any file, including PDFs, images, and text. lgse/strata#1950
 
 ## Design
 
@@ -130,7 +119,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Every browsed file is untrusted. Native parsing runs in the sandbox, and only bounded PNG, text, or validated JSON reaches the drawer (lgse/strata#6).
 - Eligibility is guessed from the name so listing stays cheap. An uncertain guess defers to the loader, which queries the content type of the one previewed file; listing and sorting stay name-only (lgse/strata#964).
 - The loader also reads the first 8 KiB of every local file, and the bytes override the name's family. shared-mime-info maps `*.ts` to TypeScript, Qt Linguist, and MPEG-TS. A confident name match had skipped sniffing (lgse/strata#1638).
-- Special-casing TypeScript would fix one collision only. Quick preview, printing, menus, and the chooser still gate on the name; the loader resolves the final family (lgse/strata#1638).
+- Special-casing TypeScript would fix one collision only. Quick preview, menus, and the chooser still gate on the name; the loader resolves the final family (lgse/strata#1638).
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
 - PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
@@ -145,14 +134,16 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - G-code joined the model formats, which preview only from local files. Remote G-code would have lost its text preview, so it stays text (lgse/strata#1864).
 - Route previews use the preview cache keyed by format and theme palette (lgse/strata#1842).
 - Audio, video, and model previews share a details header and navigation row; video and model also share a badge row and a player layout with named areas. One universal player was rejected because artwork, the spectrum, and the camera need different content; playback, seeking, camera motion, and loading stay per preview (lgse/strata#1659, lgse/strata#1764).
-- `.h264` is recognized by name in the shared filename classifier, before the MIME database. The byte-content guards and the sandboxed decoder are reused, with no new decoder or file reads. One classifier keeps preview, navigation, Properties, and printing in agreement (lgse/strata#1901, lgse/strata#1861).
+- `.h264` is recognized by name in the shared filename classifier, before the MIME database. The byte-content guards and the sandboxed decoder are reused, with no new decoder or file reads. One classifier keeps preview, navigation, and Properties in agreement (lgse/strata#1901, lgse/strata#1861).
 - Elementary streams can have known dimensions but no duration, so navigation keeps a video with known dimensions even without a duration (lgse/strata#1901).
+- Printing was removed: a file's default application prints it. PDF pages had printed rasterized at the pane's on-screen size, at low quality (lgse/strata#1950, lgse/strata#1931).
 - The stream-copy video and native GIF paths from lgse/strata#318 were replaced by sandboxed streaming (lgse/strata#839).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-30 | lgse/strata#1950 | feat | Removed printing: the header and item-menu Print, the PDF print-progress dialog and print errors; files print from their default application. |
 | 2026-10-27 | lgse/strata#1901 | fix | Broke long rendered paragraphs after whitespace, decoded RTF surrogate pairs, and recognized `.h264` by name so raw streams preview and step. |
 | 2026-10-25 | lgse/strata#1842 | feat | Added offline GPX, FIT, and KML route previews with an elevation profile, playback, and a saved Units preference. |
 | 2026-10-25 | lgse/strata#1864 | feat | Showed the embedded slicer thumbnail of `.gcode`, `.gco`, and `.bgcode` files in the preview, keeping text for files without one. |

@@ -763,8 +763,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/sidebar_toggle.rs` | code | [Sidebar collapse and icon rail](../features/browser/sidebar/rail.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/sidebar_toggle/tests.rs` | tests | [Sidebar collapse and icon rail](../features/browser/sidebar/rail.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `src/ui/table_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/table_view/model.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/table_view/selection/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/ui/table_view/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/tabs_session.rs` | code | [Tab session restore](../features/browser/tabs/session-restore.md) | [Browser tabs](../features/browser/tabs/index.md) |
 | `src/ui/tabs_session/tests.rs` | tests | [Tab session restore](../features/browser/tabs/session-restore.md) | [Browser tabs](../features/browser/tabs/index.md) |
 | `src/ui/tenxer_mode.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
@@ -1029,6 +1031,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `tests/qa/scenarios/locations/named-location-controls.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/locations/path-completion-dismisses-on-window-switch.jsonl` | tests | [Location path completion](../features/browser/navigation/location-bar/completion.md) | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `tests/qa/scenarios/locations/sidebar-place-navigates.jsonl` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `tests/qa/scenarios/locations/typed-path-navigates.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
@@ -1071,6 +1074,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
 | `tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
 | `tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
+| `tests/qa/scenarios/quick_preview/table-preview-keeps-secondary-sorts.jsonl` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview/tenxer-l-enters-preview.jsonl` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/recent` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/rename_visibility` | tests | [Inline rename](../features/operations/rename.md) | — |

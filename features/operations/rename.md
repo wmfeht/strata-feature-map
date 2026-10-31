@@ -3,8 +3,8 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/qa/scenarios/inline_renaming, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -128,4 +128,4 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 ## Known gaps
 
 - Typing `docs/` or `docs/note.txt` as a new file's name is rejected instead of creating the folder or nested file; the fix is unmerged. lgse/strata#1511, lgse/strata#1512
-- With fcitx5 through GTK's input method module, the first composed key replaces the preselected stem as a raw character; IBus is unaffected. lgse/strata#1715
+- With fcitx5 through `GTK_IM_MODULE=fcitx`, on X11 or Wayland, the first composed key replaces the preselected stem as a raw character. GTK's Wayland module and IBus are unaffected. lgse/strata#1715

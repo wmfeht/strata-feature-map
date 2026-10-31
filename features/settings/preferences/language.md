@@ -3,7 +3,7 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
 review: draft
 code: [src/i18n.rs, data/locales/counts.json]
 tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs]
@@ -79,6 +79,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1966 | fix | Revised Hungarian message wording; no keys or placeholders changed. |
 | 2026-10-29 | lgse/strata#1918 | feat | Added Hungarian (Magyar) as the thirteenth language, with locale detection, no-break-space digit grouping, and lower-case error details after a colon. |
 | 2026-10-18 | lgse/strata#1745 | feat | Added Traditional Chinese (zh-TW) as the twelfth language and routed Traditional Chinese locales to it instead of Simplified Chinese. |
 | 2026-10-13 | lgse/strata#1625 | fix | Reworded zh-CN strings so Compact sidebar no longer reads as Hide, and the password choices use the label's verb 保存. |

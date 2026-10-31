@@ -3,8 +3,8 @@ title: Filesystem-safe placement and copying
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1615}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/adapters/local_operations/placement.rs, src/adapters/local_operations/copy_engine.rs, src/adapters/local_operations/copy_engine/**, src/adapters/local_operations/case_variants.rs, src/adapters/local_operations/environment.rs, src/adapters/local_operations/mount_profile.rs, src/adapters/local_operations/names.rs, src/adapters/local_operations/names/fix.rs, src/adapters/local_operations/owed.rs, src/adapters/local_operations/typed_names.rs, src/adapters/volume/mount_capabilities.rs, src/adapters/volume/names.rs, src/ui/browser/transfer_report.rs, src/services/item_identity.rs, src/model/hidden_names.rs]
 tests: [src/adapters/local_operations/tests/placement.rs, src/adapters/local_operations/tests/fs_quirks.rs, src/adapters/local_operations/tests/file_copy.rs, src/adapters/local_operations/tests/folder_copy.rs, src/adapters/local_operations/tests/aliases.rs, src/adapters/local_operations/mount_profile/tests.rs, src/adapters/volume/names/tests.rs, src/ui/browser/transfer_report/tests.rs, scripts/fslab/**, src/services/item_identity/tests.rs, src/adapters/local_operations/environment/tests.rs, src/model/hidden_names/tests.rs]
 docs: [docs/filesystem-compatibility.md]
@@ -23,6 +23,10 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - There a file is hard-linked and its old name unlinked once the link proves its identity; a folder is renamed over an exclusive empty placeholder. lgse/strata#1615
 - On sshfs, vboxsf, rclone, and s3fs, a file is renamed over an exclusive empty placeholder after a check. lgse/strata#1615
 - On sshfs a folder is renamed over an exclusive empty placeholder. On vboxsf a folder is renamed to a name found free. lgse/strata#1615
+- A file pasted onto a KDE Connect sshfs mount of an Android phone arrives, instead of failing "Could not copy <name>: Permission denied". lgse/strata#1941, lgse/strata#1945
+- There `link()` returns `EACCES`, so the file goes over an exclusive reserved name, and later pastes on that mount skip the link. lgse/strata#1945
+- A symlink placed where `symlink()` returns `EACCES` goes on to the reserved-name step instead of failing with "Permission denied". lgse/strata#1945
+- A move within such a mount into a folder that refuses Strata's probe file too fails with "Permission denied", and never turns into a copy. lgse/strata#1945
 - On sshfs whose server lacks `posix-rename@openssh.com`, the move copies instead. lgse/strata#1615
 - A move copies only across devices, or where no placement step can place the item. lgse/strata#1615
 - An item that appears at the destination meanwhile is never overwritten, except in the reserved-name step's window. lgse/strata#1615
@@ -106,6 +110,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - A symlink the destination cannot store is left out and reported, and the paste goes on. lgse/strata#1615
 - This happens at once on FAT and exFAT, and after the first refusal on SMB without POSIX extensions. lgse/strata#1615
 - A move keeps such a link at the source, and Undo leaves its item out, naming it. lgse/strata#1615
+- A folder holding a symlink, copied from another disk onto KDE Connect sshfs, fails with "Permission denied" instead of leaving the link out. lgse/strata#1941, lgse/strata#1945 (unverified)
 
 ### Completion report
 
@@ -128,6 +133,8 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - Placement tries `renameat2(NOREPLACE)`, then a file hard link, then a folder rename over an exclusive placeholder, then the reserved-name step, then a copy. `EEXIST` stays authoritative (lgse/strata#1615).
 - The reserved-name step loses only a write that another program makes to that exact name between the check and the rename. GLib checks then renames with no placeholder, which is weaker (lgse/strata#1615).
 - Rejected: check-then-rename as in GLib, Nautilus, KIO, and coreutils; the copy fallbacks of lgse/strata#1515 and lgse/strata#1586, which doubled writes and lost metadata; and gating on filesystem type (lgse/strata#1590).
+- `EACCES` from a link or symlink is treated like `EPERM`, as the exchange step already did. sshfs reports a server without link extensions that way (lgse/strata#1941, lgse/strata#1945).
+- `EACCES` is ambiguous between a missing link extension and a real denial. Only a probe on Strata's own names settles it; a folder refusing the probe file refused the link too (lgse/strata#1945).
 - Capabilities are probed per mount and cached by mount ID until the mount table changes. The filesystem family decides only naming, flushing, `O_TMPFILE`, and timestamp granularity (lgse/strata#1590, lgse/strata#1615).
 - `RENAME_EXCHANGE` is used only on in-kernel local filesystems. exfat-fuse reports success for it but overwrites (lgse/strata#1615).
 - Every "is this still the same item?" decision goes through one rule per mount, replacing two rules that disagreed. It weighs device, type, file handle, birth time, inode, and recorded size and times, by what the mount keeps (lgse/strata#1729).
@@ -148,6 +155,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1945 | fix | Treated `EACCES` from links like `EPERM`, so a copy onto a KDE Connect sshfs mount lands through the reserved-name step. |
 | 2026-10-20 | lgse/strata#1729 | fix | Released Strata's reads, identified items by one rule per mount, and recovered crash leftovers, finishing lgse/strata#1590. |
 | 2026-10-18 | lgse/strata#1751 | fix | Compared later hard-link names by the first name's digest, so a cross-volume move keeps a rewritten later name. |
 | 2026-10-17 | lgse/strata#1615 | fix | Added a no-clobber placement ladder, a native copy engine, and per-mount name rules, so operations work on NFS, SMB, FUSE, FAT, and casefold mounts. |
