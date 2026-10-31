@@ -125,7 +125,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Pull the real stick during a copy and during a move's final flush; then list hidden `.strata-copy-*` entries on both sides.
 - Pause `sftp-server` with `kill -STOP` during a move onto sshfs, resume after 30 s, and compare both sides.
 - On the KDE Connect mount, paste a file, a symlink, and a folder holding a symlink; paste again, then move a file between two of its folders.
-- On the KDE Connect mount and on the ntfs-3g mount, paste into a `0555` folder, and move a file into it from elsewhere on the same mount.
+- On the KDE Connect mount and on the lab's sshfs mount as the test user, not root, paste into a `0555` folder, and move a file into it from elsewhere on the same mount.
 - Paste onto a stick reached through two nested symlinks, and onto a bind mount of it.
 - Move 300 files to a rotational USB disk and to an SSD; watch for "Writing to device…" and count files on arrival.
 - Produce every report section in one transfer, in a narrow window, while a Send to notice is visible.
