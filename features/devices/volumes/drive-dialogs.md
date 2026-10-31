@@ -66,15 +66,15 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 ### Container lock
 
-- When Lock has no stoppable drive, it finds the LUKS container from the volume's device path, either the container or its open mapping, then from the LUKS UUID. lgse/strata#1952
+- When Lock has no stoppable drive, it finds the LUKS container from the volume's device path, then from its LUKS UUID. lgse/strata#1952
+- A device path naming the open mapping leads to its container. lgse/strata#1952
 - Lock calls UDisks `Encrypted.Lock` only on a block carrying the `Encrypted` interface. lgse/strata#1952
 - Lock on a container that is already closed succeeds without calling `Encrypted.Lock`. lgse/strata#1952
-- A lookup matching more than one block, such as cloned disks sharing a LUKS UUID, locks nothing; with no other match Lock shows "Could not identify the drive's block device". lgse/strata#1952
+- A LUKS UUID shared by several blocks, as on cloned disks, matches none; a unique device-path match still locks. lgse/strata#1952
+- With no unique device-path or UUID match, Lock shows "Could not identify the drive's block device". lgse/strata#1952
 - A mapping opened by another user or through fstab asks for polkit authorization; dismissing the prompt shows no error. lgse/strata#1952
 - Any other UDisks failure shows its message without the D-Bus error prefix. lgse/strata#1952
 - A D-Bus failure reading the container's `CleartextDevice`, such as a udisksd restart, shows that failure, not "Could not identify the drive's block device". lgse/strata#1952
-- UDisks lookups use the default D-Bus timeout; only the `Encrypted.Lock` call waits without limit for authorization. lgse/strata#1952
-- If the locking worker fails, Lock shows "Locking task did not complete". lgse/strata#1952 (unverified)
 
 ### Focus
 

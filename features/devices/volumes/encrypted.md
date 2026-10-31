@@ -43,6 +43,7 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - On a removable password drive, Lock stops the drive after the unmount. lgse/strata#935, lgse/strata#1952
 - On an internal disk with no stoppable drive, Lock closes the LUKS container after the unmount; `lsblk` shows no `crypt` child. lgse/strata#1952
 - Lock on an unlocked volume whose filesystem is already unmounted closes the mapping with no error dialog. lgse/strata#1923, lgse/strata#1952
+- Lock on a mount with no GIO volume, such as an fstab entry, finds its block device from the mount table and closes its container. lgse/strata#1952
 - Lock with a shell inside the mount shows the busy error, and the mapping stays open. lgse/strata#1952
 - When the volume's passphrase is saved, Lock first asks "Forget saved password?"; Cancel or Escape leaves both the password and the mount. lgse/strata#935
 - "Forget and lock" deletes the saved passphrase, then locks. lgse/strata#935
