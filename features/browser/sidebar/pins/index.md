@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#67}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs]
 tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs]
 related: [operations/trash, operations/delete, browser/properties, integration/10xer-mode, operations/drag-and-drop, integration/portal-file-chooser, browser/sidebar/connect-to-server]

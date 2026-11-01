@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl]
 docs: [docs/preferences.md, site/src/reference/keyboard-navigation.md]

@@ -83,7 +83,6 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-10-11 | lgse/strata#1570 | fix | Added 30-second paging, start and end jumps, and volume keys to the 10xer Media surface. |
-| 2026-10-10 | lgse/strata#1559 | fix | Let Shift selection keys and Ctrl+Home/End reach a document preview for text selection. |
 | 2026-09-27 | lgse/strata#1295 | feat | Gave the preview its own key owner so preview keys cannot launch, move, or select listing items. |
 
 ## Known gaps

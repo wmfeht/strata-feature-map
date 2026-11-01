@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
 reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: draft
+review: reviewed
 code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]

@@ -143,7 +143,6 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 | 2026-10-15 | lgse/strata#1688 | feat | Removed the double space from the footer's F1 Shortcuts label in all 11 catalogs, which left a wide gap in the monospace font. |
 | 2026-10-14 | lgse/strata#1648 | fix | Wrapped and centered "No matching shortcuts" in the reference results area. |
 | 2026-10-11 | lgse/strata#1570 | fix | Listed the 10xer media seek-30 s, start/end, and volume keys in the F1 reference. |
-| 2026-10-10 | lgse/strata#1559 | fix | Listed `/` as Find in preview in the 10xer F1 reference for Columns and List. |
 | 2026-10-10 | lgse/strata#1554 | fix | Showed the filter or search result total in the default-map footer instead of the hidden folder's selection. |
 | 2026-10-03 | lgse/strata#1408 | fix | Gave the Files on clipboard badge the 10X pill style so it no longer shifts the footer height. |
 | 2026-09-15 | lgse/strata#1034 | feat | Moved item and selection counts into the shared footer and replaced inline hints with an F1 Shortcuts button. |

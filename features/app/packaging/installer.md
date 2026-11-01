@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
 reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
-review: draft
+review: reviewed
 code: [install.sh, data/locales/installer.json, scripts/installer_messages.py]
 tests: [scripts/test_installer.py, scripts/testdata]
 docs: [docs/internationalization.md, docs/signed-updates.md]

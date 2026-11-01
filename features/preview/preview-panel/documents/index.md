@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
 reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: draft
+review: reviewed
 code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/ui/table_view/model.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
 tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/README.md, tests/qa/scenarios/quick_preview/markdown-equations-keep-prose.jsonl, tests/qa/scenarios/quick_preview/markdown-preview-renders-media.jsonl, tests/qa/scenarios/quick_preview/rendered-document-word-selection.jsonl, tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl, tests/qa/scenarios/quick_preview/table-preview-keeps-secondary-sorts.jsonl]
 docs: [site/src/reference/document-previews.md, docs/document-previews.md]

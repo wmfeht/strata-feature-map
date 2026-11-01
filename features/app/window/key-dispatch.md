@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#544}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl]
 related: [app/keyboard-shortcuts, app/dialogs, app/shortcut-reference, browser/view-modes/text-size, browser/view-modes/thumbnail-size, integration/10xer-mode, preview/preview-panel, browser/sidebar]

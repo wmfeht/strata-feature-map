@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/ui/preview/keyboard.rs]
 tests: [tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl, tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl, tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl, tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl, tests/qa/mutations/quick-preview.patch]
 docs: [site/src/reference/keyboard-navigation.md]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1597, pr: lgse/strata#1651}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/browser_modes/column_options.rs]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view-list.jsonl, tests/qa/scenarios/view_switching/list-column-drag-applies-on-release.jsonl]
 docs: [docs/preferences.md]

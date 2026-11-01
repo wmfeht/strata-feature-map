@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl]
 related: [operations/trash, operations/progress, operations/filesystem-compatibility/open-files, browser/context-menu]

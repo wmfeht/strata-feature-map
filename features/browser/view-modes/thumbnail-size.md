@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1720, pr: lgse/strata#1721}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/ui/browser_modes/thumbnail_size.rs]
 tests: [src/ui/browser_modes/thumbnail_size/tests.rs, src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs]
 docs: [docs/preferences.md]

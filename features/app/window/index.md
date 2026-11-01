@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
 reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: reviewed
+review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/decoration.rs]
 tests: [src/ui/decoration/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
@@ -82,7 +82,6 @@ The browser window's frame and skeleton: the header with its window buttons, the
 | 2026-10-17 | lgse/strata#1714 | fix | Stopped window actions such as F5 behind an open F1 reference, and limited Space on a selected filter hit to the filter. |
 | 2026-10-14 | lgse/strata#1680 | feat | Registered a hidden titlebar so GTK stops adding its default title bar on client-decorated desktops, and drew a hairline in place of its shadow. |
 | 2026-10-11 | lgse/strata#1570 | fix | Gave the preview and sidebar marquee origins click policies, so a click in the preview keeps the selection. |
-| 2026-10-10 | lgse/strata#1559 | fix | Added a preview find-key stage to the dispatcher and bound the find shortcut when the preview is built. |
 | 2026-10-10 | lgse/strata#1554 | fix | Gated Ctrl+K, Ctrl+Shift+K, F5, Ctrl+Alt+T, and Ctrl+\ so they do nothing over dialogs, Settings, and open name fields. |
 | 2026-10-10 | lgse/strata#1539 | fix | Widened the preview split's handle so the column beside the divider keeps its resize edge. |
 | 2026-10-10 | lgse/strata#1544 | fix | Reported a focused 10xer Filter or Search footer prompt to the browser, so outside folder changes leave focus in the prompt. |

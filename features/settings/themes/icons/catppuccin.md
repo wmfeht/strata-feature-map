@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1587, pr: lgse/strata#1588}
 branch: null
 reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: draft
+review: reviewed
 code: [src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin, scripts/catppuccin_icons.py]
 tests: [src/ui/browser/entry/tests.rs]
 related: [settings/themes/icons, browser/view-modes/icons]

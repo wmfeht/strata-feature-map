@@ -307,6 +307,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Cancel a 300-file cross-disk move, a Trash delete, and a restore partway; compare the not-attempted count with what is on disk.
 - Shift+Delete one 200,000-file folder and cancel while the count runs; then Shift+Delete two folders, one of them that large.
 - Shift+Delete a single file, and a single folder that resolves through a symlinked parent.
+- Shift+Delete a folder slow enough to dock, then start a copy that fails before the delete ends; repeat with a second Shift+Delete instead of the copy.
 
 ### operations/progress/dock
 

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/**, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
 docs: [site/src/reference/custom-actions.md, docs/custom-actions.md]

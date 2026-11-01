@@ -117,7 +117,6 @@ How the preview panel shares the window with the file views: its width, the rese
 | --- | --- | --- | --- |
 | 2026-10-15 | lgse/strata#1677 | perf | Ran the split sync only for about a second after a layout pass or input, so an idle window stops drawing frames. |
 | 2026-10-11 | lgse/strata#1570 | fix | Published the visible browser area as the Miller column width limit and narrowed oversized open columns once. |
-| 2026-10-10 | lgse/strata#1559 | fix | Cleared the preview find query when the preview target is cleared. |
 | 2026-10-10 | lgse/strata#1539 | fix | Lowered the Columns minimum to 300 px, kept dragged widths as a minimum, split the shared resize edge, and capped documents at 1280 px. |
 | 2026-10-06 | lgse/strata#1502 | fix | Let the free-space preview absorb window resizing in one frame to stop divider jitter. |
 | 2026-10-03 | lgse/strata#1405 | fix | Shared the Columns right pane between child columns and the preview so the focused column stays put. |

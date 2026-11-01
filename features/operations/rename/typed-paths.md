@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1511, pr: lgse/strata#1512}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/adapters/local_operations/place_entry.rs]
 tests: [src/adapters/local_operations/tests/place_entry.rs, tests/qa/scenarios/inline_renaming/new-item-named-with-path.jsonl, tests/qa/scenarios/inline_renaming/rename-moves-into-path.jsonl]
 docs: [docs/keyboard-navigation.md]

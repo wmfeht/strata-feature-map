@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
 docs: [site/src/reference/remote-sftp.md, docs/remote-sftp.md]

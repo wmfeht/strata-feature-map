@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
 tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
 docs: [docs/packaging.md, docs/preferences.md]

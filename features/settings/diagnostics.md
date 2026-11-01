@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1734, pr: lgse/strata#1735}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/services/diagnostics.rs, src/ui/settings/diagnostics.rs, data/icons/scalable/actions/strata-stethoscope.svg]
 tests: [src/services/diagnostics/tests.rs, src/ui/settings/diagnostics/tests.rs]
 docs: [docs/diagnostics.md]

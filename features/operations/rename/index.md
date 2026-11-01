@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/qa/scenarios/inline_renaming/escape-preserves-name-remaining.jsonl, tests/qa/scenarios/inline_renaming/escape-preserves-name.jsonl, tests/qa/scenarios/inline_renaming/input-method-composes-over-selection.jsonl, tests/qa/scenarios/inline_renaming/invalid-names-retain-original.jsonl, tests/qa/scenarios/inline_renaming/long-rename-keeps-caret.jsonl, tests/qa/scenarios/inline_renaming/new-item-clears-hiding-filter.jsonl, tests/qa/scenarios/inline_renaming/new-item-first-free-number.jsonl, tests/qa/scenarios/inline_renaming/rename-and-undo-restores.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-click-away.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-enter.jsonl, tests/qa/scenarios/inline_renaming/tone-mark-escape-before-rename.jsonl, tests/qa/scenarios/inline_renaming/valid-name-commits-remaining.jsonl, tests/qa/scenarios/inline_renaming/window-accelerators-leave-rename.jsonl, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
