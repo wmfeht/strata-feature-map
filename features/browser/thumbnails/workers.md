@@ -3,8 +3,8 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+review: draft
 code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
 tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
 docs: [docs/preferences.md]
@@ -38,6 +38,11 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 - `STRATA_THUMBNAIL_IDLE_SECONDS` sets the idle timeout at startup, capped at 86,400; zero or invalid values use 60. lgse/strata#1081
 - When a worker is killed, the next request starts one replacement and thumbnails continue. lgse/strata#1081
 - Without Landlock ABI 3, each thumbnail runs in a one-shot sandbox and Strata logs "Landlock ABI 3 unavailable; retaining one-shot sandboxes". lgse/strata#1081
+- Where AppArmor's `unpriv_bwrap` denies nested namespaces, as on Ubuntu 24.04 and elementary OS 8, image, PDF, and video thumbnails render through one-shot sandboxes. lgse/strata#1926, lgse/strata#1954
+- On such a host Strata logs "Job namespaces restricted; retaining one-shot sandboxes" once, and no supervisor logs "browser sandbox started". lgse/strata#1954
+- Once a supervisor reports the restriction, later thumbnails in that process use one-shot sandboxes without starting a supervisor. lgse/strata#1954
+- After that, Space previews of images and documents also skip their pool and use one-shot sandboxes. lgse/strata#1954 (unverified)
+- Any other supervisor startup failure, such as an early exit, resource exhaustion, or the 12-second startup deadline, fails only that request; the next request starts a supervisor again. lgse/strata#1954
 - With Landlock ABI 3 and `magick` and `convert` hidden from Strata, PNG and JPEG thumbnails still appear: GDK Pixbuf's glycin loaders decode them inside the worker. lgse/strata#1660
 - The persistent worker runs with `GLYCIN_DISABLE_SANDBOX=i-know-the-risks` in its environment; one-shot sandboxes do not set it. lgse/strata#1660
 - CBZ, CBR, and EPUB cover thumbnails skip the pool and always run in a one-shot sandbox. lgse/strata#1325 (unverified)
@@ -60,6 +65,9 @@ Every cache miss used to exec a new bubblewrap sandbox. Process startup, not dec
 
 - A persistent bubblewrap supervisor runs only the control protocol and never reads media. Each job forks a disposable decoder in fresh namespaces, with Landlock, seccomp, and per-job limits (lgse/strata#1081).
 - The main process opens each source read-only and passes the descriptor. Results return on a per-job pipe, so the supervisor never buffers decoded bytes.
+- Each supervisor probes job-namespace setup before its first job and answers with a one-byte handshake: ready or restricted. The probe runs the same setup as every job, from the same context (lgse/strata#1954).
+- Only a permission denial marks namespaces restricted. Disabling the pool on any spawn error was rejected: a transient EMFILE, full `/tmp`, or slow start would downgrade the whole session (lgse/strata#1954, [review](https://github.com/lgse/strata/pull/1954#issuecomment-6534077096)).
+- The restricted fallback is the existing one-shot read-only bubblewrap path, so isolation is not weakened, and glycin keeps its own sandbox there ([review](https://github.com/lgse/strata/pull/1954#issuecomment-6534077096)).
 - A launcher thread spawns every supervisor, because bubblewrap's parent-death signal follows the spawning thread, and short-lived threads must not own it (lgse/strata#1081).
 - Retirement waits on the next expiry on that thread, with no polling timer. Idle retirement frees sandbox memory, not the thumbnail caches.
 - glycin's own bubblewrap sandbox cannot start inside a job, because Landlock blocks its namespace setup, so its loader runs directly under the job's Landlock and seccomp. The filter allows the read-only `SIOCGIFINDEX` loopback lookup so glycin's probe detects this, and glycin 2.2 and later skip the probe through `GLYCIN_DISABLE_SANDBOX`. One-shot sandboxes keep glycin's own sandbox (lgse/strata#1658, lgse/strata#1660).

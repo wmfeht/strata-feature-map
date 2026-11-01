@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
@@ -66,6 +66,10 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Switching views with Ctrl+1, 2, or 3 replaces the navigation section with the new view's. While the reference is open, Ctrl+1, 2, and 3 do nothing. lgse/strata#358 (unverified)
 - In 10xer mode, the reference lists only the 10xer map, adding Places, Preview, and a "10xer mode" section that collects the keys the default map lacks. lgse/strata#1272
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272
+- In the default map, "Files and selection" lists "Tab / Shift+Tab in a rename — Rename the next / previous item" right after Rename. lgse/strata#1961
+- The 10xer reference lists no Tab / Shift+Tab rename row. lgse/strata#1961 (unverified)
+- In the default map, Icons navigation and List navigation list "Menu / Shift+F10 on the Back button — List the back history (also right-click or hold)". lgse/strata#1977
+- Columns navigation lists no back history row. lgse/strata#1977 (unverified)
 - Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543
 - In 10xer mode in Columns or List, outside the file chooser, the reference lists "`/` in the preview — Find in preview"; Icons omits it. lgse/strata#1559
 - In 10xer mode in Columns or List, the reference lists "Shift+← / Shift+→ / Page Down / Page Up" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)

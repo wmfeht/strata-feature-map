@@ -3,10 +3,10 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
-code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox/runtime.rs]
-tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox/runtime/tests.rs]
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+review: draft
+code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox_helper/isobmff.rs, src/sandbox/runtime.rs]
+tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox_helper/tests/isobmff.rs, src/sandbox/runtime/tests.rs]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
 related: [preview/preview-panel/media, preview/preview-panel/model-views, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
 ---
@@ -71,6 +71,13 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - An oversized non-JPEG image gets no reduced decode: it shows its EXIF thumbnail at any size or fails. lgse/strata#1698 (unverified)
 - Every ImageMagick render runs with `-limit area` at the decoded-frame budget, `-limit disk 0`, and a `jpeg:size` hint. lgse/strata#1698
 - Under those limits, a full-size ImageMagick decode of an oversized image fails fast instead of filling the sandbox. lgse/strata#1698
+- An AVIF or HEIF whose primary item has an `ispe` property gets its dimensions from the file header, without decoding pixels. lgse/strata#1971
+- When that primary item carries an `irot` of 90° or 270°, the reported dimensions swap: a 4000×3000 `ispe` reports 3000×4000. lgse/strata#1971
+- A cropped AVIF or HEIF, whose primary item has a `clap` property, takes its dimensions from the decoder instead of the uncropped `ispe`. lgse/strata#1971
+- Duplicate `ispe` or `irot` properties, reserved `irot` bits, a `meta` box over 1 MiB, or over 4096 boxes fall back to the decoder probe. lgse/strata#1971
+- The header reader accepts any file whose first box is `ftyp`, whatever its name or brand, and seeks past `mdat` without reading it. lgse/strata#1971 (unverified)
+- An AVIF or HEIF preview or thumbnail decodes the image once, not three times: a 12 MP AVIF preview fell from 2,751 ms to 767 ms. lgse/strata#1971, lgse/strata#1968
+- An AVIF whose header claims 20000×20000 fails with "Image dimensions exceed the decoded frame budget" before any decode; its thumbnail stays empty. lgse/strata#1971 (unverified)
 - SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
 
 ### Output validation
@@ -89,7 +96,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ### Pooled preview worker
 
 - Still-image previews, Markdown images, Mermaid diagrams, and equations run on a preview pool separate from the thumbnail pool, so a thumbnail backlog does not delay a Space preview. lgse/strata#1222
-- With Landlock ABI 3, an image preview within 60 seconds of the previous one reuses its supervisor rather than starting another bubblewrap. lgse/strata#1222
+- With Landlock ABI 3 and job namespaces the host allows, an image preview within 60 seconds of the previous one reuses its supervisor rather than starting another bubblewrap. lgse/strata#1222, lgse/strata#1954
 - A preview render is never served from a cached 256-pixel thumbnail of the same file. lgse/strata#1222
 
 ## Design
@@ -111,6 +118,9 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - Previews promote ImageMagick only when GDK Pixbuf sees a thumbnail-sized image. Thumbnails keep the cheaper order, because ImageMagick would demosaic every RAW in a folder (lgse/strata#1698).
 - libjpeg decodes at 1/2, 1/4, or 1/8 scale from compressed data. The `jpeg:size` hint makes ImageMagick use it, so oversized JPEGs fit the budget. The area limit stops any unhinted full decode (lgse/strata#1698).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
+- With gdk-pixbuf 2.44, `Pixbuf::file_info` decodes through glycin, so an AVIF paid a full decode in each of two probes and the render. Dimensions now come from the ISO BMFF header, and renders reuse probed dimensions (lgse/strata#1968, lgse/strata#1971).
+- `ispe` is the uncropped extent, so a `clap` defers to the decoder. Header parsing is bounded because the file is untrusted: 1 MiB of `meta`, 4096 boxes, never `mdat` (lgse/strata#1971).
+- An FFmpeg RGBA decode path was rejected: it dropped AVIF alpha and left ICC and HDR handling unvalidated (lgse/strata#1971).
 - Format crosses the sandbox boundary explicitly, including for symlinks (lgse/strata#1276). Document previews pass `docx` or `odt` to the helper the way comic covers pass their format (lgse/strata#1834).
 - The PDF helper detects protection from Poppler's typed `Encrypted` error, not message text or file names. It writes a structured code to the existing bounded `result.error` output (lgse/strata#1636, lgse/strata#1840).
 - Output folders outlived their process: the browser pools are statics; the media, peaks, storyboard, and model workers detach; and a killed process runs no `Drop` (lgse/strata#1847, lgse/strata#1866).
@@ -124,6 +134,8 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-01 | lgse/strata#1971 | fix | Read AVIF and HEIF dimensions from ISO BMFF headers and reused probed dimensions, so previews and thumbnails decode once instead of three times. |
+| 2026-11-01 | lgse/strata#1954 | fix | Probed job namespaces at supervisor start and fell back to one-shot sandboxes when AppArmor denies them, so thumbnails and previews render on Ubuntu 24.04 derivatives. |
 | 2026-10-25 | lgse/strata#1866 | fix | Swept orphaned preview output folders by lock on a process's first sandbox job, so leftovers from exited or killed runs stop piling up in the temp directory. |
 | 2026-10-18 | lgse/strata#1746 | feat | Added build-time trusted helper directories and launch-time sandbox paths, so prebuilt releases run the sandbox without a rebuild and Nix packages need no source patch. |
 | 2026-10-16 | lgse/strata#1698 | fix | Rendered RAW previews from the embedded camera JPEG and reduced-decoded oversized JPEGs, so RAF previews no longer time out and DNG previews fill the pane. |
@@ -144,3 +156,4 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 - Inside Flatpak, bubblewrap cannot create namespaces, so native-format previews and thumbnails show "Preview unavailable". lgse/strata#1503, lgse/strata#936
 - Output folders still owned at exit are not removed then; the next process that creates one sweeps them. lgse/strata#1866
+- A cropped or otherwise unsupported AVIF or HEIF still pays a decoder probe for its dimensions. lgse/strata#1971

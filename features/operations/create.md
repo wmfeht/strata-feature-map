@@ -3,12 +3,12 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+review: draft
 code: [src/adapters/local_operations/create_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl, tests/qa/mutations/new-entry-collision.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/rename, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
+related: [operations/rename, operations/rename/typed-paths, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -40,7 +40,8 @@ Creating an empty file or folder in the current directory from the background me
 
 - The new item is selected and its rename editor opens with the whole default name selected, so typing replaces it. lgse/strata#567, lgse/strata#760
 - Enter or a click outside the field commits a valid name; a click inside the field keeps editing, and leading and trailing spaces are kept. lgse/strata#567
-- Escape, an empty name, or an invalid name such as `bad/name` closes the editor and keeps the item under its default name. lgse/strata#567
+- Escape, an empty name, or an invalid name such as `bad//name` closes the editor and keeps the item under its default name. lgse/strata#567, lgse/strata#1512
+- In a local folder, a first name holding `/` is a path; `operations/rename/typed-paths` owns its rules. lgse/strata#1512
 - A name already in use shows "Unable to rename item"; after Close, the existing item and the new default item are unchanged. lgse/strata#567, lgse/strata#760
 - Closing that dialog after New Folder or New File returns keyboard focus to the file list. lgse/strata#1533
 - Going Home or Back before the editor opens leaves the item named by default and opens no late editor. lgse/strata#760
@@ -78,7 +79,7 @@ Creating an empty file or folder in the current directory from the background me
 - Items are created first and then renamed with the normal editor. Temporary creation rows were removed: destroying the focused row inside GTK's focus-out handling froze List and Icons at 100% CPU (lgse/strata#566, lgse/strata#567).
 - Cancelling the first rename keeps the item, because the item already exists. An earlier cancellation-only policy was replaced by this rule (lgse/strata#566).
 - Numbered alternatives are retried only when atomic creation reports that the name exists, never after a separate existence check. An empty file is closed before its creation is published (lgse/strata#567).
-- A name must be one basename. The UI and the operation provider both reject `..`, `nested/child`, and absolute paths, so creation stays a direct child of the shown directory (lgse/strata#10, lgse/strata#23).
+- The create operation takes one basename. The UI and the operation provider both reject `..`, `nested/child`, and absolute paths, so creation stays a direct child of the shown directory (lgse/strata#10, lgse/strata#23). Since lgse/strata#1512, a path typed as the first name moves the created item afterwards as a separate placement (lgse/strata#1511, lgse/strata#1512).
 - Keyboard creation ignores the pointer, so a resting mouse cannot redirect a folder into a pane the keyboard never visited (lgse/strata#236, lgse/strata#238).
 - In Columns, revealing the created entry does not start a second asynchronous navigation, which could cancel its rename editor (lgse/strata#690, lgse/strata#760).
 - Create undo trashes rather than deletes, so it is reversible (lgse/strata#1097).

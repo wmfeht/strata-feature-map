@@ -3,8 +3,8 @@ title: Properties dialog
 status: shipped
 origin: {issue: lgse/strata#71, pr: lgse/strata#243}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+review: draft
 code: [src/ui/browser/properties.rs]
 tests: [tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl, tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl]
 docs: []
@@ -32,6 +32,7 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - The header shows the item's icon and name, and the subtitle changes from "File" or "Folder" to the content-type description once it is read. lgse/strata#398 (unverified)
 - MODIFIED never shows a relative time. With Relative set it reads, in English, "Sep 1, 2026, 2:30 PM"; with ISO 8601 or Long set it uses that format. lgse/strata#1264 (unverified)
 - OPENS WITH shows the default application for the item's content type, or "—" when there is none. lgse/strata#398 (unverified)
+- For a `.md`, `.py`, or `.json` file on a GVfs SMB share, the subtitle and OPENS WITH show its type description and default application. lgse/strata#1944, lgse/strata#1955
 - HIDDEN reads "Yes" for an item GIO reports as hidden, such as a dot-file, and "No" otherwise. lgse/strata#398 (unverified)
 - PINNED reads "Yes" when the location is pinned in the sidebar. lgse/strata#457 (unverified)
 

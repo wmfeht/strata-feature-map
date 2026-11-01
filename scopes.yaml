@@ -59,6 +59,7 @@ scopes:
   media: preview/preview-panel/media
   install: null
   i18n: settings/preferences/language
+  translation: settings/preferences/language
   grid: browser/view-modes/icons
   explorer: browser/view-modes/list
   dnd: operations/drag-and-drop

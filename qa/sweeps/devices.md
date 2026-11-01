@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
@@ -19,6 +19,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - A throwaway HOME as in `qa/README.md`, plus a copy of `~/.config/udiskie` and `~/.local/share/strata` taken before each install probe, to diff the restore.
 - A real PTP camera or iPhone passed through with `-device usb-host`; GVfs gphoto2 mounts only USB devices. Without one, record the camera block as not exercised.
 - `RUST_LOG=debug` beside `journalctl -f -u udisks2`; a GTK critical at any plug, mount, unmount, or unplug event is a finding.
+- A second build made with `STRATA_INTEGRATIONS=package`, copied into the guest beside the default build.
 - `scripts/sftp-fixture.sh --port 2222` with GVfs running, as in `qa/sweeps/remote.md`, for releasing a remote mount from its DEVICES row.
 
 ## Probes
@@ -69,6 +70,9 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Install over no `~/.config/udiskie`, over a commented `config.yml` with its own `event_hook`, and over a symlinked `config.yml`. Repeat over `config.json` only and over both files; diff each restore against the copy.
 - Install twice, then uninstall twice; `udiskie` must still start after each step.
 - With the handler installed and udiskie stopped, attach the LUKS disk; the stick must not automount and the prompt must name that device.
+- Install with the default build, then run the package build's install and uninstall flags; diff `~/.config/udiskie` and `~/.local/share/strata` against the copy.
+- Open Settings → General in the package build on the `arch` guest with `udiskie` removed from `PATH`, then on `omarchy-4`; search Settings for "udiskie" and "encrypted".
+- With the package build's `--udiskie-hook` in udiskie's `event_hook`, attach the LUKS disk.
 
 ### devices/volumes/drive-dialogs
 

@@ -56,6 +56,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `deny.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `docs/assets` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `docs/evidence` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `flake.lock` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
+| `flake.nix` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `install.sh` | code | [Release installer](../features/app/packaging/installer.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `integrations/kdeconnect/LICENSE` | code | [KDE Connect integration](../features/remote/file-providers/kde-connect.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `integrations/kdeconnect/catalog.toml` | code | [KDE Connect integration](../features/remote/file-providers/kde-connect.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -69,6 +71,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `integrations/localsend/tests/test_provider.py` | tests | [LocalSend integration](../features/remote/file-providers/localsend.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `mise.lock` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `mise.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `nix/install-source.toml` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
+| `package.nix` | code | [Packaging and installation](../features/app/packaging/index.md) | — |
 | `packaging/aur` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -182,6 +186,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/names/fix.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_operations/owed.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `src/adapters/local_operations/place_entry.rs` | code | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
 | `src/adapters/local_operations/placement.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/probes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_operations/probes/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -203,6 +208,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/tests/moves.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/tests/naming.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/tests/paste_results.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `src/adapters/local_operations/tests/place_entry.rs` | tests | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
 | `src/adapters/local_operations/tests/placement.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/tests/progress.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/adapters/local_operations/tests/release.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
@@ -371,6 +377,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/sandbox_helper/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/sandbox_helper/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `src/sandbox_helper/isobmff.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -388,6 +395,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/sandbox_helper/route/tests.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/route/xml.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/sandbox_helper/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/sandbox_helper/tests/isobmff.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/services/actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `src/services/actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
@@ -403,6 +411,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/docx/namespaces.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/docx/namespaces/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/docx/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `src/services/dropped_content.rs` | code | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `src/services/dropped_content/tests.rs` | tests | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/services/file_activity.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/services/file_activity/tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/services/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
@@ -500,6 +510,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/columns/rows.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/columns/search.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/columns/tests.rs` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser/content_drop.rs` | code | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `src/ui/browser/content_drop/tests.rs` | tests | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `src/ui/browser/context_menu.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/browser/context_menu/actions.rs` | code | [Context menus](../features/browser/context-menu.md) | — |
 | `src/ui/browser/context_menu/actions/tests.rs` | tests | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
@@ -523,7 +535,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/find/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/fly_to_trash.rs` | code | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/fly_to_trash/tests.rs` | tests | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
-| `src/ui/browser/inline_edit.rs` | code | [Inline rename](../features/operations/rename.md) | — |
+| `src/ui/browser/inline_edit.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
 | `src/ui/browser/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/ui/browser/leftovers/tests.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/ui/browser/listing_filter.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -532,7 +544,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/location/completion.rs` | code | [Location path completion](../features/browser/navigation/location-bar/completion.md) | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [Navigation](../features/browser/navigation/index.md) |
 | `src/ui/browser/location/completion/tests.rs` | tests | [Location path completion](../features/browser/navigation/location-bar/completion.md) | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [Navigation](../features/browser/navigation/index.md) |
 | `src/ui/browser/location/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/ui/browser/pane_header.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser/pane_header.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/paths.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/ui/browser/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
@@ -561,9 +573,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser_modes.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser_modes/column_options.rs` | code | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/events.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
+| `src/ui/browser_modes/grouped_model.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser_modes/grouped_model/tests.rs` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/list_factory.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/navigation.rs` | code | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
+| `src/ui/browser_modes/tests/counting_model.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser_modes/thumbnail_size.rs` | code | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/thumbnail_size/tests.rs` | tests | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/chooser.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -578,7 +593,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/chooser/tests/keyboard.rs` | tests | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/chooser/tests/sizing.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/close_guard.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/ui/collection_edit.rs` | code | [Inline rename](../features/operations/rename.md) | — |
+| `src/ui/collection_edit.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
 | `src/ui/collection_interaction.rs` | code | [Selection](../features/browser/selection/index.md) | — |
 | `src/ui/collection_interaction/tests.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/ui/controls.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
@@ -876,6 +891,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/preview_ownership.rs` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/reload_cursor.rs` | tests | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/structural_aliases.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs` | tests | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/video_clips.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -923,11 +939,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/mutations/new-entry-collision.patch` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/mutations/popover-scrolling.patch` | tests | [Scrolling](../features/browser/scrolling.md) | — |
 | `tests/qa/mutations/quick-preview.patch` | tests | [Quick preview](../features/preview/quick-preview/index.md) | — |
-| `tests/qa/mutations/rename-caret.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/qa/mutations/rename-click-away.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/qa/mutations/rename-enter.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/qa/mutations/rename-error-dialog.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/qa/mutations/rename-escape.patch` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/mutations/rename-caret.patch` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/mutations/rename-click-away.patch` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/mutations/rename-enter.patch` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/mutations/rename-error-dialog.patch` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/mutations/rename-escape.patch` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/mutations/shift-click-range.patch` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/mutations/stl-thumbnails-live-preference.patch` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `tests/qa/mutations/trash.patch` | tests | [Trash](../features/operations/trash/index.md) | — |
@@ -945,6 +961,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/click_modes` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/clipboard` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `tests/qa/scenarios/column_background` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/content_drops` | tests | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `tests/qa/scenarios/copy_conflicts` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `tests/qa/scenarios/created_entry_columns` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
@@ -964,7 +981,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl` | tests | [Context menus](../features/browser/context-menu.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl` | tests | [Properties dialog](../features/browser/properties/index.md) | — |
-| `tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl` | tests | [Context menus](../features/browser/context-menu.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl` | tests | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
@@ -994,8 +1011,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
-| `tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -1013,10 +1030,25 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/filter_results/space-completes-composition.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/hidden_files` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
-| `tests/qa/scenarios/inline_renaming` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/inline_renaming/escape-preserves-name-remaining.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/escape-preserves-name.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/input-method-composes-over-selection.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/invalid-names-retain-original.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/long-rename-keeps-caret.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/new-item-clears-hiding-filter.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/new-item-first-free-number.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/new-item-named-with-path.jsonl` | tests | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
+| `tests/qa/scenarios/inline_renaming/rename-and-undo-restores.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/rename-commits-on-click-away.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/rename-commits-on-enter.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/rename-moves-into-path.jsonl` | tests | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
+| `tests/qa/scenarios/inline_renaming/tone-mark-escape-before-rename.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/valid-name-commits-remaining.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/window-accelerators-leave-rename.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/back-history-dropdown.jsonl` | tests | [Back history menu](../features/browser/navigation/back-history.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
@@ -1077,9 +1109,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/quick_preview/table-preview-keeps-secondary-sorts.jsonl` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/qa/scenarios/quick_preview/tenxer-l-enters-preview.jsonl` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/recent` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
-| `tests/qa/scenarios/rename_visibility` | tests | [Inline rename](../features/operations/rename.md) | — |
+| `tests/qa/scenarios/rename_visibility` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/search_filter_sort/global-search-*` | tests | [Search](../features/browser/search/index.md) | — |
+| `tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |

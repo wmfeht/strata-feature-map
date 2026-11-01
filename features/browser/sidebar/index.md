@@ -3,17 +3,17 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs]
-tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl]
+tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl]
 docs: [docs/preferences.md, site/src/reference/keyboard-navigation.md]
 related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window, browser/tabs]
 ---
 
 ## Summary
 
-The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. Users reorder and hide places and open them in new tabs. They reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders in the GTK bookmarks file, with drag-to-pin as its child) and `browser/sidebar/rail` (full, icon rail, or hidden). A third child, `browser/sidebar/connect-to-server`, is the Network row's Connect to server dialog. Which devices DEVICES lists, and when, belongs to `devices/volumes`.
+The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. PINNED and DEVICES collapse from their headings. Users reorder and hide places and open them in new tabs. They reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders in the GTK bookmarks file, with drag-to-pin as its child) and `browser/sidebar/rail` (full, icon rail, or hidden). A third child, `browser/sidebar/connect-to-server`, is the Network row's Connect to server dialog. Which devices DEVICES lists, and when, belongs to `devices/volumes`.
 
 ## Behavior
 
@@ -63,7 +63,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 ### Spacing and drag feedback
 
-- Pinned rows have the same 2 px spacing as built-in places and devices, in the full sidebar and the icon rail. lgse/strata#1707, lgse/strata#1713
+- Pinned rows have the same 2 px spacing as built-in places and devices, in the full sidebar and the icon rail. lgse/strata#1707, lgse/strata#1713, lgse/strata#1390
 - Dragging files over a pinned folder's row body shows a highlight and an accent outline, and dropping still moves or copies into that folder. lgse/strata#1692, lgse/strata#1713
 - The row-body highlight does not scale the row. lgse/strata#1713 (unverified)
 - While a pin insertion line shows, other rows and devices show no hover background; the focus outline is hidden during any drag over the sidebar. lgse/strata#1713
@@ -73,6 +73,25 @@ The left panel of every browser window and the file chooser: built-in places, th
 ### Devices
 
 - A Strata label saved with Set label… replaces the system name on the device row in every open window; clearing it restores the system name. lgse/strata#1393
+
+### Collapsible sections
+
+- Clicking the PINNED or DEVICES heading in the full sidebar folds that section's rows away; clicking it again shows them. lgse/strata#1389, lgse/strata#1390
+- The heading's chevron points right while the section is collapsed and down while it is expanded. lgse/strata#1390 (unverified)
+- A collapsed heading shows a count badge; an expanded heading shows none. lgse/strata#1390
+- The badge counts every row in the section: with 3 pins and the open pin still shown, it reads `3`. lgse/strata#1390 (unverified)
+- Collapsing PINNED with a first, middle, or last pin open folds the other pins and leaves the open pin directly under the heading. lgse/strata#1389, lgse/strata#1390
+- Expanding PINNED returns the open pin to its original slot, and the pin stays visible throughout the animation. lgse/strata#1390
+- With PINNED collapsed, navigating to a pin shows only that pin's row; navigating away from every pin hides it again. lgse/strata#1390 (unverified)
+- Collapsing DEVICES hides every device row, including the row of the open device. lgse/strata#1390 (unverified)
+- The collapsed states are saved as `sidebar_pinned_collapsed` and `sidebar_devices_collapsed`, both `false` by default, and survive a restart. lgse/strata#1390
+- Toggling a section in one window folds or unfolds it in every open window without rebuilding the sidebar. lgse/strata#1390
+- The icon rail hides the headings and shows every section's rows, even when saved collapsed. Returning to the full sidebar re-applies the saved state. lgse/strata#1390
+- With PINNED collapsed, `g 1` to `g 9` open pins by their full-list number, and pin keycaps keep their numbers. lgse/strata#1390
+- Drop gaps stay between the pins after a collapse, an expand, or a navigation, so drag-to-pin and reorder targets sit between rows. lgse/strata#1390
+- The heading is a button named PINNED or DEVICES with an expanded state. Its accessible description gives the count, such as "3 items"; it has no tooltip. lgse/strata#1390
+- The fold animates for 200 ms, or not at all with animations disabled. lgse/strata#1390 (unverified)
+- In 10xer mode, `j`/`k` stop on the PINNED and DEVICES headings, and `l`, Enter, or Space on a heading toggles its section. Collapsed rows are skipped. lgse/strata#1390 (unverified)
 
 ### Keyboard
 
@@ -106,12 +125,18 @@ The left panel of every browser window and the file chooser: built-in places, th
 - One drop-feedback owner per sidebar decides which site shows an indicator, so a late validation or a stale leave cannot restore or clear another site's line. The general file-drop outline no longer overrides the row indicator (lgse/strata#1707, lgse/strata#1713).
 - The file chooser shares the browser's place reordering, menus, and drag-to-pin. Its sidebar visibility and compact state stay local to the dialog ([docs/portal-file-chooser.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/portal-file-chooser.md), lgse/strata#1713).
 - Sidebar rows open new tabs through the window action `win.open-tab-at`, the same path as folders in a listing (lgse/strata#1831).
+- PINNED puts the rows above and below the open pin in two revealers, so collapsing keeps that pin in view (lgse/strata#1389, lgse/strata#1390).
+- A heading click only writes the preference. The shared preference binding applies it to every sidebar and never calls the setter back ([comment](https://github.com/lgse/strata/pull/1390#issuecomment-6548977252)).
+- Collapsing does not renumber `g 1..9` or pin keycaps, matching a sidebar hidden with Ctrl+B. Renumbering visible pins mislabelled keycaps ([comment](https://github.com/lgse/strata/pull/1390#issuecomment-6548977252)).
+- The icon rail has no headings, so a section collapsed there would have no rows and no way to expand ([comment](https://github.com/lgse/strata/pull/1390#issuecomment-6548977252)).
+- Headings carry no tooltip because tooltips are kept for icon-only buttons; the count is the accessible description instead ([comment](https://github.com/lgse/strata/pull/1390#issuecomment-6548977252)).
 - The selected row uses a direct accent tint because tinting the existing highlight token stayed too faint on dark themes (lgse/strata#104, lgse/strata#106).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1390 | feat | Made the PINNED and DEVICES headings collapse toggles, saved and shared across windows, keeping the open pin under the PINNED heading. |
 | 2026-10-29 | lgse/strata#1909 | fix | Made sidebar hover a neutral tint, so a hovered old place no longer looks like a second selected row. |
 | 2026-10-17 | lgse/strata#1726 | feat | Added Connect to server… to the Network row's menu, with an address field and an optional pin, so network locations can be added without typing in the location bar. |
 | 2026-10-15 | lgse/strata#1605 | fix | Returned the highlight to the open place after a rejected place click. |
@@ -130,4 +155,3 @@ The left panel of every browser window and the file chooser: built-in places, th
 ## Known gaps
 
 - NAS shares mounted by the system at native paths do not appear unless GIO reports them. lgse/strata#1209
-- PINNED and DEVICES cannot be collapsed; the implementation is unmerged. lgse/strata#1389, lgse/strata#1390

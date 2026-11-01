@@ -3,7 +3,7 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
 tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
@@ -12,13 +12,13 @@ related: [app/packaging/installer, integration/file-manager-interface, settings/
 
 ## Summary
 
-Making Strata the per-user FileChooser portal backend and default file manager, and restoring the previous setup. It runs from the `--install-portal` and `--uninstall-portal` commands, the installer, and the Settings → General "System file manager" row, which also sets Omarchy shortcuts.
+Making Strata the per-user FileChooser portal backend and default file manager, and restoring the previous setup. It runs from the `--install-portal` and `--uninstall-portal` commands, the installer, and the Settings → General "System file manager" row, which also sets Omarchy shortcuts. A `STRATA_INTEGRATIONS=package` build leaves all of it to the package and refuses each command.
 
 ## Behavior
 
 ### Portal installation
 
-- `strata --install-portal` writes `strata.portal` under `$XDG_DATA_HOME/xdg-desktop-portal/portals` and a D-Bus service under `$XDG_DATA_HOME/dbus-1/services` running `<resolved path> --portal`. lgse/strata#175
+- In a default build, `strata --install-portal` writes `strata.portal` under `$XDG_DATA_HOME/xdg-desktop-portal/portals` and a D-Bus service under `$XDG_DATA_HOME/dbus-1/services` running `<resolved path> --portal`. lgse/strata#175, lgse/strata#1975
 - Installation puts `strata;` first in the `org.freedesktop.impl.portal.FileChooser` preference and keeps the backends already listed as fallbacks. lgse/strata#175
 - With no user portal configuration, installation copies the active desktop configuration into `$XDG_CONFIG_HOME/xdg-desktop-portal` before editing it. lgse/strata#175
 - Installation records what it changed in `$XDG_DATA_HOME/strata/portal-install/state.toml`. lgse/strata#175
@@ -34,12 +34,12 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - A gid is shared when any of its `/etc/group` lines names a member other than the user's login. lgse/strata#1936
 - When `/etc/passwd` or `/etc/group` is unreadable or empty, every group-writable path component is refused, as for LDAP or sssd accounts. lgse/strata#1936
 - The same path check guards `--install-udiskie-unlock` and the Omarchy shortcut bindings in Complete setup. lgse/strata#1936 (unverified)
-- `strata --uninstall-portal` restores the original configuration, or deletes the copy it created, when the file is unchanged since installation; otherwise it removes only `strata` from the preference. lgse/strata#175
-- `strata --dismiss-portal-prompt` creates `$XDG_CONFIG_HOME/strata/portal-opt-in-v1` and leaves portal preferences unchanged. lgse/strata#175
+- In a default build, `strata --uninstall-portal` restores the original configuration, or deletes the copy it created, when the file is unchanged since installation. Otherwise it removes only `strata` from the preference. lgse/strata#175, lgse/strata#1975
+- In a default build, `strata --dismiss-portal-prompt` creates `$XDG_CONFIG_HOME/strata/portal-opt-in-v1` and leaves portal preferences unchanged. lgse/strata#175, lgse/strata#1975
 
 ### Settings row
 
-- Settings → General → "System file manager" lists Open and Save dialogs, Opening folders, and Reveal in File Manager, each marked configured or not. lgse/strata#947
+- In a default build, Settings → General → "System file manager" lists Open and Save dialogs, Opening folders, and Reveal in File Manager, each marked configured or not. lgse/strata#947, lgse/strata#1975
 - On Omarchy the row also lists Keyboard shortcuts; elsewhere that line is hidden. lgse/strata#947 (unverified)
 - Complete setup installs the portal, sets `io.github.lgse.Strata.desktop` as the `inode/directory` handler, and installs the per-user FileManager1 service. lgse/strata#947
 - On Omarchy 3 or 4, Complete setup also binds Super+Shift+F and Super+Alt+Shift+F to Strata in `$XDG_CONFIG_HOME/hypr/bindings.conf`, or `bindings.lua` on Omarchy 4. lgse/strata#947 (unverified)
@@ -64,8 +64,19 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 
 ### Updates
 
-- After an in-app update, Strata restarts portal services only when Strata is the configured FileChooser. lgse/strata#475
-- On launch, a running `strata --portal` started from the same install path but from a replaced executable makes Strata restart portal services. lgse/strata#475
+- In a default build, after an in-app update, Strata restarts portal services only when Strata is the configured FileChooser. lgse/strata#475, lgse/strata#1975
+- In a default build, on launch, a running `strata --portal` started from the same install path but from a replaced executable makes Strata restart portal services. lgse/strata#475, lgse/strata#1975
+
+### Package builds
+
+- In a build made with `STRATA_INTEGRATIONS=package`, `--install-portal`, `--uninstall-portal`, and `--dismiss-portal-prompt` exit with status 1. lgse/strata#1975
+- Each prints "The package that installed this build provides its desktop integrations. Configure them in your system configuration instead." lgse/strata#1975
+- In a package build, those commands write nothing under `~/.config` or `~/.local/share`. lgse/strata#1975
+- In a package build, "System file manager" shows only its title and "The package that installed this build provides the file chooser portal and the file manager service. Enable them in your system configuration as the package documentation describes." lgse/strata#1975
+- In a package build, the row has no status lines, Complete setup, or Restore default. lgse/strata#1975
+- In a package build, searching Settings for "desktop integration" still finds the row. lgse/strata#1975
+- In a package build, launch never restarts a stale portal backend, and an in-app update never refreshes portal services. lgse/strata#1975
+- In a package build, `--portal` and `--gapplication-service` run as in a default build. lgse/strata#1975
 
 ## Design
 
@@ -82,12 +93,17 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - A group or user the local databases do not describe counts as shared, so LDAP and other NSS setups keep the earlier refusal (lgse/strata#1936).
 - Every `/etc/group` line for the gid must be private; accepting any one private line let a second line open the gid to others (lgse/strata#1936).
 - The group lookup is passed into the check, so tests do not depend on the accounts of the machine running them (lgse/strata#1936).
+- On Nix, the runtime installers recorded one store path's `bin/.strata-wrapped`. That skipped the wrapper's environment and went stale on update or garbage collection (lgse/strata#1969).
+- So `STRATA_INTEGRATIONS=package`, modeled on `STRATA_UPDATER=disabled`, compiles the installers out and the package ships the portal and FileManager1 files. The name is generic because Guix has the same problem (lgse/strata#1969, lgse/strata#1975).
+- Resolving `.strata-wrapped` back to the wrapper was rejected: it fixes the skipped environment, not stale store paths (lgse/strata#1969).
+- A package build keeps the Settings row, with a note, so Settings search still finds it (lgse/strata#1975).
 - A stale backend is detected by comparing the running process's executable inode with the installed file. A backend from another Strata installation is left alone (lgse/strata#474).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1975 | feat | Added the `STRATA_INTEGRATIONS=package` build, which refuses the runtime portal, file manager, and udiskie installers so store-based packages ship those files. |
 | 2026-10-30 | lgse/strata#1936 | fix | Accepted group write access on executable path components whose group only the user belongs to, for private-group distributions. |
 | 2026-10-10 | lgse/strata#1544 | fix | Made Complete setup, Restore default, and rollback write Omarchy bindings through a symlinked bindings file instead of refusing it. |
 | 2026-09-14 | lgse/strata#947 | feat | Made System file manager also set the folder handler, FileManager1 service, and Omarchy shortcuts. |

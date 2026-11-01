@@ -3,12 +3,12 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
 docs: [site/src/reference/remote-sftp.md, docs/remote-sftp.md]
-related: [browser/navigation/location-bar, devices/volumes, devices/volumes/release, browser/sidebar/pins, browser/sidebar/connect-to-server, browser/tabs]
+related: [browser/navigation/location-bar, devices/volumes, devices/volumes/release, browser/sidebar/pins, browser/sidebar/connect-to-server, browser/tabs, integration/open-with, browser/properties, preview/preview-panel]
 ---
 
 ## Summary
@@ -68,6 +68,9 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
 - After F5 on a remote folder whose cursor file was deleted on the server, the cursor moves to a neighbouring row. It moves once the last batch is shown, and focus outside the pane stays put. lgse/strata#1544
+- A file's type lookup reads `standard::content-type`, and falls back to `standard::fast-content-type` when the backend omits the full type. lgse/strata#1955
+- On a GVfs SMB share, a `.md`, `.py`, or `.json` file reporting only the fast type opens, lists Open With applications, and shows its Kind in Properties. lgse/strata#1955, lgse/strata#1944
+- When the backend reports both types, the full `standard::content-type` wins. lgse/strata#1955
 - When `gvfsd` does not answer a 2-second startup probe, the window still opens, using local file and volume support for that session. lgse/strata#56
 
 ## Design
@@ -87,12 +90,15 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - `gvfsd-smb-browse` lists shares as shortcut entries whose destination is `standard::target-uri`. The first directory batch requests that attribute, and shortcut and mountable entries open as folders (lgse/strata#960, lgse/strata#990).
 - Remote loads publish their first batch at once. Later batches queue per column and flush every 50 ms or at 2,048 entries, at most 512 rows per drain; finish and failure wait for the queue (lgse/strata#274, lgse/strata#661).
 - A remote load publishes the fallback cursor after its last batch drains. It is marked as a background load, so a view takes focus only when nothing else in the window holds it (lgse/strata#1544).
+- GVfs SMB sets only the fast content type for uncertain names. Lookups fall back to it in the order of GLib's `g_file_query_default_handler`, which is why `gio open` already worked (lgse/strata#1944, lgse/strata#1955).
+- Lookups read the attributes through the generic `attribute_string`, because the typed `FileInfo` getters log a GLib critical when an attribute is missing (lgse/strata#1955).
 - The `gvfsd` probe runs in a subprocess before GTK starts. A timeout restarts with `GIO_USE_VFS=local` and `GIO_USE_VOLUME_MONITOR=unix`; a healthy result is cached per `gvfsd` process set (lgse/strata#52, lgse/strata#56, lgse/strata#274).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-01 | lgse/strata#1955 | fix | Fell back to `standard::fast-content-type` when GVfs SMB omits the full type, so `.md`, `.py`, and `.json` files open, list applications, show Kind, and preview. |
 | 2026-10-29 | lgse/strata#1909 | fix | Translated unclassified GIO failures and showed "Permission denied" for untyped credential rejections, so URI-location dialogs no longer show raw backend text. |
 | 2026-10-15 | lgse/strata#1634 | fix | Guarded optional GIO attributes in directory measurement, so measuring an SFTP folder for permanent delete logs no GLib-GIO critical. |
 | 2026-10-10 | lgse/strata#1544 | fix | Published the neighbour cursor after a remote reload removes the cursor file, without taking focus from outside the pane. |
