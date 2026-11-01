@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl]
@@ -58,7 +58,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - A single item's menu opens with a header showing its name and compact path, middle-ellipsized at 30 characters. lgse/strata#1143 (unverified)
 - A multi-selection header reads "N items selected" above the first three names, followed by ", …" when there are more, cut to 30 characters. lgse/strata#1143 (unverified)
 - When shown, New Folder with Selection sits alone at the top of the item and multi-selection menus, above the opening group. lgse/strata#1349
-- A regular file's menu groups Open, Open With…, Quick preview, Print; then Cut, Copy, Duplicate, Rename; then Move to…, Copy to…. lgse/strata#1210
+- A regular file's menu groups Open, Open With…, Quick preview; then Cut, Copy, Duplicate, Rename; then Move to…, Copy to…. lgse/strata#1210, lgse/strata#1950
 - After those come Compress… alone; then Customize…, Copy path, Copy name, Properties; then Move to Trash and Permanently delete. lgse/strata#1210
 - A folder's menu adds Open in Terminal, then Open in…, to the opening group, and Pin to sidebar before Customize…. lgse/strata#1210, lgse/strata#1543
 - Open in… is a submenu of New Tab, shown with Ctrl+Enter, and New Window, shown with Shift+Enter. A file's menu has no Open in…. lgse/strata#1543, lgse/strata#1576
@@ -81,7 +81,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - In Recent, the item menu offers Remove from Recent when every selected row has a recent-history entry. lgse/strata#1500
 - Remove from Recent is absent from the same file's menu in its real folder. lgse/strata#1500
 - In the background menu of a folder, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
-- Custom actions sit in their own section after the open, print, and extract commands and before Cut and Copy. lgse/strata#1085
+- Custom actions sit in their own section after the open and extract commands and before Cut and Copy. lgse/strata#1085, lgse/strata#1950
 - Actions hidden for the current target leave no empty group or doubled separator. lgse/strata#1210
 - Open With… shows AppWindow, Duplicate CopyPlus, Copy path(s) Route, Copy name(s) FileType, Move to… FolderInput, and Copy to… FolderOutput. lgse/strata#1210
 - Compress… shows PackagePlus, Extract here PackageOpen, and Extract to… FolderArchive. lgse/strata#1210

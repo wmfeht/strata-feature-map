@@ -1,8 +1,8 @@
 ---
 title: Operations sweep
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
-tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
+tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---
 
 ## Scope
@@ -20,6 +20,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - `scripts/fslab/fslab.sh up` starts a privileged container with NFS, SMB, sshfs, vfat, exFAT, ntfs3, ntfs-3g, exfat-fuse, and casefold mounts; `fslab.sh probe` reports what each supports. Skip lab probes and say so when Docker cannot run privileged.
 - A real USB stick formatted vfat, and one exFAT, for flush and unplug probes; the lab's loop devices live in RAM.
 - An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals. The lab has no rclone; skip those probes and say so when it is unavailable.
+- An Android phone paired with KDE Connect, whose filesystem `kdeconnectd` mounts with sshfs at `/run/user/<uid>/<device-id>`. The lab's sshfs allows links; skip those probes and say so without a phone.
+- For fcitx5 rename probes, a host run with `STRATA_QA_HOST=1`, optionally `STRATA_QA_DISPLAY=wayland`, as in `docs/testing.md` "Wayland and input methods (host runs)".
 - A 9p or virtiofs share and a mergerfs pool, for deletion wording. The lab has neither; skip those probes and say so when unavailable.
 - A holder for open files on the NFS, SMB, and sshfs mounts: `less` or `tail -f` run from a terminal app, and the same run as a plain process outside any app unit.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
@@ -51,6 +53,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Commit by Enter, by clicking another item, by clicking the background, and press F5 while editing.
 - Focus a second window mid-edit, then come back and press Escape.
 - Mid-edit, switch input methods with Super+Space under IBus and Ctrl+Space under fcitx5.
+- With the stem preselected, compose with fcitx5 in List and Icons, after Ctrl+R, and on Wayland with `GTK_IM_MODULE` unset.
 - Leave an edit open while another window is active, then close the Strata window from the taskbar; read the name on disk.
 - On a vfat or SMB mount, rename to a case-only variant, to a name holding a tab or a combining mark, and to `notes.`; then undo each.
 - Rename to a name differing only by case, to an existing name, to a name containing `/`, and to a 255-byte name, in each mode.
@@ -121,6 +124,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Copy a `0555` subfolder with `user.*` xattrs and a 1 GiB sparse file the same way.
 - Pull the real stick during a copy and during a move's final flush; then list hidden `.strata-copy-*` entries on both sides.
 - Pause `sftp-server` with `kill -STOP` during a move onto sshfs, resume after 30 s, and compare both sides.
+- On the KDE Connect mount, paste a file, a symlink, and a folder holding a symlink; paste again, then move a file between two of its folders.
+- On the KDE Connect mount and on the lab's sshfs mount as the test user, not root, paste into a `0555` folder, and move a file into it from elsewhere on the same mount.
 - Paste onto a stick reached through two nested symlinks, and onto a bind mount of it.
 - Move 300 files to a rotational USB disk and to an SSD; watch for "Writing to device…" and count files on arrival.
 - Produce every report section in one transfer, in a narrow window, while a Send to notice is visible.

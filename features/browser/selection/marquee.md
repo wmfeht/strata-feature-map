@@ -3,8 +3,8 @@ title: Marquee selection
 status: shipped
 origin: {issue: lgse/strata#189, pr: lgse/strata#203}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/ui/marquee.rs]
 tests: [src/ui/marquee/tests.rs, tests/qa/scenarios/marquee_scrolling]
 docs: [docs/preview-panel-layout.md]
@@ -24,7 +24,8 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 - A drag from blank space in a pane header, List's heading strip, a Columns header, or beside the last column starts a marquee. lgse/strata#203
 - A drag from blank preview pane space selects in the pane nearest it: the last open column, or the Icons or List pane. lgse/strata#1164 (unverified)
 - In Icons and List with recursive search results showing, a drag from blank sidebar or preview space selects in the results. lgse/strata#1164
-- A press on a button, text entry, label, image, slider, scrollbar, or sidebar place keeps that control's own behavior and starts no marquee. lgse/strata#203, lgse/strata#1164
+- A press on a button, text entry, label, image, slider, scrollbar, or sidebar place keeps that control's own behavior and starts no marquee. lgse/strata#203, lgse/strata#1164, lgse/strata#1959
+- In List, Icons, Columns, or inline search results, dragging a view's own scrollbar handle scrolls the view and selects nothing, even with Alt held. This includes an overlay scrollbar over blank row space. lgse/strata#1959
 - In Columns with folders set to open on one click, a click on a folder in a partly hidden parent column opens it. It opens even when the column scrolls into view during the press. lgse/strata#1502
 - A drag from a pane corner at text sizes 13 and 28 selects files and leaves the sidebar width unchanged. lgse/strata#838
 - During a sidebar-started marquee, the target pane takes keyboard focus, so Ctrl+C copies the marqueed files. lgse/strata#838
@@ -63,6 +64,7 @@ One shared module replaced separate Columns and Icons/List implementations so ch
 - Rejected as the way in: a required modifier on rows (less discoverable, conflicts with file drag) and permanent blank space in the viewport (wastes space) (lgse/strata#189). Alt remains an optional override.
 - The preview shows the selection, so the owner reversed lgse/strata#1164. A plain click on blank preview chrome keeps the selection; a drag still starts a marquee (lgse/strata#1450, lgse/strata#1570).
 - Chrome hits include insensitive widgets, so a disabled control is not taken for the blank box behind it (lgse/strata#1570).
+- The gesture runs in the capture phase, before child scrollbars see a press. So a scrollbar hit is checked first, ahead of item and Alt checks, in every view installing the marquee (lgse/strata#1938, lgse/strata#1959).
 - A press records its position in surface coordinates, so a column scrolling under a still pointer does not count as drag motion (lgse/strata#1502).
 
 ## History

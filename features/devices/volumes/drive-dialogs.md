@@ -3,16 +3,16 @@ title: Drive format, label, and properties
 status: shipped
 origin: {issue: lgse/strata#1293, pr: lgse/strata#1331}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+review: draft
 code: [src/ui/window/drive_dialogs.rs, src/ui/window/drive_dialogs/**, src/ui/window/drive_ops.rs, src/ui/window/device_labels.rs, src/ui/missing_tools.rs]
 tests: [src/ui/window/drive_dialogs/tests.rs, src/ui/window/drive_ops/tests.rs, src/ui/window/device_labels/tests.rs, src/ui/missing_tools/tests.rs]
-related: [browser/sidebar, operations/progress, app/dialogs]
+related: [browser/sidebar, operations/progress, app/dialogs, devices/volumes/encrypted]
 ---
 
 ## Summary
 
-Dialogs opened from a device row's menu: Properties for any listed storage, Set label… for a Strata-only display name, and Format… for removable drives. It also decides when the row menu offers Mount. Formatting asks twice and names the exact target before erasing anything.
+Dialogs opened from a device row's menu: Properties for any listed storage, Set label… for a Strata-only display name, and Format… for removable drives. It also decides when the row menu offers Mount. Formatting asks twice and names the exact target before erasing anything. Its drive operations also close a LUKS container through UDisks when Lock has no stoppable drive.
 
 ## Behavior
 
@@ -64,6 +64,18 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Success shows "Format complete" and "The drive was formatted successfully." lgse/strata#1331, lgse/strata#1393
 - Closing the window while formatting is blocked with "Drive formatting is still active". lgse/strata#1393
 
+### Container lock
+
+- When Lock has no stoppable drive, it finds the LUKS container from the volume's device path, then from its LUKS UUID. lgse/strata#1952
+- A device path naming the open mapping leads to its container. lgse/strata#1952
+- Lock calls UDisks `Encrypted.Lock` only on a block carrying the `Encrypted` interface. lgse/strata#1952
+- Lock on a container that is already closed succeeds without calling `Encrypted.Lock`. lgse/strata#1952
+- A LUKS UUID shared by several blocks, as on cloned disks, matches none; a unique device-path match still locks. lgse/strata#1952
+- With no unique device-path or UUID match, Lock shows "Could not identify the drive's block device". lgse/strata#1952
+- A mapping opened by another user or through fstab asks for polkit authorization; dismissing the prompt shows no error. lgse/strata#1952
+- Any other UDisks failure shows its message without the D-Bus error prefix. lgse/strata#1952
+- A D-Bus failure reading the container's `CleartextDevice`, such as a udisksd restart, shows that failure, not "Could not identify the drive's block device". lgse/strata#1952
+
 ### Focus
 
 - Closing a drive dialog returns focus to the file pane, so `g` works without clicking a row. lgse/strata#1331
@@ -78,11 +90,14 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393). Until lgse/strata#1875, an exFAT label of 12 to 32 characters passed, unmounted the drive, then failed in UDisks (lgse/strata#1849, lgse/strata#1875).
 - Label limits and units match the libblockdev checks UDisks runs before wiping: 11 UTF-16 units for exFAT, 11 bytes for FAT32. Strata's NTFS limit of 32 units is below the backend's 128 (lgse/strata#1849, lgse/strata#1875).
 - The field trims in the filesystem's unit through the shared form field limit that `app/dialogs` records (lgse/strata#1875).
+- A failed `CleartextDevice` read skips the block only for `InvalidArgs`, `UnknownInterface`, or `UnknownProperty`; other errors surface. Treating every read error as "not encrypted" hid real failures behind "device not found" after the unmount (lgse/strata#1952).
+- Only `Encrypted.Lock` waits indefinitely, for the polkit prompt; lookups keep the default timeout so a hung udisksd fails instead of leaving Lock in flight (lgse/strata#1952).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1952 | fix | Closed the LUKS container through UDisks `Encrypted.Lock` when Lock has no stoppable drive, so internal volumes no longer stay open. |
 | 2026-10-25 | lgse/strata#1875 | fix | Limited exFAT labels to 11 UTF-16 units and FAT32 to 11 bytes, so a long label no longer unmounts the drive then fails. |
 | 2026-09-30 | lgse/strata#1331 | feat | Added Format, Rename, and Properties for removable drives, with missing-tool install guidance. |
 
