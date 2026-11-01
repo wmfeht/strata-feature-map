@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#70, pr: lgse/strata#118}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/window/composition/input.rs]
 tests: [src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]

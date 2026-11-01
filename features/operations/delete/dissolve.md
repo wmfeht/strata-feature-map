@@ -3,11 +3,11 @@ title: Permanent-delete dissolve animation
 status: shipped
 origin: {issue: null, pr: lgse/strata#626}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/ui/browser/dissolve_delete.rs]
 tests: [tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl]
-related: [operations/trash/animation, operations/progress/dock]
+related: [operations/trash/animation, operations/progress/dock, operations/progress, operations/trash]
 ---
 
 ## Summary
@@ -18,11 +18,9 @@ After a successful permanent delete, the deleted rows break into fragments that 
 
 - After a successful permanent delete, the deleted rows that were visible when it began break into fragments that scatter and fade. lgse/strata#626, lgse/strata#899
 - A permanent delete that succeeds before its progress card appears dissolves its rows, and no card appears. lgse/strata#1562
-- A permanent delete still running when its card appears, after 350 ms or at once for 16 or more items, plays no dissolve. lgse/strata#1562 (unverified)
 - While a permanent delete runs in Columns, List, or Icons, clicks reach the file view and navigating to another folder works. lgse/strata#1562
 - When a second quick permanent delete finishes while the first dissolve plays, it plays no dissolve, and the view takes clicks again afterwards. lgse/strata#1562 (unverified)
 - During the dissolve, surviving rows show at their pre-delete positions, then appear at their new positions. lgse/strata#931, lgse/strata#1562 (unverified)
-- "This directory is empty" stays hidden until the dissolve finishes when every item was deleted. lgse/strata#910
 - A failed, partial, or cancelled deletion plays no dissolve. lgse/strata#899, lgse/strata#1490
 - With animations disabled, no dissolve plays and the updated listing appears at once. lgse/strata#899, lgse/strata#931
 

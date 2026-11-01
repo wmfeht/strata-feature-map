@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs]
 tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch]
 related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers, app/infrastructure]

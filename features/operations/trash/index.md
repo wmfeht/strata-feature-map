@@ -50,6 +50,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - A read-only location reads "<name>: This location is read-only.", and a full disk "<name>: Not enough space to move to Trash." lgse/strata#1614
 - Both fallbacks apply to docked deletions as well as foreground ones. lgse/strata#1533
 - A foreground operation that fails while a quick permanent delete runs leaves that delete's dissolve (`operations/delete/dissolve`) to play. lgse/strata#1539
+- When every item was deleted, "This directory is empty" stays hidden until the dissolve (`operations/delete/dissolve`) finishes. lgse/strata#910
 
 ### Deletion confirmations
 

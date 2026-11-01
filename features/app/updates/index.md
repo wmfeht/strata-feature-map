@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
 reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: draft
+review: reviewed
 code: [src/services/update_check.rs, src/ui/settings/update_status.rs]
 tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
 docs: [docs/preferences.md, docs/packaging.md]

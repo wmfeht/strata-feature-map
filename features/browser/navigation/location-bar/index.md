@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
 reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: draft
+review: reviewed
 code: []
 tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch]
 related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility, preview/quick-preview]

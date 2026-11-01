@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#189, pr: lgse/strata#203}
 branch: null
 reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: draft
+review: reviewed
 code: [src/ui/marquee.rs]
 tests: [src/ui/marquee/tests.rs, tests/qa/scenarios/marquee_scrolling]
 docs: [docs/preview-panel-layout.md]

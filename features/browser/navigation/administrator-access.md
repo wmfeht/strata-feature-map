@@ -4,8 +4,8 @@ status: shipped
 origin: {issue: lgse/strata#1836, pr: lgse/strata#1837}
 branch: null
 reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: draft
-code: []
+review: reviewed
+code: [data/icons/scalable/actions/strata-folder-lock.svg]
 tests: [src/app/browser/tests/administrator.rs]
 docs: [docs/administrator-access.md]
 related: [browser/navigation/location-bar, browser/view-modes, browser/view-modes/columns, browser/thumbnails, browser/context-menu, browser/selection/keyboard-navigation, browser/tabs/session-restore, operations/trash, operations/undo, operations/clipboard/conflicts, integration/open-with, integration/portal-file-chooser, app/accessibility, preview/quick-preview/folder-peek]

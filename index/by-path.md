@@ -33,6 +33,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `data/icons/scalable/actions/strata-chevron-down-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-cloud.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `data/icons/scalable/actions/strata-file-archive.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `data/icons/scalable/actions/strata-folder-lock.svg` | code | [Administrator access](../features/browser/navigation/administrator-access.md) | [Navigation](../features/browser/navigation/index.md) |
 | `data/icons/scalable/actions/strata-git-branch.svg` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `data/icons/scalable/actions/strata-minus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `data/icons/scalable/actions/strata-plus-symbolic.svg` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
@@ -645,8 +646,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/media/audio.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/media/diagnostics.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/ui/missing_tools.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/missing_tools/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/missing_tools.rs` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/missing_tools/tests.rs` | tests | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/modal.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
@@ -837,17 +838,17 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/composition/tenxer_splash.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/composition/tenxer_splash/tests.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/density_slider.rs` | code | [Frame and content density](../features/browser/view-modes/density.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/window/device_labels.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/window/device_labels/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/device_labels.rs` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/device_labels/tests.rs` | tests | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release.rs` | code | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release/tests.rs` | tests | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/devices.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
 | `src/ui/window/devices/tests.rs` | tests | [Devices and volumes](../features/devices/volumes/index.md) | — |
-| `src/ui/window/drive_dialogs.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/window/drive_dialogs/**` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/window/drive_dialogs/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/window/drive_ops.rs` | code | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/ui/window/drive_ops/tests.rs` | tests | [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/drive_dialogs.rs` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/drive_dialogs/**` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/drive_dialogs/tests.rs` | tests | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/drive_ops.rs` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/drive_ops/tests.rs` | tests | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/keyboard.rs` | code | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/keyboard/chooser.rs` | code | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/keyboard/chords.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |

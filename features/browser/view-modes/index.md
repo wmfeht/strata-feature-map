@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser_modes/tests/counting_model.rs, src/ui/browser/presentation/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]

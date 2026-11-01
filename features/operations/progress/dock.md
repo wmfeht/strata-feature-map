@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1360, pr: lgse/strata#1393}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/ui/notice.rs, src/app/browser/operation_events/background.rs]
 tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/ui/browser/progress/tests/minimization/**, src/app/browser/tests/background_operations.rs]
 related: [operations/delete, devices/volumes, operations/clipboard/send-to, remote/file-providers/external]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1678, pr: lgse/strata#1680}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/ui/preferences/corner_roundness.rs, src/ui/theme/roundness.rs]
 tests: [src/ui/theme/roundness/tests.rs]
 related: [settings/themes, settings/preferences]

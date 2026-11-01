@@ -6,7 +6,7 @@
 
 ### [Accessibility](../features/app/accessibility.md) `app/accessibility`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#341](https://github.com/lgse/strata/issues/341), pr [lgse/strata#415](https://github.com/lgse/strata/issues/415)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#341](https://github.com/lgse/strata/issues/341), pr [lgse/strata#415](https://github.com/lgse/strata/issues/415)
 
 App-wide accessible semantics for screen readers and AT-SPI automation. It covers the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs. It also owns the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
 
@@ -17,7 +17,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 ### [Modal dialogs](../features/app/dialogs.md) `app/dialogs`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#88](https://github.com/lgse/strata/issues/88), pr [lgse/strata#91](https://github.com/lgse/strata/issues/91)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#88](https://github.com/lgse/strata/issues/88), pr [lgse/strata#91](https://github.com/lgse/strata/issues/91)
 
 The shared shell behind Strata's action dialogs: the blurred backdrop, open and close animation, backdrop dismissal, initial focus, Enter and Escape handling, form submission, and sizing within the window. Individual dialogs supply their content and actions; this node owns what they have in common.
 
@@ -28,7 +28,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 ### [Shared location model and listing adapter](../features/app/infrastructure.md) `app/infrastructure`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#14](https://github.com/lgse/strata/issues/14), pr [lgse/strata#27](https://github.com/lgse/strata/issues/27)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#14](https://github.com/lgse/strata/issues/14), pr [lgse/strata#27](https://github.com/lgse/strata/issues/27)
 
 The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, and crate manifests. It owns the build script, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration and skills. It owns the `qa` build's in-process QA harness, the QA runner, and the pinned test image. It owns the trusted helper lookup, the syscall layer that local operations share, and the Run in terminal control that Diagnostics and Integrations share. It owns the mount-table watcher, per-mount request lanes, off-thread probes and closes, and the UI-thread checks. It owns the List and Icons pane header, shared by the sort controls and the Back history menu. It is the `fallback` node in `scopes.yaml`.
 
@@ -39,7 +39,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 ### [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) `app/keyboard-shortcuts`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1538](https://github.com/lgse/strata/issues/1538), pr [lgse/strata#1576](https://github.com/lgse/strata/issues/1576)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1538](https://github.com/lgse/strata/issues/1538), pr [lgse/strata#1576](https://github.com/lgse/strata/issues/1576)
 
 Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the label formatter and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it. Its child `app/keyboard-shortcuts/remapping` lets users rebind keys per map.
 
@@ -51,7 +51,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 
 ### [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) `app/keyboard-shortcuts/remapping`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1884](https://github.com/lgse/strata/issues/1884), pr [lgse/strata#1885](https://github.com/lgse/strata/issues/1885)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1884](https://github.com/lgse/strata/issues/1884), pr [lgse/strata#1885](https://github.com/lgse/strata/issues/1885)
 
 Lets users change, add, or remove the keys of any listed command, separately for the default map and 10xer mode. Changes are made in Settings → Keyboard or under `[keymap.*]` in `settings.toml`. A conflict checker refuses keys that would never fire or would break another key. It is for users whose desktop takes a Strata key, or who want a key for a command their map lacks.
 
@@ -62,7 +62,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 
 ### [Packaging and installation](../features/app/packaging/index.md) `app/packaging`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#49](https://github.com/lgse/strata/issues/49), pr [lgse/strata#182](https://github.com/lgse/strata/issues/182)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#49](https://github.com/lgse/strata/issues/49), pr [lgse/strata#182](https://github.com/lgse/strata/issues/182)
 
 How Strata reaches a desktop: the desktop entry and application icon that let shells recognize it, and `strata --version` for checking an install. It also owns the Nix flake that builds Strata from source. Children: `app/packaging/installer` (the `install.sh` release installer) and `app/packaging/aur` (the `strata-bin` and `strata-rc-bin` AUR packages).
 
@@ -84,7 +84,7 @@ The `strata-bin` and `strata-rc-bin` Arch packages, rendered from one `PKGBUILD.
 
 ### [Release installer](../features/app/packaging/installer.md) `app/packaging/installer`
 
-shipped · draft · reviewed at [`41070b5`](https://github.com/lgse/strata/tree/41070b59c09f21eba33918c1e99be2eb3047de7e) · ? PRs since · origin issue [lgse/strata#329](https://github.com/lgse/strata/issues/329), pr [lgse/strata#330](https://github.com/lgse/strata/issues/330)
+shipped · reviewed · reviewed at [`41070b5`](https://github.com/lgse/strata/tree/41070b59c09f21eba33918c1e99be2eb3047de7e) · ? PRs since · origin issue [lgse/strata#329](https://github.com/lgse/strata/issues/329), pr [lgse/strata#330](https://github.com/lgse/strata/issues/330)
 
 `install.sh`, a localized Bash installer for the latest stable release, installed to `~/.local/bin/strata`. It authenticates the release through its signed update manifest. It checks the system and installs every integration the system supports, or a custom selection from a menu. It runs interactively or unattended with `--with-*` and `--without-*` flags. What the "Open file location", file chooser, and udiskie unlock steps install belongs to `integration/file-manager-interface`, `integration/portal-file-chooser/setup`, and `devices/volumes/udiskie-unlock`.
 
@@ -106,7 +106,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ### [Updates](../features/app/updates/index.md) `app/updates`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#22](https://github.com/lgse/strata/issues/22)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#22](https://github.com/lgse/strata/issues/22)
 
 Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. A build made with `STRATA_UPDATER=disabled` leaves the updater out. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (signed in-place install, rollback, and restart), `app/updates/release-picker` (installing a chosen release), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
 
@@ -118,7 +118,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 
 ### [In-place update install](../features/app/updates/install.md) `app/updates/install`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#24](https://github.com/lgse/strata/issues/24), pr [lgse/strata#26](https://github.com/lgse/strata/issues/26)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#24](https://github.com/lgse/strata/issues/24), pr [lgse/strata#26](https://github.com/lgse/strata/issues/26)
 
 Downloading a release, authenticating it against a signed manifest, replacing the running executable, and restarting into it. Applies only to self-managed installs such as `~/.local/bin/strata`; package-managed installs defer to their package manager.
 
@@ -129,7 +129,7 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 
 ### [Package-managed installs](../features/app/updates/package-managed.md) `app/updates/package-managed`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#195](https://github.com/lgse/strata/issues/195), pr [lgse/strata#196](https://github.com/lgse/strata/issues/196)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#195](https://github.com/lgse/strata/issues/195), pr [lgse/strata#196](https://github.com/lgse/strata/issues/196)
 
 Update checks and actions for Strata installed by a package manager: the official AUR packages, the Omarchy Package Repository, and other pacman repositories. These installs keep notices and release notes but never replace their own binary.
 
@@ -161,7 +161,7 @@ The "Install a specific release" menu in Settings → Updates. It lists the rele
 
 ### [Window chrome and structure](../features/app/window/index.md) `app/window`
 
-shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin pr [lgse/strata#580](https://github.com/lgse/strata/issues/580)
+shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin pr [lgse/strata#580](https://github.com/lgse/strata/issues/580)
 
 The browser window's frame and skeleton: the header with its window buttons, the X11 window identity, and the composition of header, sidebar, panes, preview, and footer. Child: `app/window/key-dispatch` (the capture-phase key and Ctrl+wheel dispatch). Features plugged into the window, such as tabs, the sidebar, and 10xer mode, own their own behavior.
 
@@ -173,7 +173,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ### [Window key and wheel dispatch](../features/app/window/key-dispatch.md) `app/window/key-dispatch`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#544](https://github.com/lgse/strata/issues/544)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#544](https://github.com/lgse/strata/issues/544)
 
 The capture-phase key controller and Ctrl+wheel controller each browser window installs. The key dispatcher runs ordered stages that decide whether a dialog, menu, text field, prompt, or browser command gets a key. The wheel controller turns Ctrl+wheel into text-size steps and Ctrl+Shift+wheel into Icons thumbnail steps. The commands each stage runs belong to their own features.
 
@@ -186,7 +186,7 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 
 ### [Context menus](../features/browser/context-menu.md) `browser/context-menu`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#303](https://github.com/lgse/strata/issues/303), pr [lgse/strata#306](https://github.com/lgse/strata/issues/306)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#303](https://github.com/lgse/strata/issues/303), pr [lgse/strata#306](https://github.com/lgse/strata/issues/306)
 
 The item and background context menus in Columns, Icons, and List. This node covers opening them by pointer and keyboard, navigation, grouping, placement, and styling. The actions inside them belong to their own features.
 
@@ -197,7 +197,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 ### [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) `browser/directory-monitoring`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#137](https://github.com/lgse/strata/issues/137), pr [lgse/strata#154](https://github.com/lgse/strata/issues/154)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#137](https://github.com/lgse/strata/issues/137), pr [lgse/strata#154](https://github.com/lgse/strata/issues/154)
 
 How an open folder's listing is loaded, published to the view, and kept in step with the filesystem. Covers bounded loads, live updates from file monitors, F5, and the pane Refresh button. It also covers mounts that stop answering and how Strata's own file operations reach the listing. Child: `browser/directory-monitoring/network-checks` (checks of folders that other computers change).
 
@@ -231,7 +231,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 
 ### [Navigation](../features/browser/navigation/index.md) `browser/navigation`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#70](https://github.com/lgse/strata/issues/70), pr [lgse/strata#118](https://github.com/lgse/strata/issues/118)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#70](https://github.com/lgse/strata/issues/70), pr [lgse/strata#118](https://github.com/lgse/strata/issues/118)
 
 Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), and `browser/navigation/startup-arguments` (command-line locations). Also `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders) and `browser/navigation/administrator-access` (unreadable local folders through `admin://`). `browser/navigation/back-history` is the List and Icons Back button's menu of earlier locations. Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`.
 
@@ -243,17 +243,18 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 
 ### [Administrator access](../features/browser/navigation/administrator-access.md) `browser/navigation/administrator-access`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1836](https://github.com/lgse/strata/issues/1836), pr [lgse/strata#1837](https://github.com/lgse/strata/issues/1837)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1836](https://github.com/lgse/strata/issues/1836), pr [lgse/strata#1837](https://github.com/lgse/strata/issues/1837)
 
 Opening local folders the user can't read or enter through GVfs's `admin://` backend, after a polkit prompt, as GNOME Files does. It covers marking such folders, redirecting opens to `admin://`, offering Open as Administrator on permission errors, and silent refusals. Strata itself never runs as root.
 
+- Code: [`data/icons/scalable/actions/strata-folder-lock.svg`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/data/icons/scalable/actions/strata-folder-lock.svg)
 - Tests: [`src/app/browser/tests/administrator.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/app/browser/tests/administrator.rs)
 - Docs: [`docs/administrator-access.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/docs/administrator-access.md), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/site/src/reference/keyboard-navigation.md) (inherited)
 - Related: [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [View modes](../features/browser/view-modes/index.md), [Columns view](../features/browser/view-modes/columns.md), [Thumbnails](../features/browser/thumbnails/index.md), [Context menus](../features/browser/context-menu.md), [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md), [Tab session restore](../features/browser/tabs/session-restore.md), [Trash](../features/operations/trash/index.md), [Undo and redo](../features/operations/undo.md), [Paste name conflicts](../features/operations/clipboard/conflicts.md), [Opening files and Open With](../features/integration/open-with/index.md), [System file chooser](../features/integration/portal-file-chooser/index.md), [Accessibility](../features/app/accessibility.md), [Folder peek](../features/preview/quick-preview/folder-peek.md)
 
 ### [Back history menu](../features/browser/navigation/back-history.md) `browser/navigation/back-history`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1976](https://github.com/lgse/strata/issues/1976), pr [lgse/strata#1977](https://github.com/lgse/strata/issues/1977)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1976](https://github.com/lgse/strata/issues/1976), pr [lgse/strata#1977](https://github.com/lgse/strata/issues/1977)
 
 A menu of a tab's earlier locations, opened from the List and Icons pane-header Back button, for jumping several steps back at once. Its code lives in the shared pane-header module, `src/ui/browser/pane_header.rs`, which `app/infrastructure` owns.
 
@@ -274,7 +275,7 @@ A keyboard palette, Ctrl+Shift+K, that reopens folders previously visited in Str
 
 ### [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) `browser/navigation/location-bar`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#149](https://github.com/lgse/strata/issues/149), pr [lgse/strata#242](https://github.com/lgse/strata/issues/242)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#149](https://github.com/lgse/strata/issues/149), pr [lgse/strata#242](https://github.com/lgse/strata/issues/242)
 
 The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, revealing a typed file, and the breadcrumb hierarchy menu. Child: `browser/navigation/location-bar/completion` (the folder suggestions under the entry).
 
@@ -285,7 +286,7 @@ The header control that shows the active location as breadcrumbs and switches to
 
 ### [Location path completion](../features/browser/navigation/location-bar/completion.md) `browser/navigation/location-bar/completion`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin pr [lgse/strata#388](https://github.com/lgse/strata/issues/388)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin pr [lgse/strata#388](https://github.com/lgse/strata/issues/388)
 
 The folder suggestions shown under the location entry while a path is typed. They are picked with the keyboard and completed with Tab, and a worker lists them so a slow mount does not block typing.
 
@@ -317,7 +318,7 @@ Opening the paths and URIs given to `strata` on the command line, for example fr
 
 ### [Properties dialog](../features/browser/properties/index.md) `browser/properties`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#71](https://github.com/lgse/strata/issues/71), pr [lgse/strata#243](https://github.com/lgse/strata/issues/243)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#71](https://github.com/lgse/strata/issues/71), pr [lgse/strata#243](https://github.com/lgse/strata/issues/243)
 
 The modal Properties dialog for one file, one folder, or the current folder: location, size, modification date, default application, hidden and pinned state, editable permissions, and Open, Rename, Pin, and Copy path actions. Children: `browser/properties/size` (folder and selection sizes and counts), `browser/properties/media` (audio, video, and image details), and `browser/properties/raw-metadata` (camera RAW details).
 
@@ -328,7 +329,7 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 
 ### [Media details in Properties](../features/browser/properties/media.md) `browser/properties/media`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#979](https://github.com/lgse/strata/issues/979), pr [lgse/strata#984](https://github.com/lgse/strata/issues/984)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#979](https://github.com/lgse/strata/issues/979), pr [lgse/strata#984](https://github.com/lgse/strata/issues/984)
 
 Source-media details for a single local image, audio, or video file in Properties: resolution, duration, bitrate, codecs, frame rate, sample rate, channels, HDR format, subtitles, and chapters. Camera RAW files get `browser/properties/raw-metadata` instead.
 
@@ -393,7 +394,7 @@ User-defined folder names and directory paths that Ctrl+K global search skips wh
 
 ### [Pane filter](../features/browser/search/filter/index.md) `browser/search/filter`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#277](https://github.com/lgse/strata/issues/277), pr [lgse/strata#275](https://github.com/lgse/strata/issues/275)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#277](https://github.com/lgse/strata/issues/277), pr [lgse/strata#275](https://github.com/lgse/strata/issues/275)
 
 The Ctrl+F filter narrows the focused pane by filename, in the current folder and, by default, its subfolders. It works in Columns, Icons, and List, and its results support the normal item actions. Child: `browser/search/filter/enter-target` (the outlined result Enter opens).
 
@@ -416,7 +417,7 @@ While the Ctrl+F filter field has focus, the result Enter would open is outlined
 
 ### [Selection](../features/browser/selection/index.md) `browser/selection`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#521](https://github.com/lgse/strata/issues/521), pr [lgse/strata#526](https://github.com/lgse/strata/issues/526)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#521](https://github.com/lgse/strata/issues/521), pr [lgse/strata#526](https://github.com/lgse/strata/issues/526)
 
 Which entries are selected in Columns, Icons, and List, and how clicks, modifier clicks, Shift keys, Escape, and empty-space clicks change that. Also covers what a middle click on a row opens. Children: `browser/selection/marquee` (rubber-band selection), `browser/selection/pointer-intent` (press-and-drag routing), `browser/selection/click-modes` (single- or double-click opening), and `browser/selection/keyboard-navigation` (arrow focus movement). Columns-specific empty-space clicks belong to `browser/view-modes/columns`.
 
@@ -438,7 +439,7 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 
 ### [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) `browser/selection/keyboard-navigation`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
 
 Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file list, pane header, sidebar, and top bar in the default key map, and between controls in modal dialogs. Arrows move between interface regions rather than changing directories. Also covers the keyboard cursor outline and when a listing may take focus.
 
@@ -449,7 +450,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 
 ### [Marquee selection](../features/browser/selection/marquee.md) `browser/selection/marquee`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#189](https://github.com/lgse/strata/issues/189), pr [lgse/strata#203](https://github.com/lgse/strata/issues/203)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#189](https://github.com/lgse/strata/issues/189), pr [lgse/strata#203](https://github.com/lgse/strata/issues/203)
 
 Rubber-band selection: dragging from blank space draws a band and selects every entry it crosses, in Columns, Icons, and List. The drag may start in the pane or on inert chrome beside it, and auto-scrolls long listings.
 
@@ -471,7 +472,7 @@ How a press on an entry is read in Columns, Icons, and List: as a click, a file 
 
 ### [Sidebar](../features/browser/sidebar/index.md) `browser/sidebar`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#104](https://github.com/lgse/strata/issues/104), pr [lgse/strata#106](https://github.com/lgse/strata/issues/106)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#104](https://github.com/lgse/strata/issues/104), pr [lgse/strata#106](https://github.com/lgse/strata/issues/106)
 
 The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. PINNED and DEVICES collapse from their headings. Users reorder and hide places and open them in new tabs. They reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders in the GTK bookmarks file, with drag-to-pin as its child) and `browser/sidebar/rail` (full, icon rail, or hidden). A third child, `browser/sidebar/connect-to-server`, is the Network row's Connect to server dialog. Which devices DEVICES lists, and when, belongs to `devices/volumes`.
 
@@ -494,7 +495,7 @@ A dialog opened from the sidebar Network row's menu that connects to a share or 
 
 ### [Pinned folders](../features/browser/sidebar/pins/index.md) `browser/sidebar/pins`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin pr [lgse/strata#67](https://github.com/lgse/strata/issues/67)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin pr [lgse/strata#67](https://github.com/lgse/strata/issues/67)
 
 The PINNED section of the sidebar: folders the user pins. They are stored in GTK's shared bookmarks file, `$XDG_CONFIG_HOME/gtk-3.0/bookmarks`, which Nautilus and GTK file choosers also read. Folders are pinned from the item menu, Properties, or the `p` key. Child: `browser/sidebar/pins/drag-to-pin` (dragging folders into gaps in PINNED).
 
@@ -528,7 +529,7 @@ The header toggle and Ctrl+B that step a browser window's sidebar between full, 
 
 ### [Browser tabs](../features/browser/tabs/index.md) `browser/tabs`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#108](https://github.com/lgse/strata/issues/108), pr [lgse/strata#1484](https://github.com/lgse/strata/issues/1484)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#108](https://github.com/lgse/strata/issues/108), pr [lgse/strata#1484](https://github.com/lgse/strata/issues/1484)
 
 Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, reopen, and move tabs. The window title follows the active tab. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Sidebar locations and folder-only drags open new tabs when dropped on the strip or the New tab button. Files dropped on a tab transfer into that tab's directory, and browser content dropped there is saved into it. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
 
@@ -540,7 +541,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 
 ### [Tab session restore](../features/browser/tabs/session-restore.md) `browser/tabs/session-restore`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1531](https://github.com/lgse/strata/issues/1531), pr [lgse/strata#1532](https://github.com/lgse/strata/issues/1532)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1531](https://github.com/lgse/strata/issues/1531), pr [lgse/strata#1532](https://github.com/lgse/strata/issues/1532)
 
 A plain launch reopens the previous session's tab locations in strip order, with the previously active tab selected. It is for users who keep a working set of folders open across restarts. Settings → General → Startup → Restore open tabs turns it off.
 
@@ -551,7 +552,7 @@ A plain launch reopens the previous session's tab locations in strip order, with
 
 ### [Thumbnails](../features/browser/thumbnails/index.md) `browser/thumbnails`
 
-shipped · draft · reviewed at [`41070b5`](https://github.com/lgse/strata/tree/41070b59c09f21eba33918c1e99be2eb3047de7e) · ? PRs since · origin issue [lgse/strata#41](https://github.com/lgse/strata/issues/41), pr [lgse/strata#43](https://github.com/lgse/strata/issues/43)
+shipped · reviewed · reviewed at [`41070b5`](https://github.com/lgse/strata/tree/41070b59c09f21eba33918c1e99be2eb3047de7e) · ? PRs since · origin issue [lgse/strata#41](https://github.com/lgse/strata/issues/41), pr [lgse/strata#43](https://github.com/lgse/strata/issues/43)
 
 Image previews in place of file icons in Columns, List, Icons, folder peeks, and search results. Every decode runs in the sandbox, visible rows first. Children: `browser/thumbnails/cache` (the freedesktop disk cache) and `browser/thumbnails/workers` (the sandbox worker pool and its Thumbnail workers setting). Camera photo thumbnails belong to `devices/volumes/camera`.
 
@@ -574,7 +575,7 @@ Persisting rendered thumbnails in the freedesktop shared cache, `$XDG_CACHE_HOME
 
 ### [Thumbnail workers](../features/browser/thumbnails/workers.md) `browser/thumbnails/workers`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#516](https://github.com/lgse/strata/issues/516), pr [lgse/strata#1081](https://github.com/lgse/strata/issues/1081)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#516](https://github.com/lgse/strata/issues/516), pr [lgse/strata#1081](https://github.com/lgse/strata/issues/1081)
 
 The process-wide pool of reusable sandboxed decoders that renders browser thumbnails and media details, and the Thumbnail workers setting that sizes it. Columns, List, and Icons in every window share the pool.
 
@@ -585,7 +586,7 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 
 ### [View modes](../features/browser/view-modes/index.md) `browser/view-modes`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#383](https://github.com/lgse/strata/issues/383)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#383](https://github.com/lgse/strata/issues/383)
 
 The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/density` covers the Frame and Content density sliders. `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
 
@@ -597,7 +598,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 ### [Columns view](../features/browser/view-modes/columns.md) `browser/view-modes/columns`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#140](https://github.com/lgse/strata/issues/140), pr [lgse/strata#171](https://github.com/lgse/strata/issues/171)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#140](https://github.com/lgse/strata/issues/140), pr [lgse/strata#171](https://github.com/lgse/strata/issues/171)
 
 Miller columns, the default view: each opened folder appends a column to a horizontally scrolling strip, so the path from the first folder to the current one stays visible.
 
@@ -608,7 +609,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 ### [Frame and content density](../features/browser/view-modes/density.md) `browser/view-modes/density`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1774](https://github.com/lgse/strata/issues/1774), pr [lgse/strata#1776](https://github.com/lgse/strata/issues/1776)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1774](https://github.com/lgse/strata/issues/1774), pr [lgse/strata#1776](https://github.com/lgse/strata/issues/1776)
 
 Two spacing settings in the Appearance menu's DENSITY section. Frame is the vertical inset of the window's bars, and Content the spacing of rows and Icons cards. Each is a px slider with Compact and Airy snap points.
 
@@ -641,7 +642,7 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 
 ### [List view](../features/browser/view-modes/list/index.md) `browser/view-modes/list`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#188](https://github.com/lgse/strata/issues/188), pr [lgse/strata#191](https://github.com/lgse/strata/issues/191)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#188](https://github.com/lgse/strata/issues/188), pr [lgse/strata#191](https://github.com/lgse/strata/issues/191)
 
 A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer. Child: `browser/view-modes/list/column-layout` (column order and visibility). Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
 
@@ -653,7 +654,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 ### [List column order and visibility](../features/browser/view-modes/list/column-layout.md) `browser/view-modes/list/column-layout`
 
-shipped · draft · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1597](https://github.com/lgse/strata/issues/1597), pr [lgse/strata#1651](https://github.com/lgse/strata/issues/1651)
+shipped · reviewed · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1597](https://github.com/lgse/strata/issues/1597), pr [lgse/strata#1651](https://github.com/lgse/strata/issues/1651)
 
 Choosing which List columns show and in what order, for narrow windows where Mode and Type squeeze Name. Headings reorder by dragging, and a Columns popover toggles visibility. The choice is shared by every browser window and the portal file chooser, and never changes the sort.
 
@@ -664,7 +665,7 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 
 ### [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) `browser/view-modes/position-restore`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#868](https://github.com/lgse/strata/issues/868), pr [lgse/strata#893](https://github.com/lgse/strata/issues/893)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#868](https://github.com/lgse/strata/issues/868), pr [lgse/strata#893](https://github.com/lgse/strata/issues/893)
 
 Icons and List remember each folder's selection, cursor, and scroll position, and restore them on return and through a refresh. It is for users moving through long folders who expect to continue from where they left off. Columns' came-from selection belongs to `browser/view-modes/columns`.
 
@@ -697,7 +698,7 @@ An app-wide interface text size in logical pixels, set in Settings, in the Appea
 
 ### [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) `browser/view-modes/thumbnail-size`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1720](https://github.com/lgse/strata/issues/1720), pr [lgse/strata#1721](https://github.com/lgse/strata/issues/1721)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1720](https://github.com/lgse/strata/issues/1720), pr [lgse/strata#1721](https://github.com/lgse/strata/issues/1721)
 
 Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed ladder of sizes, and reset it. They are for users who resize thumbnails more often than the interface text. The slider they move belongs to `browser/view-modes/icons`, and per-folder sizes to `browser/view-modes/folder-views`.
 
@@ -710,14 +711,14 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 
 ### [Devices and volumes](../features/devices/volumes/index.md) `devices/volumes`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#441](https://github.com/lgse/strata/issues/441), pr [lgse/strata#493](https://github.com/lgse/strata/issues/493)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#441](https://github.com/lgse/strata/issues/441), pr [lgse/strata#493](https://github.com/lgse/strata/issues/493)
 
 Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. It also supplies the removable destinations Send to… offers and the drive roots Ctrl+K searches. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
 
 - Code: [`src/ui/window/devices.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/ui/window/devices.rs)
 - Tests: [`src/ui/window/devices/tests.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/ui/window/devices/tests.rs)
 - Related: [Sidebar](../features/browser/sidebar/index.md), [Search](../features/browser/search/index.md), [Send to removable devices](../features/operations/clipboard/send-to.md), [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md)
-- Children: [Camera photos](../features/devices/volumes/camera.md), [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md), [Encrypted volumes](../features/devices/volumes/encrypted.md), [Unmount and eject](../features/devices/volumes/release.md), [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md)
+- Children: [Camera photos](../features/devices/volumes/camera.md), [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md), [Encrypted volumes](../features/devices/volumes/encrypted.md), [Unmount and eject](../features/devices/volumes/release.md), [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md)
 
 ### [Camera photos](../features/devices/volumes/camera.md) `devices/volumes/camera`
 
@@ -730,9 +731,9 @@ Opening a phone or camera's gphoto2 entry in Devices as one flat, progressive Ph
 - Docs: [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/site/src/reference/preview-sandbox.md)
 - Related: [Preview panel](../features/preview/preview-panel/index.md), [Thumbnails](../features/browser/thumbnails/index.md), [View modes](../features/browser/view-modes/index.md)
 
-### [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md) `devices/volumes/drive-dialogs`
+### [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) `devices/volumes/drive-dialogs`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1293](https://github.com/lgse/strata/issues/1293), pr [lgse/strata#1331](https://github.com/lgse/strata/issues/1331)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1293](https://github.com/lgse/strata/issues/1293), pr [lgse/strata#1331](https://github.com/lgse/strata/issues/1331)
 
 Dialogs opened from a device row's menu: Properties for any listed storage, Set label… for a Strata-only display name, and Format… for removable drives. It also decides when the row menu offers Mount. Formatting asks twice and names the exact target before erasing anything. Its drive operations also close a LUKS container through UDisks when Lock has no stoppable drive.
 
@@ -742,13 +743,13 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 ### [Encrypted volumes](../features/devices/volumes/encrypted.md) `devices/volumes/encrypted`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin pr [lgse/strata#935](https://github.com/lgse/strata/issues/935)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin pr [lgse/strata#935](https://github.com/lgse/strata/issues/935)
 
 Unlocking and locking LUKS volumes from their Devices rows with Strata's themed passphrase prompt, and forgetting a saved passphrase when locking. For users who keep encrypted USB drives or partitions.
 
 - Code: [`src/ui/window/volume_password.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/ui/window/volume_password.rs)
 - Tests: [`src/ui/window/volume_password/tests.rs`](https://github.com/lgse/strata/blob/965bd7ec74400734dbd0a5311ceefa05bea8dd63/src/ui/window/volume_password/tests.rs)
-- Related: [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md), [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md), [Accessibility](../features/app/accessibility.md)
+- Related: [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md), [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md), [Accessibility](../features/app/accessibility.md)
 
 ### [Unmount and eject](../features/devices/volumes/release.md) `devices/volumes/release`
 
@@ -763,7 +764,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 ### [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) `devices/volumes/udiskie-unlock`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#537](https://github.com/lgse/strata/issues/537), pr [lgse/strata#1047](https://github.com/lgse/strata/issues/1047)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#537](https://github.com/lgse/strata/issues/537), pr [lgse/strata#1047](https://github.com/lgse/strata/issues/1047)
 
 An integration that makes udiskie open Strata's passphrase prompt when an encrypted drive is plugged in, instead of udiskie's own dialog. Aimed at Omarchy, where udiskie is the automounter. It adds `--udiskie-hook`, `--unlock-volume`, install and uninstall flags, and a Settings row. The installer step is on `app/packaging/installer`; since lgse/strata#1825 it is on by default on an Arch-based system with `udiskie` on `PATH`.
 
@@ -799,7 +800,7 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 
 ### [10xer file commands](../features/integration/10xer-mode/file-verbs.md) `integration/10xer-mode/file-verbs`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1251](https://github.com/lgse/strata/issues/1251), pr [lgse/strata#1306](https://github.com/lgse/strata/issues/1306)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1251](https://github.com/lgse/strata/issues/1251), pr [lgse/strata#1306](https://github.com/lgse/strata/issues/1306)
 
 Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename, move, copy, restore, sort, hidden files, Open With, custom actions, and archive commands. They act on the focused pane's filled selection, or its cursor item when nothing is filled. This node also runs the default map's Custom action slot keys, which `app/keyboard-shortcuts/remapping` dispatches.
 
@@ -810,7 +811,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 ### [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) `integration/10xer-mode/places`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1243](https://github.com/lgse/strata/issues/1243), pr [lgse/strata#1296](https://github.com/lgse/strata/issues/1296)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1243](https://github.com/lgse/strata/issues/1243), pr [lgse/strata#1296](https://github.com/lgse/strata/issues/1296)
 
 Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go ›` path prompt, `z` / `Z` history jumps, and the shared fuzzy folder picker that `go ›`, `move to ›`, `copy to ›`, and `extract to ›` use.
 
@@ -843,7 +844,7 @@ The three footer name prompts of 10xer mode: `/` and `?` find in the listing wit
 
 ### [Custom actions](../features/integration/custom-actions.md) `integration/custom-actions`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#36](https://github.com/lgse/strata/issues/36), pr [lgse/strata#1085](https://github.com/lgse/strata/issues/1085)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#36](https://github.com/lgse/strata/issues/36), pr [lgse/strata#1085](https://github.com/lgse/strata/issues/1085)
 
 User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs; `operations/progress/jobs` owns how an invocation is launched and what it receives. `browser/context-menu` places the actions section in the menus. In 10xer mode, `;` then a digit runs the first ten matching actions (`integration/10xer-mode`). In the default map, a key bound to a Custom action slot in Settings → Keyboard runs an action by its place in the list (`app/keyboard-shortcuts/remapping`).
 
@@ -877,7 +878,7 @@ A Strata that D-Bus activated for FileManager1 runs with `no-portals` added to `
 
 ### [Opening files and Open With](../features/integration/open-with/index.md) `integration/open-with`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#174](https://github.com/lgse/strata/issues/174), pr [lgse/strata#421](https://github.com/lgse/strata/issues/421)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#174](https://github.com/lgse/strata/issues/174), pr [lgse/strata#421](https://github.com/lgse/strata/issues/421)
 
 Opening files in their default application, choosing another application from the Open With chooser, setting a new default, and running executable files. Children: `integration/open-with/recent-apps` (the chooser's Recently Used section) and `integration/open-with/terminal` (Open in Terminal). The menus that offer these commands belong to `browser/context-menu`.
 
@@ -909,7 +910,7 @@ Opening the user's terminal emulator in a local folder from the context menus or
 
 ### [System file chooser](../features/integration/portal-file-chooser/index.md) `integration/portal-file-chooser`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
 
 Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files dialogs for portal-aware applications, drawn with Strata's sidebar, views, filters, and previews. The same chooser window also serves Strata's own Move to, Copy to, Extract to, and Send to destinations. Children: `integration/portal-file-chooser/setup` (enabling and restoring the integration), `integration/portal-file-chooser/url-download` (Name field filenames and URLs), `integration/portal-file-chooser/image-conversion` (PNG conversion of downloads), and `integration/portal-file-chooser/window-placement` (initial size and centering).
 
@@ -932,7 +933,7 @@ An opt-in conversion to PNG for images downloaded through the chooser's Name fie
 
 ### [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) `integration/portal-file-chooser/setup`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#120](https://github.com/lgse/strata/issues/120), pr [lgse/strata#175](https://github.com/lgse/strata/issues/175)
 
 Making Strata the per-user FileChooser portal backend and default file manager, and restoring the previous setup. It runs from the `--install-portal` and `--uninstall-portal` commands, the installer, and the Settings → General "System file manager" row, which also sets Omarchy shortcuts. A `STRATA_INTEGRATIONS=package` build leaves the portal and FileManager1 files to the package and refuses each command.
 
@@ -1011,7 +1012,7 @@ Extraction-only support for `.rar` archives through UnRAR, run in a sandboxed he
 
 ### [Copy, cut, and paste](../features/operations/clipboard/index.md) `operations/clipboard`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#287](https://github.com/lgse/strata/issues/287), pr [lgse/strata#289](https://github.com/lgse/strata/issues/289)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#287](https://github.com/lgse/strata/issues/287), pr [lgse/strata#289](https://github.com/lgse/strata/issues/289)
 
 Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…. The copy engine, placement, and name rules behind them belong to `operations/filesystem-compatibility`. It also covers copying paths, names, and pasted images, and the cross-device "Copy or move?" drop prompt. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
 
@@ -1023,7 +1024,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### [Paste name conflicts](../features/operations/clipboard/conflicts.md) `operations/clipboard/conflicts`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#7](https://github.com/lgse/strata/issues/7), pr [lgse/strata#25](https://github.com/lgse/strata/issues/25)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#7](https://github.com/lgse/strata/issues/7), pr [lgse/strata#25](https://github.com/lgse/strata/issues/25)
 
 The "File already exists" dialog shown when a paste, Move to…, Copy to…, or move undo meets a taken name. It covers the Replace, Keep Both, Merge, and Skip transfers behind the dialog and their undo.
 
@@ -1034,7 +1035,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 
 ### [Send to removable devices](../features/operations/clipboard/send-to.md) `operations/clipboard/send-to`
 
-shipped · draft · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1153](https://github.com/lgse/strata/issues/1153), pr [lgse/strata#1278](https://github.com/lgse/strata/issues/1278)
+shipped · reviewed · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1153](https://github.com/lgse/strata/issues/1153), pr [lgse/strata#1278](https://github.com/lgse/strata/issues/1278)
 
 A Send to… submenu in the item menu that copies the selection to a mounted removable device without leaving the current folder. It is for people who copy to USB drives often. File providers can also place destinations in it (`remote/file-providers/external`).
 
@@ -1045,7 +1046,7 @@ A Send to… submenu in the item menu that copies the selection to a mounted rem
 
 ### [New Folder and New File](../features/operations/create.md) `operations/create`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#4](https://github.com/lgse/strata/issues/4)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#4](https://github.com/lgse/strata/issues/4)
 
 Creating an empty file or folder in the current directory from the background menu or Ctrl+Shift+N, then naming it in place. It also covers New Folder with Selection, which groups selected items into a new folder. The file chooser's header button reuses this flow, and the 10xer footer create prompt reuses the creation operation; both are described in their own nodes.
 
@@ -1056,7 +1057,7 @@ Creating an empty file or folder in the current directory from the background me
 
 ### [Permanent deletion](../features/operations/delete/index.md) `operations/delete`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#163](https://github.com/lgse/strata/issues/163), pr [lgse/strata#164](https://github.com/lgse/strata/issues/164)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#163](https://github.com/lgse/strata/issues/163), pr [lgse/strata#164](https://github.com/lgse/strata/issues/164)
 
 Deleting files and folders without Trash, from Shift+Delete or the item menu's "Permanently delete", after a confirmation. Local trees are deleted descriptor-relative and in parallel. The confirmation dialog, its wording by location, and the no-Trash fallback are built in Trash's module (`operations/trash`); the menu items are `browser/context-menu`'s. Child: `operations/delete/dissolve` (the rows' dissolve after a successful delete).
 
@@ -1067,17 +1068,17 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 
 ### [Permanent-delete dissolve animation](../features/operations/delete/dissolve.md) `operations/delete/dissolve`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#626](https://github.com/lgse/strata/issues/626)
+shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#626](https://github.com/lgse/strata/issues/626)
 
 After a successful permanent delete, the deleted rows break into fragments that scatter and fade over the file view. It plays only for a delete that finishes before its progress card appears, so a slow delete never locks the window.
 
-- Code: [`src/ui/browser/dissolve_delete.rs`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/src/ui/browser/dissolve_delete.rs)
-- Tests: [`tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl`](https://github.com/lgse/strata/blob/44bfeab305cfb68993bafcf4794fe0bbf7ff1433/tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl)
-- Related: [Trash flight animation](../features/operations/trash/animation.md), [Progress dock](../features/operations/progress/dock.md)
+- Code: [`src/ui/browser/dissolve_delete.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/ui/browser/dissolve_delete.rs)
+- Tests: [`tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl)
+- Related: [Trash flight animation](../features/operations/trash/animation.md), [Progress dock](../features/operations/progress/dock.md), [Operation progress and cancellation](../features/operations/progress/index.md), [Trash](../features/operations/trash/index.md)
 
 ### [Drag and drop](../features/operations/drag-and-drop/index.md) `operations/drag-and-drop`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#285](https://github.com/lgse/strata/issues/285), pr [lgse/strata#350](https://github.com/lgse/strata/issues/350)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#285](https://github.com/lgse/strata/issues/285), pr [lgse/strata#350](https://github.com/lgse/strata/issues/350)
 
 Moving and copying files by dragging them onto folders, pane backgrounds, sidebar places, and breadcrumbs, within and between windows and to or from other applications. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices), `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags), and `operations/drag-and-drop/content-drops` (saving dropped images, text, and web links as new files).
 
@@ -1098,7 +1099,7 @@ Edge autoscrolling while a file drag is held over Columns view, so off-screen co
 
 ### [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) `operations/drag-and-drop/content-drops`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1545](https://github.com/lgse/strata/issues/1545), pr [lgse/strata#1547](https://github.com/lgse/strata/issues/1547)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1545](https://github.com/lgse/strata/issues/1545), pr [lgse/strata#1547](https://github.com/lgse/strata/issues/1547)
 
 Saving an image, selected text, or a web address dragged from another application as a new file. The file goes in the local folder that takes the drop. It works on folder rows, pane backgrounds, breadcrumbs, sidebar folders, and tabs, in every view. Files dragged from another application still transfer through the parent's path.
 
@@ -1120,7 +1121,7 @@ How a drop chooses between copying and moving. Plain drops on the same filesyste
 
 ### [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) `operations/filesystem-compatibility`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1590](https://github.com/lgse/strata/issues/1590), pr [lgse/strata#1615](https://github.com/lgse/strata/issues/1615)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1590](https://github.com/lgse/strata/issues/1590), pr [lgse/strata#1615](https://github.com/lgse/strata/issues/1615)
 
 The no-clobber placement routine, the native copy engine, the identity rule, and the name rules behind every local file operation. They cover move, copy, Replace, Merge, restore, rename, undo, and archive publish. They keep these working on NFS, SMB, FUSE, FAT, exFAT, NTFS, and case-insensitive mounts. Every changed name and left-out item is reported. Children: `operations/filesystem-compatibility/open-files` (releasing open files before a change) and `operations/filesystem-compatibility/leftovers` (what a crash or unplug leaves).
 
@@ -1161,12 +1162,12 @@ The progress and cancellation UI shared by file operations: the blocking progres
 - Code: [`src/ui/browser/progress.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/ui/browser/progress.rs), [`src/ui/browser/progress/context.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/ui/browser/progress/context.rs), [`src/ui/browser/progress/presentation.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/ui/browser/progress/presentation.rs), [`src/adapters/local_operations/progress.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/adapters/local_operations/progress.rs)
 - Tests: [`src/ui/browser/progress/tests.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/ui/browser/progress/tests.rs), [`src/app/browser/operation_events/tests.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/app/browser/operation_events/tests.rs), [`src/adapters/local_operations/tests/progress.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/adapters/local_operations/tests/progress.rs), [`src/adapters/local_operations/tests/sync.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/adapters/local_operations/tests/sync.rs)
 - Docs: [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/site/src/reference/keyboard-navigation.md)
-- Related: [Copy, cut, and paste](../features/operations/clipboard/index.md), [Permanent deletion](../features/operations/delete/index.md), [Archives](../features/operations/archives/index.md), [Trash flight animation](../features/operations/trash/animation.md), [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md)
+- Related: [Copy, cut, and paste](../features/operations/clipboard/index.md), [Permanent deletion](../features/operations/delete/index.md), [Permanent-delete dissolve animation](../features/operations/delete/dissolve.md), [Archives](../features/operations/archives/index.md), [Trash flight animation](../features/operations/trash/animation.md), [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md)
 - Children: [Progress dock](../features/operations/progress/dock.md), [Job queue and Jobs dashboard](../features/operations/progress/jobs.md)
 
 ### [Progress dock](../features/operations/progress/dock.md) `operations/progress/dock`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1360](https://github.com/lgse/strata/issues/1360), pr [lgse/strata#1393](https://github.com/lgse/strata/issues/1393)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1360](https://github.com/lgse/strata/issues/1360), pr [lgse/strata#1393](https://github.com/lgse/strata/issues/1393)
 
 Non-blocking progress cards in the bottom-right corner of the window for copy, compression, and deletion, so browsing continues while they run. Each card cancels only its own operation and becomes a completion notification that closes itself. The dock also shows brief notices, such as a fast Send to success or a file provider's result.
 
@@ -1188,7 +1189,7 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 
 ### [Inline rename](../features/operations/rename/index.md) `operations/rename`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#115](https://github.com/lgse/strata/issues/115)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#115](https://github.com/lgse/strata/issues/115)
 
 Renaming one file or folder in place, in Columns, List, and Icons, from the keyboard, a menu, or a slow second click. Covers the editor's validation, how it commits or cancels, Tab to the next item, Undo, and keeping the edited and renamed row inside the viewport. Child: `operations/rename/typed-paths` (a relative path typed as the name moves the item).
 
@@ -1200,7 +1201,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ### [Typed path names](../features/operations/rename/typed-paths.md) `operations/rename/typed-paths`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1511](https://github.com/lgse/strata/issues/1511), pr [lgse/strata#1512](https://github.com/lgse/strata/issues/1512)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1511](https://github.com/lgse/strata/issues/1511), pr [lgse/strata#1512](https://github.com/lgse/strata/issues/1512)
 
 Naming an item in a local folder with a path relative to its folder. It applies in the inline rename editor and to the first name of a New File or New Folder. The path moves the item, making the folders it names. The 10xer `rename ›` prompt takes the same paths; `integration/10xer-mode/file-verbs` describes it.
 
@@ -1267,7 +1268,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 ### [Undo and redo](../features/operations/undo.md) `operations/undo`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#298](https://github.com/lgse/strata/issues/298), pr [lgse/strata#301](https://github.com/lgse/strata/issues/301)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#298](https://github.com/lgse/strata/issues/298), pr [lgse/strata#301](https://github.com/lgse/strata/issues/301)
 
 One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node.
 
@@ -1278,7 +1279,7 @@ One undo history and one redo history for file operations, shared by every Strat
 
 ### [Preview panel](../features/preview/preview-panel/index.md) `preview/preview-panel`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#17](https://github.com/lgse/strata/issues/17)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin pr [lgse/strata#17](https://github.com/lgse/strata/issues/17)
 
 The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header holding the Rendered/Source switch, Find, Open, Wrap, and Close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/pdf` (PDF text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
 
@@ -1290,7 +1291,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 ### [Rendered document previews](../features/preview/preview-panel/documents/index.md) `preview/preview-panel/documents`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#89](https://github.com/lgse/strata/issues/89), pr [lgse/strata#187](https://github.com/lgse/strata/issues/187)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#89](https://github.com/lgse/strata/issues/89), pr [lgse/strata#187](https://github.com/lgse/strata/issues/187)
 
 Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX, ODS, DOCX, ODT, and OTT files in the preview panel. Text formats switch between Rendered and Source; nothing uses a web engine or runs document scripts. Children: `preview/preview-panel/documents/odt` (OpenDocument text and templates) and `preview/preview-panel/documents/scrollbar` (the document-position scrollbar).
 
@@ -1324,7 +1325,7 @@ The vertical scrollbar of rendered documents and large plain-text Source preview
 
 ### [Find in preview](../features/preview/preview-panel/find.md) `preview/preview-panel/find`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1558](https://github.com/lgse/strata/issues/1558), pr [lgse/strata#1559](https://github.com/lgse/strata/issues/1559)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1558](https://github.com/lgse/strata/issues/1558), pr [lgse/strata#1559](https://github.com/lgse/strata/issues/1559)
 
 A find bar below the preview header that searches the text loaded in the open preview. It serves source, plain-text, and rendered document previews, and never filters the file listing.
 
@@ -1357,7 +1358,7 @@ How the preview panel shares the window with the file views: its width, the rese
 
 ### [Media playback](../features/preview/preview-panel/media/index.md) `preview/preview-panel/media`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#824](https://github.com/lgse/strata/issues/824), pr [lgse/strata#839](https://github.com/lgse/strata/issues/839)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#824](https://github.com/lgse/strata/issues/824), pr [lgse/strata#839](https://github.com/lgse/strata/issues/839)
 
 The player behind audio, video, and animated GIF previews. FFmpeg decodes the original inside bubblewrap and streams validated RGBA frames and PCM to Strata, which presents them with GTK and GStreamer. Children: `preview/preview-panel/media/audio` (now-playing audio view) and `preview/preview-panel/media/video` (now-playing video view).
 
@@ -1402,7 +1403,7 @@ Sandboxed previews of local STL, 3MF, and FreeCAD models in the drawer and Quick
 
 ### [PDF text selection](../features/preview/preview-panel/pdf.md) `preview/preview-panel/pdf`
 
-shipped · draft · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1220](https://github.com/lgse/strata/issues/1220), pr [lgse/strata#1223](https://github.com/lgse/strata/issues/1223)
+shipped · reviewed · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1220](https://github.com/lgse/strata/issues/1220), pr [lgse/strata#1223](https://github.com/lgse/strata/issues/1223)
 
 A text layer over rendered PDF pages, so text can be selected and copied from a PDF preview without opening a PDF viewer. The sandboxed renderer returns each page's glyph layout with its image; the drawer draws the selection and builds the copied text. Page rendering, zoom, and password handling stay on `preview/preview-panel`.
 
@@ -1424,7 +1425,7 @@ Offline previews of GPS activity and route files (GPX, FIT, and KML) in the draw
 
 ### [Preview sandbox](../features/preview/preview-panel/sandbox.md) `preview/preview-panel/sandbox`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#6](https://github.com/lgse/strata/issues/6), pr [lgse/strata#17](https://github.com/lgse/strata/issues/17)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#6](https://github.com/lgse/strata/issues/6), pr [lgse/strata#17](https://github.com/lgse/strata/issues/17)
 
 The bubblewrap boundary that keeps native parsing of browsed files out of the Strata process. Image, RAW, PDF, SVG, and document-media renders run in resource-limited helpers that return only validated, bounded PNG or metadata.
 
@@ -1435,7 +1436,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 ### [Quick preview](../features/preview/quick-preview/index.md) `preview/quick-preview`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin pr [lgse/strata#135](https://github.com/lgse/strata/issues/135)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin pr [lgse/strata#135](https://github.com/lgse/strata/issues/135)
 
 Opening, closing, and retargeting the file preview from the listing: Space, the Quick preview menu item, single-click previews, and selection following. It also covers default-keymap key ownership while a preview is open, and the key map shared by focused audio and video timelines. 10xer preview keys belong to `integration/10xer-mode/preview-keys`. The drawer's layout and renderers belong to `preview/preview-panel`. Child: `preview/quick-preview/folder-peek` (the hover popover listing a folder's contents).
 
@@ -1447,7 +1448,7 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 
 ### [Folder peek](../features/preview/quick-preview/folder-peek.md) `preview/quick-preview/folder-peek`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#132](https://github.com/lgse/strata/issues/132)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#132](https://github.com/lgse/strata/issues/132)
 
 A transient popover that lists up to 8 entries of a folder when the pointer rests on it in Icons or List. It is controlled by Settings → General → Browsing → Folder peeking, which is off by default.
 
@@ -1468,7 +1469,7 @@ How files that do not live on a local disk reach Strata. This node groups two se
 
 ### [External file providers](../features/remote/file-providers/external.md) `remote/file-providers/external`
 
-shipped · draft · reviewed at [`41070b5`](https://github.com/lgse/strata/tree/41070b59c09f21eba33918c1e99be2eb3047de7e) · ? PRs since · origin issue [lgse/strata#1356](https://github.com/lgse/strata/issues/1356), pr [lgse/strata#1385](https://github.com/lgse/strata/issues/1385)
+shipped · reviewed · reviewed at [`41070b5`](https://github.com/lgse/strata/tree/41070b59c09f21eba33918c1e99be2eb3047de7e) · ? PRs since · origin issue [lgse/strata#1356](https://github.com/lgse/strata/issues/1356), pr [lgse/strata#1385](https://github.com/lgse/strata/issues/1385)
 
 Opt-in, trusted programs that add live status badges, state-dependent context actions, and Send to… destinations to native files, such as cloud offline availability or a phone. Strata talks to each provider over a newline-delimited JSON protocol; Cirrove is the first adapter. Bundled providers install from `remote/file-providers/integrations`.
 
@@ -1490,7 +1491,7 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 
 ### [KDE Connect integration](../features/remote/file-providers/kde-connect.md) `remote/file-providers/kde-connect`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1703](https://github.com/lgse/strata/issues/1703), pr [lgse/strata#1704](https://github.com/lgse/strata/issues/1704)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1703](https://github.com/lgse/strata/issues/1703), pr [lgse/strata#1704](https://github.com/lgse/strata/issues/1704)
 
 An opt-in bundled file provider that lists paired KDE Connect devices under Send to… ▸ KDE Connect. It sends the whole selection to the chosen device over D-Bus, with no device-picker window. For users moving from Nautilus who relied on KDE Connect's device-aware context menu. It installs from `remote/file-providers/integrations`.
 
@@ -1501,7 +1502,7 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 
 ### [LocalSend integration](../features/remote/file-providers/localsend.md) `remote/file-providers/localsend`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1754](https://github.com/lgse/strata/issues/1754), pr [lgse/strata#1756](https://github.com/lgse/strata/issues/1756)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1754](https://github.com/lgse/strata/issues/1754), pr [lgse/strata#1756](https://github.com/lgse/strata/issues/1756)
 
 An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hands the selected files and folders to the installed LocalSend app. LocalSend then picks the device and sends. For users who would otherwise re-pick the same files in LocalSend's own dialog. It installs from `remote/file-providers/integrations`.
 
@@ -1512,7 +1513,7 @@ An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hand
 
 ### [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) `remote/file-providers/network-locations`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#20](https://github.com/lgse/strata/issues/20), pr [lgse/strata#31](https://github.com/lgse/strata/issues/31)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#20](https://github.com/lgse/strata/issues/20), pr [lgse/strata#31](https://github.com/lgse/strata/issues/31)
 
 Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native folders. Covers mounting on demand, the sign-in and SSH host-key dialogs, and connection failure messages. It also covers the sidebar's Network place and SMB share rows, SMB share lists, and progressive remote loading. Typed-address parsing belongs to `browser/navigation/location-bar`.
 
@@ -1525,18 +1526,18 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 ### [Diagnostics](../features/settings/diagnostics.md) `settings/diagnostics`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1734](https://github.com/lgse/strata/issues/1734), pr [lgse/strata#1735](https://github.com/lgse/strata/issues/1735)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1734](https://github.com/lgse/strata/issues/1734), pr [lgse/strata#1735](https://github.com/lgse/strata/issues/1735)
 
 Settings → Diagnostics, an on-demand page that checks the runtime pieces previews, locations, devices, and desktop integration rely on. Each check reports passed, warning, or problem with an install command for the detected distribution, and the results copy as a report for bug reports.
 
 - Code: [`src/services/diagnostics.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/services/diagnostics.rs), [`src/ui/settings/diagnostics.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/ui/settings/diagnostics.rs), [`data/icons/scalable/actions/strata-stethoscope.svg`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/data/icons/scalable/actions/strata-stethoscope.svg)
 - Tests: [`src/services/diagnostics/tests.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/services/diagnostics/tests.rs), [`src/ui/settings/diagnostics/tests.rs`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/src/ui/settings/diagnostics/tests.rs)
 - Docs: [`docs/diagnostics.md`](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/docs/diagnostics.md)
-- Related: [Settings window and general preferences](../features/settings/preferences/index.md), [Shared location model and listing adapter](../features/app/infrastructure.md), [Preview sandbox](../features/preview/preview-panel/sandbox.md), [Thumbnail workers](../features/browser/thumbnails/workers.md), [Media playback](../features/preview/preview-panel/media/index.md), [RAR extraction](../features/operations/archives/rar.md), [Updates](../features/app/updates/index.md), [Drive format, label, and properties](../features/devices/volumes/drive-dialogs.md), [Open in Terminal](../features/integration/open-with/terminal.md), [Custom actions](../features/integration/custom-actions.md)
+- Related: [Settings window and general preferences](../features/settings/preferences/index.md), [Shared location model and listing adapter](../features/app/infrastructure.md), [Preview sandbox](../features/preview/preview-panel/sandbox.md), [Thumbnail workers](../features/browser/thumbnails/workers.md), [Media playback](../features/preview/preview-panel/media/index.md), [RAR extraction](../features/operations/archives/rar.md), [Updates](../features/app/updates/index.md), [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md), [Open in Terminal](../features/integration/open-with/terminal.md), [Custom actions](../features/integration/custom-actions.md)
 
 ### [Settings window and general preferences](../features/settings/preferences/index.md) `settings/preferences`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#845](https://github.com/lgse/strata/issues/845), pr [lgse/strata#849](https://github.com/lgse/strata/issues/849)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#845](https://github.com/lgse/strata/issues/845), pr [lgse/strata#849](https://github.com/lgse/strata/issues/849)
 
 The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Units, Show F1 Shortcuts button, Watch network folders, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
@@ -1548,7 +1549,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ### [Modified date format](../features/settings/preferences/date-format.md) `settings/preferences/date-format`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#180](https://github.com/lgse/strata/issues/180)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin pr [lgse/strata#180](https://github.com/lgse/strata/issues/180)
 
 How file modification times read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats.
 
@@ -1559,7 +1560,7 @@ How file modification times read in lists and previews, and the Modified date fo
 
 ### [Interface language](../features/settings/preferences/language.md) `settings/preferences/language`
 
-shipped · draft · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1517](https://github.com/lgse/strata/issues/1517), pr [lgse/strata#1519](https://github.com/lgse/strata/issues/1519)
+shipped · reviewed · reviewed at [`0f9bb00`](https://github.com/lgse/strata/tree/0f9bb00f02d3923ba009f53e0dbaecb840ee524c) · ? PRs since · origin issue [lgse/strata#1517](https://github.com/lgse/strata/issues/1517), pr [lgse/strata#1519](https://github.com/lgse/strata/issues/1519)
 
 The Language setting and the compiled-in translations behind it. Strata's own interface is available in thirteen languages, chosen automatically from the desktop locale or set manually, and applied on restart.
 
@@ -1579,7 +1580,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 ### [Themes and appearance](../features/settings/themes/index.md) `settings/themes`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#82](https://github.com/lgse/strata/issues/82), pr [lgse/strata#96](https://github.com/lgse/strata/issues/96)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#82](https://github.com/lgse/strata/issues/82), pr [lgse/strata#96](https://github.com/lgse/strata/issues/96)
 
 The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, the uncomposited popup fallback, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), and `settings/themes/interface-font` (the interface typeface). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
 
@@ -1591,7 +1592,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 ### [Corner roundness](../features/settings/themes/corner-roundness.md) `settings/themes/corner-roundness`
 
-shipped · draft · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1678](https://github.com/lgse/strata/issues/1678), pr [lgse/strata#1680](https://github.com/lgse/strata/issues/1680)
+shipped · reviewed · reviewed at [`73b3258`](https://github.com/lgse/strata/tree/73b3258ff9da7fd5f8b279e442e4fbf576850deb) · ? PRs since · origin issue [lgse/strata#1678](https://github.com/lgse/strata/issues/1678), pr [lgse/strata#1680](https://github.com/lgse/strata/issues/1680)
 
 An app-wide scale for corner radii, set as a percent under Settings → Appearance → Shape. It lets users square the interface at 0 or soften it up to 200, applied to every pixel radius in Strata's stylesheet.
 
@@ -1614,7 +1615,7 @@ Strata's bundled interface and file-type icons, rasterized at the size and densi
 
 ### [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) `settings/themes/icons/catppuccin`
 
-shipped · draft · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#1587](https://github.com/lgse/strata/issues/1587), pr [lgse/strata#1588](https://github.com/lgse/strata/issues/1588)
+shipped · reviewed · reviewed at [`965bd7e`](https://github.com/lgse/strata/tree/965bd7ec74400734dbd0a5311ceefa05bea8dd63) · ? PRs since · origin issue [lgse/strata#1587](https://github.com/lgse/strata/issues/1587), pr [lgse/strata#1588](https://github.com/lgse/strata/issues/1588)
 
 The bundled Catppuccin icon set and the mapping from a file's name to its file-type icon. Code and config files get Catppuccin icons; pictures, media, archives, documents, and keys keep Lucide icons. The parent `settings/themes/icons` owns the Lucide set and colors and rasterizes both sets.
 
@@ -1635,7 +1636,7 @@ An Interface font preference under Settings → Appearance → Text that picks t
 
 ### [Omarchy theme following](../features/settings/themes/omarchy.md) `settings/themes/omarchy`
 
-shipped · draft · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1198](https://github.com/lgse/strata/issues/1198), pr [lgse/strata#1482](https://github.com/lgse/strata/issues/1482)
+shipped · reviewed · reviewed at [`44bfeab`](https://github.com/lgse/strata/tree/44bfeab305cfb68993bafcf4794fe0bbf7ff1433) · ? PRs since · origin issue [lgse/strata#1198](https://github.com/lgse/strata/issues/1198), pr [lgse/strata#1482](https://github.com/lgse/strata/issues/1482)
 
 Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tracks it as it changes. Strata maps Quattro's own surface keys, and the Omarchy variant, remembered per Omarchy theme, picks the layout: Lighter, Darker, or Contrast.
 

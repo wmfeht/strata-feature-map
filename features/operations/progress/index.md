@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, src/adapters/local_operations/progress.rs]
 tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/clipboard, operations/delete, operations/archives, operations/trash/animation, operations/filesystem-compatibility]
+related: [operations/clipboard, operations/delete, operations/delete/dissolve, operations/archives, operations/trash/animation, operations/filesystem-compatibility]
 ---
 
 ## Summary
@@ -44,6 +44,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 - A permanent delete of two or more items keeps the item percentage and shows no removed-entry count. lgse/strata#1935
 - After Cancel, removed-entry counts no longer change the progress status or bar. lgse/strata#1935 (unverified)
 - When the deleted item finishes, the bar stops pulsing and shows 100%. lgse/strata#1935 (unverified)
+- A permanent delete still running when its card appears, after 350 ms or at once for 16 or more items, keeps its dissolve (`operations/delete/dissolve`) and plays it when the delete succeeds. lgse/strata#1562, lgse/strata#1539 (unverified)
 
 ### Cancellation
 
