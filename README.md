@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `44bfeab` · 144 features, 85 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `41070b5` · 144 features, 80 reviewed
 
 ## app
 
@@ -16,12 +16,12 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `44bfeab` | ? |
 | [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `44bfeab` | ? |
-| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | reviewed | `44bfeab` | ? |
+| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | reviewed | `41070b5` | ? |
 | [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | draft | `73b3258` | ? |
 | ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `44bfeab` | ? |
 | [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `44bfeab` | ? |
 | ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | reviewed | `86df474` | 0 |
-| ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | draft | `44bfeab` | ? |
+| ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | draft | `41070b5` | ? |
 | [Keyboard shortcut reference and footer](features/app/shortcut-reference.md) | `app/shortcut-reference` | shipped | draft | `73b3258` | ? |
 | [Updates](features/app/updates/index.md) | `app/updates` | shipped | draft | `44bfeab` | ? |
 | ↳ [In-place update install](features/app/updates/install.md) | `app/updates/install` | shipped | draft | `44bfeab` | ? |
@@ -38,8 +38,8 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `44bfeab` | ? |
-| [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `44bfeab` | ? |
-| ↳ [Network folder change checks](features/browser/directory-monitoring/network-checks.md) | `browser/directory-monitoring/network-checks` | shipped | reviewed | `44bfeab` | ? |
+| [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `41070b5` | ? |
+| ↳ [Network folder change checks](features/browser/directory-monitoring/network-checks.md) | `browser/directory-monitoring/network-checks` | shipped | reviewed | `41070b5` | ? |
 | [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | reviewed | `86df474` | 0 |
 | [Navigation](features/browser/navigation/index.md) | `browser/navigation` | shipped | draft | `44bfeab` | ? |
 | ↳ [Administrator access](features/browser/navigation/administrator-access.md) | `browser/navigation/administrator-access` | shipped | draft | `44bfeab` | ? |
@@ -67,13 +67,13 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Pinned folders](features/browser/sidebar/pins/index.md) | `browser/sidebar/pins` | shipped | draft | `73b3258` | ? |
 | &emsp;↳ [Drag folders to pin](features/browser/sidebar/pins/drag-to-pin.md) | `browser/sidebar/pins/drag-to-pin` | shipped | reviewed | `44bfeab` | ? |
 | ↳ [Sidebar collapse and icon rail](features/browser/sidebar/rail.md) | `browser/sidebar/rail` | shipped | reviewed | `73b3258` | ? |
-| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | reviewed | `44bfeab` | ? |
+| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `41070b5` | ? |
 | ↳ [Tab session restore](features/browser/tabs/session-restore.md) | `browser/tabs/session-restore` | shipped | draft | `44bfeab` | ? |
-| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | draft | `44bfeab` | ? |
+| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | draft | `41070b5` | ? |
 | ↳ [Thumbnail disk cache](features/browser/thumbnails/cache.md) | `browser/thumbnails/cache` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Thumbnail workers](features/browser/thumbnails/workers.md) | `browser/thumbnails/workers` | shipped | reviewed | `86df474` | 0 |
-| [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `44bfeab` | ? |
-| ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `44bfeab` | ? |
+| [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `41070b5` | ? |
+| ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `41070b5` | ? |
 | ↳ [Frame and content density](features/browser/view-modes/density.md) | `browser/view-modes/density` | shipped | draft | `44bfeab` | ? |
 | ↳ [Per-folder sort and thumbnail size](features/browser/view-modes/folder-views.md) | `browser/view-modes/folder-views` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Icons view](features/browser/view-modes/icons.md) | `browser/view-modes/icons` | shipped | reviewed | `86df474` | 0 |
@@ -95,7 +95,7 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 | ↳ [Drive format, label, and properties](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | reviewed | `86df474` | 0 |
-| ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | reviewed | `86df474` | 0 |
+| ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | reviewed | `41070b5` | ? |
 
 ## integration
 
@@ -117,7 +117,7 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | ↳ [Open in Terminal](features/integration/open-with/terminal.md) | `integration/open-with/terminal` | shipped | reviewed | `86df474` | 0 |
 | [System file chooser](features/integration/portal-file-chooser/index.md) | `integration/portal-file-chooser` | shipped | draft | `44bfeab` | ? |
 | ↳ [Chooser PNG conversion](features/integration/portal-file-chooser/image-conversion.md) | `integration/portal-file-chooser/image-conversion` | shipped | reviewed | `86df474` | 0 |
-| ↳ [File chooser and file manager setup](features/integration/portal-file-chooser/setup.md) | `integration/portal-file-chooser/setup` | shipped | reviewed | `86df474` | 0 |
+| ↳ [File chooser and file manager setup](features/integration/portal-file-chooser/setup.md) | `integration/portal-file-chooser/setup` | shipped | draft | `41070b5` | ? |
 | ↳ [Name field filenames and URL downloads](features/integration/portal-file-chooser/url-download.md) | `integration/portal-file-chooser/url-download` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Chooser window size and placement](features/integration/portal-file-chooser/window-placement.md) | `integration/portal-file-chooser/window-placement` | shipped | reviewed | `86df474` | 0 |
 
@@ -135,19 +135,19 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `44bfeab` | ? |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | draft | `86df474` | 0 |
 | [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | reviewed | `86df474` | 0 |
-| [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | draft | `86df474` | ? |
+| [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | draft | `41070b5` | ? |
 | ↳ [Permanent-delete dissolve animation](features/operations/delete/dissolve.md) | `operations/delete/dissolve` | shipped | draft | `44bfeab` | ? |
-| [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | reviewed | `86df474` | 0 |
+| [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | reviewed | `41070b5` | ? |
 | ↳ [Columns drag autoscroll](features/operations/drag-and-drop/column-autoscroll.md) | `operations/drag-and-drop/column-autoscroll` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Drop copy-or-move policy](features/operations/drag-and-drop/copy-or-move.md) | `operations/drag-and-drop/copy-or-move` | shipped | reviewed | `86df474` | 0 |
-| [Filesystem-safe placement and copying](features/operations/filesystem-compatibility/index.md) | `operations/filesystem-compatibility` | shipped | reviewed | `86df474` | 0 |
-| ↳ [Leftovers after a crash or unplug](features/operations/filesystem-compatibility/leftovers.md) | `operations/filesystem-compatibility/leftovers` | shipped | reviewed | `86df474` | 0 |
-| ↳ [Releasing open files before a change](features/operations/filesystem-compatibility/open-files.md) | `operations/filesystem-compatibility/open-files` | shipped | reviewed | `86df474` | 0 |
-| [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | reviewed | `86df474` | 0 |
-| ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | reviewed | `86df474` | 0 |
+| [Filesystem-safe placement and copying](features/operations/filesystem-compatibility/index.md) | `operations/filesystem-compatibility` | shipped | reviewed | `86df474` | ? |
+| ↳ [Leftovers after a crash or unplug](features/operations/filesystem-compatibility/leftovers.md) | `operations/filesystem-compatibility/leftovers` | shipped | reviewed | `41070b5` | ? |
+| ↳ [Releasing open files before a change](features/operations/filesystem-compatibility/open-files.md) | `operations/filesystem-compatibility/open-files` | shipped | reviewed | `41070b5` | ? |
+| [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | draft | `41070b5` | ? |
+| ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | draft | `41070b5` | ? |
 | ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | reviewed | `86df474` | 0 |
 | [Inline rename](features/operations/rename.md) | `operations/rename` | shipped | reviewed | `86df474` | 0 |
-| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `44bfeab` | ? |
+| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `41070b5` | ? |
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | reviewed | `44bfeab` | ? |
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | reviewed | `86df474` | 0 |
 | ↳ [FUSE mounts that refuse Trash](features/operations/trash/fuse-refusals.md) | `operations/trash/fuse-refusals` | shipped | reviewed | `86df474` | 0 |
@@ -184,7 +184,7 @@ QA sweep: [`qa/sweeps/remote.md`](qa/sweeps/remote.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Remote locations and file providers](features/remote/file-providers/index.md) | `remote/file-providers` | shipped | reviewed | `86df474` | ? |
-| ↳ [External file providers](features/remote/file-providers/external.md) | `remote/file-providers/external` | shipped | reviewed | `86df474` | 0 |
+| ↳ [External file providers](features/remote/file-providers/external.md) | `remote/file-providers/external` | shipped | draft | `41070b5` | ? |
 | ↳ [Integrations catalog](features/remote/file-providers/integrations.md) | `remote/file-providers/integrations` | shipped | reviewed | `86df474` | 0 |
 | ↳ [KDE Connect integration](features/remote/file-providers/kde-connect.md) | `remote/file-providers/kde-connect` | shipped | draft | `44bfeab` | ? |
 | ↳ [LocalSend integration](features/remote/file-providers/localsend.md) | `remote/file-providers/localsend` | shipped | draft | `44bfeab` | ? |

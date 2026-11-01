@@ -272,6 +272,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/tests/archive_activation.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `src/app/browser/tests/background_operations.rs` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/tests/camera_photos.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/app/browser/tests/folder_counts.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/folder_sorts.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/browser/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/app/browser/tests/location_input.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
@@ -789,6 +790,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/thumbnail/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/viewport.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/viewport/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
+| `src/ui/thumbnail/viewport/tests/folder_counts.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail_cache.rs` | code | [Thumbnail disk cache](../features/browser/thumbnails/cache.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `src/ui/thumbnail_cache/tests.rs` | tests | [Thumbnail disk cache](../features/browser/thumbnails/cache.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `src/ui/top_bar_navigation.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |

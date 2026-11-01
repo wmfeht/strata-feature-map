@@ -3,7 +3,7 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
 review: draft
 code: [src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl]
@@ -34,6 +34,11 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
 - That dialog lists the first 8 errors as "name: reason" and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
 - Cancelling a permanent delete counts an item it had started as failed, and items not yet started as not attempted. lgse/strata#1615
+- Permanently deleting one local folder shows an "N items deleted" count that includes every file, symlink, and folder removed. lgse/strata#1935
+- A leftover `.nfs…`, `.__smbfile_silly…`, or `.fuse_hidden…` file left in place is not included in the "N items deleted" count. lgse/strata#1935 (unverified)
+- The "N items deleted" count refreshes about every 250 ms, and only when it changes. lgse/strata#1935
+- Moving one folder to Trash shows no "N items deleted" count. lgse/strata#1935
+- Permanently deleting one remote GVfs folder, or one item in `trash:///`, shows no "N items deleted" count. lgse/strata#1935 (unverified)
 - Ctrl+Z after a permanent delete does not restore the items; it undoes the undoable operation before it, such as a Move to Trash. lgse/strata#228 (unverified)
 
 ## Design
@@ -46,11 +51,13 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 - The parent of a selected item resolves with `openat2(IN_ROOT | NO_MAGICLINKS)` so directory aliases work, while traversal inside the tree stays no-follow (lgse/strata#477).
 - Remote GVfs locations have no descriptor to walk, so they keep GIO's path-based delete and claim no equivalent guarantee (lgse/strata#253).
 - A work-stealing queue deletes trees on parallel workers at `nice +10`, one worker on rotational disks (lgse/strata#869). The first failure stops dispatch, started workers are joined, and transient open retries are bounded (lgse/strata#911).
+- Progress counted whole top-level items, so one large folder stayed at 0% until its last entry was gone. Workers now count removed entries on the `Deadline` every delete job already carries, so copy, replace, and merge callers need no new parameter (lgse/strata#1930, lgse/strata#1935).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-30 | lgse/strata#1935 | fix | Counted the entries a permanent delete removes, since one large folder showed 0% until it was gone. |
 | 2026-10-25 | lgse/strata#1880 | fix | Sized a selected file symlink as the link itself on the confirmation, since it showed the target's size. |
 | 2026-10-15 | lgse/strata#1627 | fix | Counted a symlink to a folder as one 0 B "Folder link" item on the confirmation, since only the link is deleted. |
 | 2026-10-05 | lgse/strata#1486 | fix | Targeted the cursor row or open folder for Delete and Shift+Delete in Columns view. |
@@ -72,3 +79,4 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 ## Known gaps
 
 - Shift+Delete still opens the permanent-delete confirmation where `access::can-delete` is false; only the item menu is capability-gated. lgse/strata#66
+- After confirming a permanent delete of a 600,000-file folder, progress shows 0% for about 1.5 s before the first entry is removed. lgse/strata#1935
