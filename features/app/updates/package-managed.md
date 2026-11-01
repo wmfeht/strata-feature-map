@@ -3,8 +3,8 @@ title: Package-managed installs
 status: shipped
 origin: {issue: lgse/strata#195, pr: lgse/strata#196}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+review: draft
 code: [src/services/install_source.rs]
 tests: [src/services/install_source/tests.rs]
 related: [app/packaging/aur, integration/open-with/terminal]
@@ -58,6 +58,7 @@ Replacing a pacman-owned `/usr/bin/strata` fails on permissions, and with enough
 - The repository, not GitHub, decides availability, so a notice never promises an update the package manager cannot install yet (lgse/strata#209).
 - Omarchy's live database is read instead of pacman's cache, because the same `omarchy update` that installs Strata refreshes that cache (lgse/strata#210).
 - The marker is scoped to the official AUR packages, locks the shown channel to the package, and tolerates unknown keys for older binaries (lgse/strata#183).
+- The Nix package ships the one other marker, naming only manager and package, so Diagnostics names the install. `update_method()` treats every marker as AUR, so this holds only while the Nix build has no updater (lgse/strata#1967, docs/packaging.md).
 - The AUR marker lists helpers instead of an `update_command`, because pacman cannot update an AUR package (lgse/strata#183, docs/packaging.md).
 - Open Omarchy Update uses the launcher Omarchy's own menu uses, so the window floats and its output stays readable after a failed update (lgse/strata#1608, lgse/strata#1609).
 - The AUR helper search on `PATH` runs with update-method detection, off the UI thread (lgse/strata#1729).

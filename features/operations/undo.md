@@ -3,12 +3,12 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: []
 tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl]
 docs: []
-related: [operations/trash, operations/trash/restore, operations/clipboard, operations/clipboard/conflicts, operations/rename, operations/create, operations/archives, operations/progress/dock, app/shortcut-reference, operations/filesystem-compatibility]
+related: [operations/trash, operations/trash/restore, operations/clipboard, operations/clipboard/conflicts, operations/rename, operations/rename/typed-paths, operations/create, operations/archives, operations/progress/dock, app/shortcut-reference, operations/filesystem-compatibility]
 ---
 
 ## Summary

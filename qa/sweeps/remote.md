@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 
@@ -44,6 +44,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - On the `sftp-fixture.sh` server and the local Samba share, `chmod 000` a server folder, delete a folder while it lists, and kill `gvfsd-sftp` mid-mount. Read each message under English and Français, and grep the DEBUG log.
 - On Samba, enter a wrong password, then disable the account, then exhaust its logon attempts; read the message and whether sign-in reopens.
 - Start Strata with `gvfsd` stopped and D-Bus activation masked, then with `gvfsd` running but `gvfsd-sftp` removed; compare startup time and the two failure texts.
+- On the local Samba share, add `notes.md`, `script.py`, `data.json`, a file with no extension, and a `.txt`; confirm with `gio info -a standard::content-type` which lack the full type. Activate each, use Open With, open Properties, and watch the log for GLib criticals.
 
 ### remote/file-providers/external
 

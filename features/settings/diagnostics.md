@@ -3,7 +3,7 @@ title: Diagnostics
 status: shipped
 origin: {issue: lgse/strata#1734, pr: lgse/strata#1735}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/services/diagnostics.rs, src/ui/settings/diagnostics.rs, data/icons/scalable/actions/strata-stethoscope.svg]
 tests: [src/services/diagnostics/tests.rs, src/ui/settings/diagnostics/tests.rs]
@@ -35,7 +35,10 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - With no trusted `bwrap`, Preview sandbox is a problem naming Bubblewrap, with the bubblewrap package. lgse/strata#1735
 - With `prlimit` missing at the sandbox's path, Preview sandbox is a problem naming that path, with the util-linux package. lgse/strata#1735, lgse/strata#1746
 - Otherwise a generated PNG renders through a one-shot sandbox; a failure reports that unprivileged user namespaces may be disabled or restricted. lgse/strata#1735
-- Without Landlock ABI 3, Sandboxed workers is a warning that each thumbnail starts its own sandbox; otherwise the PNG renders through the pooled workers. lgse/strata#1735
+- Without Landlock ABI 3, Sandboxed workers is a warning that each thumbnail starts its own sandbox. lgse/strata#1735
+- When the host blocks job namespaces, such as AppArmor's `unpriv_bwrap` on Ubuntu 24.04, Sandboxed workers is a warning: "The system blocks nested user namespaces, for example through AppArmor, so each thumbnail starts its own sandbox and loads more slowly." lgse/strata#1954
+- That warning shows both when thumbnails met the restriction before Run and when the sample render discovers it. lgse/strata#1954
+- With Landlock ABI 3 and job namespaces allowed, the PNG renders through the pooled workers. lgse/strata#1735, lgse/strata#1954
 - When the pooled render fails, Sandboxed workers is a problem reading "A sandboxed worker couldn't render a sample image." lgse/strata#1735 (unverified)
 - PDF thumbnails passes with "A sample file was processed correctly." when a sample PDF renders through the pooled thumbnail path. Otherwise it is a problem with the error as detail. lgse/strata#1735
 - With neither `ffmpegthumbnailer` nor `ffmpeg` on the sandbox path, Video thumbnails is a problem. lgse/strata#1735
@@ -94,6 +97,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - Linked libraries such as GTK, Poppler, and GStreamer core cannot be checked in-app, because the loader fails first (docs/diagnostics.md).
 - The package manager and the terminal are resolved on a blocking worker when Run starts, and the copied report reuses that package manager (lgse/strata#1729).
 - Checks that need GTK objects run on the GTK thread. The rest run on workers that a timer polls through a weak page reference (lgse/strata#1735).
+- Restricted hosts get their own finding, not the Landlock warning: Landlock ABI 3 is present there, so that text would name the wrong fix (lgse/strata#1954).
 - A `--diagnose` command-line flag was rejected as less discoverable, and docs-only troubleshooting because it cannot see the environment or the sandbox (lgse/strata#1734).
 
 ## History

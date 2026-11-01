@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -136,6 +136,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
 - Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker. Read Installation, Update server, and the copied report.
+- On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, start Strata and press Run on Diagnostics before browsing any folder; then press Run again after an image folder's thumbnails load; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
 
 ### settings/themes
 

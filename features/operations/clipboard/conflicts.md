@@ -3,7 +3,7 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs]
 tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch]
@@ -68,7 +68,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - A name taken since the check ends such a merge, keeping the aside folder and naming it. lgse/strata#1615
 - On kernel exFAT, a Merge without Trash removes its `.strata-merge-*` folder once it finishes. lgse/strata#1729
 - Cancelling such a merge after it placed an item ends as Cancelled, with the originals back and no `.strata-merge-*` folder left. lgse/strata#1729
-- A merge whose aside folder only another program's open file keeps completes and reports the folder as still open. lgse/strata#1729
+- A merge whose aside folder only another program's open file keeps completes and reports the folder as still open. lgse/strata#1729, lgse/strata#1964, lgse/strata#1965
 - A Trash move that reports success without moving the original falls back to setting it aside. lgse/strata#1615
 - Replace onto a file in a folder opened as administrator overwrites it in place, with no staged copy and no original kept. lgse/strata#1837
 - Replace onto a folder there fails with "Safe replacement is unavailable at this destination" and keeps the existing folder. lgse/strata#1837 (unverified)

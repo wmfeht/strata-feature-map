@@ -3,12 +3,12 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl, tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl, tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl, tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl, tests/qa/scenarios/keyboard_navigation/keyboard-only-copy-paste.jsonl, tests/qa/scenarios/keyboard_navigation/return-restores-nested-scroll.jsonl, tests/qa/scenarios/keyboard_navigation/select-all-selects-every-entry.jsonl, tests/qa/scenarios/keyboard_navigation/shift-arrow-extends-selection.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl, tests/qa/mutations/keyboard-navigation.patch]
 docs: [docs/keyboard-navigation.md]
-related: [browser/sidebar, browser/navigation, integration/10xer-mode, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser]
+related: [browser/sidebar, browser/navigation, integration/10xer-mode, operations/rename, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser]
 ---
 
 ## Summary
@@ -54,9 +54,9 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In Columns, Shift+Tab from a column goes to its open filter, then its header actions, then the control before the strip. lgse/strata#1431, lgse/strata#1533
 - In Columns, an unreadable folder's Retry button is the next Tab stop inside its column, unless Open as Administrator shows. lgse/strata#1466, lgse/strata#1533, lgse/strata#1837
 - When that column also offers Open as Administrator, Tab from the column reaches Open as Administrator, then Retry. Shift+Tab walks back to the column. lgse/strata#1837 (unverified)
-- Tab from an inline rename field commits the rename and leaves the listing; in Columns it leaves the strip. lgse/strata#1431, lgse/strata#1533
+- Tab or Shift+Tab in a focused inline rename field keeps focus in the listing, or in the Columns strip. `operations/rename` owns what the rename does. lgse/strata#1961
 - In an empty, unreadable, or loading folder, Tab and Shift+Tab leave the focused pane as they leave a listing. Shift+Tab from the footer returns to it. lgse/strata#1466, lgse/strata#1533
-- 10xer mode keeps its own Tab handling. lgse/strata#1431, lgse/strata#1533 (unverified)
+- Outside an inline rename field, 10xer mode keeps its own Tab handling. A rename field takes Tab first in both key maps and the file chooser. lgse/strata#1431, lgse/strata#1533, lgse/strata#1961 (unverified)
 
 ### Focus after background changes
 

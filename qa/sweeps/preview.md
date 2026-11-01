@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -228,6 +228,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Feed a 512 MiB plus-one PNG, a header claiming 100000×100000, an SVGZ with external image references, a gzip bomb as `.svgz`, and the TIFF named `.ARW`.
 - Open and close a RAW preview 50 times within 1 ms of each other; compare the bwrap count and the fd list with the baseline.
 - On Debian testing with ImageMagick through `update-alternatives` and a glycin-only GDK Pixbuf, preview a HEIC and a JPEG; remove `/etc/alternatives/magick` and preview again. Repeat on a kernel without Landlock ABI 3, where previews use one-shot helpers.
+- On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, Space-preview a PNG before any folder of thumbnails loads, then 20 images inside 60 s; count `browser sandbox started` lines.
 - On Debian-family hosts with glx-diversions and with the NVIDIA GL alternative, preview a PNG, a PDF, and an MP4, and let a folder of thumbnails complete. Repeat where `glx--libGL.so.1-x86_64-linux-gnu` chains to an `nvidia--` alternative.
 - Preview 20 images inside 60 s under the debug log and count `browser sandbox started` lines; wait 61 s and preview once more.
 - Launch a real session with `STRATA_SANDBOX_ROOT` set to `/usr/./share`, then to `/nix/store` on a non-Nix host; preview a PNG each time and read the log.
@@ -240,6 +241,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - On the network mount, preview a RAW file, move the selection mid-render, and delete its folder at once; look for `.nfs…` or `.__smbfile_silly…` files in the parent.
 - Preview media, then `kill -9` Strata. Start the container's Strata and preview there, then start the host Strata, preview once, and `ls -ld /tmp/strata-preview-*`.
 - With the other user's `strata-preview-<pid>-<n>` folder present and `TMPDIR` on a filesystem without `flock` support, preview a PNG.
+- Preview and thumbnail AVIFs made with `avifenc --irot 1`, `--irot 2`, and `--imir 0`, a `clap`-cropped AVIF, a tiled `grid` HEIC, and a CR3; read the Icons caption against `magick identify`.
 
 ### preview/quick-preview
 

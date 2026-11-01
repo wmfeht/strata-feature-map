@@ -3,8 +3,8 @@ title: Drag and drop
 status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
-review: reviewed
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+review: draft
 code: []
 tests: [tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl, tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl, tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl, tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl, tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl, tests/qa/scenarios/drag_and_drop/empty-name-space-drag-starts-marquee.jsonl, tests/qa/scenarios/drag_and_drop/filtered-result-to-sidebar-folder.jsonl, tests/qa/scenarios/drag_and_drop/folder-into-another-folder.jsonl, tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl, tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl, tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl, tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]
 docs: [docs/preferences.md]
@@ -13,7 +13,7 @@ related: [operations/trash, operations/clipboard, browser/selection, browser/tab
 
 ## Summary
 
-Moving and copying files by dragging them onto folders, pane backgrounds, sidebar places, and breadcrumbs, within and between windows and to or from other applications. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices) and `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags).
+Moving and copying files by dragging them onto folders, pane backgrounds, sidebar places, and breadcrumbs, within and between windows and to or from other applications. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices), `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags), and `operations/drag-and-drop/content-drops` (saving dropped images, text, and web links as new files).
 
 ## Behavior
 
@@ -49,7 +49,8 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 - Dropping a folder onto itself or its descendants, or items onto their own folder, transfers nothing and opens no progress dialog. lgse/strata#587
 - When a dropped selection mixes items already in the destination with others, the others still transfer. lgse/strata#502
 - Releasing outside every drop target ends the drag without transferring. lgse/strata#630
-- A file list dragged from another application transfers like an internal drag; image, text, and web-link payloads are refused. lgse/strata#1545
+- A file list dragged from another application transfers like an internal drag. lgse/strata#1545
+- Image, text, and web-link payloads from another application save as new files; `operations/drag-and-drop/content-drops` owns them. lgse/strata#1547
 - Dragged items are offered as a GDK file list and a `text/uri-list`, so other applications can receive them. lgse/strata#292 (unverified)
 
 ### Spring-loaded navigation
@@ -71,7 +72,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 
 [docs/preferences.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/preferences.md) carries the Open folder after dropping files and cross-device strategy preferences.
 
-- All drops funnel into one transfer path, so one no-op guard covers Columns, List, Icons, pane, and sidebar drops. It runs before the size walk that would show a progress dialog (lgse/strata#424, lgse/strata#587).
+- All file drops funnel into one transfer path, so one no-op guard covers Columns, List, Icons, pane, and sidebar drops. It runs before the size walk that would show a progress dialog (lgse/strata#424, lgse/strata#587). Content drops branch off before it (lgse/strata#1547).
 - Click activation waits for release, so a press-and-move can become a drag first (lgse/strata#348, lgse/strata#753).
 - The content modifier-click gesture is grouped with the row's drag source. Claiming the click would otherwise deny the drag before it reached the threshold (lgse/strata#623).
 - Local sidebar rows take file payloads ahead of the pinned-place reorder target, which accepts only string payloads (lgse/strata#350).
@@ -84,6 +85,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-01 | lgse/strata#1547 | feat | Saved foreign image, text, and web-link drops as new files in local folders, never fetching addresses. |
 | 2026-10-25 | lgse/strata#1865 | fix | Cancelled file drags on Escape through `GdkDrag::cancel`, so releasing over a folder no longer drops on X11. |
 | 2026-10-05 | lgse/strata#1487 | feat | Added 750 ms spring-loaded navigation during held drags, icon drag previews, and selection-style drop outlines. |
 | 2026-09-16 | lgse/strata#1049 | fix | Made the clipped-column reveal overlay non-targetable so drags start in narrow windows. |
@@ -99,5 +101,4 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 
 ## Known gaps
 
-- Images, selected text, and web links dragged from a browser cannot be dropped to save them as files. lgse/strata#1545
 - Drag and drop onto remote locations is not yet gated by the backend's supported operations. lgse/strata#66

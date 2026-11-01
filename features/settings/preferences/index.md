@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]

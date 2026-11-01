@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_verbs.rs, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl]
@@ -56,6 +56,9 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - Ctrl+Shift+N still creates a numbered new folder and renames it in place. lgse/strata#1306
 - `r` and F2 open `rename ›` for the cursor item or focused hit, never the fill. A file's stem or a folder's whole name is selected. lgse/strata#1308
 - Enter renames the item and keeps its contents; a taken name keeps the prompt open with "“…” already exists" and overwrites nothing. lgse/strata#1308
+- In a local folder, `rename ›` with `nested/b.txt` moves the item into `nested`, creating it when missing, and puts the cursor on `nested`. lgse/strata#1512
+- `rename ›` with `b.txt/name`, where `b.txt` is a file, keeps the prompt open with "“b.txt” is not a folder". Nothing changes on disk. lgse/strata#1512
+- `rename ›` to `renamed.txt/` on a file keeps the prompt open with "An existing file can’t become a folder". lgse/strata#1512
 - Esc, a clicked row, another prompt, or leaving the mode discards a `create ›` or `rename ›` entry. lgse/strata#1306, lgse/strata#1308
 - Trash and Recent flash `Can’t create items here`, and Trash items flash `Can’t rename items here`. lgse/strata#1306, lgse/strata#1308 (unverified)
 

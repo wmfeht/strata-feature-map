@@ -3,17 +3,17 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
-tests: [tests/qa/scenarios/inline_renaming, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
+tests: [tests/qa/scenarios/inline_renaming/escape-preserves-name-remaining.jsonl, tests/qa/scenarios/inline_renaming/escape-preserves-name.jsonl, tests/qa/scenarios/inline_renaming/input-method-composes-over-selection.jsonl, tests/qa/scenarios/inline_renaming/invalid-names-retain-original.jsonl, tests/qa/scenarios/inline_renaming/long-rename-keeps-caret.jsonl, tests/qa/scenarios/inline_renaming/new-item-clears-hiding-filter.jsonl, tests/qa/scenarios/inline_renaming/new-item-first-free-number.jsonl, tests/qa/scenarios/inline_renaming/rename-and-undo-restores.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-click-away.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-enter.jsonl, tests/qa/scenarios/inline_renaming/tone-mark-escape-before-rename.jsonl, tests/qa/scenarios/inline_renaming/valid-name-commits-remaining.jsonl, tests/qa/scenarios/inline_renaming/window-accelerators-leave-rename.jsonl, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/create, browser/selection, operations/trash, browser/folder-customization, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-Renaming one file or folder in place, in Columns, List, and Icons, from the keyboard, a menu, or a slow second click. Covers the editor's validation, how it commits or cancels, Undo, and keeping the edited and renamed row inside the viewport.
+Renaming one file or folder in place, in Columns, List, and Icons, from the keyboard, a menu, or a slow second click. Covers the editor's validation, how it commits or cancels, Tab to the next item, Undo, and keeping the edited and renamed row inside the viewport. Child: `operations/rename/typed-paths` (a relative path typed as the name moves the item).
 
 ## Behavior
 
@@ -39,7 +39,8 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - A name whose only `.` is its first character, such as `.bashrc`, opens fully selected. lgse/strata#567 (unverified)
 - Ctrl+A in the editor selects only the field's text; the pane selection stays on the edited item. lgse/strata#749
 - Ctrl+1, Ctrl+2, and Ctrl+3 reach the editor instead of switching view mode. lgse/strata#914
-- Typing a name containing `/` puts the field in the error style and sets its accessible description to "Names cannot contain /"; no tooltip shows. lgse/strata#445, lgse/strata#1359
+- For an item outside a local folder, such as on `smb://`, typing a name containing `/` puts the field in the error style. Its accessible description reads "Names cannot contain /"; no tooltip shows. lgse/strata#445, lgse/strata#1359, lgse/strata#1512
+- In a local folder, a name containing `/` is a path; `operations/rename/typed-paths` owns its rules. lgse/strata#1512
 - For `.` or `..` the description is "That name is reserved", and for a whitespace-only name "Enter a name". lgse/strata#445 (unverified)
 - An empty field is not styled as an error, even after the user clears it. lgse/strata#30, lgse/strata#31
 - In Columns, the row's size badge is hidden while editing. When the editor closes, it returns only with Show sizes in Columns view on and a size to show. lgse/strata#443, lgse/strata#1564
@@ -48,7 +49,8 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ### Committing and cancelling
 
-- Enter, Tab, or a click outside the field, including empty pane space or a sidebar place, commits a valid changed name. lgse/strata#567
+- Enter or a click outside the field, including empty pane space or a sidebar place, commits a valid changed name. lgse/strata#567
+- Tab and Shift+Tab commit too; see "Renaming a run of items" for where the editor goes next. lgse/strata#1961
 - Keyboard focus moving to another widget in the same window commits too. lgse/strata#567, lgse/strata#1714
 - When another window or an input method switcher takes activation, the editor stays open and nothing is renamed. lgse/strata#1714
 - Returning to the window keeps focus in the field, and Enter then commits. lgse/strata#1714
@@ -73,11 +75,24 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Undoing a rename never copies the item; where no placement step can place it, the undo is refused. lgse/strata#1615
 - Ctrl+Shift+Z after undoing a rename applies it again. lgse/strata#1120
 
+### Renaming a run of items
+
+- With the editor open on an item, typing a new name and pressing Tab renames it. The editor then opens on the next item, stem selected. lgse/strata#1961
+- Shift+Tab does the same toward the previous item. lgse/strata#1961
+- Tab or Shift+Tab with the name unchanged renames nothing and moves the editor to the neighbouring item. lgse/strata#1961
+- Tab with an invalid name keeps the original name and still moves the editor to the next item. lgse/strata#1961 (unverified)
+- Tab on the last item, or Shift+Tab on the first, commits the name and closes the editor; keyboard focus stays in the listing. lgse/strata#1961
+- When that edge commit makes the item sort elsewhere, such as `zz.txt` renamed `a.txt`, the listing does not select or scroll to it. lgse/strata#1961 (unverified)
+- The committed row does not pull the cursor back when its rename lands, so the editor stays on the neighbour. lgse/strata#1961
+- Tab and Shift+Tab move the rename this way in Columns, List, and Icons, in both key maps and in the file chooser. lgse/strata#1961
+- Tab is taken only while keyboard focus is in the rename field; otherwise it moves focus as before. lgse/strata#1961 (unverified)
+
 ### Visibility
 
 - Opening the editor on a row that is already fully visible does not scroll the listing. lgse/strata#619
-- After a commit in Columns or List, the renamed item is selected and scrolled fully into the viewport, even when it now sorts elsewhere. lgse/strata#619
+- After an Enter or click-away commit in Columns or List, the renamed item is selected and scrolled fully into the viewport. This holds even when it now sorts elsewhere. lgse/strata#619, lgse/strata#1961
 - When the renamed row is still fully visible after sorting, the listing does not scroll. lgse/strata#619
+- In List grouped by file type, a rename that moves the item into another group offscreen does not scroll to it. lgse/strata#1928
 - Icons focuses and reveals a committed rename the same way. lgse/strata#1148
 - Scrolling or clicking before the reveal finishes cancels it. lgse/strata#1148
 - In a scrolled List, renaming a new file so it sorts near the top, then pressing Down, moves selection and focus to the next file. Both stay on that file for at least 500 ms, rather than returning to the renamed file. lgse/strata#1890
@@ -85,7 +100,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ## Design
 
-[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/keyboard-navigation.md) states the commit rule: Enter, click-away, or focus moving away within the window commits; switching windows leaves the edit open; Escape or an invalid name keeps the original.
+[docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/0f9bb00f02d3923ba009f53e0dbaecb840ee524c/docs/keyboard-navigation.md) states the commit rule: Enter, click-away, or focus moving away within the window commits; switching windows leaves the edit open; Escape or an invalid name keeps the original. Tab and Shift+Tab commit, then open the rename on the next or previous item; at either end of the listing they only commit.
 
 - Only Escape and an invalid name revert. Focus loss to another window first committed by design (lgse/strata#686).
 - lgse/strata#1714 reversed that. GTK sends a focus leave when the window deactivates, including when an input method switcher grabs the keyboard. The edit now ends only on focus moves within the window, as the filter and location bar already did (lgse/strata#1714).
@@ -98,6 +113,8 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - The completion reveal runs per frame for up to 5 seconds. It restores the pre-refresh scroll value first, because model splices replace GTK's scroll anchor (lgse/strata#619).
 - Columns can be wider than the viewport. The editor is narrowed to the visible slice so GTK scrolls the text inside it (lgse/strata#394, lgse/strata#591).
 - Slow-click waits the GTK double-click interval and arms only on the name text, matching Finder (lgse/strata#1057, lgse/strata#1265).
+- Tab carries the rename to the neighbouring item so a run of files is renamed without pressing F2 for each. Keeping Tab as plain focus movement and relying on custom actions was rejected: they do not help one-by-one renames (lgse/strata#1960, lgse/strata#1961).
+- A Tab commit yields the committed row's reveal, so the finished rename cannot pull the cursor back from the neighbour (lgse/strata#1961).
 - Ctrl+R was taken from Refresh rather than bound to two actions; F5 remains Refresh (lgse/strata#364).
 - Undo restores only the name and location, never older contents or metadata. Batch rename and persistent history were out of scope (lgse/strata#1059).
 - A monitor started with hidden files off reports a rename to a dot name only as the old name's removal. The rename therefore completes once the old name leaves the listing (lgse/strata#1438, lgse/strata#1554).
@@ -106,6 +123,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-31 | lgse/strata#1961 | feat | Made Tab and Shift+Tab commit an inline rename and open the editor on the next or previous item, for renaming runs of files. |
 | 2026-10-25 | lgse/strata#1890 | fix | Focused a renamed row before its widget is allocated, so arrow keys work after a rename moves a row. |
 | 2026-10-17 | lgse/strata#1714 | fix | Kept an inline rename open while the window is inactive, so switching input methods no longer commits it. |
 | 2026-10-15 | lgse/strata#1675 | perf | Looked up each row's rename editor by list item instead of scanning every bound row on bind and unbind. |
@@ -127,5 +145,5 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ## Known gaps
 
-- Typing `docs/` or `docs/note.txt` as a new file's name is rejected instead of creating the folder or nested file; the fix is unmerged. lgse/strata#1511, lgse/strata#1512
+- In List grouped by file type, the rename reveal does not follow an item into another group offscreen. lgse/strata#1928
 - With fcitx5 through `GTK_IM_MODULE=fcitx`, on X11 or Wayland, the first composed key replaces the preselected stem as a raw character. GTK's Wayland module and IBus are unaffected. lgse/strata#1715

@@ -1,13 +1,13 @@
 ---
 title: Operations sweep
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
-tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
+tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
 
 ## Scope
 
-Everything that changes files on disk from the browser: New Folder and New File, inline rename, copy, cut, and paste with their name conflicts, Move to and Copy to, Send to, drag and drop with its copy-or-move policy and column autoscroll, filesystem-safe placement, copying, identity, and name fixing, releasing open files, leftover recovery, Trash with restore, Empty Trash, the flight animation, and FUSE refusals, permanent deletion with its dissolve, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
+Everything that changes files on disk from the browser: New Folder and New File, inline rename with typed paths, copy, cut, and paste with their name conflicts, Move to and Copy to, Send to, drag and drop with its copy-or-move policy, column autoscroll, and content drops from other applications, filesystem-safe placement, copying, identity, and name fixing, releasing open files, leftover recovery, Trash with restore, Empty Trash, the flight animation, and FUSE refusals, permanent deletion with its dissolve, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
 
 Left to other sweeps: pointer gestures and selection before a drag starts, the sidebar Trash row as a place to navigate to, the modal dialog shell, rendering of archive members in the preview panel, the devices Send to lists, provider destinations inside Send to…, folder reloads after operations, and the 10xer-mode key variants.
 
@@ -28,6 +28,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/qa/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
 - A second local user (`useradd`) to own pre-created paths, and a Python Action that sleeps 30 s.
 - Two windows of the same build for cross-window paste, undo, and progress dock checks.
+- For content drops, Firefox and a Chromium-based browser, plus `tests/qa/fixtures/file_drag_source.py`, which offers raw MIME content from a separate process. Serve the dropped addresses from a local HTTP server and read its log; no request may arrive.
 - A desktop session running `gvfsd` for `trash:///` listings. The pinned test container sets `GIO_USE_VFS=local` and cannot browse Trash.
 - For administrator probes, GVfs's `admin` backend (`gvfsd-admin`), a polkit agent, and a root-owned `0700` folder opened through `admin://`. It holds files, a subfolder, and names shared with a Home folder. The pinned container has none of these; skip those probes and say so.
 - Verify every operation on disk with `ls -la`, `stat`, and `cmp`, never in the listing alone. Watch the log for GTK criticals during dialogs and animations.
@@ -56,7 +57,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - With the stem preselected, compose with fcitx5 in List and Icons, after Ctrl+R, and on Wayland with `GTK_IM_MODULE` unset.
 - Leave an edit open while another window is active, then close the Strata window from the taskbar; read the name on disk.
 - On a vfat or SMB mount, rename to a case-only variant, to a name holding a tab or a combining mark, and to `notes.`; then undo each.
-- Rename to a name differing only by case, to an existing name, to a name containing `/`, and to a 255-byte name, in each mode.
+- Rename to a name differing only by case, to an existing name, and to a 255-byte name, in each mode. Rename to a name containing `/` in an `smb://` folder.
 - Rename an item at the edge of the viewport, in a column narrower than the name, and while a filter is active.
 - Rename an image while its thumbnail is still loading; the thumbnail must follow the new name.
 - In Columns, toggle Show sizes in Columns view while a rename editor is open, then commit and cancel.
@@ -64,6 +65,21 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - With airy spacing, commit a rename that stays visible, then click into another folder before the reveal ends.
 - Create an item in a slot that is already visible, with the list scrolled partway.
 - In Icons and Columns, scrolled to the bottom, rename a new file so it sorts near the top, then press Down twice. Repeat with Page Down, and with Up.
+- Tab through a run of files where each new name sorts past its neighbour, in each mode. Then press Tab at the last item and Shift+Tab at the first after such a re-sort.
+- Tab out of a name that collides with a sibling, an invalid name, and an emptied field. Note where the editor and the error dialog's focus land.
+- Tab in a Ctrl+Shift+N new-folder name field, in 10xer mode, in the file chooser, in a Ctrl+F filter result, and across List group headers.
+- Hold Tab in a 1,000-item folder so rows scroll in; press Down while the next row is still being allocated.
+- In Columns, press Tab at the last item of a column whose child column is open, and Shift+Tab in a column scrolled sideways.
+
+### operations/rename/typed-paths
+
+- Type paths through a folder that is a symlink to a folder, and with the parent folder read-only.
+- Type a path across a mount point, such as `usb/x` with a vfat stick mounted at `usb`, and one whose last part vfat refuses.
+- Name a New File with a path in List, Icons, and a Columns pane that is not the last column.
+- From the deepest Columns pane, name a new item `../x`, and rename a file there `../../x`.
+- Rename into new folders, then into existing ones; undo and redo each, and redo from a second window.
+- Type a path in a Ctrl+F filter result.
+- Rename a folder whose child columns are open to `sub/name`, then press Ctrl+Z.
 
 ### operations/clipboard
 
@@ -102,6 +118,18 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Hover a folder until it spring-loads, move away before it opens, then let it open.
 - Start a drag in Icons from caption whitespace and from tile content, and in List from an unselected row.
 - Start a multi-selection drag in the large fixture folder in List, Icons, and Columns, and hover several folders before dropping.
+
+### operations/drag-and-drop/content-drops
+
+- From real Firefox and Chromium-based browsers, drag an image, a link, and selected text onto each target kind. Read the saved bytes with `cmp` and `file`.
+- Drag a Firefox image and release it at once, without hovering, on a folder row.
+- Drop a link whose host is an IDN name, and one whose host is about 250 bytes.
+- Drop a link with a port and query, and one whose host starts `www.`.
+- Drop text and an image on a tab showing a remote folder, and on a tab while a modal dialog is open.
+- Drop onto an rclone or sshfs mount, and onto the ntfs-3g mount, then list the folder with hidden files shown.
+- Drag a Chromium image over 64 MB, and an SVG image.
+- Drop twenty texts in a row quickly into the same folder.
+- Drop with Open folder after dropping files on, in Columns with a child column open.
 
 ### operations/drag-and-drop/column-autoscroll
 
@@ -211,6 +239,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Permanently delete one large folder on an SFTP or SMB mount, and one large folder inside Trash; watch the progress until it ends.
 - Shift+Delete one folder whose deletion takes 250 to 350 ms.
 - Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
+- On SMB and NFS, Shift+Delete a tree of 200 siblings where one nested folder holds an open file. Meanwhile, `chmod 000` another sibling from a shell. Read which error the dialog names and list what remains.
 
 ### operations/delete/dissolve
 

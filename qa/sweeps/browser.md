@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -31,6 +31,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
 - GNOME Shell, KDE Plasma, and Hyprland Wayland sessions and an X11 session, plus two monitors of different heights, for context menu placement probes.
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
+- For namespace-fallback probes: Ubuntu 24.04 with the `bwrap-userns-restrict` AppArmor profile loaded, or elementary OS 8, in a VM. The QA container cannot restrict namespaces, so these probes run by hand.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
 - Network mounts for change-check and stalled-mount probes: NFSv3 and NFSv4.2 exports, a `cifs` SMB share, an `sshfs` mount, and a 9p or virtiofs share. Each must be writable from the server. Stall a mount by stopping its server or sending SIGSTOP to the FUSE daemon. `powerprofilesctl` switches power-saver mode.
@@ -68,7 +69,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Columns with column 3 active, hover column 1 and Tab in from the header. Then Shift+Tab out with a filter open in column 2, and with none.
 - Tab and Shift+Tab around a listing with the preview panel open, closed, and showing a video; then from the unreadable folder's Retry button.
 - In Columns, Tab and Shift+Tab across a locked folder's error buttons with and without GVfs `admin` support; press Enter on each.
-- Start a rename in Columns and press Shift+Tab; then Tab out of a rename whose name collides with a sibling.
+- Start a rename and click the pane header so the field loses focus. Then press Tab and Shift+Tab.
 - In Settings → Actions → New action, press Up from the bottom control of each tab's page until focus stops, then Down; repeat after switching tabs with Left and Right from the strip.
 - Open a second tab on `100000` and switch back to the first while it loads; press arrows as the hidden load finishes. Then open Properties while the visible Columns folder reloads after an external change.
 - Press Down in each view under a light and a dark theme, then move the pointer without clicking and press Down again; note when each focus outline shows and hides.
@@ -156,6 +157,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Group by file type with hidden files on, sort by Type descending, toggle Folders first; read the group order top to bottom.
 - Read the Size cell of a folder holding only dot-files, the unreadable folder, `100000`, and an `sftp://` folder; then sort by Size.
 - Group by file type in List and open the 200,000-entry folder; mid-load, change the sort key, flip its direction, and toggle Folders first. Compare the headings with a reload.
+- Fill a folder with 100,000 files across ten extensions, 10% of them dot-files. In grouped List, toggle Show hidden files and grouping mid-load. Rename a file across extensions while rows still arrive.
+- In grouped List, Shift-select 50 rows spanning two groups, then rename one of them from a shell so it changes group; press Shift+Down and Delete.
 
 ### browser/view-modes/list/column-layout
 
@@ -254,6 +257,15 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Stay in an admin folder past the 5-minute polkit grant, then scroll, press F5, and switch views; note when a prompt appears.
 - Press Alt+Up up to the Administrator crumb, then Back and Forward across the boundary between admin and ordinary folders.
 - Open the same folder as administrator in two tabs and two windows, close them all, and read `gio mount -l`.
+
+### browser/navigation/back-history
+
+- Visit 40 folders in one tab and open the menu with Shift+F10; arrow to the oldest entry, then press Page Down, End, and Backspace.
+- Open the menu on entries for `~`, `/`, `trash:///`, an `sftp://` folder, an `admin://` folder, and a 255-byte name. Read each row with Orca.
+- Tab from the file list to Back and press Menu; then hold Back, drag off the button before the menu opens, and release.
+- Switch from Columns to List after several visits and open the menu; repeat in a tab restored by Ctrl+Shift+T and in a session-restored tab.
+- Choose an entry whose folder was deleted or unmounted since the visit, then press Alt+Right.
+- Rebind `context_menu` away from Menu and Shift+F10 under `[keymap.default]`, then read Back's description and press the old and new keys on it.
 
 ### browser/navigation/folder-jump
 
@@ -371,6 +383,12 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Middle-click and choose Open in New Tab on Trash, Recent, Network, an unmounted `sftp://` pin, a mounted USB drive, and an unmounted volume; then do both on the icon rail.
 - Double middle-click a sidebar row, and middle-press one and drag past the threshold before release; count the tabs.
 - Hover the current row and rows on the icon rail, in a light and a dark theme.
+- With five pins, focus the first and then the last pin by keyboard and collapse PINNED from a second window each time. Then reorder a pin by drag while collapsed.
+- Collapse PINNED with no pin open. Open pins with `g 1` through `g 5`, the location bar, and Back; watch the row under the heading.
+- Collapse DEVICES while browsing a USB drive, eject it, then plug in a second drive and expand.
+- Unpin every pin while PINNED is collapsed, pin a folder again, and restart; read `sidebar_pinned_collapsed` back.
+- Toggle both sections with Reduce motion on, at text size 8 and 48, and in `de`. Read the badge and headings with Orca.
+- Collapse both sections, step to the icon rail, to hidden, and back to full. Then toggle a section in 10xer mode with `j`, `k`, and `l`.
 
 ### browser/sidebar/rail
 
@@ -441,6 +459,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Put an STL on an NFS or sshfs native path, stall the server mid-render, and scroll on to other STL files.
 - With workers at 1, load a 600 MiB `.gcode` with its thumbnail in the header beside a folder of PDFs; then one with no thumbnail, and one stalled on sshfs.
 - Hide `magick` and `convert` from Strata and load a folder of PNG, JPEG, WebP, and TIFF files with glycin 2.1 and 2.2 or later; then repeat without Landlock ABI 3.
+- On the namespace-restricted host, load PNG, PDF, MP4, STL, and CBZ files in two windows, then Space-preview a PNG and a PDF.
+- On an unrestricted host, lower `ulimit -n` or fill `/tmp` before the first thumbnail, restore it, and scroll on; count supervisors with `pgrep`.
 
 ### browser/properties
 
@@ -448,6 +468,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Press Alt+Enter with nothing selected, with the sidebar focused, and in Recent; set each date format and reread MODIFIED.
 - Copy path for a name holding `'` and a space, and for a file in `trash:///`; paste each in a shell.
 - Copy path from the empty-space Properties of the current folder, from a symlink to a folder, from a symlink to a file, and from the broken symlink.
+- On the SMB share, open Properties on a `.md`, `.py`, `.json`, and `.txt` file, a dot-file, and an extensionless file. Read the subtitle, OPENS WITH, and HIDDEN.
 
 ### browser/properties/media
 
@@ -554,6 +575,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With the window idle, rename a tab's folder from a shell and change text size from another window; check the underline matches the new tab bounds.
 - With 12 tabs overflowing the strip, drag a sidebar row to the strip's scrolled-off ends and release on each tab's left and right halves; read each new tab's position.
 - Drag three folders, then a folder plus a file, from each view onto the strip; drag a folder from Nautilus onto a tab header.
+- With 12 tabs overflowing the strip, drop browser text and a Firefox image on a scrolled-off tab, between tabs, and on New tab.
+- Hold browser text over a background tab for one second, then move off before releasing.
 - Drag a sidebar row onto the other window's strip and its New tab button. Then drag a tab onto the other window's strip.
 - Start a sidebar drag, close tabs from the keyboard down to one, and release over where the strip was; then press Escape mid-drag with a modal dialog open.
 - With a modal dialog open, drag a sidebar row and a folder from another window onto this window's strip and New tab button.
@@ -578,7 +601,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 ## Hand-offs
 
 - Drag and drop once a press is read as a file drag, except Escape cancellation, which `browser/tabs` owns → `operations`.
-- File transfers dropped on tabs and sidebar rows, and every file operation → `operations`.
+- File transfers and saved browser content dropped on tabs and sidebar rows, and every file operation → `operations`.
 - Trash, Undo, and Replace inside `admin://` folders, and Trash drops from them → `operations`.
 - Open and Open With refusals for files in `admin://` folders → `integration`.
 - DEVICES rows, Set label…, mounting, and ejecting → `devices`.

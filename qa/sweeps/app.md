@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the Nix flake, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates and Keyboard, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -27,6 +27,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/qa/keyboard.rs` does. `tests/fixtures/harness.json` lists the layouts QA scenarios cover. Restore `us` afterwards; never change the desktop's layout.
 - For UI-thread stall probes, an sshfs mount of a local folder; stop its daemon with `kill -STOP` and resume it with `kill -CONT`.
+- For Nix probes, `nix` with flakes enabled, or a NixOS VM for the service-file derivations. Skip them and say so when neither is available.
 - `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
 - A client-decorating compositor for title bar probes: `weston --backend=x11-backend.so` or a nested `mutter --nested` on the private display, with Strata launched against its Wayland socket.
 - Keymap fixtures: copies of `settings.toml` holding `[keymap.default]` and `[keymap.tenxer]` entries, edited only while Strata is closed. Keep one with unknown ids, an unquoted dotted id, a non-list entry, an extra `[keymap.*]` table, and a key two commands share. Run with `RUST_LOG=strata=info` to read the keymap log lines.
@@ -82,6 +83,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Select 1, 64, 65, and all items in a folder holding files of unknown size, a symlink, and 10k entries; read the count and its accessible description, then copy, cut, paste, and clear the clipboard with `wl-copy -c` or `xsel -c`.
 - In the default map, run Ctrl+F in each mode on a local folder, a 10k-entry folder, and the SFTP fixture in Columns; read the count while typing, after results land, and after Escape.
 - Filter with the default map and select results. Switch to 10xer mode and back with the filter open, then clear the query by Backspace.
+- Rebind Tab, Shift+Tab, and Menu in Settings → Keyboard, then search F1 for `in a rename` and `Back button` in Columns, Icons, and List, in both maps; count the rows each search returns.
 - With F1 open in Columns, toggle 10xer mode from a second window, then close and reopen F1 in Icons; repeat with the interface in ja.
 - With the interface in German, search F1 for `entf`, `strg+shift`, `bild auf`, `ctrl+−`, and `g-h`; repeat in French with `suppr`.
 - In 10xer mode with `us,ru`, press the Ё key and a US `~` in the location field, a footer prompt, F1 search, and the file list.
@@ -118,6 +120,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Close F1 and press the same keys again.
 - Start a List heading drag, then press Escape with a footer prompt open, with the filter field showing, and with a 10xer chord armed. Release the mouse after each.
 - Ctrl+wheel with a touchpad: scroll half a step, reverse, then continue; repeat after switching between a wheel mouse and the touchpad mid-gesture.
+- With a rename open, press Tab with a dialog open over it, with F1 open, with the text size at its maximum, and in the 10xer chooser.
 - Ctrl+Shift+wheel over a long Columns and List listing and the sidebar in each mode, with a touchpad and a mouse. Then Ctrl+Alt+wheel and Ctrl+Super+wheel over Icons.
 - With a PDF open in the preview, Ctrl+wheel over its scrollbars, its page margin, the listing, and the sidebar, with keyboard focus in the PDF and then in the listing.
 - Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
@@ -135,6 +138,11 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Read the launcher's generic name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, `zh_MO.UTF-8`, and `hu_HU.UTF-8`.
 - View the installed icon at 16, 24, 32, and 48 px on white, mid-grey, and near-black dock backgrounds.
 - Compare its size and corners with neighboring icons under Adwaita and under an icon theme with no Strata icon, such as MacTahoe.
+- Run `nix build`, then read `Exec=` in `result/share/applications/io.github.lgse.Strata.desktop` and in `result/share/strata/io.github.lgse.Strata.FileManager1.service`.
+- Run `nix build .#strata.fileChooserPortal .#strata.fileManagerService`; read every `Exec=` line and resolve each path after a flake update and `nix-collect-garbage`.
+- Build from a `path:` and a `git+file:` reference, with a clean and a dirty tree; compare the Diagnostics build commit of each.
+- From the Nix build, open a terminal with Open in Terminal and an Open With program; compare their `PATH` with the login shell's.
+- Build the `aarch64-linux` package, then open a folder of images and clips and preview each.
 
 ### app/packaging/installer
 
@@ -284,6 +292,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Window title text after a folder opens → `browser`.
 - The `GDK_DEBUG` value programs launched from a service-activated Strata see → `integration`.
+- The `STRATA_INTEGRATIONS` build switch, and the portal and file manager rows and flags in a package build → `integration`.
+- The udiskie unlock row and flags in a `STRATA_INTEGRATIONS=package` build → `devices`.
 - Per-mode movement, selection, the keyboard cursor after reloads, and type-to-search → `browser`.
 - Context menu items, placement, and Open With → `browser`.
 - The sidebar as a navigation surface, the Trash row, and the update notice's text and layout → `browser`.

@@ -3,7 +3,7 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 review: draft
 code: [src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh]
 tests: [src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl]
@@ -31,6 +31,9 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - If a folder in the tree is moved while it is being deleted, deletion stops with an error instead of following it. lgse/strata#869
 - Deleting a folder on NFS, SMB, or FUSE leaves another program's `.nfs…`, `.__smbfile_silly…`, or `.fuse_hidden…` file in place. lgse/strata#1729
 - Such a leftover selected by name is deleted like any file, and the mount's refusal is reported. lgse/strata#1729
+- On NFS or SMB, permanently deleting `tree` while a file in `tree/open/` is open elsewhere deletes everything except `tree/open` and `tree`. lgse/strata#1964, lgse/strata#1965
+- The error then names `open` as still open. lgse/strata#1964, lgse/strata#1965
+- When another error, such as `EIO`, stops that delete, the error reported is the one that stopped it, not the still-open folder. lgse/strata#1965
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
 - That dialog lists the first 8 errors as "name: reason" and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
 - Cancelling a permanent delete counts an item it had started as failed, and items not yet started as not attempted. lgse/strata#1615
@@ -51,6 +54,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 - The parent of a selected item resolves with `openat2(IN_ROOT | NO_MAGICLINKS)` so directory aliases work, while traversal inside the tree stays no-follow (lgse/strata#477).
 - Remote GVfs locations have no descriptor to walk, so they keep GIO's path-based delete and claim no equivalent guarantee (lgse/strata#253).
 - A work-stealing queue deletes trees on parallel workers at `nice +10`, one worker on rotational disks (lgse/strata#869). The first failure stops dispatch, started workers are joined, and transient open retries are bounded (lgse/strata#911).
+- A folder refused only because a file in it is still open is the exception. Its error is deferred and the rest of the delete finishes. Otherwise what remained depended on which worker reached it first. A stopping error is reported over a deferred one, since only it explains what unfinished jobs left (lgse/strata#1964, lgse/strata#1965).
 - Progress counted whole top-level items, so one large folder stayed at 0% until its last entry was gone. Workers now count removed entries on the `Deadline` every delete job already carries, so copy, replace, and merge callers need no new parameter (lgse/strata#1930, lgse/strata#1935).
 
 ## History

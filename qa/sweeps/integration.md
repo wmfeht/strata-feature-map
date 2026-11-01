@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -18,7 +18,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - `busctl --user call org.freedesktop.FileManager1 /org/freedesktop/FileManager1 org.freedesktop.FileManager1 ShowItems ass N <uris> ""` on the private bus. A copy of `data/io.github.lgse.Strata.FileManager1.service` with `Exec=` pointing at the build goes in the throwaway `$XDG_DATA_HOME/dbus-1/services` for activation probes.
 - A fake `xdg-terminal-exec` first on `PATH` that appends its argv and cwd to a log; a second `PATH` without it and without any known emulator; fake `kitty` and `$TERMINAL` scripts that exit 127.
 - Fake `ghostty` scripts on `PATH` that log argv and cwd and print `Ghostty 1.3.1`, `Ghostty 1.2.3`, `ghostty 1.3`, or nothing for `--version`. Real Ghostty 1.3 with `gtk-single-instance = true`, when the VM has it.
-- A fake `.desktop` default handler under `$XDG_DATA_HOME/applications`, without `Path=`, that logs its argv and cwd. Add `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
+- A fake `.desktop` default handler under `$XDG_DATA_HOME/applications`, without `Path=`, that logs its argv and cwd. Add `%f` and `%u` variants, plus `NoDisplay=true` and `OnlyShowIn=KDE` twins, and an `x-scheme-handler/https` twin that logs the address; `mimeapps.list` in the throwaway `$XDG_CONFIG_HOME`.
 - `$XDG_CONFIG_HOME/strata/actions` with a Python action, a Bash action, and a command action: one with `confirm = true`, one per-item, one naming a missing interpreter, one broken manifest, and one that emits progress and output events.
 - A folder under `/dev/shm`, whose listing reports no Trash support, a read-only folder, and a regular Home folder.
 - A `chmod 000` folder in Home. Administrator probes need GVfs's `admin` backend (`gvfsd-admin`) and a polkit agent; skip them without these and say so. They use a root-owned `0700` folder holding a text file, an executable `.sh`, and a subfolder.
@@ -30,6 +30,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Keyboard layout `fr` from a QA `layout` step or `setxkbmap`; Swiss German needs `setxkbmap -layout ch -variant de`, which the `layouts` list in `tests/fixtures/harness.json` lacks. fcitx5 with pinyin under `GTK_IM_MODULE=fcitx`.
 - Cold activation: a private session bus from `dbus-run-session`, with the FileManager1 service copy pointing at the build and xdg-desktop-portal 1.22.1 on that bus. Set `GDK_DEBUG` for activated services with `dbus-update-activation-environment`.
 - A local Flatpak build of Strata with `xdg-desktop-portal` and a desktop portal backend on the host, for Flatpak probes; skip them without one and say so.
+- A GVfs `smb://` share holding `README.md`, `a.py`, `a.json`, and a file with no extension, plus a writable folder for `rename ›` probes.
+- A second build made with `STRATA_INTEGRATIONS=package`, for package-build probes, beside a default build in another directory.
 - A keyboard-only session: no pointer input, footer text read over AT-SPI. Window-placement probes need a nested Hyprland with two monitors; skip them under Xvfb and say so.
 
 ## Probes
@@ -88,6 +90,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - On an Omarchy VM, make `bindings.conf` a relative link, a two-link chain, a dangling link, and a link from a read-only directory. Run Complete setup with a target that fails `hyprctl configerrors`. Read the link, target, and backup location.
 - Install from a `0775` `~/.local/bin` group-owned by: a gid on two `/etc/group` lines, another user's private group, a memberless gid nobody has as primary. Repeat as an LDAP or sssd account.
 - Run `--install-udiskie-unlock` and Complete setup on Omarchy from that `0775` private-group path, then with one ancestor `0757`.
+- Install the portal and Complete setup with the default build, then run each refused flag from the package build; diff `~/.config` and `~/.local/share` and `portals.conf` after each.
+- Start the package build while a `strata --portal` from a replaced default-build executable runs; check with `ps` whether that backend survives.
+- Build with `STRATA_INTEGRATIONS=Package`, a tab-padded `package`, and a non-UTF-8 value; read the build result, then the Settings row of any build that succeeds.
+- In the package build, search Settings for "file manager", "portal", and "desktop integration" in English and in another UI language; read the row.
 
 ### integration/portal-file-chooser/url-download
 
@@ -183,6 +189,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press a slot key for a `confirm = true` action, cancel, then press it again with 10xer mode on.
 - In Columns, press a slot key and a direct Move to key on an unselected row in a second column. Repeat in Icons.
 - In an `admin://` folder, press `O` on one file and on a fill mixing a file and a folder.
+- In `rename ›` type `../x` at a mount's root, `a/../b`, a path through a folder symlink, a path into the vfat mount from Home, and `x/y` in an `smb://` folder; press Ctrl+Z after each that succeeds.
+- Submit `nested/b.txt` in `rename ›` from an `f` result and an `s` hit, and from a non-last Columns pane; read where the cursor lands.
 
 ### integration/10xer-mode/file-chooser
 
@@ -206,6 +214,9 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press Enter twice fast on a file with no handler, once with a modal open, and once in a second window. Count the choosers.
 - Open a file, a folder, and three files at once through Open With…, then by activation; read `~/.local/share/recently-used.xbel` after each.
 - In an `admin://` folder, activate the text file by Enter, double-click, and the menu's Open, then the executable `.sh`. Check the handler log stays empty.
+- With a logging fake as the `x-scheme-handler/https` default, activate `Type=Link` entries: valid, with `Exec` added, with `user:pw@` in `URL`, with `ftp://`, at 65 KiB, executable, and a symlink to a valid one.
+- Activate a valid link entry on the sshfs mount, in Recent, in Trash, and in the Flatpak build; then use Open With… on one. Read both handler logs.
+- On an SMB share, activate and use Open With… on a `.md`, a `.py`, a `.json`, and a file with no extension, by Enter and by the menu. Skip without a share and say so.
 
 ### integration/open-with/recent-apps
 
