@@ -20,7 +20,7 @@ tree under `features/` stays the spec; the site never cites it.
 | `drafts/<slug>.md` | Proposals with no section to land in. Never built. | The bot, then people |
 | `preprocessors/strip.py` | Drops front matter and HTML comments before rendering. | People |
 | `book.toml` | mdBook configuration. `featuremap.py index` sets its `title` and `site-url`. | People |
-| `theme/` | The site's look: Tokyo Night palettes, the page template, fonts, and the pixel wordmark. See "Theme" below. | People |
+| `theme/` | The site's look: Mirai and Tokyo Night palettes, the page template, fonts, and the pixel wordmark. See "Theme" below. | People |
 
 ## Page format
 
@@ -134,9 +134,10 @@ Alpha, beta, RC, and nightly tags trigger nothing.
 
 ## Theme
 
-`theme/` replaces mdBook's stock theme with one modeled on the Omarchy manual
-and colored in Tokyo Night. Readers pick Night (the default), Storm, or Day from
-the palette button.
+`theme/` replaces mdBook's stock theme with one modeled on the Omarchy manual.
+Readers pick Mirai (the default), Tokyo Night, Storm, or Day from the palette
+button. Mirai's colors come from the Omarchy `mirai` theme's `colors.toml`; the
+Tokyo Night palettes follow folke/tokyonight.nvim.
 
 | File | Holds |
 | --- | --- |

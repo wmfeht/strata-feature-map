@@ -1,5 +1,5 @@
 /* highlight.js in Tokyo Night, after folke/tokyonight.nvim's syntax groups.
-   Colours come from the theme tokens in css/variables.css, so Day follows too. */
+   Colours come from the theme tokens in css/variables.css, so Mirai and Day follow too. */
 
 /* book.js also tags inline code .hljs; only blocks take the base colours. */
 pre > code.hljs {
