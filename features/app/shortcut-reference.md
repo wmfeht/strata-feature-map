@@ -68,7 +68,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272
 - In the default map, "Files and selection" lists "Tab / Shift+Tab in a rename — Rename the next / previous item" right after Rename. lgse/strata#1961
 - The 10xer reference lists no Tab / Shift+Tab rename row. lgse/strata#1961 (unverified)
-- In the default map, Icons, List, and Columns navigation list "Menu / Shift+F10 on the Back button — List the back history (also right-click or hold)". lgse/strata#1977
+- In the default map, Icons and List navigation list "Menu / Shift+F10 on the Back button — List the back history (also right-click or hold)". lgse/strata#1977
 - Icons navigation lists that row twice. lgse/strata#1977 (unverified)
 - Columns lists the row although Columns has no Back history menu. lgse/strata#1977 (unverified)
 - Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543
