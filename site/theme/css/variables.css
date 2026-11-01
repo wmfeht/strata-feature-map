@@ -1,7 +1,7 @@
 /*
- * Strata docs theme: Tokyo Night, laid out after the Omarchy manual.
- * Palettes follow folke/tokyonight.nvim. The other stylesheets read these
- * tokens and name no colour of their own.
+ * Strata docs theme, laid out after the Omarchy manual. Mirai is the default;
+ * Tokyo Night Night, Storm, and Day follow folke/tokyonight.nvim. The other
+ * stylesheets read these tokens and name no colour of their own.
  */
 
 :root {
@@ -18,13 +18,54 @@
     --code-font-size: 0.875em;
 
     /* Theme picker swatches show each palette whatever the current theme: bg, blue, magenta. */
+    --swatch-mirai: linear-gradient(90deg, #071114 0 34%, #3ee0e8 34% 67%, #f5913a 67%);
     --swatch-night: linear-gradient(90deg, #1a1b26 0 34%, #7aa2f7 34% 67%, #bb9af7 67%);
     --swatch-storm: linear-gradient(90deg, #24283b 0 34%, #7aa2f7 34% 67%, #bb9af7 67%);
     --swatch-day: linear-gradient(90deg, #e1e2e7 0 34%, #2e7de9 34% 67%, #9854f1 67%);
 }
 
+/*
+ * Mirai: the default. Colours come from the Omarchy "mirai" theme's colors.toml
+ * and its Strata theme. Token names are Tokyo Night hues; Mirai fills them by
+ * role: --blue is the neon cyan accent, --magenta the warm orange counterpoint.
+ */
+.mirai, html:not(.js) {
+    --bg: #071114;
+    --bg-dark: #050c0f;
+    --bg-hl: #0f2529;
+    --bg-sel: #14404a;
+    --rule: #14333a;
+    --rule-strong: #1e434b;
+    --fg: #cde3e0;
+    --fg-strong: #e8f7f5;
+    --muted: #6f9097;
+    --faint: #46676d;
+
+    --blue: #3ee0e8;
+    --blue-deep: #27b2b9;
+    --blue-shade: #108389;
+    --cyan: #b8f4f6;
+    --sky: #78c4e6;
+    --aqua: #3fa6d4;
+    --magenta: #f5913a;
+    --purple: #e07a95;
+    --green: #5fd4a8;
+    --teal: #8ae6c2;
+    --yellow: #e9c27f;
+    --orange: #f0a3b6;
+    --red: #f2552c;
+
+    --button-bg: #e8f7f5;
+    --button-fg: #071114;
+    --overlay: rgba(3, 8, 10, 0.72);
+    --topbar-bg: rgba(7, 17, 20, 0.86);
+    --dot: rgba(62, 224, 232, 0.16);
+
+    --color-scheme: dark;
+}
+
 /* Night: the Omarchy default. */
-.tokyo-night, html:not(.js) {
+.tokyo-night {
     --bg: #1a1b26;
     --bg-dark: #16161e;
     --bg-hl: #292e42;

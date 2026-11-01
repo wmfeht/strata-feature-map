@@ -210,6 +210,7 @@
     border: 1px solid var(--rule-strong);
 }
 
+#mirai::before { background: var(--swatch-mirai); }
 #tokyo-night::before { background: var(--swatch-night); }
 #tokyo-night-storm::before { background: var(--swatch-storm); }
 #tokyo-night-day::before { background: var(--swatch-day); }
