@@ -3,7 +3,7 @@ title: Window key and wheel dispatch
 status: shipped
 origin: {issue: null, pr: lgse/strata#544}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl]
@@ -26,10 +26,15 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - While only a closing dialog is visible, other browser shortcuts do nothing and the key goes to GTK; text-size keys still act. lgse/strata#1554 (unverified)
 - The text-size keys Ctrl++, Ctrl+−, and Ctrl+0 still change the text size while a modal dialog is open. lgse/strata#838 (unverified)
 - With a 10xer chord armed, Ctrl+0 on a focused PDF drops the chord before resetting the page zoom. lgse/strata#1622
+- With `text_reset = ["<Control>9"]` and `pdf_zoom_reset = ["<Control>0", "<Control>e"]`, Ctrl+0 and Ctrl+E reset a focused document's zoom and keep the text size. lgse/strata#1885
+- With the same entries, Ctrl+9 on a focused document resets the text size, not the document zoom. lgse/strata#1885
 - A key pressed while a modal is open and focus is outside it moves focus into the modal and does nothing else. lgse/strata#544 (unverified)
 - While a popover menu has focus or is visible, keys go to the menu rather than to browser shortcuts. lgse/strata#544 (unverified)
 - With no dialog or menu open, Escape during a List heading drag cancels only the drag. The file selection stays and the footer chord mark clears. lgse/strata#1900
 - With a text field focused, Ctrl+C, Ctrl+X, Ctrl+V, and Ctrl+A act on its text, not on the selected files. lgse/strata#544
+- In the default key map, with Ctrl+F filter or search results showing and no text field focused, `y` copies no path. lgse/strata#800, lgse/strata#1885 (unverified)
+- In that state, a key no earlier stage claims runs no Strata file command and goes to GTK. lgse/strata#800, lgse/strata#1885 (unverified)
+- The exceptions: Copy, Cut, Paste, and Select all act on the results, Delete passes on, and an arrow alias moves as its arrow. lgse/strata#800, lgse/strata#1885 (unverified)
 - With only a Russian layout configured, Ctrl+C/X/V/A/Z/Y and Ctrl+Shift+Z in a focused text field copy, cut, paste, select all, undo, and redo its text. lgse/strata#1576
 - With 10xer mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning the mode off restores them. lgse/strata#1271, lgse/strata#1576
 - With 10xer mode on, Ctrl+Alt+T in the file list still opens a terminal. lgse/strata#1576
@@ -57,6 +62,7 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 [docs/architecture.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/architecture.md) carries the design under "Window keyboard routing". [docs/keyboard-shortcuts.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/keyboard-shortcuts.md) describes how the dispatcher reads keys through `ui::keys` (`app/keyboard-shortcuts`).
 
 - Each tab installs one capture-phase key controller on the window, and it acts only while that tab is mapped (lgse/strata#1484). It runs ordered stages: text size, modal and editing ownership, window and file commands, focus traversal, dismissal, then item navigation. `None` tries the next Strata stage; `Some(Propagation::Proceed)` ends dispatch and leaves the key to GTK (lgse/strata#543, lgse/strata#544).
+- A direct-command stage, `app/keyboard-shortcuts/remapping`, runs after the window commands and before the default-map Tab stage and inline editing. A focused document's zoom reset now runs before text size, on its own keys (lgse/strata#1885).
 - In the default map, a Tab stage runs after window commands and before inline editing. Tab from a Columns rename field therefore leaves the strip (lgse/strata#1431, lgse/strata#1533).
 - Ctrl+K, Ctrl+Shift+K, Ctrl+Alt+T, F5, and Ctrl+\ were GTK accelerators, run only after the dispatcher yielded, so `add_guarded_window_action` gates each action itself (lgse/strata#1554).
 - They are now dispatcher bindings, not accelerators: once every stage yields, the dispatcher activates the same guarded `win.*` action. Application accelerators are gone (lgse/strata#1576).

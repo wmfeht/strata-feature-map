@@ -1,15 +1,15 @@
 ---
 title: App sweep
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
-tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
+tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, and package-managed installs. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
 
-Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
+Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates and Keyboard, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
 ## Setup
 
@@ -29,6 +29,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - For UI-thread stall probes, an sshfs mount of a local folder; stop its daemon with `kill -STOP` and resume it with `kill -CONT`.
 - `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
 - A client-decorating compositor for title bar probes: `weston --backend=x11-backend.so` or a nested `mutter --nested` on the private display, with Strata launched against its Wayland socket.
+- Keymap fixtures: copies of `settings.toml` holding `[keymap.default]` and `[keymap.tenxer]` entries, edited only while Strata is closed. Keep one with unknown ids, an unquoted dotted id, a non-list entry, an extra `[keymap.*]` table, and a key two commands share. Run with `RUST_LOG=strata=info` to read the keymap log lines.
 - Input methods: fcitx5 with its pinyin and hangul engines, started on the private display, with `GTK_IM_MODULE=fcitx` exported before launching Strata. Without a daemon, `setxkbmap -display :N -layout cn -variant altgr-pinyin` gives GTK's own dead-key composition.
 
 ## Probes
@@ -87,6 +88,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - In 10xer mode, type `~` in the global search field, Settings search, a rename field, and the Compress name field.
 - Focus an F1 category and press `~`.
 - In Icons, search F1 for `ctrl+alt+0`, `+`, and `thumbnail` in both maps, with the interface in English and German.
+- With F1 open, rebind and unbind its search, category, and list keys and a command shown in each section from a second window; read the rows and the note.
+- Bind keys to Custom action 1 and 10, then open F1 in each mode and search for the slot and its key.
 - Open each 10xer footer prompt in turn, then switch from one prompt to another without closing it; dump the entry after each step.
 
 ### app/window
@@ -116,6 +119,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Ctrl+wheel with a smooth touchpad from 13 to 48 and back; the step count must match the accumulated delta.
 - Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
 - Hold Ctrl+Shift and scroll a touchpad slowly, then fast; then release Shift mid-scroll and keep scrolling.
+- Rebind `pdf_zoom_reset` and `text_reset` to shared and separate keys. Press them with a PDF, a text preview, and the listing focused, with a 10xer chord armed.
 - With three windows open, toggle 10xer mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ from the file list. Close one window and check again.
 
 ### app/packaging
@@ -179,6 +183,29 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With chewing (Zhuyin) active, start syllables with `1`, `-`, and `;` in the location field, a rename, F1 search, and a 10xer footer prompt.
 - On `tw` and `tw(indigenous)`, type the AltGr digit-row marks in a rename field, then press `t` and AltGr+1 in 10xer mode.
 - With IBus, press Super+Space in a dialog's entry, Settings search, and the Open With search field.
+- On German with `de,us` and a layout-switch key set through `setxkbmap -option grp:alt_shift_toggle`, arm 10xer `g`, `c`, `,`, `;`, and `t`; press AltGr alone, then switch layouts, then the step.
+
+### app/keyboard-shortcuts/remapping
+
+- Launch with each keymap fixture, then rebind one key in Settings; diff the file against the fixture and read the log for each rejected entry.
+- Hand-edit a key two commands share in one table, and one key on the same command in both tables; launch, read the log, and press the key in each mode and view.
+- Put the same key twice in one entry. Then give a window command a key another surface ships, such as a preview key.
+- Arm a 10xer chord in one window, then rebind its trigger or a step in Settings in a second window; press the old and new keys in the first.
+- Rebind a 10xer chord trigger, then press the old trigger, the new one, and each step and digit after it.
+- Capture keys on `fr` (AZERTY), `de`, `ch`, `ru`, and `us,ru` with Russian active. Use top-row digits with and without Shift, AltGr symbols, and Ctrl with a non-Latin letter; read the chip and saved accelerator.
+- Capture with an input-method composition pending, and with fcitx5 or IBus switch keys.
+- Start a capture, then switch the table, close Settings, switch windows, or toggle 10xer mode from another window; press a key after each.
+- Arm captures in two windows and press keys in each in turn.
+- Drop Escape from `escape` and add `<Control>bracketleft`. Cancel a dialog, a rename, a footer prompt, F1, a popover menu, and the portal chooser with each key.
+- Give Enter, Tab, and the arrows a Ctrl key and a plain letter; use them in the action editor's multi-line field, Settings, a document table, the media timeline, and the sidebar.
+- With type-to-search on, then off, bind plain letters to a window command and to a structural key; type them in the file list, the filter, and global search.
+- Bind each direct command in the other map to a Ctrl key and an F key; run it on a selection, an unselected focused row, search hits, an empty folder, and Trash.
+- Bind Custom action 1 and 2, then add, delete, reorder, disable, and rename actions in Settings → Actions; read the slot names and press each key after each change.
+- Search the page for a 10xer-only action, a slot's action name, and a key label in German; switch tables with the query kept.
+- Leave a 10xer trigger unbound with its steps bound, and leave Escape out of `escape`; read each row's notes and chips in both tables.
+- With the fixture holding unknown ids, press **Reset all** and dismiss the dialog by Escape and by the backdrop; then confirm and diff the file.
+- Edit `settings.toml` while Strata runs, then save a rebind from Settings; read the file and the keys after relaunch.
+- With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
 
 ### app/updates
 
@@ -257,6 +284,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - The FileManager1 D-Bus service and Open in Terminal → `integration`.
 - The portal file chooser, including its identity and refresh after an update → `integration`.
 - 10xer-mode key variants and footer prompts → `integration`.
+- Settings search finding Keyboard rows and the Settings navigation layout → `settings`.
+- Custom action slot feedback, keymap overrides in the portal chooser, and Ctrl-bound history, parent, and home keys there → `integration`.
+- Rebound keys in previews → `preview`.
+- Rebound context-menu accelerators and Ctrl-bound history, parent, and home in the browser → `browser`.
 - Tab numbers, view switching, text size, and the filter on other layouts → `browser`.
 - Chosen states of sort options and Appearance options other than Hidden files, after changes made while their menus are closed → `browser`.
 - Chosen states of Settings choice options and the Hidden files option → `settings`.

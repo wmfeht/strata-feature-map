@@ -603,12 +603,19 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/inline_search/**` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/ui/keys.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
+| `src/ui/keys.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
+| `src/ui/keys/alias.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/keys/alias/tests.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/keys/bindings.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/keys/bindings/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/ui/keys/composition.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
-| `src/ui/keys/label.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
-| `src/ui/keys/tests.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts.md) | — |
+| `src/ui/keys/capture.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/keys/command.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/keys/command/tests.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/keys/composition.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
+| `src/ui/keys/conflicts.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/keys/conflicts/tests.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/keys/label.rs` | code | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
+| `src/ui/keys/tests.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
 | `src/ui/loading_skeleton.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/**` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/delay/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
@@ -643,8 +650,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/folder_views/**` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/folder_views/tests.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/item_customizations.rs` | code | [Folder and file customization](../features/browser/folder-customization.md) | — |
+| `src/ui/preferences/keymap.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/preferences/save_notice.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/ui/preferences/tests/keymap.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/preferences/tests/preferences.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/preferences/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/text_size.rs` | code | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -726,6 +735,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/install_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/settings/integrations.rs` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/settings/integrations/tests.rs` | tests | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `src/ui/settings/keyboard.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/settings/keyboard/tests.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/settings/release_picker.rs` | code | [Install a specific release](../features/app/updates/release-picker.md) | [Updates](../features/app/updates/index.md) |
 | `src/ui/settings/search.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/settings/search/tests.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
@@ -820,6 +831,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/keyboard/chooser.rs` | code | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/keyboard/chords.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/keyboard/commands.rs` | code | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
+| `src/ui/window/keyboard/direct.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/keyboard/escape.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/keyboard/files.rs` | code | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/keyboard/focus.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
@@ -841,6 +853,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch.rs` | tests | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/audio_tracks.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/context_menus.rs` | tests | [Context menus](../features/browser/context-menu.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/direct_commands.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/escape_precedence.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/file_commands.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/file_verbs.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -848,6 +861,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/folder_jump.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/go_prompt.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/keymap_conflicts.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/keymap_overrides.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/mode_exit.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/open_in_new.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/overlay_focus.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
@@ -855,6 +870,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/preview_ownership.rs` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/reload_cursor.rs` | tests | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/structural_aliases.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs` | tests | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/video_clips.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/window/tests/keyboard_policy.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
@@ -992,7 +1008,20 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/filter_results/space-completes-composition.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/hidden_files` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `tests/qa/scenarios/inline_renaming` | tests | [Inline rename](../features/operations/rename.md) | — |
-| `tests/qa/scenarios/keyboard_navigation` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/keyboard-only-copy-paste.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/return-restores-nested-scroll.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/select-all-selects-every-entry.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/shift-arrow-extends-selection.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
+| `tests/qa/scenarios/keymap` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `tests/qa/scenarios/locations/named-location-controls.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |

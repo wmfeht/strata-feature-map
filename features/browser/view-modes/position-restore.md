@@ -3,7 +3,7 @@ title: Position restore on return and refresh
 status: shipped
 origin: {issue: lgse/strata#868, pr: lgse/strata#893}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser_modes/navigation.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/reload_cursor.rs]

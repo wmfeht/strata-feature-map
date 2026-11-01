@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/mutations]
 ---

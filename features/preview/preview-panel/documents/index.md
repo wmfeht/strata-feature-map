@@ -3,7 +3,7 @@ title: Rendered document previews
 status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer]
 tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/README.md, tests/qa/scenarios/quick_preview/markdown-equations-keep-prose.jsonl, tests/qa/scenarios/quick_preview/markdown-preview-renders-media.jsonl, tests/qa/scenarios/quick_preview/rendered-document-word-selection.jsonl, tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl]
@@ -30,6 +30,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - A click, then a Shift-click farther along, selects from the first click to the second. lgse/strata#1559, lgse/strata#1557
 - With focus in a rendered or large source document, Shift+Left/Right, Shift+Up/Down, Shift+Home/End, and Ctrl+Shift+Left/Right extend the selection by character, line, line edge, or word. lgse/strata#1559, lgse/strata#1557
 - Ctrl+Home and Ctrl+End move the caret to the start and end of the loaded document. lgse/strata#1559
+- In the default key map, Home and End still move the caret to the line's start and end after `first_item` or `last_item` is rebound. lgse/strata#1885
 - With focus in a rendered or large source document, Ctrl+A selects the whole loaded document. lgse/strata#187, lgse/strata#1576 (unverified)
 - Keyboard selection crosses recycled rows and does not change the listing's selection. lgse/strata#1559
 - Shift+Left/Right steps over a whole grapheme cluster, such as an emoji with a skin-tone modifier. lgse/strata#1559 (unverified)

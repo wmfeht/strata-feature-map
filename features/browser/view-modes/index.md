@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]

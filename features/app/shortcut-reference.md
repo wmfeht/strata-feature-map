@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
 tests: [src/ui/shortcut_footer/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
@@ -56,6 +56,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In windows narrower than 1480 px, the header stacks, categories become wrapping pills without counts, and results use one column; resizing while open re-lays the panel. lgse/strata#1296
 - A note at the bottom reads "Ctrl+B categories · Ctrl+F search · Ctrl+L list · j / k / ↑ / ↓ move · Tab cycle · Escape close". lgse/strata#1296, lgse/strata#1576 (unverified)
 - The note wraps only after a "·". lgse/strata#1296, lgse/strata#1519
+- After the reference's category, search, or list key is rebound, the note names the new key. lgse/strata#1885 (unverified)
 
 ### Contents
 
@@ -73,6 +74,12 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - The default reference lists text size as "Ctrl++ / − / 0", Ctrl+Space, and Ctrl+\; the 10xer reference lists text size. lgse/strata#1376, lgse/strata#1576
 - In the default map in Icons, the reference lists Ctrl+Alt++ / − / 0 as "Increase / decrease / reset thumbnail size". lgse/strata#1721
 - In 10xer mode in Icons, "Increase / decrease thumbnail size" lists +, −, Ctrl+Alt++, and Ctrl+Alt+−, and "Reset thumbnail size" lists Ctrl+Alt+0. lgse/strata#1721 (unverified)
+- A row lists every key the active map gives its command, keys a user added included; a command with no key has no row. lgse/strata#1885
+- With F1 open, unbinding Ctrl+K for global search removes its row without reopening the reference. lgse/strata#1885
+- With `[keymap.default] toggle_hidden_files = ["F7"]`, F1 lists F7 for toggling hidden files. lgse/strata#1885
+- In the default map, a "Custom actions" section lists each custom action slot that has a key, as "Custom action N". lgse/strata#1885
+- With Close tab unbound, its tooltip reads "Close tab", not "Close tab ()". lgse/strata#1885
+- With Up and Down unbound, the search palette footer shows no navigate hint. lgse/strata#1885 (unverified)
 - Movement keys are described directly; the `h / j / k / l` row reads "Same as ← ↓ ↑ → (type-to-search off)" and no row names Vim. lgse/strata#826
 - In a translated interface, actions and key context such as "on a file" are translated, and key names follow the interface language: German shows Strg+B and Rücktaste. lgse/strata#1519, lgse/strata#1576
 
@@ -139,4 +146,4 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 ## Known gaps
 
-None known.
+- The note at the bottom has no keyless form for an unbound command, such as a categories key removed in Settings → Keyboard. lgse/strata#1885

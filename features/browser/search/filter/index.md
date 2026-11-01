@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results/delete-trashes-filtered-result.jsonl, tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl, tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl, tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl, tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl, tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl, tests/qa/scenarios/filter_results/space-completes-composition.jsonl, tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl, tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl, tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl, tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl, tests/qa/mutations/filter-results.patch]
@@ -103,6 +103,8 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - If no selected result remains, focus goes to the result now in the deleted one's slot, or to the last result. Escape then closes the filter. lgse/strata#1632
 - Deleting the last remaining result that way moves focus to the filter field; Escape then closes the filter. lgse/strata#1632
 - Icons shows results as an icon grid and List as rows. lgse/strata#1155
+- In Columns with a pane filter, results list their names in the reverse of the chosen sort order. lgse/strata#1885 (unverified)
+- In Columns with a pane filter, choosing a sort drops a multi-selection. lgse/strata#1885 (unverified)
 
 ## Design
 

@@ -3,7 +3,7 @@ title: Audio previews
 status: shipped
 origin: {issue: lgse/strata#1288, pr: lgse/strata#1289}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/preview/audio.rs, src/ui/preview/audio, src/ui/preview/waveform.rs, src/ui/preview/waveform, src/media/peaks.rs, src/media/peaks]
 tests: [src/ui/preview/audio/tests.rs, src/ui/preview/audio/analysis/tests.rs, src/ui/preview/audio/details/tests.rs, src/ui/preview/tests/audio.rs, src/ui/preview/waveform/tests.rs, src/media/peaks/tests.rs, src/ui/window/tests/keyboard_dispatch/audio_tracks.rs]

@@ -3,7 +3,7 @@ title: Thumbnail size shortcuts
 status: shipped
 origin: {issue: lgse/strata#1720, pr: lgse/strata#1721}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser_modes/thumbnail_size.rs]
 tests: [src/ui/browser_modes/thumbnail_size/tests.rs, src/ui/window/tests/keyboard_dispatch/thumbnail_size.rs]
@@ -27,6 +27,7 @@ Keyboard and wheel shortcuts that step the Icons thumbnail size along a fixed la
 - In 10xer mode, with the Icons listing focused, plain +, =, or − steps the size; Ctrl+Alt++ and Ctrl+Alt+− still work. lgse/strata#1721
 - In Columns or List, none of these keys resizes anything. lgse/strata#1721
 - The portal file chooser accepts the key shortcuts. lgse/strata#1721
+- The Ctrl+Alt step keys come from `[keymap.default]` in both modes, so a rebind there applies in 10xer mode too. lgse/strata#1885
 
 ### Reset
 

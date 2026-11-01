@@ -3,7 +3,7 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl]

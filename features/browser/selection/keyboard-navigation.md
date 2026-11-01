@@ -3,10 +3,10 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs]
-tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation, tests/qa/mutations/keyboard-navigation.patch]
+tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl, tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl, tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl, tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl, tests/qa/scenarios/keyboard_navigation/keyboard-only-copy-paste.jsonl, tests/qa/scenarios/keyboard_navigation/return-restores-nested-scroll.jsonl, tests/qa/scenarios/keyboard_navigation/select-all-selects-every-entry.jsonl, tests/qa/scenarios/keyboard_navigation/shift-arrow-extends-selection.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl, tests/qa/mutations/keyboard-navigation.patch]
 docs: [docs/keyboard-navigation.md]
 related: [browser/sidebar, browser/navigation, integration/10xer-mode, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser]
 ---

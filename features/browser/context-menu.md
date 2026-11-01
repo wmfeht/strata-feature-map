@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl]
@@ -98,6 +98,8 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Shortcut hints use one notation: Enter beside Open, "F2 / Ctrl+R" beside Rename, and Alt+Enter beside Properties. lgse/strata#1576
 - With the interface in German, hints read Strg+C beside Copy and Entf beside Move to Trash. lgse/strata#1576
 - In 10xer mode, hints read lowercase `x`, `y`, and `d` beside Cut, Copy, and Move to Trash, and `D` beside Permanently delete. lgse/strata#1576
+- Rebinding Rename to Ctrl+E in the default table while its menu is open changes its hint and menu accelerator to Ctrl+E. Unbinding it removes both. lgse/strata#1885
+- With Type to search on, Copy path rebound to Alt+Y in the default table shows the hint Alt+Y. lgse/strata#1885
 - Screen readers get each row's label as its name and its shortcut as its description. lgse/strata#415 (unverified)
 
 ### Placement
