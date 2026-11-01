@@ -123,7 +123,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - From real Firefox and Chromium-based browsers, drag an image, a link, and selected text onto each target kind. Read the saved bytes with `cmp` and `file`.
 - Drag a Firefox image and release it at once, without hovering, on a folder row.
-- Drop a link whose host is an IDN name, one whose host is about 250 bytes, one with a port and query, and one starting `www.`.
+- Drop a link whose host is an IDN name, and one whose host is about 250 bytes.
+- Drop a link with a port and query, and one whose host starts `www.`.
 - Drop text and an image on a tab showing a remote folder, and on a tab while a modal dialog is open.
 - Drop onto an rclone or sshfs mount, and onto the ntfs-3g mount, then list the folder with hidden files shown.
 - Drag a Chromium image over 64 MB, and an SVG image.

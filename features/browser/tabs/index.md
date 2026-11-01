@@ -152,6 +152,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - An image dropped on a tab while a modal dialog is open is still saved, but the tab is not selected. lgse/strata#1547
 - While a modal dialog is open, a text or file drop on a tab saves and transfers nothing. lgse/strata#1547 (unverified)
 - A tab showing Trash, Recent, or a remote folder refuses dropped text and images. lgse/strata#1547
+- A Trash or Recent tab also refuses file drags: it neither accents nor selects under the drag. lgse/strata#1547 (unverified)
 
 ## Design
 

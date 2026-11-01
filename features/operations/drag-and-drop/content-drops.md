@@ -58,7 +58,7 @@ Saving an image, selected text, or a web address dragged from another applicatio
 ### Failures
 
 - A drop on a read-only folder writes nothing and shows "Unable to save dropped content". lgse/strata#1547
-- An image that cannot be read, is no recognized format, or exceeds 64 MB shows the same dialog with the reason. This holds when nothing else was offered. lgse/strata#1547
+- An image that cannot be read, is no recognized format, or exceeds 64 MiB shows the same dialog with the reason. This holds when nothing else was offered. lgse/strata#1547
 - The reasons read "Unsupported image format" and "The dropped content is too large". lgse/strata#1547
 - When one link of a multi-address drop fails, earlier saved links stay and the error is shown. lgse/strata#1547 (unverified)
 
@@ -73,7 +73,7 @@ Saving an image, selected text, or a web address dragged from another applicatio
 - File lists are read while hovering, to choose copy or move; images and text are read only on drop (lgse/strata#1547).
 - The content decision runs before file classification, because classifying files may query volumes, which a web address must never reach (lgse/strata#1547).
 - New content goes only to local folders, because Trash, Recent, and remote locations are URIs (lgse/strata#1547).
-- The 64 MB cap bounds the memory a browser can make Strata hold (lgse/strata#1547).
+- The 64 MiB cap bounds the memory a browser can make Strata hold (lgse/strata#1547).
 - Saves write a temporary `.strata-drop-*` file and publish it with a no-replace rename, falling back to an exclusive in-place write where unsupported (lgse/strata#1547).
 
 ## History

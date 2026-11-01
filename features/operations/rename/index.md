@@ -82,7 +82,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Tab or Shift+Tab with the name unchanged renames nothing and moves the editor to the neighbouring item. lgse/strata#1961
 - Tab with an invalid name keeps the original name and still moves the editor to the next item. lgse/strata#1961 (unverified)
 - Tab on the last item, or Shift+Tab on the first, commits the name and closes the editor; keyboard focus stays in the listing. lgse/strata#1961
-- When that edge commit makes the item sort elsewhere, such as `zz.txt` renamed `a.txt`, the listing does not select or scroll to it, unlike Enter. lgse/strata#1961 (unverified)
+- When that edge commit makes the item sort elsewhere, such as `zz.txt` renamed `a.txt`, the listing does not select or scroll to it. lgse/strata#1961 (unverified)
 - The committed row does not pull the cursor back when its rename lands, so the editor stays on the neighbour. lgse/strata#1961
 - Tab and Shift+Tab move the rename this way in Columns, List, and Icons, in both key maps and in the file chooser. lgse/strata#1961
 - Tab is taken only while keyboard focus is in the rename field; otherwise it moves focus as before. lgse/strata#1961 (unverified)

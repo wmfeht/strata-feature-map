@@ -41,7 +41,7 @@ Naming an item in a local folder with a path relative to its folder. It applies 
 - New File named `todo.txt/x`, where `todo.txt` is a file, shows "Unable to rename item" with "“todo.txt” is not a folder". The new file keeps its default name. lgse/strata#1512
 - `a//b`, `/abs`, or `a/ /b` reads "Enter a name"; `..`, `../`, `a/..`, or `./` reads "That name is reserved". lgse/strata#1512
 - A link or a file where a folder of the path should be stops the placement. lgse/strata#1512
-- A new file that is no longer empty is not turned into a folder; the error reads "<name> changed while the operation was in progress". lgse/strata#1512 (unverified)
+- A new file that is no longer empty is not turned into a folder. The error reads "<name> changed while the operation was in progress". lgse/strata#1512 (unverified)
 - An existing empty file is never replaced by a folder. lgse/strata#1512
 - The move never replaces an item already at the destination name. lgse/strata#1512
 - Any failed step removes the folders the placement made, if still empty, reports the reason, and leaves the item under its old name. lgse/strata#1512
