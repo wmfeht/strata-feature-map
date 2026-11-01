@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1279, pr: lgse/strata#1285}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/services/remote_download.rs, src/ui/chooser/download.rs]
 tests: [src/services/remote_download/tests.rs]
 related: [integration/portal-file-chooser, integration/portal-file-chooser/image-conversion]

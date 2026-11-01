@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1417, pr: lgse/strata#1474}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/ui/preview/video.rs, src/ui/preview/video, src/media/storyboard.rs, src/media/storyboard, src/ui/media/ambient.rs, src/ui/media/ambient]
 tests: [src/ui/preview/tests/video.rs, src/ui/preview/video/badges/tests.rs, src/ui/preview/video/details/tests.rs, src/ui/preview/video/storyboard/tests.rs, src/media/storyboard/tests.rs, src/ui/media/ambient/tests.rs, src/ui/window/tests/keyboard_dispatch/video_clips.rs, tests/qa/scenarios/preview_video]
 related: [preview/preview-panel/media/audio, browser/properties, integration/open-with, settings/themes]

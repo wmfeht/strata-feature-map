@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser/presentation/tests.rs]
@@ -95,6 +95,9 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - The last listing stays in view under the notice. The notice also shows over a stuck first load, never over an error page. lgse/strata#1729
 - The notice clears as soon as a request on that mount answers. lgse/strata#1729
 - The notice has the accessible role status. lgse/strata#1729 (unverified)
+- In List and Icons, a folder load refused for lack of permission shows "Unable to read this directory" and the reason. Where GIO supports `admin`, an Open as Administrator button sits under it. lgse/strata#1837
+- Clicking that button opens the folder's `admin://` form. lgse/strata#1837
+- In an `admin://` folder, a lock notice reading "Browsing as administrator. New items belong to root, and deleted items skip Trash." shows above the List and Icons listings. lgse/strata#1837
 - Long filenames are middle-ellipsized in Columns rows and headings, Icons captions, and the List Name column, so the extension stays visible. lgse/strata#1143
 
 ## Design

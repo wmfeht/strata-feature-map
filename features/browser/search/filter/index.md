@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
 tests: [src/ui/search_session/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results/delete-trashes-filtered-result.jsonl, tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl, tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl, tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl, tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl, tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl, tests/qa/scenarios/filter_results/space-completes-composition.jsonl, tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl, tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl, tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl, tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl, tests/qa/mutations/filter-results.patch]

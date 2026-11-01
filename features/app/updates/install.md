@@ -3,7 +3,7 @@ title: In-place update install
 status: shipped
 origin: {issue: lgse/strata#24, pr: lgse/strata#26}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/services/update_install.rs, src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py]
 tests: [src/services/update_install/tests.rs, src/services/update_install/review_tests.rs, src/services/update_install/archive/tests.rs, src/services/update_install/command/tests.rs, src/services/update_install/download/tests.rs, src/services/update_install/manifest/tests.rs, src/ui/settings/tests/update_dialog.rs, scripts/test_sign_update_manifest.py, tests/fixtures/signed-update]
@@ -90,6 +90,7 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 - Every install writes the same executable, so one guard spans all windows. Staging paths are also unique per install against leftovers from a killed process (lgse/strata#97).
 - Old instances are found through `/proc` and signalled through a pidfd, so a reused PID is never signalled (lgse/strata#1201).
 - The installer accepts a rollback because it compares the requested tag with the signed manifest's tag, not version order (lgse/strata#1781).
+- A build made with `STRATA_UPDATER=disabled` has no Updates page, so no control starts an install. The install service still refuses to run there, as `docs/packaging.md` states (lgse/strata#1934).
 - Desktop metadata is only refreshed, never created, so an update does not add a launcher the user never installed (lgse/strata#182).
 
 ## History

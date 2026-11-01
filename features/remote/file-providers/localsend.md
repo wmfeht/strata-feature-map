@@ -3,7 +3,7 @@ title: LocalSend integration
 status: shipped
 origin: {issue: lgse/strata#1754, pr: lgse/strata#1756}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [integrations/localsend/provider.py, integrations/localsend/messages.json, integrations/localsend/catalog.toml, integrations/localsend/LICENSE]
 tests: [integrations/localsend/tests/test_provider.py]
@@ -52,6 +52,7 @@ An opt-in bundled file provider whose single Send to… ▸ LocalSend entry hand
 
 - The catalog entry `localsend` is in the `devices` category, runs on python3 with only the standard library, and requires `localsend` or `localsend_app` with no package install command. lgse/strata#1756
 - Provider messages follow `LC_ALL`, then `LC_MESSAGES`, then `LANG`, with English as the fallback. lgse/strata#1756 (unverified)
+- Under `LANG=hu_HU.UTF-8`, provider messages read in Hungarian, such as "A LocalSend nem indítható el." lgse/strata#1918
 
 ## Design
 

@@ -3,7 +3,7 @@ title: Frame and content density
 status: shipped
 origin: {issue: lgse/strata#1774, pr: lgse/strata#1776}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/window/density_slider.rs]
 tests: [src/ui/window/tests/appearance_density.rs]
@@ -24,6 +24,8 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 - Content runs from 0 to 16 px, with Compact 4, the default, and Airy 8. lgse/strata#1776
 - Each slider's value label reads "Compact · N px" or "Airy · N px" at a preset, otherwise "Custom · N px". lgse/strata#1776
 - Each slider has tick marks at its Compact and Airy values, with "Compact" and "Airy" buttons under them. lgse/strata#1776
+- The Compact and Airy buttons sit at least 8 px apart. The menu reserves their combined width, such as in Russian at text size 13 or 24 px. lgse/strata#1909
+- In Traditional Chinese, the Airy button reads 寬鬆. lgse/strata#1909
 - Clicking "Compact" or "Airy" snaps that slider to the preset; the label of the current preset shows in the accent color. lgse/strata#1776 (unverified)
 - Dragging a slider or clicking a snap button leaves the Appearance menu open. lgse/strata#1776
 - Changing one slider leaves the other area's spacing unchanged. lgse/strata#1774, lgse/strata#1776
@@ -58,8 +60,9 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-29 | lgse/strata#1909 | fix | Reserved width and an 8 px gap for the snap buttons so they stop overlapping, and translated zh-TW "Airy". |
 | 2026-10-21 | lgse/strata#1776 | feat | Replaced the Appearance menu's Compact and Airy radios with Frame (0–12 px) and Content (0–16 px) sliders, so chrome and file-view spacing are set separately. |
 
 ## Known gaps
 
-- The Compact and Airy snap buttons under a density slider overlap. lgse/strata#1862
+None known.

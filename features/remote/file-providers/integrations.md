@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1741, pr: lgse/strata#1748}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
 tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs]
 docs: [docs/file-providers.md, integrations/README.md]

@@ -268,6 +268,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/remote/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/app/browser/sorting.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/browser/sorting/tests.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/app/browser/tests/administrator.rs` | tests | [Administrator access](../features/browser/navigation/administrator-access.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/app/browser/tests/archive_activation.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `src/app/browser/tests/background_operations.rs` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/tests/camera_photos.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -751,6 +752,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/theme/editor.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/editor/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/settings/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/settings/update_status.rs` | code | [Updates](../features/app/updates/index.md) | — |
 | `src/ui/settings/wrap.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/shortcut_footer.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
 | `src/ui/shortcut_footer/candidates.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
@@ -1084,7 +1086,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/sidebar_file_drops` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/qa/scenarios/sidebar_pinning` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/scenarios/sidebar_pinning/folder-pins-order-and-bookmarks.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/scenarios/sidebar_pinning/foreign-folder-drags-validate.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/scenarios/sidebar_pinning/pinned-rows-transfer-and-remote-gaps.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/scenarios/sidebar_pinning/spring-loaded-rows-keep-pin-intent.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `tests/qa/scenarios/sidebar_pinning/tenxer-pin-feedback-identifies-slot.jsonl` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `tests/qa/scenarios/sidebar_reordering/pin-insertion-keeps-one-destination.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
 | `tests/qa/scenarios/startup_arguments` | tests | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |

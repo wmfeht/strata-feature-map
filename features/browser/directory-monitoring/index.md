@@ -3,7 +3,7 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl]
@@ -39,7 +39,8 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
 - Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
-- With hidden files off, changes to dot-files are ignored, and a dot-file renamed to a visible name appears as a new entry. lgse/strata#1266 (unverified)
+- With hidden files off, dot-files that another program creates, renames, or removes stay hidden but are tracked. Showing hidden files then lists their current names without F5. lgse/strata#1909
+- With hidden files off, a dot-file renamed to a visible name appears in the listing. lgse/strata#1266, lgse/strata#1909 (unverified)
 - More than 4,096 pending changes in one batch, an unmount, or an unrecognized monitor event reload the whole folder instead. lgse/strata#75, lgse/strata#1266 (unverified)
 - Files created, renamed, or removed externally while a large folder is still loading are not overridden by late enumeration rows. lgse/strata#1037
 - Renaming an open folder externally in Columns re-points its column and every open descendant to the new path. lgse/strata#1036, lgse/strata#1037
@@ -122,6 +123,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - A monitored move to a hidden name, in a listing that hides hidden files, is handled like a removal. A monitor started with hidden files shown keeps reporting moves after Ctrl+H, so leaving it to the monitor's removal was dropped (lgse/strata#1852, lgse/strata#1874).
 - In Columns, deeper columns close in place, not through a reload of the parent, which put the cursor on the first row and lost the neighbor (lgse/strata#1874).
 - In-app renames and monitor-reported moves share one code path, whatever hidden-files setting the monitor started with (lgse/strata#1874).
+- Browser folder monitors always include hidden entries, which stay in the model. Showing hidden files is then an in-memory filter change, with no rescan or monitor restart (lgse/strata#1909).
 
 ## History
 
@@ -147,5 +149,5 @@ Loading and file monitoring predate the PR history; the original monitor already
 - A metadata-only change replaces the whole row, rebinding its icon or thumbnail, instead of updating the changed labels. lgse/strata#902
 - While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
 - Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729
-- With hidden files off, a dot-file another program creates does not appear after Ctrl+H shows hidden files, until F5. Ctrl+H does not restart the folder's monitor. lgse/strata#1862, lgse/strata#1874
 - When another program removes an open folder, the cursor lands on the first row instead of a neighbor. lgse/strata#1874
+- Metadata fills on visible `admin://` rows still go through GIO. After the polkit grant expires, they can raise a prompt the user did not ask for. lgse/strata#1837

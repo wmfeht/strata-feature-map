@@ -3,19 +3,27 @@ title: Updates
 status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
-code: [src/services/update_check.rs]
+code: [src/services/update_check.rs, src/ui/settings/update_status.rs]
 tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
-docs: [docs/preferences.md]
+docs: [docs/preferences.md, docs/packaging.md]
 related: [browser/sidebar]
 ---
 
 ## Summary
 
-Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (signed in-place install, rollback, and restart), `app/updates/release-picker` (installing a chosen release), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
+Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. A build made with `STRATA_UPDATER=disabled` leaves the updater out. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (signed in-place install, rollback, and restart), `app/updates/release-picker` (installing a chosen release), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
 
 ## Behavior
+
+### Builds without the updater
+
+- A build made with `STRATA_UPDATER=disabled` has no Updates entry in the Settings navigation and no Updates page. lgse/strata#1934
+- Such a build never starts an automatic check, so the sidebar update notice never appears. lgse/strata#1934
+- A build with `STRATA_UPDATER` unset or `enabled` keeps the Updates page and update checks. lgse/strata#1934
+- `STRATA_UPDATER` is trimmed before it is read, and an empty value also keeps the updater. lgse/strata#1934 (unverified)
+- A build with any other value, such as `disable`, fails with `STRATA_UPDATER must be "enabled" or "disabled"`. lgse/strata#1934
 
 ### Checking
 
@@ -40,6 +48,14 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - Before a check, the status row reads "Version X", adding the build kind, such as "Release candidate", for a prerelease build. lgse/strata#97
 - After a check, the row title reads "Strata is up to date", "An update is available", or "Couldn’t check for updates". lgse/strata#51 (unverified)
 - A failed check shows its reason and a "View releases on GitHub" link. lgse/strata#22 (unverified)
+- A check whose worker ends without a result fails with the reason "An unexpected system error occurred". lgse/strata#1909 (unverified)
+- Settings → Updates opened after the startup check completed shows that check's result, without Check now or another request. lgse/strata#1909
+- When a startup or manual check completes, every open Settings → Updates row shows its result. lgse/strata#1909
+- Check now in one Settings window leaves other windows' rows, including an offer's Install button, unchanged until its result lands. lgse/strata#1909
+- On a pacman or Omarchy install with a Preview or Nightly preference, a startup offer shows on the Updates row. lgse/strata#1909
+- That offer carries its package-managed action, such as "Check again" on pacman. lgse/strata#1909 (unverified)
+- Turning automatic checks on or off, or changing the channel, resets every open row to "Check for updates" and Check now. lgse/strata#1909
+- That reset skips a row mid-check or with an install underway. lgse/strata#1909
 - An available update shows its notes inline, titled "Available release · vX" with its change count and publication date. lgse/strata#51
 - Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944, lgse/strata#1554
 - The Release channel menu is insensitive while automatic checks are off. lgse/strata#97 (unverified)
@@ -76,18 +92,24 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 - Strata caches instead of changing the source. A published `latest.json` was heavier, `releases.atom` carries HTML notes, and shipping an API token was rejected (lgse/strata#181).
 - GitHub answers unauthenticated conditional requests with `200`, so the 6-hour floor and the per-tag notes cache do the actual saving (lgse/strata#197).
 - The first automatic check of each session bypasses the cache so a fresh launch never shows stale release information. Disabling the cache for every check was rejected as wasteful (lgse/strata#325).
-- Results are broadcast to every window, and the last offer is cached for windows opened later (lgse/strata#866).
+- Results are broadcast to every window, and a window opened later gets the last offer as its sidebar notice (lgse/strata#866, lgse/strata#1909).
+- The last completed result, whether an offer, up to date, or a failure, is one shared snapshot. Every Settings → Updates row renders it, including rows opened later (lgse/strata#1909).
+- Check now clears only the shared snapshot and the sidebar notice. Clearing every row dropped another window's offer and Install button until the result arrived (lgse/strata#1909).
 - Each check carries a generation number. A result superseded by a newer check is dropped, so a Preview result cannot land after a switch to Stable (lgse/strata#97).
 - Checks and package-manager detection run off the GTK thread, after the first frame rather than on a fixed 8-second delay (lgse/strata#944).
 - A release-notes failure never blocks an eligible update; the GitHub release page stays available as a fallback (lgse/strata#48).
 - The release list hides unsigned releases, because they would fail install verification (lgse/strata#1779, lgse/strata#1781).
 - One 100-release page let older signed stable releases fall off, since nightlies are never pruned. Paging stops where signed history ends, and 5 requests stay inside the unauthenticated rate limit (lgse/strata#1781).
+- Distributions whose packages deliver updates build with `STRATA_UPDATER=disabled`. Reusing the AUR `install-source.toml` marker was rejected, because its update check and wording are AUR-specific (lgse/strata#1933).
+- The switch accepts only `enabled` and `disabled`, so a typo fails the build instead of shipping an updater (lgse/strata#1934).
 - HTML comments are stripped only in the client, and only from release notes. Published releases already carry the comment, and `--generate-notes` adds it to every body. Markdown file previews still show comments (lgse/strata#1464, lgse/strata#1570).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-29 | lgse/strata#1909 | fix | Shared one completed update-check result with every Settings → Updates row, so a page opened after the startup check shows it. |
+| 2026-10-29 | lgse/strata#1934 | feat | Added the `STRATA_UPDATER=disabled` build switch, which leaves the updater out for distributions whose packages deliver updates. |
 | 2026-10-20 | lgse/strata#1781 | feat | Added "Install a specific release", listing the channel's signed releases so users can roll back or switch builds. |
 | 2026-10-15 | lgse/strata#1609 | fix | Opened Omarchy Update in Omarchy's floating presentation terminal, so its output stays open after the update ends or fails. |
 | 2026-09-16 | lgse/strata#1068 | fix | Removed the horizontal inset from the sidebar update notice. |
@@ -99,4 +121,5 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 
 ## Known gaps
 
+- A Settings → Updates row with an install underway ignores newer check results. A cancelled or failed install keeps its status until the next check result. lgse/strata#1909
 - Releases older than the 500 newest on GitHub are not listed, because the release list is capped at 5 requests of 100. lgse/strata#1781

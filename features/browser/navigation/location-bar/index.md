@@ -3,7 +3,7 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: []
 tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch]
@@ -36,7 +36,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - `~other-user/Documents` is rejected with "Only ~ and ~/ paths are supported for the current user's home directory." lgse/strata#242
 - A relative path such as `Documents` is rejected with "Enter an absolute path." lgse/strata#242 (unverified)
 - UNC paths (`\\host\share`, `//host/share`) and SCP addresses (`user@host:path`) are rejected with a message suggesting `smb://`, `sftp://`, `ftp://`, or `dav://` URIs. lgse/strata#20
-- A URI scheme other than smb, sftp, ftp, ftps, dav, davs, trash, network, or recent is rejected with "The <scheme>:// scheme isn't supported." and a list that omits trash and network. lgse/strata#20 (unverified)
+- Accepted URI schemes are smb, sftp, ftp, ftps, dav, davs, admin, trash, network, and recent. Any other is rejected with "The <scheme>:// scheme isn't supported." The message lists the accepted schemes except trash and network. lgse/strata#20, lgse/strata#1837 (unverified)
 - Submitting `smb://alice:secret@host/share` or `smb://alice;password=secret@host/share` shows `smb://alice@host/share` in the entry while mounting and uses the password for that one attempt. lgse/strata#145
 - A typed password is never saved; failed credentials open the normal sign-in dialog. lgse/strata#145
 - The sign-in dialog's fields are named after their visible labels: "Username", "Domain", and "Password" or "Passphrase". lgse/strata#1896 (unverified)
@@ -68,6 +68,8 @@ The header control that shows the active location as breadcrumbs and switches to
 - When crumbs overflow, the wheel scrolls them horizontally and edge fades mark the hidden part. lgse/strata#820
 - The overflow scrollbar sits in its own row below the crumbs, hidden at rest and shown on hover or scroll, never covering labels. lgse/strata#820
 - Crumb labels longer than 32 characters are shortened in the middle. lgse/strata#1143
+- Deep paths keep each crumb label at its text width, up to 32 characters. The crumb row scrolls instead of shrinking labels to "l…". lgse/strata#1909
+- After navigation, or after submitting or cancelling the entry, the crumbs scroll to show the current crumb. lgse/strata#1909
 - The current crumb's Copy path button copies the path and shows a check and "Path copied" for 2 seconds. lgse/strata#316 (unverified)
 - The Copy path button is named "Copy path"; after a click it is named "Path copied", then "Copy path" again 2 s later. lgse/strata#1895
 
@@ -91,6 +93,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-29 | lgse/strata#1909 | fix | Gave crumb labels a minimum width so deep paths scroll, and revealed the current crumb after layout and after editing. |
 | 2026-10-28 | lgse/strata#1912 | fix | Opened Quick Preview on a file revealed from a typed path, and dropped that request when navigation moves on first. |
 | 2026-10-11 | lgse/strata#1570 | fix | Resolved `.` and `..` as text in typed paths, so crumbs and Parent follow the resolved path. |
 | 2026-10-10 | lgse/strata#1544 | fix | Made crumbs and the hierarchy menu select the folder you came from when they open an ancestor. |
@@ -107,4 +110,3 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 ## Known gaps
 
 - A typed path to a file with no previewer still opens the preview drawer, as Space on it does. lgse/strata#1912
-- Deep breadcrumbs shrink to labels such as "l…" instead of overflowing to scroll. lgse/strata#1862

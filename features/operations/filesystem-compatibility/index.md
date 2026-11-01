@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1615}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/adapters/local_operations/placement.rs, src/adapters/local_operations/copy_engine.rs, src/adapters/local_operations/copy_engine/**, src/adapters/local_operations/case_variants.rs, src/adapters/local_operations/environment.rs, src/adapters/local_operations/mount_profile.rs, src/adapters/local_operations/names.rs, src/adapters/local_operations/names/fix.rs, src/adapters/local_operations/owed.rs, src/adapters/local_operations/typed_names.rs, src/adapters/volume/mount_capabilities.rs, src/adapters/volume/names.rs, src/ui/browser/transfer_report.rs, src/services/item_identity.rs, src/model/hidden_names.rs]
 tests: [src/adapters/local_operations/tests/placement.rs, src/adapters/local_operations/tests/fs_quirks.rs, src/adapters/local_operations/tests/file_copy.rs, src/adapters/local_operations/tests/folder_copy.rs, src/adapters/local_operations/tests/aliases.rs, src/adapters/local_operations/mount_profile/tests.rs, src/adapters/volume/names/tests.rs, src/ui/browser/transfer_report/tests.rs, scripts/fslab/**, src/services/item_identity/tests.rs, src/adapters/local_operations/environment/tests.rs, src/model/hidden_names/tests.rs]
 docs: [docs/filesystem-compatibility.md]

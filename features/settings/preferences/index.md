@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -26,7 +26,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - A click on the Settings panel itself leaves Settings open. lgse/strata#1900
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
-- The navigation lists General, Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748, lgse/strata#1885
+- In a default build, the navigation lists General, Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748, lgse/strata#1885, lgse/strata#1934
 - With labels shown, each navigation entry pads 11 px left and right, so its icon centres on the Search settings field's icon. lgse/strata#1885 (unverified)
 - The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
 - A sideways touchpad swipe or Shift+wheel over a Settings page does not move the page horizontally. lgse/strata#1719
@@ -75,7 +75,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Searching "license" opens About with the License row; searching "custom actions" opens Actions with the custom-actions list. lgse/strata#1554, lgse/strata#1453
 - Searching "render documents" or "markdown" shows General's Render documents by default row; a query it does not match hides it. lgse/strata#1554, lgse/strata#1454
 - A query that does not match Custom actions hides the installed-actions list and the broken-action problems, so "import" hides the list. lgse/strata#1554, lgse/strata#1453
-- On a package-managed install, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453
+- On a package-managed install of a default build, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453, lgse/strata#1934
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
 - Searching "3d", "mesh", or "printing" shows Appearance's STL model thumbnails row. lgse/strata#1789 (unverified)
@@ -85,7 +85,9 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Searching "typeface" or "family" shows the Interface font row. lgse/strata#1696 (unverified)
 - Searching "troubleshoot" or "ffmpeg" opens Diagnostics with its Run diagnostics row. lgse/strata#1735
 - Searching "add-ons" or "plugins" opens the Integrations page. lgse/strata#1748
-- On an in-place install, searching "rollback", "downgrade", or "previous version" opens Updates with the Install a specific release row. lgse/strata#1781 (unverified)
+- Searching "Magyar" or "Hungarian" shows General's Language row. lgse/strata#1918
+- On an in-place install of a default build, searching "rollback", "downgrade", or "previous version" opens Updates with the Install a specific release row. lgse/strata#1781, lgse/strata#1934 (unverified)
+- In a `STRATA_UPDATER=disabled` build, searching "release channel" or "check for updates" shows "No settings match your search."; no query finds an Updates row. lgse/strata#1934
 - Typing "thumbnail workers" in Search settings reveals the Thumbnail workers control. lgse/strata#1081, lgse/strata#1778
 - Searching Settings for "session", "reopen", or "startup" finds Restore open tabs. lgse/strata#1532 (unverified)
 - Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
@@ -186,12 +188,14 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The dark band at scroll walls was GTK's default overshoot gradient; Settings clears it as context menus and popovers already did (lgse/strata#1719).
 - The default directory is checked on a worker after the window opens, instead of with `is_dir()` on the UI thread. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
+- Folder monitors keep hidden entries too, so revealing them needs no rescan. The watch had captured the hidden-files state at install, so dot-file changes made while hidden were lost until F5 (lgse/strata#1862, lgse/strata#1909).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-10-29 | lgse/strata#1909 | fix | Kept hidden entries in folder monitors, so dot-files other programs change while hidden files are off show at once when they are turned on. |
 | 2026-10-27 | lgse/strata#1900 | fix | Refused Ctrl+, under window-level dialogs such as Properties and hit-tested outside clicks against the panel, so Settings closes on one. |
 | 2026-10-17 | lgse/strata#1719 | fix | Made Settings pages scroll vertically only and cleared the overshoot bands, so pages no longer pan sideways or draw dark stripes at scroll walls. |
 | 2026-10-15 | lgse/strata#1673 | perf | Drew the About logo in theme colors, so it no longer sits on a near-black tile in light themes, and changed the tagline to "Navigate every layer." |

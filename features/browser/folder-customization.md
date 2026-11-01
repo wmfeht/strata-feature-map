@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#211, pr: lgse/strata#294}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs]
 tests: [tests/qa/scenarios/dialogs_and_menus/customization-follows-move-and-trash.jsonl, tests/qa/scenarios/dialogs_and_menus/customize-takes-focus-single-escape.jsonl, tests/qa/scenarios/dialogs_and_menus/background-customize-ancestor-column.jsonl]
 docs: [docs/preferences.md]

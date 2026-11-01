@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch]
 docs: [site/src/reference/keyboard-navigation.md]

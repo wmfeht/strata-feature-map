@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1749, pr: lgse/strata#1752}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/virtual_preview/scrollbar.rs, src/ui/virtual_preview/scrollbar/position.rs]
 tests: [src/ui/virtual_preview/scrollbar/tests.rs]
 related: [preview/preview-panel/find, integration/portal-file-chooser]

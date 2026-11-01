@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
 tests: [tests/qa/scenarios/inline_renaming, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]

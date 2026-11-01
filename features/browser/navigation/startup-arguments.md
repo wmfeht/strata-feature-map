@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#649, pr: lgse/strata#673}
 branch: null
 reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: draft
+review: reviewed
 code: [src/ui/window/open_argument.rs]
 tests: [src/ui/window/open_argument/tests.rs, tests/qa/scenarios/startup_arguments]
 related: [integration/file-manager-interface, remote/file-providers, browser/tabs]
