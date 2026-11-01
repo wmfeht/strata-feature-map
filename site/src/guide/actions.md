@@ -1,6 +1,6 @@
 ---
 nodes: [integration/custom-actions]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Custom actions
@@ -59,9 +59,9 @@ entrypoint = "run.sh"
 The `[when]` table decides when the action shows up. Add
 `extensions = ["md", "txt"]` to limit it to those files, or set
 `kinds = ["folder"]` for folders. The action appears only when every selected
-item matches. The menu rereads your files each time it opens, so a hand edit
-shows up on your next right-click. If you opened **Settings → Actions** since
-Strata started, restart Strata first.
+item matches. Each time the menu opens, Strata rereads your files in the
+background, so a hand edit appears from the next right-click after that reread
+finishes, without a restart.
 
 ## Writing a script in Python
 

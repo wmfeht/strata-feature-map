@@ -1,6 +1,6 @@
 ---
 nodes: [integration/10xer-mode, integration/10xer-mode/file-verbs, integration/10xer-mode/places, integration/10xer-mode/search, integration/10xer-mode/preview-keys, integration/10xer-mode/file-chooser]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # 10xer mode
@@ -21,8 +21,8 @@ and `k` move. Press it again to go back.
   open there, and a chord such as `g` lists its next keys above it.
 - **F1 lists only 10xer keys.** Press F1 or `~` to see what runs now.
 - **Some default keys change.** Space selects instead of previewing, Ctrl+R
-  inverts the selection, Ctrl+B and Ctrl+F page up and down, and Ctrl+N shows
-  or hides the sidebar.
+  inverts the selection, Ctrl+B and Ctrl+F page up and down, and Ctrl+N steps
+  the sidebar from full to icons only to hidden.
 
 Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+Z, Ctrl+K, and Ctrl+L work as in the
 [default map](keyboard.md).

@@ -1,18 +1,19 @@
 ---
 nodes: [remote/file-providers, remote/file-providers/network-locations, devices/volumes, devices/volumes/camera, devices/volumes/encrypted, devices/volumes/release]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Remote and devices
 
-Open network shares, SFTP servers, phones, cameras, and USB drives in the same
-browser as your local files. Strata mounts them through GIO/GVfs on demand.
+Open network shares, SFTP servers, phones, cameras, and USB drives beside your
+local files. Strata mounts them through GIO/GVfs on demand.
 
 ## Open an SMB share
 
 <!-- node: remote/file-providers -->
 <!-- node: remote/file-providers/network-locations, Mounting and sign-in -->
 <!-- node: remote/file-providers/network-locations, Sidebar -->
+<!-- node: remote/file-providers/network-locations -->
 <!-- node: remote/file-providers/network-locations, Failures -->
 
 On Arch or Omarchy, install the SMB backend first:
@@ -24,21 +25,24 @@ sudo pacman -S --needed gvfs-smb
 Press Ctrl+L, type `smb://server/share`, and press Enter. Strata mounts the
 share and opens it.
 
+Or right-click **Network** in the sidebar, choose **Connect to server…**, and
+type the address. Tick **Pin to sidebar** to keep the share under **PINNED**.
+
 If the server wants credentials, **Authentication required** shows only the
 fields it asks for, such as **Username**, **Domain**, and **Password**. For a
 guest share, choose **Anonymous** under **Connect as** when offered. **Password
 storage** defaults to **Don't remember**; **Until logout** or **Forever** hands
 the password to your desktop keyring. Click **Connect**.
 
-To browse instead, click **Network** in the sidebar, then a host, then a share.
-A mounted share appears under **DEVICES**; right-click it and choose
-**Disconnect** when done.
+To browse instead, click **Network**, then a host, then a share. A mounted share
+appears under **DEVICES**; right-click it and choose **Disconnect** when done.
 
 ## Connect over SFTP
 
 <!-- node: remote/file-providers/network-locations, SFTP -->
+<!-- node: remote/file-providers/network-locations -->
 
-Press Ctrl+L and enter one of these:
+Press Ctrl+L, or use **Connect to server…**, and enter one of these:
 
 ```text
 sftp://host/path
@@ -67,8 +71,8 @@ On a first connection, or when a server's key changes, Strata shows **Verify
 server identity**. It repeats the backend's question and offers the backend's
 own buttons. Strata never answers for you.
 
-Verify the fingerprint with the server's administrator, outside Strata,
-before you continue. A changed key can mean interception. Decline with the
+Verify the fingerprint with the server's administrator before you continue.
+A changed key can mean interception. Decline with the
 rejecting button or Escape, and Strata returns to the previous folder.
 
 ## Connect a phone or camera

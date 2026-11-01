@@ -1,6 +1,6 @@
 ---
 nodes: [remote/file-providers/external]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # External file providers
@@ -20,9 +20,11 @@ The browser does not need to know about cloud accounts, pins or service sockets.
 
 <!-- node: remote/file-providers/external, Registration -->
 <!-- node: remote/file-providers/external, Menus -->
+<!-- node: remote/file-providers/external, Send to… -->
 
 Install one directory per provider under `$XDG_CONFIG_HOME/strata/providers/`
-(default `~/.config/strata/providers/`), then restart Strata. For example:
+(default `~/.config/strata/providers/`), then select **Refresh** in
+**Settings → Integrations** or restart Strata. For example:
 
 ```json
 {
@@ -40,16 +42,35 @@ at most 16 KiB. The id is 1–64 ASCII letters, digits or dashes and must match 
 directory name. The optional `name` supplies the human-readable menu group heading; without it,
 Strata uses the id. Names must contain non-whitespace plain text, at most 64 UTF-8
 bytes, without control characters. The optional `icon` names one of the declared
-icons and is drawn before that heading. If `icon` names an id that is not in
+icons and is drawn before that heading, and on the provider's **Send to…**
+submenu or entry. If `icon` names an id that is not in
 `icons`, Strata rejects the registration and the provider does not load. Omitting
-`icon` or setting it to `null` is accepted. Existing registrations need no changes.
+`icon` or setting it to `null` is accepted. Without an `icon`, the **Send to…**
+submenu shows an icon for the optional `category`: a cloud for `cloud`, a phone
+for `devices`, a git branch for `version-control`, and a blocks icon for
+`other`, an unknown value, or none. Installs from **Settings → Integrations**
+record the category. Existing registrations need no changes.
 `command` holds 1 to 16 strings of at most 4,096 bytes each, with no NUL.
 Commands are literal argv with an absolute executable; no shell interpolation,
 PATH lookup, placeholder expansion or working-directory executable lookup is
 performed. The child runs with `/` as its working directory. Nothing in a browsed
-folder registers a provider. Removing the registration and restarting Strata
-uninstalls it. Editing a registration takes effect on restart. A relative
-`XDG_CONFIG_HOME` is ignored, and the default location is used.
+folder registers a provider. A relative `XDG_CONFIG_HOME` is ignored, and the
+default location is used.
+
+Strata discovers registrations at startup and again on each reload. **Refresh**
+in **Settings → Integrations** reloads, and so does a successful install,
+update, removal, or switch change on that page. Other edits, and removing a
+registration by hand, take effect on the next reload or restart. A registration
+directory holding a file named `disabled` beside `provider.json` is skipped, so
+its badges and actions do not load; the switch on each row of
+**Settings → Integrations** writes or deletes that file. That page also
+installs the integrations bundled with Strata into this directory and removes
+registrations.
+
+A reload stops every running provider at once and discards pending queries and
+menus. Badges clear until the new providers answer. A provider still owing an
+answer to an activation keeps running beside its replacement until that
+activation settles, as described under [Transport](#transport).
 
 The `providers` directory itself, each registration directory, each manifest and
 each icon file must be owned by the current user or root, must not be group- or
@@ -70,6 +91,7 @@ dark backgrounds. Strata's own interface continues to use themed Lucide icons.
 
 <!-- node: remote/file-providers/external, Badges -->
 <!-- node: remote/file-providers/external, Menus -->
+<!-- node: remote/file-providers/external, Send to… -->
 <!-- node: remote/file-providers/external, Activation -->
 <!-- node: remote/file-providers/external, Freshness and failures -->
 
@@ -110,9 +132,9 @@ Non-square artwork is stretched to fit.
 ```
 
 Return an empty `actions` array for ineligible selections. No placeholder or
-disabled global menu item is inserted. Strata always keeps each provider's root
-entries together in an inline section with a small, muted, non-interactive
-heading. Provider sections appear directly after any custom actions and before
+disabled global menu item is inserted. Unless placed in **Send to…** (below),
+Strata keeps each provider's root entries together in an inline section with a
+small, muted, non-interactive heading. Provider sections appear directly after any custom actions and before
 the remaining built-in commands. When several providers answer, their sections
 follow the byte order of their registration directory names. This is not an
 extra submenu: providers choose flat actions, recursive
@@ -134,6 +156,50 @@ providers supply identical labels. Empty sections and their headings disappear.
 Menus populate asynchronously; retained provider sections and branches reuse
 their models on refresh. Removed leaves are disabled before removal, including
 when their containing section or branch is withdrawn or the menu closes.
+
+### Send to… destinations
+
+A root action that names a destination, such as a paired phone, can appear
+inside the item menu's **Send to…** submenu instead of the provider's section
+by setting `"placement": "send-to"`:
+
+```json
+{"version":1,"id":2,"actions":[{"id":"pixel","label":"Pixel","placement":"send-to","context":"opaque-selection-token"},{"id":"tablet","label":"Tablet","placement":"send-to","context":"opaque-selection-token"}]}
+```
+
+Removable drives come first in **Send to…**. Each provider's destinations
+follow in a submenu named after the provider's `name`, or its id, and drawn with
+its icon, so labels can be bare destination names. An `_` in that name shows
+literally. Root actions without a placement in the same reply stay in the
+provider's section, so the section and the submenu can both appear. A provider
+submenu that holds a single `send-to` destination stays a submenu.
+
+A provider whose **Send to…** item is one action rather than a list of
+destinations, such as handing the selection to an app with its own device
+picker, uses `"placement": "send-to-entry"`. While it is that provider's only
+**Send to…** action and has no `children`, the leaf is drawn directly in
+**Send to…** with its own label. It shows its own `icon`, else the provider's
+manifest icon, else the category icon. With `children`, or beside another
+**Send to…** action from the same provider, it joins the provider's submenu.
+When a refresh turns a single entry into a submenu, or back, the new item takes
+the old one's place in the open menu.
+
+```json
+{"version":1,"id":2,"actions":[{"id":"open","label":"LocalSend","placement":"send-to-entry","context":"opaque-selection-token"}]}
+```
+
+**Send to…** appears whenever any destination exists, removable or from a
+provider, including destinations that arrive while the menu is open, and
+disappears when the last one is withdrawn. Placed destinations may have
+`children` within the usual tree bounds; their leaves activate with the whole
+selection, the action id, and `context`, and use the same `feedback` handling as
+section leaves. `placement` is read on root actions only: on a child it is
+ignored and the child stays in its parent. In a background menu, or any menu
+without **Send to…**, a placed action stays in the provider's section. An
+unrecognized string such as `"float-to-top"`, or `null`, also keeps the section,
+so providers that use `placement` fall back to a section on older Strata
+versions. A `placement` that is neither a string nor `null`, such as `7`, is an
+invalid frame and disconnects the provider.
 
 Each menu and activation describes the whole selection, never a silently filtered
 subset. An adapter may support cross-account selections; otherwise return no
@@ -203,6 +269,16 @@ id, followed by the message.
 After every activation reply, Strata treats all of that provider's answers as
 invalidated. It re-queries the provider's visible badges and open menus without
 waiting for an `invalidate` event.
+
+A reload, such as **Refresh** in **Settings → Integrations**, does not drop an
+activation in flight. The provider that owes the answer keeps running beside its
+replacement until it replies, and its notice or dialog then appears as for a
+live activation; a reply with `feedback` `none` shows nothing. If that retiring
+provider exits or goes offline first, a sent action shows the "may already have
+been accepted" dialog and a still-queued one shows "was not sent". Its process
+ends once every activation it owes is settled; the eight-second request timeout
+is the only time limit. After it replies, a running provider with the same id
+has its cached answers invalidated, as after a live reply.
 
 Long operations should be submitted as service jobs. There is no automatic retry
 of actions, including after a lost reply. An unsent action is distinguished from
@@ -285,7 +361,9 @@ or a capabilities request. A future optional negotiation must preserve that base
 <!-- node: remote/file-providers/external, Freshness and failures -->
 
 At most eight registrations are loaded (from at most 64 directory entries), with
-one child per provider. Strata sends **one request at a time** on each connection;
+one child per provider, except that after a reload a child still answering an
+activation keeps running beside its replacement until that action settles.
+Strata sends **one request at a time** on each connection;
 serial adapters are supported, and events may arrive at any time. It queues up to
 16 speculative query/menu requests and eight activations separately. User actions
 have dispatch priority after the current request; pending refreshes for the same

@@ -1,6 +1,6 @@
 ---
 nodes: [integration/custom-actions, operations/progress/jobs, integration/10xer-mode/file-verbs, browser/context-menu, remote/file-providers/external]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Custom actions reference
@@ -29,16 +29,23 @@ $XDG_CONFIG_HOME/strata/actions/
 
 One directory per action, named after its `id`, containing `action.toml` and
 optionally one script beside it. Settings → Actions creates, edits, duplicates,
-imports, and exports these files. You can also edit them by hand. Context menus
-and the 10xer **;** list reread the manifests each time they open, so hand edits
-apply the next time you open one. Once **Settings → Actions** has been opened in
-a window, every window keeps the manifests loaded at that moment until each
-window where it was opened closes; closing Settings does not release them. In
-that time Strata rereads them only after Settings → Actions creates, saves,
-duplicates, imports, or deletes an action, and **Save changes** or the enable
-switch writes the loaded values back over your manifest edits. Restarting Strata
-always picks up hand edits. The editor reads the script itself from disk each
-time it opens.
+imports, and exports these files. You can also edit them by hand. Context
+menus and the 10xer **;** list show the actions as last read, and each opening
+starts a reread of the folder in the background. An action changed outside
+Strata therefore appears from the first opening after that reread finishes, not
+in the opening that started it, with no restart. An open menu is not refreshed,
+and Strata does not watch the folder. Picking a stale entry never runs the old
+definition; see [How an invocation runs](#how-an-invocation-runs).
+
+**Settings → Actions** starts a reread the first time it opens in a window, and
+its list updates while open whenever any reread finishes with changes.
+Reopening it does not reread. A hand edit appears there once any other reread
+finishes, such as one started by opening a context menu, the **;** list, or a
+new window, or by changing any action on the page. **Edit**
+loads the action from disk, and the enable switch rereads it before writing, so
+neither writes stale values over your manifest edits. Strata reads and writes
+the actions folder off the interface thread, so a slow disk never freezes the
+window.
 
 Actions are ordinary, user-owned folders under
 `${XDG_CONFIG_HOME:-$HOME/.config}/strata/actions/`. The folder name and manifest
@@ -47,9 +54,8 @@ action. Create directories with mode `0700` and manifest/script files with mode
 `0600`. Entry points are regular files with plain filenames, not symlinks or
 paths. Scripts need no executable bit: Strata invokes the interpreter. Command
 actions have only a manifest. Import/export transfers the manifest and declared
-entrypoint, not arbitrary helper files. After hand-writing files, restart Strata
-if Settings → Actions has been opened since it started, then review and enable
-the action in Settings → Actions.
+entrypoint, not arbitrary helper files. After hand-writing files, review and
+enable the action in Settings → Actions.
 
 ## Creating an action
 
@@ -77,6 +83,11 @@ Choose **Settings → Actions → New action…**. The editor has three tabs:
   failure** (**Continue** or **Stop**) can be changed only when **Run** is set to
   **Per item**.
 
+The tab labels are in natural case, and the selected tab's underline is as wide
+as its label. Hovering an inactive tab fades its label to full opacity with no
+background, and a keyboard-focused tab's focus ring clears its label text.
+The editor's switches, such as **Confirm**, match the switches in
+**Settings → General**, and its footer buttons match other dialogs.
 The editor opens with Name focused, nothing selected, and the caret at the end.
 **Create action** saves all three tabs together. Invalid fields bring you back to
 that tab without discarding your edits. Clicking outside the dialog leaves it open;
@@ -101,6 +112,8 @@ Each action row in **Settings → Actions** has an enable switch and **Edit**,
   `<id>-1`, `<id>-2`, …) and tells you to review its script before enabling it.
 - **Delete** asks **Delete this action?**, with **Delete** focused. Confirming
   removes the action folder and its script from your actions directory.
+- Saving an edit, or flipping the switch, of an action deleted outside Strata
+  recreates nothing and fails with "The action “\<id>” no longer exists".
 
 ### Script examples
 
@@ -291,9 +304,21 @@ the submenu with its first action focused; **Left** closes only the submenu and
 refocuses its row. An outside click or **Escape** dismisses the menu. Long filenames and
 paths use middle ellipsis, preserving their beginning and extension.
 
+A menu opens at the click, below it when the screen has room, otherwise above
+it. It may extend past a small window, slides sideways to stay on screen, and
+scrolls when it is taller than the monitor less 16 px at each edge. Releasing
+the right button over a row of the menu it just opened runs nothing; choose a
+row with a separate click.
+
 ## How an invocation runs
 
 <!-- node: integration/custom-actions, Invocation -->
+<!-- node: operations/progress/jobs, Run directory -->
+
+Choosing an action reads its definition from disk again before anything runs.
+If the action changed since the menu or the 10xer **;** list showed it, nothing
+runs and "Unable to run action" opens with "Actions changed". If its folder was
+removed, the dialog reads "The action “\<id>” no longer exists".
 
 Nothing is ever passed through a shell. Programs and interpreters receive argv
 entries directly, and every path is absolute, so a selected file name can never be
@@ -314,6 +339,12 @@ read as a command or as an option such as `-rf`.
 
 Paths travel in files rather than in the environment so unusual names — spaces,
 newlines, and bytes that are not valid UTF-8 — survive exactly.
+
+Each invocation's scratch directory is removed when it ends. It lives at
+`$XDG_RUNTIME_DIR/strata/actions/<pid>-<n>`. When `XDG_RUNTIME_DIR` is unset or
+empty, it goes under `$XDG_CACHE_HOME/strata/actions/`, by default
+`~/.cache/strata/actions/`. It never falls back to a shared temporary directory
+such as `/tmp`.
 
 For a Bash script, the manifest's `[run]` section uses `runtime = "bash"`,
 `entrypoint = "run.sh"`, and `mode = "whole-selection"`. Example `run.sh`:
@@ -574,4 +605,7 @@ disposable copies through Strata's context menu, then inspect Jobs output.
 For asynchronous eligibility based on external state and live file decorations,
 see [External file providers](file-providers.md). Static action matching remains
 limited to the file/selection filters described above; a provider can keep its
-menu entirely absent outside the locations it supports.
+menu entirely absent outside the locations it supports. Provider actions appear
+in their own headed sections after the custom actions, and a provider can also
+place destinations, such as a paired phone, inside **Send to…** beside
+removable drives.

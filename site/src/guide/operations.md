@@ -1,6 +1,6 @@
 ---
 nodes: [operations/clipboard, operations/clipboard/conflicts, operations/create, operations/rename, operations/trash, operations/trash/restore, operations/delete, operations/undo, operations/archives, operations/drag-and-drop, operations/drag-and-drop/copy-or-move, operations/progress, operations/progress/jobs]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Everyday operations
@@ -25,12 +25,12 @@ With exactly one folder selected, Ctrl+V pastes into it. Otherwise it pastes
 into the folder you are viewing. A copy pasted into its own folder becomes
 `report (1).pdf`; Ctrl+D (**Duplicate**) does this without the clipboard.
 
-Prefer a dialog? Right-click and choose **Move to…** or **Copy to…**.
+Or right-click and choose **Move to…** or **Copy to…**.
 
 When a name is taken, **File already exists** offers:
 
 - **Replace**: overwrite that item.
-- **Keep Both** (copies only): add `name (1).ext` beside it.
+- **Keep Both**: add `name (1).ext` beside it.
 - **Merge** (folder copied onto folder): add the incoming contents, replacing
   same-named files.
 - **Skip** (several items): keep the existing item, transfer the rest.
@@ -53,7 +53,8 @@ Right-click empty space for **New Folder** or **New File**. Ctrl+Alt+N
 
 To rename, press F2 or Ctrl+R, or click the name of a single selected item
 again after a pause. Enter, Tab, or clicking elsewhere saves; Escape keeps the
-old name.
+old name. A name the drive cannot store, such as `x:y` on FAT, is refused with
+the reason.
 
 ## Trash, restore, and delete
 
@@ -61,20 +62,22 @@ old name.
 <!-- node: operations/trash, Locations without Trash -->
 <!-- node: operations/trash, Browsing Trash -->
 <!-- node: operations/trash/restore, Lookup and confirmation -->
+<!-- node: operations/trash, Deletion confirmations -->
 <!-- node: operations/delete, Entry points -->
-<!-- node: operations/delete, Confirmation -->
 
 Press Delete to move the selection to Trash, with no prompt. To get it back
 later, open **Trash** in the sidebar, right-click the item, and choose
 **Restore**. Strata shows the original path before restoring.
 
 Press Shift+Delete, or choose **Permanently delete**, to delete for good after a
-confirmation. This cannot be undone.
+confirmation. This cannot be undone. On network shares the item reads
+**Delete without Trash**.
 
 Good to know:
 
 - Inside Trash, Delete always deletes permanently, after confirming.
-- Locations without Trash, such as `/dev/shm`, ask before deleting permanently.
+- Locations without Trash, such as `/dev/shm` or a FUSE mount that refused it,
+  ask before deleting permanently.
 
 ## Undo a mistake
 
@@ -124,7 +127,8 @@ Drop items onto a folder, a sidebar place, or a parent breadcrumb.
 | Holding Ctrl | Copy |
 | Holding Shift | Move |
 
-Hover over a folder for 750 ms to open it mid-drag. To skip the question, set
+Hover over a folder for 750 ms to open it mid-drag, or press Escape to cancel
+the drag. To skip the question, set
 **Settings → General → FILE TRANSFERS → Drag & drop to another device** to
 **Always copy** or **Always move**.
 

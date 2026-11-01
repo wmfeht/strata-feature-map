@@ -1,12 +1,13 @@
 ---
 nodes: [app/packaging, app/packaging/installer, app/packaging/aur, app/updates, app/updates/install, app/updates/package-managed, app/updates/release-channels, integration/file-manager-interface, integration/portal-file-chooser, integration/portal-file-chooser/setup]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Install and integrate
 
 Install Strata with one command, then choose how much of your desktop it takes
-over. Every integration is opt-in and reversible.
+over. The recommended setup turns on every integration your system supports;
+you can leave any of them out, and each one is reversible.
 
 ## Install interactively or unattended
 
@@ -20,49 +21,53 @@ Run the installer as your normal user:
 curl -fsSL https://raw.githubusercontent.com/lgse/strata/main/install.sh | bash
 ```
 
-It needs x86_64 or aarch64 and glibc 2.39 or newer. On Arch and Omarchy it
-installs missing packages with `sudo pacman`. On other distributions it lists
-the libraries to install yourself, then asks you to confirm. It verifies the
-latest stable release's checksum, installs it to `~/.local/bin/strata`, then
-asks about each integration:
+It needs x86_64 or aarch64 and glibc 2.39 or newer. Pick **Install Strata
+(recommended)** for every integration your system supports, or **Customize
+installation** to uncheck some:
 
-| Question | Default | Flag |
+| Option | Offered | Decline unattended with |
 | --- | --- | --- |
-| **Add Strata to your desktop application menu?** | Yes | `--with-desktop-entry` |
-| **Make Strata the default application for opening folders?** | No | `--with-folder-association` |
-| **Use Strata for "Open file location" from other applications?** | No | `--with-file-manager` |
-| **Replace your current Open/Save chooser with Strata in portal-aware apps?** | No | `--with-file-chooser` |
-| **Replace Omarchy's Nautilus file-manager keybinds with Strata?** | No | `--with-omarchy-keybinds` |
+| **Application launcher** | Always | `--without-desktop-entry` |
+| **Default file manager** | Always | `--without-folder-association` |
+| **Open file location** | Always | `--without-file-manager` |
+| **Open and Save dialogs** | Always | `--without-file-chooser` |
+| **Windows network shares** | Arch-based, when `gvfs-smb` is missing | `--without-smb` |
+| **Camera RAW support** | Arch-based, when a RAW decoder is missing | `--without-raw` |
+| **Omarchy file-manager shortcuts** | Omarchy 3 or 4 | `--without-omarchy-keybinds` |
+| **Encrypted-drive unlock** | Arch-based, with `udiskie` installed | `--without-udiskie-unlock` |
 
-The folder question follows only a Yes to the menu entry, and a Yes to it also
-sets up "Open file location". Answer No to the keybinds unless you run Omarchy.
+**Default file manager** also checks the launcher and **Open file location**.
+The installer then verifies the release's signature, installs missing packages
+with `sudo pacman` on Arch and Omarchy, and installs Strata to
+`~/.local/bin/strata`. On other distributions it lists the libraries to install
+yourself, then asks you to confirm.
 
-On Arch or Omarchy, to install without questions, pass the flags for the
-integrations you want. Anything you leave out stays off, except that
-`--with-folder-association` also turns on the menu entry and "Open file
-location":
+On Arch or Omarchy, `--non-interactive` installs every supported integration
+without questions; add a `--without-*` flag for each one to leave out:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lgse/strata/main/install.sh \
-  | bash -s -- --with-desktop-entry --with-file-manager
+  | bash -s -- --non-interactive --without-file-chooser --without-smb
 ```
 
 Unattended package installs need passwordless sudo or cached credentials.
 `--help` lists every flag. Unattended mode refuses to replace an existing
-binary, so to add an integration later, rerun the installer without flags and
-answer Yes to replacing it.
+binary; to add an integration later, rerun the installer without flags.
 
 Run `~/.local/bin/strata --version` to confirm the install. If the installer
-warns that `~/.local/bin` is not on PATH, add it to run `strata` by name.
+warns that `~/.local/bin` is not on PATH, add it to run `strata` by name. If
+previews or drives don't work, open **Settings → Diagnostics** and click
+**Run** to see which package is missing.
 
 AUR packages are not yet published; use the installer.
 
 ## Add Strata to your launcher
 
 <!-- node: app/packaging, Desktop entry and icon -->
-<!-- node: app/packaging/installer, Desktop entry and folder association -->
+<!-- node: app/packaging/installer, Desktop integrations -->
 
-The desktop menu entry puts Strata in your launcher. The installer writes
+**Application launcher** puts Strata in your launcher, with its icon. The
+installer writes
 `~/.local/share/applications/io.github.lgse.Strata.desktop` and the icon under
 `~/.local/share/icons/hicolor`. To add it by hand, see
 [Desktop entry](../reference/install.md#desktop-entry).
@@ -73,8 +78,9 @@ The desktop menu entry puts Strata in your launcher. The installer writes
 <!-- node: app/packaging/installer, Omarchy keybinds -->
 <!-- node: integration/file-manager-interface, Activation and installation -->
 
-With the launcher entry installed, press Ctrl+, and open **Settings → General**.
-The **System file manager** row lists **Open and Save dialogs**, **Opening
+The recommended install does this. To set it up later, press Ctrl+, and open
+**Settings → General**. The **System file manager** row
+lists **Open and Save dialogs**, **Opening
 folders**, **Reveal in File Manager**, and, on Omarchy, **Keyboard shortcuts**.
 Close any open file dialogs, then click **Complete setup** to configure all of
 them. On Omarchy, Super+Shift+F and Super+Alt+Shift+F then open Strata instead
@@ -88,9 +94,11 @@ To set these up by hand, see
 <!-- node: integration/portal-file-chooser/setup, Portal installation -->
 <!-- node: integration/portal-file-chooser, Requests -->
 
-Strata can draw portal Open and Save dialogs for local files. **Complete setup**
-in **Settings → General** turns this on with the rest of the row. Your current
-chooser stays listed as the fallback, and **Restore default** brings it back.
+Strata can draw portal Open and Save dialogs for local files. The recommended
+install turns this on and restarts the portal service, so close open file
+dialogs first. **Complete setup** in **Settings → General** also turns it on.
+Your current chooser stays listed as the fallback, and **Restore default** brings
+it back.
 
 To switch only the chooser by hand, see
 [Per-user installation](../reference/portal-file-chooser.md#per-user-installation).
@@ -100,6 +108,7 @@ To switch only the chooser by hand, see
 <!-- node: app/updates, Checking -->
 <!-- node: app/updates/install, Starting -->
 <!-- node: app/updates/release-channels, Channels -->
+<!-- node: app/updates/release-channels, Release list -->
 <!-- node: app/updates/package-managed, Settings and actions -->
 
 Strata checks for a newer release automatically. When one exists, an
@@ -114,6 +123,10 @@ To try builds early, set **Release channel** in **Settings → Updates** from
 **Stable** to **Preview** (alpha, beta, and release candidates) or **Nightly**
 (daily builds). Switching a prerelease install back to **Stable** offers
 **Return to stable**.
+
+To roll back or switch builds, open **Install a specific release** in
+**Settings → Updates**, pick a release your channel offers, and click **Install
+release**.
 
 When a package manager installed Strata, Strata never replaces itself. It offers
 **Open Omarchy Update**, **Open AUR Update** (**View on AUR** without an AUR

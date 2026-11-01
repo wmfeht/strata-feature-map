@@ -1,6 +1,6 @@
 ---
 nodes: [app/packaging/installer]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Start here
@@ -12,10 +12,11 @@ systems with GTK 4.12 or newer and glibc 2.39 or newer.
 ## Install
 
 <!-- node: app/packaging/installer, System checks -->
+<!-- node: app/packaging/installer, Setup menu -->
 <!-- node: app/packaging/installer, Dependencies -->
 <!-- node: app/packaging/installer, Download and verification -->
 <!-- node: app/packaging/installer, Install -->
-<!-- node: app/packaging/installer, Desktop entry and folder association -->
+<!-- node: app/packaging/installer, Desktop integrations -->
 
 Run this in a terminal as your normal user, not root:
 
@@ -25,27 +26,28 @@ curl -fsSL https://raw.githubusercontent.com/lgse/strata/main/install.sh | bash
 
 The installer walks you through five steps:
 
-1. It checks your machine: x86_64 or aarch64, glibc 2.39 or newer, and whether
-   you run Omarchy.
-2. On Arch-based systems, including Omarchy, it lists the missing packages and
-   asks before running `sudo pacman`. It then offers optional SMB share and
-   camera RAW support. On other distributions, it lists the libraries to install
-   and stops unless you confirm they are installed.
-3. It downloads the latest stable release and checks its SHA-256 checksum before
-   extracting it. With a logged-in `gh`, it also verifies the build's
-   provenance.
-4. It installs the binary to `~/.local/bin/strata`.
-5. It asks about optional extras: a launcher entry, then making Strata the
-   default for folders, "Open file location" from other apps, the system file
-   chooser, and Omarchy keybinds. On Omarchy or other Arch-based systems with
-   udiskie, it also offers to unlock encrypted drives with Strata. Only the
-   launcher entry defaults to Yes. The folder question follows only a Yes to the
-   launcher entry, and a Yes to it sets up "Open file location" without asking.
-   Answer No to the keybinds unless you run Omarchy: elsewhere, Yes stops the
-   installer with an error.
+1. It checks your machine: x86_64 or aarch64 and glibc 2.39 or newer. It prints
+   your distribution and architecture, such as `Arch Linux · x86_64`.
+2. Under **Choose your setup**, pick **Install Strata (recommended)** to get
+   every integration your system supports: the application launcher, Strata as
+   the default file manager and for "Open file location", and the Open and Save
+   dialogs. On Arch-based systems it adds SMB share and camera RAW support when
+   they are missing, on Omarchy the file-manager shortcuts, and with udiskie
+   encrypted-drive unlock. Pick **Customize installation** to uncheck any of
+   them. On other distributions, it lists the libraries to install and stops
+   unless you confirm they are installed.
+3. It downloads the latest stable release's signed manifest, verifies its
+   signature, and checks the archive's size and SHA-256 against it before
+   extracting anything. It needs no GitHub account or `gh`.
+4. On Arch-based systems, including Omarchy, it installs the missing packages in
+   one `sudo pacman` transaction, with pacman's own confirmation.
+5. It installs the binary to `~/.local/bin/strata`, then sets up the
+   integrations you chose.
 
-If the summary warns that `~/.local/bin` is not on `PATH`, add it in your shell
-configuration, or start Strata from your launcher.
+Press `q` in a menu to cancel without changing anything (Escape also works in
+the arrow-key menu). If the summary
+warns that `~/.local/bin` is not on `PATH`, add it in your shell configuration, or
+start Strata from your launcher.
 
 ## First launch
 

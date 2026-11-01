@@ -26,7 +26,7 @@ nodes:
   - integration/10xer-mode
   - integration/10xer-mode/preview-keys
   - remote/file-providers/network-locations
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Installation and desktop integration
@@ -35,7 +35,7 @@ reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
 
 <!-- node: app/packaging/installer -->
 <!-- node: integration/portal-file-chooser/setup -->
-<!-- node: devices/volumes/udiskie-unlock, Settings and installer -->
+<!-- node: devices/volumes/udiskie-unlock, Install and restore -->
 <!-- node: devices/volumes, Discovery -->
 <!-- node: integration/file-manager-interface, Activation and installation -->
 <!-- node: app/packaging, Desktop entry and icon -->
@@ -47,129 +47,315 @@ Arch Linux and Omarchy are the primary supported environments. Current binaries 
 
 ### Interactive installation
 
-The interactive installer detects the Linux architecture, glibc version, Arch
-Linux, and Omarchy 3 or 4. It installs the latest verified stable release and
-offers optional desktop-menu, default-folder-handler, "Open file location", system
-file chooser, encrypted-volume unlock, SMB, broader image/RAW, and Omarchy keybind
-integration:
+The interactive installer detects the Linux architecture, the glibc version,
+Arch-based systems, and Omarchy 3 or 4. It installs the latest stable release
+after verifying it against the release's signed manifest, then sets up the
+integrations you choose:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lgse/strata/main/install.sh | bash
 ```
 
-The installer shows every privileged package operation before asking to run it.
-It always checks the archive against its published `.sha256` file before
-extracting anything. When GitHub CLI is installed and logged in, it also runs
-`gh attestation verify`, and a failed check stops the install. Without `gh`, or
-with `gh` logged out, it warns ("continuing after HTTPS download and checksum
-verification") and continues. The binary is installed per-user at
-`~/.local/bin/strata`.
+It first shows **Choose your setup**:
 
-For an unattended Arch or Omarchy installation, pass `--non-interactive`. This
-installs required dependencies and the binary without prompting; optional
-integrations remain disabled unless explicitly selected. For example, on Omarchy:
+- **Install Strata (recommended)**: "Everything this system supports: launcher,
+  folders, file chooser, and optional integrations." It selects every option the
+  menu below offers on this system.
+- **Customize installation** opens **Make Strata yours**, with every offered
+  option checked. Uncheck an option to decline it.
+
+The menu offers only the options this system supports:
+
+| Option | Offered | Sets up |
+| --- | --- | --- |
+| **Application launcher** | Always | The desktop entry and icon; see [Desktop entry](#desktop-entry). |
+| **Default file manager** | Always | Strata as the `inode/directory` default. Includes the launcher and "Open file location". |
+| **Open file location** | Always | The per-user FileManager1 service; see ["Open file location" from other applications](#open-file-location-from-other-applications). |
+| **Open and Save dialogs** | Always | The system file chooser; see [System file chooser](portal-file-chooser.md). |
+| **Windows network shares** | Arch-based, when `gvfs-smb` is not installed | `gvfs-smb`. |
+| **Camera RAW support** | Arch-based, when `imagemagick`, `libraw`, or `dcraw` is not installed | Those three packages. |
+| **Omarchy file-manager shortcuts** | Omarchy 3 or 4 | Strata on Super+Shift+F and Super+Alt+Shift+F; see [Make Strata the Omarchy file manager](#make-strata-the-omarchy-file-manager). |
+| **Encrypted-drive unlock** | Arch-based, with `udiskie` on `PATH` | Strata as udiskie's unlock prompt; see [Unlock encrypted volumes on Omarchy](#unlock-encrypted-volumes-on-omarchy). |
+
+Checking **Default file manager** also checks **Application launcher** and
+**Open file location**; unchecking either of those unchecks **Default file
+manager**. Arch-based means `ID=arch`, an `ID_LIKE` containing `arch`, or
+Omarchy.
+
+In a terminal of at least 24 rows and 64 columns, the menus take keys: Up and
+Down, or `k` and `j`, move and wrap around; Space toggles an option; Enter
+continues or installs. When output is not a terminal, `TERM=dumb`, or the
+terminal is smaller, the menus are numbered instead: type a number to choose or
+toggle an option, or press Enter to install, or to pick option 1. Any other
+entry, Escape included, prints "Choose one of the listed options." Escape or
+`q` cancels the arrow-key menu, and `q` cancels the numbered menu. Either prints
+"Installation cancelled. No changes made." and exits with status 0, leaving an
+existing installation untouched. With output redirected to a file, the menus
+still draw on the terminal, and the file holds no terminal control sequences. `NO_COLOR=1` turns off color and keeps
+arrow-key navigation.
+
+Before downloading, **Installation plan** lists "Install to \<path>", with the
+binary's full path, and a "+ \<option>" line for each selected option. When
+none of **Default file manager**, **Open file location**, **Open and Save
+dialogs**, **Omarchy file-manager shortcuts**, and **Encrypted-drive unlock** is
+selected, the plan adds "Your default apps and shortcuts will stay unchanged."
+
+The installer downloads the release's signed update manifest and verifies its
+Ed25519 signature with `openssl` against the release key pinned in the script,
+the same key the in-app updater trusts. It then checks the archive's size and
+SHA-256 against the signed values before extracting anything. It needs no GitHub
+CLI or account. It never consults the release's `.sha256` file and never falls
+back to it: an unsigned release, or any failed check, stops the install. The
+binary is installed per-user at `~/.local/bin/strata`.
+
+Releases since v1.1.1 also publish `install.sh` and `install.sh.sha256` as
+attested release assets. To run the installer that shipped with the latest release
+instead of the copy on `main`:
+
+```bash
+curl -fsSLO https://github.com/lgse/strata/releases/latest/download/install.sh
+curl -fsSLO https://github.com/lgse/strata/releases/latest/download/install.sh.sha256
+sha256sum --check install.sh.sha256 && bash install.sh
+```
+
+With GitHub CLI, `gh attestation verify install.sh --repo lgse/strata` confirms
+that the release workflow built the script.
+
+### Unattended installation
+
+For an unattended Arch or Omarchy installation, pass `--non-interactive`. It never
+prompts, and installs the dependencies, the binary, and every integration the
+system supports. Decline integrations with `--without-*` flags:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lgse/strata/main/install.sh \
   | bash -s -- --non-interactive \
-      --with-smb \
-      --with-raw \
-      --with-desktop-entry \
-      --with-folder-association \
-      --with-omarchy-keybinds \
-      --with-udiskie-unlock
+      --without-smb \
+      --without-file-chooser
 ```
 
-`--with-omarchy-keybinds` requires Omarchy 3 or 4, and `--with-udiskie-unlock`
-requires `udiskie` on `PATH`. On generic Arch, leave out the flags that do not
-apply. Otherwise the installer exits with an error after it has installed the
-binary and any integration it set up before that flag's step.
+| Flag | Declines |
+| --- | --- |
+| `--without-desktop-entry` | The desktop entry, and folder association |
+| `--without-folder-association` | Folder association |
+| `--without-file-manager` | "Open file location", and folder association |
+| `--without-file-chooser` | The system file chooser |
+| `--without-smb` | SMB support |
+| `--without-raw` | Broader image and camera RAW support |
+| `--without-omarchy-keybinds` | The Omarchy file-manager shortcuts |
+| `--without-udiskie-unlock` | Encrypted-volume unlock |
 
-Each `--with-*` flag and `--without-file-chooser` implies `--non-interactive`,
-and integrations you do not name are declined. An unknown option exits with
-"Unknown option: \<option> (run with --help for usage)." Folder association implies
-the desktop entry and `--with-file-manager`. Use `--with-file-manager` by itself
-to enable only "Open file location" integration. File chooser replacement is
-separate: use `--with-file-chooser` to opt in, or `--without-file-chooser` to keep
-your current chooser. You can set it up later in **Settings → General → DESKTOP
-INTEGRATION → System file manager** (see [Set up from Settings](#set-up-from-settings)). Neither folder
-association nor an unattended install enables the chooser automatically.
-Encrypted-volume unlock is offered on Omarchy 3 or 4 (the installer asks; default
-No), and on generic Arch only when `udiskie` is already on `PATH`. The installer
-never installs the `udiskie` package. Unattended installs need
-`--with-udiskie-unlock`; `--non-interactive` alone and other `--with-*` flags
-leave it declined. Restore on Arch with `strata --uninstall-udiskie-unlock`, not
-Settings.
+Each `--with-*` and `--without-*` flag implies `--non-interactive`. An
+integration you name with neither flag installs when the system supports it.
+Unattended on an Arch-based system, SMB and RAW support are always planned;
+`pacman --needed` skips packages already installed. The `--with-*` flags are
+`--with-desktop-entry`, `--with-folder-association`, `--with-file-manager`,
+`--with-file-chooser`, `--with-smb`, `--with-raw`, `--with-omarchy-keybinds`,
+and `--with-udiskie-unlock`. `--with-folder-association` also selects the
+desktop entry and "Open file location". A `--with-*` flag requires its
+integration, where a default is skipped when the system cannot provide it.
 
-Non-interactive package installation requires passwordless sudo or cached credentials. Run `./install.sh --help` for the full option list.
+These checks stop the installer before it installs anything:
+
+- `--with-omarchy-keybinds` without Omarchy 3 or 4 exits with
+  "--with-omarchy-keybinds requires Omarchy 3 or 4." before any download.
+- `--with-udiskie-unlock` on an Arch-based system without `udiskie` on `PATH`
+  exits with "--with-udiskie-unlock requires an Arch-based system with udiskie on
+  PATH." before any download. On a system that is not Arch-based, the
+  non-interactive check below stops it first.
+- `--non-interactive`, or any `--with-*` or `--without-*` flag (each implies
+  it), on a system that is not Arch-based exits with "Non-interactive dependency
+  installation currently supports Arch-based systems only."
+- `--with-file-chooser` and `--with-udiskie-unlock` on a release without that
+  integration exit after unpacking, before packages or the binary are installed;
+  see [Download and verification](#download-and-verification).
+
+Other failures come after the binary is installed, so the installer ends with
+"Strata is installed, but setup did not finish." They apply whether you named the
+integration or it was selected by default:
+
+- For "Open file location", an archive without the service file exits with "The
+  verified archive is missing FileManager1 integration.", and another per-user
+  FileManager1 provider exits as described under [Install and integration
+  steps](#install-and-integration-steps).
+- For folder association, a missing `xdg-mime` exits with "xdg-mime is required
+  to change the folder association.", and one that did not change exits with
+  "The folder association did not change (current value: \<value>)."
+- A failed file chooser, Omarchy keybind, or encrypted-volume unlock step exits
+  with that step's message.
+
+The installer never installs the `udiskie` package. Restore encrypted-volume
+unlock on Arch with `strata --uninstall-udiskie-unlock`, not Settings. An
+unknown option exits with "Unknown option: \<option> (run with --help for
+usage)." Run `./install.sh --help` for the full option list, including
+`--verbose`, which shows each step's full download and verification output.
+
+Non-interactive package installation runs `sudo -n pacman --noconfirm`, so it
+needs passwordless sudo or cached credentials. When that fails, the installer
+exits with "Non-interactive package installation failed; passwordless sudo or
+cached credentials may be required."
 
 Phone backends are not installed by the script. For optional iPhone/iPad or Android
 access, follow [Connecting phones](#connecting-phones) after installation.
 
-#### System checks and dependencies
+### System checks and dependencies
 
 Run the installer as your normal desktop user. Run as root, it exits with "Run
 this installer as your normal desktop user, not as root." An interactive run
-needs a terminal; without one it exits with "This interactive installer needs a
-terminal." Under `curl … | bash`, every prompt, including pacman's, reads from
-the terminal. On a system other than Linux it exits with "The prebuilt Strata
-release supports Linux only." On a machine other than x86_64 or aarch64 it exits
-with "Strata has no prebuilt release for \<machine>." On a Linux system without
-glibc it exits with "Strata requires a glibc-based Linux system." With glibc
-older than 2.39 it exits with "Strata requires glibc 2.39 or newer (found
-\<version>)."
+needs a terminal; without a readable and writable `/dev/tty` it exits with "This
+interactive installer needs a terminal." Under `curl … | bash`, every prompt,
+including pacman's, reads from the terminal. On a system other than Linux it
+exits with "The prebuilt Strata release supports Linux only." On a machine other
+than x86_64 or aarch64 it exits with "Strata has no prebuilt release for
+\<machine>." On a Linux system without glibc it exits with "Strata requires a
+glibc-based Linux system." With glibc older than 2.39 it exits with "Strata
+requires glibc 2.39 or newer (found \<version>)."
 
-It then prints the detected Linux distribution, the architecture (as the release
-target), the glibc version, and "Omarchy: major version N" or "Omarchy: not
-detected". The Omarchy major version is the first `3.N` or `4.N` in the output of
-`omarchy version`, then in `/usr/share/omarchy/version`, then in
-`~/.local/share/omarchy/version`. Output such as `dev (b280f130)` or `Omarchy
-2.3.1` counts as not detected.
+An Arch-based system without `pacman` exits with "This Arch-based system does not
+provide pacman." A missing `curl`, `tar`, `sha256sum`, `openssl`, `wc`,
+`install`, `sed`, or `timeout` exits with "Required command not found:
+\<command>" before anything is downloaded.
 
-On Arch, an Arch derivative, or Omarchy, it lists missing required packages and
-asks "Install these packages with sudo pacman?" (default Yes). It then asks
-separately about SMB support (`gvfs-smb`) and broader image and camera RAW support
-(`imagemagick`, `libraw`, `dcraw`), each defaulting to No. On other distributions
-it lists the required libraries, including the GVfs UDisks2 volume monitor, and
-exits unless you confirm they are installed. `--non-interactive` exits there with
-"Non-interactive dependency installation currently supports Arch-based systems
-only."
+Before the setup menu, the installer prints one line with the distribution's
+`PRETTY_NAME` (or `ID`) and the architecture, such as `Manjaro Linux · x86_64`.
+It prints no glibc or Omarchy line. The Omarchy major version is the first `3.N`
+or `4.N` in the output of `omarchy version`, then in
+`/usr/share/omarchy/version`, then in `~/.local/share/omarchy/version`. Output
+such as `dev (b280f130)` or `Omarchy 2.3.1` counts as not detected.
 
-#### Install and integration prompts
+On an Arch-based system, the missing required packages and the selected
+`gvfs-smb`, RAW packages, and `xdg-desktop-portal` (for **Open and Save
+dialogs**) install in one `sudo pacman -S --needed` transaction. It runs after
+the release is downloaded, verified, and unpacked, and before the binary is
+installed. The step prints "Packages to install: \<packages>", or "All selected
+runtime packages are already installed." when none are missing. An interactive
+run uses pacman's own confirmation. pacman's output shows live and is kept in
+the log, but the sudo password typed at its prompt is not recorded.
+
+On other distributions, after the plan, the installer lists the required
+libraries, including the GVfs UDisks2 volume monitor (`gvfs-daemons` on
+Debian/Ubuntu, `gvfs` on Fedora). It asks "Have you installed the equivalent
+packages for this distribution?" (default Yes), and No exits with "Install the
+runtime dependencies, then run this installer again." `--non-interactive` exits
+before the menu with "Non-interactive dependency installation currently supports
+Arch-based systems only."
+
+### Download and verification
 
 The installer always installs the latest stable release. If GitHub's latest
 release tag is not shaped `vX.Y.Z`, it exits with "GitHub returned an unexpected
-stable release tag: \<tag>". An archive missing the
-`strata` binary, the desktop entry, or the icon is rejected before installation.
-If `~/.local/bin/strata` already exists, it asks "Replace the existing …?"
-(default No). An unattended run exits instead: "… already exists; remove it or
-run the interactive installer to replace it."
+stable release tag: \<tag>". Each step shows its label, then "✓ \<label>":
 
-"Add Strata to your desktop application menu?" defaults to Yes. The installer
-writes the entry, the icon, and the "Open file location" service under
-`${XDG_DATA_HOME:-~/.local/share}`, in `applications/`,
-`icons/hicolor/scalable/apps/`, and `dbus-1/services/`, with `Exec=` set to
-`~/.local/bin/strata`. Only after a Yes
-does it ask "Make Strata the default application for opening folders?", which
-defaults to No. Accepting it also installs the "Open file location" service
-without asking. If `xdg-mime` still reports another folder handler afterwards,
-the installer exits with an error. When you decline the menu entry or folder
-association, it asks separately 'Use Strata for "Open file location" from other
-applications?' (default No).
+1. "Download the signed release manifest" fetches `strata-update-manifest.json`,
+   at most 32,768 bytes.
+2. "Download the release signatures" fetches
+   `strata-update-manifest.signatures.json`, at most 8,192 bytes.
+3. "Verify the release signature" checks the signatures against the pinned keys.
+4. "Download Strata \<version>" fetches the archive, capped at its signed size.
+5. "Verify the signed SHA-256 digest" checks the archive's size and digest.
+6. "Unpack the verified release" extracts it.
 
-The questions about the system file chooser, Omarchy keybinds, and
-encrypted-volume unlock each default to No. The Omarchy keybind question is asked
-even when Omarchy is not detected; answering Yes there exits with
-"--with-omarchy-keybinds requires Omarchy 3 or 4."
+A release without either manifest file fails its download step before the
+archive is requested. A file over its limit fails its download step. If an
+older curl finishes the download anyway, the installer exits with "\<file> is
+larger than \<limit> bytes; refusing to continue." When no
+signature verifies against a pinned key, step 3 fails with "No trusted release
+key signed strata-update-manifest.json." One valid signature from any pinned key
+is enough. A signed manifest for another repository or tag stops the install
+with "The signed manifest does not describe Strata \<version> from lgse/strata."
+A manifest without this machine's archive stops it with "The signed manifest
+does not list \<archive> for \<target>." A signed size over 134,217,728 bytes
+stops it with "The signed manifest lists an archive larger than 134217728
+bytes."
 
-The file chooser question reads "Replace your current Open/Save chooser with
-Strata in portal-aware apps? (Restarts the portal service; close open file
-dialogs first.)" Accepting it, or passing `--with-file-chooser`, restarts the
-portal service. On Arch, an Arch derivative, or Omarchy, it first installs
-`xdg-desktop-portal` if that package is missing.
+An archive larger than its signed size fails step 4. A shorter or altered
+archive fails step 5 with "\<archive> is \<n> bytes; the signed manifest expects
+\<m>." or "\<archive> has SHA-256 \<d>; the signed manifest expects \<e>." A
+failed download, signature, or digest check installs no package and writes
+nothing to `~/.local/bin`. So does Ctrl+C during the download, which exits with
+status 130.
 
-The installer finishes by printing the installed version, the archive's source
-commit, and the binary path. It warns when `~/.local/bin` is not on `PATH`.
+An archive without an executable `strata` exits with "The verified archive does
+not contain the Strata binary.", and one without the desktop entry or icon with
+"The verified archive is missing desktop integration files." Both exit before
+anything is installed. With `--with-file-chooser`, a release without file
+chooser support exits with "This release does not include file chooser
+integration. Install a newer release." With `--with-udiskie-unlock`, a release
+without unlock support exits with "This release does not include
+encrypted-volume integration. Install a newer release." When either integration
+was selected by default or from the menu instead, the installer warns "This
+release does not include file chooser integration; skipping it." (or
+encrypted-volume integration) and continues.
+
+In a terminal of at least 24 rows and 64 columns, the archive download shows a
+27-cell progress bar with curl's percentage, ending in a green ✓; while the total
+is unknown, a spinner replaces the bar. Other steps show a spinner beside their
+label.
+
+### Install and integration steps
+
+If `~/.local/bin/strata` already exists, the interactive installer prints "This
+replaces \<path>. Your saved settings are kept." and asks nothing
+more. An unattended run exits before downloading instead: "… already exists;
+remove it or run the interactive installer to replace it."
+
+The installer then runs the selected integrations in this order:
+
+- **Application launcher** writes the entry and the icon under
+  `${XDG_DATA_HOME:-~/.local/share}`, in `applications/` and
+  `icons/hicolor/scalable/apps/`, with `Exec=` set to `~/.local/bin/strata`.
+- **Default file manager** then makes Strata the `inode/directory` default. If
+  `xdg-mime query` then reports another handler, the installer exits with "The
+  folder association did not change (current value: \<value>)." Each `xdg-mime`
+  call is limited to 5 seconds; one that takes longer exits the installer with
+  status 124.
+- **Open file location** writes
+  `${XDG_DATA_HOME:-~/.local/share}/dbus-1/services/io.github.lgse.Strata.FileManager1.service`.
+  Another per-user FileManager1 provider exits with "Another per-user
+  FileManager1 provider is already installed: \<path>", and later integrations
+  do not run. The installer then asks the session bus to reload, so Strata
+  answers "Open file location" requests at once and prints 'Strata now handles
+  "Open file location" requests.' The reload is limited to 5 seconds. If it
+  fails, times out, or `gdbus` is missing, the service stays installed, the
+  installer warns that you must log out and back in, and the remaining steps
+  still run.
+- **Open and Save dialogs** runs `strata --install-portal`, which restarts the
+  portal service; close open file dialogs first. If it fails, the installer
+  exits with "File chooser setup failed. Strata is installed; retry in Settings →
+  General → System file chooser." (the row is **System file manager**).
+- **Omarchy file-manager shortcuts** edits the bindings file; see [Make Strata
+  the Omarchy file manager](#make-strata-the-omarchy-file-manager).
+- **Encrypted-drive unlock** runs `strata --install-udiskie-unlock`. If it fails,
+  the installer exits with "Encrypted-volume unlock setup failed. Strata is
+  installed; retry with: \<path> --install-udiskie-unlock".
+
+The installer finishes with "Ready to explore", "Strata \<version> is
+installed.", and "Run \<path> to get started." It warns when
+`~/.local/bin` is not on `PATH`. After any warning the heading reads "Installed
+with warnings". Output from the file chooser and udiskie steps, such as
+service-restart notices, stays on screen; after such a notice, the heading reads
+"Installed — review setup details".
+
+Every step's output goes to `${TMPDIR:-/tmp}/strata-install.XXXXXX.log`. The log
+is deleted after a clean success, and kept after a failure, a warning, or a
+notice, when the summary ends with "Detailed output: \<log>". A failed step
+prints its output and "Failed: \<step>", then "Installation did not finish." and
+the log path. A failure after the binary is installed reads "Strata is
+installed, but setup did not finish." instead.
+
+The installer translates its menus, step labels, installation plan, and
+summary. Most other error and warning lines, such as "Unknown option: …" and the
+signature and digest errors, stay English in every language. The
+`--with-udiskie-unlock` requirement, the "Open file location" reload warning,
+"Failed: \<step>", "Could not read your selection.", "Choose one of the listed
+options.", "Installation cancelled. No changes made.", and the closing "did not
+finish" lines are translated. The language
+follows the first supported `LANGUAGE` entry, then `LC_ALL`, `LC_MESSAGES`, or
+`LANG`, and is English when the first of those three that is set is `C` or
+`POSIX`, or when none is set. `zh_TW`, `zh_HK`,
+`zh_MO`, and `zh-Hant` locales show Traditional Chinese; other `zh` locales show
+Simplified Chinese. The installer ignores the language saved in Strata's
+Settings.
 
 ### AI-assisted installation
 
@@ -195,11 +381,14 @@ Then:
   iPhone/iPad app documents, gvfs-gphoto2 for camera/PTP photo access, or gvfs-mtp
   for Android file transfers, only if requested. Other distributions need their
   equivalent GVfs backends.
-- Download the archive and its matching .sha256 file from the latest GitHub release.
-- Verify the checksum with sha256sum --check. If GitHub CLI is installed and
-  authenticated, also verify GitHub Actions provenance with
-  `gh attestation verify <archive> --repo lgse/strata`. Stop if either attempted
-  verification fails; never install a binary with an invalid checksum.
+- Download the archive, strata-update-manifest.json, and
+  strata-update-manifest.signatures.json from the latest GitHub release.
+- Verify the manifest's Ed25519 signature with `openssl pkeyutl -verify -rawin`
+  against a public key from data/update-keys.json in the repository, over the
+  bytes `strata-update-manifest-v1`, one NUL byte, and the exact manifest file.
+  Then check the archive's size and SHA-256 against the signed entry for this
+  architecture. Stop if any check fails; never install an unsigned or mismatched
+  archive, and do not fall back to the .sha256 file.
 - Extract it and install `strata` to ~/.local/bin/strata without overwriting an
   unrelated file. Ensure ~/.local/bin is on PATH.
 - Ask whether I want a per-user desktop entry and inode/directory association;
@@ -243,29 +432,42 @@ sudo pacman -S --needed bubblewrap desktop-file-utils ffmpeg ffmpegthumbnailer f
 sudo pacman -S --needed gvfs-smb imagemagick libraw dcraw squashfs-tools
 ```
 
-GTK **4.12 or newer** and glibc **2.39 or newer** are required. Other glibc-based distributions may work when they provide equivalent runtime libraries, but their package names and binary compatibility vary. Systems with an older glibc must [build Strata from source](https://github.com/lgse/strata/blob/v1.0.0/README.md#development-and-documentation).
+GTK **4.12 or newer** and glibc **2.39 or newer** are required. Other glibc-based distributions may work when they provide equivalent runtime libraries, but their package names and binary compatibility vary. Systems with an older glibc must [build Strata from source](https://github.com/lgse/strata/blob/v1.1.1/README.md#development-and-documentation).
 
 Device discovery requires the GVfs UDisks2 volume monitor (`gvfs` on Arch and
 Fedora; `gvfs-daemons` on Debian/Ubuntu). Without that backend, removable drives
 may be absent from **DEVICES**. SMB support remains optional. Phones need additional
 backends; see [Connecting phones](#connecting-phones).
 
+If previews, thumbnails, network locations, or drives don't work after
+installation, open **Settings → Diagnostics** and click **Run**. It tests each
+of these features and names any missing package, with an install command for
+your distribution that you can copy or run in your terminal. **Copy report**
+copies the results for a bug report.
+
 #### 2. Download and verify
 
-From the [latest release](https://github.com/lgse/strata/releases/latest), download the `.tar.gz` matching `$target` and its identically named `.sha256` file over HTTPS. Then verify its digest:
+From the [latest release](https://github.com/lgse/strata/releases/latest), download the `.tar.gz` matching `$target` together with `strata-update-manifest.json` and `strata-update-manifest.signatures.json` over HTTPS. The manifest is signed with the Ed25519 release key from [`data/update-keys.json`](https://github.com/lgse/strata/blob/v1.1.1/data/update-keys.json), the same key the in-app updater trusts. Verify the signature, then compare the archive with its signed entry:
 
 ```bash
 cd ~/Downloads
 archive="strata-<version>-${target}.tar.gz"
-sha256sum --check "${archive}.sha256"
+key=$(curl -fsSL https://raw.githubusercontent.com/lgse/strata/v1.1.1/data/update-keys.json | grep -o '[0-9a-f]\{64\}' | head -1)
+printf '302a300506032b6570032100%s' "$key" | tr a-f A-F | basenc --base16 -d > release-key.der
+{ printf 'strata-update-manifest-v1\0'; cat strata-update-manifest.json; } > signed-message
+grep -o '"signature":"[0-9a-f]*"' strata-update-manifest.signatures.json | head -1 | cut -d'"' -f4 | tr a-f A-F | basenc --base16 -d > signature
+openssl pkeyutl -verify -rawin -pubin -keyform DER -inkey release-key.der -sigfile signature -in signed-message
+grep -o "{\"name\":\"$archive\"[^}]*}" strata-update-manifest.json
+stat -c %s "$archive" && sha256sum "$archive"
 ```
 
-If GitHub CLI is installed and authenticated, you can additionally verify the
-archive's signed GitHub Actions provenance before extracting it:
-
-```bash
-gh attestation verify "$archive" --repo lgse/strata
-```
+The signature must verify, and the printed size and SHA-256 must equal the
+signed `size` and `sha256`. During a key rotation the signatures file lists one
+entry per key; pick the one whose `key_id` is the SHA-256 of your key's raw
+bytes. The `.sha256` files and GitHub build-provenance attestations are still
+published for packagers, and `gh attestation verify "$archive" --repo
+lgse/strata` remains an optional extra check, but neither replaces the signed
+manifest.
 
 Every verification you run must succeed. Extract the archive, install the binary,
 and confirm it starts:
@@ -332,9 +534,12 @@ package's channel is fixed, so to change channel, install the other package.
 
 ### In-app updates
 
-**Install update** on the **Settings → Updates** row, or **Download update** in
-the update dialog, starts the install at once. Only one install runs at a time;
-starting another shows "Another install is already running — try again shortly."
+**Install update** on the **Settings → Updates** row, or **Download update** or
+**Install release** in the update dialog, starts the install at once. Only one
+install runs at a time; starting another shows "Another install is already
+running — try again shortly." A release chosen from **Install a specific
+release** installs even when it is older than the installed build (see [Release
+channels](#release-channels)).
 
 - The row reads "Verifying update…" while the signed manifest is fetched, then
   "Downloading update… N%", "Verifying update…", "Installing update…", and
@@ -353,7 +558,8 @@ starting another shows "Another install is already running — try again shortly
   download stalled — check your connection and try again"). Sending the request
   and receiving the response headers must each finish within 60 seconds. There
   is no total time limit; see [Signed updates](signed-updates.md#download-and-verification).
-- On success the status reads "Update installed — restart to apply". Strata
+- On success the status reads "Update installed — restart to apply", or
+  "Release installed — restart to apply" for a chosen release. Strata
   sends SIGTERM to your other Strata processes started without a flag, or with
   `--portal`, that still run the old binary from the same install path, and
   SIGKILL to any still running 5 seconds later. Only your own user's processes
@@ -395,11 +601,20 @@ AUR package, even on Omarchy or when pacman owns the binary. A binary no package
   only when that version is newer and its GitHub release exists. A stable
   package version must match a GitHub release not marked prerelease; a
   prerelease version may match either kind.
-- With an update available, Omarchy offers **Open Omarchy Update**, which runs
-  `omarchy update` in your terminal. An AUR install offers **Open AUR Update**,
-  which runs `<helper> -Syu <package>` with `yay`, `paru`, `pikaur`, or `trizen`
-  when one is on `PATH`, or **View on AUR** without one. A pacman install tells
-  you to install it through a full system update.
+- With an update available, Omarchy offers **Open Omarchy Update**. It runs
+  `omarchy-launch-floating-terminal-with-presentation omarchy-update`, the
+  launcher Omarchy's own menu uses, when that is on `PATH`. Without it, or when
+  it fails to start, it runs `omarchy update` in your configured terminal.
+- An AUR install offers **Open AUR Update**, which runs `<helper> -Syu
+  <package>` with `yay`, `paru`, `pikaur`, or `trizen` when one is on `PATH`, or
+  **View on AUR** without one. Strata looks for the helpers once per run, so a
+  helper installed while Strata runs is offered after a restart.
+- In the update dialog, **Open Omarchy Update**, **Open AUR Update**, and **View
+  on AUR** turn insensitive while the launch starts. A successful start closes
+  the dialog; a failed one shows its reason, re-enables the button, and keeps
+  the dialog open.
+- A pacman install tells you to install it through a full system update.
+- Package-managed installs show no **Install a specific release** row.
 
 ## Usage and desktop integration
 
@@ -465,16 +680,22 @@ close the window while Strata is still checking, the check is dropped and nothin
 navigates or reports an error later. Strata also opens normally when launched
 with its output going to a closed pipe.
 
-`strata --version` prints one line, such as `strata 1.0.0`, and exits without
+Each window is titled `<folder> — Strata` after its active tab's folder, the
+name the tab strip shows, so taskbars, window switchers, and scripts such as
+`hyprctl clients` can tell windows apart. The title follows navigation and tab
+switches, and reads "Strata" until the first folder opens.
+
+`strata --version` prints one line, such as `strata 1.1.1`, and exits without
 opening a window. Prerelease builds include their suffix, such as `-rc.1`,
-matching **Settings → Updates**. The flag must come first: `strata ~/Documents
+matching **Settings → Updates**. A debug build, such as one from `mise run dev`,
+prints `strata <version>+debug`. The flag must come first: `strata ~/Documents
 --version` launches Strata instead.
 
 In the default map, useful shortcuts include Ctrl+K to search Home and mounted local drives from any folder, Ctrl+L for a path or URI, Ctrl+F to filter the current pane, Ctrl+Z to undo or Ctrl+Shift+Z to redo the latest reversible file operation, Space for preview, F2 to rename, Alt+Left and Alt+Right for Back and Forward, and Alt+Up for the parent folder.
 
 Toggle [10xer mode](10xer-mode.md) with Ctrl+Shift+M for Yazi-style navigation and footer prompts; press Ctrl+Shift+M again to return to the default map. In 10xer mode, **q** in the file list does nothing, and **Q** closes the current window. In List and Columns, **l** / **Right** on a previewable file moves the keys into its preview, **h** returns them to the listing without closing the preview, and **i** toggles the preview.
 
-In narrow or highly scaled windows, the file view takes priority: the preview shrinks, then hides when there is not enough room for both. Widening the window restores the preview and its session width automatically. Hidden previews pause playback and defer loading new selections; unchanged previews return without reloading the file.
+In narrow or highly scaled windows, the file view takes priority: an expanded sidebar shrinks to its icon rail, and the preview shrinks, then hides when there is not enough room for both. Widening the window restores the preview and its session width automatically. Hidden previews pause playback and defer loading new selections; unchanged previews return without reloading the file.
 
 ### Desktop entry
 
@@ -499,16 +720,22 @@ The entry declares `MimeType=inode/directory;` and
 `Categories=Utility;FileTools;FileManager;`, so launchers list it as a file
 manager and it can be the default folder handler. Its generic name, comment, and
 keywords are translated into French, German, Spanish, Japanese, Brazilian
-Portuguese, Korean, Vietnamese, Italian, Russian, and Simplified Chinese. It
-ships with `Exec=strata %U`; the commands above, the installer, and `mise run
-install-local` rewrite that to the installed binary's absolute path. Strata also
-bundles its icon and sets it as the GTK default window icon.
+Portuguese, Korean, Vietnamese, Italian, Russian, Simplified Chinese, and
+Traditional Chinese. It ships with `Exec=strata %U`; the commands above, the
+installer, and `mise run install-local` rewrite that to the installed binary's
+absolute path. Strata also bundles its icon and sets it as the GTK default
+window icon.
+
+The icon draws the Strata logo in blue and violet gradients on a rounded tile
+that fades from `#414868` at the top to `#1b1c27` at the bottom, with a faint
+light edge, so it stands out on light and dark docks alike. The icon rounds its
+own corners, because Linux desktops draw hicolor icons unmasked.
 
 When building from source, `mise run install-local` installs the binary, icon, and desktop entry in the same locations, and `mise run uninstall-local` removes them.
 
 ### "Open file location" from other applications
 
-Browsers and GTK/GNOME applications reveal a file by calling the `org.freedesktop.FileManager1` D-Bus interface instead of consulting the `inode/directory` association. The interactive installer offers this separately; for unattended installation, pass `--with-file-manager`. Folder association enables it automatically.
+Browsers and GTK/GNOME applications reveal a file by calling the `org.freedesktop.FileManager1` D-Bus interface instead of consulting the `inode/directory` association. The installer sets this up by default as **Open file location**, and reloads the session bus so it works without logging out; `--without-file-manager` declines it. Folder association enables it automatically.
 
 For a source installation, enable Strata as the per-user activatable provider explicitly:
 
@@ -576,6 +803,9 @@ open file dialogs before changing setup.
 - Complete setup fails with "Another per-user FileManager1 provider is already
   installed: \<path>" when another service owns that name. The button is hidden
   once every line is configured.
+- Each `systemctl --user`, `gdbus`, and `xdg-mime` call that setup runs ends
+  after 5 seconds, so on a session bus that never answers, Complete setup and
+  Restore default still finish.
 - **Restore default** appears while any part is installed. It removes the
   service and the chooser, and returns `inode/directory` to the handler recorded
   before setup, or Nautilus. It leaves the folder handler alone when it no
@@ -591,8 +821,9 @@ open file dialogs before changing setup.
 
 The XDG association above handles folders opened by applications. On current Lua-based Omarchy releases, also override the stock Nautilus shortcuts in `~/.config/hypr/bindings.lua` so Omarchy launches Strata directly.
 
-The installer's "Replace Omarchy's Nautilus file-manager keybinds with Strata?"
-(default No), or `--with-omarchy-keybinds`, does this for you. It appends a
+The installer's **Omarchy file-manager shortcuts** option does this for you. It
+is offered, and installed by default, only on Omarchy 3 or 4;
+`--without-omarchy-keybinds` declines it. It appends a
 marked block that rebinds Super+Shift+F and Super+Alt+Shift+F to Strata, in
 `~/.config/hypr/bindings.conf` on Omarchy 3 or `~/.config/hypr/bindings.lua` on
 Omarchy 4. It first backs up an existing file as `<file>.bak.<timestamp>`. If
@@ -649,9 +880,9 @@ omarchy menu keybindings --print | grep -i "file manager"
 
 ### Unlock encrypted volumes on Omarchy
 
-On Omarchy 3 or 4, the installer asks whether to use Strata for encrypted-volume unlock (default No). **Settings → General → DESKTOP INTEGRATION** includes **Unlock encrypted volumes**. Choose **Use Strata** so plugging in an encrypted drive opens Strata's password prompt instead of udiskie's dialog. **Restore default** returns udiskie to its previous configuration. Restoring also deletes the restore state in `~/.local/share/strata/udiskie-install/`.
+On an Arch-based system, Omarchy included, with `udiskie` on `PATH`, the installer's **Encrypted-drive unlock** option sets this up, by default; `--without-udiskie-unlock` declines it. **Settings → General → DESKTOP INTEGRATION** includes **Unlock encrypted volumes**. Choose **Use Strata** so plugging in an encrypted drive opens Strata's password prompt instead of udiskie's dialog. **Restore default** returns udiskie to its previous configuration. Restoring also deletes the restore state in `~/.local/share/strata/udiskie-install/`.
 
-On generic Arch, the installer offers the same step only when `udiskie` is already on `PATH`. Restore there with `strata --uninstall-udiskie-unlock`; Settings for this row stays Omarchy-only.
+On generic Arch, restore with `strata --uninstall-udiskie-unlock`; Settings for this row stays Omarchy-only.
 
 The same setup is available unattended:
 
@@ -660,7 +891,7 @@ strata --install-udiskie-unlock
 strata --uninstall-udiskie-unlock
 ```
 
-This edits `~/.config/udiskie/config.yml` and records restore state in `~/.local/share/strata/udiskie-install/state.toml`. It is not a saved Strata preference. The Settings row appears only when Omarchy is detected and `udiskie` is on your `PATH`; the CLI flags are unattended and are not Omarchy-gated. Unattended installer opt-in is `--with-udiskie-unlock`.
+This edits `~/.config/udiskie/config.yml` and records restore state in `~/.local/share/strata/udiskie-install/state.toml`. It is not a saved Strata preference. The Settings row appears only when Omarchy is detected and `udiskie` is on your `PATH`; the CLI flags are unattended and are not Omarchy-gated. An unattended install sets it up when `udiskie` is on `PATH`, and `--with-udiskie-unlock` requires it.
 
 Setup rewrites `config.yml` with a managed header, sets udiskie's `event_hook` to
 a list of the installed binary's absolute path followed by `--udiskie-hook
@@ -681,11 +912,12 @@ Neither command installs or removes the
 `udiskie` package. **Use Strata** shows only while the integration is not
 configured, and **Restore default** only while there is something to restore.
 
-On Omarchy without `udiskie` on `PATH`, the installer warns and skips this step;
-with `--with-udiskie-unlock` it exits with "udiskie is not on PATH;
---with-udiskie-unlock requires udiskie." On any other system that does not
-qualify, `--with-udiskie-unlock` exits with "--with-udiskie-unlock requires
-Omarchy 3 or 4, or an Arch-based system with udiskie on PATH."
+Without `udiskie` on `PATH`, or on a system that is not Arch-based, the
+installer does not offer this step. On an Arch-based system without `udiskie` on
+`PATH`, `--with-udiskie-unlock` exits with "--with-udiskie-unlock requires an
+Arch-based system with udiskie on PATH." before any download. On a system that
+is not Arch-based, it exits with "Non-interactive dependency installation
+currently supports Arch-based systems only."
 
 
 For an added encrypted volume, the hook runs `strata --unlock-volume DEVICE`, or
@@ -838,8 +1070,17 @@ credentials reopen the dialog with "Those credentials weren’t accepted. Check 
 and try again." Cancel or Escape returns to the previous location with no error and
 no history entry.
 
+To connect without typing in the location bar, right-click **Network** in the
+sidebar and choose **Connect to server…**. Enter the address under **Server
+address** and click **Connect**; tick **Pin to sidebar** to keep the location
+under **PINNED**. Errors such as an unknown host appear under the address, and
+the dialog stays open. The file chooser's sidebar has no **Network** row.
+
 The sidebar's **Network** place opens `network:///`, which lists the hosts and
-shares GVfs discovers. At `smb://host/`, opening a share mounts it if needed. A
+shares GVfs discovers; its column heading and breadcrumbs read "Network". With
+**Watch network folders** on, the default, open folders on network shares are
+checked every few seconds while a window shows them, and re-read when another
+computer changed them. At `smb://host/`, opening a share mounts it if needed. A
 mounted SMB share appears under DEVICES with a network icon; its menu offers
 **Properties** and **Disconnect**, and a failed disconnect shows "Unable to
 disconnect". An `smb://` address without its backend fails with a message naming
@@ -924,9 +1165,32 @@ every open Updates page, except one that is installing or waiting to restart. An
 open update dialog whose build the new channel excludes reads "This build is no
 longer offered on your update channel — check for updates again.", and its button
 becomes **Close**. **Install update** on an offer the current channel excludes
-runs a new check instead.
+runs a new check instead. A release chosen from **Install a specific release**
+is withdrawn the same way when the new channel excludes its build kind.
 
 A prerelease offer shows its build kind as a badge in its notes and in the update
-dialog, which also lists Channel, Tag, Commit, and Published.
+dialog, which also lists Channel, Tag, Commit, and Published. A chosen release
+always shows those rows, since it may be a rollback.
 
-See [Releasing](https://github.com/lgse/strata/blob/v1.0.0/docs/releasing.md) for the tag grammar these channels rely on and, for maintainers, how a release candidate is cut and promoted.
+### Install a specific release
+
+On an in-place install, **Install a specific release** in **Settings → Updates**
+lists releases to roll back or switch to:
+
+- The list shows the releases the channel offers, newest first, including
+  releases older than the installed build. Stable lists only stable releases,
+  Preview adds alpha, beta, and release-candidate builds, and Nightly lists every
+  build kind. Two releases with the same version appear once.
+- It keeps only releases with this architecture's archive,
+  `strata-update-manifest.json`, and `strata-update-manifest.signatures.json`, so
+  releases before `v0.22.0-nightly.20261005` are left out.
+- Strata reads GitHub's releases in pages of 100, and stops after a page shorter
+  than 100, a page whose last release is unsigned, or 5 requests, so releases
+  older than the 500 newest are not listed. A failed page fails the whole list;
+  no partial list is shown.
+- Choosing a release opens the update dialog for it, titled "Install Strata vX",
+  with "Installed vA → Selected vB", its notes under "What’s new", and "Review
+  the release notes before installing this release." **Install release** installs
+  it through the same verified flow as an update, even when it is older.
+
+See [Releasing](https://github.com/lgse/strata/blob/v1.1.1/docs/releasing.md) for the tag grammar these channels rely on and, for maintainers, how a release candidate is cut and promoted.

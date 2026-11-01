@@ -1,6 +1,6 @@
 ---
 nodes: [browser/view-modes, browser/view-modes/columns, browser/view-modes/icons, browser/view-modes/list, browser/view-modes/sorting, browser/view-modes/folder-views, browser/view-modes/text-size, browser/view-modes/position-restore]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Views
@@ -14,16 +14,16 @@ folder its own way, and set the text size for the whole app.
 <!-- node: browser/view-modes/columns -->
 <!-- node: browser/view-modes/icons -->
 <!-- node: browser/view-modes/list -->
+<!-- node: browser/view-modes/list, Table -->
 
 | Press | View | What you get |
 | --- | --- | --- |
 | Ctrl+1 | Columns | One column per open folder, so the whole path stays visible. The default. |
 | Ctrl+2 | Icons | A grid of thumbnails, with size, dimensions, duration, or item count under each name. |
-| Ctrl+3 | List | A table with Name, Mode, Size, Type, and Modified columns. |
+| Ctrl+3 | List | A table with Name, Mode, Size, Type, and Modified columns. You can reorder any column and hide any except Name. |
 
 Or click **Appearance** in the window header and pick a view under **VIEW**.
-Switching keeps your folder, selection, and filter. Strata reopens in the view
-you used last.
+Switching keeps your folder, selection, and filter.
 
 In Columns, click a folder to open it as the next column. Drag a column's right
 edge to resize it. When you let go, the window's other open columns match that
@@ -31,7 +31,12 @@ width, and new columns open at it. Double-click the edge to fit one column to it
 contents.
 
 In Icons, click **Thumbnail size** in the pane header and drag the slider
-between 32 and 256 px.
+between 32 and 256 px, or press Ctrl+Alt++ and Ctrl+Alt+−, or use
+Ctrl+Shift+wheel, to step it. Ctrl+Alt+0 resets it.
+
+In List, click **Columns** in the pane header, or **Appearance → Customize
+columns…**, to hide any column but Name, or **Reset to default columns**. Drag a heading sideways to move its column. Every
+window shares the layout.
 
 ## Sort a folder
 
@@ -63,7 +68,8 @@ even after a restart. Other folders keep the default.
 Once a folder has its own sort, its sort menu in Columns or Icons offers
 **Make this the default sort** and **Reset to default sort**. Once you move a
 folder's thumbnail slider off the default, the popover offers **Make this the
-default size** and **Reset to default size**.
+default size** and **Reset to default size**. A subfolder does not inherit its
+parent's sort or size.
 
 Press Ctrl+, and open **General**. Under **BROWSING** you find:
 
@@ -96,6 +102,7 @@ one shows the current size and resets it. To type a size from 8 to 48, use
 <!-- node: browser/view-modes/list, Grouping -->
 <!-- node: browser/view-modes/folder-views, Storage file -->
 <!-- node: browser/view-modes/text-size, Applying the size -->
+<!-- node: browser/view-modes, Content density -->
 
 - In Icons and List, going back to a folder restores its selection and scroll
   position. In Columns, going back up selects the folder you came from.
@@ -103,7 +110,8 @@ one shows the current size and resets it. To type a size from 8 to 48, use
   headings such as Folder and JSON document. It works only in List.
 - Per-folder values live in `~/.local/state/strata/folder-views.toml`, not in
   `settings.toml` or in the folders themselves.
-- A subfolder does not inherit its parent's sort or size.
+- The **Appearance** menu's **DENSITY** sliders set spacing: **Frame** for the
+  header and bars, **Content** for file rows and icons.
 - Ctrl+wheel over a PDF preview zooms the PDF instead of the text. Text size
   never changes thumbnail size or preview zoom.
 
