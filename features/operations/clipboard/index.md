@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -151,4 +151,5 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 ## Known gaps
 
 - Cut intent is not exchanged through `x-special/gnome-copied-files`, so cuts between Strata and other file managers paste as copies. lgse/strata#289
+- A failed image paste, such as into a read-only folder, shows no error; it is only logged. lgse/strata#1547, https://github.com/lgse/strata/pull/1547#issuecomment-6550108216
 - Row marks treat a `file://` URI and its native path as equal, but not other equivalent spellings of a non-`file://` URI. lgse/strata#1674

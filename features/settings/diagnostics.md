@@ -97,7 +97,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - Linked libraries such as GTK, Poppler, and GStreamer core cannot be checked in-app, because the loader fails first (docs/diagnostics.md).
 - The package manager and the terminal are resolved on a blocking worker when Run starts, and the copied report reuses that package manager (lgse/strata#1729).
 - Checks that need GTK objects run on the GTK thread. The rest run on workers that a timer polls through a weak page reference (lgse/strata#1735).
-- A dedicated namespace finding replaced the Landlock warning on restricted hosts: Landlock ABI 3 was present there, so that text pointed to the wrong fix (lgse/strata#1954).
+- Restricted hosts get their own finding, not the Landlock warning: Landlock ABI 3 is present there, so that text would name the wrong fix (lgse/strata#1954).
 - A `--diagnose` command-line flag was rejected as less discoverable, and docs-only troubleshooting because it cannot see the environment or the sandbox (lgse/strata#1734).
 
 ## History

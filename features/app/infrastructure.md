@@ -69,13 +69,6 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - A helper in a configured directory whose canonical target lies outside those roots is rejected, and the search moves to the next directory. lgse/strata#1746
 - With no trusted copy in any directory, the lookup fails closed. lgse/strata#1055, lgse/strata#1746
 
-### Package-provided integrations
-
-- A build with `STRATA_INTEGRATIONS=package` leaves out the runtime installers for the file chooser portal, FileManager1 service, Omarchy shortcuts, and udiskie hook. lgse/strata#1975
-- A build with `STRATA_INTEGRATIONS` unset or `runtime` keeps the runtime installers. lgse/strata#1975
-- An empty `STRATA_INTEGRATIONS`, or a value padded with spaces, is trimmed and builds the default. lgse/strata#1975 (unverified)
-- A build with any other value, such as `Package`, fails with `STRATA_INTEGRATIONS must be "runtime" or "package"`. lgse/strata#1975
-
 ### File manager activation
 
 - Started with `--gapplication-service` before any `--`, Strata re-execs before GTK starts, with `no-portals` appended to `GDK_DEBUG`, such as `misc:no-portals`. lgse/strata#1811

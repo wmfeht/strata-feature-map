@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `0f9bb00` · 147 features, 63 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `0f9bb00` · 147 features, 62 reviewed
 
 ## app
 
@@ -132,8 +132,8 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Extraction safety](features/operations/archives/extraction-safety.md) | `operations/archives/extraction-safety` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Archive preview](features/operations/archives/preview.md) | `operations/archives/preview` | shipped | reviewed | `86df474` | 0 |
 | ↳ [RAR extraction](features/operations/archives/rar.md) | `operations/archives/rar` | shipped | reviewed | `86df474` | 0 |
-| [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | reviewed | `0f9bb00` | ? |
-| ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `44bfeab` | ? |
+| [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | draft | `0f9bb00` | ? |
+| ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `0f9bb00` | ? |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | draft | `86df474` | 0 |
 | [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `0f9bb00` | ? |
 | [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | draft | `0f9bb00` | ? |

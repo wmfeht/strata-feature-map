@@ -85,9 +85,10 @@ The left panel of every browser window and the file chooser: built-in places, th
 - With PINNED collapsed, navigating to a pin shows only that pin's row; navigating away from every pin hides it again. lgse/strata#1390 (unverified)
 - Collapsing DEVICES hides every device row, including the row of the open device. lgse/strata#1390 (unverified)
 - The collapsed states are saved as `sidebar_pinned_collapsed` and `sidebar_devices_collapsed`, both `false` by default, and survive a restart. lgse/strata#1390
-- Toggling a section in one window folds or unfolds it in every open window without rebuilding the sidebar. lgse/strata#1390
+- Toggling a section in one window folds or unfolds it in every open window. lgse/strata#1390
 - The icon rail hides the headings and shows every section's rows, even when saved collapsed. Returning to the full sidebar re-applies the saved state. lgse/strata#1390
 - With PINNED collapsed, `g 1` to `g 9` open pins by their full-list number, and pin keycaps keep their numbers. lgse/strata#1390
+- With no pins, the PINNED section that appears during a file drag is expanded even when saved collapsed, so drag-to-pin still has a target. lgse/strata#1390 (unverified)
 - Drop gaps stay between the pins after a collapse, an expand, or a navigation, so drag-to-pin and reorder targets sit between rows. lgse/strata#1390
 - The heading is a button named PINNED or DEVICES with an expanded state. Its accessible description gives the count, such as "3 items"; it has no tooltip. lgse/strata#1390
 - The fold animates for 200 ms, or not at all with animations disabled. lgse/strata#1390 (unverified)
@@ -136,7 +137,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-10-31 | lgse/strata#1390 | feat | Made the PINNED and DEVICES headings collapse toggles, saved and shared across windows, keeping the open pin under the PINNED heading. |
+| 2026-10-31 | lgse/strata#1390 | feat | Made PINNED and DEVICES collapsible, saved across windows, with the open pin kept under PINNED. |
 | 2026-10-29 | lgse/strata#1909 | fix | Made sidebar hover a neutral tint, so a hovered old place no longer looks like a second selected row. |
 | 2026-10-17 | lgse/strata#1726 | feat | Added Connect to server… to the Network row's menu, with an address field and an optional pin, so network locations can be added without typing in the location bar. |
 | 2026-10-15 | lgse/strata#1605 | fix | Returned the highlight to the open place after a rejected place click. |

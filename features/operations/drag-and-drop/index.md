@@ -56,7 +56,6 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 ### Spring-loaded navigation
 
 - Holding a file drag over a folder row, sidebar row, or parent breadcrumb for 750 ms navigates there, and the drag stays held. lgse/strata#1487
-- An image, text, or web-link drag from another application highlights rows and spring-loads folders the same way. lgse/strata#1547
 - Spring navigation can return to the drag's source folder, and releasing over a spring-opened pane's background drops into that folder. lgse/strata#1487
 - Dropping onto a breadcrumb before 750 ms transfers into it without navigating. lgse/strata#1487
 - Leaving the hovered target or dropping before 750 ms cancels the pending navigation. lgse/strata#1487 (unverified)

@@ -32,7 +32,8 @@ Opening files in their default application, choosing another application from th
 - A GVfs file with a FUSE path under `/run/user/$UID/gvfs/` also opens with a path-only (`%f`/`%F`) default. lgse/strata#784
 - Activating a `.md`, `.py`, or `.json` file on a GVfs SMB share, which reports only `standard::fast-content-type`, opens it in its default application. lgse/strata#1955
 - Open With… on such a file lists the applications for its type instead of failing with "Unable to determine the selected file type". lgse/strata#1955
-- Activating a regular `.desktop` file of at most 64 KiB, with `Type=Link`, no `Exec`, and a credential-free HTTP or HTTPS `URL`, opens that address in the default browser. lgse/strata#1547
+- Activating a `.desktop` file with `Type=Link`, no `Exec`, and a credential-free HTTP or HTTPS `URL` opens that address in the default browser. lgse/strata#1547
+- A `.desktop` file over 64 KiB, or one that is not a regular file after following links, opens through its default application instead. lgse/strata#1547 (unverified)
 - Activating any other `.desktop` file, including an application launcher, opens it through its default application as before. lgse/strata#1547
 - A failed launch shows "Unable to open file" with the error. lgse/strata#1012
 - After Strata launches a file in an application, the file is added to the desktop's recent-file history, so it appears in Recent. lgse/strata#1083
@@ -99,7 +100,7 @@ Opening files in their default application, choosing another application from th
 
 ## Design
 
-Applications come from GIO metadata; Strata does not parse application `.desktop` files (lgse/strata#174). It reads only a web link entry, which has no `Exec` and is not executable, so opening one cannot run a program (lgse/strata#1547). Choosing an application never changes the system default unless Always use is checked (lgse/strata#174, lgse/strata#1290).
+Applications come from GIO metadata; Strata does not parse application `.desktop` files (lgse/strata#174). It reads only a `Type=Link` entry with no `Exec`, so opening one cannot run a program (lgse/strata#1547). Choosing an application never changes the system default unless Always use is checked (lgse/strata#174, lgse/strata#1290).
 
 - A submenu listing every handler was rejected as a duplicate of the chooser that lengthens the menu. Custom actions do not replace MIME integration (lgse/strata#174).
 - GIO expands `%f`/`%F` with a local path and silently drops files that lack one, so URI-capable handlers are required only when an item has no path. Trash has none; GVfs FUSE mounts do (lgse/strata#569, lgse/strata#688).

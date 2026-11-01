@@ -54,9 +54,9 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In Columns, Shift+Tab from a column goes to its open filter, then its header actions, then the control before the strip. lgse/strata#1431, lgse/strata#1533
 - In Columns, an unreadable folder's Retry button is the next Tab stop inside its column, unless Open as Administrator shows. lgse/strata#1466, lgse/strata#1533, lgse/strata#1837
 - When that column also offers Open as Administrator, Tab from the column reaches Open as Administrator, then Retry. Shift+Tab walks back to the column. lgse/strata#1837 (unverified)
-- Tab or Shift+Tab with focus in an inline rename field keeps focus in the listing, and in Columns in the strip; `operations/rename` owns what the rename does. lgse/strata#1961
+- Tab or Shift+Tab in a focused inline rename field keeps focus in the listing, or in the Columns strip. `operations/rename` owns what the rename does. lgse/strata#1961
 - In an empty, unreadable, or loading folder, Tab and Shift+Tab leave the focused pane as they leave a listing. Shift+Tab from the footer returns to it. lgse/strata#1466, lgse/strata#1533
-- Outside an inline rename field, 10xer mode keeps its own Tab handling; the rename field takes Tab first in both key maps and the file chooser. lgse/strata#1431, lgse/strata#1533, lgse/strata#1961 (unverified)
+- Outside an inline rename field, 10xer mode keeps its own Tab handling. A rename field takes Tab first in both key maps and the file chooser. lgse/strata#1431, lgse/strata#1533, lgse/strata#1961 (unverified)
 
 ### Focus after background changes
 

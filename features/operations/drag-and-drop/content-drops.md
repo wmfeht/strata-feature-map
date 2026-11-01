@@ -13,7 +13,7 @@ related: [integration/open-with, operations/clipboard, operations/trash, browser
 
 ## Summary
 
-Saving an image, selected text, or a web address dragged from a browser or another application as a new file in the local folder it is dropped on. It works on folder rows, pane backgrounds, breadcrumbs, sidebar folders, and tabs, in every view. Files dragged from another application still transfer through the parent's path.
+Saving an image, selected text, or a web address dragged from another application as a new file. The file goes in the local folder that takes the drop. It works on folder rows, pane backgrounds, breadcrumbs, sidebar folders, and tabs, in every view. Files dragged from another application still transfer through the parent's path.
 
 ## Behavior
 
@@ -25,6 +25,7 @@ Saving an image, selected text, or a web address dragged from a browser or anoth
 - Dropped selected text saves as the UTF-8 file `dropped text.txt`. lgse/strata#1547
 - Saved names follow the interface language, such as `image.png` and `dropped text.txt` in English. lgse/strata#1547
 - A dropped HTTP or HTTPS address saves as `<host>.desktop`, such as `example.com.desktop`. lgse/strata#1547
+- A leading `www.` is dropped from the host, so `https://www.example.com/` also saves as `example.com.desktop`. lgse/strata#1547 (unverified)
 - That file is a `Type=Link` desktop entry with the address and no `Exec` key, and it is not executable. lgse/strata#1547
 - An address offered in two formats at once saves one link. lgse/strata#1547
 - Dropped text that is exactly one credential-free HTTP or HTTPS address saves as a link, not as text. lgse/strata#1547 (unverified)
@@ -37,24 +38,27 @@ Saving an image, selected text, or a web address dragged from a browser or anoth
 - An image offered with web addresses only saves the image. lgse/strata#1547
 - When that image cannot be read or is not a recognized format, the offered address or text is saved instead. lgse/strata#1547
 - An image dropped with a web address before Strata has read the hovered address list saves the address's `.desktop` link instead of the image. lgse/strata#1547 (unverified)
-- An address with credentials, another scheme, or over 16 KiB is no link. A URI list holding one, or mixing web addresses with files, is refused whole. lgse/strata#1547
+- An address with credentials, another scheme, or over 16 KiB is no link. lgse/strata#1547
+- A URI list holding at least one HTTP or HTTPS address is refused whole when any entry cannot become a link. lgse/strata#1547
+- A URI list with no web address transfers as files. lgse/strata#1547
 - Strata's own tab and sidebar reorder drags are never saved as text. lgse/strata#1547
 
 ### Where it saves
 
 - Folder rows in Columns, List, and Icons, pane backgrounds, parent breadcrumbs, sidebar folders, and tabs accept content drops. lgse/strata#1547
+- An image, text, or web-link drag highlights rows, spring-loads folders, and auto-scrolls the view as a file drag does. lgse/strata#1547
 - Remote folders, Trash, and Recent accept no content drops. lgse/strata#1547
 - A repeated drop gets a numbered name, such as `dropped text (1).txt`. lgse/strata#1547
 - No existing entry is replaced, including a dangling symlink. lgse/strata#1547
 - A saved file appears only once complete. lgse/strata#1547
-- On a filesystem that can neither rename without replacing nor make hard links, such as some FUSE mounts, the file is written in place and removed if writing fails. lgse/strata#1547
+- Some filesystems, such as some FUSE mounts, can neither rename without replacing nor make hard links. There the file is written in place, and removed if writing fails. lgse/strata#1547
 - Pasting a clipboard image saves through the same path, so the pasted file also appears only once complete. lgse/strata#1547
 - With Open folder after dropping files on, the saved file is selected in the destination, unless the user navigated away meanwhile. lgse/strata#1547
 
 ### Failures
 
 - A drop on a read-only folder writes nothing and shows "Unable to save dropped content". lgse/strata#1547
-- An image whose contents cannot be read, are no recognized format, or exceed 64 MB, with nothing else offered, shows the same dialog with the reason. lgse/strata#1547
+- An image that cannot be read, is no recognized format, or exceeds 64 MB shows the same dialog with the reason. This holds when nothing else was offered. lgse/strata#1547
 - The reasons read "Unsupported image format" and "The dropped content is too large". lgse/strata#1547
 - When one link of a multi-address drop fails, earlier saved links stay and the error is shown. lgse/strata#1547 (unverified)
 

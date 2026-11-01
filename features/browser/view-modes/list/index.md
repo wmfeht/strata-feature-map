@@ -68,7 +68,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-01 | lgse/strata#1928 | perf | Replaced the grouped List sort model with a type-bucket projection and a lazy index, so mixed-type arrivals no longer regroup the whole list. |
+| 2026-11-01 | lgse/strata#1928 | perf | Grouped List by type buckets and a lazy index, so mixed-type arrivals no longer regroup the whole list. |
 | 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the Size column, matching Icons. |
 | 2026-09-19 | lgse/strata#1116 | fix | Made double-click autofit work on List heading resize edges. |
 | 2026-09-12 | lgse/strata#893 | feat | Restored selection, cursor, and scroll position when returning to a List folder. |

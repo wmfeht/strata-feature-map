@@ -7,7 +7,7 @@ tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-up
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the Nix flake, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, builds without the updater, and the `STRATA_INTEGRATIONS` build switch. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the Nix flake, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates and Keyboard, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -83,7 +83,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Select 1, 64, 65, and all items in a folder holding files of unknown size, a symlink, and 10k entries; read the count and its accessible description, then copy, cut, paste, and clear the clipboard with `wl-copy -c` or `xsel -c`.
 - In the default map, run Ctrl+F in each mode on a local folder, a 10k-entry folder, and the SFTP fixture in Columns; read the count while typing, after results land, and after Escape.
 - Filter with the default map and select results. Switch to 10xer mode and back with the filter open, then clear the query by Backspace.
-- Rebind Tab, Shift+Tab, and Menu in Settings → Keyboard, then search F1 for `in a rename` and `Back button` in Columns, Icons, and List, in both maps.
+- Rebind Tab, Shift+Tab, and Menu in Settings → Keyboard, then search F1 for `in a rename` and `Back button` in Columns, Icons, and List, in both maps; count the rows each search returns.
 - With F1 open in Columns, toggle 10xer mode from a second window, then close and reopen F1 in Icons; repeat with the interface in ja.
 - With the interface in German, search F1 for `entf`, `strg+shift`, `bild auf`, `ctrl+−`, and `g-h`; repeat in French with `suppr`.
 - In 10xer mode with `us,ru`, press the Ё key and a US `~` in the location field, a footer prompt, F1 search, and the file list.
@@ -287,13 +287,12 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With Strata stopped, call the portal's `org.freedesktop.portal.OpenURI.OpenDirectory` on a file and time the reply. Repeat with activation `GDK_DEBUG` set to `misc` and to `misc:no-portals`, and read `/proc/<pid>/environ`.
 - Launch `strata` and `strata <dir>` while the activated process runs, and read the new window's process id.
 - Run `strata --qa <dir>`, `strata --qa`, and `strata <dir> --qa` on a plain `cargo build` and a release build; read which window opens and whether stdin is read.
-- Build with `STRATA_INTEGRATIONS` set to `Package`, ` package `, an empty value, and `runtime`; read each build result.
 
 ## Hand-offs
 
 - Window title text after a folder opens → `browser`.
 - The `GDK_DEBUG` value programs launched from a service-activated Strata see → `integration`.
-- The portal and file manager rows and flags in a `STRATA_INTEGRATIONS=package` build → `integration`.
+- The `STRATA_INTEGRATIONS` build switch, and the portal and file manager rows and flags in a package build → `integration`.
 - The udiskie unlock row and flags in a `STRATA_INTEGRATIONS=package` build → `devices`.
 - Per-mode movement, selection, the keyboard cursor after reloads, and type-to-search → `browser`.
 - Context menu items, placement, and Open With → `browser`.

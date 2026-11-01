@@ -70,7 +70,6 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the raw stream copies and `notes.h264`, on a host whose MIME database types `.h264` as video and on one that types it `application/octet-stream`.
 - Open the item menu on the `.H264`, `.hevc`, and `clip.h264.txt` copies and on `notes.h264`; compare Quick preview with what each preview shows.
 - Preview the `.h264` stream from an sftp mount.
-- Preview `notes.md`, `script.py`, and `data.json` from a GVfs SMB share where `gio info -a standard::content-type` lists nothing.
 
 ### preview/preview-panel/pdf
 
@@ -242,8 +241,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - On the network mount, preview a RAW file, move the selection mid-render, and delete its folder at once; look for `.nfs…` or `.__smbfile_silly…` files in the parent.
 - Preview media, then `kill -9` Strata. Start the container's Strata and preview there, then start the host Strata, preview once, and `ls -ld /tmp/strata-preview-*`.
 - With the other user's `strata-preview-<pid>-<n>` folder present and `TMPDIR` on a filesystem without `flock` support, preview a PNG.
-- Preview and thumbnail AVIFs made with `avifenc --irot 1`, `--irot 2`, and `--imir 0`, a `clap`-cropped AVIF, a 20000×20000 header, a tiled `grid` HEIC, and a CR3; read the Icons caption against `magick identify`.
-- Thumbnail an AVIF whose `meta` follows a multi-GiB sparse `mdat`, and one renamed `.png`.
+- Preview and thumbnail AVIFs made with `avifenc --irot 1`, `--irot 2`, and `--imir 0`, a `clap`-cropped AVIF, a tiled `grid` HEIC, and a CR3; read the Icons caption against `magick identify`.
 
 ### preview/quick-preview
 

@@ -76,8 +76,8 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - A cropped AVIF or HEIF, whose primary item has a `clap` property, takes its dimensions from the decoder instead of the uncropped `ispe`. lgse/strata#1971
 - Duplicate `ispe` or `irot` properties, reserved `irot` bits, a `meta` box over 1 MiB, or over 4096 boxes fall back to the decoder probe. lgse/strata#1971
 - The header reader accepts any file whose first box is `ftyp`, whatever its name or brand, and seeks past `mdat` without reading it. lgse/strata#1971 (unverified)
-- An AVIF or HEIF preview or thumbnail decodes the image once, not three times: a 12 MP AVIF preview fell from 2,751 ms to 767 ms. lgse/strata#1971, lgse/strata#1968
-- An AVIF whose header claims 20000×20000 fails with "Image dimensions exceed the decoded frame budget" before any decode; its thumbnail stays empty. lgse/strata#1971 (unverified)
+- An AVIF or HEIF whose `ispe` header is read decodes its pixels once per preview or thumbnail, not three times. lgse/strata#1971, lgse/strata#1968
+- An AVIF with no EXIF thumbnail whose header claims 20000×20000 fails with "Image dimensions exceed the decoded frame budget" before any decode; its thumbnail stays empty. lgse/strata#1971
 - SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
 
 ### Output validation
@@ -96,7 +96,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ### Pooled preview worker
 
 - Still-image previews, Markdown images, Mermaid diagrams, and equations run on a preview pool separate from the thumbnail pool, so a thumbnail backlog does not delay a Space preview. lgse/strata#1222
-- With Landlock ABI 3 and job namespaces the host allows, an image preview within 60 seconds of the previous one reuses its supervisor rather than starting another bubblewrap. lgse/strata#1222, lgse/strata#1954
+- Where Landlock ABI 3 is present and job namespaces are allowed, an image preview within 60 s of the previous one reuses its supervisor. lgse/strata#1222, lgse/strata#1954
 - A preview render is never served from a cached 256-pixel thumbnail of the same file. lgse/strata#1222
 
 ## Design
@@ -119,6 +119,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - libjpeg decodes at 1/2, 1/4, or 1/8 scale from compressed data. The `jpeg:size` hint makes ImageMagick use it, so oversized JPEGs fit the budget. The area limit stops any unhinted full decode (lgse/strata#1698).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
 - With gdk-pixbuf 2.44, `Pixbuf::file_info` decodes through glycin, so an AVIF paid a full decode in each of two probes and the render. Dimensions now come from the ISO BMFF header, and renders reuse probed dimensions (lgse/strata#1968, lgse/strata#1971).
+- Renders take the caller's dimensions for every Pixbuf format, so WebP and TIFF also lose one decode (lgse/strata#1968, lgse/strata#1971).
 - `ispe` is the uncropped extent, so a `clap` defers to the decoder. Header parsing is bounded because the file is untrusted: 1 MiB of `meta`, 4096 boxes, never `mdat` (lgse/strata#1971).
 - An FFmpeg RGBA decode path was rejected: it dropped AVIF alpha and left ICC and HDR handling unvalidated (lgse/strata#1971).
 - Format crosses the sandbox boundary explicitly, including for symlinks (lgse/strata#1276). Document previews pass `docx` or `odt` to the helper the way comic covers pass their format (lgse/strata#1834).

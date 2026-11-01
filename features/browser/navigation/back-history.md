@@ -22,7 +22,8 @@ A menu of a tab's earlier locations, opened from the List and Icons pane-header 
 - An entry's accessible name is the folder name, and its description is the folder's path. lgse/strata#1977
 - The home folder's entry is named `~`, and paths under home start with `~`. lgse/strata#1977 (unverified)
 - Choosing an entry N steps back opens it in one step. lgse/strata#1977
-- The skipped entries and the folder left become Forward history: after visiting A, the root, and B, choosing A then Alt+Right twice returns to the root, then B. lgse/strata#1977
+- The skipped entries and the folder left become Forward history. lgse/strata#1977
+- After opening A, pressing Alt+Up, and opening B, choosing A and pressing Alt+Right twice returns to A's parent, then to B. lgse/strata#1977
 - A plain click on Back still goes back one step. lgse/strata#1977
 - Holding Back until the menu opens and then releasing stays in the current folder; a right-click on Back does not go back either. lgse/strata#1977
 - In a fresh tab, with Back disabled, none of these gestures opens a menu. lgse/strata#1977

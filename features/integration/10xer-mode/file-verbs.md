@@ -58,7 +58,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - Enter renames the item and keeps its contents; a taken name keeps the prompt open with "“…” already exists" and overwrites nothing. lgse/strata#1308
 - In a local folder, `rename ›` with `nested/b.txt` moves the item into `nested`, creating it when missing, and puts the cursor on `nested`. lgse/strata#1512
 - `rename ›` with `b.txt/name`, where `b.txt` is a file, keeps the prompt open with "“b.txt” is not a folder". Nothing changes on disk. lgse/strata#1512
-- `rename ›` to `renamed.txt/` on a file keeps the prompt open with "An existing file can’t become a folder". lgse/strata#1512 (unverified)
+- `rename ›` to `renamed.txt/` on a file keeps the prompt open with "An existing file can’t become a folder". lgse/strata#1512
 - Esc, a clicked row, another prompt, or leaving the mode discards a `create ›` or `rename ›` entry. lgse/strata#1306, lgse/strata#1308
 - Trash and Recent flash `Can’t create items here`, and Trash items flash `Can’t rename items here`. lgse/strata#1306, lgse/strata#1308 (unverified)
 

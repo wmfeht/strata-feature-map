@@ -12,7 +12,7 @@ related: [app/packaging/installer, integration/file-manager-interface, settings/
 
 ## Summary
 
-Making Strata the per-user FileChooser portal backend and default file manager, and restoring the previous setup. It runs from the `--install-portal` and `--uninstall-portal` commands, the installer, and the Settings → General "System file manager" row, which also sets Omarchy shortcuts. A `STRATA_INTEGRATIONS=package` build leaves all of it to the package and refuses each command.
+Making Strata the per-user FileChooser portal backend and default file manager, and restoring the previous setup. It runs from the `--install-portal` and `--uninstall-portal` commands, the installer, and the Settings → General "System file manager" row, which also sets Omarchy shortcuts. A `STRATA_INTEGRATIONS=package` build leaves the portal and FileManager1 files to the package and refuses each command.
 
 ## Behavior
 
@@ -69,6 +69,9 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 
 ### Package builds
 
+- Building with `STRATA_INTEGRATIONS` unset or set to `runtime` keeps the runtime installers; `package` compiles them out. lgse/strata#1975
+- Any other `STRATA_INTEGRATIONS` value fails the build. lgse/strata#1975
+- `STRATA_INTEGRATIONS` is trimmed before matching: an empty or all-space value builds the default, and ` package ` builds package mode. lgse/strata#1975 (unverified)
 - In a build made with `STRATA_INTEGRATIONS=package`, `--install-portal`, `--uninstall-portal`, and `--dismiss-portal-prompt` exit with status 1. lgse/strata#1975
 - Each prints "The package that installed this build provides its desktop integrations. Configure them in your system configuration instead." lgse/strata#1975
 - In a package build, those commands write nothing under `~/.config` or `~/.local/share`. lgse/strata#1975
@@ -94,7 +97,7 @@ Making Strata the per-user FileChooser portal backend and default file manager, 
 - Every `/etc/group` line for the gid must be private; accepting any one private line let a second line open the gid to others (lgse/strata#1936).
 - The group lookup is passed into the check, so tests do not depend on the accounts of the machine running them (lgse/strata#1936).
 - On Nix, the runtime installers recorded one store path's `bin/.strata-wrapped`. That skipped the wrapper's environment and went stale on update or garbage collection (lgse/strata#1969).
-- So `STRATA_INTEGRATIONS=package`, modeled on `STRATA_UPDATER=disabled`, compiles the installers out and the package ships the portal and FileManager1 files. The name is generic because Guix has the same problem (lgse/strata#1969, lgse/strata#1975).
+- So `STRATA_INTEGRATIONS=package`, modeled on `STRATA_UPDATER=disabled`, compiles the installers out and the package ships the portal and FileManager1 files. Guix and other store-based packages have the same problem (lgse/strata#1969).
 - Resolving `.strata-wrapped` back to the wrapper was rejected: it fixes the skipped environment, not stale store paths (lgse/strata#1969).
 - A package build keeps the Settings row, with a note, so Settings search still finds it (lgse/strata#1975).
 - A stale backend is detected by comparing the running process's executable inode with the installed file. A backend from another Strata installation is left alone (lgse/strata#474).

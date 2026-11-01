@@ -77,7 +77,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 ### Renaming a run of items
 
-- With the editor open on an item, typing a new name and pressing Tab renames it and opens the editor on the next item, stem selected. lgse/strata#1961
+- With the editor open on an item, typing a new name and pressing Tab renames it. The editor then opens on the next item, stem selected. lgse/strata#1961
 - Shift+Tab does the same toward the previous item. lgse/strata#1961
 - Tab or Shift+Tab with the name unchanged renames nothing and moves the editor to the neighbouring item. lgse/strata#1961
 - Tab with an invalid name keeps the original name and still moves the editor to the next item. lgse/strata#1961 (unverified)
@@ -90,7 +90,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 ### Visibility
 
 - Opening the editor on a row that is already fully visible does not scroll the listing. lgse/strata#619
-- After an Enter or click-away commit in Columns or List, the renamed item is selected and scrolled fully into the viewport, even when it now sorts elsewhere. lgse/strata#619, lgse/strata#1961
+- After an Enter or click-away commit in Columns or List, the renamed item is selected and scrolled fully into the viewport. This holds even when it now sorts elsewhere. lgse/strata#619, lgse/strata#1961
 - When the renamed row is still fully visible after sorting, the listing does not scroll. lgse/strata#619
 - In List grouped by file type, a rename that moves the item into another group offscreen does not scroll to it. lgse/strata#1928
 - Icons focuses and reveals a committed rename the same way. lgse/strata#1148

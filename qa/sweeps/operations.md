@@ -66,7 +66,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Create an item in a slot that is already visible, with the list scrolled partway.
 - In Icons and Columns, scrolled to the bottom, rename a new file so it sorts near the top, then press Down twice. Repeat with Page Down, and with Up.
 - Tab through a run of files where each new name sorts past its neighbour, in each mode. Then press Tab at the last item and Shift+Tab at the first after such a re-sort.
-- Tab out of a name that collides with a sibling, an invalid name, and an emptied field; note where the editor and the error dialog's focus land.
+- Tab out of a name that collides with a sibling, an invalid name, and an emptied field. Note where the editor and the error dialog's focus land.
 - Tab in a Ctrl+Shift+N new-folder name field, in 10xer mode, in the file chooser, in a Ctrl+F filter result, and across List group headers.
 - Hold Tab in a 1,000-item folder so rows scroll in; press Down while the next row is still being allocated.
 - In Columns, press Tab at the last item of a column whose child column is open, and Shift+Tab in a column scrolled sideways.
@@ -78,7 +78,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Name a New File with a path in List, Icons, and a Columns pane that is not the last column.
 - From the deepest Columns pane, name a new item `../x`, and rename a file there `../../x`.
 - Rename into new folders, then into existing ones; undo and redo each, and redo from a second window.
-- Type a path in an `smb://` folder and in a Ctrl+F filter result.
+- Type a path in a Ctrl+F filter result.
 - Rename a folder whose child columns are open to `sub/name`, then press Ctrl+Z.
 
 ### operations/clipboard
@@ -121,10 +121,10 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/drag-and-drop/content-drops
 
-- From a real Firefox and a real Chromium-based browser, drag an image, a link, and selected text onto each target kind; read the saved bytes with `cmp` and `file`.
+- From real Firefox and Chromium-based browsers, drag an image, a link, and selected text onto each target kind. Read the saved bytes with `cmp` and `file`.
 - Drag a Firefox image and release it at once, without hovering, on a folder row.
-- Drop a link whose host is an IDN name, one whose host is about 250 bytes, and one with a port and query.
-- Drop text on a tab showing a remote folder, on the Trash and Recent panes, and on a tab while a modal dialog is open.
+- Drop a link whose host is an IDN name, one whose host is about 250 bytes, one with a port and query, and one starting `www.`.
+- Drop text and an image on a tab showing a remote folder, and on a tab while a modal dialog is open.
 - Drop onto an rclone or sshfs mount, and onto the ntfs-3g mount, then list the folder with hidden files shown.
 - Drag a Chromium image over 64 MB, and an SVG image.
 - Drop twenty texts in a row quickly into the same folder.
@@ -238,7 +238,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Permanently delete one large folder on an SFTP or SMB mount, and one large folder inside Trash; watch the progress until it ends.
 - Shift+Delete one folder whose deletion takes 250 to 350 ms.
 - Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
-- On SMB and NFS, Shift+Delete a tree of 200 siblings where one nested folder holds an open file, while a shell makes another sibling unreadable with `chmod 000`. Read which error the dialog names and list what remains.
+- On SMB and NFS, Shift+Delete a tree of 200 siblings where one nested folder holds an open file. Meanwhile, `chmod 000` another sibling from a shell. Read which error the dialog names and list what remains.
 
 ### operations/delete/dissolve
 

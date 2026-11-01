@@ -13,7 +13,7 @@ related: [app/updates/install, app/updates/package-managed, app/window]
 
 ## Summary
 
-How Strata reaches a desktop: the desktop entry and application icon that let shells recognize it, `strata --version` for checking an install, and the Nix flake that builds Strata from source. Children: `app/packaging/installer` (the `install.sh` release installer) and `app/packaging/aur` (the `strata-bin` and `strata-rc-bin` AUR packages).
+How Strata reaches a desktop: the desktop entry and application icon that let shells recognize it, and `strata --version` for checking an install. It also owns the Nix flake that builds Strata from source. Children: `app/packaging/installer` (the `install.sh` release installer) and `app/packaging/aur` (the `strata-bin` and `strata-rc-bin` AUR packages).
 
 ## Behavior
 
@@ -45,7 +45,8 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The package installs `share/applications/io.github.lgse.Strata.desktop` with `Exec=` set to its own `bin/strata`, and the icon under `share/icons/hicolor/scalable/apps`. lgse/strata#1967
 - `LICENSE` and `THIRD_PARTY_LICENSES.md` install under `share/licenses/strata/`. lgse/strata#1967
 - The package installs `share/strata/install-source.toml` with `manager = "Nix"` and `package = "strata"`, so Diagnostics reports "Installed by Nix as strata." lgse/strata#1967
-- A flake build reports the flake's short revision as its build commit in Diagnostics; a `path:` build leaves it to `build.rs`. lgse/strata#1967
+- A flake build from a git reference shows the flake's short revision as the Diagnostics build commit; a `path:` build shows `unknown`. lgse/strata#1967
+- A flake build from a dirty tree shows the revision with a `-dirty` suffix. lgse/strata#1967 (unverified)
 - Bubblewrap and the preview helpers come from the package closure, so image and video previews work without system copies. lgse/strata#1967
 - A terminal or Open With program launched from the Nix build keeps the user's `PATH`; the wrapper adds no helper directories to it. lgse/strata#1967
 - The Nix package builds with `STRATA_INTEGRATIONS=package`, so the file chooser portal, FileManager1 service, and udiskie hook come from the Nix configuration. lgse/strata#1975

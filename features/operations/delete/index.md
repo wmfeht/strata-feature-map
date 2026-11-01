@@ -54,7 +54,7 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 - The parent of a selected item resolves with `openat2(IN_ROOT | NO_MAGICLINKS)` so directory aliases work, while traversal inside the tree stays no-follow (lgse/strata#477).
 - Remote GVfs locations have no descriptor to walk, so they keep GIO's path-based delete and claim no equivalent guarantee (lgse/strata#253).
 - A work-stealing queue deletes trees on parallel workers at `nice +10`, one worker on rotational disks (lgse/strata#869). The first failure stops dispatch, started workers are joined, and transient open retries are bounded (lgse/strata#911).
-- A folder refused only because a file in it is still open is the exception: its error is deferred and the rest of the delete finishes. Otherwise what remained depended on which worker reached it first. A stopping error is reported over a deferred one, since only it explains what unfinished jobs left (lgse/strata#1964, lgse/strata#1965).
+- A folder refused only because a file in it is still open is the exception. Its error is deferred and the rest of the delete finishes. Otherwise what remained depended on which worker reached it first. A stopping error is reported over a deferred one, since only it explains what unfinished jobs left (lgse/strata#1964, lgse/strata#1965).
 - Progress counted whole top-level items, so one large folder stayed at 0% until its last entry was gone. Workers now count removed entries on the `Deadline` every delete job already carries, so copy, replace, and merge callers need no new parameter (lgse/strata#1930, lgse/strata#1935).
 
 ## History

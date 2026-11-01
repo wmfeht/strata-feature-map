@@ -62,7 +62,7 @@ The README section "Unlock encrypted volumes on Omarchy" documents setup and res
 - The hook is classified before GTK starts and execs `--unlock-volume`, so non-crypto events never open a window (lgse/strata#1047).
 - The integration edits udiskie's file, not Strata preferences. Install records the previous `event_hook` and `password_prompt` values and whether it added the LUKS rule, so restore reverts only those keys (lgse/strata#1047).
 - In a default build, Settings is gated to Omarchy; the CLI flags are unattended and not gated (lgse/strata#1047).
-- A `STRATA_INTEGRATIONS=package` build refuses both. A store-based package configures the hook as a `services.udiskie.settings` entry, and a runtime install would record a stale store path (lgse/strata#1969, lgse/strata#1975).
+- A `STRATA_INTEGRATIONS=package` build drops the Settings actions and refuses the CLI flags. A store-based package configures the hook as a `services.udiskie.settings` entry, and a runtime install would record a stale store path (lgse/strata#1969, lgse/strata#1975).
 
 ## History
 

@@ -36,7 +36,6 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Local `app.ts`, `Component.tsx`, and `module.mts` files holding TypeScript preview as highlighted source, whatever the installed MIME database says. lgse/strata#1638, lgse/strata#1631
 - A local file with an unsupported binary type previews as text when its first 8 KiB look like text. Workbook, 3D model, route (GPX, FIT, KML), CBZ, CBR, and EPUB names still route by extension. lgse/strata#1638, lgse/strata#1842 (unverified)
 - Remote files are not sampled; an uncertain name takes the content type the location reports, otherwise the name decides. lgse/strata#1638 (unverified)
-- A `.md`, `.py`, or `.json` file on a GVfs SMB share that reports only `standard::fast-content-type` previews as text. lgse/strata#1955
 - On remote locations, PDFs, GIF images, audio, and video other than MOV and MP4 are not offered for preview. lgse/strata#834
 - A remote `.gcode` file previews as text; only a local G-code file is read for its embedded thumbnail. lgse/strata#1864
 - A remote GPX, FIT, or KML file offers no Quick preview; the loader refuses one with "Copy this route file locally before previewing it." lgse/strata#1842 (unverified)

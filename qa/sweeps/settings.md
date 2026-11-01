@@ -136,7 +136,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
 - Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker. Read Installation, Update server, and the copied report.
-- On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, run in a fresh process before browsing any folder, then again after browsing an image folder; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
+- On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, start Strata and press Run on Diagnostics before browsing any folder; then press Run again after an image folder's thumbnails load; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
 
 ### settings/themes
 

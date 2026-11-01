@@ -42,7 +42,7 @@ The process-wide pool of reusable sandboxed decoders that renders browser thumbn
 - On such a host Strata logs "Job namespaces restricted; retaining one-shot sandboxes" once, and no supervisor logs "browser sandbox started". lgse/strata#1954
 - Once a supervisor reports the restriction, later thumbnails in that process use one-shot sandboxes without starting a supervisor. lgse/strata#1954
 - After that, Space previews of images and documents also skip their pool and use one-shot sandboxes. lgse/strata#1954 (unverified)
-- Any other supervisor startup failure, such as an early exit, resource exhaustion, or the 12-second startup deadline, fails only that request; the next request starts a supervisor again. lgse/strata#1954
+- Any other supervisor startup failure, such as an early exit, resource exhaustion, or the 12-second deadline, fails only that request. The next request starts a supervisor again. lgse/strata#1954
 - With Landlock ABI 3 and `magick` and `convert` hidden from Strata, PNG and JPEG thumbnails still appear: GDK Pixbuf's glycin loaders decode them inside the worker. lgse/strata#1660
 - The persistent worker runs with `GLYCIN_DISABLE_SANDBOX=i-know-the-risks` in its environment; one-shot sandboxes do not set it. lgse/strata#1660
 - CBZ, CBR, and EPUB cover thumbnails skip the pool and always run in a one-shot sandbox. lgse/strata#1325 (unverified)

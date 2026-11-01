@@ -68,9 +68,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
 - After F5 on a remote folder whose cursor file was deleted on the server, the cursor moves to a neighbouring row. It moves once the last batch is shown, and focus outside the pane stays put. lgse/strata#1544
-- A file's type lookup reads `standard::content-type`, and falls back to `standard::fast-content-type` when the backend omits the full type. lgse/strata#1955
-- On a GVfs SMB share, a `.md`, `.py`, or `.json` file reporting only the fast type opens, lists Open With applications, and shows its Kind in Properties. lgse/strata#1955, lgse/strata#1944
-- When the backend reports both types, the full `standard::content-type` wins. lgse/strata#1955
+- A file's type lookup reads `standard::content-type` when the backend reports it, otherwise `standard::fast-content-type`, as GVfs SMB gives for `.md`, `.py`, and `.json`. lgse/strata#1955, lgse/strata#1944
 - When `gvfsd` does not answer a 2-second startup probe, the window still opens, using local file and volume support for that session. lgse/strata#56
 
 ## Design
@@ -98,7 +96,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-01 | lgse/strata#1955 | fix | Fell back to `standard::fast-content-type` when GVfs SMB omits the full type, so `.md`, `.py`, and `.json` files open, list applications, show Kind, and preview. |
+| 2026-11-01 | lgse/strata#1955 | fix | Fell back to `standard::fast-content-type` when GVfs SMB omits the full type, so `.md`, `.py`, and `.json` files open, list Open With applications, and show their type in Properties. |
 | 2026-10-29 | lgse/strata#1909 | fix | Translated unclassified GIO failures and showed "Permission denied" for untyped credential rejections, so URI-location dialogs no longer show raw backend text. |
 | 2026-10-15 | lgse/strata#1634 | fix | Guarded optional GIO attributes in directory measurement, so measuring an SFTP folder for permanent delete logs no GLib-GIO critical. |
 | 2026-10-10 | lgse/strata#1544 | fix | Published the neighbour cursor after a remote reload removes the cursor file, without taking focus from outside the pane. |
