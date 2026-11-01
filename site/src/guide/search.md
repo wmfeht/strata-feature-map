@@ -1,6 +1,6 @@
 ---
 nodes: [browser/search, browser/search/filter, browser/search/exclusions]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Find files
@@ -17,7 +17,8 @@ Home and every mounted local drive, from any folder.
 
 1. Open a folder and press Ctrl+F, or click the funnel button in the pane.
 2. Type part of a name, such as `invoice`.
-3. Press Down to reach the results, then Enter to open one.
+3. Press Enter to open the top result, which shows an accent outline. Or press
+   Down to reach the results, then Enter to open one.
 4. Press Escape to get the full listing back.
 
 You can skip Ctrl+F. With **Type to search** on, the default, start typing in
@@ -32,13 +33,15 @@ case.
 | --- | --- |
 | `invoice` | Any name containing `invoice`. |
 | `trahs` | `strata-trash.svg`. Queries of 4 or more letters and digits forgive one typo. |
+| `duck txt` | Names containing both words, in any order, such as `ducks_in_the_pool.txt`. |
 | `*.pdf` | Names ending in `.pdf`. |
 | `IMG*.MOV` | Names starting with `IMG` and ending in `.MOV`. |
 
 `*` is the only wildcard; `?` and `[]` match themselves.
 
 Results act like normal items: drag them, copy them, or right-click for the
-item menu. Space previews the selected file.
+item menu. Space previews the selected file, and one click on a folder result
+opens it.
 
 ## Search everywhere
 
@@ -99,14 +102,16 @@ click the remove button beside it.
 <!-- node: browser/search, Opening and scope -->
 <!-- node: browser/search, Matching and results -->
 <!-- node: browser/search/filter, Scope -->
+<!-- node: browser/search, Search limits -->
 <!-- node: browser/search/exclusions, Effect on search -->
 
 - Exclusions apply to Ctrl+K only. The Ctrl+F filter still finds files inside
   excluded folders.
 - Ctrl+K does not search remote shares. Inside a share, Ctrl+F narrows the
   loaded listing without searching subfolders.
-- Ctrl+K shows at most 100 results. On a very large disk, indexing stops early
-  and the footer shows **Partial results**; excluding big folders helps.
+- Ctrl+K shows at most 100 results. By default, indexing stops after 10 s or 200,000
+  entries and shows **Partial results**. Raise **Search time limit** and
+  **Search entry limit** in **Settings → General**, or exclude big folders.
 - In **Settings → General**, turn off **Include subfolders** to filter only
   the current folder, or turn on **Open search results directly** to launch
   files from Ctrl+K instead of previewing them.

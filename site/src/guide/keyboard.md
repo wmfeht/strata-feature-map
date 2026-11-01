@@ -1,6 +1,6 @@
 ---
 nodes: [app/shortcut-reference, app/keyboard-shortcuts, browser/selection/keyboard-navigation]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Keyboard
@@ -30,6 +30,8 @@ the top navigation bar.
 | Delete / Shift+Delete | Move to Trash / delete permanently |
 | Ctrl+1 / Ctrl+2 / Ctrl+3 | Switch to Columns, Icons, or List |
 | Ctrl+T / Ctrl+W | New tab / close the active tab |
+| Ctrl+Shift+T | Reopen the last closed tab |
+| Ctrl+B | Step the sidebar: full, icon rail, hidden |
 
 ## Look up any shortcut
 
@@ -79,13 +81,15 @@ opens the pane filter with what you typed and shows only matching items (see
 ## Good to know
 
 <!-- node: app/keyboard-shortcuts, Matching -->
+<!-- node: app/keyboard-shortcuts, Typing and input methods -->
 <!-- node: browser/selection/keyboard-navigation, Keep arrows in file list -->
 <!-- node: app/shortcut-reference, Footer status -->
 <!-- node: app/shortcut-reference, Contents -->
 
 - Shortcuts work on any keyboard layout and ignore Caps Lock. On Russian,
   Ctrl+C is the key that types с. Digits count by position, so Ctrl+1 works
-  on AZERTY without Shift.
+  on AZERTY without Shift. In a text field, input method keys such as
+  Ctrl+Space for fcitx5 go to the input method.
 - Turn on **Keep arrows in file list** in **Settings → General** to stop
   arrows leaving the files. Ctrl+\ toggles it, and Ctrl+Shift+B jumps to the
   sidebar.

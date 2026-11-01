@@ -1,6 +1,6 @@
 [book]
 # featuremap.py index sets the title from `site.release` and `site-url` from `site.url` in sources.yaml.
-title = "Strata 1.0.0"
+title = "Strata 1.1.1"
 description = "User documentation for Strata, a file manager for Linux."
 language = "en"
 src = "src"

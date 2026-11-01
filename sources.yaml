@@ -7,6 +7,6 @@ fork:
 watermark: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
 # The documentation site under site/: the stable release it describes and where it is published.
 site:
-  release: v1.0.0
-  commit: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+  release: v1.1.1
+  commit: be3343a5992a2a5497b1a2ee7faa525be18e988f
   url: https://wmfeht.github.io/strata-feature-map/

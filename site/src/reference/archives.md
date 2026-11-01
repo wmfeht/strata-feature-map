@@ -1,13 +1,13 @@
 ---
 nodes: [operations/archives, operations/archives/rar, operations/progress, operations/progress/dock, integration/10xer-mode/file-verbs, devices/volumes/drive-dialogs]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Archives
 
 ## Extraction safety
 
-<!-- node: operations/archives, Member paths, links, and metadata -->
+<!-- node: operations/archives -->
 
 Archive member paths are untrusted metadata. If an extractor joined a selected
 folder with `../report.txt` unchanged, the filesystem would resolve the result
@@ -18,16 +18,53 @@ Strata resolves parent components without allowing them to walk above the
 selected destination. For example, both `../report.txt` and
 `folder/../report.txt` become `report.txt`. Extraction then continues with later
 members instead of aborting the entire operation. Backslashes count as path
-separators, so `..\report.txt` also becomes `report.txt`. An empty or absolute
-path, or one with any component that starts with a letter and a colon, such as
-`C:` or `docs/a:b.txt`, fails the extraction with "Refusing unsafe archive
-path: \<name>", and nothing is written outside the destination. A path that resolves to nothing, such as `folder/..`, fails it
-with "Refusing empty archive path: \<name>".
+separators, so `..\report.txt` also becomes `report.txt`.
+
+A directory entry that names only the archive root, such as `.`, `./`,
+`././`, or `.\`, is skipped in every format, RAR included, and the other
+members extract. An empty or absolute path fails the extraction with
+"Refusing unsafe archive path: \<name>", and nothing is written outside the
+destination. So does a drive prefix, a letter and a colon such as `C:`, as the
+first component left after `.` is skipped and `..` resolved: `C:marker`,
+`./c:notes`, and `safe/../c:notes` are all refused. A colon in a later
+component is an ordinary name, so a ZIP holding `before.txt`, `names/c:notes`,
+and `after.txt` extracts all three onto a destination that allows `:`, such as
+ext4. Any other path that resolves to nothing fails the extraction with
+"Refusing empty archive path: \<name>". Examples are a file
+or link named `.`, and a directory named `../` or `folder/..`.
 
 The sanitized path still passes through the descriptor-relative destination
 writer, which refuses symlink traversal. Normal conflict renaming also applies,
 so two members that sanitize to `report.txt` become `report.txt` and
 `report (2).txt` rather than overwriting one another.
+
+### Names the destination cannot store
+
+Member names follow the rules of the destination's mount, as the names a copy
+brings there do. On a FAT or exFAT drive, for example, characters it cannot
+store become `_`, trailing dots and spaces are dropped, device names Windows
+reserves get `_`, and names too long for it are shortened. The folder named
+after the archive follows the same rules. A member whose name the destination
+still refuses, a symbolic link included, is retried under stricter rules. A
+member gets the next number when an earlier member's fixed name took its name,
+so `10_00/` after `10:00/` on a USB stick becomes `10_00 (2)/`, and different
+folders of the archive never merge. Numbers follow archive order, and each
+member lands in the folder its own folder became.
+
+When the extraction ends, a report lists every name the destination changed,
+grouped by cause, such as "The destination doesn’t allow these names", each as
+"“\<name>” was saved as “\<new name>”". It also lists every symbolic link left
+out. After a failure or cancellation, it lists those inside the folder that
+keeps the output.
+
+### Destination folder
+
+A destination reached through a symlink receives the output in the resolved
+folder. **Extract to…** checks the chosen folder off the interface thread and,
+like **Copy to…** and **Move to…**, accepts a folder you may write into but not
+list, such as a mode `0733` drop box owned by another user. Extracting into one
+fails with "Could not open extraction destination: Permission denied", because
+the extractor reads the names the destination already holds.
 
 ## Extraction output
 
@@ -38,19 +75,23 @@ so two members that sanitize to `report.txt` become `report.txt` and
 
 Strata writes members into a hidden `.strata-extraction-<id>` folder inside the
 destination, created when the first member is written. It is visible during
-extraction only when hidden files are shown. When the archive has been read,
-Strata publishes the folder:
+extraction only when hidden files are shown. A crash or an unplugged device can
+leave it behind. It holds nothing the archive does not, and the folder's
+**Items left by an interrupted operation** header button offers to delete it.
+When the archive has been read, Strata publishes the folder:
 
 - A single top-level entry is moved up into the destination under its own
-  name. It is renamed to `name (2)`, `name (3)` and so on only if the
-  destination already has an entry with that name, including a symlink or
-  special file, which is never followed or replaced.
+  name. It is numbered only if the destination already has an entry with that
+  name, including a symlink or special file, which is never followed or
+  replaced. A folder takes the number after its whole name, so
+  `strata-1.0.0` becomes `strata-1.0.0 (2)`. A file or symlink takes it before
+  its extension, `readme (2).txt`, and `readme.` becomes `readme. (2)`.
 - Several top-level entries stay together in a folder named after the archive
   without its extension, such as `photos/` for `photos.zip`. If that name is
   taken, the folder becomes `photos (1)/`, `photos (2)/` and so on. Entries
   inside the folder keep the archive's names, even when the destination
-  already has an entry with the same name; only duplicates within the archive
-  are renamed.
+  already has an entry with the same name; only duplicates within the archive,
+  and names the destination cannot store, are renamed.
 - If extraction fails or is cancelled after writing a file, everything written
   so far stays in the archive-named folder, even if it is a single entry. The
   error message ends with `Extracted entries remain in “<folder>”.`, and the
@@ -70,13 +111,17 @@ Strata publishes the folder:
 Publication never replaces an existing entry. On a filesystem without atomic
 no-replace renames, such as an ntfs-3g mount, the result is the same: a single
 root folder publishes as `name`, then `name (2)` when taken, and several
-top-level entries publish in `photos/`, then `photos (1)/`. Strata creates the
-target folder exclusively and links each extracted file into it, recreating
-symlinks with their stored targets and subfolders with their mode and
-modification time, so a read-only folder such as mode `0555` keeps its mode.
-The existing same-named folder is untouched, and no `.strata-extraction-<id>`
-folder remains. If this publication fails partway, the partial target folder
-is removed and the error ends with
+top-level entries publish in `photos/`, then `photos (1)/`. There a file is
+published through a hard link, and a folder is moved whole over an empty
+placeholder Strata has just created. Where a file cannot be hard-linked, as on
+sshfs and vboxsf, it is renamed over an empty file Strata has just created and
+checked. Where hard links are unusable, a folder that cannot be moved over a
+placeholder is renamed once its name is found free, as is a folder whose name
+ntfs-3g would cut. Symlinks keep their stored targets, and a read-only folder
+such as mode `0555` keeps its mode and modification time. The existing
+same-named folder is untouched, and no `.strata-extraction-<id>` folder
+remains. Where none of these steps can place an entry, extraction fails, the
+members stay in the staging folder, and the error ends with
 `Extracted entries remain in “.strata-extraction-<id>”.`
 
 Partial output from any other failed attempt stays in its own folder, so a
@@ -92,9 +137,9 @@ blocking or `dd` leave them, are padding rather than damage; any other
 trailing bytes are reported as a damaged archive. Members already written are
 kept as described above, but their contents are unverified.
 
-A TAR whose first entry is `./` extracts its contents. A `git archive` or
-GitHub tarball extracts without a `pax_global_header` file. Every member of a
-solid 7Z archive is extracted.
+A `./` root entry is skipped (see [Extraction safety](#extraction-safety)). A
+`git archive` or GitHub tarball extracts without a `pax_global_header` file.
+Every member of a solid 7Z archive is extracted.
 
 ### Damaged and oversized archives
 
@@ -120,16 +165,17 @@ kept partial output in place.
 
 ## Links, permissions and times
 
-<!-- node: operations/archives, Member paths, links, and metadata -->
+<!-- node: operations/archives -->
 <!-- node: operations/archives/rar -->
 
 Symbolic links are recreated with their stored targets, including absolute
 targets and targets outside the archive, and are never followed by later
 members: a member under a link name fails instead of writing through the link.
-TAR names and hard-link targets retain their native bytes. Hard links become
-links to the member of that name extracted earlier from the same archive,
-following any conflict rename. A hard link to a member that
-was not extracted, or that appears later, fails the extraction. A TAR FIFO or
+TAR names and hard-link targets retain their native bytes where the destination
+stores them. Hard links become links to the member of that name extracted
+earlier from the same archive, following any conflict rename or fixed name, so
+a hard link to `names/c:notes` links to that extracted member. A hard link to a
+member that was not extracted, or that appears later, fails the extraction. A TAR FIFO or
 device member fails the extraction with "Archive member “\<name>” is a FIFO and
 cannot be extracted" or "… is a device and cannot be extracted". An existing symlink at a member's name, such as an
 earlier link member with the same name, is skipped like a file: the member is
@@ -150,9 +196,22 @@ without Unix mode bits, such as one made on Windows, keeps the default
 permissions, and link members still extract as regular files.
 
 On filesystems that cannot store Unix permissions or times, such as FAT and
-exFAT, those are skipped without an error, as `tar` and `unzip` do. Links
-cannot be skipped: an archive with links fails there, naming the member, and
-keeps the output written so far.
+exFAT, those are skipped without an error, as `tar` and `unzip` do. A symbolic
+link's own time is best effort, and is never set on FUSE mounts, where daemons
+such as sshfs apply it to the target.
+
+Symbolic links the destination cannot hold, and hard links to them, are left
+out and listed in the report, and the extraction goes on. A TAR hard link the
+destination cannot hold, as on vfat, exFAT, exfat-fuse, or an SMB mount without
+hard links, becomes a copy of its target, and later members still extract. The
+copy takes space of its own and gets the member's stored mode and modification
+time. A hard link the mount refuses for another reason, such as no space or an
+I/O error, still fails the extraction with "Could not link “\<member>” to
+“\<target>”: \<reason>". So does a mount without hard links where the target
+cannot be reopened for the copy; the reason is then the reopen failure. Where
+the mount holds symbolic links but not hard links, such as sshfs without its
+hardlink extension, a hard link to an extracted symbolic link fails the
+extraction.
 
 ## Extraction targets
 
@@ -181,13 +240,16 @@ created.
 
 ### Extract here and Extract to…
 
-**Extract here** extracts beside the archive, reloads the folder, and selects
-the result. The selected result keeps keyboard focus after the progress dialog
-closes, including in Columns. **Extract to…** opens a floating folder chooser
-titled "Extract to", with an **Extract here** button and **New Folder**. After
-extraction, the window navigates to the chosen folder and selects the result.
-Cancelling the chooser starts no extraction. A destination reached through a
-symlink receives the output in the resolved folder.
+**Extract here** extracts beside the archive and selects the result; the
+folder is reloaded only when Strata cannot watch it for changes. The selected
+result keeps keyboard focus after the progress dialog closes, including in
+Columns. **Extract to…** opens a floating folder chooser titled "Extract to",
+with an **Extract here** button and **New Folder**. After extraction, the
+window navigates to the chosen folder and selects the result. Cancelling the
+chooser starts no extraction. After **Extract to…** fails, such as into a
+read-only folder, the next **Extract here** stays in the current folder and
+selects its output. So does one run after cancelling a foreground
+**Move to…**.
 
 ### Enter and double-click
 
@@ -219,7 +281,8 @@ Extracting a password-protected ZIP, 7Z, or RAR first runs without a password,
 then opens a password dialog titled **Extract** with the archive's name.
 Submitting an empty password keeps the dialog open with "Enter a password". A
 wrong password reopens it with "Invalid password", including for plain-header
-7Z and ZipCrypto archives. Cancelling the dialog after **Extract to…** leaves
+7Z and ZipCrypto archives. After **Extract to…**, a retry that succeeds still
+navigates to the chosen folder. Cancelling the dialog after **Extract to…** leaves
 nothing in the chosen folder, and the next extraction does not navigate there.
 Closing the dialog with Cancel or Escape leaves keyboard focus in the file
 list. A click outside the dialog closes it like Cancel only while the password
@@ -253,11 +316,17 @@ local path. The Compress dialog offers ZIP, 7Z, TAR.GZ, and TAR, with ZIP
 selected and the name prefilled with the item's name, or `archive` for several
 items. Typing the selected format's extension, such as `backup.zip` with ZIP,
 creates `backup.zip`, not `backup.zip.zip`. A name such as `../outside` is
-rejected in the dialog, and nothing is written outside the shown folder.
+rejected in the dialog, and nothing is written outside the shown folder. A name
+the location would store as another, such as `a:b.zip` on vfat, is refused
+before anything is written. The dialog's subtitle reads "N files" when every
+item is a file or a link to one, "N folders" when every item is a real folder,
+and "N items" otherwise, so a single symlink to a folder reads "1 item".
 **Protection** (No password / Password protected) shows only for ZIP and 7Z;
 switching to TAR or TAR.GZ hides it and resets it to No password. Password
 protected with an empty password shows "Password required", and fields that
-differ show "Passwords do not match"; no archive is written.
+differ show "Passwords do not match"; no archive is written. The fields are
+labelled, for screen readers too, "Archive name" and, with Password protected
+chosen, "Password" and "Confirm password".
 
 The new archive appears only when encoding finishes. If you have not navigated
 away from the folder where you started and no other operation has started
@@ -294,8 +363,16 @@ bytes, including any already-compressed members. The all-compressed fast path
 still emits a valid gzip header, DEFLATE stream, checksum and trailer, not raw
 TAR or concatenated per-file gzip streams. It trades a little size overhead,
 including uncompressed TAR metadata/padding, for avoiding recompression. TAR
-retains its existing sparse-file and symlink handling. Choose ZIP or 7Z when
-per-member compression selection matters for mixed inputs.
+keeps its symlink handling but stores sparse files in full, so small files on
+ntfs3, which report no allocated blocks, keep their contents instead of
+becoming zeros. Choose ZIP or 7Z when per-member compression selection matters
+for mixed inputs.
+
+The new archive is built in a hidden `.strata-copy-<id>` stage beside its
+target and published only when encoding finishes. A cancelled or failed
+compression removes the stage, including on SMB mounts without server inode
+numbers. A crash can leave it behind, like any incomplete copy, and the
+folder's **Items left by an interrupted operation** button offers to delete it.
 
 ## Classification and limits
 
@@ -341,15 +418,26 @@ and returns focus to the listed item that was focused before the prompt.
 Keep Both publishes the next available numbered name,
 such as `archive (1).zip` or `archive (1).tar.gz`, and selects that new archive.
 It skips existing files, directories, and symlinks, including names that appear
-while encoding is running. The completed staging file is retried atomically at
-publication; the sources are not compressed again for each collision.
+while encoding is running, and tries every number, so it succeeds when only the
+last one is free. A long name is cut so the number fits the location's name
+limit. The completed staging file is retried at each name at publication,
+never replacing anything; the sources are not compressed again for each
+collision.
 
 Replace moves the existing archive to Trash before publishing the new one, and
 the new archive keeps the replaced archive's permission bits. Ctrl+Z brings the
-old archive back. If the existing archive cannot be moved to Trash, Replace
-fails and the archive stays in place. Cancelling, or an encoding failure,
-during Replace also leaves it in place. If publishing fails after the old
-archive went to Trash, the error says the original is in Trash.
+old archive back. Where the location has no Trash, the existing archive goes
+into a hidden `.strata-originals-<id>` folder beside it under its own name,
+swapped there atomically with the new archive where the filesystem supports
+that, and is deleted once the new archive is flushed to the drive. Such a
+replacement records no undo entry, so Ctrl+Z then has nothing to undo. If the
+original cannot be deleted then, compression still completes and reports the
+folder that keeps it. When no safe strategy exists at the location, Replace is
+refused before encoding. If another item takes the name during the
+replacement, nothing is replaced and the original stays set aside. Cancelling,
+or an encoding failure, during Replace leaves the existing archive in place. If
+publishing fails after the old archive went to Trash, the error says the
+original is in Trash.
 
 ## Feedback and cancellation
 
@@ -388,6 +476,11 @@ When the dialog closes, keyboard focus goes to the file list's cursor row. If
 an error dialog opens as it closes, that dialog keeps focus, with Close
 focused.
 
+While a transfer's item total is not yet known, such as a paste into a
+destination slow to answer, it shows "Preparing items…" with Cancel and no
+count: a move in the dialog, a copy in its card. Cancel there abandons the
+transfer with no prompt.
+
 During a move, the dialog shows the percentage, transferred and total bytes,
 "N of M files" with the current file name, and the speed with time left
 ("Calculating speed…" until a speed is measured). The bar advances as bytes
@@ -397,7 +490,9 @@ only when every item is done; a copy card does the same. With an unknown byte
 total the bar pulses and reads "Preparing…" until bytes move, then
 "Transferring…". A move, or an undo or redo that moves items, onto removable
 media shows "Writing to device…" and is not reported done until the filesystem
-flush returns.
+flush returns. A move that has to copy, such as one to another drive, shows
+"Writing to device…" during its final flush on internal disks too, except onto
+SMB.
 
 Cancel during a move, or during an undo or redo that moves items, retitles the
 dialog "Cancelling transfer…", says "Waiting for the active write to stop. The
@@ -424,17 +519,23 @@ removable media shows "Writing to device…" in its footer and is not reported
 complete until the filesystem flush returns. A compression card names the
 archive instead of the first item. The
 destination reads "→ \<path>" for a folder, "→ Trash" for Move to Trash, and
-"Permanent deletion" for permanent deletion. Several cards stack and update
+"Permanent deletion" for permanent deletion, or "Deletion without Trash" when
+every deleted item is on a network location. Several cards stack and update
 independently; the stack scrolls once it reaches 320 px. A card never blurs
 or unblurs the window, even while another dialog is open.
 
 The dock also shows brief notices, such as "Copied to \<device>" when a Send to
 finishes before its progress appears. A notice is a row with a check icon
-before its text and no controls; clicking it does nothing. Notices and
+before its text and no controls; clicking it does nothing. A size notice, such
+as "Text size: 16px", has no check icon and no minimum width. Notices and
 progress cards stack in the order they appear. A new notice in the same window
-replaces any notice still visible, but progress cards stay. Notice text wraps
-and is cut to three lines with an ellipsis. When a notice expires and the dock
-holds nothing else, the dock closes.
+replaces any notice still visible, but progress cards stay. Notice text, not
+its heading, wraps and is cut to three lines with an ellipsis. When a notice
+expires and the dock holds nothing else, the dock closes.
+
+A docked transfer reports its renamed and left-out items once, after it ends,
+such as names the destination could not store. That report joins the dock
+without removing notices already visible.
 
 The X cancels only its own copying, compression, or deletion job; other cards
 and the foreground operation continue. Once requested, the card retitles to
@@ -480,7 +581,10 @@ After a cancelled operation, an "Operation cancelled" dialog gives the counts
 of items completed, failed, and not attempted, then "Completed changes were not
 reverted." Every affected source and destination folder refreshes to its
 on-disk state. An item that finishes copying as Cancel arrives counts as
-completed, not cancelled.
+completed, not cancelled. An item the cancel cut off and rolled back counts as
+not attempted, not failed, in local transfers, Trash deletes, restores, and
+merge undos. In merges, permanent deletes, and remote locations, a cut-off item
+still counts as failed.
 
 Cancellation is cooperative. Encoded output and TAR's input-to-encoder writes
 check cancellation, as do 7Z source reads and existing ZIP copy chunks. Errors

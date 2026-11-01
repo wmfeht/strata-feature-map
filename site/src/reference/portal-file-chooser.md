@@ -8,14 +8,14 @@ nodes:
   - integration/10xer-mode/file-chooser
   - app/packaging/installer
   - app/updates/install
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # System file chooser
 
 Strata can serve the XDG Desktop Portal FileChooser interface for portal-aware applications. Native file pickers and applications that do not use the portal are unchanged.
 
-The chooser is deliberately limited to local files and folders. It uses the main app's sidebar, Columns/Icons/List views, List type grouping, filters, metadata, previews, and themed controls. Recent appears when enabled in sidebar preferences and supported by the desktop's recent-files backend; only local targets are listed. Overwrite confirmation uses the same in-window modal as the app.
+The chooser is deliberately limited to local files and folders. It uses the main app's sidebar, Columns/Icons/List views, List type grouping, filters, metadata, previews, and themed controls. Its header bar has the same height and button and icon sizes as a browser window's header. Recent appears when enabled in sidebar preferences and supported by the desktop's recent-files backend; only local targets are listed. Overwrite confirmation uses the same in-window modal as the app.
 
 Strata handles Open, Save, and Save Files requests. A request without a title is titled “Open Files”, “Save File”, or “Save Files”, and one without an accept label uses **Open** or **Save**. Without a usable folder hint, the chooser starts in your Downloads folder (`XDG_DOWNLOAD_DIR`), or Home when that is undefined. A folder hint that is relative, inaccessible, or unanswered within 3 seconds falls back the same way. A Save suggestion naming a file that does not exist yet opens its folder with the full name in **Name**. A Save Files request lists the names being saved in a **Files** row instead of a **Name** field.
 
@@ -25,7 +25,7 @@ File-open requests include a **Name** field. Type an existing filename in the cu
 
 A URL downloads to a temporary local file returned to the requesting application. A compact circular progress indicator and cancel button appear at the bottom-left of the action bar; downloads without a known size show a spinner and bytes downloaded. Escape or the cancel button stops the download and leaves the chooser open for another name or URL. A network or HTTP failure, such as a 404, shows “Could not download the file: …” with the error. A download the selected filter rejects shows “The file does not match the selected filter” and is not returned. Chooser validation errors, including Name-field file lookup and URL download failures, appear as plain error text in the action bar rather than adding a row above it. The address bar remains navigation-only, pasting with Ctrl+V never starts a download, and downloads are unavailable in folder and Save requests.
 
-Downloads are named from `Content-Disposition` (`filename*`, then `filename`) or the last URL path segment, or `download` when neither gives a name. They persist under a `strata-download-*` folder in the temp directory after the chooser closes, so the requesting app can still open them. Folders older than a day are swept when the portal starts or a new download begins. URLs with credentials are not downloaded. A URL that answers with a redirect shows “The URL redirects elsewhere; paste the direct file URL instead”.
+Downloads are named from `Content-Disposition` (`filename*`, then `filename`) or the last URL path segment, or `download` when neither gives a name. They persist under a `strata-download-*` folder in the temp directory after the chooser closes, so the requesting app can still open them. Each folder is created with mode 0700 and each download with mode 0600, so other local users cannot list or read them. Folders older than a day are swept when the portal starts or a new download begins. URLs with credentials are not downloaded. A URL that answers with a redirect shows “The URL redirects elsewhere; paste the direct file URL instead”.
 
 If a downloaded JPEG, BMP, single-frame GIF or static WebP has no canonical filename matching the **selected filter**, but PNG would match, Strata validates the image in its sandbox and asks “Convert image to PNG?” with **Convert to PNG** / **Cancel**. Detection uses file contents, not the URL extension or HTTP content type. BMP detection requires `BM`, zero reserved bytes in its file header and a known DIB header size (12, 40, 52, 56, 108 or 124 bytes); `BM` alone is not enough.
 
@@ -35,13 +35,13 @@ Conversion preserves full resolution, transparency, orientation and compatible e
 
 Image processing is cancellable and limited to 32 MiB input, 16 megapixels, 16,384 pixels per edge and the sandbox's memory/CPU/time limits. The separate 32 MiB encoded PNG output cap also applies: 16 megapixels of RGBA exceeds 32 MiB before compression, so an image within the pixel cap can still fail with “The converted PNG exceeds the 32 MiB output limit”. Either cap can reject conversion. The decoder's 128 MiB allocation budget is best-effort, not a hard memory bound; pre-decode dimensions and sandbox process limits provide the resource boundary.
 
-Cancel, Escape, or a conversion failure leaves the chooser open without returning the incompatible original. Clicking Open again on the same URL reuses the downloaded file while it still exists. Changing the name or selected filter during the check, the conversion prompt, or the conversion stops the job and shows “The name or filter changed. Press Open to try again.” After successful conversion, both the cached original and the returned PNG remain in their temporary folders until the one-day sweep; closing the chooser does not remove either file.
+Cancel, Escape, or a conversion failure leaves the chooser open without returning the incompatible original. Clicking Open again on the same URL reuses the downloaded file while it still exists. Changing the name or selected filter during the check, the conversion prompt, or the conversion stops the job and shows “The name or filter changed. Press Open to try again.” After successful conversion, both the cached original and the returned PNG remain in their temporary folders until the one-day sweep; closing the chooser does not remove either file. The PNG's folder is created with mode 0700 and the PNG with mode 0600.
 
 Folder-only requests hide regular files in both directory listings and recursive results. File requests keep folders available for navigation. Changing a file-type filter refreshes the current results without clearing the search query; selection and acceptance follow the new filter. Local drives mounted before the chooser opened appear under **DEVICES** in its sidebar once the dialog has painted; network shares do not.
 
 File Open requests show an **Open files read-only** checkbox; checking it tells the application to open the returned files read-only. In a single-selection request, selecting another item replaces the selection, including with Ctrl or Shift clicks and across grouped List sections, so **Open** returns one item. In Columns, a filter result selected in a column other than the active one is returned on **Open**. In a folder request, accepting while only the automatically selected first row is selected returns the displayed folder; an explicitly selected child folder returns that child.
 
-In Save dialogs, selecting a file copies its name into the name input without accepting the dialog. Names that are not valid UTF-8 display with replacement characters, but Save still targets the selected file's exact name while the name input shows it unchanged. Edited name text is saved literally, replacement characters included; retyping the exact displayed text targets the original file again. The automatic initial selection does not change the suggested name or destination. Selecting a folder changes the destination without changing the name or navigating into it. In Recent, select a file to save in its containing folder, or navigate to a local folder first. Saving over an existing file asks “Replace existing file?” (“Replace existing files?” for several) with **Cancel** focused; **Cancel** keeps the chooser open and **Replace** returns the path. Saving where a folder of the same name exists fails with “A folder named “name” already exists”.
+In Save dialogs, selecting a file copies its name into the name input without accepting the dialog. Clicking a file row always replaces the name with that file's name, in List, Columns, and Icons: that includes the row highlighted automatically on load, and a file still selected after you edited the name. With 10xer mode on, clicking a file leaves the name unchanged. Names that are not valid UTF-8 display with replacement characters, but Save still targets the selected file's exact name while the name input shows it unchanged. Edited name text is saved literally, replacement characters included; retyping the exact displayed text targets the original file again. The automatic initial selection alone does not change the suggested name or destination. Selecting a folder changes the destination without changing the name or navigating into it. In Recent, select a file to save in its containing folder, or navigate to a local folder first. Saving over an existing file asks “Replace existing file?” (“Replace existing files?” for several) with **Cancel** focused; **Cancel** keeps the chooser open and **Replace** returns the path. Saving where a folder of the same name exists fails with “A folder named “name” already exists”.
 
 Resizing a Miller column or a List heading in the chooser saves that width as the chooser default, so the next request opens with it. Dragging or double-clicking a Miller column edge stops at the dialog's file area beside the sidebar, and a saved width wider than that area opens narrowed to it. Regular Strata windows also remember widths, using separate browser defaults.
 
@@ -51,7 +51,7 @@ A Wayland application's exported parent handle makes the chooser a transient dia
 
 The same chooser window serves Strata's own **Move to…**, **Copy to…**, **Extract to…**, and **Send to… → device → Choose folder…** commands. It opens as a floating modal folder chooser over the window the command came from. Invoking another destination command while one is open brings the existing chooser forward instead of opening a second. Closing the originating window closes its chooser, and **Cancel** leaves the files and the window's location unchanged.
 
-Move to, Copy to, and Extract to offer **New Folder**. Enter in the path entry navigates there; Ctrl+Enter in the file list or the action button confirms the displayed folder, or a child folder you explicitly selected. For Send to, the sidebar and its toggle are hidden, and Ctrl+B (Ctrl+N in 10xer mode) and Ctrl+Shift+B leave them hidden. Send to also disables **New Folder** in the menu, the toolbar, and Ctrl+Shift+N. Navigating outside the device shows “Choose an existing folder inside this removable device.”
+Move to, Copy to, and Extract to offer **New Folder**. Enter in the path entry navigates there; Ctrl+Enter in the file list or the action button confirms the displayed folder, or a child folder you explicitly selected. For Send to, the sidebar and its toggle are hidden, and Ctrl+B (Ctrl+N in 10xer mode) and Ctrl+Shift+B leave them hidden. Send to also disables **New Folder** in the menu, the toolbar, and Ctrl+Shift+N. Navigating outside the device shows “Choose an existing folder inside this removable device.” A link on the device to a folder off the device stays listed, and opening it shows the same message.
 
 ### Initial size
 
@@ -101,28 +101,38 @@ Regular Strata windows keep their usual placement.
 <!-- node: integration/portal-file-chooser/setup, Settings row -->
 <!-- node: app/packaging/installer -->
 
-Strata never replaces your Open and Save dialogs on its own. **Nothing changes
-without consent.** Enable it in **Settings → General → System file manager**,
-during installation, or with `strata --install-portal`.
+Strata never replaces your Open and Save dialogs on its own: launching it
+changes nothing. Enable it in **Settings → General → System file manager**,
+through the installer, or with `strata --install-portal`.
 
 The Settings row sets the file chooser together with folder opening and Reveal in
-File Manager. The installer and the `--install-portal` and `--uninstall-portal`
-commands change only the file chooser; the installer asks about folder handling
-in its own questions.
+File Manager. The installer's **Open and Save dialogs** option and the
+`--install-portal` and `--uninstall-portal` commands change only the file
+chooser; the installer handles folders with its own options.
 
-The installer asks about the file chooser separately, defaulting to **No**, after
-placing the binary at its permanent path. For unattended installation,
-`--with-file-chooser` opts in and `--without-file-chooser` keeps your current
-chooser. Either flag implies `--non-interactive`, so the installer asks nothing
-and declines every integration you do not name. A plain `--non-interactive`
-install also leaves the chooser unchanged.
-`--with-file-chooser` fails on a release without portal support.
+The installer checks **Open and Save dialogs** by default: **Install Strata
+(recommended)** includes it, **Customize installation** starts with it checked,
+and an unattended install selects it. After placing the binary at its permanent
+path, the installer runs `strata --install-portal`, which restarts the portal
+service, so close open file dialogs first. On an Arch-based system it first
+installs `xdg-desktop-portal` if that package is missing. To keep your current
+chooser, uncheck the option under **Customize installation**, or pass
+`--without-file-chooser`.
 
-A declined installer question or `--without-file-chooser` runs
-`strata --dismiss-portal-prompt`. That command only creates
-`${XDG_CONFIG_HOME:-~/.config}/strata/portal-opt-in-v1` and leaves portal
-preferences unchanged; Strata itself never asks on launch, whether or not the file
-exists.
+`--with-file-chooser` requires the chooser. On a release without portal support
+it exits before installing, with "This release does not include file chooser
+integration. Install a newer release." When the chooser was selected by default
+or from the menu instead, the installer warns "This release does not include
+file chooser integration; skipping it." and continues. If `--install-portal`
+fails, the installer exits with "File chooser setup failed. Strata is installed;
+retry in Settings → General → System file chooser." (the row is **System file
+manager**).
+
+An unchecked option, or `--without-file-chooser`, runs `strata
+--dismiss-portal-prompt` when the release includes portal support. That command
+only creates `${XDG_CONFIG_HOME:-~/.config}/strata/portal-opt-in-v1` and leaves
+portal preferences unchanged; Strata itself never asks on launch, whether or not
+the file exists.
 
 ### System file manager in Settings
 
@@ -203,7 +213,7 @@ The chooser backend is activated on demand and exits after about two minutes wit
 
 External package-manager updates and manual binary replacements do not run that retirement step. The next time you launch Strata, it restarts the portal services if a running `strata --portal` from the same install path was started from the replaced executable. Other old Strata windows keep running until you close them or log out.
 
-If a stop, reload, or restart step fails, `--install-portal` and `--uninstall-portal` print “Could not reload every portal service. Ensure xdg-desktop-portal is installed, then log out and back in before testing.”
+If a stop, reload, or restart step fails, `--install-portal` and `--uninstall-portal` print “Could not reload every portal service. Ensure xdg-desktop-portal is installed, then log out and back in before testing.” Each `systemctl --user`, `gdbus`, and `xdg-mime` call ends after 5 seconds, so on a session bus that accepts connections and never answers, the commands print that warning instead of hanging, and **Complete setup** and **Restore default** in Settings still finish.
 
 The generated D-Bus service contains the absolute path of the command being run. Move Strata to its permanent location before installing the portal. For safe activation, every component of the canonical executable path must be owned by the current user or root and must not be group- or world-writable. D-Bus service-file argument parsing is not shell quoting, so the installer also rejects executable paths containing whitespace, quotes, or backslashes.
 
@@ -303,8 +313,11 @@ On a desktop that does not manage the frontend as a systemd user unit, log out a
   name before its last `.` selected, and a folder's whole name selected. Escape
   cancels the name editor without closing the chooser. Right-click an item for Rename, Properties,
   Compress… (local items), Move to Trash and Permanently delete (where the
-  location allows them), and Quick preview for one previewable file; right-click
-  empty pane space for New Folder. Alt+Enter opens Properties from the file list.
+  location allows them), and Quick preview for one previewable file.
+  Permanently delete reads **Delete without Trash** when every selected item is
+  on a network or cloud mount; a `fuseblk` mount or a local FUSE overlay such as
+  mergerfs keeps Permanently delete. Right-click empty pane space for New
+  Folder. Alt+Enter opens Properties from the file list.
   Properties preserves multi-selection, while Rename is disabled for multiple
   selected items.
 - With the file view focused, Delete moves the selection to Trash and Shift+Delete
@@ -317,21 +330,35 @@ On a desktop that does not manage the frontend as a systemd user unit, log out a
   (or the first free `new folder (1)`, `new folder (2)`, and so on) and selects its
   name for editing. Enter or clicking away commits a valid name. Escape or an
   empty or invalid name keeps the default name, and the folder stays.
-- Ctrl+B (Ctrl+N in 10xer mode) or the sidebar toggle in the top bar shows or hides
-  the sidebar. Unless arrows are kept in the file list, Left from the outer
+- Ctrl+B (Ctrl+N in 10xer mode) or the sidebar toggle in the top bar steps the
+  sidebar from full to its icon rail, then hidden, then full again; the toggle's
+  tooltip names the next step, such as “Compact sidebar (Ctrl+B)”. A chooser too
+  narrow for the full sidebar rails it automatically, and stepping from hidden
+  then shows the full sidebar until the fit next changes. Steps apply to that
+  dialog only and are not saved, and a saved compact sidebar does not start the
+  chooser on the rail. Unless arrows are kept in the file list, Left from the outer
   file-list edge or a leftmost Icons cell focuses the visible sidebar.
   Ctrl+Shift+B also focuses it, first showing the sidebar if it is hidden; in
   10xer mode it does nothing while the sidebar is hidden. Right returns to files
   without changing selection. Up from the first sidebar row reaches the sidebar toggle.
-- Space on a file toggles preview. In a folder-selection request, Ctrl+Enter in
+- Space on a file toggles preview. With a filter result selected, Space in
+  **Name** or the location entry types a space and opens no preview. Ctrl+0 on a
+  focused PDF page in the preview resets its zoom, not the saved text size. In a
+  folder-selection request, Ctrl+Enter in
   the file list accepts the same as **Open**: it returns the displayed folder, or
   a child folder you explicitly selected.
 - Escape dismisses the innermost menu, dropdown, inline edit, filter, location
   edit, preview, download, or confirmation before cancelling the request. Escape on
   a focused filter result dismisses the filter and keeps the request open.
+  The header close button is named “Cancel file selection (Escape)”, and the
+  Name field is named “Name”.
   The Replace prompt, the image conversion prompt, and the delete confirmation
   for a folder without Trash initially focus Cancel. The Shift+Delete
   “Permanently delete …?” confirmation initially focuses its delete button.
+- A shortcut reference can stay open after 10xer mode is turned off in another
+  window. While it is open, F5, Ctrl+H, Ctrl+., Ctrl+1, Ctrl+2, Ctrl+3, Alt+Up,
+  Alt+Left, and Alt+Home leave the folder, view, and hidden files unchanged, and
+  Escape closes the reference without cancelling the request.
 
 ### With 10xer mode on
 

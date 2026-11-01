@@ -1,13 +1,15 @@
 ---
 nodes: [app/updates/install, app/updates/release-channels, app/updates/package-managed]
-reviewed_at: 0a086aa3bdb251842a1e8413e2a6b35970d0b409
+reviewed_at: be3343a5992a2a5497b1a2ee7faa525be18e988f
 ---
 
 # Signed updates
 
 Strata authenticates in-place updates in process. Users need neither the GitHub
 CLI nor a GitHub account, token, keyring, OpenSSL command, or signing tool.
-Package-managed installations still use their package manager.
+Package-managed installations still use their package manager. The installer
+authenticates a first installation against the same signed manifest, with
+`openssl`.
 
 ## Trust and format
 
@@ -155,11 +157,26 @@ replacing the installed binary. GitHub's build-provenance attestations and
 `.sha256` files remain published for independent verification and packaging, but
 are not prerequisites or fallbacks for this client protocol.
 
+### Installer
+
+`install.sh` authenticates a first installation the same way. It pins the raw
+public keys of the trust store in its `RELEASE_PUBLIC_KEYS` list, downloads both
+manifest files under the same 32 KiB and 8 KiB limits, and verifies at least one
+trusted signature with `openssl pkeyutl -verify -rawin` before requesting the
+archive. The archive download is capped at its signed size, and the archive's
+size and SHA-256 must match the signed entry for the detected architecture
+before extraction. The installer requires `openssl`, never consults the
+`.sha256` file or `gh attestation verify`, and stops when a release has no
+signed manifest. Its messages for each failure are listed under [Download and
+verification](install.md#download-and-verification) on the installation page.
+
 ## Rotation and compromise
 
 <!-- node: app/updates/install, Signed manifest -->
 
-A release may be signed by several keys. A new key is introduced by a bridge
+A release may be signed by several keys. A rotation adds the new key to the
+trust store and to the installer's `RELEASE_PUBLIC_KEYS` together. A new key is
+introduced by a bridge
 release whose binary trusts both the old and new keys and whose manifest both
 keys sign, so older Strata builds keep updating in place while releases stay
 dual-signed. Once releases stop carrying the old key's signature, a build that
@@ -177,6 +194,7 @@ means installing a trusted replacement from an independently verified source.
 <!-- node: app/updates/install, Signed manifest -->
 <!-- node: app/updates/release-channels, Return to stable -->
 <!-- node: app/updates/release-channels, Channels -->
+<!-- node: app/updates/release-channels, Release list -->
 
 Releases published before signed updates (v0.21.0 and earlier, and prereleases
 before v0.22.0) have no signed manifest. Strata refuses to install them with
@@ -185,8 +203,15 @@ it manually." It never falls back to checksum-only or `gh` verification. v1.0.0
 is the first signed stable release, so Return to stable from a signed prerelease
 targets a signed release.
 
-This protocol authenticates release contents and identity, not the initial
-installation or the freshness of GitHub's release feed. It does not prevent a
-server from withholding an update. Normal update selection rejects older
-versions; an explicit user-requested return to stable may intentionally select
-an older signed version. There is no clock-dependent manifest expiry.
+**Install a specific release** in **Settings → Updates** lists only releases
+that publish both manifest files and this architecture's archive, so it never
+offers a release that has no signed manifest.
+
+This protocol authenticates release contents and identity, not the freshness of
+GitHub's release feed or the installer script itself, which is fetched over
+HTTPS. It does not prevent a server from withholding an update. Normal update
+selection rejects older versions. An explicit return to stable, or a release
+chosen from **Install a specific release**, may intentionally select an older
+signed version: the install compares the requested tag with the signed
+manifest's tag, not version order. There is no clock-dependent manifest
+expiry.
