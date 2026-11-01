@@ -1035,7 +1035,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 
 ### [Send to removable devices](../features/operations/clipboard/send-to.md) `operations/clipboard/send-to`
 
-shipped · draft · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1153](https://github.com/lgse/strata/issues/1153), pr [lgse/strata#1278](https://github.com/lgse/strata/issues/1278)
+shipped · reviewed · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1153](https://github.com/lgse/strata/issues/1153), pr [lgse/strata#1278](https://github.com/lgse/strata/issues/1278)
 
 A Send to… submenu in the item menu that copies the selection to a mounted removable device without leaving the current folder. It is for people who copy to USB drives often. File providers can also place destinations in it (`remote/file-providers/external`).
 
