@@ -107,7 +107,6 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - `scripts/code-health.sh` runs the CodeScene CLI on named or changed files and needs `CS_ACCESS_TOKEN` (lgse/strata#2022).
 - `qa-drive restart --pref` replaces each key whole in the parsed `settings.toml`. It refuses a value TOML cannot hold, or a key that is not a bare TOML key, before the app stops (lgse/strata#2019, lgse/strata#2030).
 - The QA driver wheels a clipped pointer target into view, with Shift for horizontal scrollers, and never scrolls a `left_bound` aim. On X11, `type` lends a keysym to an empty keycode for one tap (lgse/strata#2019, lgse/strata#2030).
-- A paste Replace without Trash exchanges the files, so the monitor reports the name arriving, then leaving, in one batch. The coalescer keeps the arrival, and the follow-up lookup decides whether the row stays, without adding operation-specific refresh logic (lgse/strata#1858, lgse/strata#1890).
 - The `fstatat` fallback widens `st_nlink` through a generic helper, because it is `u32` on aarch64 and `u64` on x86_64 (lgse/strata#1753, lgse/strata#1755).
 
 ## History

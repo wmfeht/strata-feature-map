@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the Nix flake, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on service activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the Nix flake, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on FileManager1 and portal backend activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates and Keyboard, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -52,6 +52,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
 - With the interface in de and ja, read the names of the pane header buttons, the filter field, and the media buttons against their tooltips.
+- Dump Settings → Updates after a failed check, on the prerelease build after selecting Stable, and with release notes holding links in headings and list items; read each link's name.
 
 ### app/dialogs
 
@@ -73,6 +74,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Repeat with that dialog stacked over Properties.
 - With no GVfs `admin` backend, type the same path and read which button has focus.
 - Click an install command's copy button twice within 2 s, then close its dialog before 2 s pass; read the button's name every 500 ms.
+- In Settings → Keyboard, press Reset all, then confirm by Enter, by click, and after Tab to the confirm button; dump the focused node each time. Repeat at the narrowest Settings width.
+- Close a dialog stacked over Settings while Settings is scrolled so its opener is off screen, then read the focused node.
 
 ### app/shortcut-reference
 
@@ -97,6 +100,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With F1 open, rebind and unbind its search, category, and list keys and a command shown in each section from a second window; read the rows and the note.
 - Bind keys to Custom action 1 and 10, then open F1 in each mode and search for the slot and its key.
 - Open each 10xer footer prompt in turn, then switch from one prompt to another without closing it; dump the entry after each step.
+- Fill the clipboard from a second display connection with only `x-special/gnome-copied-files`, then with only `text/uri-list`, and with both; read the badge and press Ctrl+V after each.
 
 ### app/window
 
@@ -128,6 +132,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Hold Ctrl+Shift and scroll a touchpad slowly, then fast; then release Shift mid-scroll and keep scrolling.
 - Rebind `pdf_zoom_reset` and `text_reset` to shared and separate keys. Press them with a PDF, a text preview, and the listing focused, with a 10xer chord armed.
 - With three windows open, toggle 10xer mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ from the file list. Close one window and check again.
+- Focus a PDF page, a table cell, an archive row, a text preview's scrollbar, and the media controls in turn; press Delete, F2, Ctrl+D, Ctrl+V, and Ctrl+Alt+N at each in Columns, Icons, and List.
+- Filter with Ctrl+F, trash a result, move focus to another result, then press Ctrl+Z, Ctrl+Y, and Ctrl+Z twice; repeat with recursive search results and with the filter field focused between presses.
 
 ### app/packaging
 
@@ -234,6 +240,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - On fake pacman and Omarchy installs with the Nightly preference, let the startup check offer a release, then switch the channel in a second window.
 - Launch the disabled build with an `update-check.toml` holding an offer, checks on, and the Preview channel saved; open two windows and count requests at the proxy.
 - Build with `STRATA_UPDATER` set to ` disabled `, `DISABLED`, `enabled` followed by a newline, and an empty value; read whether each build fails and whether Settings lists Updates.
+- Run the plain build with a tag GitHub has no release for, and edit `release-notes.toml` so its unavailable entry is 5 h, 7 h, and one day in the future; open Settings → Updates in two windows and count requests at the proxy.
+- Repeat with the proxy answering HTTP 500, then 404, then restore it.
 
 ### app/updates/release-picker
 
@@ -242,6 +250,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Pick a release while another install runs from the Updates row or a second window.
 - Pick a release, then close Settings before the dialog opens.
 - Open the menu on the plain build and on the prerelease build, and compare the check mark and the button label.
+- Pick a release, then cancel the chosen-release dialog by Escape, backdrop, close button, and Cancel; dump the focused node each time.
 
 ### app/updates/release-channels
 
@@ -252,6 +261,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Hand-edit the cached release list so a tag reads `v0.10.0-rc.0` and another `0.10.0-RC.1`; neither may be offered.
 - Serve a release list holding a stable tag GitHub flags as a prerelease; open the menu on each channel.
 - Serve both `v1.0.0` and `1.0.0`, choose the one entry the menu shows, and press Install release; read the tag the dialog names.
+- Dump the Release channel row, its choice, and its toggle over AT-SPI while turning automatic checks off and on from a second window, then on each fake package-managed install.
 
 ### app/updates/install
 
@@ -278,19 +288,20 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Launch `strata` with `sftp://alice@host/f?token=x#frag` and `smb://CORP;alice:pw@host/share` as arguments, with `RUST_LOG` unset and at debug. Open each in a new tab, remove it from Recent, then grep for `alice`, `CORP`, and `pw`.
 - Show URIs whose paths hold lowercase `%2f`, a mix of `café` and `%FF`, and `%25` in the location field, Properties, and window title.
 - Run Strata under `strace -f -e trace=execve`, open a folder of 200 text files named `.mp4` and `.png` in Icons, and count `ffprobe` launches; repeat with one real clip among them.
-- Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
-- With Trash unavailable, paste Replace onto a same-named file in an open folder on tmpfs, vfat, NFS, and an sshfs mount, in each mode. Read the row, size, and date without F5.
-- Repeat with the replaced file selected, with a filter active, and with a second tab open on the same folder.
-- With the folder open in two tabs and a filter matching the file, swap it with `RENAME_EXCHANGE` from a shell, then delete it at once.
 - Start Strata with `STRATA_UI_STALL_MS=250`, open a folder on the sshfs mount, and stop its daemon. Arrow through folders, type a path there, open a context menu, and press Ctrl+Z; read the log after resuming.
 - Start Strata with `STRATA_UI_STALL_MS` set to `0`, `-5`, `abc`, and ` 250 `; check for the watchdog thread `strata-ui-stalls`.
 - With Strata stopped, call the portal's `org.freedesktop.portal.OpenURI.OpenDirectory` on a file and time the reply. Repeat with activation `GDK_DEBUG` set to `misc` and to `misc:no-portals`, and read `/proc/<pid>/environ`.
+- With `strata --portal` stopped, call `org.freedesktop.portal.FileChooser.OpenFile` and time the window. Repeat with activation `GDK_DEBUG=misc`, with `GTK_THEME` set, and after the 120 s idle exit; read `/proc/<pid>/environ` each time.
+- Run `strata --portal` by hand with `GDK_DEBUG` holding `NO-PORTALS` and `no-portals` among other flags, and count re-execs with `strace -f -e trace=execve`.
 - Launch `strata` and `strata <dir>` while the activated process runs, and read the new window's process id.
 - Run `strata --qa <dir>`, `strata --qa`, and `strata <dir> --qa` on a plain `cargo build` and a release build; read which window opens and whether stdin is read.
 
 ## Hand-offs
 
 - Window title text after a folder opens → `browser`.
+- Rows updating while an open folder is copied into, replaced without Trash, or exchanged → `browser`.
+- Share-root and server-root names in headings, breadcrumbs, tabs, and titles → `remote`.
+- The working folder of programs Open and Open With launch → `integration`.
 - The `GDK_DEBUG` value programs launched from a service-activated Strata see → `integration`.
 - The `STRATA_INTEGRATIONS` build switch, and the portal and file manager rows and flags in a package build → `integration`.
 - The udiskie unlock row and flags in a `STRATA_INTEGRATIONS=package` build → `devices`.

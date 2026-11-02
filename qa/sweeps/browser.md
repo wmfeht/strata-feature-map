@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -54,6 +54,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In List and Icons, group by type and sort by size descending. Click an entry, Ctrl+click one in another group, then press Shift+arrow toward each neighbour.
 - Ctrl+click a selected entry to remove it, then press Shift+arrow; repeat after Ctrl+click on blank row space.
 - Middle-click a folder row while a rename editor is open, on a symlink to a folder, and on a Ctrl+F result in another folder. Repeat with Ctrl held, with Ctrl+Shift held, and in the file chooser.
+- Press End, then Shift+Home, in a grouped List sorted by size, in Icons at three icon sizes, and in a filtered Columns column.
+- Press Home, Ctrl+click two entries, press Page Down, then Shift+click. Repeat with `j` at the last entry instead of Page Down.
 
 ### browser/selection/click-modes
 
@@ -111,6 +113,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In the file chooser, filter to a file and double-click it in Columns and in Icons and List search results; then press Enter.
 - With two tabs open, press Ctrl+3 then Down within one frame while `100000` loads in the visible tab; repeat right after a rename commits. Note which row holds focus after 500 ms.
 - In List and Icons, `chmod 000` the open folder from a shell and press F5; click Open as Administrator and cancel the prompt. Then open an admin folder and switch views at 400 px wide.
+- Open the unreadable folder in Icons where Open as Administrator is offered. Tab to Retry and press it while still unreadable, then after `chmod 755`.
+- Compare the folder-error Retry and Open as Administrator buttons in a light, a dark, and a custom theme: at rest, hovered, pressed, and keyboard-focused.
 
 ### browser/view-modes/columns
 
@@ -141,6 +145,11 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
 - Right-click a column header's spinner while it loads, its truncated-listing warning icon, and the gap hidden header actions leave in an inactive column.
 - Right-click the headers of `trash:///` and Recent columns, then repeat in the file chooser and in 10xer mode.
+- Click a file in a parent column with Ctrl, then Shift held; then press a parent file and drag it into the open child column.
+- Plain-click a broken symlink, a file inside a multi-selection, and a file in a filtered parent column, with single-click previews off.
+- After Back from a sidebar place, press Left into an ancestor column still loading on a stalled sshfs mount; delete its open folder from a shell before it loads.
+- Rename a folder whose child column is open to a name that sorts first, one that sorts last, and a dot name; press Tab and Shift+Tab. Repeat with Mirror columns selection off.
+- Dismiss the Shift+Delete confirmation over a Ctrl+F result with a backdrop click, then press Down, Up, and Space.
 
 ### browser/view-modes/icons
 
@@ -266,6 +275,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Switch from Columns to List after several visits and open the menu; repeat in a tab restored by Ctrl+Shift+T and in a session-restored tab.
 - Choose an entry whose folder was deleted or unmounted since the visit, then press Alt+Right.
 - Rebind `context_menu` away from Menu and Shift+F10 under `[keymap.default]`, then read Back's description and press the old and new keys on it.
+- In the file chooser, focus Back with history and press Menu, then Shift+F10; repeat with no history and with the location entry open.
 
 ### browser/navigation/folder-jump
 
@@ -291,6 +301,12 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type a file path and press Back and Forward fast, five times, while the parent loads.
 - Type a file path in the portal file chooser's location field.
 - Open ten nested folders with 40-character names in a 600 px window. Open, submit, and cancel the entry there, then widen and narrow the window.
+- Type `NETWORK:`, `recent://`, `trash:////`, `network:x`, and `  trash:  `; record each result.
+- Type `smb://` and `ftp://` addresses with a query, a fragment, `%3F`, and `%23`, and a local path containing `?` and `#`.
+- Middle-click crumbs in `admin://`, `network:///`, an `smb://` share, and an archive; then middle-click a crumb whose folder was deleted from a shell.
+- Middle-press one crumb, move to another, and release; middle-click while the crumb row is scrolled; Shift+middle-click in a destination chooser.
+- Right-click the crumb bar at its left and right ends in a 600 px window, on X11 without a compositor, and at text size 28.
+- Switch from Columns to List with a mirrored child, press Ctrl+L, submit a bad path, then press Escape; repeat from a filtered column.
 
 ### browser/navigation/location-bar/completion
 
@@ -330,6 +346,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Ctrl+K, search three terms, a term with one typo such as `quartely txt`, and `配置 txt`.
 - In Ctrl+K, separate two terms with a Tab, then a double space; then use a term found only in the searched root's own path.
 - Open the Ctrl+Shift+K palette from the sidebar, the location entry, and a rename editor, then press Escape; note where focus lands each time.
+- Create 121 equal-score files in reverse name order on tmpfs; search them with Ctrl+K and with Ctrl+F in each view, and compare the first and last names.
+- Read the palette field with Orca after Ctrl+K, then Ctrl+Shift+K, then Ctrl+K again without closing.
 
 ### browser/search/exclusions
 
@@ -360,6 +378,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Filter an sshfs folder, stall its daemon, and delete a hit from the server; then resume it.
 - In Columns, focus a filter result in column 2 and press Ctrl+F, then `/`; repeat with Include subfolders off and with the preview open.
 - In Columns, filter with Include subfolders on and off, and with a pointer and a keyboard multi-selection, then choose each sort.
+- Start two F2 renames of filter results, the second before the index lists the first, then press Delete.
+- Rename a filter result to a name the query no longer matches and to its own name; read the selection and focus.
 
 ### browser/search/filter/enter-target
 
@@ -389,6 +409,12 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Unpin every pin while PINNED is collapsed, pin a folder again, and restart; read `sidebar_pinned_collapsed` back.
 - Toggle both sections with Reduce motion on, at text size 8 and 48, and in `de`. Read the badge and headings with Orca.
 - Collapse both sections, step to the icon rail, to hidden, and back to full. Then toggle a section in 10xer mode with `j`, `k`, and `l`.
+- Compare the chevron's x position with the eject buttons at text sizes 9, 11, and 28, and at 125 % and 150 % fractional scaling, expanded and collapsed.
+- Collapse DEVICES with no removable drive connected, then connect one.
+- Step full, rail, full with both sections collapsed; check the separators and rules at each step.
+- Click PINNED, then press `j` and Tab; note where focus lands and whether any outline shows.
+- Unpin the last pin while the rail shows, then drag a file over the rail and switch back to the full sidebar mid-drag.
+- Launch with nothing pinned and the rail saved, then switch to hidden and full during the first paint.
 
 ### browser/sidebar/rail
 
@@ -449,6 +475,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Plant entries that are a symlink, a 3 MiB PNG, a 600 px PNG, and a JPEG renamed `.png`, each with matching tags; reopen the folder.
 - Delete `thumbnails/large`, make it a `chmod 755` directory, reopen, and read its mode; then point `XDG_CACHE_HOME` at an unwritable path.
 - Thumbnail the RAW samples with another file manager first, open the folder twice in Strata, then let the other file manager rewrite the cache and reopen.
+- Browse `thumbnails/normal`, `thumbnails/fail`, `large` through a symlink from `~/Pictures`, then a folder named `thumbnails-old`; count `large` entries before and after each.
+- Set `XDG_CACHE_HOME` to a symlink, then to a path with a trailing slash, and browse the resolved `thumbnails/large`.
+- Open a cache PNG in the preview panel and read the `large` entry count.
 
 ### browser/thumbnails/workers
 
@@ -469,12 +498,15 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Copy path for a name holding `'` and a space, and for a file in `trash:///`; paste each in a shell.
 - Copy path from the empty-space Properties of the current folder, from a symlink to a folder, from a symlink to a file, and from the broken symlink.
 - On the SMB share, open Properties on a `.md`, `.py`, `.json`, and `.txt` file, a dot-file, and an extensionless file. Read the subtitle, OPENS WITH, and HIDDEN.
+- Open Properties on raw `.264`, `.hevc`, and extensionless streams and on an empty `.h265` file; read the subtitle and OPENS WITH.
+- Press Alt+Enter, then Tab and Shift+Tab, with Orca running; repeat from the empty-space menu.
 
 ### browser/properties/media
 
 - Open Properties on a 0-byte `.mp4`, a WAV renamed `.png`, a rotated phone video, and an MP3 with cover art.
 - Close the dialog within 100 ms of opening it on a long video; reopen after rewriting the file externally.
 - Open Properties on `notes.h264`, `empty.h264`, the `.H264` and `.264` copies, and the `.h265` and `.hevc` streams.
+- Open Properties on streams named `.H265` and `.HEVC` and on a truncated `.264` stream.
 
 ### browser/properties/raw-metadata
 
@@ -507,6 +539,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 - Open a file menu in one window, rebind Rename and Copy in Settings → Keyboard from a second window, and read the hints; repeat in 10xer mode and in German.
 - In an admin folder, open the menu on a file, a folder, a mixed multi-selection, and empty space.
+- Copy files in Nautilus, Nemo, and Dolphin, then right-click the Strata pane background and press Ctrl+V; repeat after cutting.
 
 ### browser/directory-monitoring
 
@@ -527,6 +560,14 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Drop a file onto a folder shown in two windows, one in Columns with sizes off and one in List; turn sizes on afterwards.
 - Merge a same-named folder over one with open subfolders, then undo the merge; read every count in the open columns.
 - Drop a file onto a folder in the `100000` fixture while its parent is still loading, and onto an `sftp://` folder.
+- With `mon/b/c` open in Columns, rename `mon`, then `mon/b`, from a shell with no change inside `c`; press F5 after each.
+- Rename an open folder's ancestor on sshfs and on an exFAT stick, then create a folder at the old path and add a file to it.
+- Rename an ancestor while a large copy runs on the same mount, then touch a file in the open folder.
+- Rename an ancestor of an open folder that is a bind mount point, then touch a file inside it.
+- Copy a 2 GiB file into an open folder on tmpfs, ext4, and an NFS or SMB mount, in each mode. Read every row the view shows during the copy.
+- With Trash unavailable, paste Replace onto a same-named file in an open folder on tmpfs, vfat, NFS, and an sshfs mount, in each mode. Read the row, size, and date without F5.
+- Repeat that Replace with the replaced file selected, with a filter active, and with a second tab open on the same folder.
+- With the folder open in two tabs and a filter matching the file, swap it with `RENAME_EXCHANGE` from a shell, then delete it at once.
 
 ### browser/directory-monitoring/network-checks
 
@@ -585,6 +626,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Leave a tab with focus on a breadcrumb, the header search button, a 10xer footer prompt, and the update notice; return by click and by Ctrl+Tab.
 - Leave a tab from a preview audio timeline and from a sidebar pin, then close that pane in a third tab before returning.
 - Restore 5 tabs and visit each by click, then by Ctrl+Shift+<n>, before and after their listings finish loading.
+- Open in New Tab an `sftp://` location that times out; switch tabs and back before it fails, and read the tab and title.
+- Open tabs at `smb://host/`, a share named `Ünïcødé`, `sftp://[::1]:2222/`, a camera, and `admin:///`; compare tab, title, heading, and breadcrumb.
 
 ### browser/tabs/session-restore
 
