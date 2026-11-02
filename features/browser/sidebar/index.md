@@ -40,6 +40,10 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Right-clicking Home, Network, or a standard folder offers Unpin and Properties; Unpin hides the place and turns its chip off. lgse/strata#1025
 - The Trash row's menu offers Unpin and Properties, plus Empty Trash… only while Trash holds items. lgse/strata#1025
 - Right-clicking Recent offers Open in New Tab, Unpin, and Properties; Unpin hides Recent and turns its chip off. lgse/strata#1831 (unverified)
+- With nothing pinned, the sidebar shows no PINNED heading, separator, or gap, in a browser window and in the file chooser. lgse/strata#1726
+- With nothing pinned, the PINNED section stays hidden after every rail sync: first paint, and switching between full, rail, and hidden. lgse/strata#2026
+- With nothing pinned, dragging files or folders over the sidebar shows the empty PINNED section; leaving the sidebar hides it again. lgse/strata#1726, lgse/strata#2026
+- In the icon rail, the empty PINNED section's heading stays hidden during that drag. lgse/strata#2026 (unverified)
 
 ### Opening in a new tab
 
@@ -77,8 +81,15 @@ The left panel of every browser window and the file chooser: built-in places, th
 ### Collapsible sections
 
 - Clicking the PINNED or DEVICES heading in the full sidebar folds that section's rows away; clicking it again shows them. lgse/strata#1389, lgse/strata#1390
-- The heading's chevron points right while the section is collapsed and down while it is expanded. lgse/strata#1390 (unverified)
-- A collapsed heading shows a count badge; an expanded heading shows none. lgse/strata#1390
+- In the full sidebar, each heading shows, left to right, its title, a thin rule filling the width, the count while collapsed, and a chevron at the right edge. lgse/strata#1992
+- The heading's chevron points down while the section is expanded and right while it is collapsed. It swaps icons instead of rotating. lgse/strata#1390, lgse/strata#1992
+- The heading's title starts in line with the row icons, and its chevron sits above the device eject buttons. lgse/strata#1992
+- A collapsed heading with at least one row shows a count before the chevron. An expanded heading, or a collapsed DEVICES with no rows, shows none. lgse/strata#1390, lgse/strata#1992
+- The heading is 24 px tall with no padding, the same height as a sidebar row. lgse/strata#1992
+- Hovering a heading fills it with the same width and 6 px rounding as a row's hover fill. lgse/strata#1992
+- In the full sidebar, no separator line shows above PINNED or DEVICES; the heading's rule takes its place. The icon rail still draws the separator. lgse/strata#1992
+- Clicking a heading toggles its section without taking focus or showing an accent outline, so keyboard focus stays in the file listing. lgse/strata#1992
+- A heading focused from the keyboard shows its accent outline. lgse/strata#1992
 - The badge counts every row in the section: with 3 pins and the open pin still shown, it reads `3`. lgse/strata#1390 (unverified)
 - Collapsing PINNED with a first, middle, or last pin open folds the other pins and leaves the open pin directly under the heading. lgse/strata#1389, lgse/strata#1390
 - Expanding PINNED returns the open pin to its original slot, and the pin stays visible throughout the animation. lgse/strata#1390
@@ -131,12 +142,16 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Collapsing does not renumber `g 1..9` or pin keycaps, matching a sidebar hidden with Ctrl+B. Renumbering visible pins mislabelled keycaps ([comment](https://github.com/lgse/strata/pull/1390#issuecomment-6548977252)).
 - The icon rail has no headings, so a section collapsed there would have no rows and no way to expand ([comment](https://github.com/lgse/strata/pull/1390#issuecomment-6548977252)).
 - Headings carry no tooltip because tooltips are kept for icon-only buttons; the count is the accessible description instead ([comment](https://github.com/lgse/strata/pull/1390#issuecomment-6548977252)).
+- Section chevrons swap between a down and a right icon instead of rotating. A CSS-rotated icon is not pixel-snapped, so under GL rendering and fractional scaling it drifted off the eject column (lgse/strata#1992).
+- Each heading's rule replaces the separator above its section, following the inline-divider direction in [comment](https://github.com/lgse/strata/issues/1991#issuecomment-6565416607). The rail hides the headings, so it keeps the separator (lgse/strata#1992).
 - The selected row uses a direct accent tint because tinting the existing highlight token stayed too faint on dark themes (lgse/strata#104, lgse/strata#106).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Re-hid the empty PINNED section after each rail sync, so no heading shows when nothing is pinned. |
+| 2026-11-02 | lgse/strata#1992 | fix | Restyled PINNED and DEVICES headers as row-height inline dividers with a trailing chevron, and stopped clicks taking focus. |
 | 2026-10-31 | lgse/strata#1390 | feat | Made PINNED and DEVICES collapsible, saved across windows, with the open pin kept under PINNED. |
 | 2026-10-29 | lgse/strata#1909 | fix | Made sidebar hover a neutral tint, so a hovered old place no longer looks like a second selected row. |
 | 2026-10-17 | lgse/strata#1726 | feat | Added Connect to server… to the Network row's menu, with an address field and an optional pin, so network locations can be added without typing in the location bar. |

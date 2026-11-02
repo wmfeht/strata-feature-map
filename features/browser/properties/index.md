@@ -23,6 +23,7 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - Alt+Enter with one item selected opens Properties for the focused item. lgse/strata#1130
 - Properties in the empty-space menu opens the dialog for the current folder. lgse/strata#558
 - In Recent, the current-folder Properties dialog never opens. lgse/strata#1083 (unverified)
+- Properties opens with focus on its first named control, "Close dialog", not on the dialog layer. lgse/strata#2030
 - Escape, the Close button, or a click on the backdrop closes the dialog. lgse/strata#107
 - Closing the dialog returns focus to the previously focused item with its selection kept. lgse/strata#175, lgse/strata#666 (unverified)
 - When the window is too narrow for the dialog, the actions stack vertically and the execute checkbox reads "Executable (+x)". lgse/strata#1155 (unverified)
@@ -33,6 +34,8 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - MODIFIED never shows a relative time. With Relative set it reads, in English, "Sep 1, 2026, 2:30 PM"; with ISO 8601 or Long set it uses that format. lgse/strata#1264 (unverified)
 - OPENS WITH shows the default application for the item's content type, or "—" when there is none. lgse/strata#398 (unverified)
 - For a `.md`, `.py`, or `.json` file on a GVfs SMB share, the subtitle and OPENS WITH show its type description and default application. lgse/strata#1944, lgse/strata#1955
+- For a file sniffed only as `application/octet-stream`, the subtitle and OPENS WITH follow the type its name implies. A raw `.h264` stream reads as `video/h264`, not "Unknown". lgse/strata#2030
+- A byte-backed sniff still wins over the name, so a text file named `.h264` shows as text. lgse/strata#2030
 - HIDDEN reads "Yes" for an item GIO reports as hidden, such as a dot-file, and "No" otherwise. lgse/strata#398 (unverified)
 - PINNED reads "Yes" when the location is pinned in the sidebar. lgse/strata#457 (unverified)
 
@@ -72,6 +75,7 @@ The dialog is a modal layer over the blurred window, built once and filled in by
 - Permission edits are optimistic: the grid updates at once and rolls back with an error dialog if GIO rejects `unix::mode`. One change runs at a time (lgse/strata#243).
 - The bits stay plain buttons with the toggle-button role, so GTK cannot flip their pressed state before the asynchronous chmod finishes (lgse/strata#1467).
 - Lists may show relative dates, but Properties always shows an absolute Modified timestamp (lgse/strata#1264). The formats belong to `settings/preferences/date-format`.
+- A content sniff that only says "binary" defers to the file name, so Properties agrees with the preview for formats the MIME database lacks. A byte-backed type wins (lgse/strata#1901, lgse/strata#2030).
 - Narrow or scaled windows constrain the dialog to the available space, so actions stack rather than overflow (lgse/strata#1155).
 - Permissions, Rename, and media details stay single-item; two or more selected items get the compact summary in `browser/properties/size` (lgse/strata#1099).
 

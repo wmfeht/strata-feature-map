@@ -3,8 +3,8 @@ title: Launched-program GDK_DEBUG restore
 status: shipped
 origin: {issue: lgse/strata#1810, pr: lgse/strata#1811}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/child_environment.rs]
 tests: [src/child_environment/tests.rs]
 related: [app/infrastructure, integration/open-with, integration/open-with/terminal, browser/context-menu, operations/progress/jobs, remote/file-providers/external, settings/preferences, preview/preview-panel/documents]
@@ -12,7 +12,7 @@ related: [app/infrastructure, integration/open-with, integration/open-with/termi
 
 ## Summary
 
-A Strata that D-Bus activated for FileManager1 runs with `no-portals` added to `GDK_DEBUG` (see `app/infrastructure`). This node gives programs launched from that process the original `GDK_DEBUG` back, so their own portals keep working.
+A Strata that D-Bus activated for FileManager1, or started as the FileChooser backend with `strata --portal`, runs with `no-portals` added to `GDK_DEBUG` (see `app/infrastructure`). This node gives programs launched from that process the original `GDK_DEBUG` back, so their own portals keep working.
 
 ## Behavior
 

@@ -96,6 +96,9 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - The notice clears as soon as a request on that mount answers. lgse/strata#1729
 - The notice has the accessible role status. lgse/strata#1729 (unverified)
 - In List and Icons, a folder load refused for lack of permission shows "Unable to read this directory" and the reason. Where GIO supports `admin`, an Open as Administrator button sits under it. lgse/strata#1837
+- In List and Icons, a folder whose load fails shows a Retry button under the reason, below Open as Administrator where that is offered. An empty folder shows no Retry. lgse/strata#2030
+- Clicking Retry reloads the folder; one made readable again lists its entries. lgse/strata#2030
+- The folder-error Retry and Open as Administrator buttons, in every view, use the themed secondary-button style with hover, active, focus, and disabled states, not GTK's default white button. lgse/strata#2030
 - Clicking that button opens the folder's `admin://` form. lgse/strata#1837
 - In an `admin://` folder, a lock notice reading "Browsing as administrator. New items belong to root, and deleted items skip Trash." shows above the List and Icons listings. lgse/strata#1837
 - Long filenames are middle-ellipsized in Columns rows and headings, Icons captions, and the List Name column, so the extension stays visible. lgse/strata#1143
@@ -122,6 +125,7 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Offered Retry on unreadable List and Icons folders, themed Retry and Open as Administrator, and closed deeper columns on any plain file click. |
 | 2026-10-27 | lgse/strata#1900 | fix | Cancelled a List heading drag on Escape without saving an order or clearing the selection, and dropped cursor refocus work a newer focus superseded. |
 | 2026-10-25 | lgse/strata#1890 | fix | Dropped stale deferred cursor restores in `browser_modes` once a newer cursor supersedes them, so arrow keys work after a rename re-sorts List. |
 | 2026-10-23 | lgse/strata#1800 | feat | Previewed List heading drags with an insertion line and applied the column move once, on release. |

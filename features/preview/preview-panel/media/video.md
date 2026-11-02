@@ -3,8 +3,8 @@ title: Video previews
 status: shipped
 origin: {issue: lgse/strata#1417, pr: lgse/strata#1474}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/preview/video.rs, src/ui/preview/video, src/media/storyboard.rs, src/media/storyboard, src/ui/media/ambient.rs, src/ui/media/ambient]
 tests: [src/ui/preview/tests/video.rs, src/ui/preview/video/badges/tests.rs, src/ui/preview/video/details/tests.rs, src/ui/preview/video/storyboard/tests.rs, src/media/storyboard/tests.rs, src/ui/media/ambient/tests.rs, src/ui/window/tests/keyboard_dispatch/video_clips.rs, tests/qa/scenarios/preview_video]
 related: [preview/preview-panel/media/audio, browser/properties, integration/open-with, settings/themes]
@@ -27,7 +27,7 @@ The now-playing view for video files: the frame, a header with technical badges,
 
 ### Header and badges
 
-- The header shows the file's position among the listing's videos, such as "2 of 5 in folder", or "in results" while search results replace the listing. lgse/strata#1474
+- The header shows the file's position among the listing's videos, such as "2 of 5 in folder", or "in results" while search results replace the listing. Local files named as video but holding text are not counted. lgse/strata#1474, lgse/strata#2026
 - A playback error shows its title and detail inside the view; play is disabled and previous and next stay usable. lgse/strata#1474
 - Badges under the title show resolution class (SD to 8K), HDR10 or HLG, bit depth, rounded frame rate, video codec, and audio codec with channel layout. lgse/strata#1474
 - A captions badge, "CC" or "CC ×N", counts embedded subtitle tracks plus `srt`, `vtt`, `ass`, `ssa`, or `sub` sidecars named after the video, such as `clip.en.vtt`. lgse/strata#1474
@@ -44,7 +44,7 @@ The now-playing view for video files: the frame, a header with technical badges,
 
 ### Stepping and handoff
 
-- Previous and next, Ctrl+Alt+`<` and Ctrl+Alt+`>`, or `<` and `>` in 10xer mode step to the previous or next video, skipping audio files. lgse/strata#1474
+- Previous and next, Ctrl+Alt+`<` and Ctrl+Alt+`>`, or `<` and `>` in 10xer mode step to the previous or next video, skipping audio files and local files whose content is not video. lgse/strata#1474, lgse/strata#2026
 - Enter, the header's Open button, or activating the file in the listing pauses the preview and opens the default player. lgse/strata#1474
 - mpv, VLC, Celluloid, and MPlayer start at the preview's position; other players, and positions within 1 s of either end, open the file plainly. lgse/strata#1474
 - A video double-clicked while its preview is loading stays paused when the preview lands; moving to another file or pressing play lifts the hold. lgse/strata#1474

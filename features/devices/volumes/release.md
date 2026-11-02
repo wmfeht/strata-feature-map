@@ -3,17 +3,17 @@ title: Unmount and eject
 status: shipped
 origin: {issue: lgse/strata#295, pr: lgse/strata#296}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
-code: [src/ui/window/device_release.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/window/device_release.rs, src/ui/window/device_release/**, src/ui/window/device_actions.rs]
 tests: [src/ui/window/device_release/tests.rs]
-docs: [docs/filesystem-compatibility.md]
+docs: [docs/filesystem-compatibility.md, docs/remote-sftp.md]
 related: [operations/clipboard, operations/filesystem-compatibility/open-files, remote/file-providers/network-locations, app/accessibility]
 ---
 
 ## Summary
 
-Safely removing a device from its Devices row: Eject or Unmount flushes pending writes, releases the device through GIO, and says when it is safe to unplug. Lock on an encrypted volume reuses the same release path.
+Safely removing a device from its Devices row: Eject or Unmount flushes pending writes, releases the device through GIO, and says when it is safe to unplug. Lock on an encrypted volume reuses the same release path, and a network share's Disconnect reuses its leave-and-return step.
 
 ## Behavior
 
@@ -27,14 +27,14 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 ### Releasing
 
-- Eject or Unmount while browsing inside the device navigates the pane Home before the flush starts. lgse/strata#296, lgse/strata#1193
-- Unmounting or ejecting an SFTP or other non-SMB remote mount from its DEVICES row while browsing inside it also sends the pane Home. lgse/strata#352, lgse/strata#296
+- Eject or Unmount sends every window, tab, and file chooser browsing inside the device Home before the flush starts. lgse/strata#296, lgse/strata#1193, lgse/strata#2030
+- A window or tab browsing outside the device keeps its folder. lgse/strata#2030 (unverified)
 - Before the flush, Strata releases its own reads under the mount root, as file operations do. lgse/strata#1729
 - Unmount or Eject while the preview reads a file on the device does not fail as busy. lgse/strata#1729
 - Strata runs `syncfs` on the mount root off the GTK thread, then calls the GIO eject or unmount. lgse/strata#1193
 - If the flush fails, GIO is not called and "Unable to eject device" or "Unable to unmount device" shows the error. lgse/strata#1193 (unverified)
-- If the flush or GIO call fails while the volume is still mounted, the pane returns to the folder it left. lgse/strata#1193
-- That return is skipped when the user navigated elsewhere after the pane went Home. lgse/strata#1193 (unverified)
+- If the flush or GIO call fails while the volume is still mounted, each window and tab that left returns to its folder. lgse/strata#1193, lgse/strata#2030
+- A window or tab the user navigated elsewhere after it went Home does not return. lgse/strata#1193, lgse/strata#2030 (unverified)
 - After 350 ms an "Ejecting" or "Unmounting" overlay shows "Writing data to the drive. Do not unplug it. You can hide this and keep working." lgse/strata#1193 (unverified)
 - Hide, Close, and Escape dismiss the overlay without cancelling the release. lgse/strata#1193
 - Until the release finishes, the row stays in Devices, insensitive, with a spinner, even after GIO drops the device. lgse/strata#1193
@@ -48,9 +48,18 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 - When an eject, or an unmount of a removable drive, succeeds with the overlay open, it retitles to "Safe to remove" with "NAME can be unplugged." and a Close button. lgse/strata#1193
 - A successful unmount of non-removable storage closes the overlay without "Safe to remove". lgse/strata#1193
+- With a saved Strata label, the release overlay and its "NAME can be unplugged." notice name the device by that label. lgse/strata#2030
 - A release cancelled in the authentication dialog shows no error dialog. lgse/strata#296
 - A GIO `FailedHandled` error, or one whose message contains "aborted", also shows no error dialog. lgse/strata#296 (unverified)
 - Any other GIO failure shows "Unable to eject device" or "Unable to unmount device" with the error and the last progress message. lgse/strata#296, lgse/strata#1193 (unverified)
+
+### Disconnect
+
+- A network share row's Disconnect sends every window and tab browsing inside the share Home, then unmounts it. lgse/strata#31, lgse/strata#352, lgse/strata#2030
+- If the unmount fails or is cancelled and GIO still lists the share, each window and tab returns to where it was, unless moved since. lgse/strata#2030
+- Cancelling GVfs's own busy dialog during Disconnect shows no "Unable to disconnect" dialog. lgse/strata#2030
+- Any other Disconnect failure, except a cancel or a message containing "aborted", shows "Unable to disconnect" with the error. lgse/strata#31, lgse/strata#2030 (unverified)
+- A second Disconnect on the same row while one runs is ignored, not queued. lgse/strata#2030
 
 ## Design
 
@@ -58,6 +67,8 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - A user unmounted an NTFS stick the moment its row vanished and lost a folder still in the page cache (lgse/strata#1182). Release therefore flushes with `syncfs` before GIO and keeps the row pending until GIO resolves, as GNOME Files does.
 - The pane leaves the volume before the flush so its directory monitors close and do not hold the mount busy (lgse/strata#1193).
 - Strata's own reads under the mount root are released before the flush. An open file makes the unmount fail as busy, and a sandbox that binds a file keeps the filesystem mounted inside it (lgse/strata#1729).
+- Every sidebar registers its browser, so a release moves every window, tab, and file chooser off the device, not only the pane that pressed Eject (lgse/strata#2015, lgse/strata#2030).
+- Disconnect follows the same rule: [docs/remote-sftp.md](https://github.com/lgse/strata/blob/bae71c026b94e109b7507c4fe895c3ceed642f8f/docs/remote-sftp.md) "Disconnecting" describes the leave and the return. GVfs reports a dismissed busy dialog as `FailedHandled`, so the release's quiet rule covers it (lgse/strata#2030).
 - The flush runs through `gio::spawn_blocking`, because even opening a stalled mount must not block the UI thread (lgse/strata#1193).
 - "Safe to remove" requires Eject, or a drive that is removable, media-removable, or ejectable. Lock and fixed-disk unmounts never claim it (lgse/strata#1193).
 - The copy-side flush from the same PR, "Writing to device…" before a copy to removable media reports success, belongs to the transfer operations (lgse/strata#1193).
@@ -66,6 +77,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Moved every window and tab off a released device or disconnected share, returning them if it stays mounted. |
 | 2026-09-23 | lgse/strata#1199 | fix | Tinted the pending release spinner with the theme accent to match the eject button. |
 | 2026-09-23 | lgse/strata#1193 | feat | Flushed with `syncfs` before unmount or eject and kept the row pending until GIO finished, after a data-loss report. |
 | 2026-09-04 | lgse/strata#296 | feat | Added the eject button and Eject/Unmount menu entries for removable media, hidden on fixed disks. |

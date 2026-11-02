@@ -1,19 +1,19 @@
 ---
 title: Preview sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones and zoom, and comic and EPUB covers. PDF text selection is its own child. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Its scrollbar child covers the document-position thumb and momentum. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover STL, 3MF, and FreeCAD rendering, embedded thumbnails, model limits, the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
+Everything the drawer shows for a selected file and how it gets there. The preview panel: which files preview, text, images, PDFs including password-protected ones, and comic and EPUB covers. PDF pages, zoom, and text selection are their own child. G-code covers embedded slicer thumbnails. Routes cover GPX, FIT, and KML playback, the elevation profile, and units. Layout covers width, the divider and resize edge, drawer motion, the reserved Columns slot, the shared right pane, and narrow windows. Documents covers Markdown, HTML, RTF, CSV, TSV, workbooks, DOCX, ODT, tables, images, diagrams, equations, and text selection. Its scrollbar child covers the document-position thumb and momentum. Find covers searching the open preview. Media covers the sandboxed player, autoplay, seeking, media keys, limits, and hardware backends, with the audio and video now-playing views. Model views cover STL, 3MF, and FreeCAD rendering, embedded thumbnails, model limits, the camera controls, orbit indicator, and mesh badges. Sandbox covers bubblewrap launch, trusted helper directories, launch-time runtime paths, limits, decoding fallbacks, output validation, the orphaned output-folder sweep, and the preview pool. Quick preview: Space, the menu item, single-click previews, selection following, filter results, and key ownership. Its child folder peek is the hover popover.
 
 Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, archive member listing and the archive preview, and preview keys in 10xer mode. Also media runtime packaging and launch dependencies, the Settings pages as controls, and mounting the remote locations that remote previews read.
 
 ## Setup
 
 - Image samples under `/tmp` from ImageMagick: a 200 MP PNG (`magick -size 20000x10000 xc:gray`) and one with an EXIF thumbnail. Also a 12 MP ICC-profiled JPEG and an animated GIF over 30 s.
-- Media samples from ffmpeg: a 4K HEVC 10-bit MP4 with chapters and two subtitle streams, an MP4 with `-vn`, one with `-an`, and a bare `.h264` stream. Copy the raw stream as `.H264`, `.264`, `clip.h264.txt`, and with no extension; encode an HEVC stream with `-c:v libx265` as `.h265` and `.hevc`. Put plain text in `notes.h264`. Also a VFR clip, 3.9 s and 4.1 s clips, a 2-hour FLAC, and a truncated faststart MP4 (`head -c`).
+- Media samples from ffmpeg: a 4K HEVC 10-bit MP4 with chapters and two subtitle streams, an MP4 with `-vn`, one with `-an`, and a bare `.h264` stream. Copy the raw stream as `.H264`, `.264`, `clip.h264.txt`, and with no extension; encode an HEVC stream with `-c:v libx265` as `.h265`, `.265`, `.hevc`, and `.HEVC`. Put plain text in `notes.h264` and `notes.hevc`. Also a VFR clip, 3.9 s and 4.1 s clips, a 2-hour FLAC, and a truncated faststart MP4 (`head -c`).
 - Byte-sniffing samples: an MPEG-TS clip (`ffmpeg -f lavfi -i testsrc2=duration=3 -f mpegts recording.ts`) and TypeScript as `app.ts` and `Component.tsx`. Also a UTF-16 BE text file with and without a BOM, and text files named `.xlsx` and `.odt`.
 - RAW samples: a lossless compressed Fuji X-T5 `.RAF`, a Pentax portrait `.DNG`, a GoPro `.GPR`, and an uppercase `.ARQ`. Also a JPEG panorama over 134 MP (`magick -size 42374x10529 xc:gray pano.jpg`) with and without a small EXIF thumbnail. Hide `dcraw`, `simple_dcraw`, and ImageMagick in turn by bind-mounting `/dev/null` over them inside `unshare -rm`.
 - Model samples: a binary STL, a one-triangle ASCII STL, and an STL just under 2 million triangles. Also a geometry-only 3MF, a 3MF with one embedded PNG, one with two, and a FreeCAD file with and without a thumbnail. Pad an STL to 128 MiB and to 128 MiB plus one byte.
@@ -47,17 +47,13 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview `report.odt`, `report.ott`, and `REPORT.ODT` from a remote mount.
 - Open the 5,000-character ODT paragraph in one window, then toggle wrap 10 times from a text preview in a second window.
 - Select each lying-extension sample; nothing may render as the extension claims, and the ELF named `notes.txt` must not be executed or previewed as a binary dump.
-- Open the 2000-page PDF, press End, scroll back fast, then Ctrl+A and Ctrl+C.
 - Toggle word wrap on the 20 MiB single-line file in one window while the other shows the 2 MiB text file; check the 1 MiB cap in both.
 - Preview the 200 MP PNG with and without an EXIF thumbnail, and a CBZ whose first entry is a folder.
 - In a 600-line `.rs` preview and a plain-text file with a 2 KiB line, type letters, Backspace, Ctrl+V, and Ctrl+X.
 - In the same files, press Shift+Down past the last line, then Ctrl+C.
-- Zoom a PDF to 3× with Ctrl+wheel, then press Ctrl+keypad 0 with Num Lock on and off, and Ctrl+Shift+0.
 - Preview the UTF-16 BE samples with and without a BOM, and the text named `.xlsx`.
 - Preview a Latin-1 file whose control bytes are just over 1 in 32, and one just under.
 - Preview MP4 and Ogg bytes named `.txt` and `.md`.
-- Arm a 10xer chord, then press Ctrl+0 in a zoomed PDF in the main window.
-- Ctrl+wheel with a touchpad over a PDF's scrollbar, on X11 and on Wayland.
 - With a preview open, toggle 10xer mode from a second window, then read the close button's tooltip and accessible name in Accerciser.
 - Preview the `.GPR` and `.ARQ` samples from a local folder and from an sftp mount.
 - Play a song from a folder on the network mount, reached once directly and once through a symlinked folder; rename the folder from a second window, then Shift+Delete it.
@@ -66,13 +62,17 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview `password-protected.pdf` from an sftp mount, and its RC4 copy.
 - Preview the text G-code without a thumbnail and a `.bgcode` from an sftp mount.
 - With a model in one window and a route in another, narrow both until their previews hide, change the theme twice, then widen both.
-- Dump the media bar in a playing video and in an audio preview, which the naming scenarios skip.
 - Preview the raw stream copies and `notes.h264`, on a host whose MIME database types `.h264` as video and on one that types it `application/octet-stream`.
 - Open the item menu on the `.H264`, `.hevc`, and `clip.h264.txt` copies and on `notes.h264`; compare Quick preview with what each preview shows.
 - Preview the `.h264` stream from an sftp mount.
+- Preview the `.265`, `.HEVC`, and `notes.hevc` samples on a host whose MIME database types them `application/octet-stream`, then the extensionless copy.
 
 ### preview/preview-panel/pdf
 
+- Open the 2000-page PDF, press End, scroll back fast, then Ctrl+A and Ctrl+C.
+- Zoom a PDF to 3× with Ctrl+wheel, then press Ctrl+keypad 0 with Num Lock on and off, and Ctrl+Shift+0.
+- Arm a 10xer chord, then press Ctrl+0 in a zoomed PDF in the main window.
+- Ctrl+wheel with a touchpad over a PDF's scrollbar, on X11 and on Wayland.
 - In a PDF, press Ctrl+A then Ctrl+C on the `ru` layout and with Caps Lock on.
 - Select from page 1 to page 3 of the 2000-page PDF, scroll to page 1500, then press Ctrl+C.
 - Double-click, then drag across a page break; triple-click the last line of a page that has no trailing line break.
@@ -168,6 +168,13 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Press Page Up/Down and Home/End on an animated GIF, a file with no reported duration, and the truncated MP4.
 - Scroll the fallback seek slider with a touchpad.
 - Play a song with `~/.cache/gstreamer-1.0` removed, then with the sound server stopped mid-play.
+- Dump the media bar in a playing video and in an audio preview, which the naming scenarios skip.
+- In a local folder of 300 videos with text named `.mp4` at both ends, preview the middle file and step to each end before the checks reach it.
+- Step through videos on the NFS mount while a slow copy keeps it busy, then while the mount is stalled; step again after the copy ends.
+- Close the preview, and separately select a PDF, while the checks of a large folder are still running; compare the fd count with the baseline.
+- Preview the text `fake.mp4` itself, then step away and back.
+- Overwrite `fake.mp4` with a real MP4 while a sibling video is shown, then step.
+- Step through an sftp folder holding text named `.mp4`, and through a folder mixing GPX routes with videos.
 
 ### preview/preview-panel/media/audio
 
@@ -268,6 +275,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 
 - Thumbnails in the listing, including STL model and G-code thumbnails, and the thumbnail worker pool → `browser`.
 - The RAW extension list, including `.ptx` and `.crf` → `browser`.
+- Properties Kind, OPENS WITH, and MEDIA rows for raw `.264`, `.h265`, `.265`, and `.hevc` streams → `browser`.
+- The listing icon raw video streams get → `settings`.
+- The request lanes and stall rule that sequence checks share with other mount work → `app`.
 - Header toggle steps, a chosen rail, and a sidebar stepped to full in a short window → `browser`.
 - Columns keyboard mirroring, including whether Up or Down onto a file opens a preview → `browser`.
 - Selection kept or cleared by clicks on blank preview chrome and disabled preview controls → `browser`.

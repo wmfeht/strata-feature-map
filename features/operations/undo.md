@@ -3,17 +3,17 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: []
-tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/app/browser/replay/**, src/app/browser/undo/**, src/adapters/local_operations/undo_move.rs, src/app/browser/operation_events/replay.rs, src/app/browser/replay.rs, src/app/browser/undo.rs, src/ui/browser/transfer/replay.rs]
+tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl, src/adapters/local_operations/tests/undo/**, src/app/browser/tests/undo/**, src/ui/browser/transfer/tests/undo.rs]
 docs: []
 related: [operations/trash, operations/trash/restore, operations/clipboard, operations/clipboard/conflicts, operations/rename, operations/rename/typed-paths, operations/create, operations/archives, operations/progress/dock, app/shortcut-reference, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node.
+One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node; this node owns the replay and the conflict prompt an undo or redo shows.
 
 ## Behavior
 
@@ -46,6 +46,8 @@ One undo history and one redo history for file operations, shared by every Strat
 - A move undo starts from where each item landed, such as a Keep Both number or a fixed name. lgse/strata#1615 (unverified)
 - A move whose entries partly stayed at the source leaves that item out of its undo, and the report names it. lgse/strata#1615
 - Undoing a cross-volume move deletes the moved items only once their copies back are flushed. lgse/strata#1615 (unverified)
+- When undoing a move finds an original name taken, the dialog offers Replace and Skip but not Keep Both or Merge. lgse/strata#301, lgse/strata#708
+- Skipping one item while undoing a multi-item move still returns the others and leaves the new occupant intact. lgse/strata#708
 
 ### Restore
 
@@ -101,4 +103,4 @@ Undo targets the latest reversible operation process-wide, matching common file 
 
 ## Known gaps
 
-None known.
+- The undo and redo conflict prompt can still offer Replace where a file meets a folder; its existence check does not report the item's kind. lgse/strata#2030

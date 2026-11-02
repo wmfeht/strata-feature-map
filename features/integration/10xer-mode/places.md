@@ -3,8 +3,8 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs, tests/qa/scenarios/sidebar_pinning/tenxer-pin-feedback-identifies-slot.jsonl]
 related: [browser/sidebar, browser/navigation, app/keyboard-shortcuts]
@@ -70,6 +70,7 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - In `go ›`, `move to ›`, `copy to ›`, and `extract to ›`, typing lists up to 100 matching folders below the open folder. lgse/strata#1403
 - A folder the whole query names exactly, by path and then by name, is listed first. lgse/strata#1403
 - Text starting with `/`, `~`, `./`, or `../` searches below the folder it names, and the rest is the query, so `~/dev/str` searches `~/dev`. lgse/strata#1403
+- Text starting with `~//` searches below home, as `~/` does. `~//x` never lists `/usr` or `/etc`, and `copy to › ~//zzqa` with no `zzqa*` folder in home copies nothing. lgse/strata#2026
 - A typed path ending in `/`, such as `/etc/`, lists that folder first, then the folders below it, most visited first and then shallowest. lgse/strata#1403
 - A search below a typed path starts once typing pauses. lgse/strata#1403
 - Hidden folders are listed when the listing shows hidden files or a query term starts with `.`, so `.alc` finds `.alcove`. lgse/strata#1302, lgse/strata#1403 (unverified)
@@ -89,11 +90,13 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 - `z` and `Z` read Strata's saved navigation history, the same as Ctrl+Shift+K, rather than a zoxide database, which is out of scope (lgse/strata#1152, lgse/strata#1304).
 - The fuzzy folder picker replaced Tab folder completion and its `go_completion` module (lgse/strata#1403).
 - Enter waits for a running picker search so a better match found late still wins (lgse/strata#1403).
+- Slashes after `~/` are trimmed before the rest joins home, so repeated slashes collapse as in POSIX paths. Joining an absolute remainder had replaced home with `/` (lgse/strata#1997, lgse/strata#2026).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Trimmed extra slashes after `~/` in the folder picker, so `~//x` searches stay under home. |
 | 2026-10-29 | lgse/strata#1909 | fix | Showed the `g +` flash after the bookmark is saved, so new pins in slots 1–4 show their digit. |
 | 2026-10-11 | lgse/strata#1570 | fix | Shared the folder picker's lexical `.` and `..` resolution with typed location input. |
 | 2026-09-28 | lgse/strata#1304 | feat | Added `z` and `Z` jumps over navigation history and the chord key panel. |

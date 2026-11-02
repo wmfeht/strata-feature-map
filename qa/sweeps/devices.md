@@ -1,12 +1,12 @@
 ---
 title: Devices sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
 ## Scope
 
-Everything the sidebar's Devices section does with a device or mount listed under DEVICES. Discovery and mounting of volumes, mounts, and password drives. Unmount and Eject with the flush, the pending row, and "Safe to remove", including a remote mount released from its DEVICES row. Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails. Which mounted devices Send to… offers, and the drives Ctrl+K searches.
+Everything the sidebar's Devices section does with a device or mount listed under DEVICES. Discovery and mounting of volumes, mounts, and password drives. Unmount and Eject with the flush, the pending row, and "Safe to remove", including the network row and Disconnect of a mounted GVfs share. Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails. Which mounted devices Send to… offers, and the drives Ctrl+K searches.
 
 Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying to a device, device rows as navigation targets, network mounts and their credentials, and the installer's default selection and its `--with-udiskie-unlock` and `--without-udiskie-unlock` flags.
 
@@ -20,7 +20,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - A real PTP camera or iPhone passed through with `-device usb-host`; GVfs gphoto2 mounts only USB devices. Without one, record the camera block as not exercised.
 - `RUST_LOG=debug` beside `journalctl -f -u udisks2`; a GTK critical at any plug, mount, unmount, or unplug event is a finding.
 - A second build made with `STRATA_INTEGRATIONS=package`, copied into the guest beside the default build.
-- `scripts/sftp-fixture.sh --port 2222` with GVfs running, as in `qa/sweeps/remote.md`, for releasing a remote mount from its DEVICES row.
+- `scripts/sftp-fixture.sh --port 2222` with GVfs running, as in `qa/sweeps/remote.md`, for the SFTP share's network row and Disconnect. Mount `davs://` and `afp://` locations too where a server is at hand.
 
 ## Probes
 
@@ -40,6 +40,8 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Clone a stick with `dd` so two carry one UUID, attach both, and open Send to….
 - Send a file to a stick folder through Choose folder…, delete that folder from a shell, and reopen the stick's submenu.
 - Loop-mount an image under `/mnt` and inside a mounted stick, and open an SMB share so it appears under `/run/user/$UID/gvfs`. Search Ctrl+K for a file on each.
+- Mount the SFTP fixture as `SFTP://` in upper case, then `davs://` and `afp://` where reachable, beside an MTP phone and a camera; compare each row's icon and buttons.
+- Read each row's accessible description over AT-SPI for a mounted stick, an unmounted stick, the CD-ROM with a disc, an MTP phone, and the fstab virtio volume.
 
 ### devices/volumes/release
 
@@ -50,7 +52,12 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Attach an ISO as a CD-ROM and a non-removable virtio ext4 disk; release each and compare the closing overlay.
 - Eject while the preview plays audio from the stick, while a PDF preview's sandbox holds a file there, and while Icons thumbnails load; then select a stick file before GIO resolves.
 - Dump the sidebar with a removable drive, expanded and as the rail.
-- Mount the SFTP fixture, browse two levels inside it in one window and at its root in a second. Unmount it from its DEVICES row; repeat with the fixture stopped first.
+- Mount the SFTP fixture, browse two levels inside it in one window and at its root in a second. Disconnect it from its DEVICES row; repeat with the fixture stopped first.
+- Open two windows with two tabs each, two inside the stick, one at its root, and one elsewhere, plus a portal file chooser inside it. Eject from the window browsing elsewhere.
+- Hold the stick busy with a shell, Eject, and navigate one of the windows that went Home before the error shows.
+- Disconnect the SFTP share while a shell sits inside its `/run/user/$UID/gvfs` path; dismiss GVfs's busy dialog, then retry and choose to unmount anyway.
+- Click Disconnect twice quickly on the SFTP row, then open its row menu again while the first unmount runs.
+- Set a Strata label with emoji on a stick, then Eject and Unmount it with the overlay open and hidden.
 
 ### devices/volumes/encrypted
 
@@ -69,6 +76,13 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Start `strata --unlock-volume /dev/sdX` and attach the disk after 5 seconds, then after 9 seconds; repeat with the plain FAT stick's path.
 - Install over no `~/.config/udiskie`, over a commented `config.yml` with its own `event_hook`, and over a symlinked `config.yml`. Repeat over `config.json` only and over both files; diff each restore against the copy.
 - Install twice, then uninstall twice; `udiskie` must still start after each step.
+- Install over a commented `config.yml`, edit one udiskie key by hand, then uninstall; repeat editing only the comments. Diff each against the copy.
+- Install over a hand-indented `config.json` without a trailing newline, then uninstall with and without editing it in between.
+- Install over no `~/.config/udiskie`, add an unrelated file to it, and uninstall; then repeat without adding one.
+- Make udiskie unrestartable by replacing it on `PATH` with a script that exits 1, then press Use Strata and Restore default in Settings; switch pages and return.
+- Run the install and uninstall flags under `LANG=hu_HU.UTF-8`, under `LANGUAGE=de` with `LANG=hu_HU.UTF-8`, and with Strata's saved language set to French.
+- With a Strata window open, run `strata --unlock-volume nonsense` and `strata --unlock-volume /dev/sdX file.txt` from a second terminal; read both terminals and the journal.
+- Start `strata --unlock-volume` for the plain FAT stick with it already mounted, and again from a cold start with Strata closed.
 - With the handler installed and udiskie stopped, attach the LUKS disk; the stick must not automount and the prompt must name that device.
 - Install with the default build, then run the package build's install and uninstall flags; diff `~/.config/udiskie` and `~/.local/share/strata` against the copy.
 - Open Settings → General in the package build on the `arch` guest with `udiskie` removed from `PATH`, then on `omarchy-4`; search Settings for "udiskie" and "encrypted".
@@ -78,6 +92,10 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 
 - Open the row menu on the three-partition disk's unmounted and unformatted partitions, on the CD-ROM with no disc, and on the virtio disk. Note which offer Mount, then mount one from a shell and reopen its menu.
 - Open Properties on each attached device: unmounted and mounted sticks, locked and unlocked LUKS, the CD-ROM, the loop mount, and the virtio disk. Compare Capacity, Used, and Free with `df -B1`.
+- Open Properties from the row menu by keyboard on each of those devices, then press Enter at once; repeat with Space and with Tab then Enter.
+- Compare the Properties release button with the row's eject tooltip on a stick, the SFTP share, the virtio disk, and the CD-ROM.
+- Set a label while Properties is open in a second window, then clear it; watch both subtitles.
+- Add fstab `noauto` entries for the stick as `vfat`, `auto`, `exfat`, and `fuse.sshfs`, and with the type column blank; open Properties unmounted after each.
 - Set label to 255 characters, emoji, RTL text, whitespace only, a pasted tab, and the same text on both same-label sticks. Then relabel one with `fatlabel` from a shell and replug.
 - Delete `mkfs.exfat` only and open Format for each filesystem; then format with a label at the exact limit and a lowercase FAT label.
 - On exFAT, NTFS, and FAT32, type, then paste, labels of emoji, accented Latin, CJK, and a flag sequence, at and past the limit. Paste into the middle of a label. Read the field, the caption, and `lsblk -o LABEL` after formatting.

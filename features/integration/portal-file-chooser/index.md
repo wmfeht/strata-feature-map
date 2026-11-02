@@ -3,12 +3,12 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
-code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/chooser/destination.rs, src/ui/chooser/geometry.rs, src/ui/chooser/layout.rs, src/ui/chooser/options.rs, src/ui/chooser/shortcuts.rs, src/ui/chooser/shortcuts/**, src/ui/chooser/source.rs, src/ui/chooser/state.rs, src/ui/browser/chooser_context.rs]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/acceptance/**, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
-related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access]
+related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access, integration/10xer-mode/file-chooser, browser/navigation/back-history]
 ---
 
 ## Summary
@@ -67,7 +67,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Where every selected item's open folder reports no Trash support but allows deletion, Delete opens the `operations/trash` explained permanent confirmation instead. lgse/strata#1533
 - F5 refreshes, Ctrl+H or Ctrl+. toggles hidden files, and Ctrl+A selects all only in multiple-selection requests. lgse/strata#175 (unverified)
 - With the file view focused and no text field active, F2 or Ctrl+R renames the one selected item. Alt+Enter opens Properties for the focused item. lgse/strata#175, lgse/strata#393 (unverified)
-- The Menu key or Shift+F10 opens the item menu for the focused item, except in a text field or popover. lgse/strata#666 (unverified)
+- The Menu key or Shift+F10 opens the item menu for the focused item, except in a text field, a popover, or on a Back button with history. lgse/strata#666, lgse/strata#2026 (unverified)
 - Ctrl+F opens the filter, Ctrl+L edits the location, and Ctrl+Shift+N creates a folder. lgse/strata#175 (unverified)
 - With the file view focused, Back, Forward, Parent folder, or Home rebound to a Ctrl key runs that jump. An example is `parent_folder = ["<Control>e"]`. lgse/strata#1885
 - In 10xer mode, the chooser reads Parent folder and Home from the 10xer table, and Back and Forward from the default table. lgse/strata#1885 (unverified)
@@ -82,6 +82,13 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - The header close button is named "Cancel file selection (Escape)". lgse/strata#1895 (unverified)
 - Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533
 - With 10xer mode off, the file list is one Tab stop, the whole strip in Columns, and Tab into it lands on the keyboard cursor row. lgse/strata#1431, lgse/strata#1533
+- With 10xer mode on, Tab goes from the files to the header, then to Name, then through the request's options and back to the files. It never reaches Cancel. lgse/strata#1311, lgse/strata#2027
+- The options, in layout order, are the file-type dropdown, the caller's choices, and Open files read-only. With none, Tab from Name returns to the files. lgse/strata#2027
+- With 10xer mode on, a request without Name, such as a folder request, tabs from the header to its first option, or to the files when it has none. lgse/strata#2027
+- With 10xer mode on, Shift+Tab steps back through the options to Name, and Shift+Tab from Name returns to the files. lgse/strata#2027
+- With 10xer mode on and no Name field, Shift+Tab from the first option returns to the files. lgse/strata#2027 (unverified)
+- With 10xer mode on, Name types every key except F1, Ctrl+Shift+M, Esc, Tab, and Shift+Tab. Esc returns to the files and keeps the edit. lgse/strata#1311, lgse/strata#2027
+- With 10xer mode on, the location field types every key except F1, Ctrl+Shift+M, and Esc. lgse/strata#1311 (unverified)
 
 ### Saving
 
@@ -102,6 +109,9 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In a Save request, edited Name text is saved literally, so an edited lossy name keeps its U+FFFD characters; retyping the exact lossy text targets the original file again. lgse/strata#1427, lgse/strata#1533
 - Saving with a file selected in Recent uses that file's containing folder as the destination. lgse/strata#1138
 - Saving over an existing file opens "Replace existing file?" with Cancel focused; Cancel keeps the chooser open and Replace returns the path. lgse/strata#175, lgse/strata#1311
+- A SaveFiles request whose names partly exist names only the existing ones in its replace prompt. With `notes.txt` existing and `new-file.txt` not, it asks "Replace existing file?" about `notes.txt` alone. lgse/strata#2030
+- The SaveFiles prompt reads "Replace existing files?" with a plural warning when two or more names exist. lgse/strata#2030
+- The SaveFiles replace prompt lists at most 3 of the existing names. lgse/strata#2030 (unverified)
 - Saving where a folder of the same name exists fails with "A folder named “name” already exists". lgse/strata#175 (unverified)
 
 ### Accepting
@@ -142,6 +152,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - The stem rule is rename's, so a Save name and a rename select the same part (lgse/strata#1898).
 - `current_file` for a nonexistent file is accepted for Qt interoperability, though the specification describes existing files (lgse/strata#699).
 - The backend is D-Bus activated and exits when idle. A request arriving during shutdown is refused rather than raced (lgse/strata#1200).
+- The idle exit makes cold activation routine. GTK startup queries the portal while the portal waits on the backend's `OpenFile`, so `strata --portal` runs without GTK portals; `app/infrastructure` owns that re-exec (lgse/strata#2023, lgse/strata#2024).
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
 - The chooser's 10xer key map and command allowlist belong to `integration/10xer-mode`.
 - The chooser keeps its sidebar steps for the dialog only and does not save them (lgse/strata#1606).
@@ -151,6 +162,9 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Named only the files that already exist in the SaveFiles replace prompt, with title and warning worded by their count. |
+| 2026-11-02 | lgse/strata#2024 | fix | Re-exec'd `strata --portal` with `no-portals` in `GDK_DEBUG`, so a cold-activated chooser no longer waits 25 s on the portal. |
+| 2026-11-02 | lgse/strata#2027 | fix | Sent 10xer chooser Tab from the name field through the request's options and back to the files, never to Cancel. |
 | 2026-10-27 | lgse/strata#1898 | fix | Selected only the suggested name's stem in Save, at build, on present, and in the idle focus restore, which had selected it whole. |
 | 2026-10-20 | lgse/strata#1786 | fix | Refilled Save names on clicks that keep a file selected, which GTK reports as no selection change. |
 | 2026-10-17 | lgse/strata#1714 | fix | Yielded chooser shortcuts to an open reference and typed Space in the Name and location entries with a hit selected. |

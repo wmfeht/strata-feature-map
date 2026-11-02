@@ -31,6 +31,10 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Pressing a folder does not shift the strip and shift it back before its column takes focus. lgse/strata#1539
 - A column closed with nothing replacing it narrows and fades out over 220 ms. lgse/strata#1513, lgse/strata#1539
 - That close animation covers its X button, Escape, Backspace, and a file click in a parent. lgse/strata#1539 (unverified)
+- A plain click on a file in a parent column selects it and closes the deeper columns, with single-click previews on or off and for files that cannot preview. The breadcrumb then ends at the file's folder. lgse/strata#2030
+- With single-click previews off, that click opens no preview. lgse/strata#2030
+- A press on a file that turns into a drag leaves the deeper columns open, so the file can be dragged into the open column. lgse/strata#2030
+- Ctrl+click and Shift+click on a file leave the deeper columns open. lgse/strata#2030
 - With reduced motion or animations off, a closing column is removed at once. lgse/strata#1539
 - A closing column takes no clicks, hovers, or drops while it leaves. lgse/strata#1539
 - Opening another location, rebuilding the strip, or switching away from Columns replaces the columns with no exit animation. lgse/strata#1539
@@ -56,11 +60,20 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - When the came-from folder is gone, or hidden with hidden files off, the first visible entry is selected once the listing completes. Hidden files stay off and no error shows. lgse/strata#1437, lgse/strata#1544
 - Back to a folder that is not an ancestor selects its first entry. lgse/strata#1437, lgse/strata#1544
 - A sidebar place that is an ancestor of the current folder does not select the came-from folder. lgse/strata#1437 (unverified)
+- When Back leaves ancestor columns with no cursor, Left into an ancestor column puts the cursor on the folder that column has open. F2 and Delete then act on that folder. lgse/strata#1993, lgse/strata#2026
+- If that column is still loading, the cursor lands when it finishes. If the folder is gone or hidden by then, nothing is selected. lgse/strata#2026
+- F2, Delete, copy, cut, and Duplicate fall back to the folder you just entered only in the deepest column. In another column with no cursor, they act on nothing. lgse/strata#2026
 
 ### Refreshing
 
 - F5 keeps focus on a focused row, or in a focused Ctrl+F field, through the reload. lgse/strata#1434, lgse/strata#1544, lgse/strata#1729
 - After a reload removes an open rename field, F2 renames that row again and Menu or Shift+F10 opens its context menu. lgse/strata#1438, lgse/strata#1554
+
+### Renaming
+
+- After renaming a folder whose child column is open, Tab or Shift+Tab opens the editor on the next or previous item with its stem selected. lgse/strata#2002, lgse/strata#2026
+- With Mirror columns selection on, outside a filtered column, the child column follows the item the rename moves to at once, without opening a preview. lgse/strata#2026
+- Otherwise a renamed folder's open column stays open under its new name. lgse/strata#2026
 
 ### Column header
 
@@ -86,6 +99,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - In Columns, moving focus out of the filtered column closes the filter; focus in its own results, a popover, or a dialog keeps it. lgse/strata#896
 - In the file chooser, or while 10xer mode hides the chrome, moving focus out of the filtered column leaves the filter open. lgse/strata#1004, lgse/strata#1267 (unverified)
 - In Columns, a filtered result opens on release, so a press-and-move starts a drag instead. lgse/strata#753
+- With Ctrl+F results showing, dismissing the Shift+Delete confirmation by Escape or a backdrop click returns focus to the result it asked about. Down then moves to the next visible result. lgse/strata#1998, lgse/strata#2026
 
 ### Open-path marker
 
@@ -167,6 +181,9 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Folder counts use the formatter List and Icons share, and Columns asks for them only while the badge is on, saving `read_dir` work. A widened-column redesign was rejected (lgse/strata#1564).
 - A header right-click reuses the column's folder-menu trigger, so header and empty area open one menu with one target folder. It claims the click only on header background, leaving left-button gestures alone (lgse/strata#1942).
 - Letting the folder-menu installer accept extra trigger surfaces was deferred while the header is the only one (lgse/strata#1942).
+- A plain file click ends the open path at its column, as moving the cursor onto the file does. It acts on release, so drags from the file still work (lgse/strata#2016, lgse/strata#2030).
+- After Back, the open folder an ancestor column takes the cursor on has no fallback entry, unlike the came-from folder: a cursor elsewhere would make file commands act on it. A cursor placed meanwhile, a reveal, or a failed load cancels it (lgse/strata#1993, lgse/strata#2026).
+- Closing columns cancels only a rename inside the closed columns, so Tab after a rename still finds its next item (lgse/strata#2002, lgse/strata#2026).
 - Background focus fires on click release and is grouped with marquee selection, so neither gesture swallows the other (lgse/strata#523).
 - Home and End go through Strata's own jump, like Ctrl+Up and Ctrl+Down. GTK's native keys emit only a selection echo the mirror ignores, and mirroring that echo risked the reopen loops lgse/strata#1179 avoided (lgse/strata#1447).
 - Horizontal scroll is routed in the capture phase because nested vertical listings consume horizontal events (lgse/strata#1124).
@@ -178,6 +195,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Put the cursor on an ancestor column's open folder after Back, and kept Tab's next rename editor when a renamed folder's column moves. |
 | 2026-10-31 | lgse/strata#1942 | feat | Opened a column's folder menu from its header, so New Folder and Paste stay reachable when entries fill the column. |
 | 2026-10-25 | lgse/strata#1874 | fix | Closed an open folder's columns and moved the cursor to its visible neighbor on a rename to a hidden name, so F2 works. |
 | 2026-10-15 | lgse/strata#1674 | perf | Faded size badges only on pointer hover and indexed clipboard marks, to cut arrow-key and scroll cost. |
@@ -205,4 +223,6 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 - There is no modifier to resize every visible column at once and no default-width setting. lgse/strata#1112
 - A row passing under the pointer during wheel scrolling still plays the badge's hover fade. lgse/strata#1674
-- With recursive filter results, the modal focus fallback, view switches, and hiding the preview with the mouse still focus GTK's last focused result, not the cursor's. lgse/strata#1611
+- With recursive filter results, view switches and hiding the preview with the mouse still focus GTK's last focused result, not the cursor's. lgse/strata#1611
+- Returning to Columns with an empty selection reopens the child column. Whether the cursor or the selection opens child columns is undecided. lgse/strata#2016
+- During a permanent delete, the child column can stay visible for about one frame, showing "This directory is empty" in a focus ring. lgse/strata#2017

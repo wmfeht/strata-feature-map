@@ -3,23 +3,23 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs]
-tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs, src/adapters/local_operations/paste_plan/**, src/adapters/local_operations/paste.rs, src/adapters/local_operations/paste/item.rs, src/adapters/local_operations/paste_plan.rs, src/ui/browser/transfer/destination_dialog.rs, src/ui/browser/transfer/drop.rs]
+tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl, src/adapters/local_operations/tests/copy/**, src/adapters/local_operations/tests/moves/**, src/adapters/local_operations/tests/naming/**, src/ui/browser/transfer/tests/choose_folder.rs, src/ui/browser/transfer/tests/chosen_destination.rs, src/ui/browser/transfer/tests/destination_reloads.rs, src/ui/browser/transfer/tests/drops.rs, src/ui/browser/transfer/tests/plain_transfers.rs]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…. The copy engine, placement, and name rules behind them belong to `operations/filesystem-compatibility`. It also covers copying paths, names, and pasted images, and the cross-device "Copy or move?" drop prompt. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices) and `operations/clipboard/send-to` (Send to removable devices).
+Copying and cutting files to the system clipboard, pasting them as copies or moves, Duplicate, Move to… and Copy to…. The copy engine, placement, and name rules behind them belong to `operations/filesystem-compatibility`. It also covers copying paths, names, and pasted images, and the cross-device "Copy or move?" drop prompt. The footer's Files on clipboard badge belongs to `app/shortcut-reference`. Children: `operations/clipboard/conflicts` (the "File already exists" dialog and its choices), `operations/clipboard/send-to` (Send to removable devices), and `operations/clipboard/file-manager-formats` (the clipboard formats exchanged with other file managers).
 
 ## Behavior
 
 ### Copy and cut
 
-- Ctrl+C or the item menu's Copy puts the selection on the clipboard as a file list; pasting copies it and leaves the sources in place. lgse/strata#289
+- Ctrl+C or the item menu's Copy puts the selection on the clipboard in the formats `operations/clipboard/file-manager-formats` lists; pasting copies it and leaves the sources in place. lgse/strata#289, lgse/strata#2040
 - Ctrl+X or the item menu's Cut leaves the selection in place until a paste moves it. lgse/strata#289
 - Cut items show a scissors icon in place of their icon or thumbnail and are drawn at 65% opacity, in Columns, Icons, and List. lgse/strata#927, lgse/strata#1018
 - Copied items show a copy icon in place of their icon or thumbnail; scissors wins when both apply. lgse/strata#1306
@@ -102,7 +102,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ## Design
 
-The GDK clipboard carries only a file list with no cut marker. Strata keeps process-wide copy and cut lists, shared by every window, as the source of truth (lgse/strata#289).
+The clipboard carries a cut marker for other applications (`operations/clipboard/file-manager-formats`). Strata keeps process-wide copy and cut lists, shared by every window, as the source of truth for row marks and its own pastes (lgse/strata#289, lgse/strata#2040).
 
 - Cut matching also accepts GIO equality, because a clipboard round trip can return an equivalent URI instead of the stored path (lgse/strata#287).
 - Row marks are read from an index rebuilt whenever the copy or cut lists change, not by comparing every entry on each row bind. `file://` URIs are keyed by native path so both spellings match (lgse/strata#1671, lgse/strata#1674).
@@ -122,6 +122,7 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2040 | fix | Offered and read the GNOME and KDE file-manager clipboard formats, so Nemo, Thunar, and desktop icons paste Strata files and foreign cuts move. |
 | 2026-10-27 | lgse/strata#1900 | fix | Returned keyboard focus to the listing when the cross-device "Copy or move?" prompt closes. |
 | 2026-10-15 | lgse/strata#1626 | fix | Escaped non-UTF-8 path bytes with ANSI-C quoting so copied paths name the real file. |
 | 2026-10-09 | lgse/strata#1537 | fix | Rejected self-nesting moves that reach the source through a symlink alias. |
@@ -150,6 +151,5 @@ The GDK clipboard carries only a file list with no cut marker. Strata keeps proc
 
 ## Known gaps
 
-- Cut intent is not exchanged through `x-special/gnome-copied-files`, so cuts between Strata and other file managers paste as copies. lgse/strata#289
 - A failed image paste, such as into a read-only folder, shows no error; it is only logged. lgse/strata#1547, https://github.com/lgse/strata/pull/1547#issuecomment-6550108216
 - Row marks treat a `file://` URI and its native path as equal, but not other equivalent spellings of a non-`file://` URI. lgse/strata#1674

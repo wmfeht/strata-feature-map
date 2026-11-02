@@ -3,26 +3,30 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs]
-tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch]
-related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers, app/infrastructure]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs, src/adapters/local_operations/replacement/**, src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
+tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, src/adapters/local_operations/tests/conflicts/**, src/adapters/local_operations/tests/merge/**, src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs]
+related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers, app/infrastructure, operations/undo]
 ---
 
 ## Summary
 
-The "File already exists" dialog shown when a paste, Move to…, Copy to…, or move undo meets a taken name. It covers the Replace, Keep Both, Merge, and Skip transfers behind the dialog and their undo.
+The "File already exists" dialog shown when a paste, Move to…, or Copy to… meets a taken name. It covers the Replace, Keep Both, Merge, and Skip transfers behind the dialog and their undo. The prompt an undo or redo shows belongs to `operations/undo`.
 
 ## Behavior
 
 ### Dialog
 
 - Pasting into a folder that already holds an item of the same name opens "File already exists", naming the item and the folder. lgse/strata#708
-- When Ctrl+V, a drop, or Move to… opens the dialog, Replace has focus. Enter or keypad Enter activates the focused button. lgse/strata#1206, lgse/strata#1052
+- When Ctrl+V, a drop, or Move to… opens the dialog, Replace has focus where it is offered. Enter or keypad Enter activates the focused button. lgse/strata#1206, lgse/strata#1052, lgse/strata#2030
 - Cancel, Escape, and the header X abandon the whole paste, and no file is written. lgse/strata#448, lgse/strata#708
 - Skip appears only when other items are accepted or further conflicts remain; it keeps the existing item and transfers the rest. lgse/strata#708
-- The Apply to All checkbox appears only while further conflicts remain; when checked, the chosen action applies to all of them. lgse/strata#708
+- The Apply to All checkbox appears only while further conflicts remain; when checked, the chosen action applies to all of them that offer it. lgse/strata#708, lgse/strata#2030
+- When a paste, drop, or Move to… meets an item of the other kind, such as a file onto a folder, the prompt hides Replace and focuses Keep Both. lgse/strata#2030
+- That prompt explains "An item named “<name>” already exists in <folder>. A file and a folder can’t replace one another." lgse/strata#2030
+- That prompt omits the note "Replaced items can't be moved to Trash here and will be deleted." lgse/strata#2030 (unverified)
+- Replace with Apply to All replaces the remaining same-kind conflicts; each file-onto-folder or folder-onto-file conflict still gets its own prompt. lgse/strata#2030
 - Dragging a move or a copy onto a folder that holds a taken name shows the same dialog with Keep Both. lgse/strata#599, lgse/strata#1615 (unverified)
 - A paste whose name the destination stores differently prompts on that stored name. lgse/strata#1615
 - For example, `10:00` pasted onto FAT holding `10_00` explains "“10:00” will be saved as “10_00” in this location." lgse/strata#1615
@@ -39,7 +43,7 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - A long name numbered by Keep Both is cut so ` (N)` fits the mount's name limit. lgse/strata#1615
 - Merge appears only when copying a folder onto a folder; moves and file conflicts never offer it. lgse/strata#1092
 - Merge adds the incoming contents, keeps destination-only items, and overwrites same-named files with the incoming copies. lgse/strata#1092
-- Merge with Apply to All merges the remaining folder pairs and still asks about each file conflict. lgse/strata#1092 (unverified)
+- Merge with Apply to All merges the remaining folder pairs and still asks about each file conflict. lgse/strata#1092, lgse/strata#2030
 - Merge never writes into the live folder: incoming items are built in a hidden stage and renamed in. lgse/strata#1615
 - A name taken inside a merged folder meanwhile gets the next number and is reported; a stopped merge leaves nothing partial. lgse/strata#1615
 - A same-filesystem move answered with Replace renames the source into place without copying it. lgse/strata#1615
@@ -51,8 +55,6 @@ The "File already exists" dialog shown when a paste, Move to…, Copy to…, or 
 - An item edited since the Merge or Replace stays on undo, its original stays in Trash, and the dialog says so. lgse/strata#1615
 - Where Trash is unavailable, a Merge undo deletes only created items it recorded and finds unchanged, and reports the rest. lgse/strata#1615
 - Undoing such a Merge that placed `0555` folders completes without "Permission denied"; a placed folder that stays gets its mode back. lgse/strata#1729
-- When undoing a move finds an original name taken, the dialog offers Replace and Skip but not Keep Both or Merge. lgse/strata#301, lgse/strata#708
-- Skipping one item while undoing a multi-item move still returns the others and leaves the new occupant intact. lgse/strata#708
 
 ### Failure safety
 
@@ -84,6 +86,7 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 - The prompt works out the name the paste will use, off the main thread, so fixed names conflict as the user will see them (lgse/strata#1615).
 - Undo of a Merge or Replace records what it placed, up to 100,000 entries, and deletes only unchanged items, so later edits survive (lgse/strata#1615).
 - In an admin folder, Replace overwrites files in place and Merge is withheld, because both would stage originals in Trash, which `admin://` lacks (lgse/strata#1836, lgse/strata#1837).
+- A file and a folder cannot safely replace one another. The prompt learns whether the two items are of one kind and withholds Replace when they are not. Apply to All leaves such items their own prompt, as it already did for Merge (lgse/strata#2017, lgse/strata#2030).
 - Merge is copy-only, because undoing a merged move cannot tell which destination contents the source owned (lgse/strata#1092).
 - Incoming-wins merging with Trash staging was chosen over per-file prompts or Finder's newer-wins, to keep it predictable and undoable (lgse/strata#1091).
 - Same-folder paste never prompts, so pasting where an item already lives stays non-destructive. The engine also treats Replace of an item onto itself as a no-op (lgse/strata#395, lgse/strata#708).
@@ -92,6 +95,7 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Stopped offering Replace where a file meets a folder, and kept such items out of Apply to All with Replace. |
 | 2026-10-20 | lgse/strata#1729 | fix | Set Replace originals aside in an originals folder and fixed merge cancel and undo without Trash. |
 | 2026-09-23 | lgse/strata#1092 | feat | Added Merge for folder-onto-folder copy conflicts, undone through Trash staging. |
 | 2026-09-11 | lgse/strata#708 | feat | Showed Skip and Apply to All only when other items depend on them. |

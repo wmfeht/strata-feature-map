@@ -35,7 +35,7 @@ Insertion gaps in the sidebar's PINNED section. Dragging folders from Strata or 
 - Remote pins have gaps beside them, although their rows accept no file drops. lgse/strata#1692
 - A folder pin drag that crosses a row's edges and gap, or leaves a spring-loaded row for a gap, keeps one insertion target. lgse/strata#1713 (unverified)
 - A folder pin drag keeps its target while the sidebar shrinks to the rail and back. lgse/strata#1713 (unverified)
-- With nothing pinned, dragging files or folders over the sidebar shows the empty PINNED section, and dropping a folder on its gap pins it. Leaving the sidebar hides it again. lgse/strata#1726
+- With nothing pinned, dropping a folder on the gap of the empty PINNED section that a drag shows pins it. lgse/strata#1726
 
 ### Reordering through gaps
 

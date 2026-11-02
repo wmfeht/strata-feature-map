@@ -3,9 +3,9 @@ title: Folder peek
 status: shipped
 origin: {issue: null, pr: lgse/strata#132}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/app/peek.rs, src/ui/browser/peek.rs]
+code: [src/app/peek.rs, src/ui/browser/peek.rs, src/ui/browser/events/peek.rs]
 tests: [src/app/peek/tests.rs, src/ui/browser/peek/tests.rs]
 docs: [docs/preferences.md]
 related: [settings/preferences, browser/view-modes, browser/directory-monitoring, operations/drag-and-drop, integration/10xer-mode, browser/navigation/administrator-access]

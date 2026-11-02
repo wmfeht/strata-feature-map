@@ -1,15 +1,15 @@
 ---
 title: Operations sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
 
 ## Scope
 
-Everything that changes files on disk from the browser: New Folder and New File, inline rename with typed paths, copy, cut, and paste with their name conflicts, Move to and Copy to, Send to, drag and drop with its copy-or-move policy, column autoscroll, and content drops from other applications, filesystem-safe placement, copying, identity, and name fixing, releasing open files, leftover recovery, Trash with restore, Empty Trash, the flight animation, and FUSE refusals, permanent deletion with its dissolve, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
+Everything that changes files on disk from the browser: New Folder and New File, inline rename with typed paths, copy, cut, and paste with their name conflicts and their exchange with other file managers, Move to and Copy to, Send to, drag and drop with its copy-or-move policy, column autoscroll, and content drops from other applications, filesystem-safe placement, copying, identity, and name fixing, releasing open files, leftover recovery, Trash with restore, Empty Trash, the flight animation, and FUSE refusals, permanent deletion with its dissolve, archives with RAR and archive preview, operation progress with the dock and the job queue, and undo and redo across all of them.
 
-Left to other sweeps: pointer gestures and selection before a drag starts, the sidebar Trash row as a place to navigate to, the modal dialog shell, rendering of archive members in the preview panel, the devices Send to lists, provider destinations inside Send to…, folder reloads after operations, and the 10xer-mode key variants.
+Left to other sweeps: pointer gestures and selection before a drag starts, the sidebar Trash row as a place to navigate to, file drops onto breadcrumbs, the modal dialog shell, rendering of archive members in the preview panel, the devices Send to lists, provider destinations inside Send to…, folder reloads after operations, and the 10xer-mode key variants.
 
 ## Setup
 
@@ -48,6 +48,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Press Ctrl+Alt+N in Columns with a selection in one column and keyboard focus in another, and with a selection of only hidden items after hidden files are turned off.
 - On vfat and on an SMB share with POSIX extensions, take `new folder` with a file, then create there.
 - Create in a folder whose names are near the length limit.
+- Name a New File `plans` and a New Folder `plans 2`, then undo and redo each from a second window. Rename one afterwards and undo once.
 
 ### operations/rename
 
@@ -66,7 +67,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Create an item in a slot that is already visible, with the list scrolled partway.
 - In Icons and Columns, scrolled to the bottom, rename a new file so it sorts near the top, then press Down twice. Repeat with Page Down, and with Up.
 - Tab through a run of files where each new name sorts past its neighbour, in each mode. Then press Tab at the last item and Shift+Tab at the first after such a re-sort.
-- Tab out of a name that collides with a sibling, an invalid name, and an emptied field. Note where the editor and the error dialog's focus land.
+- Tab out of a name that collides with a sibling in Icons and in a Ctrl+F result, out of an invalid name, and out of an emptied field. Note where the editor and the error dialog's focus land.
 - Tab in a Ctrl+Shift+N new-folder name field, in 10xer mode, in the file chooser, in a Ctrl+F filter result, and across List group headers.
 - Hold Tab in a 1,000-item folder so rows scroll in; press Down while the next row is still being allocated.
 - In Columns, press Tab at the last item of a column whose child column is open, and Shift+Tab in a column scrolled sideways.
@@ -80,6 +81,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Rename into new folders, then into existing ones; undo and redo each, and redo from a second window.
 - Type a path in a Ctrl+F filter result.
 - Rename a folder whose child columns are open to `sub/name`, then press Ctrl+Z.
+- Rename a folder and a file to a relative path onto `/dev/shm`, from a Ctrl+F result and from a Columns pane that is not the last column.
 
 ### operations/clipboard
 
@@ -106,11 +108,21 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - After a Merge, edit one placed file, only `touch` another, then undo.
 - On tmpfs and on `/dev/shm`, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
 - In an `admin://` folder, paste by copy and by cut: a file over a file, a folder over a folder. Then a file over a folder, and a folder over a file. Then copy a file from it over a same-named Home file and answer Replace, then Keep Both.
+- Paste a batch mixing file-onto-folder, folder-onto-file, and same-kind conflicts; answer the first with Replace and Apply to All, on tmpfs and on a vfat stick.
 
 ### operations/clipboard/send-to
 
 - Send to a mounted USB stick, an unmounted one, and a full one; open the menu with no removable device attached.
 - With a provider destination and no drive, open Send to…, plug a drive in, then let the provider withdraw its destination.
+
+### operations/clipboard/file-manager-formats
+
+- Copy and cut a non-UTF-8 name, a name holding a newline, 1,000 files, and an `smb://` file; paste each in Nemo, Dolphin, and the Desktop Icons NG desktop.
+- Fill the clipboard with a GNOME `cut` header beside the KDE flag `0`, with an uppercase `CUT` header, and with a trailing blank line, then press Ctrl+V.
+- Cut in Strata, paste in Dolphin, then press Ctrl+V in Strata again.
+- Paste a foreign cut whose source was moved or deleted after the cut.
+- Cut in one Strata process and paste in a second one, then press Ctrl+Z in each.
+- With files copied in Nautilus or Nemo, compare the pane background menu's Paste with Ctrl+V.
 
 ### operations/drag-and-drop
 
@@ -194,6 +206,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Drop a link to a folder on a stalled or unmounted network mount onto the sidebar Trash row.
 - At corner roundness 0 and 200, open the Shift+Delete, no-Trash, "Move N items to Trash?", and Restore dialogs with one item and with enough items to scroll; scroll to each end.
 - In the Shift+Delete and `/dev/shm` no-Trash confirmations: Escape, backdrop click, Enter, and Tab order; confirm the payload still exists on disk.
+- Leave a no-Trash and a "Move N items to Trash?" confirmation open while an extraction finishes and selects its folder, then cancel each.
+- In Columns, delete the open folder while a transfer's cancel is pending, from a column scrolled sideways, and in a filtered column; cancel one deletion midway.
 - Dismiss the Shift+Delete confirmation by backdrop click in a second tab, with the filter field open, and in each view mode; press Down after each.
 - Shift+Delete a mixed selection of a folder link, a file link, a dangling link, and a socket; repeat with Delete in `/dev/shm`.
 - Shift+Delete a link to a file link, a link to a folder link, and a file link whose target lives on a stalled NFS mount.
@@ -283,6 +297,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract into a sshfs folder and onto a vfat stick an archive holding `10:00/` and `10_00/`, a symlink, a hard link to it, and `c:notes`.
 - Extract ZIP, 7Z, and RAR archives holding `names/c:notes` and `names/C:/x` onto the vfat and exFAT sticks. Repeat with a TAR holding a hard link to `names/c:notes`.
 - Extract archives whose second member is `C:\evil`, `.\c:notes`, or `a/b/../../c:x`, with a third member after it; list what remains with hidden files shown.
+- Extract archives whose escaping member sits under two chained extracted links, and under a link whose name holds non-UTF-8 bytes; read the error text.
 
 ### operations/archives/rar
 
@@ -336,6 +351,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Move the folder built for `operations/filesystem-compatibility` onto vfat, rename one fixed name on the stick, then undo and redo.
 - Move a dangling symlink and a link into a stopped sshfs mount, then undo.
 - In an `admin://` folder, copy in, New Folder, a copy onto an existing file answered Replace, rename, and move out, pressing Ctrl+Z after each. Then undo a Home rename, copy into the admin folder, and press Ctrl+Shift+Z.
+- Move a file and a folder, put an item of the other kind at each original name, then undo; redo a move whose destination name a folder took meanwhile.
 
 ## Hand-offs
 
@@ -352,5 +368,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - 10xer-mode key variants of these operations → `integration`.
 - Escape cancelling a file drag → `browser`.
 - Item-menu Move to Trash, Permanently delete, Delete without Trash, and Restore entries and their visibility → `browser`.
+- File drops and spring-loading onto breadcrumbs → `browser`.
+- The pane background menu's Paste with a clipboard another file manager filled → `browser`.
+- The footer's Files on clipboard badge with foreign clipboard formats → `app`.
 - The Trash pane's Empty Trash header button → `browser`.
 - Opening a folder as administrator, the lock icon, the admin notice, and Open as Administrator → `browser`.

@@ -24,7 +24,7 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 - An ejected drive's results are gone the next time search opens. lgse/strata#493
 - A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
-- The search field is named "Search files and folders…". lgse/strata#1896
+- Opened with Ctrl+K, the search field's accessible name and placeholder are both "Search files and folders…". lgse/strata#1896, lgse/strata#2030
 - On open, the empty query shows "Type to search Home and mounted local drives"; clearing a typed query adds "Fuzzy matching · try a name or path fragment". lgse/strata#493 (unverified)
 - The status text sits centered horizontally and vertically in the results area, with wrapped lines center-justified. lgse/strata#1648
 
@@ -47,6 +47,9 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 - Generated trees such as `node_modules/`, `target/`, `.venv/`, `.cache/`, `go/pkg/mod/`, and `__pycache__/` are skipped; with hidden files shown, `.cargo/config.toml` stays searchable. lgse/strata#473, lgse/strata#1287
 - Paths excluded by a `.gitignore` or `.ignore` file are not indexed. lgse/strata#758 (unverified)
 - At most 100 results are shown, best first. lgse/strata#473
+- Ctrl+K results and pane filter results with equal scores are ordered by name, then path, not by directory walk order, in every view. lgse/strata#2030
+- With more than 100 equal-score hits, the 100 kept are the first by name. lgse/strata#2030
+- Results appended while indexing is still running take their place in that name order within the limit. lgse/strata#2030
 - Each result shows its name, its full path, and a thumbnail for images. lgse/strata#493, lgse/strata#548
 - A spinner shows in the search bar while indexing runs. lgse/strata#72 (unverified)
 - The footer shows key hints for navigate, open, and Alt+Enter "open containing folder", the last beside a folder-open icon. lgse/strata#1066, lgse/strata#1105
@@ -98,6 +101,7 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 
 - Ctrl+Shift+K opens this dialog as a "Jump to a folder…" palette; Ctrl+K still opens global file search. lgse/strata#959
 - Pressing Ctrl+Shift+K while the search palette is open closes it. lgse/strata#959 (unverified)
+- Opened with Ctrl+Shift+K, the field's accessible name and placeholder are both "Jump to a folder…". lgse/strata#2030
 - Arrow keys choose a row, and Enter opens the chosen folder. lgse/strata#959
 - Before any folder is recorded, the palette shows "No folder history yet". lgse/strata#959 (unverified)
 - A query that matches no visited folder shows "No matching folders". lgse/strata#959 (unverified)
@@ -117,7 +121,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 - The entry limit still bounds index memory, so its row warns that higher limits use more memory (lgse/strata#1665, lgse/strata#1667).
 - The limits are part of the shared-index key, so snapshots with different budgets are never shared (lgse/strata#1667).
 - The **Partial results** tooltip is a deliberate exception to tooltips only on icon-only buttons (lgse/strata#1667).
-- Concurrent sessions with the same roots, hidden-file setting, scope, and exclusions share one index snapshot. Only the best 100 matches are kept, in a bounded heap (lgse/strata#473).
+- Concurrent sessions with the same roots, hidden-file setting, scope, and exclusions share one index snapshot. Only the best 100 matches are kept, in a bounded heap (lgse/strata#473). The heap ranks equal scores by folded name, then path, so ties no longer follow walk order (lgse/strata#2016, lgse/strata#2030).
 - Roots share one entry budget and take turns, so a large Home cannot starve a drive (lgse/strata#493). Folders share indexing work so a dense subtree cannot exhaust the budget first (lgse/strata#758).
 - Among directories with equal pending work, shallower ones are scheduled first, so sibling folders are found before deep subtrees (lgse/strata#1286, lgse/strata#1287).
 - Generated trees are pruned by glob rather than whole dot-directories, so tool configuration stays searchable (lgse/strata#471, lgse/strata#473).
@@ -134,6 +138,7 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Ordered equal-score search and filter results by name, and named the palette field after its mode for screen readers. |
 | 2026-10-10 | lgse/strata#1539 | fix | Read the new column-truncation event shape when recording visited folders. |
 | 2026-10-10 | lgse/strata#1544 | fix | Rescanned indexes listing a folder changed outside the app, coalescing bursts and skipping pruned folders. |
 | 2026-09-27 | lgse/strata#1287 | fix | Scheduled shallow directories first and pruned Go and Python caches so sibling folders are not starved. |
@@ -152,5 +157,5 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 - Remote shares such as SMB are not searched. lgse/strata#87
 - During bursts of outside changes, a rescan request can block the window for up to one scoring pass. lgse/strata#1544
-- Whether global search scans mounts the volume monitor hides, such as a cache subvolume, is undecided. lgse/strata#533
+- Whether global search scans mounts the volume monitor hides, such as a cache subvolume, is undecided. lgse/strata#533, lgse/strata#2016
 - Index walks bypass the mount request lanes. A walk that reaches a dead mount waits until the server answers. lgse/strata#1729

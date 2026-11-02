@@ -3,8 +3,8 @@ title: Extraction safety
 status: shipped
 origin: {issue: lgse/strata#109, pr: lgse/strata#116}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/adapters/local_operations/archive/destination.rs]
 tests: [src/adapters/local_operations/archive/destination/tests.rs]
 related: [operations/filesystem-compatibility]
@@ -26,6 +26,7 @@ How extraction writes untrusted archive members into the destination folder: mem
 - A member named `../report.txt` or `folder/../report.txt` extracts as `report.txt` inside the destination, and later members still extract. lgse/strata#1191
 - Two members that resolve to `report.txt` extract as `report.txt` and `report (2).txt`. lgse/strata#116, lgse/strata#1191
 - An absolute member path or a member written through an existing symlink fails the extraction without writing outside the destination. lgse/strata#116, lgse/strata#1478
+- A ZIP, 7Z, or TAR member stored under an extracted symlink, such as `lnk/escape.txt` after the link `lnk`, fails without writing through it. The error starts "Refusing to extract through the symbolic link “lnk”". lgse/strata#2030
 - A ZIP, 7Z, or TAR directory entry named `.`, `./`, or `././`, or a ZIP one named `.\`, is skipped. The other members extract instead of failing. lgse/strata#494, lgse/strata#1814
 - TAR and 7Z `.\` directory entries, and a RAR directory entry naming only the root, are skipped the same way. lgse/strata#1814 (unverified)
 - A ZIP whose only member is a file or link named `.`, or a directory `../` or `foo/../`, fails and writes nothing. The error is "Refusing empty archive path: <name>". lgse/strata#1814
@@ -66,6 +67,7 @@ How extraction writes untrusted archive members into the destination folder: mem
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Named the symbolic link an extraction refuses to write through, instead of the raw "too many levels of symbolic links". |
 
 ## Known gaps
 

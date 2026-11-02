@@ -3,9 +3,9 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: reviewed
-code: [src/ui/window/devices.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/window/devices.rs, src/ui/window/sidebar_devices.rs, src/ui/window/device_menu.rs, src/ui/window/gio_devices.rs, src/ui/browser/location/devices.rs, src/ui/browser/location/volumes.rs]
 tests: [src/ui/window/devices/tests.rs]
 docs: []
 related: [browser/sidebar, browser/search, operations/clipboard/send-to, remote/file-providers/network-locations]
@@ -13,7 +13,7 @@ related: [browser/sidebar, browser/search, operations/clipboard/send-to, remote/
 
 ## Summary
 
-Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. It also supplies the removable destinations Send to… offers and the drive roots Ctrl+K searches. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
+Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. Mounted GVfs network shares get a network row with Disconnect. It also supplies the removable destinations Send to… offers and the drive roots Ctrl+K searches. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
 
 ## Behavior
 
@@ -27,6 +27,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - Plugging in, mounting, unmounting, or removing a device updates Devices without a restart. lgse/strata#536
 - A row's udev encryption hint appears once a worker has read it; Devices rebuilds when the hint changes. lgse/strata#1729 (unverified)
 - Hovering a device row tints it with the text color at 6%; only the current location's row keeps the accent fill. lgse/strata#1909 (unverified)
+- A volume row's accessible description is its mount path when mounted, otherwise its device path, such as `/dev/sdb1`. lgse/strata#2030
 
 ### Mounting
 
@@ -36,6 +37,13 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A mount failure other than cancellation, a rejected passphrase, or an in-flight mount shows "Unable to mount volume" with the GIO error text. lgse/strata#493 (unverified)
 - When another process is already mounting the volume, Strata shows "Connecting…" and waits up to 8 seconds without cancelling that job, then opens the mount. lgse/strata#935 (unverified)
 - If that wait ends with the volume still unmounted, Strata starts its own mount once. lgse/strata#935 (unverified)
+
+### Network shares
+
+- A mounted SMB, SFTP, FTP, WebDAV, AFP, or NFS share appears under DEVICES with a network icon and no eject button. lgse/strata#31, lgse/strata#62, lgse/strata#2030
+- `ftps://` and `davs://` mounts also take the network row, and the scheme match ignores case. lgse/strata#2030 (unverified)
+- Clicking a network share's row opens the share. lgse/strata#31, lgse/strata#62
+- Right-clicking a network share's row offers Properties and Disconnect. lgse/strata#31, lgse/strata#296, lgse/strata#2030 (unverified)
 
 ### Send to destinations
 
@@ -54,15 +62,20 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - Global search still reads the raw mount table for its roots; that policy is separate (lgse/strata#533).
 - Removable Send To destinations and encryption hints are checked off the UI thread, cached, and refreshed on volume monitor signals. Remembered Send To folders are checked again each time a menu is built. Destination and folder checks run on the mount's request lane, so a stalled mount cannot freeze the menu (lgse/strata#1729).
 - Sidebar mounts run through the browser's mount flow, so volumes share the themed authentication prompt, quiet cancellation, and retries used by remote locations (lgse/strata#302, lgse/strata#493).
+- GVfs network mounts are shares to disconnect, not drives to eject. Before lgse/strata#2030, only SMB got the network row, and an SFTP share showed a drive icon with eject (lgse/strata#2016).
+- A volume row is described like a mount row, by its path. GIO sets no activation root for an fstab volume, and cdda and MTP volumes have a raw URI one, so the description skips it (lgse/strata#2012, lgse/strata#2030).
 - A desktop automounter may already own a mount job. Strata waits for it rather than cancelling it, and never disables the user's automounter (lgse/strata#537, lgse/strata#935).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Described volume rows by mount or device path, and gave every GVfs network share the network row with Disconnect. |
 | 2026-09-07 | lgse/strata#536 | fix | Limited Devices to what the volume monitor reports, removing the raw mount-table fallback. |
 | 2026-09-06 | lgse/strata#493 | fix | Showed mounted USB drives, mounted sidebar volumes through the themed prompt, and added drives to global search. |
 
 ## Known gaps
 
 - NAS shares mounted by the system at native paths, such as NFS under `/mnt`, do not appear in Devices when GIO misses them. lgse/strata#1209
+- An unmounted fstab volume's row is described by its device path, not its fstab mount point. lgse/strata#2030
+- Network share rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62

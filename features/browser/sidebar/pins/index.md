@@ -29,7 +29,6 @@ The PINNED section of the sidebar: folders the user pins. They are stored in GTK
 ### Display and order
 
 - Pins appear under a PINNED heading in bookmarks-file order, labelled with the bookmark's label or else the folder name. lgse/strata#202 (unverified)
-- With nothing pinned, the sidebar shows no PINNED heading, separator, or gap, in a browser window and in the file chooser. lgse/strata#1726
 - A bookmark pointing at Home or a standard folder is not shown under PINNED, and keeps its line in the file. lgse/strata#202
 - Dropping a pinned row on the upper or lower half of another pinned row moves it before or after that row. The new order is saved to the bookmarks file. lgse/strata#202
 - While a pinned row is dragged over another pin, an accent line shows in the gap where it will land. lgse/strata#1713

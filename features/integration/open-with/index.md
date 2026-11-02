@@ -3,9 +3,9 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/open_with.rs, src/ui/browser/desktop.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/open_with.rs, src/ui/open_with/apps.rs, src/ui/open_with/dialog.rs, src/ui/open_with/launch.rs, src/ui/open_with/navigation.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, tests/qa/scenarios/open_with/**, tests/qa/scenarios/dialogs_and_menus/executable-menu-confirmed-run.jsonl, tests/qa/scenarios/dialogs_and_menus/executable-requires-confirmation.jsonl]
 docs: []
 related: [integration/10xer-mode, preview/preview-panel, browser/context-menu, browser/navigation/recent]
@@ -40,6 +40,18 @@ Opening files in their default application, choosing another application from th
 - Launching a folder in an application adds nothing to the recent-file history. lgse/strata#1083, lgse/strata#1150
 - Outside Flatpak, when the preview hands a video to its default player, mpv, VLC, Celluloid, and MPlayer start at the preview's position. lgse/strata#1474, lgse/strata#1635
 - When Strata runs outside Flatpak, Flatpak installs of mpv, VLC, and Celluloid also start at the preview's position; an MPlayer Flatpak and other players start at the beginning. lgse/strata#1474, lgse/strata#1635 (unverified)
+
+### Working folder
+
+- Activating a local file, or opening it with Open With…, starts its program in the file's folder, such as `~/notes` for `~/notes/todo.txt`, not in `/`. lgse/strata#1729, lgse/strata#1990
+- A program launched on several files starts in the first file's folder. lgse/strata#1990
+- A desktop entry's `Path=` still sets the launched program's working folder. lgse/strata#1990
+- A file with no local path, or in a folder Strata cannot enter, starts its program in `/`, Strata's own working folder. lgse/strata#1729, lgse/strata#1990
+- Strata returns to `/` as soon as the program starts. Closing a program opened from a removable drive lets the drive unmount while Strata stays open. lgse/strata#1990
+- Open With… on a folder starts the program in that folder's parent. lgse/strata#1990 (unverified)
+- A video handed from the preview to its player starts the player in the video's folder. lgse/strata#1990 (unverified)
+- A GVfs file with a FUSE path starts its program in its FUSE folder under `/run/user/$UID/gvfs/`. lgse/strata#1990 (unverified)
+- With a file's sshfs mount stopped, activating the file blocks the window while Strata enters its folder. lgse/strata#1990 (unverified)
 
 ### Running programs
 
@@ -116,11 +128,14 @@ Applications come from GIO metadata; Strata does not parse application `.desktop
 - Type lookups run asynchronously and are discarded when the menu closes or the selection changes (lgse/strata#578, lgse/strata#625).
 - The chooser waits for the Recently Used history read before it opens (lgse/strata#1729).
 - Run takes the file's type and mode from its asynchronous query. It spawns the program on the reaper thread, so a dead mount cannot freeze the window (lgse/strata#1729).
+- Launched programs start in the first file's folder. Strata enters it only during GIO's synchronous spawn and returns to `/` at once, so it keeps no mount busy (lgse/strata#1729, lgse/strata#1989, lgse/strata#1990).
+- Every Open and Open With launch runs on the GTK main thread, so one launch's folder change never interleaves with another's ([comment](https://github.com/lgse/strata/pull/1990#issuecomment-6564777625)).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-01 | lgse/strata#1990 | fix | Started programs launched by Open and Open With in the first file's folder instead of Strata's working folder, `/`. |
 | 2026-10-15 | lgse/strata#1635 | fix | Opened files through the OpenURI portal under Flatpak, where GIO sees only the runtime's apps. |
 | 2026-09-27 | lgse/strata#1298 | feat | Added "Always use for this file type" to set the default from the chooser. |
 | 2026-09-15 | lgse/strata#1028 | fix | Ran `.sh` files in a terminal that keeps output and exit status until Enter. |
@@ -136,4 +151,4 @@ Applications come from GIO metadata; Strata does not parse application `.desktop
 
 ## Known gaps
 
-None known.
+- Activating an application `.desktop` launcher opens it through its default application instead of starting the application. lgse/strata#2040

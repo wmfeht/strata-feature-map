@@ -3,8 +3,8 @@ title: Drive format, label, properties, and container lock
 status: shipped
 origin: {issue: lgse/strata#1293, pr: lgse/strata#1331}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/window/drive_dialogs.rs, src/ui/window/drive_dialogs/**, src/ui/window/drive_ops.rs, src/ui/window/device_labels.rs, src/ui/missing_tools.rs]
 tests: [src/ui/window/drive_dialogs/tests.rs, src/ui/window/drive_ops/tests.rs, src/ui/window/device_labels/tests.rs, src/ui/missing_tools/tests.rs]
 related: [browser/sidebar, operations/progress, app/dialogs, devices/volumes/encrypted]
@@ -23,12 +23,18 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 ### Properties
 
 - Properties opens from the menu of a volume or a mount-only entry, including fixed storage. lgse/strata#1393
+- Properties opens with focus on Set label when the device can be labelled, otherwise on Close. lgse/strata#2030
+- Enter pressed as Properties opens closes it or opens Set label; it never ejects, unmounts, or formats, including on fixed and mount-only targets. lgse/strata#2030
+- With a saved Strata label, the Properties subtitle shows the label, not the system name, and follows label changes while open. lgse/strata#2030
 - It lists System name, Strata label, Device, Filesystem, and Status; a mounted volume adds Mount point, Capacity, Used, and Free. lgse/strata#1331, lgse/strata#1393
 - Properties opens at once with "—" for Filesystem, Capacity, and Used, then fills them in when a worker has read the drive. lgse/strata#1729
 - Until then, a target with a known mount shows its Mount point and "Mounted"; otherwise Status shows "—". lgse/strata#1729 (unverified)
 - For an unmounted volume it shows "Not mounted", the device size when known, and "Unavailable (not mounted)" for Used, without mounting. lgse/strata#1393
-- The footer offers Set label, Eject, and Format; Format appears only for removable drives. lgse/strata#1331, lgse/strata#1393
-- The footer shows Eject for a removable drive or a row with Eject or Unmount; it is insensitive without either action. lgse/strata#1393 (unverified)
+- For an unmounted fstab volume that lsblk cannot probe, Filesystem shows the type fstab declares, such as FAT32 for `vfat`. lgse/strata#2030
+- A declared `auto`, `none`, or blank fstab type shows as unknown; an unrecognized type such as `fuse.sshfs` shows as written. lgse/strata#2030 (unverified)
+- The footer offers Set label, a release button, and Format; Format appears only for removable drives. lgse/strata#1331, lgse/strata#1393, lgse/strata#2030
+- The release button reads "Unmount" when the device row offers only Unmount, otherwise "Eject". lgse/strata#2030
+- The footer shows the release button for a removable drive or a row with Eject or Unmount; it is insensitive without either action. lgse/strata#1393 (unverified)
 
 ### Set label
 
@@ -85,7 +91,8 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 - Actions are volume-level only. Whole-disk and partition-table changes are out of scope, and destructive actions are never offered for network shares or internal volumes (lgse/strata#1293).
 - lgse/strata#1331 shipped Rename as a filesystem relabel. lgse/strata#1393 replaced it with a Strata display label keyed by volume UUID or mount root URI, which never mounts, unmounts, or edits system configuration.
 - lgse/strata#1331 ran mkfs tools through `pkexec`. lgse/strata#1393 replaced that with UDisks2 `Block.Format` and `update-partition-type`, so the partition type and reprobe change together. Quick format skips zeroing; FAT32 passes `-F 32`.
-- Tool lookups, the package manager, the mount table, and drive facts are read on a worker, so a stalled mount cannot freeze the window (lgse/strata#1729).
+- Tool lookups, the package manager, the mount table, and drive facts are read on a worker, so a stalled mount cannot freeze the window (lgse/strata#1729). The fstab filesystem type is read there too (lgse/strata#2030).
+- Only Set label may take Properties' initial focus. The last footer button used to win it, so Enter unmounted the device (lgse/strata#2015, lgse/strata#2030).
 - Progress is indeterminate because the supported tools report no consistent percentage (lgse/strata#1331).
 - Tools and labels are checked before unmounting, so a refusal never leaves a drive unmounted (lgse/strata#1331, lgse/strata#1393). Until lgse/strata#1875, an exFAT label of 12 to 32 characters passed, unmounted the drive, then failed in UDisks (lgse/strata#1849, lgse/strata#1875).
 - Label limits and units match the libblockdev checks UDisks runs before wiping: 11 UTF-16 units for exFAT, 11 bytes for FAT32. Strata's NTFS limit of 32 units is below the backend's 128 (lgse/strata#1849, lgse/strata#1875).
@@ -97,6 +104,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Opened Properties on Set label or Close, named its release after the row's, showed saved labels, and read fstab's filesystem type. |
 | 2026-10-31 | lgse/strata#1952 | fix | Closed the LUKS container through UDisks `Encrypted.Lock` when Lock has no stoppable drive, so internal volumes no longer stay open. |
 | 2026-10-25 | lgse/strata#1875 | fix | Limited exFAT labels to 11 UTF-16 units and FAT32 to 11 bytes, so a long label no longer unmounts the drive then fails. |
 | 2026-09-30 | lgse/strata#1331 | feat | Added Format, Rename, and Properties for removable drives, with missing-tool install guidance. |
