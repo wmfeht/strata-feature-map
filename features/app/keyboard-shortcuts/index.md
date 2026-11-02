@@ -6,7 +6,7 @@ branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
 code: [src/ui/keys.rs, src/ui/keys/label.rs, src/ui/keys/composition.rs]
-tests: [src/ui/keys/tests.rs, src/ui/keys/tests/**]
+tests: [src/ui/keys/tests.rs, src/ui/keys/tests/composition.rs, src/ui/keys/tests/digits.rs, src/ui/keys/tests/labels.rs, src/ui/keys/tests/letters.rs, src/ui/keys/tests/modifiers.rs]
 docs: [docs/keyboard-shortcuts.md]
 related: [app/window, app/shortcut-reference, integration/10xer-mode, settings/preferences/language, browser/selection/keyboard-navigation]
 ---

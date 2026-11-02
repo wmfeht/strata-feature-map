@@ -13,7 +13,7 @@ related: [browser/sidebar, app/accessibility]
 
 ## Summary
 
-Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. A build made with `STRATA_UPDATER=disabled` leaves the updater out. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (signed in-place install, rollback, and restart), `app/updates/release-picker` (installing a chosen release), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
+Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. A build made with `STRATA_UPDATER=disabled` leaves the updater out. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (the update dialog, signed in-place install, rollback, and restart), `app/updates/release-picker` (installing a chosen release), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
 
 ## Behavior
 
@@ -78,7 +78,6 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - A window opened after the check shows the cached notice without another request. lgse/strata#944
 - An automatic result that lands after checks were disabled or the channel changed is discarded. lgse/strata#944
 - Clicking the notice opens the update dialog for that release. lgse/strata#51
-
 
 ## Design
 

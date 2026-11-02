@@ -16,7 +16,7 @@ A menu of a tab's earlier locations, opened from the List and Icons pane-header 
 
 ## Behavior
 
-- In List or Icons with back history, right-clicking Back, holding it, or pressing Menu or Shift+F10 on it opens a popover below Back. lgse/strata#1977, lgse/strata#2026
+- In List or Icons with back history, right-clicking Back, holding it, or pressing Menu or Shift+F10 on it opens a popover below Back. lgse/strata#1977
 - With focus on a Back button that has history, in a browser window or the file chooser, Menu or Shift+F10 opens that popover. No context menu opens and the location does not change. lgse/strata#2001, lgse/strata#2026
 - The popover is headed BACK TO and lists the tab's back entries, most recent first. lgse/strata#1976, lgse/strata#1977
 - Each entry shows the folder name over its dimmed path. lgse/strata#1977

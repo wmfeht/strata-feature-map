@@ -85,4 +85,4 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 - List cannot expand folders in place as a tree; a PR is open. lgse/strata#1495, lgse/strata#1496
 - Grouped loads of very large folders are not sub-second: a 100,000-entry mixed-type folder takes about 2 s to publish. lgse/strata#1928
-- In grouped List, the automatic cursor after Ctrl+L lands on the visually last file of a 4-file folder and scrolls to the middle of a 44,000-file one. lgse/strata#2016
+- In grouped List, a first visit by typed path puts the cursor on the first entry by name, not the first visible row. That is the visually last file of a 4-file folder, or the middle of a 44,000-file one. lgse/strata#2016

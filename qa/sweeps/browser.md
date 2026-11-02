@@ -145,7 +145,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Columns, press a recursive file hit with previews on, drag past the threshold, and release; then slow-click a selected hit.
 - Right-click a column header's spinner while it loads, its truncated-listing warning icon, and the gap hidden header actions leave in an inactive column.
 - Right-click the headers of `trash:///` and Recent columns, then repeat in the file chooser and in 10xer mode.
-- Click a file in a parent column with Ctrl, then Shift held; then press a parent file and drag it into the open child column.
+- Ctrl+click a parent file, then plain-click it; press a parent file and drag it onto a folder in the open child column, then press Escape mid-drag.
 - Plain-click a broken symlink, a file inside a multi-selection, and a file in a filtered parent column, with single-click previews off.
 - After Back from a sidebar place, press Left into an ancestor column still loading on a stalled sshfs mount; delete its open folder from a shell before it loads.
 - Rename a folder whose child column is open to a name that sorts first, one that sorts last, and a dot name; press Tab and Shift+Tab. Repeat with Mirror columns selection off.

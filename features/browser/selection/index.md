@@ -44,7 +44,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - After Escape clears a selection, the next Shift+arrow range starts at the keyboard cursor. lgse/strata#1313
 - In List, Icons, and Columns, plain Home, End, Page Up, and Page Down move the range anchor to the new cursor. Shift+Home after End selects every entry. lgse/strata#1995, lgse/strata#2026
 - After Home, Shift+Down selects the first two entries. lgse/strata#2026
-- In List and Icons, a plain arrow or `h`/`j`/`k`/`l` move that changes the selection moves the range anchor. Shift+Page Up, Shift+Page Down, and Shift+click then extend from the new cursor. lgse/strata#2026
+- In List and Icons, a plain arrow or `h`/`j`/`k`/`l` move that changes the selection moves the range anchor. Shift+Page Up and Shift+Page Down then extend from the new cursor. lgse/strata#2026
 - In Columns, Shift+Home and Shift+End extend from the range anchor to the first or last entry, not only the edge entry. lgse/strata#2026
 - Ctrl+A selects every entry in the focused column, not the deepest open column. lgse/strata#358
 - With hidden files off, Ctrl+A in Icons, List, and the chooser leaves hidden entries unselected. lgse/strata#916

@@ -31,10 +31,10 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Pressing a folder does not shift the strip and shift it back before its column takes focus. lgse/strata#1539
 - A column closed with nothing replacing it narrows and fades out over 220 ms. lgse/strata#1513, lgse/strata#1539
 - That close animation covers its X button, Escape, Backspace, and a file click in a parent. lgse/strata#1539 (unverified)
-- A plain click on a file in a parent column selects it and closes the deeper columns, with single-click previews on or off and for files that cannot preview. The breadcrumb then ends at the file's folder. lgse/strata#2030
+- A plain click on a file in a parent column selects it and closes the deeper columns. This holds with single-click previews on or off, and for files that cannot preview. The breadcrumb then ends at the file's folder. lgse/strata#2030
 - With single-click previews off, that click opens no preview. lgse/strata#2030
 - A press on a file that turns into a drag leaves the deeper columns open, so the file can be dragged into the open column. lgse/strata#2030
-- Ctrl+click and Shift+click on a file leave the deeper columns open. lgse/strata#2030
+- Ctrl+click and Shift+click on a file leave the deeper columns open. lgse/strata#2030 (unverified)
 - With reduced motion or animations off, a closing column is removed at once. lgse/strata#1539
 - A closing column takes no clicks, hovers, or drops while it leaves. lgse/strata#1539
 - Opening another location, rebuilding the strip, or switching away from Columns replaces the columns with no exit animation. lgse/strata#1539
@@ -182,7 +182,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - A header right-click reuses the column's folder-menu trigger, so header and empty area open one menu with one target folder. It claims the click only on header background, leaving left-button gestures alone (lgse/strata#1942).
 - Letting the folder-menu installer accept extra trigger surfaces was deferred while the header is the only one (lgse/strata#1942).
 - A plain file click ends the open path at its column, as moving the cursor onto the file does. It acts on release, so drags from the file still work (lgse/strata#2016, lgse/strata#2030).
-- After Back, the open folder an ancestor column takes the cursor on has no fallback entry, unlike the came-from folder: a cursor elsewhere would make file commands act on it. A cursor placed meanwhile, a reveal, or a failed load cancels it (lgse/strata#1993, lgse/strata#2026).
+- After Back, the open folder an ancestor column takes the cursor on has no fallback entry, unlike the came-from folder. A cursor elsewhere would make file commands act on it. A cursor placed meanwhile, a reveal, or a failed load cancels it (lgse/strata#1993, lgse/strata#2026).
 - Closing columns cancels only a rename inside the closed columns, so Tab after a rename still finds its next item (lgse/strata#2002, lgse/strata#2026).
 - Background focus fires on click release and is grouped with marquee selection, so neither gesture swallows the other (lgse/strata#523).
 - Home and End go through Strata's own jump, like Ctrl+Up and Ctrl+Down. GTK's native keys emit only a selection echo the mirror ignores, and mirroring that echo risked the reopen loops lgse/strata#1179 avoided (lgse/strata#1447).
@@ -225,4 +225,4 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - A row passing under the pointer during wheel scrolling still plays the badge's hover fade. lgse/strata#1674
 - With recursive filter results, view switches and hiding the preview with the mouse still focus GTK's last focused result, not the cursor's. lgse/strata#1611
 - Returning to Columns with an empty selection reopens the child column. Whether the cursor or the selection opens child columns is undecided. lgse/strata#2016
-- During a permanent delete, the child column can stay visible for about one frame, showing "This directory is empty" in a focus ring. lgse/strata#2017
+- During a permanent delete of an open folder, its child column can stay visible for about one frame, showing "This directory is empty" in a focus ring. lgse/strata#2017

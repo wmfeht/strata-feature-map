@@ -43,7 +43,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - When that widget is gone, such as a closed inline rename editor, focus goes to the active tab's cursor row. In an empty, unreadable, or loading folder it goes to the pane. lgse/strata#1533
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
 - Closing a dialog over a modal that stays open, such as the action editor over Settings, refocuses its opener there. lgse/strata#1544
-- When the recorded opener is the remaining modal's own layer, focus goes to a named control inside that modal, never to the layer. lgse/strata#2030
+- When the recorded opener is the remaining modal's own layer, that layer never takes focus. Focus goes to the modal's first focusable control that is not a box, scrolled window, or viewport. lgse/strata#2030
 - When the dialog's action disabled its opener, focus goes to the first focusable control in the opener's closest enclosing container. Settings → Keyboard → Reset all → Reset is one case. lgse/strata#2030
 - When that opener is gone, such as an action row the dialog re-rendered, focus goes to the first focusable control in the remaining modal. lgse/strata#1544 (unverified)
 - That fallback skips boxes, scrolled windows, and viewports, so focus never lands on an unnamed container. lgse/strata#2030 (unverified)

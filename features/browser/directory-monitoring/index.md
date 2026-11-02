@@ -69,7 +69,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - That rename leaves Back and Forward history unchanged, and files created in the folder afterwards appear without F5. lgse/strata#1554
 - With `mon/b/c` open in any view, another program runs `mv mon/b mon/b2 && echo 2 > mon/b2/c/two.txt`. The pane follows to `mon/b2/c` and lists `two.txt` without F5. lgse/strata#2004, lgse/strata#2026
 - A renamed ancestor is noticed at the next change in the open folder, or on F5. F5 then reloads the folder at its new path, not the nearest ancestor of the old one. lgse/strata#2026
-- When the old path then holds a different folder, as after `mv b b2 && mkdir -p b/c`, the pane follows the moved folder where the mount's identity rule proves it. lgse/strata#2026
+- When the old path then holds a different folder, as after `mv b b2 && mkdir -p b/c`, the pane still follows the moved folder. That holds where the mount's identity rule proves it. lgse/strata#2026
 - A pane filter typed in the renamed folder ends; filters and Ctrl+K searches rooted above it follow the rename. lgse/strata#1435, lgse/strata#1554
 - When another program deletes the open folder or moves it to another parent, the pane opens the nearest existing ancestor without a history entry. lgse/strata#1435, lgse/strata#1554
 - That departure walks past removed parents and ends any filter. lgse/strata#1554
@@ -179,6 +179,6 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729
 - When another program removes an open folder, the cursor lands on the first row instead of a neighbor. lgse/strata#1874
 - A path look is skipped while the mount's lane is busy, so a renamed ancestor is noticed only at a later change or on F5. lgse/strata#2026
-- On mounts that renumber folders, such as sshfs and exFAT, a folder put back at the old path keeps receiving the moved folder's changes until it is opened again. lgse/strata#2026
+- On mounts that renumber folders, such as sshfs and exFAT, a folder can be put back at the old path. It keeps receiving the moved folder's changes until it is opened again. lgse/strata#2026
 - An open folder on another mount than its renamed ancestor counts as departed. lgse/strata#2026
 - Metadata fills on visible `admin://` rows still go through GIO. After the polkit grant expires, they can raise a prompt the user did not ask for. lgse/strata#1837

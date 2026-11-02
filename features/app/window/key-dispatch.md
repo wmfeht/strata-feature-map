@@ -6,7 +6,7 @@ branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: draft
 code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/window/key_routing.rs, src/ui/window/keyboard/input_owner.rs, src/ui/window/keyboard/wheel_zoom.rs]
-tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl, src/ui/window/tests/keyboard_dispatch/entry_keys.rs, src/ui/window/tests/keyboard_dispatch/icon_motion.rs, src/ui/window/tests/keyboard_dispatch/jump_keys.rs, src/ui/window/tests/keyboard_dispatch/list_motion.rs, tests/qa/scenarios/quick_preview/preview-focus-ignores-file-commands.jsonl]
+tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl, src/ui/window/tests/keyboard_dispatch/entry_keys.rs, tests/qa/scenarios/quick_preview/preview-focus-ignores-file-commands.jsonl]
 related: [app/keyboard-shortcuts, app/dialogs, app/shortcut-reference, browser/view-modes/text-size, browser/view-modes/thumbnail-size, integration/10xer-mode, preview/preview-panel, browser/sidebar, preview/quick-preview, browser/search/filter]
 ---
 
@@ -40,8 +40,6 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - In the default key map, with focus anywhere inside the preview, Delete, Shift+Delete, Ctrl+D, F2, Ctrl+R, and Ctrl+Alt+N do nothing to files. lgse/strata#1996, lgse/strata#2026
 - That holds for every preview kind: a rendered document, PDF, table, archive, or text. lgse/strata#2026
 - With only a Russian layout configured, Ctrl+C/X/V/A/Z/Y and Ctrl+Shift+Z in a focused text field copy, cut, paste, select all, undo, and redo its text. lgse/strata#1576
-- With 10xer mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning the mode off restores them. lgse/strata#1271, lgse/strata#1576
-- With 10xer mode on, Ctrl+Alt+T in the file list still opens a terminal. lgse/strata#1576
 
 ### Sidebar focus
 
@@ -91,6 +89,5 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 
 ## Known gaps
 
-- In 10xer mode, Ctrl+Alt+T still opens a terminal from the file list, and Ctrl+Shift+K still acts from a non-menu popover. Unbinding them awaits a decision. lgse/strata#1576
 - Each stage re-reads and classifies the focused widget, and every key press walks the widget tree for modal layers and open menus. Resolving the input owner once per press is proposed. lgse/strata#1716
 - Fifteen call sites cancel an armed 10xer chord by hand; one that forgets leaves a stale chord mark that swallows the next key. lgse/strata#1718

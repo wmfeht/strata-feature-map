@@ -52,7 +52,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
 - With the interface in de and ja, read the names of the pane header buttons, the filter field, and the media buttons against their tooltips.
-- Dump Settings → Updates after a failed check, on the prerelease build after selecting Stable, and with release notes holding links in headings and list items; read each link's name.
+- Serve release notes with a paragraph holding two links, a link whose text carries `<b>` or `<code>` markup, and a link in a list-child heading; read each link's name. Repeat on the Omarchy and pacman "Update available" statuses.
 
 ### app/dialogs
 
@@ -131,7 +131,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Click a PDF page in the preview, then Ctrl+wheel over the sidebar, the header, and a Columns column; repeat with a smooth touchpad on X11 and Wayland.
 - Hold Ctrl+Shift and scroll a touchpad slowly, then fast; then release Shift mid-scroll and keep scrolling.
 - Rebind `pdf_zoom_reset` and `text_reset` to shared and separate keys. Press them with a PDF, a text preview, and the listing focused, with a 10xer chord armed.
-- With three windows open, toggle 10xer mode in one. In the others, read the F1 reference and menu hints, and press Ctrl+Shift+K, Ctrl+Alt+T, and Ctrl+\ from the file list. Close one window and check again.
 - Focus a PDF page, a table cell, an archive row, a text preview's scrollbar, and the media controls in turn; press Delete, F2, Ctrl+D, Ctrl+V, and Ctrl+Alt+N at each in Columns, Icons, and List.
 - Filter with Ctrl+F, trash a result, move focus to another result, then press Ctrl+Z, Ctrl+Y, and Ctrl+Z twice; repeat with recursive search results and with the filter field focused between presses.
 
@@ -240,7 +239,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - On fake pacman and Omarchy installs with the Nightly preference, let the startup check offer a release, then switch the channel in a second window.
 - Launch the disabled build with an `update-check.toml` holding an offer, checks on, and the Preview channel saved; open two windows and count requests at the proxy.
 - Build with `STRATA_UPDATER` set to ` disabled `, `DISABLED`, `enabled` followed by a newline, and an empty value; read whether each build fails and whether Settings lists Updates.
-- Run the plain build with a tag GitHub has no release for, and edit `release-notes.toml` so its unavailable entry is 5 h, 7 h, and one day in the future; open Settings → Updates in two windows and count requests at the proxy.
+- Run the plain build with a tag GitHub has no release for, and edit `release-notes.toml` so its unavailable entry is 5 h old, then 7 h old, then one day in the future. Open Settings → Updates in two windows each time and count requests at the proxy.
 - Repeat with the proxy answering HTTP 500, then 404, then restore it.
 
 ### app/updates/release-picker

@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: draft
-code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs, src/ui/preferences/sidebar_settings.rs, src/ui/window/places.rs, src/ui/window/sidebar_context_menu.rs, src/ui/window/sidebar_file_drop.rs, src/ui/window/sidebar_places.rs, src/ui/window/sidebar_popover.rs, src/ui/window/sidebar_reorder.rs, src/ui/window/sidebar_rows.rs, src/ui/window/sidebar_sections.rs, src/ui/window/sidebar_view.rs]
+code: [src/ui/window/sidebar.rs, data/icons/scalable/actions/strata-chevron-down.svg, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs, src/ui/preferences/sidebar_settings.rs, src/ui/window/places.rs, src/ui/window/sidebar_context_menu.rs, src/ui/window/sidebar_file_drop.rs, src/ui/window/sidebar_places.rs, src/ui/window/sidebar_popover.rs, src/ui/window/sidebar_reorder.rs, src/ui/window/sidebar_rows.rs, src/ui/window/sidebar_sections.rs, src/ui/window/sidebar_view.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl, tests/qa/scenarios/sidebar_pinning/empty-pinned-section-stays-hidden.jsonl]
 docs: [docs/preferences.md, site/src/reference/keyboard-navigation.md]
 related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window, browser/tabs]
@@ -81,7 +81,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 ### Collapsible sections
 
 - Clicking the PINNED or DEVICES heading in the full sidebar folds that section's rows away; clicking it again shows them. lgse/strata#1389, lgse/strata#1390
-- In the full sidebar, each heading shows, left to right, its title, a thin rule filling the width, the count while collapsed, and a chevron at the right edge. lgse/strata#1992
+- In the full sidebar, a heading shows its title, a rule filling the width, the count while collapsed, and a chevron at the right edge. lgse/strata#1992
 - The heading's chevron points down while the section is expanded and right while it is collapsed. It swaps icons instead of rotating. lgse/strata#1390, lgse/strata#1992
 - The heading's title starts in line with the row icons, and its chevron sits above the device eject buttons. lgse/strata#1992
 - A collapsed heading with at least one row shows a count before the chevron. An expanded heading, or a collapsed DEVICES with no rows, shows none. lgse/strata#1390, lgse/strata#1992

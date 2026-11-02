@@ -34,6 +34,7 @@ Update checks and actions for Strata installed by a package manager: the officia
 
 ### Settings and actions
 
+- With a marker, the selected channel is the marker's channel; `rc` and `preview` map to Preview. lgse/strata#183
 - The status line appends "Managed by Omarchy", "Managed by pacman", or "Managed by" the marker's manager. lgse/strata#196, lgse/strata#183
 - No package-managed install offers an in-app download, and the installer refuses one before downloading. lgse/strata#196
 - With an update available, an Omarchy install offers "Open Omarchy Update", which runs `omarchy-launch-floating-terminal-with-presentation omarchy-update` when that launcher is on `PATH`. lgse/strata#1609

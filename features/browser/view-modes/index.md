@@ -98,7 +98,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - In List and Icons, a folder load refused for lack of permission shows "Unable to read this directory" and the reason. Where GIO supports `admin`, an Open as Administrator button sits under it. lgse/strata#1837
 - In List and Icons, a folder whose load fails shows a Retry button under the reason, below Open as Administrator where that is offered. An empty folder shows no Retry. lgse/strata#2030
 - Clicking Retry reloads the folder; one made readable again lists its entries. lgse/strata#2030
-- The folder-error Retry and Open as Administrator buttons, in every view, use the themed secondary-button style with hover, active, focus, and disabled states, not GTK's default white button. lgse/strata#2030
+- The folder-error Retry and Open as Administrator buttons use the themed secondary-button style with hover, active, focus, and disabled states, not GTK's default white button. lgse/strata#2030
 - Clicking that button opens the folder's `admin://` form. lgse/strata#1837
 - In an `admin://` folder, a lock notice reading "Browsing as administrator. New items belong to root, and deleted items skip Trash." shows above the List and Icons listings. lgse/strata#1837
 - Long filenames are middle-ellipsized in Columns rows and headings, Icons captions, and the List Name column, so the extension stays visible. lgse/strata#1143

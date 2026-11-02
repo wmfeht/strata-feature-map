@@ -40,8 +40,7 @@ The Stable, Preview, and Nightly update channels, the Release channel row in Set
 ### Package-managed installs
 
 - With a marker, Settings → Updates shows a "Package-managed installation" row naming the manager, package, tracked channel, update instruction, and alternate package. lgse/strata#183
-- With a marker, the Release channel menu is disabled and follows the marker's channel, mapping `rc` and `preview` to Preview. lgse/strata#183
-- On a package-managed install, the channel choice and toggle stay insensitive with automatic checks on. lgse/strata#2030
+- With a marker, the Release channel menu is disabled, and its choice and toggle stay insensitive with automatic checks on. lgse/strata#183, lgse/strata#2030
 - Without a marker, an Omarchy or pacman install hides the Release channel row. lgse/strata#196 (unverified)
 
 ### Return to stable

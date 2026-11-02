@@ -98,7 +98,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Right-click on empty result space still opens the background menu with New Folder and New File. lgse/strata#639
 - A result renamed, deleted, or moved through its menu leaves the results; a rename that still matches stays at its real parent. lgse/strata#800, lgse/strata#1155
 - In List, Icons, and Columns, a result renamed in place with F2 stays focused and selected under its new name, wherever it now sorts. The next Delete acts on it. lgse/strata#1994, lgse/strata#2026
-- The same holds when that rename is committed with Enter or Tab, or made through 10xer's `r` prompt. lgse/strata#2026
+- The same holds when that rename is committed with Enter or Tab. lgse/strata#2026
 - A rename of a result to a path in another folder removes it, and no remaining result takes its selection. lgse/strata#2026
 - In Columns, each result row's label shows its own file's name during and after a rename. lgse/strata#2026
 - After a refused rename in Columns, focus returns to the result that was selected, not the first result. lgse/strata#2026

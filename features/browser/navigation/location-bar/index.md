@@ -22,7 +22,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - Clicking the current crumb, a separator, or empty breadcrumb space opens the entry; crumb buttons and the copy-path button keep their own actions. lgse/strata#316
 - While editing, a click outside the entry and its buttons cancels the edit, restores the breadcrumbs, and still performs the click's normal action. lgse/strata#316
 - Enter or the Navigate button opens the typed location; Escape or the Cancel button restores the breadcrumbs without navigating. lgse/strata#1132
-- Escape in the entry restores the folder the breadcrumbs name. In Columns with a mirrored child folder, it no longer reverts to the parent. lgse/strata#2026
+- Escape in the entry restores the folder the breadcrumbs name. lgse/strata#2026
 - With an input method composing in the location field, Escape cancels only the composition and the editor stays open. lgse/strata#1583
 - The entry and its buttons have the accessible names "Location (Ctrl+L)", "Navigate (Enter)", and "Cancel (Escape)". lgse/strata#1132
 - While the entry has focus, Ctrl+K and Ctrl+1–3 reach the entry instead of opening search or switching view mode. lgse/strata#914
@@ -81,6 +81,8 @@ The header control that shows the active location as breadcrumbs and switches to
 - Middle-clicking the current crumb opens no tab. lgse/strata#2038 (unverified)
 - Parent breadcrumbs accept file drops. lgse/strata#1487
 - Dropping onto a breadcrumb before 750 ms transfers into it without navigating. lgse/strata#1487
+- Holding a file drag over a parent breadcrumb for 750 ms navigates there, and the drag stays held. lgse/strata#1487
+- A breadcrumb under a file drag shows an accent tint and an accent inset ring, not GTK's green border. lgse/strata#1831
 - For paths under home, the crumbs and the hierarchy menu start at `~`. lgse/strata#820 (unverified)
 - When crumbs overflow, the wheel scrolls them horizontally and edge fades mark the hidden part. lgse/strata#820
 - The overflow scrollbar sits in its own row below the crumbs, hidden at rest and shown on hover or scroll, never covering labels. lgse/strata#820
@@ -104,7 +106,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - A file path reuses validation: `NotDirectory` sends the parent through navigation with the file as a pending reveal, matching GTK and KDE choosers (lgse/strata#1139, lgse/strata#1219). The file is also recorded as a preview target, consumed when the reveal focuses it (lgse/strata#1912).
 - That preview target is a field beside the reveal, so every navigation path must clear it. Carrying it on the reveal selection is a possible follow-up (lgse/strata#1912).
 - Every exit path switches the stack to the breadcrumbs before resetting the text, so the entry's `changed` signal cannot reopen the popover (lgse/strata#1205).
-- The breadcrumbs, Ctrl+L, the Escape refill, and the hierarchy menu share one mode-aware rule for the shown folder: the deepest column in Columns, the active folder in Icons and List (lgse/strata#1999, lgse/strata#2026).
+- The breadcrumbs, Ctrl+L, the Escape refill, and the hierarchy menu share one mode-aware rule. It names the deepest column in Columns and the active folder in Icons and List (lgse/strata#1999, lgse/strata#2026).
 - Typed bare `network:`, `trash:`, and `recent:` roots are normalized to GIO's canonical `scheme:///` form, which the sidebar opens and labels (lgse/strata#2016, lgse/strata#2030).
 - The hierarchy menu is arrowless, like the popovers of lgse/strata#1912, and anchored to the bar's full height to stay clear of the crumbs it lists (lgse/strata#2016, lgse/strata#2030).
 - GVfs folds a URI's query and fragment into the mount spec, so SFTP mounted a spec the location never matched. No accepted scheme addresses files with either, so typed addresses drop both (lgse/strata#2030).

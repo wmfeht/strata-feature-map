@@ -67,9 +67,10 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In 10xer mode, the reference lists only the 10xer map, adding Places, Preview, and a "10xer mode" section that collects the keys the default map lacks. lgse/strata#1272
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272
 - In the default map, "Files and selection" lists "Tab / Shift+Tab in a rename — Rename the next / previous item" right after Rename. lgse/strata#1961
-- In 10xer mode, "Files and selection" lists "Tab / Shift+Tab in an inline rename — Rename the next / previous item" after "Rename the focused item in the footer". lgse/strata#2013, lgse/strata#2027
+- In 10xer mode, "Files and selection" lists "Tab / Shift+Tab in an inline rename — Rename the next / previous item". It sits after "Rename the focused item in the footer". lgse/strata#2013, lgse/strata#2027
 - The 10xer file chooser reference lists that inline rename row too. lgse/strata#2027
-- In the default map, Icons and List navigation list "Menu / Shift+F10 on the Back button — List the back history (also right-click or hold)" once. lgse/strata#1977, lgse/strata#2027
+- In the default map, Icons and List navigation list one Back button row. lgse/strata#1977, lgse/strata#2027
+- That row reads "Menu / Shift+F10 on the Back button — List the back history (also right-click or hold)". lgse/strata#1977
 - That row sits after "Back / forward in history" and before "Go to the parent folder". lgse/strata#2027
 - Columns, and every view in 10xer mode, list no Back button history row. lgse/strata#2013, lgse/strata#2027
 - Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543

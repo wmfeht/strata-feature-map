@@ -40,7 +40,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - Accessible names and descriptions that name a shortcut use the interface language's key names, such as "Strg" in German. lgse/strata#1576
 - Strata's modal dialogs have the dialog role and are named after their title. lgse/strata#415
 - In Settings → Updates, a link in the status label is named after its text, such as "View releases on GitHub" after a failed check. lgse/strata#2030
-- The version link in "Stable channel target: vX" and in an available-update status is named after its text too. lgse/strata#2030
+- The version link in "Stable channel target: vX" and in an available-update status is named after its text. lgse/strata#2030
 - Links in release notes headings, paragraphs, and list items are named after their text. lgse/strata#2030
 
 ### Tooltips
