@@ -136,6 +136,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With fcitx5 pinyin, compose in `rename ›`, `create ›`, `go ›`, and `move to ›`; press Enter mid-composition, then again after the commit.
 - In a browser window railed by width, press Ctrl+N three times, then Ctrl+B; repeat with the preview owning the keys and with the sidebar focused by Ctrl+Shift+B.
 - Arm `g`, `c`, `,`, `;`, and `t` in a 640 px window, at 32 px text size, and with the clipboard badge showing. Read where each panel sits and whether focus left the listing. Alt+Tab away while one is armed and back.
+- With three windows open, toggle the mode from one. In each window press Ctrl+Shift+K, Ctrl+\, and Ctrl+Alt+T from the file list, a non-menu popover, and the sidebar.
 
 ### integration/10xer-mode/preview-keys
 

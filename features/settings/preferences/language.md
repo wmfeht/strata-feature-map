@@ -74,7 +74,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 - Two shared helpers were extended instead of adding zh-only paths: `i18n::join_sentences`, replacing an archive-only `。` case, and Settings search (lgse/strata#1583).
 - Setting `PANGO_LANGUAGE` from Strata was rejected: it must be set before threads start and scrubbed from every launched program (lgse/strata#1583).
 - English is the source of truth. Terms follow GNOME, KDE, and Microsoft usage for each language (lgse/strata#1541).
-- Catalog tests did not catch a Settings heading with no catalog key, such as FILE ICONS (lgse/strata#2014). A Settings test now builds every page and requires each section heading in every catalog (lgse/strata#2027).
+- Catalog tests only compare catalogs with each other, so they miss a source string never added to any, such as FILE ICONS. A Settings test therefore builds every page and requires each section heading in every catalog (lgse/strata#2014, lgse/strata#2027).
 
 ## History
 
