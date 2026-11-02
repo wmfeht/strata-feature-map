@@ -30,7 +30,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 
 ### Deleting the open folder
 
-- In Columns, Delete or Shift+Delete can delete the open folder from its own column. The cursor then moves to the folder's row in the parent as the deletion starts. lgse/strata#2030
+- In Columns, Delete or Shift+Delete may target the open folder from its own column, as `operations/delete` describes. The cursor then moves to the folder's row in the parent as the deletion starts. lgse/strata#2030
 - A finished deletion then moves the cursor on to a neighbour. lgse/strata#2030
 - A cancelled one ends with focus on the folder's row: closing "Operation cancelled" focuses it, and Down moves from it. lgse/strata#2030
 - A deletion that will not start, such as while a transfer's cancel is still pending, leaves the cursor in the folder's column. lgse/strata#2030

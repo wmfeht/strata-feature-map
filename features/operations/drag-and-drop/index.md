@@ -13,7 +13,7 @@ related: [operations/trash, operations/clipboard, browser/selection, browser/tab
 
 ## Summary
 
-Moving and copying files by dragging them onto folders, pane backgrounds, sidebar places, and breadcrumbs, within and between windows and to or from other applications. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices), `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags), and `operations/drag-and-drop/content-drops` (saving dropped images, text, and web links as new files).
+Moving and copying files by dragging them onto folders, pane backgrounds, and sidebar places, within and between windows and to or from other applications. Drops onto breadcrumbs belong to `browser/navigation/location-bar`. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices), `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags), and `operations/drag-and-drop/content-drops` (saving dropped images, text, and web links as new files).
 
 ## Behavior
 
