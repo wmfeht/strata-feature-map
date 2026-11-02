@@ -539,7 +539,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 - Open a file menu in one window, rebind Rename and Copy in Settings → Keyboard from a second window, and read the hints; repeat in 10xer mode and in German.
 - In an admin folder, open the menu on a file, a folder, a mixed multi-selection, and empty space.
-- Copy files in Nautilus, Nemo, and Dolphin, then right-click the Strata pane background and press Ctrl+V; repeat after cutting.
+- Put only `x-special/gnome-copied-files` on the clipboard with `xclip -t` or `wl-copy -t`, then right-click the pane background and press Ctrl+V; repeat with `cut` and with files copied in Nautilus, Nemo, and Dolphin.
 
 ### browser/directory-monitoring
 

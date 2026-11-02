@@ -73,7 +73,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543 (unverified)
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
 - The background menu's Paste is sensitive only while the clipboard holds files or a PNG image. lgse/strata#882
-- After files are copied in Nautilus, Nemo, or Dolphin, the background menu's Paste is insensitive, while Ctrl+V pastes them. lgse/strata#2040 (unverified)
+- When the clipboard offers `x-special/gnome-copied-files` without `text/uri-list` or a file list, the background menu's Paste is insensitive, while Ctrl+V pastes the files. lgse/strata#2040 (unverified)
 - The background menu offers Open With… and Open in Terminal for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#161, lgse/strata#1083
 - In a folder opened through `admin://`, the item, multi-selection, and background menus omit Open With…. lgse/strata#1837 (unverified)
 - In the background menu, Open in Terminal is insensitive when the folder has no local path. lgse/strata#161 (unverified)
