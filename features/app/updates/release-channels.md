@@ -3,23 +3,25 @@ title: Release channels
 status: shipped
 origin: {issue: lgse/strata#61, pr: lgse/strata#97}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
-code: [src/services/release_channel.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/services/release_channel.rs, src/ui/settings/channel.rs]
 tests: [src/services/release_channel/tests.rs]
 docs: [docs/releasing.md]
-related: []
+related: [app/updates/package-managed]
 ---
 
 ## Summary
 
-The Stable, Preview, and Nightly update channels, release ordering, and the Return to stable path off a prerelease build. Stable users never see a prerelease offer.
+The Stable, Preview, and Nightly update channels, the Release channel row in Settings → Updates, release ordering, and the Return to stable path off a prerelease build. Stable users never see a prerelease offer.
 
 ## Behavior
 
 ### Channels
 
 - The Release channel menu in Settings → Updates offers Stable, Preview, and Nightly; Stable is the default. lgse/strata#97
+- With automatic update checks off, the Release channel row, its choice, and its menu-button toggle are insensitive, also over AT-SPI. lgse/strata#97, lgse/strata#2030
+- Turning automatic checks back on makes the choice and toggle sensitive again without reopening Settings. lgse/strata#2030
 - An unrecognized saved channel value is read as Stable. lgse/strata#97
 - Stable offers only releases whose tag has no prerelease suffix and whose GitHub prerelease flag is false. lgse/strata#97
 - Stable checks read only GitHub's `/releases/latest`; Preview and Nightly checks read the 30 newest releases. lgse/strata#97 (unverified)
@@ -34,6 +36,12 @@ The Stable, Preview, and Nightly update channels, release ordering, and the Retu
 - The "Install a specific release" list shows the releases the channel offers, newest first, including releases older than the installed build. lgse/strata#1779, lgse/strata#1781
 - On Stable the list holds only stable releases; Preview adds alpha, beta, and release-candidate builds; Nightly lists every build kind. lgse/strata#1779, lgse/strata#1781
 - Two releases with the same version appear once in the list. lgse/strata#1781 (unverified)
+
+### Package-managed installs
+
+- With a marker, Settings → Updates shows a "Package-managed installation" row naming the manager, package, tracked channel, update instruction, and alternate package. lgse/strata#183
+- With a marker, the Release channel menu is disabled, and its choice and toggle stay insensitive with automatic checks on. lgse/strata#183, lgse/strata#2030
+- Without a marker, an Omarchy or pacman install hides the Release channel row. lgse/strata#196 (unverified)
 
 ### Return to stable
 
@@ -67,6 +75,7 @@ The Stable, Preview, and Nightly update channels, release ordering, and the Retu
 - RC outranks nightly at equal core version, matching semver's ordering of `nightly` before `rc` (lgse/strata#97).
 - Return to stable is gated on the running build being a prerelease, not on the selected channel. Otherwise a user who already chose Stable would be stranded on an RC (lgse/strata#97).
 - The transition reuses the ordinary update card rather than a separate rollback card, so the two never compete (lgse/strata#97).
+- GTK reports only a widget's own sensitivity to assistive technology, so a choice in an insensitive row still announced itself as usable. The toggle is its own accessible, so it follows the button (lgse/strata#2012, lgse/strata#2030).
 - The channel is re-tested at the click, which holds however many views cached an offer. The change broadcast only keeps those views current (lgse/strata#123).
 
 ## History

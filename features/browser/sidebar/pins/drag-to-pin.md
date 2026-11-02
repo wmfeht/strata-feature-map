@@ -3,8 +3,8 @@ title: Drag folders to pin
 status: shipped
 origin: {issue: lgse/strata#1690, pr: lgse/strata#1692}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/window/pinned_drop.rs, src/adapters/directory_validation.rs]
 tests: [src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/qa/scenarios/sidebar_pinning/folder-pins-order-and-bookmarks.jsonl, tests/qa/scenarios/sidebar_pinning/foreign-folder-drags-validate.jsonl, tests/qa/scenarios/sidebar_pinning/pinned-rows-transfer-and-remote-gaps.jsonl, tests/qa/scenarios/sidebar_pinning/spring-loaded-rows-keep-pin-intent.jsonl, tests/qa/scenarios/sidebar_reordering/pin-insertion-keeps-one-destination.jsonl]
 related: [operations/drag-and-drop, integration/portal-file-chooser, browser/sidebar]
@@ -35,7 +35,7 @@ Insertion gaps in the sidebar's PINNED section. Dragging folders from Strata or 
 - Remote pins have gaps beside them, although their rows accept no file drops. lgse/strata#1692
 - A folder pin drag that crosses a row's edges and gap, or leaves a spring-loaded row for a gap, keeps one insertion target. lgse/strata#1713 (unverified)
 - A folder pin drag keeps its target while the sidebar shrinks to the rail and back. lgse/strata#1713 (unverified)
-- With nothing pinned, dragging files or folders over the sidebar shows the empty PINNED section, and dropping a folder on its gap pins it. Leaving the sidebar hides it again. lgse/strata#1726
+- With nothing pinned, dropping a folder on the gap of the empty PINNED section that a drag shows pins it. lgse/strata#1726
 
 ### Reordering through gaps
 

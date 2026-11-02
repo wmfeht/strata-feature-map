@@ -3,10 +3,10 @@ title: Per-folder sort and thumbnail size
 status: shipped
 origin: {issue: lgse/strata#1563, pr: lgse/strata#1565}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
 code: [src/ui/preferences/folder_view_settings.rs, src/ui/preferences/folder_views.rs, src/ui/preferences/folder_views/**, src/app/browser/folder_sorts.rs]
-tests: [src/ui/preferences/folder_views/tests.rs, src/app/browser/tests/folder_sorts.rs]
+tests: [src/ui/preferences/folder_views/tests.rs, src/app/browser/tests/folder_sorts.rs, src/ui/window/tests/preferences/folder_views.rs]
 docs: [docs/preferences.md]
 related: [browser/view-modes/sorting, browser/view-modes/icons, settings/preferences/storage, browser/folder-customization, integration/portal-file-chooser, integration/10xer-mode/file-verbs]
 ---

@@ -3,10 +3,10 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: reviewed
-code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
-tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs, src/app/browser/selection.rs, src/app/navigation/cursor.rs, src/app/navigation/fill.rs, src/app/navigation/location_set.rs, src/ui/browser/view_selection.rs, src/ui/browser_modes/selection.rs]
+tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch, src/app/navigation/tests/fill_commands.rs, src/app/navigation/tests/fill_tracking.rs, src/app/navigation/tests/paging.rs, src/app/navigation/tests/ranges.rs, src/app/navigation/tests/selection.rs]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode, browser/context-menu, browser/tabs]
 ---
@@ -42,6 +42,10 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - The file chooser leaves Shift+Page Up and Shift+Page Down to GTK. lgse/strata#1313
 - Shift+Down with nothing selected selects only the first entry; the next Shift+Down selects two. lgse/strata#738
 - After Escape clears a selection, the next Shift+arrow range starts at the keyboard cursor. lgse/strata#1313
+- In List, Icons, and Columns, plain Home, End, Page Up, and Page Down move the range anchor to the new cursor. Shift+Home after End selects every entry. lgse/strata#1995, lgse/strata#2026
+- After Home, Shift+Down selects the first two entries. lgse/strata#2026
+- In List and Icons, a plain arrow or `h`/`j`/`k`/`l` move that changes the selection moves the range anchor. Shift+Page Up and Shift+Page Down then extend from the new cursor. lgse/strata#2026
+- In Columns, Shift+Home and Shift+End extend from the range anchor to the first or last entry, not only the edge entry. lgse/strata#2026
 - Ctrl+A selects every entry in the focused column, not the deepest open column. lgse/strata#358
 - With hidden files off, Ctrl+A in Icons, List, and the chooser leaves hidden entries unselected. lgse/strata#916
 - Returning to a column with the keyboard keeps its multi-selection. lgse/strata#522
@@ -85,6 +89,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - Escape was chosen over clicking empty space, which a full pane lacks, and over a dedicated shortcut. Transient surfaces keep precedence (lgse/strata#528).
 - List and Icons leave Shift+arrow to GTK, which extends from its own range origin. Their click handler claims modified clicks, so GTK never moves that origin. A Ctrl+click now moves it with `list.select-item`, then restores the selection (lgse/strata#1851, lgse/strata#1871).
 - Shift+arrow stays on GTK's binding in List and Icons by design. The app's own range walk uses source order, which is wrong for sorted, filtered, and grouped views ([comment](https://github.com/lgse/strata/issues/1851#issuecomment-6387122579)).
+- After Home, End, and the page keys, GTK's native Shift range origin is reset to the model's anchor, as restores and Ctrl+click already do. Arrow moves anchor the model only when GTK replaced the selection, not when it keeps a range at an edge (lgse/strata#1995, lgse/strata#2026).
 - Refresh snapshots selected locations and re-applies them after GTK reconnects its selection model (lgse/strata#922).
 - After a reload the neighbour takes the cursor, not the selection, matching deletes and lgse/strata#1410 (lgse/strata#1434, lgse/strata#1544).
 - The replacement after a removal skips hidden entries. Monitor updates and batched operation updates share this rule (lgse/strata#1415).
@@ -93,6 +98,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Moved the range anchor with Home, End, page keys and arrows, so Shift ranges start at the cursor in every view. |
 | 2026-10-31 | lgse/strata#1959 | fix | Let a press on a view's scrollbar keep its drag instead of starting a marquee, so overlay scrollbar handles scroll again. |
 | 2026-10-25 | lgse/strata#1871 | fix | Moved GTK's Shift+arrow origin to the Ctrl+clicked entry in List and Icons, so ranges extend from it. |
 | 2026-10-07 | lgse/strata#1415 | fix | Moved focus after a removal to the nearest visible entry instead of a hidden one. |

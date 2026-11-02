@@ -26,6 +26,7 @@ integration/file-manager-interface/service-activation: New since v1.0.0; the nex
 integration/open-with: No upstream user doc covered Open With; the guide does not cover it yet.
 integration/open-with/recent-apps: No upstream user doc covered Open With; the guide does not cover it yet.
 operations/clipboard/conflicts: Covered by the Everyday operations guide page; no upstream user doc described paste conflicts.
+operations/clipboard/file-manager-formats: New since v1.1.1; the next release docs run places it.
 operations/clipboard/send-to: No upstream user doc covered Send to; the guide does not cover it yet.
 operations/drag-and-drop: Covered by the Everyday operations guide page; its upstream doc, docs/preferences.md, stays upstream.
 operations/drag-and-drop/column-autoscroll: Pointer detail of Columns drag; no upstream user doc covered it.

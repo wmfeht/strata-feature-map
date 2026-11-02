@@ -3,10 +3,10 @@ title: Folder and file customization
 status: shipped
 origin: {issue: lgse/strata#211, pr: lgse/strata#294}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs]
-tests: [tests/qa/scenarios/dialogs_and_menus/customization-follows-move-and-trash.jsonl, tests/qa/scenarios/dialogs_and_menus/customize-takes-focus-single-escape.jsonl, tests/qa/scenarios/dialogs_and_menus/background-customize-ancestor-column.jsonl]
+code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs, src/ui/browser/customization/**]
+tests: [tests/qa/scenarios/dialogs_and_menus/customization-follows-move-and-trash.jsonl, tests/qa/scenarios/dialogs_and_menus/customize-takes-focus-single-escape.jsonl, tests/qa/scenarios/dialogs_and_menus/background-customize-ancestor-column.jsonl, src/ui/window/tests/preferences/item_customizations.rs]
 docs: [docs/preferences.md]
 related: [browser/sidebar, browser/thumbnails, browser/properties, settings/themes/icons, settings/preferences/storage, operations/rename, browser/context-menu, browser/view-modes/folder-views]
 ---

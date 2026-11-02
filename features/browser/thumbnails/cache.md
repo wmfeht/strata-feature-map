@@ -3,9 +3,9 @@ title: Thumbnail disk cache
 status: shipped
 origin: {issue: lgse/strata#273, pr: lgse/strata#274}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
-code: [src/ui/thumbnail_cache.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/thumbnail_cache.rs, src/ui/thumbnail/persist.rs]
 tests: [src/ui/thumbnail_cache/tests.rs]
 related: [browser/properties/raw-metadata]
 ---
@@ -29,6 +29,10 @@ Persisting rendered thumbnails in the freedesktop shared cache, `$XDG_CACHE_HOME
 - Strata creates the `large` directory with mode 0700, and resets an existing directory to 0700 before writing. lgse/strata#274 (unverified)
 - Entries are written atomically with mode 0600; a symlink at the entry path is left in place and its target is not modified. lgse/strata#274 (unverified)
 - Rendering an image, or page 1 of a PDF, in the preview panel also writes the 256 px entry for a local file. lgse/strata#318 (unverified)
+- Files anywhere under `$XDG_CACHE_HOME/thumbnails`, including those reached through a symlink to it, are neither looked up in nor written to the disk cache. lgse/strata#2032
+- Browsing `~/.cache/thumbnails/large` with Show thumbnails on leaves its entry count unchanged, and the entries still show as image thumbnails. lgse/strata#2032
+- A folder outside the tree with a similar name, such as `thumbnails-old`, is cached as usual. lgse/strata#2032
+- Previewing a file under the thumbnails tree in the preview panel writes no 256 px entry. lgse/strata#2032 (unverified)
 
 ## Design
 
@@ -38,12 +42,14 @@ The cache follows the freedesktop thumbnail specification so Strata and other fi
 - Writes are normalized to the canonical `large` size so a small view cannot poison the shared bucket. Only files with a known modification time touch the disk.
 - Persistence is best effort and asynchronous. At most 32 writes queue; the oldest drops first, so slow disks never delay display.
 - The shared cache validates entries by URI and modification time only, so sideways RAW thumbnails from older builds stayed valid until the file changed. The render tag lets Strata replace them (lgse/strata#1666, lgse/strata#1698).
+- Files under the `thumbnails` tree are never cached on disk: each would add an entry to thumbnail, so the directory would grow without bound. The guard checks the lexical and the resolved path, so a symlink cannot bypass it (lgse/strata#2031, lgse/strata#2032).
 - Disk lookups run on their own executor rather than in a render slot, so a cache hit never waits behind a decoder (lgse/strata#516, lgse/strata#1081).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2032 | fix | Stopped disk-cache lookups and writes for files under the thumbnails tree, so browsing the cache no longer grows it. |
 | 2026-09-04 | lgse/strata#274 | perf | Read and wrote the freedesktop `large` cache, hardened against hostile entries and normalized to 256 px. |
 
 ## Known gaps

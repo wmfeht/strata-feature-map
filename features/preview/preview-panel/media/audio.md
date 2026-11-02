@@ -3,8 +3,8 @@ title: Audio previews
 status: shipped
 origin: {issue: lgse/strata#1288, pr: lgse/strata#1289}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/preview/audio.rs, src/ui/preview/audio, src/ui/preview/waveform.rs, src/ui/preview/waveform, src/media/peaks.rs, src/media/peaks]
 tests: [src/ui/preview/audio/tests.rs, src/ui/preview/audio/analysis/tests.rs, src/ui/preview/audio/details/tests.rs, src/ui/preview/tests/audio.rs, src/ui/preview/waveform/tests.rs, src/media/peaks/tests.rs, src/ui/window/tests/keyboard_dispatch/audio_tracks.rs]
 related: [preview/preview-panel/media/video, browser/search, integration/10xer-mode]
@@ -43,7 +43,8 @@ The now-playing view for audio files: artwork, tags, a live spectrum, a waveform
 
 ### Tracks
 
-- Previous and next step through the folder's audio files, or visible filtered audio results including subfolders, and keep playing if the current track was playing. lgse/strata#1289
+- Previous and next step through the folder's audio files, or visible filtered audio results including subfolders. They keep playing if the current track was playing. lgse/strata#1289
+- A local audio file joins those steps only after a metadata probe finds a duration, or its first 8 KiB do not read as text. lgse/strata#2026 (unverified)
 - Previous is disabled on the first audio file and next on the last; stepping does not wrap. lgse/strata#1289 (unverified)
 - Previous and next skip playlists and MIDI files. lgse/strata#1289
 - In 10xer mode, `<` and `>` step tracks from the listing or inside the preview; the default key map uses Ctrl+Alt+`<` and Ctrl+Alt+`>`. lgse/strata#1289

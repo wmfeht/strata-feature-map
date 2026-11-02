@@ -3,10 +3,10 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: reviewed
-code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, packaging/media-runtime]
-tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/tests.rs, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, src/ui/media/history.rs, src/ui/media/playback.rs, src/ui/media/positions.rs, src/ui/preview/media_content.rs, src/ui/preview/media_controls.rs, src/ui/preview/media_render.rs, src/ui/preview/media_session.rs, packaging/media-runtime]
+tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/**, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]
 docs: [site/src/reference/preview-sandbox.md, site/src/reference/keyboard-navigation.md]
 related: [preview/preview-panel/sandbox, preview/preview-panel/layout, preview/quick-preview, settings/preferences]
 ---
@@ -29,6 +29,23 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Mute and volume are saved and apply live to every open player. lgse/strata#167, lgse/strata#839
 - The volume and seek sliders show no focus border when clicked. lgse/strata#962
 - In the default key map, Ctrl+Alt+Space plays or pauses, Ctrl+Alt+Left/Right seek 5 s, Ctrl+Alt+Up/Down change volume by 10%, and Ctrl+Alt+M mutes. lgse/strata#888 (unverified)
+- On the plain media bar, as for an animated GIF, the play button's tooltip and accessible name read "Play/Pause" and its shortcut in parentheses. lgse/strata#1895 (unverified)
+- The mute button's tooltip and accessible name read "Mute/unmute" followed by its shortcut in parentheses. lgse/strata#1895 (unverified)
+
+### Stepping
+
+- Previous and next count and step to a local audio or video file once its metadata probe found media. lgse/strata#2026
+- Without a probe answer, a local file joins once its first 8 KiB are not text. Binary bytes under a media name still join. lgse/strata#2026 (unverified)
+- A folder holds three real `.h264` streams, a real `clip.mp4`, and text files `fake.mp4` and `notes.h264`. The header reads "of 4", and stepping visits only the four videos. lgse/strata#2026
+- That content rule holds in List, Columns, and Icons. lgse/strata#2026
+- A file not yet checked stays out of the sequence until it answers. The position and the previous and next buttons update after each chunk of reads. lgse/strata#2026
+- The shown file always anchors its own sequence, whether or not its check has answered. lgse/strata#2026
+- Checks read outward from the shown file, nearest first, through the mount's request lane. They wait up to 10 s while the mount is busy and give up once it stalls. lgse/strata#2026
+- Checks stop when the preview closes or replaces the player with another kind of preview. lgse/strata#2026
+- Files on remote (GVfs) locations and route files join the sequence by name. lgse/strata#2026
+- An audio entry whose metadata fill found no duration is skipped. lgse/strata#1638, lgse/strata#1901, lgse/strata#2026
+- A video entry with neither duration nor known dimensions is skipped. lgse/strata#1638, lgse/strata#1901, lgse/strata#2026
+- Previous and next, and the position count, keep a video with known dimensions but no duration, such as a raw `.h264` stream. lgse/strata#1901
 
 ### Slider keys
 
@@ -86,12 +103,16 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Keys stop on the last frame because seeking exactly to the duration ends the stream; stepped volumes snap because float steps stop short of zero (lgse/strata#1570).
 - The autoplay fade multiplies a gain on the GStreamer `volume` element, so no audio is processed in Strata and the saved volume is untouched (lgse/strata#1417).
 - A preview's audio output is built, started, and changed on one `strata-audio` worker. GStreamer's start-up could scan plugins and rewrite its registry, and state changes could wait on the sound server, all on the UI thread (lgse/strata#1729).
+- The preview reads leading bytes before choosing a player, so a sequence trusting names landed on files that preview as text. Sequences now join local files by content (lgse/strata#2003, lgse/strata#2026).
+- Content answers belong to one preview and are trimmed to its listing; there is no global cache (lgse/strata#2026).
+- Checks run as background work through request lanes, so a stalled mount parks no workers. One 10 s busy wait covers every folder of a run and is never reset within it (lgse/strata#2026).
 - The `packaging/media-runtime` patch kit pins a GStreamer worker-finalization fix and probes. It does not change the shipped binary (lgse/strata#779). The GTK context patch was retired once upstream merged it (lgse/strata#830).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Built previous/next media sequences from file content, not names, so text files named as videos are skipped. |
 | 2026-10-04 | lgse/strata#1411 | fix | Fed audio by sink capacity with a 2 s lead so slow-starting sinks no longer stall. |
 | 2026-10-01 | lgse/strata#1346 | fix | Omitted input seeks for raw H.264 and HEVC streams so they play and seek. |
 | 2026-09-29 | lgse/strata#1314 | feat | Recovered stalled playback, coalesced seeks, and resumed videos at their close position. |
@@ -112,3 +133,6 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 ## Known gaps
 
 - Application RSS grows across preview cycles through glibc arena retention; reusable parent-side workers are under investigation. lgse/strata#841
+- The volume slider and the plain media bar's seek slider have no accessible name. Naming them needs new strings in every catalog. lgse/strata#1896
+- Remote (GVfs) and route files are still placed in a media sequence by name, not content. lgse/strata#2026
+- Files not read before the 10 s busy wait ran out stay out of the sequence until the shown file changes. lgse/strata#2026

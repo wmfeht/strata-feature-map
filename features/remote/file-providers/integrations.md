@@ -3,9 +3,9 @@ title: Integrations catalog
 status: shipped
 origin: {issue: lgse/strata#1741, pr: lgse/strata#1748}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
-code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, src/ui/settings/compact_bin.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
 tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs]
 docs: [docs/file-providers.md, integrations/README.md]
 related: [remote/file-providers/external, remote/file-providers/kde-connect, remote/file-providers/localsend, settings/preferences, integration/open-with/terminal, app/infrastructure, settings/diagnostics]
@@ -32,11 +32,14 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - A selected category with no entries left after a rescan returns to All. lgse/strata#1704 (unverified)
 - With two visible cards each card takes half the row, one card fills the row, and the grid never shows more than three columns. lgse/strata#1761
 - Choosing a category chip resizes the columns to the cards it leaves visible. lgse/strata#1761
+- In 1200 px and 1430 px windows, the catalog shows two cards per row, each filling half the row. lgse/strata#2030
+- The grid fits as many columns, up to three, as a 320 px floor or each card's minimum width allows. A window narrower than one column shrinks a card to 240 px. lgse/strata#2030
 
 ### Requirements
 
 - A card's footer reads "Requirements" with a check when every requirement is met, a red X when any is missing, and no mark while the check runs. lgse/strata#1748, lgse/strata#1704
 - Selecting the footer expands it to "Requires:" with one Available or Missing chip per requirement, the runtime first, and relabels it "Hide requirements". It shows "Checking…" until results arrive. lgse/strata#1748, lgse/strata#1704
+- An expanded card's "Requires:" chips wrap onto more lines instead of widening the card. lgse/strata#2030
 - For each missing requirement with a package for the detected pacman, apt, dnf, or zypper, the expanded footer shows "Install missing dependencies with:" and the copyable command. lgse/strata#1748
 - After Run in terminal opens an install command, the page says "The command opened in your terminal. Select Refresh when it finishes." lgse/strata#1704, lgse/strata#1729
 - A `command` requirement is met when its name or one of its `alternatives` resolves in a trusted system directory. lgse/strata#1748, lgse/strata#1756
@@ -91,11 +94,14 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - The catalog is named after what users see, integrations. The install directory and protocol keep "providers" because the directory also holds hand-made registrations (lgse/strata#1748).
 - Every LocalSend package installs a `/usr/bin` link into `/opt` or `/usr/lib`, which the trusted-command rule rejected. The relaxed rule applies only to integration requirement checks (lgse/strata#1756).
 - A GTK `FlowBox` keeps space for empty columns, so the column count is capped at the cards shown (lgse/strata#1761).
+- A `FlowBox` picks its column count from each child's natural width. Card text and one-line chips took over half the 820 px and 942 px catalogs (lgse/strata#2030).
+- Each card sits in a bin that reports its minimum width, raised to 320 px, as its natural width. The card's own minimum stays 240 px (lgse/strata#2030).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Wrapped requirement chips and gave catalog cards a 320 px natural width, so 1200 px and 1430 px windows show two cards per row. |
 | 2026-10-18 | lgse/strata#1761 | fix | Capped the catalog grid's columns at the visible card count, so two cards fill the row without an empty third column. |
 | 2026-10-18 | lgse/strata#1748 | feat | Added Settings → Integrations, a bundled opt-in catalog that installs, updates, turns off, and removes provider registrations. |
 
@@ -103,3 +109,4 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 
 - When turning an integration's switch on or off fails, the error shows but the switch keeps its new position until Refresh. lgse/strata#1748
 - With more than one row of cards, expanding one card's requirements leaves empty space below the cards in other rows, because every row takes the tallest card's height. lgse/strata#1761
+- At a 420 px window a card's own content still clips slightly. lgse/strata#2030

@@ -3,9 +3,9 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs, src/adapters/local_operations/rename.rs, src/ui/browser/inline_edit/pending.rs, src/ui/browser/inline_edit/reveal.rs, src/ui/browser_modes/rename.rs]
 tests: [tests/qa/scenarios/inline_renaming/escape-preserves-name-remaining.jsonl, tests/qa/scenarios/inline_renaming/escape-preserves-name.jsonl, tests/qa/scenarios/inline_renaming/input-method-composes-over-selection.jsonl, tests/qa/scenarios/inline_renaming/invalid-names-retain-original.jsonl, tests/qa/scenarios/inline_renaming/long-rename-keeps-caret.jsonl, tests/qa/scenarios/inline_renaming/new-item-clears-hiding-filter.jsonl, tests/qa/scenarios/inline_renaming/new-item-first-free-number.jsonl, tests/qa/scenarios/inline_renaming/rename-and-undo-restores.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-click-away.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-enter.jsonl, tests/qa/scenarios/inline_renaming/tone-mark-escape-before-rename.jsonl, tests/qa/scenarios/inline_renaming/valid-name-commits-remaining.jsonl, tests/qa/scenarios/inline_renaming/window-accelerators-leave-rename.jsonl, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/create, browser/selection, operations/trash, browser/folder-customization, operations/filesystem-compatibility]
@@ -81,10 +81,12 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Shift+Tab does the same toward the previous item. lgse/strata#1961
 - Tab or Shift+Tab with the name unchanged renames nothing and moves the editor to the neighbouring item. lgse/strata#1961
 - Tab with an invalid name keeps the original name and still moves the editor to the next item. lgse/strata#1961 (unverified)
+- A Tab commit onto a name another item has fails as an Enter commit does, with the "Unable to rename item" dialog. lgse/strata#2030
+- Escape on that dialog returns focus and selection to the renamed item, not the neighbour, and no editor reopens, in Columns and List. lgse/strata#2030
 - Tab on the last item, or Shift+Tab on the first, commits the name and closes the editor; keyboard focus stays in the listing. lgse/strata#1961
 - When that edge commit makes the item sort elsewhere, such as `zz.txt` renamed `a.txt`, the listing does not select or scroll to it. lgse/strata#1961 (unverified)
 - The committed row does not pull the cursor back when its rename lands, so the editor stays on the neighbour. lgse/strata#1961
-- Tab and Shift+Tab move the rename this way in Columns, List, and Icons, in both key maps and in the file chooser. lgse/strata#1961
+- Tab and Shift+Tab move the rename this way in Columns, List, and Icons, in both key maps and in the file chooser. lgse/strata#1961, lgse/strata#2026
 - Tab is taken only while keyboard focus is in the rename field; otherwise it moves focus as before. lgse/strata#1961 (unverified)
 
 ### Visibility
@@ -123,6 +125,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Returned focus to an item whose Tab-committed rename failed, and explained renames across file systems as "on a different file system". |
 | 2026-10-31 | lgse/strata#1961 | feat | Made Tab and Shift+Tab commit an inline rename and open the editor on the next or previous item, for renaming runs of files. |
 | 2026-10-25 | lgse/strata#1890 | fix | Focused a renamed row before its widget is allocated, so arrow keys work after a rename moves a row. |
 | 2026-10-17 | lgse/strata#1714 | fix | Kept an inline rename open while the window is inactive, so switching input methods no longer commits it. |

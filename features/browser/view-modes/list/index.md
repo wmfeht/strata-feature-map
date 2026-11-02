@@ -3,9 +3,9 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs, src/ui/browser_modes/list_headings.rs, src/ui/browser_modes/list_pane.rs]
 tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl, src/ui/browser_modes/grouped_model/tests.rs, tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl]
 related: [browser/navigation]
 ---
@@ -85,3 +85,4 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 - List cannot expand folders in place as a tree; a PR is open. lgse/strata#1495, lgse/strata#1496
 - Grouped loads of very large folders are not sub-second: a 100,000-entry mixed-type folder takes about 2 s to publish. lgse/strata#1928
+- In grouped List, a first visit by typed path puts the cursor on the first entry by name, not the first visible row. That is the visually last file of a 4-file folder, or the middle of a 44,000-file one. lgse/strata#2016

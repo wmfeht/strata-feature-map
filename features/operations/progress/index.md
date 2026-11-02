@@ -3,10 +3,10 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
-code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, src/adapters/local_operations/progress.rs]
-tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: reviewed
+code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, src/adapters/local_operations/progress.rs, src/adapters/local_operations/flush.rs, src/app/browser/operation_events/progress.rs, src/app/browser/operation_start.rs, src/ui/browser/progress/dismiss.rs, src/ui/browser/progress/status.rs, src/ui/browser/progress/transfer_updates.rs, src/ui/browser/progress/view.rs]
+tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs, src/adapters/local_operations/tests/sync/**]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/clipboard, operations/delete, operations/delete/dissolve, operations/archives, operations/trash/animation, operations/filesystem-compatibility]
 ---

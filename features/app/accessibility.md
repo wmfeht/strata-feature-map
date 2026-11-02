@@ -3,12 +3,12 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/qa/scenarios/accessibility, tests/qa/scenarios/dialogs_and_menus/entry-menu-named-actions.jsonl]
 docs: [docs/testing.md]
-related: [browser/navigation/location-bar, browser/sidebar, settings/preferences/language, browser/context-menu, app/dialogs]
+related: [browser/navigation/location-bar, browser/sidebar, settings/preferences/language, browser/context-menu, app/dialogs, app/updates]
 ---
 
 ## Summary
@@ -39,6 +39,9 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - Menu shortcut descriptions use Strata's notation: the Appearance menu's Hidden files option is described as "Ctrl+H", not "Ctrl + H". lgse/strata#1576
 - Accessible names and descriptions that name a shortcut use the interface language's key names, such as "Strg" in German. lgse/strata#1576
 - Strata's modal dialogs have the dialog role and are named after their title. lgse/strata#415
+- In Settings → Updates, a link in the status label is named after its text, such as "View releases on GitHub" after a failed check. lgse/strata#2030
+- The version link in "Stable channel target: vX" and in an available-update status is named after its text. lgse/strata#2030
+- Links in release notes headings, paragraphs, and list items are named after their text. lgse/strata#2030
 
 ### Tooltips
 
@@ -65,6 +68,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
+- GTK leaves the links in a label's markup unnamed, so a screen reader announced an empty link. A label set through `set_link_markup` names each `<a>` after its text (lgse/strata#2012, lgse/strata#2030).
 - Exclusive choices are radio menu items and on/off options are check menu items, because screen readers announce their checked state (lgse/strata#1467, lgse/strata#1544).
 - Chosen states are product surface too: GUI checks read `checked` or `pressed` as accessible state and never infer them from check-icon children (lgse/strata#1544).
 - A menu option's `checked` state mirrors its check icon's own visibility, because a closed popover hides every option's ancestors (lgse/strata#1544, unverified).
@@ -73,6 +77,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Named the links in the update status and release notes after their text, so screen readers no longer announce empty links. |
 | 2026-10-25 | lgse/strata#1896 | fix | Named text fields and the Icons thumbnail slider that had only a placeholder or an unlinked label. |
 | 2026-10-25 | lgse/strata#1895 | fix | Gave icon-only buttons that had only a tooltip an accessible name equal to it, kept in step when it changes. |
 | 2026-10-10 | lgse/strata#1544 | fix | Added checked and pressed state helpers, and a sync that keeps a menu option's checked state equal to its check icon. |

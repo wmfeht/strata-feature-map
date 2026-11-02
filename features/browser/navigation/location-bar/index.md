@@ -3,16 +3,16 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
-code: []
-tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch]
-related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility, preview/quick-preview]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/app/browser/location_input.rs, src/ui/browser/location/breadcrumbs.rs]
+tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch, tests/qa/scenarios/view_switching/leaving-columns-names-the-shown-folder.jsonl]
+related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility, preview/quick-preview, browser/tabs, browser/view-modes/columns]
 ---
 
 ## Summary
 
-The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, revealing a typed file, and the breadcrumb hierarchy menu. Child: `browser/navigation/location-bar/completion` (the folder suggestions under the entry).
+The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, revealing a typed file, the breadcrumb hierarchy menu, and opening crumbs in a new tab or window. Child: `browser/navigation/location-bar/completion` (the folder suggestions under the entry).
 
 ## Behavior
 
@@ -22,6 +22,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - Clicking the current crumb, a separator, or empty breadcrumb space opens the entry; crumb buttons and the copy-path button keep their own actions. lgse/strata#316
 - While editing, a click outside the entry and its buttons cancels the edit, restores the breadcrumbs, and still performs the click's normal action. lgse/strata#316
 - Enter or the Navigate button opens the typed location; Escape or the Cancel button restores the breadcrumbs without navigating. lgse/strata#1132
+- Escape in the entry restores the folder the breadcrumbs name. lgse/strata#2026
 - With an input method composing in the location field, Escape cancels only the composition and the editor stays open. lgse/strata#1583
 - The entry and its buttons have the accessible names "Location (Ctrl+L)", "Navigate (Enter)", and "Cancel (Escape)". lgse/strata#1132
 - While the entry has focus, Ctrl+K and Ctrl+1–3 reach the entry instead of opening search or switching view mode. lgse/strata#914
@@ -37,6 +38,11 @@ The header control that shows the active location as breadcrumbs and switches to
 - A relative path such as `Documents` is rejected with "Enter an absolute path." lgse/strata#242 (unverified)
 - UNC paths (`\\host\share`, `//host/share`) and SCP addresses (`user@host:path`) are rejected with a message suggesting `smb://`, `sftp://`, `ftp://`, or `dav://` URIs. lgse/strata#20
 - Accepted URI schemes are smb, sftp, ftp, ftps, dav, davs, admin, trash, network, and recent. Any other is rejected with "The <scheme>:// scheme isn't supported." The message lists the accepted schemes except trash and network. lgse/strata#20, lgse/strata#1837 (unverified)
+- Typing `network:`, `network://`, or `network:///` opens the Network root. `trash:` and `trash://` open Trash, and `recent:` and `recent://` open Recent. Scheme case is ignored. lgse/strata#2030
+- A typed `network://` names the location "Network" in the heading and breadcrumbs, as the sidebar does. lgse/strata#2030
+- A virtual-root scheme followed by more than three slashes, or by text after them, is parsed as an ordinary URI. lgse/strata#2030 (unverified)
+- Submitting a typed remote URI such as `sftp://host/served?tok=QTOKEN#frag` opens `sftp://host/served`. The user and port are kept. lgse/strata#2030
+- A literal `?` or `#` in a remote name is typed as `%3F` or `%23`. Typed local paths keep `?` and `#`. lgse/strata#2030
 - Submitting `smb://alice:secret@host/share` or `smb://alice;password=secret@host/share` shows `smb://alice@host/share` in the entry while mounting and uses the password for that one attempt. lgse/strata#145
 - A typed password is never saved; failed credentials open the normal sign-in dialog. lgse/strata#145
 - The sign-in dialog's fields are named after their visible labels: "Username", "Domain", and "Password" or "Passphrase". lgse/strata#1896 (unverified)
@@ -64,6 +70,19 @@ The header control that shows the active location as breadcrumbs and switches to
 - Each ancestor crumb is a button that opens that folder. lgse/strata#316
 - Clicking an ancestor crumb, or choosing an ancestor in the hierarchy menu, selects the folder on the path you came from. In Icons and List a remembered position wins. lgse/strata#1437, lgse/strata#1544
 - Right-clicking the breadcrumb bar opens a menu of the current folder and its ancestors, current first; choosing one opens it. lgse/strata#820
+- The hierarchy menu has no arrow. It opens below the crumb bar at the click's x position, so it never covers the crumbs. lgse/strata#2030
+- The hierarchy menu marks as current the folder the bar names. lgse/strata#2026
+- In Columns with a child folder mirrored beside the focused column, the breadcrumbs, Ctrl+L, the Escape or failed-submit refill, and the hierarchy menu name the deepest column. lgse/strata#2026
+- Switching from Columns to List or Icons makes the breadcrumbs name the folder the pane shows. Ctrl+L then prefills it, and Enter does not enter the mirrored child. lgse/strata#2026
+- Switching back to Columns names the mirrored child again. lgse/strata#2026
+- Middle-clicking an ancestor crumb, such as `Documents` in `~/Documents/projects`, opens it in a new, active tab. The first tab stays in `projects`. lgse/strata#2038
+- Ctrl+middle-click or Shift+middle-click on an ancestor crumb opens that folder in a new window. lgse/strata#2038
+- In a file chooser, middle-clicking a crumb opens nothing. lgse/strata#2038
+- Middle-clicking the current crumb opens no tab. lgse/strata#2038 (unverified)
+- Parent breadcrumbs accept file drops. lgse/strata#1487
+- Dropping onto a breadcrumb before 750 ms transfers into it without navigating. lgse/strata#1487
+- Holding a file drag over a parent breadcrumb for 750 ms navigates there, and the drag stays held. lgse/strata#1487
+- A breadcrumb under a file drag shows an accent tint and an accent inset ring, not GTK's green border. lgse/strata#1831
 - For paths under home, the crumbs and the hierarchy menu start at `~`. lgse/strata#820 (unverified)
 - When crumbs overflow, the wheel scrolls them horizontally and edge fades mark the hidden part. lgse/strata#820
 - The overflow scrollbar sits in its own row below the crumbs, hidden at rest and shown on hover or scroll, never covering labels. lgse/strata#820
@@ -87,12 +106,19 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - A file path reuses validation: `NotDirectory` sends the parent through navigation with the file as a pending reveal, matching GTK and KDE choosers (lgse/strata#1139, lgse/strata#1219). The file is also recorded as a preview target, consumed when the reveal focuses it (lgse/strata#1912).
 - That preview target is a field beside the reveal, so every navigation path must clear it. Carrying it on the reveal selection is a possible follow-up (lgse/strata#1912).
 - Every exit path switches the stack to the breadcrumbs before resetting the text, so the entry's `changed` signal cannot reopen the popover (lgse/strata#1205).
+- The breadcrumbs, Ctrl+L, the Escape refill, and the hierarchy menu share one mode-aware rule. It names the deepest column in Columns and the active folder in Icons and List (lgse/strata#1999, lgse/strata#2026).
+- Typed bare `network:`, `trash:`, and `recent:` roots are normalized to GIO's canonical `scheme:///` form, which the sidebar opens and labels (lgse/strata#2016, lgse/strata#2030).
+- The hierarchy menu is arrowless, like the popovers of lgse/strata#1912, and anchored to the bar's full height to stay clear of the crumbs it lists (lgse/strata#2016, lgse/strata#2030).
+- GVfs folds a URI's query and fragment into the mount spec, so SFTP mounted a spec the location never matched. No accepted scheme addresses files with either, so typed addresses drop both (lgse/strata#2030).
+- Crumb middle-clicks reuse the folder rows' middle-click rule, and choosers skip them like the other tab actions (lgse/strata#2037, lgse/strata#2038).
 - The scrollbar moved from an overlay inside the 22 px crumb row to its own row, after the shared fixed-scrollbar class still cropped labels (lgse/strata#297, lgse/strata#819).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Read `network:`, `network://`, `trash:` and `recent:` as their roots, dropped typed query and fragment, and opened the arrowless hierarchy menu below the bar. |
+| 2026-11-02 | lgse/strata#2026 | fix | Named the folder List and Icons show in the breadcrumbs, Ctrl+L, Esc refill and hierarchy menu after leaving Columns. |
 | 2026-10-29 | lgse/strata#1909 | fix | Gave crumb labels a minimum width so deep paths scroll, and revealed the current crumb after layout and after editing. |
 | 2026-10-28 | lgse/strata#1912 | fix | Opened Quick Preview on a file revealed from a typed path, and dropped that request when navigation moves on first. |
 | 2026-10-11 | lgse/strata#1570 | fix | Resolved `.` and `..` as text in typed paths, so crumbs and Parent follow the resolved path. |

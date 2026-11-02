@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#626}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/browser/dissolve_delete.rs]
 tests: [tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl]
 related: [operations/trash/animation, operations/progress/dock, operations/progress, operations/trash]

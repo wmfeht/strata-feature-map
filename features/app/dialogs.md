@@ -3,9 +3,9 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/controls.rs, src/ui/blur.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/modal/focus.rs, src/ui/modal/messages.rs, src/ui/window/modal_layers.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/progress, operations/trash, operations/clipboard, app/window/key-dispatch, settings/preferences]
@@ -43,7 +43,10 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - When that widget is gone, such as a closed inline rename editor, focus goes to the active tab's cursor row. In an empty, unreadable, or loading folder it goes to the pane. lgse/strata#1533
 - A widget that takes focus while a dialog closes keeps it. lgse/strata#1533
 - Closing a dialog over a modal that stays open, such as the action editor over Settings, refocuses its opener there. lgse/strata#1544
+- When the recorded opener is the remaining modal's own layer, that layer never takes focus. Focus goes to the modal's first focusable control that is not a box, scrolled window, or viewport. lgse/strata#2030
+- When the dialog's action disabled its opener, focus goes to the first focusable control in the opener's closest enclosing container. Settings → Keyboard → Reset all → Reset is one case. lgse/strata#2030
 - When that opener is gone, such as an action row the dialog re-rendered, focus goes to the first focusable control in the remaining modal. lgse/strata#1544 (unverified)
+- That fallback skips boxes, scrolled windows, and viewports, so focus never lands on an unnamed container. lgse/strata#2030 (unverified)
 - When a custom action's delete fails in Settings, closing the resulting error returns focus to that action's Delete button. lgse/strata#1544 (unverified)
 - A dialog closed from the keyboard keeps the focus ring where focus lands once the last modal closes. lgse/strata#1544
 - A dialog closed from the keyboard over a modal that stays open, such as Settings, keeps the ring on the control that gets focus. lgse/strata#1544
@@ -83,6 +86,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - Progress dialogs skip the origin because the operation changes the listing; dialogs chained on them inherit that (lgse/strata#1533). The delete confirmation, for Trash and permanent delete, and the Copy-or-move prompt reuse that listing variant in place of their own `focus_active()` calls (lgse/strata#1900).
 - A layer closed while another modal stays open restores focus inside that modal; the window restore order applies only once no modal is left. A layer opened while another closes takes over the closing layer's opener (lgse/strata#1544, unverified).
 - Disabling the focused control on a keyboard dismissal makes GTK hide focus rings on the key release. The layer records whether rings showed before that and re-shows them once focus is back (lgse/strata#1544, unverified).
+- GTK gives boxes, scrolled windows, and viewports no accessible name, so focus on one is announced as nothing. A layer is an unnamed panel to a screen reader, so it never takes focus back (lgse/strata#2012, lgse/strata#2030).
 - GTK's own maximum length counts characters, so a field limited in bytes or UTF-16 units trims insertions at its text delegate's `insert-text` signal (lgse/strata#1875).
 - [docs/keyboard-navigation.md](https://github.com/lgse/strata/blob/442d325be108ff95391f0fe76cbd89da8db9e129/docs/keyboard-navigation.md) states the rule under "Closing dialogs and overlays", the first app-wide focus-return rule (lgse/strata#1430).
 
@@ -90,6 +94,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Kept focus off unnamed modal layers and containers after dialogs close, and when Settings or Properties opens, for screen readers. |
 | 2026-10-27 | lgse/strata#1908 | fix | Halved the confirmation file list radius to 3px so it reaches 6px, not 12px, at the 200% roundness maximum. |
 | 2026-10-27 | lgse/strata#1906 | fix | Rounded the confirmation file list in the delete, restore, and leftovers dialogs to match other dialog inset boxes. |
 | 2026-10-10 | lgse/strata#1554 | fix | Shared the closing-layer check so window accelerators skip a dialog that is animating closed. |

@@ -3,9 +3,9 @@ title: Marquee selection
 status: shipped
 origin: {issue: lgse/strata#189, pr: lgse/strata#203}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/marquee.rs]
+code: [src/ui/marquee.rs, src/ui/marquee/geometry.rs, src/ui/marquee/hit_test.rs, src/ui/marquee/origin.rs, src/ui/marquee/state.rs]
 tests: [src/ui/marquee/tests.rs, tests/qa/scenarios/marquee_scrolling]
 docs: [docs/preview-panel-layout.md]
 related: [integration/portal-file-chooser, preview/preview-panel/layout]

@@ -3,11 +3,11 @@ title: Install a specific release
 status: shipped
 origin: {issue: lgse/strata#1779, pr: lgse/strata#1781}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/settings/release_picker.rs]
 tests: [src/ui/settings/tests/release_picker.rs]
-related: [app/updates/install, app/updates/release-channels]
+related: [app/updates/install, app/updates/release-channels, app/dialogs]
 ---
 
 ## Summary
@@ -40,6 +40,7 @@ The "Install a specific release" menu in Settings → Updates. It lists the rele
 - Choosing the installed release closes the menu and opens nothing. lgse/strata#1781
 - Choosing another release closes the menu and opens the update dialog for that release once its commit is resolved. lgse/strata#1781
 - The menu button is insensitive while the chosen release's commit is resolved. lgse/strata#1781 (unverified)
+- Cancelling the chosen-release dialog returns focus to the release picker button, not an unnamed panel. lgse/strata#2012, lgse/strata#2030
 
 ## Design
 

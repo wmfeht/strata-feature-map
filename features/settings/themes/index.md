@@ -3,10 +3,10 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
-code: [src/ui/theme.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
-tests: [src/ui/theme/tests.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/theme.rs, src/ui/theme/color.rs, src/ui/theme/document_style.rs, src/ui/theme/generated_css.rs, src/ui/theme/gtk_settings.rs, src/ui/theme/library.rs, src/ui/theme/listeners.rs, src/ui/theme/source_style.rs, src/ui/theme/watch.rs, src/ui/theme/weak_registry.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
+tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]
 related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density, settings/themes/corner-roundness, settings/themes/interface-font, settings/themes/omarchy]
 ---
@@ -58,6 +58,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - In an open Settings page, a re-read never redraws existing theme cards; a new file's card appears when a re-read changes the selected colors, or at the next theme or preference change. lgse/strata#1620 (unverified)
 - Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
 - In that panel the name field is named "Theme name", and each color picker is named after its row label. lgse/strata#1896 (unverified)
+- Each color field's grid cell in that panel is named once after its field, such as "Background", not "Background Background". lgse/strata#2012, lgse/strata#2030
 - Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
 - Reopening Add theme after Cancel or after Settings closes starts from the selected theme's colors, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
 - Pressing Add theme while the editor is open keeps the current draft. lgse/strata#1533 (unverified)
@@ -92,6 +93,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 ### File icons
 
 - Settings → Appearance has a File icons group with a File icon colors menu: Brand colors, the default, and Theme colors. lgse/strata#1588
+- The File icons heading follows the interface language, so under Magyar it reads "FÁJLIKONOK", not "FILE ICONS". lgse/strata#2014, lgse/strata#2027
 - A File icon colors choice applies in every open window at once. lgse/strata#1588
 - The choice is saved as `file_icon_colors = "brand"` or `"theme"`; a missing key reads as Brand colors. lgse/strata#1588 (unverified)
 - A theme gets Mocha file icons when its background's (299R + 587G + 114B) ÷ 1000 is below 128, otherwise Latte. lgse/strata#1588 (unverified)
@@ -215,6 +217,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Named each theme editor color cell once after its field, and gave `.tbz`, `.tbz2`, `.txz`, and `.tzst` the archive icon. |
 | 2026-10-29 | lgse/strata#1909 | fix | Watched the resolved Omarchy theme folder and rebound it after a symlink switch, so `colors.toml` edits stay live without a restart. |
 | 2026-10-28 | lgse/strata#1912 | fix | Dropped popover, menu, and tooltip shadows and corner radii on displays without a compositor, where their transparent pixels render black. |
 | 2026-10-25 | lgse/strata#1891 | fix | Dropped the background-colored second shadow from the path completion and folder peek popovers, a white halo on light themes. |

@@ -3,17 +3,17 @@ title: Drag and drop
 status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: []
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/browser/columns/rows/drag.rs, src/ui/browser_modes/drag_drop.rs]
 tests: [tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl, tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl, tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl, tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl, tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl, tests/qa/scenarios/drag_and_drop/empty-name-space-drag-starts-marquee.jsonl, tests/qa/scenarios/drag_and_drop/filtered-result-to-sidebar-folder.jsonl, tests/qa/scenarios/drag_and_drop/folder-into-another-folder.jsonl, tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl, tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl, tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl, tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]
 docs: [docs/preferences.md]
-related: [operations/trash, operations/clipboard, browser/selection, browser/tabs]
+related: [operations/trash, operations/clipboard, browser/selection, browser/tabs, browser/navigation/location-bar]
 ---
 
 ## Summary
 
-Moving and copying files by dragging them onto folders, pane backgrounds, sidebar places, and breadcrumbs, within and between windows and to or from other applications. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices), `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags), and `operations/drag-and-drop/content-drops` (saving dropped images, text, and web links as new files).
+Moving and copying files by dragging them onto folders, pane backgrounds, and sidebar places, within and between windows and to or from other applications. Drops onto breadcrumbs belong to `browser/navigation/location-bar`. Children: `operations/drag-and-drop/copy-or-move` (choosing copy or move, including across devices), `operations/drag-and-drop/column-autoscroll` (edge scrolling during Columns drags), and `operations/drag-and-drop/content-drops` (saving dropped images, text, and web links as new files).
 
 ## Behavior
 
@@ -43,8 +43,6 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 - Dropping onto a folder row in Columns, List, or Icons transfers the dragged items into that folder. lgse/strata#587
 - Dropping onto the background of a pane or column showing another folder transfers into that folder. lgse/strata#587 (unverified)
 - Sidebar Home, standard places, pinned folders, and mounted native devices accept file drops from every view; Network and other URI locations except Trash do not. lgse/strata#350, lgse/strata#626
-- Parent breadcrumbs accept file drops. lgse/strata#1487
-- A breadcrumb under a file drag shows an accent tint and an accent inset ring, not GTK's green border. lgse/strata#1831
 - Folder rows and panes for Trash and Recent accept no file drops. lgse/strata#350 (unverified)
 - Dropping a folder onto itself or its descendants, or items onto their own folder, transfers nothing and opens no progress dialog. lgse/strata#587
 - When a dropped selection mixes items already in the destination with others, the others still transfer. lgse/strata#502
@@ -55,9 +53,8 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 
 ### Spring-loaded navigation
 
-- Holding a file drag over a folder row, sidebar row, or parent breadcrumb for 750 ms navigates there, and the drag stays held. lgse/strata#1487
+- Holding a file drag over a folder row or sidebar row for 750 ms navigates there, and the drag stays held. lgse/strata#1487
 - Spring navigation can return to the drag's source folder, and releasing over a spring-opened pane's background drops into that folder. lgse/strata#1487
-- Dropping onto a breadcrumb before 750 ms transfers into it without navigating. lgse/strata#1487
 - Leaving the hovered target or dropping before 750 ms cancels the pending navigation. lgse/strata#1487 (unverified)
 
 ### After the drop

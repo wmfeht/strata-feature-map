@@ -3,9 +3,9 @@ title: In-place update install
 status: shipped
 origin: {issue: lgse/strata#24, pr: lgse/strata#26}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
-code: [src/services/update_install.rs, src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/services/update_install.rs, src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py, src/ui/settings/install.rs, src/ui/settings/restart.rs, src/ui/settings/update_dialog.rs]
 tests: [src/services/update_install/tests.rs, src/services/update_install/review_tests.rs, src/services/update_install/archive/tests.rs, src/services/update_install/command/tests.rs, src/services/update_install/download/tests.rs, src/services/update_install/manifest/tests.rs, src/ui/settings/tests/update_dialog.rs, scripts/test_sign_update_manifest.py, tests/fixtures/signed-update]
 docs: [site/src/reference/signed-updates.md]
 related: [integration/portal-file-chooser]
@@ -13,9 +13,17 @@ related: [integration/portal-file-chooser]
 
 ## Summary
 
-Downloading a release, authenticating it against a signed manifest, replacing the running executable, and restarting into it. Applies only to self-managed installs such as `~/.local/bin/strata`; package-managed installs defer to their package manager.
+The update dialog, downloading a release, authenticating it against a signed manifest, replacing the running executable, and restarting into it. Applies only to self-managed installs such as `~/.local/bin/strata`; package-managed installs defer to their package manager.
 
 ## Behavior
+
+### Update dialog
+
+- For an update offer, the dialog is titled "Strata vX is available" and shows "Installed vA  →  Available vB". lgse/strata#51, lgse/strata#1781
+- For a chosen release, the dialog is titled "Install Strata vX" and shows "Installed vA  →  Selected vB". Its button reads "Install release". lgse/strata#1781
+- The chosen-release dialog's status reads "Review the release notes before installing this release." lgse/strata#1781 (unverified)
+- The release's notes appear under "What's new" in a scrolling area above the action button, with a "View release on GitHub" link. lgse/strata#51, lgse/strata#1781, lgse/strata#2027
+- Empty or comment-only notes read "No release notes were provided. Review this release on GitHub before continuing." lgse/strata#51, lgse/strata#1570
 
 ### Starting
 
@@ -33,7 +41,7 @@ Downloading a release, authenticating it against a signed manifest, replacing th
 - In the dialog, Cancel, the close button, Escape, and a backdrop click each cancel a running download and close the dialog. lgse/strata#1499
 - Once replacement is committed, the dialog shows "Finalizing update…" and cannot be dismissed until the install ends. lgse/strata#1499
 - After a failure, cancellation, or completed install, every dialog dismisser closes the dialog. lgse/strata#1499
-- A failed install in the dialog shows "Couldn’t install update: <reason>", and its button becomes Close. lgse/strata#506 (unverified)
+- A failed install in the dialog shows "Couldn't install update: <reason>", and its button becomes Close. lgse/strata#506, lgse/strata#2027 (unverified)
 - A failed install on the row shows "Couldn't install update: <reason>", and its button becomes Check now. lgse/strata#506 (unverified)
 
 ### Download limits

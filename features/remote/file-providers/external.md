@@ -3,10 +3,10 @@ title: External file providers
 status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
-tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, tests/qa/scenarios/file_providers]
+tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, src/ui/file_providers/tests/**, tests/qa/scenarios/file_providers]
 docs: [site/src/reference/file-providers.md, docs/file-providers.md]
 related: [integration/custom-actions, browser/thumbnails, operations/clipboard/send-to, remote/file-providers/integrations, remote/file-providers/kde-connect, remote/file-providers/localsend]
 ---
@@ -39,7 +39,9 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 ### Menus
 
 - Item and background menus show each provider's root actions that are not placed in Send to… in an inline section. Its muted heading shows the registered `name`, or the id. lgse/strata#1385, lgse/strata#1742
-- A manifest `icon` is drawn before that heading's name in item and background menus, and on the provider's Send to… submenu or entry; a provider without one keeps the native section title. lgse/strata#1578, lgse/strata#1704
+- A manifest `icon` is drawn before that heading's name in item and background menus, and on the provider's Send to… submenu or entry. lgse/strata#1578, lgse/strata#1704
+- In an open item or background menu, each provider heading is Strata's own row: a `separator`-styled name label, after the icon when the manifest sets one. No heading is a GTK section title. lgse/strata#2027
+- Reopening an item menu shows each provider's heading row once and logs no GTK "Duplicate custom ID" warning. lgse/strata#2027
 - A background menu sends the current folder as the only path. lgse/strata#1385
 - An empty `actions` reply shows neither the section nor its heading. lgse/strata#1385
 - A selection over 200 items, or one whose path list exceeds the frame budget, shows no provider actions. lgse/strata#1385
@@ -104,7 +106,10 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - Feedback is chosen per reply, not in Settings: a preference applies to every action and cannot tell "Share..." from "Copy link" (lgse/strata#1577).
 - Only a fully accepted outcome may skip the dialog, so problems are never hidden. The field is additive: older hosts ignore it, and unknown values fall back to the dialog (lgse/strata#1577, lgse/strata#1578).
 - Without an ancestor overlay, a notice falls back to the dialog (lgse/strata#1578).
-- GTK section titles cannot hold an image, so a heading icon replaces the title with a custom row styled like one (lgse/strata#1578).
+- Every heading is a custom row styled like a section title. GTK section titles cannot hold an image (lgse/strata#1578, lgse/strata#2027).
+- GTK keeps a titled section's label outside the widget tree until an idle separator sync, and while the section is empty. It still names the section after that label (lgse/strata#2011, lgse/strata#2027).
+- An AT-SPI client reading that relation realizes the detached label, and adding it to the tree later fires a critical (lgse/strata#2011, lgse/strata#2027).
+- GTK never forgets a freed custom slot ID, so each heading takes an ID no earlier slot had, `provider-heading-<id>-<serial>` (lgse/strata#2027).
 - Unsent and uncertain actions are reported differently. A disconnect after submission is not proof that nothing happened, so nothing is replayed (lgse/strata#1385).
 - A reload retires a provider owing an activation instead of dropping it. Dropping its client stopped the worker reading, so the reply never matched and nothing appeared (lgse/strata#1857, lgse/strata#1878).
 - Retiring has no time cutoff. The 8-second request timeout already settles every waiting action, and a cutoff would end queued activations silently (lgse/strata#1878).
@@ -120,6 +125,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2027 | fix | Drew every provider menu heading as Strata's own row with a unique slot ID, avoiding GTK titled sections behind an AT-SPI critical. |
 | 2026-10-25 | lgse/strata#1878 | fix | Kept a provider owing an activation answer running through a Refresh, so the action's notice or dialog still appears. |
 | 2026-10-18 | lgse/strata#1704 | feat | Added the KDE Connect integration and gave each provider's Send to… destinations their own submenu with its icon or category icon. |
 | 2026-10-18 | lgse/strata#1742 | feat | Let providers place root actions inside Send to… with `placement: "send-to"`, so destinations sit beside removable drives. |
@@ -131,3 +137,4 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 - Remote-only locations and non-UTF-8 filenames get no provider badges or actions. lgse/strata#1385
 - A registration directory, manifest, icon, or executable writable by the user's private group is still rejected, though portal setup accepts such a group. lgse/strata#1936
+- An intermittent `gtk_at_context_set_accessible_role` critical with file providers and AT-SPI active is not confirmed fixed. lgse/strata#2011

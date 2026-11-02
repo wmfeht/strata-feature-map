@@ -3,8 +3,8 @@ title: Typed path names
 status: shipped
 origin: {issue: lgse/strata#1511, pr: lgse/strata#1512}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/adapters/local_operations/place_entry.rs]
 tests: [src/adapters/local_operations/tests/place_entry.rs, tests/qa/scenarios/inline_renaming/new-item-named-with-path.jsonl, tests/qa/scenarios/inline_renaming/rename-moves-into-path.jsonl]
 docs: [docs/keyboard-navigation.md]
@@ -44,6 +44,7 @@ Naming an item in a local folder with a path relative to its folder. It applies 
 - A new file that is no longer empty is not turned into a folder. The error reads "<name> changed while the operation was in progress". lgse/strata#1512 (unverified)
 - An existing empty file is never replaced by a folder. lgse/strata#1512
 - The move never replaces an item already at the destination name. lgse/strata#1512
+- A path onto another file system, such as `../../dev/shm/x/g.txt` from a tmpfs folder, is refused with "The destination is on a different file system". lgse/strata#2030
 - Any failed step removes the folders the placement made, if still empty, reports the reason, and leaves the item under its old name. lgse/strata#1512
 
 ### After the move

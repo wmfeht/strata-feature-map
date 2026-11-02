@@ -3,10 +3,10 @@ title: Network folder change checks
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/app/browser/freshness.rs, src/ui/presence.rs]
-tests: [src/app/browser/freshness/tests.rs, src/ui/presence/tests.rs]
+code: [src/app/browser/freshness.rs, src/ui/presence.rs, src/adapters/local_files/stamps.rs, src/app/browser/freshness/checks.rs, src/app/browser/freshness/responsiveness.rs]
+tests: [src/app/browser/freshness/tests.rs, src/ui/presence/tests.rs, src/app/browser/freshness/tests/**, src/adapters/local_files/tests/fences.rs, src/adapters/local_files/tests/stamps.rs]
 related: [settings/preferences, browser/view-modes, integration/portal-file-chooser, remote/file-providers/network-locations]
 ---
 

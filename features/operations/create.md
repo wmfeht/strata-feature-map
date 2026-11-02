@@ -3,9 +3,9 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/adapters/local_operations/create_entry.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/adapters/local_operations/create_entry.rs, src/ui/browser/inline_edit/new_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl, tests/qa/mutations/new-entry-collision.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/rename, operations/rename/typed-paths, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
@@ -60,6 +60,8 @@ Creating an empty file or folder in the current directory from the background me
 ### Undo
 
 - Ctrl+Z after New Folder or New File moves the created item to Trash. lgse/strata#1097
+- After a new item is given a plain name with Enter, one Ctrl+Z moves the named item to Trash, and nothing remains under the default name. lgse/strata#2030
+- Ctrl+Shift+Z after that undo restores the item under its typed name. lgse/strata#2030
 - A cancel that arrives after a local New File create has started reports the file as created, and Ctrl+Z still trashes it. lgse/strata#1729
 
 ### New Folder with Selection
@@ -83,6 +85,7 @@ Creating an empty file or folder in the current directory from the background me
 - Keyboard creation ignores the pointer, so a resting mouse cannot redirect a folder into a pane the keyboard never visited (lgse/strata#236, lgse/strata#238).
 - In Columns, revealing the created entry does not start a second asynchronous navigation, which could cancel its rename editor (lgse/strata#690, lgse/strata#760).
 - Create undo trashes rather than deletes, so it is reversible (lgse/strata#1097).
+- Naming a new item moves its creation undo onto the named item, as a typed path does, instead of recording a separate rename (lgse/strata#2017, lgse/strata#2030).
 - New Folder with Selection records one composite undo entry instead of three stacked ones, so the gesture reverts atomically (lgse/strata#1347). Fusion happens when entries are pushed, because Columns truncation could otherwise consume the pending entry first (lgse/strata#1349).
 - Ctrl+Alt+N takes only a committed selection, never the cursor fallback that Delete uses, because it moves files (lgse/strata#1485, lgse/strata#1591, lgse/strata#1623).
 - New Folder with Selection is hidden in recursive search, whose result model never shows the created row, so the move and rename would never start (lgse/strata#1349).

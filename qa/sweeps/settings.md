@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -74,6 +74,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Compare the navigation's icon column with the search field's icon at text size 8 and 48, labelled and icon-only.
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 - In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation. Repeat on a pacman-owned prefix, reading the visible rows and navigation entries.
+- Close Settings on Appearance, then reopen it with Ctrl+, with icon-only navigation, with a query left that hides Appearance's entry, and from the gear; read the focused widget in the accessibility tree.
 
 ### settings/preferences/storage
 
@@ -99,6 +100,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Loop a switch 50 times from the keyboard and `kill -9` the process midway; the file must parse on the next launch.
 - Change ten preferences within one second and quit at once; relaunch and diff `settings.toml` against the last values shown.
 - Symlink `settings.toml` onto the sshfs mount, stop the daemon, change a preference, and quit; time the quit and read the log.
+- Seed `interface_font = "\t"`, a value of only no-break spaces, and `"Fixture Sans\n"`; launch, read the Interface font button and its accessible value, change one other preference, and diff `settings.toml`.
 
 ### settings/preferences/language
 
@@ -113,6 +115,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under 简体中文, read the sidebar toggle tooltip in full, compact, and hidden states, and the password remember choices in a mount dialog.
 - Under 简体中文, read the Tasks icon name in Customize… and the Danger color label in Add theme.
 - Under Magyar, select 1, 2, and 3,000 items and read the footer count. Read a 1.5 MB size, a 1 234 567 byte Properties size, and a transfer rate. Fail a copy into a read-only folder and read the case after the colon.
+- Under Magyar and 正體中文, read every Settings section heading on a package-managed install, in a `STRATA_UPDATER=disabled` build, and with 10xer mode on; note any heading left in English.
 - Run Deutsch, Magyar, and Русский at the 1250 px panel width and in the destructive-delete dialog. Look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
 
 ### settings/preferences/date-format
@@ -185,6 +188,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - With a user stylesheet that sets `.sidebar-row` padding, set Frame 7 px and Content Custom 11 px. Then switch theme, follow Omarchy, and open and Cancel an editor preview. Read bar and row spacing in both windows after each.
 - At Frame 12, rail the sidebar, open the preview, open eight tabs, and open a Miller column with its header actions. Check that the bars line up.
 - Dump the tree with the theme editor open, which the naming scenarios skip.
+- Under Magyar and 日本語, Tab through Add theme with Orca running, including the five syntax cells, and at the 900 px panel width; read each color cell's announced name.
 - In the uncomposited session, open a file context menu, the Appearance menu, a tooltip, path completion, a breadcrumb popover, and a folder peek; zoom on each edge. Repeat under openbox.
 - With one of those popups open, start the compositor, then stop it; reopen each popup after each change and read a second window too.
 - Uncomposited, add `popover contents { border-radius: 12px; box-shadow: 0 0 8px black; }` to the user stylesheet while running, then delete it; zoom on a context menu after each.
@@ -210,7 +214,7 @@ For every control this sweep proves the binding: the file changes, the other win
 ### settings/themes/icons/catppuccin
 
 - Name files `Makefile`, `MAKEFILE`, `dockerfile.dev`, `Dockerfile.dev`, `.rs`, `Foo.D.TS`, `ARCHIVE.TAR.GZ`, `clip.MKV`, and a directory `lib.rs`; compare the icon in the listing, a Ctrl+F result, folder peek, and an archive preview.
-- Name files `backup.tbz2`, `backup.txz`, `backup.tar.zst`, `movie.ts`, and `notes.m`; read which icon each takes.
+- Name files `backup.Tzst`, `backup.tbz2.part`, `backup.tar.zst`, `movie.ts`, `clip.HEVC`, a plain-text `stream.h264`, and `notes.m`; read which icon each takes.
 - Name files `Cargo.TOML`, `.env.local`, `.ENV.LOCAL`, `tsconfig.app.json`, `TSCONFIG.APP.JSON`, `bash_history`, `x.d.ts.bak`, and a name ending in a dot; read which icon each takes.
 
 ### settings/themes/corner-roundness
@@ -227,7 +231,7 @@ For every control this sweep proves the binding: the file changes, the other win
 ### settings/themes/interface-font
 
 - Choose each Setup font, then open a context menu, a modal dialog, a rename editor, the search palette, the file chooser, and a text, source, and command preview; read the family in each.
-- Seed `interface_font = ""`, `"   "`, `"Missing Family"`, and a 300-character name; launch, read the button, the check mark, and the log, change one other preference, and diff `settings.toml`.
+- Seed `interface_font = "Missing Family"` and a 300-character name; launch, read the button, the check mark, and the log, change one other preference, and diff `settings.toml`.
 - Choose a font in window A while window B has the picker open with a query typed; read B's button, list, and check mark.
 - Install a family with `fc-cache` while Settings is open, then uninstall the chosen one; reopen the picker and read the list and the window.
 - Cross a chosen family with text size 8 and 48, Cairo and GL renderers, and the user stylesheet; zoom on clipped glyphs and row heights.

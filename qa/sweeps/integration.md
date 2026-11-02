@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -77,6 +77,11 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Rebind `parent_folder`, `home_folder`, `history_back`, and `history_forward` to Ctrl keys, then to Super keys, in each table. Press each in the file view, in Name under `save`, in the filter, and with 10xer mode on; read the location.
 - Hand-edit `parent_folder = ["<Control>h"]` into `settings.toml`, open a chooser, and press Ctrl+H with the file view focused.
 - Under `directory` and `single`, open the `chmod 000` folder by click, Enter, and the address bar. Then type `admin:///` into the address bar; read each error.
+- Under `savefiles`, send names of which none, one, two, and five exist, plus one whose existing match is a folder and one with a non-UTF-8 name. Read the prompt's title, names, and warning, then Cancel and Replace.
+- With 10xer mode on, Tab from Name to the file-type dropdown, open it with Space, then press Tab and Shift+Tab inside it. Close it and Tab on; read focus after each press.
+- With 10xer mode on, press Shift+Tab with the files focused and again with the header focused, in a SaveFile and a folder request; read focus.
+- With 10xer mode on, Tab and Shift+Tab around a SaveFile request with choices but no filters, an Open request with only the read-only box, and a folder request with no options.
+- Focus the Back button with no history, then with history, in Columns, Icons, and List; press Menu and Shift+F10 and read what opens.
 
 ### integration/portal-file-chooser/setup
 
@@ -131,6 +136,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With fcitx5 pinyin, compose in `rename ›`, `create ›`, `go ›`, and `move to ›`; press Enter mid-composition, then again after the commit.
 - In a browser window railed by width, press Ctrl+N three times, then Ctrl+B; repeat with the preview owning the keys and with the sidebar focused by Ctrl+Shift+B.
 - Arm `g`, `c`, `,`, `;`, and `t` in a 640 px window, at 32 px text size, and with the clipboard badge showing. Read where each panel sits and whether focus left the listing. Alt+Tab away while one is armed and back.
+- With three windows open, toggle the mode from one. In each window press Ctrl+Shift+K, Ctrl+\, and Ctrl+Alt+T from the file list, a non-menu popover, and the sidebar.
 
 ### integration/10xer-mode/preview-keys
 
@@ -149,6 +155,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - Press `g` then keypad `+` on Trash, on a hidden pin, and as the tenth pin; press `g 9` after unpinning pin 3; press `g -` with a pinned folder open and a file under the cursor.
 - In `go ›` submit `~//x`, `/etc//`, `smb:x`, `user@host:` with no network, a pasted path ending in a newline, and a password URI followed by Ctrl+Z.
+- Type `~//` alone and `~//.cache` with hidden files off into `go ›`, `move to ›`, and `extract to ›`; read the listed folders and where each acts.
 - Type a path under a 50k-folder tree and press Enter before the search settles; Tab on `.alc` with hidden files off; query `10:30` and a path containing `:`.
 - Open `z` with an empty history, `Z` with 200 entries, press Up past the last candidate, and press Enter twice while the list is still updating.
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.
@@ -217,6 +224,9 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With a logging fake as the `x-scheme-handler/https` default, activate `Type=Link` entries: valid, with `Exec` added, with `user:pw@` in `URL`, with `ftp://`, at 65 KiB, executable, and a symlink to a valid one.
 - Activate a valid link entry on the sshfs mount, in Recent, in Trash, and in the Flatpak build; then use Open With… on one. Read both handler logs.
 - On an SMB share, activate and use Open With… on a `.md`, a `.py`, a `.json`, and a file with no extension, by Enter and by the menu. Skip without a share and say so.
+- With a `%f` handler that writes its cwd, use Open With… on a folder, on three files in different folders, and on a GVfs FUSE file. Read each cwd.
+- Open a file whose folder lost its search bit (`chmod 600`), and one whose folder is deleted just before launch. Read the handler's cwd and Strata's `/proc/<pid>/cwd`.
+- Hand a video on the removable drive from the preview to the fake player, close the player, and unmount the drive with Strata open.
 
 ### integration/open-with/recent-apps
 
@@ -250,6 +260,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Derive Id from `Ünïcode Name!!`, switch runtimes three times with edits, and apply a recipe over an edited draft. Duplicate three times, Export into an existing folder, and Import a folder with extra files and a symlinked entrypoint. Run Batch rename with a colliding target and one created between check and rename.
 - Bind keys to slots 1 to 4. Add an action whose folder name sorts first, remove the second action, and rename a folder so it sorts last. After each change, press every slot key and read Settings → Keyboard's slot names.
 - Take slot 3's program off `PATH`, and add a broken manifest whose folder name sorts first. Press slots 1 to 4, then read the footer, Jobs, and the slot names.
+- Switch the language to Hungarian with the action editor open, then reopen it. Hover each icon in the picker and More icons, and read tooltips and accessible names.
 
 ### integration/file-manager-interface
 

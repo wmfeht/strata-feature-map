@@ -3,9 +3,9 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/preview/keyboard.rs]
+code: [src/ui/preview/keyboard.rs, src/ui/window/keyboard/items/preview_keys.rs]
 tests: [tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl, tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl, tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl, tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl, tests/qa/mutations/quick-preview.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [preview/preview-panel, integration/10xer-mode, browser/search, browser/selection, browser/navigation/location-bar]

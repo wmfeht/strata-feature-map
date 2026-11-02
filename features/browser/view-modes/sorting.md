@@ -3,10 +3,10 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/app/browser/sorting.rs, src/services/mime_type.rs]
-tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl]
+code: [src/app/browser/sorting.rs, src/services/mime_type.rs, src/app/browser/sort_settings.rs, src/app/navigation/ordering.rs]
+tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl, src/app/navigation/tests/sorting.rs]
 docs: [docs/preferences.md]
 related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navigation/recent, devices/volumes/camera]
 ---

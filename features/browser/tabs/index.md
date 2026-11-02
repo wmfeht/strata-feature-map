@@ -3,8 +3,8 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
 docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md, docs/keyboard-navigation.md]
@@ -13,7 +13,7 @@ related: [integration/10xer-mode, operations/drag-and-drop, operations/drag-and-
 
 ## Summary
 
-Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, reopen, and move tabs. The window title follows the active tab. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter. Sidebar locations and folder-only drags open new tabs when dropped on the strip or the New tab button. Files dropped on a tab transfer into that tab's directory, and browser content dropped there is saved into it. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
+Tabs within one Strata window, each holding its own browsing context. A tab strip, keyboard shortcuts in both key maps, and drag reordering create, switch, close, reopen, and move tabs. The window title follows the active tab. Folders open in a new tab or window from their menu, a middle-click, or Ctrl+Enter and Shift+Enter; path bar folders open on a middle-click. Sidebar locations and folder-only drags open new tabs when dropped on the strip or the New tab button. Files dropped on a tab transfer into that tab's directory, and browser content dropped there is saved into it. Child: `browser/tabs/session-restore` (reopening the previous tabs on a plain launch).
 
 ## Behavior
 
@@ -124,7 +124,11 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 ### Tab names
 
 - A tab is named after its active directory: `~` for the home folder, `/` for the root, and Trash, Recent, or Network for those locations. lgse/strata#1484 (unverified)
-- The Home, Trash, Recent, Network, and Location names follow the interface language, such as "Papierkorb" in German. lgse/strata#1827
+- The Home, Trash, Recent, and Network names follow the interface language, such as "Papierkorb" in German. lgse/strata#1827, lgse/strata#2027
+- At an SMB share root such as `smb://host/My%20Share/` the tab reads "My Share", and at a server root `smb://host/` it reads "host", not `/`. lgse/strata#2027
+- A tab at a camera photo root or the administrator root is named "Photos" or "Administrator". lgse/strata#2027 (unverified)
+- A tab opened by Open in New Tab, or reopened with Ctrl+Shift+T, is named after the location it awaits, not "Home", until its folder opens. lgse/strata#2030
+- When that location fails to open, as a missing folder or an unavailable `network:///` does, the tab keeps its name beside the unavailable overlay with Retry. lgse/strata#2030
 - Names longer than 22 characters are ellipsized. lgse/strata#1484 (unverified)
 - In Columns, pressing on a folder keeps the tab's previous name until release, then shows the folder's name with no parent name in between. lgse/strata#1507
 - A cancelled click, a folder drag, a folder deleted before release, or a refused navigation restores the active directory's name. lgse/strata#1507
@@ -135,7 +139,9 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 
 - A window whose active tab is at folder `docs` is titled `docs — Strata`, with an em dash. lgse/strata#1824, lgse/strata#1827
 - Navigating the active tab, or selecting another tab, retitles the window after the active tab's folder. lgse/strata#1827
-- A window with no folder open yet is titled "Strata". lgse/strata#1827
+- A window with no folder open and no location awaited is titled "Strata". lgse/strata#1827, lgse/strata#2030
+- While the active tab awaits a location, or after that location failed to open, the window is titled "<name> — Strata". lgse/strata#2030
+- At an SMB share root or server root the title reads "My Share — Strata" or "host — Strata", not "/ — Strata". lgse/strata#2027
 - The title uses the tab's name, so Trash, Recent, and Network titles are translated, such as "Netzwerk — Strata". lgse/strata#1827
 - The home folder titles the window `~ — Strata` and the root `/ — Strata`. lgse/strata#1827 (unverified)
 - In Columns, pressing on a folder keeps the previous title until release, like the tab name. lgse/strata#1827
@@ -170,7 +176,8 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - Windows are titled `<folder> — Strata` so taskbars, switchers, and shortcut scripts can tell them apart, like Nautilus (lgse/strata#1824, [comment](https://github.com/lgse/strata/issues/1824#issuecomment-6361147216)). The title uses the tab strip's name (lgse/strata#1827).
 - Ctrl+click was rejected for opening in a new tab because it toggles multi-selection. Ctrl+N was rejected for a new window because 10xer uses it for the sidebar (lgse/strata#1540).
 - A folder opened in a new tab or window reuses the startup argument's connecting and unavailable overlays and `present_target`, rather than new windowing (lgse/strata#1540, lgse/strata#1543).
-- The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI (lgse/strata#1543).
+- The helpers are the window actions `win.open-tab-at` and `win.open-window-at`, which take a URI (lgse/strata#1543). Path bar crumbs reuse them with the folder rows' middle-click rule (lgse/strata#2038).
+- Outside native paths, a tab is named by the location's display name, so the tab, window title, heading, and breadcrumb agree at remote roots (lgse/strata#2009, lgse/strata#2027).
 - Choosers have no tabs and Ctrl+Enter there accepts the folder, so chooser key dispatch skips the open-in-new handling (lgse/strata#1543).
 - The name hold tracks navigation settlement explicitly rather than using a timer. Cancelled, refused, and same-directory navigation release it, and an older validation completion cannot release a newer click (lgse/strata#1507).
 - Split, dual-pane, and multi-pane layouts were declined; each tab holds one pane, and tabs or side-by-side windows serve that work (lgse/strata#1669, [comment](https://github.com/lgse/strata/issues/1669#issuecomment-6184017254), lgse/strata#1902, [comment](https://github.com/lgse/strata/issues/1902#issuecomment-6427717373)).
@@ -191,6 +198,8 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Named a tab and the window title after the location it awaits or failed to open, instead of "Home". |
+| 2026-11-02 | lgse/strata#2038 | feat | Opened a path bar folder in a new tab on middle-click, or a new window with Ctrl or Shift, as folder rows do. |
 | 2026-10-30 | lgse/strata#1932 | fix | Saved a left tab's focus only inside its browser view, sidebar, or preview, so returning after a click or restore focuses the listing. |
 | 2026-10-24 | lgse/strata#1831 | feat | Opened sidebar locations, and folder-only drags dropped on the strip, in new tabs. |
 | 2026-10-23 | lgse/strata#1800 | feat | Added Ctrl+Shift+T to reopen up to 20 closed tabs per window at their former positions. |
