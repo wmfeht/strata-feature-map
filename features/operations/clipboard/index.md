@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs, src/adapters/local_operations/paste_plan/**, src/adapters/local_operations/paste.rs, src/adapters/local_operations/paste/item.rs, src/adapters/local_operations/paste_plan.rs, src/ui/browser/transfer/destination_dialog.rs, src/ui/browser/transfer/drop.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl, src/adapters/local_operations/tests/copy/**, src/adapters/local_operations/tests/moves/**, src/adapters/local_operations/tests/naming/**, src/ui/browser/transfer/tests/choose_folder.rs, src/ui/browser/transfer/tests/chosen_destination.rs, src/ui/browser/transfer/tests/destination_reloads.rs, src/ui/browser/transfer/tests/drops.rs, src/ui/browser/transfer/tests/plain_transfers.rs]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode, operations/filesystem-compatibility]
+related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode, operations/filesystem-compatibility, browser/context-menu]
 ---
 
 ## Summary
@@ -61,7 +61,6 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 - With several items selected, Copy paths copies one path per line. lgse/strata#230 (unverified)
 - Copy name and Copy names copy the display names, one per line. lgse/strata#704
 - Pasting while the clipboard holds an image and no files writes `image.png`, then `image (1).png`, into a local destination. lgse/strata#882
-- The folder menu's Paste is sensitive only while the clipboard holds files or a PNG image. lgse/strata#882
 
 ### Move to and Copy to
 

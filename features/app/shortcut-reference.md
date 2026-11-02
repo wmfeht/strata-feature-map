@@ -3,10 +3,10 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs]
-tests: [src/ui/shortcut_footer/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs, src/ui/shortcut_footer/build.rs, src/ui/shortcut_footer/catalog.rs, src/ui/shortcut_footer/reference.rs, src/ui/shortcut_footer/reference_keys.rs, src/ui/shortcut_footer/status.rs]
+tests: [src/ui/shortcut_footer/tests.rs, src/ui/shortcut_footer/tests/**, src/ui/shortcut_reference/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [settings/preferences, integration/10xer-mode, integration/10xer-mode/file-chooser, browser/context-menu, operations/clipboard, app/keyboard-shortcuts]
 ---
@@ -67,10 +67,11 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In 10xer mode, the reference lists only the 10xer map, adding Places, Preview, and a "10xer mode" section that collects the keys the default map lacks. lgse/strata#1272
 - Turning 10xer mode on or off in any window updates an open reference to the newly active map. lgse/strata#1272
 - In the default map, "Files and selection" lists "Tab / Shift+Tab in a rename — Rename the next / previous item" right after Rename. lgse/strata#1961
-- The 10xer reference lists no Tab / Shift+Tab rename row. lgse/strata#1961 (unverified)
-- In the default map, Icons and List navigation list "Menu / Shift+F10 on the Back button — List the back history (also right-click or hold)". lgse/strata#1977
-- Icons navigation lists that row twice. lgse/strata#1977 (unverified)
-- Columns lists the row although Columns has no Back history menu. lgse/strata#1977 (unverified)
+- In 10xer mode, "Files and selection" lists "Tab / Shift+Tab in an inline rename — Rename the next / previous item" after "Rename the focused item in the footer". lgse/strata#2013, lgse/strata#2027
+- The 10xer file chooser reference lists that inline rename row too. lgse/strata#2027
+- In the default map, Icons and List navigation list "Menu / Shift+F10 on the Back button — List the back history (also right-click or hold)" once. lgse/strata#1977, lgse/strata#2027
+- That row sits after "Back / forward in history" and before "Go to the parent folder". lgse/strata#2027
+- Columns, and every view in 10xer mode, list no Back button history row. lgse/strata#2013, lgse/strata#2027
 - Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543
 - In 10xer mode in Columns or List, outside the file chooser, the reference lists "`/` in the preview — Find in preview"; Icons omits it. lgse/strata#1559
 - In 10xer mode in Columns or List, the reference lists "Shift+← / Shift+→ / Page Down / Page Up" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
@@ -113,6 +114,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In the default map, the footer shows no `filter:` or `search:` mark and no hit path; those appear only in 10xer mode. lgse/strata#1554, lgse/strata#1442
 - Copying or cutting files shows a "Files on clipboard" badge left of the count, whose description reads "Press Ctrl+V to paste into a supported directory." lgse/strata#358, lgse/strata#499
 - The badge also appears for files copied in other applications, and disappears when the clipboard is cleared, holds text, or holds an empty file list. lgse/strata#358
+- A clipboard offering only `x-special/gnome-copied-files`, with no file list or `text/uri-list`, shows no badge, though Ctrl+V pastes it. lgse/strata#2040 (unverified)
 - The badge stays after pasting a copy and disappears after pasting a cut. lgse/strata#358
 - The badge has the 10X tag's pill shape and height, so showing it does not change the footer's height. lgse/strata#1408
 - The badge stays visible when keybinding hints are hidden. lgse/strata#1018
@@ -128,6 +130,8 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - Rows hold binding constants from `ui::keys::bindings`, the ones handlers match, and render through one label formatter; no row carries a typed key label (lgse/strata#1576, `app/keyboard-shortcuts`).
 - The search field once let through only an allow-list of text-editing chords, which also blocked input-method switch keys and word movement. It now takes every key the reference does not use; a bubble-phase guard on the field stops unused Ctrl, Alt, and Super chords there (lgse/strata#1714).
 - In 10xer mode, `~` opens the reference only when no prompt or typing widget has focus. Text fields such as the location bar can then type it (lgse/strata#1714).
+- Only Icons and List panes have a header with a Back button, so only they list its history row. 10xer hides that header (lgse/strata#2027).
+- In 10xer mode, rename happens in the footer; only the context menu still renames inline, where Tab moves the editor (lgse/strata#2027).
 - The reference shows only the active map, and planned keys are never advertised, so help describes only commands that run (lgse/strata#1272).
 - Settings once had its own Keybindings page, and the two catalogs drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - The reference is drawn in the window's overlay, not a `GtkPopover`. Hyprland sends `xdg_popup.done` when the window deactivates, and no popover setting kept it open (lgse/strata#1375).
@@ -139,6 +143,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2027 | fix | Listed the Back-button history row once, only in default List and Icons, and added the Tab inline-rename row to the 10xer references. |
 | 2026-10-17 | lgse/strata#1714 | fix | Let the F1 search take input-method and word-editing chords, and let 10xer text fields type `~`, so Chinese input works there. |
 | 2026-10-15 | lgse/strata#1688 | feat | Removed the double space from the footer's F1 Shortcuts label in all 11 catalogs, which left a wide gap in the monospace font. |
 | 2026-10-14 | lgse/strata#1648 | fix | Wrapped and centered "No matching shortcuts" in the reference results area. |

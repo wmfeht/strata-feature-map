@@ -3,9 +3,9 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/decoration.rs]
+code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/decoration.rs, src/ui/window/launch.rs]
 tests: [src/ui/decoration/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
 related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts, preview/preview-panel, integration/portal-file-chooser, browser/sidebar/rail]
