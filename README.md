@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `bae71c0` · 148 features, 87 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `bae71c0` · 148 features, 85 reviewed
 
 ## app
 
@@ -104,9 +104,9 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [10xer mode](features/integration/10xer-mode/index.md) | `integration/10xer-mode` | shipped | reviewed | `bae71c0` | ? |
+| [10xer mode](features/integration/10xer-mode/index.md) | `integration/10xer-mode` | shipped | draft | `bae71c0` | ? |
 | ↳ [10xer mode in the file chooser](features/integration/10xer-mode/file-chooser.md) | `integration/10xer-mode/file-chooser` | shipped | draft | `bae71c0` | ? |
-| ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | reviewed | `bae71c0` | ? |
+| ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `bae71c0` | ? |
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places.md) | `integration/10xer-mode/places` | shipped | draft | `bae71c0` | ? |
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | reviewed | `bae71c0` | ? |
@@ -175,7 +175,7 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 | &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | draft | `bae71c0` | ? |
 | &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | draft | `bae71c0` | ? |
 | ↳ [3D model previews](features/preview/preview-panel/model-views.md) | `preview/preview-panel/model-views` | shipped | reviewed | `bae71c0` | ? |
-| ↳ [PDF text selection](features/preview/preview-panel/pdf.md) | `preview/preview-panel/pdf` | shipped | draft | `bae71c0` | ? |
+| ↳ [PDF pages, zoom, and text selection](features/preview/preview-panel/pdf.md) | `preview/preview-panel/pdf` | shipped | draft | `bae71c0` | ? |
 | ↳ [Offline route previews](features/preview/preview-panel/routes.md) | `preview/preview-panel/routes` | shipped | reviewed | `44bfeab` | ? |
 | ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | reviewed | `bae71c0` | ? |
 | [Quick preview](features/preview/quick-preview/index.md) | `preview/quick-preview` | shipped | reviewed | `bae71c0` | ? |
