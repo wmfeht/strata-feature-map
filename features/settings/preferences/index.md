@@ -3,9 +3,9 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
 docs: [docs/preferences.md]
 related: [settings/themes, settings/diagnostics, app/keyboard-shortcuts/remapping, remote/file-providers/integrations, browser/search, app/updates, integration/custom-actions, browser/tabs, browser/tabs/session-restore, integration/10xer-mode, browser/directory-monitoring, preview/preview-panel/routes]
@@ -20,6 +20,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Opening and closing
 
 - Ctrl+, or the header Settings button opens Settings over the blurred window; the first open shows General. lgse/strata#849
+- Opening Settings with Ctrl+, focuses the current page's navigation entry, such as General, not the Settings layer. lgse/strata#2030
 - Ctrl+Alt+, and Ctrl+Super+, do not open Settings. lgse/strata#1576
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing, and the dialog keeps focus. lgse/strata#912, lgse/strata#1900
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849, lgse/strata#1900
@@ -195,6 +196,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2033 | refactor | Split Settings search into target-table, scoring, and widget-filter modules for code health; search results and page switching are unchanged. |
 | 2026-10-29 | lgse/strata#1909 | fix | Kept hidden entries in folder monitors, so dot-files other programs change while hidden files are off show at once when they are turned on. |
 | 2026-10-27 | lgse/strata#1900 | fix | Refused Ctrl+, under window-level dialogs such as Properties and hit-tested outside clicks against the panel, so Settings closes on one. |
 | 2026-10-17 | lgse/strata#1719 | fix | Made Settings pages scroll vertically only and cleared the overshoot bands, so pages no longer pan sideways or draw dark stripes at scroll walls. |

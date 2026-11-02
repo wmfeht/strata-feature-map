@@ -3,8 +3,8 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/i18n.rs, data/locales/counts.json]
 tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs]
 docs: [docs/internationalization.md]
@@ -60,7 +60,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 ## Design
 
-[docs/internationalization.md](https://github.com/lgse/strata/blob/e0f73973926ff67e77c2c56cf288b7b7617bb2e5/docs/internationalization.md) carries the catalog layout and the rules for adding text.
+[docs/internationalization.md](https://github.com/lgse/strata/blob/bae71c026b94e109b7507c4fe895c3ceed642f8f/docs/internationalization.md) carries the catalog layout and the rules for adding text.
 
 - Changes apply on restart, approved by the owner instead of live relocalization (lgse/strata#1517, lgse/strata#1519). A language change never rebuilds an active browser or resets its navigation, selection, filters, or operations (docs/preferences.md).
 - Catalogs are compiled into the binary by `build.rs` with `rust-i18n`, so no system locale packages are needed. Japanese and Korean still need installed CJK fonts (lgse/strata#1519). Simplified Chinese needs a CJK font with Simplified glyphs, such as Noto Sans CJK SC (lgse/strata#1582, lgse/strata#1583). Traditional Chinese needs one with Traditional glyphs, such as Noto Sans CJK TC (docs/internationalization.md).
@@ -74,11 +74,14 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 - Two shared helpers were extended instead of adding zh-only paths: `i18n::join_sentences`, replacing an archive-only `。` case, and Settings search (lgse/strata#1583).
 - Setting `PANGO_LANGUAGE` from Strata was rejected: it must be set before threads start and scrubbed from every launched program (lgse/strata#1583).
 - English is the source of truth. Terms follow GNOME, KDE, and Microsoft usage for each language (lgse/strata#1541).
+- Catalog tests compare keys across catalogs, so they miss a source string never added to any. A Settings test therefore builds every page and requires each section heading in every catalog (lgse/strata#2014, lgse/strata#2027).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2039 | fix | Revised six Hungarian strings, such as "el lett távolítva" for removals and "soron belüli" for inline rename; no keys or placeholders changed. |
+| 2026-11-02 | lgse/strata#2027 | fix | Added the File icons heading and Hungarian icon names to the catalogs, fixed two Hungarian typos, and tested every Settings heading. |
 | 2026-11-01 | lgse/strata#1988 | chore | Revised Hungarian wording in both catalogs, using "beejtés" for drops and "eltávolít" for unplugging; no keys or placeholders changed. |
 | 2026-10-31 | lgse/strata#1966 | fix | Revised Hungarian message wording; no keys or placeholders changed. |
 | 2026-10-29 | lgse/strata#1918 | feat | Added Hungarian (Magyar) as the thirteenth language, with locale detection, no-break-space digit grouping, and lower-case error details after a colon. |
