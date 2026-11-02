@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1242, pr: lgse/strata#1295}
 branch: null
 reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: draft
+review: reviewed
 code: [src/ui/window/keyboard/preview.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/preview_ownership.rs, tests/qa/scenarios/quick_preview/tenxer-l-enters-preview.jsonl]
 related: [preview/preview-panel]

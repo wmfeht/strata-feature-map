@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
 reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: draft
+review: reviewed
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
 docs: [docs/trash-restore-testing.md]
