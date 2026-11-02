@@ -93,6 +93,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 
 - Select 200 regular files, then 201; then a selection with one file that has a non-UTF-8 name.
 - Pair two devices with the same name, and one whose name holds a newline or an emoji. Read the submenu labels and the notice after choosing each.
+- Pair a same-named device, or rename one on the phone, while the Send to… submenu is open; then choose it.
 - Open the device submenu, then stop the daemon, restart it, and choose the device before and after it reappears.
 - Leave the menu open for two minutes before choosing a device; separately, choose one device, then reopen the menu and choose another before the first notice fades.
 - Run with `LANG=de_DE.UTF-8` while Strata's language is set to English, and with `LC_ALL=zh_HK.UTF-8`.
