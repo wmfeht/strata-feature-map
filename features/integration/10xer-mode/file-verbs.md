@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_commands/**, src/ui/window/tests/keyboard_dispatch/file_verbs.rs, src/ui/window/tests/keyboard_dispatch/file_verbs/**, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl]
 related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions, app/keyboard-shortcuts, app/keyboard-shortcuts/remapping]
@@ -56,6 +56,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - Ctrl+Shift+N still creates a numbered new folder and renames it in place. lgse/strata#1306
 - `r` and F2 open `rename ›` for the cursor item or focused hit, never the fill. A file's stem or a folder's whole name is selected. lgse/strata#1308
 - Enter renames the item and keeps its contents; a taken name keeps the prompt open with "“…” already exists" and overwrites nothing. lgse/strata#1308
+- `rename ›` on a focused filter result keeps it focused and selected under its new name; a typed path into another folder drops it. lgse/strata#2026
 - In a local folder, `rename ›` with `nested/b.txt` moves the item into `nested`, creating it when missing, and puts the cursor on `nested`. lgse/strata#1512
 - `rename ›` with `b.txt/name`, where `b.txt` is a file, keeps the prompt open with "“b.txt” is not a folder". Nothing changes on disk. lgse/strata#1512
 - `rename ›` to `renamed.txt/` on a file keeps the prompt open with "An existing file can’t become a folder". lgse/strata#1512

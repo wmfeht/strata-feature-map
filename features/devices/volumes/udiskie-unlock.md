@@ -46,7 +46,7 @@ An integration that makes udiskie open Strata's passphrase prompt when an encryp
 - Uninstall removes `~/.config/udiskie/` when install created it and it is empty. lgse/strata#2030
 - If udiskie cannot be restarted, the command reports "Saved the udiskie configuration. Restart udiskie or log out for it to take effect." lgse/strata#1047 (unverified)
 - Install and uninstall print their result in the system locale, such as Hungarian under `LANG=hu_HU.UTF-8`, not the saved app language. lgse/strata#2027
-- The restart warning is translated in the same locale. lgse/strata#2027 (unverified)
+- The restart warning is translated in the same locale. lgse/strata#2027
 - Install refuses to edit a configuration whose `program_options` is not a mapping or whose `device_config` is not a sequence. lgse/strata#1047 (unverified)
 - Install and uninstall refuse a `config.yml` that is a symlink or other non-regular file, reporting "Refusing to replace non-regular udiskie configuration". lgse/strata#1047 (unverified)
 - Neither command installs or removes the `udiskie` package. lgse/strata#1047
@@ -72,7 +72,7 @@ The README section "Unlock encrypted volumes on Omarchy" documents setup and res
 - On Omarchy, plugging in a LUKS drive raised another program's prompt, not Strata's (lgse/strata#537). Disabling the user's automounter was ruled out, so udiskie hands encrypted `device_added` events to Strata and stops automounting LUKS (lgse/strata#1047).
 - The hook is classified before GTK starts and execs `--unlock-volume`, so non-crypto events never open a window (lgse/strata#1047).
 - The integration edits udiskie's file, not Strata preferences. Install records the previous `event_hook` and `password_prompt` values and whether it added the LUKS rule, so restore reverts only those keys (lgse/strata#1047).
-- `--unlock-volume` starts its unlock after the window's first folder opens. That folder's reset clears every open-argument status card, and once dropped the not-encrypted card (lgse/strata#2007, lgse/strata#2027).
+- `--unlock-volume` starts its unlock after the window's first folder opens. That folder's reset clears every open-argument status card, so an unlock resolved earlier lost its card at once (lgse/strata#2007, lgse/strata#2027).
 - With a primary instance running, usage errors reach the invoking terminal through `g_application_command_line_printerr`, the FFI call `app/infrastructure` records (lgse/strata#2015, lgse/strata#2030).
 - Install backs up the original file so restore can keep its comments and formatting. Uninstall compares parsed settings, so later user edits still win (lgse/strata#2015, lgse/strata#2030).
 - Settings used to show only a green check when udiskie could not restart, so the save looked complete (lgse/strata#2015, lgse/strata#2030).

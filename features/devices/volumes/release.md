@@ -48,7 +48,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 - When an eject, or an unmount of a removable drive, succeeds with the overlay open, it retitles to "Safe to remove" with "NAME can be unplugged." and a Close button. lgse/strata#1193
 - A successful unmount of non-removable storage closes the overlay without "Safe to remove". lgse/strata#1193
-- With a saved Strata label, the release overlay and its "NAME can be unplugged." notice name the device by that label. lgse/strata#2030
+- With a saved Strata label, the release overlay, its "NAME can be unplugged." notice, and the pending row use that label. lgse/strata#2030
 - A release cancelled in the authentication dialog shows no error dialog. lgse/strata#296
 - A GIO `FailedHandled` error, or one whose message contains "aborted", also shows no error dialog. lgse/strata#296 (unverified)
 - Any other GIO failure shows "Unable to eject device" or "Unable to unmount device" with the error and the last progress message. lgse/strata#296, lgse/strata#1193 (unverified)

@@ -6,7 +6,7 @@ branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: draft
 code: [src/ui/theme.rs, src/ui/theme/color.rs, src/ui/theme/document_style.rs, src/ui/theme/generated_css.rs, src/ui/theme/gtk_settings.rs, src/ui/theme/library.rs, src/ui/theme/listeners.rs, src/ui/theme/source_style.rs, src/ui/theme/watch.rs, src/ui/theme/weak_registry.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
-tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/preferences/tests/preferences/themes.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
+tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]
 related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density, settings/themes/corner-roundness, settings/themes/interface-font, settings/themes/omarchy]
 ---

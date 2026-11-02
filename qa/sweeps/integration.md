@@ -78,7 +78,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Hand-edit `parent_folder = ["<Control>h"]` into `settings.toml`, open a chooser, and press Ctrl+H with the file view focused.
 - Under `directory` and `single`, open the `chmod 000` folder by click, Enter, and the address bar. Then type `admin:///` into the address bar; read each error.
 - Under `savefiles`, send names of which none, one, two, and five exist, plus one whose existing match is a folder and one with a non-UTF-8 name. Read the prompt's title, names, and warning, then Cancel and Replace.
-- With 10xer mode on, open the file-type dropdown from Name with Space and press Tab and Shift+Tab inside it. Close it and Tab on; read focus after each press.
+- With 10xer mode on, Tab from Name to the file-type dropdown, open it with Space, then press Tab and Shift+Tab inside it. Close it and Tab on; read focus after each press.
+- With 10xer mode on, press Shift+Tab with the files focused and again with the header focused, in a SaveFile and a folder request; read focus.
 - With 10xer mode on, Tab and Shift+Tab around a SaveFile request with choices but no filters, an Open request with only the read-only box, and a folder request with no options.
 - Focus the Back button with no history, then with history, in Columns, Icons, and List; press Menu and Shift+F10 and read what opens.
 
@@ -153,7 +154,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 
 - Press `g` then keypad `+` on Trash, on a hidden pin, and as the tenth pin; press `g 9` after unpinning pin 3; press `g -` with a pinned folder open and a file under the cursor.
 - In `go ›` submit `~//x`, `/etc//`, `smb:x`, `user@host:` with no network, a pasted path ending in a newline, and a password URI followed by Ctrl+Z.
-- Type `~///x`, `~//` alone, and `~//.cache` with hidden files off into `go ›`, `move to ›`, and `extract to ›`; read the listed folders and where each acts.
+- Type `~//` alone and `~//.cache` with hidden files off into `go ›`, `move to ›`, and `extract to ›`; read the listed folders and where each acts.
 - Type a path under a 50k-folder tree and press Enter before the search settles; Tab on `.alc` with hidden files off; query `10:30` and a path containing `:`.
 - Open `z` with an empty history, `Z` with 200 entries, press Up past the last candidate, and press Enter twice while the list is still updating.
 - Arm `g`, then open and close Settings from the gear, Alt+Tab to another window, and press F5; read the footer after each.

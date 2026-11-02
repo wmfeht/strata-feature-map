@@ -81,7 +81,7 @@ Renaming one file or folder in place, in Columns, List, and Icons, from the keyb
 - Shift+Tab does the same toward the previous item. lgse/strata#1961
 - Tab or Shift+Tab with the name unchanged renames nothing and moves the editor to the neighbouring item. lgse/strata#1961
 - Tab with an invalid name keeps the original name and still moves the editor to the next item. lgse/strata#1961 (unverified)
-- A Tab commit onto a name another item has shows "Unable to rename item" with "“<name>” already exists". lgse/strata#2030
+- A Tab commit onto a name another item has fails as an Enter commit does, with the "Unable to rename item" dialog. lgse/strata#2030
 - Escape on that dialog returns focus and selection to the renamed item, not the neighbour, and no editor reopens, in Columns and List. lgse/strata#2030
 - Tab on the last item, or Shift+Tab on the first, commits the name and closes the editor; keyboard focus stays in the listing. lgse/strata#1961
 - When that edge commit makes the item sort elsewhere, such as `zz.txt` renamed `a.txt`, the listing does not select or scroll to it. lgse/strata#1961 (unverified)

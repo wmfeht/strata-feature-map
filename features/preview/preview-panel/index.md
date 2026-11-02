@@ -26,7 +26,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local file's first 8 KiB decide its preview family: a file named `.png` or `.mp4` holding plain text previews as source text. lgse/strata#1638
 - A local `photo.txt` holding PNG bytes previews as an image, and `paper.txt` holding a PDF previews as a PDF. lgse/strata#1638
 - A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
-- A local raw stream named `.h264`, `.264`, `.h265`, `.265`, or `.hevc`, in any case such as `.H264`, previews as video, even where the MIME database types it `application/octet-stream`. lgse/strata#1901, lgse/strata#1861, lgse/strata#2030
+- A local raw stream named `.h264`, `.264`, `.h265`, `.265`, or `.hevc`, in any case, previews as video. This holds where the MIME database types it `application/octet-stream`. lgse/strata#1901, lgse/strata#1861, lgse/strata#2030
 - An extensionless raw stream previews as video only where the MIME database types it as video. lgse/strata#1901 (unverified)
 - A text or empty file named `notes.h264` previews as text and is never handed to the media decoder. lgse/strata#1901
 - A local binary file named `.json` or `.md` whose bytes match no previewable type shows "No visual preview" instead of text. lgse/strata#1638
@@ -103,7 +103,6 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Special-casing TypeScript would fix one collision only. Quick preview, menus, and the chooser still gate on the name; the loader resolves the final family (lgse/strata#1638).
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
-- PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
 - Word processors store each paragraph as one line, so unwrapped DOCX and ODT showed one line per paragraph behind a horizontal scrollbar. Both now always wrap; workbook tables keep their layout (lgse/strata#1834).
 - Models, PDFs, workbooks, DOCX, ODT, and routes share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276, lgse/strata#1834, lgse/strata#1842). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
 - A hidden caret in a read-only GtkSourceView disables native Shift+arrow selection, so source previews show the caret and stay non-editable (lgse/strata#1557).
@@ -123,7 +122,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-02 | lgse/strata#2030 | fix | Classified `.264`, `.h265`, `.265`, and `.hevc` as raw video, so Properties matches the preview and listings show the video icon. |
+| 2026-11-02 | lgse/strata#2030 | fix | Classified `.264`, `.h265`, `.265`, and `.hevc` as raw video; Properties now matches the preview, and listings show the video icon. |
 | 2026-10-30 | lgse/strata#1950 | feat | Removed printing: the header and item-menu Print, the PDF print-progress dialog and print errors; files print from their default application. |
 | 2026-10-27 | lgse/strata#1901 | fix | Broke long rendered paragraphs after whitespace, decoded RTF surrogate pairs, and recognized `.h264` by name so raw streams preview and step. |
 | 2026-10-25 | lgse/strata#1842 | feat | Added offline GPX, FIT, and KML route previews with an elevation profile, playback, and a saved Units preference. |

@@ -94,7 +94,6 @@ Creating an empty file or folder in the current directory from the background me
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-02 | lgse/strata#2030 | fix | Folded a new item's typed plain name into its creation undo, so one Ctrl+Z trashes it. |
 | 2026-10-01 | lgse/strata#1349 | feat | Added New Folder with Selection and Ctrl+Alt+N, grouping the selection in one undoable gesture. |
 | 2026-09-12 | lgse/strata#760 | fix | Revealed created entries in Columns without a second navigation, keeping selection, focus, and child columns consistent. |
 | 2026-09-08 | lgse/strata#635 | ci | Requested the created row's reveal before requiring its editor allocation, so GTK 4.14 opens the editor. |

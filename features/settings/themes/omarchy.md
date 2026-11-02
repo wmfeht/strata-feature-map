@@ -6,7 +6,7 @@ branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
 code: [src/ui/theme/omarchy.rs, src/ui/theme/omarchy_state.rs]
-tests: [src/ui/theme/omarchy/tests.rs, src/ui/theme/tests/omarchy.rs]
+tests: [src/ui/theme/omarchy/tests.rs, src/ui/theme/tests/omarchy.rs, src/ui/preferences/tests/preferences/themes.rs]
 related: []
 ---
 

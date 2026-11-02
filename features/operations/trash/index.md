@@ -30,7 +30,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 
 ### Deleting the open folder
 
-- In Columns, Delete or Shift+Delete in an open folder's column with no selection and no cursor targets that folder. As the deletion starts, the cursor moves to the folder's row in the parent. lgse/strata#2030
+- When Delete or Shift+Delete in Columns deletes the open folder from its own column, the cursor moves to the folder's row in the parent as the deletion starts. lgse/strata#2030
 - A finished deletion then moves the cursor on to a neighbour. lgse/strata#2030
 - A cancelled one ends with focus on the folder's row: closing "Operation cancelled" focuses it, and Down moves from it. lgse/strata#2030
 - A deletion that will not start, such as while a transfer's cancel is still pending, leaves the cursor in the folder's column. lgse/strata#2030
@@ -97,7 +97,7 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - A backdrop click, Escape, Cancel, or Close dismisses the permanent-delete confirmation without deleting anything. lgse/strata#1052, lgse/strata#1206, lgse/strata#1900
 - Each of those returns keyboard focus to the listing's cursor row, so arrow keys then move in the visible pane. lgse/strata#1900
 - The no-Trash and "Move N items to Trash?" confirmations return focus the same way. lgse/strata#1900 (unverified)
-- When an operation finishing behind an open delete confirmation moved the cursor, such as a compression selecting its archive, cancelling returns the cursor and selection to the items asked about. lgse/strata#2030
+- An operation finishing behind an open delete confirmation may move the cursor, as a compression selecting its archive does. Cancelling then returns the cursor and selection to the items asked about. lgse/strata#2030
 - A confirmed deletion, or a cancel when the cursor never moved, leaves the cursor where it is. lgse/strata#2030
 - That return never turns on hidden files; a hidden item among those asked about stays unselected. lgse/strata#2030
 

@@ -1,5 +1,5 @@
 ---
-title: PDF text selection
+title: PDF pages, zoom, and text selection
 status: shipped
 origin: {issue: lgse/strata#1220, pr: lgse/strata#1223}
 branch: null
@@ -47,6 +47,7 @@ A text layer over rendered PDF pages, so text can be selected and copied from a 
 - Selection flows through the text like a document viewer. Rectangular block selection was rejected because it copies in visual order (lgse/strata#1220).
 - The existing pan gesture decides per press: a press near glyphs selects, any other press pans (lgse/strata#1223).
 - Ctrl+A and Ctrl+C reuse the preview's focus and keyboard dispatch (lgse/strata#1223).
+- PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
 - PDF zoom reset skips the view-center correction, because the list view re-anchors the visible page itself; correcting it jumped to page 1 (lgse/strata#1622).
 - Ctrl+0 on a focused PDF is consumed even at fitted width, so a reset meant for the page never resets the saved text size (lgse/strata#1622).
 

@@ -23,7 +23,7 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 - Cancel, Escape, and the header X abandon the whole paste, and no file is written. lgse/strata#448, lgse/strata#708
 - Skip appears only when other items are accepted or further conflicts remain; it keeps the existing item and transfers the rest. lgse/strata#708
 - The Apply to All checkbox appears only while further conflicts remain; when checked, the chosen action applies to all of them that offer it. lgse/strata#708, lgse/strata#2030
-- When a paste, drop, or Move to… meets an item of the other kind, such as a file onto a folder, the prompt hides Replace and focuses Keep Both. lgse/strata#2030
+- When a paste, drop, or Move to… meets an item of the other kind, such as a file onto a folder, the prompt hides Replace. Keep Both has focus. lgse/strata#2030
 - That prompt explains "An item named “<name>” already exists in <folder>. A file and a folder can’t replace one another." lgse/strata#2030
 - That prompt omits the note "Replaced items can't be moved to Trash here and will be deleted." lgse/strata#2030 (unverified)
 - Replace with Apply to All replaces the remaining same-kind conflicts; each file-onto-folder or folder-onto-file conflict still gets its own prompt. lgse/strata#2030

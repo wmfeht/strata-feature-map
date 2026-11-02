@@ -43,7 +43,6 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 - Dropping onto a folder row in Columns, List, or Icons transfers the dragged items into that folder. lgse/strata#587
 - Dropping onto the background of a pane or column showing another folder transfers into that folder. lgse/strata#587 (unverified)
 - Sidebar Home, standard places, pinned folders, and mounted native devices accept file drops from every view; Network and other URI locations except Trash do not. lgse/strata#350, lgse/strata#626
-- A breadcrumb under a file drag shows an accent tint and an accent inset ring, not GTK's green border. lgse/strata#1831
 - Folder rows and panes for Trash and Recent accept no file drops. lgse/strata#350 (unverified)
 - Dropping a folder onto itself or its descendants, or items onto their own folder, transfers nothing and opens no progress dialog. lgse/strata#587
 - When a dropped selection mixes items already in the destination with others, the others still transfer. lgse/strata#502
@@ -54,7 +53,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, sideba
 
 ### Spring-loaded navigation
 
-- Holding a file drag over a folder row, sidebar row, or parent breadcrumb for 750 ms navigates there, and the drag stays held. lgse/strata#1487
+- Holding a file drag over a folder row or sidebar row for 750 ms navigates there, and the drag stays held. lgse/strata#1487
 - Spring navigation can return to the drag's source folder, and releasing over a spring-opened pane's background drops into that folder. lgse/strata#1487
 - Leaving the hovered target or dropping before 750 ms cancels the pending navigation. lgse/strata#1487 (unverified)
 

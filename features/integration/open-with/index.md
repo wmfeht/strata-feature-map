@@ -43,7 +43,8 @@ Opening files in their default application, choosing another application from th
 
 ### Working folder
 
-- Activating a local file, or opening it with Open With…, starts its program in the file's folder, such as `~/notes` for `~/notes/todo.txt`, not in `/`. lgse/strata#1729, lgse/strata#1990
+- Outside Flatpak, activating a local file, or opening it with Open With…, starts its program in the file's folder, such as `~/notes` for `~/notes/todo.txt`, not in `/`. An application started through D-Bus activation does not start there. lgse/strata#1729, lgse/strata#1990
+- Under Flatpak, activating a file or Open With… hands it to the desktop portal, and Strata does not set its folder. lgse/strata#1635, lgse/strata#1990 (unverified)
 - A program launched on several files starts in the first file's folder. lgse/strata#1990
 - A desktop entry's `Path=` still sets the launched program's working folder. lgse/strata#1990
 - A file with no local path, or in a folder Strata cannot enter, starts its program in `/`, Strata's own working folder. lgse/strata#1729, lgse/strata#1990
@@ -51,7 +52,7 @@ Opening files in their default application, choosing another application from th
 - Open With… on a folder starts the program in that folder's parent. lgse/strata#1990 (unverified)
 - A video handed from the preview to its player starts the player in the video's folder. lgse/strata#1990 (unverified)
 - A GVfs file with a FUSE path starts its program in its FUSE folder under `/run/user/$UID/gvfs/`. lgse/strata#1990 (unverified)
-- With a file's sshfs mount stopped, activating the file blocks the window while Strata enters its folder. lgse/strata#1990 (unverified)
+- Choosing Open or an application in Open With… after the file's sshfs mount stops blocks the window while Strata enters its folder. lgse/strata#1990 (unverified)
 
 ### Running programs
 
@@ -128,7 +129,7 @@ Applications come from GIO metadata; Strata does not parse application `.desktop
 - Type lookups run asynchronously and are discarded when the menu closes or the selection changes (lgse/strata#578, lgse/strata#625).
 - The chooser waits for the Recently Used history read before it opens (lgse/strata#1729).
 - Run takes the file's type and mode from its asynchronous query. It spawns the program on the reaper thread, so a dead mount cannot freeze the window (lgse/strata#1729).
-- Launched programs start in the first file's folder. Strata enters it only during GIO's synchronous spawn and returns to `/` at once, so it keeps no mount busy (lgse/strata#1729, lgse/strata#1989, lgse/strata#1990).
+- Outside Flatpak, programs that GIO spawns start in the first file's folder; D-Bus activated applications do not. Strata enters it only during GIO's synchronous spawn and returns to `/` at once, so it keeps no mount busy (lgse/strata#1729, lgse/strata#1989, lgse/strata#1990).
 - Every Open and Open With launch runs on the GTK main thread, so one launch's folder change never interleaves with another's ([comment](https://github.com/lgse/strata/pull/1990#issuecomment-6564777625)).
 
 ## History

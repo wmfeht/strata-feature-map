@@ -12,7 +12,7 @@ related: [app/shortcut-reference, browser/context-menu]
 
 ## Summary
 
-The clipboard formats Strata offers on copy and cut, and reads back on paste. They let files copied or cut in Strata paste in Nautilus, Nemo, Caja, Thunar, Dolphin, and desktop icon extensions, and keep a cut made there a move in Strata.
+The clipboard formats Strata offers on copy and cut, and reads back on paste. Files copied or cut in Strata paste in Nautilus, Nemo, Caja, Thunar, Dolphin, and desktop icon extensions. A cut made there stays a move in Strata.
 
 ## Behavior
 

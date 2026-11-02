@@ -18,6 +18,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - udisks2 running and udiskie installed in the guest; `udisksctl`, `lsblk`, `findmnt`, `udevadm monitor`, and `secret-tool` for ground truth after every action.
 - A throwaway HOME as in `qa/README.md`, plus a copy of `~/.config/udiskie` and `~/.local/share/strata` taken before each install probe, to diff the restore.
 - A real PTP camera or iPhone passed through with `-device usb-host`; GVfs gphoto2 mounts only USB devices. Without one, record the camera block as not exercised.
+- An Android phone in MTP mode passed through the same way, for the MTP row probes.
 - `RUST_LOG=debug` beside `journalctl -f -u udisks2`; a GTK critical at any plug, mount, unmount, or unplug event is a finding.
 - A second build made with `STRATA_INTEGRATIONS=package`, copied into the guest beside the default build.
 - `scripts/sftp-fixture.sh --port 2222` with GVfs running, as in `qa/sweeps/remote.md`, for the SFTP share's network row and Disconnect. Mount `davs://` and `afp://` locations too where a server is at hand.
@@ -41,7 +42,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Send a file to a stick folder through Choose folder…, delete that folder from a shell, and reopen the stick's submenu.
 - Loop-mount an image under `/mnt` and inside a mounted stick, and open an SMB share so it appears under `/run/user/$UID/gvfs`. Search Ctrl+K for a file on each.
 - Mount the SFTP fixture as `SFTP://` in upper case, then `davs://` and `afp://` where reachable, beside an MTP phone and a camera; compare each row's icon and buttons.
-- Read each row's accessible description over AT-SPI for a mounted stick, an unmounted stick, the CD-ROM with a disc, an MTP phone, and the fstab virtio volume.
+- Read each row's accessible description over AT-SPI. Cover a mounted and an unmounted stick, the CD-ROM with a disc, an MTP phone, and the fstab virtio volume.
 
 ### devices/volumes/release
 

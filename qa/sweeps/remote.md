@@ -46,8 +46,9 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Start Strata with `gvfsd` stopped and D-Bus activation masked, then with `gvfsd` running but `gvfsd-sftp` removed; compare startup time and the two failure texts.
 - Against the local Samba host, make the port drop packets, then reject them, then route the host to an unreachable subnet. Repeat each with `gvfsd` started under `LANG=C` and under `LANG=fr_FR.UTF-8`.
 - Stop the SFTP fixture while the passphrase prompt is open, then while the host-key dialog is open, then submit each; repeat under Français.
-- Open share roots named with `%20`, a literal `%zz`, and `%FF`, then `smb://host/` by name and by IP, and `sftp://[::1]:2222/`. Read the heading, breadcrumb, and Properties name of each.
-- Start Strata on a session bus where a stub owns `org.gtk.vfs.Daemon` but never replies, once with a fresh probe marker in `$XDG_RUNTIME_DIR` and once with a saved `settings.toml`.
+- Reach a share root by activation from `smb://host/`, not by typing, and open one whose name holds `%2F`. Read the heading, peek heading, breadcrumb, and Properties name.
+- Rename a share on the server while its root is open, then press F5.
+- Start Strata on a session bus where a stub owns `org.gtk.vfs.Daemon` but never replies. Repeat with a fresh probe marker in `$XDG_RUNTIME_DIR`, then with a saved `settings.toml`.
 - On the local Samba share, add `notes.md`, `script.py`, `data.json`, a file with no extension, and a `.txt`; confirm with `gio info -a standard::content-type` which lack the full type. Activate each, use Open With, open Properties, and watch the log for GLib criticals.
 
 ### remote/file-providers/external
@@ -84,15 +85,14 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Turn a switch off and on rapidly five times, and turn it off while the providers directory is read-only.
 - Expand a card's requirements, then press Refresh, switch Settings pages, and come back; then install the missing package from Run in terminal without pressing Refresh.
 - Use the fixture catalog's category chips with the window at one-, two-, and three-column widths, with a card expanded in each.
-- Expand a card with a long requirement list in 1200 px, 1430 px, and 420 px windows, then in Hungarian; compare it with the other cards in its row.
+- Expand a card with a long requirement list in 1200 px, 1430 px, and 420 px windows. Repeat in Hungarian, and compare it with the other cards in its row.
 - Open the page in Settings opened from the file chooser, and with `XDG_CONFIG_HOME` pointing at a missing directory.
 - Repeat the page in an RTL language and in the compact Settings layout.
 
 ### remote/file-providers/kde-connect
 
 - Select 200 regular files, then 201; then a selection with one file that has a non-UTF-8 name.
-- Pair two devices with the same name, and one whose name holds a newline or an emoji; read the submenu labels and the notice after choosing each.
-- Open the device submenu with one device listed, pair a second device of the same name, then choose the first; repeat after renaming it on the phone.
+- Pair two devices with the same name, and one whose name holds a newline or an emoji. Read the submenu labels and the notice after choosing each.
 - Open the device submenu, then stop the daemon, restart it, and choose the device before and after it reappears.
 - Leave the menu open for two minutes before choosing a device; separately, choose one device, then reopen the menu and choose another before the first notice fades.
 - Run with `LANG=de_DE.UTF-8` while Strata's language is set to English, and with `LC_ALL=zh_HK.UTF-8`.

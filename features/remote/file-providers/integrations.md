@@ -33,7 +33,7 @@ Settings → Integrations, a catalog of opt-in provider programs bundled with St
 - With two visible cards each card takes half the row, one card fills the row, and the grid never shows more than three columns. lgse/strata#1761
 - Choosing a category chip resizes the columns to the cards it leaves visible. lgse/strata#1761
 - In 1200 px and 1430 px windows, the catalog shows two cards per row, each filling half the row. lgse/strata#2030
-- The grid fits one column per 320 px of width, up to three. A window narrower than one column shrinks a card to 240 px. lgse/strata#2030
+- The grid fits as many columns, up to three, as a 320 px floor or each card's minimum width allows. A window narrower than one column shrinks a card to 240 px. lgse/strata#2030
 
 ### Requirements
 

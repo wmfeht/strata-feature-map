@@ -30,7 +30,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
 - Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. In a QA scenario, `{"layout":"ru-only"}`, `{"layout":"ru"}`, and `{"layout":"caps-lock"}` steps match those three setups through `tests/qa/keyboard.rs`. They read the layouts in `tests/fixtures/harness.json`, and `us` is restored afterwards. `docs/testing.md` "Keyboard layouts" has the rules.
-- An NFS or SMB mount holding a music folder, a RAW folder, and a model folder with the FreeCAD file and the embedded-PNG 3MF, for probes that rename or delete what the preview reads.
+- An NFS or SMB mount holding a music folder, a video folder, a RAW folder, and a model folder with the FreeCAD file and the embedded-PNG 3MF, for probes that rename or delete what the preview reads.
+- For media stepping, a local folder of 300 short MP4s with text files named `.mp4` at both ends. Also `noise.mp4` from `head -c 8192 /dev/urandom` and an MP3 copied as `clip.mp4`.
 - For STL model thumbnails, a folder of 20 STLs on an NFS mount at a native path, not a GVfs SMB share. Also a local folder of 20 STLs.
 - Reduce motion and Element glow each on and off, under the GL renderer and `GSK_RENDERER=cairo`. Two windows of the same build on one media folder for volume sync, the four-player cap, and width isolation.
 
@@ -169,9 +170,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Scroll the fallback seek slider with a touchpad.
 - Play a song with `~/.cache/gstreamer-1.0` removed, then with the sound server stopped mid-play.
 - Dump the media bar in a playing video and in an audio preview, which the naming scenarios skip.
-- In a local folder of 300 videos with text named `.mp4` at both ends, preview the middle file and step to each end before the checks reach it.
-- Step through videos on the NFS mount while a slow copy keeps it busy, then while the mount is stalled; step again after the copy ends.
-- Close the preview, and separately select a PDF, while the checks of a large folder are still running; compare the fd count with the baseline.
+- In the 300-MP4 folder, preview the middle file. Step to each end before the checks reach it.
+- Step through the NFS video folder while a slow copy keeps the mount busy, then while it is stalled. Step again after the copy ends.
+- While the checks of a large folder still run, close the preview; separately, select a PDF. Compare the fd count with the baseline.
+- In List and in Icons, step through videos next to `noise.mp4` and the MP3 named `clip.mp4`.
 - Preview the text `fake.mp4` itself, then step away and back.
 - Overwrite `fake.mp4` with a real MP4 while a sibling video is shown, then step.
 - Step through an sftp folder holding text named `.mp4`, and through a folder mixing GPX routes with videos.

@@ -67,7 +67,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Create an item in a slot that is already visible, with the list scrolled partway.
 - In Icons and Columns, scrolled to the bottom, rename a new file so it sorts near the top, then press Down twice. Repeat with Page Down, and with Up.
 - Tab through a run of files where each new name sorts past its neighbour, in each mode. Then press Tab at the last item and Shift+Tab at the first after such a re-sort.
-- Tab out of a name that collides with a sibling in Icons and in a Ctrl+F result, out of an invalid name, and out of an emptied field. Note where the editor and the error dialog's focus land.
+- Tab out of a name that collides with a sibling, in Icons and in a Ctrl+F result. Tab out of an invalid name and an emptied field. Note where the editor and the error dialog's focus land.
 - Tab in a Ctrl+Shift+N new-folder name field, in 10xer mode, in the file chooser, in a Ctrl+F filter result, and across List group headers.
 - Hold Tab in a 1,000-item folder so rows scroll in; press Down while the next row is still being allocated.
 - In Columns, press Tab at the last item of a column whose child column is open, and Shift+Tab in a column scrolled sideways.
@@ -117,12 +117,11 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 ### operations/clipboard/file-manager-formats
 
-- Copy and cut a non-UTF-8 name, a name holding a newline, 1,000 files, and an `smb://` file; paste each in Nemo, Dolphin, and the Desktop Icons NG desktop.
+- Copy and cut a non-UTF-8 name, a name holding a newline, 1,000 files, and an `smb://` file. Paste each in Nemo, Dolphin, and the Desktop Icons NG desktop.
 - Fill the clipboard with a GNOME `cut` header beside the KDE flag `0`, with an uppercase `CUT` header, and with a trailing blank line, then press Ctrl+V.
 - Cut in Strata, paste in Dolphin, then press Ctrl+V in Strata again.
 - Paste a foreign cut whose source was moved or deleted after the cut.
 - Cut in one Strata process and paste in a second one, then press Ctrl+Z in each.
-- With files copied in Nautilus or Nemo, compare the pane background menu's Paste with Ctrl+V.
 
 ### operations/drag-and-drop
 
@@ -351,7 +350,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Move the folder built for `operations/filesystem-compatibility` onto vfat, rename one fixed name on the stick, then undo and redo.
 - Move a dangling symlink and a link into a stopped sshfs mount, then undo.
 - In an `admin://` folder, copy in, New Folder, a copy onto an existing file answered Replace, rename, and move out, pressing Ctrl+Z after each. Then undo a Home rename, copy into the admin folder, and press Ctrl+Shift+Z.
-- Move a file and a folder, put an item of the other kind at each original name, then undo; redo a move whose destination name a folder took meanwhile.
+- Move a file and a folder, put an item of the other kind at each original name, then undo. Redo a move whose destination name a folder took meanwhile.
 
 ## Hand-offs
 

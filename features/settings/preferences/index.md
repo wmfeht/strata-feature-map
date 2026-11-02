@@ -20,7 +20,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Opening and closing
 
 - Ctrl+, or the header Settings button opens Settings over the blurred window; the first open shows General. lgse/strata#849
-- Opening Settings with Ctrl+, focuses the current page's navigation entry, such as General, not the Settings layer. lgse/strata#2030
+- Opening Settings with Ctrl+, or the header Settings button focuses the current page's navigation entry, such as General, not the Settings layer. lgse/strata#2030
 - Ctrl+Alt+, and Ctrl+Super+, do not open Settings. lgse/strata#1576
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing, and the dialog keeps focus. lgse/strata#912, lgse/strata#1900
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849, lgse/strata#1900

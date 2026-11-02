@@ -43,7 +43,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A mounted SMB, SFTP, FTP, WebDAV, AFP, or NFS share appears under DEVICES with a network icon and no eject button. lgse/strata#31, lgse/strata#62, lgse/strata#2030
 - `ftps://` and `davs://` mounts also take the network row, and the scheme match ignores case. lgse/strata#2030 (unverified)
 - Clicking a network share's row opens the share. lgse/strata#31, lgse/strata#62
-- Right-clicking a network share's row offers Properties and Disconnect. lgse/strata#31, lgse/strata#296, lgse/strata#2030 (unverified)
+- Right-clicking a network share's row offers Properties and Disconnect. lgse/strata#31, lgse/strata#296, lgse/strata#2030
 
 ### Send to destinations
 
@@ -70,7 +70,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-02 | lgse/strata#2030 | fix | Described volume rows by path, gave GVfs shares network rows, moved every window off released devices, fixed Properties focus, and restored udiskie configs exactly. |
+| 2026-11-02 | lgse/strata#2030 | fix | Described volume rows by path, gave GVfs shares network rows, sent every window off released devices, and fixed Properties and udiskie restore polish. |
 | 2026-09-07 | lgse/strata#536 | fix | Limited Devices to what the volume monitor reports, removing the raw mount-table fallback. |
 | 2026-09-06 | lgse/strata#493 | fix | Showed mounted USB drives, mounted sidebar volumes through the themed prompt, and added drives to global search. |
 

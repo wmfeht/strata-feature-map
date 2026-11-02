@@ -5,7 +5,7 @@ origin: {issue: lgse/strata#169, pr: lgse/strata#170}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/assets.rs, src/assets/vector.rs, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg, data/icons/scalable/actions/strata-chevron-down-symbolic.svg, data/icons/scalable/actions/strata-chevron-down.svg, data/icons/scalable/actions/strata-minus-symbolic.svg, data/icons/scalable/actions/strata-plus-symbolic.svg]
+code: [src/assets.rs, src/assets/vector.rs, data/icons/scalable/actions/strata-video.svg, data/icons/scalable/actions/strata-file-archive.svg, data/icons/scalable/actions/strata-chevron-down-symbolic.svg, data/icons/scalable/actions/strata-minus-symbolic.svg, data/icons/scalable/actions/strata-plus-symbolic.svg]
 tests: [src/assets/tests.rs, src/assets/vector/tests.rs]
 related: [browser/view-modes/icons, browser/folder-customization, settings/themes/icons/catppuccin]
 ---

@@ -43,9 +43,10 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - An `smb://` location without its GVfs backend fails with a message naming common packages `gvfs-smb` or `gvfs-backends`. lgse/strata#31, lgse/strata#233
 - An unresolvable host, refused connection, timeout, or unreachable host each shows its own message, such as "That host couldn’t be found. Check the address and DNS settings." lgse/strata#233
 - Opening `smb://127.0.0.1:1/share` with nothing listening shows "The host refused the connection. Check the service and port." instead of "An unexpected system error occurred". lgse/strata#2027
-- A generic mount failure whose text after the last colon is "Connection timed out", "No route to host", or "Network is unreachable" shows the timeout or unreachable message. lgse/strata#2027
+- A generic mount failure ending in "Connection refused", "Connection timed out", "No route to host", or "Network is unreachable" after its last colon shows the matching transport message. lgse/strata#2027
 - That errno text also matches in the process locale's wording, after a full-width colon `：`, and on any scheme's generic mount failure. lgse/strata#2027 (unverified)
-- An SFTP mount that fails with GVfs's "Connection failed", as when the server stops while the password prompt is open, shows "The connection to the host failed. Check that the server is running, then try again." Sign-in does not reopen. lgse/strata#2030
+- An SFTP mount failing with GVfs's "Connection failed", in English or GVfs's translation, shows "The connection to the host failed. Check that the server is running, then try again." lgse/strata#2030
+- That failure, as when the server stops while the password prompt is open, does not reopen sign-in. lgse/strata#2030 (unverified)
 - Opening or listing a URI location that fails with a GIO error Strata names, such as permission denied or not found, shows its translated reason. Opening handles not mounted and unsupported first. lgse/strata#1909
 - Mounting a URI location that fails with permission denied, or with refused-credentials text in its message, reopens the sign-in prompt instead of an error. lgse/strata#233
 - A mount that fails with any other GIO error Strata names shows its translated reason, unless a missing-backend, host-key, or transport message applies. lgse/strata#233, lgse/strata#1909 (unverified)
@@ -66,7 +67,7 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - At `smb://host/`, activating a share by mouse or keyboard in Columns, List, or Icons mounts it if needed and opens its contents. lgse/strata#990
 - Column headings, peek headings, and breadcrumbs show percent-decoded remote names, such as "My Share" for `My%20Share`, also at a share root such as `smb://host/My%20Share/`. lgse/strata#740, lgse/strata#2027
 - At a server root such as `smb://host/`, the heading and breadcrumb read the host. `smb://user@h%C3%B6st:445/` reads "höst", not punycode. lgse/strata#2027
-- At an SFTP root with a query or fragment, `sftp://host/served?tok=SECRET#frag` is headed "served" and `sftp://host/?tok=SECRET` "host". lgse/strata#2027 (unverified)
+- A remote root's heading and breadcrumb never show its query or fragment: a root URI carrying `?tok=…#frag` is named by its last segment or host. lgse/strata#2027, lgse/strata#2030
 - A remote entry whose name is not valid UTF-8, such as `\xff name` over SFTP, is listed. lgse/strata#1533
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
@@ -127,4 +128,4 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - An SMB host that does not resolve shows the generic error, not the host-not-found message, because GVfs reports only "Invalid argument". lgse/strata#2027
 - Mutating actions on remote locations are not gated by the backend's capabilities. lgse/strata#66
 - Recursive search cannot search a remote share and falls back to Home. lgse/strata#87
-- A connection dropped mid-load leaves a partial SFTP listing and F5 fails silently. A mount that goes away outside Strata leaves listings stale with no notice. lgse/strata#1856
+- A connection dropped mid-load leaves a partial SFTP listing and F5 fails silently. A mount that goes away outside Strata leaves listings stale with no notice. lgse/strata#1856, lgse/strata#2030 (unverified)

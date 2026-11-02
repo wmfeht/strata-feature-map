@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/keyboard/tenxer.rs, src/ui/window/keyboard/items/tenxer_cursor.rs, src/ui/window/keyboard/items/tenxer_items.rs, src/ui/window/keyboard/footer_bindings.rs, src/app/navigation/visual.rs, src/ui/shortcut_footer/indicators.rs, src/ui/shortcut_footer/prompt.rs, src/ui/window/composition/tenxer_splash.rs, data/brand/tenxer-splash.png, src/ui/shortcut_footer/chord_panel.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/tests/keyboard_dispatch/tenxer_fill.rs, src/ui/window/tests/keyboard_dispatch/tenxer_panes.rs, src/ui/window/tests/keyboard_dispatch/tenxer_shortcuts.rs, src/ui/window/tests/preferences/tenxer_prefs.rs, src/app/navigation/tests/visual.rs, src/ui/window/composition/tenxer_splash/tests.rs]
 docs: [site/src/reference/10xer-mode.md, docs/10xer-mode.md]
@@ -50,6 +50,8 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - F1, or `~` outside text fields, toggles the shortcut reference, which lists only the commands of the active map and switches live with the mode. lgse/strata#1272, lgse/strata#1714
 - Context-menu hints hide the default `y` copy path, Space preview, and Ctrl+R rename hints while the mode is on. lgse/strata#1272, lgse/strata#1576
 - After returning from another window, `g`, `f`, and `s` act on the listing without first clicking a row. lgse/strata#1393
+- With 10xer mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning the mode off restores them. lgse/strata#1271, lgse/strata#1576
+- With 10xer mode on, Ctrl+Alt+T in the file list still opens a terminal. lgse/strata#1576
 
 ### Chord panel
 
@@ -130,4 +132,4 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 
 ## Known gaps
 
-None known.
+- In 10xer mode, Ctrl+Alt+T still opens a terminal from the file list, and Ctrl+Shift+K still acts from a non-menu popover. Unbinding them awaits a decision. lgse/strata#1576

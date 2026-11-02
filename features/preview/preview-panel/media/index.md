@@ -34,16 +34,17 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 
 ### Stepping
 
-- Previous and next count and step to a local audio or video file only when its metadata probe found media, or its first 8 KiB support its media name. lgse/strata#2026
-- In a folder of three real `.h264` streams, a real `clip.mp4`, and text files `fake.mp4` and `notes.h264`, the header reads "of 4" and stepping visits only the four videos. lgse/strata#2026
-- That content rule holds in List, Columns, and Icons. lgse/strata#2026 (unverified)
-- A file not yet checked stays out of the sequence until it answers; the position and the previous and next buttons update after each chunk of reads. lgse/strata#2026
+- Previous and next count and step to a local audio or video file once its metadata probe found media. lgse/strata#2026
+- Without a probe answer, a local file joins once its first 8 KiB are not text. Binary bytes under a media name still join. lgse/strata#2026 (unverified)
+- A folder holds three real `.h264` streams, a real `clip.mp4`, and text files `fake.mp4` and `notes.h264`. The header reads "of 4", and stepping visits only the four videos. lgse/strata#2026
+- That content rule holds in List, Columns, and Icons. lgse/strata#2026
+- A file not yet checked stays out of the sequence until it answers. The position and the previous and next buttons update after each chunk of reads. lgse/strata#2026
 - The shown file always anchors its own sequence, whether or not its check has answered. lgse/strata#2026
 - Checks read outward from the shown file, nearest first, through the mount's request lane. They wait up to 10 s while the mount is busy and give up once it stalls. lgse/strata#2026
 - Checks stop when the preview closes or replaces the player with another kind of preview. lgse/strata#2026
 - Files on remote (GVfs) locations and route files join the sequence by name. lgse/strata#2026
-- An audio entry whose metadata fill found no duration is skipped. lgse/strata#1638, lgse/strata#1901, lgse/strata#2026 (unverified)
-- A video entry with neither duration nor known dimensions is skipped. lgse/strata#1638, lgse/strata#1901, lgse/strata#2026 (unverified)
+- An audio entry whose metadata fill found no duration is skipped. lgse/strata#1638, lgse/strata#1901, lgse/strata#2026
+- A video entry with neither duration nor known dimensions is skipped. lgse/strata#1638, lgse/strata#1901, lgse/strata#2026
 - Previous and next, and the position count, keep a video with known dimensions but no duration, such as a raw `.h264` stream. lgse/strata#1901
 
 ### Slider keys
@@ -102,7 +103,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Keys stop on the last frame because seeking exactly to the duration ends the stream; stepped volumes snap because float steps stop short of zero (lgse/strata#1570).
 - The autoplay fade multiplies a gain on the GStreamer `volume` element, so no audio is processed in Strata and the saved volume is untouched (lgse/strata#1417).
 - A preview's audio output is built, started, and changed on one `strata-audio` worker. GStreamer's start-up could scan plugins and rewrite its registry, and state changes could wait on the sound server, all on the UI thread (lgse/strata#1729).
-- A media sequence joins local files by content because the preview reads leading bytes before choosing a player; a sequence trusting names landed on files that preview as text (lgse/strata#2003, lgse/strata#2026).
+- The preview reads leading bytes before choosing a player, so a sequence trusting names landed on files that preview as text. Sequences now join local files by content (lgse/strata#2003, lgse/strata#2026).
 - Content answers belong to one preview and are trimmed to its listing; there is no global cache (lgse/strata#2026).
 - Checks run as background work through request lanes, so a stalled mount parks no workers. One 10 s busy wait covers every folder of a run and is never reset within it (lgse/strata#2026).
 - The `packaging/media-runtime` patch kit pins a GStreamer worker-finalization fix and probes. It does not change the shipped binary (lgse/strata#779). The GTK context patch was retired once upstream merged it (lgse/strata#830).
