@@ -3,9 +3,9 @@ title: Thumbnail disk cache
 status: shipped
 origin: {issue: lgse/strata#273, pr: lgse/strata#274}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
-code: [src/ui/thumbnail_cache.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/thumbnail_cache.rs, src/ui/thumbnail/persist.rs]
 tests: [src/ui/thumbnail_cache/tests.rs]
 related: [browser/properties/raw-metadata]
 ---

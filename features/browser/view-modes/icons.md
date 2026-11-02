@@ -3,10 +3,10 @@ title: Icons view
 status: shipped
 origin: {issue: lgse/strata#322, pr: lgse/strata#328}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/icons_cell.rs, src/ui/icons_cell/**]
-tests: [src/ui/icons_cell/tests.rs]
+code: [src/ui/icons_cell.rs, src/ui/icons_cell/**, src/adapters/local_files/icon_cache.rs, src/ui/browser_modes/icons_card.rs, src/ui/browser_modes/icons_controls.rs, src/ui/browser_modes/icons_pane.rs, src/ui/browser_modes/icons_view.rs]
+tests: [src/ui/icons_cell/tests.rs, src/adapters/local_files/tests/icon_details.rs]
 related: [browser/thumbnails, operations/rename, browser/view-modes/folder-views]
 ---
 

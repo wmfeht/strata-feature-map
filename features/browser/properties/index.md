@@ -3,8 +3,8 @@ title: Properties dialog
 status: shipped
 origin: {issue: lgse/strata#71, pr: lgse/strata#243}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/browser/properties.rs]
 tests: [tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl, tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl]
 docs: []

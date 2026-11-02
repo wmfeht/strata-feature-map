@@ -3,10 +3,10 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs]
-tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/window/sidebar.rs, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs, src/ui/preferences/sidebar_settings.rs, src/ui/window/places.rs, src/ui/window/sidebar_context_menu.rs, src/ui/window/sidebar_file_drop.rs, src/ui/window/sidebar_places.rs, src/ui/window/sidebar_popover.rs, src/ui/window/sidebar_reorder.rs, src/ui/window/sidebar_rows.rs, src/ui/window/sidebar_sections.rs, src/ui/window/sidebar_view.rs]
+tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl, tests/qa/scenarios/sidebar_pinning/empty-pinned-section-stays-hidden.jsonl]
 docs: [docs/preferences.md, site/src/reference/keyboard-navigation.md]
 related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window, browser/tabs]
 ---

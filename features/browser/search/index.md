@@ -3,10 +3,10 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
-code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs]
-tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, src/services/search/refresh.rs, src/services/search/scoring.rs, src/services/search/session.rs, src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
+tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, src/services/search/test_support.rs]
 docs: [docs/preferences.md]
 related: [browser/navigation/folder-jump, devices/volumes, integration/10xer-mode, settings/preferences]
 ---

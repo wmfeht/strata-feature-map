@@ -3,9 +3,9 @@ title: Text size
 status: shipped
 origin: {issue: lgse/strata#155, pr: lgse/strata#252}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/preferences/text_size.rs]
+code: [src/ui/preferences/text_size.rs, src/ui/preferences/desktop_scale.rs]
 tests: [src/ui/preferences/tests/text_size.rs, src/ui/theme/tests/text_size.rs, tests/qa/scenarios/text_size]
 docs: [docs/preferences.md]
 related: [settings/preferences, settings/themes, preview/preview-panel, browser/view-modes/thumbnail-size, app/window/key-dispatch]

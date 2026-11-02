@@ -77,7 +77,6 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-02 | lgse/strata#2030 | fix | Moved every window and tab off a released device or disconnected share, returning them if it stays mounted. |
 | 2026-09-23 | lgse/strata#1199 | fix | Tinted the pending release spinner with the theme accent to match the eject button. |
 | 2026-09-23 | lgse/strata#1193 | feat | Flushed with `syncfs` before unmount or eject and kept the row pending until GIO finished, after a data-loss report. |
 | 2026-09-04 | lgse/strata#296 | feat | Added the eject button and Eject/Unmount menu entries for removable media, hidden on fixed disks. |

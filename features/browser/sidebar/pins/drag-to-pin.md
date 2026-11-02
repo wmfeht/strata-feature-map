@@ -3,8 +3,8 @@ title: Drag folders to pin
 status: shipped
 origin: {issue: lgse/strata#1690, pr: lgse/strata#1692}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/window/pinned_drop.rs, src/adapters/directory_validation.rs]
 tests: [src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/qa/scenarios/sidebar_pinning/folder-pins-order-and-bookmarks.jsonl, tests/qa/scenarios/sidebar_pinning/foreign-folder-drags-validate.jsonl, tests/qa/scenarios/sidebar_pinning/pinned-rows-transfer-and-remote-gaps.jsonl, tests/qa/scenarios/sidebar_pinning/spring-loaded-rows-keep-pin-intent.jsonl, tests/qa/scenarios/sidebar_reordering/pin-insertion-keeps-one-destination.jsonl]
 related: [operations/drag-and-drop, integration/portal-file-chooser, browser/sidebar]

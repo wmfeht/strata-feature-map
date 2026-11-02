@@ -84,7 +84,6 @@ The README section "Unlock encrypted volumes on Omarchy" documents setup and res
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-02 | lgse/strata#2030 | fix | Kept udiskie's restart request visible in Settings and restored the original config byte for byte on uninstall. |
 | 2026-11-02 | lgse/strata#2027 | fix | Started `--unlock-volume` after the first folder opens so its status card survives, and translated the udiskie setup output. |
 | 2026-09-17 | lgse/strata#1047 | feat | Let udiskie hand encrypted-drive events to Strata's passphrase prompt through an opt-in config rewrite. |
 

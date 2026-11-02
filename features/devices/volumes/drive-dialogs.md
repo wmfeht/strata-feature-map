@@ -104,7 +104,6 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-02 | lgse/strata#2030 | fix | Opened Properties on Set label or Close, named its release after the row's, showed saved labels, and read fstab's filesystem type. |
 | 2026-10-31 | lgse/strata#1952 | fix | Closed the LUKS container through UDisks `Encrypted.Lock` when Lock has no stoppable drive, so internal volumes no longer stay open. |
 | 2026-10-25 | lgse/strata#1875 | fix | Limited exFAT labels to 11 UTF-16 units and FAT32 to 11 bytes, so a long label no longer unmounts the drive then fails. |
 | 2026-09-30 | lgse/strata#1331 | feat | Added Format, Rename, and Properties for removable drives, with missing-tool install guidance. |

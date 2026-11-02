@@ -3,10 +3,10 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**]
-tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser_modes/tests/counting_model.rs, src/ui/browser/presentation/tests.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**, src/app/navigation/preferences.rs, src/ui/browser/view_modes.rs, src/ui/browser_modes/clicks.rs, src/ui/browser_modes/cursor.rs, src/ui/browser_modes/metadata.rs, src/ui/browser_modes/pane.rs, src/ui/browser_modes/pane_header.rs, src/ui/browser_modes/pane_shell.rs, src/ui/browser_modes/pane_state.rs, src/ui/browser_modes/rebuild.rs, src/ui/browser_modes/scroll_settle.rs, src/ui/browser_modes/source_index.rs, src/ui/browser_modes/type_groups.rs, src/ui/preferences/layout_settings.rs, src/ui/window/appearance_menu.rs]
+tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser_modes/tests/counting_model.rs, src/ui/browser/presentation/tests.rs, src/ui/window/tests/preferences/column_prefs.rs, tests/qa/scenarios/locations/unreadable-folder-offers-retry.jsonl]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
 related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename, browser/search/filter, browser/selection, browser/navigation, operations/trash/empty]
 ---

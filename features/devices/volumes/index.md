@@ -70,7 +70,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-02 | lgse/strata#2030 | fix | Described volume rows by mount or device path, and gave every GVfs network share the network row with Disconnect. |
+| 2026-11-02 | lgse/strata#2030 | fix | Described volume rows by path, gave GVfs shares network rows, moved every window off released devices, fixed Properties focus, and restored udiskie configs exactly. |
 | 2026-09-07 | lgse/strata#536 | fix | Limited Devices to what the volume monitor reports, removing the raw mount-table fallback. |
 | 2026-09-06 | lgse/strata#493 | fix | Showed mounted USB drives, mounted sidebar volumes through the themed prompt, and added drives to global search. |
 

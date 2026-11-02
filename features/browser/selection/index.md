@@ -3,10 +3,10 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
-review: reviewed
-code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs]
-tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs, src/app/browser/selection.rs, src/app/navigation/cursor.rs, src/app/navigation/fill.rs, src/app/navigation/location_set.rs, src/ui/browser/view_selection.rs, src/ui/browser_modes/selection.rs]
+tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch, src/app/navigation/tests/fill_commands.rs, src/app/navigation/tests/fill_tracking.rs, src/app/navigation/tests/paging.rs, src/app/navigation/tests/ranges.rs, src/app/navigation/tests/selection.rs]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode, browser/context-menu, browser/tabs]
 ---
