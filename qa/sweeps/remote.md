@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 
@@ -8,7 +8,7 @@ tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, in
 
 Everything that reaches Strata from somewhere other than a local disk. Network locations: GIO/GVfs `smb://`, `sftp://`, and `network:///` with on-demand mounting, and the sign-in, passphrase, and host-key dialogs. They also cover failure messages, log redaction, SMB share lists, progressive remote loading, and the `gvfsd` startup probe. External file providers: registration, reload, and process lifecycle, badges, menu sections and heading icons, and Send to… placement. They also cover activation dialogs and notices, and invalidation. Integrations: the Settings catalog that installs, updates, turns off, and removes bundled providers. KDE Connect and LocalSend: the two bundled providers. `remote/file-providers` itself has no Behavior; its children carry every check.
 
-Left to other sweeps: sidebar rows, the Connect to server dialog, and location-field parsing and history; Settings navigation and search; copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, mounting, unmounting, and ejecting local devices, and unmounting a remote mount from its DEVICES row.
+Left to other sweeps: sidebar rows, the Connect to server dialog, and location-field parsing and history; Settings navigation and search; copy and move semantics once a remote folder is a source or target, previews and thumbnails of remote files, mounting, unmounting, and ejecting local devices, and unmounting or disconnecting a remote mount from its DEVICES row.
 
 ## Setup
 
@@ -44,6 +44,10 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - On the `sftp-fixture.sh` server and the local Samba share, `chmod 000` a server folder, delete a folder while it lists, and kill `gvfsd-sftp` mid-mount. Read each message under English and Français, and grep the DEBUG log.
 - On Samba, enter a wrong password, then disable the account, then exhaust its logon attempts; read the message and whether sign-in reopens.
 - Start Strata with `gvfsd` stopped and D-Bus activation masked, then with `gvfsd` running but `gvfsd-sftp` removed; compare startup time and the two failure texts.
+- Against the local Samba host, make the port drop packets, then reject them, then route the host to an unreachable subnet. Repeat each with `gvfsd` started under `LANG=C` and under `LANG=fr_FR.UTF-8`.
+- Stop the SFTP fixture while the passphrase prompt is open, then while the host-key dialog is open, then submit each; repeat under Français.
+- Open share roots named with `%20`, a literal `%zz`, and `%FF`, then `smb://host/` by name and by IP, and `sftp://[::1]:2222/`. Read the heading, breadcrumb, and Properties name of each.
+- Start Strata on a session bus where a stub owns `org.gtk.vfs.Daemon` but never replies, once with a fresh probe marker in `$XDG_RUNTIME_DIR` and once with a saved `settings.toml`.
 - On the local Samba share, add `notes.md`, `script.py`, `data.json`, a file with no extension, and a `.txt`; confirm with `gio info -a standard::content-type` which lack the full type. Activate each, use Open With, open Properties, and watch the log for GLib criticals.
 
 ### remote/file-providers/external
@@ -60,6 +64,7 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Run a `notice` action from a provider whose `name` is the full 64 bytes, beside a short message.
 - Set `icon` to a 256×256 PNG, and on only one of two providers; compare heading and action alignment, then switch to an RTL language.
 - With a heading icon set, make the provider's `actions` reply go empty and then return while the item menu stays open.
+- Run with `GTK_A11Y=atspi` and Accerciser walking the tree. Open and close an item menu twenty times with one provider with an icon and one without; watch the log and count headings.
 - Start Strata with no provider registered and browse a folder in Icons for a second. Then register one while it runs; scroll, open item menus, and restart, checking when its badges and sections first appear.
 - Press Refresh on Settings → Integrations while an item menu with provider actions is open in another window.
 - Start a `notice` activation on a provider that answers after 5 s, press Refresh twice before it answers, then let it reply. Read the notices and `ps` for its processes.
@@ -79,13 +84,15 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Turn a switch off and on rapidly five times, and turn it off while the providers directory is read-only.
 - Expand a card's requirements, then press Refresh, switch Settings pages, and come back; then install the missing package from Run in terminal without pressing Refresh.
 - Use the fixture catalog's category chips with the window at one-, two-, and three-column widths, with a card expanded in each.
+- Expand a card with a long requirement list in 1200 px, 1430 px, and 420 px windows, then in Hungarian; compare it with the other cards in its row.
 - Open the page in Settings opened from the file chooser, and with `XDG_CONFIG_HOME` pointing at a missing directory.
 - Repeat the page in an RTL language and in the compact Settings layout.
 
 ### remote/file-providers/kde-connect
 
 - Select 200 regular files, then 201; then a selection with one file that has a non-UTF-8 name.
-- Pair two devices with the same name, and one whose name holds a newline or an emoji; read the submenu labels.
+- Pair two devices with the same name, and one whose name holds a newline or an emoji; read the submenu labels and the notice after choosing each.
+- Open the device submenu with one device listed, pair a second device of the same name, then choose the first; repeat after renaming it on the phone.
 - Open the device submenu, then stop the daemon, restart it, and choose the device before and after it reappears.
 - Leave the menu open for two minutes before choosing a device; separately, choose one device, then reopen the menu and choose another before the first notice fades.
 - Run with `LANG=de_DE.UTF-8` while Strata's language is set to English, and with `LC_ALL=zh_HK.UTF-8`.
@@ -105,7 +112,8 @@ Left to other sweeps: sidebar rows, the Connect to server dialog, and location-f
 - Run in terminal on an install command, including the message with no terminal emulator → `settings`.
 - Copy, move, paste, rename, and delete with a remote folder as source or target → `operations`.
 - Preview panel and quick preview of remote files, and thumbnails on remote entries → `preview`.
-- Mounting, unmounting, and ejecting local volumes and removable media, and unmounting a remote mount from its DEVICES row → `devices`.
+- Mounting, unmounting, and ejecting local volumes and removable media, and unmounting or disconnecting a remote mount from its DEVICES row → `devices`.
 - How a provider notice stacks with progress cards and replaces another visible notice in the dock → `operations`.
 - Thumbnail rendering that provider badges share, and search inside a remote location → `browser`.
+- Tab labels and window titles at remote share and server roots → `browser`.
 - How a non-UTF-8 or `%2F` URI displays, skipped-entry warnings, and directory-load log redaction → `app`.
