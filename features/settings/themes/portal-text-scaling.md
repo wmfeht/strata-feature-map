@@ -32,7 +32,7 @@ Reads the desktop's text-scaling factor from the settings portal in a Strata pro
 - GTK's Wayland backend has no settings source but the portal, so `gtk-xft-dpi` fell back to 96 DPI. With factor 1.18, 12 px text rendered at 12 px, not 14 px (lgse/strata#2045).
 - The portal is read asynchronously, so the activating call can never block on it (lgse/strata#2045).
 - Strata sets only `gtk-xft-dpi`. Its existing `gtk-xft-dpi` listeners rescale the CSS root font and interface icons (lgse/strata#2045).
-- Only a process Strata restarted reads the portal; a `no-portals` the user set is left alone (lgse/strata#2045).
+- Only a process Strata restarted with `no-portals` reads the portal; a `no-portals` the user set is left alone (lgse/strata#2045).
 
 ## History
 

@@ -96,7 +96,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 Strata is positioned as keyboard-first; a Yazi user reported needing the trackpad and losing focus to the sidebar (lgse/strata#291). Navigation then moved plain arrows to interface regions and left history to Alt+Left, Alt+Right, and Alt+Up (lgse/strata#358).
 
 - Icons hands arrows to GTK's native spatial movement, so moves follow the rendered grid (lgse/strata#358).
-- Only the listing's first tile is the Icons left edge, so Left at any other row start wraps to the previous row, as Right and GTK's grid wrap (lgse/strata#2043, lgse/strata#2044).
+- Only the listing's first tile is the Icons left edge; Left at other row starts wraps back, like Right and GTK's grid (lgse/strata#2043, lgse/strata#2044).
 - In Columns, Right enters folders only and never activates a file; Enter stays the explicit open (lgse/strata#291). List keeps Right in the file list (lgse/strata#358).
 - `h`/`j`/`k`/`l` follow the arrow paths only with Type to search off, because Type to search claims plain letters. It stays on by default (lgse/strata#552).
 - Keep arrows in file list is an opt-out that defaults off, preserving the keyboard-only and accessibility paths it removes (lgse/strata#942).
