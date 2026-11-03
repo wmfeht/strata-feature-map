@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -254,6 +254,15 @@ For every control this sweep proves the binding: the file changes, the other win
 - Truncate `colors.toml` mid-switch while window B opens a Markdown preview and window A opens Appearance; then restart with the state still invalid and read both.
 - Turn Follow Omarchy off in window A while `colors.toml` is being rewritten, then `rm -rf` the state while the variant row has keyboard focus.
 - Repoint `current/theme` with `ln -sfn`, by rename, and to a theme folder that is itself a symlink. After each, edit `colors.toml`, replace it by rename, and edit the old target; read both windows.
+
+### settings/themes/portal-text-scaling
+
+- Quit every Strata, set `text-scaling-factor` to 1.25, 1.1818, and 2.0, and cold-start one through a FileManager1 `ShowFolders` call; screenshot it beside a `strata`-started window at text sizes 8, 12, and 48.
+- In that activated window, change the factor several times in quick succession, then reset it with `gsettings reset`; compare text, row heights, and interface icons after each.
+- Cold-activate with `GDK_DEBUG=no-portals` already set in the activation environment, then with `GDK_DEBUG=misc`; read the factor applied in each.
+- Cold-start the chooser with `strata --portal` under a non-1 factor, open it from a test app, and change the factor while it is open.
+- Cold-activate with no settings portal running, with a portal backend that lacks `org.gnome.desktop.interface`, and with a portal that starts after Strata; read the window and the debug log.
+- While activated with a non-1 factor, open Settings, change text size and Interface font, and open a menu, a dialog, and a code preview; compare sizes with a `strata`-started window.
 
 ## Hand-offs
 

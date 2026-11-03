@@ -1128,6 +1128,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/omarchy.rs` | code | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/omarchy/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/omarchy_state.rs` | code | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/theme/portal_text_scale.rs` | code | [Desktop text scaling without GTK portals](../features/settings/themes/portal-text-scaling.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/theme/portal_text_scale/tests.rs` | tests | [Desktop text scaling without GTK portals](../features/settings/themes/portal-text-scaling.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/source_style.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
