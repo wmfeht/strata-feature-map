@@ -13,7 +13,7 @@ related: [browser/view-modes/text-size, preview/preview-panel, browser/view-mode
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, the uncomposited popup fallback, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), `settings/themes/corner-roundness` (the corner radius scale), `settings/themes/interface-font` (the interface typeface), and `settings/themes/portal-text-scaling` (desktop text scaling when GTK portals are off). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, the uncomposited popup fallback, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), and `settings/themes/corner-roundness` (the corner radius scale). Further children: `settings/themes/interface-font` (the interface typeface) and `settings/themes/portal-text-scaling` (desktop text scaling in a process Strata restarts without GTK portals). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
 
 ## Behavior
 
@@ -217,7 +217,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-03 | lgse/strata#2045 | fix | Read the desktop text-scaling factor from the settings portal in D-Bus-activated Strata, where `no-portals` had reset text to 96 DPI. |
+| 2026-11-03 | lgse/strata#2045 | fix | Read the desktop text-scaling factor from the settings portal in D-Bus-activated Strata, where `no-portals` left `gtk-xft-dpi` at 96 DPI and dropped the desktop factor. |
 | 2026-11-02 | lgse/strata#2030 | fix | Named each theme editor color cell once after its field, and gave `.tbz`, `.tbz2`, `.txz`, and `.tzst` the archive icon. |
 | 2026-10-29 | lgse/strata#1909 | fix | Watched the resolved Omarchy theme folder and rebound it after a symlink switch, so `colors.toml` edits stay live without a restart. |
 | 2026-10-28 | lgse/strata#1912 | fix | Dropped popover, menu, and tooltip shadows and corner radii on displays without a compositor, where their transparent pixels render black. |

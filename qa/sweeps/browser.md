@@ -67,8 +67,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Hold Down for two seconds in `100000`; when it stops, focus, selection, scroll position, and preview must name the same entry.
 - Size the window so the last Icons row holds one tile; press Down from the row above, then Right and Left at both edges.
-- In a three-row Icons folder, press Left from each row start with the sidebar hidden, railed, and expanded; resize to change the column count and repeat.
-- Press Left at an Icons row start with a Ctrl+F filter open and with a recursive filter result focused, with Keep arrows on and off.
+- In a three-row Icons folder, press Left from each row start with the sidebar hidden, railed, and expanded. Resize to change the column count and repeat.
+- Open a Ctrl+F filter in Icons and press Left at a row start. Repeat with a recursive filter result focused, with Keep arrows on and off.
 - In the portal chooser's Icons view, press Left at a second-row start and on the first item, with Keep arrows on and off and the sidebar hidden.
 - With Type to search off press `h` in the sidebar, the pane header, and the location entry; then toggle Keep arrows with Ctrl+\ while the header has focus and press Down.
 - In Columns with column 3 active, hover column 1 and Tab in from the header. Then Shift+Tab out with a filter open in column 2, and with none.
@@ -123,7 +123,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Open `deep` to 20 columns, click a title eight columns back, press Escape twice, then Backspace; count the columns after each step.
 - Hold Down across a folder, a PDF, and a plain file with single-click previews on; time the child column against 75 ms.
-- Tap Up and Down alternately across folders and PDFs in a 4,000-entry column, stopping on each kind; then stop and click the listing within 75 ms.
+- Tap Up and Down alternately across folders and PDFs in a 4,000-entry column, stopping on each kind.
+- Press Down onto a folder, then within 75 ms `touch` a file in the listed folder from a shell; check the child column opens. Repeat switching tabs and back.
 - Press Return on a folder on a stalled network mount, then on one the open turns away (`chmod 000`), with Mirror columns selection on; press Down before the open lands.
 - Drag a column edge below 300 px, autofit a column holding the 255-byte name, restart, and read `browser_column_width`.
 - Open a context menu in column 2, move the pointer to column 4, press Escape; check which header shows its actions.

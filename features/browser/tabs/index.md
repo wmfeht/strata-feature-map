@@ -28,8 +28,8 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Closing the active tab selects its right neighbour, or its left neighbour when it was last. lgse/strata#1484 (unverified)
 - Closing a tab whose folder has a file operation running shows "File operations are still active" and keeps the tab open. lgse/strata#1484
 - Closing the window while any tab, selected or not, has a file operation running shows the same notice and keeps the window open. lgse/strata#1484 (unverified)
-- Closing a tab frees its widget tree, its view, and its preference listeners; closing the window does the same for every tab. lgse/strata#2041
-- After 20 to 40 Ctrl+T and Ctrl+W cycles, opening a folder takes as long as at startup. lgse/strata#2041
+- Memory does not grow with each closed tab. lgse/strata#2041
+- After 20 to 40 Ctrl+T and Ctrl+W cycles, opening a many-entry folder in Columns takes as long as at startup. lgse/strata#2041
 
 ### Reopening
 
@@ -175,7 +175,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - One close guard checks every tab, so a background operation in a hidden tab still blocks closing the window (lgse/strata#1484).
 - Closing a tab disposes its content and releases its observers (lgse/strata#108, lgse/strata#1484).
 - Closures on a tab's widgets captured its view strongly, and the view owns those widgets. These cycles leaked closed tabs; 300 closes slowed a folder open from 0.5 s to 2.6 s (lgse/strata#2021, [comment](https://github.com/lgse/strata/issues/2021#issuecomment-6576782722), lgse/strata#2041).
-- Rather than hunt each cycle, closing a tab or unrealizing the window disposes the widget tree as `gtk_window_destroy` does. Dispose drops every signal handler and controller (lgse/strata#2041).
+- Rather than hunt each cycle, closing a tab or unrealizing the window disposes the widget tree as `gtk_window_destroy` does. Dispose drops every signal handler and controller, freeing the tab's view and preference listeners (lgse/strata#2041).
 - A closed tab is remembered as only its location and position, so its view is not kept alive. Reopening reuses the new-tab and reorder paths (lgse/strata#1800).
 - Windows are titled `<folder> — Strata` so taskbars, switchers, and shortcut scripts can tell them apart, like Nautilus (lgse/strata#1824, [comment](https://github.com/lgse/strata/issues/1824#issuecomment-6361147216)). The title uses the tab strip's name (lgse/strata#1827).
 - Ctrl+click was rejected for opening in a new tab because it toggles multi-selection. Ctrl+N was rejected for a new window because 10xer uses it for the sidebar (lgse/strata#1540).

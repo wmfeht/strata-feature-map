@@ -20,7 +20,6 @@ A menu of a tab's earlier locations, opened from the List and Icons pane-header 
 - With focus on a Back button that has history, in a browser window or the file chooser, Menu or Shift+F10 opens that popover. No context menu opens and the location does not change. lgse/strata#2001, lgse/strata#2026
 - The popover is headed BACK TO and lists the tab's 50 most recent back entries, most recent first. lgse/strata#1976, lgse/strata#1977, lgse/strata#2041
 - Entries older than those 50 are not listed but stay reachable with Back. lgse/strata#2041
-- Each time the menu opens, it lists the tab's history as it stands then, including folders visited since the last open. lgse/strata#2041
 - Each entry shows the folder name over its dimmed path. lgse/strata#1977
 - An entry's accessible name is the folder name, and its description is the folder's path. lgse/strata#1977
 - The home folder's entry is named `~`, and paths under home start with `~`. lgse/strata#1977 (unverified)
