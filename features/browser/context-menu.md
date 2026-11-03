@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs, src/ui/browser/context_menu/actions/presentation.rs, src/ui/browser/context_menu/focus.rs, src/ui/browser/context_menu/folder_menu.rs, src/ui/browser/context_menu/item_menu.rs, src/ui/browser/context_menu/item_options.rs, src/ui/browser/context_menu/open_with.rs, src/ui/browser/context_menu/options.rs, src/ui/browser/context_menu/popover.rs, src/ui/browser_modes/context_menu.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl]
@@ -130,6 +130,7 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 
 - Item and background menus are declared as Strata button rows and mirrored into a native `GtkPopoverMenu` model. Each row becomes an action enabled by the button's sensitivity and removed when the row is hidden; separators become sections (lgse/strata#1085).
 - lgse/strata#456 rejected `GtkPopoverMenu` because it would drop icons, shortcuts, and the header. Native menus arrived with custom action submenus (lgse/strata#1085), so Strata reapplies icons, descriptions, the header, and danger styling to generated rows.
+- Each mirrored row's icon is a `gio::BytesIcon` PNG-encoded once per texture. Encoding a 96 px texture per item dominated a Columns folder open (lgse/strata#2041).
 - The file chooser and app search results keep an overlay `gtk::Popover` with Strata's own key handling (lgse/strata#666).
 - Menu and Shift+F10 follow platform convention, Shift+F10 covering keyboards without a Menu key. Dedicated shortcuts per action were rejected: extension actions would stay undiscoverable (lgse/strata#583).
 - Keyboard menus anchor to the focused entry because the pointer may be elsewhere or absent (lgse/strata#583).

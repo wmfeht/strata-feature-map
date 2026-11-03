@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 

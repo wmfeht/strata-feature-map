@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 

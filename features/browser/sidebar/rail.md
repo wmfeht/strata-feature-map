@@ -3,7 +3,7 @@ title: Sidebar collapse and icon rail
 status: shipped
 origin: {issue: lgse/strata#1602, pr: lgse/strata#1606}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 review: reviewed
 code: [src/ui/sidebar_toggle.rs, src/ui/window/sidebar_rail.rs, src/ui/window/sidebar_width.rs]
 tests: [src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs]

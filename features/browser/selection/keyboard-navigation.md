@@ -3,8 +3,8 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs, src/ui/browser/view_navigation.rs, src/ui/browser_modes/focus.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl, tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl, tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl, tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl, tests/qa/scenarios/keyboard_navigation/keyboard-only-copy-paste.jsonl, tests/qa/scenarios/keyboard_navigation/return-restores-nested-scroll.jsonl, tests/qa/scenarios/keyboard_navigation/select-all-selects-every-entry.jsonl, tests/qa/scenarios/keyboard_navigation/shift-arrow-extends-selection.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl, tests/qa/mutations/keyboard-navigation.patch]
 docs: [docs/keyboard-navigation.md]
@@ -32,7 +32,9 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 
 ### Leaving the file list
 
-- In Icons, Left at the left edge focuses the visible sidebar; in List, Left from any entry does. lgse/strata#358
+- In Icons, Left on the first tile focuses the visible sidebar; in List, Left from any entry does. lgse/strata#358, lgse/strata#2044
+- In Icons, Left on the first tile of any later row moves to the last tile of the previous row, with Keep arrows in file list on or off. lgse/strata#2044
+- In the portal file chooser's Icons view, Left at a row start wraps to the previous row; Left on the first item focuses the sidebar. lgse/strata#2044
 - In Columns, Left in the first column focuses the visible sidebar's row for the current place. lgse/strata#58
 - With the sidebar hidden, Left in Icons or List does not change directory. lgse/strata#358
 - Up from the first Icons row or first List entry focuses the pane header, including in an empty directory. lgse/strata#358
@@ -73,7 +75,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 ### Keep arrows in file list
 
 - Settings → General → Browsing → Keep arrows in file list, off by default, stops arrows from leaving the file list. lgse/strata#942
-- With it on, Up from the first entry and Left at the left edge keep focus in the file list. lgse/strata#942
+- With it on, Up from the first entry and Left on the first Icons tile keep focus in the file list. lgse/strata#942, lgse/strata#2044
 - Ctrl+\ toggles the preference live and updates the Settings switch. lgse/strata#942
 - With it on, Tab and the pointer still reach the header, sidebar, and top bar. lgse/strata#942
 - The file chooser follows the same preference. lgse/strata#942
@@ -94,6 +96,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 Strata is positioned as keyboard-first; a Yazi user reported needing the trackpad and losing focus to the sidebar (lgse/strata#291). Navigation then moved plain arrows to interface regions and left history to Alt+Left, Alt+Right, and Alt+Up (lgse/strata#358).
 
 - Icons hands arrows to GTK's native spatial movement, so moves follow the rendered grid (lgse/strata#358).
+- Only a section's first tile, position 0, is the Icons left edge, the rule Up to the header uses. Left then wraps like Right and GTK's grid (lgse/strata#2043, lgse/strata#2044).
 - In Columns, Right enters folders only and never activates a file; Enter stays the explicit open (lgse/strata#291). List keeps Right in the file list (lgse/strata#358).
 - `h`/`j`/`k`/`l` follow the arrow paths only with Type to search off, because Type to search claims plain letters. It stays on by default (lgse/strata#552).
 - Keep arrows in file list is an opt-out that defaults off, preserving the keyboard-only and accessibility paths it removes (lgse/strata#942).
@@ -109,6 +112,7 @@ Strata is positioned as keyboard-first; a Yazi user reported needing the trackpa
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-03 | lgse/strata#2044 | fix | Made only a section's first Icons tile the left edge, so Left at a row start wraps to the previous row. |
 | 2026-10-27 | lgse/strata#1900 | fix | Kept listing updates from taking focus from a modal or a hidden tab, so view switches leave focus in the visible tab. |
 | 2026-10-17 | lgse/strata#1739 | fix | Let modal arrow navigation reach a notebook's current tab, so arrows reach the action editor's tabs. |
 | 2026-10-09 | lgse/strata#1533 | fix | Made each listing one Tab stop that lands on the keyboard cursor, with a focusable pane in empty folders. |

@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs, src/ui/browser/columns/append.rs, src/ui/browser/columns/append/header.rs, src/ui/browser/columns/append/models.rs, src/ui/browser/columns/append/shell.rs, src/ui/browser/columns/append/surface.rs, src/ui/browser/columns/cursor.rs, src/ui/browser/columns/double_click.rs, src/ui/browser/columns/lifecycle.rs, src/ui/browser/columns/resize.rs, src/ui/browser/columns/rows/bind.rs, src/ui/browser/columns/rows/click.rs, src/ui/browser/columns/rows/widgets.rs, src/ui/browser/columns/state.rs, src/ui/browser/columns/strip_scroll.rs, src/ui/browser/events/selection.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl]
@@ -49,6 +49,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - In a column with no keyboard cursor yet, Home or Ctrl+Up lands on the first entry and End or Ctrl+Down on the last. lgse/strata#1447, lgse/strata#1533
 - Shift+Home, Shift+End, and other Shift-extended ranges do not mirror. lgse/strata#1447, lgse/strata#1533
 - Mirroring waits 75 ms after the last key, so holding Down loads only the folder where the cursor stops. lgse/strata#1179
+- The listing retaking focus within those 75 ms keeps the pending mirror, so the child column or automatic preview still opens. lgse/strata#2041
 - With Mirror columns selection on, Return on a folder still validating when the 75 ms mirror fires opens it in the next column. Focus lands on its first entry. lgse/strata#1771 (unverified)
 - Where GIO supports `admin`, a column whose folder Strata may not read offers Open as Administrator above Retry on its error page. lgse/strata#1837
 - In an `admin://` folder, the "Browsing as administrator" lock notice shows on the root column only. lgse/strata#1837 (unverified)

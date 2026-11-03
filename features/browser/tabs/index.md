@@ -3,7 +3,7 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
@@ -28,6 +28,8 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Closing the active tab selects its right neighbour, or its left neighbour when it was last. lgse/strata#1484 (unverified)
 - Closing a tab whose folder has a file operation running shows "File operations are still active" and keeps the tab open. lgse/strata#1484
 - Closing the window while any tab, selected or not, has a file operation running shows the same notice and keeps the window open. lgse/strata#1484 (unverified)
+- Closing a tab frees its widget tree, its view, and its preference listeners; closing the window does the same for every tab. lgse/strata#2041
+- After 20 to 40 Ctrl+T and Ctrl+W cycles, opening a folder takes as long as at startup. lgse/strata#2041
 
 ### Reopening
 
@@ -172,6 +174,8 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 - A reorder drag carries a random per-window token, so only this window's tab drags reorder and file drags never do (lgse/strata#1484).
 - One close guard checks every tab, so a background operation in a hidden tab still blocks closing the window (lgse/strata#1484).
 - Closing a tab disposes its content and releases its observers (lgse/strata#108, lgse/strata#1484).
+- Closures on a tab's widgets captured its view strongly, and the view owns those widgets. These cycles leaked closed tabs; 300 closes slowed a folder open from 0.5 s to 2.6 s (lgse/strata#2021, [comment](https://github.com/lgse/strata/issues/2021#issuecomment-6576782722), lgse/strata#2041).
+- Rather than hunt each cycle, closing a tab or unrealizing the window disposes the widget tree as `gtk_window_destroy` does. Dispose drops every signal handler and controller (lgse/strata#2041).
 - A closed tab is remembered as only its location and position, so its view is not kept alive. Reopening reuses the new-tab and reorder paths (lgse/strata#1800).
 - Windows are titled `<folder> — Strata` so taskbars, switchers, and shortcut scripts can tell them apart, like Nautilus (lgse/strata#1824, [comment](https://github.com/lgse/strata/issues/1824#issuecomment-6361147216)). The title uses the tab strip's name (lgse/strata#1827).
 - Ctrl+click was rejected for opening in a new tab because it toggles multi-selection. Ctrl+N was rejected for a new window because 10xer uses it for the sidebar (lgse/strata#1540).
@@ -198,6 +202,7 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-03 | lgse/strata#2041 | perf | Freed closed tabs' widget trees, encoded menu icons once, and built the Back menu on open, so Strata no longer slows with uptime. |
 | 2026-11-02 | lgse/strata#2030 | fix | Named a tab and the window title after the location it awaits or failed to open, instead of "Home". |
 | 2026-11-02 | lgse/strata#2038 | feat | Opened a path bar folder in a new tab on middle-click, or a new window with Ctrl or Shift, as folder rows do. |
 | 2026-10-30 | lgse/strata#1932 | fix | Saved a left tab's focus only inside its browser view, sidebar, or preview, so returning after a click or restore focuses the listing. |

@@ -3,7 +3,7 @@ title: Find in preview
 status: shipped
 origin: {issue: lgse/strata#1558, pr: lgse/strata#1559}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 review: reviewed
 code: [src/ui/preview/find.rs]
 tests: [src/ui/preview/tests/find.rs, tests/qa/scenarios/quick_preview/preview-find-navigates-content.jsonl]
