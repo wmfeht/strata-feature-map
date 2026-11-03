@@ -6,8 +6,8 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
-| [lgse/strata#2045](https://github.com/lgse/strata/issues/2045) | 2026-11-03 | fix | [Themes and appearance](../features/settings/themes/index.md) | Read the desktop text-scaling factor from the settings portal in D-Bus-activated Strata, where `no-portals` had reset text to 96 DPI. |
-| [lgse/strata#2044](https://github.com/lgse/strata/issues/2044) | 2026-11-03 | fix | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | Made only a section's first Icons tile the left edge, so Left at a row start wraps to the previous row. |
+| [lgse/strata#2045](https://github.com/lgse/strata/issues/2045) | 2026-11-03 | fix | [Themes and appearance](../features/settings/themes/index.md) | Read the desktop text-scaling factor from the settings portal in D-Bus-activated Strata, where `no-portals` left `gtk-xft-dpi` at 96 DPI and dropped the desktop factor. |
+| [lgse/strata#2044](https://github.com/lgse/strata/issues/2044) | 2026-11-03 | fix | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | Made only the first Icons tile the left edge, so Left at a row start wraps to the previous row. |
 | [lgse/strata#2041](https://github.com/lgse/strata/issues/2041) | 2026-11-03 | perf | [Browser tabs](../features/browser/tabs/index.md) | Freed closed tabs' widget trees, encoded menu icons once, and built the Back menu on open, so Strata no longer slows with uptime. |
 | [lgse/strata#2040](https://github.com/lgse/strata/issues/2040) | 2026-11-02 | fix | [Copy, cut, and paste](../features/operations/clipboard/index.md) | Offered and read the GNOME and KDE file-manager clipboard formats, so Nemo, Thunar, and desktop icons paste Strata files and foreign cuts move. |
 | [lgse/strata#2039](https://github.com/lgse/strata/issues/2039) | 2026-11-02 | fix | [Interface language](../features/settings/preferences/language.md) | Revised six Hungarian strings, such as "el lett távolítva" for removals and "soron belüli" for inline rename; no keys or placeholders changed. |

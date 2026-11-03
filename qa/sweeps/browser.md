@@ -69,7 +69,6 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Size the window so the last Icons row holds one tile; press Down from the row above, then Right and Left at both edges.
 - In a three-row Icons folder, press Left from each row start with the sidebar hidden, railed, and expanded. Resize to change the column count and repeat.
 - Open a Ctrl+F filter in Icons and press Left at a row start. Repeat with a recursive filter result focused, with Keep arrows on and off.
-- In the portal chooser's Icons view, press Left at a second-row start and on the first item, with Keep arrows on and off and the sidebar hidden.
 - With Type to search off press `h` in the sidebar, the pane header, and the location entry; then toggle Keep arrows with Ctrl+\ while the header has focus and press Down.
 - In Columns with column 3 active, hover column 1 and Tab in from the header. Then Shift+Tab out with a filter open in column 2, and with none.
 - Tab and Shift+Tab around a listing with the preview panel open, closed, and showing a video; then from the unreadable folder's Retry button.

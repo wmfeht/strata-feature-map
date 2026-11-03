@@ -116,7 +116,7 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | [Opening files and Open With](features/integration/open-with/index.md) | `integration/open-with` | shipped | draft | `bae71c0` | ? |
 | ↳ [Recently used applications](features/integration/open-with/recent-apps.md) | `integration/open-with/recent-apps` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Open in Terminal](features/integration/open-with/terminal.md) | `integration/open-with/terminal` | shipped | reviewed | `86df474` | 0 |
-| [System file chooser](features/integration/portal-file-chooser/index.md) | `integration/portal-file-chooser` | shipped | draft | `bae71c0` | ? |
+| [System file chooser](features/integration/portal-file-chooser/index.md) | `integration/portal-file-chooser` | shipped | draft | `1d2e244` | ? |
 | ↳ [Chooser PNG conversion](features/integration/portal-file-chooser/image-conversion.md) | `integration/portal-file-chooser/image-conversion` | shipped | reviewed | `86df474` | 0 |
 | ↳ [File chooser and file manager setup](features/integration/portal-file-chooser/setup.md) | `integration/portal-file-chooser/setup` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [Name field filenames and URL downloads](features/integration/portal-file-chooser/url-download.md) | `integration/portal-file-chooser/url-download` | shipped | reviewed | `86df474` | 0 |

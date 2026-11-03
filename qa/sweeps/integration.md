@@ -46,6 +46,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Send 17 concurrent requests, reuse a handle, and send a 4,097-byte title; then `--filter-count 33`, `129`, and one filter with 1,025 rules.
 - Save into a read-only folder, with an empty name, with `a/b`, and with a suggested name that is an existing folder.
 - Run `--cancel-after 1` while a Replace prompt, a download, and an inline rename are open; read the response code and the `strata-download-*` folder.
+- In the Icons view, press Left on the first item and at a second-row start. Repeat with the sidebar on the rail and hidden, and Keep arrows on.
 - Under `multiple`, fill two files and press Shift+Enter.
 - Under `multiple`, fill two files, then press Enter on a focused filter result.
 - Under `save`, select a non-UTF-8 file, type a character into Name with real keystrokes, delete it, then Save.
