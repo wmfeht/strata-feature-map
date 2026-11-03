@@ -3,10 +3,10 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/keyboard/tenxer.rs, src/ui/window/keyboard/items/tenxer_cursor.rs, src/ui/window/keyboard/items/tenxer_items.rs, src/ui/window/keyboard/footer_bindings.rs, src/app/navigation/visual.rs, src/ui/shortcut_footer/indicators.rs, src/ui/shortcut_footer/prompt.rs, src/ui/window/composition/tenxer_splash.rs, data/brand/tenxer-splash.png, src/ui/shortcut_footer/chord_panel.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/tests/keyboard_dispatch/icon_motion.rs, src/ui/window/tests/keyboard_dispatch/list_motion.rs, src/ui/window/tests/keyboard_dispatch/tenxer_fill.rs, src/ui/window/tests/keyboard_dispatch/tenxer_panes.rs, src/ui/window/tests/keyboard_dispatch/tenxer_shortcuts.rs, src/ui/window/tests/preferences/tenxer_prefs.rs, src/app/navigation/tests/visual.rs, src/ui/window/composition/tenxer_splash/tests.rs]
+tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/tests/keyboard_dispatch/list_motion.rs, src/ui/window/tests/keyboard_dispatch/tenxer_fill.rs, src/ui/window/tests/keyboard_dispatch/tenxer_panes.rs, src/ui/window/tests/keyboard_dispatch/tenxer_shortcuts.rs, src/ui/window/tests/preferences/tenxer_prefs.rs, src/app/navigation/tests/visual.rs, src/ui/window/composition/tenxer_splash/tests.rs]
 docs: [site/src/reference/10xer-mode.md, docs/10xer-mode.md]
 related: [browser/selection, browser/tabs, settings/preferences, app/keyboard-shortcuts, app/shortcut-reference, app/window, browser/sidebar, app/window/key-dispatch]
 ---
