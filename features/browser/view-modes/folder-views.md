@@ -28,7 +28,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - A sort change in one window re-sorts every open column, tab, and window showing that folder at once. lgse/strata#1563, lgse/strata#1565
 - Remote shares, Trash, Recent, Camera Photos, non-UTF-8 paths, and FUSE filesystems other than `fuseblk` are not remembered. lgse/strata#1563, lgse/strata#1565
 - In such a folder the sort stays with the open column, and a changed Icons size lasts while the folder is shown. lgse/strata#1565
-- Device order and Recency are never stored. Unsorted is stored like any other field. lgse/strata#1565, lgse/strata#2029 (unverified)
+- Device order and Recency are never stored. Unsorted is stored like any other field, as `sort = "unsorted"`. lgse/strata#1565, lgse/strata#2029 (unverified)
 - A folder's saved sort includes its name order and case sensitivity. lgse/strata#2029
 
 ### Settings

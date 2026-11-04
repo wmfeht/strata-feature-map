@@ -39,7 +39,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 - Files created, deleted, renamed, or modified by another program appear, disappear, or update in the open folder within about 100 ms, without F5. lgse/strata#803 (unverified)
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
-- Under Unsorted, a file another program creates appears after the existing entries of its folder or file group. lgse/strata#2029
+- Under Unsorted, a file another program creates appears after the existing entries, or after its group's entries with Folders first on. lgse/strata#2029
 - Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, dot-files that another program creates, renames, or removes stay hidden but are tracked. Showing hidden files then lists their current names without F5. lgse/strata#1909

@@ -32,6 +32,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - Clicking the Mode heading does not sort. lgse/strata#308
 - Sorted by Extension, Created, or Unsorted, no heading shows an arrow, since no column matches. lgse/strata#2029
 - Outside 10xer mode, the List header always has the sort menu button, first among its actions and before Refresh, with a 12 px gap after it. lgse/strata#2029
+- In Recent, the List header adds the direction button after Refresh, before the Columns menu. lgse/strata#1083, lgse/strata#2029 (unverified)
 - Dragging a heading's right edge resizes that column and follows the pointer without an initial jump. lgse/strata#931
 - A drag cannot shrink a column below its minimum: Name 160, Mode 80, Size 70, Type 80, and Modified 110 px. lgse/strata#191 (unverified)
 - Double-clicking a heading's right edge fits the column to its widest content. lgse/strata#1116

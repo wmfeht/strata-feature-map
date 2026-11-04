@@ -40,7 +40,7 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 - With Remember sort and icon size per folder off, the slider sets the default size, and other windows' Icons panes follow it. lgse/strata#1133, lgse/strata#1565
 - In a remembered folder whose slider differs from the default size, the popover shows "Make this the default size" and "Reset to default size". lgse/strata#1563, lgse/strata#1565
 - Both are hidden otherwise, including while Remember sort and icon size per folder is off. lgse/strata#1563, lgse/strata#1565
-- Either size action closes the popover. lgse/strata#1565, lgse/strata#2029
+- Either size action closes the popover. lgse/strata#1565
 
 ### Name tooltip
 

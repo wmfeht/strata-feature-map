@@ -23,18 +23,16 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 - The menu's SORT BY section lists Name, Size, Modified, Type, Extension, and Created as radio menu items. lgse/strata#1467, lgse/strata#2029
 - In Recent the menu adds Recency, which sorts in either direction, after Created. In Camera Photos it adds Device order there. Both are radio menu items too. lgse/strata#1029, lgse/strata#1083, lgse/strata#1467, lgse/strata#2029 (unverified)
 - Unsorted has no row. Choosing the checked field again, Name included, switches to Unsorted. lgse/strata#2029
-- With Remember sort and icon size per folder off, that saves `sort_key = "unsorted"`. lgse/strata#2029
-- With it on, a remembered folder's entry saves `sort = "unsorted"`, and an unremembered folder saves nothing. lgse/strata#2029 (unverified)
 - A NAME ORDER section holds the radio items Natural and Alphabetical, then the check item "Case-sensitive names". lgse/strata#2029
 - Folders first is a check menu item in its own section after NAME ORDER. lgse/strata#1544, lgse/strata#2029
 - In List the menu adds an Ascending and Descending radio section after SORT BY. Columns and Icons keep the direction button instead. lgse/strata#2029
-- In Recent, List also keeps the direction button beside the sort button. lgse/strata#1083, lgse/strata#2029 (unverified)
 - The last section holds "Make default" and "Reset to default sort", each hidden while it does not apply. lgse/strata#1565, lgse/strata#2029
 - Choosing any row, by a click, Enter, or Space, applies it and leaves the menu open with its checkmarks updated. Escape or a click outside closes it. lgse/strata#2029
 - Under Unsorted, the direction rows and the three NAME ORDER rows are disabled. lgse/strata#2029
 - Under Device order, the direction and NAME ORDER rows are disabled. Under Recency, the NAME ORDER rows and Folders first are. lgse/strata#2029 (unverified)
 - In Recent the Folders first row is present; it is disabled only under Recency. lgse/strata#2029 (unverified)
-- "Make default" shows in a remembered folder whose stored sort field, name order included, differs from the default. It saves a choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
+- "Make default" shows in a remembered folder whose current sort, including direction and name order, differs from the default. It saves a choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
+- Under Device order or Recency, "Make default" stays hidden. lgse/strata#2029 (unverified)
 - "Reset to default sort" shows only for a folder with its own saved sort. It also cancels a sort choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
 - The menu's top inset matches its bottom inset. lgse/strata#2029
 - The direction button beside Sort by has the tooltip "Ascending — click to reverse" or "Descending — click to reverse" and reverses that pane's order when clicked. lgse/strata#40 (unverified)
