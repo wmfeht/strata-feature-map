@@ -3,7 +3,7 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]

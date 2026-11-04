@@ -3,8 +3,8 @@ title: Remappable shortcuts per map
 status: shipped
 origin: {issue: lgse/strata#1884, pr: lgse/strata#1885}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+review: draft
 code: [src/ui/keys/command.rs, src/ui/keys/alias.rs, src/ui/keys/capture.rs, src/ui/keys/conflicts.rs, src/ui/preferences/keymap.rs, src/ui/window/keyboard/direct.rs, src/ui/settings/keyboard.rs]
 tests: [src/ui/keys/command/tests.rs, src/ui/keys/alias/tests.rs, src/ui/keys/conflicts/tests.rs, src/ui/preferences/tests/keymap.rs, src/ui/settings/keyboard/tests.rs, src/ui/window/tests/keyboard_dispatch/keymap_overrides.rs, src/ui/window/tests/keyboard_dispatch/keymap_conflicts.rs, src/ui/window/tests/keyboard_dispatch/structural_aliases.rs, src/ui/window/tests/keyboard_dispatch/direct_commands.rs, tests/qa/scenarios/keymap]
 docs: [docs/keymap.md]
@@ -88,6 +88,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - Rows follow the F1 reference's sections, and each table lists only actions its mode can run. lgse/strata#1885
 - The default table leaves out 10xer chord triggers, and the 10xer table lists no custom action slots. lgse/strata#1885
 - A 10xer chord step's row shows its trigger's key in front of its own. lgse/strata#1885
+- The sort chord's Extension, Created, Unsorted, Natural, Alphabetical, and Case-sensitive names steps have rows of those names. lgse/strata#2029
 - Each key is a chip with a remove button; an action with no key shows **Not bound**. lgse/strata#1885
 - **Add** shows "Press a key…"; Escape then cancels, and Backspace removes every key of the action. lgse/strata#1885
 - Any other key is checked and appended when no error is found. A refused key keeps the capture waiting and shows why under the row. lgse/strata#1885
@@ -114,6 +115,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - A default-map half-page key moves the selection, as Page Down does. lgse/strata#1885
 - Escape in the file list ends a search a default-map direct key started. lgse/strata#1885
 - Shift does not reverse a direct Sort step key. lgse/strata#1885
+- `sort.extension`, `sort.created`, `sort.unsorted`, `sort.natural`, `sort.alphabetical`, and `sort.case_sensitive` have no default-map key. A key bound to one under `[keymap.default]` applies that sort or name order. lgse/strata#2029
 - In 10xer mode, a key bound to duplicate, pin, jump to folder, or arrow scope runs it. lgse/strata#1885
 - A 10xer direct pin key over search hits pins the hit under the cursor. lgse/strata#1885
 - In 10xer mode, copy path runs on a bound key that types nothing, such as one with Ctrl or an F key. lgse/strata#1885
@@ -151,4 +153,5 @@ Lets users change, add, or remove the keys of any listed command, separately for
 ## Known gaps
 
 - Keys added to the default table for hidden files, page down, last item, preview, and Back also fire in 10xer mode. The 10xer table does not show them. lgse/strata#1885
+- Settings → Keyboard names the `sort.extension` to `sort.case_sensitive` rows "Extension" to "Case-sensitive names", while older sort rows read "Sort by size". Matching them needs new strings in 13 languages. lgse/strata#2029
 - On AZERTY, capturing Ctrl+& records `<Control>ampersand` when Ctrl+1 is free. lgse/strata#1885

@@ -729,6 +729,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/location/unlock_progress.rs` | code | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/browser/location/volumes.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
 | `src/ui/browser/pane_header.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/browser/pane_header/sort_menu.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/paths.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/ui/browser/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
@@ -1420,6 +1421,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/new-items-from-entry-menu.jsonl` | tests | [Context menus](../features/browser/context-menu.md) | — |
 | `tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
 | `tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
 | `tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
@@ -1529,6 +1531,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/quick_preview/tenxer-l-enters-preview.jsonl` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/recent` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/rename_visibility` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/search_filter_sort/additional-sort-choices.jsonl` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/search_filter_sort/global-search-*` | tests | [Search](../features/browser/search/index.md) | — |
 | `tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |

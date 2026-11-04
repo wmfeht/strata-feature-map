@@ -3,10 +3,10 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs, src/ui/browser/context_menu/actions/presentation.rs, src/ui/browser/context_menu/focus.rs, src/ui/browser/context_menu/folder_menu.rs, src/ui/browser/context_menu/item_menu.rs, src/ui/browser/context_menu/item_options.rs, src/ui/browser/context_menu/open_with.rs, src/ui/browser/context_menu/options.rs, src/ui/browser/context_menu/popover.rs, src/ui/browser_modes/context_menu.rs]
-tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl]
+tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl, tests/qa/scenarios/entry_management/new-items-from-entry-menu.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/selection, browser/search/filter, browser/tabs, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility, browser/navigation/recent, integration/open-with, integration/open-with/terminal, operations/trash, operations/trash/restore, operations/delete]
 ---
@@ -57,15 +57,24 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 - A single item's menu opens with a header showing its name and compact path, middle-ellipsized at 30 characters. lgse/strata#1143 (unverified)
 - A multi-selection header reads "N items selected" above the first three names, followed by ", …" when there are more, cut to 30 characters. lgse/strata#1143 (unverified)
-- When shown, New Folder with Selection sits alone at the top of the item and multi-selection menus, above the opening group. lgse/strata#1349
-- A regular file's menu groups Open, Open With…, Quick preview; then Cut, Copy, Duplicate, Rename; then Move to…, Copy to…. lgse/strata#1210, lgse/strata#1950
+- Below the header, the item and multi-selection menus start with New Folder and New File, then a separator. lgse/strata#1973
+- When shown, New Folder with Selection follows them alone in its own group, above the opening group. lgse/strata#1349, lgse/strata#1973
+- New Folder or New File from a file's, a folder's, or a multi-selection's menu creates the item in that pane's folder. lgse/strata#1973
+- The new item never lands inside a clicked folder, and no selected entry moves. lgse/strata#1973
+- New Folder and New File are hidden in Trash, in Recent, and on recursive search results. lgse/strata#1973
+- With a plain type-ahead filter active, the item menu keeps New Folder and New File. lgse/strata#1973 (unverified)
+- Remote, `admin://`, and read-only folders show New Folder and New File too; the menu makes no write check. lgse/strata#1973 (unverified)
+- New Folder shows the hint Ctrl+Shift+N, in 10xer mode too. lgse/strata#1973
+- New File shows no shortcut hint. lgse/strata#1973 (unverified)
+- The file chooser's item menus have no New Folder or New File rows. lgse/strata#1973 (unverified)
+- Below the creation rows, a regular file's menu groups Open, Open With…, Quick preview; then Cut, Copy, Duplicate, Rename; then Move to…, Copy to…. lgse/strata#1210, lgse/strata#1950, lgse/strata#1973
 - After those come Compress… alone; then Customize…, Copy path, Copy name, Properties; then Move to Trash and Permanently delete. lgse/strata#1210
 - A folder's menu adds Open in Terminal, then Open in…, to the opening group, and Pin to sidebar before Customize…. lgse/strata#1210, lgse/strata#1543
 - Open in… is a submenu of New Tab, shown with Ctrl+Enter, and New Window, shown with Shift+Enter. A file's menu has no Open in…. lgse/strata#1543, lgse/strata#1576
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - A single file result's menu during a filter or search offers **Open file location**, which opens its folder with the file selected. lgse/strata#1041
 - A file's menu in Trash never offers Open file location. Elsewhere, with no filter or search, it offers it only for a file outside the shown folder. lgse/strata#1041 (unverified)
-- The multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210
+- Below the creation rows, the multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…. Then come Copy paths, Copy names, Properties, and both deletions. lgse/strata#1210, lgse/strata#1973
 - While the selection's types are looked up, the item and multi-selection menus show Open With… insensitive, described "Looking for compatible applications…". lgse/strata#578
 - Outside Flatpak, when every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155, lgse/strata#1635
 - Under Flatpak, once the selected types resolve, the multi-selection menu shows Open above Open With…, even with different or no defaults. lgse/strata#1635 (unverified)
@@ -150,12 +159,15 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - GTK 4.12 to 4.16 leave a position handler on a freed section box when a popover's model is replaced. The item menu therefore starts with no model (lgse/strata#1642, lgse/strata#1695).
 - GTK 4.14 can keep the window's pointer focus on a hidden popover. A sensitivity toggle therefore repicks pointer focus before unparenting (lgse/strata#1642, lgse/strata#1695).
 - Both workarounds are needed on GTK 4.14; GTK 4.22 fixed both bugs (lgse/strata#1695).
+- Item menus carry plain New Folder and New File because a pane full of entries leaves no background to right-click (lgse/strata#1972, lgse/strata#1973). New Folder with Selection stays a separate row (lgse/strata#1973).
+- Those rows use the pane check that gates New Folder with Selection, read each time the menu opens. Item and background menus share one creation path ([comment](https://github.com/lgse/strata/pull/1973#issuecomment-6618237766)).
 - A dropped menu owner unparents its popover, and preference bindings hold weak references, so navigation releases retired menus (lgse/strata#1353).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-03 | lgse/strata#1973 | fix | Added New Folder and New File to entry menus, so creating an item no longer needs background space. |
 | 2026-10-25 | lgse/strata#1894 | fix | Anchored menus at the click and capped their height to the monitor, so they extend past a small window instead of being squeezed or shifted. |
 | 2026-10-16 | lgse/strata#1695 | fix | Built the item menu without a model and repicked pointer focus before unparenting, so menu actions no longer crash on GTK 4.14. |
 | 2026-10-15 | lgse/strata#1611 | fix | Added and removed the Open in… row in its own nested section, so item-menu teardown no longer logs GLib-CRITICALs. |

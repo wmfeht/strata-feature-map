@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -196,6 +196,11 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Toggle Folders first in one window while another shows Recent, a filter, and a Camera Photos library.
 - Sort a folder holding `.GPR`, `.ARQ`, `.ORI`, `.DNG`, and extensionless files by Type in List, in both directions.
 - Sort by Type a folder holding the `.H264` copy, `clip.h264.txt`, the extensionless copy, and `notes.h264`, in both directions, under German and C locales.
+- Sort by Extension a folder holding `.bashrc`, `a.tar.gz`, `b.TAR.GZ`, `c.`, `d..md`, and `e.md.bak`, in both directions and with each name order.
+- Sort `Ä10`, `a2`, `ä1`, `İ`, `ß`, `ss`, full-width `１０`, and Arabic-Indic digits by Name in each name order, with and without Case-sensitive names.
+- In List, hide each sorted column in turn with every field and name order, then switch to Icons and back.
+- Choose a field, then press Make default or Reset to default sort within 16 ms, before the sort applies. Read the pane and `settings.toml`.
+- Open the sort menu and change every row by keyboard alone with Enter, Space, and the vim focus keys. Then toggle 10xer mode while it is open.
 
 ### browser/view-modes/folder-views
 
@@ -548,6 +553,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In an admin folder, open the menu on a file, a folder, a mixed multi-selection, and empty space.
 - Put only `x-special/gnome-copied-files` on the clipboard with `xclip -t` or `wl-copy -t`, then right-click the pane background and press Ctrl+V.
 - Repeat that with `cut`, and with files copied in Nautilus, Nemo, and Dolphin.
+- Open an item menu in a `chmod 555` folder, an `sftp://` folder, and an `admin://` folder; choose New Folder and New File in each.
+- In each view, open an item menu during a plain type-ahead filter and choose New Folder.
+- In Columns, choose New Folder and New File from an entry menu in a column that is not the last, with deeper columns open.
 
 ### browser/directory-monitoring
 
@@ -576,6 +584,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With Trash unavailable, paste Replace onto a same-named file in an open folder on tmpfs, vfat, NFS, and an sshfs mount, in each mode. Read the row, size, and date without F5.
 - Repeat that Replace with the replaced file selected, with a filter active, and with a second tab open on the same folder.
 - With the folder open in two tabs and a filter matching the file, swap it with `RENAME_EXCHANGE` from a shell, then delete it at once.
+- Sort a folder Unsorted with Folders first on, then create files and folders from a shell. Toggle Folders first and compare the order with `ls -U` and after F5.
+- Sort by Created on an NFS mount, an `sftp://` folder, and an sshfs mount; press F5 twice and change a file from a shell.
 
 ### browser/directory-monitoring/network-checks
 

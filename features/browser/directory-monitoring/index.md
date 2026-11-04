@@ -3,7 +3,7 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs, src/adapters/local_files/monitor_changes.rs, src/app/browser/listing.rs, src/app/browser/metadata_fills.rs, src/app/browser/operation_events/outcome.rs, src/app/browser/refresh.rs, src/app/navigation/listing.rs, src/app/navigation/metadata.rs, src/app/navigation/monitored.rs, src/ui/browser/events/listing.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl, src/app/browser/tests/monitor/**, src/adapters/local_files/tests/live_monitor.rs, src/adapters/local_files/tests/monitor_queue.rs, src/app/navigation/tests/loading.rs, src/app/navigation/tests/metadata.rs, src/app/navigation/tests/monitor.rs, src/app/navigation/tests/reload.rs, tests/qa/scenarios/locations/open-folder-follows-renamed-ancestor.jsonl]
@@ -22,7 +22,9 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - A folder load, other than a camera photo library, stops at 250,000 entries or 10 seconds. The pane header then shows a warning icon described "This directory has more entries than could be loaded; showing a partial listing." lgse/strata#154, lgse/strata#834, lgse/strata#1792
 - Refreshing or navigating away while a folder is loading discards the rows still arriving for the old request; they never appear in the new listing. lgse/strata#593
 - A load that fails discards its staged rows and shows the error instead of a partial listing. lgse/strata#593 (unverified)
-- Sorted by Size or Modified, a folder reads sizes and dates during the load; sorted otherwise, it lists names first and fills them for visible rows. lgse/strata#274 (unverified)
+- Sorted by Size, Modified, or Created, a folder reads sizes, dates, or birth times during the load. lgse/strata#274, lgse/strata#2029 (unverified)
+- Sorted otherwise, it lists names first and fills them for visible rows. lgse/strata#274 (unverified)
+- Sorted by Created on a filesystem without birth times, such as NFS or SFTP, a fully listed folder skips refilling them on reload. lgse/strata#2029
 - An SMB or other GVfs folder whose entries lack `standard::is-hidden` or `standard::is-symlink` loads them as not hidden and not symlinks, without GLib critical warnings. lgse/strata#74
 - Alternating dozens of times between a folder of several hundred files and a small folder keeps load time flat instead of slowing with each switch. lgse/strata#1187, lgse/strata#1353
 - Close a Columns column sorted by Size while its sizes are still loading. The parent column's selection stays usable, and the closed column shows no late rows. lgse/strata#1054
@@ -37,6 +39,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 - Files created, deleted, renamed, or modified by another program appear, disappear, or update in the open folder within about 100 ms, without F5. lgse/strata#803 (unverified)
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
+- Under Unsorted, a file another program creates appears after the existing entries, or after its group's entries with Folders first on. lgse/strata#2029
 - Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, dot-files that another program creates, renames, or removes stay hidden but are tracked. Showing hidden files then lists their current names without F5. lgse/strata#1909
@@ -129,6 +132,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Background changes emit only row splices, so a busy folder such as `/tmp` does not reset scrolling (lgse/strata#767, lgse/strata#803). A focus update follows only when the focused entry was removed or nothing stays selected (lgse/strata#1043).
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
 - After Strata's own operations, folders with a monitor rely on it and only folders without one reload, avoiding needless reloads (lgse/strata#1035). Until lgse/strata#1615 the test was native versus non-native, and the reload was skipped after a cancel or when another watched folder had rescanned.
+- A full listing marks a birth time the filesystem does not report as unavailable, not unknown. Unknown times made every Created sort on NFS or SFTP refill the folder on each load, one request per file for remote folders ([comment](https://github.com/lgse/strata/pull/2029#issuecomment-6612311272)).
 - A folder's own monitor reports deletion, rename, and move alike. Strata then looks in the parent, off the main thread, for the same device, inode, and birth time (lgse/strata#1554).
 - The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554). Since lgse/strata#1729 the comparison starts from the load's change stamp and uses the mount's identity rule. Where nothing proves the folder, as on sshfs, exfat-fuse, and vboxsf or for exFAT folders, the rename is not followed.
 - A watch on the open folder's parent was rejected before merge. In a busy parent it delayed notifications from about 100 ms to 150 ms (lgse/strata#1435, lgse/strata#1554).

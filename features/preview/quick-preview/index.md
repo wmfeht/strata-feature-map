@@ -3,7 +3,7 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: reviewed
 code: [src/ui/preview/keyboard.rs, src/ui/window/keyboard/items/preview_keys.rs]
 tests: [tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl, tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl, tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl, tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl, tests/qa/mutations/quick-preview.patch]

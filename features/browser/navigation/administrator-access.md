@@ -3,7 +3,7 @@ title: Administrator access
 status: shipped
 origin: {issue: lgse/strata#1836, pr: lgse/strata#1837}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: reviewed
 code: [data/icons/scalable/actions/strata-folder-lock.svg]
 tests: [src/app/browser/tests/administrator.rs]
