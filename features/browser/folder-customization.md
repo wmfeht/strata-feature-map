@@ -3,7 +3,7 @@ title: Folder and file customization
 status: shipped
 origin: {issue: lgse/strata#211, pr: lgse/strata#294}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: reviewed
 code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs, src/ui/browser/customization/**]
 tests: [tests/qa/scenarios/dialogs_and_menus/customization-follows-move-and-trash.jsonl, tests/qa/scenarios/dialogs_and_menus/customize-takes-focus-single-escape.jsonl, tests/qa/scenarios/dialogs_and_menus/background-customize-ancestor-column.jsonl, src/ui/window/tests/preferences/item_customizations.rs]

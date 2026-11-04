@@ -3,7 +3,7 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs, src/ui/browser_modes/list_headings.rs, src/ui/browser_modes/list_pane.rs]
 tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl, src/ui/browser_modes/grouped_model/tests.rs, tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl]
@@ -30,7 +30,8 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 - Clicking the Name, Size, Type, or Modified heading sorts by that field ascending; clicking the current sort heading reverses it, and an arrow marks it. lgse/strata#877
 - Clicking the Mode heading does not sort. lgse/strata#308
-- List has no Sort by menu outside Recent and Camera Photos. lgse/strata#335 (unverified)
+- Sorted by Extension, Created, or Unsorted, no heading shows an arrow, since no column matches. lgse/strata#2029
+- The List header always has the sort menu button, first among its actions and before Refresh, with a 12 px gap after it. lgse/strata#2029
 - Dragging a heading's right edge resizes that column and follows the pointer without an initial jump. lgse/strata#931
 - A drag cannot shrink a column below its minimum: Name 160, Mode 80, Size 70, Type 80, and Modified 110 px. lgse/strata#191 (unverified)
 - Double-clicking a heading's right edge fits the column to its widest content. lgse/strata#1116

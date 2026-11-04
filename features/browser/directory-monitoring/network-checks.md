@@ -3,7 +3,7 @@ title: Network folder change checks
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: reviewed
 code: [src/app/browser/freshness.rs, src/ui/presence.rs, src/adapters/local_files/stamps.rs, src/app/browser/freshness/checks.rs, src/app/browser/freshness/responsiveness.rs]
 tests: [src/app/browser/freshness/tests.rs, src/ui/presence/tests.rs, src/app/browser/freshness/tests/**, src/adapters/local_files/tests/fences.rs, src/adapters/local_files/tests/stamps.rs]
