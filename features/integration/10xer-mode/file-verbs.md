@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_commands/**, src/ui/window/tests/keyboard_dispatch/file_verbs.rs, src/ui/window/tests/keyboard_dispatch/file_verbs/**, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl]
@@ -74,12 +74,15 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 ### Listing commands
 
 - `, a`, `, m`, `, s`, and `, e` sort the focused pane by name, modified time, size, or type; Shift sorts descending. lgse/strata#1308
+- `, x`, `, b`, and `, u` sort the focused pane by extension, creation time, or Unsorted. Shift with `x` or `b` sorts descending. lgse/strata#2029
+- `, n` and `, l` set the focused pane's name order to Natural or Alphabetical. `, c` toggles case-sensitive names. lgse/strata#2029
+- After `, n`, `, l`, or `, c`, the cursor stays on the same item. lgse/strata#2029 (unverified)
 - With a sort step rebound under `[keymap.tenxer]`, Shift with the new key sorts descending. lgse/strata#1885
 - A hand-edited key bound to one step wins over another step's Shift-reversed key: with `sort.type = ["<Shift>a"]`, `, A` sorts by type ascending. lgse/strata#1885 (unverified)
 - A keyboard sort keeps the cursor on the same item and leaves other Miller columns in their order. lgse/strata#1308
 - `browser/view-modes/folder-views` and `browser/view-modes/sorting` own where a keyboard sort is saved. lgse/strata#1308, lgse/strata#1565
 - After a keyboard sort, a List heading click reverses the sort that is applied. lgse/strata#1308
-- `, n` and `, t` cancel with `Unknown chord`. lgse/strata#1308
+- `, q` and `, t` cancel with `Unknown chord`. lgse/strata#1308, lgse/strata#2029
 - `.`, Ctrl+H, and Ctrl+. toggle the saved hidden-files preference in every window, including over `f` results. lgse/strata#1308
 
 ### Open With and actions
