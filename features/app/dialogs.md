@@ -31,9 +31,9 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 ### Keyboard
 
 - Confirmation dialogs open with the confirm button focused, so Enter confirms and Escape cancels: Permanently delete, Empty Trash, Restore, paste and archive Replace, Run, and Forget saved password. lgse/strata#1206
-- A focused confirm button, such as Permanently delete after Shift+Delete or Compress reached by Tab, shows a 3 px halo of its accent color at 28% opacity. lgse/strata#2049
+- A keyboard-focused confirm button, such as Permanently delete after Shift+Delete, shows a 3 px theme-accent halo at 28% opacity. lgse/strata#2049
 - That halo sits flush against the button's 1 px border, uses the danger color on a danger button, and replaces the outline. lgse/strata#2049
-- Moving focus off the confirm button removes its halo. lgse/strata#2049
+- Moving keyboard focus off the confirm button removes its halo. lgse/strata#2049
 - With focus outside a text field, Enter activates the focused button and toggles a focused checkbox or switch, so Enter with Cancel focused cancels. lgse/strata#1052, lgse/strata#175 (unverified)
 - With focus outside a text field, an unmodified arrow key moves focus to the nearest button, menu button, checkbox, switch, or entry in that direction; Down on a menu button opens its menu. lgse/strata#175 (unverified)
 - An error dialog that offers Open as Administrator opens with that button focused, and its cancel button reads Close. lgse/strata#1837 (unverified)

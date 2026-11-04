@@ -39,7 +39,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The Items shown in sidebar chips stay below their title and description at every panel width. lgse/strata#1032
 - When the panel is narrower than 1250 px at the default text size, a row's control moves below its title and description; switches stay beside it. lgse/strata#849, lgse/strata#924 (unverified)
 - When a dependent row's control stacks below it, the row's dependency arrow stays beside its heading. lgse/strata#924
-- Above the default text size, the panel at its 1250 px cap stacks row controls below their descriptions, also in a maximized window. lgse/strata#2047 (unverified)
+- Above the default text size or desktop text scaling, the 1250 px panel stacks non-switch row controls below their descriptions, even when maximized. lgse/strata#2047 (unverified)
 
 ### Restart
 
@@ -198,7 +198,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The default directory is checked on a worker after the window opens, instead of with `is_dir()` on the UI thread. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Folder monitors keep hidden entries too, so revealing them needs no rescan. The watch had captured the hidden-files state at install, so dot-file changes made while hidden were lost until F5 (lgse/strata#1862, lgse/strata#1909).
-- The panel is capped at the content reflow breakpoint, `COMPACT_CONTENT_BREAKPOINT` (1250 px), and 800 px high, so a large window shows more of the browser instead of empty margins. Deriving the width from the breakpoint keeps the side-by-side layout at the cap, and the two values cannot drift. A cap near 1000 px, suggested in lgse/strata#2046, would stack every row at every size. Lowering the breakpoint with it breaks inline controls: the Metric/Imperial switch wraps mid-word near 1100 px (lgse/strata#2047).
+- The panel is capped at the content reflow breakpoint, `COMPACT_CONTENT_BREAKPOINT` (1250 px), and 800 px high. A large window then shows more of the browser instead of empty margins. Deriving the width from the breakpoint keeps the side-by-side layout at the cap at the default text size, and the two values cannot drift. A cap near 1000 px, suggested in lgse/strata#2046, would leave the panel in its stacked layout at every size. Lowering the breakpoint with it breaks inline controls: the Metric/Imperial switch wraps mid-word near 1100 px (lgse/strata#2047).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 
 ## History

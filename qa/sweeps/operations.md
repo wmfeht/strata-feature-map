@@ -43,7 +43,6 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/create
 
 - Create inside an empty folder, a read-only folder, Trash, a Ctrl+F result, and in a Columns pane that is not the last column; note which column the editor opens in.
-- Start New Folder and New File from the menu of a folder entry in a Columns pane that is not the last column, with a child column open; note which column the editor opens in.
 - Create with a 255-byte name, a name ending in a space, and `.hidden` with hidden files off.
 - Press Ctrl+Shift+N ten times quickly while earlier items are still in their editors; the `(n)` suffixes must stay unique.
 - Press Ctrl+Alt+N in Columns with a selection in one column and keyboard focus in another, and with a selection of only hidden items after hidden files are turned off.

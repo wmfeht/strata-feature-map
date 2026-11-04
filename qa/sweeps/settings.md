@@ -75,7 +75,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 - In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation. Repeat on a pacman-owned prefix, reading the visible rows and navigation entries.
 - Close Settings on Appearance, then reopen it with Ctrl+, with icon-only navigation, with a query left that hides Appearance's entry, and from the gear; read the focused widget in the accessibility tree.
-- Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48; read the panel size and where row controls sit.
+- Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48, and with GNOME text scaling 1.25; read the panel size and where row controls sit.
 - Seed `sort_key = "unsorted"` with `sort_direction = "descending"`, launch, and read both Default sort menus. Choose Created in window A while window B shows General, then Unsorted again from B.
 
 ### settings/preferences/storage

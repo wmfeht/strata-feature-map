@@ -77,6 +77,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `, x`, `, b`, and `, u` sort the focused pane by extension, creation time, or Unsorted. Shift with `x` or `b` sorts descending. lgse/strata#2029
 - `, n` and `, l` set the focused pane's name order to Natural or Alphabetical. `, c` toggles case-sensitive names. lgse/strata#2029
 - After `, n`, `, l`, or `, c`, the cursor stays on the same item. lgse/strata#2029 (unverified)
+- `, N`, `, L`, and `, C` cancel with `Unknown chord` and leave the order unchanged. lgse/strata#2029 (unverified)
 - With a sort step rebound under `[keymap.tenxer]`, Shift with the new key sorts descending. lgse/strata#1885
 - A hand-edited key bound to one step wins over another step's Shift-reversed key: with `sort.type = ["<Shift>a"]`, `, A` sorts by type ascending. lgse/strata#1885 (unverified)
 - A keyboard sort keeps the cursor on the same item and leaves other Miller columns in their order. lgse/strata#1308
