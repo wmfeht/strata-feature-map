@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
@@ -43,6 +43,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 ### operations/create
 
 - Create inside an empty folder, a read-only folder, Trash, a Ctrl+F result, and in a Columns pane that is not the last column; note which column the editor opens in.
+- Start New Folder and New File from the menu of a folder entry in a Columns pane that is not the last column, with a child column open; note which column the editor opens in.
 - Create with a 255-byte name, a name ending in a space, and `.hidden` with hidden files off.
 - Press Ctrl+Shift+N ten times quickly while earlier items are still in their editors; the `(n)` suffixes must stay unique.
 - Press Ctrl+Alt+N in Columns with a selection in one column and keyboard focus in another, and with a selection of only hidden items after hidden files are turned off.
