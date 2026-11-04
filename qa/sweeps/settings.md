@@ -1,13 +1,13 @@
 ---
 title: Settings sweep
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search (including Keyboard rows), About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, the uncomposited popup fallback, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search (including Keyboard rows), About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default sort, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, the uncomposited popup fallback, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
@@ -75,6 +75,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 - In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation. Repeat on a pacman-owned prefix, reading the visible rows and navigation entries.
 - Close Settings on Appearance, then reopen it with Ctrl+, with icon-only navigation, with a query left that hides Appearance's entry, and from the gear; read the focused widget in the accessibility tree.
+- Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48; read the panel size and where row controls sit.
+- Seed `sort_key = "unsorted"` with `sort_direction = "descending"`, launch, and read both Default sort menus. Choose Created in window A while window B shows General, then Unsorted again from B.
 
 ### settings/preferences/storage
 
@@ -101,6 +103,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - Change ten preferences within one second and quit at once; relaunch and diff `settings.toml` against the last values shown.
 - Symlink `settings.toml` onto the sshfs mount, stop the daemon, change a preference, and quit; time the quit and read the log.
 - Seed `interface_font = "\t"`, a value of only no-break spaces, and `"Fixture Sans\n"`; launch, read the Interface font button and its accessible value, change one other preference, and diff `settings.toml`.
+- Seed `natural_sort = "yes"`, `case_sensitive_sort = 1`, `sort_key = "recency"`, and `sort_key = "Extension"`; launch, read the Default sort row and a List label, change one other preference, and diff `settings.toml`.
+- Run two processes on one HOME; in one, choose Alphabetical and Case-sensitive names and Make default, while the other has an unsaved default sort change. Diff `settings.toml` after each save.
 
 ### settings/preferences/language
 
@@ -117,6 +121,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under Magyar, select 1, 2, and 3,000 items and read the footer count. Read a 1.5 MB size, a 1 234 567 byte Properties size, and a transfer rate. Fail a copy into a read-only folder and read the case after the colon.
 - Under Magyar and 正體中文, read every Settings section heading on a package-managed install, in a `STRATA_UPDATER=disabled` build, and with 10xer mode on; note any heading left in English.
 - Run Deutsch, Magyar, and Русский at the 1250 px panel width and in the destructive-delete dialog. Look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
+- Under Magyar, open the sort menu in List, Columns, and Icons in a 640 px window at text size 8 and 48; read the NAME ORDER heading and the Make default row for clipping or a widened menu.
 
 ### settings/preferences/date-format
 
@@ -155,6 +160,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under `extreme.toml`, open a swatch's color chooser and switch to its custom editor. Change the theme from window B while it is open, then press Tab through every control.
 - Mid-preview, click the selected card, another card, and Follow Omarchy; then press Cancel and Add theme and read the swatches.
 - Apply a custom theme with a translucent `accent` such as `rgba(79,214,255,0.5)`; compare focus outlines and the editor swatches seeded from it.
+- In a swatch's color chooser, Tab to Select under a light theme, `extreme.toml`, Element glow off, and Corner roundness 0; then click Select with the mouse and compare its focus rendering with Cancel.
 - Apply Material Lighter and Material Vivid and screenshot a selected row, a hovered row, the footer, dim column details, and a disabled menu item.
 - Write a custom theme with background luminance near 0.4 (`#9a9a9a` and `#a0a0a0`) and check its Light/Dark filing with search and filter combined.
 - Cross Element glow, Reduce motion, and `gtk-enable-animations` off and on; then choose Cairo with `GSK_RENDERER=` exported empty and press Restart now from window B.
@@ -288,6 +294,6 @@ For every control this sweep proves the binding: the file changes, the other win
 - What Watch network folders checks and re-reads in open folders → `browser`.
 - Dot-file changes made while hidden files are off → `browser`.
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails and STL model thumbnails change in the file views → `browser`.
-- Remember sort and icon size per folder, Default sort, Forget all folder settings, and `folder-views.toml` → `browser`.
+- Remember sort and icon size per folder, the Default sort as it re-sorts open folders, Forget all folder settings, and `folder-views.toml` → `browser`.
 - Show sizes in Columns view as it acts on the Columns badge → `browser`.
 - Search time limit and Search entry limit as they act on global search, pane filters, and the Partial results hint → `browser`.
