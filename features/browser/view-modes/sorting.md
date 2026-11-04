@@ -21,17 +21,20 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 
 - Columns, Icons, and List pane headers have a "Choose sort field" button that opens one flat sort menu. lgse/strata#168, lgse/strata#2029
 - The menu's SORT BY section lists Name, Size, Modified, Type, Extension, and Created as radio menu items. lgse/strata#1467, lgse/strata#2029
-- In Recent the menu adds Recency, which sorts in either direction, after Created. In Camera Photos it adds Device order there. lgse/strata#1029, lgse/strata#1083, lgse/strata#2029 (unverified)
-- Unsorted has no row. Choosing the checked field again, Name included, switches to Unsorted and saves `sort_key = "unsorted"`. lgse/strata#2029
+- In Recent the menu adds Recency, which sorts in either direction, after Created. In Camera Photos it adds Device order there. Both are radio menu items too. lgse/strata#1029, lgse/strata#1083, lgse/strata#1467, lgse/strata#2029 (unverified)
+- Unsorted has no row. Choosing the checked field again, Name included, switches to Unsorted. lgse/strata#2029
+- With Remember sort and icon size per folder off, that saves `sort_key = "unsorted"`. lgse/strata#2029
+- With it on, a remembered folder's entry saves `sort = "unsorted"`, and an unremembered folder saves nothing. lgse/strata#2029 (unverified)
 - A NAME ORDER section holds the radio items Natural and Alphabetical, then the check item "Case-sensitive names". lgse/strata#2029
 - Folders first is a check menu item in its own section after NAME ORDER. lgse/strata#1544, lgse/strata#2029
 - In List the menu adds an Ascending and Descending radio section after SORT BY. Columns and Icons keep the direction button instead. lgse/strata#2029
+- In Recent, List also keeps the direction button beside the sort button. lgse/strata#1083, lgse/strata#2029 (unverified)
 - The last section holds "Make default" and "Reset to default sort", each hidden while it does not apply. lgse/strata#1565, lgse/strata#2029
 - Choosing any row, by a click, Enter, or Space, applies it and leaves the menu open with its checkmarks updated. Escape or a click outside closes it. lgse/strata#2029
 - Under Unsorted, the direction rows and the three NAME ORDER rows are disabled. lgse/strata#2029
 - Under Device order, the direction and NAME ORDER rows are disabled. Under Recency, the NAME ORDER rows and Folders first are. lgse/strata#2029 (unverified)
-- In Recent, Folders first shows disabled rather than missing. lgse/strata#2029 (unverified)
-- "Make default" shows in a remembered folder whose sort, name order included, differs from the default. It saves a choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
+- In Recent the Folders first row is present; it is disabled only under Recency. lgse/strata#2029 (unverified)
+- "Make default" shows in a remembered folder whose stored sort field, name order included, differs from the default. It saves a choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
 - "Reset to default sort" shows only for a folder with its own saved sort. It also cancels a sort choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
 - The menu's top inset matches its bottom inset. lgse/strata#2029
 - The direction button beside Sort by has the tooltip "Ascending — click to reverse" or "Descending — click to reverse" and reverses that pane's order when clicked. lgse/strata#40 (unverified)
@@ -42,7 +45,7 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 ### List label
 
 - In List, the sort button is icon-only with the tooltip "Choose sort field" under Unsorted or Device order. lgse/strata#2029
-- It is also icon-only when the field's column (Name, Size, Type, or Modified) is shown and Name uses Natural, case-insensitive order. lgse/strata#2029
+- It is also icon-only when the field's column (Name, Size, Type, or Modified) is shown and, for Name, the order is Natural and case-insensitive. lgse/strata#2029
 - Otherwise it reads "Sort: <field>" and an arrow, such as "Sort: Extension ↑" or "Sort: Created ↓". lgse/strata#2029
 - Sorted by Name in Alphabetical order, it reads "Sort: Name · Alphabetical ↑". Case-sensitive adds " · case-sensitive", as in "Sort: Name · Natural · case-sensitive ↑". lgse/strata#2029
 - Hiding the sorted field's column shows the label at once; showing the column again returns the icon. lgse/strata#2029
@@ -70,7 +73,7 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 - Toggling Folders first while Unsorted also reloads the folder. lgse/strata#2029 (unverified)
 - With Folders first on, the default, folders stay ahead of files in both directions. lgse/strata#946
 - Under every field, entries tied on it are ordered by name in the selected name order. lgse/strata#946, lgse/strata#2029
-- That name tie-break stays ascending when the field is descending: Extension descending gives `folder`, `a.rs`, `file2.md`, `file10.md`, `Z.md`, `z.csv`. lgse/strata#2029 (unverified)
+- That name tie-break stays ascending when the field is descending. With Folders first on and `folder` a directory, Extension descending gives `folder`, `a.rs`, `file2.md`, `file10.md`, `Z.md`, `z.csv`. lgse/strata#2029
 - Choosing Size, Modified, or Created loads any missing sizes, dates, or birth times for that folder before reordering. lgse/strata#274, lgse/strata#2029 (unverified)
 - A folder that finishes loading under Size, Modified, or Created with values missing shows rows by name, then fills and reorders them. lgse/strata#274, lgse/strata#2029 (unverified)
 
@@ -100,7 +103,7 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 - lgse/strata#1652 first chose flyouts showing their value on the right. A dot or asterisk marker was rejected: it says something changed, not what ([comment](https://github.com/lgse/strata/issues/1652#issuecomment-6528591816)). The owner then chose one flat menu ([comment](https://github.com/lgse/strata/pull/2029#issuecomment-6612311272)), so no choice hides in a flyout opening over the listing at the window edge (lgse/strata#2029, commit 5d52fc0f).
 - Unsorted has no row because unchecking the active field already turns sorting off ([comment](https://github.com/lgse/strata/pull/2029#issuecomment-6612311272)).
 - lgse/strata#1652 asked for the menu to stay open while options change, and for the name order to break ties under other fields too ([comment](https://github.com/lgse/strata/issues/1652#issuecomment-6528591816)).
-- In List, the label shows only when no visible column header carries the sort, and Ascending and Descending let Extension and Created reverse without one ([comment](https://github.com/lgse/strata/issues/1652#issuecomment-6528591816)).
+- In List, the label shows only when no visible column header carries the sort. Ascending and Descending let Extension and Created reverse without one ([comment](https://github.com/lgse/strata/issues/1652#issuecomment-6528591816)).
 - Open sort menus are tracked while mapped and refreshed from the tab's event dispatch. A `Browser::observe` per menu build leaked observers, 6 to 26 over 18 navigations ([comment](https://github.com/lgse/strata/pull/2029#issuecomment-6612311272)).
 
 ## History

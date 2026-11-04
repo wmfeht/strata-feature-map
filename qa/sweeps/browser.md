@@ -196,13 +196,11 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Toggle Folders first in one window while another shows Recent, a filter, and a Camera Photos library.
 - Sort a folder holding `.GPR`, `.ARQ`, `.ORI`, `.DNG`, and extensionless files by Type in List, in both directions.
 - Sort by Type a folder holding the `.H264` copy, `clip.h264.txt`, the extensionless copy, and `notes.h264`, in both directions, under German and C locales.
-- Choose Unsorted with Folders first on, then create files and folders from a shell and toggle Folders first; compare the order with `ls -U` and after F5.
 - Sort by Extension a folder holding `.bashrc`, `a.tar.gz`, `b.TAR.GZ`, `c.`, `d..md`, and `e.md.bak`, in both directions and with each name order.
-- Sort by Created on an NFS mount, an `sftp://` folder, and an sshfs mount; press F5 twice and change a file from a shell.
 - Sort `Ä10`, `a2`, `ä1`, `İ`, `ß`, `ss`, full-width `１０`, and Arabic-Indic digits by Name in each name order, with and without Case-sensitive names.
 - In List, hide each sorted column in turn with every field and name order, then switch to Icons and back.
-- Choose a field and press Make default or Reset to default sort within 16 ms, before the sort applies; read the pane and `settings.toml`.
-- Open the sort menu and change every row by keyboard alone with Enter, Space, and the vim focus keys, then with 10xer mode toggled while it is open.
+- Choose a field, then press Make default or Reset to default sort within 16 ms, before the sort applies. Read the pane and `settings.toml`.
+- Open the sort menu and change every row by keyboard alone with Enter, Space, and the vim focus keys. Then toggle 10xer mode while it is open.
 
 ### browser/view-modes/folder-views
 
@@ -556,7 +554,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Put only `x-special/gnome-copied-files` on the clipboard with `xclip -t` or `wl-copy -t`, then right-click the pane background and press Ctrl+V.
 - Repeat that with `cut`, and with files copied in Nautilus, Nemo, and Dolphin.
 - Open an item menu in a `chmod 555` folder, an `sftp://` folder, and an `admin://` folder; choose New Folder and New File in each.
-- In each view, open an item menu during a plain type-ahead filter and on a Ctrl+F recursive search result; compare the creation rows.
+- In each view, open an item menu during a plain type-ahead filter and choose New Folder.
 - In Columns, choose New Folder and New File from an entry menu in a column that is not the last, with deeper columns open.
 
 ### browser/directory-monitoring
@@ -586,6 +584,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With Trash unavailable, paste Replace onto a same-named file in an open folder on tmpfs, vfat, NFS, and an sshfs mount, in each mode. Read the row, size, and date without F5.
 - Repeat that Replace with the replaced file selected, with a filter active, and with a second tab open on the same folder.
 - With the folder open in two tabs and a filter matching the file, swap it with `RENAME_EXCHANGE` from a shell, then delete it at once.
+- Sort a folder Unsorted with Folders first on, then create files and folders from a shell. Toggle Folders first and compare the order with `ls -U` and after F5.
+- Sort by Created on an NFS mount, an `sftp://` folder, and an sshfs mount; press F5 twice and change a file from a shell.
 
 ### browser/directory-monitoring/network-checks
 

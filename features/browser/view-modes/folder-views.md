@@ -44,8 +44,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 
 - The sort menu's "Make default" saves the column's sort, name order included, as the default sort. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029
 - "Reset to default sort" clears the folder's saved sort and returns it to the default. lgse/strata#1563, lgse/strata#1565
-- When the thumbnail slider differs from the default size, the popover shows "Make this the default size" and "Reset to default size". lgse/strata#1563, lgse/strata#1565
-- The size actions close the popover; the sort actions leave the sort menu open. All four are hidden in folders that are not remembered and while the switch is off. lgse/strata#1565, lgse/strata#2029
+- "Make this the default size" saves the slider's size as the default and drops saved sizes equal to it. "Reset to default size" clears the folder's saved size. lgse/strata#1563, lgse/strata#1565
 
 ### Keys and limits
 

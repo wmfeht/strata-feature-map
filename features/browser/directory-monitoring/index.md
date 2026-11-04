@@ -22,7 +22,8 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - A folder load, other than a camera photo library, stops at 250,000 entries or 10 seconds. The pane header then shows a warning icon described "This directory has more entries than could be loaded; showing a partial listing." lgse/strata#154, lgse/strata#834, lgse/strata#1792
 - Refreshing or navigating away while a folder is loading discards the rows still arriving for the old request; they never appear in the new listing. lgse/strata#593
 - A load that fails discards its staged rows and shows the error instead of a partial listing. lgse/strata#593 (unverified)
-- Sorted by Size, Modified, or Created, a folder reads sizes, dates, or birth times during the load; sorted otherwise, it lists names first and fills them for visible rows. lgse/strata#274, lgse/strata#2029 (unverified)
+- Sorted by Size, Modified, or Created, a folder reads sizes, dates, or birth times during the load. lgse/strata#274, lgse/strata#2029 (unverified)
+- Sorted otherwise, it lists names first and fills them for visible rows. lgse/strata#274 (unverified)
 - Sorted by Created on a filesystem without birth times, such as NFS or SFTP, a fully listed folder skips refilling them on reload. lgse/strata#2029
 - An SMB or other GVfs folder whose entries lack `standard::is-hidden` or `standard::is-symlink` loads them as not hidden and not symlinks, without GLib critical warnings. lgse/strata#74
 - Alternating dozens of times between a folder of several hundred files and a small folder keeps load time flat instead of slowing with each switch. lgse/strata#1187, lgse/strata#1353
@@ -38,7 +39,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 - Files created, deleted, renamed, or modified by another program appear, disappear, or update in the open folder within about 100 ms, without F5. lgse/strata#803 (unverified)
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
-- Under Unsorted, a file another program creates appears after the existing entries of its folder or file group. lgse/strata#2029 (unverified)
+- Under Unsorted, a file another program creates appears after the existing entries of its folder or file group. lgse/strata#2029
 - Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, dot-files that another program creates, renames, or removes stay hidden but are tracked. Showing hidden files then lists their current names without F5. lgse/strata#1909

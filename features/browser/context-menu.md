@@ -74,7 +74,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - An archive's menu lists Extract here and Extract to… after the common opening actions. lgse/strata#1210
 - A single file result's menu during a filter or search offers **Open file location**, which opens its folder with the file selected. lgse/strata#1041
 - A file's menu in Trash never offers Open file location. Elsewhere, with no filter or search, it offers it only for a file outside the shown folder. lgse/strata#1041 (unverified)
-- Below the creation rows, the multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…; Copy paths, Copy names, Properties; then both deletions. lgse/strata#1210, lgse/strata#1973
+- Below the creation rows, the multi-selection menu groups Open With…; Cut, Copy, Duplicate; Move to…, Copy to…; Compress…. Then come Copy paths, Copy names, Properties, and both deletions. lgse/strata#1210, lgse/strata#1973
 - While the selection's types are looked up, the item and multi-selection menus show Open With… insensitive, described "Looking for compatible applications…". lgse/strata#578
 - Outside Flatpak, when every selected item shares a default application, the multi-selection menu adds Open above Open With…. lgse/strata#1155, lgse/strata#1635
 - Under Flatpak, once the selected types resolve, the multi-selection menu shows Open above Open With…, even with different or no defaults. lgse/strata#1635 (unverified)
