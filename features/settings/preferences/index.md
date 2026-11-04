@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -13,7 +13,7 @@ related: [settings/themes, settings/diagnostics, app/keyboard-shortcuts/remappin
 
 ## Summary
 
-The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Units, Show F1 Shortcuts button, Watch network folders, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
+The Settings panel: opening and closing it, page navigation, responsive layout, Settings-wide search, and the About page. It also owns the General settings no other feature claims: Units, Show F1 Shortcuts button, Watch network folders, Default sort, default directory, and the hidden-files toggle. Window buttons belong to `app/window`. Feature pages and rows belong to their features. They are Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, search exclusions, thumbnails, desktop integration, Restore open tabs, and Remember sort and icon size per folder. Children: `settings/preferences/storage` (saving and synchronizing preferences), `settings/preferences/language` (interface language), and `settings/preferences/date-format` (modified-date display).
 
 ## Behavior
 
@@ -29,7 +29,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
 - In a default build, the navigation lists General, Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748, lgse/strata#1885, lgse/strata#1934
 - With labels shown, each navigation entry pads 11 px left and right, so its icon centres on the Search settings field's icon. lgse/strata#1885 (unverified)
-- The panel is at most 1400×1024 px and 24 px inside the window, and each page scrolls vertically when it does not fit. lgse/strata#29, lgse/strata#849
+- The panel is at most 1250×800 px and centred; in a smaller window it stays 24 px inside each edge. lgse/strata#29, lgse/strata#849, lgse/strata#2047
+- Each Settings page scrolls vertically when it does not fit the panel. lgse/strata#29, lgse/strata#849
 - A sideways touchpad swipe or Shift+wheel over a Settings page does not move the page horizontally. lgse/strata#1719
 - Scrolling past the top or bottom of a Settings page, or of any scroller inside the Settings panel, draws no dark band at the edge. lgse/strata#1719
 - At text size 32 in a narrow window, a Settings page fits the panel width with nothing clipped on the right and still scrolls vertically. lgse/strata#1719
@@ -38,6 +39,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The Items shown in sidebar chips stay below their title and description at every panel width. lgse/strata#1032
 - When the panel is narrower than 1250 px at the default text size, a row's control moves below its title and description; switches stay beside it. lgse/strata#849, lgse/strata#924 (unverified)
 - When a dependent row's control stacks below it, the row's dependency arrow stays beside its heading. lgse/strata#924
+- Above the default text size, the panel at its 1250 px cap stacks row controls below their descriptions, also in a maximized window. lgse/strata#2047 (unverified)
 
 ### Restart
 
@@ -115,6 +117,12 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - General → Browsing has a Show sizes in Columns view switch, on by default. lgse/strata#1564
 - Changing the switch in one window updates the open Settings switch in every other window. lgse/strata#1564
 
+### Default sort
+
+- Settings → General → Browsing has a Default sort row with a "Default sort" menu and a "Default sort direction" menu (Ascending, Descending). lgse/strata#1563, lgse/strata#1565
+- The "Default sort" menu lists Name, Size, Modified, Type, Extension, Created, and Unsorted. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029
+- While the default sort is Unsorted, the "Default sort direction" menu is insensitive; choosing another field makes it sensitive again. lgse/strata#2029 (unverified)
+
 ### Search limits
 
 - Settings → General → Search & filtering shows Search time limit and Search entry limit after Open search results directly and before Global search exclusions. lgse/strata#1667
@@ -190,12 +198,14 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The default directory is checked on a worker after the window opens, instead of with `is_dir()` on the UI thread. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Folder monitors keep hidden entries too, so revealing them needs no rescan. The watch had captured the hidden-files state at install, so dot-file changes made while hidden were lost until F5 (lgse/strata#1862, lgse/strata#1909).
+- The panel is capped at the content reflow breakpoint, `COMPACT_CONTENT_BREAKPOINT` (1250 px), and 800 px high, so a large window shows more of the browser instead of empty margins. Deriving the width from the breakpoint keeps the side-by-side layout at the cap, and the two values cannot drift. A cap near 1000 px, suggested in lgse/strata#2046, would stack every row at every size. Lowering the breakpoint with it breaks inline controls: the Metric/Imperial switch wraps mid-word near 1100 px (lgse/strata#2047).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-03 | lgse/strata#2047 | fix | Capped the Settings panel at 1250×800 px, the size its side-by-side layout needs, so it no longer covers a maximized 1080p window. |
 | 2026-11-02 | lgse/strata#2033 | refactor | Split Settings search into target-table, scoring, and widget-filter modules for code health; search results and page switching are unchanged. |
 | 2026-10-29 | lgse/strata#1909 | fix | Kept hidden entries in folder monitors, so dot-files other programs change while hidden files are off show at once when they are turned on. |
 | 2026-10-27 | lgse/strata#1900 | fix | Refused Ctrl+, under window-level dialogs such as Properties and hit-tested outside clicks against the panel, so Settings closes on one. |

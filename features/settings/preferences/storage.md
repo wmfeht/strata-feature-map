@@ -3,7 +3,7 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/ui/preferences/persistence.rs, src/ui/preferences/stored.rs, src/storage.rs, src/storage/writer.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences/loading.rs, src/ui/preferences/tests/preferences/recovery.rs, src/ui/preferences/tests/preferences/saved_fixture.rs, src/ui/preferences/tests/preferences/saving.rs, src/ui/preferences/tests/preferences/setters.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, src/storage/writer/tests.rs, tests/qa/scenarios/preferences]
@@ -30,6 +30,8 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A change whose save fails still applies in memory and is retried on the next save. lgse/strata#518
 - Setting a preference to its current value notifies no consumer, and writes nothing unless an earlier save failed. lgse/strata#518
 - Opening Settings writes nothing to `settings.toml`. lgse/strata#518
+- `settings.toml` stores the default sort as `sort_key` (`name`, `size`, `modified`, `type`, `extension`, `created`, or `unsorted`), `sort_direction`, `natural_sort`, and `case_sensitive_sort`. lgse/strata#2029 (unverified)
+- A `settings.toml` without `natural_sort` or `case_sensitive_sort` loads them as `true` and `false`, so names sort Natural and case-insensitive. lgse/strata#2029 (unverified)
 
 ### Saves from several processes
 
@@ -116,7 +118,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - One background writer runs every save of Strata's own settings and state files, so no save blocks the UI thread on a slow mount. Startup reads stay synchronous as a documented exception (lgse/strata#1729, docs/preferences.md).
 - Quitting waits up to 10 s for queued saves; the design had 1 s (lgse/strata#1729).
 - The writer remembers the stamp of every file it wrote or read. Re-reads after another process's write cover folder views, custom themes, Omarchy state, and the default sort and thumbnail size in `settings.toml` (lgse/strata#1729).
-- An external default sort or thumbnail size is adopted unless this process has an unsaved change to those keys. Merging saves made the old in-flight-save gate unnecessary (lgse/strata#1877).
+- An external default sort or thumbnail size is adopted unless this process has an unsaved change to those keys. Merging saves made the old in-flight-save gate unnecessary (lgse/strata#1877). The default sort's keys include `natural_sort` and `case_sensitive_sort` (lgse/strata#2029).
 - Settings are not per process: the browser and the portal chooser share one `settings.toml`. Missing live sync is intended, but one process overwriting the other's keys was a bug (lgse/strata#1845).
 - A save rereads the file and merges its changed keys while holding a lock on the file's folder. The lock stays held through the rename, so no other save lands between merge and replace (lgse/strata#1877).
 - The lock is taken by the same `lock_saves` helper as `folder-views.toml` saves (lgse/strata#1877). The two files live in different folders, so their saves never wait on each other (unverified).

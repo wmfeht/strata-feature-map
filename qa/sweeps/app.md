@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -76,6 +76,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Click an install command's copy button twice within 2 s, then close its dialog before 2 s pass; read the button's name every 500 ms.
 - In Settings → Keyboard, press Reset all, then confirm by Enter, by click, and after Tab to the confirm button; dump the focused node each time. Repeat at the narrowest Settings width.
 - Close a dialog stacked over Settings while Settings is scrolled so its opener is off screen, then read the focused node.
+- Focus the confirm button in Permanently delete, Empty Trash, and Compress under the light, dark, and high-contrast themes and a custom accent; zoom in on the border and halo edge at text size 8 and 48.
+- Move focus between Cancel and the confirm button by Tab, the arrows, and a mouse click, then confirm into a chained dialog and close it by keyboard; read which buttons show a halo or an outline.
 
 ### app/shortcut-reference
 
@@ -101,6 +103,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Bind keys to Custom action 1 and 10, then open F1 in each mode and search for the slot and its key.
 - Open each 10xer footer prompt in turn, then switch from one prompt to another without closing it; dump the entry after each step.
 - Fill the clipboard from a second display connection with only `x-special/gnome-copied-files`, then with only `text/uri-list`, and with both; read the badge and press Ctrl+V after each.
+- In 10xer mode, unbind `, x` and rebind `, c` to another step key, then search F1 for `extension`, `case`, and `,` with the interface in English and German.
 
 ### app/window
 
@@ -224,6 +227,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With the fixture holding unknown ids, press **Reset all** and dismiss the dialog by Escape and by the backdrop; then confirm and diff the file.
 - Edit `settings.toml` while Strata runs, then save a rebind from Settings; read the file and the keys after relaunch.
 - With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
+- Bind `sort.unsorted`, `sort.natural`, and `sort.case_sensitive` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter; press each in Columns, Icons, List, and Recent, with and without Shift.
+- Search Settings → Keyboard for `sort`, `extension`, and `case` in both tables, with the interface in English and de.
 
 ### app/updates
 

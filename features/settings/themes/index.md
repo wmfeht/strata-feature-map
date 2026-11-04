@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/theme.rs, src/ui/theme/color.rs, src/ui/theme/document_style.rs, src/ui/theme/generated_css.rs, src/ui/theme/gtk_settings.rs, src/ui/theme/library.rs, src/ui/theme/listeners.rs, src/ui/theme/source_style.rs, src/ui/theme/watch.rs, src/ui/theme/weak_registry.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
@@ -77,6 +77,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A second such name saves as `custom-theme-2.toml`, the next as `custom-theme-3.toml`. lgse/strata#1570, lgse/strata#1458
 - Saving with an empty or whitespace-only name shows "Enter a theme name" and writes nothing. lgse/strata#762, lgse/strata#1570 (unverified)
 - A swatch's color chooser draws its Cancel and Select buttons, hex entry, sliders, and value popups in the active theme, following live theme changes. lgse/strata#1570, lgse/strata#1460
+- A keyboard-focused Select button in a swatch's color chooser shows a 3 px accent halo at 28% opacity and no outline. lgse/strata#2049
 - Editor color swatches keep rounded corners with no square fragments when normal, hovered, focused, or pressed. lgse/strata#582
 
 ### Syntax colors

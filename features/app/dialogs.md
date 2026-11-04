@@ -3,7 +3,7 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/modal/focus.rs, src/ui/modal/messages.rs, src/ui/window/modal_layers.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
@@ -31,6 +31,9 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 ### Keyboard
 
 - Confirmation dialogs open with the confirm button focused, so Enter confirms and Escape cancels: Permanently delete, Empty Trash, Restore, paste and archive Replace, Run, and Forget saved password. lgse/strata#1206
+- A focused confirm button, such as Permanently delete after Shift+Delete or Compress reached by Tab, shows a 3 px halo of its accent color at 28% opacity. lgse/strata#2049
+- That halo sits flush against the button's 1 px border, uses the danger color on a danger button, and replaces the outline. lgse/strata#2049
+- Moving focus off the confirm button removes its halo. lgse/strata#2049
 - With focus outside a text field, Enter activates the focused button and toggles a focused checkbox or switch, so Enter with Cancel focused cancels. lgse/strata#1052, lgse/strata#175 (unverified)
 - With focus outside a text field, an unmodified arrow key moves focus to the nearest button, menu button, checkbox, switch, or entry in that direction; Down on a menu button opens its menu. lgse/strata#175 (unverified)
 - An error dialog that offers Open as Administrator opens with that button focused, and its cancel button reads Close. lgse/strata#1837 (unverified)
@@ -78,6 +81,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 - Backdrop clicks are hit-tested against the dialog and its viewport, not spacer widgets (lgse/strata#909). A click outside both calls the shared `dismiss_modal_layer` unless the dialog's `block_dismiss` guard returns true (lgse/strata#107). The owner held that a dirty form should not dismiss (lgse/strata#105); Compress, archive password, and mount authentication apply that guard.
 - `ScrolledWindow` clips its child, CSS shadows included, so the layout reserves 42 px for the largest shadow, the Settings panel's 28 px blur (lgse/strata#909). The layer measures 1×1 so a dialog never grows the window (lgse/strata#838).
 - Confirmation dialogs set initial focus through one `focus_button` helper. About 12 hand-rolled focus grabs had let an idle callback refocus Cancel in the permanent-delete dialog; Enter confirms and Escape cancels, matching Finder (lgse/strata#1204).
+- The focused confirm button drew a 2 px solid outline 1 px outside its own 1 px border. On the permanent-delete button it read as a heavy double red border (lgse/strata#2048). A translucent `box-shadow` halo flush against the border replaced it, so focus stays visible without a second border (lgse/strata#2049).
 - `submit_on_enter` walks a form and wires `activate` on each `gtk::Entry` and `gtk::PasswordEntry` to the primary button, standing in for a window default widget. It replaced per-field handlers in Copy to and mount authentication (lgse/strata#439, lgse/strata#464).
 - A chained dialog inherits the original browser focus origin, not the focus inside the dialog before it (lgse/strata#1331).
 - Before lgse/strata#1533 there was no shared close path: some dialogs restored focus, some called `focus_active()` by hand, and the rest did nothing. GTK4 clears window focus when the focused widget in a closing layer hides, so the next Down reached the header (lgse/strata#1430).
@@ -94,6 +98,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-03 | lgse/strata#2049 | fix | Replaced the focused confirm button's detached outline with a translucent 3 px halo, so it no longer reads as a double border. |
 | 2026-11-02 | lgse/strata#2030 | fix | Kept focus off unnamed modal layers and containers after dialogs close, and when Settings or Properties opens, for screen readers. |
 | 2026-10-27 | lgse/strata#1908 | fix | Halved the confirmation file list radius to 3px so it reaches 6px, not 12px, at the 200% roundness maximum. |
 | 2026-10-27 | lgse/strata#1906 | fix | Rounded the confirmation file list in the delete, restore, and leftovers dialogs to match other dialog inset boxes. |
