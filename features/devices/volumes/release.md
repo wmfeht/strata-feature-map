@@ -41,7 +41,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - The pending row and its spinner carry the accessible label "Writing data to the drive. Do not unplug it." lgse/strata#1193 (unverified)
 - While a release is pending, the header activity spinner runs with the accessible description "Writing to device…". lgse/strata#1193 (unverified)
 - The pending spinner uses the theme accent color and follows live theme changes. lgse/strata#1199
-- The pending spinner sits in the same column as the row's eject icon. lgse/strata#2060
+- The pending spinner sits in the column the eject icon takes on other device rows. lgse/strata#2060
 - A GIO unmount-progress message replaces the overlay body, followed by "Do not unplug it." lgse/strata#1193 (unverified)
 - A second Eject or Unmount on a device with a release pending does nothing. lgse/strata#1193 (unverified)
 

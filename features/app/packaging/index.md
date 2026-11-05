@@ -8,7 +8,7 @@ review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg, flake.nix, flake.lock, package.nix, nix/install-source.toml]
 tests: []
 docs: [site/src/reference/install.md, docs/packaging.md]
-related: [app/updates/install, app/updates/package-managed, app/window]
+related: [app/updates/install, app/updates/package-managed, app/window, operations/trash]
 ---
 
 ## Summary
@@ -20,7 +20,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 ### Desktop entry and icon
 
 - `io.github.lgse.Strata.desktop` sets `Icon=io.github.lgse.Strata` and `StartupWMClass=io.github.lgse.Strata`, matching the GTK application ID. lgse/strata#182
-- The entry declares `MimeType=inode/directory;x-scheme-handler/trash;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler. lgse/strata#182, lgse/strata#2065
+- The entry declares `MimeType=inode/directory;x-scheme-handler/trash;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler and a `trash:///` handler. lgse/strata#182, lgse/strata#2065
 - After `mise run install-local`, `gio mime x-scheme-handler/trash` lists Strata under Registered and Recommended applications. lgse/strata#2065
 - When `mimeapps.list` sets another handler as the `x-scheme-handler/trash` default, that handler stays the default and Strata stays a candidate. lgse/strata#2065
 - With no `mimeapps.list` default for the scheme, GIO falls back to the first declared handler, so Strata can become the effective trash handler. lgse/strata#2065

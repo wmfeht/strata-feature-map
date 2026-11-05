@@ -3,8 +3,8 @@ title: ODT and OTT document previews
 status: shipped
 origin: {issue: lgse/strata#1813, pr: lgse/strata#1834}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
-review: reviewed
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+review: draft
 code: [src/services/odt.rs]
 tests: [src/services/odt/tests.rs, tests/fixtures/documents/report.odt]
 related: [preview/preview-panel/sandbox, preview/preview-panel/find]
@@ -23,6 +23,7 @@ Rendered previews of local OpenDocument text files (`.odt`) and templates (`.ott
 - An ODT outline level above 6 renders as a level-6 heading; `Title` renders at level 1 and `Subtitle` at level 2. lgse/strata#1834 (unverified)
 - ODT paragraphs styled `Quotations`, `Quote`, or `Intense Quote` render as quotations. lgse/strata#1834
 - Consecutive ODT `Preformatted Text` paragraphs render as one code block that keeps their indentation. lgse/strata#1834
+- That code block always wraps to the preview width, since ODT and OTT previews always wrap. lgse/strata#2056 (unverified)
 - That code block drops bold, italic, and other inline formatting. lgse/strata#1834 (unverified)
 - Outside `Preformatted Text`, runs of spaces, tabs, `text:s`, and line feeds collapse to one space; inside it, `text:s` and tabs keep their width. lgse/strata#1834 (unverified)
 - Empty `Preformatted Text` paragraphs between code paragraphs become blank lines in the block; trailing ones are dropped. lgse/strata#1834 (unverified)

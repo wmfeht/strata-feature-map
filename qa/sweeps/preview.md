@@ -119,7 +119,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
 - Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
 - With wrap on, in a narrow pane, render a long fenced code block nested three lists deep, and one with a long first line; hover each and compare the copy button with the wrapped text.
-- With wrap on, render a fenced block over 32 KiB with a first line over 2 KiB, so it splits across rows; check the copy button and wrapped margins on each row, then toggle wrap.
+- With wrap on, render a fenced block with a first line over 2 KiB, so it splits across rows; check the copy button and wrapped margins on each row, then toggle wrap.
+- With wrap off, render a code block whose second line is longer than its first, and compare the copy button with the second line's end.
 - Click three different column titles in turn on a CSV with repeated values in each column, then click the first title twice and copy the table.
 - In Markdown holding two tables, sort each by two columns, scroll both out of view and back, then copy each table and click a title.
 - Sort the 25,000-row ragged CSV by every one of its 256 columns in turn, then scroll to the end.
@@ -150,6 +151,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Open the ODT with the outline-level-9 heading, and compare the indentation of list levels 9 and 10 with level 8.
 - Open the ODT holding a link inside `Preformatted Text` and a `mailto:` link, and click each link.
 - Open the pandoc ODT, growing its tables until the size notice appears.
+- In a narrow pane, open an ODT with a `Preformatted Text` line wider than the pane, nested in a list and not.
 
 ### preview/preview-panel/find
 

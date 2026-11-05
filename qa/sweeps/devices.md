@@ -43,9 +43,9 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Loop-mount an image under `/mnt` and inside a mounted stick, and open an SMB share so it appears under `/run/user/$UID/gvfs`. Search Ctrl+K for a file on each.
 - Mount the SFTP fixture as `SFTP://` in upper case, then `davs://` and `afp://` where reachable, beside an MTP phone and a camera; compare each row's icon and buttons.
 - Read each row's accessible description over AT-SPI. Cover a mounted and an unmounted stick, the CD-ROM with a disc, an MTP phone, and the fstab virtio volume.
-- With a stick and an unlocked LUKS volume listed, compare the eject and lock icon tips with the expanded DEVICES chevron at text sizes 8, 10, 13, 20, and 32, and at 1.6 fractional scaling.
+- With a stick, a locked LUKS volume, and an unlocked mounted LUKS volume listed, compare the eject and lock icon tips with the expanded DEVICES chevron at text sizes 8, 10, 13, 20, and 32, and at 1.6 fractional scaling.
 - Change the text size live with Ctrl+- and Ctrl+= while both rows show, then compare the icon tips again without restarting.
-- Click the eject and lock buttons, cancel each action, and look for a ring; then reach each button with Tab and with Shift+Tab.
+- Click Unlock on a locked LUKS volume and cancel the passphrase prompt; click Lock with a cached passphrase and cancel the dialog; look for a ring. Then reach each button with Tab and with Shift+Tab.
 - Hover the eject and lock icons on the current location's row and on a plain row, in a light and a dark theme.
 
 ### devices/volumes/release

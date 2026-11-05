@@ -152,8 +152,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `nix build .#strata.fileChooserPortal .#strata.fileManagerService`; read every `Exec=` line and resolve each path after a flake update and `nix-collect-garbage`.
 - Build from a `path:` and a `git+file:` reference, with a clean and a dirty tree; compare the Diagnostics build commit of each.
 - From the Nix build, open a terminal with Open in Terminal and an Open With program; compare their `PATH` with the login shell's.
-- In a throwaway `HOME`, run `gio mime x-scheme-handler/trash` and `gio open trash:///` with no `mimeapps.list` entry, with Nautilus set as the default, and with Strata set as the default.
-- Repeat with a second file manager that also declares the scheme installed before and after Strata.
+- In a throwaway `HOME`, install a second file manager that also declares `x-scheme-handler/trash` before Strata, then after it, with no `mimeapps.list` entry; run `gio open trash:///` each time.
+- Open `trash:///` through `xdg-open` and through a browser's URL bar with Strata set as the default.
 - Build the `aarch64-linux` package, then open a folder of images and clips and preview each.
 
 ### app/packaging/installer

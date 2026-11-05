@@ -420,13 +420,13 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Unpin every pin while PINNED is collapsed, pin a folder again, and restart; read `sidebar_pinned_collapsed` back.
 - Toggle both sections with Reduce motion on, at text size 8 and 48, and in `de`. Read the badge and headings with Orca.
 - Collapse both sections, step to the icon rail, to hidden, and back to full. Then toggle a section in 10xer mode with `j`, `k`, and `l`.
-- Compare the chevron's right gap with the title's left gap at text sizes 9, 11, and 28, and at 125 % and 150 % fractional scaling, expanded and collapsed.
+- Compare the chevron's right gap with the title's left gap at text sizes 9, 11, and 28, expanded and collapsed. Repeat at 125 % and 150 % fractional scaling.
 - Collapse DEVICES with no removable drive connected, then connect one.
 - Step full, rail, full with both sections collapsed; check the separators and rules at each step.
 - Click PINNED, then press `j` and Tab; note where focus lands and whether any outline shows.
 - Unpin the last pin while the rail shows, then drag a file over the rail and switch back to the full sidebar mid-drag.
 - Launch with nothing pinned and the rail saved, then switch to hidden and full during the first paint.
-- Collapse PINNED, step to the rail, and fold and unfold it there by click, by Tab and Space, and by 10xer `j`, `k`, and `l`. Step back to full after each.
+- Collapse PINNED, step to the rail, and fold and unfold it there by Tab and Space and by 10xer `j`, `k`, and `l`. Step back to full after each.
 - With nothing pinned and the rail showing, drag a folder over the empty PINNED header row, hover its chevron, and leave the sidebar; repeat in the file chooser.
 - With a notice shown, step full, rail, full at text sizes 8 and 32; compare the notice icon with the row icons above at each step.
 - Set text size 32, then 8 with Ctrl+- in one window while a second window stays open; compare pin, Home, and Trash columns in both.

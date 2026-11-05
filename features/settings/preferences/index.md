@@ -22,10 +22,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Ctrl+, or the header Settings button opens Settings over the blurred window; the first open shows General. lgse/strata#849
 - Opening Settings with Ctrl+, or the header Settings button focuses the current page's navigation entry, such as General, not the Settings layer. lgse/strata#2030
 - Ctrl+Alt+, and Ctrl+Super+, do not open Settings. lgse/strata#1576
-- The first tab shown in the process builds a hidden Settings layer on idle after first paint, so its first Ctrl+, or gear click opens without a pause. lgse/strata#2054
-- Tabs shown after the first build their Settings layer on first open. lgse/strata#2054
+- The first tab shown in a process builds its hidden Settings layer on idle after first paint; its first Ctrl+, or gear click builds nothing. lgse/strata#2054
+- Tabs shown after the first build their Settings layer on first open, about 41 ms. lgse/strata#2054
 - The pre-built Settings layer stays unmapped and takes no focus; no modal shows until Settings opens. lgse/strata#2054
-- When the first tab closes before its after-paint idle runs, no tab in the process pre-builds Settings; found by code reading. lgse/strata#2054 (unverified)
+- When the first tab closes before its after-paint idle runs, no tab in the process pre-builds Settings. lgse/strata#2054 (unverified)
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing, and the dialog keeps focus. lgse/strata#912, lgse/strata#1900
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849, lgse/strata#1900
 - A click on the Settings panel itself leaves Settings open. lgse/strata#1900
@@ -104,7 +104,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Units
 
 - Settings → General shows a Units row with Metric and Imperial buttons; Metric is selected by default. lgse/strata#1842
-- Settings → General opens with a LANGUAGE & UNITS group holding the Language and Units rows in one card; the heading is translated in all 13 catalogs. lgse/strata#2058
+- Settings → General opens with a LANGUAGE & UNITS group holding the Language row, then the Units row, in one card; the heading is translated in all 13 catalogs. lgse/strata#2058
 - Searching "units" or "language" shows the LANGUAGE & UNITS heading with only the matching row. lgse/strata#2058
 - The row reads "For things like distances, heights and volumes." lgse/strata#1842
 - The choice saves as `unit_system` in `settings.toml` and is restored on the next launch. lgse/strata#1842
@@ -182,7 +182,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 [docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
-- Settings is a layer inside the window. Building and styling it in the click handler paused the first open (lgse/strata#2050). The first tab shown in the process now pre-builds it on idle after first paint, in two idle callbacks so input and frames pass between them. Only the first tab does: Settings is per tab, its dominant costs are paid once per process, and the pre-build costs about 78 ms of idle work and 14 MiB (lgse/strata#2054). Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work. Integrations joined them (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
+- Settings is a layer inside the window. Building and styling it in the click handler paused the first open (lgse/strata#2050). The first tab shown in the process now pre-builds it on idle after first paint, in two idle callbacks so input and frames pass between them. Only the first tab does, because Settings is per tab and its dominant costs are paid once per process. The pre-build costs about 78 ms of idle work and 14 MiB (lgse/strata#2054). Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work. Integrations joined them (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
 - That check once looked only at the tab overlay that hosts Settings, so Properties, a window-level dialog, still let Ctrl+, open Settings beneath it. It now asks for any visible modal layer in the window (lgse/strata#1859, lgse/strata#1900).
@@ -236,5 +236,4 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Known gaps
 
-- Cold shader compilation still stalls the first render after a driver or GTK update. lgse/strata#2054
-- Tabs after the first still build Settings on first open, about 41 ms. lgse/strata#2054
+- After a driver or GTK update, opening Settings still stalls about 460 ms on cold shader compilation before the fade plays. lgse/strata#2054

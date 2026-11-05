@@ -28,7 +28,8 @@ The left panel of every browser window and the file chooser: built-in places, th
 - While a place mounts before opening, the highlight stays on the open place; a failed or cancelled mount leaves it there. lgse/strata#1605
 - Home, standard folders, and local pins show the folder's saved colour and custom icon, and update in every open window when it changes. lgse/strata#1370
 - Right-clicking a local folder row offers Customize…; clearing the customization restores the place's default icon. lgse/strata#1370
-- After a live text-size change from 20 to 10 with Ctrl+-, Home, the standard folders, and pins share Trash's icon and label columns without a rebuild. lgse/strata#2062
+- After shrinking the text size from 20 to 10 with Ctrl+-, Home, the standard folders, and pins share Trash's icon and label columns. lgse/strata#2062
+- Below text size 13, full-width rows are under 24 px tall; they have no fixed minimum height. lgse/strata#2062
 - In the file chooser, the sidebar omits Trash and Network. lgse/strata#1025 (unverified)
 - In the file chooser, built-in place rows offer the same context menus as in a browser window and can be reordered by drag. lgse/strata#1713
 - Unpinning Home or a standard folder in the file chooser hides it in every window, and a reorder there is saved for every window. lgse/strata#1713
@@ -87,7 +88,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - The heading's title starts in line with the row icons. lgse/strata#1992
 - Hovering the PINNED or DEVICES heading shows a gap right of the chevron that matches the gap left of the title, within 1 px. lgse/strata#2060
 - A collapsed heading with at least one row shows a count before the chevron. An expanded heading, or a collapsed DEVICES with no rows, shows none. lgse/strata#1390, lgse/strata#1992
-- The heading has no padding and is at least 24 px tall; its chevron is at least the scaled control size tall. lgse/strata#1992, lgse/strata#2060 (unverified)
+- The heading has no padding and is at least 24 px tall; its chevron is at least 24 px times the text scale tall, rounded. lgse/strata#1992, lgse/strata#2060 (unverified)
 - Hovering a heading fills it with the same width and 6 px rounding as a row's hover fill. lgse/strata#1992
 - In the full sidebar, no separator line shows above PINNED or DEVICES; the heading's rule takes its place. The icon rail still draws the separator. lgse/strata#1992
 - Clicking a heading toggles its section without taking focus or showing an accent outline, so keyboard focus stays in the file listing. lgse/strata#1992
@@ -153,7 +154,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Section chevrons swap between a down and a right icon instead of rotating. A CSS-rotated icon is not pixel-snapped, so under GL rendering and fractional scaling it drifted off the eject column (lgse/strata#1992).
 - Each heading's rule replaces the separator above its section, following the inline-divider direction in [comment](https://github.com/lgse/strata/issues/1991#issuecomment-6565416607). The rail hides each heading's title and rule, so it keeps the separator (lgse/strata#1992, lgse/strata#2062).
 - The chevron's right gap matches the title's left gap; its built-in side bearing supplies most of the inset. This replaces lgse/strata#1992's centring above the eject column, which sat further in from the edge (lgse/strata#2059, lgse/strata#2060).
-- The notice text sits on a hidden page of a height-homogeneous stack, so the rail drops its width but keeps its height (lgse/strata#2062).
+- The notice text shares a height-homogeneous stack with an empty page. The rail shows the empty page, which drops the width but keeps the height (lgse/strata#2062).
 - Row images follow the live interface scale instead of a size request taken at build time, which outlived later text-size changes (lgse/strata#2061, lgse/strata#2062).
 - The selected row uses a direct accent tint because tinting the existing highlight token stayed too faint on dark themes (lgse/strata#104, lgse/strata#106).
 

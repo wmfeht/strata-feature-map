@@ -68,7 +68,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 - Code: [`data/io.github.lgse.Strata.desktop`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/data/io.github.lgse.Strata.desktop), [`data/icons/scalable/apps/io.github.lgse.Strata.svg`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/data/icons/scalable/apps/io.github.lgse.Strata.svg), [`flake.nix`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/flake.nix), [`flake.lock`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/flake.lock), [`package.nix`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/package.nix), [`nix/install-source.toml`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/nix/install-source.toml)
 - Docs: [`site/src/reference/install.md`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/site/src/reference/install.md), [`docs/packaging.md`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/docs/packaging.md)
-- Related: [In-place update install](../features/app/updates/install.md), [Package-managed installs](../features/app/updates/package-managed.md), [Window chrome and structure](../features/app/window/index.md)
+- Related: [In-place update install](../features/app/updates/install.md), [Package-managed installs](../features/app/updates/package-managed.md), [Window chrome and structure](../features/app/window/index.md), [Trash](../features/operations/trash/index.md)
 - Children: [AUR packages](../features/app/packaging/aur.md), [Release installer](../features/app/packaging/installer.md)
 
 ### [AUR packages](../features/app/packaging/aur.md) `app/packaging/aur`
@@ -1319,13 +1319,13 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 ### [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) `preview/preview-panel/documents/odt`
 
-shipped · reviewed · reviewed at [`86df474`](https://github.com/lgse/strata/tree/86df474dc0e8352e0e2098637a017cc4c77a8c44) · 0 PRs since · origin issue [lgse/strata#1813](https://github.com/lgse/strata/issues/1813), pr [lgse/strata#1834](https://github.com/lgse/strata/issues/1834)
+shipped · draft · reviewed at [`b094f02`](https://github.com/lgse/strata/tree/b094f02e957153a23ee4230ef25f37b4567e42bc) · 0 PRs since · origin issue [lgse/strata#1813](https://github.com/lgse/strata/issues/1813), pr [lgse/strata#1834](https://github.com/lgse/strata/issues/1834)
 
 Rendered previews of local OpenDocument text files (`.odt`) and templates (`.ott`), for checking a Writer document without an office suite. A sandboxed reader converts them to the DOCX HTML subset that the parent renders.
 
-- Code: [`src/services/odt.rs`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/src/services/odt.rs)
-- Tests: [`src/services/odt/tests.rs`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/src/services/odt/tests.rs), [`tests/fixtures/documents/report.odt`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/tests/fixtures/documents/report.odt)
-- Docs: [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/site/src/reference/preview-sandbox.md) (inherited), [`site/src/reference/document-previews.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/site/src/reference/document-previews.md) (inherited), [`docs/document-previews.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/docs/document-previews.md) (inherited)
+- Code: [`src/services/odt.rs`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/src/services/odt.rs)
+- Tests: [`src/services/odt/tests.rs`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/src/services/odt/tests.rs), [`tests/fixtures/documents/report.odt`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/tests/fixtures/documents/report.odt)
+- Docs: [`site/src/reference/preview-sandbox.md`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/site/src/reference/preview-sandbox.md) (inherited), [`site/src/reference/document-previews.md`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/site/src/reference/document-previews.md) (inherited), [`docs/document-previews.md`](https://github.com/lgse/strata/blob/b094f02e957153a23ee4230ef25f37b4567e42bc/docs/document-previews.md) (inherited)
 - Related: [Preview sandbox](../features/preview/preview-panel/sandbox.md), [Find in preview](../features/preview/preview-panel/find.md)
 
 ### [Document preview scrollbar](../features/preview/preview-panel/documents/scrollbar.md) `preview/preview-panel/documents/scrollbar`

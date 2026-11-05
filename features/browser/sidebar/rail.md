@@ -28,10 +28,9 @@ The header toggle and Ctrl+B that step a browser window's sidebar between full, 
 
 ### Rail and reopening
 
-- In the icon rail, rows show only icons with name tooltips, and device buttons are hidden. lgse/strata#1181, lgse/strata#2062 (unverified)
+- In the icon rail, rows show only icons with name tooltips, and device buttons are hidden. lgse/strata#1181, lgse/strata#2062, lgse/strata#2064 (unverified)
 - At text size 10, pressing Ctrl+B between the full sidebar and the rail moves no row icon. lgse/strata#2062
-- Full-width rows have no fixed 24 px minimum height, so below text size 13 they are slightly shorter than before. lgse/strata#2062
-- With `sidebar_compact` off, moving the window from a monitor where the sidebar rails automatically to one with room shows every row label in the full sidebar. lgse/strata#2064
+- With `sidebar_compact` off, moving the window from a monitor that rails the sidebar to one with room shows every row label. lgse/strata#2064
 - At text sizes 9 and 11, rail row icons sit on the header toggle's vertical axis. lgse/strata#1606
 - Reopening the sidebar at a 10px text size restores at least its measured minimum width, so row icons are not clipped. lgse/strata#1176
 
@@ -41,7 +40,7 @@ The header toggle and Ctrl+B that step a browser window's sidebar between full, 
 - One toggle reaches all three modes because the rail used to be purely automatic: a narrow window could not show the full sidebar, nor a wide one keep the rail (lgse/strata#1602, lgse/strata#1606).
 - `RailPolicy` lets an explicit choice override the automatic rail either way. The fit rule that feeds it belongs to `preview/preview-panel/layout` (lgse/strata#1602, lgse/strata#1606).
 - Code sets only the rail row's width to the scaled header-control size. Height comes from the theme-sized icon box in both modes, so toggling moves no icon (lgse/strata#1602, lgse/strata#1606, lgse/strata#2061, lgse/strata#2062).
-- `sidebar_rail.rs` alone hides rail labels and device actions. A CSS rule that also zeroed their font could leave a hidden label at a 0 px font after a monitor move, so it was removed (lgse/strata#2063, lgse/strata#2064).
+- `sidebar_rail.rs` alone hides rail labels and device actions. A CSS rule also zeroed their font. After a monitor move it could leave a hidden label at 0 px, so it was removed (lgse/strata#2063, lgse/strata#2064).
 - The tooltip names the next step while the accessible name stays constant, so assistive technology and GUI tests find the toggle in every mode (lgse/strata#1606).
 
 ## History
