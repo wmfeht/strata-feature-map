@@ -23,7 +23,6 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The entry declares `MimeType=inode/directory;x-scheme-handler/trash;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler and a `trash:///` handler. lgse/strata#182, lgse/strata#2065
 - After `mise run install-local`, `gio mime x-scheme-handler/trash` lists Strata under Registered and Recommended applications. lgse/strata#2065
 - When `mimeapps.list` sets another handler as the `x-scheme-handler/trash` default, that handler stays the default and Strata stays a candidate. lgse/strata#2065
-- With no `mimeapps.list` default for the scheme, GIO falls back to the first declared handler, so Strata can become the effective trash handler. lgse/strata#2065
 - The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, hu, de, es, ja, pt_BR, ko, vi, it, ru, zh_CN, and zh_TW. lgse/strata#1519, lgse/strata#1583, lgse/strata#1745, lgse/strata#1918 (unverified)
 - The application icon is bundled in the GResource and set as GTK's default window icon name. lgse/strata#182
 - The application icon draws the logo in blue and violet gradients on a rounded tile. The tile fades from `#414868` at the top to `#1b1c27` at the bottom. lgse/strata#1838 (unverified)
