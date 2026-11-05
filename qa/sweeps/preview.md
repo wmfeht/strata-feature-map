@@ -121,7 +121,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With wrap on, in a narrow pane, render a fenced code block with 200-character lines nested three lists deep. Hover it and compare the copy button with the wrapped text.
 - Repeat with a top-level block whose first line has 200 characters.
 - With wrap on, render a fenced block whose first line holds over 2 KiB with spaces, so it splits across rows. Check the copy button and margins on each row, then toggle wrap.
-- With wrap on and off, render a code block whose second line is longer than its first, and compare the copy button with the second line's end.
+- With wrap on and off, render a code block whose second line is longer than its first. Compare the copy button with that line's end.
 - Click three different column titles in turn on a CSV with repeated values in each column, then click the first title twice and copy the table.
 - In Markdown holding two tables, sort each by two columns, scroll both out of view and back, then copy each table and click a title.
 - Sort the 25,000-row ragged CSV by every one of its 256 columns in turn, then scroll to the end.
