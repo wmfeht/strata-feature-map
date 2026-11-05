@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -118,6 +118,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
 - With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
 - Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
+- With wrap on, in a narrow pane, render a fenced code block with 200-character lines nested three lists deep. Hover it and compare the copy button with the wrapped text.
+- Repeat with a top-level block whose first line has 200 characters.
+- With wrap on, render a fenced block whose first line holds over 2 KiB with spaces, so it splits across rows. Check the copy button and margins on each row, then toggle wrap.
+- With wrap on and off, render a code block whose second line is longer than its first. Compare the copy button with that line's end.
 - Click three different column titles in turn on a CSV with repeated values in each column, then click the first title twice and copy the table.
 - In Markdown holding two tables, sort each by two columns, scroll both out of view and back, then copy each table and click a title.
 - Sort the 25,000-row ragged CSV by every one of its 256 columns in turn, then scroll to the end.
@@ -148,6 +152,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Open the ODT with the outline-level-9 heading, and compare the indentation of list levels 9 and 10 with level 8.
 - Open the ODT holding a link inside `Preformatted Text` and a `mailto:` link, and click each link.
 - Open the pandoc ODT, growing its tables until the size notice appears.
+- In a narrow pane, open an ODT with a `Preformatted Text` line wider than the pane, nested in a list and not.
 
 ### preview/preview-panel/find
 

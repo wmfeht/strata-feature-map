@@ -3,12 +3,12 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg, flake.nix, flake.lock, package.nix, nix/install-source.toml]
 tests: []
 docs: [site/src/reference/install.md, docs/packaging.md]
-related: [app/updates/install, app/updates/package-managed, app/window]
+related: [app/updates/install, app/updates/package-managed, app/window, operations/trash]
 ---
 
 ## Summary
@@ -20,7 +20,9 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 ### Desktop entry and icon
 
 - `io.github.lgse.Strata.desktop` sets `Icon=io.github.lgse.Strata` and `StartupWMClass=io.github.lgse.Strata`, matching the GTK application ID. lgse/strata#182
-- The entry declares `MimeType=inode/directory;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler. lgse/strata#182
+- The entry declares `MimeType=inode/directory;x-scheme-handler/trash;` and `Categories=Utility;FileTools;FileManager;`, so it can be the default folder handler and a `trash:///` handler. lgse/strata#182, lgse/strata#2065
+- After `mise run install-local`, `gio mime x-scheme-handler/trash` lists Strata under Registered and Recommended applications. lgse/strata#2065
+- When `mimeapps.list` sets another handler as the `x-scheme-handler/trash` default, that handler stays the default and Strata stays a candidate. lgse/strata#2065
 - The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, hu, de, es, ja, pt_BR, ko, vi, it, ru, zh_CN, and zh_TW. lgse/strata#1519, lgse/strata#1583, lgse/strata#1745, lgse/strata#1918 (unverified)
 - The application icon is bundled in the GResource and set as GTK's default window icon name. lgse/strata#182
 - The application icon draws the logo in blue and violet gradients on a rounded tile. The tile fades from `#414868` at the top to `#1b1c27` at the bottom. lgse/strata#1838 (unverified)
@@ -65,6 +67,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The tile is a gradient with a faint light edge because a flat `#1b1c27` tile blended into dark docks (lgse/strata#1838).
 - Linux desktops draw the hicolor SVG unmasked, so the icon rounds its own corners. Icon themes such as MacTahoe reshape only the apps they ship icons for (lgse/strata#1838).
 - The tile spans 228 of 284 units per side (about 80%), with a 51-unit corner radius (about 22% of the tile side). These are the usual macOS and Adwaita proportions, so the icon matches neighboring icons in size (lgse/strata#1838).
+- The entry declares `x-scheme-handler/trash` because `Exec=strata %U` already opened `trash:///`, but choosers never offered Strata for it. The declaration makes Strata eligible; `mimeapps.list` still picks the default (lgse/strata#2052, lgse/strata#2065).
 - Desktop metadata ships inside the release archive, so the installer, packages, and updater always install the copy that matches the binary (lgse/strata#182, docs/packaging.md).
 - `--version` prints `build_info::displayed_version()`, built on `installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917, lgse/strata#1676).
 - Debug builds scroll and load noticeably slower, so they carry `+debug` to tell them apart in reports. The suffix is display-only; update checks keep the plain version (lgse/strata#1671, lgse/strata#1676, unverified).
@@ -79,6 +82,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-05 | lgse/strata#2065 | feat | Declared the `trash` URI scheme handler so `xdg-mime` tools and choosers offer Strata for `trash:///`. |
 | 2026-10-24 | lgse/strata#1838 | feat | Put the colored logo on a dark rounded gradient tile so the icon reads on light and dark docks. |
 | 2026-09-13 | lgse/strata#918 | feat | Added `--version` so scripts and packaging checks can read the installed version without the GUI. |
 | 2026-09-03 | lgse/strata#182 | feat | Added the application icon and a desktop entry named after the application ID, and shipped both in release archives. |
@@ -87,3 +91,4 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 - No official package exists for distributions other than Arch and Nix; an official Flatpak is proposed. lgse/strata#936
 - The Nix package is built and tested on `x86_64-linux` only; `aarch64-linux` builds are untested. lgse/strata#1967
+- On a system with no `x-scheme-handler/trash` default, installing Strata can take over `trash:///` from another file manager through GIO's first-handler fallback. lgse/strata#2065

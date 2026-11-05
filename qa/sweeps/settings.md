@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -66,6 +66,10 @@ For every control this sweep proves the binding: the file changes, the other win
 - Switch Units in window A before window B has ever opened Settings, then open B's General page and read its buttons and `settings.toml`.
 - Seed `unit_system = "nautical"`, `unit_system = 1`, and `unit_system = "Imperial"`; launch, read the Units row, change another preference, and diff `settings.toml`.
 - Search "kilometres", "kml", and "feet" under English and `language = "ja"`; read which rows show and which page opens.
+- Search "units", "language", "Einheiten", and 単位 under English, Deutsch, and `language = "ja"`; read the group heading and which rows show.
+- Open a second tab before Settings has ever opened, then press Ctrl+, in the second tab first and in the first tab after; time each open and read the focused widget.
+- Press Ctrl+, within the first second after launch, before the after-paint idle has run, and again with a modal dialog open; read the layer stack in the accessibility tree.
+- Close the first tab immediately after launch, then open Settings in the remaining tabs and time each first open.
 - Toggle hidden files with Ctrl+. while a rename editor is open, while a filter is active, in the file chooser, and on a folder of 10k dotfiles; compare Columns, Icons, and List.
 - Press Ctrl+, and click the gear over Properties, Compress, a delete confirmation, Customize…, and a dialog animating closed. Repeat over a dialog in another tab of the same window. Read Settings and the focused control each time.
 - With Settings opened on General and the Keyboard page not yet built, then after it is built, search "rename", "Ctrl+E", and "remap"; read the opened page and which table shows.

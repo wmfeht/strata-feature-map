@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -78,6 +78,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Close a dialog stacked over Settings while Settings is scrolled so its opener is off screen, then read the focused node.
 - Focus the confirm button in Permanently delete, Empty Trash, and Compress under the light, dark, and high-contrast themes and a custom accent; zoom in on the border and halo edge at text size 8 and 48.
 - Move focus between Cancel and the confirm button by Tab, the arrows, and a mouse click, then confirm into a chained dialog and close it by keyboard; read which buttons show a halo or an outline.
+- With animations on, open Settings with Ctrl+, and press Escape within 100 ms; repeat with the gear button and a backdrop click, then read the layer's opacity and where focus lands.
+- Toggle Reduce motion from Settings → Appearance while Settings is open, then close and reopen it, in a fresh process and after a second tab opens Settings.
 
 ### app/shortcut-reference
 
@@ -150,6 +152,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `nix build .#strata.fileChooserPortal .#strata.fileManagerService`; read every `Exec=` line and resolve each path after a flake update and `nix-collect-garbage`.
 - Build from a `path:` and a `git+file:` reference, with a clean and a dirty tree; compare the Diagnostics build commit of each.
 - From the Nix build, open a terminal with Open in Terminal and an Open With program; compare their `PATH` with the login shell's.
+- In a throwaway `HOME`, install a second file manager that also declares `x-scheme-handler/trash` before Strata, then after it, with no `mimeapps.list` entry; run `gio open trash:///` each time.
+- Open `trash:///` through `xdg-open` and through a browser's URL bar with Strata set as the default.
 - Build the `aarch64-linux` package, then open a folder of images and clips and preview each.
 
 ### app/packaging/installer

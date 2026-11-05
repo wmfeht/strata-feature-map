@@ -3,8 +3,8 @@ title: Rendered document previews
 status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+review: draft
 code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/ui/table_view/model.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer, src/services/document/html.rs, src/services/document/layout.rs, src/services/document/markdown.rs, src/ui/preview/document.rs, src/ui/virtual_preview/code_copy.rs, src/ui/virtual_preview/factory.rs, src/ui/virtual_preview/highlight.rs, src/ui/virtual_preview/hit_test.rs, src/ui/virtual_preview/keyboard.rs, src/ui/virtual_preview/pointer.rs, src/ui/virtual_preview/rows.rs, src/ui/virtual_preview/source.rs, src/ui/virtual_preview/table_cell.rs, src/ui/virtual_preview/tags.rs, src/ui/virtual_preview/text_view.rs]
 tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/README.md, tests/qa/scenarios/quick_preview/markdown-equations-keep-prose.jsonl, tests/qa/scenarios/quick_preview/markdown-preview-renders-media.jsonl, tests/qa/scenarios/quick_preview/rendered-document-word-selection.jsonl, tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl, tests/qa/scenarios/quick_preview/table-preview-keeps-secondary-sorts.jsonl, src/services/document/tests/**]
 docs: [site/src/reference/document-previews.md, docs/document-previews.md]
@@ -55,6 +55,12 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - A fenced block split across several rows, over about 32 KiB or holding a line over 2 KiB, renders without highlighting. lgse/strata#187 (unverified)
 - Every rendered code block shows a **Copy code** button that copies the whole block. lgse/strata#187
 - After a click, **Copy code** shows a check icon and reads "Code copied" for 2 s, then "Copy code" again. lgse/strata#187 (unverified)
+- With wrap on, a rendered code line wider than the pane wraps inside the code panel, keeping its side margins on every display line. lgse/strata#2056
+- Rendered code text starts 10 px right of the surrounding text's left edge, including code in a list at any depth. lgse/strata#2056 (unverified)
+- The **Copy code** button does not cover the end of a code block's first line, with wrap on or off. lgse/strata#2056
+- **Copy code** clears only the first code line; it can cover the end of a longer second line, with wrap on or off. lgse/strata#2056 (unverified)
+- With wrap off, a rendered quote's longest line ends 16 px before the row's right edge. lgse/strata#2056 (unverified)
+- A code block split across several rows shows **Copy code** only on its first row, and only that row reserves the button's space. lgse/strata#187, lgse/strata#2056 (unverified)
 
 ### Scrolling
 
@@ -123,6 +129,8 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Calamine and `docx-rs` can allocate whole sheets or decompress every part, so workbooks and DOCX run in the preview sandbox under a 20 MiB input limit. Only validated JSON returns; DOCX HTML is reparsed by the same bounded HTML parser (lgse/strata#729, lgse/strata#1086).
 - Large source and rendered views use recycled, virtualized rows. Selection is kept in document coordinates and copy reads the model (lgse/strata#187). Rendered rows build their text, tables, and media only once mapped, and visited widgets may stay in GTK's bounded recycling pool. Source rows bind eagerly so thumb seeking uses measured heights (lgse/strata#1752).
 - Unwrapped source rows already widened to their text, but rendered rows only got a height and clipped at the pane edge. Unwrapped rendered rows now widen to their longest line (lgse/strata#1610, lgse/strata#1612).
+- The `document-code` tag forced `WrapMode::None`, and a tag's wrap mode overrides the view's, so code never wrapped. The forced mode was dropped, and a first-line indent became left and right margins so wrapped lines stay inside the panel (lgse/strata#2056, lgse/strata#2055).
+- The first code line reserves a fixed right margin matching the **Copy code** button's CSS geometry. Unwrapped widths take each line's larger view or tag right margin, so code gets room without narrowing other lines (lgse/strata#2056).
 - Wrap toggles remeasure rows after GTK has re-laid them out, because measuring right after `set_wrap_mode` returned the previous mode's height (lgse/strata#1612).
 - Virtual rows cannot take native input, so word, line, and Shift selection is computed in the document model. The selector had ignored click count and modifiers (lgse/strata#1557).
 - One table renderer serves CSV, TSV, workbooks, Markdown, HTML, DOCX, and ODT tables, replacing the 200-row capped grid (lgse/strata#723, lgse/strata#729, lgse/strata#1834).
@@ -142,6 +150,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-05 | lgse/strata#2056 | fix | Made rendered code blocks follow the wrap toggle, kept the copy button off the first code line, and turned preview wrap on by default. |
 | 2026-10-30 | lgse/strata#1946 | fix | Sorted tables in Rust over a lazy row model, removing a 5 s freeze on large spreadsheets, and kept earlier columns as tie-breakers. |
 | 2026-10-11 | lgse/strata#1570 | fix | Hid HTML comments in release-notes Markdown through a separate parser profile; document previews are unchanged. |
 | 2026-10-10 | lgse/strata#1559 | fix | Restored word, line, Shift-click, and Shift+key selection in virtualized document previews. |

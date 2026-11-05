@@ -3,7 +3,7 @@ title: udiskie unlock handler
 status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 review: draft
 code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
 tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
@@ -61,6 +61,7 @@ An integration that makes udiskie open Strata's passphrase prompt when an encryp
 - Use Strata shows only while the integration is not configured; Restore default shows only while restore state or a Strata-managed config exists. lgse/strata#1047 (unverified)
 - When Use Strata or Restore default saves but udiskie cannot restart, the row shows the "Saved the udiskie configuration…" warning as a non-error message. lgse/strata#2030
 - That warning stays until the next change on the row. lgse/strata#2030
+- The row's 2-second availability poll runs only while Settings is shown, so availability can lag up to 2 seconds after Settings opens. lgse/strata#2054
 - In a package build, the row shows only its title and "The package that installed this build provides the udiskie unlock hook. Configure udiskie in your system configuration as the package documentation describes." lgse/strata#1975
 - In a package build, the row has no status line, Use Strata, or Restore default. lgse/strata#1975
 - In a package build, the row shows without Omarchy and without `udiskie` on `PATH`. lgse/strata#1975 (unverified)
