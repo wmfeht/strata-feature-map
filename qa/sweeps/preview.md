@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -118,6 +118,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In a table with a selected range, press Ctrl+Alt+C, Ctrl+Super+C, and keypad arrows, then Ctrl+C.
 - With wrap off, open Markdown holding a 5,000-character prose line, a long list item, a long fenced code block, and an inline equation; toggle wrap 10 times quickly, then scroll to the right end.
 - Toggle wrap while a long row is scrolled out of view and recycled, then scroll back to it.
+- With wrap on, in a narrow pane, render a long fenced code block nested three lists deep, and one with a long first line; hover each and compare the copy button with the wrapped text.
+- With wrap on, render a fenced block over 32 KiB with a first line over 2 KiB, so it splits across rows; check the copy button and wrapped margins on each row, then toggle wrap.
 - Click three different column titles in turn on a CSV with repeated values in each column, then click the first title twice and copy the table.
 - In Markdown holding two tables, sort each by two columns, scroll both out of view and back, then copy each table and click a title.
 - Sort the 25,000-row ragged CSV by every one of its 256 columns in turn, then scroll to the end.

@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `ad6d14f` · 149 features, 80 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `b094f02` · 149 features, 77 reviewed
 
 ## app
 
@@ -15,11 +15,11 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `ad6d14f` | ? |
-| [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `ad6d14f` | ? |
-| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `ad6d14f` | ? |
+| [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `b094f02` | 0 |
+| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `b094f02` | 0 |
 | [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | reviewed | `ad6d14f` | ? |
 | ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `ad6d14f` | ? |
-| [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | reviewed | `0f9bb00` | ? |
+| [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `b094f02` | ? |
 | ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | reviewed | `41070b5` | ? |
 | [Keyboard shortcut reference and footer](features/app/shortcut-reference.md) | `app/shortcut-reference` | shipped | draft | `ad6d14f` | ? |
@@ -63,14 +63,14 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Keyboard navigation in views](features/browser/selection/keyboard-navigation.md) | `browser/selection/keyboard-navigation` | shipped | draft | `1d2e244` | ? |
 | ↳ [Marquee selection](features/browser/selection/marquee.md) | `browser/selection/marquee` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [Pointer intent](features/browser/selection/pointer-intent.md) | `browser/selection/pointer-intent` | shipped | reviewed | `965bd7e` | ? |
-| [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `bae71c0` | ? |
+| [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `b094f02` | ? |
 | ↳ [Connect to server dialog](features/browser/sidebar/connect-to-server.md) | `browser/sidebar/connect-to-server` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Pinned folders](features/browser/sidebar/pins/index.md) | `browser/sidebar/pins` | shipped | draft | `bae71c0` | ? |
 | &emsp;↳ [Drag folders to pin](features/browser/sidebar/pins/drag-to-pin.md) | `browser/sidebar/pins/drag-to-pin` | shipped | draft | `bae71c0` | ? |
-| ↳ [Sidebar collapse and icon rail](features/browser/sidebar/rail.md) | `browser/sidebar/rail` | shipped | reviewed | `1d2e244` | ? |
+| ↳ [Sidebar collapse and icon rail](features/browser/sidebar/rail.md) | `browser/sidebar/rail` | shipped | draft | `b094f02` | 0 |
 | [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `ad6d14f` | ? |
 | ↳ [Tab session restore](features/browser/tabs/session-restore.md) | `browser/tabs/session-restore` | shipped | reviewed | `44bfeab` | ? |
-| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | reviewed | `ad6d14f` | ? |
+| [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | reviewed | `b094f02` | ? |
 | ↳ [Thumbnail disk cache](features/browser/thumbnails/cache.md) | `browser/thumbnails/cache` | shipped | draft | `bae71c0` | ? |
 | ↳ [Thumbnail workers](features/browser/thumbnails/workers.md) | `browser/thumbnails/workers` | shipped | reviewed | `bae71c0` | ? |
 | [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `ad6d14f` | ? |
@@ -91,12 +91,12 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `1d2e244` | ? |
+| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `b094f02` | ? |
 | ↳ [Camera photos](features/devices/volumes/camera.md) | `devices/volumes/camera` | shipped | reviewed | `ad6d14f` | ? |
 | ↳ [Drive format, label, properties, and container lock](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | draft | `bae71c0` | ? |
 | ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | reviewed | `bae71c0` | ? |
-| ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `bae71c0` | ? |
-| ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `bae71c0` | ? |
+| ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `b094f02` | 0 |
+| ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `b094f02` | 0 |
 
 ## integration
 
@@ -164,8 +164,8 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | draft | `ad6d14f` | ? |
-| ↳ [Rendered document previews](features/preview/preview-panel/documents/index.md) | `preview/preview-panel/documents` | shipped | reviewed | `bae71c0` | ? |
+| [Preview panel](features/preview/preview-panel/index.md) | `preview/preview-panel` | shipped | draft | `b094f02` | ? |
+| ↳ [Rendered document previews](features/preview/preview-panel/documents/index.md) | `preview/preview-panel/documents` | shipped | draft | `b094f02` | 1 |
 | &emsp;↳ [ODT and OTT document previews](features/preview/preview-panel/documents/odt.md) | `preview/preview-panel/documents/odt` | shipped | reviewed | `86df474` | 0 |
 | &emsp;↳ [Document preview scrollbar](features/preview/preview-panel/documents/scrollbar.md) | `preview/preview-panel/documents/scrollbar` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | reviewed | `1d2e244` | ? |
@@ -201,11 +201,11 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Diagnostics](features/settings/diagnostics.md) | `settings/diagnostics` | shipped | reviewed | `0f9bb00` | ? |
-| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `ad6d14f` | ? |
+| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `b094f02` | ? |
 | ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | reviewed | `44bfeab` | ? |
 | ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `ad6d14f` | ? |
-| ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `ad6d14f` | ? |
-| [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `ad6d14f` | ? |
+| ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `b094f02` | 0 |
+| [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `b094f02` | ? |
 | ↳ [Corner roundness](features/settings/themes/corner-roundness.md) | `settings/themes/corner-roundness` | shipped | reviewed | `73b3258` | ? |
 | ↳ [Themed icons](features/settings/themes/icons/index.md) | `settings/themes/icons` | shipped | reviewed | `bae71c0` | ? |
 | &emsp;↳ [Catppuccin file-type icons](features/settings/themes/icons/catppuccin.md) | `settings/themes/icons/catppuccin` | shipped | draft | `bae71c0` | ? |

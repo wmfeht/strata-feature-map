@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -420,12 +420,16 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Unpin every pin while PINNED is collapsed, pin a folder again, and restart; read `sidebar_pinned_collapsed` back.
 - Toggle both sections with Reduce motion on, at text size 8 and 48, and in `de`. Read the badge and headings with Orca.
 - Collapse both sections, step to the icon rail, to hidden, and back to full. Then toggle a section in 10xer mode with `j`, `k`, and `l`.
-- Compare the chevron's x position with the eject buttons at text sizes 9, 11, and 28, and at 125 % and 150 % fractional scaling, expanded and collapsed.
+- Compare the chevron's right gap with the title's left gap at text sizes 9, 11, and 28, and at 125 % and 150 % fractional scaling, expanded and collapsed.
 - Collapse DEVICES with no removable drive connected, then connect one.
 - Step full, rail, full with both sections collapsed; check the separators and rules at each step.
 - Click PINNED, then press `j` and Tab; note where focus lands and whether any outline shows.
 - Unpin the last pin while the rail shows, then drag a file over the rail and switch back to the full sidebar mid-drag.
 - Launch with nothing pinned and the rail saved, then switch to hidden and full during the first paint.
+- Collapse PINNED, step to the rail, and fold and unfold it there by click, by Tab and Space, and by 10xer `j`, `k`, and `l`. Step back to full after each.
+- With nothing pinned and the rail showing, drag a folder over the empty PINNED header row, hover its chevron, and leave the sidebar; repeat in the file chooser.
+- With a notice shown, step full, rail, full at text sizes 8 and 32; compare the notice icon with the row icons above at each step.
+- Set text size 32, then 8 with Ctrl+- in one window while a second window stays open; compare pin, Home, and Trash columns in both.
 
 ### browser/sidebar/rail
 
@@ -436,6 +440,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With the rail showing, set text size 9, 11, 8, and 48 at desktop text scaling 1.0 and 1.18. Compare rail icons and the update notice icon against the header toggle.
 - Switch 10xer mode on and off while the sidebar is railed and while hidden, then hover the toggle and read it with Orca.
 - Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`. Read its accessible name after each step.
+- At 160 % fractional scaling, press Ctrl+B between full and rail at text sizes 8, 10, and 32; compare every row and header icon position.
+- With two monitors, one narrow enough to rail the sidebar automatically, move the window there and back three times. Repeat at text sizes 8 and 32 and with a notice shown.
 
 ### browser/sidebar/pins
 
@@ -667,6 +673,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Trash, Undo, and Replace inside `admin://` folders, and Trash drops from them → `operations`.
 - Open and Open With refusals for files in `admin://` folders → `integration`.
 - DEVICES rows, Set label…, mounting, and ejecting → `devices`.
+- Eject, lock, and release spinner alignment under the section chevron, in full width and across Ctrl+B → `devices`.
 - Remote shares beyond the typed URI rejections and credential masking covered here, including the mounts and sign-in prompts behind Connect to server → `remote`.
 - The action editor's tabs, toggles, and footer beyond arrow focus → `integration`.
 - Modal dialog shell, the shortcut footer, F1, and key precedence → `app`.

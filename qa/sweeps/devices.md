@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
@@ -43,6 +43,10 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Loop-mount an image under `/mnt` and inside a mounted stick, and open an SMB share so it appears under `/run/user/$UID/gvfs`. Search Ctrl+K for a file on each.
 - Mount the SFTP fixture as `SFTP://` in upper case, then `davs://` and `afp://` where reachable, beside an MTP phone and a camera; compare each row's icon and buttons.
 - Read each row's accessible description over AT-SPI. Cover a mounted and an unmounted stick, the CD-ROM with a disc, an MTP phone, and the fstab virtio volume.
+- With a stick and an unlocked LUKS volume listed, compare the eject and lock icon tips with the expanded DEVICES chevron at text sizes 8, 10, 13, 20, and 32, and at 1.6 fractional scaling.
+- Change the text size live with Ctrl+- and Ctrl+= while both rows show, then compare the icon tips again without restarting.
+- Click the eject and lock buttons, cancel each action, and look for a ring; then reach each button with Tab and with Shift+Tab.
+- Hover the eject and lock icons on the current location's row and on a plain row, in a light and a dark theme.
 
 ### devices/volumes/release
 
@@ -59,6 +63,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Disconnect the SFTP share while a shell sits inside its `/run/user/$UID/gvfs` path; dismiss GVfs's busy dialog, then retry and choose to unmount anyway.
 - Click Disconnect twice quickly on the SFTP row, then open its row menu again while the first unmount runs.
 - Set a Strata label with emoji on a stick, then Eject and Unmount it with the overlay open and hidden.
+- Hold a release pending with a shell inside the mount beside a second stick's eject button; compare the spinner's column with that icon at text sizes 10 and 20, and at 1.6 fractional scaling.
 
 ### devices/volumes/encrypted
 
@@ -88,6 +93,8 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Install with the default build, then run the package build's install and uninstall flags; diff `~/.config/udiskie` and `~/.local/share/strata` against the copy.
 - Open Settings → General in the package build on the `arch` guest with `udiskie` removed from `PATH`, then on `omarchy-4`; search Settings for "udiskie" and "encrypted".
 - With the package build's `--udiskie-hook` in udiskie's `event_hook`, attach the LUKS disk.
+- With Settings closed, remove `udiskie` from `PATH`, then open Settings → General and watch the row for 3 seconds. Restore it with Settings closed and reopen.
+- Change udiskie's availability while Settings is open, close Settings before 2 seconds pass, and reopen it.
 
 ### devices/volumes/drive-dialogs
 
