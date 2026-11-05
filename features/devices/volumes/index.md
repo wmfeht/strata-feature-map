@@ -31,8 +31,8 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 ### Row buttons
 
-- In the full-width sidebar, at every text size, the tip of a drive's eject triangle sits directly under the tip of the expanded DEVICES chevron. lgse/strata#2060
-- On a row with only a Lock or Unlock button, its icon takes the eject column; beside an eject button it sits one 24 px slot to the left. lgse/strata#2060 (unverified)
+- In the full-width sidebar, a drive's eject triangle tip sits under the expanded DEVICES chevron's tip at every text size. lgse/strata#2060
+- On a row with only a Lock or Unlock button, its icon takes the eject column; beside an eject button it sits one action slot to the left. lgse/strata#2060 (unverified)
 - Hovering the eject icon brightens it with no pill, while the row highlight runs behind it to the row's right edge. lgse/strata#2060
 - Clicking the eject button with the mouse leaves no focus ring. lgse/strata#2060
 - Tabbing to the eject button shows one ring around the icon, not around the 24 px button. lgse/strata#2060

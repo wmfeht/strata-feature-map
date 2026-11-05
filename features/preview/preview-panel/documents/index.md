@@ -58,10 +58,9 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - With wrap on, a rendered code line wider than the pane wraps inside the code panel, keeping its side margins on every display line. lgse/strata#2056
 - Rendered code text starts 10 px right of the surrounding text's left edge, including code in a list at any depth. lgse/strata#2056 (unverified)
 - The **Copy code** button does not cover the end of a code block's first line, with wrap on or off. lgse/strata#2056
-- With wrap off, a code block wider than the pane scrolls sideways. lgse/strata#2056
-- With wrap off, **Copy code** clears only the first code line; it can cover the end of a longer second line. lgse/strata#2056 (unverified)
+- **Copy code** clears only the first code line; it can cover the end of a longer second line, with wrap on or off. lgse/strata#2056 (unverified)
 - With wrap off, a rendered quote's longest line ends 16 px before the row's right edge. lgse/strata#2056 (unverified)
-- A code block split across several rows shows **Copy code** only on its first row, and only that row reserves the button's space. lgse/strata#2056 (unverified)
+- A code block split across several rows shows **Copy code** only on its first row, and only that row reserves the button's space. lgse/strata#187, lgse/strata#2056 (unverified)
 
 ### Scrolling
 

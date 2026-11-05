@@ -29,7 +29,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Home, standard folders, and local pins show the folder's saved colour and custom icon, and update in every open window when it changes. lgse/strata#1370
 - Right-clicking a local folder row offers Customize…; clearing the customization restores the place's default icon. lgse/strata#1370
 - After shrinking the text size from 20 to 10 with Ctrl+-, Home, the standard folders, and pins share Trash's icon and label columns. lgse/strata#2062
-- Below text size 13, full-width rows are under 24 px tall; they have no fixed minimum height. lgse/strata#2062
+- Full-width rows have no fixed minimum height; their height follows the theme-sized icon box. lgse/strata#2062
 - In the file chooser, the sidebar omits Trash and Network. lgse/strata#1025 (unverified)
 - In the file chooser, built-in place rows offer the same context menus as in a browser window and can be reordered by drag. lgse/strata#1713
 - Unpinning Home or a standard folder in the file chooser hides it in every window, and a reorder there is saved for every window. lgse/strata#1713
@@ -88,7 +88,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - The heading's title starts in line with the row icons. lgse/strata#1992
 - Hovering the PINNED or DEVICES heading shows a gap right of the chevron that matches the gap left of the title, within 1 px. lgse/strata#2060
 - A collapsed heading with at least one row shows a count before the chevron. An expanded heading, or a collapsed DEVICES with no rows, shows none. lgse/strata#1390, lgse/strata#1992
-- The heading has no padding and is at least 24 px tall; its chevron is at least 24 px times the text scale tall, rounded. lgse/strata#1992, lgse/strata#2060 (unverified)
+- The heading has no padding and is at least 24 px tall; its chevron is at least round(24 × text size / 13) px tall. lgse/strata#1992, lgse/strata#2060 (unverified)
 - Hovering a heading fills it with the same width and 6 px rounding as a row's hover fill. lgse/strata#1992
 - In the full sidebar, no separator line shows above PINNED or DEVICES; the heading's rule takes its place. The icon rail still draws the separator. lgse/strata#1992
 - Clicking a heading toggles its section without taking focus or showing an accent outline, so keyboard focus stays in the file listing. lgse/strata#1992
@@ -185,3 +185,4 @@ The left panel of every browser window and the file chooser: built-in places, th
 ## Known gaps
 
 - NAS shares mounted by the system at native paths do not appear unless GIO reports them. lgse/strata#1209
+- In the icon rail, a section chevron cannot keep its full-width x position, which lies past the rail's edge; it recentres instead. lgse/strata#2062

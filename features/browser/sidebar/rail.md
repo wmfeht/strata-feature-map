@@ -51,4 +51,4 @@ The header toggle and Ctrl+B that step a browser window's sidebar between full, 
 
 ## Known gaps
 
-- Section chevrons and eject buttons cannot keep their full-width x position in the rail, which ends left of them; the chevron recentres and device actions hide. lgse/strata#2062
+- Eject and other device buttons cannot keep their full-width x position in the rail, which ends left of them, so they hide. lgse/strata#2062
