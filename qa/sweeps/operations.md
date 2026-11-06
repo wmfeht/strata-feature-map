@@ -109,7 +109,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On tmpfs and on `/dev/shm`, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
 - In an `admin://` folder, paste by copy and by cut: a file over a file, a folder over a folder. Then a file over a folder, and a folder over a file. Then copy a file from it over a same-named Home file and answer Replace, then Keep Both.
 - Paste a batch mixing file-onto-folder, folder-onto-file, and same-kind conflicts; answer the first with Replace and Apply to All, on tmpfs and on a vfat stick.
-- On a prompt offering neither Replace nor Keep Both, press Enter, keypad Enter, and Space before moving the pointer, in a second window and after Alt+Tab back.
+- On the undo prompt for a folder meeting a file, with nothing else to move, press Enter, keypad Enter, and Space before moving the pointer. Repeat in a second window and after Alt+Tab back.
 
 ### operations/clipboard/send-to
 
