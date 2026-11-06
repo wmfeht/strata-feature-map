@@ -31,11 +31,11 @@ Icons and List remember each folder's selection, cursor, and scroll position, an
 
 ### First visits
 
-- In Icons and List, a visit with no remembered position is watched until its load finishes; only an untouched visit lets the load refocus the first row shown. lgse/strata#2070
+- In Icons and List, a visit with no remembered position is watched until its load finishes. Only an untouched visit lets the load refocus the first row shown. lgse/strata#2070
 - A button press, scroll, touch, or key press in the pane during that load cancels the refocus. lgse/strata#2070
 - A reload, or a visit with a remembered position to restore, never refocuses the first row when its load finishes. lgse/strata#2070
 - Rebuilds for a view switch, a relocation, or closed columns start no watch. A parent column's load, such as a monitor relist, leaves the watch waiting for the pane's own load. lgse/strata#2070
-- Back or Forward to a folder with no remembered position starts a watch like any first visit. lgse/strata#2070 (unverified)
+- Back or Forward never refocuses the first row at load finish; the load's own cursor keeps focus. lgse/strata#2070 (unverified)
 
 ### Focus on return
 

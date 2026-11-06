@@ -54,7 +54,6 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - Under any sort but Type, the first row shown is the first visible folder when one is listed. Otherwise it is the earliest-listed file of the first group. lgse/strata#2070
 - Sorted by Type, and in Recent, the first row shown is the first visible entry in listing order. lgse/strata#2070
 - A typed first visit to a grouped folder of 300 `a*.txt` and 300 `b*.csv` files selects and focuses `b000.csv`, and the list stays at its top. lgse/strata#2070
-- Up or Shift+Up with no cursor, in a grouped List not sorted by Type, looks up every visible file's type to find the last row shown. lgse/strata#2070 (unverified)
 
 ### Rows
 
@@ -67,7 +66,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 Explorer's Name column started at a fixed 600 px and pushed metadata out of narrow windows. Name now absorbs the leftover space; a smaller fixed width and relying on horizontal scrolling were rejected (lgse/strata#188).
 
 - Grouping uses list-view sections, so one selection, keyboard navigation, and marquee span every group (lgse/strata#235). Icons lost grouping because grouped grids inflated cards and could abort GTK (lgse/strata#372, lgse/strata#509).
-- The group order and the rules for which listings group now live in the app. Recent never groups, and a camera folder groups only once complete and not in Device order. The view's sorter and the automatic cursor share these rules (lgse/strata#2070, commit ecf271ac).
+- The group order and the rules for which listings group now live in the app. Recent never groups, and a camera folder groups only once complete and not in Device order. The view's sorter and the automatic cursor share these rules. The view reports grouping as on only in a mode that supports it (lgse/strata#2070, commit ecf271ac).
 - The first-row pick avoids type lookups where it can. A Type sort already lists entries in group order, and under any other sort the Folder group leads. Only a folder-free listing not sorted by Type reads MIME types (lgse/strata#2070, commit 06fccd38).
 - Grouping projects the pane's sorted rows into type buckets with the existing type comparator, replacing GTK's sort model and section sorter. Arrivals are binary-searched into their group, so mixed-type batches emit narrow changes instead of regrouping the whole list (lgse/strata#1913, lgse/strata#1928).
 - A background MIME-preparation and notification-batching experiment reached sub-second loads but was left out of lgse/strata#1928 ([comment](https://github.com/lgse/strata/pull/1928#issuecomment-6478299896)).

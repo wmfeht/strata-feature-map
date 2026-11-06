@@ -71,4 +71,4 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 
 ## Known gaps
 
-- With Mirror columns selection off, a round trip through List closes a child column that differs from the selected folder, even if the selection never changed. lgse/strata#2070
+- With Mirror columns selection off, a round trip through List closes a child column that differs from the selected folder. That happens even if the selection never changed. lgse/strata#2070
