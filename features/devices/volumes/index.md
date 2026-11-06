@@ -63,10 +63,9 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 ### Global search roots
 
 - Ctrl+K search covers Home plus the native roots of the volumes and volume-less mounts Devices lists, so files on listed drives are found. lgse/strata#222, lgse/strata#2070
-- With a hidden btrfs subvolume mounted at `/var/cache/pacman/pkg`, Ctrl+K for a name that exists only inside it finds nothing. lgse/strata#2070
+- With a btrfs subvolume that Devices does not list mounted at `/var/cache/pacman/pkg`, Ctrl+K for a name that exists only inside it finds nothing. lgse/strata#2070
 - A kernel network mount that Devices lists is still searched. lgse/strata#2070
 - A listed mount whose root has a path but is not native, such as a GVfs FUSE mirror of a remote share, adds no search root. lgse/strata#2070
-- Mounting or unmounting a drive changes the search roots the next time Ctrl+K opens. lgse/strata#2070
 
 ## Design
 
@@ -84,7 +83,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-06 | lgse/strata#2070 | fix | Limited Ctrl+K search roots to Home plus the local mounts Devices lists, sharing the sidebar's volume-monitor selection, so hidden system mounts are no longer scanned. |
+| 2026-11-06 | lgse/strata#2070 | fix | Limited Ctrl+K search roots to Home plus the local mounts Devices lists, so hidden system mounts are no longer scanned. |
 | 2026-11-02 | lgse/strata#2030 | fix | Described volume rows by path, gave GVfs shares network rows, sent every window off released devices, and fixed Properties and udiskie restore polish. |
 | 2026-09-07 | lgse/strata#536 | fix | Limited Devices to what the volume monitor reports, removing the raw mount-table fallback. |
 | 2026-09-06 | lgse/strata#493 | fix | Showed mounted USB drives, mounted sidebar volumes through the themed prompt, and added drives to global search. |
@@ -94,4 +93,4 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - NAS shares mounted by the system at native paths, such as NFS under `/mnt`, do not appear in Devices when GIO misses them. lgse/strata#1209
 - An unmounted fstab volume's row is described by its device path, not its fstab mount point. lgse/strata#2030
 - Network share rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62
-- An internal disk mounted through fstab at `/mnt/data` without `x-gvfs-show` is left out of Ctrl+K search, with no warning and no setting to add it back. lgse/strata#2070 ([comment](https://github.com/lgse/strata/pull/2070#issuecomment-6677782710))
+- An internal disk mounted through fstab at `/mnt/data` without `x-gvfs-show` is left out of Ctrl+K search. No warning shows and no setting adds it back. lgse/strata#2070 ([comment](https://github.com/lgse/strata/pull/2070#issuecomment-6677782710))
