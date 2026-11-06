@@ -37,7 +37,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 - An open child column stays open when it is selected, alone or among several selected items. lgse/strata#2070 (unverified)
 - With Mirror columns selection on, select only `pictures` in Icons and press Ctrl+1. `pictures` opens as the child column, and the parent column keeps focus. lgse/strata#2070
 - A folder the load selected automatically, as on a first visit, opens no child column on the switch back. lgse/strata#2070
-- While a navigation is still validating, such as a remote folder opened in List, the switch back closes and opens no columns, and that navigation still opens. lgse/strata#2070
+- While a navigation is still validating, such as a remote folder opened in List, the switch back closes and opens no columns. That navigation still opens. lgse/strata#2070
 - While the active column is reloading, the switch back neither closes nor opens a child column. lgse/strata#2070
 - Closing a stale child column on the switch back adds no Back history entry. lgse/strata#2070 (unverified)
 
@@ -60,7 +60,7 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 - The mouse-button controller sits in the bubble phase on the window root. It covers every normal region while modal overlays stay isolated, and leaves unavailable actions unclaimed (lgse/strata#118).
 - On a return to Columns the selection, not the cursor, drives the child column. Before, the rebuild reopened every column the browser still held, so a child the selection had left reopened with its open-path fill (lgse/strata#2016, lgse/strata#2070, commit 45f1ead8).
 - Closing or opening a column bumps the navigation generation, which would drop a navigation still validating, so the step changes nothing while one is pending (lgse/strata#2070, commit 2d56db6e).
-- A reloading column is empty until its selection is restored, so the step waits rather than read an empty selection and close a child still selected (lgse/strata#2070, commit dc0bc580).
+- A reloading column is empty until its selection is restored. The step waits, so it never reads an empty selection and closes a child still selected (lgse/strata#2070, commit dc0bc580).
 
 ## History
 

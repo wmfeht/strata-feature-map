@@ -404,7 +404,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/navigation/tests/fill_commands.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/app/navigation/tests/fill_tracking.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/app/navigation/tests/history.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/navigation/tests/loading.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/navigation/tests/loading.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/app/navigation/tests/metadata.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/navigation/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/navigation/tests/paging.rs` | tests | [Selection](../features/browser/selection/index.md) | — |

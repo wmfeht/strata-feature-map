@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**, src/app/navigation/preferences.rs, src/ui/browser/view_modes.rs, src/ui/browser_modes/clicks.rs, src/ui/browser_modes/cursor.rs, src/ui/browser_modes/metadata.rs, src/ui/browser_modes/pane.rs, src/ui/browser_modes/pane_header.rs, src/ui/browser_modes/pane_shell.rs, src/ui/browser_modes/pane_state.rs, src/ui/browser_modes/rebuild.rs, src/ui/browser_modes/scroll_settle.rs, src/ui/browser_modes/source_index.rs, src/ui/preferences/layout_settings.rs, src/ui/window/appearance_menu.rs]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser_modes/tests/counting_model.rs, src/ui/browser/presentation/tests.rs, src/ui/window/tests/preferences/column_prefs.rs, tests/qa/scenarios/locations/unreadable-folder-offers-retry.jsonl]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename, browser/search/filter, browser/selection, browser/navigation, operations/trash/empty]
+related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename, browser/search/filter, browser/selection, browser/navigation, operations/trash/empty, integration/10xer-mode]
 ---
 
 ## Summary
@@ -31,7 +31,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - Switching keeps a typed pane filter query, its open filter field, and the narrowed listing. lgse/strata#925
 - After a switch the new view shows a full viewport of entries without scrolling first. lgse/strata#310
 - With Mirror columns selection off, a folder selected in List or Icons opens no child column on the switch back to Columns. lgse/strata#2070
-- With a Ctrl+F listing search carried over by the switch back to Columns, a selected folder opens no child column. lgse/strata#2070 (unverified)
+- With a 10xer `s` recursive search query showing, the switch back to Columns opens no child column for a selected folder. lgse/strata#2070 (unverified)
 
 ### Appearance menu
 

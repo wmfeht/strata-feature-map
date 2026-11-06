@@ -56,7 +56,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Middle-click a folder row while a rename editor is open, on a symlink to a folder, and on a Ctrl+F result in another folder. Repeat with Ctrl held, with Ctrl+Shift held, and in the file chooser.
 - Press End, then Shift+Home, in a grouped List sorted by size, in Icons at three icon sizes, and in a filtered Columns column.
 - Press Home, Ctrl+click two entries, press Page Down, then Shift+click. Repeat with `j` at the last entry instead of Page Down.
-- In grouped List sorted by Size, with no cursor, press Up, Return, and Shift+Up with focus on the pane surface, on the pane header, and in the file chooser.
+- In grouped List sorted by Size, with no cursor, press Up, Return, and Shift+Up. Do it with focus on the pane surface, on the pane header, and in the file chooser.
 
 ### browser/selection/click-modes
 
@@ -273,7 +273,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Bind `parent_folder` to a Ctrl key another command already holds, such as `<Control>r`, by hand in the file; press it in each view.
 - With `documents` open as the child column, switch to List and toggle Mirror columns selection from a second window before Ctrl+1. Repeat the other way round.
 - In List, open a folder on a stalled sshfs mount and press Ctrl+1 before it validates; then press Ctrl+1 while F5 reloads a 2,000-entry parent folder.
-- In Icons, select the open child together with a file, then only a file, and press Ctrl+1; repeat with a Ctrl+F query showing and on an `sftp://` share.
+- In Icons, select the open child together with a file, then only a file, and press Ctrl+1; repeat with a 10xer `s` search query showing and on an `sftp://` share.
 
 ### browser/navigation/administrator-access
 
@@ -403,7 +403,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Columns, filter with Include subfolders on and off, and with a pointer and a keyboard multi-selection, then choose each sort.
 - Start two F2 renames of filter results, the second before the index lists the first, then press Delete.
 - Rename a filter result to a name the query no longer matches and to its own name; read the selection and focus.
-- In grouped List, scroll to the first row with Home, by clearing a Ctrl+F query, and at text size 28 and Content Airy; check that the first heading shows.
+- In grouped List, scroll to the first row with Home, by clearing a Ctrl+F query, and at text size 28 and Content Airy.
 
 ### browser/search/filter/enter-target
 

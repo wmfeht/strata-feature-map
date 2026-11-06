@@ -58,7 +58,6 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 - Back, Forward, or Alt+Up to an ancestor selects the folder you came from, at any depth, with the cursor on it. lgse/strata#1437, lgse/strata#1544
 - The came-from folder's own column stays closed; Alt+Left from `documents/b2` selects `b2` with no `b2` column. lgse/strata#1437, lgse/strata#1544
-- When the came-from folder is gone, or hidden with hidden files off, the first visible entry is selected once the listing completes. Hidden files stay off and no error shows. lgse/strata#1437, lgse/strata#1544
 - Back to a folder that is not an ancestor selects its first entry. lgse/strata#1437, lgse/strata#1544
 - A sidebar place that is an ancestor of the current folder does not select the came-from folder. lgse/strata#1437 (unverified)
 - When Back leaves ancestor columns with no cursor, Left into an ancestor column puts the cursor on the folder that column has open. F2 and Delete then act on that folder. lgse/strata#1993, lgse/strata#2026

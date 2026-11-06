@@ -42,7 +42,6 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - The file chooser leaves Shift+Page Up and Shift+Page Down to GTK. lgse/strata#1313
 - Shift+Down with nothing selected selects only the first entry; the next Shift+Down selects two. lgse/strata#738
 - With no cursor in a grouped List, Down, Return, and Shift+Down start at the first row shown, and Up and Shift+Up at the last row shown. lgse/strata#2070
-- That holds only where Strata, not GTK, handles the key. Plain arrows on a focused List row go to GTK. lgse/strata#2070 (unverified)
 - After Escape clears a selection, the next Shift+arrow range starts at the keyboard cursor. lgse/strata#1313
 - In List, Icons, and Columns, plain Home, End, Page Up, and Page Down move the range anchor to the new cursor. Shift+Home after End selects every entry. lgse/strata#1995, lgse/strata#2026
 - After Home, Shift+Down selects the first two entries. lgse/strata#2026

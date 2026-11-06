@@ -28,7 +28,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In Columns, Right on a focused file with no column to its right does nothing. lgse/strata#382
 - With Type to search off, `h`, `j`, `k`, and `l` act as Left, Down, Up, and Right in every view and the file chooser. lgse/strata#555
 - With Type to search on, `h`, `j`, `k`, and `l` pressed in the file list start a search instead of moving. lgse/strata#555 (unverified)
-- When a grouped List refocuses its first row after a load, keyboard focus goes to the topmost row, even after rows published above it carried GTK's focus row down. lgse/strata#2070
+- When a grouped List refocuses its first row after a load, keyboard focus goes to the topmost row. That holds even after rows published above it carried GTK's focus row down. lgse/strata#2070
 - Enter on a sidebar place in Icons gives the opened folder's first item focus and selection. A remembered folder restores its cursor instead. lgse/strata#374, lgse/strata#379, lgse/strata#1544 (unverified)
 
 ### Leaving the file list

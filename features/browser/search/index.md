@@ -21,7 +21,7 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 
 - Ctrl+K or the header search button opens the search dialog over a blurred window; Ctrl+K again closes it. lgse/strata#222 (unverified)
 - Every search covers the global roots that `devices/volumes` lists, whatever folder is open. lgse/strata#222, lgse/strata#493, lgse/strata#2070
-- An ejected drive's results are gone the next time search opens. lgse/strata#493
+- Search roots are recomputed each time Ctrl+K opens: an ejected drive's results are gone, and a newly mounted drive is searched. lgse/strata#493, lgse/strata#2070
 - A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
 - Opened with Ctrl+K, the search field's accessible name and placeholder are both "Search files and folders…". lgse/strata#1896, lgse/strata#2030
