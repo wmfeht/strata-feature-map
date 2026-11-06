@@ -67,7 +67,7 @@ One undo history and one redo history for file operations, shared by every Strat
 
 - Ctrl+Shift+Z after undoing Move to Trash moves the restored items to Trash again. lgse/strata#1120
 - Ctrl+Shift+Z after undoing a cut-paste moves the items to the destination again. lgse/strata#1120
-- When redoing a move finds the destination name taken by an item of the same kind, the "File already exists" dialog warns "Redoing the move will overwrite its contents." and offers Replace. lgse/strata#1120, lgse/strata#2070
+- When redoing a move finds the destination name taken by an item of the same kind, the "File already exists" dialog offers Replace. It warns "Redoing the move will overwrite its contents." lgse/strata#1120, lgse/strata#2070
 - Ctrl+Shift+Z after undoing a copy restores the trashed copies from Trash. lgse/strata#1120
 - Ctrl+Shift+Z after undoing a Restore restores the re-trashed items to the same locations again. lgse/strata#1120
 - Ctrl+Shift+Z after undoing New Folder, New File, or a compression into a new archive restores that item from Trash. lgse/strata#1120 (unverified)
@@ -114,4 +114,4 @@ Undo targets the latest reversible operation process-wide, matching common file 
 
 ## Known gaps
 
-- A move replay whose every item meets an item of the other kind offers only Cancel. Ctrl+Z then returns to that entry, blocking older entries until the obstacle is moved by hand. lgse/strata#2070
+- A move replay whose every item meets an item of the other kind offers only Cancel. Ctrl+Z then returns to that entry, blocking older entries until the obstacle is moved by hand. lgse/strata#2070 ([comment](https://github.com/lgse/strata/pull/2070#issuecomment-6677782710))
