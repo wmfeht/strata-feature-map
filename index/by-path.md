@@ -373,6 +373,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/monitor/**` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/navigation.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
+| `src/app/browser/tests/navigation/returning_columns.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
 | `src/app/browser/tests/operations.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/app/browser/tests/providers.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -412,6 +413,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/navigation/tests/selection.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/app/navigation/tests/sorting.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/navigation/tests/visual.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `src/app/navigation/type_groups.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/navigation/visual.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/app/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/app/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
@@ -767,6 +769,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/transfer/tests/destination_reloads.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/tests/drops.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/tests/plain_transfers.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `src/ui/browser/transfer/tests/replay_kinds.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
 | `src/ui/browser/transfer/tests/send_to.rs` | tests | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/ui/browser/transfer/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
 | `src/ui/browser/transfer_report.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
@@ -793,6 +796,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser_modes/events.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser_modes/filter.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser_modes/filter_session.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/browser_modes/first_visit.rs` | code | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/browser_modes/first_visit/tests.rs` | tests | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/focus.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/browser_modes/grouped_model.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/grouped_model/tests.rs` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -820,7 +825,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser_modes/tests/counting_model.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/browser_modes/thumbnail_size.rs` | code | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser_modes/thumbnail_size/tests.rs` | tests | [Thumbnail size shortcuts](../features/browser/view-modes/thumbnail-size.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/ui/browser_modes/type_groups.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
+| `src/ui/browser_modes/type_groups.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/chooser.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/destination.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/download.rs` | code | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
@@ -1536,6 +1541,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/search_filter_sort/additional-sort-choices.jsonl` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/search_filter_sort/global-search-*` | tests | [Search](../features/browser/search/index.md) | — |
+| `tests/qa/scenarios/search_filter_sort/grouped-list-first-visit-starts-at-first-row.jsonl` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
@@ -1568,6 +1574,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/view_switching/leaving-columns-names-the-shown-folder.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/view_switching/list-column-drag-applies-on-release.jsonl` | tests | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl` | tests | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
+| `tests/qa/scenarios/view_switching/returning-to-columns-follows-selection.jsonl` | tests | [Navigation](../features/browser/navigation/index.md) | — |
 | `tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl` | tests | [View modes](../features/browser/view-modes/index.md) | — |
 | `tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl` | tests | [View modes](../features/browser/view-modes/index.md) | — |

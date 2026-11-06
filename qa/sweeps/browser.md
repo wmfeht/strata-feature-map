@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -56,6 +56,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Middle-click a folder row while a rename editor is open, on a symlink to a folder, and on a Ctrl+F result in another folder. Repeat with Ctrl held, with Ctrl+Shift held, and in the file chooser.
 - Press End, then Shift+Home, in a grouped List sorted by size, in Icons at three icon sizes, and in a filtered Columns column.
 - Press Home, Ctrl+click two entries, press Page Down, then Shift+click. Repeat with `j` at the last entry instead of Page Down.
+- In grouped List sorted by Size, with no cursor, press Up, Return, and Shift+Up with focus on the pane surface, on the pane header, and in the file chooser.
 
 ### browser/selection/click-modes
 
@@ -117,6 +118,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In List and Icons, `chmod 000` the open folder from a shell and press F5; click Open as Administrator and cancel the prompt. Then open an admin folder and switch views at 400 px wide.
 - Open the unreadable folder in Icons where Open as Administrator is offered. Tab to Retry and press it while still unreadable, then after `chmod 755`.
 - Compare the folder-error Retry and Open as Administrator buttons in a light, a dark, and a custom theme: at rest, hovered, pressed, and keyboard-focused.
+- In grouped List, double-click a 600-file mixed folder with the sidebar focused, with a rename open in another tab, and with Properties open. Repeat in Icons and ungrouped List.
 
 ### browser/view-modes/columns
 
@@ -172,6 +174,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Group by file type in List and open the 200,000-entry folder; mid-load, change the sort key, flip its direction, and toggle Folders first. Compare the headings with a reload.
 - Fill a folder with 100,000 files across ten extensions, 10% of them dot-files. In grouped List, toggle Show hidden files and grouping mid-load. Rename a file across extensions while rows still arrive.
 - In grouped List, Shift-select 50 rows spanning two groups, then rename one of them from a shell so it changes group; press Shift+Down and Delete.
+- In grouped List, open a mixed folder for the first time by Enter on a sidebar pin, a breadcrumb, Alt+Up, a FileManager1 request, and the file chooser. Compare the cursor with the top row.
+- In grouped List, first-visit a folder of only dot-files plus `b.csv` and `a.txt` with hidden files off, then one where every subfolder is hidden. Repeat sorted by Type descending with Folders first off.
+- Open a grouped `sftp://` folder of 2,000 mixed files by typed path and wheel-scroll down before it finishes loading.
+- Open a camera Photos library in grouped List by keyboard, sorted by Name, then by Device order.
 
 ### browser/view-modes/list/column-layout
 
@@ -256,6 +262,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Change an NFS folder from the server while it sits in a background tab, then switch to it with the cursor on entry 500. Press F5 with a rename open in Icons, then in List.
 - Leave a folder in Icons with three entries selected, then click and Enter its sidebar place; repeat in Columns and after 130 other folders.
 - With one entry selected in Icons and List, create 4,200 files in the open folder from a shell, then press Down and the 10xer next-entry key.
+- In grouped List, double-click the 600-file mixed folder and during the load only move the pointer, press Shift alone, or wheel once; note where focus ends.
+- Leave 130 folders in grouped List, then Back and Forward into folders whose positions were evicted; repeat while a monitor relists the parent folder.
 
 ### browser/navigation
 
@@ -263,6 +271,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Press Alt+Up at `/`, at `trash:///`, and in a folder whose parent was deleted externally; then Backspace in the root column at `/`.
 - Under `[keymap.default]`, bind `parent_folder` to `<Control>e`, `home_folder` to `<Super>h`, and `history_back` to `<Control><Shift>b`. Repeat under `[keymap.tenxer]` in 10xer mode. Press each with the file list, sidebar, location entry, and filter field focused.
 - Bind `parent_folder` to a Ctrl key another command already holds, such as `<Control>r`, by hand in the file; press it in each view.
+- With `documents` open as the child column, switch to List and toggle Mirror columns selection from a second window before Ctrl+1. Repeat the other way round.
+- In List, open a folder on a stalled sshfs mount and press Ctrl+1 before it validates; then press Ctrl+1 while F5 reloads a 2,000-entry parent folder.
+- In Icons, select the open child together with a file, then only a file, and press Ctrl+1; repeat with a Ctrl+F query showing and on an `sftp://` share.
 
 ### browser/navigation/administrator-access
 
@@ -318,6 +329,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Middle-press one crumb, move to another, and release; middle-click while the crumb row is scrolled; Shift+middle-click in a destination chooser.
 - Right-click the crumb bar at its left and right ends in a 600 px window, on X11 without a compositor, and at text size 28.
 - Switch from Columns to List with a mirrored child, press Ctrl+L, submit a bad path, then press Escape; repeat from a filtered column.
+- Type `sftp://h%C3%A9/x`, the same with `?q`, with `#f`, and with `user:pw@`, then `mtp://` and `MTP://` device addresses; read the entry and the crumbs after each.
 
 ### browser/navigation/location-bar/completion
 
@@ -391,6 +403,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Columns, filter with Include subfolders on and off, and with a pointer and a keyboard multi-selection, then choose each sort.
 - Start two F2 renames of filter results, the second before the index lists the first, then press Delete.
 - Rename a filter result to a name the query no longer matches and to its own name; read the selection and focus.
+- In grouped List, scroll to the first row with Home, by clearing a Ctrl+F query, and at text size 28 and Content Airy; check that the first heading shows.
 
 ### browser/search/filter/enter-target
 
@@ -592,6 +605,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With the folder open in two tabs and a filter matching the file, swap it with `RENAME_EXCHANGE` from a shell, then delete it at once.
 - Sort a folder Unsorted with Folders first on, then create files and folders from a shell. Toggle Folders first and compare the order with `ls -U` and after F5.
 - Sort by Created on an NFS mount, an `sftp://` folder, and an sshfs mount; press F5 twice and change a file from a shell.
+- In grouped List, type the path of a 2,000-file mixed folder on an NFS mount and press Down, then Shift+Down, before the load completes.
 
 ### browser/directory-monitoring/network-checks
 

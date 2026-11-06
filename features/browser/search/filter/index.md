@@ -3,7 +3,7 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs, src/ui/browser/columns/append/keys.rs, src/ui/browser/columns/append/query.rs, src/ui/browser/view_filter.rs, src/ui/browser_modes/filter.rs, src/ui/browser_modes/filter_session.rs]
 tests: [src/ui/search_session/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results/delete-trashes-filtered-result.jsonl, tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl, tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl, tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl, tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl, tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl, tests/qa/scenarios/filter_results/space-completes-composition.jsonl, tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl, tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl, tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl, tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl, tests/qa/mutations/filter-results.patch, src/ui/window/tests/keyboard_dispatch/filter_focus/**, tests/qa/mutations/filter-result-dialog-focus.patch, tests/qa/scenarios/filter_results/dismissed-delete-confirmation-keeps-result-focus.jsonl, tests/qa/scenarios/filter_results/renamed-filter-result-keeps-focus.jsonl]
@@ -80,6 +80,10 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - A result whose existence check fails or times out, as on a mount that stopped answering, stays; only a result proven gone leaves. lgse/strata#1729
 - Dropped hits can leave fewer than 100 results while more candidates exist. The search then ranks twice as many candidates to fill them. lgse/strata#1729
 - When another program deletes the listing's cursor entry in any view, a focused filter field or result keeps focus. lgse/strata#1439, lgse/strata#1544
+
+### Scrolling to a row
+
+- Scrolling a grouped List to its first row, as its automatic first-visit cursor does, also shows the first group's heading above it. lgse/strata#2070
 
 ### Results
 
