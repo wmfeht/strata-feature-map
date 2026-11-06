@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -135,6 +135,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - End a paragraph of 2 to 4 KiB with a 1 to 2 KiB word, and copy the paragraph.
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
+- With Strata pinned by `taskset` to one CPU beside a busy loop, scroll a long rendered Markdown of mixed short and long paragraphs forward: one large jump, then small steps. Watch row heights and the scroll direction.
 - Under `[keymap.default]`, set `first_item = ["F7"]` and `last_item = ["F8"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, Ctrl+End, F7, and F8.
 
 ### preview/preview-panel/documents/scrollbar

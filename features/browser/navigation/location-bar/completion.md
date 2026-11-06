@@ -3,7 +3,7 @@ title: Location path completion
 status: shipped
 origin: {issue: null, pr: lgse/strata#388}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: reviewed
 code: [src/ui/browser/location/completion.rs]
 tests: [src/ui/browser/location/completion/tests.rs, tests/qa/scenarios/locations/path-completion-dismisses-on-window-switch.jsonl]

@@ -3,7 +3,7 @@ title: External file providers
 status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
 tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, src/ui/file_providers/tests/**, tests/qa/scenarios/file_providers]
@@ -108,7 +108,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - Without an ancestor overlay, a notice falls back to the dialog (lgse/strata#1578).
 - Every heading is a custom row styled like a section title. GTK section titles cannot hold an image (lgse/strata#1578, lgse/strata#2027).
 - GTK keeps a titled section's label outside the widget tree until an idle separator sync, and while the section is empty. It still names the section after that label (lgse/strata#2011, lgse/strata#2027).
-- An AT-SPI client reading that relation realizes the detached label, and adding it to the tree later fires a critical (lgse/strata#2011, lgse/strata#2027).
+- Titled sections were removed because an AT-SPI client reading that relation could realize the detached label (lgse/strata#2011, lgse/strata#2027). LocalSend and KDE Connect never used a titled section, so that mechanism is not confirmed as the critical's trigger (lgse/strata#2070).
 - GTK never forgets a freed custom slot ID, so each heading takes an ID no earlier slot had, `provider-heading-<id>-<serial>` (lgse/strata#2027).
 - Unsent and uncertain actions are reported differently. A disconnect after submission is not proof that nothing happened, so nothing is replayed (lgse/strata#1385).
 - A reload retires a provider owing an activation instead of dropping it. Dropping its client stopped the worker reading, so the reply never matched and nothing appeared (lgse/strata#1857, lgse/strata#1878).
@@ -137,4 +137,4 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 - Remote-only locations and non-UTF-8 filenames get no provider badges or actions. lgse/strata#1385
 - A registration directory, manifest, icon, or executable writable by the user's private group is still rejected, though portal setup accepts such a group. lgse/strata#1936
-- An intermittent `gtk_at_context_set_accessible_role` critical with file providers and AT-SPI active is not confirmed fixed. lgse/strata#2011
+- The trigger of the intermittent `gtk_at_context_set_accessible_role` critical with file providers and AT-SPI active is unknown. lgse/strata#2070

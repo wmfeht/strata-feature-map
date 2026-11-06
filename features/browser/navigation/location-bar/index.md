@@ -3,7 +3,7 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/app/browser/location_input.rs, src/ui/browser/location/breadcrumbs.rs]
 tests: [src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch, tests/qa/scenarios/view_switching/leaving-columns-names-the-shown-folder.jsonl]
@@ -136,3 +136,5 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 ## Known gaps
 
 - A typed path to a file with no previewer still opens the preview drawer, as Space on it does. lgse/strata#1912
+- A typed `mtp://` address is rejected as an unsupported scheme, so editing the path bar on a phone fails. lgse/strata#2072
+- A typed address with a query or fragment and a non-ASCII host is rebuilt with its host in punycode: `sftp://h%C3%A9/x?q` opens `sftp://xn--h-bga/x`. lgse/strata#2072

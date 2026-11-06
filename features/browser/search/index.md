@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, src/services/search/refresh.rs, src/services/search/scoring.rs, src/services/search/session.rs, src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, src/services/search/test_support.rs]
@@ -20,8 +20,8 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 ### Opening and scope
 
 - Ctrl+K or the header search button opens the search dialog over a blurred window; Ctrl+K again closes it. lgse/strata#222 (unverified)
-- Every search covers the global roots that `devices/volumes` lists, whatever folder is open. lgse/strata#222, lgse/strata#493
-- An ejected drive's results are gone the next time search opens. lgse/strata#493
+- Every search covers the global roots that `devices/volumes` lists, whatever folder is open. lgse/strata#222, lgse/strata#493, lgse/strata#2070
+- Search roots are recomputed each time Ctrl+K opens: an ejected drive's results are gone, and a newly mounted drive is searched. lgse/strata#493, lgse/strata#2070
 - A drive mounted inside Home or another root appears once in results, not once per root. lgse/strata#493
 - The search field's accessible description lists the searched locations and says remote shares are not included. lgse/strata#493, lgse/strata#1359
 - Opened with Ctrl+K, the search field's accessible name and placeholder are both "Search files and folders…". lgse/strata#1896, lgse/strata#2030
@@ -157,5 +157,4 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 
 - Remote shares such as SMB are not searched. lgse/strata#87
 - During bursts of outside changes, a rescan request can block the window for up to one scoring pass. lgse/strata#1544
-- Whether global search scans mounts the volume monitor hides, such as a cache subvolume, is undecided. lgse/strata#533, lgse/strata#2016
 - Index walks bypass the mount request lanes. A walk that reaches a dead mount waits until the server answers. lgse/strata#1729

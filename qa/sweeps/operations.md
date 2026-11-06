@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
@@ -109,6 +109,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On tmpfs and on `/dev/shm`, where Trash is unavailable, Replace a folder holding files, in List, Icons, and Columns, without pressing F5.
 - In an `admin://` folder, paste by copy and by cut: a file over a file, a folder over a folder. Then a file over a folder, and a folder over a file. Then copy a file from it over a same-named Home file and answer Replace, then Keep Both.
 - Paste a batch mixing file-onto-folder, folder-onto-file, and same-kind conflicts; answer the first with Replace and Apply to All, on tmpfs and on a vfat stick.
+- On the undo prompt for a folder meeting a file, with nothing else to move, press Enter, keypad Enter, and Space before moving the pointer. Repeat in a second window and after Alt+Tab back.
 
 ### operations/clipboard/send-to
 
@@ -350,7 +351,11 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Move the folder built for `operations/filesystem-compatibility` onto vfat, rename one fixed name on the stick, then undo and redo.
 - Move a dangling symlink and a link into a stopped sshfs mount, then undo.
 - In an `admin://` folder, copy in, New Folder, a copy onto an existing file answered Replace, rename, and move out, pressing Ctrl+Z after each. Then undo a Home rename, copy into the admin folder, and press Ctrl+Shift+Z.
-- Move a file and a folder, put an item of the other kind at each original name, then undo. Redo a move whose destination name a folder took meanwhile.
+- Move a folder, then put a symlink to a folder, and in a second run a dangling symlink, at its original name; undo, then redo with the same blockers at the destination.
+- Move a batch of a file, a folder, and two same-kind items, block every original name with a mix of kinds, then undo answering Replace with Apply to All on the first prompt; repeat as a redo and as a grouped undo with one item deleted meanwhile.
+- Move a folder whose only conflict is a file of its name, press Ctrl+Z twice, then remove the file and press Ctrl+Z again; check Ctrl+Shift+Z and older entries on each press.
+- Move items onto an SMB and an sshfs share, block the names there with the other kind from the server side, then undo and redo.
+- Move a file into a folder, put a folder at its original name, make the destination folder `chmod 000` as a non-root user, then undo.
 
 ## Hand-offs
 
