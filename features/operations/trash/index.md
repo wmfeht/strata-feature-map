@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs, src/ui/browser/trash/delete_dialog.rs, src/ui/window/sidebar_trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]

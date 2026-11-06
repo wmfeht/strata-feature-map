@@ -3,7 +3,7 @@ title: Empty Trash
 status: shipped
 origin: {issue: null, pr: lgse/strata#53}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: reviewed
 code: [src/adapters/trash.rs, src/ui/browser/trash/empty.rs]
 tests: [src/adapters/trash/tests.rs]
