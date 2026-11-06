@@ -306,7 +306,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `strata --qa <dir>`, `strata --qa`, and `strata <dir> --qa` on a plain `cargo build` and a release build; read which window opens and whether stdin is read.
 - On the MTP phone, open its Devices row, then a folder two levels down. Press Up, click each breadcrumb, and reveal a file in its parent.
 - Pin a folder on the phone, restart Strata, and open the pin; read the location field and Properties for the host.
-- Launch `strata` with `mtp://user:secret@Phone_%E4%B8%80/DCIM`, `sftp://xn--h-bga@h%C3%A9/x`, and `sftp://a@b@c/x` at `RUST_LOG=strata=debug`. Read each tab's location and grep the log for `secret` and `xn--`.
+- Launch `strata` with `mtp://user:secret@Phone_%E4%B8%80/DCIM`, `sftp://xn--h-bga@h%C3%A9/x`, `sftp://a@b@c/x`, `mtp://Phone%C2%A0X/`, an MTP name over 60 characters, and `smb://MY SERVER/share` at `RUST_LOG=strata=debug`. Read each tab's location and grep the log for `secret` and `xn--`.
 
 ## Hand-offs
 

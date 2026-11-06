@@ -24,11 +24,9 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 ### URI hosts
 
-- An MTP device whose name holds non-ASCII text, such as `mtp://OnePlus_%E4%B8%80%E5%8A%A0_Ace_5_Pro_9d231cfe/`, opens at its mount root instead of reporting "The location is not mounted". lgse/strata#2072
-- A location from a GIO URI with a non-ASCII DNS host, such as `sftp://h%C3%A9/x`, keeps that host instead of `sftp://xn--h-bga/x`. lgse/strata#2072
-- Stripping credentials keeps a non-ASCII host: `mtp://user:secret@Phone_%E4%B8%80/DCIM` becomes `mtp://user@Phone_%E4%B8%80/DCIM`. lgse/strata#2072
-- A URI whose user info holds a second `@`, such as `sftp://a@b@c/x`, becomes `sftp://a@c/x`, a different host, instead of `sftp://a@b%40c/x`. lgse/strata#2072 (unverified)
-- A host with a raw space, such as `smb://MY SERVER/share`, keeps the space instead of becoming `smb://MY%20SERVER/share`. lgse/strata#2072 (unverified)
+- An MTP device whose name holds non-ASCII text, such as `mtp://OnePlus_%E4%B8%80%E5%8A%A0_Ace_5_Pro_9d231cfe/`, opens at its mount root instead of reporting "The location is not mounted". Its location keeps the host as GVfs spells it, not `xn--…`, with or without credentials in the URI. lgse/strata#2072
+- A URI whose user info holds a second `@`, such as `sftp://a@b@c/x`, becomes `sftp://a@c/x`, a different host, instead of `sftp://a@b%40c/x`. lgse/strata#2072
+- A host with a raw space, such as `smb://MY SERVER/share`, keeps the space instead of becoming `smb://MY%20SERVER/share`. lgse/strata#2072
 
 ### Listing
 
@@ -116,7 +114,8 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - `scripts/code-health.sh` runs the CodeScene CLI on named or changed files and needs `CS_ACCESS_TOKEN` (lgse/strata#2022).
 - `qa-drive restart --pref` replaces each key whole in the parsed `settings.toml`. It refuses a value TOML cannot hold, or a key that is not a bare TOML key, before the app stops (lgse/strata#2019, lgse/strata#2030).
 - The QA driver wheels a clipped pointer target into view, with Shift for horizontal scrollers, and never scrolls a `left_bound` aim. On X11, `type` lends a keysym to an empty keycode for one tap (lgse/strata#2019, lgse/strata#2030).
-- The `magick` fixture step checks an `.avif`, `.heic`, or `.heif` output's ISO BMFF brand, because ImageMagick without an encoder writes the input format and exits 0 ([docs/testing.md](https://github.com/lgse/strata/blob/35ee677ab0a633d5d49055464f2946fcf4995ae7/docs/testing.md), lgse/strata#2019, lgse/strata#2070).
+- The `magick` fixture step checks an `.avif`, `.heic`, or `.heif` output's ISO BMFF brand (lgse/strata#2019, lgse/strata#2070).
+- ImageMagick without an encoder writes the input format and still exits 0 ([docs/testing.md](https://github.com/lgse/strata/blob/35ee677ab0a633d5d49055464f2946fcf4995ae7/docs/testing.md), lgse/strata#2019, lgse/strata#2070).
 - Rust tests create private main contexts only through `test_support::PrivateContext`; Clippy rejects `glib::MainContext::new` and `with_flags` (lgse/strata#1963, lgse/strata#2070).
 - A GIO pool thread could drop a private context's last reference, finalizing its local tasks off their thread and aborting the test process. `PrivateContext` destroys the leftover sources on the owning thread when dropped (lgse/strata#1963, lgse/strata#2070).
 - A source attached after that drop is leaked on purpose, so nothing on the context is finalized on another thread. Production uses only the default context ([docs/testing.md](https://github.com/lgse/strata/blob/35ee677ab0a633d5d49055464f2946fcf4995ae7/docs/testing.md), lgse/strata#2070).
@@ -127,7 +126,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-11-06 | lgse/strata#2072 | fix | Kept a GVfs URI's non-ASCII host as given through credential sanitizing, so MTP devices with CJK names open instead of reporting not mounted. |
-| 2026-11-06 | lgse/strata#2070 | fix | Installed libheif in the test image and failed AVIF/HEIC QA fixtures missing their ISO BMFF brand; destroyed private test contexts' sources on their own thread, enforced through Clippy. |
+| 2026-11-06 | lgse/strata#2070 | fix | Installed libheif in the test image, failed unbranded AVIF/HEIC fixtures, and destroyed private test contexts' sources on their own thread. |
 | 2026-11-02 | lgse/strata#2030 | fix | Printed `--unlock-volume` usage errors to the terminal, joined a new item's typed name to its creation undo, and fixed qa-drive restart and aiming. |
 | 2026-11-02 | lgse/strata#2027 | fix | Named remote mount roots by their percent-decoded last segment or host, so headings, breadcrumbs, tab labels, and titles stop showing "/". |
 | 2026-11-02 | lgse/strata#2026 | fix | Left Menu and Shift+F10 to a focused Back button, and probed an unresponsive gvfsd before preferences load, so startup waits about 2 s. |
@@ -163,3 +162,4 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - The host splice replaces the first match anywhere, so a username equal to the host's punycode form is rewritten instead of the host. lgse/strata#2072
 - A camera host GVfs spells with brackets, such as `gphoto2://[usb:001,002]/`, does not parse. lgse/strata#2072
 - Per-mount request lanes parse hosts with DNS rules, so devices whose host IDNA rejects share one lane per scheme. lgse/strata#2072
+- An `sftp://` or `smb://` non-ASCII host now reaches the backend percent-encoded, such as `h%C3%A9`, not punycode. A resolver without IDN support may fail to resolve it. lgse/strata#2072

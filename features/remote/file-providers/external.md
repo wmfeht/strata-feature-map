@@ -108,7 +108,7 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 - Without an ancestor overlay, a notice falls back to the dialog (lgse/strata#1578).
 - Every heading is a custom row styled like a section title. GTK section titles cannot hold an image (lgse/strata#1578, lgse/strata#2027).
 - GTK keeps a titled section's label outside the widget tree until an idle separator sync, and while the section is empty. It still names the section after that label (lgse/strata#2011, lgse/strata#2027).
-- An AT-SPI client reading that relation realizes the detached label, and adding it to the tree later fires a critical (lgse/strata#2011, lgse/strata#2027).
+- #2027 removed titled sections because an AT-SPI client reading that relation could realize the detached label (lgse/strata#2011, lgse/strata#2027). LocalSend and KDE Connect never used a titled section, so that mechanism is not confirmed as the critical's trigger (lgse/strata#2070).
 - GTK never forgets a freed custom slot ID, so each heading takes an ID no earlier slot had, `provider-heading-<id>-<serial>` (lgse/strata#2027).
 - Unsent and uncertain actions are reported differently. A disconnect after submission is not proof that nothing happened, so nothing is replayed (lgse/strata#1385).
 - A reload retires a provider owing an activation instead of dropping it. Dropping its client stopped the worker reading, so the reply never matched and nothing appeared (lgse/strata#1857, lgse/strata#1878).
@@ -137,4 +137,4 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 - Remote-only locations and non-UTF-8 filenames get no provider badges or actions. lgse/strata#1385
 - A registration directory, manifest, icon, or executable writable by the user's private group is still rejected, though portal setup accepts such a group. lgse/strata#1936
-- The trigger of the intermittent `gtk_at_context_set_accessible_role` critical with file providers and AT-SPI active is unknown. About 800 menu cycles per build showed none. lgse/strata#2070
+- The trigger of the intermittent `gtk_at_context_set_accessible_role` critical with file providers and AT-SPI active is unknown. lgse/strata#2070
