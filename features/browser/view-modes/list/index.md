@@ -3,10 +3,10 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
-code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs, src/ui/browser_modes/list_headings.rs, src/ui/browser_modes/list_pane.rs]
-tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl, src/ui/browser_modes/grouped_model/tests.rs, tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl]
+code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs, src/ui/browser_modes/list_headings.rs, src/ui/browser_modes/list_pane.rs, src/app/navigation/type_groups.rs, src/ui/browser_modes/type_groups.rs]
+tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl, src/ui/browser_modes/grouped_model/tests.rs, tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl, tests/qa/scenarios/search_filter_sort/grouped-list-first-visit-starts-at-first-row.jsonl]
 related: [browser/navigation]
 ---
 
@@ -47,6 +47,14 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - Grouping is not applied in Recent or in a Camera Photos library while it loads or uses Device order. lgse/strata#1029 (unverified)
 - With grouping on, a 100,000-entry folder of mixed file types finishes loading with its files and previews, without repeated whole-list stalls. lgse/strata#1913, lgse/strata#1928
 
+### First row on a first visit
+
+- In grouped List, type a folder holding `alpha.txt`, `beta.csv`, and `gamma.md` after Ctrl+L. Rows show `beta.csv`, `gamma.md`, `alpha.txt`, and `beta.csv` is selected and focused. lgse/strata#2070
+- Any route that asks for an automatic cursor, such as a typed path or Enter on a sidebar place, starts a grouped List on the first row shown, not the first name. lgse/strata#2070
+- Under any sort but Type, the first row shown is the first visible folder when one is listed, otherwise the first file of the first group, earliest in listing order within that group. lgse/strata#2070
+- Sorted by Type, and in Recent, the first row shown is the first visible entry in listing order. lgse/strata#2070
+- A typed first visit to a grouped folder of 300 `a*.txt` and 300 `b*.csv` files selects and focuses `b000.csv`, and the list stays at its top. lgse/strata#2070
+
 ### Rows
 
 - A click selects the row whose hover highlight is shown; no strip between rows highlights one row but selects another. lgse/strata#327
@@ -58,6 +66,8 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 Explorer's Name column started at a fixed 600 px and pushed metadata out of narrow windows. Name now absorbs the leftover space; a smaller fixed width and relying on horizontal scrolling were rejected (lgse/strata#188).
 
 - Grouping uses list-view sections, so one selection, keyboard navigation, and marquee span every group (lgse/strata#235). Icons lost grouping because grouped grids inflated cards and could abort GTK (lgse/strata#372, lgse/strata#509).
+- The group order and the rules for which listings group (not Recent, and a camera folder only once complete and not in Device order) live in the app. The view's sorter and the automatic cursor share them (lgse/strata#2070, commit ecf271ac).
+- The first-row pick avoids type lookups where it can. A Type sort already lists entries in group order, and under any other sort the Folder group leads. Only a folder-free listing not sorted by Type reads MIME types (lgse/strata#2070, commit 06fccd38).
 - Grouping projects the pane's sorted rows into type buckets with the existing type comparator, replacing GTK's sort model and section sorter. Arrivals are binary-searched into their group, so mixed-type batches emit narrow changes instead of regrouping the whole list (lgse/strata#1913, lgse/strata#1928).
 - A background MIME-preparation and notification-batching experiment reached sub-second loads but was left out of lgse/strata#1928 ([comment](https://github.com/lgse/strata/pull/1928#issuecomment-6478299896)).
 - Autofit measures each cell with its fixed width and one-character label cap lifted; with them in place the measurement returned the current width (lgse/strata#1115).
@@ -70,6 +80,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-06 | lgse/strata#2070 | fix | Started grouped List first visits on the first row shown, by any route, so the cursor no longer lands mid-list by name order. |
 | 2026-11-01 | lgse/strata#1928 | perf | Grouped List by type buckets and a lazy index, so mixed-type arrivals no longer regroup the whole list. |
 | 2026-10-11 | lgse/strata#1564 | feat | Showed folder item counts in the Size column, matching Icons. |
 | 2026-09-19 | lgse/strata#1116 | fix | Made double-click autofit work on List heading resize edges. |
@@ -87,4 +98,6 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 
 - List cannot expand folders in place as a tree; a PR is open. lgse/strata#1495, lgse/strata#1496
 - Grouped loads of very large folders are not sub-second: a 100,000-entry mixed-type folder takes about 2 s to publish. lgse/strata#1928
-- In grouped List, a first visit by typed path puts the cursor on the first entry by name, not the first visible row. That is the visually last file of a 4-file folder, or the middle of a 44,000-file one. lgse/strata#2016
+- On a remote grouped first visit opened by keyboard, the first-row pick lands when the load finishes. It can scroll a user who scrolled during the load back to the top. From code reading, not reproduced. lgse/strata#2070
+- A camera folder picks its cursor while still ungrouped, so once grouping applies the cursor may not be on the first row shown. From code reading, not reproduced. lgse/strata#2070
+- In a folder-free listing not sorted by Type, the first-row pick reads every file's type on the main thread: about 140 ms per 100,000 names in a debug build. lgse/strata#2070

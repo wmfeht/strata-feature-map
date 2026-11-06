@@ -3,17 +3,17 @@ title: Navigation
 status: shipped
 origin: {issue: lgse/strata#70, pr: lgse/strata#118}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+review: draft
 code: [src/ui/window/composition/input.rs, src/app/browser/columns.rs, src/app/browser/navigate.rs, src/app/navigation/history.rs]
-tests: [src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, src/app/navigation/tests/history.rs]
+tests: [src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, src/app/navigation/tests/history.rs, src/app/browser/tests/navigation/returning_columns.rs, tests/qa/scenarios/view_switching/returning-to-columns-follows-selection.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [browser/tabs, browser/view-modes, browser/view-modes/position-restore, integration/10xer-mode]
+related: [browser/tabs, browser/view-modes, browser/view-modes/position-restore, integration/10xer-mode, browser/view-modes/columns]
 ---
 
 ## Summary
 
-Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), and `browser/navigation/startup-arguments` (command-line locations). Also `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders) and `browser/navigation/administrator-access` (unreadable local folders through `admin://`). `browser/navigation/back-history` is the List and Icons Back button's menu of earlier locations. Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`.
+Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), and `browser/navigation/startup-arguments` (command-line locations). Also `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders) and `browser/navigation/administrator-access` (unreadable local folders through `admin://`). `browser/navigation/back-history` is the List and Icons Back button's menu of earlier locations. Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`. This node also covers which Columns child column survives a switch back from List or Icons.
 
 ## Behavior
 
@@ -28,6 +28,18 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 - So does `history_forward`; 10xer's own Back and Forward keys come from `[keymap.tenxer]`. lgse/strata#1885 (unverified)
 - Backspace in Columns closes the focused nested column and its descendants. From the root column it opens the parent folder, selecting the root column's folder. lgse/strata#58, lgse/strata#1437, lgse/strata#1544
 - Backspace in List and Icons opens the parent folder. lgse/strata#485
+
+### Returning to Columns
+
+- In Columns with `documents` open as the child column, switch to List, press Escape, then Ctrl+1. No child column reopens, and the breadcrumb ends at the active folder. lgse/strata#2070
+- On the switch back to Columns, an open child column the List or Icons selection no longer holds closes, with Mirror columns selection on or off. lgse/strata#2070
+- With several items selected and the open child not among them, the child column closes and none opens. lgse/strata#2070
+- An open child column stays open when it is selected, alone or among several selected items. lgse/strata#2070 (unverified)
+- With Mirror columns selection on, select only `pictures` in Icons and press Ctrl+1. `pictures` opens as the child column, and the parent column keeps focus. lgse/strata#2070
+- A folder the load selected automatically, as on a first visit, opens no child column on the switch back. lgse/strata#2070
+- While a navigation is still validating, such as a remote folder opened in List, the switch back closes and opens no columns, and that navigation still opens. lgse/strata#2070
+- While the active column is reloading, the switch back neither closes nor opens a child column. lgse/strata#2070
+- Closing a stale child column on the switch back adds no Back history entry. lgse/strata#2070 (unverified)
 
 ### Unreadable folders
 
@@ -46,13 +58,17 @@ Moving between locations in a browser pane: Back, Forward, and Parent history fr
 - History lives in each tab's browser, so tabs keep separate Back and Forward stacks (docs/keyboard-navigation.md).
 - Alt+arrows stay history keys in every mode because plain arrows move focus between panes, header controls, and the sidebar (lgse/strata#358).
 - The mouse-button controller sits in the bubble phase on the window root. It covers every normal region while modal overlays stay isolated, and leaves unavailable actions unclaimed (lgse/strata#118).
+- On a return to Columns the selection, not the cursor, drives the child column. Before, the rebuild reopened every column the browser still held, so a child the selection had left reopened with its open-path fill (lgse/strata#2016, lgse/strata#2070, commit 45f1ead8).
+- Closing or opening a column bumps the navigation generation, which would drop a navigation still validating, so the step changes nothing while one is pending (lgse/strata#2070, commit 2d56db6e).
+- A reloading column is empty until its selection is restored, so the step waits rather than read an empty selection and close a child still selected (lgse/strata#2070, commit dc0bc580).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-06 | lgse/strata#2070 | fix | Made the Columns child column follow the selection List or Icons left, instead of reopening a stale child on the switch back. |
 | 2026-09-02 | lgse/strata#118 | feat | Mapped mouse buttons 8 and 9 to Back and Forward across the window. |
 
 ## Known gaps
 
-None known.
+- With Mirror columns selection off, a round trip through List closes a child column that differs from the selected folder, even if the selection never changed. lgse/strata#2070

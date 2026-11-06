@@ -3,16 +3,16 @@ title: Position restore on return and refresh
 status: shipped
 origin: {issue: lgse/strata#868, pr: lgse/strata#893}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
-review: reviewed
-code: [src/ui/browser_modes/navigation.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/reload_cursor.rs]
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+review: draft
+code: [src/ui/browser_modes/navigation.rs, src/ui/browser_modes/first_visit.rs]
+tests: [src/ui/window/tests/keyboard_dispatch/reload_cursor.rs, src/ui/browser_modes/first_visit/tests.rs]
 related: [operations/clipboard]
 ---
 
 ## Summary
 
-Icons and List remember each folder's selection, cursor, and scroll position, and restore them on return and through a refresh. It is for users moving through long folders who expect to continue from where they left off. Columns' came-from selection belongs to `browser/view-modes/columns`.
+Icons and List remember each folder's selection, cursor, and scroll position, and restore them on return and through a refresh. It is for users moving through long folders who expect to continue from where they left off. It also watches a first visit with no remembered position, which a grouped List may refocus when its load finishes. Columns' came-from selection belongs to `browser/view-modes/columns`.
 
 ## Behavior
 
@@ -28,6 +28,14 @@ Icons and List remember each folder's selection, cursor, and scroll position, an
 - Back, Forward, or Up into a remembered folder that is now empty gives keyboard focus to the pane, not the hidden list. lgse/strata#1466, lgse/strata#1533 (unverified)
 - Opening a typed file path, a Ctrl+K result, Open file location, or a FileManager1 request selects that target instead of the remembered position. lgse/strata#1499
 - A click, scroll, or key press in the pane before a restore settles cancels it. So do a view switch and a failed load. lgse/strata#893, lgse/strata#1544 (unverified)
+
+### First visits
+
+- In Icons and List, a visit with no remembered position is watched until its load finishes; only an untouched visit lets the load refocus the first row shown. lgse/strata#2070
+- A button press, scroll, touch, or key press in the pane during that load cancels the refocus. lgse/strata#2070
+- A reload, or a visit with a remembered position to restore, never refocuses the first row when its load finishes. lgse/strata#2070
+- Rebuilds for a view switch, a relocation, or closed columns start no watch. A parent column's load, such as a monitor relist, leaves the watch waiting for the pane's own load. lgse/strata#2070
+- Back or Forward to a folder with no remembered position starts a watch like any first visit. lgse/strata#2070 (unverified)
 
 ### Focus on return
 
@@ -54,6 +62,8 @@ Issue lgse/strata#868 asked for List's viewport and selection to survive enterin
 - lgse/strata#893 built the restore for List only; lgse/strata#1267 then described it for Icons and List without code (lgse/strata#1436).
 - Restoring matches entries by location, not row number, so a deleted entry is never selected (lgse/strata#893). Where Ctrl+V pastes after a restore belongs to `operations/clipboard`.
 - An explicit target beats the remembered position because the user named it (lgse/strata#1499).
+- The first-visit watch and the restore's input cancel share one user-input test: button press, scroll, touch begin, and key press (lgse/strata#2070, commit d523cc67).
+- The watch records its depth, so only that column's load ends it. A parent's relist had used up the child pane's watch (lgse/strata#2070, commit d523cc67).
 - Focus follows the route. A sidebar place, breadcrumb, or typed path is an explicit visit and focuses the listing. History keys leave focus outside the pane where it is (lgse/strata#1544).
 - A reload switches the pane to its pending page and empties the model. That unmaps the rows and resets GTK's cursor, scroll, and focus. The model keeps the selection by identity, and the view restores viewport and focus after the load (lgse/strata#1434, lgse/strata#1544).
 - Views capture the outgoing position on `NavigationStarting` and `ColumnReloading`, before the model changes ([docs/architecture.md](https://github.com/lgse/strata/blob/72b840e69d6f0df9d33fb5583e62a3a2944886a1/docs/architecture.md), lgse/strata#1544).
