@@ -3,7 +3,7 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/ui/window/devices.rs, src/ui/window/sidebar_devices.rs, src/ui/window/device_menu.rs, src/ui/window/gio_devices.rs, src/ui/browser/location/devices.rs, src/ui/browser/location/volumes.rs]
 tests: [src/ui/window/devices/tests.rs]
@@ -62,13 +62,17 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 ### Global search roots
 
-- Ctrl+K search covers Home and every mounted local drive. lgse/strata#222, lgse/strata#493
+- Ctrl+K search covers Home plus the native roots of the volumes and volume-less mounts Devices lists, so files on listed drives are found. lgse/strata#222, lgse/strata#2070
+- With a hidden btrfs subvolume mounted at `/var/cache/pacman/pkg`, Ctrl+K for a name that exists only inside it finds nothing. lgse/strata#2070
+- A kernel network mount that Devices lists is still searched. lgse/strata#2070
+- A listed mount whose root has a path but is not native, such as a GVfs FUSE mirror of a remote share, adds no search root. lgse/strata#2070
+- Mounting or unmounting a drive changes the search roots the next time Ctrl+K opens. lgse/strata#2070
 
 ## Design
 
 - Visibility policy belongs to GIO, GVfs, and udisks2, as in Nautilus, Nemo, Thunar, and Dolphin. lgse/strata#493 added a raw `/proc/self/mountinfo` fallback to surface USB drives (lgse/strata#441). It reinstated mounts the backend hides on purpose, so lgse/strata#536 removed it from the sidebar (lgse/strata#532).
 - An empty device list is a valid answer. A union volume monitor does not reveal which backend is active, so Strata does not infer a degraded backend from a short list (lgse/strata#532).
-- Global search still reads the raw mount table for its roots; that policy is separate (lgse/strata#533).
+- Global search follows the backend too, the policy lgse/strata#533 asked to decide. It once added every `/dev`-backed mount from the raw mount table, so it walked mounts Devices hides. Its roots now come from the same volume-monitor enumeration and own-row rule as the sidebar (lgse/strata#2070).
 - Removable Send To destinations and encryption hints are checked off the UI thread, cached, and refreshed on volume monitor signals. Remembered Send To folders are checked again each time a menu is built. Destination and folder checks run on the mount's request lane, so a stalled mount cannot freeze the menu (lgse/strata#1729).
 - Sidebar mounts run through the browser's mount flow, so volumes share the themed authentication prompt, quiet cancellation, and retries used by remote locations (lgse/strata#302, lgse/strata#493).
 - GVfs network mounts are shares to disconnect, not drives to eject. Before lgse/strata#2030, only SMB got the network row, and an SFTP share showed a drive icon with eject (lgse/strata#2016).
@@ -80,6 +84,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-06 | lgse/strata#2070 | fix | Limited Ctrl+K search roots to Home plus the local mounts Devices lists, sharing the sidebar's volume-monitor selection, so hidden system mounts are no longer scanned. |
 | 2026-11-02 | lgse/strata#2030 | fix | Described volume rows by path, gave GVfs shares network rows, sent every window off released devices, and fixed Properties and udiskie restore polish. |
 | 2026-09-07 | lgse/strata#536 | fix | Limited Devices to what the volume monitor reports, removing the raw mount-table fallback. |
 | 2026-09-06 | lgse/strata#493 | fix | Showed mounted USB drives, mounted sidebar volumes through the themed prompt, and added drives to global search. |
@@ -89,3 +94,4 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - NAS shares mounted by the system at native paths, such as NFS under `/mnt`, do not appear in Devices when GIO misses them. lgse/strata#1209
 - An unmounted fstab volume's row is described by its device path, not its fstab mount point. lgse/strata#2030
 - Network share rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62
+- An internal disk mounted through fstab at `/mnt/data` without `x-gvfs-show` is left out of Ctrl+K search, with no warning and no setting to add it back. lgse/strata#2070 ([comment](https://github.com/lgse/strata/pull/2070#issuecomment-6677782710))
