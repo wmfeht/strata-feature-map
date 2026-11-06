@@ -3,7 +3,7 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: reviewed
 code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox_helper/isobmff.rs, src/sandbox/runtime.rs, src/sandbox/command.rs, src/sandbox/operation.rs, src/sandbox/output.rs, src/sandbox/process.rs, src/sandbox_helper/operations.rs, src/sandbox_helper/process.rs, src/sandbox_helper/raster.rs]
 tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox_helper/tests/isobmff.rs, src/sandbox/runtime/tests.rs, src/sandbox/tests/**]

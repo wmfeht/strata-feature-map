@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -26,6 +26,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - For icon probes, a desktop shell whose dock background can be changed, with Adwaita and an icon theme that ships no Strata icon, such as MacTahoe. Skip those probes and say so when no such shell is available.
 - `desktop-file-validate` for the entry, and a second window of the same build for every notice, preference, and dispatch probe.
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/qa/keyboard.rs` does. `tests/fixtures/harness.json` lists the layouts QA scenarios cover. Restore `us` afterwards; never change the desktop's layout.
+- For URI host probes, an Android phone in MTP mode whose device name holds CJK text. Skip the device probes and say so without one; argument probes need only the URIs.
 - For UI-thread stall probes, an sshfs mount of a local folder; stop its daemon with `kill -STOP` and resume it with `kill -CONT`.
 - For Nix probes, `nix` with flakes enabled, or a NixOS VM for the service-file derivations. Skip them and say so when neither is available.
 - `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
@@ -303,12 +304,16 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Run `strata --portal` by hand with `GDK_DEBUG` holding `NO-PORTALS` and `no-portals` among other flags, and count re-execs with `strace -f -e trace=execve`.
 - Launch `strata` and `strata <dir>` while the activated process runs, and read the new window's process id.
 - Run `strata --qa <dir>`, `strata --qa`, and `strata <dir> --qa` on a plain `cargo build` and a release build; read which window opens and whether stdin is read.
+- On the MTP phone, open its Devices row, then a folder two levels down. Press Up, click each breadcrumb, and reveal a file in its parent.
+- Pin a folder on the phone, restart Strata, and open the pin; read the location field and Properties for the host.
+- Launch `strata` with `mtp://user:secret@Phone_%E4%B8%80/DCIM`, `sftp://xn--h-bga@h%C3%A9/x`, and `sftp://a@b@c/x` at `RUST_LOG=strata=debug`. Read each tab's location and grep the log for `secret` and `xn--`.
 
 ## Hand-offs
 
 - Window title text after a folder opens → `browser`.
 - Rows updating while an open folder is copied into, replaced without Trash, or exchanged → `browser`.
 - Share-root and server-root names in headings, breadcrumbs, tabs, and titles → `remote`.
+- Typed `mtp://` addresses and typed URIs with a query or fragment in the location field → `browser`.
 - The working folder of programs Open and Open With launch → `integration`.
 - The `GDK_DEBUG` value programs launched from a service-activated Strata see → `integration`.
 - The `STRATA_INTEGRATIONS` build switch, and the portal and file manager rows and flags in a package build → `integration`.

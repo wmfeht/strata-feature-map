@@ -3,7 +3,7 @@ title: External file providers
 status: shipped
 origin: {issue: lgse/strata#1356, pr: lgse/strata#1385}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/services/file_providers.rs, src/services/file_providers, src/ui/file_providers.rs, src/ui/file_providers]
 tests: [src/services/file_providers/tests.rs, src/services/file_providers/transport/tests.rs, src/ui/file_providers/tests.rs, src/ui/file_providers/tests/**, tests/qa/scenarios/file_providers]
@@ -137,4 +137,4 @@ Opt-in, trusted programs that add live status badges, state-dependent context ac
 
 - Remote-only locations and non-UTF-8 filenames get no provider badges or actions. lgse/strata#1385
 - A registration directory, manifest, icon, or executable writable by the user's private group is still rejected, though portal setup accepts such a group. lgse/strata#1936
-- An intermittent `gtk_at_context_set_accessible_role` critical with file providers and AT-SPI active is not confirmed fixed. lgse/strata#2011
+- The trigger of the intermittent `gtk_at_context_set_accessible_role` critical with file providers and AT-SPI active is unknown. About 800 menu cycles per build showed none. lgse/strata#2070
