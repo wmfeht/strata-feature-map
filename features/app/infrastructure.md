@@ -162,4 +162,4 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 - The host splice replaces the first match anywhere, so a username equal to the host's punycode form is rewritten instead of the host. lgse/strata#2072
 - A camera host GVfs spells with brackets, such as `gphoto2://[usb:001,002]/`, does not parse. lgse/strata#2072
 - Per-mount request lanes parse hosts with DNS rules, so devices whose host IDNA rejects share one lane per scheme. lgse/strata#2072
-- An `sftp://` or `smb://` non-ASCII host now reaches the backend percent-encoded, such as `h%C3%A9`, not punycode. A resolver without IDN support may fail to resolve it. lgse/strata#2072
+- An `sftp://` or `smb://` non-ASCII host keeps the form it was given, such as `h%C3%A9` or raw UTF-8, not punycode. A resolver without IDN support may fail to resolve it. lgse/strata#2072
