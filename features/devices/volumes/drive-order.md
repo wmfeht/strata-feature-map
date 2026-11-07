@@ -24,7 +24,7 @@ The order of rows under DEVICES in the sidebar. Rows are grouped by physical dri
 - A password-start drive with no listed volume, and a volume-less mount on a drive, join that drive's group. lgse/strata#2075 (unverified)
 - Rows with no drive follow every drive's group, as one group of their own. lgse/strata#2075
 - Mounted network shares come last, as one group after the rows with no drive. lgse/strata#2075
-- A pending-release stand-in for a device no longer listed follows the network shares, with no divider before it. lgse/strata#2075 (unverified)
+- A pending-release stand-in for a device no longer listed follows every group, with no divider before it. lgse/strata#2075 (unverified)
 
 ### Drive order
 
