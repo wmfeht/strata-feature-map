@@ -3,8 +3,8 @@ title: Click modes
 status: shipped
 origin: {issue: lgse/strata#213, pr: lgse/strata#220}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+review: draft
 code: []
 tests: [tests/qa/scenarios/click_modes, tests/qa/mutations/click-modes.patch, tests/qa/mutations/click-mode-preference.patch]
 related: [preview/quick-preview, operations/rename, browser/sidebar, browser/view-modes/columns, browser/selection/marquee]
@@ -34,8 +34,8 @@ Whether one or two clicks open a file or a folder, set separately for files and 
 ### Selection after opening
 
 - Opening a folder with the pointer leaves its entries unselected. lgse/strata#715
-- Opening a folder with Enter selects its first entry. lgse/strata#715
-- Clicking a sidebar place selects nothing in the new listing; Enter on one selects the first entry. lgse/strata#715
+- Opening a folder with Enter selects its first entry; in grouped List, the first row shown. lgse/strata#715, lgse/strata#2070
+- Clicking a sidebar place selects nothing in the new listing; Enter on one selects the first entry, or in grouped List the first row shown. lgse/strata#715, lgse/strata#2070
 - In Icons and List, a remembered folder restores its position instead. lgse/strata#1544 (unverified)
 
 ## Design

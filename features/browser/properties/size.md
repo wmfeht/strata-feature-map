@@ -3,7 +3,7 @@ title: Folder and selection size
 status: shipped
 origin: {issue: lgse/strata#556, pr: lgse/strata#558}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: reviewed
 code: [src/adapters/directory_summary.rs]
 tests: [src/adapters/directory_summary/**, tests/qa/scenarios/properties_size]

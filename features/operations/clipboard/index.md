@@ -3,7 +3,7 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/ui/browser/clipboard.rs, src/ui/browser/transfer.rs, src/adapters/local_operations/transfer_targets.rs, src/adapters/local_operations/paste_plan/**, src/adapters/local_operations/paste.rs, src/adapters/local_operations/paste/item.rs, src/adapters/local_operations/paste_plan.rs, src/ui/browser/transfer/destination_dialog.rs, src/ui/browser/transfer/drop.rs]
 tests: [src/ui/browser/clipboard/tests.rs, src/ui/browser/transfer/tests.rs, src/adapters/local_operations/tests/copy.rs, src/adapters/local_operations/tests/moves.rs, src/adapters/local_operations/tests/naming.rs, src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl, src/adapters/local_operations/tests/copy/**, src/adapters/local_operations/tests/moves/**, src/adapters/local_operations/tests/naming/**, src/ui/browser/transfer/tests/choose_folder.rs, src/ui/browser/transfer/tests/chosen_destination.rs, src/ui/browser/transfer/tests/destination_reloads.rs, src/ui/browser/transfer/tests/drops.rs, src/ui/browser/transfer/tests/plain_transfers.rs]

@@ -3,7 +3,7 @@ title: Catppuccin file-type icons
 status: shipped
 origin: {issue: lgse/strata#1587, pr: lgse/strata#1588}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin, scripts/catppuccin_icons.py]
 tests: [src/ui/browser/entry/tests.rs]

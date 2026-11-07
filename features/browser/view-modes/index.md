@@ -3,12 +3,12 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
-code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**, src/app/navigation/preferences.rs, src/ui/browser/view_modes.rs, src/ui/browser_modes/clicks.rs, src/ui/browser_modes/cursor.rs, src/ui/browser_modes/metadata.rs, src/ui/browser_modes/pane.rs, src/ui/browser_modes/pane_header.rs, src/ui/browser_modes/pane_shell.rs, src/ui/browser_modes/pane_state.rs, src/ui/browser_modes/rebuild.rs, src/ui/browser_modes/scroll_settle.rs, src/ui/browser_modes/source_index.rs, src/ui/browser_modes/type_groups.rs, src/ui/preferences/layout_settings.rs, src/ui/window/appearance_menu.rs]
+code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**, src/app/navigation/preferences.rs, src/ui/browser/view_modes.rs, src/ui/browser_modes/clicks.rs, src/ui/browser_modes/cursor.rs, src/ui/browser_modes/metadata.rs, src/ui/browser_modes/pane.rs, src/ui/browser_modes/pane_header.rs, src/ui/browser_modes/pane_shell.rs, src/ui/browser_modes/pane_state.rs, src/ui/browser_modes/rebuild.rs, src/ui/browser_modes/scroll_settle.rs, src/ui/browser_modes/source_index.rs, src/ui/preferences/layout_settings.rs, src/ui/window/appearance_menu.rs]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser_modes/tests/counting_model.rs, src/ui/browser/presentation/tests.rs, src/ui/window/tests/preferences/column_prefs.rs, tests/qa/scenarios/locations/unreadable-folder-offers-retry.jsonl]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename, browser/search/filter, browser/selection, browser/navigation, operations/trash/empty]
+related: [browser/search, preview/preview-panel, browser/view-modes/density, app/accessibility, operations/rename, browser/search/filter, browser/selection, browser/navigation, operations/trash/empty, integration/10xer-mode]
 ---
 
 ## Summary
@@ -30,6 +30,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - Switching keeps the open directory, the selection, the focused item, and the sort; leaving Columns lands on the directory Columns had active. lgse/strata#237
 - Switching keeps a typed pane filter query, its open filter field, and the narrowed listing. lgse/strata#925
 - After a switch the new view shows a full viewport of entries without scrolling first. lgse/strata#310
+- With Mirror columns selection off, a folder selected in List or Icons opens no child column on the switch back to Columns. lgse/strata#2070
+- With a 10xer `s` recursive search query showing, the switch back to Columns opens no child column for a selected folder. lgse/strata#2070 (unverified)
 
 ### Appearance menu
 
@@ -83,6 +85,8 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - Skeletons cannot be selected or clicked, and loaded content, empty states, and errors replace them. lgse/strata#343
 - A pending skeleton never appears after the load finishes, fails, or navigates away. lgse/strata#584
 - Entering an empty, unreadable, or still-loading folder gives keyboard focus to the pane itself. lgse/strata#1466, lgse/strata#1533
+- In grouped List, double-click a folder of 300 `a*.txt` and 300 `b*.csv` files. Once loading finishes, `b000.csv`, the first row shown, has focus and nothing is selected. lgse/strata#2070
+- That load-finish refocus needs no cursor in the pane and focus in its listing. In Icons, or List without grouping, focus stays on GTK's own row. lgse/strata#2070
 - The focused pane draws a 2 px accent focus ring only while GTK shows focus, as after keyboard input. lgse/strata#1466, lgse/strata#1533 (unverified)
 - When entries appear in a folder whose pane held focus, focus moves to the keyboard cursor row. lgse/strata#1466, lgse/strata#1533
 - F5 keeps focus on the pane while rows are hidden and returns it to the cursor row when they return. lgse/strata#1466, lgse/strata#1533, lgse/strata#1729
@@ -114,6 +118,9 @@ Columns is the native Miller implementation in `ui/browser/columns.rs`. Icons an
 - A broad model change drops the reverse index, which is rebuilt only when a lookup needs it. Lookups of up to 64 positions map each one directly, so a cursor or small selection never rebuilds the whole index (lgse/strata#1928).
 - The List type-group sorter re-sorts only when a sort preference changes. Each row's model value carries its type group, so comparisons neither allocate nor guess MIME types (lgse/strata#1791, lgse/strata#1792). Spliced rows no longer rely on GTK's sorted insertion: List's grouped model places them, recorded on `browser/view-modes/list` (lgse/strata#1928).
 - The pane filter query is window-local: it is carried across a switch but never saved (lgse/strata#851).
+- A selection made in List or Icons is not an activation. With Mirror columns selection off Columns never opens a child from a selection, so the switch back opens one only while mirroring is on (lgse/strata#2070, commit 2d56db6e).
+- A grouped List publishes a large folder's rows in name order, so a group that sorts first arrives above the row GTK focused. A pointer visit has no cursor to hold, so the pane refocuses the first row shown once the listing completes (lgse/strata#2070, commit f9f1104d).
+- Focus without a cursor otherwise returns to GTK's own row. Scrolling every List and Icons pane to its first row was reverted (lgse/strata#2070, commit be416388).
 - An empty, unreadable, or loading folder focuses the existing page stack rather than its status label. Up, Delete, and the context menu already key off that stack. It is focusable only off the content page, so populated listings gain no unnamed Tab stop (lgse/strata#1466).
 - GTK moves focus off a removed or hidden row at the next paint. The pane settles focus first, so a reload never sends it out of the listing (lgse/strata#1466, lgse/strata#1533).
 - lgse/strata#1081 moved the deferred row refresh to the next frame, so during continuous scrolling it ran every frame or two and restyled every List row. lgse/strata#1673 settles 25 ms after the last scroll, never sooner than two frames, so a slow machine does not settle between frames of one scroll (lgse/strata#1671, lgse/strata#1673).

@@ -3,7 +3,7 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs, src/adapters/local_operations/replacement/**, src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
 tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, src/adapters/local_operations/tests/conflicts/**, src/adapters/local_operations/tests/merge/**, src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs]
@@ -24,6 +24,7 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 - Skip appears only when other items are accepted or further conflicts remain; it keeps the existing item and transfers the rest. lgse/strata#708
 - The Apply to All checkbox appears only while further conflicts remain; when checked, the chosen action applies to all of them that offer it. lgse/strata#708, lgse/strata#2030
 - When a paste, drop, or Move to… meets an item of the other kind, such as a file onto a folder, the prompt hides Replace. Keep Both has focus. lgse/strata#2030
+- A conflict prompt that offers neither Replace nor Keep Both opens with focus on Cancel. lgse/strata#2070
 - That prompt explains "An item named “<name>” already exists in <folder>. A file and a folder can’t replace one another." lgse/strata#2030
 - That prompt omits the note "Replaced items can't be moved to Trash here and will be deleted." lgse/strata#2030 (unverified)
 - Replace with Apply to All replaces the remaining same-kind conflicts; each file-onto-folder or folder-onto-file conflict still gets its own prompt. lgse/strata#2030
@@ -87,6 +88,7 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 - Undo of a Merge or Replace records what it placed, up to 100,000 entries, and deletes only unchanged items, so later edits survive (lgse/strata#1615).
 - In an admin folder, Replace overwrites files in place and Merge is withheld, because both would stage originals in Trash, which `admin://` lacks (lgse/strata#1836, lgse/strata#1837).
 - A file and a folder cannot safely replace one another. The prompt learns whether the two items are of one kind and withholds Replace when they are not. Apply to All leaves such items their own prompt, as it already did for Merge (lgse/strata#2017, lgse/strata#2030).
+- A prompt offering neither Replace nor Keep Both starts on Cancel rather than Skip, because Cancel is the one answer that never changes the history (lgse/strata#2070).
 - Merge is copy-only, because undoing a merged move cannot tell which destination contents the source owned (lgse/strata#1092).
 - Incoming-wins merging with Trash staging was chosen over per-file prompts or Finder's newer-wins, to keep it predictable and undoable (lgse/strata#1091).
 - Same-folder paste never prompts, so pasting where an item already lives stays non-destructive. The engine also treats Replace of an item onto itself as a no-op (lgse/strata#395, lgse/strata#708).

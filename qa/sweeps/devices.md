@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
@@ -40,7 +40,10 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Mount one stick read-only with `mount -o ro` beside a writable one, then open Send to…. Remount it read-write from a shell and reopen the menu.
 - Clone a stick with `dd` so two carry one UUID, attach both, and open Send to….
 - Send a file to a stick folder through Choose folder…, delete that folder from a shell, and reopen the stick's submenu.
-- Loop-mount an image under `/mnt` and inside a mounted stick, and open an SMB share so it appears under `/run/user/$UID/gvfs`. Search Ctrl+K for a file on each.
+- Loop-mount an image under `/mnt`, under `/run/media/$USER`, and inside a mounted stick, and open an SMB share so it appears under `/run/user/$UID/gvfs`. Search Ctrl+K for a file on each and compare the hits with the rows Devices shows.
+- Mount an ext4 disk through fstab at `/mnt/data` with and without `x-gvfs-show`, and an NFS export under `/mnt`; search Ctrl+K for a file on each.
+- Open Ctrl+K, plug in a stick while it is open, and search; close it, reopen, and search again. Repeat with an unmount.
+- Mount a btrfs subvolume at `/srv/data` beside a USB stick and an unlocked LUKS volume; search Ctrl+K for a file on each.
 - Mount the SFTP fixture as `SFTP://` in upper case, then `davs://` and `afp://` where reachable, beside an MTP phone and a camera; compare each row's icon and buttons.
 - Read each row's accessible description over AT-SPI. Cover a mounted and an unmounted stick, the CD-ROM with a disc, an MTP phone, and the fstab virtio volume.
 - List a stick, a locked LUKS volume, and an unlocked mounted LUKS volume. Compare the eject and lock icon tips with the expanded DEVICES chevron at text sizes 8, 10, 13, 20, and 32. Repeat at 1.6 fractional scaling.

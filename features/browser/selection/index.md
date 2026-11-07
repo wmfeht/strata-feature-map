@@ -3,7 +3,7 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
 review: draft
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs, src/app/browser/selection.rs, src/app/navigation/cursor.rs, src/app/navigation/fill.rs, src/app/navigation/location_set.rs, src/ui/browser/view_selection.rs, src/ui/browser_modes/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch, src/app/navigation/tests/fill_commands.rs, src/app/navigation/tests/fill_tracking.rs, src/app/navigation/tests/paging.rs, src/app/navigation/tests/ranges.rs, src/app/navigation/tests/selection.rs]
@@ -22,7 +22,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - A plain click on an entry selects only that entry and replaces the previous selection. lgse/strata#526 (unverified)
 - Ctrl+click toggles one entry in or out of the selection and moves the range anchor to it. lgse/strata#526
 - Shift+click selects every entry from the range anchor to the clicked entry. lgse/strata#526
-- After a navigation auto-selects the first entry, the first Shift+click ranges from that entry, in all three views. lgse/strata#526
+- After a navigation auto-selects the first entry, the first Shift+click ranges from that entry, in all three views. In grouped List that entry is the first row shown. lgse/strata#526, lgse/strata#2070
 - A click re-anchors Shift+Down and Shift+Up, so keyboard extension continues from the clicked entry. lgse/strata#526
 - Ctrl+click or Shift+click on an entry's name or icon moves keyboard focus to that entry, so the preview follows it. lgse/strata#1164, lgse/strata#797
 - Releasing Shift before the mouse button keeps the pressed range, including a press on blank row space in Columns and List. lgse/strata#786, lgse/strata#797
@@ -41,6 +41,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 - Shift+Page Up and Shift+Page Down extend or shrink the selection by one page from the range anchor. lgse/strata#1313
 - The file chooser leaves Shift+Page Up and Shift+Page Down to GTK. lgse/strata#1313
 - Shift+Down with nothing selected selects only the first entry; the next Shift+Down selects two. lgse/strata#738
+- With no cursor in a grouped List, Down, Return, and Shift+Down start at the first row shown. Up and Shift+Up start at the last row shown. lgse/strata#2070
 - After Escape clears a selection, the next Shift+arrow range starts at the keyboard cursor. lgse/strata#1313
 - In List, Icons, and Columns, plain Home, End, Page Up, and Page Down move the range anchor to the new cursor. Shift+Home after End selects every entry. lgse/strata#1995, lgse/strata#2026
 - After Home, Shift+Down selects the first two entries. lgse/strata#2026
