@@ -3,7 +3,7 @@ title: Recent
 status: shipped
 origin: {issue: lgse/strata#1082, pr: lgse/strata#1083}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: reviewed
 code: [src/adapters/local_files/recent.rs]
 tests: [src/app/browser/tests/recent.rs, tests/qa/scenarios/recent, src/adapters/local_files/tests/recent_listing.rs, src/adapters/local_files/tests/recent_removal.rs]

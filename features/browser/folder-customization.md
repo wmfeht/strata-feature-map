@@ -3,8 +3,8 @@ title: Folder and file customization
 status: shipped
 origin: {issue: lgse/strata#211, pr: lgse/strata#294}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
-review: reviewed
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+review: draft
 code: [src/ui/browser/customization.rs, src/ui/preferences/item_customizations.rs, src/ui/browser/customization/**]
 tests: [tests/qa/scenarios/dialogs_and_menus/customization-follows-move-and-trash.jsonl, tests/qa/scenarios/dialogs_and_menus/customize-takes-focus-single-escape.jsonl, tests/qa/scenarios/dialogs_and_menus/background-customize-ancestor-column.jsonl, src/ui/window/tests/preferences/item_customizations.rs]
 docs: [docs/preferences.md]
@@ -69,6 +69,8 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - On vfat, a folder the kernel renumbered in Trash still gets its keys back on Put back or undo. On exFAT, it gets them back only if its inode number is unchanged. lgse/strata#1729
 - The session keeps at most 10,000 trashed keys, dropping the oldest trashed items first. lgse/strata#1554
 - Replace on a move or copy keeps the incoming item's customization; the replaced item's keys go to Trash with it for the session. lgse/strata#1554
+- Ctrl+Z after a move answered with Replace returns the moved item's customization to its source and restores the replaced item's keys. lgse/strata#2080
+- A merged move carries the source children's customizations into the target folder. lgse/strata#2078 (unverified)
 - A Merge that moves destination files to Trash sends their keys to Trash with them for the session; Undo brings them back. lgse/strata#1729
 - Merging into an existing folder keeps the destination folder's own customization. lgse/strata#1554
 - A copy or duplicate starts uncustomized. lgse/strata#1554

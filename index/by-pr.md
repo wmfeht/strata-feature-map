@@ -6,6 +6,11 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
+| [lgse/strata#2080](https://github.com/lgse/strata/issues/2080) | 2026-11-07 | fix | [Undo and redo](../features/operations/undo.md) | Restored the Trash-staged original when undoing a move answered with Replace, and kept the move-back when it is gone. |
+| [lgse/strata#2079](https://github.com/lgse/strata/issues/2079) | 2026-11-07 | fix | [Interface language](../features/settings/preferences/language.md) | Replaced Hungarian "egyesítés" with "beolvasztás" and its verb forms in ten merge strings, including the conflict prompt and set-aside labels. |
+| [lgse/strata#2078](https://github.com/lgse/strata/issues/2078) | 2026-11-07 | fix | [Drag and drop](../features/operations/drag-and-drop/index.md) | Offered Merge for moved folders, so a drag no longer offers only Replace, and withheld it where the target holds the source. |
+| [lgse/strata#2075](https://github.com/lgse/strata/issues/2075) | 2026-11-07 | feat | [Sidebar](../features/browser/sidebar/index.md) | Grouped DEVICES rows by physical drive in the system's drive order, with a divider between drives, so partitions of different disks no longer mix. |
+| [lgse/strata#2074](https://github.com/lgse/strata/issues/2074) | 2026-11-07 | feat | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | Added `, f` to toggle Folders first, since 10xer mode hides the pane header's sort menu (lgse/strata#2073). |
 | [lgse/strata#2072](https://github.com/lgse/strata/issues/2072) | 2026-11-06 | fix | [Shared location model and listing adapter](../features/app/infrastructure.md) | Kept a GVfs URI's non-ASCII host as given through credential sanitizing, so MTP devices with CJK names open instead of reporting not mounted. |
 | [lgse/strata#2070](https://github.com/lgse/strata/issues/2070) | 2026-11-06 | fix | [Undo and redo](../features/operations/undo.md) | Stopped undo and redo offering Replace where a file meets a folder, and kept a replay that moves nothing in the history. |
 | [lgse/strata#2070](https://github.com/lgse/strata/issues/2070) | 2026-11-06 | fix | [Devices and volumes](../features/devices/volumes/index.md) | Limited Ctrl+K search roots to Home plus the local mounts Devices lists, so hidden system mounts are no longer scanned. |

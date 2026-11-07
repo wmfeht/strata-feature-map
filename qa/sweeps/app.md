@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -232,7 +232,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With the fixture holding unknown ids, press **Reset all** and dismiss the dialog by Escape and by the backdrop; then confirm and diff the file.
 - Edit `settings.toml` while Strata runs, then save a rebind from Settings; read the file and the keys after relaunch.
 - With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
-- Bind `sort.unsorted`, `sort.natural`, and `sort.case_sensitive` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter; press each in Columns, Icons, List, and Recent, with and without Shift.
+- Bind `sort.unsorted`, `sort.natural`, `sort.case_sensitive`, and `sort.folders_first` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter in turn; press each in Columns, Icons, List, and Recent, with and without Shift, and with the location field focused.
 - Search Settings → Keyboard for `sort`, `extension`, and `case` in both tables, with the interface in English and de.
 
 ### app/updates

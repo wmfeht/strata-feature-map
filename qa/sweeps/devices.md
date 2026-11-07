@@ -1,12 +1,12 @@
 ---
 title: Devices sweep
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
 ## Scope
 
-Everything the sidebar's Devices section does with a device or mount listed under DEVICES. Discovery and mounting of volumes, mounts, and password drives. Unmount and Eject with the flush, the pending row, and "Safe to remove", including the network row and Disconnect of a mounted GVfs share. Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails. Which mounted devices Send to… offers, and the drives Ctrl+K searches.
+Everything the sidebar's Devices section does with a device or mount listed under DEVICES. Discovery and mounting of volumes, mounts, and password drives, and their order by drive with the dividers between drives. Unmount and Eject with the flush, the pending row, and "Safe to remove", including the network row and Disconnect of a mounted GVfs share. Unlock and Lock on LUKS volumes, including saved passphrases. The udiskie hook, `--unlock-volume`, and the install and uninstall flags. Properties, Set label, and Format with Missing tools. The gphoto2 camera Photos view with its ordering and thumbnails. Which mounted devices Send to… offers, and the drives Ctrl+K searches.
 
 Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying to a device, device rows as navigation targets, network mounts and their credentials, and the installer's default selection and its `--with-udiskie-unlock` and `--without-udiskie-unlock` flags.
 
@@ -119,6 +119,15 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Attach the virtio LUKS disk and its `dd` clone, unlock one, unmount its filesystem from a shell, and Lock it. Check which mapping `lsblk` shows closed.
 - Open the virtio LUKS mapping as another user with `udisksctl unlock`, then Lock it in Strata. Dismiss the polkit prompt with Escape, then with its close button, then let it time out; finally authorize.
 - Unmount the virtio LUKS filesystem from a shell, then restart udisks2 and Lock at once; repeat with udisks2 stopped.
+
+### devices/volumes/drive-order
+
+- Attach the three-partition disk, both same-label sticks, and the virtio disk over QMP in a shuffled order. Compare groups and dividers with each drive's `udisksctl info` SortKey. Detach and reattach one stick.
+- Set a Strata label on the three-partition disk's last partition that would sort first, then plug in a stick to force a rebuild; repeat after a restart.
+- List an MTP phone, a camera, a loop mount under `/mnt`, an unlocked LUKS volume, and the SFTP share beside the sticks. Count dividers and read the order in the full sidebar and the rail.
+- Attach the LUKS disk locked, then unlock it, and mount one partition of the three-partition disk from a shell; watch which group each row joins.
+- Hold one stick busy with a shell, Eject it, and detach it over QMP while the pending row shows; read where that row and the dividers sit.
+- With the local-only file chooser open, list the SFTP share and an unmounted stick; count the groups and dividers it shows.
 
 ### devices/volumes/camera
 

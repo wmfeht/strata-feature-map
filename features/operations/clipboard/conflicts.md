@@ -3,10 +3,10 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs, src/adapters/local_operations/replacement/**, src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
-tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, src/adapters/local_operations/tests/conflicts/**, src/adapters/local_operations/tests/merge/**, src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs]
+tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, src/adapters/local_operations/tests/conflicts/**, src/adapters/local_operations/tests/merge/**, src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs, tests/qa/scenarios/drag_and_drop/drag-folder-merges-into-same-named-folder.jsonl]
 related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers, app/infrastructure, operations/undo]
 ---
 
@@ -42,8 +42,13 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 - Keep Both is offered for a cut-paste or Move to… too; Ctrl+Z moves the item back from its numbered name. lgse/strata#1615
 - Keep Both picks its number when the copy is placed, so a name taken meanwhile gets the next number. lgse/strata#1615
 - A long name numbered by Keep Both is cut so ` (N)` fits the mount's name limit. lgse/strata#1615
-- Merge appears only when copying a folder onto a folder; moves and file conflicts never offer it. lgse/strata#1092
+- Merge appears when a paste, drop, Move to…, or Copy to… puts a folder onto a same-named folder, by copy or by move. File conflicts never offer it. lgse/strata#1092, lgse/strata#2078
+- When Merge is offered for a move, the prompt adds "Merging removes the source folder and can’t be undone." A copy's prompt omits it. lgse/strata#2078
+- Merge is not offered where the target folder holds the source, such as `a/Photos/Photos` moved or copied into `a`. Replace and Keep Both remain. lgse/strata#2078
+- Merge is also withheld when the check cannot read whether the target folder holds the source. lgse/strata#2078 (unverified)
 - Merge adds the incoming contents, keeps destination-only items, and overwrites same-named files with the incoming copies. lgse/strata#1092
+- A merged move adds the source's contents to the target folder, overwrites same-named files, and then removes the source folder. lgse/strata#2078
+- A merged move deletes only the source items it read unchanged. lgse/strata#2078
 - Merge with Apply to All merges the remaining folder pairs and still asks about each file conflict. lgse/strata#1092, lgse/strata#2030
 - Merge never writes into the live folder: incoming items are built in a hidden stage and renamed in. lgse/strata#1615
 - A name taken inside a merged folder meanwhile gets the next number and is reported; a stopped merge leaves nothing partial. lgse/strata#1615
@@ -52,7 +57,7 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 ### Undo
 
 - Ctrl+Z after a copy answered with Replace restores the overwritten original from Trash, outside folders opened as administrator. lgse/strata#1097, lgse/strata#1837
-- Ctrl+Z after a Merge removes what the merge created and restores the overwritten originals, leaving destination-only items. lgse/strata#1092, lgse/strata#1097
+- Ctrl+Z after a copy answered with Merge removes what the merge created and restores the overwritten originals, leaving destination-only items. lgse/strata#1092, lgse/strata#1097
 - An item edited since the Merge or Replace stays on undo, its original stays in Trash, and the dialog says so. lgse/strata#1615
 - Where Trash is unavailable, a Merge undo deletes only created items it recorded and finds unchanged, and reports the rest. lgse/strata#1615
 - Undoing such a Merge that placed `0555` folders completes without "Permission denied"; a placed folder that stays gets its mode back. lgse/strata#1729
@@ -89,7 +94,8 @@ Each item carries its own decision: fail if it exists, Replace, Keep Both, or Me
 - In an admin folder, Replace overwrites files in place and Merge is withheld, because both would stage originals in Trash, which `admin://` lacks (lgse/strata#1836, lgse/strata#1837).
 - A file and a folder cannot safely replace one another. The prompt learns whether the two items are of one kind and withholds Replace when they are not. Apply to All leaves such items their own prompt, as it already did for Merge (lgse/strata#2017, lgse/strata#2030).
 - A prompt offering neither Replace nor Keep Both starts on Cancel rather than Skip, because Cancel is the one answer that never changes the history (lgse/strata#2070).
-- Merge is copy-only, because undoing a merged move cannot tell which destination contents the source owned (lgse/strata#1092).
+- Merge was copy-only, because undoing a merged move cannot tell which destination contents the source owned (lgse/strata#1092). A same-filesystem drag is a move, so Replace was its only overwrite, discarding the target's contents. Moves now merge without an Undo entry, and the prompt says so (lgse/strata#2076, lgse/strata#2078).
+- Merge stages what it overwrites first. Where the target folder holds the source, that staging took the source's own files, which never arrived while the merge reported success. Merge is withheld there (lgse/strata#2078).
 - Incoming-wins merging with Trash staging was chosen over per-file prompts or Finder's newer-wins, to keep it predictable and undoable (lgse/strata#1091).
 - Same-folder paste never prompts, so pasting where an item already lives stays non-destructive. The engine also treats Replace of an item onto itself as a no-op (lgse/strata#395, lgse/strata#708).
 

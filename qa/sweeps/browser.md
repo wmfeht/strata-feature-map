@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -205,6 +205,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Sort by Extension a folder holding `.bashrc`, `a.tar.gz`, `b.TAR.GZ`, `c.`, `d..md`, and `e.md.bak`, in both directions and with each name order.
 - Sort `Ä10`, `a2`, `ä1`, `İ`, `ß`, `ss`, full-width `１０`, and Arabic-Indic digits by Name in each name order, with and without Case-sensitive names.
 - In List, hide each sorted column in turn with every field and name order, then switch to Icons and back.
+- In Recent under Size, choose Folders first, then open an ordinary folder in the same pane. Read its order and the menu's checked state.
 - Choose a field, then press Make default or Reset to default sort within 16 ms, before the sort applies. Read the pane and `settings.toml`.
 - Open the sort menu and change every row by keyboard alone with Enter, Space, and the vim focus keys. Then toggle 10xer mode while it is open.
 
@@ -435,6 +436,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Collapse both sections, step to the icon rail, to hidden, and back to full. Then toggle a section in 10xer mode with `j`, `k`, and `l`.
 - Compare the chevron's right gap with the title's left gap at text sizes 9, 11, and 28, expanded and collapsed. Repeat at 125 % and 150 % fractional scaling.
 - Collapse DEVICES with no removable drive connected, then connect one.
+- With three drives and a network share listed, collapse DEVICES in the full sidebar and the rail. Read the badge in the full sidebar and the heading's accessible description in both, then plug in a fourth drive.
+- Compare the drive dividers with the heading rule in the full sidebar and the section separator in the rail, at text sizes 8 and 32, in a light and a dark theme.
 - Step full, rail, full with both sections collapsed; check the separators and rules at each step.
 - Click PINNED, then press `j` and Tab; note where focus lands and whether any outline shows.
 - Unpin the last pin while the rail shows, then drag a file over the rail and switch back to the full sidebar mid-drag.
@@ -624,6 +627,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Close the custom color dialog by a click outside it, then Customize the same way. Delete the item externally while Customize is open and press Escape.
 - Customize a folder, move it with Keep both, undo, and redo. Then trash it, trash a new folder from the same path, and Put back both.
 - Replace a customized folder by a copy, Merge one into a customized folder, and move one to an `sftp://` share; read settings.toml after each.
+- Customize a folder and one child, move it over a customized namesake with Replace, then undo, redo, and undo again. Repeat on a vfat stick. Then Merge-move it into a customized namesake and read settings.toml.
 - Customize two folders whose non-UTF-8 names decode to the same text, then Clear one; read settings.toml and both icons.
 - Open the custom color editor under the Adwaita and Papirus icon themes and compare its spin buttons.
 
