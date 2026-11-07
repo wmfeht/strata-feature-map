@@ -3,7 +3,7 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/keyboard/tenxer.rs, src/ui/window/keyboard/items/tenxer_cursor.rs, src/ui/window/keyboard/items/tenxer_items.rs, src/ui/window/keyboard/footer_bindings.rs, src/app/navigation/visual.rs, src/ui/shortcut_footer/indicators.rs, src/ui/shortcut_footer/prompt.rs, src/ui/window/composition/tenxer_splash.rs, data/brand/tenxer-splash.png, src/ui/shortcut_footer/chord_panel.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/tests/keyboard_dispatch/list_motion.rs, src/ui/window/tests/keyboard_dispatch/tenxer_fill.rs, src/ui/window/tests/keyboard_dispatch/tenxer_panes.rs, src/ui/window/tests/keyboard_dispatch/tenxer_shortcuts.rs, src/ui/window/tests/preferences/tenxer_prefs.rs, src/app/navigation/tests/visual.rs, src/ui/window/composition/tenxer_splash/tests.rs]
@@ -60,7 +60,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - The panel never takes focus, so the next key still completes the chord. lgse/strata#1304
 - The `g` panel lists `g` First item, `f` Follow search result, the place keys, and the pin digits. It also lists `+` / `-` Pin / unpin folder and Space Type a path. lgse/strata#1304, lgse/strata#1342 (unverified)
 - The `c` panel lists Copy path and Copy name. lgse/strata#1306 (unverified)
-- The `,` panel lists Name, Modified, Size, Type, Extension, Created, Unsorted, Natural, Alphabetical, Case-sensitive names, and Shift for Reverse. lgse/strata#1308, lgse/strata#2029 (unverified)
+- The `,` panel lists Name, Modified, Size, Type, Extension, Created, Unsorted, Natural, Alphabetical, Case-sensitive names, `f` Folders first, and Shift for Reverse. lgse/strata#1308, lgse/strata#2029, lgse/strata#2074 (unverified)
 
 ### Movement
 

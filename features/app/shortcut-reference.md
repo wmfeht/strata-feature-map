@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs, src/ui/shortcut_footer/build.rs, src/ui/shortcut_footer/catalog.rs, src/ui/shortcut_footer/reference.rs, src/ui/shortcut_footer/reference_keys.rs, src/ui/shortcut_footer/status.rs]
 tests: [src/ui/shortcut_footer/tests.rs, src/ui/shortcut_footer/tests/**, src/ui/shortcut_reference/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
@@ -78,7 +78,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In 10xer mode in Columns or List, the reference lists "Shift+← / Shift+→ / Page Down / Page Up" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
 - In 10xer mode in Columns or List, the reference lists "0 / Home / G / End" in media as "Seek to the start / end". lgse/strata#1570, lgse/strata#1451
 - In 10xer mode in Columns or List, the reference lists "↑ / ↓ / + / −" in media as "Volume up / down". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
-- In 10xer mode, after the sort-by row, the reference lists `, x` Extension, `, b` Created, `, u` Unsorted, `, n` Natural, `, l` Alphabetical, and `, c` Case-sensitive names. lgse/strata#2029
+- In 10xer mode, after the sort-by row, the reference lists `, x` Extension, `, b` Created, `, u` Unsorted, `, n` Natural, `, l` Alphabetical, `, c` Case-sensitive names, and `, f` Folders first. lgse/strata#2029, lgse/strata#2074
 - The default reference lists text size as "Ctrl++ / − / 0", Ctrl+Space, and Ctrl+\; the 10xer reference lists text size. lgse/strata#1376, lgse/strata#1576
 - In the default map in Icons, the reference lists Ctrl+Alt++ / − / 0 as "Increase / decrease / reset thumbnail size". lgse/strata#1721
 - In 10xer mode in Icons, "Increase / decrease thumbnail size" lists +, −, Ctrl+Alt++, and Ctrl+Alt+−, and "Reset thumbnail size" lists Ctrl+Alt+0. lgse/strata#1721 (unverified)

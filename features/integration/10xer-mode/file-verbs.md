@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_commands/**, src/ui/window/tests/keyboard_dispatch/file_verbs.rs, src/ui/window/tests/keyboard_dispatch/file_verbs/**, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl]
@@ -12,7 +12,7 @@ related: [operations/clipboard, operations/trash, operations/delete, operations/
 
 ## Summary
 
-Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename, move, copy, restore, sort, hidden files, Open With, custom actions, and archive commands. They act on the focused pane's filled selection, or its cursor item when nothing is filled. This node also runs the default map's Custom action slot keys, which `app/keyboard-shortcuts/remapping` dispatches.
+Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename, move, copy, restore, sort, Folders first, hidden files, Open With, custom actions, and archive commands. They act on the focused pane's filled selection, or its cursor item when nothing is filled. This node also runs the default map's Custom action slot keys, which `app/keyboard-shortcuts/remapping` dispatches.
 
 ## Behavior
 
@@ -78,6 +78,9 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `, n` and `, l` set the focused pane's name order to Natural or Alphabetical. `, c` toggles case-sensitive names. lgse/strata#2029
 - After `, n`, `, l`, or `, c`, the cursor stays on the same item. lgse/strata#2029 (unverified)
 - `, N`, `, L`, and `, C` cancel with `Unknown chord` and leave the order unchanged. lgse/strata#2029 (unverified)
+- `, f` toggles the application-wide Folders first setting. The pane keeps its sort field and direction, and the cursor stays on the same item. lgse/strata#2074
+- `, F` cancels with `Unknown chord` and leaves Folders first unchanged. lgse/strata#2074
+- In Recent, `, f` closes the chord with no message. `browser/view-modes/sorting` owns why nothing changes there. lgse/strata#2074 (unverified)
 - With a sort step rebound under `[keymap.tenxer]`, Shift with the new key sorts descending. lgse/strata#1885
 - A hand-edited key bound to one step wins over another step's Shift-reversed key: with `sort.type = ["<Shift>a"]`, `, A` sorts by type ascending. lgse/strata#1885 (unverified)
 - A keyboard sort keeps the cursor on the same item and leaves other Miller columns in their order. lgse/strata#1308
@@ -121,6 +124,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2074 | feat | Added `, f` to toggle Folders first, since 10xer mode hides the pane header's sort menu (lgse/strata#2073). |
 | 2026-10-15 | lgse/strata#1623 | fix | Made Ctrl+Alt+N use only the committed fill, so with nothing selected it creates an empty folder. |
 | 2026-10-07 | lgse/strata#1508 | fix | Focused the confirm button in permanent-delete dialogs and let `d` trash an open Columns folder. |
 | 2026-10-01 | lgse/strata#1340 | feat | Added pin, move, copy, extract, restore, and `d d` keys, and made Ctrl+Shift+M the only exit. |

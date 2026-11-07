@@ -3,7 +3,7 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/app/browser/sorting.rs, src/services/mime_type.rs, src/app/browser/sort_settings.rs, src/app/navigation/ordering.rs, src/ui/browser/pane_header/sort_menu.rs]
 tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl, src/app/navigation/tests/sorting.rs, tests/qa/scenarios/search_filter_sort/additional-sort-choices.jsonl]
@@ -31,6 +31,7 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 - Under Unsorted, the direction rows and the three NAME ORDER rows are disabled. lgse/strata#2029
 - Under Device order, the direction and NAME ORDER rows are disabled. Under Recency, the NAME ORDER rows and Folders first are. lgse/strata#2029 (unverified)
 - In Recent the Folders first row is present; it is disabled only under Recency. lgse/strata#2029 (unverified)
+- In Recent under another sort, choosing Folders first leaves the row enabled. The saved setting and every pane's order stay unchanged, as with the 10xer `, f` chord. lgse/strata#2074
 - "Make default" shows in a remembered folder whose current sort, including direction and name order, differs from the default. It saves a choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
 - Under Device order or Recency, "Make default" stays hidden. lgse/strata#2029 (unverified)
 - "Reset to default sort" shows only for a folder with its own saved sort. It also cancels a sort choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
@@ -83,13 +84,13 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 - Name order and case sensitivity are saved with the default sort. With Remember sort and icon size per folder off, changing either makes it the default. lgse/strata#2029
 - In Columns, a sort change or Make default in a folder starts from that folder's sort. The last choice at that depth elsewhere does not carry over. lgse/strata#2029
 - The Folders first setting is saved and restored after a restart. lgse/strata#144
-- Toggling Folders first in any pane re-sorts every open column in every window; Recent is unaffected. lgse/strata#1563, lgse/strata#1565
+- Toggling Folders first in any pane outside Recent re-sorts every open column in every window; Recent's order is unaffected. lgse/strata#1563, lgse/strata#1565, lgse/strata#2074
 - A folder of more than 2,048 entries is sorted off the UI thread and stays in its loading state until the sorted rows are shown. lgse/strata#1030
 - If the background sort fails, the pane shows the error "Sorting the directory failed." lgse/strata#1030 (unverified)
 
 ## Design
 
-One sort default is shared by Columns, Icons, and List, so a change in any mode survives mode switches and restarts (lgse/strata#40). With per-folder values off, existing columns keep their local sort and only new columns inherit the default (lgse/strata#1520, lgse/strata#1565). Folders first is application-wide in either case (lgse/strata#1565). Recent and Camera Photos force their own sort, which never changes the default field or direction (lgse/strata#1083, lgse/strata#1029).
+One sort default is shared by Columns, Icons, and List, so a change in any mode survives mode switches and restarts (lgse/strata#40). With per-folder values off, existing columns keep their local sort and only new columns inherit the default (lgse/strata#1520, lgse/strata#1565). Folders first is application-wide in either case (lgse/strata#1565). The menu and the 10xer chord share `Browser::toggle_folders_first`, which ignores Recent rather than change the setting for other folders (lgse/strata#2074). Recent and Camera Photos force their own sort, which never changes the default field or direction (lgse/strata#1083, lgse/strata#1029).
 
 - Case-insensitive order matches GNOME Files, Dolphin, Windows Explorer, and Finder (lgse/strata#216).
 - Type uses `content_type_guess` on the name only. Sniffing contents like Dolphin was rejected: it needs I/O on every file and fights streaming, incremental sorting (lgse/strata#508).
@@ -120,3 +121,4 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 
 - Filenames sort by code point, not by pinyin. lgse/strata#1583
 - Random sort and transliterated name order are left out of the first version. lgse/strata#2029
+- In Recent under a sort other than Recency, the Folders first row stays enabled though choosing it does nothing. lgse/strata#2074

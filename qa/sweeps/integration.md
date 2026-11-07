@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -191,6 +191,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press `, b` and `, B` in Recent, in a camera root, on the sshfs mount, and on a vfat mount. Repeat `, x` on names like `.gitignore` and `a.tar.gz`.
 - Press `, c` twice, then `, l` and `, n`, in a non-last Columns pane with a `v` range and an `f` result list active. Read each pane's order.
 - Rebind `"sort.unsorted"` and `"sort.case_sensitive"` under `[keymap.tenxer]` to `q` and `<Shift>n`, then press `, q`, `, Q`, `, n`, and `, N`.
+- Press `, f` in a non-last Columns pane with a second window open, under Unsorted, with a `v` range active, and over `f` results. Read every pane's order and the cursor.
+- Press `, f` in Recent, in a camera root, and on the sshfs mount, then restart and read the sort menu's Folders first item.
 - On ext4 with casefold and on the sshfs mount, `ln a.txt link.txt`, then `rename ›` `a.txt` to `link.txt` and `Link.txt`.
 - On the vfat mount, submit `CON`, `a.`, ` lead`, `x:y`, and a name with U+200B in `create ›` and `rename ›`. On vfat and casefold, `rename ›` `Notes.txt` to `notes.txt`.
 - On the sshfs mount, press `d` until Trash is refused, then `d` again before and after F5, and from a second window; read each dialog.
