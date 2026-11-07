@@ -3,10 +3,10 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs]
-tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/app/browser/operation_events.rs, src/adapters/local_files/monitors.rs, src/adapters/local_files/monitor_changes.rs, src/app/browser/listing.rs, src/app/browser/metadata_fills.rs, src/app/browser/operation_events/outcome.rs, src/app/browser/refresh.rs, src/app/navigation/listing.rs, src/app/navigation/metadata.rs, src/app/navigation/monitored.rs, src/ui/browser/events/listing.rs]
+tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl, src/app/browser/tests/monitor/**, src/adapters/local_files/tests/live_monitor.rs, src/adapters/local_files/tests/monitor_queue.rs, src/app/navigation/tests/loading.rs, src/app/navigation/tests/metadata.rs, src/app/navigation/tests/monitor.rs, src/app/navigation/tests/reload.rs, tests/qa/scenarios/locations/open-folder-follows-renamed-ancestor.jsonl]
 docs: [docs/architecture.md, docs/performance-baseline.md, docs/filesystem-compatibility.md]
 related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations, operations/filesystem-compatibility]
 ---
@@ -47,6 +47,11 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Deleting an open folder externally in Columns closes its column and every descendant column. lgse/strata#1036, lgse/strata#1037
 - URI locations such as `trash:///` and mounted GVfs shares receive live changes through GIO monitors. lgse/strata#463
 - A folder's monitor is created after its load has answered. A file created between the load and the monitor going live appears without F5. lgse/strata#1729
+- Copying a file into an open local folder shows no `#<inode>` entry while it is written; the file appears once, under its final name. lgse/strata#1615
+- A file linked into a watched folder is queried once, so its row updates once. lgse/strata#1615 (unverified)
+- Moving a file out of an open folder and creating a file under its old name in the same moment shows the new file. lgse/strata#1615 (unverified)
+- Pasting Replace onto a same-named file in an open folder without Trash, such as `/dev/shm`, keeps the row listed with the new contents. lgse/strata#1858, lgse/strata#1890
+- A file exchanged into a watched folder and deleted before the monitor flushes its batch loses its row. lgse/strata#1890
 
 ### Renaming to a hidden name
 
@@ -62,6 +67,9 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 - When another program renames the open folder within its parent, the pane follows it. The header shows the new name, and listing, selection, cursor, and scroll stay. lgse/strata#1435, lgse/strata#1554
 - That rename leaves Back and Forward history unchanged, and files created in the folder afterwards appear without F5. lgse/strata#1554
+- With `mon/b/c` open in any view, another program runs `mv mon/b mon/b2 && echo 2 > mon/b2/c/two.txt`. The pane follows to `mon/b2/c` and lists `two.txt` without F5. lgse/strata#2004, lgse/strata#2026
+- A renamed ancestor is noticed at the next change in the open folder, or on F5. F5 then reloads the folder at its new path, not the nearest ancestor of the old one. lgse/strata#2026
+- When the old path then holds a different folder, as after `mv b b2 && mkdir -p b/c`, the pane still follows the moved folder. That holds where the mount's identity rule proves it. lgse/strata#2026
 - A pane filter typed in the renamed folder ends; filters and Ctrl+K searches rooted above it follow the rename. lgse/strata#1435, lgse/strata#1554
 - When another program deletes the open folder or moves it to another parent, the pane opens the nearest existing ancestor without a history entry. lgse/strata#1435, lgse/strata#1554
 - That departure walks past removed parents and ends any filter. lgse/strata#1554
@@ -124,6 +132,9 @@ Loading and file monitoring predate the PR history; the original monitor already
 - A folder's own monitor reports deletion, rename, and move alike. Strata then looks in the parent, off the main thread, for the same device, inode, and birth time (lgse/strata#1554).
 - The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554). Since lgse/strata#1729 the comparison starts from the load's change stamp and uses the mount's identity rule. Where nothing proves the folder, as on sshfs, exfat-fuse, and vboxsf or for exFAT folders, the rename is not followed.
 - A watch on the open folder's parent was rejected before merge. In a busy parent it delayed notifications from about 100 ms to 150 ms (lgse/strata#1435, lgse/strata#1554).
+- A paste Replace without Trash exchanges the files, so the monitor reports the name arriving, then leaving, in one batch. The coalescer keeps the arrival, and the follow-up lookup decides whether the row stays, without adding operation-specific refresh logic (lgse/strata#1858, lgse/strata#1890).
+- Inotify watches the folder, not its path. After each batch the local monitor looks the folder up at its path, as background work on its mount's lane, one look at a time (lgse/strata#2004, lgse/strata#2026).
+- The identity search for a moved folder starts at the nearest existing ancestor. It never looks at a path the mount table places on another mount, because a mount point cannot be renamed and the look could hang or automount (lgse/strata#2026).
 - The owner chose the nearest existing ancestor with no history entry and followed renames in place. A move to another parent counts as a deletion (lgse/strata#1554).
 - An Auto-refresh timer, Off by default, was added because monitors can miss changes on network shares (lgse/strata#172, lgse/strata#173). lgse/strata#1729 removed it: the lab saw no inotify event for 300 changes made on other computers over NFS, SMB, and sshfs. Stamp checks in `browser/directory-monitoring/network-checks` replace it.
 - Every live change and every reload (F5, a check's re-list, rescan) asks the search service to rescan indexes listing that local folder. Pane filters thus follow outside changes (lgse/strata#1439, lgse/strata#1544, lgse/strata#1729).
@@ -144,6 +155,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Followed the open folder when another program renames an ancestor, by a post-batch path look and an identity search from the nearest ancestor. |
 | 2026-10-30 | lgse/strata#1937 | fix | Refreshed shown folder counts after Strata's own file operations, without reloading the parent listing. |
 | 2026-10-20 | lgse/strata#1729 | fix | Replaced auto-refresh with network-folder checks, kept listings on mounts that stop answering, and created monitors off the interface thread. |
 | 2026-10-10 | lgse/strata#1554 | fix | Followed an open folder renamed outside Strata, and left one deleted or moved for its nearest existing ancestor. |
@@ -166,4 +178,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - While one monitor creation is stuck on a mount that stopped answering, monitors on every folder deliver nothing until that server answers. lgse/strata#1729
 - Before Linux 6.13, a change can share a clock tick with the load's stamp and land before the monitor goes live. It then stays hidden until the next change. lgse/strata#1729
 - When another program removes an open folder, the cursor lands on the first row instead of a neighbor. lgse/strata#1874
+- A path look is skipped while the mount's lane is busy, so a renamed ancestor is noticed only at a later change or on F5. lgse/strata#2026
+- On mounts that renumber folders, such as sshfs and exFAT, a folder can be put back at the old path. It keeps receiving the moved folder's changes until it is opened again. lgse/strata#2026
+- An open folder on another mount than its renamed ancestor counts as departed. lgse/strata#2026
 - Metadata fills on visible `admin://` rows still go through GIO. After the polkit grant expires, they can raise a prompt the user did not ask for. lgse/strata#1837

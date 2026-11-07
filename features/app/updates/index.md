@@ -3,17 +3,17 @@ title: Updates
 status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
-code: [src/services/update_check.rs, src/ui/settings/update_status.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/services/update_check.rs, src/ui/settings/update_status.rs, src/ui/settings/release_notes.rs, src/ui/settings/update_check.rs, src/ui/settings/update_messages.rs, src/ui/settings/updates.rs]
 tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
 docs: [docs/preferences.md, docs/packaging.md]
-related: [browser/sidebar]
+related: [browser/sidebar, app/accessibility]
 ---
 
 ## Summary
 
-Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. A build made with `STRATA_UPDATER=disabled` leaves the updater out. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (signed in-place install, rollback, and restart), `app/updates/release-picker` (installing a chosen release), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
+Checking GitHub for a newer Strata release, the Settings → Updates page, release notes, and the sidebar update notice. A build made with `STRATA_UPDATER=disabled` leaves the updater out. Children: `app/updates/release-channels` (Stable, Preview, Nightly, and Return to stable), `app/updates/install` (the update dialog, signed in-place install, rollback, and restart), `app/updates/release-picker` (installing a chosen release), and `app/updates/package-managed` (AUR, Omarchy, and pacman installs).
 
 ## Behavior
 
@@ -46,7 +46,7 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 ### Settings → Updates
 
 - Before a check, the status row reads "Version X", adding the build kind, such as "Release candidate", for a prerelease build. lgse/strata#97
-- After a check, the row title reads "Strata is up to date", "An update is available", or "Couldn’t check for updates". lgse/strata#51 (unverified)
+- After a check, the row title reads "Strata is up to date", "An update is available", or "Couldn't check for updates". lgse/strata#51, lgse/strata#2027 (unverified)
 - A failed check shows its reason and a "View releases on GitHub" link. lgse/strata#22 (unverified)
 - A check whose worker ends without a result fails with the reason "An unexpected system error occurred". lgse/strata#1909 (unverified)
 - Settings → Updates opened after the startup check completed shows that check's result, without Check now or another request. lgse/strata#1909
@@ -58,13 +58,15 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - That reset skips a row mid-check or with an install underway. lgse/strata#1909
 - An available update shows its notes inline, titled "Available release · vX" with its change count and publication date. lgse/strata#51
 - Turning automatic checks off clears the sidebar notice in every window; turning them on runs a check. lgse/strata#944, lgse/strata#1554
-- The Release channel menu is insensitive while automatic checks are off. lgse/strata#97 (unverified)
 
 ### Release notes
 
 - The Release notes section holds a collapsed "What's new in vX" expander with the notes of the installed build's exact tag. lgse/strata#51, lgse/strata#849
 - Installed-release notes are fetched once per tag and kept in `~/.cache/strata/release-notes.toml`. lgse/strata#197
-- Without a GitHub release for the installed tag, the expander reads "Release notes are unavailable because this version’s tag was not found." and links to GitHub. lgse/strata#51
+- When GitHub has no release for the installed tag, that answer is cached with its time and refetched only after 6 hours. lgse/strata#197, lgse/strata#2030
+- A failed release-notes request other than a 404 is not cached, so the next visit fetches again. lgse/strata#2030
+- A "no release" cache entry stamped later than the current time is rechecked at once. lgse/strata#2030
+- Without a GitHub release for the installed tag, the expander reads "Release notes are unavailable because this version's tag was not found." and links to GitHub. lgse/strata#51, lgse/strata#2027
 - A release with empty notes, or notes holding only HTML comments, shows "No release notes were provided for this release." lgse/strata#51, lgse/strata#1570, lgse/strata#1464
 - A release body starting with `<!-- Release notes generated … -->` shows its notes from the first heading, without the comment. lgse/strata#1570, lgse/strata#1464
 - Multi-line and inline HTML comments in notes are hidden; other raw HTML, such as `<b>x</b>`, shows as escaped text. lgse/strata#1570
@@ -76,14 +78,6 @@ Checking GitHub for a newer Strata release, the Settings → Updates page, relea
 - A window opened after the check shows the cached notice without another request. lgse/strata#944
 - An automatic result that lands after checks were disabled or the channel changed is discarded. lgse/strata#944
 - Clicking the notice opens the update dialog for that release. lgse/strata#51
-
-### Update dialog
-
-- For an update offer, the dialog is titled "Strata vX is available" and shows "Installed vA  →  Available vB". lgse/strata#51, lgse/strata#1781
-- For a chosen release, the dialog is titled "Install Strata vX" and shows "Installed vA  →  Selected vB". Its button reads "Install release". lgse/strata#1781
-- The chosen-release dialog's status reads "Review the release notes before installing this release." lgse/strata#1781 (unverified)
-- The release's notes appear under "What’s new" in a scrolling area above the action button, with a "View release on GitHub" link. lgse/strata#51, lgse/strata#1781
-- Empty or comment-only notes read "No release notes were provided. Review this release on GitHub before continuing." lgse/strata#51, lgse/strata#1570
 
 ## Design
 
@@ -102,12 +96,15 @@ Update checks use GitHub's unauthenticated REST API, limited to 60 requests per 
 - One 100-release page let older signed stable releases fall off, since nightlies are never pruned. Paging stops where signed history ends, and 5 requests stay inside the unauthenticated rate limit (lgse/strata#1781).
 - Distributions whose packages deliver updates build with `STRATA_UPDATER=disabled`. Reusing the AUR `install-source.toml` marker was rejected, because its update check and wording are AUR-specific (lgse/strata#1933).
 - The switch accepts only `enabled` and `disabled`, so a typo fails the build instead of shipping an updater (lgse/strata#1934).
+- A "no release" cache entry has no `notes` field, so an older Strata that requires it refetches instead of showing empty notes. Found notes keep the format earlier versions wrote (lgse/strata#2030).
 - HTML comments are stripped only in the client, and only from release notes. Published releases already carry the comment, and `--generate-notes` adds it to every body. Markdown file previews still show comments (lgse/strata#1464, lgse/strata#1570).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Cached a missing installed-tag release for 6 hours, and disabled the Release channel choice and toggle with their row for screen readers. |
+| 2026-11-02 | lgse/strata#2027 | fix | Used straight apostrophes in update status and release notes messages, matching their catalog keys. |
 | 2026-10-29 | lgse/strata#1909 | fix | Shared one completed update-check result with every Settings → Updates row, so a page opened after the startup check shows it. |
 | 2026-10-29 | lgse/strata#1934 | feat | Added the `STRATA_UPDATER=disabled` build switch, which leaves the updater out for distributions whose packages deliver updates. |
 | 2026-10-20 | lgse/strata#1781 | feat | Added "Install a specific release", listing the channel's signed releases so users can roll back or switch builds. |

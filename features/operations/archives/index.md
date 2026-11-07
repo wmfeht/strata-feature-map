@@ -3,10 +3,10 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
 code: [src/ui/browser/archive.rs, src/adapters/local_operations/archive.rs, src/adapters/local_operations/archive/compression.rs, src/adapters/local_operations/archive/decoders.rs, src/adapters/local_operations/archive/extraction.rs]
-tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z, tests/qa/scenarios/dialogs_and_menus/compress-then-chooser-extracts.jsonl, tests/qa/scenarios/dialogs_and_menus/invalid-archive-name-keeps-dialog.jsonl]
+tests: [src/ui/browser/archive/tests.rs, src/adapters/local_operations/archive/tests.rs, src/adapters/local_operations/archive/fixtures.rs, src/adapters/local_operations/archive/compression/**, src/adapters/local_operations/archive/decoders/tests.rs, src/adapters/local_operations/archive/decoders/fixtures/**, src/adapters/local_operations/archive/extraction/tests.rs, src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z, tests/qa/scenarios/dialogs_and_menus/compress-then-chooser-extracts.jsonl, tests/qa/scenarios/dialogs_and_menus/invalid-archive-name-keeps-dialog.jsonl, src/adapters/local_operations/archive/extraction/**, src/adapters/local_operations/archive/tests/**, src/adapters/local_operations/archive/decoders/tests/**]
 docs: [site/src/reference/archives.md, site/src/reference/keyboard-navigation.md, docs/archives.md]
 related: [integration/10xer-mode, operations/progress, operations/trash, operations/filesystem-compatibility]
 ---

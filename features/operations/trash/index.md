@@ -3,9 +3,9 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: draft
-code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs]
+code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs, src/ui/browser/trash/delete_dialog.rs, src/ui/window/sidebar_trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
 docs: [docs/trash-restore-testing.md]
 related: [operations/delete, integration/10xer-mode/file-verbs, operations/filesystem-compatibility, browser/context-menu]
@@ -27,6 +27,13 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - A Trash move that reports success while the item is still in place fails as Trash unsupported, and records no Undo. lgse/strata#1615
 - When another item took the name during the Trash call, Undo and saved views follow the newest Trash entry made for that path. lgse/strata#1729
 - In Columns, in the default key map, Ctrl+click on the only selected row, then Delete, moves that row to Trash. lgse/strata#1885 (unverified)
+
+### Deleting the open folder
+
+- In Columns, Delete or Shift+Delete may target the open folder from its own column, as `operations/delete` describes. The cursor then moves to the folder's row in the parent as the deletion starts. lgse/strata#2030
+- A finished deletion then moves the cursor on to a neighbour. lgse/strata#2030
+- A cancelled one ends with focus on the folder's row: closing "Operation cancelled" focuses it, and Down moves from it. lgse/strata#2030
+- A deletion that will not start, such as while a transfer's cancel is still pending, leaves the cursor in the folder's column. lgse/strata#2030
 
 ### Locations without Trash
 
@@ -90,6 +97,9 @@ Moving files and folders to the freedesktop.org Trash, undoing that move, and br
 - A backdrop click, Escape, Cancel, or Close dismisses the permanent-delete confirmation without deleting anything. lgse/strata#1052, lgse/strata#1206, lgse/strata#1900
 - Each of those returns keyboard focus to the listing's cursor row, so arrow keys then move in the visible pane. lgse/strata#1900
 - The no-Trash and "Move N items to Trash?" confirmations return focus the same way. lgse/strata#1900 (unverified)
+- An operation finishing behind an open delete confirmation may move the cursor, as a compression selecting its archive does. Cancelling then returns the cursor and selection to the items asked about. lgse/strata#2030
+- A confirmed deletion, or a cancel when the cursor never moved, leaves the cursor where it is. lgse/strata#2030
+- That return never turns on hidden files; a hidden item among those asked about stays unselected. lgse/strata#2030
 
 ### Confirmation file list
 
@@ -136,6 +146,7 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Gave the cursor back when a delete confirmation is cancelled, and moved it to an open folder's row before deleting that folder. |
 | 2026-10-27 | lgse/strata#1900 | fix | Returned focus to the listing when the deletion confirmation closes by backdrop click, Escape, Cancel, or Close. |
 | 2026-10-16 | lgse/strata#1614 | fix | Classified FUSE Trash refusals as unsupported, remembered them per mount until Reload, and cleaned leftover Trash folders. |
 | 2026-10-12 | lgse/strata#1584 | fix | Probed Trash support without following a symlinked first entry; hardening, as GIO already derived `can-trash` from the parent. |

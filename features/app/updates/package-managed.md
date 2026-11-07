@@ -3,11 +3,11 @@ title: Package-managed installs
 status: shipped
 origin: {issue: lgse/strata#195, pr: lgse/strata#196}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/services/install_source.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/services/install_source.rs, src/ui/settings/managed_update.rs]
 tests: [src/services/install_source/tests.rs]
-related: [app/packaging/aur, integration/open-with/terminal]
+related: [app/packaging/aur, integration/open-with/terminal, app/updates/release-channels]
 ---
 
 ## Summary
@@ -34,10 +34,8 @@ Update checks and actions for Strata installed by a package manager: the officia
 
 ### Settings and actions
 
-- With a marker, Settings → Updates shows a "Package-managed installation" row naming the manager, package, tracked channel, update instruction, and alternate package. lgse/strata#183
+- With a marker, the selected channel is the marker's channel; `rc` and `preview` map to Preview. lgse/strata#183
 - The status line appends "Managed by Omarchy", "Managed by pacman", or "Managed by" the marker's manager. lgse/strata#196, lgse/strata#183
-- With a marker, the Release channel menu is disabled and follows the marker's channel, mapping `rc` and `preview` to Preview. lgse/strata#183
-- Without a marker, an Omarchy or pacman install hides the Release channel row. lgse/strata#196 (unverified)
 - No package-managed install offers an in-app download, and the installer refuses one before downloading. lgse/strata#196
 - With an update available, an Omarchy install offers "Open Omarchy Update", which runs `omarchy-launch-floating-terminal-with-presentation omarchy-update` when that launcher is on `PATH`. lgse/strata#1609
 - Without the launcher, or if it fails to start, it runs `omarchy update` in the configured terminal; a failed start logs a warning. lgse/strata#196, lgse/strata#1609

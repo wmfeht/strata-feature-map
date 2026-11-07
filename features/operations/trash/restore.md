@@ -3,10 +3,10 @@ title: Restore from Trash
 status: shipped
 origin: {issue: lgse/strata#478, pr: lgse/strata#502}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/adapters/trash_restore.rs, src/adapters/local_operations/restore.rs]
-tests: [src/adapters/trash_restore/**, src/adapters/local_operations/tests/restore_safety.rs]
+code: [src/adapters/trash_restore.rs, src/adapters/local_operations/restore.rs, src/adapters/local_operations/restore/lookup.rs, src/adapters/local_operations/restore/moves.rs, src/adapters/local_operations/restore/names.rs, src/adapters/local_operations/restore_items.rs, src/ui/browser/trash/restore.rs]
+tests: [src/adapters/trash_restore/**, src/adapters/local_operations/tests/restore_safety.rs, src/adapters/local_operations/tests/restore_safety/**]
 docs: [docs/trash-restore-testing.md]
 related: [operations/filesystem-compatibility, browser/context-menu]
 ---

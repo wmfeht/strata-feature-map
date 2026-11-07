@@ -3,8 +3,8 @@ title: KDE Connect integration
 status: shipped
 origin: {issue: lgse/strata#1703, pr: lgse/strata#1704}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [integrations/kdeconnect/provider.py, integrations/kdeconnect/messages.json, integrations/kdeconnect/catalog.toml, integrations/kdeconnect/LICENSE]
 tests: [integrations/kdeconnect/tests]
 docs: [integrations/kdeconnect/README.md]
@@ -38,6 +38,7 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 - Choosing a device submits the whole selection once through `shareUrls` to that device, pinned to the daemon's unique D-Bus owner. lgse/strata#1704
 - Focusing Send to…, pressing Right twice, and pressing Return on a device sends the whole multi-file selection to it. lgse/strata#1704
 - An accepted submission opens no dialog and shows the notice "Files submitted to <device>: <N>. KDE Connect handles transfer progress and results." lgse/strata#1704
+- The notice's `<device>` is the label the Send to… menu showed, including the " (<6 hex>)" suffix of a shared name. lgse/strata#1704, lgse/strata#2030
 - A selected file edited or replaced by another regular file after the menu opened rejects the activation with "The selected files changed. Reopen the right-click menu." and sends nothing. lgse/strata#1704
 - A selected file removed, or replaced by a symbolic link or folder, rejects the activation with "The selected files are no longer available." and sends nothing. lgse/strata#1704 (unverified)
 - An unreadable selected file rejects the activation with "One or more selected files cannot be read." lgse/strata#1704 (unverified)
@@ -45,6 +46,7 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 - When that change has not yet invalidated the open menu, the rejection reads "The selected device disconnected or file sharing was disabled." lgse/strata#1704 (unverified)
 - A stale, forged, or reused menu token rejects the activation with "This device menu expired. Reopen the right-click menu." lgse/strata#1704
 - A menu token expires 120 seconds after it was first issued; a menu reopened within that window on unchanged files reuses it. Any device change invalidates every token. lgse/strata#1704 (unverified)
+- Choosing a device after it was renamed, or after a same-named device paired, shows "This device menu expired. Reopen the right-click menu." lgse/strata#1704 (unverified)
 - A D-Bus failure while rechecking devices at activation rejects it with "KDE Connect is unavailable or the device list changed.", and a deadline overrun with "KDE Connect did not respond in time." lgse/strata#1704 (unverified)
 - A known D-Bus failure of `shareUrls`, such as an unknown object or access denied, rejects the activation with "The device is unavailable or file sharing was disabled." lgse/strata#1704 (unverified)
 - A D-Bus error outside the known unavailable cases reports an uncertain outcome, "KDE Connect did not confirm the submission. Check your device before retrying.", and is not retried. lgse/strata#1704
@@ -72,6 +74,7 @@ An opt-in bundled file provider that lists paired KDE Connect devices under Send
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Named the device in the sent notice with the menu's label, including the ID suffix that tells same-named devices apart. |
 
 ## Known gaps
 

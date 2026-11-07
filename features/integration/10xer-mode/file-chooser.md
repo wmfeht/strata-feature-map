@@ -3,8 +3,8 @@ title: 10xer mode in the file chooser
 status: shipped
 origin: {issue: lgse/strata#1261, pr: lgse/strata#1311}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/ui/window/keyboard/chooser.rs]
 tests: [src/ui/chooser/tests/keyboard.rs]
 docs: [site/src/reference/portal-file-chooser.md]
@@ -13,7 +13,7 @@ related: [integration/portal-file-chooser]
 
 ## Summary
 
-The portal file chooser follows the saved 10xer preference. Its keys run through the 10xer dispatcher, limited by a per-request policy that refuses commands the request does not allow.
+The portal file chooser follows the saved 10xer preference. Its keys run through the 10xer dispatcher, limited by a per-request policy that refuses commands the request does not allow. `integration/portal-file-chooser` owns the 10xer Tab order and text-field keys, which its key stages implement.
 
 ## Behavior
 
@@ -40,9 +40,6 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 - Enter in the files saves the name in the current folder, whatever the cursor is on; moving the cursor changes neither the name nor the folder. lgse/strata#1311
 - In a single-file Save request, `o` on a file saves over it, and replacing an existing file asks first with Cancel focused. lgse/strata#1311
 - In a single-file Save request, `r` and F2 focus the name with the part before the extension selected instead of renaming a file on disk. lgse/strata#1311
-- In the name field every key is typed except F1, Ctrl+Shift+M, and Esc, which returns to the files and keeps the edit. lgse/strata#1311
-- While the location field has focus, every key except F1, Ctrl+Shift+M, and Esc is typed. lgse/strata#1311 (unverified)
-- In a single-file Save request, Tab goes from the files to the header, then to the name, then back to the files. lgse/strata#1311
 - While the mode is on, a single-file Save request shows Enter, `r`, and `o` hints beside Cancel and Save. lgse/strata#1311
 - A multiple-file Save request shows only the Enter "Save here" hint. lgse/strata#1311 (unverified)
 

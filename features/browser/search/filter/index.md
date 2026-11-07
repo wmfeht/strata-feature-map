@@ -3,10 +3,10 @@ title: Pane filter
 status: shipped
 origin: {issue: lgse/strata#277, pr: lgse/strata#275}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
-review: reviewed
-code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs]
-tests: [src/ui/search_session/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results/delete-trashes-filtered-result.jsonl, tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl, tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl, tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl, tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl, tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl, tests/qa/scenarios/filter_results/space-completes-composition.jsonl, tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl, tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl, tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl, tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl, tests/qa/mutations/filter-results.patch]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/inline_search.rs, src/ui/inline_search/**, src/ui/browser/collection.rs, src/ui/search_session.rs, src/ui/browser/columns/search.rs, src/services/search/directory.rs, src/services/search/pattern.rs, src/ui/browser/columns/append/keys.rs, src/ui/browser/columns/append/query.rs, src/ui/browser/view_filter.rs, src/ui/browser_modes/filter.rs, src/ui/browser_modes/filter_session.rs]
+tests: [src/ui/search_session/tests.rs, src/ui/browser/collection/tests.rs, src/services/search/directory/tests.rs, src/services/search/pattern/tests.rs, src/services/search/tests/scope.rs, src/ui/window/tests/keyboard_dispatch/filter_focus.rs, tests/qa/scenarios/filter_results/delete-trashes-filtered-result.jsonl, tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl, tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl, tests/qa/scenarios/filter_results/filtered-results-group-selection.jsonl, tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl, tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl, tests/qa/scenarios/filter_results/space-completes-composition.jsonl, tests/qa/scenarios/search_filter_sort/dismissing-filter-keeps-hidden.jsonl, tests/qa/scenarios/search_filter_sort/local-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl, tests/qa/scenarios/search_filter_sort/recursive-file-double-click-launches-once.jsonl, tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl, tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl, tests/qa/mutations/filter-results.patch, src/ui/window/tests/keyboard_dispatch/filter_focus/**, tests/qa/mutations/filter-result-dialog-focus.patch, tests/qa/scenarios/filter_results/dismissed-delete-confirmation-keeps-result-focus.jsonl, tests/qa/scenarios/filter_results/renamed-filter-result-keeps-focus.jsonl]
 docs: [site/src/reference/keyboard-navigation.md, docs/preferences.md]
 related: [integration/10xer-mode, browser/context-menu, browser/view-modes, preview/quick-preview, browser/thumbnails, browser/view-modes/columns, integration/10xer-mode/search]
 ---
@@ -97,6 +97,11 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - Dragging, the item menu, Ctrl+C, and Ctrl+X act on the selected results at their real locations. lgse/strata#639, lgse/strata#1018
 - Right-click on empty result space still opens the background menu with New Folder and New File. lgse/strata#639
 - A result renamed, deleted, or moved through its menu leaves the results; a rename that still matches stays at its real parent. lgse/strata#800, lgse/strata#1155
+- In List, Icons, and Columns, a result renamed in place with F2 stays focused and selected under its new name, wherever it now sorts. The next Delete acts on it. lgse/strata#1994, lgse/strata#2026
+- The same holds when that rename is committed with Enter or Tab. lgse/strata#2026
+- A rename of a result to a path in another folder removes it, and no remaining result takes its selection. lgse/strata#2026
+- In Columns, each result row's label shows its own file's name during and after a rename. lgse/strata#2026
+- After a refused rename in Columns, focus returns to the result that was selected, not the first result. lgse/strata#2026
 - As results update for the same query, rows still matching keep their widgets, thumbnails, and selection, without flashing. lgse/strata#639, lgse/strata#778, lgse/strata#1822
 - When the selected result disappears, the next result, or the last remaining one, is selected. lgse/strata#639
 - In List and Icons, Delete, or Shift+Delete and confirm, on a focused result moves focus to the first remaining selected result, with a visible focus ring. lgse/strata#1632
@@ -124,6 +129,8 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - List and Icons results are one Tab stop, like the listings, because Tab otherwise took one press per result (lgse/strata#1550, lgse/strata#1575).
 - Scope changes cancel the old search session, and a session drops batches for any query but the current one, so a stale worker cannot update a rebuilt view (lgse/strata#602, lgse/strata#1174).
 - Results are pruned by checking that each path still exists, rather than tracking each operation's old and new paths (lgse/strata#800).
+- Results record a rename when it starts. The prune keeps the renamed result under its new path until the index lists it, and that update carries selection, anchor, and focus over (lgse/strata#1994, lgse/strata#2026).
+- Each rename clears only its own record, so with overlapping renames the newer record survives. Columns rename labels resolve through the results, not the directory listing (lgse/strata#2026).
 - The same check runs whenever a listing splice removes rows, whoever removed them, so outside deletions leave before the rescan. It costs at most 100 stat calls (lgse/strata#1439, lgse/strata#1544). Since lgse/strata#1729 it runs on a worker, and only a proven absence removes a result.
 - Changes below the watched folders appear only on refresh. The GIO monitor watches only open folders, and recursive watching hits inotify limits (lgse/strata#1439).
 - Filtered folders ignore the click-count preferences and open on one plain click (lgse/strata#681, lgse/strata#697).
@@ -142,6 +149,7 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Kept a renamed filter result focused and selected under its new name, and returned focus to the result after a dismissed delete confirmation. |
 | 2026-10-27 | lgse/strata#1899 | feat | Shared the filter's term and typo matcher with Ctrl+K so multi-word global queries match every term. |
 | 2026-10-25 | lgse/strata#1888 | fix | Made a plain click on a filtered file follow the click-count and single-click preview preferences, so previews work on filtered files. |
 | 2026-10-22 | lgse/strata#1822 | feat | Outlined the top result Enter opens and kept it in view until a pick or scroll, so Enter is predictable. |
@@ -176,6 +184,5 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 ## Known gaps
 
 - In List and Icons, a reload briefly hides the filter field, so a character typed in that instant can be dropped. lgse/strata#1544
-- In List and Icons, renaming a hit moves focus to the hit now in its slot. lgse/strata#1544
 - The filter cannot search file contents. lgse/strata#1211
 - In List and Icons, selecting a filter result leaves GTK's range origin in place. A following Shift+arrow can extend from a stale entry. lgse/strata#1871

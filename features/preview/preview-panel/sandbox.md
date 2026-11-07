@@ -3,10 +3,10 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox_helper/isobmff.rs, src/sandbox/runtime.rs]
-tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox_helper/tests/isobmff.rs, src/sandbox/runtime/tests.rs]
+code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox_helper/isobmff.rs, src/sandbox/runtime.rs, src/sandbox/command.rs, src/sandbox/operation.rs, src/sandbox/output.rs, src/sandbox/process.rs, src/sandbox_helper/operations.rs, src/sandbox_helper/process.rs, src/sandbox_helper/raster.rs]
+tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox_helper/tests/isobmff.rs, src/sandbox/runtime/tests.rs, src/sandbox/tests/**]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
 related: [preview/preview-panel/media, preview/preview-panel/model-views, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
 ---

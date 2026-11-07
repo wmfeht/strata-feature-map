@@ -3,9 +3,9 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs]
+code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs, src/sandbox_helper/browser.rs]
 tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
 docs: [docs/preferences.md]
 related: [preview/preview-panel/sandbox, settings/preferences, preview/preview-panel/gcode]

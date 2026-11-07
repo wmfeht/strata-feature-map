@@ -3,10 +3,10 @@ title: Shortcuts on any keyboard layout
 status: shipped
 origin: {issue: lgse/strata#1538, pr: lgse/strata#1576}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
 code: [src/ui/keys.rs, src/ui/keys/label.rs, src/ui/keys/composition.rs]
-tests: [src/ui/keys/tests.rs]
+tests: [src/ui/keys/tests.rs, src/ui/keys/tests/composition.rs, src/ui/keys/tests/digits.rs, src/ui/keys/tests/labels.rs, src/ui/keys/tests/letters.rs, src/ui/keys/tests/modifiers.rs]
 docs: [docs/keyboard-shortcuts.md]
 related: [app/window, app/shortcut-reference, integration/10xer-mode, settings/preferences/language, browser/selection/keyboard-navigation]
 ---

@@ -3,11 +3,11 @@ title: Window key and wheel dispatch
 status: shipped
 origin: {issue: null, pr: lgse/strata#544}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs]
-tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl]
-related: [app/keyboard-shortcuts, app/dialogs, app/shortcut-reference, browser/view-modes/text-size, browser/view-modes/thumbnail-size, integration/10xer-mode, preview/preview-panel, browser/sidebar]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/window/key_routing.rs, src/ui/window/keyboard/input_owner.rs, src/ui/window/keyboard/wheel_zoom.rs]
+tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl, src/ui/window/tests/keyboard_dispatch/entry_keys.rs, tests/qa/scenarios/quick_preview/preview-focus-ignores-file-commands.jsonl]
+related: [app/keyboard-shortcuts, app/dialogs, app/shortcut-reference, browser/view-modes/text-size, browser/view-modes/thumbnail-size, integration/10xer-mode, preview/preview-panel, browser/sidebar, preview/quick-preview, browser/search/filter]
 ---
 
 ## Summary
@@ -34,10 +34,12 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - With a text field focused, Ctrl+C, Ctrl+X, Ctrl+V, and Ctrl+A act on its text, not on the selected files. lgse/strata#544
 - In the default key map, with Ctrl+F filter or search results showing and no text field focused, `y` copies no path. lgse/strata#800, lgse/strata#1885 (unverified)
 - In that state, a key no earlier stage claims runs no Strata file command and goes to GTK. lgse/strata#800, lgse/strata#1885 (unverified)
-- The exceptions: Copy, Cut, Paste, and Select all act on the results, Delete passes on, and an arrow alias moves as its arrow. lgse/strata#800, lgse/strata#1885 (unverified)
+- The exceptions: Copy, Cut, Paste, and Select all act on the results; Delete, Ctrl+Z, and Ctrl+Y pass on; and an arrow alias moves as its arrow. lgse/strata#800, lgse/strata#1885, lgse/strata#2026 (unverified)
+- With pane-filter results showing and focus on a result, Ctrl+Z after Move to Trash restores the file, and Ctrl+Y trashes it again. The filter text stays. lgse/strata#2026
+- With focus in the filter field, Ctrl+Z still undoes the field's text. lgse/strata#2026
+- In the default key map, with focus anywhere inside the preview, Delete, Shift+Delete, Ctrl+D, F2, Ctrl+R, and Ctrl+Alt+N do nothing to files. lgse/strata#1996, lgse/strata#2026
+- That holds for every preview kind: a rendered document, PDF, table, archive, or text. lgse/strata#2026
 - With only a Russian layout configured, Ctrl+C/X/V/A/Z/Y and Ctrl+Shift+Z in a focused text field copy, cut, paste, select all, undo, and redo its text. lgse/strata#1576
-- With 10xer mode on, Ctrl+Shift+K and Ctrl+\ do nothing from the file list in every window; turning the mode off restores them. lgse/strata#1271, lgse/strata#1576
-- With 10xer mode on, Ctrl+Alt+T in the file list still opens a terminal. lgse/strata#1576
 
 ### Sidebar focus
 
@@ -71,6 +73,8 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - While the F1 reference is open, a key every stage yields runs no window action; only a focused text field's editing action may run. The reference's search therefore takes every chord without F5 or Ctrl+K acting behind it (lgse/strata#1714).
 - GTK's text bindings miss an editing key that only the layout fallback recognizes. After the window actions, the focused `gtk::Text` or `TextView` runs that action itself (lgse/strata#1576).
 - One guard covers dialogs and name fields. It skips the action's own layer, so Ctrl+K still closes the palette it opened (lgse/strata#1432, lgse/strata#1438, lgse/strata#1554).
+- Preview focus is answered by `PreviewDrawer::owns_focus`, so any widget the drawer renders counts, not only text widgets (lgse/strata#670, lgse/strata#2026). The 10xer map is unchanged, because its preview keys hand focus back first (lgse/strata#2026).
+- Undo and Redo replay operation history rather than act on a selection, so the filter-results stage no longer claims them (lgse/strata#2005, lgse/strata#2026).
 - Editable controls and native single-pane selection must not fall through to browser commands, which is why a stage can hand a key to GTK (lgse/strata#544).
 - Heading-drag cancellation is shared by the browser and the portal chooser, and runs in the ownership stage after the modal and menu checks (lgse/strata#1900).
 - Ctrl+wheel is handled in the capture phase so scrolled windows cannot consume it first. The PDF scroll container keeps its own zoom (lgse/strata#1069, lgse/strata#1110).
@@ -81,9 +85,9 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2026 | fix | Ignored file commands while focus is inside the preview, and let Ctrl+Z and Ctrl+Y reach the browser over filter results. |
 
 ## Known gaps
 
-- In 10xer mode, Ctrl+Alt+T still opens a terminal from the file list, and Ctrl+Shift+K still acts from a non-menu popover. Unbinding them awaits a decision. lgse/strata#1576
 - Each stage re-reads and classifies the focused widget, and every key press walks the widget tree for modal layers and open menus. Resolving the input owner once per press is proposed. lgse/strata#1716
 - Fifteen call sites cancel an armed 10xer chord by hand; one that forgets leaves a stale chord mark that swallows the next key. lgse/strata#1718

@@ -3,9 +3,9 @@ title: 3D model previews
 status: shipped
 origin: {issue: lgse/strata#1225, pr: lgse/strata#1276}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/preview/model.rs, src/sandbox/model.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs]
+code: [src/ui/preview/model.rs, src/sandbox/model.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/model/shade.rs, src/sandbox_helper/model/stl.rs, src/sandbox_helper/model/threemf.rs]
 tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, tests/qa/scenarios/quick_preview/model-preview-reports-limits.jsonl]
 related: [preview/preview-panel/media/video, preview/preview-panel/layout, preview/quick-preview, settings/themes]
 ---

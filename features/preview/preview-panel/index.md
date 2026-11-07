@@ -3,17 +3,17 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, src/sandbox_helper/archive_cover.rs]
-tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/pdf-zoom-keeps-text-size.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, src/sandbox_helper/archive_cover.rs, src/adapters/local_preview/load.rs, src/ui/preferences/preview_settings.rs, src/ui/preview/drawer.rs, src/ui/preview/drawer/header.rs, src/ui/preview/feedback.rs, src/ui/preview/lifecycle.rs, src/ui/preview/loading.rs, src/ui/preview/render.rs, src/ui/preview/source_view.rs]
+tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/adapters/local_preview/tests/cache.rs, src/adapters/local_preview/tests/cancellation.rs, src/adapters/local_preview/tests/heavy_queue.rs, src/adapters/local_preview/tests/resolution.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-metadata, operations/archives/preview, operations/drag-and-drop]
 ---
 
 ## Summary
 
-The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header holding the Rendered/Source switch, Find, Open, Wrap, and Close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/pdf` (PDF text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
+The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header holding the Rendered/Source switch, Find, Open, Wrap, and Close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/pdf` (PDF pages, zoom, and text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
 
 ## Behavior
 
@@ -26,8 +26,8 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local file's first 8 KiB decide its preview family: a file named `.png` or `.mp4` holding plain text previews as source text. lgse/strata#1638
 - A local `photo.txt` holding PNG bytes previews as an image, and `paper.txt` holding a PDF previews as a PDF. lgse/strata#1638
 - A local MPEG transport stream named `recording.ts` previews as video. lgse/strata#1638
-- A local raw stream named `.h264` or `.H264` previews as video, even where the MIME database types it `application/octet-stream`. lgse/strata#1901, lgse/strata#1861
-- Raw streams named otherwise, such as `.h265`, `.hevc`, `.264`, or extensionless, preview as video only where the MIME database types them as video. lgse/strata#1901 (unverified)
+- A local raw stream named `.h264`, `.264`, `.h265`, `.265`, or `.hevc`, in any case, previews as video. This holds where the MIME database types it `application/octet-stream`. lgse/strata#1901, lgse/strata#1861, lgse/strata#2030
+- An extensionless raw stream previews as video only where the MIME database types it as video. lgse/strata#1901 (unverified)
 - A text or empty file named `notes.h264` previews as text and is never handed to the media decoder. lgse/strata#1901
 - A local binary file named `.json` or `.md` whose bytes match no previewable type shows "No visual preview" instead of text. lgse/strata#1638
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
@@ -69,14 +69,6 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Remote MOV and MP4 files up to 256 MiB play only after the download completes, within a 60-second deadline. lgse/strata#834
 - A RAW name the MIME database types as `application/octet-stream`, such as `GOPR0001.GPR`, still previews as a RAW image. lgse/strata#1698
 - A RAW file on a GIO location previews after the original streams to a private temporary file, like other still images. lgse/strata#1698 (unverified)
-- PDF pages render at the preview pane's width, at most 1280 px, one page at a time across previews. lgse/strata#898, lgse/strata#823
-- Queued PDF pages that leave the view are cancelled before rendering. lgse/strata#898
-- Ctrl+wheel over a PDF, including its scrollbars, zooms its pages between 1× and 4× its fitted width; interface text size does not change. lgse/strata#1069, lgse/strata#1622 (unverified)
-- With keyboard focus in a zoomed PDF, Ctrl+0 returns its pages to fitted width on the same page; interface text size does not change. lgse/strata#1622
-- With Num Lock on, Ctrl+keypad 0 also resets a focused PDF's zoom. lgse/strata#1622 (unverified)
-- Ctrl+0 on a focused PDF already at fitted width is consumed and does not reset interface text size. lgse/strata#1622
-- In 10xer mode, Ctrl+0 on a focused zoomed PDF also resets its zoom. lgse/strata#1622
-- With focus in a PDF, Ctrl+Alt+0 and Ctrl+Super+0 leave its zoom unchanged. lgse/strata#1576
 - A PDF that needs an opening password, such as `password-protected.pdf`, shows "Preview unavailable" and "This PDF is password protected." with no password field. lgse/strata#1840, lgse/strata#1636
 - Under that message, an **Open** button hands the PDF to the default application. The file chooser shows the message without the button. lgse/strata#1840
 - Other preview failures, such as a damaged PDF, show no Open button under the message. lgse/strata#1840
@@ -86,17 +78,6 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - CBZ and CBR files show their first naturally ordered image, and EPUB files their declared cover; a file without one shows an error. lgse/strata#1325
 - A local text `.gcode` or `.gco` file without a usable embedded thumbnail previews as its text. lgse/strata#1864
 - Changing the theme while a narrow window hides a model or route preview reloads it with the new theme when the window widens again. lgse/strata#1842
-
-### Media stepping
-
-- In Icons, media previous and next skip an audio entry whose metadata fill found no duration. lgse/strata#1638, lgse/strata#1901 (unverified)
-- In Icons, media previous and next skip a video entry with neither duration nor known dimensions, such as text named `clip.mp4`. lgse/strata#1638, lgse/strata#1901 (unverified)
-- Media previous and next, and the position count, keep a video with known dimensions but no duration, such as a raw `.h264` stream. lgse/strata#1901
-
-### Media controls
-
-- On the plain media bar, as for an animated GIF, the play button's tooltip and accessible name read "Play/Pause" and its shortcut in parentheses. lgse/strata#1895 (unverified)
-- The mute button's tooltip and accessible name read "Mute/unmute" followed by its shortcut in parentheses. lgse/strata#1895 (unverified)
 
 ### File operations
 
@@ -122,12 +103,9 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Special-casing TypeScript would fix one collision only. Quick preview, menus, and the chooser still gate on the name; the loader resolves the final family (lgse/strata#1638).
 - The dotfile fallback uses the Unix mode rather than an allowlist of names such as `.steampath`, so arbitrary application dotfiles work (lgse/strata#223).
 - Rendered previews are cached in memory, at most 64 entries and 128 MiB with LRU eviction (lgse/strata#318). Remote previews are never cached.
-- PDF pages once rendered concurrently per visible row, spawning over 100 helpers while scrolling (lgse/strata#815). Rendering at viewport width and serializing pages cut helper RSS from about 411 to 112 MiB (lgse/strata#898).
 - Word processors store each paragraph as one line, so unwrapped DOCX and ODT showed one line per paragraph behind a horizontal scrollbar. Both now always wrap; workbook tables keep their layout (lgse/strata#1834).
 - Models, PDFs, workbooks, DOCX, ODT, and routes share one process-wide heavy-preview permit and use one-shot sandboxes (lgse/strata#1276, lgse/strata#1834, lgse/strata#1842). Comic and EPUB covers take the same permit (lgse/strata#1325) (unverified).
 - A hidden caret in a read-only GtkSourceView disables native Shift+arrow selection, so source previews show the caret and stay non-editable (lgse/strata#1557).
-- PDF zoom reset skips the view-center correction, because the list view re-anchors the visible page itself; correcting it jumped to page 1 (lgse/strata#1622).
-- Ctrl+0 on a focused PDF is consumed even at fitted width, so a reset meant for the page never resets the saved text size (lgse/strata#1622).
 - A password-protected PDF gets an explanation, not an unlock prompt, at the owner's request. Strata never asks for, stores, or submits PDF passwords, and never writes an unlocked copy (lgse/strata#1636, lgse/strata#1840).
 - The Open button reuses the header's Open action, so the file chooser, which never opens files externally, hides it (lgse/strata#1840).
 - Remote originals stream to a random mode-0600 file, keeping a short alphanumeric extension only, so remote names never choose a local path. Remote PDFs stay unsupported until a shared document snapshot can serve every page without repeated downloads (lgse/strata#833, lgse/strata#834).
@@ -135,6 +113,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Route previews use the preview cache keyed by format and theme palette (lgse/strata#1842).
 - Audio, video, and model previews share a details header and navigation row; video and model also share a badge row and a player layout with named areas. One universal player was rejected because artwork, the spectrum, and the camera need different content; playback, seeking, camera motion, and loading stay per preview (lgse/strata#1659, lgse/strata#1764).
 - `.h264` is recognized by name in the shared filename classifier, before the MIME database. The byte-content guards and the sandboxed decoder are reused, with no new decoder or file reads. One classifier keeps preview, navigation, and Properties in agreement (lgse/strata#1901, lgse/strata#1861).
+- `.264`, `.h265`, `.265`, and `.hevc` joined `.h264` in that classifier, typed `video/h264` or `video/h265`. A sniff that says only `application/octet-stream` defers to the name, so Properties agrees with the preview; a byte-backed type wins (lgse/strata#2030).
 - Elementary streams can have known dimensions but no duration, so navigation keeps a video with known dimensions even without a duration (lgse/strata#1901).
 - Printing was removed: a file's default application prints it. PDF pages had printed rasterized at the pane's on-screen size, at low quality (lgse/strata#1950, lgse/strata#1931).
 - The stream-copy video and native GIF paths from lgse/strata#318 were replaced by sandboxed streaming (lgse/strata#839).
@@ -143,6 +122,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Classified `.264`, `.h265`, `.265`, and `.hevc` as raw video; Properties now matches the preview, and listings show the video icon. |
 | 2026-10-30 | lgse/strata#1950 | feat | Removed printing: the header and item-menu Print, the PDF print-progress dialog and print errors; files print from their default application. |
 | 2026-10-27 | lgse/strata#1901 | fix | Broke long rendered paragraphs after whitespace, decoded RTF surrogate pairs, and recognized `.h264` by name so raw streams preview and step. |
 | 2026-10-25 | lgse/strata#1842 | feat | Added offline GPX, FIT, and KML route previews with an elevation profile, playback, and a saved Units preference. |
@@ -170,6 +150,4 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 - Images cannot be rotated in the preview. lgse/strata#987
 - A growing log file does not update while previewed. lgse/strata#847
-- The volume slider and the plain media bar's seek slider have no accessible name. Naming them needs new strings in every catalog. lgse/strata#1896
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#834
-- With a PDF focused, Ctrl++ and Ctrl+− change interface text size, not PDF zoom; PDF zoom for them is a possible follow-up. lgse/strata#1622

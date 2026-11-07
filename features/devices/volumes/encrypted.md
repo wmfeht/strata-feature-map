@@ -3,9 +3,9 @@ title: Encrypted volumes
 status: shipped
 origin: {issue: null, pr: lgse/strata#935}
 branch: null
-reviewed_at: 965bd7ec74400734dbd0a5311ceefa05bea8dd63
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/window/volume_password.rs]
+code: [src/ui/window/volume_password.rs, src/ui/window/device_lock.rs, src/ui/browser/location/unlock_progress.rs]
 tests: [src/ui/window/volume_password/tests.rs]
 related: [devices/volumes/udiskie-unlock, devices/volumes/drive-dialogs, app/accessibility]
 ---

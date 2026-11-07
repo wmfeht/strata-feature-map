@@ -3,10 +3,10 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/storage.rs, src/storage/writer.rs]
-tests: [src/ui/preferences/tests.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, src/storage/writer/tests.rs, tests/qa/scenarios/preferences]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/ui/preferences/persistence.rs, src/ui/preferences/stored.rs, src/storage.rs, src/storage/writer.rs]
+tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences/loading.rs, src/ui/preferences/tests/preferences/recovery.rs, src/ui/preferences/tests/preferences/saved_fixture.rs, src/ui/preferences/tests/preferences/saving.rs, src/ui/preferences/tests/preferences/setters.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, src/storage/tests.rs, src/storage/writer/tests.rs, tests/qa/scenarios/preferences]
 related: []
 ---
 
@@ -79,6 +79,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - One unrecognized value in `[omarchy_variants]`, such as `broken = "not-a-variant"`, drops only that key; the other variants load. lgse/strata#1844, lgse/strata#1869
 - A nested list keeps its valid entries too: one bad path in a device's `send_to_recent_destinations` list drops only that path. lgse/strata#1869
 - A value of the wrong shape, such as a string where a table belongs, falls back to its default as a whole. lgse/strata#1869
+- A hand-edited `interface_font = ""` or whitespace-only value loads as no font, so the Interface font button reads "Default". `"  Fixture Sans "` loads trimmed. lgse/strata#2016, lgse/strata#2030
 - One invalid width in `browser_list_columns` or `chooser_list_columns` resets that whole record to its default. lgse/strata#1869
 - After a partly invalid collection loads, the next save writes back its kept entries and omits only the invalid ones. lgse/strata#1869
 - A `settings.toml` that cannot be read or is not valid TOML logs a warning, and Strata starts with defaults. lgse/strata#728
@@ -128,6 +129,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Loaded a blank or whitespace `interface_font` as Default, as the setter already did, so the Interface font button is never unlabelled. |
 | 2026-10-25 | lgse/strata#1877 | fix | Saved only this process's changed and repaired settings over the file on disk, so the portal chooser and browser stop overwriting each other. |
 | 2026-10-25 | lgse/strata#1869 | fix | Salvaged a malformed list or table entry by entry, so one bad value no longer erases the whole collection on the next save. |
 | 2026-10-10 | lgse/strata#1544 | fix | Wrote config files through user-owned symlinks, kept file modes, and showed a notice when settings cannot be saved. |

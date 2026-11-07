@@ -3,9 +3,9 @@ title: Sidebar collapse and icon rail
 status: shipped
 origin: {issue: lgse/strata#1602, pr: lgse/strata#1606}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
 review: reviewed
-code: [src/ui/sidebar_toggle.rs]
+code: [src/ui/sidebar_toggle.rs, src/ui/window/sidebar_rail.rs, src/ui/window/sidebar_width.rs]
 tests: [src/ui/sidebar_toggle/tests.rs, src/ui/window/tests/rail.rs]
 related: [preview/preview-panel/layout, app/window, integration/10xer-mode, integration/portal-file-chooser]
 ---

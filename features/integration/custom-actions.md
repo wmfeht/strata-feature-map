@@ -3,8 +3,8 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: 73b3258ff9da7fd5f8b279e442e4fbf576850deb
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/**, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
 docs: [site/src/reference/custom-actions.md, docs/custom-actions.md]
@@ -61,6 +61,7 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - A keyboard-focused editor tab's focus ring clears its label text. lgse/strata#1739
 - The editor's toggles, such as Behavior → Confirm, match the Settings → General toggles in size, colors, and knob shape at every corner roundness. lgse/strata#1739
 - The editor's footer has no background of its own; Cancel and Create action or Save changes use the same button styles as other dialogs, such as Delete. lgse/strata#1739
+- With the language set to Hungarian, the editor's icon picker names icons in Hungarian, such as "Nyomtató" for `printer` and "Olló" for `scissors`. lgse/strata#2027
 - If a field is invalid, the editor switches to that field's tab, keeps the edits, and writes nothing. lgse/strata#1085
 - If Id is left blank, it is derived from Name: "Batch rename" becomes `batch-rename`. When an existing action is edited, Id is read-only. lgse/strata#1085
 - Cancel, the close button, or Escape discards the draft. A click outside the dialog leaves it open. lgse/strata#1085

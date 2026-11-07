@@ -3,8 +3,8 @@ title: Back history menu
 status: shipped
 origin: {issue: lgse/strata#1976, pr: lgse/strata#1977}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
 code: []
 tests: [tests/qa/scenarios/keyboard_navigation/back-history-dropdown.jsonl]
 related: [browser/view-modes, browser/view-modes/sorting, app/shortcut-reference]
@@ -17,6 +17,7 @@ A menu of a tab's earlier locations, opened from the List and Icons pane-header 
 ## Behavior
 
 - In List or Icons with back history, right-clicking Back, holding it, or pressing Menu or Shift+F10 on it opens a popover below Back. lgse/strata#1977
+- With focus on a Back button that has history, in a browser window or the file chooser, Menu or Shift+F10 opens that popover. No context menu opens and the location does not change. lgse/strata#2001, lgse/strata#2026
 - The popover is headed BACK TO and lists the tab's back entries, most recent first. lgse/strata#1976, lgse/strata#1977
 - Each entry shows the folder name over its dimmed path. lgse/strata#1977
 - An entry's accessible name is the folder name, and its description is the folder's path. lgse/strata#1977
@@ -41,6 +42,7 @@ lgse/strata#1976 proposed a split button with a chevron, as in web browsers and 
 - Only the back stack is listed; forward entries stay behind Forward (lgse/strata#1976).
 - The popover reuses the pane header's popover and menu styling and the SORT BY menu's key handling (lgse/strata#1977).
 - The popover is unparented when Back is destroyed, because a plain button does not do it (lgse/strata#1977).
+- The window and chooser key handlers run in the capture phase. They leave the context-menu key to a focused Back button that has a history menu, so the button's own handler opens it (lgse/strata#2001, lgse/strata#2026).
 - An earlier attempt, lgse/strata#1232, bundled Back and Forward menus with unrelated changes and was closed unmerged.
 
 ## History

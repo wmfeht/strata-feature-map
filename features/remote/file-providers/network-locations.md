@@ -3,9 +3,9 @@ title: Network locations (SMB, SFTP)
 status: shipped
 origin: {issue: lgse/strata#20, pr: lgse/strata#31}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
-code: [src/adapters/gio_location.rs, src/app/browser/remote.rs]
+reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+review: draft
+code: [src/adapters/gio_location.rs, src/app/browser/remote.rs, src/ui/browser/location/dialogs.rs, src/ui/browser/location/mount_errors.rs, src/ui/browser/location/mounting.rs]
 tests: [src/adapters/gio_location/tests.rs, src/app/browser/remote/tests.rs, scripts/sftp-fixture.sh]
 docs: [site/src/reference/remote-sftp.md, docs/remote-sftp.md]
 related: [browser/navigation/location-bar, devices/volumes, devices/volumes/release, browser/sidebar/pins, browser/sidebar/connect-to-server, browser/tabs, integration/open-with, browser/properties, preview/preview-panel]
@@ -13,7 +13,7 @@ related: [browser/navigation/location-bar, devices/volumes, devices/volumes/rele
 
 ## Summary
 
-Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native folders. Covers mounting on demand, the sign-in and SSH host-key dialogs, and connection failure messages. It also covers the sidebar's Network place and SMB share rows, SMB share lists, and progressive remote loading. Typed-address parsing belongs to `browser/navigation/location-bar`.
+Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native folders. Covers mounting on demand, the sign-in and SSH host-key dialogs, and connection failure messages. It also covers the sidebar's Network place, SMB share lists, and progressive remote loading. Typed-address parsing belongs to `browser/navigation/location-bar`; network share rows under DEVICES and their Disconnect belong to `devices/volumes`.
 
 ## Behavior
 
@@ -42,6 +42,11 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 - An `smb://` location without its GVfs backend fails with a message naming common packages `gvfs-smb` or `gvfs-backends`. lgse/strata#31, lgse/strata#233
 - An unresolvable host, refused connection, timeout, or unreachable host each shows its own message, such as "That host couldn’t be found. Check the address and DNS settings." lgse/strata#233
+- Opening `smb://127.0.0.1:1/share` with nothing listening shows "The host refused the connection. Check the service and port." instead of "An unexpected system error occurred". lgse/strata#2027
+- A generic mount failure ending in "Connection refused", "Connection timed out", "No route to host", or "Network is unreachable" after its last colon shows the matching transport message. lgse/strata#2027
+- That errno text also matches in the process locale's wording, after a full-width colon `：`, and on any scheme's generic mount failure. lgse/strata#2027 (unverified)
+- An SFTP mount failing with GVfs's "Connection failed", in English or GVfs's translation, shows "The connection to the host failed. Check that the server is running, then try again." lgse/strata#2030
+- That failure, as when the server stops while the password prompt is open, does not reopen sign-in. lgse/strata#2030 (unverified)
 - Opening or listing a URI location that fails with a GIO error Strata names, such as permission denied or not found, shows its translated reason. Opening handles not mounted and unsupported first. lgse/strata#1909
 - Mounting a URI location that fails with permission denied, or with refused-credentials text in its message, reopens the sign-in prompt instead of an error. lgse/strata#233
 - A mount that fails with any other GIO error Strata names shows its translated reason, unless a missing-backend, host-key, or transport message applies. lgse/strata#233, lgse/strata#1909 (unverified)
@@ -55,21 +60,21 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 - The sidebar's Network place opens `network:///`, which lists the hosts and shares GVfs discovers. lgse/strata#31, lgse/strata#62
 - At `network:///`, the column heading and breadcrumbs read "Network", localized. lgse/strata#1726
-- A mounted `smb://` share appears under DEVICES with a network icon instead of a drive icon, and clicking it opens the share. lgse/strata#31, lgse/strata#62
-- Right-clicking a mounted SMB share's DEVICES row offers Properties and Disconnect. lgse/strata#31, lgse/strata#296 (unverified)
-- Disconnect unmounts the share; a failure other than a cancel shows an "Unable to disconnect" dialog. lgse/strata#31 (unverified)
 
 ### Browsing
 
 - Entries of a mounted GVfs location keep their `smb://`-style URI and never show the `/run/user/$UID/gvfs/…` FUSE path. lgse/strata#31
 - At `smb://host/`, activating a share by mouse or keyboard in Columns, List, or Icons mounts it if needed and opens its contents. lgse/strata#990
-- Column headings and peek headings show percent-decoded remote names, such as "My Share" for `My%20Share`. lgse/strata#740
+- Column headings, peek headings, and breadcrumbs show percent-decoded remote names, such as "My Share" for `My%20Share`, also at a share root such as `smb://host/My%20Share/`. lgse/strata#740, lgse/strata#2027
+- At a server root such as `smb://host/`, the heading and breadcrumb read the host. `smb://user@h%C3%B6st:445/` reads "höst", not punycode. lgse/strata#2027
+- A remote root's heading and breadcrumb never show its query or fragment: a root URI carrying `?tok=…#frag` is named by its last segment or host. lgse/strata#2027, lgse/strata#2030
 - A remote entry whose name is not valid UTF-8, such as `\xff name` over SFTP, is listed. lgse/strata#1533
 - A large remote folder fills progressively without lost or duplicated rows, and loading finishes only after every queued row is shown. lgse/strata#661
 - Leaving a remote folder before it finishes loading keeps its queued rows out of the new location and of removed columns. lgse/strata#661
 - After F5 on a remote folder whose cursor file was deleted on the server, the cursor moves to a neighbouring row. It moves once the last batch is shown, and focus outside the pane stays put. lgse/strata#1544
 - A file's type lookup reads `standard::content-type` when the backend reports it, otherwise `standard::fast-content-type`, as GVfs SMB gives for `.md`, `.py`, and `.json`. lgse/strata#1955, lgse/strata#1944
 - When `gvfsd` does not answer a 2-second startup probe, the window still opens, using local file and volume support for that session. lgse/strata#56
+- On a session bus whose `org.gtk.vfs.Daemon` never answers, the window opens after about 2 seconds, not about 27. lgse/strata#2026
 
 ## Design
 
@@ -84,18 +89,23 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 - Strata suppresses GtkMountOperation's password dialog and shows its own. The safe `gio` bindings cannot marshal `ask-question` choices, so trust questions first used GTK's native dialog (lgse/strata#353).
 - SFTP host-key questions moved to a Strata dialog at the owner's request. It keeps every backend choice and index; other schemes keep the native dialog (lgse/strata#233).
 - Some GVfs SMB versions report rejected credentials as a generic failure, so failure messages are matched for authentication text. Host-key failures are excluded, so they never reopen sign-in (lgse/strata#31, lgse/strata#233). Validation and listing share the mount retry's phrase list (lgse/strata#1909).
+- GVfs SMB backends fail with `G_IO_ERROR_FAILED` and "Failed to mount Windows share: %s" filled from `g_strerror`, so the errno survives only as trailing text. glibc's English covers a `gvfsd` in the C locale (lgse/strata#2010, lgse/strata#2027).
 - Backend wording is diagnostic detail, not an application-owned message, and URI sanitizing is not localization. Typed reasons, transport and missing-backend guidance, and native-volume errors keep their own text (lgse/strata#1862, lgse/strata#1909).
 - `gvfsd-smb-browse` lists shares as shortcut entries whose destination is `standard::target-uri`. The first directory batch requests that attribute, and shortcut and mountable entries open as folders (lgse/strata#960, lgse/strata#990).
+- GVfs reports "/" as a mount root's leaf name, even an SMB share's. Such a root is named from its URI: the decoded last segment, or the host. Only the shown name is decoded; I/O keeps the URI (lgse/strata#2009, lgse/strata#2027).
 - Remote loads publish their first batch at once. Later batches queue per column and flush every 50 ms or at 2,048 entries, at most 512 rows per drain; finish and failure wait for the queue (lgse/strata#274, lgse/strata#661).
 - A remote load publishes the fallback cursor after its last batch drains. It is marked as a background load, so a view takes focus only when nothing else in the window holds it (lgse/strata#1544).
 - GVfs SMB sets only the fast content type for uncertain names. Lookups fall back to it in the order of GLib's `g_file_query_default_handler`, which is why `gio open` already worked (lgse/strata#1944, lgse/strata#1955).
 - Lookups read the attributes through the generic `attribute_string`, because the typed `FileInfo` getters log a GLib critical when an attribute is missing (lgse/strata#1955).
-- The `gvfsd` probe runs in a subprocess before GTK starts. A timeout restarts with `GIO_USE_VFS=local` and `GIO_USE_VOLUME_MONITOR=unix`; a healthy result is cached per `gvfsd` process set (lgse/strata#52, lgse/strata#56, lgse/strata#274).
+- The `gvfsd` probe runs in a subprocess before GTK starts (lgse/strata#52, lgse/strata#56). It also runs before preferences load, whose loading created GIO's default VFS and blocked for the 25-second D-Bus activation timeout (lgse/strata#2006, lgse/strata#2026).
+- A probe timeout restarts with `GIO_USE_VFS=local` and `GIO_USE_VOLUME_MONITOR=unix`; a healthy result is cached per `gvfsd` process set (lgse/strata#52, lgse/strata#56, lgse/strata#274).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-02 | lgse/strata#2030 | fix | Classified GVfs's "Connection failed", as when the SFTP server stops during sign-in, as a lost connection with its own guidance. |
+| 2026-11-02 | lgse/strata#2027 | fix | Recognised GVfs-SMB's errno text after a generic failure, so refused, timed-out, and unreachable SMB connections get the same guidance as SFTP. |
 | 2026-11-01 | lgse/strata#1955 | fix | Fell back to `standard::fast-content-type` when GVfs SMB omits the full type, so `.md`, `.py`, and `.json` files open, list Open With applications, and show their type in Properties. |
 | 2026-10-29 | lgse/strata#1909 | fix | Translated unclassified GIO failures and showed "Permission denied" for untyped credential rejections, so URI-location dialogs no longer show raw backend text. |
 | 2026-10-15 | lgse/strata#1634 | fix | Guarded optional GIO attributes in directory measurement, so measuring an SFTP folder for permanent delete logs no GLib-GIO critical. |
@@ -114,8 +124,8 @@ Browsing `smb://`, `sftp://`, and other GIO/GVfs network locations as URI-native
 
 - FTP, FTPS, WebDAV, and DAVS are unverified, with no plaintext-transport warning or explicit certificate trust flow. lgse/strata#64
 - There are no saved connections or Connections sidebar section; Connect to server only opens an address or pins it. lgse/strata#65, lgse/strata#1726
-- Network discovery failures are generic, non-SMB network mounts appear as drives, and a vanished mount sends the browser Home instead of a retryable column. lgse/strata#62
-- SMB rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62
+- Network discovery failures are generic, and a vanished mount sends the browser Home instead of a retryable column. lgse/strata#62
+- An SMB host that does not resolve shows the generic error, not the host-not-found message, because GVfs reports only "Invalid argument". lgse/strata#2027
 - Mutating actions on remote locations are not gated by the backend's capabilities. lgse/strata#66
 - Recursive search cannot search a remote share and falls back to Home. lgse/strata#87
-- A connection dropped mid-load leaves a partial SFTP listing and F5 fails silently; unmounting in one window leaves other windows' listings stale with no notice. lgse/strata#1856
+- A connection dropped mid-load leaves a partial SFTP listing and F5 fails silently. A mount that goes away outside Strata leaves listings stale with no notice. lgse/strata#1856, lgse/strata#2030 (unverified)
