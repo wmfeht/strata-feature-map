@@ -698,6 +698,8 @@ class IndexTest(unittest.TestCase):
             {"number": 12, "merged_at": "2026-09-03T00:00:00Z", "files": ["src/trash/restore.rs"]},
             {"number": 13, "merged_at": "2026-09-06T00:00:00Z", "files": ["src/trash.rs"]},
             {"number": 14, "merged_at": "2026-09-07T00:00:00Z", "files": ["src/unrelated.rs"]},
+            # Touches only the parent, before the parent's own review: already reviewed, so not counted.
+            {"number": 15, "merged_at": "2026-09-04T00:00:00Z", "files": ["src/trash.rs"]},
         ]
         f.write("data/prs.jsonl", "".join(json.dumps(r) + "\n" for r in rows))
         tree = fm.load_tree(f.root)
@@ -892,18 +894,25 @@ class GitHubTest(unittest.TestCase):
         self.assertIsNone(fm.rest_issue("lgse/strata", 5))
         self.assertIsNone(fm.rest_issue("lgse/strata", 6))
 
-    def test_rest_paginates_and_flattens_pages(self):
+    def test_rest_pages_by_number_until_a_short_page(self):
         calls = []
+        pages = {"1": [{"n": 1}, {"n": 2}], "2": [{"n": 3}, {"n": 4}], "3": [{"n": 5}]}
 
         def run(args, **kwargs):
             calls.append(args)
             if args[2] == "repos/x/y/pulls/9":
                 return fm.subprocess.CompletedProcess(args, 1, "", "gh: Not Found (HTTP 404)")
-            return fm.subprocess.CompletedProcess(args, 0, json.dumps([[{"n": 1}], [{"n": 2}]]), "")
+            query = dict(fm.urllib.parse.parse_qsl(args[2].partition("?")[2]))
+            return fm.subprocess.CompletedProcess(args, 0, json.dumps(pages.get(query.get("page"), [])), "")
 
         self.patch("subprocess", type("S", (), {"run": staticmethod(run), "CompletedProcess": fm.subprocess.CompletedProcess}))
-        self.assertEqual(fm.rest("repos/x/y/pulls?state=closed", paginate=True), [{"n": 1}, {"n": 2}])
-        self.assertEqual(calls[0][-2:], ["--paginate", "--slurp"])
+        items = fm.rest("repos/x/y/pulls?state=closed&per_page=2&page=7", paginate=True)
+        self.assertEqual([i["n"] for i in items], [1, 2, 3, 4, 5])
+        self.assertEqual([c[2] for c in calls], [f"repos/x/y/pulls?state=closed&per_page=2&page={n}" for n in (1, 2, 3)])
+        self.assertTrue(all("--paginate" not in c for c in calls))
+        calls.clear()
+        fm.rest("repos/x/y/files", paginate=True)
+        self.assertEqual(calls[0][2], "repos/x/y/files?per_page=100&page=1")
         with self.assertRaises(fm.NotFound):
             fm.rest("repos/x/y/pulls/9")
 
@@ -914,6 +923,18 @@ class ParsingTest(unittest.TestCase):
                          ("fix", "trash", False, "refuse restore (#913)"))
         self.assertEqual(fm.parse_title("feat!: drop X"), ("feat", None, True, "drop X"))
         self.assertEqual(fm.parse_title("Merge pull request #547"), (None, None, False, "Merge pull request #547"))
+
+    def test_pr_subject(self):
+        def number(subject):
+            m = fm.PR_SUBJECT_RE.search(subject)
+            return int(m.group(1) or m.group(2)) if m else None
+
+        self.assertEqual(number("fix(trash): refuse restore (#913)"), 913)
+        self.assertEqual(number("perf(tabs): free closed tabs (#2041)u"), 2041)
+        self.assertEqual(number("fix: trailing space (#12) "), 12)
+        self.assertEqual(number("Merge pull request #1988 from summoner001/main"), 1988)
+        self.assertIsNone(number("fix: see (#12) for context"))
+        self.assertIsNone(number("refactor(window): split sidebar state"))
 
     def test_pr_section(self):
         body = ("## Description\n\nRefuses restore.\n<!-- hint -->\n\n### Details\n\nmore\n\n"

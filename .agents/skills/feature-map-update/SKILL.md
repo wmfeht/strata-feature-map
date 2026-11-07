@@ -170,7 +170,9 @@ findings still unresolved or disputed for the PR description. Do not hide them.
 
 1. Commit with a message like `Sync lgse/strata#N: <one-line summary>`, staging only files
    under `features/`, `qa/sweeps/`, `index/`, `README.md`, `sources.yaml`, `scopes.yaml`,
-   and `site/unguided.yaml` (new shipped nodes, AGENTS.md sync step 4).
+   `data/prs.jsonl`, and `site/unguided.yaml` (new shipped nodes, AGENTS.md sync step 4).
+   Commit the dataset `drift` updated: the index's *PRs since* column reads it, and CI
+   rebuilds the index from the committed copy, so leaving it out fails the "Index is current" step.
    Confirm `git status` shows nothing else, and that `check` and the tests pass on the final tree.
 2. Push the branch and run `gh pr create -R wmfeht/strata-feature-map --base main`, or with
    the stacked base from Step 0. If you extended an existing sync PR, edit its body instead.
