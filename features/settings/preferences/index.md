@@ -100,6 +100,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
+- Settings search finds Remember sort and icon size per folder, Default sort, and Forget all folder settings by words such as "per folder", "default sort", and "reset". lgse/strata#1565 (unverified)
 
 ### Units
 
@@ -127,6 +128,11 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Settings → General → Browsing has a Default sort row with a "Default sort" menu and a "Default sort direction" menu (Ascending, Descending). lgse/strata#1563, lgse/strata#1565
 - The "Default sort" menu lists Name, Size, Modified, Type, Extension, Created, and Unsorted. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029
 - While the default sort is Unsorted, the "Default sort direction" menu is insensitive; choosing another field makes it sensitive again. lgse/strata#2029 (unverified)
+
+### Remember sort and icon size per folder
+
+- Settings → General → Browsing has the switch "Remember sort and icon size per folder", on by default, saved as `remember_folder_views`. lgse/strata#1563, lgse/strata#1565
+- General → Browsing has a "Forget all folder settings" row with a Clear button, insensitive while nothing is saved. lgse/strata#1565
 
 ### Search limits
 

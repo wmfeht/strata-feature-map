@@ -346,7 +346,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/metadata_fills.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/navigate.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
 | `src/app/browser/navigation_lifecycle.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
-| `src/app/browser/operation_events.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `src/app/browser/operation_events.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/app/browser/operation_events/background.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/operation_events/outcome.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/operation_events/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
@@ -1285,8 +1285,14 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/direct_commands.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/entry_keys.rs` | tests | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/escape_precedence.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
-| `src/ui/window/tests/keyboard_dispatch/file_commands.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/file_commands/**` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/file_commands.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/file_commands/after_back.rs` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/file_commands/archives.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/file_commands/clipboard.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/file_commands/create.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/file_commands/delete.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/file_commands/send_to.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/file_commands/trashless.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/file_verbs.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/file_verbs/**` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/filter_focus.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |

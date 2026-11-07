@@ -13,7 +13,7 @@ related: [operations/trash, operations/trash/restore, operations/clipboard, oper
 
 ## Summary
 
-One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node; this node owns the replay and the conflict prompt an undo or redo shows. Child: `operations/undo/replacing-moves` (restoring the original a Replace move sent to Trash).
+One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. This node owns how each recorded operation is reverted and replayed, and the conflict prompt an undo or redo shows. What an operation records stays on its own node. Child: `operations/undo/replacing-moves` (restoring the original a Replace move sent to Trash).
 
 ## Behavior
 
@@ -39,8 +39,13 @@ One undo history and one redo history for file operations, shared by every Strat
 - A completed redo becomes the latest undo entry again, so Ctrl+Z after Ctrl+Shift+Z reverts it once more. lgse/strata#1120
 - Any new operation that records an undo entry, such as a rename, clears the redo history; Ctrl+Shift+Z then does nothing. lgse/strata#1120
 
+### Trash
+
+- Ctrl+Z after Move to Trash returns the items to their original locations. lgse/strata#228
+
 ### Moves
 
+- Ctrl+Z after a cut-paste or Move to… returns the moved items to their original folders. lgse/strata#301
 - Ctrl+Z after a move that fixed names for the destination gives the original names back, deepest first, also between native and GVfs locations. lgse/strata#1615
 - Ctrl+Shift+Z then fixes those names again. lgse/strata#1615
 - Names Undo cannot give back are reported as "“new” could not be renamed back to “old”: <error>". lgse/strata#1615
@@ -59,6 +64,23 @@ One undo history and one redo history for file operations, shared by every Strat
 - Skipping a file-and-folder conflict leaves the blocking item in place. lgse/strata#2070
 - Skipping one item while undoing a multi-item move still returns the others and leaves the new occupant intact. lgse/strata#708
 
+### Copies and new items
+
+- Ctrl+Z after a copy sends only the items that copy created to Trash, including numbered destinations. lgse/strata#444
+- Ctrl+Z after New Folder or New File moves the created item to Trash. lgse/strata#1097
+- After a new item is given a plain name with Enter, one Ctrl+Z moves the named item to Trash, and nothing remains under the default name. lgse/strata#2030
+
+### Renames
+
+- Ctrl+Z after a rename restores the original name, keeping current contents and permissions. lgse/strata#1061
+- When the original name is taken by then, Undo fails without overwriting and stays available for retry. lgse/strata#1061
+
+### New Folder with Selection
+
+- One Ctrl+Z after New Folder with Selection moves the items back and moves the created folder to Trash. lgse/strata#1349
+- Where Trash is unavailable, such as on tmpfs, that Ctrl+Z still moves the items back. lgse/strata#1614
+- It then removes the folder only if it is empty; a folder holding other items stays. lgse/strata#1614
+
 ### Restore
 
 - Ctrl+Z after Restore moves the restored items from where they landed back to Trash. lgse/strata#1097
@@ -74,6 +96,8 @@ One undo history and one redo history for file operations, shared by every Strat
 - Ctrl+Shift+Z after undoing New Folder, New File, or a compression into a new archive restores that item from Trash. lgse/strata#1120 (unverified)
 - Undoing a Merge or Replace copy, or a compression that replaced an archive, offers no redo. lgse/strata#1120
 - Undoing New Folder with Selection offers no redo. lgse/strata#1349 (unverified)
+- Ctrl+Shift+Z after undoing a rename applies it again. lgse/strata#1120
+- Ctrl+Shift+Z after undoing a new item named with Enter restores it from Trash under its typed name. lgse/strata#2030
 
 ### Failures and partial results
 

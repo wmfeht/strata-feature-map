@@ -6,7 +6,7 @@ branch: null
 reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/file_commands.rs, src/ui/window/tests/keyboard_dispatch/file_commands/**, src/ui/window/tests/keyboard_dispatch/file_verbs.rs, src/ui/window/tests/keyboard_dispatch/file_verbs/**, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl]
+tests: [src/ui/window/tests/keyboard_dispatch/file_verbs.rs, src/ui/window/tests/keyboard_dispatch/file_verbs/**, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/archives.rs, src/ui/window/tests/keyboard_dispatch/file_commands/clipboard.rs, src/ui/window/tests/keyboard_dispatch/file_commands/send_to.rs]
 related: [operations/clipboard, operations/trash, operations/delete, operations/rename, operations/create, operations/archives, integration/open-with, integration/custom-actions, app/keyboard-shortcuts, app/keyboard-shortcuts/remapping, browser/view-modes/sorting]
 ---
 

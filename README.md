@@ -76,7 +76,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `35ee677` | 0 |
 | ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `5738aad` | 0 |
 | ↳ [Frame and content density](features/browser/view-modes/density.md) | `browser/view-modes/density` | shipped | reviewed | `bae71c0` | 0 |
-| ↳ [Per-folder sort and thumbnail size](features/browser/view-modes/folder-views.md) | `browser/view-modes/folder-views` | shipped | draft | `ad6d14f` | 0 |
+| ↳ [Per-folder sort and thumbnail size](features/browser/view-modes/folder-views.md) | `browser/view-modes/folder-views` | shipped | draft | `5738aad` | 0 |
 | ↳ [Icons view](features/browser/view-modes/icons.md) | `browser/view-modes/icons` | shipped | draft | `ad6d14f` | 0 |
 | ↳ [List view](features/browser/view-modes/list/index.md) | `browser/view-modes/list` | shipped | draft | `35ee677` | 0 |
 | &emsp;↳ [List column order and visibility](features/browser/view-modes/list/column-layout.md) | `browser/view-modes/list/column-layout` | shipped | reviewed | `ad6d14f` | 0 |
@@ -137,7 +137,7 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `5738aad` | 0 |
 | ↳ [Clipboard exchange with other file managers](features/operations/clipboard/file-manager-formats.md) | `operations/clipboard/file-manager-formats` | shipped | draft | `bae71c0` | 0 |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | reviewed | `bae71c0` | 0 |
-| [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `ad6d14f` | 0 |
+| [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `5738aad` | 0 |
 | [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Permanent-delete dissolve animation](features/operations/delete/dissolve.md) | `operations/delete/dissolve` | shipped | reviewed | `0f9bb00` | 0 |
 | [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | draft | `5738aad` | 0 |
@@ -150,9 +150,9 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | reviewed | `35ee677` | 0 |
 | ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | reviewed | `5738aad` | 0 |
 | ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | reviewed | `bae71c0` | 0 |
-| [Inline rename](features/operations/rename/index.md) | `operations/rename` | shipped | draft | `bae71c0` | 0 |
+| [Inline rename](features/operations/rename/index.md) | `operations/rename` | shipped | draft | `5738aad` | 0 |
 | ↳ [Typed path names](features/operations/rename/typed-paths.md) | `operations/rename/typed-paths` | shipped | draft | `bae71c0` | 0 |
-| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `35ee677` | 0 |
+| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `5738aad` | 0 |
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | reviewed | `44bfeab` | 0 |
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | reviewed | `35ee677` | 0 |
 | ↳ [FUSE mounts that refuse Trash](features/operations/trash/fuse-refusals.md) | `operations/trash/fuse-refusals` | shipped | reviewed | `86df474` | 0 |

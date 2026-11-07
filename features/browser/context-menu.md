@@ -88,7 +88,6 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - In the background menu, Open in Terminal is insensitive when the folder has no local path. lgse/strata#161 (unverified)
 - The item menu shows Open in Terminal for a single folder with a local path, outside Trash. lgse/strata#161
 - In Recent, the background menu also hides Properties. lgse/strata#1083 (unverified)
-- In Recent, the item menu hides New Folder with Selection. lgse/strata#1083 (unverified)
 - In Recent, the item menu offers Remove from Recent when every selected row has a recent-history entry. lgse/strata#1500
 - Remove from Recent is absent from the same file's menu in its real folder. lgse/strata#1500
 - In the background menu of a folder, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
@@ -114,6 +113,9 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Rebinding Rename to Ctrl+E in the default table while its menu is open changes its hint and menu accelerator to Ctrl+E. Unbinding it removes both. lgse/strata#1885
 - With Type to search on, Copy path rebound to Alt+Y in the default table shows the hint Alt+Y. lgse/strata#1885
 - Screen readers get each row's label as its name and its shortcut as its description. lgse/strata#415 (unverified)
+- In Trash and Recent, the background menu omits New Folder and New File. lgse/strata#499, lgse/strata#1083
+- With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349, lgse/strata#1083
+- New Folder with Selection is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
 
 ### Placement
 
