@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -222,6 +222,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Capture with an input-method composition pending, and with fcitx5 or IBus switch keys.
 - Start a capture, then switch the table, close Settings, switch windows, or toggle 10xer mode from another window; press a key after each.
 - Arm captures in two windows and press keys in each in turn.
+- Bind `sort.folders_first` under `[keymap.default]` to a plain letter and to a Shift key; press each in a normal folder, in Recent, and with the location field focused.
 - Drop Escape from `escape` and add `<Control>bracketleft`. Cancel a dialog, a rename, a footer prompt, F1, a popover menu, and the portal chooser with each key.
 - Give Enter, Tab, and the arrows a Ctrl key and a plain letter; use them in the action editor's multi-line field, Settings, a document table, the media timeline, and the sidebar.
 - With type-to-search on, then off, bind plain letters to a window command and to a structural key; type them in the file list, the filter, and global search.

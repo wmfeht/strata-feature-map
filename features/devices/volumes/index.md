@@ -3,7 +3,7 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/window/devices.rs, src/ui/window/sidebar_devices.rs, src/ui/window/device_menu.rs, src/ui/window/gio_devices.rs, src/ui/browser/location/devices.rs, src/ui/browser/location/volumes.rs]
 tests: [src/ui/window/devices/tests.rs]
@@ -13,7 +13,7 @@ related: [browser/sidebar, browser/search, operations/clipboard/send-to, remote/
 
 ## Summary
 
-Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. Mounted GVfs network shares get a network row with Disconnect. It also supplies the removable destinations Send to… offers and the drive roots Ctrl+K searches. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), and `devices/volumes/camera` (camera Photos view).
+Listing the drives, volumes, and mounts that the desktop volume monitor reports under Devices, and mounting them on demand. Mounted GVfs network shares get a network row with Disconnect. It also supplies the removable destinations Send to… offers and the drive roots Ctrl+K searches. Children: `devices/volumes/release` (Unmount and Eject), `devices/volumes/encrypted` (Unlock and Lock), `devices/volumes/udiskie-unlock` (udiskie handoff), `devices/volumes/drive-dialogs` (Format, Set label, Properties), `devices/volumes/camera` (camera Photos view), and `devices/volumes/drive-order` (row order and drive dividers).
 
 ## Behavior
 

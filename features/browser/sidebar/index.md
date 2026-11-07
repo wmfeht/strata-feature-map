@@ -3,17 +3,17 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/window/sidebar.rs, data/icons/scalable/actions/strata-chevron-down.svg, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs, src/ui/preferences/sidebar_settings.rs, src/ui/window/places.rs, src/ui/window/sidebar_context_menu.rs, src/ui/window/sidebar_file_drop.rs, src/ui/window/sidebar_places.rs, src/ui/window/sidebar_popover.rs, src/ui/window/sidebar_reorder.rs, src/ui/window/sidebar_rows.rs, src/ui/window/sidebar_sections.rs, src/ui/window/sidebar_view.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl, tests/qa/scenarios/sidebar_pinning/empty-pinned-section-stays-hidden.jsonl]
 docs: [docs/preferences.md, site/src/reference/keyboard-navigation.md]
-related: [operations/trash, devices/volumes, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window, browser/tabs]
+related: [operations/trash, devices/volumes, devices/volumes/drive-order, operations/drag-and-drop, preview/preview-panel, preview/preview-panel/layout, integration/10xer-mode, integration/portal-file-chooser, settings/preferences, app/updates, app/window, browser/tabs]
 ---
 
 ## Summary
 
-The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. PINNED and DEVICES collapse from their headings. Users reorder and hide places and open them in new tabs. They reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders in the GTK bookmarks file, with drag-to-pin as its child) and `browser/sidebar/rail` (full, icon rail, or hidden). A third child, `browser/sidebar/connect-to-server`, is the Network row's Connect to server dialog. Which devices DEVICES lists, and when, belongs to `devices/volumes`.
+The left panel of every browser window and the file chooser: built-in places, the PINNED section, and the DEVICES section. PINNED and DEVICES collapse from their headings. Users reorder and hide places and open them in new tabs. They reach it from the keyboard. Children: `browser/sidebar/pins` (pinned folders in the GTK bookmarks file, with drag-to-pin as its child) and `browser/sidebar/rail` (full, icon rail, or hidden). A third child, `browser/sidebar/connect-to-server`, is the Network row's Connect to server dialog. Which devices DEVICES lists, and when, belongs to `devices/volumes`; their order and grouping by drive belong to `devices/volumes/drive-order`.
 
 ## Behavior
 
@@ -79,6 +79,8 @@ The left panel of every browser window and the file chooser: built-in places, th
 ### Devices
 
 - A Strata label saved with Set label… replaces the system name on the device row in every open window; clearing it restores the system name. lgse/strata#1393
+- A divider between drive groups is a 1 px line in the theme's border colour at 24 % opacity, with 4 px above and below. lgse/strata#2075 (unverified)
+- The divider is inset 10 px from each side in the full sidebar and 2 px in the icon rail. lgse/strata#2075 (unverified)
 
 ### Collapsible sections
 
@@ -94,6 +96,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Clicking a heading toggles its section without taking focus or showing an accent outline, so keyboard focus stays in the file listing. lgse/strata#1992
 - A heading focused from the keyboard shows its accent outline. lgse/strata#1992
 - The badge counts every row in the section: with 3 pins and the open pin still shown, it reads `3`. lgse/strata#1390 (unverified)
+- A collapsed DEVICES badge counts device rows only, not the dividers between drives: two partitions plus one other drive read `3`. lgse/strata#2075
 - Collapsing PINNED with a first, middle, or last pin open folds the other pins and leaves the open pin directly under the heading. lgse/strata#1389, lgse/strata#1390
 - Expanding PINNED returns the open pin to its original slot, and the pin stays visible throughout the animation. lgse/strata#1390
 - With PINNED collapsed, navigating to a pin shows only that pin's row; navigating away from every pin hides it again. lgse/strata#1390 (unverified)
@@ -162,6 +165,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2075 | feat | Grouped DEVICES rows by physical drive in the system's drive order, with a divider between drives, so partitions of different disks no longer mix. |
 | 2026-11-05 | lgse/strata#2064 | fix | Dropped redundant rail CSS that zeroed label fonts, so row labels return after moving the window off a monitor that railed the sidebar. |
 | 2026-11-05 | lgse/strata#2060 | fix | Matched the chevron's right gap to the title's left gap and lined device action icons up with it, replacing lgse/strata#1992's centring. |
 | 2026-11-02 | lgse/strata#2026 | fix | Re-hid the empty PINNED section after each rail sync, so no heading shows when nothing is pinned. |
