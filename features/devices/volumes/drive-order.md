@@ -30,7 +30,7 @@ The order of rows under DEVICES in the sidebar. Rows are grouped by physical dri
 
 - Drives follow their system sort key, so a fixed disk keyed `00coldplug/00fixed/nvme0` comes before a removable one keyed `00coldplug/12removable/sd____b`. lgse/strata#2075
 - Fixed disks come before removable and hot-plugged drives. lgse/strata#2075
-- A drive with no sort key, such as an MTP phone, follows every drive that has one. lgse/strata#2075 (unverified)
+- A drive with no sort key follows every drive that has one. lgse/strata#2075 (unverified)
 - Two drives with the same name, such as two "External USB 3.0" disks, get separate groups. lgse/strata#2075 (unverified)
 
 ### Within a drive

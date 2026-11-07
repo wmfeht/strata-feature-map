@@ -70,7 +70,7 @@ Per-item colors and icons for local folders and files, chosen in the Customize d
 - The session keeps at most 10,000 trashed keys, dropping the oldest trashed items first. lgse/strata#1554
 - Replace on a move or copy keeps the incoming item's customization; the replaced item's keys go to Trash with it for the session. lgse/strata#1554
 - Ctrl+Z after a move answered with Replace returns the moved item's customization to its source and restores the replaced item's keys. lgse/strata#2080
-- A merged move carries the source children's customizations into the target folder, which keeps its own customization. lgse/strata#2078, lgse/strata#2080 (unverified)
+- A merged move carries the source children's customizations into the target folder. lgse/strata#2078 (unverified)
 - A Merge that moves destination files to Trash sends their keys to Trash with them for the session; Undo brings them back. lgse/strata#1729
 - Merging into an existing folder keeps the destination folder's own customization. lgse/strata#1554
 - A copy or duplicate starts uncustomized. lgse/strata#1554

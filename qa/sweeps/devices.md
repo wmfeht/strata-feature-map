@@ -122,7 +122,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 
 ### devices/volumes/drive-order
 
-- Attach the three-partition disk, both same-label sticks, and the virtio disk over QMP in a shuffled order; compare groups and dividers with each drive's `udisksctl info` SortKey. Detach and reattach one stick.
+- Attach the three-partition disk, both same-label sticks, and the virtio disk over QMP in a shuffled order. Compare groups and dividers with each drive's `udisksctl info` SortKey. Detach and reattach one stick.
 - Set a Strata label on the three-partition disk's last partition that would sort first, then plug in a stick to force a rebuild; repeat after a restart.
 - List an MTP phone, a camera, a loop mount under `/mnt`, an unlocked LUKS volume, and the SFTP share beside the sticks. Count dividers and read the order in the full sidebar and the rail.
 - Attach the LUKS disk locked, then unlock it, and mount one partition of the three-partition disk from a shell; watch which group each row joins.

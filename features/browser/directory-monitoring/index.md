@@ -190,4 +190,4 @@ Loading and file monitoring predate the PR history; the original monitor already
 - On mounts that renumber folders, such as sshfs and exFAT, a folder can be put back at the old path. It keeps receiving the moved folder's changes until it is opened again. lgse/strata#2026
 - An open folder on another mount than its renamed ancestor counts as departed. lgse/strata#2026
 - Metadata fills on visible `admin://` rows still go through GIO. After the polkit grant expires, they can raise a prompt the user did not ask for. lgse/strata#1837
-- After a successful undo, `trash:///` is not refreshed as an affected location, so a Trash column relies on its file monitor. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))
+- Undoing a Replace move still retires the moved item's path from Recent, although the restored original is back at that path. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))

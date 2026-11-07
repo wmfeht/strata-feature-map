@@ -299,7 +299,7 @@ The folder suggestions shown under the location entry while a path is typed. The
 
 ### [Recent](../features/browser/navigation/recent.md) `browser/navigation/recent`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1082](https://github.com/lgse/strata/issues/1082), pr [lgse/strata#1083](https://github.com/lgse/strata/issues/1083)
+shipped · reviewed · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1082](https://github.com/lgse/strata/issues/1082), pr [lgse/strata#1083](https://github.com/lgse/strata/issues/1083)
 
 The `recent:///` collection of recently used files, read from the desktop's GTK and GIO recent-file history. It is a browsable location whose rows act on the real files, opened from the sidebar Recent place or the location bar. Which menu items Recent shows belongs to `browser/context-menu`, and its sort menu to `browser/view-modes/sorting`.
 

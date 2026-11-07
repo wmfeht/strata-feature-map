@@ -79,7 +79,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 ### Devices
 
 - A Strata label saved with Set label… replaces the system name on the device row in every open window; clearing it restores the system name. lgse/strata#1393
-- A divider between drive groups is a 1 px line in the theme's border colour at 24 % opacity, with 4 px above and below. lgse/strata#2075 (unverified)
+- A divider between drive groups is a 1 px line in the theme's border colour at 24% opacity, with 4 px above and below. lgse/strata#2075 (unverified)
 - The divider is inset 10 px from each side in the full sidebar and 2 px in the icon rail. lgse/strata#2075 (unverified)
 
 ### Collapsible sections

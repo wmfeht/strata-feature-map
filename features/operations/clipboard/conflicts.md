@@ -57,7 +57,7 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 ### Undo
 
 - Ctrl+Z after a copy answered with Replace restores the overwritten original from Trash, outside folders opened as administrator. lgse/strata#1097, lgse/strata#1837
-- Ctrl+Z after a Merge removes what the merge created and restores the overwritten originals, leaving destination-only items. lgse/strata#1092, lgse/strata#1097
+- Ctrl+Z after a copy answered with Merge removes what the merge created and restores the overwritten originals, leaving destination-only items. lgse/strata#1092, lgse/strata#1097
 - An item edited since the Merge or Replace stays on undo, its original stays in Trash, and the dialog says so. lgse/strata#1615
 - Where Trash is unavailable, a Merge undo deletes only created items it recorded and finds unchanged, and reports the rest. lgse/strata#1615
 - Undoing such a Merge that placed `0555` folders completes without "Permission denied"; a placed folder that stays gets its mode back. lgse/strata#1729

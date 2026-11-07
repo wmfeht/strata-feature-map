@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5738aad` · 150 features, 70 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5738aad` · 150 features, 71 reviewed
 
 ## app
 
@@ -47,7 +47,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Folder jump](features/browser/navigation/folder-jump.md) | `browser/navigation/folder-jump` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Location bar and breadcrumbs](features/browser/navigation/location-bar/index.md) | `browser/navigation/location-bar` | shipped | draft | `35ee677` | ? |
 | &emsp;↳ [Location path completion](features/browser/navigation/location-bar/completion.md) | `browser/navigation/location-bar/completion` | shipped | reviewed | `35ee677` | ? |
-| ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | draft | `5738aad` | ? |
+| ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | reviewed | `5738aad` | ? |
 | ↳ [Startup location arguments](features/browser/navigation/startup-arguments.md) | `browser/navigation/startup-arguments` | shipped | reviewed | `35ee677` | ? |
 | [Properties dialog](features/browser/properties/index.md) | `browser/properties` | shipped | draft | `bae71c0` | ? |
 | ↳ [Media details in Properties](features/browser/properties/media.md) | `browser/properties/media` | shipped | draft | `bae71c0` | ? |
