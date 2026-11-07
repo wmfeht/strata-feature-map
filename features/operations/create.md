@@ -3,17 +3,17 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/adapters/local_operations/create_entry.rs, src/ui/browser/inline_edit/new_entry.rs]
 tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl, tests/qa/mutations/new-entry-collision.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/rename, operations/rename/typed-paths, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility]
+related: [operations/rename, operations/rename/typed-paths, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility, browser/context-menu]
 ---
 
 ## Summary
 
-Creating an empty file or folder in the current directory from the background menu or Ctrl+Shift+N, then naming it in place. It also covers New Folder with Selection, which groups selected items into a new folder. The file chooser's header button reuses this flow, and the 10xer footer create prompt reuses the creation operation; both are described in their own nodes.
+Creating an empty file or folder in the current directory from the background menu, an entry's menu, or Ctrl+Shift+N, then naming it in place. It also covers New Folder with Selection, which groups selected items into a new folder. The file chooser's header button reuses this flow, and the 10xer footer create prompt reuses the creation operation; both are described in their own nodes.
 
 ## Behavior
 

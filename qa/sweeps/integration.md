@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -187,6 +187,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - In `move to ›` type a path with trailing spaces, `~user`, a folder symlink, and a child of a target; `C` into a read-only folder; `M` a selection with one item already there.
 - Match 11 actions, press `;`, rename an action folder from a shell, then press the digit; `; t` from Network, `; e` on a folder named `x.tar.gz`, `; E` into a typed folder that does not exist.
 - Press `, s` in Columns with the same folder open in a second window and a `v` range active. Read both windows' order and the range.
+- Press `, u`, then `, U`, `, X`, `, n`, `, l`, and `, c` while the pane stays Unsorted. Read the order, the cursor, and the List sort label after each.
+- Press `, b` and `, B` in Recent, in a camera root, on the sshfs mount, and on a vfat mount. Repeat `, x` on names like `.gitignore` and `a.tar.gz`.
+- Press `, c` twice, then `, l` and `, n`, in a non-last Columns pane with a `v` range and an `f` result list active. Read each pane's order.
+- Rebind `"sort.unsorted"` and `"sort.case_sensitive"` under `[keymap.tenxer]` to `q` and `<Shift>n`, then press `, q`, `, Q`, `, n`, and `, N`.
 - On ext4 with casefold and on the sshfs mount, `ln a.txt link.txt`, then `rename ›` `a.txt` to `link.txt` and `Link.txt`.
 - On the vfat mount, submit `CON`, `a.`, ` lead`, `x:y`, and a name with U+200B in `create ›` and `rename ›`. On vfat and casefold, `rename ›` `Notes.txt` to `notes.txt`.
 - On the sshfs mount, press `d` until Trash is refused, then `d` again before and after F5, and from a second window; read each dialog.

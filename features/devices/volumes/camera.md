@@ -3,7 +3,7 @@ title: Camera photos
 status: shipped
 origin: {issue: lgse/strata#833, pr: lgse/strata#834}
 branch: null
-reviewed_at: 44bfeab305cfb68993bafcf4794fe0bbf7ff1433
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: reviewed
 code: [src/adapters/local_files/camera_photos.rs, src/services/camera_preview.rs, src/ui/browser/camera_scroll.rs, src/ui/thumbnail/camera.rs]
 tests: [src/adapters/local_files/camera_photos/tests.rs, src/services/camera_preview/tests.rs, src/app/browser/tests/camera_photos.rs, src/ui/thumbnail/camera/tests.rs]

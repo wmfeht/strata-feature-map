@@ -3,7 +3,7 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
 review: draft
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, src/services/search/refresh.rs, src/services/search/scoring.rs, src/services/search/session.rs, src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, src/services/search/test_support.rs]
