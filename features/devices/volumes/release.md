@@ -3,7 +3,7 @@ title: Unmount and eject
 status: shipped
 origin: {issue: lgse/strata#295, pr: lgse/strata#296}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 review: draft
 code: [src/ui/window/device_release.rs, src/ui/window/device_release/**, src/ui/window/device_actions.rs]
 tests: [src/ui/window/device_release/tests.rs]
@@ -41,6 +41,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - The pending row and its spinner carry the accessible label "Writing data to the drive. Do not unplug it." lgse/strata#1193 (unverified)
 - While a release is pending, the header activity spinner runs with the accessible description "Writing to device…". lgse/strata#1193 (unverified)
 - The pending spinner uses the theme accent color and follows live theme changes. lgse/strata#1199
+- The pending spinner sits in the column the eject icon takes on other device rows. lgse/strata#2060
 - A GIO unmount-progress message replaces the overlay body, followed by "Do not unplug it." lgse/strata#1193 (unverified)
 - A second Eject or Unmount on a device with a release pending does nothing. lgse/strata#1193 (unverified)
 

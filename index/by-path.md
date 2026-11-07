@@ -912,10 +912,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/missing_tools/tests.rs` | tests | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/modal.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
+| `src/ui/modal/fade.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/focus.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/messages.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `src/ui/modal/tests/fade.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/notice.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/open_with.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/open_with/apps.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |

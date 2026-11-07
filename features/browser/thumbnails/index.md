@@ -3,7 +3,7 @@ title: Thumbnails
 status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 review: reviewed
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, src/sandbox_helper/appimage.rs, src/ui/thumbnail/cache.rs, src/ui/thumbnail/icons.rs, src/ui/thumbnail/jobs.rs, src/ui/thumbnail/kind.rs]
 tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/viewport/tests/folder_counts.rs, src/ui/thumbnail/slot/tests.rs, src/sandbox_helper/appimage/tests.rs]

@@ -3,7 +3,7 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 review: draft
 code: [src/ui/window/devices.rs, src/ui/window/sidebar_devices.rs, src/ui/window/device_menu.rs, src/ui/window/gio_devices.rs, src/ui/browser/location/devices.rs, src/ui/browser/location/volumes.rs]
 tests: [src/ui/window/devices/tests.rs]
@@ -28,6 +28,15 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A row's udev encryption hint appears once a worker has read it; Devices rebuilds when the hint changes. lgse/strata#1729 (unverified)
 - Hovering a device row tints it with the text color at 6%; only the current location's row keeps the accent fill. lgse/strata#1909 (unverified)
 - A volume row's accessible description is its mount path when mounted, otherwise its device path, such as `/dev/sdb1`. lgse/strata#2030
+
+### Row buttons
+
+- In the full-width sidebar, a drive's eject triangle tip sits under the expanded DEVICES chevron's tip at every text size. lgse/strata#2060
+- On a row with only a Lock or Unlock button, its icon takes the eject column; beside an eject button it sits one action slot to the left. lgse/strata#2060 (unverified)
+- Hovering the eject icon brightens it with no pill, while the row highlight runs behind it to the row's right edge. lgse/strata#2060
+- Clicking the eject button with the mouse leaves no focus ring. lgse/strata#2060
+- Tabbing to the eject button shows one ring around the icon, not around the 24 px button. lgse/strata#2060
+- Clicking the Lock or Unlock button with the mouse leaves no focus ring; tabbing to it shows one ring around the icon. lgse/strata#2060 (unverified)
 
 ### Mounting
 
@@ -64,6 +73,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - Sidebar mounts run through the browser's mount flow, so volumes share the themed authentication prompt, quiet cancellation, and retries used by remote locations (lgse/strata#302, lgse/strata#493).
 - GVfs network mounts are shares to disconnect, not drives to eject. Before lgse/strata#2030, only SMB got the network row, and an SFTP share showed a drive icon with eject (lgse/strata#2016).
 - A volume row is described like a mount row, by its path. GIO sets no activation root for an fstab volume, and cdda and MTP volumes have a raw URI one, so the description skips it (lgse/strata#2012, lgse/strata#2030).
+- Device action icons share the section chevron's size and inset, so both tips stay in one column at every text size. The icon sits off-centre in its 24 px button, so the focus ring wraps the icon (lgse/strata#2059, lgse/strata#2060).
 - A desktop automounter may already own a mount job. Strata waits for it rather than cancelling it, and never disables the user's automounter (lgse/strata#537, lgse/strata#935).
 
 ## History

@@ -3,10 +3,10 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
 review: draft
-code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/modal/focus.rs, src/ui/modal/messages.rs, src/ui/window/modal_layers.rs, src/ui/controls.rs, src/ui/blur.rs]
-tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
+code: [src/ui/modal.rs, src/ui/modal/fade.rs, src/ui/modal/layout.rs, src/ui/modal/focus.rs, src/ui/modal/messages.rs, src/ui/window/modal_layers.rs, src/ui/controls.rs, src/ui/blur.rs]
+tests: [src/ui/modal/tests.rs, src/ui/modal/tests/fade.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/progress, operations/trash, operations/clipboard, app/window/key-dispatch, settings/preferences]
 ---
@@ -20,7 +20,12 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 ### Opening and closing
 
 - While a dialog is open, the window content behind it is blurred; closing one of two stacked dialogs keeps the blur until the last one closes. lgse/strata#147
-- Opening a dialog fades in the backdrop and fades the dialog in from 96% scale over 200 ms; closing reverses it over 200 ms. lgse/strata#112 (unverified)
+- Opening an action or search dialog fades in the backdrop and fades the dialog in from 96% scale over 200 ms; closing reverses it over 200 ms. lgse/strata#112, lgse/strata#2054 (unverified)
+- Opening Settings fades its whole layer, backdrop and panel together, in over 200 ms with no scale; closing fades it out over 200 ms. lgse/strata#2054
+- The first Settings open of a process fades in like later ones instead of appearing at once. lgse/strata#2054
+- With Reduce motion on, or GTK `gtk-enable-animations` off, Settings appears at full opacity at once and closes without a fade. lgse/strata#2054
+- A frame longer than 33 ms advances the Settings fade by only 33 ms, so a first-render stall does not skip the fade. lgse/strata#2054 (unverified)
+- Closing Settings during its fade-in stops the fade-in and fades out from the current opacity. lgse/strata#2054 (unverified)
 - Clicking the backdrop outside a dialog dismisses it without confirming, like Cancel or Escape. lgse/strata#107
 - A dialog in a non-cancellable in-progress state, such as file operation progress, ignores backdrop clicks. lgse/strata#107, lgse/strata#491
 - The mount authentication dialog ignores backdrop clicks once its username, domain, or password field has text. lgse/strata#105 (unverified)
@@ -78,6 +83,8 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 - One shell builds every action dialog: header with an accent or danger icon bezel, title, subtitle, close button, body, and Cancel and confirm actions. It replaced one-off widgets and CSS that drifted across themes (lgse/strata#88, lgse/strata#91). The search palette and Settings stay specialized, and native choosers stay native.
 - Animation toggles a `modal-hidden` CSS class: opening removes it 16 ms after mapping, and closing removes the layer 200 ms after adding it. The earlier timer called `allocate()` against GTK's own layout, broke centering, and stacked handlers. A `dismissing` class plus an insensitive layer stops a second dismissal (lgse/strata#112).
+- Settings is the exception: `src/ui/modal/fade.rs` sets the layer's own opacity from the frame clock. A CSS transition restyled about 830 widgets on every frame, and removing only the scale barely helped (lgse/strata#2050, lgse/strata#2054).
+- The CSS transition needed a prior style pass, so the first open popped in instead of fading. The opacity fade needs none (lgse/strata#2050, lgse/strata#2054).
 - Backdrop clicks are hit-tested against the dialog and its viewport, not spacer widgets (lgse/strata#909). A click outside both calls the shared `dismiss_modal_layer` unless the dialog's `block_dismiss` guard returns true (lgse/strata#107). The owner held that a dirty form should not dismiss (lgse/strata#105); Compress, archive password, and mount authentication apply that guard.
 - `ScrolledWindow` clips its child, CSS shadows included, so the layout reserves 42 px for the largest shadow, the Settings panel's 28 px blur (lgse/strata#909). The layer measures 1×1 so a dialog never grows the window (lgse/strata#838).
 - Confirmation dialogs set initial focus through one `focus_button` helper. About 12 hand-rolled focus grabs had let an idle callback refocus Cancel in the permanent-delete dialog; Enter confirms and Escape cancels, matching Finder (lgse/strata#1204).
