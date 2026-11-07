@@ -206,7 +206,7 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `5738aad` | 0 |
 | ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | reviewed | `44bfeab` | 0 |
 | ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `5738aad` | 0 |
-| ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `b094f02` | 0 |
+| ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `5738aad` | 0 |
 | [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `b094f02` | 0 |
 | ↳ [Corner roundness](features/settings/themes/corner-roundness.md) | `settings/themes/corner-roundness` | shipped | reviewed | `73b3258` | 0 |
 | ↳ [Themed icons](features/settings/themes/icons/index.md) | `settings/themes/icons` | shipped | reviewed | `bae71c0` | 0 |

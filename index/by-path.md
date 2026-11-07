@@ -646,10 +646,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/archive/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `src/ui/browser/camera_scroll.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/browser/chooser_context.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
-| `src/ui/browser/clipboard.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `src/ui/browser/clipboard.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/clipboard/formats.rs` | code | [Clipboard exchange with other file managers](../features/operations/clipboard/file-manager-formats.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/ui/browser/clipboard/formats/tests.rs` | tests | [Clipboard exchange with other file managers](../features/operations/clipboard/file-manager-formats.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/ui/browser/clipboard/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `src/ui/browser/clipboard/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/collection.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/collection/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/columns.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -960,7 +960,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/preview_settings.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/ui/preferences/save_notice.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/sidebar_settings.rs` | code | [Sidebar](../features/browser/sidebar/index.md) | — |
-| `src/ui/preferences/stored.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/ui/preferences/stored.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/preferences/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/keymap.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/preferences/tests/preferences.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
