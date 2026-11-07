@@ -35,7 +35,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 
 - Saved values stay stored but unused while the switch is off. Turning it back on drops saved values equal to the current defaults. lgse/strata#1565
 - Changing the default sort re-sorts every open folder without its own sort, in every window. With the switch on, it also drops saved sorts equal to the new default. lgse/strata#1565
-- Clear removes every saved sort and Icons size. lgse/strata#1565
+- Forget all folder settings → Clear removes every saved sort and Icons size. lgse/strata#1565
 - Clear also removes values another Strata process saved that this one has not merged yet. lgse/strata#1565
 
 ### Pane menus

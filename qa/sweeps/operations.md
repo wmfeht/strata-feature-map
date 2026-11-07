@@ -48,7 +48,6 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Press Ctrl+Alt+N in Columns with a selection in one column and keyboard focus in another, and with a selection of only hidden items after hidden files are turned off.
 - On vfat and on an SMB share with POSIX extensions, take `new folder` with a file, then create there.
 - Create in a folder whose names are near the length limit.
-- Name a New File `plans` and a New Folder `plans 2`, then undo and redo each from a second window. Rename one afterwards and undo once.
 
 ### operations/rename
 
@@ -361,6 +360,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Move items onto an SMB and an sshfs share, block the names there with the other kind from the server side, then undo and redo.
 - Move a file into a folder, put a folder at its original name, make the destination folder `chmod 000` as a non-root user, then undo.
 - Merge-move a folder in a batch with one plain file, then press Ctrl+Z twice.
+- Name a New File `plans` and a New Folder `plans 2`, then undo and redo each from a second window. Rename one afterwards and undo once.
 
 ### operations/undo/replacing-moves
 

@@ -81,6 +81,9 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
 - Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543 (unverified)
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
+- In Recent, the background menu also omits New Folder and New File. lgse/strata#1083
+- With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349, lgse/strata#1083
+- New Folder with Selection is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
 - The background menu's Paste is sensitive only while the clipboard holds files or a PNG image. lgse/strata#882
 - When the clipboard offers `x-special/gnome-copied-files` without `text/uri-list`, a file list, or `image/png`, the background menu's Paste is insensitive, while Ctrl+V pastes the files. lgse/strata#2040 (unverified)
 - The background menu offers Open With… and Open in Terminal for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#161, lgse/strata#1083
@@ -113,9 +116,6 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - Rebinding Rename to Ctrl+E in the default table while its menu is open changes its hint and menu accelerator to Ctrl+E. Unbinding it removes both. lgse/strata#1885
 - With Type to search on, Copy path rebound to Alt+Y in the default table shows the hint Alt+Y. lgse/strata#1885
 - Screen readers get each row's label as its name and its shortcut as its description. lgse/strata#415 (unverified)
-- In Trash and Recent, the background menu omits New Folder and New File. lgse/strata#499, lgse/strata#1083
-- With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349, lgse/strata#1083
-- New Folder with Selection is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
 
 ### Placement
 

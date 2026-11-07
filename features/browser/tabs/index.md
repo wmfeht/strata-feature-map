@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
 docs: [site/src/reference/keyboard-navigation.md, site/src/reference/10xer-mode.md, docs/keyboard-navigation.md]
-related: [integration/10xer-mode, operations/drag-and-drop, operations/drag-and-drop/content-drops, operations/progress/dock, browser/context-menu, browser/scrolling, browser/sidebar, browser/selection, browser/selection/keyboard-navigation, browser/navigation/startup-arguments]
+related: [integration/10xer-mode, operations/drag-and-drop, operations/drag-and-drop/content-drops, operations/progress/dock, browser/context-menu, browser/scrolling, browser/sidebar, browser/selection, browser/selection/keyboard-navigation, browser/navigation/startup-arguments, app/window]
 ---
 
 ## Summary

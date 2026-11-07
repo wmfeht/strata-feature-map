@@ -1451,7 +1451,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
-| `tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
 | `tests/qa/scenarios/escape_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
@@ -1475,7 +1475,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/inline_renaming/new-item-clears-hiding-filter.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/inline_renaming/new-item-first-free-number.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/inline_renaming/new-item-named-with-path.jsonl` | tests | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
-| `tests/qa/scenarios/inline_renaming/rename-and-undo-restores.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
+| `tests/qa/scenarios/inline_renaming/rename-and-undo-restores.jsonl` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/qa/scenarios/inline_renaming/rename-commits-on-click-away.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/inline_renaming/rename-commits-on-enter.jsonl` | tests | [Inline rename](../features/operations/rename/index.md) | — |
 | `tests/qa/scenarios/inline_renaming/rename-moves-into-path.jsonl` | tests | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |

@@ -74,6 +74,7 @@ One undo history and one redo history for file operations, shared by every Strat
 
 - Ctrl+Z after a rename restores the original name, keeping current contents and permissions. lgse/strata#1061
 - When the original name is taken by then, Undo fails without overwriting and stays available for retry. lgse/strata#1061
+- Undoing a rename never copies the item; where no placement step can place it, the undo is refused. lgse/strata#1615
 
 ### New Folder with Selection
 
