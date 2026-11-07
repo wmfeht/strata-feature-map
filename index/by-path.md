@@ -1213,6 +1213,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/device_labels/tests.rs` | tests | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_lock.rs` | code | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_menu.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
+| `src/ui/window/device_order.rs` | code | [Drive grouping in Devices](../features/devices/volumes/drive-order.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/device_order/**` | code | [Drive grouping in Devices](../features/devices/volumes/drive-order.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `src/ui/window/device_order/tests.rs` | tests | [Drive grouping in Devices](../features/devices/volumes/drive-order.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release.rs` | code | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release/**` | code | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release/tests.rs` | tests | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |

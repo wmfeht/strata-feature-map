@@ -3,12 +3,12 @@ title: Drag and drop
 status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/browser/columns/rows/drag.rs, src/ui/browser_modes/drag_drop.rs]
 tests: [tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl, tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl, tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl, tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl, tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl, tests/qa/scenarios/drag_and_drop/empty-name-space-drag-starts-marquee.jsonl, tests/qa/scenarios/drag_and_drop/filtered-result-to-sidebar-folder.jsonl, tests/qa/scenarios/drag_and_drop/folder-into-another-folder.jsonl, tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl, tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl, tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl, tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]
 docs: [docs/preferences.md]
-related: [operations/trash, operations/clipboard, browser/selection, browser/tabs, browser/navigation/location-bar]
+related: [operations/trash, operations/clipboard, operations/clipboard/conflicts, browser/selection, browser/tabs, browser/navigation/location-bar]
 ---
 
 ## Summary
@@ -82,6 +82,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2078 | fix | Offered Merge when a moved folder meets a same-named folder, so a drag no longer offers only Replace. |
 | 2026-11-01 | lgse/strata#1547 | feat | Saved foreign image, text, and web-link drops as new files in local folders, never fetching addresses. |
 | 2026-10-25 | lgse/strata#1865 | fix | Cancelled file drags on Escape through `GdkDrag::cancel`, so releasing over a folder no longer drops on X11. |
 | 2026-10-05 | lgse/strata#1487 | feat | Added 750 ms spring-loaded navigation during held drags, icon drag previews, and selection-style drop outlines. |

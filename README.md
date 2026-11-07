@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `35ee677` · 149 features, 72 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `35ee677` · 150 features, 72 reviewed
 
 ## app
 
@@ -16,13 +16,13 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `35ee677` | ? |
 | [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `b094f02` | ? |
-| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `35ee677` | ? |
-| [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | reviewed | `ad6d14f` | ? |
-| ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `ad6d14f` | ? |
+| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `5738aad` | 0 |
+| [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | reviewed | `5738aad` | 0 |
+| ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `5738aad` | 0 |
 | [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `b094f02` | ? |
 | ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | reviewed | `41070b5` | ? |
-| [Keyboard shortcut reference and footer](features/app/shortcut-reference.md) | `app/shortcut-reference` | shipped | draft | `ad6d14f` | ? |
+| [Keyboard shortcut reference and footer](features/app/shortcut-reference.md) | `app/shortcut-reference` | shipped | draft | `5738aad` | 0 |
 | [Updates](features/app/updates/index.md) | `app/updates` | shipped | draft | `bae71c0` | ? |
 | ↳ [In-place update install](features/app/updates/install.md) | `app/updates/install` | shipped | draft | `bae71c0` | ? |
 | ↳ [Package-managed installs](features/app/updates/package-managed.md) | `app/updates/package-managed` | shipped | draft | `bae71c0` | ? |
@@ -47,7 +47,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Folder jump](features/browser/navigation/folder-jump.md) | `browser/navigation/folder-jump` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Location bar and breadcrumbs](features/browser/navigation/location-bar/index.md) | `browser/navigation/location-bar` | shipped | draft | `35ee677` | ? |
 | &emsp;↳ [Location path completion](features/browser/navigation/location-bar/completion.md) | `browser/navigation/location-bar/completion` | shipped | reviewed | `35ee677` | ? |
-| ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | reviewed | `ad6d14f` | ? |
+| ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | reviewed | `5738aad` | 0 |
 | ↳ [Startup location arguments](features/browser/navigation/startup-arguments.md) | `browser/navigation/startup-arguments` | shipped | reviewed | `35ee677` | ? |
 | [Properties dialog](features/browser/properties/index.md) | `browser/properties` | shipped | draft | `bae71c0` | ? |
 | ↳ [Media details in Properties](features/browser/properties/media.md) | `browser/properties/media` | shipped | draft | `bae71c0` | ? |
@@ -63,7 +63,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Keyboard navigation in views](features/browser/selection/keyboard-navigation.md) | `browser/selection/keyboard-navigation` | shipped | draft | `35ee677` | ? |
 | ↳ [Marquee selection](features/browser/selection/marquee.md) | `browser/selection/marquee` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [Pointer intent](features/browser/selection/pointer-intent.md) | `browser/selection/pointer-intent` | shipped | reviewed | `965bd7e` | ? |
-| [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `b094f02` | ? |
+| [Sidebar](features/browser/sidebar/index.md) | `browser/sidebar` | shipped | draft | `5738aad` | ? |
 | ↳ [Connect to server dialog](features/browser/sidebar/connect-to-server.md) | `browser/sidebar/connect-to-server` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Pinned folders](features/browser/sidebar/pins/index.md) | `browser/sidebar/pins` | shipped | draft | `bae71c0` | ? |
 | &emsp;↳ [Drag folders to pin](features/browser/sidebar/pins/drag-to-pin.md) | `browser/sidebar/pins/drag-to-pin` | shipped | draft | `35ee677` | ? |
@@ -81,7 +81,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [List view](features/browser/view-modes/list/index.md) | `browser/view-modes/list` | shipped | draft | `35ee677` | ? |
 | &emsp;↳ [List column order and visibility](features/browser/view-modes/list/column-layout.md) | `browser/view-modes/list/column-layout` | shipped | reviewed | `ad6d14f` | ? |
 | ↳ [Position restore on return and refresh](features/browser/view-modes/position-restore.md) | `browser/view-modes/position-restore` | shipped | draft | `35ee677` | ? |
-| ↳ [Sorting](features/browser/view-modes/sorting.md) | `browser/view-modes/sorting` | shipped | draft | `ad6d14f` | ? |
+| ↳ [Sorting](features/browser/view-modes/sorting.md) | `browser/view-modes/sorting` | shipped | draft | `5738aad` | 0 |
 | ↳ [Text size](features/browser/view-modes/text-size.md) | `browser/view-modes/text-size` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [Thumbnail size shortcuts](features/browser/view-modes/thumbnail-size.md) | `browser/view-modes/thumbnail-size` | shipped | reviewed | `73b3258` | ? |
 
@@ -91,9 +91,10 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `35ee677` | ? |
+| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `5738aad` | ? |
 | ↳ [Camera photos](features/devices/volumes/camera.md) | `devices/volumes/camera` | shipped | reviewed | `ad6d14f` | ? |
 | ↳ [Drive format, label, properties, and container lock](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | draft | `bae71c0` | ? |
+| ↳ [Drive grouping in Devices](features/devices/volumes/drive-order.md) | `devices/volumes/drive-order` | shipped | draft | `5738aad` | 0 |
 | ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `35ee677` | ? |
 | ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `b094f02` | ? |
@@ -104,9 +105,9 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [10xer mode](features/integration/10xer-mode/index.md) | `integration/10xer-mode` | shipped | draft | `ad6d14f` | ? |
+| [10xer mode](features/integration/10xer-mode/index.md) | `integration/10xer-mode` | shipped | draft | `5738aad` | ? |
 | ↳ [10xer mode in the file chooser](features/integration/10xer-mode/file-chooser.md) | `integration/10xer-mode/file-chooser` | shipped | draft | `bae71c0` | ? |
-| ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `ad6d14f` | ? |
+| ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `5738aad` | 0 |
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places.md) | `integration/10xer-mode/places` | shipped | draft | `bae71c0` | ? |
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [10xer find, filter, and search](features/integration/10xer-mode/search.md) | `integration/10xer-mode/search` | shipped | reviewed | `bae71c0` | ? |
@@ -203,7 +204,7 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | [Diagnostics](features/settings/diagnostics.md) | `settings/diagnostics` | shipped | reviewed | `0f9bb00` | ? |
 | [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `b094f02` | ? |
 | ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | reviewed | `44bfeab` | ? |
-| ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `ad6d14f` | ? |
+| ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `5738aad` | 0 |
 | ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `b094f02` | ? |
 | [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `b094f02` | ? |
 | ↳ [Corner roundness](features/settings/themes/corner-roundness.md) | `settings/themes/corner-roundness` | shipped | reviewed | `73b3258` | ? |
