@@ -232,7 +232,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With the fixture holding unknown ids, press **Reset all** and dismiss the dialog by Escape and by the backdrop; then confirm and diff the file.
 - Edit `settings.toml` while Strata runs, then save a rebind from Settings; read the file and the keys after relaunch.
 - With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
-- Bind `sort.unsorted`, `sort.natural`, `sort.case_sensitive`, and `sort.folders_first` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter; press each in Columns, Icons, List, and Recent, with and without Shift, and with the location field focused.
+- Bind `sort.unsorted`, `sort.natural`, `sort.case_sensitive`, and `sort.folders_first` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter in turn; press each in Columns, Icons, List, and Recent, with and without Shift, and with the location field focused.
 - Search Settings → Keyboard for `sort`, `extension`, and `case` in both tables, with the interface in English and de.
 
 ### app/updates

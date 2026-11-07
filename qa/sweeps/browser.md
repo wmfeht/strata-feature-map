@@ -205,7 +205,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Sort by Extension a folder holding `.bashrc`, `a.tar.gz`, `b.TAR.GZ`, `c.`, `d..md`, and `e.md.bak`, in both directions and with each name order.
 - Sort `Ä10`, `a2`, `ä1`, `İ`, `ß`, `ss`, full-width `１０`, and Arabic-Indic digits by Name in each name order, with and without Case-sensitive names.
 - In List, hide each sorted column in turn with every field and name order, then switch to Icons and back.
-- In Recent, choose Size, then choose Folders first from the menu with the saved setting off and again with it on; restart and read the setting and an ordinary folder's order.
+- In Recent under Size, choose Folders first, then open an ordinary folder in the same pane. Read its order and the menu's checked state.
 - Choose a field, then press Make default or Reset to default sort within 16 ms, before the sort applies. Read the pane and `settings.toml`.
 - Open the sort menu and change every row by keyboard alone with Enter, Space, and the vim focus keys. Then toggle 10xer mode while it is open.
 
