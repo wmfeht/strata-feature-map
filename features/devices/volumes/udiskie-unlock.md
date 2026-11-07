@@ -3,7 +3,7 @@ title: udiskie unlock handler
 status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
 tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
@@ -85,6 +85,7 @@ The README section "Unlock encrypted volumes on Omarchy" documents setup and res
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-05 | lgse/strata#2054 | perf | Polled the Settings row's udiskie availability only while Settings is shown, so a pre-built hidden layer does not poll all session. |
 | 2026-11-02 | lgse/strata#2027 | fix | Started `--unlock-volume` after the first folder opens so its status card survives, and translated the udiskie setup output. |
 | 2026-09-17 | lgse/strata#1047 | feat | Let udiskie hand encrypted-drive events to Strata's passphrase prompt through an opt-in config rewrite. |
 

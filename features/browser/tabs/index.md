@@ -3,7 +3,7 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
@@ -28,8 +28,6 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - Closing the active tab selects its right neighbour, or its left neighbour when it was last. lgse/strata#1484 (unverified)
 - Closing a tab whose folder has a file operation running shows "File operations are still active" and keeps the tab open. lgse/strata#1484
 - Closing the window while any tab, selected or not, has a file operation running shows the same notice and keeps the window open. lgse/strata#1484 (unverified)
-- Memory does not grow with each closed tab. lgse/strata#2041
-- After 20 to 40 Ctrl+T and Ctrl+W cycles, opening a many-entry folder in Columns takes as long as at startup. lgse/strata#2041
 
 ### Reopening
 
@@ -202,7 +200,6 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-03 | lgse/strata#2041 | perf | Freed closed tabs' widget trees, encoded menu icons once, and built the Back menu on open, so Strata no longer slows with uptime. |
 | 2026-11-02 | lgse/strata#2030 | fix | Named a tab and the window title after the location it awaits or failed to open, instead of "Home". |
 | 2026-11-02 | lgse/strata#2038 | feat | Opened a path bar folder in a new tab on middle-click, or a new window with Ctrl or Shift, as folder rows do. |
 | 2026-10-30 | lgse/strata#1932 | fix | Saved a left tab's focus only inside its browser view, sidebar, or preview, so returning after a click or restore focuses the listing. |

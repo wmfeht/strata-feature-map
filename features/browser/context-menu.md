@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs, src/ui/browser/context_menu/actions/presentation.rs, src/ui/browser/context_menu/focus.rs, src/ui/browser/context_menu/folder_menu.rs, src/ui/browser/context_menu/item_menu.rs, src/ui/browser/context_menu/item_options.rs, src/ui/browser/context_menu/open_with.rs, src/ui/browser/context_menu/options.rs, src/ui/browser/context_menu/popover.rs, src/ui/browser_modes/context_menu.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl, tests/qa/scenarios/entry_management/new-items-from-entry-menu.jsonl]
@@ -168,6 +168,7 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-11-03 | lgse/strata#1973 | fix | Added New Folder and New File to entry menus, so creating an item no longer needs background space. |
+| 2026-11-03 | lgse/strata#2041 | perf | PNG-encoded each mirrored menu icon texture once and reused it, instead of per item on every column build. |
 | 2026-10-25 | lgse/strata#1894 | fix | Anchored menus at the click and capped their height to the monitor, so they extend past a small window instead of being squeezed or shifted. |
 | 2026-10-16 | lgse/strata#1695 | fix | Built the item menu without a model and repicked pointer focus before unparenting, so menu actions no longer crash on GTK 4.14. |
 | 2026-10-15 | lgse/strata#1611 | fix | Added and removed the Open in… row in its own nested section, so item-menu teardown no longer logs GLib-CRITICALs. |

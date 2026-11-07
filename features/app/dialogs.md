@@ -3,7 +3,7 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/fade.rs, src/ui/modal/layout.rs, src/ui/modal/focus.rs, src/ui/modal/messages.rs, src/ui/window/modal_layers.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/modal/tests/fade.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
@@ -105,6 +105,7 @@ Dialogs are overlay layers on the window's `GtkOverlay`, not `GtkWindow`s, so GT
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-05 | lgse/strata#2054 | perf | Faded the Settings layer through its own opacity from the frame clock instead of a CSS transition, removing per-open stutter. |
 | 2026-11-03 | lgse/strata#2049 | fix | Replaced the focused confirm button's detached outline with a translucent 3 px halo, so it no longer reads as a double border. |
 | 2026-11-02 | lgse/strata#2030 | fix | Kept focus off unnamed modal layers and containers after dialogs close, and when Settings or Properties opens, for screen readers. |
 | 2026-10-27 | lgse/strata#1908 | fix | Halved the confirmation file list radius to 3px so it reaches 6px, not 12px, at the 200% roundness maximum. |

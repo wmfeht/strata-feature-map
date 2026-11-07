@@ -3,8 +3,8 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
-review: reviewed
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/decoration.rs, src/ui/window/launch.rs]
 tests: [src/ui/decoration/tests.rs]
 docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
@@ -22,6 +22,8 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - A new browser window opens with a default size of 1200×760. lgse/strata#580 (unverified)
 - On X11, `WM_CLASS` instance and class are both `io.github.lgse.Strata`, matching the desktop file's `StartupWMClass` and `_GTK_APPLICATION_ID`. lgse/strata#957
 - The file chooser portal keeps its separate identity, `io.github.lgse.Strata.FileChooser`. lgse/strata#957
+- Memory does not grow with each closed tab. lgse/strata#2041
+- After 20 to 40 Ctrl+T and Ctrl+W cycles, opening a many-entry folder in Columns takes as long as at startup. lgse/strata#2041
 
 ### Title bar and frame
 
@@ -78,6 +80,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-03 | lgse/strata#2041 | perf | Disposed closed tabs' widget trees as window destruction does and broke sidebar and device row cycles, so Strata no longer slows with uptime. |
 | 2026-10-23 | lgse/strata#1827 | feat | Titled each browser window after its active tab's folder, so taskbars and switchers can tell windows apart. |
 | 2026-10-17 | lgse/strata#1714 | fix | Stopped window actions such as F5 behind an open F1 reference, and limited Space on a selected filter hit to the filter. |
 | 2026-10-14 | lgse/strata#1680 | feat | Registered a hidden titlebar so GTK stops adding its default title bar on client-decorated desktops, and drew a hairline in place of its shadow. |

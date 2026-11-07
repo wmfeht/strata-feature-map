@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs that touched a feature, or one of its children, after that node's own review; `?` means a review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5738aad` · 151 features, 71 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5738aad` · 151 features, 70 reviewed
 
 ## app
 
@@ -15,7 +15,7 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `35ee677` | 0 |
-| [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `b094f02` | 0 |
+| [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `5738aad` | 0 |
 | [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `5738aad` | 0 |
 | [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | reviewed | `5738aad` | 0 |
 | ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `5738aad` | 0 |
@@ -28,7 +28,7 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | ↳ [Package-managed installs](features/app/updates/package-managed.md) | `app/updates/package-managed` | shipped | draft | `bae71c0` | 0 |
 | ↳ [Release channels](features/app/updates/release-channels.md) | `app/updates/release-channels` | shipped | draft | `bae71c0` | 0 |
 | ↳ [Install a specific release](features/app/updates/release-picker.md) | `app/updates/release-picker` | shipped | draft | `bae71c0` | 0 |
-| [Window chrome and structure](features/app/window/index.md) | `app/window` | shipped | reviewed | `1d2e244` | 0 |
+| [Window chrome and structure](features/app/window/index.md) | `app/window` | shipped | draft | `5738aad` | 0 |
 | ↳ [Window key and wheel dispatch](features/app/window/key-dispatch.md) | `app/window/key-dispatch` | shipped | draft | `bae71c0` | 0 |
 
 ## browser
@@ -37,7 +37,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `ad6d14f` | 0 |
+| [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `5738aad` | 0 |
 | [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `5738aad` | 0 |
 | ↳ [Network folder change checks](features/browser/directory-monitoring/network-checks.md) | `browser/directory-monitoring/network-checks` | shipped | reviewed | `ad6d14f` | 0 |
 | [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | draft | `5738aad` | 0 |
@@ -68,13 +68,13 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Pinned folders](features/browser/sidebar/pins/index.md) | `browser/sidebar/pins` | shipped | draft | `bae71c0` | 0 |
 | &emsp;↳ [Drag folders to pin](features/browser/sidebar/pins/drag-to-pin.md) | `browser/sidebar/pins/drag-to-pin` | shipped | draft | `35ee677` | 0 |
 | ↳ [Sidebar collapse and icon rail](features/browser/sidebar/rail.md) | `browser/sidebar/rail` | shipped | draft | `b094f02` | 0 |
-| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `ad6d14f` | 0 |
+| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `5738aad` | 0 |
 | ↳ [Tab session restore](features/browser/tabs/session-restore.md) | `browser/tabs/session-restore` | shipped | reviewed | `44bfeab` | 0 |
 | [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | reviewed | `b094f02` | 0 |
 | ↳ [Thumbnail disk cache](features/browser/thumbnails/cache.md) | `browser/thumbnails/cache` | shipped | draft | `bae71c0` | 0 |
 | ↳ [Thumbnail workers](features/browser/thumbnails/workers.md) | `browser/thumbnails/workers` | shipped | reviewed | `bae71c0` | 0 |
 | [View modes](features/browser/view-modes/index.md) | `browser/view-modes` | shipped | draft | `35ee677` | 0 |
-| ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `35ee677` | 0 |
+| ↳ [Columns view](features/browser/view-modes/columns.md) | `browser/view-modes/columns` | shipped | draft | `5738aad` | 0 |
 | ↳ [Frame and content density](features/browser/view-modes/density.md) | `browser/view-modes/density` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Per-folder sort and thumbnail size](features/browser/view-modes/folder-views.md) | `browser/view-modes/folder-views` | shipped | draft | `ad6d14f` | 0 |
 | ↳ [Icons view](features/browser/view-modes/icons.md) | `browser/view-modes/icons` | shipped | draft | `ad6d14f` | 0 |
@@ -97,7 +97,7 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 | ↳ [Drive grouping in Devices](features/devices/volumes/drive-order.md) | `devices/volumes/drive-order` | shipped | draft | `5738aad` | 0 |
 | ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `35ee677` | 0 |
-| ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `b094f02` | 0 |
+| ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `5738aad` | 0 |
 
 ## integration
 
@@ -203,7 +203,7 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Diagnostics](features/settings/diagnostics.md) | `settings/diagnostics` | shipped | reviewed | `0f9bb00` | 0 |
-| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `b094f02` | 0 |
+| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `5738aad` | 0 |
 | ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | reviewed | `44bfeab` | 0 |
 | ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `5738aad` | 0 |
 | ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `b094f02` | 0 |

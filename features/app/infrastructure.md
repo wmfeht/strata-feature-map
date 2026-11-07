@@ -127,6 +127,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 | --- | --- | --- | --- |
 | 2026-11-06 | lgse/strata#2072 | fix | Kept a GVfs URI's non-ASCII host as given through credential sanitizing, so MTP devices with CJK names open instead of reporting not mounted. |
 | 2026-11-06 | lgse/strata#2070 | fix | Installed libheif in the test image, failed unbranded AVIF/HEIC fixtures, and destroyed private test contexts' sources on their own thread. |
+| 2026-11-03 | lgse/strata#2041 | perf | Built the Back history menu's rows when it opens, capped at the 50 most recent, instead of on every navigation. |
 | 2026-11-02 | lgse/strata#2030 | fix | Printed `--unlock-volume` usage errors to the terminal, joined a new item's typed name to its creation undo, and fixed qa-drive restart and aiming. |
 | 2026-11-02 | lgse/strata#2027 | fix | Named remote mount roots by their percent-decoded last segment or host, so headings, breadcrumbs, tab labels, and titles stop showing "/". |
 | 2026-11-02 | lgse/strata#2026 | fix | Left Menu and Shift+F10 to a focused Back button, and probed an unresponsive gvfsd before preferences load, so startup waits about 2 s. |

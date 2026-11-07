@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -210,7 +210,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-05 | lgse/strata#2054 | perf | Pre-built a hidden Settings layer for the first tab on idle and faded Settings through layer opacity, removing the first-click pause and per-open stutter. |
+| 2026-11-05 | lgse/strata#2054 | perf | Pre-built one hidden Settings layer on idle after the first tab paints, removing the pause on the first Settings click. |
 | 2026-11-05 | lgse/strata#2058 | fix | Joined Language and Units in one LANGUAGE & UNITS group, since the Units row had rendered as a separate card under LANGUAGE. |
 | 2026-11-03 | lgse/strata#2047 | fix | Capped the Settings panel at 1250×800 px, the size its side-by-side layout needs, so it no longer covers a maximized 1080p window. |
 | 2026-11-02 | lgse/strata#2033 | refactor | Split Settings search into target-table, scoring, and widget-filter modules for code health; search results and page switching are unchanged. |
