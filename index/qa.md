@@ -135,7 +135,7 @@ reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc46715
 
 ## [Operations sweep](../qa/sweeps/operations.md) `operations`
 
-reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 29 nodes, 29 with probes
+reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 30 nodes, 30 with probes
 
 - Triggers: [`src/services/operations.rs`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/src/services/operations.rs), [`src/services/operations/**`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809/src/services/operations), [`src/services/file_source.rs`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/src/services/file_source.rs), [`src/services/file_source/tests.rs`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/src/services/file_source/tests.rs), [`src/adapters/local_operations.rs`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/src/adapters/local_operations.rs), [`src/adapters/local_operations/tests.rs`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/src/adapters/local_operations/tests.rs), [`src/adapters/local_operations/tests/paths.rs`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/src/adapters/local_operations/tests/paths.rs)
 - Tools: [`docs/testing.md`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/docs/testing.md), [`docs/trash-restore-testing.md`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/docs/trash-restore-testing.md), [`docs/archives.md`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/docs/archives.md), [`docs/filesystem-compatibility.md`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/docs/filesystem-compatibility.md), [`scripts/fslab`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/scripts/fslab), [`scripts/generate-fixture.sh`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/scripts/generate-fixture.sh), [`scripts/qa-mutation.sh`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/scripts/qa-mutation.sh), [`tests/qa/fixtures/content-encrypted.7z`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/tests/qa/fixtures/content-encrypted.7z), [`tests/qa/fixtures/file_drag_source.py`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/tests/qa/fixtures/file_drag_source.py), [`tests/qa/mutations`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/tests/qa/mutations)
@@ -171,7 +171,8 @@ reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc46715
 | ↳ [Empty Trash](../features/operations/trash/empty.md) `operations/trash/empty` | 2 | — | 1 | [`docs/trash-restore-testing.md`](https://github.com/lgse/strata/blob/35ee677ab0a633d5d49055464f2946fcf4995ae7/docs/trash-restore-testing.md) (inherited) |
 | ↳ [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) `operations/trash/fuse-refusals` | 4 | — | 1 | [`docs/trash-restore-testing.md`](https://github.com/lgse/strata/blob/86df474dc0e8352e0e2098637a017cc4c77a8c44/docs/trash-restore-testing.md) (inherited) |
 | ↳ [Restore from Trash](../features/operations/trash/restore.md) `operations/trash/restore` | 8 | — | 3 | [`docs/trash-restore-testing.md`](https://github.com/lgse/strata/blob/bae71c026b94e109b7507c4fe895c3ceed642f8f/docs/trash-restore-testing.md), [`docs/trash-restore-testing.md`](https://github.com/lgse/strata/blob/bae71c026b94e109b7507c4fe895c3ceed642f8f/docs/trash-restore-testing.md) (inherited) |
-| [Undo and redo](../features/operations/undo.md) `operations/undo` | 14 | [`tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl) | 7 | — |
+| [Undo and redo](../features/operations/undo/index.md) `operations/undo` | 12 | [`tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl`](https://github.com/lgse/strata/blob/5738aad808ea4cc4671516bc569d85f862664809/tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl) | 9 | — |
+| ↳ [Undoing a replacing move](../features/operations/undo/replacing-moves.md) `operations/undo/replacing-moves` | 2 | — | 2 | — |
 
 ## [Preview sweep](../qa/sweeps/preview.md) `preview`
 
@@ -244,7 +245,7 @@ Their Behavior bullets are the whole checklist.
 
 - [Remote locations and file providers](../features/remote/file-providers/index.md) `remote/file-providers`
 
-## Nodes without QA scenarios (68)
+## Nodes without QA scenarios (69)
 
 Neither the node nor its subtree cites a `tests/qa/scenarios/` scenario, so QA here is manual or Rust-level.
 
@@ -296,6 +297,7 @@ Neither the node nor its subtree cites a `tests/qa/scenarios/` scenario, so QA h
 - [Empty Trash](../features/operations/trash/empty.md) `operations/trash/empty`
 - [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) `operations/trash/fuse-refusals`
 - [Restore from Trash](../features/operations/trash/restore.md) `operations/trash/restore`
+- [Undoing a replacing move](../features/operations/undo/replacing-moves.md) `operations/undo/replacing-moves`
 - [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) `preview/preview-panel/documents/odt`
 - [Document preview scrollbar](../features/preview/preview-panel/documents/scrollbar.md) `preview/preview-panel/documents/scrollbar`
 - [G-code thumbnail previews](../features/preview/preview-panel/gcode.md) `preview/preview-panel/gcode`

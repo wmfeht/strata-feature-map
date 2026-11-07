@@ -38,6 +38,7 @@ operations/filesystem-compatibility/open-files: New since v1.0.0; the next relea
 operations/trash/animation: Visual effect with no user-facing setting to document.
 operations/trash/empty: No upstream user doc covered Empty Trash; its testing doc stays upstream.
 operations/trash/restore: Covered by the Everyday operations guide page; its upstream doc, docs/trash-restore-testing.md, is testing guidance and stays upstream.
+operations/undo/replacing-moves: New since v1.1.1; the next release docs run places it.
 preview/preview-panel/documents/odt: New since v1.0.0; the next release docs run places it.
 preview/preview-panel/gcode: New since v1.0.0; the next release docs run places it.
 preview/preview-panel/model-views: New since v1.0.0; the next release docs run places it.

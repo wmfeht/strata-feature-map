@@ -360,9 +360,12 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Move a folder whose only conflict is a file of its name, press Ctrl+Z twice, then remove the file and press Ctrl+Z again; check Ctrl+Shift+Z and older entries on each press.
 - Move items onto an SMB and an sshfs share, block the names there with the other kind from the server side, then undo and redo.
 - Move a file into a folder, put a folder at its original name, make the destination folder `chmod 000` as a non-root user, then undo.
+- Merge-move a folder in a batch with one plain file, then press Ctrl+Z twice.
+
+### operations/undo/replacing-moves
+
 - Move a file and a folder over namesakes with Replace, delete one staged original from `~/.local/share/Trash`, then undo, redo, and undo again.
 - Undo a replacing move of a 500-file folder from a vfat stick, cancel midway, then press Ctrl+Z again. Keep a Trash pane open throughout.
-- Merge-move a folder in a batch with one plain file, then press Ctrl+Z twice.
 
 ## Hand-offs
 

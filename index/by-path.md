@@ -274,13 +274,17 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/tests/sync.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/adapters/local_operations/tests/sync/**` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/adapters/local_operations/tests/trash_capabilities.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
-| `src/adapters/local_operations/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
-| `src/adapters/local_operations/tests/undo/**` | tests | [Undo and redo](../features/operations/undo.md) | — |
+| `src/adapters/local_operations/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/adapters/local_operations/tests/undo/fixed_names.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/adapters/local_operations/tests/undo/moves.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/adapters/local_operations/tests/undo/renames.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/adapters/local_operations/tests/undo/replacements.rs` | tests | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
+| `src/adapters/local_operations/tests/undo/replacements/**` | tests | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
 | `src/adapters/local_operations/transfer_targets.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/adapters/local_operations/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
 | `src/adapters/local_operations/typed_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/undo_move.rs` | code | [Undo and redo](../features/operations/undo.md) | — |
-| `src/adapters/local_operations/undo_move/**` | code | [Undo and redo](../features/operations/undo.md) | — |
+| `src/adapters/local_operations/undo_move.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/adapters/local_operations/undo_move/replaced.rs` | code | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
 | `src/adapters/local_operations/work_queue.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/load.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
@@ -346,7 +350,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/operation_events/background.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/app/browser/operation_events/outcome.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/operation_events/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/app/browser/operation_events/replay.rs` | code | [Undo and redo](../features/operations/undo.md) | — |
+| `src/app/browser/operation_events/replay.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
 | `src/app/browser/operation_events/tests.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/app/browser/operation_start.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
 | `src/app/browser/operation_updates.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
@@ -356,8 +360,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/refresh.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/remote.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/app/browser/remote/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/app/browser/replay.rs` | code | [Undo and redo](../features/operations/undo.md) | — |
-| `src/app/browser/replay/**` | code | [Undo and redo](../features/operations/undo.md) | — |
+| `src/app/browser/replay.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/app/browser/replay/**` | code | [Undo and redo](../features/operations/undo/index.md) | — |
 | `src/app/browser/selection.rs` | code | [Selection](../features/browser/selection/index.md) | — |
 | `src/app/browser/sort_settings.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/app/browser/sorting.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -385,11 +389,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/app/browser/tests/sources.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/app/browser/tests/staging.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `src/app/browser/tests/support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
-| `src/app/browser/tests/undo/**` | tests | [Undo and redo](../features/operations/undo.md) | — |
-| `src/app/browser/tests/undo_refresh.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
-| `src/app/browser/undo.rs` | code | [Undo and redo](../features/operations/undo.md) | — |
-| `src/app/browser/undo/**` | code | [Undo and redo](../features/operations/undo.md) | — |
+| `src/app/browser/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/app/browser/tests/undo/**` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/app/browser/tests/undo_refresh.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/app/browser/undo.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `src/app/browser/undo/**` | code | [Undo and redo](../features/operations/undo/index.md) | — |
 | `src/app/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/app/navigation/cursor.rs` | code | [Selection](../features/browser/selection/index.md) | — |
 | `src/app/navigation/fill.rs` | code | [Selection](../features/browser/selection/index.md) | — |
@@ -761,7 +765,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/transfer/conflict_dialog.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/ui/browser/transfer/destination_dialog.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/drop.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/ui/browser/transfer/replay.rs` | code | [Undo and redo](../features/operations/undo.md) | — |
+| `src/ui/browser/transfer/replay.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
 | `src/ui/browser/transfer/send_to.rs` | code | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/ui/browser/transfer/tests.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/tests/choose_folder.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
@@ -770,9 +774,9 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/transfer/tests/destination_reloads.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/tests/drops.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/transfer/tests/plain_transfers.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/ui/browser/transfer/tests/replay_kinds.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
+| `src/ui/browser/transfer/tests/replay_kinds.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
 | `src/ui/browser/transfer/tests/send_to.rs` | tests | [Send to removable devices](../features/operations/clipboard/send-to.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/ui/browser/transfer/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo.md) | — |
+| `src/ui/browser/transfer/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
 | `src/ui/browser/transfer_report.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/ui/browser/transfer_report/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/ui/browser/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
@@ -1442,7 +1446,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
-| `tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl` | tests | [Undo and redo](../features/operations/undo.md) | — |
+| `tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
 | `tests/qa/scenarios/escape_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/file_manager_interface/**` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
 | `tests/qa/scenarios/file_providers` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |

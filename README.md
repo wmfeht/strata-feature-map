@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs that touched a feature, or one of its children, after that node's own review; `?` means a review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5738aad` · 150 features, 71 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5738aad` · 151 features, 71 reviewed
 
 ## app
 
@@ -157,7 +157,8 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | reviewed | `35ee677` | 0 |
 | ↳ [FUSE mounts that refuse Trash](features/operations/trash/fuse-refusals.md) | `operations/trash/fuse-refusals` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Restore from Trash](features/operations/trash/restore.md) | `operations/trash/restore` | shipped | reviewed | `bae71c0` | 0 |
-| [Undo and redo](features/operations/undo.md) | `operations/undo` | shipped | draft | `5738aad` | 0 |
+| [Undo and redo](features/operations/undo/index.md) | `operations/undo` | shipped | draft | `5738aad` | 0 |
+| ↳ [Undoing a replacing move](features/operations/undo/replacing-moves.md) | `operations/undo/replacing-moves` | shipped | draft | `5738aad` | 0 |
 
 ## preview
 
