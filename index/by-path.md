@@ -1128,6 +1128,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/omarchy.rs` | code | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/omarchy/tests.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/omarchy_state.rs` | code | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/theme/portal_text_scale.rs` | code | [Desktop text scaling without GTK portals](../features/settings/themes/portal-text-scaling.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/theme/portal_text_scale/tests.rs` | tests | [Desktop text scaling without GTK portals](../features/settings/themes/portal-text-scaling.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/source_style.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -1277,7 +1279,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/footer_prompt/**` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/go_prompt.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/icon_motion.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `src/ui/window/tests/keyboard_dispatch/icon_motion.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/jump_keys.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/keymap_conflicts.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/keymap_overrides.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |

@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -67,6 +67,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Hold Down for two seconds in `100000`; when it stops, focus, selection, scroll position, and preview must name the same entry.
 - Size the window so the last Icons row holds one tile; press Down from the row above, then Right and Left at both edges.
+- In a three-row Icons folder, press Left from each row start with the sidebar hidden, railed, and expanded. Resize to change the column count and repeat.
+- Open a Ctrl+F filter in Icons and press Left at a row start. Repeat with a recursive filter result focused, with Keep arrows on and off.
 - With Type to search off press `h` in the sidebar, the pane header, and the location entry; then toggle Keep arrows with Ctrl+\ while the header has focus and press Down.
 - In Columns with column 3 active, hover column 1 and Tab in from the header. Then Shift+Tab out with a filter open in column 2, and with none.
 - Tab and Shift+Tab around a listing with the preview panel open, closed, and showing a video; then from the unreadable folder's Retry button.
@@ -120,6 +122,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Open `deep` to 20 columns, click a title eight columns back, press Escape twice, then Backspace; count the columns after each step.
 - Hold Down across a folder, a PDF, and a plain file with single-click previews on; time the child column against 75 ms.
+- Tap Up and Down alternately across folders and PDFs in a 4,000-entry column, stopping on each kind.
+- Press Down onto a folder, then within 75 ms `touch` a file in the listed folder from a shell; check the child column opens. Repeat switching tabs and back.
 - Press Return on a folder on a stalled network mount, then on one the open turns away (`chmod 000`), with Mirror columns selection on; press Down before the open lands.
 - Drag a column edge below 300 px, autofit a column holding the 255-byte name, restart, and read `browser_column_width`.
 - Open a context menu in column 2, move the pointer to column 4, press Escape; check which header shows its actions.
@@ -270,6 +274,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 ### browser/navigation/back-history
 
 - Visit 40 folders in one tab and open the menu with Shift+F10; arrow to the oldest entry, then press Page Down, End, and Backspace.
+- Visit 60 folders and open the menu by right-click, hold, and Shift+F10; choose the last entry, then press Back until it disables.
+- Open and close the menu, visit two more folders, and reopen it; repeat after choosing an entry and after Alt+Up.
 - Open the menu on entries for `~`, `/`, `trash:///`, an `sftp://` folder, an `admin://` folder, and a 255-byte name. Read each row with Orca.
 - Tab from the file list to Back and press Menu; then hold Back, drag off the button before the menu opens, and release.
 - Switch from Columns to List after several visits and open the menu; repeat in a tab restored by Ctrl+Shift+T and in a session-restored tab.
@@ -538,6 +544,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 - Open a file menu in one window, rebind Rename and Copy in Settings → Keyboard from a second window, and read the hints; repeat in 10xer mode and in German.
+- Switch between light and dark themes and change text size, then open item menus in each view; compare every icon with a fresh launch.
 - In an admin folder, open the menu on a file, a folder, a mixed multi-selection, and empty space.
 - Put only `x-special/gnome-copied-files` on the clipboard with `xclip -t` or `wl-copy -t`, then right-click the pane background and press Ctrl+V.
 - Repeat that with `cut`, and with files copied in Nautilus, Nemo, and Dolphin.
@@ -609,6 +616,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Start a 2,000-file copy in tab 2 and select tab 1. Middle-click tab 2, close the window, then cancel the copy and close again.
 - With 11 tabs open, press Ctrl+Shift with each digit-row key on `fr`, `cz`, `ru`, and with Caps Lock on. Then show the badges and press Super, and hold Ctrl+Shift+Hyper.
 - Close 25 tabs one by one, then press Ctrl+Shift+T 21 times; read each reopened tab's location and position.
+- Press Ctrl+T then Ctrl+W 300 times in each view, then open `100000`; compare the time and memory with a fresh launch. Repeat closing tabs mid-load and with the preview open.
 - Close a tab with 10xer `t` then `x` and reopen it; then reopen while the location editor is open on another tab.
 - Close a tab on an `sftp://` share, unmount it, and reopen; close a tab on `trash:///` and reopen after emptying the Trash.
 - Close tab 3 of 5, close two more tabs, reopen once, then drag tabs and reopen again.

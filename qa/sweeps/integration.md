@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -46,6 +46,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Send 17 concurrent requests, reuse a handle, and send a 4,097-byte title; then `--filter-count 33`, `129`, and one filter with 1,025 rules.
 - Save into a read-only folder, with an empty name, with `a/b`, and with a suggested name that is an existing folder.
 - Run `--cancel-after 1` while a Replace prompt, a download, and an inline rename are open; read the response code and the `strata-download-*` folder.
+- In the Icons view, press Left on the first item and at a second-row start. Repeat with the sidebar on the rail and hidden, and Keep arrows on.
 - Under `multiple`, fill two files and press Shift+Enter.
 - Under `multiple`, fill two files, then press Enter on a focused filter result.
 - Under `save`, select a non-UTF-8 file, type a character into Name with real keystrokes, delete it, then Save.
