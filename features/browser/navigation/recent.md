@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1082, pr: lgse/strata#1083}
 branch: null
 reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
-review: reviewed
+review: draft
 code: [src/adapters/local_files/recent.rs]
 tests: [src/app/browser/tests/recent.rs, tests/qa/scenarios/recent, src/adapters/local_files/tests/recent_listing.rs, src/adapters/local_files/tests/recent_removal.rs]
 related: [browser/sidebar, browser/context-menu, browser/view-modes/sorting, integration/open-with, settings/preferences]
@@ -59,3 +59,4 @@ Recent uses the platform's recent-file infrastructure instead of a Strata-specif
 ## Known gaps
 
 - Renaming or moving a file in Strata does not update its recent-history URI, so it drops out of Recent. A moved file's new path is not a Recent member. lgse/strata#1150, lgse/strata#1157
+- Undoing a Replace move still retires the moved item's path from Recent, although the restored original is back at that path. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))

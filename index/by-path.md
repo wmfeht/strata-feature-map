@@ -280,6 +280,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/adapters/local_operations/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
 | `src/adapters/local_operations/typed_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/adapters/local_operations/undo_move.rs` | code | [Undo and redo](../features/operations/undo.md) | — |
+| `src/adapters/local_operations/undo_move/**` | code | [Undo and redo](../features/operations/undo.md) | — |
 | `src/adapters/local_operations/work_queue.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/adapters/local_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/adapters/local_preview/load.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
@@ -1411,6 +1412,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/drag_and_drop/column-edge-scrolls-listing.jsonl` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/drag-folder-merges-into-same-named-folder.jsonl` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |

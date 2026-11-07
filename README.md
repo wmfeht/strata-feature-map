@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs touching a feature or its children since the oldest review in its subtree; `?` means the review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `35ee677` · 150 features, 72 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5738aad` · 150 features, 70 reviewed
 
 ## app
 
@@ -38,16 +38,16 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `ad6d14f` | ? |
-| [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `35ee677` | ? |
+| [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `5738aad` | ? |
 | ↳ [Network folder change checks](features/browser/directory-monitoring/network-checks.md) | `browser/directory-monitoring/network-checks` | shipped | reviewed | `ad6d14f` | ? |
-| [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | reviewed | `ad6d14f` | ? |
+| [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | draft | `5738aad` | 0 |
 | [Navigation](features/browser/navigation/index.md) | `browser/navigation` | shipped | draft | `35ee677` | ? |
 | ↳ [Administrator access](features/browser/navigation/administrator-access.md) | `browser/navigation/administrator-access` | shipped | reviewed | `ad6d14f` | ? |
 | ↳ [Back history menu](features/browser/navigation/back-history.md) | `browser/navigation/back-history` | shipped | draft | `1d2e244` | ? |
 | ↳ [Folder jump](features/browser/navigation/folder-jump.md) | `browser/navigation/folder-jump` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Location bar and breadcrumbs](features/browser/navigation/location-bar/index.md) | `browser/navigation/location-bar` | shipped | draft | `35ee677` | ? |
 | &emsp;↳ [Location path completion](features/browser/navigation/location-bar/completion.md) | `browser/navigation/location-bar/completion` | shipped | reviewed | `35ee677` | ? |
-| ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | reviewed | `5738aad` | 0 |
+| ↳ [Recent](features/browser/navigation/recent.md) | `browser/navigation/recent` | shipped | draft | `5738aad` | 0 |
 | ↳ [Startup location arguments](features/browser/navigation/startup-arguments.md) | `browser/navigation/startup-arguments` | shipped | reviewed | `35ee677` | ? |
 | [Properties dialog](features/browser/properties/index.md) | `browser/properties` | shipped | draft | `bae71c0` | ? |
 | ↳ [Media details in Properties](features/browser/properties/media.md) | `browser/properties/media` | shipped | draft | `bae71c0` | ? |
@@ -133,22 +133,22 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Extraction safety](features/operations/archives/extraction-safety.md) | `operations/archives/extraction-safety` | shipped | draft | `bae71c0` | ? |
 | ↳ [Archive preview](features/operations/archives/preview.md) | `operations/archives/preview` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [RAR extraction](features/operations/archives/rar.md) | `operations/archives/rar` | shipped | reviewed | `86df474` | 0 |
-| [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | draft | `35ee677` | ? |
-| ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `35ee677` | ? |
+| [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | draft | `5738aad` | ? |
+| ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `5738aad` | 0 |
 | ↳ [Clipboard exchange with other file managers](features/operations/clipboard/file-manager-formats.md) | `operations/clipboard/file-manager-formats` | shipped | draft | `bae71c0` | ? |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | reviewed | `bae71c0` | ? |
 | [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `ad6d14f` | ? |
 | [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [Permanent-delete dissolve animation](features/operations/delete/dissolve.md) | `operations/delete/dissolve` | shipped | reviewed | `0f9bb00` | ? |
-| [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | draft | `bae71c0` | ? |
+| [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | draft | `5738aad` | ? |
 | ↳ [Columns drag autoscroll](features/operations/drag-and-drop/column-autoscroll.md) | `operations/drag-and-drop/column-autoscroll` | shipped | reviewed | `bae71c0` | ? |
 | ↳ [Content drops from other applications](features/operations/drag-and-drop/content-drops.md) | `operations/drag-and-drop/content-drops` | shipped | reviewed | `0f9bb00` | ? |
 | ↳ [Drop copy-or-move policy](features/operations/drag-and-drop/copy-or-move.md) | `operations/drag-and-drop/copy-or-move` | shipped | draft | `35ee677` | ? |
 | [Filesystem-safe placement and copying](features/operations/filesystem-compatibility/index.md) | `operations/filesystem-compatibility` | shipped | reviewed | `35ee677` | ? |
 | ↳ [Leftovers after a crash or unplug](features/operations/filesystem-compatibility/leftovers.md) | `operations/filesystem-compatibility/leftovers` | shipped | reviewed | `41070b5` | ? |
-| ↳ [Releasing open files before a change](features/operations/filesystem-compatibility/open-files.md) | `operations/filesystem-compatibility/open-files` | shipped | reviewed | `41070b5` | ? |
+| ↳ [Releasing open files before a change](features/operations/filesystem-compatibility/open-files.md) | `operations/filesystem-compatibility/open-files` | shipped | reviewed | `5738aad` | 0 |
 | [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | reviewed | `35ee677` | ? |
-| ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | reviewed | `0f9bb00` | ? |
+| ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | reviewed | `5738aad` | 0 |
 | ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | reviewed | `bae71c0` | ? |
 | [Inline rename](features/operations/rename/index.md) | `operations/rename` | shipped | draft | `bae71c0` | ? |
 | ↳ [Typed path names](features/operations/rename/typed-paths.md) | `operations/rename/typed-paths` | shipped | draft | `bae71c0` | ? |
@@ -157,7 +157,7 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | reviewed | `35ee677` | ? |
 | ↳ [FUSE mounts that refuse Trash](features/operations/trash/fuse-refusals.md) | `operations/trash/fuse-refusals` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Restore from Trash](features/operations/trash/restore.md) | `operations/trash/restore` | shipped | reviewed | `bae71c0` | ? |
-| [Undo and redo](features/operations/undo.md) | `operations/undo` | shipped | draft | `35ee677` | ? |
+| [Undo and redo](features/operations/undo.md) | `operations/undo` | shipped | draft | `5738aad` | 0 |
 
 ## preview
 
