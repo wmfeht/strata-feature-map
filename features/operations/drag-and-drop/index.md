@@ -82,7 +82,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-07 | lgse/strata#2078 | fix | Offered Merge when a moved folder meets a same-named folder, so a drag no longer offers only Replace. |
+| 2026-11-07 | lgse/strata#2078 | fix | Offered Merge for moved folders, so a drag no longer offers only Replace, and withheld it where the target holds the source. |
 | 2026-11-01 | lgse/strata#1547 | feat | Saved foreign image, text, and web-link drops as new files in local folders, never fetching addresses. |
 | 2026-10-25 | lgse/strata#1865 | fix | Cancelled file drags on Escape through `GdkDrag::cancel`, so releasing over a folder no longer drops on X11. |
 | 2026-10-05 | lgse/strata#1487 | feat | Added 750 ms spring-loaded navigation during held drags, icon drag previews, and selection-style drop outlines. |

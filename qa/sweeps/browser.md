@@ -627,7 +627,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Close the custom color dialog by a click outside it, then Customize the same way. Delete the item externally while Customize is open and press Escape.
 - Customize a folder, move it with Keep both, undo, and redo. Then trash it, trash a new folder from the same path, and Put back both.
 - Replace a customized folder by a copy, Merge one into a customized folder, and move one to an `sftp://` share; read settings.toml after each.
-- Customize a folder and one child, move it over a customized namesake with Replace, then undo, redo, and undo again. Repeat on a vfat stick and with Merge.
+- Customize a folder and one child, move it over a customized namesake with Replace, then undo, redo, and undo again. Repeat on a vfat stick. Then Merge-move it into a customized namesake and read settings.toml.
 - Customize two folders whose non-UTF-8 names decode to the same text, then Clear one; read settings.toml and both icons.
 - Open the custom color editor under the Adwaita and Papirus icon themes and compare its spin buttons.
 

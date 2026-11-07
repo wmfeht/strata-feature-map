@@ -74,13 +74,14 @@ One undo history and one redo history for file operations, shared by every Strat
 
 - Ctrl+Shift+Z after undoing Move to Trash moves the restored items to Trash again. lgse/strata#1120
 - Ctrl+Shift+Z after undoing a cut-paste moves the items to the destination again. lgse/strata#1120
+- Undoing a Replace move onto a non-local destination, which stages no original in Trash, only moves the item back. lgse/strata#2080
 - Ctrl+Shift+Z after undoing a move answered with Replace asks before replacing the restored original. After Replace, the next Ctrl+Z restores that original again. lgse/strata#2080
 - When a move undo answers Replace at the original name, Ctrl+Shift+Z moves the item forward and restores the item that undo replaced. lgse/strata#2080 (unverified)
 - When redoing a move finds the destination name taken by an item of the same kind, the "File already exists" dialog offers Replace. It warns "Redoing the move will overwrite its contents." lgse/strata#1120, lgse/strata#2070
 - Ctrl+Shift+Z after undoing a copy restores the trashed copies from Trash. lgse/strata#1120
 - Ctrl+Shift+Z after undoing a Restore restores the re-trashed items to the same locations again. lgse/strata#1120
 - Ctrl+Shift+Z after undoing New Folder, New File, or a compression into a new archive restores that item from Trash. lgse/strata#1120 (unverified)
-- Undoing a copy answered with Merge or Replace, including a compression that replaced an archive, offers no redo. lgse/strata#1120
+- Undoing a Merge or Replace copy, or a compression that replaced an archive, offers no redo. lgse/strata#1120
 - Undoing New Folder with Selection offers no redo. lgse/strata#1349 (unverified)
 
 ### Failures and partial results
@@ -103,7 +104,7 @@ Undo targets the latest reversible operation process-wide, matching common file 
 
 - The history lives on the GTK main thread and every window reads it. Entries carry a generation, so an undo applies only to the entry the user inspected, and a claimed entry cannot be started twice (lgse/strata#228, lgse/strata#301).
 - The single pending slot became a history of 32 entries because undoing a copy must expose the operation before it (lgse/strata#444).
-- Undo never destroys an original. Copy, create, compress, and Restore undos move items to Trash. Replace and Merge copy undos delete the incoming copy, then restore the original staged in Trash; a Replace move undo moves the item back first (lgse/strata#2080); since lgse/strata#1615 an edited incoming item is kept instead. Permanent deletion stays outside the history by design (lgse/strata#444, lgse/strata#1097).
+- Undo never destroys an original. Copy, create, compress, and Restore undos move items to Trash. Replace and Merge copy undos delete the incoming copy, then restore the original staged in Trash. Since lgse/strata#1615 an edited incoming item is kept instead. A Replace move undo moves the item back first, then restores the original (lgse/strata#2080). Permanent deletion stays outside the history by design (lgse/strata#444, lgse/strata#1097).
 - A move record keeps the Trash identity of the original its Replace staged. Before lgse/strata#2080 the record dropped it, so undoing a replacing move left the original in Trash (lgse/strata#2077).
 - That undo looks up all originals in one Trash scan and restores them after the move-back batches settle, so cross-volume flushes stay batched (lgse/strata#2080).
 - A failed batch lookup is retried item by item, and a missing original never stops the move-back. A failed undo stays on top of the history, so refusing would block every older entry (lgse/strata#2080).

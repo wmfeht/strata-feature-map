@@ -42,7 +42,7 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 - Keep Both is offered for a cut-paste or Move to… too; Ctrl+Z moves the item back from its numbered name. lgse/strata#1615
 - Keep Both picks its number when the copy is placed, so a name taken meanwhile gets the next number. lgse/strata#1615
 - A long name numbered by Keep Both is cut so ` (N)` fits the mount's name limit. lgse/strata#1615
-- Merge appears when a paste, drop, or Move to… puts a folder onto a same-named folder, by copy or by move. File conflicts never offer it. lgse/strata#1092, lgse/strata#2078
+- Merge appears when a paste, drop, Move to…, or Copy to… puts a folder onto a same-named folder, by copy or by move. File conflicts never offer it. lgse/strata#1092, lgse/strata#2078
 - When Merge is offered for a move, the prompt adds "Merging removes the source folder and can’t be undone." A copy's prompt omits it. lgse/strata#2078
 - Merge is not offered where the target folder holds the source, such as `a/Photos/Photos` moved or copied into `a`. Replace and Keep Both remain. lgse/strata#2078
 - Merge is also withheld when the check cannot read whether the target folder holds the source. lgse/strata#2078 (unverified)
