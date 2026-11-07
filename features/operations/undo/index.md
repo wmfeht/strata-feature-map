@@ -5,15 +5,15 @@ origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
 reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
-code: [src/app/browser/replay/**, src/app/browser/undo/**, src/adapters/local_operations/undo_move.rs, src/adapters/local_operations/undo_move/**, src/app/browser/operation_events/replay.rs, src/app/browser/replay.rs, src/app/browser/undo.rs, src/ui/browser/transfer/replay.rs]
-tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl, src/adapters/local_operations/tests/undo/**, src/app/browser/tests/undo/**, src/ui/browser/transfer/tests/undo.rs, src/ui/browser/transfer/tests/replay_kinds.rs]
+code: [src/app/browser/replay/**, src/app/browser/undo/**, src/adapters/local_operations/undo_move.rs, src/app/browser/operation_events/replay.rs, src/app/browser/replay.rs, src/app/browser/undo.rs, src/ui/browser/transfer/replay.rs]
+tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl, src/adapters/local_operations/tests/undo/fixed_names.rs, src/adapters/local_operations/tests/undo/moves.rs, src/adapters/local_operations/tests/undo/renames.rs, src/app/browser/tests/undo/**, src/ui/browser/transfer/tests/undo.rs, src/ui/browser/transfer/tests/replay_kinds.rs]
 docs: []
 related: [operations/trash, operations/trash/restore, operations/clipboard, operations/clipboard/conflicts, operations/rename, operations/rename/typed-paths, operations/create, operations/archives, operations/progress/dock, app/shortcut-reference, operations/filesystem-compatibility]
 ---
 
 ## Summary
 
-One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node; this node owns the replay and the conflict prompt an undo or redo shows.
+One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. This node owns how each recorded operation is reverted and replayed, and the conflict prompt an undo or redo shows. What an operation records stays on its own node. Child: `operations/undo/replacing-moves` (restoring the original a Replace move sent to Trash).
 
 ## Behavior
 
@@ -39,20 +39,19 @@ One undo history and one redo history for file operations, shared by every Strat
 - A completed redo becomes the latest undo entry again, so Ctrl+Z after Ctrl+Shift+Z reverts it once more. lgse/strata#1120
 - Any new operation that records an undo entry, such as a rename, clears the redo history; Ctrl+Shift+Z then does nothing. lgse/strata#1120
 
+### Trash
+
+- Ctrl+Z after Move to Trash returns the items to their original locations. lgse/strata#228
+
 ### Moves
 
+- Ctrl+Z after a cut-paste or Move to… returns the moved items to their original folders. lgse/strata#301
 - Ctrl+Z after a move that fixed names for the destination gives the original names back, deepest first, also between native and GVfs locations. lgse/strata#1615
 - Ctrl+Shift+Z then fixes those names again. lgse/strata#1615
 - Names Undo cannot give back are reported as "“new” could not be renamed back to “old”: <error>". lgse/strata#1615
 - A move undo starts from where each item landed, such as a Keep Both number or a fixed name. lgse/strata#1615 (unverified)
 - A move whose entries partly stayed at the source leaves that item out of its undo, and the report names it. lgse/strata#1615
 - Undoing a cross-volume move deletes the moved items only once their copies back are flushed. lgse/strata#1615 (unverified)
-- Ctrl+Z after a move answered with Replace moves the item back and restores the replaced original from Trash, for files and folders. lgse/strata#2080
-- If that original is no longer in Trash, the item still moves back. The undo reports "One or more recently trashed items are no longer available". lgse/strata#2080
-- The next Ctrl+Z after that report undoes the older entry. lgse/strata#2080
-- An item that appears at the vacated path before the restore is kept; its original stays in Trash and the undo reports the failure. lgse/strata#2080
-- Cancelling such an undo restores the originals only of items already moved back. A failed or unattempted item leaves its original in Trash. lgse/strata#2080
-- After a cross-volume move-back, the original is restored only once the move-back is flushed. lgse/strata#2080
 - When undoing a move finds an original name taken by the same kind of item, the dialog offers Replace. It never offers Keep Both or Merge. lgse/strata#301, lgse/strata#708, lgse/strata#2070
 - When undo or redo of a move meets an item of the other kind, the dialog offers no Replace. An example is a file where a folder was moved from. lgse/strata#2070
 - That prompt explains "An item named “<name>” already exists in <folder>. A file and a folder can’t replace one another." lgse/strata#2070
@@ -65,6 +64,24 @@ One undo history and one redo history for file operations, shared by every Strat
 - Skipping a file-and-folder conflict leaves the blocking item in place. lgse/strata#2070
 - Skipping one item while undoing a multi-item move still returns the others and leaves the new occupant intact. lgse/strata#708
 
+### Copies and new items
+
+- Ctrl+Z after a copy sends only the items that copy created to Trash, including numbered destinations. lgse/strata#444
+- Ctrl+Z after New Folder or New File moves the created item to Trash. lgse/strata#1097
+- After a new item is given a plain name with Enter, one Ctrl+Z moves the named item to Trash, and nothing remains under the default name. lgse/strata#2030
+
+### Renames
+
+- Ctrl+Z after a rename restores the original name, keeping current contents and permissions. lgse/strata#1061
+- When the original name is taken by then, Undo fails without overwriting and stays available for retry. lgse/strata#1061
+- Undoing a rename never copies the item; where no placement step can place it, the undo is refused. lgse/strata#1615
+
+### New Folder with Selection
+
+- One Ctrl+Z after New Folder with Selection moves the items back and moves the created folder to Trash. lgse/strata#1349
+- Where Trash is unavailable, such as on tmpfs, that Ctrl+Z still moves the items back. lgse/strata#1614
+- It then removes the folder only if it is empty; a folder holding other items stays. lgse/strata#1614
+
 ### Restore
 
 - Ctrl+Z after Restore moves the restored items from where they landed back to Trash. lgse/strata#1097
@@ -74,15 +91,14 @@ One undo history and one redo history for file operations, shared by every Strat
 
 - Ctrl+Shift+Z after undoing Move to Trash moves the restored items to Trash again. lgse/strata#1120
 - Ctrl+Shift+Z after undoing a cut-paste moves the items to the destination again. lgse/strata#1120
-- Undoing a Replace move onto a non-local destination, which stages no original in Trash, only moves the item back. lgse/strata#2080
-- Ctrl+Shift+Z after undoing a move answered with Replace asks before replacing the restored original. After Replace, the next Ctrl+Z restores that original again. lgse/strata#2080
-- When a move undo answers Replace at the original name, Ctrl+Shift+Z moves the item forward and restores the item that undo replaced. lgse/strata#2080 (unverified)
 - When redoing a move finds the destination name taken by an item of the same kind, the "File already exists" dialog offers Replace. It warns "Redoing the move will overwrite its contents." lgse/strata#1120, lgse/strata#2070
 - Ctrl+Shift+Z after undoing a copy restores the trashed copies from Trash. lgse/strata#1120
 - Ctrl+Shift+Z after undoing a Restore restores the re-trashed items to the same locations again. lgse/strata#1120
 - Ctrl+Shift+Z after undoing New Folder, New File, or a compression into a new archive restores that item from Trash. lgse/strata#1120 (unverified)
 - Undoing a Merge or Replace copy, or a compression that replaced an archive, offers no redo. lgse/strata#1120
 - Undoing New Folder with Selection offers no redo. lgse/strata#1349 (unverified)
+- Ctrl+Shift+Z after undoing a rename applies it again. lgse/strata#1120
+- Ctrl+Shift+Z after undoing a new item named with Enter restores it from Trash under its typed name. lgse/strata#2030
 
 ### Failures and partial results
 
@@ -105,10 +121,6 @@ Undo targets the latest reversible operation process-wide, matching common file 
 - The history lives on the GTK main thread and every window reads it. Entries carry a generation, so an undo applies only to the entry the user inspected, and a claimed entry cannot be started twice (lgse/strata#228, lgse/strata#301).
 - The single pending slot became a history of 32 entries because undoing a copy must expose the operation before it (lgse/strata#444).
 - Undo never destroys an original. Copy, create, compress, and Restore undos move items to Trash. Replace and Merge copy undos delete the incoming copy, then restore the original staged in Trash. Since lgse/strata#1615 an edited incoming item is kept instead. A Replace move undo moves the item back first, then restores the original (lgse/strata#2080). Permanent deletion stays outside the history by design (lgse/strata#444, lgse/strata#1097).
-- A move record keeps the Trash identity of the original its Replace staged. Before lgse/strata#2080 the record dropped it, so undoing a replacing move left the original in Trash (lgse/strata#2077).
-- That undo looks up all originals in one Trash scan and restores them after the move-back batches settle, so cross-volume flushes stay batched (lgse/strata#2080).
-- A failed batch lookup is retried item by item, and a missing original never stops the move-back. A failed undo stays on top of the history, so refusing would block every older entry (lgse/strata#2080).
-- Each replay records the original it replaced at its own end, so undo and redo can each restore one (lgse/strata#2080).
 - An undo never records a new undo entry, so Ctrl+Z cannot toggle an item back and forth (lgse/strata#301). Its applied items feed a parallel redo stack instead (lgse/strata#1120).
 - Any new forward operation clears the redo stack, matching Finder. A persistent action journal was rejected as more than platform parity needs (lgse/strata#1117, lgse/strata#1120).
 - Each claimed entry keeps a bucket of the items that actually applied. Unapplied items stay on the stack for retry, applied items become the opposite entry, and a replay that applied nothing pushes nothing (lgse/strata#1120). A move replay whose conflicts were all skipped keeps its entry, as Cancel does. Otherwise Skip, once the only answer besides Cancel, would drop the entry silently (lgse/strata#2070).
@@ -132,7 +144,5 @@ Undo targets the latest reversible operation process-wide, matching common file 
 - A move replay whose every item meets an item of the other kind offers only Cancel. Ctrl+Z then returns to that entry, blocking older entries until the obstacle is moved by hand. lgse/strata#2070 ([comment](https://github.com/lgse/strata/pull/2070#issuecomment-6677782710))
 - A merged move cannot be undone: it adds no Undo entry, and its overwritten originals stay in Trash. lgse/strata#2078
 - When the moved item is gone before Ctrl+Z, the replay drops its record, so its original stays in Trash and nothing says so. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))
-- Restore checks run after the move-back. A refusal, such as at a bind-mount boundary, leaves the item moved back and its original in Trash. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))
 - A cross-volume move-back that keeps part of its source reports "something already exists" instead of a kept report. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))
-- Restoring a replaced original ignores Cancel and reports no progress, which matters where a rename is unsupported and it copies. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))
 - After a successful move undo, `trash:///` is not among the refreshed locations, so a Trash column relies on its file monitor. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))

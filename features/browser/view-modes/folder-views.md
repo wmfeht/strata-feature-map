@@ -3,12 +3,12 @@ title: Per-folder sort and thumbnail size
 status: shipped
 origin: {issue: lgse/strata#1563, pr: lgse/strata#1565}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/preferences/folder_view_settings.rs, src/ui/preferences/folder_views.rs, src/ui/preferences/folder_views/**, src/app/browser/folder_sorts.rs]
 tests: [src/ui/preferences/folder_views/tests.rs, src/app/browser/tests/folder_sorts.rs, src/ui/window/tests/preferences/folder_views.rs]
 docs: [docs/preferences.md]
-related: [browser/view-modes/sorting, browser/view-modes/icons, settings/preferences/storage, browser/folder-customization, integration/portal-file-chooser, integration/10xer-mode/file-verbs]
+related: [browser/view-modes/sorting, browser/view-modes/icons, settings/preferences/storage, browser/folder-customization, integration/portal-file-chooser, integration/10xer-mode/file-verbs, settings/preferences]
 ---
 
 ## Summary
@@ -33,12 +33,10 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 
 ### Settings
 
-- Settings → General → Browsing has the switch "Remember sort and icon size per folder", on by default, saved as `remember_folder_views`. lgse/strata#1563, lgse/strata#1565
 - Saved values stay stored but unused while the switch is off. Turning it back on drops saved values equal to the current defaults. lgse/strata#1565
 - Changing the default sort re-sorts every open folder without its own sort, in every window. With the switch on, it also drops saved sorts equal to the new default. lgse/strata#1565
-- The "Forget all folder settings" row has a Clear button, insensitive while nothing is saved, that clears every saved value. lgse/strata#1565
+- Forget all folder settings → Clear removes every saved sort and Icons size. lgse/strata#1565
 - Clear also removes values another Strata process saved that this one has not merged yet. lgse/strata#1565
-- Settings search finds the three rows by words such as "per folder", "default sort", and "reset". lgse/strata#1565 (unverified)
 
 ### Pane menus
 

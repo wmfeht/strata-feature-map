@@ -3,12 +3,12 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/adapters/local_operations/create_entry.rs, src/ui/browser/inline_edit/new_entry.rs]
-tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/scenarios/entry_management/undo-created-folder-trashes.jsonl, tests/qa/mutations/new-entry-collision.patch]
+tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/mutations/new-entry-collision.patch]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [operations/rename, operations/rename/typed-paths, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility, browser/context-menu]
+related: [operations/rename, operations/rename/typed-paths, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility, browser/context-menu, operations/undo]
 ---
 
 ## Summary
@@ -19,8 +19,6 @@ Creating an empty file or folder in the current directory from the background me
 
 ### Starting creation
 
-- The folder background menu shows New Folder and New File. lgse/strata#4
-- In Trash and Recent, the background menu omits New Folder and New File. lgse/strata#499, lgse/strata#1083
 - Ctrl+Shift+N starts New Folder in Columns, List, and Icons. lgse/strata#567
 - In Columns, Ctrl+Shift+N creates in the keyboard-focused pane, then the active pane, then the deepest pane, whatever pane the pointer rests over. lgse/strata#238
 - Starting creation clears the pane's filter text. lgse/strata#567
@@ -59,20 +57,12 @@ Creating an empty file or folder in the current directory from the background me
 
 ### Undo
 
-- Ctrl+Z after New Folder or New File moves the created item to Trash. lgse/strata#1097
-- After a new item is given a plain name with Enter, one Ctrl+Z moves the named item to Trash, and nothing remains under the default name. lgse/strata#2030
-- Ctrl+Shift+Z after that undo restores the item under its typed name. lgse/strata#2030
 - A cancel that arrives after a local New File create has started reports the file as created, and Ctrl+Z still trashes it. lgse/strata#1729
 
 ### New Folder with Selection
 
-- With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349
-- The item is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
-- Choosing it, or Ctrl+Alt+N, creates a numbered `new folder` beside the selection, moves the selected items into it, and opens rename on the folder. lgse/strata#1349
+- Choosing New Folder with Selection in the item menu, or Ctrl+Alt+N, creates a numbered `new folder` beside the selection, moves the selected items into it, and opens rename on the folder. lgse/strata#1349
 - Ctrl+Alt+N with nothing selected creates an empty `new folder` and moves nothing. This holds with the cursor on an item, or with only a load cursor on the first row. lgse/strata#1349, lgse/strata#1623
-- One Ctrl+Z moves the items back and moves the created folder to Trash. lgse/strata#1349
-- Where Trash is unavailable, such as on tmpfs, that Ctrl+Z moves the items back. lgse/strata#1614
-- It then removes the folder only if it is empty; a folder holding other items stays. lgse/strata#1614
 
 ## Design
 

@@ -146,7 +146,7 @@ for its area, the upstream worktree path, and these instructions:
 > - Behavior bullets that are false against the code, untestable or vague, missing a
 >   citation, citing the wrong PR, or inferred but not marked `(unverified)`.
 > - Shipped behavior changes in the PRs that the map missed, and removed behavior still listed.
-> - A History row on the wrong node, on both a parent and child, a wrong date or type, or a rewritten earlier row.
+> - A History row on the wrong node, on both a parent and child, or with a wrong date or type.
 > - New nodes that fail the Nest rule, or changes that should have been a new node.
 > - Design edits without a justifying source. Known gaps without an issue.
 > - `code`, `tests`, or `docs` globs that are too broad (shared modules) or that miss the new paths.
@@ -170,7 +170,9 @@ findings still unresolved or disputed for the PR description. Do not hide them.
 
 1. Commit with a message like `Sync lgse/strata#N: <one-line summary>`, staging only files
    under `features/`, `qa/sweeps/`, `index/`, `README.md`, `sources.yaml`, `scopes.yaml`,
-   and `site/unguided.yaml` (new shipped nodes, AGENTS.md sync step 4).
+   `data/prs.jsonl`, and `site/unguided.yaml` (new shipped nodes, AGENTS.md sync step 4).
+   Commit the dataset `drift` updated: the index's *PRs since* column reads it, and CI
+   rebuilds the index from the committed copy, so leaving it out fails the "Index is current" step.
    Confirm `git status` shows nothing else, and that `check` and the tests pass on the final tree.
 2. Push the branch and run `gh pr create -R wmfeht/strata-feature-map --base main`, or with
    the stacked base from Step 0. If you extended an existing sync PR, edit its body instead.

@@ -298,6 +298,6 @@ For every control this sweep proves the binding: the file changes, the other win
 - What Watch network folders checks and re-reads in open folders → `browser`.
 - Dot-file changes made while hidden files are off → `browser`.
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails and STL model thumbnails change in the file views → `browser`.
-- Remember sort and icon size per folder, the Default sort as it re-sorts open folders, Forget all folder settings, and `folder-views.toml` → `browser`.
+- What Remember sort and icon size per folder and Forget all folder settings change in open folders, the Default sort as it re-sorts open folders, and `folder-views.toml` → `browser`.
 - Show sizes in Columns view as it acts on the Columns badge → `browser`.
 - Search time limit and Search entry limit as they act on global search, pane filters, and the Partial results hint → `browser`.

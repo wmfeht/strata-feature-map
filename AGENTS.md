@@ -52,7 +52,7 @@ A node's id is its path under `features/` without `.md` or `/index`, such as
 | Behavior | Owned by exactly one node: the one whose `code` implements it, even when another node's feature triggers it. A parent's Behavior covers only what no child owns. |
 | History | A PR's row goes on the node `drift` names, never on both a parent and its child. A batch PR that bundles independent fixes gets one row per fix, on the node owning most of that fix's lines. See "Row placement" under Sync contract. |
 | Coverage | A parent's effective code and tests are the union of its own and its subtree's. |
-| Staleness | Each node has its own `reviewed_at`. A parent's effective staleness is its oldest descendant's. |
+| Staleness | Each node has its own `reviewed_at`. A node is stale when a PR touched its own `code` or `tests` after it. A parent is stale when any node in its subtree is. |
 | Status | Per node. A shipped parent may have an in-progress child. |
 
 ## Feature file format
@@ -278,7 +278,6 @@ On each scheduled run:
 
 Rules:
 
-- Append to History; never rewrite earlier rows.
 - **Row placement.** A PR gets one History row, on the node `drift` names
   ("History row here"). That holds when another node owns more of its files, or
   when its scope names a node whose code it did not change. Other nodes whose

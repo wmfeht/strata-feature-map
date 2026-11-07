@@ -3,24 +3,23 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs, src/ui/browser/trash/delete_dialog.rs, src/ui/window/sidebar_trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
 docs: [docs/trash-restore-testing.md]
-related: [operations/delete, integration/10xer-mode/file-verbs, operations/filesystem-compatibility, browser/context-menu]
+related: [operations/delete, integration/10xer-mode/file-verbs, operations/filesystem-compatibility, browser/context-menu, operations/undo]
 ---
 
 ## Summary
 
-Moving files and folders to the freedesktop.org Trash, undoing that move, and browsing `trash:///` in every view mode. Trash's UI module also builds the deletion confirmations and the no-Trash fallback. Children: `operations/trash/restore` (Restore from Trash), `operations/trash/empty` (Empty Trash), `operations/trash/animation` (flights between rows and the sidebar Trash button), and `operations/trash/fuse-refusals` (FUSE mounts that refuse Trash).
+Moving files and folders to the freedesktop.org Trash and browsing `trash:///` in every view mode. Trash's UI module also builds the deletion confirmations and the no-Trash fallback. Children: `operations/trash/restore` (Restore from Trash), `operations/trash/empty` (Empty Trash), `operations/trash/animation` (flights between rows and the sidebar Trash button), and `operations/trash/fuse-refusals` (FUSE mounts that refuse Trash).
 
 ## Behavior
 
 ### Moving to Trash
 
 - Delete without Shift on a selection outside Trash moves it to Trash with no confirmation dialog, except in the no-Trash folders below. lgse/strata#228, lgse/strata#1533
-- Ctrl+Z after Move to Trash returns the items to their original locations, including when pressed in another Strata window. lgse/strata#228
 - Dropping files onto the sidebar Trash row moves them to Trash, and Ctrl+Z returns them, except from the no-Trash folders below. lgse/strata#626, lgse/strata#836, lgse/strata#1533
 - Web addresses dropped on the sidebar Trash row, alone or with files, are refused instead of being handed to GIO. lgse/strata#1547
 - Delete on a selected Ctrl+F filter result moves that result to Trash and leaves the hidden directory selection untouched. lgse/strata#915

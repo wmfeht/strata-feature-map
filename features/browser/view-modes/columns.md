@@ -3,10 +3,10 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs, src/ui/browser/columns/append.rs, src/ui/browser/columns/append/header.rs, src/ui/browser/columns/append/models.rs, src/ui/browser/columns/append/shell.rs, src/ui/browser/columns/append/surface.rs, src/ui/browser/columns/cursor.rs, src/ui/browser/columns/double_click.rs, src/ui/browser/columns/lifecycle.rs, src/ui/browser/columns/resize.rs, src/ui/browser/columns/rows/bind.rs, src/ui/browser/columns/rows/click.rs, src/ui/browser/columns/rows/widgets.rs, src/ui/browser/columns/state.rs, src/ui/browser/columns/strip_scroll.rs, src/ui/browser/events/selection.rs]
-tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl]
+tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/after_back.rs]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
 related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter, browser/context-menu, browser/navigation]
 ---
@@ -195,6 +195,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-03 | lgse/strata#2041 | perf | Kept a pending child mirror when a suppressed focus echo arrives, so a keyboard move still opens the automatic preview. |
 | 2026-11-02 | lgse/strata#2026 | fix | Put the cursor on an ancestor column's open folder after Back, and kept Tab's next rename editor when a renamed folder's column moves. |
 | 2026-10-31 | lgse/strata#1942 | feat | Opened a column's folder menu from its header, so New Folder and Paste stay reachable when entries fill the column. |
 | 2026-10-25 | lgse/strata#1874 | fix | Closed an open folder's columns and moved the cursor to its visible neighbor on a rename to a hidden name, so F2 works. |

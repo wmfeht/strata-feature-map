@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs, src/ui/browser/context_menu/actions/presentation.rs, src/ui/browser/context_menu/focus.rs, src/ui/browser/context_menu/folder_menu.rs, src/ui/browser/context_menu/item_menu.rs, src/ui/browser/context_menu/item_options.rs, src/ui/browser/context_menu/open_with.rs, src/ui/browser/context_menu/options.rs, src/ui/browser/context_menu/popover.rs, src/ui/browser_modes/context_menu.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl, tests/qa/scenarios/entry_management/new-items-from-entry-menu.jsonl]
@@ -81,6 +81,9 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - When the selection holds at least one folder, the multi-selection menu adds Open in… after Open With…. lgse/strata#1543
 - Open in… → New Tab or New Window on a multi-selection opens one tab or window per selected folder and skips files. lgse/strata#1543 (unverified)
 - The background menu groups New Folder, New File, Paste; Open With…, Open in Terminal; Select All, Refresh, the hidden-files toggle; then Customize…, Properties. lgse/strata#1210
+- In Recent, the background menu also omits New Folder and New File. lgse/strata#1083
+- With one or more items selected, the item menu shows New Folder with Selection; Trash, Recent, and recursive search results omit it. lgse/strata#1349, lgse/strata#1083
+- New Folder with Selection is also omitted when any selected item cannot be removed. lgse/strata#1349 (unverified)
 - The background menu's Paste is sensitive only while the clipboard holds files or a PNG image. lgse/strata#882
 - When the clipboard offers `x-special/gnome-copied-files` without `text/uri-list`, a file list, or `image/png`, the background menu's Paste is insensitive, while Ctrl+V pastes the files. lgse/strata#2040 (unverified)
 - The background menu offers Open With… and Open in Terminal for the current folder, except in Trash and Recent. lgse/strata#821, lgse/strata#161, lgse/strata#1083
@@ -88,7 +91,6 @@ The item and background context menus in Columns, Icons, and List. This node cov
 - In the background menu, Open in Terminal is insensitive when the folder has no local path. lgse/strata#161 (unverified)
 - The item menu shows Open in Terminal for a single folder with a local path, outside Trash. lgse/strata#161
 - In Recent, the background menu also hides Properties. lgse/strata#1083 (unverified)
-- In Recent, the item menu hides New Folder with Selection. lgse/strata#1083 (unverified)
 - In Recent, the item menu offers Remove from Recent when every selected row has a recent-history entry. lgse/strata#1500
 - Remove from Recent is absent from the same file's menu in its real folder. lgse/strata#1500
 - In the background menu of a folder, Open With… stays insensitive, explained "Looking for compatible applications…", until the recent-apps history is read. lgse/strata#1729 (unverified)
@@ -168,6 +170,7 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
 | 2026-11-03 | lgse/strata#1973 | fix | Added New Folder and New File to entry menus, so creating an item no longer needs background space. |
+| 2026-11-03 | lgse/strata#2041 | perf | PNG-encoded each mirrored menu icon texture once and reused it, instead of per item on every column build. |
 | 2026-10-25 | lgse/strata#1894 | fix | Anchored menus at the click and capped their height to the monitor, so they extend past a small window instead of being squeezed or shifted. |
 | 2026-10-16 | lgse/strata#1695 | fix | Built the item menu without a model and repicked pointer focus before unparenting, so menu actions no longer crash on GTK 4.14. |
 | 2026-10-15 | lgse/strata#1611 | fix | Added and removed the Open in… row in its own nested section, so item-menu teardown no longer logs GLib-CRITICALs. |

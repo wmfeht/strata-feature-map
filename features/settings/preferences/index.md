@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -100,6 +100,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
+- Settings search finds Remember sort and icon size per folder, Default sort, and Forget all folder settings by words such as "per folder", "default sort", and "reset". lgse/strata#1565 (unverified)
 
 ### Units
 
@@ -127,6 +128,11 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Settings → General → Browsing has a Default sort row with a "Default sort" menu and a "Default sort direction" menu (Ascending, Descending). lgse/strata#1563, lgse/strata#1565
 - The "Default sort" menu lists Name, Size, Modified, Type, Extension, Created, and Unsorted. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029
 - While the default sort is Unsorted, the "Default sort direction" menu is insensitive; choosing another field makes it sensitive again. lgse/strata#2029 (unverified)
+
+### Remember sort and icon size per folder
+
+- Settings → General → Browsing has the switch "Remember sort and icon size per folder", on by default, saved as `remember_folder_views`. lgse/strata#1563, lgse/strata#1565
+- General → Browsing has a "Forget all folder settings" row with a Clear button, insensitive while nothing is saved. lgse/strata#1565
 
 ### Search limits
 
@@ -210,7 +216,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-05 | lgse/strata#2054 | perf | Pre-built a hidden Settings layer for the first tab on idle and faded Settings through layer opacity, removing the first-click pause and per-open stutter. |
+| 2026-11-05 | lgse/strata#2054 | perf | Pre-built one hidden Settings layer on idle after the first tab paints, removing the pause on the first Settings click. |
 | 2026-11-05 | lgse/strata#2058 | fix | Joined Language and Units in one LANGUAGE & UNITS group, since the Units row had rendered as a separate card under LANGUAGE. |
 | 2026-11-03 | lgse/strata#2047 | fix | Capped the Settings panel at 1250×800 px, the size its side-by-side layout needs, so it no longer covers a maximized 1080p window. |
 | 2026-11-02 | lgse/strata#2033 | refactor | Split Settings search into target-table, scoring, and widget-filter modules for code health; search results and page switching are unchanged. |
