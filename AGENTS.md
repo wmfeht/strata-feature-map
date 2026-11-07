@@ -278,7 +278,6 @@ On each scheduled run:
 
 Rules:
 
-- Append to History; never rewrite earlier rows.
 - **Row placement.** A PR gets one History row, on the node `drift` names
   ("History row here"). That holds when another node owns more of its files, or
   when its scope names a node whose code it did not change. Other nodes whose

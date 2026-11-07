@@ -146,7 +146,7 @@ for its area, the upstream worktree path, and these instructions:
 > - Behavior bullets that are false against the code, untestable or vague, missing a
 >   citation, citing the wrong PR, or inferred but not marked `(unverified)`.
 > - Shipped behavior changes in the PRs that the map missed, and removed behavior still listed.
-> - A History row on the wrong node, on both a parent and child, a wrong date or type, or a rewritten earlier row.
+> - A History row on the wrong node, on both a parent and child, or with a wrong date or type.
 > - New nodes that fail the Nest rule, or changes that should have been a new node.
 > - Design edits without a justifying source. Known gaps without an issue.
 > - `code`, `tests`, or `docs` globs that are too broad (shared modules) or that miss the new paths.
