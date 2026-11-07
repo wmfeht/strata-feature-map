@@ -222,7 +222,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Capture with an input-method composition pending, and with fcitx5 or IBus switch keys.
 - Start a capture, then switch the table, close Settings, switch windows, or toggle 10xer mode from another window; press a key after each.
 - Arm captures in two windows and press keys in each in turn.
-- Bind `sort.folders_first` under `[keymap.default]` to a plain letter and to a Shift key; press each in a normal folder, in Recent, and with the location field focused.
 - Drop Escape from `escape` and add `<Control>bracketleft`. Cancel a dialog, a rename, a footer prompt, F1, a popover menu, and the portal chooser with each key.
 - Give Enter, Tab, and the arrows a Ctrl key and a plain letter; use them in the action editor's multi-line field, Settings, a document table, the media timeline, and the sidebar.
 - With type-to-search on, then off, bind plain letters to a window command and to a structural key; type them in the file list, the filter, and global search.
@@ -233,7 +232,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With the fixture holding unknown ids, press **Reset all** and dismiss the dialog by Escape and by the backdrop; then confirm and diff the file.
 - Edit `settings.toml` while Strata runs, then save a rebind from Settings; read the file and the keys after relaunch.
 - With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
-- Bind `sort.unsorted`, `sort.natural`, and `sort.case_sensitive` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter; press each in Columns, Icons, List, and Recent, with and without Shift.
+- Bind `sort.unsorted`, `sort.natural`, `sort.case_sensitive`, and `sort.folders_first` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter; press each in Columns, Icons, List, and Recent, with and without Shift, and with the location field focused.
 - Search Settings → Keyboard for `sort`, `extension`, and `case` in both tables, with the interface in English and de.
 
 ### app/updates

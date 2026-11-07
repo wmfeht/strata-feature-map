@@ -31,7 +31,7 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 - Under Unsorted, the direction rows and the three NAME ORDER rows are disabled. lgse/strata#2029
 - Under Device order, the direction and NAME ORDER rows are disabled. Under Recency, the NAME ORDER rows and Folders first are. lgse/strata#2029 (unverified)
 - In Recent the Folders first row is present; it is disabled only under Recency. lgse/strata#2029 (unverified)
-- In Recent under another sort, choosing Folders first leaves the row enabled. The saved setting and every pane's order stay unchanged, as with the 10xer `, f` chord. lgse/strata#2074
+- In Recent under another sort, choosing Folders first leaves the saved setting and every pane's order unchanged, as with the 10xer `, f` chord. lgse/strata#2074
 - "Make default" shows in a remembered folder whose current sort, including direction and name order, differs from the default. It saves a choice still waiting to apply. lgse/strata#1565, lgse/strata#2029
 - Under Device order or Recency, "Make default" stays hidden. lgse/strata#2029 (unverified)
 - "Reset to default sort" shows only for a folder with its own saved sort. It also cancels a sort choice still waiting to apply. lgse/strata#1565, lgse/strata#2029

@@ -28,7 +28,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 
 ### [Shared location model and listing adapter](../features/app/infrastructure.md) `app/infrastructure`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#14](https://github.com/lgse/strata/issues/14), pr [lgse/strata#27](https://github.com/lgse/strata/issues/27)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#14](https://github.com/lgse/strata/issues/14), pr [lgse/strata#27](https://github.com/lgse/strata/issues/27)
 
 The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots. It also owns shared helpers, test support, catalogs, the README, third-party notices, and crate manifests. It owns the build script, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration and skills. It owns the `qa` build's in-process QA harness, the QA runner, and the pinned test image. It owns the trusted helper lookup, the syscall layer that local operations share, and the Run in terminal control that Diagnostics and Integrations share. It owns the mount-table watcher, per-mount request lanes, off-thread probes and closes, and the UI-thread checks. It owns the List and Icons pane header, shared by the sort controls and the Back history menu. It is the `fallback` node in `scopes.yaml`.
 
@@ -39,7 +39,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 ### [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) `app/keyboard-shortcuts`
 
-shipped · reviewed · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#1538](https://github.com/lgse/strata/issues/1538), pr [lgse/strata#1576](https://github.com/lgse/strata/issues/1576)
+shipped · reviewed · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1538](https://github.com/lgse/strata/issues/1538), pr [lgse/strata#1576](https://github.com/lgse/strata/issues/1576)
 
 Turns each key event into a shortcut the same way on every keyboard layout. Letters follow the key's label, non-Latin keys fall back to a Latin key, and digits count by position. It also owns the label formatter and yielding to an input-method composition; the F1 panel (`app/shortcut-reference`) and dispatcher (`app/window`) consume it. Its child `app/keyboard-shortcuts/remapping` lets users rebind keys per map.
 
@@ -51,7 +51,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 
 ### [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) `app/keyboard-shortcuts/remapping`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#1884](https://github.com/lgse/strata/issues/1884), pr [lgse/strata#1885](https://github.com/lgse/strata/issues/1885)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1884](https://github.com/lgse/strata/issues/1884), pr [lgse/strata#1885](https://github.com/lgse/strata/issues/1885)
 
 Lets users change, add, or remove the keys of any listed command, separately for the default map and 10xer mode. Changes are made in Settings → Keyboard or under `[keymap.*]` in `settings.toml`. A conflict checker refuses keys that would never fire or would break another key. It is for users whose desktop takes a Strata key, or who want a key for a command their map lacks.
 
@@ -95,7 +95,7 @@ shipped · reviewed · reviewed at [`41070b5`](https://github.com/lgse/strata/tr
 
 ### [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) `app/shortcut-reference`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#291](https://github.com/lgse/strata/issues/291), pr [lgse/strata#358](https://github.com/lgse/strata/issues/358)
 
 The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and the window footer that hosts it. The reference shows the active key map for the current view, with search and categories. The footer carries the F1 Shortcuts button, the item and selection count, and the Files on clipboard badge. 10xer prompts, chords, and tags in the same footer belong to `integration/10xer-mode`.
 
@@ -221,7 +221,7 @@ Periodic checks of shown folders on mounts that other computers or programs chan
 
 ### [Folder and file customization](../features/browser/folder-customization.md) `browser/folder-customization`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#211](https://github.com/lgse/strata/issues/211), pr [lgse/strata#294](https://github.com/lgse/strata/issues/294)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#211](https://github.com/lgse/strata/issues/211), pr [lgse/strata#294](https://github.com/lgse/strata/issues/294)
 
 Per-item colors and icons for local folders and files, chosen in the Customize dialog and saved in `settings.toml`. Customized icons replace the default icon wherever Strata draws that path. Sidebar rows and their Customize… action belong to `browser/sidebar`.
 
@@ -299,7 +299,7 @@ The folder suggestions shown under the location entry while a path is typed. The
 
 ### [Recent](../features/browser/navigation/recent.md) `browser/navigation/recent`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#1082](https://github.com/lgse/strata/issues/1082), pr [lgse/strata#1083](https://github.com/lgse/strata/issues/1083)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1082](https://github.com/lgse/strata/issues/1082), pr [lgse/strata#1083](https://github.com/lgse/strata/issues/1083)
 
 The `recent:///` collection of recently used files, read from the desktop's GTK and GIO recent-file history. It is a browsable location whose rows act on the real files, opened from the sidebar Recent place or the location bar. Which menu items Recent shows belongs to `browser/context-menu`, and its sort menu to `browser/view-modes/sorting`.
 
@@ -679,7 +679,7 @@ Icons and List remember each folder's selection, cursor, and scroll position, an
 
 ### [Sorting](../features/browser/view-modes/sorting.md) `browser/view-modes/sorting`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#40](https://github.com/lgse/strata/issues/40), pr [lgse/strata#44](https://github.com/lgse/strata/issues/44)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#40](https://github.com/lgse/strata/issues/40), pr [lgse/strata#44](https://github.com/lgse/strata/issues/44)
 
 Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created, ascending or descending, or leaving them Unsorted, in all three view modes. Names compare in Natural or Alphabetical order, optionally case-sensitive, and folders can come first. The default sort is shared and saved; per-folder sorts belong to `browser/view-modes/folder-views`.
 
@@ -746,7 +746,7 @@ Dialogs opened from a device row's menu: Properties for any listed storage, Set 
 
 ### [Drive grouping in Devices](../features/devices/volumes/drive-order.md) `devices/volumes/drive-order`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#2071](https://github.com/lgse/strata/issues/2071), pr [lgse/strata#2075](https://github.com/lgse/strata/issues/2075)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#2071](https://github.com/lgse/strata/issues/2071), pr [lgse/strata#2075](https://github.com/lgse/strata/issues/2075)
 
 The order of rows under DEVICES in the sidebar. Rows are grouped by physical drive in the system's drive order, with a divider between groups. Drive-less rows and then network shares follow the drives. It is for users with several disks or partitions who need to tell which volume sits on which disk.
 
@@ -813,7 +813,7 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 
 ### [10xer file commands](../features/integration/10xer-mode/file-verbs.md) `integration/10xer-mode/file-verbs`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#1251](https://github.com/lgse/strata/issues/1251), pr [lgse/strata#1306](https://github.com/lgse/strata/issues/1306)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1251](https://github.com/lgse/strata/issues/1251), pr [lgse/strata#1306](https://github.com/lgse/strata/issues/1306)
 
 Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename, move, copy, restore, sort, Folders first, hidden files, Open With, custom actions, and archive commands. They act on the focused pane's filled selection, or its cursor item when nothing is filled. This node also runs the default map's Custom action slot keys, which `app/keyboard-shortcuts/remapping` dispatches.
 
@@ -1037,7 +1037,7 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### [Paste name conflicts](../features/operations/clipboard/conflicts.md) `operations/clipboard/conflicts`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#7](https://github.com/lgse/strata/issues/7), pr [lgse/strata#25](https://github.com/lgse/strata/issues/25)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#7](https://github.com/lgse/strata/issues/7), pr [lgse/strata#25](https://github.com/lgse/strata/issues/25)
 
 The "File already exists" dialog shown when a paste, Move to…, or Copy to… meets a taken name. It covers the Replace, Keep Both, Merge, and Skip transfers behind the dialog and their undo. The prompt an undo or redo shows belongs to `operations/undo`.
 
@@ -1169,7 +1169,7 @@ Recognising the hidden `.strata-*` names a crash, kill, or unplug leaves in a fo
 
 ### [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) `operations/filesystem-compatibility/open-files`
 
-shipped · reviewed · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#1590](https://github.com/lgse/strata/issues/1590), pr [lgse/strata#1729](https://github.com/lgse/strata/issues/1729)
+shipped · reviewed · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1590](https://github.com/lgse/strata/issues/1590), pr [lgse/strata#1729](https://github.com/lgse/strata/issues/1729)
 
 Before a file operation changes an item, Strata stops its own reads of it. It then waits briefly for files other programs are about to close, and otherwise names the program that holds one. This keeps NFS, SMB, and FUSE from leaving `.nfs…`, `.__smbfile_silly…`, or `.fuse_hidden…` files because of Strata.
 
@@ -1192,7 +1192,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 
 ### [Progress dock](../features/operations/progress/dock.md) `operations/progress/dock`
 
-shipped · reviewed · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#1360](https://github.com/lgse/strata/issues/1360), pr [lgse/strata#1393](https://github.com/lgse/strata/issues/1393)
+shipped · reviewed · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1360](https://github.com/lgse/strata/issues/1360), pr [lgse/strata#1393](https://github.com/lgse/strata/issues/1393)
 
 Non-blocking progress cards in the bottom-right corner of the window for copy, compression, and deletion, so browsing continues while they run. Each card cancels only its own operation and becomes a completion notification that closes itself. The dock also shows brief notices, such as a fast Send to success or a file provider's result.
 
@@ -1293,7 +1293,7 @@ Returning trashed items to their original locations, from the Restore menu item 
 
 ### [Undo and redo](../features/operations/undo.md) `operations/undo`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#298](https://github.com/lgse/strata/issues/298), pr [lgse/strata#301](https://github.com/lgse/strata/issues/301)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#298](https://github.com/lgse/strata/issues/298), pr [lgse/strata#301](https://github.com/lgse/strata/issues/301)
 
 One undo history and one redo history for file operations, shared by every Strata window. Ctrl+Z reverts the latest recorded operation and Ctrl+Shift+Z re-applies the latest reverted one. Recorded operations are Move to Trash, moves, copies, renames, New Folder and New File, Restore, compression, extraction, Replace, Merge, and New Folder with Selection. Each operation's own undo rules live in its node; this node owns the replay and the conflict prompt an undo or redo shows.
 
@@ -1586,7 +1586,7 @@ How file modification times read in lists and previews, and the Modified date fo
 
 ### [Interface language](../features/settings/preferences/language.md) `settings/preferences/language`
 
-shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · 0 PRs since · origin issue [lgse/strata#1517](https://github.com/lgse/strata/issues/1517), pr [lgse/strata#1519](https://github.com/lgse/strata/issues/1519)
+shipped · draft · reviewed at [`5738aad`](https://github.com/lgse/strata/tree/5738aad808ea4cc4671516bc569d85f862664809) · ? PRs since · origin issue [lgse/strata#1517](https://github.com/lgse/strata/issues/1517), pr [lgse/strata#1519](https://github.com/lgse/strata/issues/1519)
 
 The Language setting and the compiled-in translations behind it. Strata's own interface is available in thirteen languages, chosen automatically from the desktop locale or set manually, and applied on restart.
 

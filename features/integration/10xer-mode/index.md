@@ -60,7 +60,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - The panel never takes focus, so the next key still completes the chord. lgse/strata#1304
 - The `g` panel lists `g` First item, `f` Follow search result, the place keys, and the pin digits. It also lists `+` / `-` Pin / unpin folder and Space Type a path. lgse/strata#1304, lgse/strata#1342 (unverified)
 - The `c` panel lists Copy path and Copy name. lgse/strata#1306 (unverified)
-- The `,` panel lists Name, Modified, Size, Type, Extension, Created, Unsorted, Natural, Alphabetical, Case-sensitive names, `f` Folders first, and Shift for Reverse. lgse/strata#1308, lgse/strata#2029, lgse/strata#2074 (unverified)
+- The `,` panel lists Name, Modified, Size, Type, Extension, Created, Unsorted, Natural, Alphabetical, Case-sensitive names, Folders first, and Shift for Reverse. lgse/strata#1308, lgse/strata#2029, lgse/strata#2074 (unverified)
 
 ### Movement
 
