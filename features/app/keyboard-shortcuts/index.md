@@ -40,7 +40,7 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - A lone layout-switch press, such as `ISO_Next_Group`, also leaves an armed 10xer chord armed. lgse/strata#1885 (unverified)
 - On plain `cn`, every shortcut is the US one. lgse/strata#1583
 - A chord's letter slot reads the Latin fallback: in 10xer mode with Russian active, `m` then the key in `z`'s place saves bookmark `z`. lgse/strata#2086, lgse/strata#1790
-- A letter slot takes only a plain letter: after `m` or `'`, a letter with Shift, Ctrl, Alt, or Super held fills no slot. lgse/strata#2086, lgse/strata#1790
+- A letter slot takes only a plain letter: after `m` or `'`, a letter with Shift, Ctrl, Alt, or Super held fills no slot. lgse/strata#2086, lgse/strata#1790 (unverified)
 - On `us(intl)`, where `'` is a dead acute, `'` matches no shortcut: in 10xer mode it opens no bookmark menu, and the next letter runs its own command. lgse/strata#2086, lgse/strata#1790
 
 ### Typing and input methods

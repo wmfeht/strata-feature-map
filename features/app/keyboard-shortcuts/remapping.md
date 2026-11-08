@@ -149,8 +149,10 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - A capture records the key as labels show it. The Russian scenario captures the key that types у, Ctrl+E, because Copy holds Ctrl+C (lgse/strata#1885).
 - The direct stage exists for commands only one map had a key for. It runs the handler the other map uses, on the active map's targets (lgse/strata#1884, lgse/strata#1885).
 - The plan's E2E coverage became QA scenarios in `tests/qa/scenarios/keymap/`, because the E2E suite was replaced (lgse/strata#1885).
-- `actions.folder` is a remappable `;` step rather than a fixed key, so the checker sees it and the pill, digits, and F1 row follow the user's keys (lgse/strata#1826). The default map has no path for it, because it has no `;` panel to switch (lgse/strata#1826).
-- The bookmark letters are a fixed `Letters` range after the `bookmark_set` and `bookmark_go` triggers, like the digit ranges after Go, Action, and Tabs, so remapping and conflict checks see the triggers (lgse/strata#1790).
+- `actions.folder` is a remappable `;` step rather than a fixed key, so the conflict checker sees it (lgse/strata#1826).
+- The `;` pill, the digits after `.`, and the F1 row then follow the user's keys (lgse/strata#1826).
+- The default map has no path for `actions.folder`, because it has no `;` panel to switch (lgse/strata#1826).
+- The bookmark triggers `bookmark_set` and `bookmark_go` are commands, so remapping and the conflict checker see them (lgse/strata#1790).
 
 ## History
 

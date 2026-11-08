@@ -238,7 +238,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
 - Bind `sort.unsorted`, `sort.natural`, `sort.case_sensitive`, and `sort.folders_first` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter in turn; press each in Columns, Icons, List, and Recent, with and without Shift, and with the location field focused.
 - Search Settings → Keyboard for `sort`, `extension`, and `case` in both tables, with the interface in English and de.
-- Capture `.` on the Terminal, Compress, and Extract Action steps, then capture `m`, `'`, and `.` as top-level 10xer keys; read each note.
+- Capture `.` on the Compress and Extract Action steps, then capture `m`, `'`, and `.` as top-level 10xer keys; read each note.
 - Hand-edit `actions.folder` and `make_first_column` under `[keymap.default]` and `[keymap.tenxer]`; launch, read the log, and press each key in Columns and List in both maps.
 - Rebind `bookmark_go` to a key that is dead on `us(intl)`, then to one that is not; press it then a saved letter on `us` and `us(intl)`.
 
