@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1703, pr: lgse/strata#1704}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: draft
+review: reviewed
 code: [integrations/kdeconnect/provider.py, integrations/kdeconnect/messages.json, integrations/kdeconnect/catalog.toml, integrations/kdeconnect/LICENSE]
 tests: [integrations/kdeconnect/tests]
 docs: [integrations/kdeconnect/README.md]

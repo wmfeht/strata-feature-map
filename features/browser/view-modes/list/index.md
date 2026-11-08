@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
 reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: draft
+review: reviewed
 code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs, src/ui/browser_modes/list_headings.rs, src/ui/browser_modes/list_pane.rs, src/app/navigation/type_groups.rs, src/ui/browser_modes/type_groups.rs]
 tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl, src/ui/browser_modes/grouped_model/tests.rs, tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl, tests/qa/scenarios/search_filter_sort/grouped-list-first-visit-starts-at-first-row.jsonl]
 related: [browser/navigation]

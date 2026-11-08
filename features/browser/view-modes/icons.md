@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#322, pr: lgse/strata#328}
 branch: null
 reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
-review: draft
+review: reviewed
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**, src/adapters/local_files/icon_cache.rs, src/ui/browser_modes/icons_card.rs, src/ui/browser_modes/icons_controls.rs, src/ui/browser_modes/icons_pane.rs, src/ui/browser_modes/icons_view.rs]
 tests: [src/ui/icons_cell/tests.rs, src/adapters/local_files/tests/icon_details.rs]
 related: [browser/thumbnails, operations/rename, browser/view-modes/folder-views]

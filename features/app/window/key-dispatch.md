@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#544}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: draft
+review: reviewed
 code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/window/key_routing.rs, src/ui/window/keyboard/input_owner.rs, src/ui/window/keyboard/wheel_zoom.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl, src/ui/window/tests/keyboard_dispatch/entry_keys.rs, tests/qa/scenarios/quick_preview/preview-focus-ignores-file-commands.jsonl]
 related: [app/keyboard-shortcuts, app/dialogs, app/shortcut-reference, browser/view-modes/text-size, browser/view-modes/thumbnail-size, integration/10xer-mode, preview/preview-panel, browser/sidebar, preview/quick-preview, browser/search/filter]

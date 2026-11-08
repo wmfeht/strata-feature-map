@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1810, pr: lgse/strata#1811}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: draft
+review: reviewed
 code: [src/child_environment.rs]
 tests: [src/child_environment/tests.rs]
 related: [app/infrastructure, integration/open-with, integration/open-with/terminal, browser/context-menu, operations/progress/jobs, remote/file-providers/external, settings/preferences, preview/preview-panel/documents]

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1976, pr: lgse/strata#1977}
 branch: null
 reviewed_at: 1d2e244b55aac2fabad2a7b2a108ebf5969df59e
-review: draft
+review: reviewed
 code: []
 tests: [tests/qa/scenarios/keyboard_navigation/back-history-dropdown.jsonl]
 related: [browser/view-modes, browser/view-modes/sorting, app/shortcut-reference]

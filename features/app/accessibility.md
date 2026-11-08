@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
 reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: draft
+review: reviewed
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/qa/scenarios/accessibility, tests/qa/scenarios/dialogs_and_menus/entry-menu-named-actions.jsonl]
 docs: [docs/testing.md]

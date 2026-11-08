@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: draft
+review: reviewed
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs, tests/qa/scenarios/sidebar_pinning/tenxer-pin-feedback-identifies-slot.jsonl]
 related: [browser/sidebar, browser/navigation, app/keyboard-shortcuts]

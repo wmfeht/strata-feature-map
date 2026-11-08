@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
 reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
-review: draft
+review: reviewed
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs, src/ui/shortcut_footer/build.rs, src/ui/shortcut_footer/catalog.rs, src/ui/shortcut_footer/reference.rs, src/ui/shortcut_footer/reference_keys.rs, src/ui/shortcut_footer/status.rs]
 tests: [src/ui/shortcut_footer/tests.rs, src/ui/shortcut_footer/tests/**, src/ui/shortcut_reference/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]

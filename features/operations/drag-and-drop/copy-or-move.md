@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#248, pr: lgse/strata#502}
 branch: null
 reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: draft
+review: reviewed
 code: [src/services/transfer_action.rs, src/adapters/volume.rs]
 tests: [src/services/transfer_action/tests.rs, src/adapters/volume/tests.rs, src/adapters/volume/tests/lookup_regressions.rs, tests/qa/scenarios/cross_volume_drop/cross-volume-plain-copy.jsonl]
 related: [operations/clipboard, operations/trash/restore, devices/volumes]
