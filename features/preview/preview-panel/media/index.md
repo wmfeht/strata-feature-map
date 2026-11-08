@@ -3,8 +3,8 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, src/ui/media/history.rs, src/ui/media/playback.rs, src/ui/media/positions.rs, src/ui/preview/media_content.rs, src/ui/preview/media_controls.rs, src/ui/preview/media_render.rs, src/ui/preview/media_session.rs, packaging/media-runtime]
 tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/**, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]
 docs: [site/src/reference/preview-sandbox.md, site/src/reference/keyboard-navigation.md]
@@ -64,11 +64,26 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Clips shorter than 10 s start at full volume, a muted state skips the fade, and any play, pause, seek, volume, or mute input ends it. lgse/strata#1474
 - A preview hidden by a narrow window resumes playing when shown again if it was playing, whatever the autoplay setting. lgse/strata#1106
 
+### Start position
+
+- With **Video preview start** at 20, a video of known duration not previewed this session opens at 20% of its length; a 60 s clip opens at 0:12. lgse/strata#2086, lgse/strata#1924
+- At the default 0, every preview starts at 0:00. lgse/strata#2086, lgse/strata#1924
+- The start is saved as `preview_video_start` in `settings.toml`; a file without the key loads as 0. lgse/strata#2086, lgse/strata#1924
+- A saved `preview_video_start = 100` or `5000` loads as 99, and setting a value above 99 stores 99. lgse/strata#2086, lgse/strata#1924
+- A video with a position remembered this session resumes there, not at the configured start. lgse/strata#2086, lgse/strata#1924
+- With the start at 0, a video closed in its first second or at its end later opens at a start set afterwards. lgse/strata#2086, lgse/strata#1924
+- With a start set, audio files, animated GIFs, and streams of unknown length start at 0:00. lgse/strata#2086, lgse/strata#1924
+- With a start set, a raw stream named `.h264`, `.264`, `.h265`, `.265`, or `.hevc` starts at 0:00. lgse/strata#2086, lgse/strata#1924
+- Stepping with Ctrl+Alt+`<`/`>`, or `<`/`>` in 10xer mode, into a video not previewed this session opens it at the configured start. lgse/strata#2086, lgse/strata#1924
+- A start that rounds to the first frame, such as a low percent of a short clip, plays from 0:00 without restarting the decoder. lgse/strata#2086, lgse/strata#1924
+- The setting is read when a preview opens; changing it leaves an open preview where it is. lgse/strata#2086, lgse/strata#1924
+
 ### Seeking and recovery
 
 - An isolated seek restarts at once with the slider at the target; seeks within 200 ms coalesce to the settled position. lgse/strata#1314
 - A playback stall mid-play, such as a frozen audio clock or decoder failure, restarts at the last position up to 3 consecutive times without progress, then shows the last error. lgse/strata#1314
 - A video closed after more than 1 s and before its end reopens at that position in the same session. lgse/strata#1314
+- A video closed within its first second or at its end reopens at 0:00 only when a start was configured as it opened; otherwise its position is forgotten. lgse/strata#1314, lgse/strata#2086, lgse/strata#1924
 - On a sink whose start-up delay exceeds 130 ms, such as Bluetooth A2DP over PipeWire-Pulse, audio plays through without stalling at 0:00. lgse/strata#1411
 - After a start, seek, or resume, the playhead waits for the audio sink instead of advancing and snapping back. lgse/strata#1411
 
@@ -106,12 +121,17 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - The preview reads leading bytes before choosing a player, so a sequence trusting names landed on files that preview as text. Sequences now join local files by content (lgse/strata#2003, lgse/strata#2026).
 - Content answers belong to one preview and are trimmed to its listing; there is no global cache (lgse/strata#2026).
 - Checks run as background work through request lanes, so a stalled mount parks no workers. One 10 s busy wait covers every folder of a run and is never reset within it (lgse/strata#2026).
+- Video preview start is a percentage, not a fixed offset, so one value suits clips of any length (lgse/strata#1910).
+- The start applies only with no remembered position, so it complements resume instead of replacing it. It is applied once, when the first header arrives, through the resume restart path; later seeks and resize restarts never reapply it. A first-time video with a start therefore runs two decoder sessions (lgse/strata#1910, lgse/strata#1924).
+- Raw streams start at 0:00 because the helper seeks them by decoding up to the target, and a late start in a long stream could exceed the first-frame timeout (lgse/strata#1924).
+- 0:00 is remembered only when a start was configured. With the default 0, every previewed video and GIF would fill the 128-entry position cache and evict real resume positions (lgse/strata#1924).
 - The `packaging/media-runtime` patch kit pins a GStreamer worker-finalization fix and probes. It does not change the shipped binary (lgse/strata#779). The GTK context patch was retired once upstream merged it (lgse/strata#830).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2086 | feat | Added a Video preview start percentage so a video previewed for the first time in a session opens part-way in. |
 | 2026-11-02 | lgse/strata#2026 | fix | Built previous/next media sequences from file content, not names, so text files named as videos are skipped. |
 | 2026-10-04 | lgse/strata#1411 | fix | Fed audio by sink capacity with a 2 s lead so slow-starting sinks no longer stall. |
 | 2026-10-01 | lgse/strata#1346 | fix | Omitted input seeks for raw H.264 and HEVC streams so they play and seek. |
@@ -136,3 +156,5 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - The volume slider and the plain media bar's seek slider have no accessible name. Naming them needs new strings in every catalog. lgse/strata#1896
 - Remote (GVfs) and route files are still placed in a media sequence by name, not content. lgse/strata#2026
 - Files not read before the 10 s busy wait ran out stay out of the sequence until the shown file changes. lgse/strata#2026
+- The start rule recognizes a raw H.264 or H.265 stream by its extension only, so a raw stream named `.mp4` still opens at the configured start. lgse/strata#1924
+- A video closed before its decoder header arrives forgets its remembered resume position. lgse/strata#1924

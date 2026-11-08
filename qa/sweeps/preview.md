@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -183,6 +183,10 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview the text `fake.mp4` itself, then step away and back.
 - Overwrite `fake.mp4` with a real MP4 while a sibling video is shown, then step.
 - Step through an sftp folder holding text named `.mp4`, and through a folder mixing GPX routes with videos.
+- With Video preview start at 1, 50, and 99, preview a 3 s clip, a 2-hour clip, the VFR clip, and the truncated MP4; then reopen each after closing at 0.5 s, mid-clip, and at the end.
+- Change Video preview start while a video is open, then step away and back, and open the same file in a second window.
+- With a start set, preview a raw stream renamed `.mp4`, an `.ogg` carrying a video stream, and an MP3 with an attached picture.
+- Preview 130 different videos with a start set, then reopen the first one closed mid-clip.
 
 ### preview/preview-panel/media/audio
 
@@ -271,6 +275,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
 - With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Under `[keymap.default]`, set `last_item = ["F8"]`, `page_down = ["F11"]`, `media_seek_end = ["F9"]`, and `media_volume_step_up = ["F10"]`. On a focused playing timeline, press End, Page Down, `G`, F8, F11, F9, `+`, `=`, and F10.
+- In Columns, click a folder, then press Space, Shift+Space, and Super+Space with the drawer open and closed; repeat on a folder symlink, an empty folder's column, and with Single-click file previews on.
 
 ### preview/quick-preview/folder-peek
 
