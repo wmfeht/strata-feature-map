@@ -3,12 +3,12 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs, src/ui/browser/view_navigation.rs, src/ui/browser_modes/focus.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl, tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl, tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl, tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl, tests/qa/scenarios/keyboard_navigation/keyboard-only-copy-paste.jsonl, tests/qa/scenarios/keyboard_navigation/return-restores-nested-scroll.jsonl, tests/qa/scenarios/keyboard_navigation/select-all-selects-every-entry.jsonl, tests/qa/scenarios/keyboard_navigation/shift-arrow-extends-selection.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl, tests/qa/mutations/keyboard-navigation.patch]
 docs: [docs/keyboard-navigation.md]
-related: [browser/sidebar, browser/navigation, integration/10xer-mode, operations/rename, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser]
+related: [browser/sidebar, browser/navigation, integration/10xer-mode, operations/rename, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser, browser/navigation/first-column]
 ---
 
 ## Summary
@@ -30,6 +30,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - With Type to search on, `h`, `j`, `k`, and `l` pressed in the file list start a search instead of moving. lgse/strata#555 (unverified)
 - When a grouped List refocuses its first row after a load, keyboard focus goes to the topmost row. That holds even after rows published above it carried GTK's focus row down. lgse/strata#2070
 - Enter on a sidebar place in Icons gives the opened folder's first item focus and selection. A remembered folder restores its cursor instead. lgse/strata#374, lgse/strata#379, lgse/strata#1544 (unverified)
+- In Icons and List, Alt+Down leaves the location and the column strip unchanged; only Columns makes a column first. lgse/strata#2086, lgse/strata#1925
 
 ### Leaving the file list
 

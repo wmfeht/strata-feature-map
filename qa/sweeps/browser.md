@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -29,13 +29,13 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Raw H.264 samples: `ffmpeg -f lavfi -i testsrc2=size=320x180:rate=24:duration=3 -c:v libx264 -pix_fmt yuv420p -an alpha.h264`. Copy it as `.H264`, `.264`, `clip.h264.txt`, and with no extension; encode an HEVC stream as `.h265` and `.hevc`. Put plain text in `notes.h264` and leave an empty `empty.h264`.
 - RAW samples: a lossless compressed Fuji `.RAF`, a portrait Pentax `.DNG`, and a GoPro `.GPR`. Toggle `dcraw` and `simple_dcraw` on the sandbox `PATH` per probe.
 - Ubuntu 24.04 with GTK 4.14 for context menu teardown probes.
-- GNOME Shell, KDE Plasma, and Hyprland Wayland sessions and an X11 session, plus two monitors of different heights, for context menu placement probes.
+- GNOME Shell, KDE Plasma, and Hyprland Wayland sessions and an X11 session for context menu placement probes.
 - Update-notice probes reuse the app sweep's prerelease build and update proxy to make a check find an offer.
 - For namespace-fallback probes: Ubuntu 24.04 with the `bwrap-userns-restrict` AppArmor profile loaded, or elementary OS 8, in a VM. The QA container cannot restrict namespaces, so these probes run by hand.
 - An AT-SPI inspector such as Accerciser, or Orca, for probes that read roles, names, and checked or pressed states.
 - Tab session probes need a disposable `$XDG_CONFIG_HOME`; read `strata/tabs.toml` back after each quit and before each launch.
 - Network mounts for change-check and stalled-mount probes: NFSv3 and NFSv4.2 exports, a `cifs` SMB share, an `sshfs` mount, and a 9p or virtiofs share. Each must be writable from the server. Stall a mount by stopping its server or sending SIGSTOP to the FUSE daemon. `powerprofilesctl` switches power-saver mode.
-- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition, a kernel exFAT partition, and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount.
+- Per-folder view probes need a disposable `$XDG_STATE_HOME`; read `strata/folder-views.toml` back after each probe. Add a USB drive with an ext4 partition, a kernel exFAT partition, and an NTFS partition mounted with ntfs-3g (`fuseblk`), and an `sshfs` mount. Add a `fuse.mergerfs` pool over two of the USB partitions (`mergerfs /b1:/b2 /data/pool`) and a gocryptfs mount.
 - `tests/qa/mutations/` holds the `click-modes`, `click-mode-preference`, `shift-click-range`, `filter-results`, `keyboard-navigation`, `location-entry`, `popover-scrolling`, and `view-switching` patches; `./scripts/qa-mutation.sh <name>` is evidence when those areas changed.
 
 ## Probes
@@ -78,6 +78,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Settings → Actions → New action, press Up from the bottom control of each tab's page until focus stops, then Down; repeat after switching tabs with Left and Right from the strip.
 - Open a second tab on `100000` and switch back to the first while it loads; press arrows as the hidden load finishes. Then open Properties while the visible Columns folder reloads after an external change.
 - Press Down in each view under a light and a dark theme, then move the pointer without clicking and press Down again; note when each focus outline shows and hides.
+- Press Alt+Down in Icons on a folder, in List on a Ctrl+F result, and in grouped List; then switch to Columns and press Back.
 
 ### browser/selection/marquee
 
@@ -222,6 +223,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Change the main window's default icon size, then change the chooser's default sort before the main window's save lands.
 - Rename a sorted folder from a shell, then delete it and reopen its parent; repeat for a folder on the unmounted drive.
 - Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
+- Repeat the remount sort probe on the mergerfs pool and the gocryptfs mount; then unmount one pool branch and reopen the folder.
+- Sort a column on the `sshfs` mount and in Trash, then delete a folder open in the next column, from Strata and from a shell.
+- With the switch off, sort two columns differently, delete a folder open in a third, then press Alt+Up, Back, and Forward.
 
 ### browser/view-modes/density
 
@@ -299,6 +303,14 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Choose an entry whose folder was deleted or unmounted since the visit, then press Alt+Right.
 - Rebind `context_menu` away from Menu and Shift+F10 under `[keymap.default]`, then read Back's description and press the old and new keys on it.
 - In the file chooser, focus Back with history and press Menu, then Shift+F10; repeat with no history and with the location entry open.
+
+### browser/navigation/first-column
+
+- Press Alt+Down with Mirror columns selection off, with a folder-peek popover open, and with a Ctrl+F filter open in the focused column.
+- Press Alt+Down, Alt+Left, then Alt+Right; repeat with the focused column on an `sftp://` share and in `trash:///`.
+- Press Alt+Down in the portal file chooser, in 10xer mode, and with Ctrl+Alt+Down while a video preview plays.
+- Bind `make_first_column` to another key under `[keymap.default]`, then press the new key and Alt+Down.
+- Select three items in a middle column with the cursor on the last, press Alt+Down, then Shift+Down.
 
 ### browser/navigation/folder-jump
 
@@ -405,6 +417,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Start two F2 renames of filter results, the second before the index lists the first, then press Delete.
 - Rename a filter result to a name the query no longer matches and to its own name; read the selection and focus.
 - In grouped List, scroll to the first row with Home, by clearing a Ctrl+F query, and at text size 28 and Content Airy.
+- Type `/` after a query of two spaces, after a query matching only files, and in the second Columns column, where the filter moves to the new column.
+- Type a query in `100000` with Include subfolders on, press `/`, then press Escape or edit the query before results arrive.
+- In the file chooser with Include subfolders on, press `/` twice down two levels, then Escape twice.
+- With fcitx5 pinyin, select the query with Ctrl+A and type `/` while composing; repeat with Zhuyin.
 
 ### browser/search/filter/enter-target
 
@@ -567,8 +583,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.
 - Open the menu on a file on a virtiofs share, a 9p share, and a mergerfs mount.
 - Shrink the window to 400×300 and right-click an entry at its right edge; then press Shift+F10 there with nothing selected.
-- Move the window against the monitor's bottom edge and right-click the last row, then open the multi-selection menu of 50 entries there.
-- With two monitors of different heights, open a long menu near the shorter one's bottom, then with the window straddling both.
+- In a window 300 px tall, right-click the last row, the middle row, and the first row; then open the multi-selection menu of 50 entries at each.
+- Resize the window from just taller than a file's menu to just shorter, right-clicking the last row at each step; then move the window half off screen and repeat.
+- Open the menu on a file whose Open With and custom-action rows load late, in a window just taller than the menu; watch for a jump after the first frame.
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 - Open a file menu in one window, rebind Rename and Copy in Settings → Keyboard from a second window, and read the hints; repeat in 10xer mode and in German.
 - Switch between light and dark themes and change text size, then open item menus in each view; compare every icon with a fresh launch.

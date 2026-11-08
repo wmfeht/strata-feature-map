@@ -3,7 +3,7 @@ title: Navigation
 status: shipped
 origin: {issue: lgse/strata#70, pr: lgse/strata#118}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/ui/window/composition/input.rs, src/app/browser/columns.rs, src/app/browser/navigate.rs, src/app/navigation/history.rs]
 tests: [src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, src/app/navigation/tests/history.rs, src/app/browser/tests/navigation/returning_columns.rs, tests/qa/scenarios/view_switching/returning-to-columns-follows-selection.jsonl]
@@ -13,7 +13,7 @@ related: [browser/tabs, browser/view-modes, browser/view-modes/position-restore,
 
 ## Summary
 
-Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), and `browser/navigation/startup-arguments` (command-line locations). Also `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders) and `browser/navigation/administrator-access` (unreadable local folders through `admin://`). `browser/navigation/back-history` is the List and Icons Back button's menu of earlier locations. Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`. This node also covers which Columns child column survives a switch back from List or Icons.
+Moving between locations in a browser pane: Back, Forward, and Parent history from keys, mouse buttons, and pane-header buttons. Children: `browser/navigation/location-bar` (path entry and breadcrumbs), `browser/navigation/recent` (the Recent collection), and `browser/navigation/startup-arguments` (command-line locations). Also `browser/navigation/folder-jump` (Ctrl+Shift+K over visited folders) and `browser/navigation/administrator-access` (unreadable local folders through `admin://`). `browser/navigation/back-history` is the List and Icons Back button's menu of earlier locations. `browser/navigation/first-column` is Alt+Down, which makes the focused Columns column the first. Restoring an Icons or List folder's position on return belongs to `browser/view-modes/position-restore`. Selecting the folder you came from in Columns belongs to `browser/view-modes/columns`, and the List and Icons pane-header history buttons to `browser/view-modes`. This node also covers which Columns child column survives a switch back from List or Icons.
 
 ## Behavior
 

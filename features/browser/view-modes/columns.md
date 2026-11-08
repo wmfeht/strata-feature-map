@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs, src/ui/browser/columns/append.rs, src/ui/browser/columns/append/header.rs, src/ui/browser/columns/append/models.rs, src/ui/browser/columns/append/shell.rs, src/ui/browser/columns/append/surface.rs, src/ui/browser/columns/cursor.rs, src/ui/browser/columns/double_click.rs, src/ui/browser/columns/lifecycle.rs, src/ui/browser/columns/resize.rs, src/ui/browser/columns/rows/bind.rs, src/ui/browser/columns/rows/click.rs, src/ui/browser/columns/rows/widgets.rs, src/ui/browser/columns/state.rs, src/ui/browser/columns/strip_scroll.rs, src/ui/browser/events/selection.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/after_back.rs]

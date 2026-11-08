@@ -3,12 +3,12 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs, src/ui/browser/context_menu/actions/presentation.rs, src/ui/browser/context_menu/focus.rs, src/ui/browser/context_menu/folder_menu.rs, src/ui/browser/context_menu/item_menu.rs, src/ui/browser/context_menu/item_options.rs, src/ui/browser/context_menu/open_with.rs, src/ui/browser/context_menu/options.rs, src/ui/browser/context_menu/popover.rs, src/ui/browser_modes/context_menu.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl, tests/qa/scenarios/entry_management/new-items-from-entry-menu.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [browser/selection, browser/search/filter, browser/tabs, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility, browser/navigation/recent, integration/open-with, integration/open-with/terminal, operations/trash, operations/trash/restore, operations/delete]
+related: [browser/selection, browser/search/filter, browser/tabs, integration/custom-actions, operations/clipboard/send-to, integration/portal-file-chooser, app/accessibility, browser/navigation/recent, integration/open-with, integration/open-with/terminal, operations/trash, operations/trash/restore, operations/delete, browser/navigation/first-column]
 ---
 
 ## Summary
@@ -120,13 +120,16 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Placement
 
 - Right-clicking an entry anywhere in a long, scrolled list shows its menu at the click. lgse/strata#306, lgse/strata#1894
-- In a small window, right-clicking an entry near the bottom edge opens the menu at the click. lgse/strata#1893, lgse/strata#1894
-- That menu extends past the window when needed and stays fully on screen. lgse/strata#1893, lgse/strata#1894
-- A menu opens below the click, and flips above it when the screen has no room below. lgse/strata#1893, lgse/strata#1894
-- A menu with no room on screen above or below the click shrinks and scrolls instead of moving away from the click. lgse/strata#1893, lgse/strata#1894
-- A menu opened near the screen's left or right edge slides horizontally to stay on screen. lgse/strata#1893, lgse/strata#1894
-- A menu's height is capped at the monitor height less 16 px at each edge; a taller menu scrolls. lgse/strata#1894 (unverified)
-- A keyboard-opened background menu is not held inside the window; like a pointer-opened menu, it may extend past it. lgse/strata#1894 (unverified)
+- In a small window, right-clicking an entry near the bottom edge opens the menu above the click, or slid up inside the window when neither side fits. lgse/strata#2081
+- A menu never extends past the window, even when the screen has room beyond it. lgse/strata#2081
+- A menu stays at least 8 px inside each window edge. lgse/strata#2081 (unverified)
+- A menu opens below the click when it fits there whole, and above the click when only that side fits. lgse/strata#2081
+- A menu that fits neither below nor above the click slides up inside the window and shows whole. lgse/strata#2081
+- A menu scrolls only when the window is shorter than the menu; otherwise every item shows without scrolling. lgse/strata#2081
+- A menu opened near the window's left or right edge shifts horizontally to stay inside the window. lgse/strata#2081
+- A menu whose last items take their size after it opens, such as a file's menu, is refitted on the following frames and still shows whole. lgse/strata#2081
+- Menus opened with Menu or Shift+F10, the background menu included, stay inside the window the same way. lgse/strata#2081 (unverified)
+- The file chooser's item menus and the Ctrl+K result menus stay inside the window the same way. lgse/strata#2081 (unverified)
 - In Columns, the entries targeted by an open menu stay highlighted as selected while the column lacks focus. lgse/strata#616
 
 ### Appearance
@@ -148,8 +151,10 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - A popup appearing under a stationary pointer is not pointer movement. The keyboard keeps ownership until the pointer actually moves, so a resting pointer cannot steal initial focus (lgse/strata#1155).
 - Focusing a submenu's owner row alone left arrows routed to the hidden branch. Left therefore hides the submenu and clears GTK's open-submenu state (lgse/strata#1155).
 - Popovers parented to list views vanished for rows mid-list, so menus live in the window overlay (lgse/strata#303, lgse/strata#306).
-- Menus are `xdg_popup`s, so Strata anchors them at the click, requests placement below, and caps their height at the monitor. Clamping to the window squeezed or displaced menus in small windows (lgse/strata#1893, lgse/strata#1894).
-- GTK and the compositor flip, slide, or shrink the popup to keep it on screen. That covers the mid-list case, so measuring and shifting the anchor (lgse/strata#702) was dropped (lgse/strata#1894).
+- Menus are `xdg_popup`s anchored at the click. lgse/strata#1894 capped them by the monitor and left flipping and sliding to GTK and the compositor, because clamping to the window squeezed or displaced menus in small windows (lgse/strata#1893, lgse/strata#1894).
+- lgse/strata#2081 moved placement back inside the window, because monitor-capped menus ran past the window's edge. Strata picks below, above, or slid up, and stays clear of the left and right edges.
+- A hidden popover measures as empty and its scrolled window can under-report its child, so Strata measures the menu's frame and content directly (lgse/strata#2081).
+- A file's menu sizes its last items only on its first shown frame, so the menu is refitted each frame until its size holds (lgse/strata#2081).
 - Open stays a top-level row and Open in… holds only New Tab and New Window, so the submenu header performs no action. Flat rows were rejected for a compact submenu (lgse/strata#1540, lgse/strata#1543).
 - Grouping follows Open, Edit, Transfer, Transform, Organize/Inspect, Destructive, without visible headings to save height. Compress stays a singleton group rather than join an unrelated one (lgse/strata#1207).
 - Icons are secondary cues; labels carry meaning. CircleX gives irreversible deletion a distinct shape, not only a color (lgse/strata#1207).
@@ -169,6 +174,7 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2081 | fix | Kept context menus inside the window, below, above, or slid up, instead of capping them by the monitor. |
 | 2026-11-03 | lgse/strata#1973 | fix | Added New Folder and New File to entry menus, so creating an item no longer needs background space. |
 | 2026-11-03 | lgse/strata#2041 | perf | PNG-encoded each mirrored menu icon texture once and reused it, instead of per item on every column build. |
 | 2026-10-25 | lgse/strata#1894 | fix | Anchored menus at the click and capped their height to the monitor, so they extend past a small window instead of being squeezed or shifted. |
@@ -187,3 +193,4 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 ## Known gaps
 
 - On GTK 4.14, Left in a submenu does not return keyboard control to the parent menu as it does on GTK 4.22. lgse/strata#1695
+- Folder and column menus have no entry that makes a column the first one; only Alt+Down does. lgse/strata#1925
