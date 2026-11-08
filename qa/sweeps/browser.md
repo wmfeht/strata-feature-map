@@ -225,7 +225,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Undo a Keep-both move of a sorted folder, then Put back a trashed one after Forget all folder settings.
 - Repeat the remount sort probe on the mergerfs pool and the gocryptfs mount; then unmount one pool branch and reopen the folder.
 - Sort a column on the `sshfs` mount and in Trash, then delete a folder open in the next column, from Strata and from a shell.
-- With the switch off, sort two columns differently, delete a folder open in a third, then press Alt+Up, Back, and Forward.
+- With the switch off, sort two columns differently and delete a folder open in a third. Then press Alt+Down, Back, and Forward.
 
 ### browser/view-modes/density
 
@@ -306,10 +306,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/navigation/first-column
 
-- Press Alt+Down with Mirror columns selection off, with a folder-peek popover open, and with a Ctrl+F filter open in the focused column.
+- Press Alt+Down with Mirror columns selection off, with a folder-peek popover open, and with a filter open in the focused column.
 - Press Alt+Down, Alt+Left, then Alt+Right; repeat with the focused column on an `sftp://` share and in `trash:///`.
 - Press Alt+Down in the portal file chooser, in 10xer mode, and with Ctrl+Alt+Down while a video preview plays.
-- Bind `make_first_column` to another key under `[keymap.default]`, then press the new key and Alt+Down.
+- Bind `make_first_column` to another key under `[keymap.default]`, then press Alt+Down and Shift+Alt+Down.
 - Select three items in a middle column with the cursor on the last, press Alt+Down, then Shift+Down.
 
 ### browser/navigation/folder-jump
@@ -417,9 +417,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Start two F2 renames of filter results, the second before the index lists the first, then press Delete.
 - Rename a filter result to a name the query no longer matches and to its own name; read the selection and focus.
 - In grouped List, scroll to the first row with Home, by clearing a Ctrl+F query, and at text size 28 and Content Airy.
-- Type `/` after a query of two spaces, after a query matching only files, and in the second Columns column, where the filter moves to the new column.
+- Type `/` in the second Columns column, where the filter moves to the new column.
 - Type a query in `100000` with Include subfolders on, press `/`, then press Escape or edit the query before results arrive.
-- In the file chooser with Include subfolders on, press `/` twice down two levels, then Escape twice.
+- In the file chooser with Include subfolders on, press `/` twice to go down two levels.
 - With fcitx5 pinyin, select the query with Ctrl+A and type `/` while composing; repeat with Zhuyin.
 
 ### browser/search/filter/enter-target
@@ -584,8 +584,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open the menu on a file on a virtiofs share, a 9p share, and a mergerfs mount.
 - Shrink the window to 400×300 and right-click an entry at its right edge; then press Shift+F10 there with nothing selected.
 - In a window 300 px tall, right-click the last row, the middle row, and the first row; then open the multi-selection menu of 50 entries at each.
-- Resize the window from just taller than a file's menu to just shorter, right-clicking the last row at each step; then move the window half off screen and repeat.
-- Open the menu on a file whose Open With and custom-action rows load late, in a window just taller than the menu; watch for a jump after the first frame.
+- Resize the window from just taller than a file's menu to just shorter, right-clicking the last row at each step. Then move the window half off screen and repeat.
+- In a window just taller than a file's menu, open it on a file whose Open With and custom-action rows load late. Watch for a jump after the first frame.
 - Repeat the edge probes on GNOME, KDE, Hyprland, X11, and GTK 4.14, and in the file chooser and Ctrl+K results.
 - Open a file menu in one window, rebind Rename and Copy in Settings → Keyboard from a second window, and read the hints; repeat in 10xer mode and in German.
 - Switch between light and dark themes and change text size, then open item menus in each view; compare every icon with a fresh launch.

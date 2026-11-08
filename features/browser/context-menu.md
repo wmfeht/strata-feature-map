@@ -120,14 +120,13 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Placement
 
 - Right-clicking an entry anywhere in a long, scrolled list shows its menu at the click. lgse/strata#306, lgse/strata#1894
-- In a small window, right-clicking an entry near the bottom edge opens the menu above the click, or slid up inside the window when neither side fits. lgse/strata#2081
-- A menu never extends past the window, even when the screen has room beyond it. lgse/strata#2081
-- A menu stays at least 8 px inside each window edge. lgse/strata#2081 (unverified)
+- In a small window, right-clicking an entry near the bottom edge opens the menu above the click. When neither side fits, it opens slid up inside the window. lgse/strata#2081
+- A menu stays at least 8 px inside each window edge, even when the screen has room beyond the window. lgse/strata#2081 (unverified)
 - A menu opens below the click when it fits there whole, and above the click when only that side fits. lgse/strata#2081
 - A menu that fits neither below nor above the click slides up inside the window and shows whole. lgse/strata#2081
-- A menu scrolls only when the window is shorter than the menu; otherwise every item shows without scrolling. lgse/strata#2081
+- A menu scrolls only when it is taller than the window less 8 px at the top and 8 px at the bottom. Otherwise every item shows. lgse/strata#2081 (unverified)
 - A menu opened near the window's left or right edge shifts horizontally to stay inside the window. lgse/strata#2081
-- A menu whose last items take their size after it opens, such as a file's menu, is refitted on the following frames and still shows whole. lgse/strata#2081
+- Some menus, such as a file's menu, size their last items after opening. They are refitted on the following frames and still show whole. lgse/strata#2081
 - Menus opened with Menu or Shift+F10, the background menu included, stay inside the window the same way. lgse/strata#2081 (unverified)
 - The file chooser's item menus and the Ctrl+K result menus stay inside the window the same way. lgse/strata#2081 (unverified)
 - In Columns, the entries targeted by an open menu stay highlighted as selected while the column lacks focus. lgse/strata#616
@@ -151,10 +150,10 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - A popup appearing under a stationary pointer is not pointer movement. The keyboard keeps ownership until the pointer actually moves, so a resting pointer cannot steal initial focus (lgse/strata#1155).
 - Focusing a submenu's owner row alone left arrows routed to the hidden branch. Left therefore hides the submenu and clears GTK's open-submenu state (lgse/strata#1155).
 - Popovers parented to list views vanished for rows mid-list, so menus live in the window overlay (lgse/strata#303, lgse/strata#306).
-- Menus are `xdg_popup`s anchored at the click. lgse/strata#1894 capped them by the monitor and left flipping and sliding to GTK and the compositor, because clamping to the window squeezed or displaced menus in small windows (lgse/strata#1893, lgse/strata#1894).
+- Menus are `xdg_popup`s anchored at the click. lgse/strata#1894 capped them by the monitor and left flipping and sliding to GTK and the compositor. Clamping to the window had squeezed or displaced menus in small windows (lgse/strata#1893, lgse/strata#1894).
 - lgse/strata#2081 moved placement back inside the window, because monitor-capped menus ran past the window's edge. Strata picks below, above, or slid up, and stays clear of the left and right edges.
-- A hidden popover measures as empty and its scrolled window can under-report its child, so Strata measures the menu's frame and content directly (lgse/strata#2081).
-- A file's menu sizes its last items only on its first shown frame, so the menu is refitted each frame until its size holds (lgse/strata#2081).
+- A hidden popover measures as empty, and its scrolled window can under-report its child. Strata therefore measures the menu's frame and content directly (lgse/strata#2081).
+- A file's menu sizes its last items only on its first shown frame. The menu is therefore refitted each frame until its size holds (lgse/strata#2081).
 - Open stays a top-level row and Open in… holds only New Tab and New Window, so the submenu header performs no action. Flat rows were rejected for a compact submenu (lgse/strata#1540, lgse/strata#1543).
 - Grouping follows Open, Edit, Transfer, Transform, Organize/Inspect, Destructive, without visible headings to save height. Compress stays a singleton group rather than join an unrelated one (lgse/strata#1207).
 - Icons are secondary cues; labels carry meaning. CircleX gives irreversible deletion a distinct shape, not only a color (lgse/strata#1207).

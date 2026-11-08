@@ -28,9 +28,9 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - A sort change in one window re-sorts every open column, tab, and window showing that folder at once. lgse/strata#1563, lgse/strata#1565
 - Remote shares, Trash, Recent, Camera Photos, non-UTF-8 paths, and FUSE filesystems other than `fuseblk` and local overlays are not remembered. lgse/strata#1563, lgse/strata#1565, lgse/strata#2085
 - In such a folder the sort stays with the open column, and a changed Icons size lasts while the folder is shown. lgse/strata#1565
-- In Columns, deleting a folder open after such a folder's column keeps that column's sort. The default sort and `settings.toml` do not change. lgse/strata#2084, lgse/strata#2085
-- Any rebuild of the column strip, such as Back, Forward, or Alt+Up, keeps the sort of each surviving unremembered column. lgse/strata#2085 (unverified)
-- With Remember sort and icon size per folder off, every folder counts as unremembered, so each surviving column keeps its own sort through those rebuilds. lgse/strata#2085 (unverified)
+- In Columns, deleting a folder open after such a folder's column keeps that column's sort, and the default sort does not change. lgse/strata#2084, lgse/strata#2085
+- Any rebuild of the column strip, such as Back, Forward, or Alt+Down, keeps the sort of each surviving unremembered column. lgse/strata#2085 (unverified)
+- With Remember sort and icon size per folder off, every folder counts as unremembered. Each surviving column then keeps its own sort through those rebuilds. lgse/strata#2085 (unverified)
 - Device order and Recency are never stored. Unsorted is stored like any other field, as `sort = "unsorted"`. lgse/strata#1565, lgse/strata#2029 (unverified)
 - A folder's saved sort includes its name order and case sensitivity. lgse/strata#2029
 
@@ -54,7 +54,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - `fuseblk` drives, such as ntfs-3g and exfat-fuse, count as local. lgse/strata#1565
 - FUSE filesystems that layer or encrypt local storage, such as mergerfs, gocryptfs, and bindfs, count as local and remember folder views. lgse/strata#2084, lgse/strata#2085
 - The overlay mount types are `fuse.` followed by mergerfs, gocryptfs, encfs, cryfs, securefs, bindfs, fuse-overlayfs, unionfs, unionfs-fuse, mhddfs, squashfuse, archivemount, fuse-zip, or ciopfs. lgse/strata#2085 (unverified)
-- A folder on such an overlay is keyed by its absolute path, not by the UUIDs of the drives under it. lgse/strata#2085 (unverified)
+- A folder on an overlay mounted outside a removable drive is keyed by its absolute path. The UUIDs of the drives under the overlay play no part. lgse/strata#2085 (unverified)
 - Other FUSE filesystems, such as `fuse.sshfs`, `fuse.rclone`, and `fuse.gvfsd-fuse`, stay unremembered. lgse/strata#2085 (unverified)
 - At most 5,000 folders are kept, least recently used evicted first. Opening a folder counts as a use; re-sorting open columns does not. lgse/strata#1563, lgse/strata#1565
 
@@ -94,9 +94,9 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - Only chosen sorts are saved. A followed sort, from a saved value, the default, or a re-sync, saves nothing, so a re-sync never reverts another window's choice (lgse/strata#1565).
 - The portal chooser is a separate process. Saves therefore merge first and lock the state directory, closing the lost-update window (lgse/strata#1565).
 - Relocation follows the folder-color rules for Merge, Trash, and undo, but the storage is separate from `browser/folder-customization` (lgse/strata#1565).
-- lgse/strata#2084 offered two fixes for a sort reset on mergerfs: remember local union filesystems, as `fuseblk` already was, or carry the sort over on a rebuild. lgse/strata#2085 did both.
+- lgse/strata#2084 offered two fixes for a sort reset on mergerfs. One remembers local union filesystems, as `fuseblk` already was; the other carries the sort over on a rebuild. lgse/strata#2085 did both.
 - Carrying the sort over also fixes the reset on NFS and SMB shares, which stay unremembered (lgse/strata#2085).
-- Overlays count as local because they layer or encrypt local storage rather than reach a remote provider. One check now decides it for folder views and the delete dialog, which already treated overlays as local (lgse/strata#2085).
+- Overlays count as local because they layer or encrypt local storage rather than reach a remote provider. The delete dialog already treated them as local, and one check now serves both (lgse/strata#2085).
 
 ## History
 
