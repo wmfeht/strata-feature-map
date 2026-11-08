@@ -68,3 +68,6 @@ browser/navigation/back-history: New since v1.0.0; the next release docs run pla
 operations/drag-and-drop/content-drops: New since v1.0.0; the next release docs run places it.
 operations/rename/typed-paths: New since v1.0.0; the next release docs run places it.
 settings/themes/portal-text-scaling: New since v1.1.1; the next release docs run places it.
+browser/navigation/first-column: New since v1.1.1; the next release docs run places it.
+integration/10xer-mode/search/filter-descent: New since v1.1.1; the next release docs run places it.
+integration/10xer-mode/places/letter-bookmarks: New since v1.1.1; the next release docs run places it.
