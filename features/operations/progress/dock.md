@@ -3,7 +3,7 @@ title: Progress dock
 status: shipped
 origin: {issue: lgse/strata#1360, pr: lgse/strata#1393}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: reviewed
 code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/ui/notice.rs, src/app/browser/operation_events/background.rs]
 tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/ui/browser/progress/tests/minimization/**, src/app/browser/tests/background_operations.rs]

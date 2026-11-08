@@ -3,7 +3,7 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs, src/adapters/local_operations/replacement/**, src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
 tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, src/adapters/local_operations/tests/conflicts/**, src/adapters/local_operations/tests/merge/**, src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs, tests/qa/scenarios/drag_and_drop/drag-folder-merges-into-same-named-folder.jsonl]

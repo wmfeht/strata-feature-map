@@ -3,7 +3,7 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: reviewed
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, src/adapters/local_operations/progress.rs, src/adapters/local_operations/flush.rs, src/app/browser/operation_events/progress.rs, src/app/browser/operation_start.rs, src/ui/browser/progress/dismiss.rs, src/ui/browser/progress/status.rs, src/ui/browser/progress/transfer_updates.rs, src/ui/browser/progress/view.rs]
 tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs, src/adapters/local_operations/tests/sync/**]

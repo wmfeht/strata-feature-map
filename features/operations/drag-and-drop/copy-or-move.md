@@ -3,7 +3,7 @@ title: Drop copy-or-move policy
 status: shipped
 origin: {issue: lgse/strata#248, pr: lgse/strata#502}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: reviewed
 code: [src/services/transfer_action.rs, src/adapters/volume.rs]
 tests: [src/services/transfer_action/tests.rs, src/adapters/volume/tests.rs, src/adapters/volume/tests/lookup_regressions.rs, tests/qa/scenarios/cross_volume_drop/cross-volume-plain-copy.jsonl]

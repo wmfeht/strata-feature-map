@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs, src/ui/browser/trash/delete_dialog.rs, src/ui/window/sidebar_trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
@@ -33,6 +33,7 @@ Moving files and folders to the freedesktop.org Trash and browsing `trash:///` i
 - A finished deletion then moves the cursor on to a neighbour. lgse/strata#2030
 - A cancelled one ends with focus on the folder's row: closing "Operation cancelled" focuses it, and Down moves from it. lgse/strata#2030
 - A deletion that will not start, such as while a transfer's cancel is still pending, leaves the cursor in the folder's column. lgse/strata#2030
+- With animations on, confirming the permanent delete of the open folder dissolves the folder's row in the parent column. lgse/strata#2081
 
 ### Locations without Trash
 
@@ -91,6 +92,7 @@ Moving files and folders to the freedesktop.org Trash and browsing `trash:///` i
 - The `left` keys, Left or `h` by default, focus Cancel and the `right` keys, Right or `l`, focus confirm. lgse/strata#1052, lgse/strata#1885
 - The `activate` keys, Enter and keypad Enter by default, activate the focused button. lgse/strata#1052, lgse/strata#1885
 - With Cancel or Close focused, Enter dismisses the dialog and the files stay. lgse/strata#1052
+- With animations on, confirming a permanent-delete confirmation by click or Enter dissolves the deleted rows in Columns, List, and Icons. lgse/strata#2081
 - In 10xer mode, the `confirm_trash` key, `d` by default, confirms the "Move N items to Trash?" confirmation. lgse/strata#1340, lgse/strata#1508, lgse/strata#1885
 - In the permanent and no-Trash confirmations, that key does not confirm. lgse/strata#1533
 - A backdrop click, Escape, Cancel, or Close dismisses the permanent-delete confirmation without deleting anything. lgse/strata#1052, lgse/strata#1206, lgse/strata#1900
@@ -140,11 +142,14 @@ Trashing is reversible, so it runs immediately and Ctrl+Z replaces a confirmatio
 - Reach is judged from the path as shown, without resolving symlinks on the main thread (lgse/strata#1614).
 - Confirm takes initial focus, matching Finder, so Enter confirms and Escape cancels (lgse/strata#1204). The no-Trash fallback is the exception (lgse/strata#1425). Enter honors the focused button because always confirming was a data-loss path (lgse/strata#854).
 - The deletion confirmation reuses the shared modal focus restoration, so focus returns to the visible pane however the dialog closes (lgse/strata#1859, lgse/strata#1900).
+- The dissolve is prepared when Confirm is clicked, before the dialog closes. Returning focus to the listing leaves the column without an allocation to snapshot until the next frame (lgse/strata#1900, lgse/strata#2081).
+- For the open folder, the snapshot is taken at the parent column the deletion will act on. The cursor still moves only after the dialog closes, so focus never moves while it is open (lgse/strata#2081).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2081 | fix | Prepared the permanent-delete dissolve on Confirm, since the dialog's focus return from lgse/strata#1900 dropped every dissolve. |
 | 2026-11-02 | lgse/strata#2030 | fix | Gave the cursor back when a delete confirmation is cancelled, and moved it to an open folder's row before deleting that folder. |
 | 2026-10-27 | lgse/strata#1900 | fix | Returned focus to the listing when the deletion confirmation closes by backdrop click, Escape, Cancel, or Close. |
 | 2026-10-16 | lgse/strata#1614 | fix | Classified FUSE Trash refusals as unsupported, remembered them per mount until Reload, and cleaned leftover Trash folders. |
