@@ -298,6 +298,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Focus return after closing the search palettes → `browser`.
 - Units as it acts on route previews, open and new, in the browser and the chooser → `preview`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
+- Where Video preview start opens a video, resumes it, or falls back to 0:00 in the preview panel → `preview`.
 - What Watch network folders checks and re-reads in open folders → `browser`.
 - Dot-file changes made while hidden files are off → `browser`.
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails and STL model thumbnails change in the file views → `browser`.
