@@ -3,8 +3,8 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/**, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]
 related: [browser/search, browser/search/filter]
@@ -12,7 +12,7 @@ related: [browser/search, browser/search/filter]
 
 ## Summary
 
-The three footer name prompts of 10xer mode: `/` and `?` find in the listing without hiding rows, `f` filters the current folder, and `s` searches paths below it the way fzf does. Its result-selection module also returns focus to the results' cursor in every mode, including the default Ctrl+F filter.
+The three footer name prompts of 10xer mode: `/` and `?` find in the listing without hiding rows, `f` filters the current folder, and `s` searches paths below it the way fzf does. Its result-selection module also returns focus to the results' cursor in every mode, including the default Ctrl+F filter. Child: `integration/10xer-mode/search/filter-descent` (`/` in a filter enters the matching folder).
 
 ## Behavior
 

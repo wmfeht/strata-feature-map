@@ -3,8 +3,8 @@ title: 10xer mode in the file chooser
 status: shipped
 origin: {issue: lgse/strata#1261, pr: lgse/strata#1311}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/ui/window/keyboard/chooser.rs]
 tests: [src/ui/chooser/tests/keyboard.rs]
 docs: [site/src/reference/portal-file-chooser.md]
@@ -47,6 +47,7 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 
 - `y`, `x`, `p`, `P`, `Y`, `X`, Ctrl+C, Ctrl+X, Ctrl+V, `O`, `;`, `i`, and Shift+Q flash `Not available in the file chooser`. lgse/strata#1311
 - `M`, `C`, `R`, `g +`, and `g -` flash `Not available in the file chooser`. lgse/strata#1340
+- `m` and `'` flash `Not available in the file chooser` and arm no letter-bookmark chord. lgse/strata#2086, lgse/strata#1790
 - In a single-item request, Space, `v`, `V`, Ctrl+A, and Ctrl+R flash `Only one item can be chosen`. lgse/strata#1311
 - `g t`, `g n`, and remote pins flash `Only local folders can be opened here`. lgse/strata#1311
 - `a`, `d`, `D`, sort chords, `.`, `c c`, and `c n` work as in a window. `r` and F2 do too, outside single-file Save requests. lgse/strata#1311

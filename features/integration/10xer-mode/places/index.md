@@ -3,8 +3,8 @@ title: 10xer place chords and folder picker
 status: shipped
 origin: {issue: lgse/strata#1243, pr: lgse/strata#1296}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/ui/window/keyboard/chords.rs, src/ui/folder_picker.rs, src/ui/shortcut_footer/candidates.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/place_chords.rs, src/ui/window/tests/keyboard_dispatch/go_prompt.rs, src/ui/window/tests/keyboard_dispatch/folder_jump.rs, src/ui/folder_picker/tests.rs, tests/qa/scenarios/sidebar_pinning/tenxer-pin-feedback-identifies-slot.jsonl]
 related: [browser/sidebar, browser/navigation, app/keyboard-shortcuts]
@@ -12,7 +12,7 @@ related: [browser/sidebar, browser/navigation, app/keyboard-shortcuts]
 
 ## Summary
 
-Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go ›` path prompt, `z` / `Z` history jumps, and the shared fuzzy folder picker that `go ›`, `move to ›`, `copy to ›`, and `extract to ›` use.
+Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go ›` path prompt, `z` / `Z` history jumps, and the shared fuzzy folder picker that `go ›`, `move to ›`, `copy to ›`, and `extract to ›` use. Child: `integration/10xer-mode/places/letter-bookmarks` (`m` and `'` letter bookmarks).
 
 ## Behavior
 
@@ -84,7 +84,7 @@ Keyboard jumps to places and folders in 10xer mode: the `g` chord, pins, the `go
 
 ## Design
 
-- `g` is the shared armed-chord interaction that the copy, sort, action, and tab chords reuse. A pending chord has one consumer, so a cancelled chord leaves no key that later acts alone (lgse/strata#1296).
+- `g` is the shared armed-chord interaction that the copy, sort, action, tab, and letter-bookmark chords reuse. A pending chord has one consumer, so a cancelled chord leaves no key that later acts alone (lgse/strata#1296, lgse/strata#1790).
 - Ctrl+Shift+B is the fallback route to the sidebar; `g` chords are the main one (lgse/strata#1284).
 - `go ›` exists because typed credentials must not be retained: the entry is cleared on every exit path and keeps no undo history (lgse/strata#1248, lgse/strata#1302).
 - `z` and `Z` read Strata's saved navigation history, the same as Ctrl+Shift+K, rather than a zoxide database, which is out of scope (lgse/strata#1152, lgse/strata#1304).

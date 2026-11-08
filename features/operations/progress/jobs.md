@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+review: draft
 code: [src/services/jobs.rs, src/ui/jobs.rs, src/adapters/local_jobs.rs]
 tests: [src/services/jobs/tests.rs, src/ui/jobs/tests.rs, src/adapters/local_jobs/tests.rs, src/adapters/local_jobs/tests/lifecycle.rs]
 docs: [site/src/reference/custom-actions.md]
@@ -86,3 +86,4 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 ## Known gaps
 
 - Per-item invocations run one at a time; parallel per-item runs, restart, and resume were deferred from the first release. lgse/strata#36, lgse/strata#1085
+- After a custom action opens the Jobs popover, Escape leaves focus on the Jobs toggle, so returning to the listing needs the pointer or Tab. lgse/strata#1826

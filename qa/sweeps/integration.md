@@ -1,12 +1,12 @@
 ---
 title: Integration sweep
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-Every seam between Strata and the rest of the desktop. The portal file chooser: request handling, browsing and accepting in each request kind, the destination choosers for Move to, Copy to, Extract to, and Send to, install and restore of the portal and file-manager roles, Name field filenames and URL downloads, PNG conversion of downloads, and initial size and placement. 10xer mode: the saved preference, keymap ownership, movement, selection, Escape, preview key ownership, place chords and the folder picker, find, filter, and search, the file commands and their chords, and the mode inside the chooser. Open With: activation, the Run confirmation, the application chooser, Always use, Recently Used, and Open in Terminal. Custom actions: manifests, matching, invocation, the Settings editor, and the recipe library. The FileManager1 D-Bus interface.
+Every seam between Strata and the rest of the desktop. The portal file chooser: request handling, browsing and accepting in each request kind, the destination choosers for Move to, Copy to, Extract to, and Send to, install and restore of the portal and file-manager roles, Name field filenames and URL downloads, PNG conversion of downloads, and initial size and placement. 10xer mode: the saved preference, keymap ownership, movement, selection, Escape, preview key ownership, place chords, letter bookmarks, and the folder picker, find, filter, search, and `/` descent from a filter, the file commands and their chords, and the mode inside the chooser. Open With: activation, the Run confirmation, the application chooser, Always use, Recently Used, and Open in Terminal. Custom actions: manifests, matching, invocation, the Settings editor, and the recipe library. The FileManager1 D-Bus interface.
 
 Left to other sweeps: the installer, `.desktop` entries, and single-instance activation, the composition of the context menus, what Move to, Copy to, Extract to, Trash, delete, and Compress do on disk, the Jobs dashboard, views, selection, and tabs inside the chooser, preview rendering, and external file providers.
 
@@ -136,7 +136,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Stack a peek, filter, find highlights, range, preview, and selection; count Esc presses to an empty state from the listing, the sidebar, and the header.
 - With fcitx5 pinyin, compose in `rename ›`, `create ›`, `go ›`, and `move to ›`; press Enter mid-composition, then again after the commit.
 - In a browser window railed by width, press Ctrl+N three times, then Ctrl+B; repeat with the preview owning the keys and with the sidebar focused by Ctrl+Shift+B.
-- Arm `g`, `c`, `,`, `;`, and `t` in a 640 px window, at 32 px text size, and with the clipboard badge showing. Read where each panel sits and whether focus left the listing. Alt+Tab away while one is armed and back.
+- Arm `g`, `c`, `,`, `;`, `; .`, `t`, `m`, and `'` in a 640 px window, at 32 px text size, and with the clipboard badge showing. Read where each panel sits and whether focus left the listing. Alt+Tab away while one is armed and back.
 - With three windows open, toggle the mode from one. In each window press Ctrl+Shift+K, Ctrl+\, and Ctrl+Alt+T from the file list, a non-menu popover, and the sidebar.
 
 ### integration/10xer-mode/preview-keys
@@ -150,6 +150,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press `l` on `tests/fixtures/documents/password-protected.pdf`, then `j`, Right, Down, `k`, and Tab; read the focus ring and the F1 footer. Repeat in the chooser and after clicking the message.
 - In a video press Page Down at 10 seconds, `G` and then Space, `-` past mute and then `+`. Hold Shift on `0` and `G` on a German layout.
 - Rebind `first_item` and `last_item` under `[keymap.tenxer]` to a plain letter, then to a Ctrl key. Press each in a PDF, a text document, an archive tree, a media preview, and a password prompt.
+- Press `m` then a letter and `'` then a letter in a CSV table, an image, a password prompt, and a loading document preview; read the bookmarks file and which pane owns the keys.
 - With `toggle_hidden_files` rebound under `[keymap.tenxer]` to Alt+H, then to a plain letter, press it from a focused document, archive, and media preview. Read the listing and which pane owns the keys.
 
 ### integration/10xer-mode/places
@@ -164,6 +165,15 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - On `fr` and `ch(de)`, press `g` then the keys that type `+` and `-`, on a pinned folder, an unpinned one, and the tenth pin.
 - Press `g +` with the bookmarks file read-only, then on two folders in quick succession, then on the 5th new pin. Read each flash and the bookmarks file.
 
+### integration/10xer-mode/places/letter-bookmarks
+
+- Save with `m` from the second pane of a split in List and Icons, and from a non-last Columns pane; read which folder `'` lists.
+- Press `'` then a letter from a tab other than the first, and from a second window while the first still shows its `'` panel.
+- With the `'` panel open in one window, hand-edit `letter-bookmarks.json` with an uppercase key, a `smb://` URI, and a trailing comma, then press `'` again in another window.
+- Press `m` on a gvfs-mounted SFTP folder and in a folder reached through a symlink; press `'` to a bookmark on the sshfs mount stopped by `kill -STOP`.
+- Rebind `bookmark_go` under `[keymap.tenxer]` to another key, then press it, a saved letter, and F1; repeat on `us(intl)` with the default `'`.
+- Press `'` then a letter and, before the check returns, press Shift alone, switch tabs, press F5, and Alt+Tab away and back.
+
 ### integration/10xer-mode/search
 
 - Find `ß`, `İ`, a regex metacharacter, and a non-UTF-8 name; press `n` after navigating away and `?` from the first row in each view.
@@ -177,6 +187,15 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Fill two `s` hits, open F1, delete the kept hit from a shell, and close F1; repeat after retyping the same query.
 - Fill two `f` hits, rest the cursor on an unfilled hit, then cancel a Shift+Delete dialog, Tab out and back, and close Quick Look; read which hit holds focus and whether the fill changed.
 - Rename a folder two levels above an `s` search while its stream is still running. Rename one back before the monitor fires, and rename one while a copy runs into it.
+
+### integration/10xer-mode/search/filter-descent
+
+- In `f`, type a fuzzy two-term query such as `rep md` whose first result is a folder, then `/`; repeat with a query of spaces and with a query ending in a space.
+- In the 10xer file chooser with Include subfolders on, press `f`, type a query, Down twice, then `/`; read the chooser's folder and whether the request stays open.
+- In Columns, press `f`, a query, and `/` from a non-last column; read which column the new filter belongs to.
+- On a 100k-file tree, type a query and `/` while results stream, then press Escape before the first match arrives; read the location after the stream ends.
+- With fcitx5 pinyin and with ibus-chewing, select the `f` query with Ctrl+A, then type `/`; read the query and the location.
+- Type `/` in `f` on a remote share and in Trash after Up or Down past the last result.
 
 ### integration/10xer-mode/file-verbs
 
@@ -198,6 +217,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - On the sshfs mount, press `d` until Trash is refused, then `d` again before and after F5, and from a second window; read each dialog.
 - Press `x` on a file, then `p` into a folder holding the same name, choose the focused button, and press Ctrl+Z.
 - On `fr`, press `;` then each digit-row key with and without Shift, with 10 and with 3 matching actions.
+- Press `; .` then a digit at `/`, in Recent, over an `f` result list, and over `s` hits spanning folders; read the panel and what the action received.
+- In Columns, press `; .` from a non-last column with the cursor on a folder, then a digit; read which folder the action received.
+- Press `; .`, switch tabs or windows, return, and press a digit; repeat after a shell renames the open folder.
+- Rebind `actions.folder` under `[keymap.tenxer]` to `t`, then bind `actions.terminal` to `.`; read Settings → Keyboard's conflicts, the `;` panel, and F1.
 - Press a slot key on a selection where only some items match its action, and on an unselected focused row. Repeat over filter results and with focus in the sidebar.
 - Rebind `"sort.size"` under `[keymap.tenxer]` to `5`, then to `<Control>s`, and press each with and without Shift. Repeat on `fr`, rebinding a step to a key whose Shift form types another symbol.
 - Press a slot key for a `confirm = true` action, cancel, then press it again with 10xer mode on.
