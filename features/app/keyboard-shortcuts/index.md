@@ -3,8 +3,8 @@ title: Shortcuts on any keyboard layout
 status: shipped
 origin: {issue: lgse/strata#1538, pr: lgse/strata#1576}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/ui/keys.rs, src/ui/keys/label.rs, src/ui/keys/composition.rs]
 tests: [src/ui/keys/tests.rs, src/ui/keys/tests/composition.rs, src/ui/keys/tests/digits.rs, src/ui/keys/tests/labels.rs, src/ui/keys/tests/letters.rs, src/ui/keys/tests/modifiers.rs]
 docs: [docs/keyboard-shortcuts.md]
@@ -39,6 +39,9 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - In 10xer mode with a chord such as `g` armed, pressing AltGr alone leaves the chord armed. lgse/strata#1885
 - A lone layout-switch press, such as `ISO_Next_Group`, also leaves an armed 10xer chord armed. lgse/strata#1885 (unverified)
 - On plain `cn`, every shortcut is the US one. lgse/strata#1583
+- A chord's letter slot reads the Latin fallback: in 10xer mode with Russian active, `m` then the key in `z`'s place saves bookmark `z`. lgse/strata#2086, lgse/strata#1790
+- A letter slot takes only a plain letter: after `m` or `'`, a letter with Shift, Ctrl, Alt, or Super held fills no slot. lgse/strata#2086, lgse/strata#1790
+- On `us(intl)`, where `'` is a dead acute, `'` matches no shortcut: in 10xer mode it opens no bookmark menu, and the next letter runs its own command. lgse/strata#2086, lgse/strata#1790
 
 ### Typing and input methods
 
@@ -61,6 +64,8 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - Shown shortcuts list modifiers in the order Ctrl, Alt, Shift, Super, and an uppercase letter after a modifier, such as Ctrl+Shift+N. lgse/strata#1576
 - A plain letter shows as typed (`j`), Shift+letter as the uppercase letter (`J`), and chord steps are separated by a space (`g h`). lgse/strata#1576
 - Shown shortcuts write minus as −, and arrows as ↑ ↓ ← →. lgse/strata#1576
+- A letter-slot range shows as its trigger then `a–z` with an en dash, such as `m a–z`. lgse/strata#2086, lgse/strata#1790
+- A digit range after a two-key chord shows both keys, such as `; . 1–9 / ; . 0`, and follows both keys when either is rebound. lgse/strata#2086, lgse/strata#1826
 - With type-to-search on and `e` added to default Rename, labels show Rename as F2 / Ctrl+R; with it off, F2 / Ctrl+R / e. lgse/strata#1885
 - Labels leave out a key that never fires, such as `<Shift>exclam`, or a key on `yank` in the default map. lgse/strata#1885
 
@@ -82,6 +87,9 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 - GTK runs a field's input method only after every capture-phase handler. `keys::on_press` therefore forwards keys to a composing field first, as GtkSearchEntry's key capture does; with nothing composing the cost is one empty-list check (lgse/strata#1583).
 - A field that submits on Enter must also submit from `activate`, which is how Enter arrives after an input method passes it back (lgse/strata#1583).
 - No command takes a plain digit or punctuation key while a text field has focus, so Zhuyin syllables reach the input method; new bindings must keep it that way (lgse/strata#1714).
+- A filter's `/` is the one documented exception to reading commands from key presses. It is taken from the field's committed text after the input method, so a Zhuyin, Array30, or Boshiamy code starting with `/` still composes (lgse/strata#1802, lgse/strata#2086). `integration/10xer-mode/search/filter-descent` owns it.
+- Chord letter slots are a fixed `Letters` range that `KeyPress::letter` reads through the Latin fallback, like bindings; the range never rebinds (lgse/strata#1790).
+- A dead key types nothing until the next key, so it matches no binding and has no fallback. Rebinding a command off a dead key, such as `bookmark_go`, is the documented workaround (lgse/strata#1790).
 - On Wayland the input method runs in the compositor, so the keys it uses never reach Strata (lgse/strata#1583).
 
 ## History
@@ -94,3 +102,4 @@ Turns each key event into a shortcut the same way on every keyboard layout. Lett
 ## Known gaps
 
 - Type-to-search started from the file list begins without the input method, so a pinyin letter arrives as Latin and a dead key starts nothing. lgse/strata#1583
+- On layouts where `'` is a dead key, such as `us(intl)`, the 10xer `'` bookmark jump cannot be armed without rebinding `bookmark_go`. A keys-layer dead-key fallback and a `us(intl)` QA layout are proposed. lgse/strata#1790

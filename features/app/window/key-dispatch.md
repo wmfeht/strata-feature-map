@@ -3,7 +3,7 @@ title: Window key and wheel dispatch
 status: shipped
 origin: {issue: null, pr: lgse/strata#544}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: reviewed
 code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/window/key_routing.rs, src/ui/window/keyboard/input_owner.rs, src/ui/window/keyboard/wheel_zoom.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl, src/ui/window/tests/keyboard_dispatch/entry_keys.rs, tests/qa/scenarios/quick_preview/preview-focus-ignores-file-commands.jsonl]

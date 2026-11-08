@@ -3,8 +3,8 @@ title: Remappable shortcuts per map
 status: shipped
 origin: {issue: lgse/strata#1884, pr: lgse/strata#1885}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/ui/keys/command.rs, src/ui/keys/alias.rs, src/ui/keys/capture.rs, src/ui/keys/conflicts.rs, src/ui/preferences/keymap.rs, src/ui/window/keyboard/direct.rs, src/ui/settings/keyboard.rs]
 tests: [src/ui/keys/command/tests.rs, src/ui/keys/alias/tests.rs, src/ui/keys/conflicts/tests.rs, src/ui/preferences/tests/keymap.rs, src/ui/settings/keyboard/tests.rs, src/ui/window/tests/keyboard_dispatch/keymap_overrides.rs, src/ui/window/tests/keyboard_dispatch/keymap_conflicts.rs, src/ui/window/tests/keyboard_dispatch/structural_aliases.rs, src/ui/window/tests/keyboard_dispatch/direct_commands.rs, tests/qa/scenarios/keymap]
 docs: [docs/keymap.md]
@@ -68,6 +68,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - Space is refused on any media preview command. lgse/strata#1885
 - Page Up and Page Down are refused on seek start, seek end, and volume steps. Home is refused on seek end and volume steps. End is refused on volume steps only. lgse/strata#1885
 - A step on its own trigger's key, such as `g g`, `c c`, or `t t`, is valid. lgse/strata#1885
+- In the 10xer table, another Action step captured on `.` is refused as a duplicate of `actions.folder`. lgse/strata#2086, lgse/strata#1826
 - A plain key in the default map while type-to-search is on saves with a note and a **Turn off type-to-search** button. lgse/strata#1885
 - A plain key on an action that also runs in text fields saves with a note that focused text fields keep typing it. lgse/strata#1885
 - An alias on a key text fields bind themselves, such as Ctrl+Backspace for `down`, saves with a note that the field usually wins. lgse/strata#1885
@@ -89,6 +90,10 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - The default table leaves out 10xer chord triggers, and the 10xer table lists no custom action slots. lgse/strata#1885
 - A 10xer chord step's row shows its trigger's key in front of its own. lgse/strata#1885
 - The sort chord's Extension, Created, Unsorted, Natural, Alphabetical, Case-sensitive names, and Folders first steps have rows of those names. lgse/strata#2029, lgse/strata#2074
+- The 10xer table lists "Actions for the focused folder" (`actions.folder`, shipped as `.`); the default table has no such row. lgse/strata#2086, lgse/strata#1826
+- The 10xer table lists "Save current folder under a letter" (`bookmark_set`, `m`) and "Jump to a bookmarked folder by letter" (`bookmark_go`, `'`). lgse/strata#2086, lgse/strata#1790
+- With `bookmark_go` rebound to a free key in the 10xer table, that key then a saved letter jumps there. The a–z letters cannot be rebound. lgse/strata#2086, lgse/strata#1790
+- The default table lists "Make the focused pane the first pane" (`make_first_column`) with Alt+Down; the 10xer table does not. lgse/strata#2086, lgse/strata#1925
 - Each key is a chip with a remove button; an action with no key shows **Not bound**. lgse/strata#1885
 - **Add** shows "Press a key…"; Escape then cancels, and Backspace removes every key of the action. lgse/strata#1885
 - Any other key is checked and appended when no error is found. A refused key keeps the capture waiting and shows why under the row. lgse/strata#1885
@@ -110,7 +115,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 
 - No table binds a direct command by default. lgse/strata#1885
 - In the default map, a key bound to Open with, Move to, Copy to, Restore, invert selection, or search subfolders runs it. lgse/strata#1885
-- So does one bound to the visited or recent folder jump, half-page up or down, or a Sort, Copy, or Action step. lgse/strata#1885
+- So does one bound to the visited or recent folder jump, half-page up or down, or a Sort, Copy, or Action step other than `actions.folder`. lgse/strata#1885, lgse/strata#2086
 - In the default map, direct Move to, Copy to, Extract to, search, and folder jumps open the 10xer footer prompts. lgse/strata#1885
 - A default-map half-page key moves the selection, as Page Down does. lgse/strata#1885
 - Escape in the file list ends a search a default-map direct key started. lgse/strata#1885
@@ -121,6 +126,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - In 10xer mode, copy path runs on a bound key that types nothing, such as one with Ctrl or an F key. lgse/strata#1885
 - Direct commands never run while a text field has focus, or in the portal file chooser. lgse/strata#1885
 - A hand-edited key on a command its map cannot run, such as yank or a Go step in the default map, does nothing. lgse/strata#1885
+- A key bound to `actions.folder` under `[keymap.default]` does nothing, because the default map has no `;` panel to switch. lgse/strata#2086, lgse/strata#1826
 
 ### Custom action slots
 
@@ -143,6 +149,8 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - A capture records the key as labels show it. The Russian scenario captures the key that types у, Ctrl+E, because Copy holds Ctrl+C (lgse/strata#1885).
 - The direct stage exists for commands only one map had a key for. It runs the handler the other map uses, on the active map's targets (lgse/strata#1884, lgse/strata#1885).
 - The plan's E2E coverage became QA scenarios in `tests/qa/scenarios/keymap/`, because the E2E suite was replaced (lgse/strata#1885).
+- `actions.folder` is a remappable `;` step rather than a fixed key, so the checker sees it and the pill, digits, and F1 row follow the user's keys (lgse/strata#1826). The default map has no path for it, because it has no `;` panel to switch (lgse/strata#1826).
+- The bookmark letters are a fixed `Letters` range after the `bookmark_set` and `bookmark_go` triggers, like the digit ranges after Go, Action, and Tabs, so remapping and conflict checks see the triggers (lgse/strata#1790).
 
 ## History
 
