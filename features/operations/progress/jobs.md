@@ -3,7 +3,7 @@ title: Job queue and Jobs dashboard
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/services/jobs.rs, src/ui/jobs.rs, src/adapters/local_jobs.rs]
 tests: [src/services/jobs/tests.rs, src/ui/jobs/tests.rs, src/adapters/local_jobs/tests.rs, src/adapters/local_jobs/tests/lifecycle.rs]
@@ -55,6 +55,7 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 - The footer shows a Jobs button only when jobs exist: it reads "2 jobs running · 1 queued", otherwise "3 jobs finished", with "· failures" when any failed. lgse/strata#1085
 - Launching an action opens Jobs in the launching window with the new job first. lgse/strata#1085
 - Minimize, Escape, or a click outside hides the dashboard without cancelling jobs; progress updates do not reopen it. lgse/strata#1085
+- Escape hides the dashboard and leaves focus on the footer's Jobs button. lgse/strata#1826 (unverified)
 - A row shows the action name and icon, a status with elapsed time ("Running for", "Done in", "Failed after", "Cancelled after"), item counts, and the invoking folder. lgse/strata#1085
 - An active whole-selection job whose script reports no total shows a pulsing progress bar instead of a percentage. lgse/strata#1085
 - An active per-item job's bar fills by completed items plus the current item's reported fraction. lgse/strata#1085 (unverified)
@@ -86,4 +87,4 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 ## Known gaps
 
 - Per-item invocations run one at a time; parallel per-item runs, restart, and resume were deferred from the first release. lgse/strata#36, lgse/strata#1085
-- After a custom action opens the Jobs popover, Escape leaves focus on the Jobs toggle, so returning to the listing needs the pointer or Tab. lgse/strata#1826
+- After a custom action opens the Jobs dashboard, Escape leaves focus on the Jobs button, so returning to the listing needs the pointer or Tab. lgse/strata#1826

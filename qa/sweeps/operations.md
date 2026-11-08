@@ -219,8 +219,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
 - Shift+Delete through a symlink alias into an NFS folder.
 - In an `admin://` folder, press Delete, Shift+Delete, and 10xer `d` on a file and on a folder. Then drag one item onto the sidebar Trash row.
-- In Columns, Shift+Delete the open folder from its own column and confirm by Enter, by click, and the moment the dialog paints; repeat from a column scrolled sideways.
-- Confirm the `/dev/shm` no-Trash dialog and the "Delete N items without Trash?" dialog on the sshfs mount by Enter, in each view mode, and watch the deleted rows.
+- In Columns, Shift+Delete the open folder from its own column and confirm by Enter, and the moment the dialog paints; repeat from a column scrolled sideways.
+- In each view mode, confirm the `/dev/shm` no-Trash dialog by Right, then Enter, and the "Delete N items without Trash?" dialog on the sshfs mount by Enter; watch the deleted rows.
 
 ### operations/trash/restore
 

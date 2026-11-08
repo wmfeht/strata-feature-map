@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser/trash.rs, src/adapters/local_operations/trash.rs, src/ui/browser/trash/delete_dialog.rs, src/ui/window/sidebar_trash.rs]
 tests: [src/ui/browser/trash/tests.rs, src/adapters/local_files/tests/trash.rs, src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
 docs: [docs/trash-restore-testing.md]
-related: [operations/delete, integration/10xer-mode/file-verbs, operations/filesystem-compatibility, browser/context-menu, operations/undo]
+related: [operations/delete, operations/delete/dissolve, integration/10xer-mode/file-verbs, operations/filesystem-compatibility, browser/context-menu, operations/undo]
 ---
 
 ## Summary
@@ -92,7 +92,8 @@ Moving files and folders to the freedesktop.org Trash and browsing `trash:///` i
 - The `left` keys, Left or `h` by default, focus Cancel and the `right` keys, Right or `l`, focus confirm. lgse/strata#1052, lgse/strata#1885
 - The `activate` keys, Enter and keypad Enter by default, activate the focused button. lgse/strata#1052, lgse/strata#1885
 - With Cancel or Close focused, Enter dismisses the dialog and the files stay. lgse/strata#1052
-- With animations on, confirming a permanent-delete confirmation by click or Enter dissolves the deleted rows in Columns, List, and Icons. lgse/strata#2081
+- Confirming the Shift+Delete confirmation by click or Enter keeps the deleted rows' dissolve (`operations/delete/dissolve`) in Columns, List, and Icons. lgse/strata#2081
+- Confirming the no-Trash or "Delete N items without Trash?" confirmation keeps that dissolve too. lgse/strata#2081 (unverified)
 - In 10xer mode, the `confirm_trash` key, `d` by default, confirms the "Move N items to Trash?" confirmation. lgse/strata#1340, lgse/strata#1508, lgse/strata#1885
 - In the permanent and no-Trash confirmations, that key does not confirm. lgse/strata#1533
 - A backdrop click, Escape, Cancel, or Close dismisses the permanent-delete confirmation without deleting anything. lgse/strata#1052, lgse/strata#1206, lgse/strata#1900
