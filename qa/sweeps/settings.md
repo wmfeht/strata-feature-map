@@ -22,7 +22,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`; and `~/.local/share/themes/StrataEmpty/gtk-4.0/gtk.css` holding the same rules.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
-- For Follow system light/dark mode: a dconf session with `gsettings-desktop-schemas`, a `GSETTINGS_BACKEND=memory` run, and a run whose `XDG_DATA_DIRS` holds no `org.gnome.desktop.interface` schema. A script cycles `color-scheme` through `prefer-dark`, `default`, `prefer-light`, and back.
+- For Follow system light/dark mode: a dconf session with `gsettings-desktop-schemas`, a `GSETTINGS_BACKEND=memory` run, and a run whose `XDG_DATA_DIRS` holds no `org.gnome.desktop.interface` schema. In the dconf run only, a script cycles `color-scheme` through `prefer-dark`, `default`, `prefer-light`, and back.
 - A user stylesheet at `$XDG_CONFIG_HOME/strata/style.css` with a valid rule using `@strata_accent`, a rule GTK rejects such as `label { color: nope; }`, and a layout rule such as `.sidebar-shell { margin: 12px; }`; a 1 MB copy and a non-UTF-8 copy beside it.
 - An uncomposited X11 session: the private Xvfb alone, then Xvfb with openbox and no compositor. No client owns the `_NET_WM_CM_S0` selection, as python-xlib's `get_selection_owner` reports. `picom` or `xcompmgr`, installed but not started, so a script can start and stop it while Strata runs.
 - Icon themes for the control icons: Breeze, Yaru, and Adwaita installed, plus a theme without symbolic icons, each selected through `settings.ini` before launch.
@@ -281,14 +281,14 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ### settings/themes/follow-system
 
-- Cycle `color-scheme` with the script at 0, 50, and 500 ms gaps while Settings is open in both windows, a code preview and a Markdown preview are open, and a PDF has text selected.
-- With a paired anchor, cycle the mode while the Add theme editor shows an unsaved preview, then press Cancel; repeat after toggling the switch mid-preview.
-- Write `one-light.toml` as a custom theme, follow the system on One Dark, and switch to light; then rewrite, corrupt, and delete that file while it is in use.
-- Pick Tokyo Night, an unpaired custom theme, and each side of Everforest Dark Soft/Light Medium while following; cycle the mode after each and read `settings.toml`.
-- Seed `mode = "system"`, `"SYSTEM"`, `"system "`, and `"auto"`; launch on the dconf, memory, and schema-less runs, read the switch and Current theme, change one other preference, and diff `settings.toml`.
-- With the fake Quattro state present, toggle Follow system and Follow Omarchy alternately in windows A and B within one second; read both switches and the file.
+- In the dconf run, cycle `color-scheme` with the script at 0, 50, and 500 ms gaps. Keep Settings open in both windows, a code and a Markdown preview open, and PDF text selected.
+- With a paired anchor, cycle the mode while the Add theme editor shows an unsaved preview, then press Cancel. Repeat after toggling the switch mid-preview.
+- Write `one-light.toml` as a custom theme, follow the system on One Dark, and switch to light. Then rewrite, corrupt, and delete that file while it is in use.
+- While following, pick Tokyo Night, an unpaired custom theme, and each side of Everforest Dark Soft/Light Medium. Cycle the mode after each and read `settings.toml`.
+- Seed `mode = "system"`, `"SYSTEM"`, `"system "`, and `"auto"`, and launch on the dconf, memory, and schema-less runs. Read the switch and Current theme, change one other preference, and diff `settings.toml`.
+- With the fake Quattro state present, toggle Follow system and Follow Omarchy alternately in windows A and B within one second. Read both switches and the file.
 - Launch in the schema-less run, then install the schema while Strata runs; search "day night" and read the Appearance page.
-- With Element glow off, Corner roundness 0, and a user stylesheet, cycle the mode; compare menus, dialogs, and file icons with a fresh launch in the same mode.
+- With Element glow off, Corner roundness 0, and a user stylesheet, cycle the mode in the dconf run. Compare menus, dialogs, and file icons with a fresh launch in the same mode.
 
 ## Hand-offs
 

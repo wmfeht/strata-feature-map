@@ -18,13 +18,13 @@ Follow system light/dark mode switches Strata between the light and dark themes 
 
 ### Switch
 
-- Settings → Appearance shows a Follow system light/dark mode switch before Follow Omarchy. lgse/strata#2094
+- Settings → Appearance shows a Follow system light/dark mode switch before Follow Omarchy. lgse/strata#2094 (unverified)
 - Its subtitle reads "Use the light or dark version of the chosen theme to match your desktop's light/dark mode." lgse/strata#2094 (unverified)
 - Without the `org.gnome.desktop.interface` schema or its `color-scheme` key, the switch is hidden. lgse/strata#2094
 - Without that schema, Settings search for "day night" does not show the switch. lgse/strata#2094 (unverified)
 - Without that schema, a saved `mode = "system"` loads as `mode = "theme"` at startup. lgse/strata#2094
 - A saved `mode` other than `theme`, `system`, or `omarchy`, such as `"unknown"`, loads as `mode = "theme"`. lgse/strata#2094 (unverified)
-- Turning Follow system light/dark mode on turns Follow Omarchy off, and the reverse, in every open Settings window. lgse/strata#2094
+- Turning Follow system light/dark mode on turns Follow Omarchy off, and the reverse. lgse/strata#2094
 - Turning Follow system light/dark mode off saves `mode = "theme"` and keeps the saved `theme`. lgse/strata#2094 (unverified)
 - Toggling Follow system light/dark mode during an editor preview ends the preview. lgse/strata#2094 (unverified)
 
@@ -32,7 +32,7 @@ Follow system light/dark mode switches Strata between the light and dark themes 
 
 - While following, `color-scheme = prefer-dark` applies the dark theme of the selected family, such as One Dark. lgse/strata#2094
 - While following, `default`, `prefer-light`, or any other `color-scheme` value applies the family's light theme, such as One Light. lgse/strata#2094
-- Changing `color-scheme` with `gsettings` while Strata runs re-applies the theme in every window without a restart. lgse/strata#2094
+- Changing `color-scheme` with `gsettings` while Strata runs re-applies the theme without a restart. lgse/strata#2094
 - Strata never writes `color-scheme`, and never loads the desktop's GTK theme, icon theme, or accent color. lgse/strata#2094
 - 28 bundled families have a pair, such as One Dark/One Light, Catppuccin Mocha/Latte, and Rosé Pine/Dawn. lgse/strata#2094
 - An unpaired theme, such as Tokyo Night or an unpaired custom theme, keeps one palette in both modes. lgse/strata#2094
@@ -43,11 +43,11 @@ Follow system light/dark mode switches Strata between the light and dark themes 
 ### Theme library
 
 - The saved `theme` is the family anchor: with One Dark saved and a light desktop, `settings.toml` keeps `theme = "onedark-dark"` and `mode = "system"`. lgse/strata#2094
-- Clicking either theme of a pair in the library changes the family and leaves following on. lgse/strata#2094
+- Clicking either theme of a pair in the library changes the family and leaves following on. With a dark desktop, clicking One Light applies One Dark and checks its card. lgse/strata#2094
 - Current theme and the checked library card show the theme in use, so One Dark saved under a light desktop checks One Light. lgse/strata#2094
 - While following, the Current theme description reads "Following the system light/dark mode. Choose a theme family from the library below." lgse/strata#2094 (unverified)
 - While following, Add theme starts from the theme in use, and PDF text selection uses its colors. lgse/strata#2094
-- When a custom file supplying the theme in use is deleted, its last colors stay applied. lgse/strata#2094 (unverified)
+- While following, deleting a custom file that overrides the paired theme in use, such as `one-light.toml`, applies the bundled theme of that id. lgse/strata#2094 (unverified)
 
 ## Design
 

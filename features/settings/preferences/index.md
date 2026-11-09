@@ -28,8 +28,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - When the first tab closes before its after-paint idle runs, no tab in the process pre-builds Settings. lgse/strata#2054 (unverified)
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing, and the dialog keeps focus. lgse/strata#912, lgse/strata#1900
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849, lgse/strata#1900
-- Opening Settings shows the backdrop and panel at full opacity at once, with no fade, on the first and every later open. lgse/strata#2081
-- Closing Settings by any route hides it at once, clears the window blur, and removes the header Settings button's active state. lgse/strata#2081
+- Opening Settings shows it at once, with no fade. lgse/strata#2081
+- The backdrop and panel show at full opacity on the first and every later open. lgse/strata#2081 (unverified)
+- Closing Settings by any route hides it at once. lgse/strata#2081
+- Closing Settings clears the window blur and removes the header Settings button's active state. lgse/strata#2081 (unverified)
 - A click on the Settings panel itself leaves Settings open. lgse/strata#1900
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
@@ -101,7 +103,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Typing "thumbnail workers" in Search settings reveals the Thumbnail workers control. lgse/strata#1081, lgse/strata#1778
 - Searching Settings for "session", "reopen", or "startup" finds Restore open tabs. lgse/strata#1532 (unverified)
 - Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
-- Searching "skip intro" shows General's Video preview start row. lgse/strata#2086, lgse/strata#1924
+- Searching "skip intro" shows General's Video preview start row. lgse/strata#2086, lgse/strata#1924 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
 - Settings search finds Remember sort and icon size per folder, Default sort, and Forget all folder settings by words such as "per folder", "default sort", and "reset". lgse/strata#1565 (unverified)
@@ -131,7 +133,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - Settings → General → Browsing shows a Video preview start row right after Autoplay media previews. lgse/strata#2086, lgse/strata#1924
 - Its stepper runs from 0 to 99, and each − or + press changes the value by 5. lgse/strata#2086, lgse/strata#1924
-- Typing a whole number in the stepper saves it; typing 500 is rejected, and the saved value stays at most 99. lgse/strata#1924
+- Typing a whole number in the stepper saves it; typing 500 is rejected, and the saved value stays at most 99. lgse/strata#1924 (unverified)
 - The row reads "Percent of a video's length to open it at; 0 starts at the beginning. A video you already previewed resumes where you left it." lgse/strata#2086 (unverified)
 - The stepper's accessible name is "Video preview start". lgse/strata#2086 (unverified)
 

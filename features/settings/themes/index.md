@@ -29,7 +29,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A custom theme file keeps its dim text as written, even below those floors. lgse/strata#1724
 - Material Lighter draws text in #455A64, 6.94:1 on its background, and dim text in #5c7785, lifted from its catalog #607D8B. lgse/strata#1570, lgse/strata#1459, lgse/strata#1724 (unverified)
 - Material Vivid draws text in #9e9e9e, 6.01:1 on its background. lgse/strata#1570, lgse/strata#1459
-- Clicking a card applies that theme immediately and marks the card with a check. lgse/strata#96
+- Clicking a card applies that theme immediately and marks the card with a check. With Follow system light/dark mode on, the click picks the family instead (`settings/themes/follow-system`). lgse/strata#96, lgse/strata#2094
 - A fresh install without Omarchy starts with Tokyo Night; a saved selection survives restart. lgse/strata#542
 - A saved theme id that matches no bundled or custom theme falls back to Azure Glow at startup. lgse/strata#542, lgse/strata#1794
 
@@ -56,11 +56,11 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Deleting or breaking a selected custom `tokyo-night.toml` applies the bundled theme's colors at once, and the bundled theme replaces it in the list. lgse/strata#1620 (unverified)
 - With a bundled theme selected, creating a custom file with its id, such as `dracula.toml`, applies that file's colors without a restart. lgse/strata#1620 (unverified)
 - In an open Settings page, a re-read never redraws existing theme cards; a new file's card appears when a re-read changes the selected colors, or at the next theme or preference change. lgse/strata#1620 (unverified)
-- Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
+- Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the theme in use. lgse/strata#762, lgse/strata#2094
 - In that panel the name field is named "Theme name", and each color picker is named after its row label. lgse/strata#1896 (unverified)
 - Each color field's grid cell in that panel is named once after its field, such as "Background", not "Background Background". lgse/strata#2012, lgse/strata#2030
-- Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
-- Reopening Add theme after Cancel or after Settings closes starts from the selected theme's colors, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
+- Each picker change previews across the interface and open code previews; Cancel restores the theme in use. lgse/strata#762, lgse/strata#2094
+- Reopening Add theme after Cancel or after Settings closes starts from the colors of the theme in use, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
 - Pressing Add theme while the editor is open keeps the current draft. lgse/strata#1533 (unverified)
 - Closing Settings by Escape, Close settings, a click outside the panel, or closing the window discards an unsaved preview and collapses the editor. lgse/strata#1457, lgse/strata#1533
 - Discarding a preview this way re-applies the saved theme in every open window and in windows opened later. lgse/strata#1457, lgse/strata#1533
