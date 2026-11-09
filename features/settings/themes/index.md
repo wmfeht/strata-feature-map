@@ -3,17 +3,17 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/theme.rs, src/ui/theme/color.rs, src/ui/theme/document_style.rs, src/ui/theme/generated_css.rs, src/ui/theme/gtk_settings.rs, src/ui/theme/library.rs, src/ui/theme/listeners.rs, src/ui/theme/source_style.rs, src/ui/theme/watch.rs, src/ui/theme/weak_registry.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
-tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs]
+tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs, src/ui/preferences/tests/preferences/themes.rs]
 docs: [site/src/reference/themes.md, docs/preferences.md, docs/themes.md]
-related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density, settings/themes/corner-roundness, settings/themes/interface-font, settings/themes/omarchy, settings/themes/portal-text-scaling]
+related: [browser/view-modes/text-size, preview/preview-panel, browser/view-modes/density, settings/themes/corner-roundness, settings/themes/interface-font, settings/themes/omarchy, settings/themes/portal-text-scaling, settings/themes/follow-system]
 ---
 
 ## Summary
 
-The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, the uncomposited popup fallback, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/icons` (bundled Lucide and Catppuccin icons), and `settings/themes/corner-roundness` (the corner radius scale). Further children: `settings/themes/interface-font` (the interface typeface) and `settings/themes/portal-text-scaling` (desktop text scaling in a process Strata restarts without GTK portals). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
+The Settings → Appearance page and the color system behind it. It covers 95 bundled themes, custom theme files and their editor, syntax palettes, file icon colors, element glow, the interface renderer, font rendering, an optional user stylesheet, the uncomposited popup fallback, and Frame density bar spacing. Children: `settings/themes/omarchy` (following the Omarchy Quattro theme), `settings/themes/follow-system` (following the desktop light/dark mode), `settings/themes/icons` (bundled Lucide and Catppuccin icons), and `settings/themes/corner-roundness` (the corner radius scale). Further children: `settings/themes/interface-font` (the interface typeface) and `settings/themes/portal-text-scaling` (desktop text scaling in a process Strata restarts without GTK portals). Text size, also on this page, is `browser/view-modes/text-size`. The density sliders are `browser/view-modes/density`.
 
 ## Behavior
 
@@ -29,7 +29,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - A custom theme file keeps its dim text as written, even below those floors. lgse/strata#1724
 - Material Lighter draws text in #455A64, 6.94:1 on its background, and dim text in #5c7785, lifted from its catalog #607D8B. lgse/strata#1570, lgse/strata#1459, lgse/strata#1724 (unverified)
 - Material Vivid draws text in #9e9e9e, 6.01:1 on its background. lgse/strata#1570, lgse/strata#1459
-- Clicking a card applies that theme immediately and marks the card with a check. lgse/strata#96
+- Clicking a card applies that theme immediately and marks the card with a check. With Follow system light/dark mode on, the click picks the family instead (`settings/themes/follow-system`). lgse/strata#96, lgse/strata#2094
 - A fresh install without Omarchy starts with Tokyo Night; a saved selection survives restart. lgse/strata#542
 - A saved theme id that matches no bundled or custom theme falls back to Azure Glow at startup. lgse/strata#542, lgse/strata#1794
 
@@ -56,11 +56,11 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Deleting or breaking a selected custom `tokyo-night.toml` applies the bundled theme's colors at once, and the bundled theme replaces it in the list. lgse/strata#1620 (unverified)
 - With a bundled theme selected, creating a custom file with its id, such as `dracula.toml`, applies that file's colors without a restart. lgse/strata#1620 (unverified)
 - In an open Settings page, a re-read never redraws existing theme cards; a new file's card appears when a re-read changes the selected colors, or at the next theme or preference change. lgse/strata#1620 (unverified)
-- Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the selected theme. lgse/strata#762
+- Add theme opens an "Add a theme" panel with a name field and 14 color pickers seeded from the theme in use. lgse/strata#762, lgse/strata#2094
 - In that panel the name field is named "Theme name", and each color picker is named after its row label. lgse/strata#1896 (unverified)
 - Each color field's grid cell in that panel is named once after its field, such as "Background", not "Background Background". lgse/strata#2012, lgse/strata#2030
-- Each picker change previews across the interface and open code previews; Cancel restores the selected theme. lgse/strata#762
-- Reopening Add theme after Cancel or after Settings closes starts from the selected theme's colors, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
+- Each picker change previews across the interface and open code previews; Cancel restores the theme in use. lgse/strata#762, lgse/strata#2094
+- Reopening Add theme after Cancel or after Settings closes starts from the colors of the theme in use, with an empty name and no error. lgse/strata#1457, lgse/strata#1533 (unverified)
 - Pressing Add theme while the editor is open keeps the current draft. lgse/strata#1533 (unverified)
 - Closing Settings by Escape, Close settings, a click outside the panel, or closing the window discards an unsaved preview and collapses the editor. lgse/strata#1457, lgse/strata#1533
 - Discarding a preview this way re-applies the saved theme in every open window and in windows opened later. lgse/strata#1457, lgse/strata#1533
@@ -116,7 +116,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Launching with `GTK_THEME` set, such as `GTK_THEME=Adwaita:dark`, restarts Strata without that variable, as a browser or as the portal chooser. lgse/strata#1680
 - GTK's high-contrast variant is never used, whatever the desktop's contrast setting. lgse/strata#1680
 - GTK's built-in dark variant applies when the Strata theme's background (299R + 587G + 114B) ÷ 1000 is below 128 or unparseable. lgse/strata#1680, lgse/strata#1682 (unverified)
-- Otherwise the light variant applies; the desktop color scheme is ignored. lgse/strata#1680, lgse/strata#1682
+- Otherwise the light variant applies. The desktop color scheme changes the variant only through Follow system light/dark mode, which picks the Strata theme. lgse/strata#1680, lgse/strata#1682, lgse/strata#2094
 - Element glow, on by default, adds accent glow to dialogs, menus, theme cards, and animated feedback. lgse/strata#920
 - Turning Element glow off removes that glow in every window at once, keeps focus outlines and depth shadows, and persists across restart. lgse/strata#920
 - With Element glow off, the path completion and folder peek popovers draw no shadow, so no white halo shows on light themes. With it on, each shows only the accent glow. lgse/strata#1891

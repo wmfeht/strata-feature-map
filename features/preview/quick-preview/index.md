@@ -3,8 +3,8 @@ title: Quick preview
 status: shipped
 origin: {issue: null, pr: lgse/strata#135}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
-review: reviewed
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+review: draft
 code: [src/ui/preview/keyboard.rs, src/ui/window/keyboard/items/preview_keys.rs]
 tests: [tests/qa/scenarios/quick_preview/marquee-keeps-preview-closed.jsonl, tests/qa/scenarios/quick_preview/preview-follows-extended-selection.jsonl, tests/qa/scenarios/quick_preview/preview-follows-selection.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-folder.jsonl, tests/qa/scenarios/quick_preview/preview-hides-on-shift-range-folder.jsonl, tests/qa/scenarios/quick_preview/space-enters-folder-without-preview.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result.jsonl, tests/qa/scenarios/quick_preview/space-previews-filtered-result-pointer.jsonl, tests/qa/mutations/quick-preview.patch]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -23,6 +23,11 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 - With Type to search on, Space on a focused file opens the preview instead of starting a search. lgse/strata#416
 - Space on an unsupported file opens no preview. lgse/strata#416
 - Space on a selected folder enters it in every view without opening or loading the preview. lgse/strata#1231
+- In Columns, after a click on a folder opens its column, Space with the drawer closed opens no drawer. The folder's contents stay shown. lgse/strata#2081
+- With nothing focused, such as a clicked Columns folder's column, and the drawer open, Space closes the drawer. lgse/strata#2081
+- With a folder focused and the drawer open, Shift+Space and Super+Space close the drawer. lgse/strata#2081 (unverified)
+- With a folder focused and the drawer closed, Shift+Space and Super+Space open no drawer. lgse/strata#2081 (unverified)
+- With nothing focused, such as in an empty column, Space with the drawer closed opens no drawer. lgse/strata#2081
 - With Single-click file previews on, the default, a single click on a supported file opens its preview without Space. lgse/strata#385 (unverified)
 
 ### Following the selection
@@ -69,12 +74,14 @@ Opening, closing, and retargeting the file preview from the listing: Space, the 
 - Marquee updates run inside a tracked scope that the preview ignores (lgse/strata#1122).
 - Space is reserved for quick preview and never starts type-to-search; focused text fields keep their own spaces (lgse/strata#416).
 - The window key controller runs in the capture phase, so file shortcuts must yield to a focused text widget explicitly (lgse/strata#650).
+- Folders cannot be quick-previewed. Plain Space enters a focused folder. With nothing focused it only closes an open drawer, as do Shift+Space and Super+Space on a folder. A clicked Columns folder leaves its column focused with no entry, and Space had opened an empty drawer (lgse/strata#2081).
 - The focused pane owns the keys. Keys held by the drawer never change the listing's selection, location, or files (lgse/strata#1295).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2081 | fix | Kept Space on a clicked Columns folder from opening an empty preview drawer. |
 | 2026-10-11 | lgse/strata#1570 | fix | Added media seek, jump, and volume key mapping shared by the focused timeline and the 10xer Media surface. |
 | 2026-09-24 | lgse/strata#1231 | fix | Made Space enter a selected folder in every view without loading the preview. |
 | 2026-09-12 | lgse/strata#884 | fix | Closed the preview when its file leaves the model, including deletions by other processes. |

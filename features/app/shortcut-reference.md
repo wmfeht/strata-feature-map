@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs, src/ui/shortcut_footer/build.rs, src/ui/shortcut_footer/catalog.rs, src/ui/shortcut_footer/reference.rs, src/ui/shortcut_footer/reference_keys.rs, src/ui/shortcut_footer/status.rs]
 tests: [src/ui/shortcut_footer/tests.rs, src/ui/shortcut_footer/tests/**, src/ui/shortcut_reference/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
@@ -62,6 +62,9 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 
 - In the default map, the sections are Columns, Icons, or List navigation for the current view, then Files and selection, Search and tools, and Preview media. lgse/strata#358, lgse/strata#1272
 - Search and tools lists Ctrl+Shift+T, "Reopen the last closed tab", in the default map. lgse/strata#1800
+- In the default map, Search and tools lists "/ in a filter — Enter the first matching folder" right after the Ctrl+F filter row. lgse/strata#2086, lgse/strata#1802
+- In 10xer mode, Search and tools lists "/ in a filter — Enter the highlighted or first matching folder" right after "Filter this listing". lgse/strata#2086, lgse/strata#1802
+- In the default map in Columns, Columns navigation lists Alt+Down as "Make the focused pane the first pane"; Icons, List, and 10xer mode list no such row. lgse/strata#2086, lgse/strata#1925
 - In 10xer mode the reference lists it outside the file chooser only. lgse/strata#1800 (unverified)
 - Switching views with Ctrl+1, 2, or 3 replaces the navigation section with the new view's. While the reference is open, Ctrl+1, 2, and 3 do nothing. lgse/strata#358 (unverified)
 - In 10xer mode, the reference lists only the 10xer map, adding Places, Preview, and a "10xer mode" section that collects the keys the default map lacks. lgse/strata#1272
@@ -74,6 +77,9 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - That row sits after "Back / forward in history" and before "Go to the parent folder". lgse/strata#2027
 - Columns, and every view in 10xer mode, list no Back button history row. lgse/strata#2013, lgse/strata#2027
 - Outside the file chooser, in both maps, "Files and selection" lists "Ctrl+Enter / Shift+Enter — Open the focused folder in a new tab / window". lgse/strata#1543
+- In 10xer mode outside the file chooser, "Files and selection" lists "; . 1–9 / ; . 0 — Run one of the first ten custom actions for the focused folder" after the `;` digit row. lgse/strata#2086, lgse/strata#1826
+- In 10xer mode outside the file chooser, Places lists "m a–z — Save current folder under a letter" and "' a–z — Jump to a bookmarked folder by letter". lgse/strata#2086, lgse/strata#1790
+- The 10xer file chooser reference lists neither letter bookmark row. lgse/strata#2086, lgse/strata#1790
 - In 10xer mode in Columns or List, outside the file chooser, the reference lists "`/` in the preview — Find in preview"; Icons omits it. lgse/strata#1559
 - In 10xer mode in Columns or List, the reference lists "Shift+← / Shift+→ / Page Down / Page Up" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
 - In 10xer mode in Columns or List, the reference lists "0 / Home / G / End" in media as "Seek to the start / end". lgse/strata#1570, lgse/strata#1451

@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
 reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: draft
+review: reviewed
 code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, src/services/search/refresh.rs, src/services/search/scoring.rs, src/services/search/session.rs, src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
 tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, src/services/search/test_support.rs]
 docs: [docs/preferences.md]

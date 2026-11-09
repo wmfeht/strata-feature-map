@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -28,6 +28,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - When the first tab closes before its after-paint idle runs, no tab in the process pre-builds Settings. lgse/strata#2054 (unverified)
 - While another modal dialog, such as Properties, is visible, Ctrl+, and the Settings button do nothing, and the dialog keeps focus. lgse/strata#912, lgse/strata#1900
 - Escape, the Close settings button, or a click outside the panel closes Settings. lgse/strata#107, lgse/strata#849, lgse/strata#1900
+- Opening Settings shows it at once, with no fade. lgse/strata#2081
+- The backdrop and panel show at full opacity on the first and every later open. lgse/strata#2081 (unverified)
+- Closing Settings by any route hides it at once. lgse/strata#2081
+- Closing Settings clears the window blur and removes the header Settings button's active state. lgse/strata#2081 (unverified)
 - A click on the Settings panel itself leaves Settings open. lgse/strata#1900
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
@@ -85,6 +89,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - On a package-managed install of a default build, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453, lgse/strata#1934
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
+- Searching "day night" or "color scheme" finds Appearance's Follow system light/dark mode row. lgse/strata#2094 (unverified)
 - Searching "3d", "mesh", or "printing" shows Appearance's STL model thumbnails row. lgse/strata#1789 (unverified)
 - Searching "Corner roundness", "radius", or "rounded" shows Appearance's Corner roundness row. lgse/strata#1680 (unverified)
 - Searching "Show thumbnails" or "photos", or "Miniaturansichten" under Deutsch, shows Appearance's Show thumbnails row. lgse/strata#1651 (unverified)
@@ -98,6 +103,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Typing "thumbnail workers" in Search settings reveals the Thumbnail workers control. lgse/strata#1081, lgse/strata#1778
 - Searching Settings for "session", "reopen", or "startup" finds Restore open tabs. lgse/strata#1532 (unverified)
 - Searching "nfs", "smb", or "monitor" shows the Watch network folders row. lgse/strata#1729 (unverified)
+- Searching "skip intro" shows General's Video preview start row. lgse/strata#2086, lgse/strata#1924 (unverified)
 - With icon-only navigation, the search field becomes a Search settings button that opens the field in a popover; the query and focus survive resizing. lgse/strata#849
 - Rows unavailable on this installation stay hidden when a query is cleared. lgse/strata#849 (unverified)
 - Settings search finds Remember sort and icon size per folder, Default sort, and Forget all folder settings by words such as "per folder", "default sort", and "reset". lgse/strata#1565 (unverified)
@@ -122,6 +128,14 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 - General → Browsing has a Show sizes in Columns view switch, on by default. lgse/strata#1564
 - Changing the switch in one window updates the open Settings switch in every other window. lgse/strata#1564
+
+### Video preview start
+
+- Settings → General → Browsing shows a Video preview start row right after Autoplay media previews. lgse/strata#2086, lgse/strata#1924
+- Its stepper runs from 0 to 99, and each − or + press changes the value by 5. lgse/strata#2086, lgse/strata#1924
+- Typing a whole number in the stepper saves it; typing 500 is rejected, and the saved value stays at most 99. lgse/strata#1924 (unverified)
+- The row reads "Percent of a video's length to open it at; 0 starts at the beginning. A video you already previewed resumes where you left it." lgse/strata#2086 (unverified)
+- The stepper's accessible name is "Video preview start". lgse/strata#2086 (unverified)
 
 ### Default sort
 
@@ -189,6 +203,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 [docs/preferences.md](https://github.com/lgse/strata/blob/fd6327265eaa3266f8420fe8bd25e965146344b0/docs/preferences.md) lists every stored preference, its consumer, and the rules for adding one.
 
 - Settings is a layer inside the window. Building and styling it in the click handler paused the first open (lgse/strata#2050). The first tab shown in the process now pre-builds it on idle after first paint, in two idle callbacks so input and frames pass between them. Only the first tab does, because Settings is per tab and its dominant costs are paid once per process. The pre-build costs about 78 ms of idle work and 14 MiB; a later tab's first open builds in about 41 ms (lgse/strata#2054). Appearance, Actions, and Updates build on first selection, because Updates starts package-manager detection and network work. Integrations joined them (lgse/strata#1748). Diagnostics builds with the panel but runs no check until Run, following the same rule (lgse/strata#1735).
+- Settings shows and hides without animation. A CSS transition restyled about 830 widgets per frame (lgse/strata#2050, lgse/strata#2054). The frame-clock opacity fade that replaced it eased in, so Settings barely changed for most of its 200 ms. Cairo stretched it further, so it was removed (lgse/strata#2081).
 - Settings pages only edit preferences; consumers bind at construction. Opening Settings once had applied saved Folder peeking, which hid the missing startup binding (lgse/strata#515).
 - Settings refuses to open while another modal is visible rather than stacking under it, because its lazily added overlay stayed below later dialogs (lgse/strata#865).
 - That check once looked only at the tab overlay that hosts Settings, so Properties, a window-level dialog, still let Ctrl+, open Settings beneath it. It now asks for any visible modal layer in the window (lgse/strata#1859, lgse/strata#1900).
@@ -242,4 +257,4 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 ## Known gaps
 
-- After a driver or GTK update, opening Settings still stalls about 460 ms on cold shader compilation before the fade plays. lgse/strata#2054
+- After a driver or GTK update, opening Settings still stalls about 460 ms on cold shader compilation before it appears. lgse/strata#2054

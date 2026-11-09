@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
@@ -219,6 +219,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete on NFS, SMB, sshfs, virtiofs or 9p, a `fuseblk` drive, and a mergerfs pool; read each title and subtitle.
 - Shift+Delete through a symlink alias into an NFS folder.
 - In an `admin://` folder, press Delete, Shift+Delete, and 10xer `d` on a file and on a folder. Then drag one item onto the sidebar Trash row.
+- In Columns, Shift+Delete the open folder from a column scrolled sideways and from a filtered column, confirming by Enter.
+- In each view mode, confirm the `/dev/shm` no-Trash dialog by Right, then Enter, and the "Delete N items without Trash?" dialog on the sshfs mount by Enter; watch the deleted rows.
 
 ### operations/trash/restore
 
@@ -235,6 +237,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Empty with Trash open in a second window, with a Restore dialog open, and while contents are still being measured; cancel at each stage.
 - Empty a Trash holding a non-UTF-8 name and a 10k-entry folder.
+- Empty a Trash of 150 files and non-empty folders trashed from an ntfs3 volume.
+- Remove one trashed item from a shell while "Emptying Trash" runs.
 
 ### operations/trash/animation
 
@@ -257,6 +261,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete one folder whose deletion takes 250 to 350 ms.
 - Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
 - On SMB and NFS, Shift+Delete a tree of 200 siblings where one nested folder holds an open file. Meanwhile, `chmod 000` another sibling from a shell. Read which error the dialog names and list what remains.
+- Shift+Delete a selection inside Trash while a shell removes one of its items from `~/.local/share/Trash/files`.
 
 ### operations/delete/dissolve
 

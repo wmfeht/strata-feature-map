@@ -571,6 +571,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/item_identity/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/services/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/services/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `src/services/letter_bookmarks.rs` | code | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/services/letter_bookmarks/tests.rs` | tests | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/services/listeners.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/listeners/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/mime_type.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -586,8 +588,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/services/odt/tests.rs` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/services/package_manager.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/services/package_manager/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/path_match.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/services/path_match/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/services/path_match.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/services/path_match/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/services/preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/services/preview/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
 | `src/services/release_channel.rs` | code | [Release channels](../features/app/updates/release-channels.md) | [Updates](../features/app/updates/index.md) |
@@ -712,8 +714,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/events/reveal.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/events/selection.rs` | code | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/browser/file_commands.rs` | code | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/browser/find.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/browser/find/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/browser/find.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/browser/find/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/fly_to_trash.rs` | code | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/fly_to_trash/tests.rs` | tests | [Trash flight animation](../features/operations/trash/animation.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/inline_edit.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
@@ -722,8 +724,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/inline_edit/reveal.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
 | `src/ui/browser/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `src/ui/browser/leftovers/tests.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/ui/browser/listing_filter.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/browser/listing_search.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/browser/listing_filter.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/browser/listing_search.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/location.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/location/breadcrumbs.rs` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/ui/browser/location/completion.rs` | code | [Location path completion](../features/browser/navigation/location-bar/completion.md) | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md), [Navigation](../features/browser/navigation/index.md) |
@@ -756,7 +758,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/properties.rs` | code | [Properties dialog](../features/browser/properties/index.md) | — |
 | `src/ui/browser/properties/media.rs` | code | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `src/ui/browser/properties/media/tests.rs` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/ui/browser/result_selection.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/browser/result_selection.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/browser/tab_location.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/browser/tab_location/tests.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/browser/tab_stops.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
@@ -854,6 +856,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/close_guard.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/collection_edit.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
 | `src/ui/collection_interaction.rs` | code | [Selection](../features/browser/selection/index.md) | — |
+| `src/ui/collection_interaction/double_press.rs` | code | [Pointer intent](../features/browser/selection/pointer-intent.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/collection_interaction/tests.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/ui/controls.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/controls/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
@@ -871,8 +874,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/file_providers/tests/**` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/focus_navigation.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/focus_navigation/tests.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
-| `src/ui/folder_picker.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/folder_picker/tests.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/folder_picker.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/folder_picker/tests.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/icons_cell.rs` | code | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/icons_cell/**` | code | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/icons_cell/tests.rs` | tests | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
@@ -922,12 +925,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/missing_tools/tests.rs` | tests | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/modal.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
-| `src/ui/modal/fade.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/focus.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/messages.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
-| `src/ui/modal/tests/fade.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/notice.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/open_with.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/open_with/apps.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
@@ -971,7 +972,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/tests/preferences/saved_fixture.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/preferences/saving.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/preferences/setters.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/ui/preferences/tests/preferences/themes.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/preferences/tests/preferences/themes.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/preferences/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/text_size.rs` | code | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/trashed.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -1106,7 +1107,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/settings/wrap.rs` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `src/ui/shortcut_footer.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
 | `src/ui/shortcut_footer/build.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
-| `src/ui/shortcut_footer/candidates.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/shortcut_footer/candidates.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/shortcut_footer/catalog.rs` | code | [Keyboard shortcut reference and footer](../features/app/shortcut-reference.md) | — |
 | `src/ui/shortcut_footer/chord_panel.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/shortcut_footer/indicators.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
@@ -1146,6 +1147,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/source_style.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/system_appearance.rs` | code | [Follow system light/dark mode](../features/settings/themes/follow-system.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/catalog.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/custom.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -1153,6 +1155,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/tests/live.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/omarchy.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/tests/system_appearance.rs` | tests | [Follow system light/dark mode](../features/settings/themes/follow-system.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/theme/watch.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/weak_registry.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -1225,6 +1228,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/device_release/**` | code | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release/tests.rs` | tests | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/devices.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
+| `src/ui/window/devices/held.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
+| `src/ui/window/devices/probe_cache.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
 | `src/ui/window/devices/tests.rs` | tests | [Devices and volumes](../features/devices/volumes/index.md) | — |
 | `src/ui/window/drive_dialogs.rs` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/drive_dialogs/**` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -1235,7 +1240,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/key_routing.rs` | code | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/keyboard.rs` | code | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/keyboard/chooser.rs` | code | [10xer mode in the file chooser](../features/integration/10xer-mode/file-chooser.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/keyboard/chords.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/keyboard/chords.rs` | code | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/keyboard/commands.rs` | code | [Window key and wheel dispatch](../features/app/window/key-dispatch.md) | [Window chrome and structure](../features/app/window/index.md) |
 | `src/ui/window/keyboard/direct.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/keyboard/escape.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
@@ -1296,21 +1301,33 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/file_verbs.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/file_verbs/**` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/filter_focus.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/filter_focus/**` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/folder_jump.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/footer_prompt/**` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/go_prompt.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/enter_target.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/escape.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/filter_slash.rs` | tests | [Slash enters filtered folders](../features/integration/10xer-mode/search/filter-descent.md) | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/live_changes.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/returning_focus.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/view_switch.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/first_column.rs` | tests | [Make the focused column first](../features/browser/navigation/first-column.md) | [Navigation](../features/browser/navigation/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/folder_jump.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/footer_prompt/filter.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/footer_prompt/filter_slash.rs` | tests | [Slash enters filtered folders](../features/integration/10xer-mode/search/filter-descent.md) | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/footer_prompt/find.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/footer_prompt/search.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/footer_prompt/search_hits.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/go_prompt.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/icon_motion.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/jump_keys.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/keymap_conflicts.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/keymap_overrides.rs` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/letter_bookmarks.rs` | tests | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/letter_bookmarks/**` | tests | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/list_motion.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/mode_exit.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/open_in_new.rs` | tests | [Browser tabs](../features/browser/tabs/index.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/overlay_focus.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/window/tests/keyboard_dispatch/pane_focus.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/place_chords.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/preview_ownership.rs` | tests | [10xer preview key ownership](../features/integration/10xer-mode/preview-keys.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/reload_cursor.rs` | tests | [Position restore on return and refresh](../features/browser/view-modes/position-restore.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
@@ -1460,6 +1477,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/filter_results/dismissed-delete-confirmation-keeps-result-focus.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/filter_results/filter-enter-opens-top-match.jsonl` | tests | [Filter Enter target](../features/browser/search/filter/enter-target.md) | [Pane filter](../features/browser/search/filter/index.md), [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/filter_results/filter-results-follow-external-changes.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `tests/qa/scenarios/filter_results/filter-slash-enters-folder.jsonl` | tests | [Slash enters filtered folders](../features/integration/10xer-mode/search/filter-descent.md) | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/filter_results/filter-updates-retain-state.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/filter_results/filtered-control-selection-group.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/filter_results/filtered-file-click-previews.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
@@ -1499,6 +1517,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/keymap` | tests | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
+| `tests/qa/scenarios/letter_bookmarks` | tests | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `tests/qa/scenarios/locations/named-location-controls.jsonl` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
@@ -1564,7 +1583,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/search_filter_sort/recursive-filtered-result-opens-once.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
-| `tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/search_filter_sort/type-to-search-finds-nested.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `tests/qa/scenarios/search_filter_sort/wildcard-filter-patterns.jsonl` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
@@ -1575,7 +1594,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/sidebar_pinning/foreign-folder-drags-validate.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
 | `tests/qa/scenarios/sidebar_pinning/pinned-rows-transfer-and-remote-gaps.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
 | `tests/qa/scenarios/sidebar_pinning/spring-loaded-rows-keep-pin-intent.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
-| `tests/qa/scenarios/sidebar_pinning/tenxer-pin-feedback-identifies-slot.jsonl` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `tests/qa/scenarios/sidebar_pinning/tenxer-pin-feedback-identifies-slot.jsonl` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl` | tests | [Sidebar](../features/browser/sidebar/index.md) | — |
 | `tests/qa/scenarios/sidebar_reordering/pin-insertion-keeps-one-destination.jsonl` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
 | `tests/qa/scenarios/startup_arguments` | tests | [Startup location arguments](../features/browser/navigation/startup-arguments.md) | [Navigation](../features/browser/navigation/index.md) |

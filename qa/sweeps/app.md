@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -79,8 +79,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Close a dialog stacked over Settings while Settings is scrolled so its opener is off screen, then read the focused node.
 - Focus the confirm button in Permanently delete, Empty Trash, and Compress under the light, dark, and high-contrast themes and a custom accent; zoom in on the border and halo edge at text size 8 and 48.
 - Move focus between Cancel and the confirm button by Tab, the arrows, and a mouse click, then confirm into a chained dialog and close it by keyboard; read which buttons show a halo or an outline.
-- With animations on, open Settings with Ctrl+, and press Escape within 100 ms; repeat with the gear button and a backdrop click, then read the layer's opacity and where focus lands.
-- Toggle Reduce motion from Settings → Appearance while Settings is open, then close and reopen it, in a fresh process and after a second tab opens Settings.
 
 ### app/shortcut-reference
 
@@ -107,6 +105,10 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Open each 10xer footer prompt in turn, then switch from one prompt to another without closing it; dump the entry after each step.
 - Fill the clipboard from a second display connection with only `x-special/gnome-copied-files`, then with only `text/uri-list`, and with both; read the badge and press Ctrl+V after each.
 - In 10xer mode, unbind `, x` and rebind `, c` to another step key, then search F1 for `extension`, `case`, and `,` with the interface in English and German.
+- Rebind the `;` trigger and `actions.folder` in the 10xer table, then search F1 for `focused folder` and `;` in the file list and in the file chooser.
+- Rebind `bookmark_set` and `bookmark_go`, then open F1 in Places in the file list and in the file chooser; repeat with both unbound.
+- Unbind `make_first_column`, open F1 in Columns, then bind it to Ctrl+Alt+Down and switch Icons to Columns with F1 open.
+- Search F1 for `/`, `filter`, and `matching folder` in both maps, with the interface in English, German, and ja.
 
 ### app/window
 
@@ -139,6 +141,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Rebind `pdf_zoom_reset` and `text_reset` to shared and separate keys. Press them with a PDF, a text preview, and the listing focused, with a 10xer chord armed.
 - Focus a PDF page, a table cell, an archive row, a text preview's scrollbar, and the media controls in turn; press Delete, F2, Ctrl+D, Ctrl+V, and Ctrl+Alt+N at each in Columns, Icons, and List.
 - Filter with Ctrl+F, trash a result, move focus to another result, then press Ctrl+Z, Ctrl+Y, and Ctrl+Z twice; repeat with recursive search results and with the filter field focused between presses.
+- In a tab opened with Ctrl+T, press Escape during a sidebar pin drag and during a Ctrl copy drag; release over the tab strip, a folder, and the sidebar. Read the files and the pins.
+- Open two tabs after startup, hover one drag through both until each activates, press Escape, and release; then press Escape again with no drag and read each tab's selection.
+- Drag a tab opened after startup to reorder it, press Escape, then release; repeat with the startup tab and read the tab order.
 
 ### app/packaging
 
@@ -210,6 +215,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - On `tw` and `tw(indigenous)`, type the AltGr digit-row marks in a rename field, then press `t` and AltGr+1 in 10xer mode.
 - With IBus, press Super+Space in a dialog's entry, Settings search, and the Open With search field.
 - On German with `de,us` and a layout-switch key set through `setxkbmap -option grp:alt_shift_toggle`, arm 10xer `g`, `c`, `,`, `;`, and `t`; press AltGr alone, then switch layouts, then the step.
+- Arm 10xer `m` and `'`, then press a letter on Greek, Ukrainian, Icelandic þ, German ö, and with Caps Lock on; read which slot is saved or opened.
+- On `us(intl)`, press `'` then a letter, `'` then Space, and Compose then `'` in the file list and in the location field.
 
 ### app/keyboard-shortcuts/remapping
 
@@ -234,6 +241,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - With the interface in de and ja, read every chip, note, and the Reset all dialog. Repeat at text size 8 and 48 and at the narrowest Settings width.
 - Bind `sort.unsorted`, `sort.natural`, `sort.case_sensitive`, and `sort.folders_first` under `[keymap.default]` to a Ctrl key, an F key, and a plain letter in turn; press each in Columns, Icons, List, and Recent, with and without Shift, and with the location field focused.
 - Search Settings → Keyboard for `sort`, `extension`, and `case` in both tables, with the interface in English and de.
+- Capture `.` on the Compress and Extract Action steps, then capture `m`, `'`, and `.` as top-level 10xer keys; read each note.
+- Hand-edit `actions.folder` and `make_first_column` under `[keymap.default]` and `[keymap.tenxer]`; launch, read the log, and press each key in Columns and List in both maps.
+- Rebind `bookmark_go` to a key that is dead on `us(intl)`, then to one that is not; press it then a saved letter on `us` and `us(intl)`.
 
 ### app/updates
 

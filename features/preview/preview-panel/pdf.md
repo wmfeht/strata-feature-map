@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1220, pr: lgse/strata#1223}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: draft
+review: reviewed
 code: [src/ui/preview/pdf_text.rs, src/ui/preview/pdf.rs, src/ui/preview/pdf/**, src/sandbox_helper/pdf.rs]
 tests: [src/ui/preview/pdf_text/tests.rs, src/ui/preview/pdf_ranges_tests.rs, src/adapters/local_preview/tests/pdf.rs, tests/fixtures/documents/text.pdf, tests/qa/scenarios/quick_preview/pdf-preview-copies-text.jsonl, tests/qa/scenarios/quick_preview/pdf-zoom-keeps-text-size.jsonl]
 related: [preview/preview-panel/sandbox, preview/quick-preview]

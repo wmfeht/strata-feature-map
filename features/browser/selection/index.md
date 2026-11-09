@@ -3,8 +3,8 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: draft
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+review: reviewed
 code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs, src/app/browser/selection.rs, src/app/navigation/cursor.rs, src/app/navigation/fill.rs, src/app/navigation/location_set.rs, src/ui/browser/view_selection.rs, src/ui/browser_modes/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch, src/app/navigation/tests/fill_commands.rs, src/app/navigation/tests/fill_tracking.rs, src/app/navigation/tests/paging.rs, src/app/navigation/tests/ranges.rs, src/app/navigation/tests/selection.rs]
 docs: [site/src/reference/keyboard-navigation.md]

@@ -3,7 +3,7 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/app/browser/loading.rs, src/app/browser/loading/metadata.rs, src/app/browser/directory_changes.rs, src/app/browser/publication.rs, src/app/browser/deferred.rs, src/app/browser/operation_updates.rs, src/adapters/local_files/monitors.rs, src/adapters/local_files/monitor_changes.rs, src/app/browser/listing.rs, src/app/browser/metadata_fills.rs, src/app/browser/operation_events/outcome.rs, src/app/browser/refresh.rs, src/app/navigation/listing.rs, src/app/navigation/metadata.rs, src/app/navigation/monitored.rs, src/ui/browser/events/listing.rs]
 tests: [src/app/browser/loading/tests.rs, src/app/browser/loading/metadata/tests.rs, src/app/browser/directory_changes/tests.rs, src/app/browser/publication/tests.rs, src/app/browser/deferred/tests.rs, src/app/browser/operation_updates/tests.rs, src/app/browser/tests/monitor.rs, src/app/browser/tests/staging.rs, src/app/browser/tests/relocation.rs, src/app/browser/tests/operations.rs, src/app/browser/tests/metadata.rs, src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl, src/app/browser/tests/monitor/**, src/adapters/local_files/tests/live_monitor.rs, src/adapters/local_files/tests/monitor_queue.rs, src/app/navigation/tests/metadata.rs, src/app/navigation/tests/monitor.rs, src/app/navigation/tests/reload.rs, tests/qa/scenarios/locations/open-folder-follows-renamed-ancestor.jsonl]

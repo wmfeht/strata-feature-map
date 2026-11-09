@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#1690, pr: lgse/strata#1692}
 branch: null
 reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: draft
+review: reviewed
 code: [src/ui/window/pinned_drop.rs, src/adapters/directory_validation.rs]
 tests: [src/ui/window/pinned_drop/tests.rs, src/adapters/directory_validation/tests.rs, tests/qa/scenarios/sidebar_pinning/folder-pins-order-and-bookmarks.jsonl, tests/qa/scenarios/sidebar_pinning/foreign-folder-drags-validate.jsonl, tests/qa/scenarios/sidebar_pinning/pinned-rows-transfer-and-remote-gaps.jsonl, tests/qa/scenarios/sidebar_pinning/spring-loaded-rows-keep-pin-intent.jsonl, tests/qa/scenarios/sidebar_reordering/pin-insertion-keeps-one-destination.jsonl]
 related: [operations/drag-and-drop, integration/portal-file-chooser, browser/sidebar]

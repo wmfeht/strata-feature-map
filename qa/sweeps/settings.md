@@ -1,13 +1,13 @@
 ---
 title: Settings sweep
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search (including Keyboard rows), About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default sort, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, the uncomposited popup fallback, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, and Follow Omarchy with its variants.
+The Settings panel and the preference lifecycle behind every row. Preferences: opening, navigation, responsive layout, Settings-wide search (including Keyboard rows), About, page scrolling, and the General rows no feature claims (Units, Show F1 Shortcuts button, Watch network folders, Default sort, Default directory, hidden files). Storage: saving, recovery of a damaged `settings.toml`, and live synchronization across windows. Language: the selector, locale detection, and translated text. Date format: the three formats and the relative buckets. Diagnostics: the on-demand dependency checks, install commands with Run in terminal on Diagnostics and Integrations, and the copied report. Themes: the bundled library, custom theme files and their editor, syntax palettes, `@strata_*` tokens, isolation from desktop GTK styling, Element glow, Interface renderer, font rendering, Reduce motion, File icon colors, the Show thumbnails and STL model thumbnails switches, the user stylesheet, the uncomposited popup fallback, Interface font, Corner roundness, Frame density bar spacing, theme-tinted and Catppuccin file icons, Follow Omarchy with its variants, and Follow system light/dark mode.
 
 For every control this sweep proves the binding: the file changes, the other window follows, a seeded value applies before Settings opens. What a preference does inside the browser (click modes, view mode, density, folder peeking, sort defaults, text size) belongs to `browser`. The system file chooser opt-in, update channels, custom actions, the Integrations page, and preview rows belong to the sweeps named under Hand-offs. Diagnostics proves each check's verdict and fix text; the features it checks belong to their own sweeps.
 
@@ -22,6 +22,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - A hostile desktop GTK setup under the throwaway HOME: `~/.config/gtk-4.0/gtk.css` with `* { outline: 3px solid red; font-family: serif; }`, `label { letter-spacing: 1px; color: red; }`, `button { min-width: 60px; padding: 12px; }`, `scrollbar { -gtk-icon-size: 40px; }`, and `@define-color strata_accent red;`; a `settings.ini` naming an installed desktop theme with `gtk-application-prefer-dark-theme=1`; and `~/.local/share/themes/StrataEmpty/gtk-4.0/gtk.css` holding the same rules.
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
+- For Follow system light/dark mode: a dconf session with `gsettings-desktop-schemas`, a `GSETTINGS_BACKEND=memory` run, and a run whose `XDG_DATA_DIRS` holds no `org.gnome.desktop.interface` schema. In the dconf run only, a script cycles `color-scheme` through `prefer-dark`, `default`, `prefer-light`, and back.
 - A user stylesheet at `$XDG_CONFIG_HOME/strata/style.css` with a valid rule using `@strata_accent`, a rule GTK rejects such as `label { color: nope; }`, and a layout rule such as `.sidebar-shell { margin: 12px; }`; a 1 MB copy and a non-UTF-8 copy beside it.
 - An uncomposited X11 session: the private Xvfb alone, then Xvfb with openbox and no compositor. No client owns the `_NET_WM_CM_S0` selection, as python-xlib's `get_selection_owner` reports. `picom` or `xcompmgr`, installed but not started, so a script can start and stop it while Strata runs.
 - Icon themes for the control icons: Breeze, Yaru, and Adwaita installed, plus a theme without symbolic icons, each selected through `settings.ini` before launch.
@@ -81,6 +82,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Close Settings on Appearance, then reopen it with Ctrl+, with icon-only navigation, with a query left that hides Appearance's entry, and from the gear; read the focused widget in the accessibility tree.
 - Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48, and with GNOME text scaling 1.25; read the panel size and where row controls sit.
 - Seed `sort_key = "unsorted"` with `sort_direction = "descending"`, launch, and read both Default sort menus. Choose Created in window A while window B shows General, then Unsorted again from B.
+- Press Escape twice, and click the backdrop twice, within one frame of opening Settings; read the focused widget, the blur, and the gear's state. Repeat under Cairo.
+- In the Video preview start stepper, type 99, 100, -5, 12.5, and an empty value; press + at 95 and − at 3. Read the shown value and `settings.toml` after each.
+- Change Video preview start in window A while window B shows General; read B's stepper. Then search "seek", "offset", and "percent" under English and `language = "ja"` with icon-only navigation.
 
 ### settings/preferences/storage
 
@@ -126,6 +130,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Under Magyar and 正體中文, read every Settings section heading on a package-managed install, in a `STRATA_UPDATER=disabled` build, and with 10xer mode on; note any heading left in English.
 - Run Deutsch, Magyar, and Русский at the 1250 px panel width and in the destructive-delete dialog. Look for clipped labels, broken Hangul in Korean, and missing-glyph boxes without CJK fonts.
 - Under Magyar, open the sort menu in List, Columns, and Icons in a 640 px window at text size 8 and 48; read the NAME ORDER heading and the Make default row for clipping or a widened menu.
+- Under Magyar, read the Video preview start explanation at the 900 px panel width. In 10xer mode, save, then jump to an unavailable and a missing letter bookmark, using `a`, `ő`, and `9`.
 
 ### settings/preferences/date-format
 
@@ -274,6 +279,17 @@ For every control this sweep proves the binding: the file changes, the other win
 - Cold-activate with no settings portal running, with a portal backend that lacks `org.gnome.desktop.interface`, and with a portal service that is not activatable; read the window and the debug log.
 - While activated with a non-1 factor, open Settings, change text size and Interface font, and open a menu, a dialog, and a code preview; compare sizes with a `strata`-started window.
 
+### settings/themes/follow-system
+
+- In the dconf run, cycle `color-scheme` with the script at 0, 50, and 500 ms gaps. Keep Settings open in both windows, a code and a Markdown preview open, and PDF text selected.
+- With a paired anchor, cycle the mode while the Add theme editor shows an unsaved preview, then press Cancel. Repeat after toggling the switch mid-preview.
+- Write `one-light.toml` as a custom theme, follow the system on One Dark, and switch to light. Then rewrite, corrupt, and delete that file while it is in use.
+- While following, pick Tokyo Night, an unpaired custom theme, and each side of Everforest Dark Soft/Light Medium. Cycle the mode after each and read `settings.toml`.
+- Seed `mode = "system"`, `"SYSTEM"`, `"system "`, and `"auto"`, and launch on the dconf, memory, and schema-less runs. Read the switch and Current theme, change one other preference, and diff `settings.toml`.
+- With the fake Quattro state present, toggle Follow system and Follow Omarchy alternately in windows A and B within one second. Read both switches and the file.
+- Launch in the schema-less run, then install the schema while Strata runs; search "day night" and read the Appearance page.
+- With Element glow off, Corner roundness 0, and a user stylesheet, cycle the mode in the dconf run. Compare menus, dialogs, and file icons with a fresh launch in the same mode.
+
 ## Hand-offs
 
 - Browsing mode, click counts, folder peeking, sort defaults, and text size as they act in the file views → `browser`.
@@ -295,6 +311,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Focus return after closing the search palettes → `browser`.
 - Units as it acts on route previews, open and new, in the browser and the chooser → `preview`.
 - Video backend, autoplay, text wrap, render-by-default rows, and syntax highlighting inside the preview panel → `preview`.
+- Where Video preview start opens a video, resumes it, or falls back to 0:00 in the preview panel → `preview`.
 - What Watch network folders checks and re-reads in open folders → `browser`.
 - Dot-file changes made while hidden files are off → `browser`.
 - Thumbnail workers, thumbnail rendering, and what Show thumbnails and STL model thumbnails change in the file views → `browser`.

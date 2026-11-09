@@ -3,12 +3,12 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/chooser/destination.rs, src/ui/chooser/geometry.rs, src/ui/chooser/layout.rs, src/ui/chooser/options.rs, src/ui/chooser/shortcuts.rs, src/ui/chooser/shortcuts/**, src/ui/chooser/source.rs, src/ui/chooser/state.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/acceptance/**, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
-related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access, integration/10xer-mode/file-chooser, browser/navigation/back-history]
+related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access, integration/10xer-mode/file-chooser, browser/navigation/back-history, browser/sidebar/rail, browser/selection/pointer-intent]
 ---
 
 ## Summary
@@ -54,6 +54,10 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Ctrl+click on a file focuses the item just toggled, so the preview follows it. lgse/strata#1164
 - In Columns, Right on a focused file behaves as in a browser window: it moves into the open child column, or does nothing. lgse/strata#382
 - Dragging from blank space draws a marquee only in multiple-selection requests. A blank click in the file list or sidebar clears the selection in every request. lgse/strata#1164
+- In a multiple-selection request, a drag from blank space beside the sidebar divider, full or on the rail, draws a marquee and leaves the request open. lgse/strata#2096
+- Tap a file once, then hold the second tap and move it past the drag threshold before release. The file stays selected and the request stays open. lgse/strata#2096
+- A double-click accepts the file only when the second click is released without moving past the drag threshold; the held press accepts nothing. lgse/strata#2096
+- Dragging a chooser row starts no file transfer; rows are selection controls only. lgse/strata#2096
 - A plain click inside a preview that shows a file keeps the selection; a click in the empty preview slot still clears it. lgse/strata#1570
 - With folders set to single-click in Icons or List, a single click on a folder opens it; a single click on a file only selects it. lgse/strata#1196
 - With the single-click preview preference on, clicking a previewable file opens the shared preview pane; Space toggles it. lgse/strata#385
@@ -158,6 +162,8 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
 - The chooser's 10xer key map and command allowlist belong to `integration/10xer-mode`.
 - The chooser keeps its sidebar steps for the dialog only and does not save them (lgse/strata#1606).
+- The chooser builds its sidebar split with the browser's `sidebar_split()` in `layout.rs`, replacing its native narrow handle; `browser/sidebar/rail` owns that split (lgse/strata#2095, lgse/strata#2096).
+- Chooser rows still get no outgoing drag source, so release-time activation cannot enable manager-only file operations in a chooser (lgse/strata#2095, lgse/strata#2096).
 - A device chooser checks containment by path on the UI thread and where a folder really leads on a worker. Its listing, monitor, and search start only once that check places the folder inside the device (lgse/strata#1729).
 
 ## History

@@ -3,7 +3,7 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
 review: draft
 code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
 tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/**, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
@@ -13,7 +13,7 @@ related: [operations/progress/jobs, integration/10xer-mode, remote/file-provider
 
 ## Summary
 
-User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs; `operations/progress/jobs` owns how an invocation is launched and what it receives. `browser/context-menu` places the actions section in the menus. In 10xer mode, `;` then a digit runs the first ten matching actions (`integration/10xer-mode`). In the default map, a key bound to a Custom action slot in Settings → Keyboard runs an action by its place in the list (`app/keyboard-shortcuts/remapping`).
+User-defined Python, Bash, or command actions in the file and folder context menus. Each action is a folder holding an `action.toml` manifest and an optional script. Users create and manage actions in Settings → Actions, which includes a library of bundled recipes. Runs are queued as background jobs; `operations/progress/jobs` owns how an invocation is launched and what it receives. `browser/context-menu` places the actions section in the menus. In 10xer mode, `;` then a digit runs the first ten matching actions, and `; .` then a digit runs the focused folder's (`integration/10xer-mode/file-verbs`). In the default map, a key bound to a Custom action slot in Settings → Keyboard runs an action by its place in the list (`app/keyboard-shortcuts/remapping`).
 
 ## Behavior
 
@@ -34,7 +34,8 @@ User-defined Python, Bash, or command actions in the file and folder context men
 - An action appears only when every selected entry matches its `kinds`, `extensions`, and `mime_types`, and the selection size is between `min_items` and `max_items`. lgse/strata#1085
 - Extensions match case-insensitively. Content types are guessed from the file name without reading contents, and `image/*` matches every `image/` type. lgse/strata#1085 (unverified)
 - An action with `enabled = false` stays in Settings but is left out of menus. lgse/strata#1085
-- The folder background menu matches actions against the open folder as a single folder input. lgse/strata#1085
+- The folder background menu and the 10xer `; .` chord match actions against the open folder as a single folder input. lgse/strata#1085, lgse/strata#2086, lgse/strata#1826
+- At `/`, which has no folder name, the background menu and `; .` offer no custom actions. lgse/strata#1826 (unverified)
 - A selection that includes Trash or a non-native GVfs item shows no custom actions. lgse/strata#1085
 - Actions with `menu = "top"` appear in the menu body. Others appear under an Actions submenu. Both groups are sorted by name, ignoring case. lgse/strata#1085 (unverified)
 - Menus, the 10xer action chord, and Settings → Actions show the actions as last read. An action changed outside Strata appears once a background reread finishes. lgse/strata#1729

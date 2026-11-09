@@ -3,7 +3,7 @@ title: Drop copy-or-move policy
 status: shipped
 origin: {issue: lgse/strata#248, pr: lgse/strata#502}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/services/transfer_action.rs, src/adapters/volume.rs]
 tests: [src/services/transfer_action/tests.rs, src/adapters/volume/tests.rs, src/adapters/volume/tests/lookup_regressions.rs, tests/qa/scenarios/cross_volume_drop/cross-volume-plain-copy.jsonl]
@@ -42,6 +42,7 @@ Moving across devices silently removes the only copy from a USB stick or network
 - The destination is compared with each source's parent folder, or with the source itself when it is a mount point. Any unresolved identity makes the relation unknown, which follows the cross-device strategy but is never described as a confirmed device difference (lgse/strata#502).
 - Blocking risk is kept separate from identity. Ordinary local paths resolve on the GTK thread; remote, symlinked, and autofs paths are queried asynchronously with a 2-second timeout (lgse/strata#732, lgse/strata#846).
 - The timeout exists because cancelling cannot unblock a stat already stuck on a dead mount. Autofs scheduling alone never declares two filesystems different (lgse/strata#846).
+- The timeout task is aborted once the lookup finishes, or when it is cancelled with nothing waiting. A lookup a committed drop waits on keeps its timeout, since only that ends it on a dead mount (lgse/strata#2069, lgse/strata#2087).
 - One classification per hovered destination drives both the cursor and the committed transfer, so the dialog matches the feedback shown (lgse/strata#502).
 - Cut and Paste is unaffected by this policy (lgse/strata#502).
 - Classifying a drop in a 50,000-item folder stalled the UI (lgse/strata#1573). For native paths the no-op filter compares paths, not GIO files. A parent with no mount point directly inside is checked once for all its children (lgse/strata#1574).
@@ -50,10 +51,11 @@ Moving across devices silently removes the only copy from a USB stick or network
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-08 | lgse/strata#2087 | fix | Aborted a drop volume lookup's 2 s timeout task once the lookup ends, so it no longer holds the lookup's state. |
 | 2026-10-11 | lgse/strata#1574 | perf | Compared native drop paths directly and looked up each plain parent's volume once, removing hover stalls in 50,000-item folders. |
 | 2026-09-12 | lgse/strata#846 | fix | Detected autofs ancestors from mountinfo so drop volume lookups beneath them run off the GTK thread. |
 | 2026-09-10 | lgse/strata#761 | fix | Compared volumes by GIO backend instead of lexical remoteness, so network-mount aliases count as one volume. |
 
 ## Known gaps
 
-- A volume lookup that finishes or is cancelled leaves its 2 s timeout task running until it fires, holding the lookup's state. lgse/strata#2069
+None known.

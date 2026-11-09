@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_verbs.rs, src/ui/window/tests/keyboard_dispatch/file_verbs/**, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/archives.rs, src/ui/window/tests/keyboard_dispatch/file_commands/clipboard.rs, src/ui/window/tests/keyboard_dispatch/file_commands/send_to.rs]
@@ -95,10 +95,20 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - Outside Flatpak, for a mixed selection, Recommended Applications lists only applications that handle every type. lgse/strata#1308, lgse/strata#1635
 - A newer key, a selection or focus change, navigation, leaving the mode, or closing the window drops an unfinished Open With lookup. lgse/strata#1308
 - When any `O` target is in a folder opened as administrator, `O` opens no chooser. It flashes "Other applications can't open files in a folder opened as administrator. Preview the file here, or copy it to another folder first." lgse/strata#1837 (unverified)
-- `;` arms a chord whose panel lists the first ten matching custom actions in context-menu order, then `t`, `c`, `e`, and `E`. lgse/strata#1308, lgse/strata#1340
+- `;` arms a chord whose panel lists the first ten matching custom actions in context-menu order, then `.`, `t`, `c`, `e`, and `E`. lgse/strata#1308, lgse/strata#1340, lgse/strata#2086
 - `; 1` to `; 9` and `; 0` run that action; a vacant slot flashes `No action N` and runs nothing. lgse/strata#1308
 - If the targets or the action list changed since `;`, the digit flashes `Selection changed` or `Actions changed` and runs nothing. lgse/strata#1308
 - A confirming action asks first, and a run appears in Jobs as from the context menu. lgse/strata#1308
+- `; .` switches the panel to the first ten actions the keyboard-focused folder's background menu offers, whatever the cursor is on. lgse/strata#2086, lgse/strata#1826
+- `; .` then a digit runs that action with the folder as `{paths}` and `{parent}` and `STRATA_ACTION_SOURCE=background`, also in an empty folder. lgse/strata#2086, lgse/strata#1826
+- In Columns, `; .` targets the column holding the cursor. lgse/strata#1826, lgse/strata#1743
+- `;` then a digit still targets the fill or the cursor item, with `STRATA_ACTION_SOURCE=selection`. lgse/strata#2086, lgse/strata#1826
+- `; .` then a vacant slot's digit flashes `No action N` and runs nothing. lgse/strata#1826
+- If the keyboard-focused folder changed since `; .`, the digit flashes `Folder changed` and runs nothing. lgse/strata#2086, lgse/strata#1826
+- `; .` in Trash or another non-local place lists only `No matching actions`, and a digit N flashes `No action N` and runs nothing. lgse/strata#1826
+- `; .` then a key other than a digit, such as `t`, cancels with `Unknown chord`. lgse/strata#1826 (unverified)
+- With `actions.folder` rebound under `[keymap.tenxer]`, such as to `f`, the `;` panel shows `f`, the pill reads `; f-`, and `; f 1` runs. lgse/strata#1826
+- A lettered `;` step rebound to `.` runs that step, not the folder actions. lgse/strata#1826
 - In the default map, a Custom action slot key whose slot has no action flashes `No action N` and runs nothing. lgse/strata#1885
 - A slot key whose action cannot run on the targets flashes `No matching actions` and runs nothing else. lgse/strata#1885
 - In List view, a slot key whose slot holds an action, pressed with the focused row unselected, flashes `No matching actions`. lgse/strata#1885 (unverified)
@@ -117,6 +127,9 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - A footer rename and an `M` / `C` prompt fix their items when they open, so a later cursor move cannot redirect them (lgse/strata#1308, lgse/strata#1340).
 - A move made in place hands the cursor to the next item, as a delete does, through `Browser::transfer_replacing_cursor`. Drag-and-drop and paste keep their selection (lgse/strata#1340).
 - `; 1` to `; 0` recheck the targets and the catalog at the digit, so a changed selection cannot run an action on other items (lgse/strata#1308).
+- The cursor always sits on an item, so `;` plus a digit could never target the open folder, and `{parent}` still matched `[when]` against the cursor item. `; .` is the explicit second chord lgse/strata#1743 asked for: the key picks the target (lgse/strata#1826).
+- `; .` reuses the background menu's input, so `{paths}`, `{parent}`, and the `background` source match it exactly (lgse/strata#1826).
+- `app/keyboard-shortcuts/remapping` records why `actions.folder` is a remappable `;` step (lgse/strata#1826).
 - The permanent-delete dialog first opened with Cancel focused. That mode-only path was removed so it focuses its confirm button like every other modal (lgse/strata#1306, lgse/strata#1508).
 - The permanent confirmation offered where Trash is unsupported is the exception in every mode. The user did not ask for permanent deletion, so Cancel takes focus and `d d` cannot delete (lgse/strata#1425, lgse/strata#1533).
 
@@ -124,6 +137,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-07 | lgse/strata#2086 | feat | Added `; .` to run custom actions on the keyboard-focused folder, since `;` digits only reach the cursor item (lgse/strata#1826, lgse/strata#1743). |
 | 2026-11-07 | lgse/strata#2074 | feat | Added `, f` to toggle Folders first, since 10xer mode hides the pane header's sort menu (lgse/strata#2073). |
 | 2026-10-15 | lgse/strata#1623 | fix | Made Ctrl+Alt+N use only the committed fill, so with nothing selected it creates an empty folder. |
 | 2026-10-07 | lgse/strata#1508 | fix | Focused the confirm button in permanent-delete dialogs and let `d` trash an open Columns folder. |
