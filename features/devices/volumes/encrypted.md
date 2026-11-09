@@ -3,11 +3,11 @@ title: Encrypted volumes
 status: shipped
 origin: {issue: null, pr: lgse/strata#935}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+review: draft
 code: [src/ui/window/volume_password.rs, src/ui/window/device_lock.rs, src/ui/browser/location/unlock_progress.rs]
 tests: [src/ui/window/volume_password/tests.rs]
-related: [devices/volumes/udiskie-unlock, devices/volumes/drive-dialogs, app/accessibility]
+related: [devices/volumes/udiskie-unlock, devices/volumes/drive-dialogs, devices/volumes/release, app/accessibility]
 ---
 
 ## Summary
@@ -44,7 +44,7 @@ Unlocking and locking LUKS volumes from their Devices rows with Strata's themed 
 - On an internal disk with no stoppable drive, Lock closes the LUKS container after the unmount; `lsblk` shows no `crypt` child. lgse/strata#1952
 - Lock on an unlocked volume whose filesystem is already unmounted closes the mapping with no error dialog. lgse/strata#1923, lgse/strata#1952
 - Lock on a mount with no GIO volume, such as an fstab entry, finds its block device from the mount table and closes its container. lgse/strata#1952
-- Lock with a shell inside the mount shows "Unable to lock device" with GIO's busy unmount error, and the mapping stays open. lgse/strata#1952
+- Lock with a shell inside the mount shows "Unable to lock device", and the mapping stays open. lgse/strata#1952, lgse/strata#2105
 - When the volume's passphrase is saved, Lock first asks "Forget saved password?"; Cancel or Escape leaves both the password and the mount. lgse/strata#935
 - "Forget and lock" deletes the saved passphrase, then locks. lgse/strata#935
 - If the keyring needs a confirmation Strata cannot display, Lock stops with "Couldn't forget the saved password" and asks the user to remove it in the password manager. lgse/strata#935

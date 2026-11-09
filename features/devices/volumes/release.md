@@ -54,7 +54,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - A GIO `FailedHandled` error, or one whose message contains "aborted", also shows no error dialog. lgse/strata#296 (unverified)
 - Any other GIO failure shows "Unable to eject device" or "Unable to unmount device" with the error and the last progress message. lgse/strata#296, lgse/strata#1193 (unverified)
 - An untyped eject or unmount failure containing "resource busy", "mount point busy", or "target is busy", in any case, shows "The item is in use" instead of the backend text. lgse/strata#2105
-- An untyped Lock failure with one of those phrases shows "The item is in use" under "Unable to lock device". lgse/strata#2105 (unverified)
+- An untyped Lock failure with one of those phrases shows "The item is in use" under "Unable to lock device". lgse/strata#1952, lgse/strata#2105 (unverified)
 
 ### Disconnect
 

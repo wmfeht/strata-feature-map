@@ -55,7 +55,6 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Run the live ISO guest's Strata as root and as the live user; compare the rows for the root loop and the boot medium.
 - Mount the CD-ROM's ISO from a shell, unmount it, and hold it with `sudo dd if=/dev/sr0 of=/dev/null` and with a `losetup` on it; watch the row after each step.
 - Plug in a stick while a held volume's first probe is pending, and mount the stick while another drive is being attached.
-- Restart udisks2 with `LANG=de_DE.UTF-8`, hold a stick busy with a shell, and Eject it; then mount a busy loop from its row.
 
 ### devices/volumes/release
 
@@ -72,7 +71,8 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Disconnect the SFTP share while a shell sits inside its `/run/user/$UID/gvfs` path; dismiss GVfs's busy dialog, then retry and choose to unmount anyway.
 - Click Disconnect twice quickly on the SFTP row, then open its row menu again while the first unmount runs.
 - Set a Strata label with emoji on a stick, then Eject and Unmount it with the overlay open and hidden.
-- Eject the CD-ROM while `dd` reads it, unmount a stick held by a shell, and Lock the LUKS volume with a shell inside it; read each message beside `udisksctl`'s own text.
+- Eject the CD-ROM while `dd` reads it; read the message beside `udisksctl`'s own text.
+- Restart udisks2 with `LANG=de_DE.UTF-8`, hold a stick busy with a shell, and Eject it.
 - Hold a release pending with a shell inside the mount beside a second stick's eject button; compare the spinner's column with that icon at text sizes 10 and 20, and at 1.6 fractional scaling.
 
 ### devices/volumes/encrypted
