@@ -152,7 +152,7 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Releasing open files before a change](features/operations/filesystem-compatibility/open-files.md) | `operations/filesystem-compatibility/open-files` | shipped | reviewed | `5738aad` | 0 |
 | [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | reviewed | `9fb7a36` | ? |
 | ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | reviewed | `9fb7a36` | ? |
-| ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | draft | `bae71c0` | 0 |
+| ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | draft | `9fb7a36` | ? |
 | [Inline rename](features/operations/rename/index.md) | `operations/rename` | shipped | draft | `5738aad` | 0 |
 | ↳ [Typed path names](features/operations/rename/typed-paths.md) | `operations/rename/typed-paths` | shipped | reviewed | `bae71c0` | 0 |
 | [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `9fb7a36` | ? |
