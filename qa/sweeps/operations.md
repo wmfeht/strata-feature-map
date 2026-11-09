@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
@@ -237,6 +237,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 
 - Empty with Trash open in a second window, with a Restore dialog open, and while contents are still being measured; cancel at each stage.
 - Empty a Trash holding a non-UTF-8 name and a 10k-entry folder.
+- Empty a Trash of 150 files and non-empty folders trashed from an ntfs3 volume.
+- Remove one trashed item from a shell while "Emptying Trash" runs.
 
 ### operations/trash/animation
 

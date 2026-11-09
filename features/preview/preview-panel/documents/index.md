@@ -3,7 +3,7 @@ title: Rendered document previews
 status: shipped
 origin: {issue: lgse/strata#89, pr: lgse/strata#187}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/services/document.rs, src/services/document_media.rs, src/services/docx.rs, src/services/docx/namespaces.rs, src/services/rtf.rs, src/services/table.rs, src/ui/document_view.rs, src/ui/document_media.rs, src/ui/virtual_preview.rs, src/ui/virtual_preview/selection.rs, src/ui/virtual_preview/line_numbers.rs, src/ui/table_view.rs, src/ui/table_view/selection.rs, src/ui/table_view/model.rs, src/sandbox_helper/document_media.rs, data/math-renderer.js, packaging/math-renderer, src/services/document/html.rs, src/services/document/layout.rs, src/services/document/markdown.rs, src/ui/preview/document.rs, src/ui/virtual_preview/code_copy.rs, src/ui/virtual_preview/factory.rs, src/ui/virtual_preview/highlight.rs, src/ui/virtual_preview/hit_test.rs, src/ui/virtual_preview/keyboard.rs, src/ui/virtual_preview/pointer.rs, src/ui/virtual_preview/rows.rs, src/ui/virtual_preview/source.rs, src/ui/virtual_preview/table_cell.rs, src/ui/virtual_preview/tags.rs, src/ui/virtual_preview/text_view.rs]
 tests: [src/services/document/tests.rs, src/services/document_media/tests.rs, src/services/docx/tests.rs, src/services/docx/namespaces/tests.rs, src/services/rtf/tests.rs, src/services/table/tests.rs, src/ui/document_media/tests.rs, src/ui/virtual_preview/tests.rs, src/ui/virtual_preview/selection/tests.rs, src/ui/table_view/tests.rs, src/ui/table_view/selection/tests.rs, src/sandbox_helper/document_media/tests.rs, tests/fixtures/spreadsheets, tests/fixtures/documents/report.docx, tests/fixtures/documents/README.md, tests/qa/scenarios/quick_preview/markdown-equations-keep-prose.jsonl, tests/qa/scenarios/quick_preview/markdown-preview-renders-media.jsonl, tests/qa/scenarios/quick_preview/rendered-document-word-selection.jsonl, tests/qa/scenarios/quick_preview/sandboxed-office-shared-preview.jsonl, tests/qa/scenarios/quick_preview/table-preview-keeps-secondary-sorts.jsonl, src/services/document/tests/**]
@@ -65,6 +65,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 ### Scrolling
 
 - After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752 (unverified)
+- Under CPU load, a fast forward jump in a long rendered Markdown document shows rows at their real height, and the visible text does not move once idle work runs. lgse/strata#2088
 
 ### HTML and links
 
@@ -131,6 +132,8 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - Unwrapped source rows already widened to their text, but rendered rows only got a height and clipped at the pane edge. Unwrapped rendered rows now widen to their longest line (lgse/strata#1610, lgse/strata#1612).
 - The `document-code` tag forced `WrapMode::None`, and a tag's wrap mode overrides the view's, so code never wrapped. The forced mode was dropped, and a first-line indent became left and right margins so wrapped lines stay inside the panel (lgse/strata#2056, lgse/strata#2055).
 - The first code line reserves a fixed right margin matching the **Copy code** button's CSS geometry. Unwrapped widths take each line's larger view or tag right margin, so code gets room without narrowing other lines (lgse/strata#2056).
+- GTK drops a resize queued while it lays a row out, and rendered rows are built from their `map` handler during that layout. A one-shot tick queues the resize in the next frame's update phase, before layout, so it is kept (lgse/strata#2088, lgse/strata#2068).
+- The idle measurement pass stays as the final correction. Idle runs below redraw priority, so on a loaded machine it could not be the only sizing step (lgse/strata#2088, lgse/strata#2068).
 - Wrap toggles remeasure rows after GTK has re-laid them out, because measuring right after `set_wrap_mode` returned the previous mode's height (lgse/strata#1612).
 - Virtual rows cannot take native input, so word, line, and Shift selection is computed in the document model. The selector had ignored click count and modifiers (lgse/strata#1557).
 - One table renderer serves CSV, TSV, workbooks, Markdown, HTML, DOCX, and ODT tables, replacing the 200-row capped grid (lgse/strata#723, lgse/strata#729, lgse/strata#1834).
@@ -150,6 +153,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-08 | lgse/strata#2088 | fix | Queued a resize from the next frame's tick for newly mapped rendered rows, so fast scrolling under load no longer shows line-high rows that grow and move the text. |
 | 2026-11-05 | lgse/strata#2056 | fix | Made rendered code blocks follow the wrap toggle, kept the copy button off the first code line, and turned preview wrap on by default. |
 | 2026-10-30 | lgse/strata#1946 | fix | Sorted tables in Rust over a lazy row model, removing a 5 s freeze on large spreadsheets, and kept earlier columns as tie-breakers. |
 | 2026-10-11 | lgse/strata#1570 | fix | Hid HTML comments in release-notes Markdown through a separate parser profile; document previews are unchanged. |
@@ -166,4 +170,5 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 - A far jump in a rendered preview, such as a thumb drag, can show the previous content for one frame while mapped rows rebuild. lgse/strata#1752
 - Large rendered previews have an initial-loading delay, where GTK/Pango layout and mixed-table construction remain significant costs. lgse/strata#1752
 - A document-embedded table rebuilt after scrolling restores only its primary sort column, so the next header click drops secondary tie-breaking. lgse/strata#1946
-- A fast forward scroll in a rendered preview under CPU load briefly lays out rows at one-line height, 18 px, then the content jumps back. lgse/strata#2068
+- A newly mapped rendered row still paints at its estimated height for one frame before the tick's resize applies. lgse/strata#2088
+- The resize tick is added on every map, so re-mapping an already built row costs one extra relayout. lgse/strata#2088

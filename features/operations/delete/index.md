@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
 reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+review: draft
 code: [src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh, src/adapters/local_operations/deletion/**]
 tests: [src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl, src/adapters/local_operations/tests/deletion/**, src/adapters/local_operations/tests/benchmark.rs]
 related: [operations/trash, operations/progress, operations/filesystem-compatibility/open-files, browser/context-menu]
@@ -84,3 +84,4 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 
 - Shift+Delete still opens the permanent-delete confirmation where `access::can-delete` is false; only the item menu is capability-gated. lgse/strata#66
 - After confirming a permanent delete of a 600,000-file folder, progress shows 0% for about 1.5 s before the first entry is removed. lgse/strata#1935
+- Delete Permanently on selected `trash:///` items still counts every non-cancel error as a failure, so on ntfs3 items already removed can be reported as failed. lgse/strata#2093
