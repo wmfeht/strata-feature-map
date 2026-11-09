@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -83,6 +83,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With 10xer mode on, press Shift+Tab with the files focused and again with the header focused, in a SaveFile and a folder request; read focus.
 - With 10xer mode on, Tab and Shift+Tab around a SaveFile request with choices but no filters, an Open request with only the read-only box, and a folder request with no options.
 - Focus the Back button with no history, then with history, in Columns, Icons, and List; press Menu and Shift+F10 and read what opens.
+- Under `multiple`, start drags 1, 2, and 6 px either side of the sidebar divider with the sidebar full and on the rail, at the smallest and largest text size. Read the sidebar width and the selection.
+- Under `single` and `save`, drag from blank space beside the divider; read the sidebar width and the selection.
+- Under `multiple` and `directory`, tap a folder once, hold the second tap, move past the drag threshold, and release over another folder. Read the location, the files on disk, and the response code.
+- Double-click a file, hold the second click 1 s without moving, then release; repeat with file clicks at one and at two, and with a filter result.
 
 ### integration/portal-file-chooser/setup
 

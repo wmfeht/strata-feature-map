@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -141,6 +141,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Rebind `pdf_zoom_reset` and `text_reset` to shared and separate keys. Press them with a PDF, a text preview, and the listing focused, with a 10xer chord armed.
 - Focus a PDF page, a table cell, an archive row, a text preview's scrollbar, and the media controls in turn; press Delete, F2, Ctrl+D, Ctrl+V, and Ctrl+Alt+N at each in Columns, Icons, and List.
 - Filter with Ctrl+F, trash a result, move focus to another result, then press Ctrl+Z, Ctrl+Y, and Ctrl+Z twice; repeat with recursive search results and with the filter field focused between presses.
+- In a tab opened with Ctrl+T, press Escape during a sidebar pin drag and during a Ctrl copy drag; release over the tab strip, a folder, and the sidebar. Read the files and the pins.
+- Open two tabs after startup, hover one drag through both until each activates, press Escape, and release; then press Escape again with no drag and read each tab's selection.
+- Drag a tab opened after startup to reorder it, press Escape, then release; repeat with the startup tab and read the tab order.
 
 ### app/packaging
 

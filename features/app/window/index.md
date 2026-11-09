@@ -3,7 +3,7 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/decoration.rs, src/ui/window/launch.rs]
 tests: [src/ui/decoration/tests.rs]

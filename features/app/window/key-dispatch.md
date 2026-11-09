@@ -3,11 +3,11 @@ title: Window key and wheel dispatch
 status: shipped
 origin: {issue: null, pr: lgse/strata#544}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
-review: reviewed
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+review: draft
 code: [src/ui/window/keyboard.rs, src/ui/window/keyboard/commands.rs, src/ui/window/key_routing.rs, src/ui/window/keyboard/input_owner.rs, src/ui/window/keyboard/wheel_zoom.rs]
 tests: [src/ui/window/tests/keyboard_dispatch.rs, tests/qa/scenarios/dialogs_and_menus/modal-dialog-blocks-window-shortcuts.jsonl, src/ui/window/tests/keyboard_dispatch/entry_keys.rs, tests/qa/scenarios/quick_preview/preview-focus-ignores-file-commands.jsonl]
-related: [app/keyboard-shortcuts, app/dialogs, app/shortcut-reference, browser/view-modes/text-size, browser/view-modes/thumbnail-size, integration/10xer-mode, preview/preview-panel, browser/sidebar, preview/quick-preview, browser/search/filter]
+related: [app/keyboard-shortcuts, app/dialogs, app/shortcut-reference, browser/view-modes/text-size, browser/view-modes/thumbnail-size, integration/10xer-mode, preview/preview-panel, browser/sidebar, preview/quick-preview, browser/search/filter, browser/tabs]
 ---
 
 ## Summary
@@ -31,6 +31,9 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - A key pressed while a modal is open and focus is outside it moves focus into the modal and does nothing else. lgse/strata#544 (unverified)
 - While a popover menu has focus or is visible, keys go to the menu rather than to browser shortcuts. lgse/strata#544 (unverified)
 - With no dialog or menu open, Escape during a List heading drag cancels only the drag. The file selection stays and the footer chord mark clears. lgse/strata#1900
+- A tab opened after startup passes Escape to the window during a file, folder, or sidebar drag, so the window cancels the drag. lgse/strata#2100
+- Drag a file onto a tab opened with Ctrl+T until it activates, press Escape, then release over it. The file stays in the source and nothing lands. lgse/strata#2100
+- After that cancel, the source tab keeps its selection of the dragged item. lgse/strata#2100
 - With a text field focused, Ctrl+C, Ctrl+X, Ctrl+V, and Ctrl+A act on its text, not on the selected files. lgse/strata#544
 - In the default key map, with Ctrl+F filter or search results showing and no text field focused, `y` copies no path. lgse/strata#800, lgse/strata#1885 (unverified)
 - In that state, a key no earlier stage claims runs no Strata file command and goes to GTK. lgse/strata#800, lgse/strata#1885 (unverified)
@@ -63,7 +66,7 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 
 [docs/architecture.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/architecture.md) carries the design under "Window keyboard routing". [docs/keyboard-shortcuts.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/keyboard-shortcuts.md) describes how the dispatcher reads keys through `ui::keys` (`app/keyboard-shortcuts`).
 
-- Each tab installs one capture-phase key controller on the window, and it acts only while that tab is mapped (lgse/strata#1484). It runs ordered stages: text size, modal and editing ownership, window and file commands, focus traversal, dismissal, then item navigation. `None` tries the next Strata stage; `Some(Propagation::Proceed)` ends dispatch and leaves the key to GTK (lgse/strata#543, lgse/strata#544).
+- Each tab installs one capture-phase key controller on the window, and it acts only while that tab is mapped (lgse/strata#1484). A tab created after startup installs its controller ahead of the window's, so it yields tab shortcuts, and Escape during an item drag, to the window (lgse/strata#2100). It runs ordered stages: text size, modal and editing ownership, window and file commands, focus traversal, dismissal, then item navigation. `None` tries the next Strata stage; `Some(Propagation::Proceed)` ends dispatch and leaves the key to GTK (lgse/strata#543, lgse/strata#544).
 - A direct-command stage, `app/keyboard-shortcuts/remapping`, runs after the window commands and before the default-map Tab stage and inline editing. A focused document's zoom reset now runs before text size, on its own keys (lgse/strata#1885).
 - In the default map, a Tab stage runs after window commands and before inline editing (lgse/strata#1431, lgse/strata#1533).
 - A rename Tab stage runs first, before the zoom reset, text size, and every other stage, in both maps and the file chooser. Tab in a focused rename field therefore goes to the rename, not focus traversal, and never leaves the strip (lgse/strata#1960, lgse/strata#1961).
@@ -77,6 +80,7 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 - Undo and Redo replay operation history rather than act on a selection, so the filter-results stage no longer claims them (lgse/strata#2005, lgse/strata#2026).
 - Editable controls and native single-pane selection must not fall through to browser commands, which is why a stage can hand a key to GTK (lgse/strata#544).
 - Heading-drag cancellation is shared by the browser and the portal chooser, and runs in the ownership stage after the modal and menu checks (lgse/strata#1900).
+- The Escape yield and `TabStrip::cancel_drag` read the active sidebar or file drag through one lookup, `active_item_drag`, so a new drag kind cannot reach only one (lgse/strata#2100).
 - Ctrl+wheel is handled in the capture phase so scrolled windows cannot consume it first. The PDF scroll container keeps its own zoom (lgse/strata#1069, lgse/strata#1110).
 - The wheel controller accumulates deltas itself instead of using GTK's discrete mode, which consumed every touchpad scroll before descendant scrollers saw it (lgse/strata#1140).
 - Scroll events carry no pointer position, so the wheel handler asks the seat where the pointer is and picks the widget under it (lgse/strata#1622).
@@ -85,9 +89,11 @@ The capture-phase key controller and Ctrl+wheel controller each browser window i
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-09 | lgse/strata#2100 | fix | Let a tab's key handler yield Escape during a file or sidebar drag, so the window cancels a drag hover-switched into a tab created after startup. |
 | 2026-11-02 | lgse/strata#2026 | fix | Ignored file commands while focus is inside the preview, and let Ctrl+Z and Ctrl+Y reach the browser over filter results. |
 
 ## Known gaps
 
 - Each stage re-reads and classifies the focused widget, and every key press walks the widget tree for modal layers and open menus. Resolving the input owner once per press is proposed. lgse/strata#1716
 - Fifteen call sites cancel an armed 10xer chord by hand; one that forgets leaves a stale chord mark that swallows the next key. lgse/strata#1718
+- In a tab created after startup, Escape during a tab-reorder drag still reaches that tab's dispatcher first; `window_owns_key` cannot see the strip's drag source. Whether the cancel is lost is unchecked. lgse/strata#2100

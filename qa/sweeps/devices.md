@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
@@ -20,6 +20,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - A real PTP camera or iPhone passed through with `-device usb-host`; GVfs gphoto2 mounts only USB devices. Without one, record the camera block as not exercised.
 - An Android phone in MTP mode passed through the same way, for the MTP row probes.
 - `RUST_LOG=debug` beside `journalctl -f -u udisks2`; a GTK critical at any plug, mount, unmount, or unplug event is a finding.
+- A live ISO booted in a second guest with two extra virtio disks, for the held root loop and boot medium. An ISO attached as a CD-ROM to the installed guest holds the optical case.
 - A second build made with `STRATA_INTEGRATIONS=package`, copied into the guest beside the default build.
 - `scripts/sftp-fixture.sh --port 2222` with GVfs running, as in `qa/sweeps/remote.md`, for the SFTP share's network row and Disconnect. Mount `davs://` and `afp://` locations too where a server is at hand.
 
@@ -50,6 +51,11 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Change the text size live with Ctrl+- and Ctrl+= while both rows show, then compare the icon tips again without restarting.
 - Click Unlock on a locked LUKS volume and cancel the passphrase prompt; click Lock with a cached passphrase and cancel the dialog; look for a ring. Then reach each button with Tab and with Shift+Tab.
 - Hover the eject and lock icons on the current location's row and on a plain row, in a light and a dark theme.
+- Attach one image with `udisksctl loop-setup` as the user and one with `sudo losetup -P`, with no automounter running; then repeat with udiskie running. Compare rows with `udisksctl info` SetupByUID.
+- Run the live ISO guest's Strata as root and as the live user; compare the rows for the root loop and the boot medium.
+- Mount the CD-ROM's ISO from a shell, unmount it, and hold it with `sudo dd if=/dev/sr0 of=/dev/null` and with a `losetup` on it; watch the row after each step.
+- Plug in a stick while a held volume's first probe is pending, and mount the stick while another drive is being attached.
+- Restart udisks2 with `LANG=de_DE.UTF-8`, hold a stick busy with a shell, and Eject it; then mount a busy loop from its row.
 
 ### devices/volumes/release
 
@@ -66,6 +72,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Disconnect the SFTP share while a shell sits inside its `/run/user/$UID/gvfs` path; dismiss GVfs's busy dialog, then retry and choose to unmount anyway.
 - Click Disconnect twice quickly on the SFTP row, then open its row menu again while the first unmount runs.
 - Set a Strata label with emoji on a stick, then Eject and Unmount it with the overlay open and hidden.
+- Eject the CD-ROM while `dd` reads it, unmount a stick held by a shell, and Lock the LUKS volume with a shell inside it; read each message beside `udisksctl`'s own text.
 - Hold a release pending with a shell inside the mount beside a second stick's eject button; compare the spinner's column with that icon at text sizes 10 and 20, and at 1.6 fractional scaling.
 
 ### devices/volumes/encrypted
