@@ -35,7 +35,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ### Isolation and limits
 
 - A helper sees one read-only input file, a private output directory, a 512 MiB private `/tmp`, a cleared environment with `HOME=/nonexistent`, and no network, session bus, or display. lgse/strata#17
-- Media and audio-artwork helpers also receive the validated `STRATA_SANDBOX_PRLIMIT` path in their environment; no other helper does. lgse/strata#2098
+- Media and audio-artwork helpers also receive the resolved limiter path as `STRATA_SANDBOX_PRLIMIT`; no other helper does. lgse/strata#2098
 - Image, RAW, and PDF helpers run under a 2 GiB address-space limit, a 10-second CPU limit, a 512 MiB file-size limit, and a 12-second wall deadline. lgse/strata#17, lgse/strata#45, lgse/strata#55
 - An image, RAW, or PDF preview input over 512 MiB fails with "Preview input exceeds the supported size limit" before any renderer starts. lgse/strata#17 (unverified)
 - A DOCX, ODT, or OTT preview input over 20 MiB fails with "Preview input exceeds the supported size limit" before the helper starts. lgse/strata#1086, lgse/strata#1834 (unverified)

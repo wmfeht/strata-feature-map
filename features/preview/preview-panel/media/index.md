@@ -67,7 +67,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 ### Start position
 
 - With **Video preview start** at 20, a video of known duration not previewed this session opens at 20% of its length; a 60 s clip opens at 0:12. lgse/strata#2086, lgse/strata#1924
-- At the default 0, every preview starts at 0:00. lgse/strata#2086, lgse/strata#1924
+- At the default 0, a preview with no position remembered this session starts at 0:00. lgse/strata#2086, lgse/strata#1924
 - The start is saved as `preview_video_start` in `settings.toml`; a file without the key loads as 0. lgse/strata#2086, lgse/strata#1924
 - A saved `preview_video_start = 100` or `5000` loads as 99, and setting a value above 99 stores 99. lgse/strata#2086, lgse/strata#1924
 - A video with a position remembered this session resumes there, not at the configured start. lgse/strata#2086, lgse/strata#1924
@@ -127,7 +127,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Checks run as background work through request lanes, so a stalled mount parks no workers. One 10 s busy wait covers every folder of a run and is never reset within it (lgse/strata#2026).
 - Video preview start is a percentage, not a fixed offset, so one value suits clips of any length (lgse/strata#1910).
 - The start applies only with no remembered position, so it complements resume instead of replacing it. It is applied once, when the first header arrives, through the resume restart path; later seeks and resize restarts never reapply it. A first-time video with a start therefore runs two decoder sessions (lgse/strata#1910, lgse/strata#1924).
-- Raw streams start at 0:00 because the helper seeks them by decoding up to the target, and a late start in a long stream could exceed the first-frame timeout (lgse/strata#1924).
+- Raw streams start at 0:00 because the helper seeks them by decoding up to the target. A late start in a long stream could exceed the first-frame timeout (lgse/strata#1924).
 - 0:00 is remembered only when a start was configured. With the default 0, every previewed video and GIF would fill the 128-entry position cache and evict real resume positions (lgse/strata#1924).
 - The `packaging/media-runtime` patch kit pins a GStreamer worker-finalization fix and probes. It does not change the shipped binary (lgse/strata#779). The GTK context patch was retired once upstream merged it (lgse/strata#830).
 
@@ -160,5 +160,6 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - The volume slider and the plain media bar's seek slider have no accessible name. Naming them needs new strings in every catalog. lgse/strata#1896
 - Remote (GVfs) and route files are still placed in a media sequence by name, not content. lgse/strata#2026
 - Files not read before the 10 s busy wait ran out stay out of the sequence until the shown file changes. lgse/strata#2026
-- The start rule recognizes a raw H.264 or H.265 stream by its extension only, so a raw stream named `.mp4` still opens at the configured start. lgse/strata#1924
+- The start rule recognizes a raw H.264 or H.265 stream by its extension only. A raw stream named `.mp4` still opens at the configured start. lgse/strata#1924
+- Pausing a video with no audio track and pressing Play snaps back to where the decoder session started, such as 0:14 to 0:12 with a start of 20. The clock base advances only for audio, so Play restarts the wall clock from the old base. lgse/strata#1924
 - A video closed before its decoder header arrives forgets its remembered resume position. lgse/strata#1924

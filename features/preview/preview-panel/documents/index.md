@@ -65,7 +65,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 ### Scrolling
 
 - After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752 (unverified)
-- Under CPU load, a fast forward jump in long rendered Markdown shows rows at full height; the visible text stays put when idle work runs. lgse/strata#2088
+- Under CPU load, after a fast forward jump in a long rendered document, rows reach their real height on the next frame. The visible text does not move when idle work runs. lgse/strata#2088
 
 ### HTML and links
 

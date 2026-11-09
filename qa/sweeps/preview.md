@@ -136,7 +136,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
 - With Strata pinned by `taskset` to one CPU beside a busy loop, scroll a long rendered Markdown of mixed short and long paragraphs forward: one large jump, then small steps. Watch row heights and the scroll direction.
-- Under the same pinned load, jump so the view lands at the very end of the document, then drag the thumb far so visible rows rebind instead of mapping anew.
+- Under the same pinned load, jump so the view lands at the very end of the document. Then drag the thumb far so visible rows rebind instead of mapping anew.
 - Under `[keymap.default]`, set `first_item = ["F7"]` and `last_item = ["F8"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, Ctrl+End, F7, and F8.
 
 ### preview/preview-panel/documents/scrollbar
@@ -189,7 +189,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With a start set, preview a raw stream renamed `.mp4`, an `.ogg` carrying a video stream, and an MP3 with an attached picture.
 - Preview 130 different videos with a start set, then reopen the first one closed mid-clip.
 - With the `ffmpeg`-only `STRATA_SANDBOX_PATH` and an absolute `STRATA_SANDBOX_PRLIMIT`, check a waveform, a storyboard, and an MP3's embedded artwork. Repeat with the limiter at a missing path, then restored.
-- Launch Strata under `nice -n 15`, play the 2-hour FLAC beside a playing video, and read `ps -o ni,args` for the `audio-peaks` helper, its ffmpeg, and the player's decoder.
+- Launch Strata under `nice -n 15` and play the 2-hour FLAC beside a playing video. Read `ps -o ni,args` for the `audio-peaks` helper, its ffmpeg, and the player's decoder.
 
 ### preview/preview-panel/media/audio
 
@@ -278,7 +278,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
 - With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Under `[keymap.default]`, set `last_item = ["F8"]`, `page_down = ["F11"]`, `media_seek_end = ["F9"]`, and `media_volume_step_up = ["F10"]`. On a focused playing timeline, press End, Page Down, `G`, F8, F11, F9, `+`, `=`, and F10.
-- In Columns, click a folder, then press Space, Shift+Space, and Super+Space with the drawer open and closed; repeat on a folder symlink, an empty folder's column, and with Single-click file previews on.
+- In Columns, press Space, Shift+Space, and Super+Space with the drawer open and closed. Do it with the folder row focused, then after a click leaves the column with nothing focused. Repeat on a folder symlink, an empty folder's column, and with Single-click file previews on.
 
 ### preview/quick-preview/folder-peek
 
