@@ -33,7 +33,7 @@ Moving files and folders to the freedesktop.org Trash and browsing `trash:///` i
 - A finished deletion then moves the cursor on to a neighbour. lgse/strata#2030
 - A cancelled one ends with focus on the folder's row: closing "Operation cancelled" focuses it, and Down moves from it. lgse/strata#2030
 - A deletion that will not start, such as while a transfer's cancel is still pending, leaves the cursor in the folder's column. lgse/strata#2030
-- With animations on, confirming the permanent delete of the open folder dissolves the folder's row in the parent column. lgse/strata#2081
+- In Columns, with animations on, confirming the permanent delete of the open folder dissolves the folder's row in the parent column. lgse/strata#2081
 
 ### Locations without Trash
 
@@ -92,7 +92,7 @@ Moving files and folders to the freedesktop.org Trash and browsing `trash:///` i
 - The `left` keys, Left or `h` by default, focus Cancel and the `right` keys, Right or `l`, focus confirm. lgse/strata#1052, lgse/strata#1885
 - The `activate` keys, Enter and keypad Enter by default, activate the focused button. lgse/strata#1052, lgse/strata#1885
 - With Cancel or Close focused, Enter dismisses the dialog and the files stay. lgse/strata#1052
-- Confirming the Shift+Delete confirmation by click or Enter keeps the deleted rows' dissolve (`operations/delete/dissolve`) in Columns, List, and Icons. lgse/strata#2081
+- Confirming the Shift+Delete confirmation by click or Enter keeps the deleted rows' dissolve (`operations/delete/dissolve`). lgse/strata#2081
 - Confirming the no-Trash or "Delete N items without Trash?" confirmation keeps that dissolve too. lgse/strata#2081 (unverified)
 - In 10xer mode, the `confirm_trash` key, `d` by default, confirms the "Move N items to Trash?" confirmation. lgse/strata#1340, lgse/strata#1508, lgse/strata#1885
 - In the permanent and no-Trash confirmations, that key does not confirm. lgse/strata#1533

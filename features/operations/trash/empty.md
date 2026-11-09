@@ -29,8 +29,8 @@ Permanently deleting everything in Trash from the Trash pane header or the sideb
 - Confirming deletes every top-level Trash item, even when measurement was truncated, behind an "Emptying Trash" progress dialog with Cancel. lgse/strata#72
 - When some items cannot be deleted, the rest are still deleted and a "Completed with errors" dialog lists up to 8 errors plus a count of the others. lgse/strata#72 (unverified)
 - An item whose delete fails with NotFound counts as deleted and adds no line to the "Completed with errors" dialog. lgse/strata#2093
-- An item whose delete fails with another non-cancel error counts as deleted when a no-follow query then reports it missing. lgse/strata#2093
-- An item still present after its delete fails, or whose delete was cancelled, counts as failed and keeps its "name: error" line. lgse/strata#2093
+- An item whose delete fails with a generic error but is then gone adds no line to the "Completed with errors" dialog. lgse/strata#2093
+- Any item not confirmed missing after a failed or cancelled delete counts as failed and gets a "name: error" line. lgse/strata#2093
 
 ## Design
 
@@ -39,7 +39,7 @@ Measurement and deletion are separate passes (lgse/strata#72, lgse/strata#13).
 - Measurement uses the shared directory walker, bounded to 64 levels and 300 seconds (lgse/strata#558). It keeps no entry list and is cancellable. A truncated or partly unreadable walk is reported as a lower bound.
 - Deletion lists top-level entries afresh when confirmed and deletes them in batches of 64, so a stale or truncated measurement never leaves items behind.
 - The sidebar row fails safe: an unknown or failed probe hides it. The probe stops after the first entry (lgse/strata#396).
-- gvfs expunges a Trash item by renaming it, and reports a generic failure when the rename errors. On ntfs3 the rename can remove the item and still fail, so 22 of 150 deleted items were reported as failed (lgse/strata#1854, lgse/strata#2093).
+- gvfs expunges a Trash item by renaming it, and reports a generic failure when the rename errors. On ntfs3, 22 of 150 deleted items were reported as failed. The likely cause is a rename that removes the item and still fails; no one has confirmed it on ntfs3 (lgse/strata#1854, lgse/strata#2093).
 - A failed delete therefore counts as deleted only when the item is confirmed absent: NotFound, or a `NOFOLLOW_SYMLINKS` probe returning NotFound. An item still present stays a failure (lgse/strata#1854, lgse/strata#2093).
 - Keeping the sidebar row visible but disabled was rejected as clutter; removing it was rejected as inconvenient (lgse/strata#367).
 
@@ -47,7 +47,7 @@ Measurement and deletion are separate passes (lgse/strata#72, lgse/strata#13).
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-08 | lgse/strata#2093 | fix | Counted Trash items that a failed delete already removed as deleted, so Empty Trash on ntfs3 no longer reports false failures. |
+| 2026-11-08 | lgse/strata#2093 | fix | Stopped counting Trash items that a failed delete already removed as failures. |
 | 2026-09-06 | lgse/strata#396 | feat | Hid Empty Trash… in the sidebar menu until Trash is confirmed non-empty. |
 | 2026-09-01 | lgse/strata#138 | fix | Disabled the header button while Trash is empty so the measuring dialog no longer flashes. |
 | 2026-09-01 | lgse/strata#72 | perf | Bounded and made cancellable the Trash measurement, and emptied Trash in a separate full pass. |

@@ -3,7 +3,7 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh, src/adapters/local_operations/deletion/**]
 tests: [src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl, src/adapters/local_operations/tests/deletion/**, src/adapters/local_operations/tests/benchmark.rs]
@@ -36,6 +36,7 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - When another error, such as `EIO`, stops that delete, the error reported is the one that stopped it, not the still-open folder. lgse/strata#1965
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
 - That dialog lists the first 8 errors as "name: reason" and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
+- Permanently deleting a `trash:///` item that a failed delete already removed reports it as failed. lgse/strata#2093 (unverified)
 - Cancelling a permanent delete counts an item it had started as failed, and items not yet started as not attempted. lgse/strata#1615
 - Permanently deleting one local folder shows an "N items deleted" count that includes every file, symlink, and folder removed. lgse/strata#1935
 - A leftover `.nfs…`, `.__smbfile_silly…`, or `.fuse_hidden…` file left in place is not included in the "N items deleted" count. lgse/strata#1935 (unverified)
@@ -84,4 +85,4 @@ Move to Trash is the default delete because it is reversible; permanent deletion
 
 - Shift+Delete still opens the permanent-delete confirmation where `access::can-delete` is false; only the item menu is capability-gated. lgse/strata#66
 - After confirming a permanent delete of a 600,000-file folder, progress shows 0% for about 1.5 s before the first entry is removed. lgse/strata#1935
-- Delete Permanently on selected `trash:///` items still counts every non-cancel error as a failure, so on ntfs3 items already removed can be reported as failed. lgse/strata#2093
+- Permanently deleting selected `trash:///` items still counts every non-cancel error as a failure, so on ntfs3 items already removed can be reported as failed. lgse/strata#2093
