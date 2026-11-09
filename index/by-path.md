@@ -856,6 +856,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/close_guard.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/collection_edit.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
 | `src/ui/collection_interaction.rs` | code | [Selection](../features/browser/selection/index.md) | — |
+| `src/ui/collection_interaction/double_press.rs` | code | [Pointer intent](../features/browser/selection/pointer-intent.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/collection_interaction/tests.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `src/ui/controls.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/controls/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
@@ -971,7 +972,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/tests/preferences/saved_fixture.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/preferences/saving.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/tests/preferences/setters.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/ui/preferences/tests/preferences/themes.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
+| `src/ui/preferences/tests/preferences/themes.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/preferences/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/text_size.rs` | code | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/trashed.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -1146,6 +1147,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/roundness.rs` | code | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/roundness/tests.rs` | tests | [Corner roundness](../features/settings/themes/corner-roundness.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/source_style.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/system_appearance.rs` | code | [Follow system light/dark mode](../features/settings/themes/follow-system.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/catalog.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/custom.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -1153,6 +1155,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/theme/tests/live.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/tests/omarchy.rs` | tests | [Omarchy theme following](../features/settings/themes/omarchy.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/syntax.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
+| `src/ui/theme/tests/system_appearance.rs` | tests | [Follow system light/dark mode](../features/settings/themes/follow-system.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/ui/theme/tests/text_size.rs` | tests | [Text size](../features/browser/view-modes/text-size.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/theme/watch.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/ui/theme/weak_registry.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
@@ -1225,6 +1228,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/device_release/**` | code | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/device_release/tests.rs` | tests | [Unmount and eject](../features/devices/volumes/release.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/devices.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
+| `src/ui/window/devices/held.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
+| `src/ui/window/devices/probe_cache.rs` | code | [Devices and volumes](../features/devices/volumes/index.md) | — |
 | `src/ui/window/devices/tests.rs` | tests | [Devices and volumes](../features/devices/volumes/index.md) | — |
 | `src/ui/window/drive_dialogs.rs` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/ui/window/drive_dialogs/**` | code | [Drive format, label, properties, and container lock](../features/devices/volumes/drive-dialogs.md) | [Devices and volumes](../features/devices/volumes/index.md) |

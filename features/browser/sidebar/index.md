@@ -3,7 +3,7 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/window/sidebar.rs, data/icons/scalable/actions/strata-chevron-down.svg, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs, src/ui/preferences/sidebar_settings.rs, src/ui/window/places.rs, src/ui/window/sidebar_context_menu.rs, src/ui/window/sidebar_file_drop.rs, src/ui/window/sidebar_places.rs, src/ui/window/sidebar_popover.rs, src/ui/window/sidebar_reorder.rs, src/ui/window/sidebar_rows.rs, src/ui/window/sidebar_sections.rs, src/ui/window/sidebar_view.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl, tests/qa/scenarios/sidebar_pinning/empty-pinned-section-stays-hidden.jsonl]
@@ -30,6 +30,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Right-clicking a local folder row offers Customize…; clearing the customization restores the place's default icon. lgse/strata#1370
 - After shrinking the text size from 20 to 10 with Ctrl+-, Home, the standard folders, and pins share Trash's icon and label columns. lgse/strata#2062
 - Full-width rows have no fixed minimum height; their height follows the theme-sized icon box. lgse/strata#2062
+- In 10xer mode, pressing `g` then Escape changes no row's height or spacing while the place keycaps show and hide, also at larger text sizes. lgse/strata#2089, lgse/strata#2100
 - In the file chooser, the sidebar omits Trash and Network. lgse/strata#1025 (unverified)
 - In the file chooser, built-in place rows offer the same context menus as in a browser window and can be reordered by drag. lgse/strata#1713
 - Unpinning Home or a standard folder in the file chooser hides it in every window, and a reorder there is saved for every window. lgse/strata#1713
@@ -165,6 +166,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-09 | lgse/strata#2100 | fix | Reserved the replaced icon's height as well as its width for `g` place keycaps, so sidebar rows no longer shrink while hints show. |
 | 2026-11-07 | lgse/strata#2075 | feat | Grouped DEVICES rows by physical drive in the system's drive order, with a divider between drives, so partitions of different disks no longer mix. |
 | 2026-11-05 | lgse/strata#2064 | fix | Dropped redundant rail CSS that zeroed label fonts, so row labels return after moving the window off a monitor that railed the sidebar. |
 | 2026-11-05 | lgse/strata#2060 | fix | Matched the chevron's right gap to the title's left gap and lined device action icons up with it, replacing lgse/strata#1992's centring. |

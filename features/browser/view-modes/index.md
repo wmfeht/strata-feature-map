@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**, src/app/navigation/preferences.rs, src/ui/browser/view_modes.rs, src/ui/browser_modes/clicks.rs, src/ui/browser_modes/cursor.rs, src/ui/browser_modes/metadata.rs, src/ui/browser_modes/pane.rs, src/ui/browser_modes/pane_header.rs, src/ui/browser_modes/pane_shell.rs, src/ui/browser_modes/pane_state.rs, src/ui/browser_modes/rebuild.rs, src/ui/browser_modes/scroll_settle.rs, src/ui/browser_modes/source_index.rs, src/ui/preferences/layout_settings.rs, src/ui/window/appearance_menu.rs]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser_modes/tests/counting_model.rs, src/ui/browser/presentation/tests.rs, src/ui/window/tests/preferences/column_prefs.rs, tests/qa/scenarios/locations/unreadable-folder-offers-retry.jsonl]
@@ -69,6 +69,11 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 - With files opening on two clicks and single-click previews off, one plain click on a file result only selects it. lgse/strata#1888 (unverified)
 - In the file chooser and in Trash, a plain click never opens a file result. It previews a previewable file with single-click previews on, otherwise only selects it. lgse/strata#1888
 - A plain click on a selected file result starts no slow-click rename. lgse/strata#1888
+
+### Double-click
+
+- In List and Icons, a double-click opens a folder or launches a file once, when the second click is released, not when it is pressed. lgse/strata#2096
+- A second press that moved past the drag threshold, or whose row was recycled, does not activate on release. lgse/strata#2096 (unverified)
 
 ### Content density
 

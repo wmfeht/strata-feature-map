@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs, src/ui/browser/columns/append.rs, src/ui/browser/columns/append/header.rs, src/ui/browser/columns/append/models.rs, src/ui/browser/columns/append/shell.rs, src/ui/browser/columns/append/surface.rs, src/ui/browser/columns/cursor.rs, src/ui/browser/columns/double_click.rs, src/ui/browser/columns/lifecycle.rs, src/ui/browser/columns/resize.rs, src/ui/browser/columns/rows/bind.rs, src/ui/browser/columns/rows/click.rs, src/ui/browser/columns/rows/widgets.rs, src/ui/browser/columns/state.rs, src/ui/browser/columns/strip_scroll.rs, src/ui/browser/events/selection.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/after_back.rs]
@@ -24,7 +24,8 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - Clicking a folder whose child column is already open focuses and reveals that column instead of closing it. Context-menu Open does the same. lgse/strata#1513, lgse/strata#1539
 - A slow second click on the name of a selected, open folder still starts a rename. lgse/strata#1539
 - Double-clicking a closed folder ends as a single click does: its column opens, focused and scrolled into view, with nothing selected in it. lgse/strata#1539 (unverified)
-- The same holds when the first press scrolls the strip, with double-click folders, and from a partly clipped parent column. lgse/strata#1539
+- With folders opening on one click, the same holds when the first press scrolls the strip, and from a partly clipped parent column. lgse/strata#1539, lgse/strata#2096
+- With double-click folders, the second press opens the folder on release. A strip scrolled by the first press no longer pairs the presses, so the folder stays closed. lgse/strata#2096 (unverified)
 - With folders opening on one click, a plain click on a folder inside a multi-selection collapses the selection to it and opens its column. lgse/strata#1446, lgse/strata#1570
 - With single-click previews on, a plain click on a previewable file inside a multi-selection collapses the selection to it and previews it. lgse/strata#1446, lgse/strata#1570
 - With a folder open, opening a sibling fades the new column in where the old one stood, with no 24 px slide. Deeper columns of the old branch shrink away. lgse/strata#1539

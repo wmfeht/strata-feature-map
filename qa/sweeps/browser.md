@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -9,7 +9,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, folder jump, and opening unreadable folders as administrator. Ctrl+K search, the Ctrl+F filter, and search exclusions belong here too. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
-Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
+Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file and folder transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
 ## Setup
 
@@ -98,6 +98,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In List, press in the Size and Modified cells of a selected row and an unselected row and drag; note which starts a drag and which a marquee.
 - Repeat the List press-and-drag probes with Name moved to the last column and with Size and Type hidden.
 - Wheel-scroll during a held press until the row recycles, then release over a different row.
+- Tap an entry, then hold the second press for 2 s and release without moving; repeat moving 3 px and back, and with files opening on one click.
+- Tap a selected entry in a multi-selection, then hold and drag the second press; repeat adding Ctrl only on the second press.
+- Slow-click a name into rename, then double-press inside the rename field and drag across its text.
 
 ### browser/view-modes
 
@@ -120,6 +123,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open the unreadable folder in Icons where Open as Administrator is offered. Tab to Retry and press it while still unreadable, then after `chmod 755`.
 - Compare the folder-error Retry and Open as Administrator buttons in a light, a dark, and a custom theme: at rest, hovered, pressed, and keyboard-focused.
 - In grouped List, double-click a 600-file mixed folder with the sidebar focused, with a rename open in another tab, and with Properties open. Repeat in Icons and ungrouped List.
+- With files opening on one click, double-click a file in List and Icons as fast as possible; count the launches. Repeat in a Trash listing.
 
 ### browser/view-modes/columns
 
@@ -136,7 +140,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Return to an ancestor with a pending FileManager1 reveal in it, and while the ancestor fails to load after `chmod 000`.
 - Autofit the 255-byte name with the sidebar railed, then expanded, and with the preview open. Drag an edge past the window edge, then press Escape mid-drag.
 - Set `browser_column_width = 5000` with text size 28, launch, then return to 13; shrink the window to 400 px and drag an edge.
-- Double-click a closed folder in a clipped parent while the strip scrolls under the first press; repeat holding Ctrl on the second press.
+- Double-click a closed folder in a clipped parent while the strip scrolls under the first press; repeat holding Ctrl on the second press. Repeat with folders opening on one click and on two.
+- With double-click folders, tap a folder, then hold the second press and drag it into an open sibling column.
 - Close a column and click the next one within 220 ms; drop a file on a closing column; switch to Icons mid-close.
 - Ctrl-select three folders and plain-click one, moving 3 px before release; repeat in a filtered column and with double-click folders.
 - Trash the focused open folder with Delete, Mirror columns selection off then on, where the next entry is a file, a dot-folder, or nothing.
@@ -421,6 +426,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Type a query in `100000` with Include subfolders on, press `/`, then press Escape or edit the query before results arrive.
 - In the file chooser with Include subfolders on, press `/` twice to go down two levels.
 - With fcitx5 pinyin, select the query with Ctrl+A and type `/` while composing; repeat with Zhuyin.
+- Tap a List and an Icons Ctrl+F result, then hold the second press and drag it onto another tab's header; repeat with Include subfolders on.
 
 ### browser/search/filter/enter-target
 
@@ -462,6 +468,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With nothing pinned and the rail showing, drag a folder over the empty PINNED header row, hover its chevron, and leave the sidebar; repeat in the file chooser.
 - With a notice shown, step full, rail, full at text sizes 8 and 32; compare the notice icon with the row icons above at each step.
 - Set text size 32, then 8 with Ctrl+- in one window while a second window stays open; compare pin, Home, and Trash columns in both.
+- In 10xer mode with 12 pins and two devices, press `g` and Escape at text sizes 8 and 32, with PINNED collapsed, and at 160 % scaling; compare the sidebar's height.
 
 ### browser/sidebar/rail
 
@@ -474,6 +481,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`. Read its accessible name after each step.
 - At 160 % fractional scaling, press Ctrl+B between full and rail at text sizes 8, 10, and 32; compare every row and header icon position.
 - With two monitors, one narrow enough to rail the sidebar automatically, move the window there and back three times. Repeat at text sizes 8 and 32 and with a notice shown.
+- Press 1, 4, and 12 px right of the divider and drag, in full and rail modes, in Columns, Icons, and List, at 100 % and 160 % scaling. Then hover the divider in each mode.
 
 ### browser/sidebar/pins
 
@@ -675,7 +683,11 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Switch tabs with Ctrl+Tab, close the active tab, and navigate a background tab during a long copy; read the title after each.
 - With the window idle, rename a tab's folder from a shell and change text size from another window; check the underline matches the new tab bounds.
 - With 12 tabs overflowing the strip, drag a sidebar row to the strip's scrolled-off ends and release on each tab's left and right halves; read each new tab's position.
-- Drag three folders, then a folder plus a file, from each view onto the strip; drag a folder from Nautilus onto a tab header.
+- Drag three folders, then a folder plus a file, from each view onto a tab header, unused tab-bar space, and New tab; drag a folder from Nautilus onto each.
+- Drop three folders on unused tab-bar space and on New tab with the strip scrolled to its start; read each new tab's position.
+- Drag a folder onto a Trash, Recent, and `sftp://` tab header, onto its own source tab's header, and onto a tab showing the folder itself.
+- Ctrl-drag two folders selected in List onto another tab's header; count what arrives. Repeat in Icons and Columns.
+- With 12 tabs overflowing the strip, drag a folder along the strip and wheel-scroll it during the drag; release at each end.
 - With 12 tabs overflowing the strip, drop browser text and a Firefox image on a scrolled-off tab, between tabs, and on New tab.
 - Hold browser text over a background tab for one second, then move off before releasing.
 - Drag a sidebar row onto the other window's strip and its New tab button. Then drag a tab onto the other window's strip.
@@ -683,6 +695,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With a modal dialog open, drag a sidebar row and a folder from another window onto this window's strip and New tab button.
 - Press Escape mid-drag on Wayland and on X11: over a tab header, a sidebar row, a breadcrumb, and a spring-opened folder. Release over a folder each time.
 - Press Escape during a multi-selection drag, during a drag from another application, and while dragging out to another window.
+- Open two tabs with Ctrl+T after launch. In the newest, press Escape during a tab reorder drag, a sidebar row drag, and a folder drag held over another tab until it activates.
 - Leave a tab with focus on a breadcrumb, the header search button, a 10xer footer prompt, and the update notice; return by click and by Ctrl+Tab.
 - Leave a tab from a preview audio timeline and from a sidebar pin, then close that pane in a third tab before returning.
 - Restore 5 tabs and visit each by click, then by Ctrl+Shift+<n>, before and after their listings finish loading.
@@ -704,7 +717,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 ## Hand-offs
 
 - Drag and drop once a press is read as a file drag, except Escape cancellation, which `browser/tabs` owns → `operations`.
-- File transfers and saved browser content dropped on tabs and sidebar rows, and every file operation → `operations`.
+- File and folder transfers and saved browser content dropped on tabs and sidebar rows, and every file operation → `operations`.
 - Trash, Undo, and Replace inside `admin://` folders, and Trash drops from them → `operations`.
 - Open and Open With refusals for files in `admin://` folders → `integration`.
 - DEVICES rows, Set label…, mounting, and ejecting → `devices`.
