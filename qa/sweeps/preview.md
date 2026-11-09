@@ -278,7 +278,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With the timeline focused and Caps Lock on, press Shift+g and Shift+0, then keypad 0 with Num Lock on and off.
 - With the timeline focused on the `ru` layout, press the keys in the `0`, `g`, `+`, and `-` positions.
 - Under `[keymap.default]`, set `last_item = ["F8"]`, `page_down = ["F11"]`, `media_seek_end = ["F9"]`, and `media_volume_step_up = ["F10"]`. On a focused playing timeline, press End, Page Down, `G`, F8, F11, F9, `+`, `=`, and F10.
-- In Columns, press Space, Shift+Space, and Super+Space with the drawer open and closed. Do it with the folder row focused, then after a click leaves the column with nothing focused. Repeat on a folder symlink, an empty folder's column, and with Single-click file previews on.
+- Press Space, Shift+Space, and Super+Space on a folder symlink, in an empty folder's column, and with Single-click file previews on, with the drawer open and closed.
 
 ### preview/quick-preview/folder-peek
 

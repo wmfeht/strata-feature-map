@@ -46,7 +46,7 @@ Follow system light/dark mode switches Strata between the light and dark themes 
 - Clicking either theme of a pair in the library changes the family and leaves following on. With a dark desktop, clicking One Light applies One Dark and checks its card. lgse/strata#2094
 - Current theme and the checked library card show the theme in use, so One Dark saved under a light desktop checks One Light. lgse/strata#2094
 - While following, the Current theme description reads "Following the system light/dark mode. Choose a theme family from the library below." lgse/strata#2094 (unverified)
-- While following, Add theme starts from the theme in use, and PDF text selection uses its colors. lgse/strata#2094
+- While following, PDF text selection uses the colors of the theme in use. lgse/strata#2094
 - While following, deleting a custom file that overrides the paired theme in use, such as `one-light.toml`, applies the bundled theme of that id. lgse/strata#2094 (unverified)
 
 ## Design

@@ -161,5 +161,5 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Remote (GVfs) and route files are still placed in a media sequence by name, not content. lgse/strata#2026
 - Files not read before the 10 s busy wait ran out stay out of the sequence until the shown file changes. lgse/strata#2026
 - The start rule recognizes a raw H.264 or H.265 stream by its extension only. A raw stream named `.mp4` still opens at the configured start. lgse/strata#1924
-- Pausing a video with no audio track and pressing Play snaps back to where the decoder session started, such as 0:14 to 0:12 with a start of 20. The clock base advances only for audio, so Play restarts the wall clock from the old base. lgse/strata#1924
+- Pausing a video with no audio track and pressing Play snaps back to where the decoder session started. With a start of 20, 0:14 jumps to 0:12. The clock base advances only for audio, so Play restarts the wall clock from the old base. lgse/strata#1924
 - A video closed before its decoder header arrives forgets its remembered resume position. lgse/strata#1924

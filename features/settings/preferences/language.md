@@ -80,7 +80,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-09 | lgse/strata#2099 | fix | Revised five Hungarian strings: the Video preview start explanation and four letter-bookmark messages; three now read "%{key} nevű könyvjelző". |
+| 2026-11-09 | lgse/strata#2099 | fix | Revised five Hungarian strings: the Video preview start explanation, three letter-bookmark messages and the Save current folder under a letter label. |
 | 2026-11-07 | lgse/strata#2079 | fix | Replaced Hungarian "egyesítés" with "beolvasztás" and its verb forms in ten merge strings, including the conflict prompt and set-aside labels. |
 | 2026-11-04 | lgse/strata#2051 | fix | Revised five Hungarian strings, such as "Alapértelmezés" for Make default and a spelled-out NAME ORDER heading in the sort menu; no keys or placeholders changed. |
 | 2026-11-02 | lgse/strata#2039 | fix | Revised six Hungarian strings, such as "el lett távolítva" for removals and "soron belüli" for inline rename; no keys or placeholders changed. |
