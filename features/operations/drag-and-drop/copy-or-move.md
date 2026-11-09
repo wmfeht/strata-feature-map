@@ -51,7 +51,7 @@ Moving across devices silently removes the only copy from a USB stick or network
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-08 | lgse/strata#2087 | fix | Aborted a drop volume lookup's 2 s timeout task when the lookup finishes, or is cancelled with nothing waiting, so it no longer holds the lookup's state. |
+| 2026-11-08 | lgse/strata#2087 | fix | Aborted a drop volume lookup's 2 s timeout task once the lookup ends, so it no longer holds the lookup's state. |
 | 2026-10-11 | lgse/strata#1574 | perf | Compared native drop paths directly and looked up each plain parent's volume once, removing hover stalls in 50,000-item folders. |
 | 2026-09-12 | lgse/strata#846 | fix | Detected autofs ancestors from mountinfo so drop volume lookups beneath them run off the GTK thread. |
 | 2026-09-10 | lgse/strata#761 | fix | Compared volumes by GIO backend instead of lexical remoteness, so network-mount aliases count as one volume. |

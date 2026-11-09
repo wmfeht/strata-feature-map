@@ -53,7 +53,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - A release cancelled in the authentication dialog shows no error dialog. lgse/strata#296
 - A GIO `FailedHandled` error, or one whose message contains "aborted", also shows no error dialog. lgse/strata#296 (unverified)
 - Any other GIO failure shows "Unable to eject device" or "Unable to unmount device" with the error and the last progress message. lgse/strata#296, lgse/strata#1193 (unverified)
-- An untyped eject or unmount failure containing "resource busy", "mount point busy", or "target is busy", in any case, shows "The item is in use" instead of the backend text. lgse/strata#2105
+- An untyped eject or unmount failure with "resource busy", "mount point busy", or "target is busy", in any case, shows "The item is in use". lgse/strata#2105
 - An untyped Lock failure with one of those phrases shows "The item is in use" under "Unable to lock device". lgse/strata#1952, lgse/strata#2105 (unverified)
 
 ### Disconnect
@@ -87,4 +87,4 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 ## Known gaps
 
-None known.
+- The busy phrases are English. A UDisks daemon in another locale shows its own busy text in the eject, unmount, and Lock error dialogs. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))

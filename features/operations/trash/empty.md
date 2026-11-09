@@ -29,8 +29,8 @@ Permanently deleting everything in Trash from the Trash pane header or the sideb
 - Confirming deletes every top-level Trash item, even when measurement was truncated, behind an "Emptying Trash" progress dialog with Cancel. lgse/strata#72
 - When some items cannot be deleted, the rest are still deleted and a "Completed with errors" dialog lists up to 8 errors plus a count of the others. lgse/strata#72 (unverified)
 - An item whose delete fails with NotFound counts as deleted and adds no line to the "Completed with errors" dialog. lgse/strata#2093
-- An item whose delete fails with a generic error but is then gone adds no line to the "Completed with errors" dialog. lgse/strata#2093
-- Any item not confirmed missing after a failed or cancelled delete counts as failed and gets a "name: error" line. lgse/strata#2093
+- An item whose delete fails with any error other than cancellation, but a follow-up check finds it gone, adds no line to the "Completed with errors" dialog. lgse/strata#2093
+- Any item not confirmed missing after a failed or cancelled delete counts as failed and is among the errors the dialog lists. lgse/strata#2093
 
 ## Design
 

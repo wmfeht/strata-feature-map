@@ -19,7 +19,8 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 ### Discovery
 
-- Devices lists the GIO volume monitor's volumes, except unmounted ones the system holds, plus password-start drives with no listed volume and non-shadowed mounts without a listed volume. lgse/strata#536, lgse/strata#935, lgse/strata#2105
+- Devices lists the GIO volume monitor's volumes, password-start drives with no listed volume, and non-shadowed mounts without a listed volume. lgse/strata#536, lgse/strata#935
+- Devices leaves out unmounted volumes the system holds. lgse/strata#2105
 - A mount the backend hides, such as a Pacman cache subvolume outside `$HOME`, `/media`, and `/run/media/$USER`, does not appear in Devices. lgse/strata#536
 - A mounted USB drive appears once under Devices and opens normally. lgse/strata#493
 - A mount whose volume is already listed gets no second row. lgse/strata#536
@@ -104,9 +105,9 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 ## Known gaps
 
-- The exclusive-open probe detects a held device only when the user can open its node, which for a regular user means optical drives under `uaccess`. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
+- The exclusive-open probe detects a held device only when the user can open its node: for a regular user, optical drives under `uaccess`. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
 - The loop rule assumes the loop was set up outside UDisks and the session is not root. A root session falls through to the exclusive-open probe. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
-- The busy phrases are English. A UDisks daemon in another locale shows its own busy text in the mount, eject, unmount, and Lock error dialogs. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
+- The busy phrases are English. A UDisks daemon in another locale shows its own busy text in "Unable to mount volume". lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
 - NAS shares mounted by the system at native paths, such as NFS under `/mnt`, do not appear in Devices when GIO misses them. lgse/strata#1209
 - An unmounted fstab volume's row is described by its device path, not its fstab mount point. lgse/strata#2030
 - Network share rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62

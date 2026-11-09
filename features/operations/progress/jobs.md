@@ -55,7 +55,7 @@ The background queue that runs custom actions, and the Jobs dashboard in the foo
 - The footer shows a Jobs button only when jobs exist: it reads "2 jobs running · 1 queued", otherwise "3 jobs finished", with "· failures" when any failed. lgse/strata#1085
 - Launching an action opens Jobs in the launching window with the new job first. lgse/strata#1085
 - Minimize, Escape, or a click outside hides the dashboard without cancelling jobs; progress updates do not reopen it. lgse/strata#1085
-- After a custom action opens Jobs, Escape closes it and focus stays on the footer's Jobs button. lgse/strata#1826 (unverified)
+- After a custom action opens Jobs, Escape closes it and focus stays on the footer's Jobs button. lgse/strata#1826
 - A row shows the action name and icon, a status with elapsed time ("Running for", "Done in", "Failed after", "Cancelled after"), item counts, and the invoking folder. lgse/strata#1085
 - An active whole-selection job whose script reports no total shows a pulsing progress bar instead of a percentage. lgse/strata#1085
 - An active per-item job's bar fills by completed items plus the current item's reported fraction. lgse/strata#1085 (unverified)

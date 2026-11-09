@@ -261,6 +261,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete one folder whose deletion takes 250 to 350 ms.
 - Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
 - On SMB and NFS, Shift+Delete a tree of 200 siblings where one nested folder holds an open file. Meanwhile, `chmod 000` another sibling from a shell. Read which error the dialog names and list what remains.
+- Shift+Delete a selection inside Trash while a shell removes one of its items from `~/.local/share/Trash/files`.
 
 ### operations/delete/dissolve
 
