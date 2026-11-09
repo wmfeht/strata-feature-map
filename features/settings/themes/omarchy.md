@@ -3,11 +3,11 @@ title: Omarchy theme following
 status: shipped
 origin: {issue: lgse/strata#1198, pr: lgse/strata#1482}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+review: draft
 code: [src/ui/theme/omarchy.rs, src/ui/theme/omarchy_state.rs]
-tests: [src/ui/theme/omarchy/tests.rs, src/ui/theme/tests/omarchy.rs, src/ui/preferences/tests/preferences/themes.rs]
-related: []
+tests: [src/ui/theme/omarchy/tests.rs, src/ui/theme/tests/omarchy.rs]
+related: [settings/themes/follow-system]
 ---
 
 ## Summary
@@ -90,6 +90,7 @@ Follow Omarchy applies the active Omarchy Quattro desktop theme to Strata and tr
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-08 | lgse/strata#2094 | feat | Added Follow system light/dark mode, switching 28 curated bundled theme pairs with GNOME's `color-scheme`, exclusive with Follow Omarchy. |
 | 2026-10-05 | lgse/strata#1482 | feat | Added Original, Darker, and High contrast variants and ignored invalid Quattro colors. |
 | 2026-09-14 | lgse/strata#958 | fix | Turned following off and restored the built-in theme when Quattro state disappears. |
 

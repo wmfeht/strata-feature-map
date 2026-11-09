@@ -3,7 +3,7 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, src/sandbox/media.rs, src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, src/ui/media/history.rs, src/ui/media/playback.rs, src/ui/media/positions.rs, src/ui/preview/media_content.rs, src/ui/preview/media_controls.rs, src/ui/preview/media_render.rs, src/ui/preview/media_session.rs, packaging/media-runtime]
 tests: [src/media/tests.rs, src/ui/media/tests.rs, src/sandbox/media/tests.rs, src/sandbox_helper/media/**, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]
@@ -93,6 +93,9 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - A player paused for 30 seconds releases its decoder and audio output but keeps its frame and position. lgse/strata#839
 - Changing selection or closing the preview stops the decoder and its sandbox. lgse/strata#839, lgse/strata#765
 - Malformed or truncated decoder output is rejected as a decoder failure, never shown; there is no unsandboxed fallback. lgse/strata#839
+- With `STRATA_SANDBOX_PRLIMIT` set to an absolute path and no `prlimit` or `nice` on `STRATA_SANDBOX_PATH`, video playback, waveforms, storyboards, and embedded audio artwork decode. lgse/strata#2098, lgse/strata#2097
+- With `STRATA_SANDBOX_PRLIMIT=/usr/bin/false`, a video preview shows "Unable to play this media preview"; restarting with a valid limiter restores playback. lgse/strata#2098
+- Waveform and storyboard helpers raise their own niceness by 10, capped at 19, before probing; their decoders inherit it, and playback keeps its priority. lgse/strata#2098
 
 ### Hardware acceleration
 
@@ -112,6 +115,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - Queues are bounded: three records, three presented frames, and 66 audio blocks. Audio runs 2 s ahead inside the records so slow sinks are primed without pinning frames (lgse/strata#1411).
 - Media helpers run outside the driver-wide CPU, address-space, and file-size limits; Intel Vulkan's 1 GiB object hit the inherited `RLIMIT_FSIZE` (lgse/strata#128). Per-record sizes, queue limits, and progress deadlines bound work instead.
 - Each FFmpeg process disables core dumps and caps files and single allocations at 512 MiB. Software decoders also get a 2 GiB address-space limit; hardware decoders are exempt because drivers reserve large virtual ranges (docs/preview-sandbox.md, "Isolation and hardware policy").
+- Decoders run the configured absolute limiter instead of `prlimit` by name, and background helpers lower their own priority with `setpriority`. Non-FHS runtimes such as Nix then need no util-linux or coreutils on the sandbox PATH (lgse/strata#2097, lgse/strata#2098).
 - Polaris defaults to software because explicit VA-API still hung after 16-pixel alignment; the hang is in VCE encode, not the file (lgse/strata#127).
 - Raw elementary streams have no timestamps, so any input `-ss` drops every frame. Their positive seeks use output-side `-ss`, which decodes and discards the prefix (lgse/strata#1346). Detection uses the probed demuxer, never the extension (lgse/strata#1333).
 - The volume and seek sliders had zero step and page increments, and the fallback seek slider seeked only on drag end (lgse/strata#1451, lgse/strata#1570).

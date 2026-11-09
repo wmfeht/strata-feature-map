@@ -65,7 +65,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 ### Scrolling
 
 - After smooth scrolling, a click, drag selection, or link hover acts on the row under the pointer. lgse/strata#1752 (unverified)
-- Under CPU load, a fast forward jump in a long rendered Markdown document shows rows at their real height, and the visible text does not move once idle work runs. lgse/strata#2088
+- Under CPU load, a fast forward jump in long rendered Markdown shows rows at full height; the visible text stays put when idle work runs. lgse/strata#2088
 
 ### HTML and links
 
@@ -153,7 +153,7 @@ Native GTK rendering of local Markdown, an HTML subset, RTF, CSV, TSV, XLS, XLSX
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-08 | lgse/strata#2088 | fix | Queued a resize from the next frame's tick for newly mapped rendered rows, so fast scrolling under load no longer shows line-high rows that grow and move the text. |
+| 2026-11-08 | lgse/strata#2088 | fix | Queued a resize from the next frame's tick for newly mapped rows, so fast scrolling under load no longer shows line-high rows that grow and move the text. |
 | 2026-11-05 | lgse/strata#2056 | fix | Made rendered code blocks follow the wrap toggle, kept the copy button off the first code line, and turned preview wrap on by default. |
 | 2026-10-30 | lgse/strata#1946 | fix | Sorted tables in Rust over a lazy row model, removing a 5 s freeze on large spreadsheets, and kept earlier columns as tie-breakers. |
 | 2026-10-11 | lgse/strata#1570 | fix | Hid HTML comments in release-notes Markdown through a separate parser profile; document previews are unchanged. |

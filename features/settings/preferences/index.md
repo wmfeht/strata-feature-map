@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -87,6 +87,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - On a package-managed install of a default build, the managed-install row shows only for queries matching Check for updates, so "channel" hides it. lgse/strata#1554, lgse/strata#1453, lgse/strata#1934
 - Searching "miller" finds Show sizes in Columns view. lgse/strata#1564 (unverified)
 - Searching "catppuccin", "brand palette", or "monochrome" finds Appearance's File icon colors row. lgse/strata#1588 (unverified)
+- Searching "day night" or "color scheme" finds Appearance's Follow system light/dark mode row. lgse/strata#2094 (unverified)
 - Searching "3d", "mesh", or "printing" shows Appearance's STL model thumbnails row. lgse/strata#1789 (unverified)
 - Searching "Corner roundness", "radius", or "rounded" shows Appearance's Corner roundness row. lgse/strata#1680 (unverified)
 - Searching "Show thumbnails" or "photos", or "Miniaturansichten" under Deutsch, shows Appearance's Show thumbnails row. lgse/strata#1651 (unverified)

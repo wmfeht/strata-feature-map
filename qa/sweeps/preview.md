@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -25,7 +25,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Zero-byte files for every previewed extension. Lying extensions: an MP4 as `.jpg`, a PNG as `.pdf`, a ZIP as `.epub`, `.docx`, and `.odt`, an ELF as `notes.txt`, a TIFF as `.ARW`.
 - Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, a 25,000-row ragged CSV whose few long rows reach 256 columns, a 25,000-row 4-column XLSX, and the `any_sheets.*`, `report.docx`, and `report.odt` fixtures. Generated Markdown of 400 blocks cycling headings, prose, fenced code, tables, and lists, plus a copy with relative PNGs beside it.
 - ODT samples: `report.odt` copied as `report.ott` and `REPORT.ODT`. From LibreOffice Writer, a table without a header-row group, and one with two header rows and a merged cell. Also an ODT with a 5,000-character paragraph, and one with a heading at outline level 9 and lists nested 8, 9, and 10 levels. Also a link inside `Preformatted Text`, a `mailto:` link, and a file over 20 MiB. From pandoc, an ODT whose tables hold many short bold paragraphs per cell.
-- A second build with `STRATA_TRUSTED_COMMAND_PATH` set, and a prebuilt binary to launch with `STRATA_SANDBOX_*` variables; `RUST_LOG=strata::sandbox=warn` shows ignored overrides.
+- A second build with `STRATA_TRUSTED_COMMAND_PATH` set, and a prebuilt binary to launch with `STRATA_SANDBOX_*` variables; `RUST_LOG=strata::sandbox=warn` shows ignored overrides. For limiter probes, a directory holding only `ffmpeg` and `ffprobe` links, to use as `STRATA_SANDBOX_PATH`.
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
@@ -136,6 +136,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - In RTF, put `\tab` or `\cell` between a surrogate pair's two units, and place a pair inside a paragraph over 2 KiB.
 - In RTF, nest an escaped newline inside a `{\*…}` destination within bold text, then continue the paragraph.
 - With Strata pinned by `taskset` to one CPU beside a busy loop, scroll a long rendered Markdown of mixed short and long paragraphs forward: one large jump, then small steps. Watch row heights and the scroll direction.
+- Under the same pinned load, jump so the view lands at the very end of the document, then drag the thumb far so visible rows rebind instead of mapping anew.
 - Under `[keymap.default]`, set `first_item = ["F7"]` and `last_item = ["F8"]`. In a rendered document, a Source view, and a table with a selected range, press Home, End, Shift+Home, Ctrl+End, F7, and F8.
 
 ### preview/preview-panel/documents/scrollbar
@@ -187,6 +188,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Change Video preview start while a video is open, then step away and back, and open the same file in a second window.
 - With a start set, preview a raw stream renamed `.mp4`, an `.ogg` carrying a video stream, and an MP3 with an attached picture.
 - Preview 130 different videos with a start set, then reopen the first one closed mid-clip.
+- With the `ffmpeg`-only `STRATA_SANDBOX_PATH` and an absolute `STRATA_SANDBOX_PRLIMIT`, check a waveform, a storyboard, and an MP3's embedded artwork. Repeat with the limiter at a missing path, then restored.
+- Launch Strata under `nice -n 15`, play the 2-hour FLAC beside a playing video, and read `ps -o ni,args` for the `audio-peaks` helper, its ffmpeg, and the player's decoder.
 
 ### preview/preview-panel/media/audio
 
