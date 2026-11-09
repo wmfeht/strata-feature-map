@@ -1301,7 +1301,12 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/tests/keyboard_dispatch/file_verbs.rs` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/file_verbs/**` | tests | [10xer file commands](../features/integration/10xer-mode/file-verbs.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/filter_focus.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/ui/window/tests/keyboard_dispatch/filter_focus/**` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/enter_target.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/escape.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/filter_slash.rs` | tests | [Slash enters filtered folders](../features/integration/10xer-mode/search/filter-descent.md) | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/live_changes.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/returning_focus.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `src/ui/window/tests/keyboard_dispatch/filter_focus/view_switch.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/first_column.rs` | tests | [Make the focused column first](../features/browser/navigation/first-column.md) | [Navigation](../features/browser/navigation/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/folder_jump.rs` | tests | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
 | `src/ui/window/tests/keyboard_dispatch/footer_prompt.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |

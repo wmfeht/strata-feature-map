@@ -6,7 +6,7 @@ branch: null
 reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: []
-tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt/filter_slash.rs, tests/qa/scenarios/filter_results/filter-slash-enters-folder.jsonl]
+tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt/filter_slash.rs, src/ui/window/tests/keyboard_dispatch/filter_focus/filter_slash.rs, tests/qa/scenarios/filter_results/filter-slash-enters-folder.jsonl]
 related: [browser/search/filter, integration/10xer-mode/file-chooser, app/shortcut-reference]
 ---
 

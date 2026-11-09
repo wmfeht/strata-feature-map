@@ -46,8 +46,7 @@ In 10xer mode an open file preview can take the keys, so motion scrolls or opera
 - In an archive tree, `h` or Left goes up one member level; at the archive root it returns the keys to the listing with the drawer open. lgse/strata#1295, lgse/strata#1343
 - A password prompt shown by `i` or cursor movement leaves focus in the listing with no owner bar. In List and Columns, `l` then hands its field the keys. lgse/strata#1295, lgse/strata#1684 (unverified)
 - A password field takes typed letters, including `h` and `j`, and its text-editing shortcuts until unlocked. Esc and Shift+Tab still close or return. lgse/strata#1295
-- In a media preview, Space plays or pauses, Left/Right seek 5 seconds, Up/Down change volume, and `m` mutes or unmutes. lgse/strata#1295, lgse/strata#1289
-- In a media preview, `m` mutes and arms no letter-bookmark chord. lgse/strata#2086, lgse/strata#1790
+- In a media preview, Space plays or pauses, Left/Right seek 5 seconds, Up/Down change volume, and `m` mutes or unmutes and arms no letter-bookmark chord. lgse/strata#1295, lgse/strata#1289, lgse/strata#2086, lgse/strata#1790
 - In a media preview, Shift+Left and Page Down seek back 30 seconds; Shift+Right and Page Up seek forward 30 seconds. lgse/strata#1570, lgse/strata#1451
 - In a media preview, Home or `0` seeks to the start, and End or `G` seeks to the last frame. lgse/strata#1570, lgse/strata#1451
 - In a media preview, `+`, `=`, `-`, and keypad + and − step the volume. lgse/strata#1570, lgse/strata#1451
