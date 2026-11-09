@@ -30,7 +30,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 - Right-clicking a local folder row offers Customize…; clearing the customization restores the place's default icon. lgse/strata#1370
 - After shrinking the text size from 20 to 10 with Ctrl+-, Home, the standard folders, and pins share Trash's icon and label columns. lgse/strata#2062
 - Full-width rows have no fixed minimum height; their height follows the theme-sized icon box. lgse/strata#2062
-- In 10xer mode, pressing `g` then Escape changes no row's height or spacing while the place keycaps show and hide, also at larger text sizes. lgse/strata#2089, lgse/strata#2100
+- In 10xer mode, pressing `g` then Escape changes no row's height or spacing while the place and pin keycaps show and hide, also at larger text sizes. lgse/strata#2089, lgse/strata#2100
 - In the file chooser, the sidebar omits Trash and Network. lgse/strata#1025 (unverified)
 - In the file chooser, built-in place rows offer the same context menus as in a browser window and can be reordered by drag. lgse/strata#1713
 - Unpinning Home or a standard folder in the file chooser hides it in every window, and a reorder there is saved for every window. lgse/strata#1713

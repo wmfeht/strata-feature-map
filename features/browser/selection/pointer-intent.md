@@ -37,7 +37,7 @@ How a press on an entry is read in Columns, Icons, and List: as a click, a file 
 
 - With double-click activation, tap a file or folder once, then hold the second press: nothing opens or launches while it is held. lgse/strata#2095, lgse/strata#2096
 - Moving that held second press past the drag threshold starts a file drag; dropping it on a folder moves the item there and opens nothing. lgse/strata#2095, lgse/strata#2096
-- A Ctrl or Shift double-click still activates through GTK's native activation. lgse/strata#2096
+- A Ctrl or Shift double-click on an entry still opens a folder or launches a file. lgse/strata#2096
 
 ### Drag selection
 

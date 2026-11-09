@@ -129,7 +129,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `; 1` to `; 0` recheck the targets and the catalog at the digit, so a changed selection cannot run an action on other items (lgse/strata#1308).
 - The cursor always sits on an item, so `;` plus a digit could never target the open folder, and `{parent}` still matched `[when]` against the cursor item. `; .` is the explicit second chord lgse/strata#1743 asked for: the key picks the target (lgse/strata#1826).
 - `; .` reuses the background menu's input, so `{paths}`, `{parent}`, and the `background` source match it exactly (lgse/strata#1826).
-- `actions.folder` is a remappable `;` step rather than a fixed key, so the conflict checker sees it and the pill, digits, and F1 row follow the user's keys (lgse/strata#1885, lgse/strata#1826).
+- `app/keyboard-shortcuts/remapping` records why `actions.folder` is a remappable `;` step (lgse/strata#1826).
 - The permanent-delete dialog first opened with Cancel focused. That mode-only path was removed so it focuses its confirm button like every other modal (lgse/strata#1306, lgse/strata#1508).
 - The permanent confirmation offered where Trash is unsupported is the exception in every mode. The user did not ask for permanent deletion, so Cancel takes focus and `d d` cannot delete (lgse/strata#1425, lgse/strata#1533).
 

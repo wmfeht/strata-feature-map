@@ -3,7 +3,7 @@ title: 10xer mode
 status: shipped
 origin: {issue: lgse/strata#1152, pr: lgse/strata#1267}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/tenxer_mode.rs, src/ui/window/keyboard/escape.rs, src/ui/window/keyboard/prompts.rs, src/ui/window/keyboard/tenxer.rs, src/ui/window/keyboard/items/tenxer_cursor.rs, src/ui/window/keyboard/items/tenxer_items.rs, src/ui/window/keyboard/footer_bindings.rs, src/app/navigation/visual.rs, src/ui/shortcut_footer/indicators.rs, src/ui/shortcut_footer/prompt.rs, src/ui/window/composition/tenxer_splash.rs, data/brand/tenxer-splash.png, src/ui/shortcut_footer/chord_panel.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/escape_precedence.rs, src/ui/window/tests/keyboard_dispatch/mode_exit.rs, src/ui/window/tests/keyboard_dispatch/list_motion.rs, src/ui/window/tests/keyboard_dispatch/tenxer_fill.rs, src/ui/window/tests/keyboard_dispatch/tenxer_panes.rs, src/ui/window/tests/keyboard_dispatch/tenxer_shortcuts.rs, src/ui/window/tests/preferences/tenxer_prefs.rs, src/app/navigation/tests/visual.rs, src/ui/window/composition/tenxer_splash/tests.rs]
@@ -58,7 +58,7 @@ An opt-in, saved Yazi-style keymap for keyboard-first users. It replaces the def
 - Arming a chord (`g`, `c`, `,`, `;`, `t`, `m`, or `'`) shows its pill, such as `g-`, beside the `10X` pill, with a panel above it. lgse/strata#1304, lgse/strata#1306, lgse/strata#1308, lgse/strata#1484, lgse/strata#2086
 - `; .` shows the pill `; .-`. lgse/strata#2086, lgse/strata#1826
 - The panel lists each valid second key as a keycap beside its action, and closes when the chord completes or Esc cancels it. lgse/strata#1304
-- The panel shows while the armed chord has rows: it fills when rows arrive after arming, and stays hidden for a chord with none, such as `'` with no bookmarks. lgse/strata#2086, lgse/strata#1790
+- The panel shows while the armed chord has rows: it fills when rows arrive after arming, and stays hidden for a chord with none. lgse/strata#2086, lgse/strata#1790
 - The panel never takes focus, so the next key still completes the chord. lgse/strata#1304
 - The `g` panel lists `g` First item, `f` Follow search result, the place keys, and the pin digits. It also lists `+` / `-` Pin / unpin folder and Space Type a path. lgse/strata#1304, lgse/strata#1342 (unverified)
 - The `c` panel lists Copy path and Copy name. lgse/strata#1306 (unverified)

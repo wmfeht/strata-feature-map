@@ -175,7 +175,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Press `'` then a letter from a tab other than the first, and from a second window while the first still shows its `'` panel.
 - With the `'` panel open in one window, hand-edit `letter-bookmarks.json` with an uppercase key, a `smb://` URI, and a trailing comma, then press `'` again in another window.
 - Press `m` on a gvfs-mounted SFTP folder and in a folder reached through a symlink; press `'` to a bookmark on the sshfs mount stopped by `kill -STOP`.
-- Rebind `bookmark_go` under `[keymap.tenxer]` to another key, then press it, a saved letter, and F1; repeat on `us(intl)` with the default `'`.
+- Rebind `bookmark_go` under `[keymap.tenxer]` to another key, then press it, a saved letter, and F1.
 - Press `'` then a letter and, before the check returns, press Shift alone, switch tabs, press F5, and Alt+Tab away and back.
 
 ### integration/10xer-mode/search
@@ -200,8 +200,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - On a 100k-file tree, type a query and `/` while results stream, then press Escape before the first match arrives; read the location after the stream ends.
 - With fcitx5 pinyin and with ibus-chewing, select the `f` query with Ctrl+A, then type `/`; read the query and the location.
 - Type `/` in `f` on a remote share and in Trash after Up or Down past the last result.
-- With 10xer mode off, press Ctrl+F, type a query, press Down twice, then `/`; repeat with focus moved to a result and back, and in the chooser.
-- In the file chooser with Include subfolders on, press Ctrl+F and go down two levels with two queries and two `/`.
+- With 10xer mode off, in Columns, press Ctrl+F in a non-last column, type a query, then `/`; read which column the new filter belongs to.
+- Under `save`, focus Name, then press Ctrl+F in the file view, type a query, and `/`; read Name, the folder, and the response code.
 
 ### integration/10xer-mode/file-verbs
 
@@ -321,6 +321,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Preview rendering, archive and media surfaces, and the player start position handed to the default player → `preview`.
 - The preview find bar's matching and navigation → `preview`.
 - How a key on any layout, the keypad, or Caps Lock becomes a shortcut, input-method composition, and shortcut label notation → `app`.
+- Dead-key layouts and `'` → `app`.
 - External file providers, their asynchronous actions and badges, and remote mounts → `remote`.
 - Typed `.` and `..` resolution in `go ›`, and where a keyboard sort is saved → `browser`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.

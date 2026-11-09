@@ -111,7 +111,7 @@ Tabs within one Strata window, each holding its own browsing context. A tab stri
 - After an Escape-cancelled drag, the strip shows no insertion line. lgse/strata#1831
 - Escape that cancels a drag dismisses nothing else: the selection, an open preview, and the Ctrl+F filter stay. lgse/strata#1831, lgse/strata#1865
 - After a cancelled drag, the next Escape clears the selection or closes the preview, and a new drag transfers normally. lgse/strata#1865
-- Escape during a file or folder drag held over another tab until it activates cancels the drag, also in a tab opened after startup. Releasing then transfers nothing. lgse/strata#2091, lgse/strata#2100
+- Escape during a file or folder drag held over another tab until it activates cancels the drag. Releasing then transfers nothing. lgse/strata#2091, lgse/strata#2100
 - After that cancel, the source tab still has the dragged item selected, and a new drag can activate the tab and transfer. lgse/strata#2100
 
 ### Strip

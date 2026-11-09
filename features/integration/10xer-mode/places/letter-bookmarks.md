@@ -58,7 +58,7 @@ Vim-style marks for 10xer mode: `m` then a letter saves the focused pane's local
 
 ### Second keys
 
-- After `m` or `'`, a digit, a Ctrl-modified letter, or a Shift letter such as `A` cancels with `Unknown chord` and runs no other command. Esc cancels silently. lgse/strata#1787, lgse/strata#1790
+- After `m` or `'`, a digit, a Ctrl-modified letter, or a Shift letter such as `A` flashes `Unknown chord`. lgse/strata#1787, lgse/strata#1790
 - In the default map, `m` and `'` arm nothing, and in the location field they are typed as text. lgse/strata#1790
 
 ## Design
@@ -70,7 +70,6 @@ Vim-style marks for 10xer mode: `m` then a letter saves the focused pane's local
 - A save is never cancelled, so it skips the checks a jump needs and always reports its result (lgse/strata#1790).
 - Only `file:` URIs without another host are local. Resolving a URI through GIO mapped gvfs remote URIs to FUSE paths (lgse/strata#1790).
 - Reads tolerate unknown fields and bad keys, and saves recover from an unparseable file, as navigation history does (lgse/strata#1790).
-- The letters are a fixed catalog range after rebindable `bookmark_set` and `bookmark_go` triggers, like the digits after Go, Action, and Tabs, so remapping and conflict checks see the triggers (lgse/strata#1790).
 
 ## History
 

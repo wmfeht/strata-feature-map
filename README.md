@@ -106,7 +106,7 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [10xer mode](features/integration/10xer-mode/index.md) | `integration/10xer-mode` | shipped | draft | `9fb7a36` | ? |
+| [10xer mode](features/integration/10xer-mode/index.md) | `integration/10xer-mode` | shipped | draft | `fb7eb0c` | ? |
 | ↳ [10xer mode in the file chooser](features/integration/10xer-mode/file-chooser.md) | `integration/10xer-mode/file-chooser` | shipped | draft | `9fb7a36` | ? |
 | ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `fb7eb0c` | 0 |
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places/index.md) | `integration/10xer-mode/places` | shipped | draft | `9fb7a36` | ? |
