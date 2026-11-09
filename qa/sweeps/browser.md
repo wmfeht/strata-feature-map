@@ -9,7 +9,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, folder jump, and opening unreadable folders as administrator. Ctrl+K search, the Ctrl+F filter, and search exclusions belong here too. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
-Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation and tab-header routing, the transfers themselves (move or copy, conflicts, undo) for drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
+Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation and tab-header routing. The transfers themselves (move or copy, conflicts, undo) for drops on tabs and sidebar row bodies go elsewhere, as does every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
 ## Setup
 
@@ -422,10 +422,6 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Start two F2 renames of filter results, the second before the index lists the first, then press Delete.
 - Rename a filter result to a name the query no longer matches and to its own name; read the selection and focus.
 - In grouped List, scroll to the first row with Home, by clearing a Ctrl+F query, and at text size 28 and Content Airy.
-- Type `/` in the second Columns column, where the filter moves to the new column.
-- Type a query in `100000` with Include subfolders on, press `/`, then press Escape or edit the query before results arrive.
-- In the file chooser with Include subfolders on, press `/` twice to go down two levels.
-- With fcitx5 pinyin, select the query with Ctrl+A and type `/` while composing; repeat with Zhuyin.
 - Tap a List and an Icons Ctrl+F result, then hold the second press and drag it onto another tab's header; repeat with Include subfolders on.
 
 ### browser/search/filter/enter-target

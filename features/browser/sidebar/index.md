@@ -166,7 +166,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-09 | lgse/strata#2100 | fix | Reserved the replaced icon's height as well as its width for `g` place keycaps, so sidebar rows no longer shrink while hints show. |
+| 2026-11-09 | lgse/strata#2100 | fix | Reserved the replaced icon's height and width for `g` place keycaps, so sidebar rows no longer shrink while hints show. |
 | 2026-11-07 | lgse/strata#2075 | feat | Grouped DEVICES rows by physical drive in the system's drive order, with a divider between drives, so partitions of different disks no longer mix. |
 | 2026-11-05 | lgse/strata#2064 | fix | Dropped redundant rail CSS that zeroed label fonts, so row labels return after moving the window off a monitor that railed the sidebar. |
 | 2026-11-05 | lgse/strata#2060 | fix | Matched the chevron's right gap to the title's left gap and lined device action icons up with it, replacing lgse/strata#1992's centring. |

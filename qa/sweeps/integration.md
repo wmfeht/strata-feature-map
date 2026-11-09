@@ -201,6 +201,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - With fcitx5 pinyin and with ibus-chewing, select the `f` query with Ctrl+A, then type `/`; read the query and the location.
 - Type `/` in `f` on a remote share and in Trash after Up or Down past the last result.
 - With 10xer mode off, press Ctrl+F, type a query, press Down twice, then `/`; repeat with focus moved to a result and back, and in the chooser.
+- In the file chooser with Include subfolders on, press Ctrl+F and go down two levels with two queries and two `/`.
 
 ### integration/10xer-mode/file-verbs
 
