@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs that touched a feature, or one of its children, after that node's own review; `?` means a review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `fb7eb0c` · 155 features, 93 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `fb7eb0c` · 155 features, 92 reviewed
 
 ## app
 
@@ -37,7 +37,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `9fb7a36` | ? |
+| [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `fb7eb0c` | 0 |
 | [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `9fb7a36` | ? |
 | ↳ [Network folder change checks](features/browser/directory-monitoring/network-checks.md) | `browser/directory-monitoring/network-checks` | shipped | reviewed | `ad6d14f` | 0 |
 | [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | draft | `5738aad` | 0 |
@@ -96,7 +96,7 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 | ↳ [Camera photos](features/devices/volumes/camera.md) | `devices/volumes/camera` | shipped | reviewed | `ad6d14f` | 0 |
 | ↳ [Drive format, label, properties, and container lock](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Drive grouping in Devices](features/devices/volumes/drive-order.md) | `devices/volumes/drive-order` | shipped | draft | `5738aad` | 0 |
-| ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | reviewed | `bae71c0` | 0 |
+| ↳ [Encrypted volumes](features/devices/volumes/encrypted.md) | `devices/volumes/encrypted` | shipped | draft | `fb7eb0c` | 0 |
 | ↳ [Unmount and eject](features/devices/volumes/release.md) | `devices/volumes/release` | shipped | draft | `fb7eb0c` | 0 |
 | ↳ [udiskie unlock handler](features/devices/volumes/udiskie-unlock.md) | `devices/volumes/udiskie-unlock` | shipped | draft | `5738aad` | 0 |
 
@@ -108,12 +108,12 @@ QA sweep: [`qa/sweeps/integration.md`](qa/sweeps/integration.md)
 | --- | --- | --- | --- | --- | --- |
 | [10xer mode](features/integration/10xer-mode/index.md) | `integration/10xer-mode` | shipped | draft | `9fb7a36` | ? |
 | ↳ [10xer mode in the file chooser](features/integration/10xer-mode/file-chooser.md) | `integration/10xer-mode/file-chooser` | shipped | draft | `9fb7a36` | ? |
-| ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `9fb7a36` | ? |
+| ↳ [10xer file commands](features/integration/10xer-mode/file-verbs.md) | `integration/10xer-mode/file-verbs` | shipped | draft | `fb7eb0c` | 0 |
 | ↳ [10xer place chords and folder picker](features/integration/10xer-mode/places/index.md) | `integration/10xer-mode/places` | shipped | draft | `9fb7a36` | ? |
-| &emsp;↳ [10xer letter bookmarks](features/integration/10xer-mode/places/letter-bookmarks.md) | `integration/10xer-mode/places/letter-bookmarks` | shipped | draft | `9fb7a36` | ? |
+| &emsp;↳ [10xer letter bookmarks](features/integration/10xer-mode/places/letter-bookmarks.md) | `integration/10xer-mode/places/letter-bookmarks` | shipped | draft | `fb7eb0c` | 0 |
 | ↳ [10xer preview key ownership](features/integration/10xer-mode/preview-keys.md) | `integration/10xer-mode/preview-keys` | shipped | draft | `9fb7a36` | ? |
-| ↳ [10xer find, filter, and search](features/integration/10xer-mode/search/index.md) | `integration/10xer-mode/search` | shipped | draft | `9fb7a36` | ? |
-| &emsp;↳ [Slash enters filtered folders](features/integration/10xer-mode/search/filter-descent.md) | `integration/10xer-mode/search/filter-descent` | shipped | draft | `9fb7a36` | ? |
+| ↳ [10xer find, filter, and search](features/integration/10xer-mode/search/index.md) | `integration/10xer-mode/search` | shipped | draft | `fb7eb0c` | 0 |
+| &emsp;↳ [Slash enters filtered folders](features/integration/10xer-mode/search/filter-descent.md) | `integration/10xer-mode/search/filter-descent` | shipped | draft | `fb7eb0c` | 0 |
 | [Custom actions](features/integration/custom-actions.md) | `integration/custom-actions` | shipped | draft | `9fb7a36` | ? |
 | [FileManager1 D-Bus interface](features/integration/file-manager-interface/index.md) | `integration/file-manager-interface` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Launched-program GDK_DEBUG restore](features/integration/file-manager-interface/service-activation.md) | `integration/file-manager-interface/service-activation` | shipped | reviewed | `bae71c0` | 0 |
@@ -141,7 +141,7 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 | ↳ [Clipboard exchange with other file managers](features/operations/clipboard/file-manager-formats.md) | `operations/clipboard/file-manager-formats` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | reviewed | `bae71c0` | 0 |
 | [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `5738aad` | 0 |
-| [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | draft | `bae71c0` | 0 |
+| [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | draft | `fb7eb0c` | 0 |
 | ↳ [Permanent-delete dissolve animation](features/operations/delete/dissolve.md) | `operations/delete/dissolve` | shipped | reviewed | `0f9bb00` | 0 |
 | [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | reviewed | `5738aad` | 0 |
 | ↳ [Columns drag autoscroll](features/operations/drag-and-drop/column-autoscroll.md) | `operations/drag-and-drop/column-autoscroll` | shipped | reviewed | `bae71c0` | 0 |
