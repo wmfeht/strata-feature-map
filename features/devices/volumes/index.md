@@ -27,9 +27,9 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - An unmounted volume of GVfs class `loop` that GVfs does not mark for automount, such as a live system's root image, gets no row. lgse/strata#2105
 - With no automounter running, a loop the current user attached with `udisksctl loop-setup -f disk.iso` stays listed and mounts when clicked. lgse/strata#2105
 - An unmounted volume whose device node refuses an exclusive open with `EBUSY`, such as a live system's boot medium, gets no row. lgse/strata#2105
-- A device node the user cannot open, which fails with `EACCES`, keeps its row. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
-- A held volume keeps its row until the first exclusive-open check answers off the UI thread, then Devices rebuilds without it. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
-- Adding, removing, or changing a volume or drive checks every known device again; Devices rebuilds only when an answer changes. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097)) (unverified)
+- A device node the user cannot open, which fails with `EACCES`, keeps its row. lgse/strata#2104, lgse/strata#2105
+- A held volume keeps its row until the first exclusive-open check answers off the UI thread, then Devices rebuilds without it. lgse/strata#2104, lgse/strata#2105
+- Adding, removing, or changing a volume or drive checks every known device again; Devices rebuilds only when an answer changes. lgse/strata#2104, lgse/strata#2105 (unverified)
 - A volume with a mount is never hidden by the loop or exclusive-open rule. lgse/strata#2105 (unverified)
 - Plugging in, mounting, unmounting, or removing a device updates Devices without a restart. lgse/strata#536
 - A row's udev encryption hint appears once a worker has read it; Devices rebuilds when the hint changes. lgse/strata#1729 (unverified)
@@ -106,7 +106,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 
 - The exclusive-open probe hides a held device only when the user can open its node, which for a regular user means optical drives. Other held devices stay listed. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
 - The loop rule assumes the loop was set up outside UDisks and the session is not root. A root session falls through to the exclusive-open probe. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
-- The busy phrases are English. A UDisks daemon in another locale shows its own text in "Unable to mount volume". lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
+- The busy phrases are English. A UDisks daemon in another locale shows its own busy text in the mount, eject, unmount, and Lock error dialogs. lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
 - NAS shares mounted by the system at native paths, such as NFS under `/mnt`, do not appear in Devices when GIO misses them. lgse/strata#1209
 - An unmounted fstab volume's row is described by its device path, not its fstab mount point. lgse/strata#2030
 - Network share rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62

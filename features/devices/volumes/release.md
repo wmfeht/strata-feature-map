@@ -3,8 +3,8 @@ title: Unmount and eject
 status: shipped
 origin: {issue: lgse/strata#295, pr: lgse/strata#296}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
-review: reviewed
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+review: draft
 code: [src/ui/window/device_release.rs, src/ui/window/device_release/**, src/ui/window/device_actions.rs]
 tests: [src/ui/window/device_release/tests.rs]
 docs: [docs/filesystem-compatibility.md, docs/remote-sftp.md]
@@ -53,6 +53,8 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 - A release cancelled in the authentication dialog shows no error dialog. lgse/strata#296
 - A GIO `FailedHandled` error, or one whose message contains "aborted", also shows no error dialog. lgse/strata#296 (unverified)
 - Any other GIO failure shows "Unable to eject device" or "Unable to unmount device" with the error and the last progress message. lgse/strata#296, lgse/strata#1193 (unverified)
+- An untyped eject or unmount failure containing "resource busy", "mount point busy", or "target is busy", in any case, shows "The item is in use" instead of the backend text. lgse/strata#2105
+- An untyped Lock failure with one of those phrases shows "The item is in use" under "Unable to lock device". lgse/strata#2105 (unverified)
 
 ### Disconnect
 
@@ -78,6 +80,7 @@ Safely removing a device from its Devices row: Eject or Unmount flushes pending 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-09 | lgse/strata#2105 | fix | Hid unmounted loop and busy volumes the system holds, and showed "The item is in use" for untyped busy mount and release failures. |
 | 2026-09-23 | lgse/strata#1199 | fix | Tinted the pending release spinner with the theme accent to match the eject button. |
 | 2026-09-23 | lgse/strata#1193 | feat | Flushed with `syncfs` before unmount or eject and kept the row pending until GIO finished, after a data-loss report. |
 | 2026-09-04 | lgse/strata#296 | feat | Added the eject button and Eject/Unmount menu entries for removable media, hidden on fixed disks. |
