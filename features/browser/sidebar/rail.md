@@ -55,6 +55,7 @@ The header toggle and Ctrl+B that step a browser window's sidebar between full, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-08 | lgse/strata#2096 | fix | Shared the browser's confined sidebar split with the chooser and kept it confined on the rail, so blank space beside the divider starts a marquee. |
 | 2026-11-05 | lgse/strata#2062 | fix | Gave rows, section headers, and the update notice the same space in both modes, so Ctrl+B moves no icon at any text size. |
 
 ## Known gaps

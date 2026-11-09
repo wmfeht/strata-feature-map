@@ -29,8 +29,9 @@ How a press on an entry is read in Columns, Icons, and List: as a click, a file 
 
 - With single-click previews on, a press held on a file opens no preview; release without dragging opens it. lgse/strata#522
 - A press that crosses the drag threshold never opens a preview, even after the drop. lgse/strata#522
-- A press that crossed the drag threshold does not activate on release, even if the pointer returns to its start. lgse/strata#522 (unverified)
-- A press on an entry whose row was recycled during the press does not activate on release. lgse/strata#522 (unverified)
+- A press that crossed the drag threshold does not activate on release, including a double-click's second press. lgse/strata#522, lgse/strata#2096
+- That holds even if the pointer returns to its start before release. lgse/strata#522 (unverified)
+- A press on an entry whose row was recycled during the press does not activate on release, including a second press. lgse/strata#522, lgse/strata#2096
 
 ### Second press
 
@@ -52,7 +53,7 @@ Before lgse/strata#517, a full column left no blank space to start a marquee, an
 - Labels expand to fill their rows, so only rendered text counts as content; thumbnails, images, and the Icons caption are explicit content regions (lgse/strata#522).
 - Selected rows claim their whole allocation for file drag; unselected rows claim only content, leaving blank space for marquee (lgse/strata#1335).
 - Rejected: treating the whole row as a drag source, which leaves no marquee origin, and modifier-only selection (lgse/strata#517).
-- Activation and previews run on release, never on press, so a press can still become a drag or marquee (lgse/strata#522). That now holds for a double-click's second press too (lgse/strata#2096).
+- Activation and previews run on release, never on press, so a press can still become a drag or marquee (lgse/strata#522). That now holds for a double-click's second press too (lgse/strata#2096). Release activation rejects cancelled gestures, drag motion, and recycled items (`docs/architecture.md`).
 - GTK's item widget activated and claimed the second press before drag intent was known. The row's own gesture group, shared with its drag source and release activation, now claims it (lgse/strata#2095, lgse/strata#2096, `docs/architecture.md`).
 - Native collection activation bypassed the movement-aware release guards, so a held second tap launched on press (lgse/strata#2095).
 - The modifier-click gesture on content is grouped with the row's drag source. Claiming one would otherwise deny the other and block modifier drags (lgse/strata#623).
@@ -62,11 +63,10 @@ Before lgse/strata#517, a full column left no blank space to start a marquee, an
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-08 | lgse/strata#2096 | fix | Kept the chooser's sidebar divider confined and made a held second tap wait for release, so it can start a file drag or marquee instead of activating on press. |
 | 2026-09-29 | lgse/strata#1336 | fix | Routed blank-space drags by selection: unselected rows marquee, selected rows drag files. |
 | 2026-09-10 | lgse/strata#789 | fix | Selected an unselected entry on press so a drag highlights its real source. |
 | 2026-09-07 | lgse/strata#522 | fix | Split content drags from blank-space marquees and deferred previews to completed clicks in every view. |
 
 ## Known gaps
 
-- Held second taps were checked only with the mouse-equivalent X11 event sequence; touchpad, libinput, and Wayland behavior is unverified. lgse/strata#2096
+None known.

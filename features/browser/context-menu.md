@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs, src/ui/browser/context_menu/actions/presentation.rs, src/ui/browser/context_menu/focus.rs, src/ui/browser/context_menu/folder_menu.rs, src/ui/browser/context_menu/item_menu.rs, src/ui/browser/context_menu/item_options.rs, src/ui/browser/context_menu/open_with.rs, src/ui/browser/context_menu/options.rs, src/ui/browser/context_menu/popover.rs, src/ui/browser_modes/context_menu.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl, tests/qa/scenarios/entry_management/new-items-from-entry-menu.jsonl]
@@ -120,7 +120,6 @@ The item and background context menus in Columns, Icons, and List. This node cov
 ### Placement
 
 - Right-clicking an entry anywhere in a long, scrolled list shows its menu at the click. lgse/strata#306, lgse/strata#1894
-- In a small window, right-clicking an entry near the bottom edge opens the menu above the click. When neither side fits, it opens slid up inside the window. lgse/strata#2081
 - A menu stays at least 8 px inside each window edge, even when the screen has room beyond the window. lgse/strata#2081 (unverified)
 - A menu opens below the click when it fits there whole, and above the click when only that side fits. lgse/strata#2081
 - A menu that fits neither below nor above the click slides up inside the window and shows whole. lgse/strata#2081

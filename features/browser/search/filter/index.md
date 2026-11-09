@@ -99,7 +99,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 - With preview open, Up and Down move it to the newly selected result. lgse/strata#1119
 - Ctrl-click, Shift-click, Shift+Arrow, Ctrl+A, and marquee select results. lgse/strata#1018
 - Dragging, the item menu, Ctrl+C, and Ctrl+X act on the selected results at their real locations. lgse/strata#639, lgse/strata#1018
-- In List and Icons, a held second press on a result that moves past the drag threshold starts the result's drag and opens nothing. lgse/strata#2096 (unverified)
+- In List and Icons, a held second press on a result can start the result's drag. lgse/strata#2096
 - Right-click on empty result space still opens the background menu with New Folder and New File. lgse/strata#639
 - A result renamed, deleted, or moved through its menu leaves the results; a rename that still matches stays at its real parent. lgse/strata#800, lgse/strata#1155
 - In List, Icons, and Columns, a result renamed in place with F2 stays focused and selected under its new name, wherever it now sorts. The next Delete acts on it. lgse/strata#1994, lgse/strata#2026
@@ -118,22 +118,7 @@ The Ctrl+F filter narrows the focused pane by filename, in the current folder an
 
 ### Entering folders with slash
 
-- With the Ctrl+F field focused and a folder as the first displayed result, `/` opens that folder, in Columns, Icons, List, and the file chooser. lgse/strata#2086, lgse/strata#1802
-- `/` enters the first result with Include subfolders on or off, and on a remote share filtered in place. lgse/strata#2086, lgse/strata#1802
-- After `/` enters a folder, the query clears and the field stays focused there: `doc` `/` `proj` `/` reaches Documents/Projects with an empty field. lgse/strata#2086, lgse/strata#1802
-- In the file chooser, `/` does not accept the folder. Escape then closes the filter, and a second Escape cancels the chooser. lgse/strata#2086, lgse/strata#1802
-- With an empty query, no match, or a file as the first result, `/` changes nothing: the location, query, and focus stay, and no `/` is typed. lgse/strata#2086, lgse/strata#1802
-- A query of only spaces counts as empty. lgse/strata#2086, lgse/strata#1802 (unverified)
-- In 10xer mode, `/` in a Ctrl+F field is typed and enters no folder. lgse/strata#2086, lgse/strata#1802 (unverified)
-- With the query selected, as after Ctrl+A, `/` enters the folder instead of replacing the query. lgse/strata#2086, lgse/strata#1802
-- In overwrite mode, a `/` that enters nothing leaves the query and the cursor position unchanged. lgse/strata#2086, lgse/strata#1802
-- On a layout that types `/` with Shift, such as German Shift+7, `/` enters the folder too. lgse/strata#2086, lgse/strata#1802
-- A Zhuyin, Array30, or Boshiamy code starting with `/` still composes; only a lone committed `/` enters a folder. lgse/strata#2086, lgse/strata#1802
-- Pasting a lone `/` enters the folder. Pasting longer text holding `/`, such as `/Projects`, types it. lgse/strata#2086, lgse/strata#1802
-- While results are pending, `/` waits and enters the folder once one is first. With Include subfolders on, it waits through empty indexing batches until a match arrives or indexing ends. lgse/strata#2086, lgse/strata#1802
-- A file arriving as the first result ends that wait without entering anything. lgse/strata#2086, lgse/strata#1802
-- In a folder still listing, `/` waits until a folder is the first match or the listing ends or fails. lgse/strata#2086, lgse/strata#1802
-- Editing the query, Escape, focus leaving the field, or navigating elsewhere cancels a waiting `/`; it never navigates later. lgse/strata#2086, lgse/strata#1802
+- With the Ctrl+F field focused and a folder as the first displayed result, `/` opens that folder, in Columns, Icons, List, and the file chooser. `integration/10xer-mode/search/filter-descent` owns the rest of `/` descent. lgse/strata#2086, lgse/strata#1802
 
 ## Design
 
@@ -168,7 +153,6 @@ Ctrl+F finds within the current location and Ctrl+K finds anywhere (lgse/strata#
 - A fallback of the selected results to the focused one was reverted: it would change copy, cut, chooser accept, and menu targets (lgse/strata#1632).
 - An outside deletion of the cursor entry follows that rule too. Before, deleting the cursor item outside the app left nothing focused (lgse/strata#1439, lgse/strata#1544).
 - `/` enters folders because no file name can contain it, so a filter never matches it (lgse/strata#1744).
-- The `/` is read from the field's committed text, not the key press. Catching the press swallowed a `/` that starts a Zhuyin, Array30, or Boshiamy syllable (lgse/strata#1802).
 - 10xer mode drives this same field for its **f** filter and **s** search with fzf-style path terms, overriding the subfolder preference without saving it (lgse/strata#1297, lgse/strata#1403).
 
 ## History

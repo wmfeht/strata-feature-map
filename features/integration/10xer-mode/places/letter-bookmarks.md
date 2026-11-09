@@ -3,7 +3,7 @@ title: 10xer letter bookmarks
 status: shipped
 origin: {issue: lgse/strata#1787, pr: lgse/strata#1790}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/services/letter_bookmarks.rs]
 tests: [src/services/letter_bookmarks/tests.rs, src/ui/window/tests/keyboard_dispatch/letter_bookmarks.rs, src/ui/window/tests/keyboard_dispatch/letter_bookmarks/**, tests/qa/scenarios/letter_bookmarks]
@@ -12,7 +12,7 @@ related: [browser/sidebar, app/keyboard-shortcuts, app/keyboard-shortcuts/remapp
 
 ## Summary
 
-Vim-style marks for 10xer mode: `m` then a letter saves the focused pane's local folder, and `'` then the letter jumps back. Bookmarks are shared by all windows and survive restarts, apart from sidebar pins. They serve keyboard users who return to a few folders often.
+Vim-style marks for 10xer mode: `m` then a letter saves the focused pane's local folder, and `'` then the letter jumps back. Bookmarks are separate from sidebar pins, shared by all windows, and survive restarts. They serve keyboard users who return to a few folders often.
 
 ## Behavior
 
@@ -40,7 +40,7 @@ Vim-style marks for 10xer mode: `m` then a letter saves the focused pane's local
 - The `'` panel leaves out entries with an unusable key or a non-local URI. lgse/strata#1790 (unverified)
 - `'` with no saved bookmarks shows the `'-` pill and no panel. lgse/strata#1790
 - `'` when the file cannot be read or does not parse flashes `Could not access bookmarks: …` and cancels the chord, so the next key runs normally. lgse/strata#1790
-- Esc or `m` pressed before the `'` panel loads keeps it from appearing afterwards; `m` shows its own `a–z` panel. lgse/strata#1790 (unverified)
+- Esc pressed before the `'` panel loads keeps it from appearing; `m` pressed after that Esc arms the save chord, and its `a–z` panel is not replaced when the `'` read finishes. lgse/strata#1790 (unverified)
 
 ### Jumping
 

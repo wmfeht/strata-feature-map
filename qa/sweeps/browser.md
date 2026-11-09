@@ -9,7 +9,7 @@ tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-
 
 Everything that shows a folder and moves through it without changing files, in browser windows and in the portal file chooser's shared views. That covers selection by pointer and keyboard, with marquee, pointer intent, and click modes. It covers the Columns, Icons, and List views with sorting, per-folder views, Frame and Content density, text size, thumbnail size shortcuts, and position restore. It covers Back, Forward, and Parent history, the location bar, Recent, startup arguments, folder jump, and opening unreadable folders as administrator. Ctrl+K search, the Ctrl+F filter, and search exclusions belong here too. The sidebar places, the sidebar toggle with its icon rail, pins with drag-to-pin, the Connect to server dialog, and the update notice belong here. So do thumbnails with their disk cache and worker pool, and Properties with its media, RAW, and size details. The context menus, directory loading and monitoring, folder customization, scrolling, and tabs with their session restore complete it. Arrow focus between controls in modal dialogs belongs here too.
 
-Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation, file and folder transfers dropped on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
+Tab-strip drops that open or move tabs belong here. Left to other sweeps: file drags once a press becomes one, except Escape cancellation and tab-header routing, the transfers themselves (move or copy, conflicts, undo) for drops on tabs and sidebar row bodies, and every operation that changes files. The DEVICES rows and remote shares in the sidebar go elsewhere too. So do the modal dialog shell, the shortcut footer, F1, and key precedence. What the preview panel renders, the Settings pages for these preferences, 10xer key variants, and the portal file chooser's own setup and dialogs are also left out.
 
 ## Setup
 
@@ -468,7 +468,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With nothing pinned and the rail showing, drag a folder over the empty PINNED header row, hover its chevron, and leave the sidebar; repeat in the file chooser.
 - With a notice shown, step full, rail, full at text sizes 8 and 32; compare the notice icon with the row icons above at each step.
 - Set text size 32, then 8 with Ctrl+- in one window while a second window stays open; compare pin, Home, and Trash columns in both.
-- In 10xer mode with 12 pins and two devices, press `g` and Escape at text sizes 8 and 32, with PINNED collapsed, and at 160 % scaling; compare the sidebar's height.
+- In 10xer mode with 12 pins and two devices, press `g` and Escape at text sizes 8 and 32. Repeat with PINNED collapsed and at 160 % scaling; compare the sidebar's height.
 
 ### browser/sidebar/rail
 
@@ -481,7 +481,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Step the sidebar toggle by Space through every mode in the default and 10xer key maps and in `de`. Read its accessible name after each step.
 - At 160 % fractional scaling, press Ctrl+B between full and rail at text sizes 8, 10, and 32; compare every row and header icon position.
 - With two monitors, one narrow enough to rail the sidebar automatically, move the window there and back three times. Repeat at text sizes 8 and 32 and with a notice shown.
-- Press 1, 4, and 12 px right of the divider and drag, in full and rail modes, in Columns, Icons, and List, at 100 % and 160 % scaling. Then hover the divider in each mode.
+- Press 1, 4, and 12 px right of the divider and drag, in full and rail modes, in Columns, Icons, and List. Repeat at 100 % and 160 % scaling, then hover the divider in each mode.
 
 ### browser/sidebar/pins
 
@@ -717,7 +717,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 ## Hand-offs
 
 - Drag and drop once a press is read as a file drag, except Escape cancellation, which `browser/tabs` owns → `operations`.
-- File and folder transfers and saved browser content dropped on tabs and sidebar rows, and every file operation → `operations`.
+- Move or copy, conflicts, and undo for files and folders dropped on tabs and sidebar rows, saved browser content, and every file operation → `operations`.
+- What `/` does after it enters a folder from the Ctrl+F field: query clearing, waits, input methods, and paste → `integration`.
 - Trash, Undo, and Replace inside `admin://` folders, and Trash drops from them → `operations`.
 - Open and Open With refusals for files in `admin://` folders → `integration`.
 - DEVICES rows, Set label…, mounting, and ejecting → `devices`.

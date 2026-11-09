@@ -72,8 +72,7 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 ### Double-click
 
-- In List and Icons, a double-click opens a folder or launches a file once, when the second click is released, not when it is pressed. lgse/strata#2096
-- A second press that moved past the drag threshold, or whose row was recycled, does not activate on release. lgse/strata#2096 (unverified)
+- In List and Icons, a double-click opens a folder or launches a file when the second click is released. Pressing alone opens nothing. lgse/strata#2096
 
 ### Content density
 

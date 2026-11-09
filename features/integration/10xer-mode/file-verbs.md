@@ -3,7 +3,7 @@ title: 10xer file commands
 status: shipped
 origin: {issue: lgse/strata#1251, pr: lgse/strata#1306}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/window/keyboard/files.rs, src/ui/browser/file_commands.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/file_verbs.rs, src/ui/window/tests/keyboard_dispatch/file_verbs/**, tests/qa/scenarios/search_filter_sort/tenxer-sort-chords-keep-cursor.jsonl, tests/qa/scenarios/entry_management/tenxer-d-without-trash-confirms.jsonl, tests/qa/scenarios/entry_management/tenxer-footer-rename-refuses-conflicts.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/archives.rs, src/ui/window/tests/keyboard_dispatch/file_commands/clipboard.rs, src/ui/window/tests/keyboard_dispatch/file_commands/send_to.rs]
@@ -105,7 +105,7 @@ Single-key file commands in 10xer mode: yank, cut, paste, delete, create, rename
 - `;` then a digit still targets the fill or the cursor item, with `STRATA_ACTION_SOURCE=selection`. lgse/strata#2086, lgse/strata#1826
 - `; .` then a vacant slot's digit flashes `No action N` and runs nothing. lgse/strata#1826
 - If the keyboard-focused folder changed since `; .`, the digit flashes `Folder changed` and runs nothing. lgse/strata#2086, lgse/strata#1826
-- `; .` in Trash or another non-local place lists only `No matching actions`, and a digit flashes `No action 1` and runs nothing. lgse/strata#1826
+- `; .` in Trash or another non-local place lists only `No matching actions`, and a digit N flashes `No action N` and runs nothing. lgse/strata#1826
 - `; .` then a key other than a digit, such as `t`, cancels with `Unknown chord`. lgse/strata#1826 (unverified)
 - With `actions.folder` rebound under `[keymap.tenxer]`, such as to `f`, the `;` panel shows `f`, the pill reads `; f-`, and `; f 1` runs. lgse/strata#1826
 - A lettered `;` step rebound to `.` runs that step, not the folder actions. lgse/strata#1826

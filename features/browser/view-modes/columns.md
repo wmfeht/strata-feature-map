@@ -25,6 +25,7 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - A slow second click on the name of a selected, open folder still starts a rename. lgse/strata#1539
 - Double-clicking a closed folder ends as a single click does: its column opens, focused and scrolled into view, with nothing selected in it. lgse/strata#1539 (unverified)
 - With folders opening on one click, the same holds when the first press scrolls the strip, and from a partly clipped parent column. lgse/strata#1539, lgse/strata#2096
+- A double-click on a file launches it when the second click is released, not when it is pressed. lgse/strata#2096
 - With double-click folders, the second press opens the folder on release. A strip scrolled by the first press no longer pairs the presses, so the folder stays closed. lgse/strata#2096 (unverified)
 - With folders opening on one click, a plain click on a folder inside a multi-selection collapses the selection to it and opens its column. lgse/strata#1446, lgse/strata#1570
 - With single-click previews on, a plain click on a previewable file inside a multi-selection collapses the selection to it and previews it. lgse/strata#1446, lgse/strata#1570
@@ -196,6 +197,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-08 | lgse/strata#2096 | fix | Made a held second tap wait for release, so it can start a file drag instead of activating on press. |
 | 2026-11-03 | lgse/strata#2041 | perf | Kept a pending child mirror when a suppressed focus echo arrives, so a keyboard move still opens the automatic preview. |
 | 2026-11-02 | lgse/strata#2026 | fix | Put the cursor on an ancestor column's open folder after Back, and kept Tab's next rename editor when a renamed folder's column moves. |
 | 2026-10-31 | lgse/strata#1942 | feat | Opened a column's folder menu from its header, so New Folder and Paste stay reachable when entries fill the column. |

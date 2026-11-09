@@ -6,7 +6,7 @@ tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md,
 
 ## Scope
 
-Every seam between Strata and the rest of the desktop. The portal file chooser: request handling, browsing and accepting in each request kind, the destination choosers for Move to, Copy to, Extract to, and Send to, install and restore of the portal and file-manager roles, Name field filenames and URL downloads, PNG conversion of downloads, and initial size and placement. 10xer mode: the saved preference, keymap ownership, movement, selection, Escape, preview key ownership, place chords, letter bookmarks, and the folder picker, find, filter, search, and `/` descent from a filter, the file commands and their chords, and the mode inside the chooser. Open With: activation, the Run confirmation, the application chooser, Always use, Recently Used, and Open in Terminal. Custom actions: manifests, matching, invocation, the Settings editor, and the recipe library. The FileManager1 D-Bus interface.
+Every seam between Strata and the rest of the desktop. The portal file chooser: request handling, and browsing and accepting in each request kind. Its destination choosers for Move to, Copy to, Extract to, and Send to. Install and restore of the portal and file-manager roles. Name field filenames and URL downloads, PNG conversion of downloads, and initial size and placement. 10xer mode: the saved preference, keymap ownership, movement, selection, Escape, and preview key ownership. Its place chords, letter bookmarks, and folder picker. Its find, filter, and search, and `/` descent from the Ctrl+F field or the `f` prompt. Its file commands and their chords, and the mode inside the chooser. Open With: activation, the Run confirmation, the application chooser, Always use, Recently Used, and Open in Terminal. Custom actions: manifests, matching, invocation, the Settings editor, and the recipe library. The FileManager1 D-Bus interface.
 
 Left to other sweeps: the installer, `.desktop` entries, and single-instance activation, the composition of the context menus, what Move to, Copy to, Extract to, Trash, delete, and Compress do on disk, the Jobs dashboard, views, selection, and tabs inside the chooser, preview rendering, and external file providers.
 
@@ -86,7 +86,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `multiple`, start drags 1, 2, and 6 px either side of the sidebar divider with the sidebar full and on the rail, at the smallest and largest text size. Read the sidebar width and the selection.
 - Under `single` and `save`, drag from blank space beside the divider; read the sidebar width and the selection.
 - Under `multiple` and `directory`, tap a folder once, hold the second tap, move past the drag threshold, and release over another folder. Read the location, the files on disk, and the response code.
-- Double-click a file, hold the second click 1 s without moving, then release; repeat with file clicks at one and at two, and with a filter result.
+- Double-click a file, hold the second click 1 s without moving, then release; repeat with Files set to single-click and to double-click, and with a filter result.
 
 ### integration/portal-file-chooser/setup
 
@@ -200,6 +200,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - On a 100k-file tree, type a query and `/` while results stream, then press Escape before the first match arrives; read the location after the stream ends.
 - With fcitx5 pinyin and with ibus-chewing, select the `f` query with Ctrl+A, then type `/`; read the query and the location.
 - Type `/` in `f` on a remote share and in Trash after Up or Down past the last result.
+- With 10xer mode off, press Ctrl+F, type a query, press Down twice, then `/`; repeat with focus moved to a result and back, and in the chooser.
 
 ### integration/10xer-mode/file-verbs
 

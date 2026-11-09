@@ -3,10 +3,10 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
 review: draft
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/**, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]
+tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/filter.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/find.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search_hits.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]
 related: [browser/search, browser/search/filter]
 ---
 
