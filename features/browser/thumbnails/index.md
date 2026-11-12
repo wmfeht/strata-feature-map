@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#41, pr: lgse/strata#43}
 branch: null
 reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+review: draft
 code: [src/ui/thumbnail.rs, src/ui/thumbnail/viewport.rs, src/ui/thumbnail/slot.rs, crates/strata-preview/src/sandbox_helper/appimage.rs, src/ui/thumbnail/cache.rs, src/ui/thumbnail/icons.rs, src/ui/thumbnail/jobs.rs, src/ui/thumbnail/kind.rs]
 tests: [src/ui/thumbnail/tests.rs, tests/qa/mutations/stl-thumbnails-live-preference.patch, src/ui/thumbnail/viewport/tests.rs, src/ui/thumbnail/viewport/tests/folder_counts.rs, src/ui/thumbnail/slot/tests.rs, crates/strata-preview/src/sandbox_helper/appimage/tests.rs]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
@@ -43,7 +43,8 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 
 ### Formats
 
-- PNG, JPEG, WebP, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails, provided a decoder for the format is installed. lgse/strata#881, lgse/strata#969
+- PNG, JPEG, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails, provided a decoder for the format is installed. lgse/strata#881, lgse/strata#969
+- WebP files get thumbnails with no GDK Pixbuf WebP loader or ImageMagick installed. lgse/strata#881, lgse/strata#2189
 - SVG files get thumbnails without a gdk-pixbuf SVG loader: pooled workers render them with resvg, the one-shot fallback with ImageMagick. lgse/strata#881, lgse/strata#1222
 - `.svgz` files keep their icon, since the thumbnail extension list omits them. lgse/strata#881 (unverified)
 - Camera RAW thumbnails, such as for `.ARW`, use the embedded camera preview first, then gdk-pixbuf, then ImageMagick. lgse/strata#199 (unverified)

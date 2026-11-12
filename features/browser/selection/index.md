@@ -4,7 +4,7 @@ status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
 reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+review: draft
 code: [src/ui/collection_interaction.rs, crates/strata-fs/src/app/navigation/selection.rs, crates/strata-fs/src/app/browser/selection.rs, crates/strata-fs/src/app/navigation/cursor.rs, crates/strata-fs/src/app/navigation/fill.rs, crates/strata-fs/src/app/navigation/location_set.rs, src/ui/browser/view_selection.rs, src/ui/browser_modes/selection.rs]
 tests: [src/ui/collection_interaction/tests.rs, crates/strata-fs/src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch, crates/strata-fs/src/app/navigation/tests/fill_commands.rs, crates/strata-fs/src/app/navigation/tests/fill_tracking.rs, crates/strata-fs/src/app/navigation/tests/paging.rs, crates/strata-fs/src/app/navigation/tests/ranges.rs, crates/strata-fs/src/app/navigation/tests/selection.rs]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -99,6 +99,7 @@ Which entries are selected in Columns, Icons, and List, and how clicks, modifier
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-12 | lgse/strata#2108 | fix | Made the List icon and filename the only file-drag origins, so whitespace draws a band, and activated List whitespace double-clicks from the surface. |
 | 2026-11-02 | lgse/strata#2026 | fix | Moved the range anchor with Home, End, page keys and arrows, so Shift ranges start at the cursor in every view. |
 | 2026-10-31 | lgse/strata#1959 | fix | Let a press on a view's scrollbar keep its drag instead of starting a marquee, so overlay scrollbar handles scroll again. |
 | 2026-10-25 | lgse/strata#1871 | fix | Moved GTK's Shift+arrow origin to the Ctrl+clicked entry in List and Icons, so ranges extend from it. |

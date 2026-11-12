@@ -3,9 +3,9 @@ title: Marquee selection
 status: shipped
 origin: {issue: lgse/strata#189, pr: lgse/strata#203}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
-review: reviewed
-code: [src/ui/marquee.rs, src/ui/marquee/geometry.rs, src/ui/marquee/hit_test.rs, src/ui/marquee/origin.rs, src/ui/marquee/state.rs]
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+review: draft
+code: [src/ui/marquee.rs, src/ui/marquee/geometry.rs, src/ui/marquee/hit_test.rs, src/ui/marquee/origin.rs, src/ui/marquee/state.rs, src/ui/marquee/surface_click.rs]
 tests: [src/ui/marquee/tests.rs, tests/qa/scenarios/marquee_scrolling]
 docs: [docs/preview-panel-layout.md]
 related: [integration/portal-file-chooser, preview/preview-panel/layout]
@@ -13,7 +13,7 @@ related: [integration/portal-file-chooser, preview/preview-panel/layout]
 
 ## Summary
 
-Rubber-band selection: dragging from blank space draws a band and selects every entry it crosses, in Columns, Icons, and List. The drag may start in the pane or on inert chrome beside it, and auto-scrolls long listings.
+Rubber-band selection: dragging from blank space draws a band and selects every entry it crosses, in Columns, Icons, and List. The drag may start in the pane or on inert chrome beside it, and auto-scrolls long listings. It also takes double-clicks on selection space and activates the item itself.
 
 ## Behavior
 
@@ -33,6 +33,29 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 - Holding Alt starts a marquee even when the press lands on an entry. lgse/strata#203, lgse/strata#1567
 - A press on a disabled control, such as Next audio file on the last track, keeps the selection and starts no marquee. lgse/strata#1450, lgse/strata#1570
 - A press in the gaps of the preview header's file icon and name starts a file drag, not a marquee. lgse/strata#1570
+
+### Selected rows
+
+- In List, a drag from a selected row's metadata cell, unused Name space, or padding draws a band, and no file moves. lgse/strata#2108
+- In browser Columns and Icons, a drag from blank space on a selected row or card starts a file drag of the selection. lgse/strata#1336, lgse/strata#2108
+- In the file chooser, a drag from unused name space on a selected Columns row draws a band, because chooser rows host no drag source. lgse/strata#2108
+
+### Second press
+
+- In browser List, tap a row's whitespace, press again within the double-click interval, and drag: the band selects the crossed rows. lgse/strata#2108
+- That held second press opens nothing, and the band works dragging up or down. lgse/strata#2108
+- In browser Columns, the same tap and held press on a row's whitespace starts a file drag, since the tapped row is selected. lgse/strata#2108 (unverified)
+- In browser Icons, the tap and held press draws a band only from gutter space; on a tapped card it starts a file drag. lgse/strata#2108 (unverified)
+- In a multiple-selection file chooser, the tap and held press on Columns or List selection space draws a band, and the request stays open. lgse/strata#2108
+- In a single-selection or Save file chooser, a held second press on selection space draws no band. lgse/strata#2108 (unverified)
+- Double-clicking a List row's metadata cell or unused Name space opens the folder or launches the file, selected or not. lgse/strata#2108
+- That includes a row selected by keyboard. lgse/strata#2108
+- In the file chooser, double-clicking List selection space or unused Columns name space accepts the file. lgse/strata#2108
+- That activation runs on the second release, only on the row that took the press. lgse/strata#2108
+- A second press moved past the drag threshold opens nothing on release. lgse/strata#2108
+- That holds even if the pointer returns to its start before release. lgse/strata#2108 (unverified)
+- With List folders on one click, one click on a keyboard-selected folder's metadata cell opens it. lgse/strata#2108
+- A single press on a selected List row's whitespace still reaches the row, so click previews open there. lgse/strata#2108
 
 ### Selecting
 
@@ -66,6 +89,10 @@ One shared module replaced separate Columns and Icons/List implementations so ch
 - Chrome hits include insensitive widgets, so a disabled control is not taken for the blank box behind it (lgse/strata#1570).
 - The gesture runs in the capture phase, before child scrollbars see a press. So a scrollbar hit is checked first, ahead of item and Alt checks, in every view installing the marquee (lgse/strata#1938, lgse/strata#1959).
 - A press records its position in surface coordinates, so a column scrolling under a still pointer does not count as drag motion (lgse/strata#1502).
+- A row claims its second press for release activation (lgse/strata#2096), which would deny the band. The surface claims a second press on selection space first, which cancels the row's double-click (lgse/strata#2108).
+- The surface therefore activates the item itself through GTK's `list.activate-item`, as the row's own double-click would. It waits for release and drops drag motion, keeping lgse/strata#2095's contract (lgse/strata#2108, `docs/architecture.md`).
+- The selected-row reservation checks for a drag source, so chooser rows stay selection controls rather than outgoing drag sources (lgse/strata#2108, `docs/portal-file-chooser.md`).
+- Columns' lazy entry model returns a new `StringObject` on every lookup, so the same-row check compares strings by value ([comment](https://github.com/lgse/strata/pull/2108#issuecomment-6801739274)).
 
 ## History
 

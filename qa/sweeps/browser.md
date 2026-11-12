@@ -91,6 +91,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Click a disabled header button and the gap between the preview header's icon and name. Repeat in the file chooser.
 - With overlay scrollbars on, drag the scrollbar handle in List, Icons, each open column, and inline search results; repeat with overlay scrolling off and with Alt held.
 - In the file chooser, Ctrl+click blank preview space with a file previewed, then plain-click the empty Columns preview slot. Repeat for a `single` and a `multiple` request.
+- Tap a List row's Size cell, then hold the second press and drag across rows; repeat from Name padding, on an Icons gutter, and on a browser Columns row's name space.
+- Repeat that tap and held press in a `multiple`, a `single`, and a Save file chooser, in Columns and List.
+- Double-click List whitespace with the second press moved 3 px, then past the drag threshold, then past it and back; repeat in the file chooser's Columns and List.
+- Double-click a List row's Modified cell on a row in a multi-selection, on a symlink to a folder, and with Ctrl held only on the second press.
 
 ### browser/selection/pointer-intent
 
@@ -511,6 +515,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Scroll the slow directory to the end and back twice; look for icons left on decoded rows and thumbnails on the `.svgz` and `.ogg` files.
 - Rename an image while its decode runs, then overwrite an image's bytes keeping its mtime with `touch -r`.
 - Remove the HEIC or JPEG XL decoder package and reopen the folder; open an `smb://` share with `gvfsd-fuse` stopped.
+- Hide the pixbuf WebP loader and ImageMagick, then open lossy, lossless, alpha, animated, and EXIF-rotated WebP files, and a `.webp` holding PNG bytes.
 - Turn Show thumbnails off mid-load in the slow directory, then on within 200 ms while videos' durations stream into Icons captions; repeat in a folder peek and a Ctrl+K result list.
 - With Show thumbnails off, open the portal file chooser and a second window, then turn it on from Settings and scroll each.
 - Open a folder of the RAW samples with and without `dcraw` and `simple_dcraw`; compare orientation and Icons captions.
@@ -582,6 +587,9 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent.
 - With the interface in German, then Japanese, open a file's, a folder's, and the background menu; compare each hint with its F1 row and press it.
 - On niri, quick-right-click on empty space near the bottom edge and where a submenu row lands; then reopen the menu with Menu and click a row.
+- Middle-click and press buttons 8 and 9 on rows of an item menu, the background menu, and the Actions, Send to…, and Open in… submenus.
+- Right-press inside an open menu, release off any row, then left-click a row; repeat with a middle press first, and on a submenu row.
+- Right-click Move to Trash and Permanently delete in a multi-selection menu, then list the folder from a shell.
 - Right-click a folder, choose Copy, reopen its menu within one frame, then alternate file, folder, and multi-selection menus while watching the log.
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.

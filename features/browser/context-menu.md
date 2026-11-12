@@ -3,7 +3,7 @@ title: Context menus
 status: shipped
 origin: {issue: lgse/strata#303, pr: lgse/strata#306}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
 code: [src/ui/browser/context_menu.rs, src/ui/browser/context_menu/actions.rs, src/ui/browser/context_menu/commands.rs, src/ui/browser/context_menu/keyboard.rs, src/ui/browser/context_menu/presentation.rs, src/ui/browser/context_menu/actions/presentation.rs, src/ui/browser/context_menu/focus.rs, src/ui/browser/context_menu/folder_menu.rs, src/ui/browser/context_menu/item_menu.rs, src/ui/browser/context_menu/item_options.rs, src/ui/browser/context_menu/open_with.rs, src/ui/browser/context_menu/options.rs, src/ui/browser/context_menu/popover.rs, src/ui/browser_modes/context_menu.rs]
 tests: [src/ui/browser/context_menu/tests/menus.rs, src/ui/window/tests/keyboard_dispatch/context_menus.rs, src/ui/browser/context_menu/tests.rs, src/ui/browser/context_menu/tests/open_with.rs, tests/qa/scenarios/dialogs_and_menus/pane-menu-directory-actions.jsonl, tests/qa/scenarios/dialogs_and_menus/secondary-click-retargets-menu.jsonl, tests/qa/scenarios/dialogs_and_menus/submenu-arrows-return-to-parent.jsonl, tests/qa/scenarios/entry_management/new-items-from-entry-menu.jsonl]
@@ -36,7 +36,10 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 - On niri, a right click held about 250 ms and released over the menu that opened leaves the menu open and runs no row. lgse/strata#1621
 - A button release that reaches an item or background menu, or its submenus, before any press inside it is ignored. lgse/strata#1621
-- After that, a full click on a menu row runs it. lgse/strata#1621
+- Only a primary-button press inside the menu counts; a secondary or middle press does not arm a later release. lgse/strata#1621, lgse/strata#2190 (unverified)
+- After that, a left click on a menu row runs it. lgse/strata#1621, lgse/strata#2190
+- A right or middle click on a row of an item or background menu runs nothing and leaves the menu open. lgse/strata#2190
+- Back and forward buttons and every other non-primary button run no row either, including submenu rows. lgse/strata#2190 (unverified)
 - Pressing the secondary button, moving onto a menu row, and releasing does not run the row; menu rows need a separate click. lgse/strata#1621
 - On Hyprland, wlroots compositors, and X11, a right click released over a menu row behaves as before: the menu stays open. lgse/strata#1621
 - On GTK 4.14, choosing Open With… from a file's menu and picking an application keeps the window open. lgse/strata#1642, lgse/strata#1695
@@ -161,6 +164,9 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 - A quick right click can open the menu under the pointer, and GtkModelButton activates on an unpaired release of any button. Some compositors, such as niri, deliver the opening click's release to the popup (lgse/strata#1618).
 - A release with no press inside the menu since `show()` belongs to the opening click and is dropped. The flag resets per presentation, so nothing stays armed on compositors that never deliver that release. A guard armed at the trigger was rejected for that reason; it also covered only the secondary button (lgse/strata#1618, lgse/strata#1621).
 - The guard runs with no propagation limit because submenus are separate popover natives (lgse/strata#1621).
+- GtkModelButton's click gesture takes only the primary button, so a secondary or middle press inside the menu is never claimed. Its release is then unpaired and ran the row (lgse/strata#2109).
+- The lgse/strata#1621 guard missed that case because the press landed inside the menu. Every row was exposed, including Move to Trash and Permanently delete (lgse/strata#2109).
+- The guard therefore drops every non-primary release, and only a primary press arms it (lgse/strata#2190).
 - GTK 4.12 to 4.16 leave a position handler on a freed section box when a popover's model is replaced. The item menu therefore starts with no model (lgse/strata#1642, lgse/strata#1695).
 - GTK 4.14 can keep the window's pointer focus on a hidden popover. A sensitivity toggle therefore repicks pointer focus before unparenting (lgse/strata#1642, lgse/strata#1695).
 - Both workarounds are needed on GTK 4.14; GTK 4.22 fixed both bugs (lgse/strata#1695).
@@ -172,6 +178,7 @@ Context menus predate the PR history. lgse/strata#398 moved them out of `src/ui/
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-12 | lgse/strata#2190 | fix | Dropped non-primary releases on menu rows, so a right or middle click no longer runs the row. |
 | 2026-11-07 | lgse/strata#2081 | fix | Kept context menus inside the window, below, above, or slid up, instead of capping them by the monitor. |
 | 2026-11-03 | lgse/strata#1973 | fix | Added New Folder and New File to entry menus, so creating an item no longer needs background space. |
 | 2026-11-03 | lgse/strata#2041 | perf | PNG-encoded each mirrored menu icon texture once and reused it, instead of per item on every column build. |
