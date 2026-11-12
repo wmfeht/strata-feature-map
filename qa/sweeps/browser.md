@@ -101,8 +101,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 ### browser/selection/pointer-intent
 
 - Press on a filename, move 3 px, return, and release; repeat moving past the threshold and returning.
-- In List, press in the Size and Modified cells of a selected row and an unselected row and drag; note which starts a drag and which a marquee.
-- Repeat the List press-and-drag probes with Name moved to the last column and with Size and Type hidden.
+- In List, press a selected row's Size cell inside a multi-selection with Alt held, then drag onto a folder.
 - Wheel-scroll during a held press until the row recycles, then release over a different row.
 - Tap an entry, then hold the second press for 2 s and release without moving; repeat moving 3 px and back, and with files opening on one click.
 - Tap a selected entry in a multi-selection, then hold and drag the second press; repeat adding Ctrl only on the second press.
@@ -588,7 +587,6 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent.
 - With the interface in German, then Japanese, open a file's, a folder's, and the background menu; compare each hint with its F1 row and press it.
 - On niri, quick-right-click on empty space near the bottom edge and where a submenu row lands; then reopen the menu with Menu and click a row.
-- Middle-click and press buttons 8 and 9 on rows of an item menu, the background menu, and the Actions, Send to…, and Open in… submenus.
 - Right-press inside an open menu, release off any row, then left-click a row; repeat with a middle press first, and on a submenu row.
 - Right-click Move to Trash and Permanently delete in a multi-selection menu, then list the folder from a shell.
 - Right-click a folder, choose Copy, reopen its menu within one frame, then alternate file, folder, and multi-selection menus while watching the log.

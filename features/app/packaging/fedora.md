@@ -30,7 +30,7 @@ The Fedora RPM, built from source for stable and preview COPR projects so Fedora
 - The spec builds with `--no-default-features`, which leaves out the `rar` feature. lgse/strata#2120
 - When `unrar` or `unrar_sys` is vendored with sources, `build_srpm.py` fails with "vendored sources include non-free crates". lgse/strata#2120
 - `rpm -q --provides strata` lists a `bundled(crate(…))` entry per vendored crate, and none for a stubbed crate such as `unrar`. lgse/strata#2120
-- `STRATA_RELEASE_TAG` and `STRATA_BUILD_KIND` come from `--tag`, and `STRATA_BUILD_COMMIT` from the packaged commit, so `strata --version` and Diagnostics name the release as a release-archive build does. lgse/strata#2120
+- `STRATA_RELEASE_TAG` and `STRATA_BUILD_KIND` come from `--tag`, and `STRATA_BUILD_COMMIT` from the packaged commit. `strata --version` and Diagnostics then name the release as a release-archive build does. lgse/strata#2120
 - The build leaves `STRATA_INTEGRATIONS` unset, so the runtime integration installers stay enabled. lgse/strata#2120
 - A vendoring step that changes `Cargo.lock` fails with "Cargo.lock is out of date with Cargo.toml in the packaged source". lgse/strata#2120 (unverified)
 - The `License` tag joins the crates' `cargo2rpm` license summary with Apache-2.0, ISC, MIT, and OFL-1.1, deduplicated and joined with ` AND `. lgse/strata#2120 (unverified)
@@ -86,5 +86,5 @@ The Fedora RPM, built from source for stable and preview COPR projects so Fedora
 ## Known gaps
 
 - The COPR projects `@lgse/strata` and `@lgse/strata-preview` return 404, so the README's install commands fail. lgse/strata#2120
-- Publishing waits on Fedora creating the `lgse` FAS group, and stays off until `COPR_PUBLISH_ENABLED` is `true`. lgse/strata#2120
-- Sandboxed previews are untested on real aarch64 hardware; the QEMU test lacked Landlock and user namespaces. lgse/strata#2120
+- Publishing waits on Fedora creating the `lgse` FAS group. lgse/strata#2120
+- Sandboxed previews on aarch64 are untested on real hardware. lgse/strata#2120

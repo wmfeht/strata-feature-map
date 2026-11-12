@@ -54,8 +54,6 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 - That activation runs on the second release, only on the row that took the press. lgse/strata#2108
 - On List selection space, a second press moved past the drag threshold opens nothing on release. lgse/strata#2108
 - On selection space, that holds even if the pointer returns to its start before release. lgse/strata#2108 (unverified)
-- With List folders on one click, one click on a keyboard-selected folder's metadata cell opens it. lgse/strata#2108
-- A single press on a selected List row's whitespace still reaches the row, so click previews open there. lgse/strata#2108
 
 ### Selecting
 

@@ -74,6 +74,11 @@ The three presentations of a folder, Columns, Icons, and List, and the Appearanc
 
 - In List and Icons, a double-click opens a folder or launches a file when the second click is released. lgse/strata#2096
 
+### Single clicks on List whitespace
+
+- With List folders on one click, one click on a keyboard-selected folder's metadata cell opens it. lgse/strata#2108
+- A single press on a selected List row's whitespace still reaches the row, so click previews open there. lgse/strata#2108
+
 ### Content density
 
 - At Content Airy, Columns and List rows have a 42 px minimum height and 8 px vertical margins; Columns row content keeps 4 px. lgse/strata#168 (unverified)
