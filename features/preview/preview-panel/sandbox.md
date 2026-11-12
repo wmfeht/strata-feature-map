@@ -3,10 +3,10 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox_helper/isobmff.rs, src/sandbox/runtime.rs, src/sandbox/command.rs, src/sandbox/operation.rs, src/sandbox/output.rs, src/sandbox/process.rs, src/sandbox_helper/operations.rs, src/sandbox_helper/process.rs, src/sandbox_helper/raster.rs]
-tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox_helper/tests/isobmff.rs, src/sandbox/runtime/tests.rs, src/sandbox/tests/**]
+code: [crates/strata-preview/src/sandbox.rs, crates/strata-preview/src/sandbox_helper.rs, crates/strata-preview/src/sandbox_helper/isobmff.rs, crates/strata-preview/src/sandbox/runtime.rs, crates/strata-preview/src/sandbox/command.rs, crates/strata-preview/src/sandbox/operation.rs, crates/strata-preview/src/sandbox/output.rs, crates/strata-preview/src/sandbox/process.rs, crates/strata-preview/src/sandbox_helper/operations.rs, crates/strata-preview/src/sandbox_helper/process.rs, crates/strata-preview/src/sandbox_helper/raster.rs]
+tests: [crates/strata-preview/src/sandbox/tests.rs, crates/strata-preview/src/sandbox_helper/tests.rs, crates/strata-preview/src/sandbox_helper/tests/isobmff.rs, crates/strata-preview/src/sandbox/runtime/tests.rs, crates/strata-preview/src/sandbox/tests/**]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
 related: [preview/preview-panel/media, preview/preview-panel/model-views, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
 ---
@@ -20,9 +20,11 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 ### Launching the sandbox
 
 - Strata runs `bwrap` only from `/run/wrappers/bin`, `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin`, the NixOS and Guix system profiles, or build-time `STRATA_TRUSTED_COMMAND_PATH` directories, never from `PATH`. lgse/strata#1055, lgse/strata#1746
+- A setuid or setgid `bwrap`, such as NixOS's `/run/wrappers/bin/bwrap`, is skipped for the next unprivileged copy in those directories; PNG thumbnails and MP4 previews then render. lgse/strata#2182
 - A build with `STRATA_TRUSTED_COMMAND_PATH=/nix/store/<bwrap>/bin` and no system bubblewrap finds `bwrap` there, and native previews render. lgse/strata#1746, lgse/strata#1702
 - A search hit whose canonical target lies outside FHS, `/run/wrappers/bin`, `/nix/store`, or `/gnu/store` is rejected, and previews fail closed. lgse/strata#1055
 - When bubblewrap is missing or cannot start, a native-format preview shows "Preview unavailable" and the file is never decoded outside the sandbox. lgse/strata#17, lgse/strata#1503
+- On a host whose only trusted `bwrap` is setuid or setgid, native-format previews show "Preview unavailable". lgse/strata#2182 (unverified)
 - `STRATA_SANDBOX_PATH`, `STRATA_SANDBOX_ROOT`, `STRATA_SANDBOX_PRLIMIT`, and `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` set at launch override the values embedded at build time. lgse/strata#1357, lgse/strata#1746, lgse/strata#1599
 - Without launch or build values, helpers run with `PATH=/usr/bin`, a read-only `/usr`, and `/usr/bin/prlimit`. lgse/strata#1357, lgse/strata#1746
 - A launch-time `STRATA_SANDBOX_ROOT` must be `/usr`, `/nix/store`, `/gnu/store`, or a path inside one; `/`, `/home/<user>`, `/usrdata`, and `/usr/../home` are ignored. lgse/strata#1746
@@ -79,6 +81,16 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - The header reader accepts any file whose first box is `ftyp`, whatever its name or brand, and seeks past `mdat` without reading it. lgse/strata#1971 (unverified)
 - An AVIF or HEIF whose `ispe` header is read decodes its pixels once per preview or thumbnail, not three times. lgse/strata#1971, lgse/strata#1968
 - An AVIF with no EXIF thumbnail whose header claims 20000×20000 fails with "Image dimensions exceed the decoded frame budget" before any decode; its thumbnail stays empty. lgse/strata#1971
+- A WebP previews and thumbnails through the built-in decoder on a host with neither a GDK Pixbuf WebP loader nor ImageMagick. lgse/strata#2189, lgse/strata#1656
+- A WebP with EXIF orientation 6, stored at 1200×600, previews upright at 400×800, also where a GDK Pixbuf WebP loader is installed. lgse/strata#2189
+- Lossless and lossy WebP files decode, an alpha WebP keeps its alpha, and an animated WebP shows its first frame. lgse/strata#2189
+- A WebP whose header claims 16383×16383 is refused before decoding, as an oversized PNG is; without an EXIF thumbnail its thumbnail stays empty. lgse/strata#2189
+- An 80×40 WebP previews at 80×40, and a 1200×600 WebP at 800×400. lgse/strata#2189
+- An 80×40 WebP thumbnails at 80×40, and a 1200×600 one at 256×128. lgse/strata#2189
+- A non-RAW raster image within the decoded-frame budget, with known dimensions, not SVG, tries the built-in WebP decoder, GDK Pixbuf, ImageMagick, then dcraw. Previews and thumbnails share that order. lgse/strata#2189
+- A non-RAW raster image whose dimensions cannot be read, not SVG, tries only ImageMagick, then dcraw. lgse/strata#2189 (unverified)
+- A WebP's dimensions, such as in the Icons caption, come from its header without a GDK Pixbuf loader. lgse/strata#2189 (unverified)
+- WebP images in Markdown previews and WebP AppImage icons also decode without a system loader. lgse/strata#2189 (unverified)
 - SVG and gzip-compressed SVGZ files render with resvg inside the sandbox, detected by content rather than by name, with image references disabled. lgse/strata#1222
 
 ### Output validation
@@ -106,7 +118,9 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 - Files become visible by browsing, so any parser reachable from a listing is attacker-facing. Parsing moves out of process, and crashes or timeouts degrade to a fallback icon or message (lgse/strata#6).
 - There is no unsandboxed fallback. A hijacked `bwrap` would silently reintroduce one, so host helpers are resolved by trusted absolute path and never through `PATH` (lgse/strata#1045, lgse/strata#1055).
-- Packagers may add helper directories at build time, searched after the fixed roots so NixOS wrappers still win. Each directory and each helper target must canonicalize under a trust root, so a build cannot embed a user-writable location. Searching inherited `PATH` was rejected (lgse/strata#1702, lgse/strata#1746).
+- Packagers may add helper directories at build time, searched after the fixed roots so NixOS wrappers still win for every helper except bubblewrap (lgse/strata#2182). Each directory and each helper target must canonicalize under a trust root, so a build cannot embed a user-writable location. Searching inherited `PATH` was rejected (lgse/strata#1702, lgse/strata#1746).
+- bubblewrap up to 0.10 rejects `--size` in setuid mode, and 0.12.0 refuses setuid use. Every sandbox passes `--size` for its 512 MiB `/tmp`, so a setuid `bwrap` could never start one. The lookup skips setuid and setgid copies instead of dropping the limit; no working setup is lost (lgse/strata#2182, [comment](https://github.com/lgse/strata/pull/2182#issuecomment-6825042523)).
+- No `/nix/store/*-bubblewrap-*` glob is searched: the NixOS flake points `STRATA_TRUSTED_COMMAND_PATH` at the bubblewrap in its closure ([comment](https://github.com/lgse/strata/pull/2182#issuecomment-6825042523)).
 - `RLIMIT_FSIZE` is process-wide and also covers glycin's memfd for the full decoded frame. It was raised to 512 MiB; the address-space limit is the memory guard, and output size is checked host-side (lgse/strata#54, lgse/strata#55).
 - glibc creates up to 8 arenas per CPU, which can exhaust the 2 GiB address space on many-core hosts. One arena keeps the limit intact; media helpers are excluded because they have no address-space limit (lgse/strata#141, lgse/strata#143).
 - ImageMagick sniffs TIFF magic and picks its TIFF coder for ARW unless the name keeps `.ARW`, so the extension is preserved, sanitized (lgse/strata#165).
@@ -120,8 +134,10 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - libjpeg decodes at 1/2, 1/4, or 1/8 scale from compressed data. The `jpeg:size` hint makes ImageMagick use it, so oversized JPEGs fit the budget. The area limit stops any unhinted full decode (lgse/strata#1698).
 - The preview pool reuses only the supervisor; each job still runs in a freshly forked decoder with Landlock and seccomp. This removed about 100 ms of spawn cost per SVG preview (lgse/strata#1222).
 - With gdk-pixbuf 2.44, `Pixbuf::file_info` decodes through glycin, so an AVIF paid a full decode in each of two probes and the render. Dimensions now come from the ISO BMFF header, and renders reuse probed dimensions (lgse/strata#1968, lgse/strata#1971).
-- Renders take the caller's dimensions for every Pixbuf format, so WebP and TIFF also lose one decode (lgse/strata#1968, lgse/strata#1971).
+- Renders take the caller's dimensions for every Pixbuf format, so TIFF also loses one decode (lgse/strata#1968, lgse/strata#1971). WebP dimensions now come from its own header through the built-in decoder (lgse/strata#2189).
 - `ispe` is the uncropped extent, so a `clap` defers to the decoder. Header parsing is bounded because the file is untrusted: 1 MiB of `meta`, 4096 boxes, never `mdat` (lgse/strata#1971).
+- The built-in WebP decoder goes first so WebP never depends on a system pixbuf loader; the `image` crate was already a dependency. Other formats pay one small header read (lgse/strata#2189, [comment](https://github.com/lgse/strata/pull/2189#issuecomment-6825187290)).
+- Thumbnails and previews share one fallback chain because the pooled thumbnail worker kept its own copy, which skipped any new decoder. The frame budget is checked from header dimensions before the WebP decode, and again inside it (lgse/strata#2189).
 - An FFmpeg RGBA decode path was rejected: it dropped AVIF alpha and left ICC and HDR handling unvalidated (lgse/strata#1971).
 - Format crosses the sandbox boundary explicitly, including for symlinks (lgse/strata#1276). Document previews pass `docx` or `odt` to the helper the way comic covers pass their format (lgse/strata#1834).
 - The PDF helper detects protection from Poppler's typed `Encrypted` error, not message text or file names. It writes a structured code to the existing bounded `result.error` output (lgse/strata#1636, lgse/strata#1840).
@@ -136,6 +152,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-12 | lgse/strata#2182 | fix | Skipped setuid and setgid `bwrap` copies for a later unprivileged one, so previews render with NixOS's setuid wrapper installed. |
 | 2026-11-01 | lgse/strata#1971 | fix | Read AVIF and HEIF dimensions from ISO BMFF headers and reused probed dimensions, so previews and thumbnails decode once instead of three times. |
 | 2026-11-01 | lgse/strata#1954 | fix | Probed job namespaces at supervisor start and fell back to one-shot sandboxes when AppArmor denies them, so thumbnails and previews render on Ubuntu 24.04 derivatives. |
 | 2026-10-25 | lgse/strata#1866 | fix | Swept orphaned preview output folders by lock on a process's first sandbox job, so leftovers from exited or killed runs stop piling up in the temp directory. |
@@ -159,3 +176,4 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - Inside Flatpak, bubblewrap cannot create namespaces, so native-format previews and thumbnails show "Preview unavailable". lgse/strata#1503, lgse/strata#936
 - Output folders still owned at exit are not removed then; the next process that creates one sweeps them. lgse/strata#1866
 - A cropped or otherwise unsupported AVIF or HEIF still pays a decoder probe for its dimensions. lgse/strata#1971
+- A WebP with EXIF orientation 5 to 8 reports its stored dimensions, such as 1200×600, while it displays rotated. lgse/strata#2189

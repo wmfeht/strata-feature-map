@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
 code: [src/ui/theme.rs, src/ui/theme/color.rs, src/ui/theme/document_style.rs, src/ui/theme/generated_css.rs, src/ui/theme/gtk_settings.rs, src/ui/theme/library.rs, src/ui/theme/listeners.rs, src/ui/theme/source_style.rs, src/ui/theme/watch.rs, src/ui/theme/weak_registry.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs, src/ui/preferences/tests/preferences/themes.rs]
@@ -128,6 +128,13 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Manual font rendering follows the desktop's antialiasing and hint style. lgse/strata#1601
 - On GTK older than 4.16, Strata skips the font rendering pin. lgse/strata#1601
 - With Reduce motion on, sidebar, column, and preview animations do not play. lgse/strata#458
+- With Reduce motion on, Strata holds GTK's `gtk-enable-animations` off in every window. lgse/strata#2116
+- With Reduce motion on, hover and press fades, column entry, toast slides, trash effects, and Settings page crossfades change state immediately. lgse/strata#2115, lgse/strata#2116
+- With Reduce motion on, stack and revealer transitions and animated scrolling do not play. lgse/strata#2116
+- With Reduce motion on, a spinner, such as during a long folder load, draws as a static icon. lgse/strata#2116
+- Turning Reduce motion off restores the desktop's `gtk-enable-animations` value in every window without a restart. lgse/strata#2116
+- With `reduce_motion = true` saved, toolkit animations are off from the first window. lgse/strata#2116 (unverified)
+- With Reduce motion already off, saving it off again leaves a `gtk-enable-animations` value set in the GTK Inspector unchanged. lgse/strata#2116 (unverified)
 - Strata's stylesheet has no `prefers-reduced-motion` rule, so that desktop media preference does not shorten CSS transitions. lgse/strata#458
 - With GTK's `gtk-enable-animations` set to false, the same animations do not play even when Reduce motion is off. lgse/strata#458 (unverified)
 
@@ -213,11 +220,13 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Manual mode hints metrics too, so the extents match the raster. Application-set GTK settings outrank the settings portal, which on Wayland overrides `settings.ini` (lgse/strata#1310, lgse/strata#1600, lgse/strata#1601).
 - lgse/strata#1310 proposed this pin and was closed as not fixable in Strata; lgse/strata#1601 reverses that. The property is looked up by name to keep the GTK 4.12 floor (lgse/strata#1601).
 - The `@media (prefers-reduced-motion)` rule was removed because GTK before 4.20 rejects `@media`. Reduced motion now flows through Strata's setting, not a CSS media query (lgse/strata#436, lgse/strata#458).
+- Stylesheet transitions and GTK widget animations follow the toolkit setting, not Strata's helpers, so Reduce motion holds `gtk-enable-animations` off. Clearing resets the property to the desktop's value; preferences can load before GTK, so the theme re-applies it once a display exists (lgse/strata#2115, lgse/strata#2116).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-12 | lgse/strata#2116 | fix | Held GTK's `gtk-enable-animations` off under Reduce motion so stylesheet and toolkit animations stop too. |
 | 2026-11-03 | lgse/strata#2045 | fix | Read the desktop text-scaling factor from the settings portal in D-Bus-activated Strata, where `no-portals` left `gtk-xft-dpi` at 96 DPI and dropped the desktop factor. |
 | 2026-11-02 | lgse/strata#2030 | fix | Named each theme editor color cell once after its field, and gave `.tbz`, `.tbz2`, `.txz`, and `.tzst` the archive icon. |
 | 2026-10-29 | lgse/strata#1909 | fix | Watched the resolved Omarchy theme folder and rebound it after a symlink switch, so `colors.toml` edits stay live without a restart. |

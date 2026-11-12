@@ -3,10 +3,10 @@ title: File chooser and file manager setup
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/portal_setup.rs, src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
-tests: [src/portal_setup/tests.rs, src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
+code: [crates/strata-desktop/src/portal_setup.rs, crates/strata-desktop/src/portal_setup/omarchy.rs, src/ui/portal_preferences.rs, src/ui/desktop_integration.rs, data/portal]
+tests: [crates/strata-desktop/src/portal_setup/tests.rs, crates/strata-desktop/src/portal_setup/omarchy/tests.rs, src/ui/portal_preferences/tests.rs]
 related: [app/packaging/installer, integration/file-manager-interface, settings/preferences, app/updates]
 ---
 

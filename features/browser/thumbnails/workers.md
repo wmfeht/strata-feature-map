@@ -3,10 +3,10 @@ title: Thumbnail workers
 status: shipped
 origin: {issue: lgse/strata#516, pr: lgse/strata#1081}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/sandbox/browser.rs, src/sandbox/browser/worker.rs, src/sandbox/browser/wire.rs, src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs, src/sandbox_helper/browser.rs]
-tests: [src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
+code: [crates/strata-preview/src/sandbox/browser.rs, crates/strata-preview/src/sandbox/browser/worker.rs, crates/strata-preview/src/sandbox/browser/wire.rs, crates/strata-preview/src/sandbox/browser/process.rs, src/ui/thumbnail/background.rs, crates/strata-preview/src/sandbox_helper/browser.rs]
+tests: [crates/strata-preview/src/sandbox/browser/tests.rs, src/ui/thumbnail/background/tests.rs, tests/qa/scenarios/browser_workers, tests/qa/scenarios/thumbnail_worker_settings]
 docs: [docs/preferences.md]
 related: [preview/preview-panel/sandbox, settings/preferences, preview/preview-panel/gcode]
 ---

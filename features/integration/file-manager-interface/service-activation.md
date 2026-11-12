@@ -3,10 +3,10 @@ title: Launched-program GDK_DEBUG restore
 status: shipped
 origin: {issue: lgse/strata#1810, pr: lgse/strata#1811}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/child_environment.rs]
-tests: [src/child_environment/tests.rs]
+code: [crates/strata-fs/src/child_environment.rs, src/ui/launch_context.rs]
+tests: [crates/strata-fs/src/child_environment/tests.rs]
 related: [app/infrastructure, integration/open-with, integration/open-with/terminal, browser/context-menu, operations/progress/jobs, remote/file-providers/external, settings/preferences, preview/preview-panel/documents]
 ---
 

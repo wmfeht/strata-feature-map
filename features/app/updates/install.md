@@ -3,10 +3,10 @@ title: In-place update install
 status: shipped
 origin: {issue: lgse/strata#24, pr: lgse/strata#26}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/services/update_install.rs, src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py, src/ui/settings/install.rs, src/ui/settings/restart.rs, src/ui/settings/update_dialog.rs]
-tests: [src/services/update_install/tests.rs, src/services/update_install/review_tests.rs, src/services/update_install/archive/tests.rs, src/services/update_install/command/tests.rs, src/services/update_install/download/tests.rs, src/services/update_install/manifest/tests.rs, src/ui/settings/tests/update_dialog.rs, scripts/test_sign_update_manifest.py, tests/fixtures/signed-update]
+code: [crates/strata-desktop/src/services/update_install.rs, crates/strata-desktop/src/services/update_install/**, data/update-keys.json, scripts/sign_update_manifest.py, src/ui/settings/install.rs, src/ui/settings/restart.rs, src/ui/settings/update_dialog.rs]
+tests: [crates/strata-desktop/src/services/update_install/tests.rs, crates/strata-desktop/src/services/update_install/review_tests.rs, crates/strata-desktop/src/services/update_install/archive/tests.rs, crates/strata-desktop/src/services/update_install/command/tests.rs, crates/strata-desktop/src/services/update_install/download/tests.rs, crates/strata-desktop/src/services/update_install/manifest/tests.rs, src/ui/settings/tests/update_dialog.rs, scripts/test_sign_update_manifest.py, tests/fixtures/signed-update]
 docs: [site/src/reference/signed-updates.md]
 related: [integration/portal-file-chooser]
 ---

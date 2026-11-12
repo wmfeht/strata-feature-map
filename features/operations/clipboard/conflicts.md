@@ -3,10 +3,10 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/adapters/local_operations/replacement.rs, src/adapters/local_operations/merge_aside.rs, src/adapters/local_operations/replacement/**, src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
-tests: [tests/qa/scenarios/copy_conflicts, src/adapters/local_operations/tests/conflicts.rs, src/adapters/local_operations/tests/merge.rs, src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, src/adapters/local_operations/tests/conflicts/**, src/adapters/local_operations/tests/merge/**, src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs, tests/qa/scenarios/drag_and_drop/drag-folder-merges-into-same-named-folder.jsonl]
+code: [crates/strata-fs/src/adapters/local_operations/replacement.rs, crates/strata-fs/src/adapters/local_operations/merge_aside.rs, crates/strata-fs/src/adapters/local_operations/replacement/**, crates/strata-fs/src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
+tests: [tests/qa/scenarios/copy_conflicts, crates/strata-fs/src/adapters/local_operations/tests/conflicts.rs, crates/strata-fs/src/adapters/local_operations/tests/merge.rs, crates/strata-fs/src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, crates/strata-fs/src/adapters/local_operations/tests/conflicts/**, crates/strata-fs/src/adapters/local_operations/tests/merge/**, crates/strata-fs/src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs, tests/qa/scenarios/drag_and_drop/drag-folder-merges-into-same-named-folder.jsonl, crates/strata-fs/test-resources.gresource.xml]
 related: [operations/drag-and-drop, operations/filesystem-compatibility, operations/filesystem-compatibility/leftovers, app/infrastructure, operations/undo]
 ---
 

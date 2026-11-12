@@ -3,10 +3,10 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/ui/preview.rs, src/services/preview.rs, src/adapters/local_preview.rs, src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, src/sandbox_helper/archive_cover.rs, src/adapters/local_preview/load.rs, src/ui/preferences/preview_settings.rs, src/ui/preview/drawer.rs, src/ui/preview/drawer/header.rs, src/ui/preview/feedback.rs, src/ui/preview/lifecycle.rs, src/ui/preview/loading.rs, src/ui/preview/render.rs, src/ui/preview/source_view.rs]
-tests: [src/services/preview/tests.rs, src/adapters/local_preview/tests.rs, src/adapters/local_preview/tests/cover_preview.rs, src/adapters/local_preview/tests/remote_preview.rs, src/adapters/local_preview/remote/tests.rs, src/adapters/local_preview/tests/cache.rs, src/adapters/local_preview/tests/cancellation.rs, src/adapters/local_preview/tests/heavy_queue.rs, src/adapters/local_preview/tests/resolution.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
+code: [src/ui/preview.rs, crates/strata-preview/src/services/preview.rs, crates/strata-fs/src/adapters/local_preview.rs, crates/strata-fs/src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, crates/strata-preview/src/sandbox_helper/archive_cover.rs, crates/strata-fs/src/adapters/local_preview/load.rs, src/ui/preferences/preview_settings.rs, src/ui/preview/drawer.rs, src/ui/preview/drawer/header.rs, src/ui/preview/feedback.rs, src/ui/preview/lifecycle.rs, src/ui/preview/loading.rs, src/ui/preview/render.rs, src/ui/preview/source_view.rs]
+tests: [crates/strata-preview/src/services/preview/tests.rs, crates/strata-fs/src/adapters/local_preview/tests.rs, crates/strata-fs/src/adapters/local_preview/tests/cover_preview.rs, crates/strata-fs/src/adapters/local_preview/tests/remote_preview.rs, crates/strata-fs/src/adapters/local_preview/remote/tests.rs, crates/strata-fs/src/adapters/local_preview/tests/cache.rs, crates/strata-fs/src/adapters/local_preview/tests/cancellation.rs, crates/strata-fs/src/adapters/local_preview/tests/heavy_queue.rs, crates/strata-fs/src/adapters/local_preview/tests/resolution.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, crates/strata-preview/src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-metadata, operations/archives/preview, operations/drag-and-drop]
 ---
@@ -123,6 +123,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-12 | lgse/strata#2189 | fix | Decoded WebP with the built-in decoder before system loaders, so WebP previews and thumbnails render without a pixbuf WebP loader or ImageMagick. |
 | 2026-11-09 | lgse/strata#2098 | fix | Ran media decoders through the absolute `STRATA_SANDBOX_PRLIMIT` and lowered helper priority in-process, so Nix runtimes need no `prlimit` or `nice`. |
 | 2026-11-02 | lgse/strata#2030 | fix | Classified `.264`, `.h265`, `.265`, and `.hevc` as raw video; Properties now matches the preview, and listings show the video icon. |
 | 2026-10-30 | lgse/strata#1950 | feat | Removed printing: the header and item-menu Print, the PDF print-progress dialog and print errors; files print from their default application. |
@@ -153,3 +154,4 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Images cannot be rotated in the preview. lgse/strata#987
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#834
+- CBZ and EPUB covers decode only through GDK Pixbuf, so a WebP cover stays empty on a host without a pixbuf WebP loader. lgse/strata#2189

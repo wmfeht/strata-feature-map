@@ -3,10 +3,10 @@ title: Empty Trash
 status: shipped
 origin: {issue: null, pr: lgse/strata#53}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/adapters/trash.rs, src/ui/browser/trash/empty.rs]
-tests: [src/adapters/trash/tests.rs]
+code: [crates/strata-fs/src/adapters/trash.rs, src/ui/browser/trash/empty.rs]
+tests: [crates/strata-fs/src/adapters/trash/tests.rs]
 related: [browser/properties/size, browser/view-modes, operations/filesystem-compatibility/open-files]
 ---
 

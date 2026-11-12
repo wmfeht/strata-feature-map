@@ -1,6 +1,6 @@
 ---
 title: Preview sweep
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 tools: [docs/preview-sandbox.md, docs/document-previews.md, docs/preview-panel-layout.md, tests/fixtures/spreadsheets, tests/fixtures/documents, docs/testing.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -26,6 +26,8 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Documents: a 2000-page PDF, a 2 MiB text file (`head -c 2097152 /dev/urandom | base64 -w 76`), and a 20 MiB single-line file. Markdown at 1 MiB minus and plus one byte, a 300-column CSV, a CSV with 100,001 values, a 25,000-row ragged CSV whose few long rows reach 256 columns, a 25,000-row 4-column XLSX, and the `any_sheets.*`, `report.docx`, and `report.odt` fixtures. Generated Markdown of 400 blocks cycling headings, prose, fenced code, tables, and lists, plus a copy with relative PNGs beside it.
 - ODT samples: `report.odt` copied as `report.ott` and `REPORT.ODT`. From LibreOffice Writer, a table without a header-row group, and one with two header rows and a merged cell. Also an ODT with a 5,000-character paragraph, and one with a heading at outline level 9 and lists nested 8, 9, and 10 levels. Also a link inside `Preformatted Text`, a `mailto:` link, and a file over 20 MiB. From pandoc, an ODT whose tables hold many short bold paragraphs per cell.
 - A second build with `STRATA_TRUSTED_COMMAND_PATH` set, and a prebuilt binary to launch with `STRATA_SANDBOX_*` variables; `RUST_LOG=strata::sandbox=warn` shows ignored overrides. For limiter probes, a directory holding only `ffmpeg` and `ffprobe` links, to use as `STRATA_SANDBOX_PATH`.
+- WebP samples from `cwebp` and `img2webp`: lossy, lossless, alpha, a 500-frame animation, EXIF orientations 2, 5, and 8, a truncated copy, and PNG bytes named `.webp`. Also a CBZ and an EPUB whose cover is a WebP. Hide the GDK Pixbuf WebP loader by removing `webp-pixbuf-loader`, or with a `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` cache that omits it.
+- Privileged `bwrap` copies: a `chmod 4755` and a `chmod 2755` copy of `bwrap`. Inside `unshare -rm`, bind-mount each over `/run/wrappers/bin/bwrap` on a tmpfs. Also place a symlink there to the 4755 copy.
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
@@ -50,6 +52,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Select each lying-extension sample; nothing may render as the extension claims, and the ELF named `notes.txt` must not be executed or previewed as a binary dump.
 - Toggle word wrap on the 20 MiB single-line file in one window while the other shows the 2 MiB text file; check the 1 MiB cap in both.
 - Preview the 200 MP PNG with and without an EXIF thumbnail, and a CBZ whose first entry is a folder.
+- Preview the WebP-cover CBZ and EPUB with the pixbuf WebP loader present, then hidden.
 - In a 600-line `.rs` preview and a plain-text file with a 2 KiB line, type letters, Backspace, Ctrl+V, and Ctrl+X.
 - In the same files, press Shift+Down past the last line, then Ctrl+C.
 - Preview the UTF-16 BE samples with and without a BOM, and the text named `.xlsx`.
@@ -264,6 +267,9 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Preview media, then `kill -9` Strata. Start the container's Strata and preview there, then start the host Strata, preview once, and `ls -ld /tmp/strata-preview-*`.
 - With the other user's `strata-preview-<pid>-<n>` folder present and `TMPDIR` on a filesystem without `flock` support, preview a PNG.
 - Preview and thumbnail AVIFs made with `avifenc --irot 1`, `--irot 2`, and `--imir 0`, a `clap`-cropped AVIF, a tiled `grid` HEIC, and a CR3; read the Icons caption against `magick identify`.
+- Put the 4755 copy first in the trusted roots, with `/usr/bin/bwrap` unprivileged. Preview a PNG, a PDF, an MP4, and a RAR member. Repeat with the 2755 copy, then the symlink. Repeat in the `STRATA_TRUSTED_COMMAND_PATH` build with `/usr/bin/bwrap` masked, then with only the privileged copy left.
+- With the pixbuf WebP loader and ImageMagick hidden, preview and thumbnail each WebP sample, then a Markdown file embedding the alpha WebP. Read the Icons caption of the orientation-5 and orientation-8 files against the image.
+- Step through a folder of 200 WebP files with the preview open, once with the pixbuf loader present and once hidden.
 
 ### preview/quick-preview
 

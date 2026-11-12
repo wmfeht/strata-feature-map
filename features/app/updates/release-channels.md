@@ -3,10 +3,10 @@ title: Release channels
 status: shipped
 origin: {issue: lgse/strata#61, pr: lgse/strata#97}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/services/release_channel.rs, src/ui/settings/channel.rs]
-tests: [src/services/release_channel/tests.rs]
+code: [crates/strata-desktop/src/services/release_channel.rs, src/ui/settings/channel.rs]
+tests: [crates/strata-desktop/src/services/release_channel/tests.rs]
 docs: [docs/releasing.md]
 related: [app/updates/package-managed]
 ---

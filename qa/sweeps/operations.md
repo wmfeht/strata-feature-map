@@ -1,7 +1,7 @@
 ---
 title: Operations sweep
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
-triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+triggers: [crates/strata-fs/src/services/operations.rs, crates/strata-fs/src/services/operations/**, crates/strata-fs/src/services/file_source.rs, crates/strata-fs/src/services/file_source/tests.rs, crates/strata-fs/src/adapters/local_operations.rs, crates/strata-fs/src/adapters/local_operations/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
 
@@ -133,6 +133,10 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Start a drag in Icons from caption whitespace and from tile content, and in List from an unselected row.
 - Start a multi-selection drag in the large fixture folder in List, Icons, and Columns, and hover several folders before dropping.
 - Drag a folder onto a sidebar place, a pane background, and another window that each hold a same-named folder, answering Merge.
+- In Columns, open a folder's subtree three levels deep, then drag that folder from its icon and hold it over the deepest open descendant row.
+- Drag a folder together with a file and hold them over a sidebar row pinned to that folder, and over the folder's Icons card.
+- Pin a folder to the sidebar, then drag that folder alone from Columns, List, and Icons and hold it over its sidebar row.
+- In List, press a metadata cell of a row inside a multi-selection and drag, with columns reordered so Name is not first.
 
 ### operations/drag-and-drop/content-drops
 

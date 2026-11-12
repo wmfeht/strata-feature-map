@@ -3,10 +3,10 @@ title: Progress dock
 status: shipped
 origin: {issue: lgse/strata#1360, pr: lgse/strata#1393}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/ui/notice.rs, src/app/browser/operation_events/background.rs]
-tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/ui/browser/progress/tests/minimization/**, src/app/browser/tests/background_operations.rs]
+code: [src/ui/progress_dock.rs, src/ui/progress_dock/**, src/ui/notice.rs, crates/strata-fs/src/app/browser/operation_events/background.rs]
+tests: [src/ui/progress_dock/tests.rs, src/ui/browser/progress/tests/minimization.rs, src/ui/browser/progress/tests/minimization/**, crates/strata-fs/src/app/browser/tests/background_operations.rs]
 related: [operations/delete, devices/volumes, operations/clipboard/send-to, remote/file-providers/external]
 ---
 

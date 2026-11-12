@@ -3,10 +3,10 @@ title: Recent
 status: shipped
 origin: {issue: lgse/strata#1082, pr: lgse/strata#1083}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/local_files/recent.rs]
-tests: [src/app/browser/tests/recent.rs, tests/qa/scenarios/recent, src/adapters/local_files/tests/recent_listing.rs, src/adapters/local_files/tests/recent_removal.rs]
+code: [crates/strata-fs/src/adapters/local_files/recent.rs]
+tests: [crates/strata-fs/src/app/browser/tests/recent.rs, tests/qa/scenarios/recent, crates/strata-fs/src/adapters/local_files/tests/recent_listing.rs, crates/strata-fs/src/adapters/local_files/tests/recent_removal.rs]
 related: [browser/sidebar, browser/context-menu, browser/view-modes/sorting, integration/open-with, settings/preferences]
 ---
 

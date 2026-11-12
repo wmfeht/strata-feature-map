@@ -3,10 +3,10 @@ title: Administrator access
 status: shipped
 origin: {issue: lgse/strata#1836, pr: lgse/strata#1837}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
 code: [data/icons/scalable/actions/strata-folder-lock.svg]
-tests: [src/app/browser/tests/administrator.rs]
+tests: [crates/strata-fs/src/app/browser/tests/administrator.rs]
 docs: [docs/administrator-access.md]
 related: [browser/navigation/location-bar, browser/view-modes, browser/view-modes/columns, browser/thumbnails, browser/context-menu, browser/selection/keyboard-navigation, browser/tabs/session-restore, operations/trash, operations/undo, operations/clipboard/conflicts, integration/open-with, integration/portal-file-chooser, app/accessibility, preview/quick-preview/folder-peek]
 ---

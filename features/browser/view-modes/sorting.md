@@ -3,10 +3,10 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/app/browser/sorting.rs, src/services/mime_type.rs, src/app/browser/sort_settings.rs, src/app/navigation/ordering.rs, src/ui/browser/pane_header/sort_menu.rs]
-tests: [src/app/browser/sorting/tests.rs, src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl, src/app/navigation/tests/sorting.rs, tests/qa/scenarios/search_filter_sort/additional-sort-choices.jsonl]
+code: [crates/strata-fs/src/app/browser/sorting.rs, crates/strata-fs/src/services/mime_type.rs, crates/strata-fs/src/app/browser/sort_settings.rs, crates/strata-fs/src/app/navigation/ordering.rs, src/ui/browser/pane_header/sort_menu.rs]
+tests: [crates/strata-fs/src/app/browser/sorting/tests.rs, crates/strata-fs/src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl, crates/strata-fs/src/app/navigation/tests/sorting.rs, tests/qa/scenarios/search_filter_sort/additional-sort-choices.jsonl]
 docs: [docs/preferences.md]
 related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navigation/recent, devices/volumes/camera]
 ---

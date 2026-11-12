@@ -3,10 +3,10 @@ title: Integrations catalog
 status: shipped
 origin: {issue: lgse/strata#1741, pr: lgse/strata#1748}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/services/integration_catalog.rs, src/ui/settings/integrations.rs, src/ui/settings/compact_bin.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
-tests: [src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs]
+code: [crates/strata-desktop/src/services/integration_catalog.rs, src/ui/settings/integrations.rs, src/ui/settings/compact_bin.rs, data/icons/scalable/actions/strata-blocks.svg, data/icons/scalable/actions/strata-cloud.svg, data/icons/scalable/actions/strata-git-branch.svg, data/icons/scalable/actions/strata-smartphone.svg]
+tests: [crates/strata-desktop/src/services/integration_catalog/tests.rs, src/ui/settings/integrations/tests.rs]
 docs: [docs/file-providers.md, integrations/README.md]
 related: [remote/file-providers/external, remote/file-providers/kde-connect, remote/file-providers/localsend, settings/preferences, integration/open-with/terminal, app/infrastructure, settings/diagnostics]
 ---

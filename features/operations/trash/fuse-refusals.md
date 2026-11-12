@@ -3,10 +3,10 @@ title: FUSE mounts that refuse Trash
 status: shipped
 origin: {issue: null, pr: lgse/strata#1614}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/trash_support.rs]
-tests: [src/adapters/trash_support/tests.rs]
+code: [crates/strata-fs/src/adapters/trash_support.rs]
+tests: [crates/strata-fs/src/adapters/trash_support/tests.rs]
 related: [operations/filesystem-compatibility]
 ---
 

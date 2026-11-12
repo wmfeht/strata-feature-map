@@ -3,10 +3,10 @@ title: FileManager1 D-Bus interface
 status: shipped
 origin: {issue: lgse/strata#290, pr: lgse/strata#317}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/file_manager1.rs, data/io.github.lgse.Strata.FileManager1.service]
-tests: [src/adapters/file_manager1/tests.rs, tests/qa/scenarios/file_manager_interface/**]
+code: [crates/strata-fs/src/adapters/file_manager1.rs, data/io.github.lgse.Strata.FileManager1.service]
+tests: [crates/strata-fs/src/adapters/file_manager1/tests.rs, tests/qa/scenarios/file_manager_interface/**]
 docs: [docs/packaging.md]
 related: [app/packaging/installer, integration/portal-file-chooser/setup, browser/navigation, browser/properties, browser/tabs/session-restore]
 ---

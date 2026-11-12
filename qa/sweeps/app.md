@@ -1,13 +1,13 @@
 ---
 title: App sweep
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
-tools: [scripts/test_installer.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
+tools: [scripts/test_installer.py, scripts/test_build_srpm.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
 
 ## Scope
 
-The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the Nix flake, the release installer, and the AUR packages; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on FileManager1 and portal backend activation, plus the absence of the `qa` launch mode from plain builds.
+The application shell around the browser: accessible names, roles, and states over AT-SPI; the modal dialog shell with its blur, dismissal, focus, and forms; the F1 shortcut reference and the footer with its counts and clipboard badge; window chrome, identity, window buttons, the capture-phase key dispatcher, and the Ctrl+wheel text-size and Ctrl+Shift+wheel thumbnail controller; how key presses become shortcuts on any keyboard layout or input method, and how shortcuts are labelled; rebinding keys per map in `settings.toml` and Settings → Keyboard, with conflict checks, structural aliases, direct commands, and custom action slots; the desktop entry, `--version`, the Nix flake, the release installer, the AUR packages, and the Fedora COPR package; update checks, release notes, release channels, installing a chosen release, signed in-place install, package-managed installs, and builds without the updater. It also covers the shared location model and listing adapter: URI display rules, skipped-entry warnings, media metadata probing, directory-load log privacy, the UI-thread stall watchdog, and the `GDK_DEBUG` re-exec on FileManager1 and portal backend activation, plus the absence of the `qa` launch mode from plain builds.
 
 Left to other sweeps: per-mode movement and selection keys, the context menu and Open With, the search palette, the sidebar and the text and layout of its update notice, Settings pages other than Updates and Keyboard, the FileManager1 D-Bus service, Open in Terminal, the portal file chooser, and the content of every individual dialog.
 
@@ -28,6 +28,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Keyboard layouts: load them on the private display with `setxkbmap -display` and an XKB group lock, as `tests/qa/keyboard.rs` does. `tests/fixtures/harness.json` lists the layouts QA scenarios cover. Restore `us` afterwards; never change the desktop's layout.
 - For URI host probes, an Android phone in MTP mode whose device name holds CJK text. Skip the device probes and say so without one; argument probes need only the URIs.
 - For UI-thread stall probes, an sshfs mount of a local folder; stop its daemon with `kill -STOP` and resume it with `kill -CONT`.
+- For Fedora probes, a Fedora container or VM with `rpm-build`, `rpmlint`, `cargo-rpm-macros`, and `cargo-vendor-filterer`, and a clone with release tags. Skip them and say so when neither is available.
 - For Nix probes, `nix` with flakes enabled, or a NixOS VM for the service-file derivations. Skip them and say so when neither is available.
 - `strace` for counting helper launches; text fixtures named `.mp4` and `.png` generated under `/tmp` with a shell loop.
 - A client-decorating compositor for title bar probes: `weston --backend=x11-backend.so` or a nested `mutter --nested` on the private display, with Strata launched against its Wayland socket.
@@ -192,6 +193,15 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Render both packages with `update_aur.py` for `0.10.0`, `0.10.0-rc.1`, and `0.10.0-nightly.20261001`; compare `pkgver`, `source`, and the refusals.
 - Run `namcap` and `makepkg --printsrcinfo` on each rendered `PKGBUILD` and diff against the committed `.SRCINFO`.
 - Feed `update_aur.py` a checksum file naming the other architecture, and one naming the previous release.
+
+### app/packaging/fedora
+
+- Build the source RPM from a stable tag, an RC tag, and `--ref HEAD` under a prerelease tag; install each and compare `rpm -q --provides strata`, `strata --version`, and the Diagnostics build line.
+- Run `rpmlint` on the source RPM and the binary RPM, and list every file the package installs with `rpm -ql strata`.
+- After installing, search Settings for "update"; open a `.rar` file from the context menu and by double click.
+- Run `scripts/build_srpm.py --tag v1.2.1 --ref v1.1.1` and read the result.
+- Install on aarch64 and preview an image, a PDF, and a clip.
+- Upgrade an installed RC build to its final release with `dnf upgrade` and read the installed version.
 
 ### app/keyboard-shortcuts
 

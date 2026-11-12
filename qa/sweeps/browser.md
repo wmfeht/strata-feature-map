@@ -1,7 +1,7 @@
 ---
 title: Browser sweep
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
-triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, crates/strata-fs/src/app/browser.rs, crates/strata-fs/src/app/browser/tests.rs, crates/strata-fs/src/app/navigation.rs, crates/strata-fs/src/app/navigation/tests.rs, crates/strata-fs/src/app/browser/tests/events.rs, crates/strata-fs/src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
 
@@ -91,12 +91,17 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Click a disabled header button and the gap between the preview header's icon and name. Repeat in the file chooser.
 - With overlay scrollbars on, drag the scrollbar handle in List, Icons, each open column, and inline search results; repeat with overlay scrolling off and with Alt held.
 - In the file chooser, Ctrl+click blank preview space with a file previewed, then plain-click the empty Columns preview slot. Repeat for a `single` and a `multiple` request.
+- Tap a List row's Name padding, then hold the second press and drag upward past the viewport edge; repeat on an in-card Icons gutter.
+- Repeat that tap and held press with Name moved last, and on a keyboard-selected row.
+- Under `multiple` in the chooser's Icons view, tap and hold a second press from card blank space and from the space between cards.
+- Double-click List whitespace with the second press moved 3 px; repeat with Size and Type hidden.
+- In List under `multiple` and `single`, move Name last. Double-click a keyboard-selected row's metadata cell left of Name, then repeat on a filter result.
+- Double-click a List row's Modified cell on a row in a multi-selection, then on a symlink to a folder. Repeat with Ctrl held only on the second press.
 
 ### browser/selection/pointer-intent
 
 - Press on a filename, move 3 px, return, and release; repeat moving past the threshold and returning.
-- In List, press in the Size and Modified cells of a selected row and an unselected row and drag; note which starts a drag and which a marquee.
-- Repeat the List press-and-drag probes with Name moved to the last column and with Size and Type hidden.
+- In List, press a selected row's Size cell inside a multi-selection with Alt held, then drag onto a folder.
 - Wheel-scroll during a held press until the row recycles, then release over a different row.
 - Tap an entry, then hold the second press for 2 s and release without moving; repeat moving 3 px and back, and with files opening on one click.
 - Tap a selected entry in a multi-selection, then hold and drag the second press; repeat adding Ctrl only on the second press.
@@ -582,6 +587,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Choose Open in… → New Window on three folders and two files, in Trash and Recent.
 - With the interface in German, then Japanese, open a file's, a folder's, and the background menu; compare each hint with its F1 row and press it.
 - On niri, quick-right-click on empty space near the bottom edge and where a submenu row lands; then reopen the menu with Menu and click a row.
+- Right-press inside an open menu, release off any row, then left-click a row; repeat with a middle press first, and on a submenu row.
+- Right-click Move to Trash and Permanently delete in a multi-selection menu, then list the folder from a shell.
 - Right-click a folder, choose Copy, reopen its menu within one frame, then alternate file, folder, and multi-selection menus while watching the log.
 - Under Flatpak, select files of two types with different defaults and with no default, open the multi-selection menu, and choose Open.
 - On GTK 4.14, open a file's menu near the window's bottom edge, choose Open With…, pick an application, then reopen the menu and the chooser three times.

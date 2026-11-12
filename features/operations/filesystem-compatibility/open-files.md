@@ -3,10 +3,10 @@ title: Releasing open files before a change
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/local_operations/release.rs, src/adapters/local_operations/holders.rs, src/adapters/local_operations/deferred_close.rs, src/services/file_activity.rs]
-tests: [src/adapters/local_operations/tests/release.rs, src/adapters/local_operations/holders/tests.rs, src/services/file_activity/tests.rs]
+code: [crates/strata-fs/src/adapters/local_operations/release.rs, crates/strata-fs/src/adapters/local_operations/holders.rs, crates/strata-fs/src/adapters/local_operations/deferred_close.rs, crates/strata-core/src/file_activity.rs]
+tests: [crates/strata-fs/src/adapters/local_operations/tests/release.rs, crates/strata-fs/src/adapters/local_operations/holders/tests.rs, crates/strata-fs/src/services/file_activity_tests.rs]
 related: [operations/filesystem-compatibility/leftovers, operations/delete, preview/preview-panel/sandbox, devices/volumes/release]
 ---
 

@@ -3,10 +3,10 @@ title: New Folder and New File
 status: shipped
 origin: {issue: null, pr: lgse/strata#4}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/adapters/local_operations/create_entry.rs, src/ui/browser/inline_edit/new_entry.rs]
-tests: [src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/mutations/new-entry-collision.patch]
+code: [crates/strata-fs/src/adapters/local_operations/create_entry.rs, src/ui/browser/inline_edit/new_entry.rs]
+tests: [crates/strata-fs/src/adapters/local_operations/tests/create_entry.rs, tests/qa/scenarios/created_entry_columns, tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl, tests/qa/scenarios/entry_management/new-file-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-collision-dialog.jsonl, tests/qa/scenarios/entry_management/new-folder-with-selection-groups.jsonl, tests/qa/scenarios/entry_management/new-items-in-empty-directory.jsonl, tests/qa/mutations/new-entry-collision.patch]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/rename, operations/rename/typed-paths, integration/10xer-mode, integration/portal-file-chooser, operations/filesystem-compatibility, browser/context-menu, operations/undo]
 ---

@@ -3,10 +3,10 @@ title: ODT and OTT document previews
 status: shipped
 origin: {issue: lgse/strata#1813, pr: lgse/strata#1834}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/services/odt.rs]
-tests: [src/services/odt/tests.rs, tests/fixtures/documents/report.odt]
+code: [crates/strata-preview/src/services/odt.rs]
+tests: [crates/strata-preview/src/services/odt/tests.rs, tests/fixtures/documents/report.odt]
 related: [preview/preview-panel/sandbox, preview/preview-panel/find]
 ---
 

@@ -3,10 +3,10 @@ title: Undoing a replacing move
 status: shipped
 origin: {issue: lgse/strata#2077, pr: lgse/strata#2080}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/adapters/local_operations/undo_move/replaced.rs]
-tests: [src/adapters/local_operations/tests/undo/replacements.rs, src/adapters/local_operations/tests/undo/replacements/**]
+code: [crates/strata-fs/src/adapters/local_operations/undo_move/replaced.rs]
+tests: [crates/strata-fs/src/adapters/local_operations/tests/undo/replacements.rs, crates/strata-fs/src/adapters/local_operations/tests/undo/replacements/**]
 related: [operations/clipboard/conflicts, operations/trash/restore]
 ---
 

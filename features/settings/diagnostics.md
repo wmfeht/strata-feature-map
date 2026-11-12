@@ -3,8 +3,8 @@ title: Diagnostics
 status: shipped
 origin: {issue: lgse/strata#1734, pr: lgse/strata#1735}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
-review: reviewed
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+review: draft
 code: [src/services/diagnostics.rs, src/ui/settings/diagnostics.rs, data/icons/scalable/actions/strata-stethoscope.svg]
 tests: [src/services/diagnostics/tests.rs, src/ui/settings/diagnostics/tests.rs]
 docs: [docs/diagnostics.md]
@@ -32,7 +32,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 
 ### Preview checks
 
-- With no trusted `bwrap`, Preview sandbox is a problem naming Bubblewrap, with the bubblewrap package. lgse/strata#1735
+- With no trusted unprivileged `bwrap`, such as only a setuid or setgid one, Preview sandbox is a problem naming Bubblewrap and the bubblewrap package. lgse/strata#1735, lgse/strata#2182 (unverified)
 - With `prlimit` missing at the sandbox's path, Preview sandbox is a problem naming that path, with the util-linux package. lgse/strata#1735, lgse/strata#1746
 - Otherwise a generated PNG renders through a one-shot sandbox; a failure reports that unprivileged user namespaces may be disabled or restricted. lgse/strata#1735
 - Without Landlock ABI 3, Sandboxed workers is a warning that each thumbnail starts its own sandbox. lgse/strata#1735

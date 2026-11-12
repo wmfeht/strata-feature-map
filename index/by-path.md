@@ -23,6 +23,525 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `THIRD_PARTY_LICENSES.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `build.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `clippy.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/*/Cargo.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/*/build.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/error_text.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/error_text/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/file_activity.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-core/src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/logging.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/logging/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/metrics.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/metrics/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/model/action.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-core/src/model/action/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-core/src/model/action/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-core/src/model/archive.rs` | code | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-core/src/model/hidden_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-core/src/model/hidden_names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-core/src/model/load_handle.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/model/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/model/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/storage.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/storage/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/storage/writer.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/storage/writer/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/trusted_command.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/trusted_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/util/mod.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/util/tests.rs` | tests | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/util/ui_thread.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/util/ui_thread/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/portal_setup.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-desktop/src/portal_setup/omarchy.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-desktop/src/portal_setup/omarchy/tests.rs` | tests | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-desktop/src/portal_setup/tests.rs` | tests | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-desktop/src/portal_setup/udiskie.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `crates/strata-desktop/src/portal_setup/udiskie/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `crates/strata-desktop/src/services/install_source.rs` | code | [Package-managed installs](../features/app/updates/package-managed.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/install_source/tests.rs` | tests | [Package-managed installs](../features/app/updates/package-managed.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/integration_catalog.rs` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-desktop/src/services/integration_catalog/tests.rs` | tests | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-desktop/src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/services/package_manager.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/services/package_manager/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/services/release_channel.rs` | code | [Release channels](../features/app/updates/release-channels.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/release_channel/tests.rs` | tests | [Release channels](../features/app/updates/release-channels.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_check.rs` | code | [Updates](../features/app/updates/index.md) | — |
+| `crates/strata-desktop/src/services/update_check/tests.rs` | tests | [Updates](../features/app/updates/index.md) | — |
+| `crates/strata-desktop/src/services/update_install.rs` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_install/**` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_install/archive/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_install/command/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_install/download/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_install/manifest/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_install/review_tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/services/update_install/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-fs/src/adapters/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `crates/strata-fs/src/adapters/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `crates/strata-fs/src/adapters/directory_summary.rs` | code | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-fs/src/adapters/directory_summary/**` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-fs/src/adapters/directory_validation.rs` | code | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `crates/strata-fs/src/adapters/directory_validation/tests.rs` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
+| `crates/strata-fs/src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
+| `crates/strata-fs/src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
+| `crates/strata-fs/src/adapters/gio_close.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/gio_close/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/gio_location.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/adapters/gio_location/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/adapters/local_actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/adapters/local_actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/adapters/local_actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/adapters/local_files.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/camera_photos.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `crates/strata-fs/src/adapters/local_files/camera_photos/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `crates/strata-fs/src/adapters/local_files/fill.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/icon_cache.rs` | code | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/adapters/local_files/monitor_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/adapters/local_files/monitors.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/adapters/local_files/native.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/recent.rs` | code | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/adapters/local_files/remote.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/stamps.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/adapters/local_files/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/browse.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/enumeration.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/fences.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/adapters/local_files/tests/icon_details.rs` | tests | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/adapters/local_files/tests/live_monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/logging.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/metadata_fill.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/monitor_queue.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/recent_listing.rs` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/adapters/local_files/tests/recent_removal.rs` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/adapters/local_files/tests/stalled_mounts.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/stamps.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/adapters/local_files/tests/support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/trash.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `crates/strata-fs/src/adapters/local_files/tests/validation.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `crates/strata-fs/src/adapters/local_jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `crates/strata-fs/src/adapters/local_jobs/tests/examples.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/adapters/local_jobs/tests/examples/**` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/adapters/local_jobs/tests/lifecycle.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive.rs` | code | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/compression.rs` | code | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/compression/**` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/decoders.rs` | code | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/decoders/fixtures/**` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/decoders/rar.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive/decoders/rar/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive/decoders/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/decoders/tests/**` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/destination.rs` | code | [Extraction safety](../features/operations/archives/extraction-safety.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive/destination/tests.rs` | tests | [Extraction safety](../features/operations/archives/extraction-safety.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive/extraction.rs` | code | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/extraction/**` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/extraction/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/fixtures.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/helper_tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive/listing.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive/listing/tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/archive/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/tests/**` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/case_variants.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/copy_engine.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/copy_engine/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/copying.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/copying/tree.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/create_entry.rs` | code | [New Folder and New File](../features/operations/create.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/deferred_close.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/deletion.rs` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/deletion/**` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/environment.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/environment/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/flush.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/fs_ops.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/fs_ops/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/fs_quirks.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/fs_quirks/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/gio_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/holders.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/holders/tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/merge_aside.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/mount_profile.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/mount_profile/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/moving.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/moving/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/names/fix.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/owed.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/paste.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/paste/item.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/paste_plan.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/paste_plan/**` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/place_entry.rs` | code | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/placement.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/placement/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/probes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/probes/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/release.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/rename.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/replacement.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/replacement/**` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/restore/lookup.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/restore/merge_undo.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/restore/moves.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/restore/names.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/restore_items.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/aliases.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/aliases/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/benchmark.rs` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/closes.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/conflicts.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/conflicts/**` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/copy.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/copy/**` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/create_entry.rs` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/deletion.rs` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/deletion/**` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/file_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/folder_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/merge.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/merge/**` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/moves.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/moves/**` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/naming.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/naming/**` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/paste_results.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/place_entry.rs` | tests | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/placement.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/placement/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/progress.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/release.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/replacement.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/replacement/**` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/restore_safety.rs` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/restore_safety/**` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/sync.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/sync/**` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/trash_capabilities.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/undo/fixed_names.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/undo/moves.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/undo/renames.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/tests/undo/replacements.rs` | tests | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/tests/undo/replacements/**` | tests | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/transfer_targets.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/typed_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/undo_move.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/undo_move/replaced.rs` | code | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
+| `crates/strata-fs/src/adapters/local_operations/work_queue.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/local_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/load.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/remote.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/remote/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests/archive.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-fs/src/adapters/local_preview/tests/cache.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests/cancellation.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests/cover_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests/heavy_queue.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests/model_preview.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-fs/src/adapters/local_preview/tests/pdf.rs` | tests | [PDF pages, zoom, and text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-fs/src/adapters/local_preview/tests/remote_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests/resolution.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-fs/src/adapters/local_preview/tests/route_preview.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-fs/src/adapters/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/thumbnail_cache.rs` | code | [Thumbnail disk cache](../features/browser/thumbnails/cache.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-fs/src/adapters/thumbnail_cache/tests.rs` | tests | [Thumbnail disk cache](../features/browser/thumbnails/cache.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-fs/src/adapters/trash.rs` | code | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/trash/tests.rs` | tests | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/trash_restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/trash_restore/**` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/trash_support.rs` | code | [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/trash_support/tests.rs` | tests | [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/volume.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/adapters/volume/mount_capabilities.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/volume/mount_lanes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/mount_lanes/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/mount_snapshot.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/mount_watch.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/mount_watch/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/mounts.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/mounts/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/mounts/tests/byte_paths.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/adapters/volume/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/volume/names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/adapters/volume/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/adapters/volume/tests/lookup_regressions.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/app/browser/activation.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/columns.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
+| `crates/strata-fs/src/app/browser/deferred.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/deferred/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/directory_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/directory_changes/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/entries.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/file_operations.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/folder_sorts.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/browser/freshness.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/app/browser/freshness/checks.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/app/browser/freshness/responsiveness.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/app/browser/freshness/tests.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/app/browser/freshness/tests/**` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
+| `crates/strata-fs/src/app/browser/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/app/browser/listing.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/loading.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/loading/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/loading/metadata/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/loading/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/location_input.rs` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/app/browser/metadata_fills.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/navigate.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
+| `crates/strata-fs/src/app/browser/navigation_lifecycle.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
+| `crates/strata-fs/src/app/browser/operation_events.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/operation_events/background.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `crates/strata-fs/src/app/browser/operation_events/outcome.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/operation_events/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/app/browser/operation_events/replay.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/browser/operation_events/tests.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/app/browser/operation_start.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
+| `crates/strata-fs/src/app/browser/operation_updates.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/operation_updates/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/publication.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/publication/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/refresh.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/remote.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/app/browser/remote/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/app/browser/replay.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/browser/replay/**` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/browser/selection.rs` | code | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/browser/sort_settings.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/browser/sorting.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/browser/sorting/tests.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/browser/tests/administrator.rs` | tests | [Administrator access](../features/browser/navigation/administrator-access.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/app/browser/tests/archive_activation.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/background_operations.rs` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `crates/strata-fs/src/app/browser/tests/camera_photos.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `crates/strata-fs/src/app/browser/tests/folder_counts.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/folder_sorts.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/browser/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/app/browser/tests/location_input.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/app/browser/tests/metadata.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/monitor/**` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/navigation.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/navigation/returning_columns.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/operations.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/providers.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/tests/recent.rs` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/app/browser/tests/relocation.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/scripted.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/tests/selection.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/sources.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/tests/staging.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/browser/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/undo/**` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/browser/tests/undo_refresh.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/browser/undo.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/browser/undo/**` | code | [Undo and redo](../features/operations/undo/index.md) | — |
+| `crates/strata-fs/src/app/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/navigation/cursor.rs` | code | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/fill.rs` | code | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/history.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
+| `crates/strata-fs/src/app/navigation/listing.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/navigation/location_set.rs` | code | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/navigation/monitored.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/navigation/ordering.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/navigation/preferences.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
+| `crates/strata-fs/src/app/navigation/selection.rs` | code | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/columns.rs` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/navigation/tests/fill_commands.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/fill_tracking.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/history.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/loading.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/metadata.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/paging.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/ranges.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/reload.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/selection.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
+| `crates/strata-fs/src/app/navigation/tests/sorting.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/navigation/tests/visual.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `crates/strata-fs/src/app/navigation/type_groups.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/app/navigation/visual.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
+| `crates/strata-fs/src/app/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
+| `crates/strata-fs/src/app/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
+| `crates/strata-fs/src/child_environment.rs` | code | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
+| `crates/strata-fs/src/child_environment/tests.rs` | tests | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
+| `crates/strata-fs/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/services/actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/services/actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/services/actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-fs/src/services/dropped_content.rs` | code | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/services/dropped_content/tests.rs` | tests | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/services/file_activity_tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
+| `crates/strata-fs/src/services/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/services/file_providers.rs` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/services/file_providers/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/services/file_providers/transport/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-fs/src/services/item_identity.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/services/item_identity/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-fs/src/services/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `crates/strata-fs/src/services/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
+| `crates/strata-fs/src/services/letter_bookmarks.rs` | code | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
+| `crates/strata-fs/src/services/letter_bookmarks/tests.rs` | tests | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
+| `crates/strata-fs/src/services/listeners.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/services/listeners/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/services/mime_type.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/services/mime_type/tests.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/services/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/services/network_error.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/services/network_error/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/services/path_match.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `crates/strata-fs/src/services/path_match/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
+| `crates/strata-fs/src/services/remote_download.rs` | code | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-fs/src/services/remote_download/tests.rs` | tests | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-fs/src/services/search.rs` | code | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/directory.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `crates/strata-fs/src/services/search/directory/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `crates/strata-fs/src/services/search/exclusions.rs` | code | [Global search exclusions](../features/browser/search/exclusions.md) | [Search](../features/browser/search/index.md) |
+| `crates/strata-fs/src/services/search/exclusions/tests.rs` | tests | [Global search exclusions](../features/browser/search/exclusions.md) | [Search](../features/browser/search/index.md) |
+| `crates/strata-fs/src/services/search/pattern.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `crates/strata-fs/src/services/search/pattern/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `crates/strata-fs/src/services/search/refresh.rs` | code | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/scoring.rs` | code | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/session.rs` | code | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/test_support.rs` | tests | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/tests.rs` | tests | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/tests/multi_root.rs` | tests | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/tests/performance.rs` | tests | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/tests/refresh.rs` | tests | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/search/tests/scope.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
+| `crates/strata-fs/src/services/search/walk.rs` | code | [Search](../features/browser/search/index.md) | — |
+| `crates/strata-fs/src/services/transfer_action.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/services/transfer_action/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/test_support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/test-resources.gresource.xml` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-preview/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-preview/src/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/media/peaks` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/media/peaks.rs` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/media/peaks/tests.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/media/storyboard` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/media/storyboard.rs` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/media/storyboard/tests.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/rar_extraction.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/rar_extraction/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/archive.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox/archive/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox/archive_listing.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox/archive_listing/tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox/browser.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-preview/src/sandbox/browser/process.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-preview/src/sandbox/browser/tests.rs` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-preview/src/sandbox/browser/wire.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-preview/src/sandbox/browser/worker.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-preview/src/sandbox/command.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/media/fixtures.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/metadata.rs` | code | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-preview/src/sandbox/metadata/tests.rs` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-preview/src/sandbox/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/model/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/operation.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/output.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/process.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/raw_metadata.rs` | code | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-preview/src/sandbox/raw_metadata/tests.rs` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-preview/src/sandbox/runtime.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/runtime/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/tests/**` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/appimage.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
+| `crates/strata-preview/src/sandbox_helper/appimage/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
+| `crates/strata-preview/src/sandbox_helper/archive_cover.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-preview/src/sandbox_helper/archive_cover/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-preview/src/sandbox_helper/archive_rar.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox_helper/archive_rar/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox_helper/browser.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
+| `crates/strata-preview/src/sandbox_helper/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-preview/src/sandbox_helper/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-preview/src/sandbox_helper/isobmff.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/media/**` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/embedded.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/embedded/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/gcode.rs` | code | [G-code thumbnail previews](../features/preview/preview-panel/gcode.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/gcode/tests.rs` | tests | [G-code thumbnail previews](../features/preview/preview-panel/gcode.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/shade.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/stl.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/model/threemf.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/operations.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/pdf.rs` | code | [PDF pages, zoom, and text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/process.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/raster.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/raw_metadata.rs` | code | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-preview/src/sandbox_helper/raw_metadata/tests.rs` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
+| `crates/strata-preview/src/sandbox_helper/route.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/route/fit.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/route/geometry.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/route/render.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/route/tests.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/route/xml.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox_helper/tests/isobmff.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/camera_preview.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `crates/strata-preview/src/services/camera_preview/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
+| `crates/strata-preview/src/services/document.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/document/html.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/document/layout.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/document/markdown.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/document/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/document/tests/**` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/docx.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/docx/namespaces.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/docx/namespaces/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/docx/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-preview/src/services/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-preview/src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-preview/src/services/model_preview.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/odt.rs` | code | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/odt/tests.rs` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-preview/src/services/preview/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
+| `crates/strata-preview/src/services/route_preview.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/rtf.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/rtf/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-qa/src/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-test-support/src/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `data/brand/strata-logo-white.svg` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `data/brand/tenxer-splash.png` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
@@ -78,9 +597,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `packaging/aur` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `packaging/rpm` | code | [Fedora COPR package](../features/app/packaging/fedora.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `rustfmt.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
 | `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/build_srpm.py` | code | [Fedora COPR package](../features/app/packaging/fedora.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/catppuccin_icons.py` | code | [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) | [Themed icons](../features/settings/themes/icons/index.md), [Themes and appearance](../features/settings/themes/index.md) |
 | `scripts/check.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/chooser-dev.sh` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -108,6 +629,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `scripts/start-dev.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test-headless.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_benchmark_scroll.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_build_srpm.py` | tests | [Fedora COPR package](../features/app/packaging/fedora.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/test_discord_triage.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_headless_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_image_*.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -126,333 +648,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `scripts/trace-main-io.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/update_aur.py` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `skills-lock.json` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/directory_summary.rs` | code | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/adapters/directory_summary/**` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/adapters/directory_validation.rs` | code | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/directory_validation/tests.rs` | tests | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
-| `src/adapters/file_manager1.rs` | code | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
-| `src/adapters/file_manager1/tests.rs` | tests | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) | — |
-| `src/adapters/gio_close.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/gio_close/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/gio_location.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/adapters/gio_location/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/adapters/local_actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/adapters/local_actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/adapters/local_actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/adapters/local_files.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/camera_photos.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/adapters/local_files/camera_photos/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/adapters/local_files/fill.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/icon_cache.rs` | code | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/adapters/local_files/monitor_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/adapters/local_files/monitors.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/adapters/local_files/native.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/recent.rs` | code | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/adapters/local_files/remote.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/stamps.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/adapters/local_files/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/tests/browse.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/tests/enumeration.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/tests/fences.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/adapters/local_files/tests/icon_details.rs` | tests | [Icons view](../features/browser/view-modes/icons.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/adapters/local_files/tests/live_monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/adapters/local_files/tests/logging.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/tests/metadata_fill.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/tests/monitor_queue.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/adapters/local_files/tests/recent_listing.rs` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/adapters/local_files/tests/recent_removal.rs` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/adapters/local_files/tests/stalled_mounts.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/tests/stamps.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/adapters/local_files/tests/support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_files/tests/trash.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
-| `src/adapters/local_files/tests/validation.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/adapters/local_jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/adapters/local_jobs/tests/examples.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/adapters/local_jobs/tests/examples/**` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/adapters/local_jobs/tests/lifecycle.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/adapters/local_operations/archive.rs` | code | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/compression.rs` | code | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/compression/**` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/decoders.rs` | code | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/decoders/fixtures/**` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/decoders/rar.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/adapters/local_operations/archive/decoders/rar/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/adapters/local_operations/archive/decoders/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/decoders/tests/**` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/destination.rs` | code | [Extraction safety](../features/operations/archives/extraction-safety.md) | [Archives](../features/operations/archives/index.md) |
-| `src/adapters/local_operations/archive/destination/tests.rs` | tests | [Extraction safety](../features/operations/archives/extraction-safety.md) | [Archives](../features/operations/archives/index.md) |
-| `src/adapters/local_operations/archive/extraction.rs` | code | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/extraction/**` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/extraction/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/fixtures.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/listing.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
-| `src/adapters/local_operations/archive/listing/tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
-| `src/adapters/local_operations/archive/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/archive/tests/**` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/adapters/local_operations/case_variants.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/copy_engine.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/copy_engine/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/copying.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/copying/tree.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/create_entry.rs` | code | [New Folder and New File](../features/operations/create.md) | — |
-| `src/adapters/local_operations/deferred_close.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/deletion.rs` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
-| `src/adapters/local_operations/deletion/**` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
-| `src/adapters/local_operations/environment.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/environment/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/flush.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/adapters/local_operations/fs_ops.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_operations/fs_ops/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_operations/gio_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/holders.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/holders/tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/merge_aside.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/mount_profile.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/mount_profile/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/moving.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/moving/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/names/fix.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_operations/owed.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/paste.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/paste/item.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/paste_plan.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/paste_plan/**` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/place_entry.rs` | code | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
-| `src/adapters/local_operations/placement.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/placement/**` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/probes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_operations/probes/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_operations/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/adapters/local_operations/release.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/rename.rs` | code | [Inline rename](../features/operations/rename/index.md) | — |
-| `src/adapters/local_operations/replacement.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/replacement/**` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/restore/lookup.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/restore/merge_undo.rs` | code | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/restore/moves.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/restore/names.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/restore_items.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/tests/aliases.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/aliases/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/benchmark.rs` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
-| `src/adapters/local_operations/tests/closes.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_operations/tests/conflicts.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/tests/conflicts/**` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/tests/copy.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/copy/**` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/create_entry.rs` | tests | [New Folder and New File](../features/operations/create.md) | — |
-| `src/adapters/local_operations/tests/deletion.rs` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
-| `src/adapters/local_operations/tests/deletion/**` | tests | [Permanent deletion](../features/operations/delete/index.md) | — |
-| `src/adapters/local_operations/tests/file_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/folder_copy.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/fs_quirks.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/fs_quirks/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/tests/merge.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/tests/merge/**` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/tests/moves.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/moves/**` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/naming.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/naming/**` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/paste_results.rs` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/tests/place_entry.rs` | tests | [Typed path names](../features/operations/rename/typed-paths.md) | [Inline rename](../features/operations/rename/index.md) |
-| `src/adapters/local_operations/tests/placement.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/placement/**` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/tests/progress.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/adapters/local_operations/tests/release.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/adapters/local_operations/tests/replacement.rs` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/tests/replacement/**` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
-| `src/adapters/local_operations/tests/restore_safety.rs` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/tests/restore_safety/**` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/local_operations/tests/sync.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/adapters/local_operations/tests/sync/**` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/adapters/local_operations/tests/trash_capabilities.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
-| `src/adapters/local_operations/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/adapters/local_operations/tests/undo/fixed_names.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/adapters/local_operations/tests/undo/moves.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/adapters/local_operations/tests/undo/renames.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/adapters/local_operations/tests/undo/replacements.rs` | tests | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
-| `src/adapters/local_operations/tests/undo/replacements/**` | tests | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
-| `src/adapters/local_operations/transfer_targets.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
-| `src/adapters/local_operations/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
-| `src/adapters/local_operations/typed_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/local_operations/undo_move.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/adapters/local_operations/undo_move/replaced.rs` | code | [Undoing a replacing move](../features/operations/undo/replacing-moves.md) | [Undo and redo](../features/operations/undo/index.md) |
-| `src/adapters/local_operations/work_queue.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/local_preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/load.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/remote.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/remote/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/archive.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
-| `src/adapters/local_preview/tests/cache.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/cancellation.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/cover_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/heavy_queue.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/model_preview.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/adapters/local_preview/tests/pdf.rs` | tests | [PDF pages, zoom, and text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/adapters/local_preview/tests/remote_preview.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/resolution.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/adapters/local_preview/tests/route_preview.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/adapters/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/trash.rs` | code | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/trash/tests.rs` | tests | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/trash_restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/trash_restore/**` | tests | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/trash_support.rs` | code | [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/trash_support/tests.rs` | tests | [FUSE mounts that refuse Trash](../features/operations/trash/fuse-refusals.md) | [Trash](../features/operations/trash/index.md) |
-| `src/adapters/volume.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/adapters/volume/mount_capabilities.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/volume/mount_lanes.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/mount_lanes/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/mount_snapshot.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/mount_watch.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/mount_watch/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/mounts.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/mounts/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/mounts/tests/byte_paths.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/adapters/volume/names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/volume/names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/adapters/volume/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/adapters/volume/tests/lookup_regressions.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/app/browser/activation.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/columns.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/browser/deferred.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/deferred/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/directory_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/directory_changes/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/entries.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/file_operations.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/folder_sorts.rs` | code | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/browser/freshness.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/app/browser/freshness/checks.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/app/browser/freshness/responsiveness.rs` | code | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/app/browser/freshness/tests.rs` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/app/browser/freshness/tests/**` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
-| `src/app/browser/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/app/browser/listing.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/loading.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/loading/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/loading/metadata/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/loading/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/location_input.rs` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/app/browser/metadata_fills.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/navigate.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/browser/navigation_lifecycle.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
-| `src/app/browser/operation_events.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/operation_events/background.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/app/browser/operation_events/outcome.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/operation_events/progress.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/app/browser/operation_events/replay.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/browser/operation_events/tests.rs` | tests | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/app/browser/operation_start.rs` | code | [Operation progress and cancellation](../features/operations/progress/index.md) | — |
-| `src/app/browser/operation_updates.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/operation_updates/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/publication.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/publication/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/refresh.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/remote.rs` | code | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/app/browser/remote/tests.rs` | tests | [Network locations (SMB, SFTP)](../features/remote/file-providers/network-locations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/app/browser/replay.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/browser/replay/**` | code | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/browser/selection.rs` | code | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/browser/sort_settings.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/browser/sorting.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/browser/sorting/tests.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/browser/tests/administrator.rs` | tests | [Administrator access](../features/browser/navigation/administrator-access.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/app/browser/tests/archive_activation.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
-| `src/app/browser/tests/background_operations.rs` | tests | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/app/browser/tests/camera_photos.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/app/browser/tests/folder_counts.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/tests/folder_sorts.rs` | tests | [Per-folder sort and thumbnail size](../features/browser/view-modes/folder-views.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/browser/tests/leftovers.rs` | tests | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/app/browser/tests/location_input.rs` | tests | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/app/browser/tests/metadata.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/tests/monitor/**` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/tests/navigation.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/browser/tests/navigation/returning_columns.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/browser/tests/operations.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/tests/preferences.rs` | tests | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
-| `src/app/browser/tests/providers.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/tests/recent.rs` | tests | [Recent](../features/browser/navigation/recent.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/app/browser/tests/relocation.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/tests/scripted.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/tests/selection.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/browser/tests/sources.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/tests/staging.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/browser/tests/support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/browser/tests/undo.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/browser/tests/undo/**` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/browser/tests/undo_refresh.rs` | tests | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/browser/undo.rs` | code | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/browser/undo/**` | code | [Undo and redo](../features/operations/undo/index.md) | — |
-| `src/app/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/navigation/cursor.rs` | code | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/fill.rs` | code | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/history.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/navigation/listing.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/navigation/location_set.rs` | code | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/navigation/monitored.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/navigation/ordering.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/navigation/preferences.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
-| `src/app/navigation/selection.rs` | code | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/tests/columns.rs` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/navigation/tests/fill_commands.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/tests/fill_tracking.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/tests/history.rs` | tests | [Navigation](../features/browser/navigation/index.md) | — |
-| `src/app/navigation/tests/loading.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/app/navigation/tests/metadata.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/navigation/tests/monitor.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/navigation/tests/paging.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/tests/ranges.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/tests/reload.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
-| `src/app/navigation/tests/selection.rs` | tests | [Selection](../features/browser/selection/index.md) | — |
-| `src/app/navigation/tests/sorting.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/navigation/tests/visual.rs` | tests | [10xer mode](../features/integration/10xer-mode/index.md) | — |
-| `src/app/navigation/type_groups.rs` | code | [List view](../features/browser/view-modes/list/index.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/app/navigation/visual.rs` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
-| `src/app/peek.rs` | code | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
-| `src/app/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `src/assets.rs` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/assets/tests.rs` | tests | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/assets/vector.rs` | code | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
 | `src/assets/vector/tests.rs` | tests | [Themed icons](../features/settings/themes/icons/index.md) | [Themes and appearance](../features/settings/themes/index.md) |
-| `src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/child_environment.rs` | code | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
-| `src/child_environment/tests.rs` | tests | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
-| `src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/logging.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/logging/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/main.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/media/peaks` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/media/peaks.rs` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/media/peaks/tests.rs` | tests | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/media/storyboard` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/media/storyboard.rs` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/media/storyboard/tests.rs` | tests | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/metrics.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/metrics/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/model/action.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/model/action/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/model/action/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/model/hidden_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/model/hidden_names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/model/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/model/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/portal.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/portal/dbus.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/portal/dbus/tests.rs` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -460,185 +660,16 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/portal/window_geometry.rs` | code | [Chooser window size and placement](../features/integration/portal-file-chooser/window-placement.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/portal/window_geometry/tests.rs` | tests | [Chooser window size and placement](../features/integration/portal-file-chooser/window-placement.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/portal/window_geometry/tests/centering.rs` | tests | [Chooser window size and placement](../features/integration/portal-file-chooser/window-placement.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/portal_setup.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/portal_setup/omarchy.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/portal_setup/omarchy/tests.rs` | tests | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/portal_setup/tests.rs` | tests | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/portal_setup/udiskie.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/portal_setup/udiskie/tests.rs` | tests | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/qa.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/qa/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/qa/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/qa/tests/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/rar_extraction.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/rar_extraction/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/sandbox.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/archive.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/sandbox/archive/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/sandbox/browser.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `src/sandbox/browser/process.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `src/sandbox/browser/tests.rs` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `src/sandbox/browser/wire.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `src/sandbox/browser/worker.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `src/sandbox/command.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/metadata.rs` | code | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/sandbox/metadata/tests.rs` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/sandbox/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/model/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/operation.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/output.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/process.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/raw_metadata.rs` | code | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/sandbox/raw_metadata/tests.rs` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/sandbox/runtime.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/runtime/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox/tests/**` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/appimage.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
-| `src/sandbox_helper/appimage/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
-| `src/sandbox_helper/archive_cover.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/sandbox_helper/archive_cover/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/sandbox_helper/archive_rar.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/sandbox_helper/archive_rar/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
-| `src/sandbox_helper/browser.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `src/sandbox_helper/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/sandbox_helper/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/sandbox_helper/isobmff.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/media/**` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/embedded.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/embedded/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/gcode.rs` | code | [G-code thumbnail previews](../features/preview/preview-panel/gcode.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/gcode/tests.rs` | tests | [G-code thumbnail previews](../features/preview/preview-panel/gcode.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/shade.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/stl.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/tests.rs` | tests | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/model/threemf.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/operations.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/pdf.rs` | code | [PDF pages, zoom, and text selection](../features/preview/preview-panel/pdf.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/process.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/raster.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/raw_metadata.rs` | code | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/sandbox_helper/raw_metadata/tests.rs` | tests | [RAW photo details](../features/browser/properties/raw-metadata.md) | [Properties dialog](../features/browser/properties/index.md) |
-| `src/sandbox_helper/route.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/route/fit.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/route/geometry.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/route/render.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/route/tests.rs` | tests | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/route/xml.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/tests.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/sandbox_helper/tests/isobmff.rs` | tests | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/services/actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/services/actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
-| `src/services/camera_preview.rs` | code | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
-| `src/services/camera_preview/tests.rs` | tests | [Camera photos](../features/devices/volumes/camera.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/services/diagnostics.rs` | code | [Diagnostics](../features/settings/diagnostics.md) | — |
 | `src/services/diagnostics/tests.rs` | tests | [Diagnostics](../features/settings/diagnostics.md) | — |
-| `src/services/document.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document/html.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document/layout.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document/markdown.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document/tests/**` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document_media.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/document_media/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx/namespaces.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx/namespaces/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/docx/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/dropped_content.rs` | code | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/services/dropped_content/tests.rs` | tests | [Content drops from other applications](../features/operations/drag-and-drop/content-drops.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/services/file_activity.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/services/file_activity/tests.rs` | tests | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
-| `src/services/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/services/file_providers.rs` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/services/file_providers/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/services/file_providers/transport/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/services/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/services/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/services/install_source.rs` | code | [Package-managed installs](../features/app/updates/package-managed.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/install_source/tests.rs` | tests | [Package-managed installs](../features/app/updates/package-managed.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/integration_catalog.rs` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/services/integration_catalog/tests.rs` | tests | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
-| `src/services/item_identity.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/services/item_identity/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
-| `src/services/jobs.rs` | code | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/services/jobs/tests.rs` | tests | [Job queue and Jobs dashboard](../features/operations/progress/jobs.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
-| `src/services/letter_bookmarks.rs` | code | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/services/letter_bookmarks/tests.rs` | tests | [10xer letter bookmarks](../features/integration/10xer-mode/places/letter-bookmarks.md) | [10xer place chords and folder picker](../features/integration/10xer-mode/places/index.md), [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/services/listeners.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/listeners/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/mime_type.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
-| `src/services/mime_type/tests.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/model_preview.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
-| `src/services/network_error.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/network_error/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/odt.rs` | code | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/odt/tests.rs` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/package_manager.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/package_manager/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/services/path_match.rs` | code | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/services/path_match/tests.rs` | tests | [10xer find, filter, and search](../features/integration/10xer-mode/search/index.md) | [10xer mode](../features/integration/10xer-mode/index.md) |
-| `src/services/preview.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/services/preview/tests.rs` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
-| `src/services/release_channel.rs` | code | [Release channels](../features/app/updates/release-channels.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/release_channel/tests.rs` | tests | [Release channels](../features/app/updates/release-channels.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/remote_download.rs` | code | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/services/remote_download/tests.rs` | tests | [Name field filenames and URL downloads](../features/integration/portal-file-chooser/url-download.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `src/services/route_preview.rs` | code | [Offline route previews](../features/preview/preview-panel/routes.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/rtf.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/rtf/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/search.rs` | code | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/directory.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/directory/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/exclusions.rs` | code | [Global search exclusions](../features/browser/search/exclusions.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/exclusions/tests.rs` | tests | [Global search exclusions](../features/browser/search/exclusions.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/pattern.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/pattern/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/refresh.rs` | code | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/scoring.rs` | code | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/session.rs` | code | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/test_support.rs` | tests | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/tests.rs` | tests | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/tests/multi_root.rs` | tests | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/tests/performance.rs` | tests | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/tests/refresh.rs` | tests | [Search](../features/browser/search/index.md) | — |
-| `src/services/search/tests/scope.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
-| `src/services/search/walk.rs` | code | [Search](../features/browser/search/index.md) | — |
-| `src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
-| `src/services/transfer_action.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/services/transfer_action/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
-| `src/services/update_check.rs` | code | [Updates](../features/app/updates/index.md) | — |
-| `src/services/update_check/tests.rs` | tests | [Updates](../features/app/updates/index.md) | — |
-| `src/services/update_install.rs` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/update_install/**` | code | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/update_install/archive/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/update_install/command/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/update_install/download/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/update_install/manifest/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/update_install/review_tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/services/update_install/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
-| `src/storage.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/storage/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/storage/writer.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/storage/writer/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/test_support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/trusted_command.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/trusted_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/accessibility.rs` | code | [Accessibility](../features/app/accessibility.md) | — |
 | `src/ui/accessibility/qa.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/accessibility/tests.rs` | tests | [Accessibility](../features/app/accessibility.md) | — |
@@ -902,6 +933,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/keys/tests/labels.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
 | `src/ui/keys/tests/letters.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
 | `src/ui/keys/tests/modifiers.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
+| `src/ui/launch_context.rs` | code | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
 | `src/ui/loading_skeleton.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/**` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/delay/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
@@ -910,6 +942,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/marquee/hit_test.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/marquee/origin.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/marquee/state.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
+| `src/ui/marquee/surface_click.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/marquee/tests.rs` | tests | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/media/ambient` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -929,6 +962,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/messages.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `src/ui/modified_date.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/notice.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/open_with.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/open_with/apps.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
@@ -1175,8 +1209,6 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/thumbnail/viewport.rs` | code | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/viewport/tests.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
 | `src/ui/thumbnail/viewport/tests/folder_counts.rs` | tests | [Thumbnails](../features/browser/thumbnails/index.md) | — |
-| `src/ui/thumbnail_cache.rs` | code | [Thumbnail disk cache](../features/browser/thumbnails/cache.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
-| `src/ui/thumbnail_cache/tests.rs` | tests | [Thumbnail disk cache](../features/browser/thumbnails/cache.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `src/ui/top_bar_navigation.rs` | code | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/top_bar_navigation/tests.rs` | tests | [Keyboard navigation in views](../features/browser/selection/keyboard-navigation.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/udiskie_preferences.rs` | code | [udiskie unlock handler](../features/devices/volumes/udiskie-unlock.md) | [Devices and volumes](../features/devices/volumes/index.md) |
@@ -1354,10 +1386,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/volume_password/tests.rs` | tests | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/util/gresource.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/util/gresource/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
-| `src/util/mod.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/util/tests.rs` | tests | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
-| `src/util/ui_thread.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
-| `src/util/ui_thread/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `src/util/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/container/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/documents/README.md` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/fixtures/documents/owner-restricted.pdf` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
@@ -1450,7 +1479,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/selected-blank-space-follows-view-policy.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/strip-edge-scrolls-columns-in.jsonl` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl` | tests | [Permanent-delete dissolve animation](../features/operations/delete/dissolve.md) | [Permanent deletion](../features/operations/delete/index.md) |
 | `tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |

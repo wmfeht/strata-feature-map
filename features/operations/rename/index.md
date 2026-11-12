@@ -3,9 +3,9 @@ title: Inline rename
 status: shipped
 origin: {issue: null, pr: lgse/strata#115}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs, src/adapters/local_operations/rename.rs, src/ui/browser/inline_edit/pending.rs, src/ui/browser/inline_edit/reveal.rs, src/ui/browser_modes/rename.rs]
+code: [src/ui/browser/inline_edit.rs, src/ui/collection_edit.rs, crates/strata-fs/src/adapters/local_operations/rename.rs, src/ui/browser/inline_edit/pending.rs, src/ui/browser/inline_edit/reveal.rs, src/ui/browser_modes/rename.rs]
 tests: [tests/qa/scenarios/inline_renaming/escape-preserves-name-remaining.jsonl, tests/qa/scenarios/inline_renaming/escape-preserves-name.jsonl, tests/qa/scenarios/inline_renaming/input-method-composes-over-selection.jsonl, tests/qa/scenarios/inline_renaming/invalid-names-retain-original.jsonl, tests/qa/scenarios/inline_renaming/long-rename-keeps-caret.jsonl, tests/qa/scenarios/inline_renaming/new-item-clears-hiding-filter.jsonl, tests/qa/scenarios/inline_renaming/new-item-first-free-number.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-click-away.jsonl, tests/qa/scenarios/inline_renaming/rename-commits-on-enter.jsonl, tests/qa/scenarios/inline_renaming/tone-mark-escape-before-rename.jsonl, tests/qa/scenarios/inline_renaming/valid-name-commits-remaining.jsonl, tests/qa/scenarios/inline_renaming/window-accelerators-leave-rename.jsonl, tests/qa/scenarios/entry_management/rename-from-context-menu.jsonl, tests/qa/scenarios/entry_management/rename-shortcuts-leave-location.jsonl, tests/qa/scenarios/rename_visibility, tests/qa/mutations/rename-caret.patch, tests/qa/mutations/rename-click-away.patch, tests/qa/mutations/rename-enter.patch, tests/qa/mutations/rename-error-dialog.patch, tests/qa/mutations/rename-escape.patch, tests/qa/scenarios/dialogs_and_menus/rename-onto-existing-rejected.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/create, browser/selection, operations/trash, browser/folder-customization, operations/filesystem-compatibility, operations/undo]

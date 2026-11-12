@@ -3,10 +3,10 @@ title: Drag and drop
 status: shipped
 origin: {issue: lgse/strata#285, pr: lgse/strata#350}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
-review: reviewed
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+review: draft
 code: [src/ui/browser/columns/rows/drag.rs, src/ui/browser_modes/drag_drop.rs]
-tests: [tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl, tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl, tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl, tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl, tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl, tests/qa/scenarios/drag_and_drop/empty-name-space-drag-starts-marquee.jsonl, tests/qa/scenarios/drag_and_drop/filtered-result-to-sidebar-folder.jsonl, tests/qa/scenarios/drag_and_drop/folder-into-another-folder.jsonl, tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl, tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl, tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl, tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]
+tests: [tests/qa/scenarios/drag_and_drop/drag-cancels-folder-peek.jsonl, tests/qa/scenarios/drag_and_drop/drag-file-onto-folder.jsonl, tests/qa/scenarios/drag_and_drop/drag-from-clipped-column-narrow-window.jsonl, tests/qa/scenarios/drag_and_drop/drag-onto-pane-background.jsonl, tests/qa/scenarios/drag_and_drop/drop-folder-into-itself.jsonl, tests/qa/scenarios/drag_and_drop/empty-name-space-drag-starts-marquee.jsonl, tests/qa/scenarios/drag_and_drop/filtered-result-to-sidebar-folder.jsonl, tests/qa/scenarios/drag_and_drop/folder-into-another-folder.jsonl, tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl, tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl, tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl, tests/qa/scenarios/drag_and_drop/selected-blank-space-follows-view-policy.jsonl, tests/qa/scenarios/sidebar_file_drops, tests/qa/mutations/drag-and-drop.patch]
 docs: [docs/preferences.md]
 related: [operations/trash, operations/clipboard, operations/clipboard/conflicts, browser/selection, browser/tabs, browser/navigation/location-bar]
 ---
@@ -21,7 +21,9 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 
 - Pressing an unselected item while another is selected and dragging it drags only that item, and the selection moves to it on press. lgse/strata#789
 - Dragging one item of a multi-selection transfers every selected item. lgse/strata#415 (unverified)
-- In List with one-click folder activation, pressing and moving a folder starts a drag; a click without movement opens the folder. lgse/strata#348
+- In List, selecting a row does not widen its file-drag region: its metadata cells, unused Name space, and padding still start no file drag. lgse/strata#2108
+- In browser Columns and Icons, a drag from blank space on a selected row or card starts a file drag of the selection. lgse/strata#1336, lgse/strata#2108
+- In List with one-click folder activation, pressing and moving a folder's icon or filename starts a drag; a click without movement opens the folder. lgse/strata#348, lgse/strata#2108
 - Ctrl-drag and Shift-drag that start on an item's icon or name start a file drag in Columns, List, and Icons. lgse/strata#623
 - In Columns, dragging a folder whose child column is open onto a sibling folder moves the folder and its contents. lgse/strata#415
 - In Columns, dragging a file from a column clipped by a narrow window starts a drag and drops normally. lgse/strata#1049
@@ -35,6 +37,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 - A single-item drag shows the item's file or folder icon instead of its name. lgse/strata#1487
 - A multi-item drag shows stacked icons with an accent badge giving the item count. lgse/strata#1487 (unverified)
 - A folder row, Icons card, or sidebar row under a file drag is outlined with the selection border and corner geometry. lgse/strata#1487
+- When a folder is dragged alone, its row or Icons card, its descendants', and its sidebar row show no drop outline. lgse/strata#2108 (unverified)
 - Starting a drag closes any open folder peek, and cancelling a drag over a folder leaves that folder unopened. lgse/strata#630
 - In Columns, after a drag ends by Escape, release outside the window, copy, move, no-op, or failed transfer, the source label stays in place and its dimming clears within 240 ms. lgse/strata#637
 
@@ -56,6 +59,8 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 - Holding a file drag over a folder row or sidebar row for 750 ms navigates there, and the drag stays held. lgse/strata#1487
 - Spring navigation can return to the drag's source folder, and releasing over a spring-opened pane's background drops into that folder. lgse/strata#1487
 - Leaving the hovered target or dropping before 750 ms cancels the pending navigation. lgse/strata#1487 (unverified)
+- A folder dragged back over its own row or a descendant's row does not spring-open after 750 ms; another folder hovered by the same drag still does. lgse/strata#2108
+- A drag of a folder plus another file still spring-opens the dragged folder when held over it. lgse/strata#2108
 
 ### After the drop
 
@@ -75,7 +80,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 - Local sidebar rows take file payloads ahead of the pinned-place reorder target, which accepts only string payloads (lgse/strata#350).
 - GTK's drag-end `delete_data` arrives before Strata's asynchronous transfer and cannot prove the source moved. The source row therefore never plays an exit animation; filesystem events remove it after a move (lgse/strata#598, lgse/strata#637). A downward settle animation was proposed and closed as not planned (lgse/strata#337).
 - Opening the destination after a drop surprised users, so it became an opt-in setting (lgse/strata#859, lgse/strata#933). Paste and Move/Copy to… still reveal their destination independently.
-- Spring navigation during a held drag is distinct from that post-drop setting (lgse/strata#1498). It ignores drop validity so the source folder can spring open although dropping on it is forbidden (lgse/strata#1487).
+- Spring navigation during a held drag is distinct from that post-drop setting (lgse/strata#1498). It ignores drop validity so the source folder can spring open although dropping on it is forbidden (lgse/strata#1487). A dragged folder and its descendants are not spring destinations (lgse/strata#2108). The check requires every source to contain the target, so a mixed drag can still open the dragged folder for the other files (lgse/strata#2108).
 - Single-item drag previews show an icon because short filenames disappeared behind the cursor (lgse/strata#1487). This replaced the filename-only Explorer preview from lgse/strata#350.
 
 ## History

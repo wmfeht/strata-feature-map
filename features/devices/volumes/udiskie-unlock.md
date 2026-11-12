@@ -3,10 +3,10 @@ title: udiskie unlock handler
 status: shipped
 origin: {issue: lgse/strata#537, pr: lgse/strata#1047}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/ui/window/unlock_argument.rs, src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
-tests: [src/ui/window/unlock_argument/tests.rs, src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
+code: [src/ui/window/unlock_argument.rs, crates/strata-desktop/src/portal_setup/udiskie.rs, src/ui/udiskie_preferences.rs, data/udiskie/unlock]
+tests: [src/ui/window/unlock_argument/tests.rs, crates/strata-desktop/src/portal_setup/udiskie/tests.rs, src/ui/udiskie_preferences/tests.rs]
 docs: [docs/packaging.md, docs/preferences.md, docs/internationalization.md]
 related: [app/packaging/installer, devices/volumes/encrypted, integration/portal-file-chooser/setup, settings/preferences]
 ---
