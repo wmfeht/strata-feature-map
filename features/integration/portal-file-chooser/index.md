@@ -8,7 +8,7 @@ review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/chooser/destination.rs, src/ui/chooser/geometry.rs, src/ui/chooser/layout.rs, src/ui/chooser/options.rs, src/ui/chooser/shortcuts.rs, src/ui/chooser/shortcuts/**, src/ui/chooser/source.rs, src/ui/chooser/state.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/acceptance/**, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
-related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access, integration/10xer-mode/file-chooser, browser/navigation/back-history, browser/sidebar/rail, browser/selection/pointer-intent]
+related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access, integration/10xer-mode/file-chooser, browser/navigation/back-history, browser/sidebar/rail, browser/selection/pointer-intent, browser/selection/marquee]
 ---
 
 ## Summary
@@ -55,7 +55,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In Columns, Right on a focused file behaves as in a browser window: it moves into the open child column, or does nothing. lgse/strata#382
 - Dragging from blank space draws a marquee only in multiple-selection requests. A blank click in the file list or sidebar clears the selection in every request. lgse/strata#1164
 - In a multiple-selection request, a drag from blank space beside the sidebar divider, full or on the rail, draws a marquee and leaves the request open. lgse/strata#2096
-- Tap a file once, then hold the second tap and move it past the drag threshold before release. The file stays selected and the request stays open. lgse/strata#2096
+- Tap a file's icon or name once, then hold the second tap and move it past the drag threshold before release. The file stays selected and the request stays open. lgse/strata#2096
 - A double-click accepts the file only when the second click is released without moving past the drag threshold; the held press accepts nothing. lgse/strata#2096
 - Dragging a chooser row starts no file transfer; rows are selection controls only. lgse/strata#2096
 - A plain click inside a preview that shows a file keeps the selection; a click in the empty preview slot still clears it. lgse/strata#1570

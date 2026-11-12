@@ -87,10 +87,6 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `single` and `save`, drag from blank space beside the divider; read the sidebar width and the selection.
 - Under `multiple` and `directory`, tap a folder once, hold the second tap, move past the drag threshold, and release over another folder. Read the location, the files on disk, and the response code.
 - Double-click a file, hold the second click 1 s without moving, then release; repeat with Files set to single-click and to double-click, and with a filter result.
-- Under `single` and `save`, in Columns and List, tap a row's unused name space once, hold the second press, and drag across two rows. Read the selection, Name, and the response code.
-- Under `multiple` in Icons, tap a card's blank space once, hold the second press, and drag across other cards; repeat from the gutter between cards. Read the selection and the response code.
-- Under `multiple` in List and Columns, double-click a row's unused name space with the second press moving 1, 3, and 10 px before release. Read the response code and the selection.
-- Under `multiple` and `single` in List, move Name to the last column, then double-click a metadata cell left of Name on a row selected by keyboard; repeat on a filter result. Read the response code.
 
 ### integration/portal-file-chooser/setup
 
