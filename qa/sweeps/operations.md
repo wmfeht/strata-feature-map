@@ -133,6 +133,10 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Start a drag in Icons from caption whitespace and from tile content, and in List from an unselected row.
 - Start a multi-selection drag in the large fixture folder in List, Icons, and Columns, and hover several folders before dropping.
 - Drag a folder onto a sidebar place, a pane background, and another window that each hold a same-named folder, answering Merge.
+- Drag a folder from its icon and hold it over a descendant three levels down, reached through spring-opened folders.
+- Drag a folder together with a file and hold them over the dragged folder's row, then over a sidebar row pinned to that folder.
+- Pin a folder to the sidebar, then drag that folder alone from Columns, List, and Icons and hold it over its sidebar row.
+- In List, press a metadata cell of a row inside a multi-selection and drag, with columns reordered so Name is not first.
 
 ### operations/drag-and-drop/content-drops
 
