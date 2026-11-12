@@ -7,7 +7,7 @@ reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
 code: [crates/strata-fs/src/services/remote_download.rs, src/ui/chooser/download.rs]
 tests: [crates/strata-fs/src/services/remote_download/tests.rs]
-related: [integration/portal-file-chooser, integration/portal-file-chooser/image-conversion]
+related: [integration/portal-file-chooser, integration/portal-file-chooser/image-conversion, settings/preferences/storage]
 ---
 
 ## Summary

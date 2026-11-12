@@ -7,7 +7,7 @@ reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
 code: [src/ui/chooser/image_conversion.rs, crates/strata-preview/src/services/image_conversion.rs, crates/strata-preview/src/sandbox_helper/image_conversion.rs]
 tests: [src/ui/chooser/tests/image_conversion.rs, crates/strata-preview/src/services/image_conversion/tests.rs, crates/strata-preview/src/sandbox_helper/image_conversion/tests.rs, tests/qa/scenarios/chooser_image_conversion/**]
-related: [integration/portal-file-chooser/url-download, preview/preview-panel]
+related: [integration/portal-file-chooser/url-download, preview/preview-panel, settings/preferences/storage]
 ---
 
 ## Summary
