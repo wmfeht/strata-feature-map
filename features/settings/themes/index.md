@@ -133,8 +133,8 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - With Reduce motion on, stylesheet transitions and keyframes, stack and revealer transitions, and animated scrolling do not play. lgse/strata#2116
 - With Reduce motion on, a spinner, such as during a long folder load, draws as a static icon. lgse/strata#2116
 - Turning Reduce motion off restores the desktop's `gtk-enable-animations` value in every window without a restart. lgse/strata#2116
-- With `reduce_motion = true` saved, toolkit animations are off from the first window, because the setting is applied once a display exists. lgse/strata#2116
-- Turning Reduce motion off never resets a `gtk-enable-animations` value that Reduce motion did not set. lgse/strata#2116 (unverified)
+- With `reduce_motion = true` saved, toolkit animations are off from the first window. lgse/strata#2116 (unverified)
+- With Reduce motion already off, saving it off again leaves a `gtk-enable-animations` value set in the GTK Inspector unchanged. lgse/strata#2116 (unverified)
 - Strata's stylesheet has no `prefers-reduced-motion` rule, so that desktop media preference does not shorten CSS transitions. lgse/strata#458
 - With GTK's `gtk-enable-animations` set to false, the same animations do not play even when Reduce motion is off. lgse/strata#458 (unverified)
 
@@ -220,7 +220,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - Manual mode hints metrics too, so the extents match the raster. Application-set GTK settings outrank the settings portal, which on Wayland overrides `settings.ini` (lgse/strata#1310, lgse/strata#1600, lgse/strata#1601).
 - lgse/strata#1310 proposed this pin and was closed as not fixable in Strata; lgse/strata#1601 reverses that. The property is looked up by name to keep the GTK 4.12 floor (lgse/strata#1601).
 - The `@media (prefers-reduced-motion)` rule was removed because GTK before 4.20 rejects `@media`. Reduced motion now flows through Strata's setting, not a CSS media query (lgse/strata#436, lgse/strata#458).
-- Stylesheet transitions and GTK widget animations follow the toolkit setting, not Strata's helpers, so Reduce motion holds `gtk-enable-animations` off. Clearing resets the property to the desktop's value; preferences load before GTK, so the theme re-applies it once a display exists (lgse/strata#2115, lgse/strata#2116).
+- Stylesheet transitions and GTK widget animations follow the toolkit setting, not Strata's helpers, so Reduce motion holds `gtk-enable-animations` off. Clearing resets the property to the desktop's value; preferences can load before GTK, so the theme re-applies it once a display exists (lgse/strata#2115, lgse/strata#2116).
 
 ## History
 

@@ -36,7 +36,7 @@ The item and background context menus in Columns, Icons, and List. This node cov
 
 - On niri, a right click held about 250 ms and released over the menu that opened leaves the menu open and runs no row. lgse/strata#1621
 - A button release that reaches an item or background menu, or its submenus, before any press inside it is ignored. lgse/strata#1621
-- Only a primary-button press inside the menu counts; a secondary or middle press does not arm a later release. lgse/strata#1621, lgse/strata#2190 (unverified)
+- A right press inside the menu followed by a left release runs no row. lgse/strata#2190 (unverified)
 - After that, a left click on a menu row runs it. lgse/strata#1621, lgse/strata#2190
 - A right or middle click on a row of an item or background menu runs nothing and leaves the menu open. lgse/strata#2190
 - Back and forward buttons and every other non-primary button run no row either, including submenu rows. lgse/strata#2190 (unverified)

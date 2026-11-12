@@ -43,8 +43,7 @@ Image previews in place of file icons in Columns, List, Icons, folder peeks, and
 
 ### Formats
 
-- PNG, JPEG, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails, provided a decoder for the format is installed. lgse/strata#881, lgse/strata#969
-- WebP files get thumbnails with no GDK Pixbuf WebP loader or ImageMagick installed. lgse/strata#881, lgse/strata#2189
+- PNG, JPEG, WebP, GIF, BMP, TIFF, SVG, HEIC, HEIF, AVIF, and JPEG XL files get thumbnails. Formats other than WebP need an installed decoder. lgse/strata#881, lgse/strata#969, lgse/strata#2189
 - SVG files get thumbnails without a gdk-pixbuf SVG loader: pooled workers render them with resvg, the one-shot fallback with ImageMagick. lgse/strata#881, lgse/strata#1222
 - `.svgz` files keep their icon, since the thumbnail extension list omits them. lgse/strata#881 (unverified)
 - Camera RAW thumbnails, such as for `.ARW`, use the embedded camera preview first, then gdk-pixbuf, then ImageMagick. lgse/strata#199 (unverified)

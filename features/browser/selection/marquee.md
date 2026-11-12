@@ -36,21 +36,21 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 
 ### Selected rows
 
-- In List, a drag from a selected row's metadata cell, unused Name space, or padding draws a band, and no file moves. lgse/strata#2108
-- In browser Columns and Icons, a drag from blank space on a selected row or card starts a file drag of the selection. lgse/strata#1336, lgse/strata#2108
-- In the file chooser, a drag from unused name space on a selected Columns row draws a band, because chooser rows host no drag source. lgse/strata#2108
+- In List, a drag from a selected row's metadata cell, unused Name space, or padding draws a band. lgse/strata#2108
+- In browser Columns and Icons, a press on blank space of a selected row or card starts no band. lgse/strata#1336, lgse/strata#2108
+- In a multiple-selection file chooser, a drag from unused name space on a selected Columns row draws a band, because chooser rows host no drag source. lgse/strata#2108
 
 ### Second press
 
 - In browser List, tap a row's whitespace, press again within the double-click interval, and drag: the band selects the crossed rows. lgse/strata#2108
 - That held second press opens nothing, and the band works dragging up or down. lgse/strata#2108
-- In browser Columns, the same tap and held press on a row's whitespace starts a file drag, since the tapped row is selected. lgse/strata#2108 (unverified)
-- In browser Icons, the tap and held press draws a band only from gutter space; on a tapped card it starts a file drag. lgse/strata#2108 (unverified)
+- In browser Columns, the same tap and held press on a row's whitespace draws no band, since the tapped row is selected. lgse/strata#2108 (unverified)
+- In browser Icons, the tap and held press draws a band from the space between cards, but not from the tapped card. lgse/strata#2108 (unverified)
 - In a multiple-selection file chooser, the tap and held press on Columns or List selection space draws a band, and the request stays open. lgse/strata#2108
 - In a single-selection or Save file chooser, a held second press on selection space draws no band. lgse/strata#2108 (unverified)
 - Double-clicking a List row's metadata cell or unused Name space opens the folder or launches the file, selected or not. lgse/strata#2108
 - That includes a row selected by keyboard. lgse/strata#2108
-- In the file chooser, double-clicking List selection space or unused Columns name space accepts the file. lgse/strata#2108
+- In a multiple-selection file chooser, double-clicking List selection space or unused Columns name space accepts the file. lgse/strata#2108
 - That activation runs on the second release, only on the row that took the press. lgse/strata#2108
 - A second press moved past the drag threshold opens nothing on release. lgse/strata#2108
 - That holds even if the pointer returns to its start before release. lgse/strata#2108 (unverified)

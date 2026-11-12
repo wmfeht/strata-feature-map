@@ -20,7 +20,7 @@ Follow system light/dark mode switches Strata between the light and dark themes 
 
 - Settings → Appearance shows a Follow system light/dark mode switch before Follow Omarchy. lgse/strata#2094 (unverified)
 - Its subtitle reads "Use the light or dark version of the chosen theme to match your desktop's light/dark mode." lgse/strata#2094 (unverified)
-- Without the `org.gnome.desktop.interface` schema, the switch shows while the portal read is pending and stays shown when the portal returns a value. lgse/strata#2113
+- Without the `org.gnome.desktop.interface` schema, the switch shows while the portal read is pending and stays shown when the portal returns a value. lgse/strata#2113 (unverified)
 - The switch is hidden only after the portal read fails and the `org.gnome.desktop.interface` schema or its `color-scheme` key is absent. lgse/strata#2094, lgse/strata#2113
 - With no settings portal and no GNOME schema, Settings search for "day night" does not show the switch. lgse/strata#2094, lgse/strata#2113 (unverified)
 - With no settings portal and no GNOME schema, a saved `mode = "system"` is saved as `mode = "theme"` once the portal read fails. lgse/strata#2113
@@ -47,7 +47,8 @@ Follow system light/dark mode switches Strata between the light and dark themes 
 - A custom `.toml` whose stem overrides a paired bundled id, such as `one-light.toml`, joins that pair. lgse/strata#2094
 - A mode change re-applies the GTK light/dark base variant, Strata colors, icons, documents, source highlighting, previews, and open Settings pages. lgse/strata#2094
 - Launching with `mode = "system"` saved waits up to 500 ms for the first portal value, then opens in the theme for that mode. lgse/strata#2094, lgse/strata#2113
-- When that first read times out, fails, or reports `0`, Strata opens in GNOME's mode, or light without GNOME, and switches when a late portal reply arrives. lgse/strata#2113
+- When that first read reports `0`, Strata opens in GNOME's mode, or light without GNOME. lgse/strata#2113
+- When that first read times out or fails, Strata opens the same way, then switches when a late portal reply arrives. lgse/strata#2113
 - Launching with a saved `mode` other than `"system"` does not wait for the portal. lgse/strata#2113
 - The D-Bus-activated service and the FileChooser portal backend never wait for the portal, even with `mode = "system"` saved. lgse/strata#2113
 
@@ -71,7 +72,7 @@ Follow system light/dark mode switches Strata between the light and dark themes 
 - The 500 ms startup wait lets Strata open in the right palette. It applies only with `mode = "system"`, so other launches never block on the portal (https://github.com/lgse/strata/pull/2113#issuecomment-6801438693).
 - The service and FileChooser processes skip the wait so D-Bus activation never blocks on the portal (lgse/strata#2113).
 - ashpd builds the Settings proxy and its change subscription without a running portal. Availability therefore follows the `color-scheme` read, not proxy creation (https://github.com/lgse/strata/pull/2113#issuecomment-6801438693).
-- A transient read failure on a desktop without GNOME's schema still resets a saved `system` mode. The maintainer kept this, the policy already applied to a missing schema (https://github.com/lgse/strata/pull/2113#issuecomment-6801438693).
+- The maintainer kept the reset after a transient read failure; `main` already applied that policy to a missing schema (https://github.com/lgse/strata/pull/2113#issuecomment-6801438693).
 - The saved theme is the family anchor and the theme in use is derived from it, so following never rewrites `theme` (lgse/strata#2094).
 - Pairs are a curated `(dark, light)` list in code. Unpaired ids deliberately resolve to themselves (lgse/strata#2094).
 - Following is a third value of the single theme `mode`, so it and Omarchy following cannot both be on (lgse/strata#2094).

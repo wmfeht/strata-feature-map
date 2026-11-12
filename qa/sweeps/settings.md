@@ -154,7 +154,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
 - Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker. Read Installation, Update server, and the copied report.
-- Run on the setuid-only and setgid-only `bwrap` hosts, then add an unprivileged `bwrap` in `/usr/bin` beside the wrapper and press Run again without restarting; read Preview sandbox and the copied report.
+- On the setuid-only `bwrap` host, add an unprivileged `bwrap` in `/usr/bin` without restarting Strata, press Run again, and read Preview sandbox and the copied report.
 - On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, start Strata and press Run on Diagnostics before browsing any folder; then press Run again after an image folder's thumbnails load; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
 
 ### settings/themes
@@ -175,8 +175,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Apply Material Lighter and Material Vivid and screenshot a selected row, a hovered row, the footer, dim column details, and a disabled menu item.
 - Write a custom theme with background luminance near 0.4 (`#9a9a9a` and `#a0a0a0`) and check its Light/Dark filing with search and filter combined.
 - Toggle Reduce motion on while a Settings page crossfade, a toast slide, and a sidebar reveal are mid-flight, then off again mid-flight; read the final widget states and the log.
-- With the desktop's `settings.ini` at `gtk-enable-animations=true`, then `false`, toggle Reduce motion on and off in window A, then restart with it saved on; read `gtk-enable-animations` in both windows after each step.
-- Cross Element glow, Reduce motion, and `gtk-enable-animations` off and on; then choose Cairo with `GSK_RENDERER=` exported empty and press Restart now from window B.
+- Cross Element glow, Reduce motion, and `gtk-enable-animations` off and on, restarting with Reduce motion saved on; then choose Cairo with `GSK_RENDERER=` exported empty and press Restart now from window B.
 - Cross `GSK_RENDERER=gl`, `vulkan`, and `cairo` with text sizes 8, 10, and 13 and `text-scaling-factor` 1.0, 1.1818, and 1.25 on a 1.25× monitor. Repeat under hint style none and full and with antialiasing off; zoom on `T`, `E`, and `I` in the sidebar and file list.
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
 - Write custom themes with mid-gray backgrounds on either side of the flavor threshold, such as `#7f7f7f` and `#828282`, and a background GTK rejects; compare the file icon palette with the Light/Dark filing.
