@@ -3,7 +3,7 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/qa/scenarios/accessibility, tests/qa/scenarios/dialogs_and_menus/entry-menu-named-actions.jsonl]

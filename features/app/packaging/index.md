@@ -3,8 +3,8 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: b094f02e957153a23ee4230ef25f37b4567e42bc
-review: reviewed
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg, flake.nix, flake.lock, package.nix, nix/install-source.toml]
 tests: []
 docs: [site/src/reference/install.md, docs/packaging.md]
@@ -13,7 +13,7 @@ related: [app/updates/install, app/updates/package-managed, app/window, operatio
 
 ## Summary
 
-How Strata reaches a desktop: the desktop entry and application icon that let shells recognize it, and `strata --version` for checking an install. It also owns the Nix flake that builds Strata from source. Children: `app/packaging/installer` (the `install.sh` release installer) and `app/packaging/aur` (the `strata-bin` and `strata-rc-bin` AUR packages).
+How Strata reaches a desktop: the desktop entry and application icon that let shells recognize it, and `strata --version` for checking an install. It also owns the Nix flake that builds Strata from source. Children: `app/packaging/installer` (the `install.sh` release installer), `app/packaging/aur` (the `strata-bin` and `strata-rc-bin` AUR packages), and `app/packaging/fedora` (the Fedora COPR package).
 
 ## Behavior
 
@@ -89,6 +89,6 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 ## Known gaps
 
-- No official package exists for distributions other than Arch and Nix; an official Flatpak is proposed. lgse/strata#936
+- No official package exists for distributions other than Arch, Nix, and Fedora; an official Flatpak is proposed. lgse/strata#936, lgse/strata#2120
 - The Nix package is built and tested on `x86_64-linux` only; `aarch64-linux` builds are untested. lgse/strata#1967
 - On a system with no `x-scheme-handler/trash` default, installing Strata can take over `trash:///` from another file manager through GIO's first-handler fallback. lgse/strata#2065

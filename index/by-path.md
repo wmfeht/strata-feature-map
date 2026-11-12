@@ -23,10 +23,15 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `THIRD_PARTY_LICENSES.md` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `build.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `clippy.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/*/Cargo.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/*/build.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/error_text.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/error_text/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/file_activity.rs` | code | [Releasing open files before a change](../features/operations/filesystem-compatibility/open-files.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `crates/strata-core/src/i18n.rs` | code | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `crates/strata-core/src/i18n/catalog_tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `crates/strata-core/src/i18n/tests.rs` | tests | [Interface language](../features/settings/preferences/language.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `crates/strata-core/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/logging.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/logging/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/metrics.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -34,8 +39,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-core/src/model/action.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `crates/strata-core/src/model/action/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `crates/strata-core/src/model/action/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
+| `crates/strata-core/src/model/archive.rs` | code | [Archives](../features/operations/archives/index.md) | — |
 | `crates/strata-core/src/model/hidden_names.rs` | code | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `crates/strata-core/src/model/hidden_names/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
+| `crates/strata-core/src/model/load_handle.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/model/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/model/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/storage.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
@@ -44,11 +51,13 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-core/src/storage/writer/tests.rs` | tests | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `crates/strata-core/src/trusted_command.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/trusted_command/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-core/src/util/mod.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `crates/strata-core/src/util/tests.rs` | tests | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `crates/strata-core/src/util/ui_thread.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-core/src/util/ui_thread/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-desktop/src/build_info.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-desktop/src/build_info/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-desktop/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-desktop/src/portal_setup.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `crates/strata-desktop/src/portal_setup/omarchy.rs` | code | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `crates/strata-desktop/src/portal_setup/omarchy/tests.rs` | tests | [File chooser and file manager setup](../features/integration/portal-file-chooser/setup.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
@@ -59,6 +68,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-desktop/src/services/install_source/tests.rs` | tests | [Package-managed installs](../features/app/updates/package-managed.md) | [Updates](../features/app/updates/index.md) |
 | `crates/strata-desktop/src/services/integration_catalog.rs` | code | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `crates/strata-desktop/src/services/integration_catalog/tests.rs` | tests | [Integrations catalog](../features/remote/file-providers/integrations.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
+| `crates/strata-desktop/src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-desktop/src/services/package_manager.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-desktop/src/services/package_manager/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-desktop/src/services/release_channel.rs` | code | [Release channels](../features/app/updates/release-channels.md) | [Updates](../features/app/updates/index.md) |
@@ -135,6 +145,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-fs/src/adapters/local_operations/archive/extraction/**` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `crates/strata-fs/src/adapters/local_operations/archive/extraction/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
 | `crates/strata-fs/src/adapters/local_operations/archive/fixtures.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
+| `crates/strata-fs/src/adapters/local_operations/archive/helper_tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `crates/strata-fs/src/adapters/local_operations/archive/listing.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `crates/strata-fs/src/adapters/local_operations/archive/listing/tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `crates/strata-fs/src/adapters/local_operations/archive/tests.rs` | tests | [Archives](../features/operations/archives/index.md) | — |
@@ -373,6 +384,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-fs/src/app/peek/tests.rs` | tests | [Folder peek](../features/preview/quick-preview/folder-peek.md) | [Quick preview](../features/preview/quick-preview/index.md) |
 | `crates/strata-fs/src/child_environment.rs` | code | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
 | `crates/strata-fs/src/child_environment/tests.rs` | tests | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
+| `crates/strata-fs/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-fs/src/services/actions.rs` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `crates/strata-fs/src/services/actions/**` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `crates/strata-fs/src/services/actions/tests.rs` | tests | [Custom actions](../features/integration/custom-actions.md) | — |
@@ -393,6 +405,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-fs/src/services/listeners/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-fs/src/services/mime_type.rs` | code | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
 | `crates/strata-fs/src/services/mime_type/tests.rs` | tests | [Sorting](../features/browser/view-modes/sorting.md) | [View modes](../features/browser/view-modes/index.md) |
+| `crates/strata-fs/src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-fs/src/services/native_fs.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-fs/src/services/navigation_history.rs` | code | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
 | `crates/strata-fs/src/services/navigation_history/tests.rs` | tests | [Folder jump](../features/browser/navigation/folder-jump.md) | [Navigation](../features/browser/navigation/index.md) |
@@ -421,6 +434,10 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-fs/src/services/search/walk.rs` | code | [Search](../features/browser/search/index.md) | — |
 | `crates/strata-fs/src/services/transfer_action.rs` | code | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `crates/strata-fs/src/services/transfer_action/tests.rs` | tests | [Drop copy-or-move policy](../features/operations/drag-and-drop/copy-or-move.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
+| `crates/strata-fs/src/test_support.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/src/test_support/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-fs/test-resources.gresource.xml` | tests | [Paste name conflicts](../features/operations/clipboard/conflicts.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `crates/strata-preview/src/lib.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-preview/src/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/media/peaks` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/media/peaks.rs` | code | [Audio previews](../features/preview/preview-panel/media/audio.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -434,6 +451,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-preview/src/sandbox.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/sandbox/archive.rs` | code | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
 | `crates/strata-preview/src/sandbox/archive/tests.rs` | tests | [RAR extraction](../features/operations/archives/rar.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox/archive_listing.rs` | code | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
+| `crates/strata-preview/src/sandbox/archive_listing/tests.rs` | tests | [Archive preview](../features/operations/archives/preview.md) | [Archives](../features/operations/archives/index.md) |
 | `crates/strata-preview/src/sandbox/browser.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `crates/strata-preview/src/sandbox/browser/process.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `crates/strata-preview/src/sandbox/browser/tests.rs` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
@@ -441,6 +460,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-preview/src/sandbox/browser/worker.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `crates/strata-preview/src/sandbox/command.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/sandbox/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/media/fixtures.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/sandbox/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/sandbox/metadata.rs` | code | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `crates/strata-preview/src/sandbox/metadata/tests.rs` | tests | [Media details in Properties](../features/browser/properties/media.md) | [Properties dialog](../features/browser/properties/index.md) |
@@ -509,6 +529,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-preview/src/services/docx/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/services/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `crates/strata-preview/src/services/image_conversion/tests.rs` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `crates/strata-preview/src/services/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-preview/src/services/model_preview.rs` | code | [3D model previews](../features/preview/preview-panel/model-views.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/services/odt.rs` | code | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/services/odt/tests.rs` | tests | [ODT and OTT document previews](../features/preview/preview-panel/documents/odt.md) | [Rendered document previews](../features/preview/preview-panel/documents/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -519,6 +540,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-preview/src/services/rtf/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-qa/src/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `crates/strata-test-support/src/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
 | `data/brand/strata-logo-white.svg` | code | [Settings window and general preferences](../features/settings/preferences/index.md) | — |
 | `data/brand/tenxer-splash.png` | code | [10xer mode](../features/integration/10xer-mode/index.md) | — |
@@ -574,9 +597,11 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `packaging/aur` | code | [AUR packages](../features/app/packaging/aur.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `packaging/math-renderer` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `packaging/media-runtime` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `packaging/rpm` | code | [Fedora COPR package](../features/app/packaging/fedora.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `rustfmt.toml` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/benchmark-delete.sh` | code | [Permanent deletion](../features/operations/delete/index.md) | — |
 | `scripts/benchmark-scroll.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/build_srpm.py` | code | [Fedora COPR package](../features/app/packaging/fedora.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/catppuccin_icons.py` | code | [Catppuccin file-type icons](../features/settings/themes/icons/catppuccin.md) | [Themed icons](../features/settings/themes/icons/index.md), [Themes and appearance](../features/settings/themes/index.md) |
 | `scripts/check.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/chooser-dev.sh` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -604,6 +629,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `scripts/start-dev.sh` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test-headless.py` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_benchmark_scroll.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
+| `scripts/test_build_srpm.py` | tests | [Fedora COPR package](../features/app/packaging/fedora.md) | [Packaging and installation](../features/app/packaging/index.md) |
 | `scripts/test_discord_triage.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_headless_runner.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `scripts/test_image_*.py` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
@@ -907,6 +933,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/keys/tests/labels.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
 | `src/ui/keys/tests/letters.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
 | `src/ui/keys/tests/modifiers.rs` | tests | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) | — |
+| `src/ui/launch_context.rs` | code | [Launched-program GDK_DEBUG restore](../features/integration/file-manager-interface/service-activation.md) | [FileManager1 D-Bus interface](../features/integration/file-manager-interface/index.md) |
 | `src/ui/loading_skeleton.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/**` | code | [View modes](../features/browser/view-modes/index.md) | — |
 | `src/ui/loading_skeleton/delay/tests.rs` | tests | [View modes](../features/browser/view-modes/index.md) | — |
@@ -915,6 +942,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/marquee/hit_test.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/marquee/origin.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/marquee/state.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
+| `src/ui/marquee/surface_click.rs` | code | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/marquee/tests.rs` | tests | [Marquee selection](../features/browser/selection/marquee.md) | [Selection](../features/browser/selection/index.md) |
 | `src/ui/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/media/ambient` | code | [Video previews](../features/preview/preview-panel/media/video.md) | [Media playback](../features/preview/preview-panel/media/index.md), [Preview panel](../features/preview/preview-panel/index.md) |
@@ -934,6 +962,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/modal/layout.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/messages.rs` | code | [Modal dialogs](../features/app/dialogs.md) | — |
 | `src/ui/modal/tests.rs` | tests | [Modal dialogs](../features/app/dialogs.md) | — |
+| `src/ui/modified_date.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/notice.rs` | code | [Progress dock](../features/operations/progress/dock.md) | [Operation progress and cancellation](../features/operations/progress/index.md) |
 | `src/ui/open_with.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
 | `src/ui/open_with/apps.rs` | code | [Opening files and Open With](../features/integration/open-with/index.md) | — |
@@ -1357,7 +1386,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/window/volume_password/tests.rs` | tests | [Encrypted volumes](../features/devices/volumes/encrypted.md) | [Devices and volumes](../features/devices/volumes/index.md) |
 | `src/util/gresource.rs` | code | [Themes and appearance](../features/settings/themes/index.md) | — |
 | `src/util/gresource/tests.rs` | tests | [Themes and appearance](../features/settings/themes/index.md) | — |
-| `src/util/mod.rs` | code | [Modified date format](../features/settings/preferences/date-format.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
+| `src/util/mod.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/container/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `tests/fixtures/documents/README.md` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `tests/fixtures/documents/owner-restricted.pdf` | tests | [Preview panel](../features/preview/preview-panel/index.md) | — |
@@ -1450,7 +1479,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/drag_and_drop/multi-selection-drag-moves-every-entry.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/release-outside-cancels-drag.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/row-padding-drag-view-policy.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
-| `tests/qa/scenarios/drag_and_drop/selected-blank-space-starts-file-drag.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
+| `tests/qa/scenarios/drag_and_drop/selected-blank-space-follows-view-policy.jsonl` | tests | [Drag and drop](../features/operations/drag-and-drop/index.md) | — |
 | `tests/qa/scenarios/drag_and_drop/strip-edge-scrolls-columns-in.jsonl` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl` | tests | [Permanent-delete dissolve animation](../features/operations/delete/dissolve.md) | [Permanent deletion](../features/operations/delete/index.md) |
 | `tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |

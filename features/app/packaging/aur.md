@@ -7,7 +7,7 @@ reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
 review: reviewed
 code: [packaging/aur, scripts/update_aur.py]
 tests: [scripts/test_update_aur.py]
-related: [app/updates/package-managed, integration/file-manager-interface]
+related: [app/updates/package-managed, integration/file-manager-interface, app/packaging/fedora]
 ---
 
 ## Summary
