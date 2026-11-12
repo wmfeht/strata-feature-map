@@ -32,7 +32,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 
 ### Preview checks
 
-- With no trusted unprivileged `bwrap`, including a host whose only `bwrap` is setuid or setgid, Preview sandbox is a problem naming Bubblewrap, with the bubblewrap package. lgse/strata#1735, lgse/strata#2182
+- With no trusted unprivileged `bwrap`, such as only a setuid or setgid one, Preview sandbox is a problem naming Bubblewrap and the bubblewrap package. lgse/strata#1735, lgse/strata#2182 (unverified)
 - With `prlimit` missing at the sandbox's path, Preview sandbox is a problem naming that path, with the util-linux package. lgse/strata#1735, lgse/strata#1746
 - Otherwise a generated PNG renders through a one-shot sandbox; a failure reports that unprivileged user namespaces may be disabled or restricted. lgse/strata#1735
 - Without Landlock ABI 3, Sandboxed workers is a warning that each thumbnail starts its own sandbox. lgse/strata#1735

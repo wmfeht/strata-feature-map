@@ -130,7 +130,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 - With Reduce motion on, sidebar, column, and preview animations do not play. lgse/strata#458
 - With Reduce motion on, Strata holds GTK's `gtk-enable-animations` off in every window. lgse/strata#2116
 - With Reduce motion on, hover and press fades, column entry, toast slides, trash effects, and Settings page crossfades change state immediately. lgse/strata#2115, lgse/strata#2116
-- With Reduce motion on, stylesheet transitions and keyframes, stack and revealer transitions, and animated scrolling do not play. lgse/strata#2116
+- With Reduce motion on, stack and revealer transitions and animated scrolling do not play. lgse/strata#2116
 - With Reduce motion on, a spinner, such as during a long folder load, draws as a static icon. lgse/strata#2116
 - Turning Reduce motion off restores the desktop's `gtk-enable-animations` value in every window without a restart. lgse/strata#2116
 - With `reduce_motion = true` saved, toolkit animations are off from the first window. lgse/strata#2116 (unverified)

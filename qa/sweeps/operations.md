@@ -134,7 +134,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Start a multi-selection drag in the large fixture folder in List, Icons, and Columns, and hover several folders before dropping.
 - Drag a folder onto a sidebar place, a pane background, and another window that each hold a same-named folder, answering Merge.
 - In Columns, open a folder's subtree three levels deep, then drag that folder from its icon and hold it over the deepest open descendant row.
-- Drag a folder together with a file and hold them over the dragged folder's row, then over a sidebar row pinned to that folder.
+- Drag a folder together with a file and hold them over a sidebar row pinned to that folder, and over the folder's Icons card.
 - Pin a folder to the sidebar, then drag that folder alone from Columns, List, and Icons and hold it over its sidebar row.
 - In List, press a metadata cell of a row inside a multi-selection and drag, with columns reordered so Name is not first.
 

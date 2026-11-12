@@ -37,7 +37,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 - A single-item drag shows the item's file or folder icon instead of its name. lgse/strata#1487
 - A multi-item drag shows stacked icons with an accent badge giving the item count. lgse/strata#1487 (unverified)
 - A folder row, Icons card, or sidebar row under a file drag is outlined with the selection border and corner geometry. lgse/strata#1487
-- A dragged folder's own row or Icons card, its descendants' rows or cards, and a sidebar row for it show no drop outline during that drag. lgse/strata#2108 (unverified)
+- When a folder is dragged alone, its row or Icons card, its descendants', and its sidebar row show no drop outline. lgse/strata#2108 (unverified)
 - Starting a drag closes any open folder peek, and cancelling a drag over a folder leaves that folder unopened. lgse/strata#630
 - In Columns, after a drag ends by Escape, release outside the window, copy, move, no-op, or failed transfer, the source label stays in place and its dimming clears within 240 ms. lgse/strata#637
 

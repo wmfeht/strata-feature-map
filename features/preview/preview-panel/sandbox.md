@@ -24,7 +24,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - A build with `STRATA_TRUSTED_COMMAND_PATH=/nix/store/<bwrap>/bin` and no system bubblewrap finds `bwrap` there, and native previews render. lgse/strata#1746, lgse/strata#1702
 - A search hit whose canonical target lies outside FHS, `/run/wrappers/bin`, `/nix/store`, or `/gnu/store` is rejected, and previews fail closed. lgse/strata#1055
 - When bubblewrap is missing or cannot start, a native-format preview shows "Preview unavailable" and the file is never decoded outside the sandbox. lgse/strata#17, lgse/strata#1503
-- On a host whose only trusted `bwrap` is setuid or setgid, native-format previews show "Preview unavailable". lgse/strata#2182
+- On a host whose only trusted `bwrap` is setuid or setgid, native-format previews show "Preview unavailable". lgse/strata#2182 (unverified)
 - `STRATA_SANDBOX_PATH`, `STRATA_SANDBOX_ROOT`, `STRATA_SANDBOX_PRLIMIT`, and `STRATA_SANDBOX_GDK_PIXBUF_MODULE_FILE` set at launch override the values embedded at build time. lgse/strata#1357, lgse/strata#1746, lgse/strata#1599
 - Without launch or build values, helpers run with `PATH=/usr/bin`, a read-only `/usr`, and `/usr/bin/prlimit`. lgse/strata#1357, lgse/strata#1746
 - A launch-time `STRATA_SANDBOX_ROOT` must be `/usr`, `/nix/store`, `/gnu/store`, or a path inside one; `/`, `/home/<user>`, `/usrdata`, and `/usr/../home` are ignored. lgse/strata#1746
@@ -86,8 +86,8 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - Lossless and lossy WebP files decode, an alpha WebP keeps its alpha, and an animated WebP shows its first frame. lgse/strata#2189
 - A WebP whose header claims 16383×16383 is refused before decoding, as an oversized PNG is; without an EXIF thumbnail its thumbnail stays empty. lgse/strata#2189
 - An 80×40 WebP previews at 80×40, and a 1200×600 WebP at 800×400. lgse/strata#2189
-- An 80×40 PNG or WebP thumbnails at 80×40, and a 1200×600 one at 256×128. lgse/strata#2189
-- A non-RAW raster image with known dimensions, not SVG, tries the built-in WebP decoder, GDK Pixbuf, ImageMagick, then dcraw. Previews and thumbnails share that order. lgse/strata#2189
+- An 80×40 WebP thumbnails at 80×40, and a 1200×600 one at 256×128. lgse/strata#2189
+- A non-RAW raster image within the decoded-frame budget, with known dimensions, not SVG, tries the built-in WebP decoder, GDK Pixbuf, ImageMagick, then dcraw. Previews and thumbnails share that order. lgse/strata#2189
 - A non-RAW raster image whose dimensions cannot be read, not SVG, tries only ImageMagick, then dcraw. lgse/strata#2189 (unverified)
 - A WebP's dimensions, such as in the Icons caption, come from its header without a GDK Pixbuf loader. lgse/strata#2189 (unverified)
 - WebP images in Markdown previews and WebP AppImage icons also decode without a system loader. lgse/strata#2189 (unverified)
