@@ -13,7 +13,7 @@ related: [remote/file-providers/integrations, remote/file-providers/network-loca
 
 ## Summary
 
-The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares, plus the crate and module roots, including the workspace crates' roots and facades. It also owns shared helpers, test support, catalogs, the README, third-party notices, and crate manifests. It owns the build scripts, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration and skills. It owns the `qa` build's in-process QA harness, the `strata-qa` protocol crate, the QA runner, and the pinned test image. It owns the trusted helper lookup, the syscall layer that local operations share, and the Run in terminal control that Diagnostics and Integrations share. It owns the mount-table watcher, per-mount request lanes, off-thread probes and closes, and the UI-thread checks. It owns the List and Icons pane header, shared by the sort controls and the Back history menu. It is the `fallback` node in `scopes.yaml`.
+The location model, URI display and diagnostic rules, and the directory-listing adapter that every feature shares. It also owns the crate and module roots, including the workspace crates' roots and facades. It owns shared helpers, test support, catalogs, the README, third-party notices, and crate manifests. It owns the build scripts, CI workflows and tooling, the bug report template, and lint, dependency-audit, and agent configuration and skills. It owns the `qa` build's in-process QA harness, the `strata-qa` protocol crate, the QA runner, and the pinned test image. It owns the trusted helper lookup, the syscall layer that local operations share, and the Run in terminal control that Diagnostics and Integrations share. It owns the mount-table watcher, per-mount request lanes, off-thread probes and closes, and the UI-thread checks. It owns the List and Icons pane header, shared by the sort controls and the Back history menu. It is the `fallback` node in `scopes.yaml`.
 
 ## Behavior
 
@@ -42,9 +42,12 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 - At the default log level, a directory load logs its request id and backend name, never the browsed path or URI. lgse/strata#27
 - With `RUST_LOG=strata=debug`, a directory load also logs its location, including the full native path. lgse/strata#27
+- Logged URI locations omit user info, authentication parameters, query, and fragment at every log level. lgse/strata#27, lgse/strata#1873
+
+### Log filters
+
 - With `RUST_LOG=strata::sandbox::browser=debug`, opening a preview still prints the sandbox's debug lines, though that module moved to a crate. lgse/strata#2112
 - A moved module's log lines carry its crate's target, such as `strata_preview::sandbox::browser`; `RUST_LOG=strata=debug` still shows them. lgse/strata#2112
-- Logged URI locations omit user info, authentication parameters, query, and fragment at every log level. lgse/strata#27, lgse/strata#1873
 
 ### UI thread
 
@@ -63,8 +66,8 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 ### Trusted helper lookup
 
-- A helper present in both a fixed root and a configured directory resolves to the fixed-root copy. lgse/strata#1746
-- The `bwrap` lookup is the exception: it skips a setuid or setgid copy, such as `/run/wrappers/bin/bwrap`, and takes the next trusted one. lgse/strata#2182
+- A helper present in both a fixed root and a configured directory resolves to the fixed-root copy, unless `resolve_unprivileged` skips that copy. lgse/strata#1746, lgse/strata#2182
+- `resolve_unprivileged` skips a candidate whose canonical target has the setuid or setgid bit and tries the next directory. lgse/strata#2182
 - A build with an empty or relative `STRATA_TRUSTED_COMMAND_PATH` entry, such as `relative/bin` or a trailing `:`, fails with "must be an absolute directory". lgse/strata#1746
 - A configured directory that is missing or does not canonicalize under `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin`, `/run/wrappers/bin`, `/nix/store`, or `/gnu/store` is skipped. lgse/strata#1746
 - A helper in a configured directory whose canonical target lies outside those roots is rejected, and the search moves to the next directory. lgse/strata#1746

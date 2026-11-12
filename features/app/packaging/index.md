@@ -89,6 +89,6 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 ## Known gaps
 
-- No official package exists for distributions other than Arch, Nix, and Fedora; an official Flatpak is proposed. lgse/strata#936, lgse/strata#2120
+- No official package exists for distributions other than Arch, Nix, and Fedora. lgse/strata#2120
 - The Nix package is built and tested on `x86_64-linux` only; `aarch64-linux` builds are untested. lgse/strata#1967
 - On a system with no `x-scheme-handler/trash` default, installing Strata can take over `trash:///` from another file manager through GIO's first-handler fallback. lgse/strata#2065

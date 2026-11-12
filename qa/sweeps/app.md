@@ -198,8 +198,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Build the source RPM from a stable tag, an RC tag, and `--ref HEAD` under a prerelease tag; install each and compare `rpm -q --provides strata`, `strata --version`, and the Diagnostics build line.
 - Run `rpmlint` on the source RPM and the binary RPM, and list every file the package installs with `rpm -ql strata`.
-- After installing, open Settings and list its pages; open a `.rar` file, then a `.zip`, and compare the results.
-- Run `scripts/build_srpm.py` with `--tag v1.2.0-beta.1`, a nightly tag, and `--release 0`, and read each refusal.
+- After installing, search Settings for "update"; open a `.rar` file from the context menu and by double click.
+- Run `scripts/build_srpm.py --tag v1.2.1 --ref v1.1.1` and read the result.
 - Install on aarch64 and preview an image, a PDF, and a clip.
 - Upgrade an installed RC build to its final release with `dnf upgrade` and read the installed version.
 
