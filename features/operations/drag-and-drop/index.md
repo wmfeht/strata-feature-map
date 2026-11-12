@@ -22,6 +22,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 - Pressing an unselected item while another is selected and dragging it drags only that item, and the selection moves to it on press. lgse/strata#789
 - Dragging one item of a multi-selection transfers every selected item. lgse/strata#415 (unverified)
 - In List, a file drag starts only from a row's icon or filename, selected or not; metadata cells, unused Name space, and padding start none. lgse/strata#2108
+- In browser Columns and Icons, a drag from blank space on a selected row or card starts a file drag of the selection. lgse/strata#1336, lgse/strata#2108
 - In List with one-click folder activation, pressing and moving a folder's icon or filename starts a drag; a click without movement opens the folder. lgse/strata#348, lgse/strata#2108
 - Ctrl-drag and Shift-drag that start on an item's icon or name start a file drag in Columns, List, and Icons. lgse/strata#623
 - In Columns, dragging a folder whose child column is open onto a sibling folder moves the folder and its contents. lgse/strata#415
@@ -36,6 +37,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 - A single-item drag shows the item's file or folder icon instead of its name. lgse/strata#1487
 - A multi-item drag shows stacked icons with an accent badge giving the item count. lgse/strata#1487 (unverified)
 - A folder row, Icons card, or sidebar row under a file drag is outlined with the selection border and corner geometry. lgse/strata#1487
+- A dragged folder's own row or Icons card, its descendants' rows or cards, and a sidebar row for it show no drop outline during that drag. lgse/strata#2108 (unverified)
 - Starting a drag closes any open folder peek, and cancelling a drag over a folder leaves that folder unopened. lgse/strata#630
 - In Columns, after a drag ends by Escape, release outside the window, copy, move, no-op, or failed transfer, the source label stays in place and its dimming clears within 240 ms. lgse/strata#637
 
@@ -59,7 +61,6 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 - Leaving the hovered target or dropping before 750 ms cancels the pending navigation. lgse/strata#1487 (unverified)
 - A folder dragged back over its own row or a descendant's row does not spring-open after 750 ms; another folder hovered by the same drag still does. lgse/strata#2108
 - A drag of a folder plus another file still spring-opens the dragged folder when held over it. lgse/strata#2108
-- A dragged folder's own row, its descendants' rows, and a sidebar row for it show no drop outline during that drag. lgse/strata#2108 (unverified)
 
 ### After the drop
 
