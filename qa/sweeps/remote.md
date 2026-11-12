@@ -1,6 +1,6 @@
 ---
 title: Remote sweep
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 tools: [docs/file-providers.md, docs/remote-sftp.md, scripts/sftp-fixture.sh, integrations/README.md, integrations/kdeconnect/tests/mock_service.py, tests/fixtures/harness.json]
 ---
 

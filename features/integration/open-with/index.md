@@ -3,7 +3,7 @@ title: Opening files and Open With
 status: shipped
 origin: {issue: lgse/strata#174, pr: lgse/strata#421}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
 code: [src/ui/open_with.rs, src/ui/open_with/apps.rs, src/ui/open_with/dialog.rs, src/ui/open_with/launch.rs, src/ui/open_with/navigation.rs, src/ui/browser/desktop.rs]
 tests: [src/ui/open_with/tests.rs, src/ui/browser/desktop/tests.rs, tests/qa/scenarios/open_with/**, tests/qa/scenarios/dialogs_and_menus/executable-menu-confirmed-run.jsonl, tests/qa/scenarios/dialogs_and_menus/executable-requires-confirmation.jsonl]
