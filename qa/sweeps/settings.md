@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -23,13 +23,14 @@ For every control this sweep proves the binding: the file changes, the other win
 - A dotfiles folder at `$HOME/dotfiles` and a second on `/dev/shm`, for `settings.toml` and theme files symlinked across filesystems. A root-owned file and link made with `sudo` for the ownership cases.
 - A fake Quattro state at `$HOME/.local/state/omarchy/current/theme.name` and `current/theme/colors.toml` under the throwaway HOME. `current/theme` is a symlink, the way Omarchy lays it out. A script renames it away and back with 0, 1, and 5 s gaps.
 - For Follow system light/dark mode: a dconf session with `gsettings-desktop-schemas`, a `GSETTINGS_BACKEND=memory` run, and a run whose `XDG_DATA_DIRS` holds no `org.gnome.desktop.interface` schema. In the dconf run only, a script cycles `color-scheme` through `prefer-dark`, `default`, `prefer-light`, and back.
+- A mock `org.freedesktop.portal.Settings` on a private session bus, beside the private Xvfb. It reports `org.freedesktop.appearance` `color-scheme` as `0`, `1`, or `2`, emits `SettingChanged` on demand, and can delay its first reply by a set number of milliseconds or fail it. A run with no portal on the bus and no GNOME schema completes the matrix.
 - A user stylesheet at `$XDG_CONFIG_HOME/strata/style.css` with a valid rule using `@strata_accent`, a rule GTK rejects such as `label { color: nope; }`, and a layout rule such as `.sidebar-shell { margin: 12px; }`; a 1 MB copy and a non-UTF-8 copy beside it.
 - An uncomposited X11 session: the private Xvfb alone, then Xvfb with openbox and no compositor. No client owns the `_NET_WM_CM_S0` selection, as python-xlib's `get_selection_owner` reports. `picom` or `xcompmgr`, installed but not started, so a script can start and stop it while Strata runs.
 - Icon themes for the control icons: Breeze, Yaru, and Adwaita installed, plus a theme without symbolic icons, each selected through `settings.ini` before launch.
 - A user GtkSourceView setup: `~/.local/share/gtksourceview-5/styles/strata-current.xml` and a `rust.lang` under `~/.local/share/gtksourceview-5/language-specs/`, and a `chmod 555` `~/.cache/strata`.
 - An sshfs mount whose daemon a script stops with `kill -STOP` and resumes with `kill -CONT`, for the Default directory and save cases.
 - Fonts for Interface font: a family with a quoted name, a family with no Latin glyphs, a bitmap-only family, and a family installed with `fc-cache` while Strata runs, then removed.
-- For Diagnostics: a container or bind mounts that mask `bwrap`, `prlimit`, `ffmpeg`, `ffmpegthumbnailer`, `ffprobe`, and `unsquashfs` one at a time, plus `os-release` files for Arch, Debian, Fedora, openSUSE, and an unknown `ID`.
+- For Diagnostics: a container or bind mounts that mask `bwrap`, `prlimit`, `ffmpeg`, `ffmpegthumbnailer`, `ffprobe`, and `unsquashfs` one at a time, a host whose only `bwrap` is a setuid copy (`chmod 4755`) and then a setgid copy (`chmod 2755`) in `/run/wrappers/bin`, plus `os-release` files for Arch, Debian, Fedora, openSUSE, and an unknown `ID`.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
 
 ## Probes
@@ -153,6 +154,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - On Integrations, press Run in terminal with `$TERMINAL` unset, no `xdg-terminal-exec`, and no listed terminal on `PATH`. Install one and press it again without Refresh.
 - Run with one custom action that cannot run and one broken action file, then with neither; compare with Settings → Actions.
 - Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker. Read Installation, Update server, and the copied report.
+- Run on the setuid-only and setgid-only `bwrap` hosts, then add an unprivileged `bwrap` in `/usr/bin` beside the wrapper and press Run again without restarting; read Preview sandbox and the copied report.
 - On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, start Strata and press Run on Diagnostics before browsing any folder; then press Run again after an image folder's thumbnails load; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
 
 ### settings/themes
@@ -172,6 +174,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - In a swatch's color chooser, Tab to Select under a light theme, `extreme.toml`, Element glow off, and Corner roundness 0; then click Select with the mouse and compare its focus rendering with Cancel.
 - Apply Material Lighter and Material Vivid and screenshot a selected row, a hovered row, the footer, dim column details, and a disabled menu item.
 - Write a custom theme with background luminance near 0.4 (`#9a9a9a` and `#a0a0a0`) and check its Light/Dark filing with search and filter combined.
+- Toggle Reduce motion on while a Settings page crossfade, a toast slide, and a sidebar reveal are mid-flight, then off again mid-flight; read the final widget states and the log.
+- With the desktop's `settings.ini` at `gtk-enable-animations=true`, then `false`, toggle Reduce motion on and off in window A, then restart with it saved on; read `gtk-enable-animations` in both windows after each step.
 - Cross Element glow, Reduce motion, and `gtk-enable-animations` off and on; then choose Cairo with `GSK_RENDERER=` exported empty and press Restart now from window B.
 - Cross `GSK_RENDERER=gl`, `vulkan`, and `cairo` with text sizes 8, 10, and 13 and `text-scaling-factor` 1.0, 1.1818, and 1.25 on a 1.25× monitor. Repeat under hint style none and full and with antialiasing off; zoom on `T`, `E`, and `I` in the sidebar and file list.
 - Preset the desktop `font-rendering` key to manual, then automatic, before launch; change it while Strata runs; repeat the glyph checks, then on a GTK 4.14 build.
@@ -287,7 +291,11 @@ For every control this sweep proves the binding: the file changes, the other win
 - While following, pick Tokyo Night, an unpaired custom theme, and each side of Everforest Dark Soft/Light Medium. Cycle the mode after each and read `settings.toml`.
 - Seed `mode = "system"`, `"SYSTEM"`, `"system "`, and `"auto"`, and launch on the dconf, memory, and schema-less runs. Read the switch and Current theme, change one other preference, and diff `settings.toml`.
 - With the fake Quattro state present, toggle Follow system and Follow Omarchy alternately in windows A and B within one second. Read both switches and the file.
-- Launch in the schema-less run, then install the schema while Strata runs; search "day night" and read the Appearance page.
+- Launch in the schema-less run with no portal, then install the schema while Strata runs; search "day night" and read the Appearance page. Repeat with the mock portal started after launch.
+- With the mock portal, cycle `1`, `2`, and `0` against each GNOME `color-scheme` value in the dconf run, then in the schema-less run; read Current theme and the checked card after each.
+- Delay the mock portal's first reply to 400, 600, and 2000 ms and launch with `mode = "system"`, then with `mode = "theme"`; capture the first frame and time to the first window.
+- Make the mock portal fail its first read on the schema-less run with `mode = "system"` saved; read `settings.toml` and the switch, then emit `SettingChanged` and read them again.
+- Stall the mock portal with `mode = "system"` saved, then D-Bus-activate the service and cold-start `strata --portal`; time each window and read its palette.
 - With Element glow off, Corner roundness 0, and a user stylesheet, cycle the mode in the dconf run. Compare menus, dialogs, and file icons with a fresh launch in the same mode.
 
 ## Hand-offs

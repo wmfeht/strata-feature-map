@@ -123,6 +123,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-12 | lgse/strata#2189 | fix | Decoded WebP with the built-in decoder before system loaders, so WebP previews and thumbnails render without a pixbuf WebP loader or ImageMagick. |
 | 2026-11-09 | lgse/strata#2098 | fix | Ran media decoders through the absolute `STRATA_SANDBOX_PRLIMIT` and lowered helper priority in-process, so Nix runtimes need no `prlimit` or `nice`. |
 | 2026-11-02 | lgse/strata#2030 | fix | Classified `.264`, `.h265`, `.265`, and `.hevc` as raw video; Properties now matches the preview, and listings show the video icon. |
 | 2026-10-30 | lgse/strata#1950 | feat | Removed printing: the header and item-menu Print, the PDF print-progress dialog and print errors; files print from their default application. |
@@ -153,3 +154,4 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - Images cannot be rotated in the preview. lgse/strata#987
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#834
+- CBZ and EPUB covers decode only through GDK Pixbuf, so a WebP cover stays empty on a host without a pixbuf WebP loader. lgse/strata#2189

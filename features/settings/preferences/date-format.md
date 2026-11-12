@@ -5,7 +5,7 @@ origin: {issue: null, pr: lgse/strata#180}
 branch: null
 reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/util/mod.rs, data/locales/dates.json]
+code: [crates/strata-core/src/util/mod.rs, src/ui/modified_date.rs, data/locales/dates.json]
 tests: [crates/strata-core/src/util/tests.rs]
 related: [browser/properties]
 ---
