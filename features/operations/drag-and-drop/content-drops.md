@@ -3,10 +3,10 @@ title: Content drops from other applications
 status: shipped
 origin: {issue: lgse/strata#1545, pr: lgse/strata#1547}
 branch: null
-reviewed_at: 0f9bb00f02d3923ba009f53e0dbaecb840ee524c
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/ui/browser/content_drop.rs, src/services/dropped_content.rs]
-tests: [src/ui/browser/content_drop/tests.rs, src/services/dropped_content/tests.rs, tests/qa/scenarios/content_drops]
+code: [src/ui/browser/content_drop.rs, crates/strata-fs/src/services/dropped_content.rs]
+tests: [src/ui/browser/content_drop/tests.rs, crates/strata-fs/src/services/dropped_content/tests.rs, tests/qa/scenarios/content_drops]
 docs: [docs/content-drops.md]
 related: [integration/open-with, operations/clipboard, operations/trash, browser/tabs]
 ---

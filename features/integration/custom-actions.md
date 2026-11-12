@@ -3,10 +3,10 @@ title: Custom actions
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/model/action.rs, src/model/action/**, src/services/actions.rs, src/services/actions/**, src/adapters/local_actions.rs, src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
-tests: [src/model/action/tests.rs, src/services/actions/tests.rs, src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/**, src/adapters/local_jobs/tests/examples.rs, src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
+code: [crates/strata-core/src/model/action.rs, crates/strata-core/src/model/action/**, crates/strata-fs/src/services/actions.rs, crates/strata-fs/src/services/actions/**, crates/strata-fs/src/adapters/local_actions.rs, crates/strata-fs/src/adapters/local_actions/**, src/ui/actions.rs, src/ui/settings/actions.rs, src/ui/settings/actions/**, data/actions]
+tests: [crates/strata-core/src/model/action/tests.rs, crates/strata-fs/src/services/actions/tests.rs, crates/strata-fs/src/adapters/local_actions/tests.rs, src/ui/settings/actions/tests.rs, src/ui/settings/actions/tests/**, crates/strata-fs/src/adapters/local_jobs/tests/examples.rs, crates/strata-fs/src/adapters/local_jobs/tests/examples/**, tests/qa/scenarios/custom_actions/**]
 docs: [site/src/reference/custom-actions.md, docs/custom-actions.md]
 related: [operations/progress/jobs, integration/10xer-mode, remote/file-providers, browser/context-menu, app/keyboard-shortcuts/remapping]
 ---

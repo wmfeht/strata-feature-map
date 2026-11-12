@@ -3,10 +3,10 @@ title: Leftovers after a crash or unplug
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/local_operations/leftovers.rs, src/app/browser/leftovers.rs, src/ui/browser/leftovers.rs]
-tests: [src/adapters/local_operations/tests/leftovers.rs, src/app/browser/tests/leftovers.rs, src/ui/browser/leftovers/tests.rs]
+code: [crates/strata-fs/src/adapters/local_operations/leftovers.rs, crates/strata-fs/src/app/browser/leftovers.rs, src/ui/browser/leftovers.rs]
+tests: [crates/strata-fs/src/adapters/local_operations/tests/leftovers.rs, crates/strata-fs/src/app/browser/tests/leftovers.rs, src/ui/browser/leftovers/tests.rs]
 related: [operations/clipboard/conflicts, operations/archives, operations/delete]
 ---
 

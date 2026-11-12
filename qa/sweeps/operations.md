@@ -1,7 +1,7 @@
 ---
 title: Operations sweep
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
-triggers: [src/services/operations.rs, src/services/operations/**, src/services/file_source.rs, src/services/file_source/tests.rs, src/adapters/local_operations.rs, src/adapters/local_operations/tests.rs, src/adapters/local_operations/tests/paths.rs]
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+triggers: [crates/strata-fs/src/services/operations.rs, crates/strata-fs/src/services/operations/**, crates/strata-fs/src/services/file_source.rs, crates/strata-fs/src/services/file_source/tests.rs, crates/strata-fs/src/adapters/local_operations.rs, crates/strata-fs/src/adapters/local_operations/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
 

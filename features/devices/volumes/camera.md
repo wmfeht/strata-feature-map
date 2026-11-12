@@ -3,10 +3,10 @@ title: Camera photos
 status: shipped
 origin: {issue: lgse/strata#833, pr: lgse/strata#834}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/local_files/camera_photos.rs, src/services/camera_preview.rs, src/ui/browser/camera_scroll.rs, src/ui/thumbnail/camera.rs]
-tests: [src/adapters/local_files/camera_photos/tests.rs, src/services/camera_preview/tests.rs, src/app/browser/tests/camera_photos.rs, src/ui/thumbnail/camera/tests.rs]
+code: [crates/strata-fs/src/adapters/local_files/camera_photos.rs, crates/strata-preview/src/services/camera_preview.rs, src/ui/browser/camera_scroll.rs, src/ui/thumbnail/camera.rs]
+tests: [crates/strata-fs/src/adapters/local_files/camera_photos/tests.rs, crates/strata-preview/src/services/camera_preview/tests.rs, crates/strata-fs/src/app/browser/tests/camera_photos.rs, src/ui/thumbnail/camera/tests.rs]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/preview-panel, browser/thumbnails, browser/view-modes]
 ---

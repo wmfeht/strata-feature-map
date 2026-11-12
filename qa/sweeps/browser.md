@@ -1,7 +1,7 @@
 ---
 title: Browser sweep
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
-triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, src/app/browser.rs, src/app/browser/tests.rs, src/app/navigation.rs, src/app/navigation/tests.rs, src/app/browser/tests/events.rs, src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, crates/strata-fs/src/app/browser.rs, crates/strata-fs/src/app/browser/tests.rs, crates/strata-fs/src/app/navigation.rs, crates/strata-fs/src/app/navigation/tests.rs, crates/strata-fs/src/app/browser/tests/events.rs, crates/strata-fs/src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
 

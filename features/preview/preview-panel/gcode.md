@@ -3,10 +3,10 @@ title: G-code thumbnail previews
 status: shipped
 origin: {issue: lgse/strata#1863, pr: lgse/strata#1864}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/sandbox_helper/model/gcode.rs]
-tests: [src/sandbox_helper/model/gcode/tests.rs]
+code: [crates/strata-preview/src/sandbox_helper/model/gcode.rs]
+tests: [crates/strata-preview/src/sandbox_helper/model/gcode/tests.rs]
 related: [preview/preview-panel/model-views, preview/preview-panel/sandbox, browser/thumbnails]
 ---
 

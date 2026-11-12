@@ -3,10 +3,10 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: 5738aad808ea4cc4671516bc569d85f862664809
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/app/browser/replay/**, src/app/browser/undo/**, src/adapters/local_operations/undo_move.rs, src/app/browser/operation_events/replay.rs, src/app/browser/replay.rs, src/app/browser/undo.rs, src/ui/browser/transfer/replay.rs]
-tests: [src/app/browser/tests/undo.rs, src/app/browser/tests/undo_refresh.rs, src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl, src/adapters/local_operations/tests/undo/fixed_names.rs, src/adapters/local_operations/tests/undo/moves.rs, src/adapters/local_operations/tests/undo/renames.rs, src/app/browser/tests/undo/**, src/ui/browser/transfer/tests/undo.rs, src/ui/browser/transfer/tests/replay_kinds.rs]
+code: [crates/strata-fs/src/app/browser/replay/**, crates/strata-fs/src/app/browser/undo/**, crates/strata-fs/src/adapters/local_operations/undo_move.rs, crates/strata-fs/src/app/browser/operation_events/replay.rs, crates/strata-fs/src/app/browser/replay.rs, crates/strata-fs/src/app/browser/undo.rs, src/ui/browser/transfer/replay.rs]
+tests: [crates/strata-fs/src/app/browser/tests/undo.rs, crates/strata-fs/src/app/browser/tests/undo_refresh.rs, crates/strata-fs/src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl, crates/strata-fs/src/adapters/local_operations/tests/undo/fixed_names.rs, crates/strata-fs/src/adapters/local_operations/tests/undo/moves.rs, crates/strata-fs/src/adapters/local_operations/tests/undo/renames.rs, crates/strata-fs/src/app/browser/tests/undo/**, src/ui/browser/transfer/tests/undo.rs, src/ui/browser/transfer/tests/replay_kinds.rs]
 docs: []
 related: [operations/trash, operations/trash/restore, operations/clipboard, operations/clipboard/conflicts, operations/rename, operations/rename/typed-paths, operations/create, operations/archives, operations/progress/dock, app/shortcut-reference, operations/filesystem-compatibility]
 ---

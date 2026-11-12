@@ -3,10 +3,10 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, src/services/path_match.rs]
-tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/filter.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/find.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search_hits.rs, src/ui/browser/find/tests.rs, src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]
+code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, crates/strata-fs/src/services/path_match.rs]
+tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/filter.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/find.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search_hits.rs, src/ui/browser/find/tests.rs, crates/strata-fs/src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]
 related: [browser/search, browser/search/filter]
 ---
 

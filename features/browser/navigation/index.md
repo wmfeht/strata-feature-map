@@ -3,10 +3,10 @@ title: Navigation
 status: shipped
 origin: {issue: lgse/strata#70, pr: lgse/strata#118}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/ui/window/composition/input.rs, src/app/browser/columns.rs, src/app/browser/navigate.rs, src/app/navigation/history.rs]
-tests: [src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, src/app/navigation/tests/history.rs, src/app/browser/tests/navigation/returning_columns.rs, tests/qa/scenarios/view_switching/returning-to-columns-follows-selection.jsonl]
+code: [src/ui/window/composition/input.rs, crates/strata-fs/src/app/browser/columns.rs, crates/strata-fs/src/app/browser/navigate.rs, crates/strata-fs/src/app/navigation/history.rs]
+tests: [crates/strata-fs/src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, crates/strata-fs/src/app/navigation/tests/history.rs, crates/strata-fs/src/app/browser/tests/navigation/returning_columns.rs, tests/qa/scenarios/view_switching/returning-to-columns-follows-selection.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/tabs, browser/view-modes, browser/view-modes/position-restore, integration/10xer-mode, browser/view-modes/columns]
 ---

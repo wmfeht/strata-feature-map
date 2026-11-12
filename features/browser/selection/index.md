@@ -3,10 +3,10 @@ title: Selection
 status: shipped
 origin: {issue: lgse/strata#521, pr: lgse/strata#526}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/ui/collection_interaction.rs, src/app/navigation/selection.rs, src/app/browser/selection.rs, src/app/navigation/cursor.rs, src/app/navigation/fill.rs, src/app/navigation/location_set.rs, src/ui/browser/view_selection.rs, src/ui/browser_modes/selection.rs]
-tests: [src/ui/collection_interaction/tests.rs, src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch, src/app/navigation/tests/fill_commands.rs, src/app/navigation/tests/fill_tracking.rs, src/app/navigation/tests/paging.rs, src/app/navigation/tests/ranges.rs, src/app/navigation/tests/selection.rs]
+code: [src/ui/collection_interaction.rs, crates/strata-fs/src/app/navigation/selection.rs, crates/strata-fs/src/app/browser/selection.rs, crates/strata-fs/src/app/navigation/cursor.rs, crates/strata-fs/src/app/navigation/fill.rs, crates/strata-fs/src/app/navigation/location_set.rs, src/ui/browser/view_selection.rs, src/ui/browser_modes/selection.rs]
+tests: [src/ui/collection_interaction/tests.rs, crates/strata-fs/src/app/browser/tests/selection.rs, tests/qa/scenarios/selection, tests/qa/scenarios/background_selection, tests/qa/scenarios/escape_selection, tests/qa/scenarios/monitor_selection, tests/qa/mutations/shift-click-range.patch, crates/strata-fs/src/app/navigation/tests/fill_commands.rs, crates/strata-fs/src/app/navigation/tests/fill_tracking.rs, crates/strata-fs/src/app/navigation/tests/paging.rs, crates/strata-fs/src/app/navigation/tests/ranges.rs, crates/strata-fs/src/app/navigation/tests/selection.rs]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [browser/view-modes, browser/view-modes/columns, integration/10xer-mode, browser/context-menu, browser/tabs]
 ---

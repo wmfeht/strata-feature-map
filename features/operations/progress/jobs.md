@@ -3,10 +3,10 @@ title: Job queue and Jobs dashboard
 status: shipped
 origin: {issue: lgse/strata#36, pr: lgse/strata#1085}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/services/jobs.rs, src/ui/jobs.rs, src/adapters/local_jobs.rs]
-tests: [src/services/jobs/tests.rs, src/ui/jobs/tests.rs, src/adapters/local_jobs/tests.rs, src/adapters/local_jobs/tests/lifecycle.rs]
+code: [crates/strata-fs/src/services/jobs.rs, src/ui/jobs.rs, crates/strata-fs/src/adapters/local_jobs.rs]
+tests: [crates/strata-fs/src/services/jobs/tests.rs, src/ui/jobs/tests.rs, crates/strata-fs/src/adapters/local_jobs/tests.rs, crates/strata-fs/src/adapters/local_jobs/tests/lifecycle.rs]
 docs: [site/src/reference/custom-actions.md]
 related: [integration/custom-actions]
 ---

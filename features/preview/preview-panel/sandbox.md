@@ -3,10 +3,10 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/sandbox.rs, src/sandbox_helper.rs, src/sandbox_helper/isobmff.rs, src/sandbox/runtime.rs, src/sandbox/command.rs, src/sandbox/operation.rs, src/sandbox/output.rs, src/sandbox/process.rs, src/sandbox_helper/operations.rs, src/sandbox_helper/process.rs, src/sandbox_helper/raster.rs]
-tests: [src/sandbox/tests.rs, src/sandbox_helper/tests.rs, src/sandbox_helper/tests/isobmff.rs, src/sandbox/runtime/tests.rs, src/sandbox/tests/**]
+code: [crates/strata-preview/src/sandbox.rs, crates/strata-preview/src/sandbox_helper.rs, crates/strata-preview/src/sandbox_helper/isobmff.rs, crates/strata-preview/src/sandbox/runtime.rs, crates/strata-preview/src/sandbox/command.rs, crates/strata-preview/src/sandbox/operation.rs, crates/strata-preview/src/sandbox/output.rs, crates/strata-preview/src/sandbox/process.rs, crates/strata-preview/src/sandbox_helper/operations.rs, crates/strata-preview/src/sandbox_helper/process.rs, crates/strata-preview/src/sandbox_helper/raster.rs]
+tests: [crates/strata-preview/src/sandbox/tests.rs, crates/strata-preview/src/sandbox_helper/tests.rs, crates/strata-preview/src/sandbox_helper/tests/isobmff.rs, crates/strata-preview/src/sandbox/runtime/tests.rs, crates/strata-preview/src/sandbox/tests/**]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
 related: [preview/preview-panel/media, preview/preview-panel/model-views, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
 ---

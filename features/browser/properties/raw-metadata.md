@@ -3,10 +3,10 @@ title: RAW photo details
 status: shipped
 origin: {issue: lgse/strata#1168, pr: lgse/strata#1171}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/ui/raw_details.rs, src/sandbox/raw_metadata.rs, src/sandbox_helper/raw_metadata.rs]
-tests: [src/ui/raw_details/tests.rs, src/sandbox/raw_metadata/tests.rs, src/sandbox_helper/raw_metadata/tests.rs, tests/qa/scenarios/properties_media/raw-details-preview-and-properties.jsonl]
+code: [src/ui/raw_details.rs, crates/strata-preview/src/sandbox/raw_metadata.rs, crates/strata-preview/src/sandbox_helper/raw_metadata.rs]
+tests: [src/ui/raw_details/tests.rs, crates/strata-preview/src/sandbox/raw_metadata/tests.rs, crates/strata-preview/src/sandbox_helper/raw_metadata/tests.rs, tests/qa/scenarios/properties_media/raw-details-preview-and-properties.jsonl]
 docs: [site/src/reference/preview-sandbox.md]
 related: [preview/preview-panel, browser/thumbnails, browser/thumbnails/cache, devices/volumes/camera]
 ---

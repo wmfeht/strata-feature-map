@@ -3,10 +3,10 @@ title: 3D model previews
 status: shipped
 origin: {issue: lgse/strata#1225, pr: lgse/strata#1276}
 branch: null
-reviewed_at: ad6d14fe532db7b49b966fd120ac899f8b6b4214
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/ui/preview/model.rs, src/sandbox/model.rs, src/services/model_preview.rs, src/sandbox_helper/model.rs, src/sandbox_helper/model/embedded.rs, src/sandbox_helper/model/shade.rs, src/sandbox_helper/model/stl.rs, src/sandbox_helper/model/threemf.rs]
-tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, src/sandbox/model/tests.rs, src/adapters/local_preview/tests/model_preview.rs, src/sandbox_helper/model/tests.rs, src/sandbox_helper/model/embedded/tests.rs, tests/qa/scenarios/quick_preview/model-preview-reports-limits.jsonl]
+code: [src/ui/preview/model.rs, crates/strata-preview/src/sandbox/model.rs, crates/strata-preview/src/services/model_preview.rs, crates/strata-preview/src/sandbox_helper/model.rs, crates/strata-preview/src/sandbox_helper/model/embedded.rs, crates/strata-preview/src/sandbox_helper/model/shade.rs, crates/strata-preview/src/sandbox_helper/model/stl.rs, crates/strata-preview/src/sandbox_helper/model/threemf.rs]
+tests: [src/ui/preview/model/tests.rs, src/ui/preview/tests/model.rs, crates/strata-preview/src/sandbox/model/tests.rs, crates/strata-fs/src/adapters/local_preview/tests/model_preview.rs, crates/strata-preview/src/sandbox_helper/model/tests.rs, crates/strata-preview/src/sandbox_helper/model/embedded/tests.rs, tests/qa/scenarios/quick_preview/model-preview-reports-limits.jsonl]
 related: [preview/preview-panel/media/video, preview/preview-panel/layout, preview/quick-preview, settings/themes]
 ---
 

@@ -3,10 +3,10 @@ title: Updates
 status: shipped
 origin: {issue: null, pr: lgse/strata#22}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/services/update_check.rs, src/ui/settings/update_status.rs, src/ui/settings/release_notes.rs, src/ui/settings/update_check.rs, src/ui/settings/update_messages.rs, src/ui/settings/updates.rs]
-tests: [src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
+code: [crates/strata-desktop/src/services/update_check.rs, src/ui/settings/update_status.rs, src/ui/settings/release_notes.rs, src/ui/settings/update_check.rs, src/ui/settings/update_messages.rs, src/ui/settings/updates.rs]
+tests: [crates/strata-desktop/src/services/update_check/tests.rs, src/ui/settings/tests/updates.rs]
 docs: [docs/preferences.md, docs/packaging.md]
 related: [browser/sidebar, app/accessibility]
 ---

@@ -3,10 +3,10 @@ title: Package-managed installs
 status: shipped
 origin: {issue: lgse/strata#195, pr: lgse/strata#196}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/services/install_source.rs, src/ui/settings/managed_update.rs]
-tests: [src/services/install_source/tests.rs]
+code: [crates/strata-desktop/src/services/install_source.rs, src/ui/settings/managed_update.rs]
+tests: [crates/strata-desktop/src/services/install_source/tests.rs]
 related: [app/packaging/aur, integration/open-with/terminal, app/updates/release-channels]
 ---
 

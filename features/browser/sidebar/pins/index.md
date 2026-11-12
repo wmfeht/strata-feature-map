@@ -3,10 +3,10 @@ title: Pinned folders
 status: shipped
 origin: {issue: null, pr: lgse/strata#67}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs, src/ui/window/sidebar_pins.rs]
-tests: [src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs]
+code: [crates/strata-fs/src/adapters/bookmarks.rs, src/ui/window/bookmarks.rs, src/ui/window/sidebar_pins.rs]
+tests: [crates/strata-fs/src/adapters/bookmarks/tests.rs, src/ui/window/bookmarks/tests.rs]
 related: [operations/trash, operations/delete, browser/properties, integration/10xer-mode, operations/drag-and-drop, integration/portal-file-chooser, browser/sidebar/connect-to-server]
 ---
 

@@ -3,10 +3,10 @@ title: Extraction safety
 status: shipped
 origin: {issue: lgse/strata#109, pr: lgse/strata#116}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/local_operations/archive/destination.rs]
-tests: [src/adapters/local_operations/archive/destination/tests.rs]
+code: [crates/strata-fs/src/adapters/local_operations/archive/destination.rs]
+tests: [crates/strata-fs/src/adapters/local_operations/archive/destination/tests.rs]
 related: [operations/filesystem-compatibility]
 ---
 

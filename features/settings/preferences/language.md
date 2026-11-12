@@ -3,10 +3,10 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/i18n.rs, data/locales/counts.json]
-tests: [src/i18n/tests.rs, src/i18n/catalog_tests.rs]
+code: [crates/strata-core/src/i18n.rs, data/locales/counts.json]
+tests: [crates/strata-core/src/i18n/tests.rs, crates/strata-core/src/i18n/catalog_tests.rs]
 docs: [docs/internationalization.md]
 related: []
 ---

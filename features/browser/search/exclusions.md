@@ -3,10 +3,10 @@ title: Global search exclusions
 status: shipped
 origin: {issue: lgse/strata#1062, pr: lgse/strata#1064}
 branch: null
-reviewed_at: 86df474dc0e8352e0e2098637a017cc4c77a8c44
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/services/search/exclusions.rs, src/ui/settings/exclusions.rs]
-tests: [src/services/search/exclusions/tests.rs, src/ui/settings/exclusions/tests.rs]
+code: [crates/strata-fs/src/services/search/exclusions.rs, src/ui/settings/exclusions.rs]
+tests: [crates/strata-fs/src/services/search/exclusions/tests.rs, src/ui/settings/exclusions/tests.rs]
 docs: [docs/preferences.md]
 related: [settings/preferences]
 ---

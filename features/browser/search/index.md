@@ -3,10 +3,10 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, src/services/search/refresh.rs, src/services/search/scoring.rs, src/services/search/session.rs, src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
-tests: [src/services/search/tests.rs, src/services/search/tests/multi_root.rs, src/services/search/tests/performance.rs, src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, src/services/search/test_support.rs]
+code: [crates/strata-fs/src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, crates/strata-fs/src/services/search/refresh.rs, crates/strata-fs/src/services/search/scoring.rs, crates/strata-fs/src/services/search/session.rs, crates/strata-fs/src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
+tests: [crates/strata-fs/src/services/search/tests.rs, crates/strata-fs/src/services/search/tests/multi_root.rs, crates/strata-fs/src/services/search/tests/performance.rs, crates/strata-fs/src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, crates/strata-fs/src/services/search/test_support.rs]
 docs: [docs/preferences.md]
 related: [browser/navigation/folder-jump, devices/volumes, integration/10xer-mode, settings/preferences]
 ---

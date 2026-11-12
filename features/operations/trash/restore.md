@@ -3,10 +3,10 @@ title: Restore from Trash
 status: shipped
 origin: {issue: lgse/strata#478, pr: lgse/strata#502}
 branch: null
-reviewed_at: bae71c026b94e109b7507c4fe895c3ceed642f8f
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/adapters/trash_restore.rs, src/adapters/local_operations/restore.rs, src/adapters/local_operations/restore/lookup.rs, src/adapters/local_operations/restore/moves.rs, src/adapters/local_operations/restore/names.rs, src/adapters/local_operations/restore_items.rs, src/ui/browser/trash/restore.rs]
-tests: [src/adapters/trash_restore/**, src/adapters/local_operations/tests/restore_safety.rs, src/adapters/local_operations/tests/restore_safety/**]
+code: [crates/strata-fs/src/adapters/trash_restore.rs, crates/strata-fs/src/adapters/local_operations/restore.rs, crates/strata-fs/src/adapters/local_operations/restore/lookup.rs, crates/strata-fs/src/adapters/local_operations/restore/moves.rs, crates/strata-fs/src/adapters/local_operations/restore/names.rs, crates/strata-fs/src/adapters/local_operations/restore_items.rs, src/ui/browser/trash/restore.rs]
+tests: [crates/strata-fs/src/adapters/trash_restore/**, crates/strata-fs/src/adapters/local_operations/tests/restore_safety.rs, crates/strata-fs/src/adapters/local_operations/tests/restore_safety/**]
 docs: [docs/trash-restore-testing.md]
 related: [operations/filesystem-compatibility, browser/context-menu]
 ---

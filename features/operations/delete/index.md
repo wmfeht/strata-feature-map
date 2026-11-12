@@ -3,10 +3,10 @@ title: Permanent deletion
 status: shipped
 origin: {issue: lgse/strata#163, pr: lgse/strata#164}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: draft
-code: [src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh, src/adapters/local_operations/deletion/**]
-tests: [src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl, src/adapters/local_operations/tests/deletion/**, src/adapters/local_operations/tests/benchmark.rs]
+code: [crates/strata-fs/src/adapters/local_operations/deletion.rs, scripts/benchmark-delete.sh, crates/strata-fs/src/adapters/local_operations/deletion/**]
+tests: [crates/strata-fs/src/adapters/local_operations/tests/deletion.rs, tests/qa/scenarios/entry_management/permanent-delete-symlinked-parent.jsonl, crates/strata-fs/src/adapters/local_operations/tests/deletion/**, crates/strata-fs/src/adapters/local_operations/tests/benchmark.rs]
 related: [operations/trash, operations/progress, operations/filesystem-compatibility/open-files, browser/context-menu]
 ---
 

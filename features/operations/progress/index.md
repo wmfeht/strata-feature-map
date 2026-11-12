@@ -3,10 +3,10 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
 review: reviewed
-code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, src/adapters/local_operations/progress.rs, src/adapters/local_operations/flush.rs, src/app/browser/operation_events/progress.rs, src/app/browser/operation_start.rs, src/ui/browser/progress/dismiss.rs, src/ui/browser/progress/status.rs, src/ui/browser/progress/transfer_updates.rs, src/ui/browser/progress/view.rs]
-tests: [src/ui/browser/progress/tests.rs, src/app/browser/operation_events/tests.rs, src/adapters/local_operations/tests/progress.rs, src/adapters/local_operations/tests/sync.rs, src/adapters/local_operations/tests/sync/**]
+code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, crates/strata-fs/src/adapters/local_operations/progress.rs, crates/strata-fs/src/adapters/local_operations/flush.rs, crates/strata-fs/src/app/browser/operation_events/progress.rs, crates/strata-fs/src/app/browser/operation_start.rs, src/ui/browser/progress/dismiss.rs, src/ui/browser/progress/status.rs, src/ui/browser/progress/transfer_updates.rs, src/ui/browser/progress/view.rs]
+tests: [src/ui/browser/progress/tests.rs, crates/strata-fs/src/app/browser/operation_events/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/progress.rs, crates/strata-fs/src/adapters/local_operations/tests/sync.rs, crates/strata-fs/src/adapters/local_operations/tests/sync/**]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/clipboard, operations/delete, operations/delete/dissolve, operations/archives, operations/trash/animation, operations/filesystem-compatibility]
 ---
