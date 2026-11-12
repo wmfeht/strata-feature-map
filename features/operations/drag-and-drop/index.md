@@ -21,7 +21,7 @@ Moving and copying files by dragging them onto folders, pane backgrounds, and si
 
 - Pressing an unselected item while another is selected and dragging it drags only that item, and the selection moves to it on press. lgse/strata#789
 - Dragging one item of a multi-selection transfers every selected item. lgse/strata#415 (unverified)
-- In List, a file drag starts only from a row's icon or filename, selected or not; metadata cells, unused Name space, and padding start none. lgse/strata#2108
+- In List, selecting a row does not widen its file-drag region: its metadata cells, unused Name space, and padding still start no file drag. lgse/strata#2108
 - In browser Columns and Icons, a drag from blank space on a selected row or card starts a file drag of the selection. lgse/strata#1336, lgse/strata#2108
 - In List with one-click folder activation, pressing and moving a folder's icon or filename starts a drag; a click without movement opens the folder. lgse/strata#348, lgse/strata#2108
 - Ctrl-drag and Shift-drag that start on an item's icon or name start a file drag in Columns, List, and Icons. lgse/strata#623

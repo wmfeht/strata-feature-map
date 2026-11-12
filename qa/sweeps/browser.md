@@ -91,12 +91,12 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Click a disabled header button and the gap between the preview header's icon and name. Repeat in the file chooser.
 - With overlay scrollbars on, drag the scrollbar handle in List, Icons, each open column, and inline search results; repeat with overlay scrolling off and with Alt held.
 - In the file chooser, Ctrl+click blank preview space with a file previewed, then plain-click the empty Columns preview slot. Repeat for a `single` and a `multiple` request.
-- Tap a List row's Size cell, then hold the second press and drag across rows; repeat from Name padding, on an Icons gutter, and on a browser Columns row's name space.
+- Tap a List row's Name padding, then hold the second press and drag upward past the viewport edge; repeat on an in-card Icons gutter.
 - Repeat that tap and held press with Name moved last, and on a keyboard-selected row.
 - Under `multiple` in the chooser's Icons view, tap and hold a second press from card blank space and from the space between cards.
 - Double-click List whitespace with the second press moved 3 px; repeat with Size and Type hidden.
 - In List under `multiple` and `single`, move Name last. Double-click a keyboard-selected row's metadata cell left of Name, then repeat on a filter result.
-- Double-click a List row's Modified cell on a row in a multi-selection, on a symlink to a folder, and with Ctrl held only on the second press.
+- Double-click a List row's Modified cell on a row in a multi-selection, then on a symlink to a folder. Repeat with Ctrl held only on the second press.
 
 ### browser/selection/pointer-intent
 

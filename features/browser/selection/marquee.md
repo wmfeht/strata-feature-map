@@ -38,7 +38,7 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 
 - In List, a drag from a selected row's metadata cell, unused Name space, or padding draws a band. lgse/strata#2108
 - In browser Columns and Icons, a press on blank space of a selected row or card starts no band. lgse/strata#1336, lgse/strata#2108
-- In a multiple-selection file chooser, a drag from unused name space on a selected Columns row draws a band, because chooser rows host no drag source. lgse/strata#2108
+- In a multiple-selection file chooser, a drag from unused name space on a selected Columns row draws a band. lgse/strata#2108
 
 ### Second press
 
@@ -52,8 +52,8 @@ Rubber-band selection: dragging from blank space draws a band and selects every 
 - That includes a row selected by keyboard. lgse/strata#2108
 - In a multiple-selection file chooser, double-clicking List selection space or unused Columns name space accepts the file. lgse/strata#2108
 - That activation runs on the second release, only on the row that took the press. lgse/strata#2108
-- A second press moved past the drag threshold opens nothing on release. lgse/strata#2108
-- That holds even if the pointer returns to its start before release. lgse/strata#2108 (unverified)
+- On List selection space, a second press moved past the drag threshold opens nothing on release. lgse/strata#2108
+- On selection space, that holds even if the pointer returns to its start before release. lgse/strata#2108 (unverified)
 - With List folders on one click, one click on a keyboard-selected folder's metadata cell opens it. lgse/strata#2108
 - A single press on a selected List row's whitespace still reaches the row, so click previews open there. lgse/strata#2108
 
