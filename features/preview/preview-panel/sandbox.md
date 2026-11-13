@@ -53,7 +53,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - Software decoding receives no GPU device, no `/sys`, and no `/run/opengl-driver`. lgse/strata#139, lgse/strata#2326
 - Video and animated-GIF playback with acceleration on gets the `/dev/dri/renderD<n>` nodes, plus `/dev/nvidia<n>` and `/dev/nvidiactl` unless the backend is VA-API. It also gets a read-only `/sys` and `--ro-bind-try /run/opengl-driver /run/opengl-driver`. lgse/strata#139, lgse/strata#2326 (unverified)
 - With acceleration on Automatic, VA-API, or Vulkan, a Nix-packaged build on a NixOS GPU host decodes a long H.264 or HEVC preview on the GPU, unpatched. lgse/strata#2326
-- On a host without `/run/opengl-driver`, an accelerated helper's `bwrap` still starts and the video plays, because the bind is `--ro-bind-try`. lgse/strata#2326
+- On a host without `/run/opengl-driver`, an accelerated helper's `bwrap` still starts and the video plays. lgse/strata#2326
 - `/run/opengl-driver-32` is never bound, for any helper. lgse/strata#2326
 
 ### Decoding
