@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -87,6 +87,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Press Escape twice, and click the backdrop twice, within one frame of opening Settings; read the focused widget, the blur, and the gear's state. Repeat under Cairo.
 - In the Video preview start stepper, type 99, 100, -5, 12.5, and an empty value; press + at 95 and − at 3. Read the shown value and `settings.toml` after each.
 - Change Video preview start in window A while window B shows General; read B's stepper. Then search "seek", "offset", and "percent" under English and `language = "ja"` with icon-only navigation.
+- At text size 8 and 48, and with GNOME text scaling 1.25, screenshot a Settings row title beside a file-list name; compare glyph heights.
+- Under Deutsch and Magyar, read the labelled navigation and General's choice buttons at the 1250 and 900 px panel widths; look for clipped or ellipsized labels.
+- At text size 48, open every Settings stepper, the theme search field, and the Keyboard tables; look for clipped digits, buttons, or overlapping rows.
 
 ### settings/preferences/storage
 

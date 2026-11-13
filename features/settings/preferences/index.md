@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, crates/strata-fs/src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -36,6 +36,10 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
 - In a default build, the navigation lists General, Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748, lgse/strata#1885, lgse/strata#1934
+- At the default text size, Settings text renders at 13 px, the same size as the file list, not 16 px. lgse/strata#2233
+- Changing Appearance → Text size scales Settings text with the rest of the window, with no extra multiplier. lgse/strata#2233
+- With labels shown, the navigation is at least 216 px wide. lgse/strata#2233
+- Settings pages pad 48 px left and right; Updates and About pad 54 px. lgse/strata#2233
 - With labels shown, each navigation entry pads 11 px left and right, so its icon centres on the Search settings field's icon. lgse/strata#1885 (unverified)
 - The panel is at most 1250×800 px and centred; in a smaller window it stays 24 px inside each edge. lgse/strata#29, lgse/strata#849, lgse/strata#2047
 - Each Settings page scrolls vertically when it does not fit the panel. lgse/strata#29, lgse/strata#849
@@ -224,6 +228,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The default directory is checked on a worker after the window opens, instead of with `is_dir()` on the UI thread. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Folder monitors keep hidden entries too, so revealing them needs no rescan. The watch had captured the hidden-files state at install, so dot-file changes made while hidden were lost until F5 (lgse/strata#1862, lgse/strata#1909).
+- Settings text uses the window's text size. A `1.230769em` multiplier had rendered 13 px as 16 px, a jarring jump on opening (lgse/strata#2232). Removing it narrowed the navigation, gutters, section spacing, and control heights sized for the larger text. The 1250 px width and compact breakpoints stayed (lgse/strata#2233).
 - The panel is capped at the content reflow breakpoint, `COMPACT_CONTENT_BREAKPOINT` (1250 px), and 800 px high. A large window then shows more of the browser instead of empty margins. Deriving the width from the breakpoint keeps the side-by-side layout at the cap at the default text size, and the two values cannot drift. A cap near 1000 px, suggested in lgse/strata#2046, would leave the panel in its stacked layout at every size. Lowering the breakpoint with it breaks inline controls: the Metric/Imperial switch wraps mid-word near 1100 px (lgse/strata#2047).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 
@@ -231,6 +236,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-13 | lgse/strata#2233 | fix | Dropped the 1.23× Settings text multiplier so Settings matches the browser's text size, and tightened the sidebar, gutters, and control heights. |
 | 2026-11-05 | lgse/strata#2054 | perf | Pre-built one hidden Settings layer on idle after the first tab paints, removing the pause on the first Settings click. |
 | 2026-11-05 | lgse/strata#2058 | fix | Joined Language and Units in one LANGUAGE & UNITS group, since the Units row had rendered as a separate card under LANGUAGE. |
 | 2026-11-03 | lgse/strata#2047 | fix | Capped the Settings panel at 1250×800 px, the size its side-by-side layout needs, so it no longer covers a maximized 1080p window. |
