@@ -82,15 +82,14 @@ For every control this sweep proves the binding: the file changes, the other win
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 - In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation. Repeat on a pacman-owned prefix, reading the visible rows and navigation entries.
 - Close Settings on Appearance, then reopen it with Ctrl+, with icon-only navigation, with a query left that hides Appearance's entry, and from the gear; read the focused widget in the accessibility tree.
-- Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48, and with GNOME text scaling 1.25; read the panel size and where row controls sit.
+- Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48, and with GNOME text scaling 1.25; read the panel size, where row controls sit, and the General, Updates, and About page gutters.
 - Seed `sort_key = "unsorted"` with `sort_direction = "descending"`, launch, and read both Default sort menus. Choose Created in window A while window B shows General, then Unsorted again from B.
 - Press Escape twice, and click the backdrop twice, within one frame of opening Settings; read the focused widget, the blur, and the gear's state. Repeat under Cairo.
 - In the Video preview start stepper, type 99, 100, -5, 12.5, and an empty value; press + at 95 and − at 3. Read the shown value and `settings.toml` after each.
 - Change Video preview start in window A while window B shows General; read B's stepper. Then search "seek", "offset", and "percent" under English and `language = "ja"` with icon-only navigation.
 - At text size 8 and 48, and with GNOME text scaling 1.25, screenshot a Settings row title beside a file-list name; compare glyph heights.
-- Under Deutsch and Magyar, read General's 160 px choice buttons at a 900 px panel width; look for clipped or ellipsized labels.
-- At text size 48, read the 32 px steppers, the 18 px form controls, and the 46 px click activation rows; look for clipped digits, buttons, or overlapping rows.
-- Open Updates and About in a window narrower than about 1298 px at text size 13, and maximized at text size 14; read the page gutters.
+- Under Deutsch and Magyar, read General's choice buttons at a 1250 px panel, in a window at least 1298 px wide, at text size 13; look for clipped or ellipsized labels.
+- At text size 8 and 48, read the Text size and Video preview start steppers, the dropdowns, and the click activation rows for clipped digits or overlapping rows.
 
 ### settings/preferences/storage
 
