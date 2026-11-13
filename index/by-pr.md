@@ -6,6 +6,9 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
+| [lgse/strata#2326](https://github.com/lgse/strata/issues/2326) | 2026-11-13 | fix | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | Bound `/run/opengl-driver` read-only for accelerated media helpers, so NixOS hosts load their GPU drivers without a source patch. |
+| [lgse/strata#2304](https://github.com/lgse/strata/issues/2304) | 2026-11-13 | fix | [Interface language](../features/settings/preferences/language.md) | Revised 92 Hungarian strings, such as "megjelenítés" for rendering and item counts that no longer repeat the noun; no keys or placeholders changed. |
+| [lgse/strata#2233](https://github.com/lgse/strata/issues/2233) | 2026-11-13 | fix | [Settings window and general preferences](../features/settings/preferences/index.md) | Dropped the 1.23× Settings text multiplier so Settings matches the browser's text size, and tightened the sidebar, gutters, and control heights. |
 | [lgse/strata#2190](https://github.com/lgse/strata/issues/2190) | 2026-11-12 | fix | [Context menus](../features/browser/context-menu.md) | Dropped non-primary releases on menu rows, so a right or middle click no longer runs the row. |
 | [lgse/strata#2189](https://github.com/lgse/strata/issues/2189) | 2026-11-12 | fix | [Preview panel](../features/preview/preview-panel/index.md) | Decoded WebP with the built-in decoder before system loaders, so WebP previews and thumbnails render without a pixbuf WebP loader or ImageMagick. |
 | [lgse/strata#2182](https://github.com/lgse/strata/issues/2182) | 2026-11-12 | fix | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | Skipped setuid and setgid `bwrap` copies for a later unprivileged one, so previews render with NixOS's setuid wrapper installed. |

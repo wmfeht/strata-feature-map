@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs that touched a feature, or one of its children, after that node's own review; `?` means a review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `5f17c9f` · 156 features, 86 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `6eb4bf6` · 156 features, 86 reviewed
 
 ## app
 
@@ -19,10 +19,10 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `5f17c9f` | 0 |
 | [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | draft | `9fb7a36` | ? |
 | ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `5f17c9f` | 0 |
-| [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `5f17c9f` | 0 |
+| [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `6eb4bf6` | 0 |
 | ↳ [AUR packages](features/app/packaging/aur.md) | `app/packaging/aur` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Fedora COPR package](features/app/packaging/fedora.md) | `app/packaging/fedora` | shipped | draft | `5f17c9f` | 0 |
-| ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | reviewed | `41070b5` | 0 |
+| ↳ [Release installer](features/app/packaging/installer.md) | `app/packaging/installer` | shipped | reviewed | `6eb4bf6` | 0 |
 | [Keyboard shortcut reference and footer](features/app/shortcut-reference.md) | `app/shortcut-reference` | shipped | draft | `9fb7a36` | ? |
 | [Updates](features/app/updates/index.md) | `app/updates` | shipped | draft | `5f17c9f` | 0 |
 | ↳ [In-place update install](features/app/updates/install.md) | `app/updates/install` | shipped | reviewed | `5f17c9f` | 0 |
@@ -177,13 +177,13 @@ QA sweep: [`qa/sweeps/preview.md`](qa/sweeps/preview.md)
 | ↳ [Find in preview](features/preview/preview-panel/find.md) | `preview/preview-panel/find` | shipped | reviewed | `1d2e244` | 0 |
 | ↳ [G-code thumbnail previews](features/preview/preview-panel/gcode.md) | `preview/preview-panel/gcode` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [Preview panel layout](features/preview/preview-panel/layout.md) | `preview/preview-panel/layout` | shipped | reviewed | `ad6d14f` | 0 |
-| ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `5f17c9f` | 0 |
+| ↳ [Media playback](features/preview/preview-panel/media/index.md) | `preview/preview-panel/media` | shipped | draft | `6eb4bf6` | 0 |
 | &emsp;↳ [Audio previews](features/preview/preview-panel/media/audio.md) | `preview/preview-panel/media/audio` | shipped | reviewed | `5f17c9f` | 0 |
 | &emsp;↳ [Video previews](features/preview/preview-panel/media/video.md) | `preview/preview-panel/media/video` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [3D model previews](features/preview/preview-panel/model-views.md) | `preview/preview-panel/model-views` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [PDF pages, zoom, and text selection](features/preview/preview-panel/pdf.md) | `preview/preview-panel/pdf` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [Offline route previews](features/preview/preview-panel/routes.md) | `preview/preview-panel/routes` | shipped | reviewed | `5f17c9f` | 0 |
-| ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | draft | `5f17c9f` | 0 |
+| ↳ [Preview sandbox](features/preview/preview-panel/sandbox.md) | `preview/preview-panel/sandbox` | shipped | draft | `6eb4bf6` | 0 |
 | [Quick preview](features/preview/quick-preview/index.md) | `preview/quick-preview` | shipped | draft | `9fb7a36` | ? |
 | ↳ [Folder peek](features/preview/quick-preview/folder-peek.md) | `preview/quick-preview/folder-peek` | shipped | reviewed | `5f17c9f` | 0 |
 
@@ -207,9 +207,9 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Diagnostics](features/settings/diagnostics.md) | `settings/diagnostics` | shipped | draft | `5f17c9f` | 0 |
-| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `5f17c9f` | 0 |
+| [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `6eb4bf6` | 0 |
 | ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | reviewed | `5f17c9f` | 0 |
-| ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `5f17c9f` | 0 |
+| ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `6eb4bf6` | 0 |
 | ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `5f17c9f` | 0 |
 | [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `5f17c9f` | 0 |
 | ↳ [Corner roundness](features/settings/themes/corner-roundness.md) | `settings/themes/corner-roundness` | shipped | reviewed | `73b3258` | 0 |
