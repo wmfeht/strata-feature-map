@@ -8,7 +8,7 @@ review: draft
 code: [crates/strata-preview/src/sandbox.rs, crates/strata-preview/src/sandbox_helper.rs, crates/strata-preview/src/sandbox_helper/isobmff.rs, crates/strata-preview/src/sandbox/runtime.rs, crates/strata-preview/src/sandbox/command.rs, crates/strata-preview/src/sandbox/operation.rs, crates/strata-preview/src/sandbox/output.rs, crates/strata-preview/src/sandbox/process.rs, crates/strata-preview/src/sandbox_helper/operations.rs, crates/strata-preview/src/sandbox_helper/process.rs, crates/strata-preview/src/sandbox_helper/raster.rs]
 tests: [crates/strata-preview/src/sandbox/tests.rs, crates/strata-preview/src/sandbox_helper/tests.rs, crates/strata-preview/src/sandbox_helper/tests/isobmff.rs, crates/strata-preview/src/sandbox/runtime/tests.rs, crates/strata-preview/src/sandbox/tests/**]
 docs: [site/src/reference/preview-sandbox.md, docs/preview-sandbox.md]
-related: [preview/preview-panel/media, preview/preview-panel/model-views, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/infrastructure]
+related: [preview/preview-panel/media, preview/preview-panel/model-views, preview/preview-panel/documents, browser/thumbnails/workers, operations/archives, app/packaging, app/infrastructure]
 ---
 
 ## Summary
@@ -49,11 +49,11 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - A damaged PDF keeps "The sandboxed preview renderer failed", even when its text reads "This PDF is password protected." lgse/strata#1840
 - Changing selection or closing the preview kills the helper's whole process tree. lgse/strata#17
 - After `bwrap` exits, killed or not, Strata waits on a pidfd, at most 1 s, until the sandbox's namespace releases the input file. lgse/strata#1729
-- An image or PDF helper receives no GPU device, no `/sys` mount, and no `/run/opengl-driver`. lgse/strata#17, lgse/strata#45, lgse/strata#2326
+- A non-media helper, such as an image, PDF, or video-thumbnail helper, receives no GPU device, no `/sys` mount, and no `/run/opengl-driver`, whatever the backend. lgse/strata#17, lgse/strata#45, lgse/strata#2326
 - Software decoding receives no GPU device, no `/sys`, and no `/run/opengl-driver`. lgse/strata#139, lgse/strata#2326
-- A video preview with acceleration on gets the supplied GPU devices, a read-only `/sys`, and `--ro-bind-try /run/opengl-driver /run/opengl-driver`. lgse/strata#2326
-- On NixOS with a GPU, a Nix-packaged build plays a long H.264 or HEVC preview on the GPU's video-decode engine, with no source patch. lgse/strata#2326
-- On a host without `/run/opengl-driver`, accelerated previews start and play as before. lgse/strata#2326
+- Video and animated-GIF playback with acceleration on gets the `/dev/dri/renderD<n>` nodes, plus `/dev/nvidia<n>` and `/dev/nvidiactl` unless the backend is VA-API. It also gets a read-only `/sys` and `--ro-bind-try /run/opengl-driver /run/opengl-driver`. lgse/strata#139, lgse/strata#2326 (unverified)
+- With acceleration on Automatic, VA-API, or Vulkan, a Nix-packaged build on a NixOS GPU host decodes a long H.264 or HEVC preview on the GPU, unpatched. lgse/strata#2326
+- On a host without `/run/opengl-driver`, an accelerated helper's `bwrap` still starts and the video plays, because the bind is `--ro-bind-try`. lgse/strata#2326
 - `/run/opengl-driver-32` is never bound, for any helper. lgse/strata#2326
 
 ### Decoding
@@ -150,7 +150,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - Each output folder holds an exclusive `flock`, and the sweep removes only folders it can lock. A pid-based sweep was replaced: it deleted live folders in other pid namespaces, and a recycled pid kept an orphan whose name failed a later preview (lgse/strata#1866).
 - NixOS publishes its Mesa, VA-API, and Vulkan drivers only under `/run/opengl-driver`, as symlinks into `/nix/store` (lgse/strata#2261). Accelerated helpers had render nodes and `/sys` but no driver, so they fell back to software (lgse/strata#2326).
 - `STRATA_SANDBOX_ROOT=/nix/store` alone exposes the driver files, but loaders still look under `/run/opengl-driver` (lgse/strata#2261). The link targets resolve because the Nix package already sets that root (lgse/strata#2326).
-- The bind is `-try`, so hosts without the path see no change (lgse/strata#2326). The issue's packager-time list of extra binds was not taken up (lgse/strata#2261, lgse/strata#2326).
+- The bind is `-try`, so hosts without the path see no change (lgse/strata#2326). The issue preferred the fixed bind over a packager-time list of extra binds, as "the smallest change" that "covers the common case" (lgse/strata#2261).
 - `/run/opengl-driver-32` is not bound, although the issue proposed it: it holds only 32-bit drivers, which the 64-bit helper cannot load (lgse/strata#2261, lgse/strata#2326).
 - The `fchmodat2` denylist entry uses syscall number 452 directly, because libc omits the constant on aarch64 (lgse/strata#1111).
 - With bubblewrap 0.12.0 the sandbox's namespace, and its bind of the user's file, outlived `bwrap` after nearly every exit. On NFS, SMB, and FUSE that left hidden leftovers and blocked folder deletes. The wait costs about 2 ms after a kill and 0.1 ms after a normal exit (lgse/strata#1729).

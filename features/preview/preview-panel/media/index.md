@@ -101,6 +101,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 
 - With **Hardware-accelerated video previews** on and **Decoding backend** set to Automatic, decoding tries VA-API, then Vulkan, then software; a hardware attempt that fails before its first frame falls back to software. lgse/strata#45, lgse/strata#139
 - With no saved choice, a system with an AMD Polaris 10, 11, or 12 GPU decodes in software; the user can still opt in. lgse/strata#139
+- Audio-only playback, waveform peaks, and video storyboards decode in software and get no GPU mounts, whatever the acceleration setting. lgse/strata#1289 (unverified)
 - Changing the acceleration setting applies to the next preview without interrupting the current one. lgse/strata#139
 
 ## Design
