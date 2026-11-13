@@ -3,7 +3,7 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
 review: draft
 code: [crates/strata-core/src/i18n.rs, data/locales/counts.json]
 tests: [crates/strata-core/src/i18n/tests.rs, crates/strata-core/src/i18n/catalog_tests.rs]
@@ -80,6 +80,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-13 | lgse/strata#2304 | fix | Revised 66 Hungarian catalog strings, 25 installer messages, and the desktop entry comment; no keys or placeholders changed. Examples are "megjelenítés" for rendering and item counts that no longer repeat the noun. |
 | 2026-11-09 | lgse/strata#2099 | fix | Revised five Hungarian strings: the Video preview start explanation, three letter-bookmark messages and the Save current folder under a letter label. |
 | 2026-11-07 | lgse/strata#2079 | fix | Replaced Hungarian "egyesítés" with "beolvasztás" and its verb forms in ten merge strings, including the conflict prompt and set-aside labels. |
 | 2026-11-04 | lgse/strata#2051 | fix | Revised five Hungarian strings, such as "Alapértelmezés" for Make default and a spelled-out NAME ORDER heading in the sort menu; no keys or placeholders changed. |

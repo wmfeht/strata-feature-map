@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -82,11 +82,14 @@ For every control this sweep proves the binding: the file changes, the other win
 - Click the backdrop at each corner and edge strip around the Settings panel. Do it in a 640 px and a maximized window, at text size 8 and 48. Then click the panel padding, the navigation gap, and a scrollbar.
 - In a `STRATA_UPDATER=disabled` build, search "update", "rollback", "release notes", and "channel" with labelled and icon-only navigation. Repeat on a pacman-owned prefix, reading the visible rows and navigation entries.
 - Close Settings on Appearance, then reopen it with Ctrl+, with icon-only navigation, with a query left that hides Appearance's entry, and from the gear; read the focused widget in the accessibility tree.
-- Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48, and with GNOME text scaling 1.25; read the panel size and where row controls sit.
+- Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48, and with GNOME text scaling 1.25; read the panel size, where row controls sit, and the General, Updates, and About page gutters.
 - Seed `sort_key = "unsorted"` with `sort_direction = "descending"`, launch, and read both Default sort menus. Choose Created in window A while window B shows General, then Unsorted again from B.
 - Press Escape twice, and click the backdrop twice, within one frame of opening Settings; read the focused widget, the blur, and the gear's state. Repeat under Cairo.
 - In the Video preview start stepper, type 99, 100, -5, 12.5, and an empty value; press + at 95 and − at 3. Read the shown value and `settings.toml` after each.
 - Change Video preview start in window A while window B shows General; read B's stepper. Then search "seek", "offset", and "percent" under English and `language = "ja"` with icon-only navigation.
+- At text size 8 and 48, and with GNOME text scaling 1.25, screenshot a Settings row title beside a file-list name; compare glyph heights.
+- Under Deutsch and Magyar at text size 12, shrink the window until row controls stack, and read General's choice buttons just before that width.
+- At text size 8 and 48, read the Thumbnail workers and Video preview start steppers, the dropdowns, and the click activation rows for clipped digits or overlapping rows.
 
 ### settings/preferences/storage
 

@@ -3,8 +3,8 @@ title: Release installer
 status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
-reviewed_at: 41070b59c09f21eba33918c1e99be2eb3047de7e
-review: reviewed
+reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+review: draft
 code: [install.sh, data/locales/installer.json, scripts/installer_messages.py]
 tests: [scripts/test_installer.py, scripts/testdata]
 docs: [docs/internationalization.md, docs/signed-updates.md]
@@ -120,6 +120,7 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - With `LANGUAGE=fr` and `LC_ALL=C`, the plan reads "Install to <path>". lgse/strata#1730 (unverified)
 - `zh_TW`, `zh_HK`, `zh_MO`, and `zh-Hant…` show Traditional Chinese messages; every other `zh` locale shows Simplified Chinese. lgse/strata#1745
 - A `hu` locale, such as `LANG=hu_HU.UTF-8`, shows Hungarian messages: the banner reads "Interaktív telepítő" and the plan "Telepítés ide: <path>". lgse/strata#1918 (unverified)
+- `python3 scripts/installer_messages.py` exits 1 with "Installer translations are stale": `install.sh` holds 25 Hungarian messages that differ from `data/locales/installer.json`, such as "Böngéssze a könyvtárait akadálytalanul." Found by code reading. lgse/strata#2304 (unverified)
 - Paths in messages show literally, even when they hold `&` or `%{version}`. lgse/strata#1730 (unverified)
 - The installer ignores the language saved in Strata's Settings. lgse/strata#1730
 

@@ -3,7 +3,7 @@ title: Themes and appearance
 status: shipped
 origin: {issue: lgse/strata#82, pr: lgse/strata#96}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
 review: draft
 code: [src/ui/theme.rs, src/ui/theme/color.rs, src/ui/theme/document_style.rs, src/ui/theme/generated_css.rs, src/ui/theme/gtk_settings.rs, src/ui/theme/library.rs, src/ui/theme/listeners.rs, src/ui/theme/source_style.rs, src/ui/theme/watch.rs, src/ui/theme/weak_registry.rs, src/ui/settings/theme.rs, src/ui/settings/theme/editor.rs, data/themes/catalog.toml, data/theme-empty.css, src/util/gresource.rs]
 tests: [src/ui/theme/tests.rs, src/ui/theme/tests/catalog.rs, src/ui/theme/tests/custom.rs, src/ui/theme/tests/live.rs, src/ui/theme/tests/syntax.rs, src/ui/theme/tests/density.rs, src/ui/settings/theme/tests.rs, src/ui/settings/theme/editor/tests.rs, src/ui/settings/tests/dismissal.rs, src/util/gresource/tests.rs, src/ui/preferences/tests/preferences/themes.rs]
@@ -21,6 +21,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Settings → Appearance lists 95 bundled themes in alphabetical order in a scrolling library. lgse/strata#96
 - Typing in "Search themes" hides cards whose names do not contain the query, ignoring case. lgse/strata#96
+- While Settings row controls sit beside their descriptions, the "Search themes" field is at least 180 px wide; while they stack, it has no minimum. lgse/strata#849, lgse/strata#2233 (unverified)
 - The All, Light, and Dark filter combines with the search query. lgse/strata#96
 - A theme is filed under Light when its background's relative luminance exceeds 0.4, including backgrounds written as `rgb()` or `#fff`. lgse/strata#742
 - Every bundled theme's text has at least 4.5:1 contrast on its background and 3:1 on its surface. lgse/strata#1570, lgse/strata#1459

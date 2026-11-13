@@ -3,7 +3,7 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
 review: draft
 code: [crates/strata-preview/src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, crates/strata-preview/src/sandbox/media.rs, crates/strata-preview/src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, src/ui/media/history.rs, src/ui/media/playback.rs, src/ui/media/positions.rs, src/ui/preview/media_content.rs, src/ui/preview/media_controls.rs, src/ui/preview/media_render.rs, src/ui/preview/media_session.rs, packaging/media-runtime]
 tests: [crates/strata-preview/src/media/tests.rs, src/ui/media/tests.rs, crates/strata-preview/src/sandbox/media/tests.rs, crates/strata-preview/src/sandbox/media/fixtures.rs, crates/strata-preview/src/sandbox_helper/media/**, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]
@@ -101,7 +101,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 
 - With **Hardware-accelerated video previews** on and **Decoding backend** set to Automatic, decoding tries VA-API, then Vulkan, then software; a hardware attempt that fails before its first frame falls back to software. lgse/strata#45, lgse/strata#139
 - With no saved choice, a system with an AMD Polaris 10, 11, or 12 GPU decodes in software; the user can still opt in. lgse/strata#139
-- Software decoding receives no GPU device and no `/sys`. lgse/strata#139
+- Audio-only playback, waveform peaks, and video storyboards decode in software and get no `/dev/dri` or `/dev/nvidia*` device, no `/sys`, and no `/run/opengl-driver`, whatever the acceleration setting. lgse/strata#1289, lgse/strata#1474 (unverified)
 - Changing the acceleration setting applies to the next preview without interrupting the current one. lgse/strata#139
 
 ## Design
