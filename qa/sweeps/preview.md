@@ -272,7 +272,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - Put the 4755 copy first in the trusted roots, with `/usr/bin/bwrap` unprivileged. Preview a PNG, a PDF, an MP4, and a RAR member. Repeat with the 2755 copy, then the symlink. Repeat in the `STRATA_TRUSTED_COMMAND_PATH` build with `/usr/bin/bwrap` masked, then with only the privileged copy left.
 - With the pixbuf WebP loader and ImageMagick hidden, preview and thumbnail each WebP sample, then a Markdown file embedding the alpha WebP. Read the Icons caption of the orientation-5 and orientation-8 files against the image.
 - Step through a folder of 200 WebP files with the preview open, once with the pixbuf loader present and once hidden.
-- On the NixOS GPU host, run the non-Nix build with and without `STRATA_SANDBOX_ROOT=/nix/store`; play a long HEVC video under Automatic and watch the decode engine.
+- On the NixOS GPU host, run the non-Nix build with and without `STRATA_SANDBOX_ROOT=/nix/store`; play the 4K HEVC 10-bit file under Automatic and watch the decode engine.
 - With acceleration on, make `/run/opengl-driver` a dangling symlink, then a link to a tree outside `STRATA_SANDBOX_ROOT`; preview a video each time.
 - With acceleration on, show an MP3's embedded cover art; read the helper's `bwrap` arguments from `/proc/<pid>/cmdline`.
 

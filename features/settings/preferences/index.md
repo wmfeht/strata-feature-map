@@ -36,16 +36,17 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - Closing Settings returns focus to the file-list cursor row, also when the header Settings button opened it; the next Down moves the cursor. lgse/strata#1430, lgse/strata#1533
 - When Ctrl+, opens Settings while a pane-filter field or filter result has focus, closing Settings returns focus to that field or result. lgse/strata#1430, lgse/strata#1533
 - In a default build, the navigation lists General, Appearance, Actions, Keyboard, Integrations, Updates, Diagnostics, and About; choosing one shows that page and its name as the title. lgse/strata#849, lgse/strata#1735, lgse/strata#1748, lgse/strata#1885, lgse/strata#1934
-- At the default text size and desktop text scaling 1.0, a Settings row title renders at 13 px, the same as a file-list name, not 16 px. lgse/strata#2233
-- At any text size, a Settings row title renders at the same size as a file-list name. Changing Text size resizes it live while Settings is open. lgse/strata#2233
+- A Settings row title renders at the same size as a file-list name: 13 px at the default text size and desktop text scaling 1.0, not 16 px. lgse/strata#2233
+- Changing Text size resizes Settings row titles live while Settings is open. lgse/strata#2233
 - With labels shown, the navigation content is at least 216 px wide. lgse/strata#2233
-- Navigation entries are at least 38 px high. The title bar pads 12 px, with 24 px on the left. lgse/strata#2233 (unverified)
-- Section headings have 30 px above and 10 px below. Dropdowns are at least 18 px high, and the Text size stepper 32 px. lgse/strata#2233 (unverified)
+- With labels shown, a navigation entry has a 38 px minimum content height and 4 px padding above and below. lgse/strata#2233 (unverified)
+- The title bar pads 12 px, with 24 px on the left. lgse/strata#2233 (unverified)
+- Section headings after the first on a page have 30 px above and 10 px below. lgse/strata#2233 (unverified)
+- Dropdown buttons have an 18 px minimum content height and 6 px padding above and below. lgse/strata#2233 (unverified)
+- Number steppers, such as Thumbnail workers and Video preview start, are at least 32 px high. lgse/strata#2233 (unverified)
 - The Search settings field pads 6 px top and bottom. lgse/strata#2233 (unverified)
-- The side-by-side layout applies when the panel is 1250 px wide at text size 13 or below and desktop text scaling 1.0. lgse/strata#2047 (unverified)
-- In the side-by-side layout, Settings pages pad 48 px left and right, and Updates and About pad 54 px. lgse/strata#2233
-- The compact layout applies when the panel's width divided by the text scale is under 1250 px. Any text size above 13 qualifies. lgse/strata#2047 (unverified)
-- In the compact layout, every Settings page, including Updates and About, pads 20 px left and right. lgse/strata#849 (unverified)
+- While row controls sit beside their descriptions, Settings pages pad 48 px left and right, and Updates and About pad 54 px. lgse/strata#2233 (unverified)
+- While row controls stack below their descriptions, every Settings page, including Updates and About, pads 20 px left and right. lgse/strata#849 (unverified)
 - With labels shown, each navigation entry pads 11 px left and right, so its icon centres on the Search settings field's icon. lgse/strata#1885 (unverified)
 - The panel is at most 1250×800 px and centred; in a smaller window it stays 24 px inside each edge. lgse/strata#29, lgse/strata#849, lgse/strata#2047
 - Each Settings page scrolls vertically when it does not fit the panel. lgse/strata#29, lgse/strata#849
@@ -234,7 +235,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 - The default directory is checked on a worker after the window opens, instead of with `is_dir()` on the UI thread. Any failed check once cleared the choice; now only a folder proven missing or not a folder does (lgse/strata#1729).
 - Hidden entries stay in memory with an `is_hidden` flag and a filter model hides them, instead of re-enumerating every column and reinstalling monitors (lgse/strata#200, lgse/strata#201).
 - Folder monitors keep hidden entries too, so revealing them needs no rescan. The watch had captured the hidden-files state at install, so dot-file changes made while hidden were lost until F5 (lgse/strata#1862, lgse/strata#1909).
-- Settings text uses the window's text size. A `1.230769em` multiplier had rendered 13 px as 16 px (lgse/strata#2232). The same PR narrowed the navigation, gutters, section spacing, and control heights, which had been sized for 16 px text. The 1250 px width and compact breakpoints stayed (lgse/strata#2233).
+- Settings text uses the window's text size. A `1.230769em` multiplier had rendered 13 px as 16 px (lgse/strata#2232). lgse/strata#2233 also narrowed the navigation, gutters, section spacing, and control heights, which had been sized for 16 px text. The 1250 px width and compact breakpoints stayed (lgse/strata#2233).
 - The panel is capped at the content reflow breakpoint, `COMPACT_CONTENT_BREAKPOINT` (1250 px), and 800 px high. A large window then shows more of the browser instead of empty margins. Deriving the width from the breakpoint keeps the side-by-side layout at the cap at the default text size, and the two values cannot drift. A cap near 1000 px, suggested in lgse/strata#2046, would leave the panel in its stacked layout at every size. Lowering the breakpoint with it breaks inline controls: the Metric/Imperial switch wraps mid-word near 1100 px (lgse/strata#2047).
 - Ctrl+. was added beside Ctrl+H rather than replacing it, to keep existing habits (lgse/strata#121).
 

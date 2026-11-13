@@ -88,8 +88,8 @@ For every control this sweep proves the binding: the file changes, the other win
 - In the Video preview start stepper, type 99, 100, -5, 12.5, and an empty value; press + at 95 and − at 3. Read the shown value and `settings.toml` after each.
 - Change Video preview start in window A while window B shows General; read B's stepper. Then search "seek", "offset", and "percent" under English and `language = "ja"` with icon-only navigation.
 - At text size 8 and 48, and with GNOME text scaling 1.25, screenshot a Settings row title beside a file-list name; compare glyph heights.
-- Under Deutsch and Magyar, read General's choice buttons at a 1250 px panel, in a window at least 1298 px wide, at text size 13; look for clipped or ellipsized labels.
-- At text size 8 and 48, read the Text size and Video preview start steppers, the dropdowns, and the click activation rows for clipped digits or overlapping rows.
+- Under Deutsch and Magyar at text size 12, shrink the window until row controls stack, and read General's choice buttons just before that width.
+- At text size 8 and 48, read the Thumbnail workers and Video preview start steppers, the dropdowns, and the click activation rows for clipped digits or overlapping rows.
 
 ### settings/preferences/storage
 

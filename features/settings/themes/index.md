@@ -21,7 +21,7 @@ The Settings → Appearance page and the color system behind it. It covers 95 bu
 
 - Settings → Appearance lists 95 bundled themes in alphabetical order in a scrolling library. lgse/strata#96
 - Typing in "Search themes" hides cards whose names do not contain the query, ignoring case. lgse/strata#96
-- In the side-by-side Settings layout, the "Search themes" field is at least 180 px wide; in the compact layout it has no minimum. lgse/strata#2233 (unverified)
+- While Settings row controls sit beside their descriptions, the "Search themes" field is at least 180 px wide; while they stack, it has no minimum. lgse/strata#849, lgse/strata#2233 (unverified)
 - The All, Light, and Dark filter combines with the search query. lgse/strata#96
 - A theme is filed under Light when its background's relative luminance exceeds 0.4, including backgrounds written as `rgb()` or `#fff`. lgse/strata#742
 - Every bundled theme's text has at least 4.5:1 contrast on its background and 3:1 on its surface. lgse/strata#1570, lgse/strata#1459

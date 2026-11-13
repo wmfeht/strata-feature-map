@@ -95,7 +95,7 @@ The Fedora RPM, built from source for stable and preview COPR projects so Fedora
 
 ### [Release installer](../features/app/packaging/installer.md) `app/packaging/installer`
 
-shipped · reviewed · reviewed at [`6eb4bf6`](https://github.com/lgse/strata/tree/6eb4bf60104d416171b72cefc8db7a8116b58d43) · 0 PRs since · origin issue [lgse/strata#329](https://github.com/lgse/strata/issues/329), pr [lgse/strata#330](https://github.com/lgse/strata/issues/330)
+shipped · draft · reviewed at [`6eb4bf6`](https://github.com/lgse/strata/tree/6eb4bf60104d416171b72cefc8db7a8116b58d43) · 0 PRs since · origin issue [lgse/strata#329](https://github.com/lgse/strata/issues/329), pr [lgse/strata#330](https://github.com/lgse/strata/issues/330)
 
 `install.sh`, a localized Bash installer for the latest stable release, installed to `~/.local/bin/strata`. It authenticates the release through its signed update manifest. It checks the system and installs every integration the system supports, or a custom selection from a menu. It runs interactively or unattended with `--with-*` and `--without-*` flags. What the "Open file location", file chooser, and udiskie unlock steps install belongs to `integration/file-manager-interface`, `integration/portal-file-chooser/setup`, and `devices/volumes/udiskie-unlock`.
 
