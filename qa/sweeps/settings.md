@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -93,6 +93,7 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ### settings/preferences/storage
 
+- Under `XDG_CURRENT_DESKTOP=GNOME`, start with no `settings.toml`, then with one holding only `theme` and `mode`. Change one unrelated preference, restart under `Hyprland`, and diff `settings.toml`.
 - Write `stl_thumbnails = "yes"` and `stl_thumbnails = 1` into `settings.toml` before launch; read the switch and whether other keys survive.
 - Hand-edit while running: `show_hidden = "yes"`, a deleted `theme` key, an unknown key, a trailing `[` on the last line. Restart after each, read the log, change one preference, and diff the file.
 - Replace `settings.toml` with a FIFO, and with a 0600 file in a `chmod 555` directory; change a preference and `ls -la` for leftover temporary files.
@@ -160,6 +161,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker. Read Installation, Update server, and the copied report.
 - On the setuid-only `bwrap` host, add an unprivileged `bwrap` in `/usr/bin` without restarting Strata, press Run again, and read Preview sandbox and the copied report.
 - On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, start Strata and press Run on Diagnostics before browsing any folder; then press Run again after an image folder's thumbnails load; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
+- With `gvfs-mtp` and `kio-extras` installed, press Run with `kiod6` running, after `pkill -x kiod6`, and with only the `org.kde.kmtpd5` service file present outside Plasma. Read Android devices (MTP) and the copied report.
+- On Plasma 5 with `kiod5`, run diagnostics and follow the MTP row's workaround with a phone plugged in; read the volume in Strata.
+- Read the KDE MTP warning under `language = "hu"` and `"ja"` in a 360 px wide Settings window; check the command name stays whole.
 
 ### settings/themes
 

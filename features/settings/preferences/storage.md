@@ -3,7 +3,7 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/ui/preferences/persistence.rs, crates/strata-core/src/storage.rs, crates/strata-core/src/storage/writer.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences/loading.rs, src/ui/preferences/tests/preferences/recovery.rs, src/ui/preferences/tests/preferences/saved_fixture.rs, src/ui/preferences/tests/preferences/saving.rs, src/ui/preferences/tests/preferences/setters.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, crates/strata-core/src/storage/tests.rs, crates/strata-core/src/storage/writer/tests.rs, tests/qa/scenarios/preferences]
@@ -74,6 +74,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 - Saved non-default values govern behavior from the first interaction after launch, before Settings is opened. lgse/strata#518
 - A missing `settings.toml` starts with defaults and saves normally on the first change. lgse/strata#728
+- Found by code reading: with no `settings.toml`, the first save writes every setting, including the three `window_show_*` keys. A profile first saved under GNOME then keeps all three window buttons under Hyprland. lgse/strata#2448 (unverified)
 - A value of the wrong type, such as `show_hidden = "yes"`, or a missing required key falls back to its default alone; every other entry loads. lgse/strata#671
 - Startup does not rewrite a file with invalid entries. The next save writes the repaired keys, such as `search_time_limit = 45` saved as 60, the next listed choice, and keeps every other key on disk. lgse/strata#671, lgse/strata#1877
 - A `theme` or `mode` normalized at startup is written as a repaired key on the next save. Other keys keep their on-disk values. lgse/strata#1877 (unverified)

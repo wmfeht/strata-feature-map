@@ -3,7 +3,7 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [crates/strata-fs/src/adapters/local_operations/replacement.rs, crates/strata-fs/src/adapters/local_operations/merge_aside.rs, crates/strata-fs/src/adapters/local_operations/replacement/**, crates/strata-fs/src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
 tests: [tests/qa/scenarios/copy_conflicts, crates/strata-fs/src/adapters/local_operations/tests/conflicts.rs, crates/strata-fs/src/adapters/local_operations/tests/merge.rs, crates/strata-fs/src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, crates/strata-fs/src/adapters/local_operations/tests/conflicts/**, crates/strata-fs/src/adapters/local_operations/tests/merge/**, crates/strata-fs/src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs, tests/qa/scenarios/drag_and_drop/drag-folder-merges-into-same-named-folder.jsonl, crates/strata-fs/test-resources.gresource.xml]
@@ -50,7 +50,7 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 - A merged move adds the source's contents to the target folder, overwrites same-named files, and then removes the source folder. lgse/strata#2078
 - A merged move deletes only the source items it read unchanged. lgse/strata#2078
 - Merge with Apply to All merges the remaining folder pairs and still asks about each file conflict. lgse/strata#1092, lgse/strata#2030
-- Merge never writes into the live folder: incoming items are built in a hidden stage and renamed in. lgse/strata#1615
+- Merge never writes into the live folder: incoming items are built in a hidden stage and renamed in. On FUSE daemons over remote storage, such as rclone, new subfolders are the exception. lgse/strata#1615, lgse/strata#2327
 - A name taken inside a merged folder meanwhile gets the next number and is reported; a stopped merge leaves nothing partial. lgse/strata#1615
 - A same-filesystem move answered with Replace renames the source into place without copying it. lgse/strata#1615
 
