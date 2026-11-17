@@ -83,6 +83,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-desktop/src/services/update_install/manifest/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `crates/strata-desktop/src/services/update_install/review_tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
 | `crates/strata-desktop/src/services/update_install/tests.rs` | tests | [In-place update install](../features/app/updates/install.md) | [Updates](../features/app/updates/index.md) |
+| `crates/strata-desktop/src/window_controls.rs` | code | [Window chrome and structure](../features/app/window/index.md) | — |
+| `crates/strata-desktop/src/window_controls/tests.rs` | tests | [Window chrome and structure](../features/app/window/index.md) | — |
 | `crates/strata-fs/src/adapters/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `crates/strata-fs/src/adapters/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `crates/strata-fs/src/adapters/directory_summary.rs` | code | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
@@ -899,6 +901,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/document_view.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `src/ui/enter_target.rs` | code | [Filter Enter target](../features/browser/search/filter/enter-target.md) | [Pane filter](../features/browser/search/filter/index.md), [Search](../features/browser/search/index.md) |
 | `src/ui/enter_target/tests.rs` | tests | [Filter Enter target](../features/browser/search/filter/enter-target.md) | [Pane filter](../features/browser/search/filter/index.md), [Search](../features/browser/search/index.md) |
+| `src/ui/entry_tooltip.rs` | code | [Entry hover tooltips](../features/browser/view-modes/entry-tooltips.md) | [View modes](../features/browser/view-modes/index.md) |
+| `src/ui/entry_tooltip/tests.rs` | tests | [Entry hover tooltips](../features/browser/view-modes/entry-tooltips.md) | [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/file_providers` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers.rs` | code | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
 | `src/ui/file_providers/tests.rs` | tests | [External file providers](../features/remote/file-providers/external.md) | [Remote locations and file providers](../features/remote/file-providers/index.md) |
