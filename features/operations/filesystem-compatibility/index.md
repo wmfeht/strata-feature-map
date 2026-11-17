@@ -26,7 +26,8 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - On rclone, s3fs, gvfsd-fuse, and other FUSE daemons over remote storage, a folder is never renamed over a placeholder. lgse/strata#2327
 - There, once `RENAME_NOREPLACE` is known to be missing, a folder is renamed in one call to a name found free. lgse/strata#2327
 - A folder moved, renamed, extracted, or placed by Replace on an rclone mount reaches rclone as one rename. rclone sends it as one move where its storage can move folders. lgse/strata#2327
-- Folder placement on sshfs, `fuseblk` devices such as ntfs-3g and exfat-fuse, and local overlays such as mergerfs, gocryptfs, and bindfs is unchanged. lgse/strata#2327
+- A folder restored from Trash onto such a mount takes the same free-name rename. lgse/strata#2327 (unverified)
+- On sshfs, `fuseblk` devices such as ntfs-3g and exfat-fuse, and local overlays such as mergerfs, gocryptfs, and bindfs, a folder is renamed over an exclusive empty placeholder. lgse/strata#2327
 - A bare `fuse` mount counts as a FUSE daemon over remote storage. lgse/strata#2327 (unverified)
 - A file pasted onto a KDE Connect sshfs mount of an Android phone arrives. lgse/strata#1941, lgse/strata#1945
 - There `link()` returns `EACCES`, so the file goes over an exclusive reserved name, and later pastes on that mount skip the link. lgse/strata#1945
@@ -63,10 +64,11 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - A copied item appears under its final name only when complete, except a folder on a FUSE daemon over remote storage. A cancelled or failed copy leaves nothing partial at a real name. lgse/strata#1615, lgse/strata#2327
 - On local POSIX filesystems a copied file is written unnamed (`O_TMPFILE`) and linked when done; elsewhere the copy is built in a hidden `.strata-copy-*` stage. lgse/strata#1615
 - A folder copied onto rclone, s3fs, or another FUSE daemon over remote storage is made under its final name and filled there, with no `.strata-copy-*` stage. lgse/strata#2327
-- A folder with nested subfolders copied into an rclone mount with `--vfs-cache-mode full` arrives with every file, without "The result could not be confirmed". lgse/strata#2203, lgse/strata#2327
-- A failed or cancelled folder copy there removes the entries it made under the final name. lgse/strata#2327 (unverified)
+- A folder with nested subfolders copied into an rclone mount with `--vfs-cache-mode full` arrives with every file. No "The result could not be confirmed" error appears. lgse/strata#2203, lgse/strata#2327
+- A failed or cancelled folder copy there removes the entries it made. lgse/strata#2327 (unverified)
 - A file copied on its own onto such a mount is still staged and placed over a checked placeholder. lgse/strata#2327
-- A Merge onto such a mount copies subfolders new to the target folder in place in the live folder; new files are still staged. lgse/strata#2327
+- Merge never writes into the live folder: incoming items are built in a hidden stage and renamed in. lgse/strata#1615
+- On a FUSE daemon over remote storage, a Merge copies subfolders new to the target in place in the live folder. New files are still staged. lgse/strata#2327
 - Every native file copy reports byte progress. lgse/strata#1615
 - A sparse file of 1 MiB or more copied from ext4, XFS, btrfs, tmpfs, or f2fs keeps its holes. lgse/strata#1615
 - Holes are filled onto FAT, exFAT, and NTFS, including exfat-fuse and ntfs-3g. lgse/strata#1615
@@ -142,7 +144,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - Invariants: never overwrite a destination that appeared concurrently, never delete what the copy does not hold, and run no disk operation on the GTK main thread (lgse/strata#1590, lgse/strata#1615).
 - Placement tries `renameat2(NOREPLACE)`, then a file hard link, then a folder rename over an exclusive placeholder, then the reserved-name step, then a copy. `EEXIST` stays authoritative (lgse/strata#1615).
 - The reserved-name step loses only a write that another program makes to that exact name between the check and the rename. GLib checks then renames with no placeholder, which is weaker (lgse/strata#1615).
-- Rejected: check-then-rename as in GLib, Nautilus, KIO, and coreutils; the copy fallbacks of lgse/strata#1515 and lgse/strata#1586, which doubled writes and lost metadata; and gating on filesystem type (lgse/strata#1590), later adopted for folders on FUSE mounts (lgse/strata#2327).
+- Rejected: check-then-rename as in GLib, Nautilus, KIO, and coreutils; the copy fallbacks of lgse/strata#1515 and lgse/strata#1586, which doubled writes and lost metadata; and gating on filesystem type (lgse/strata#1590).
 - `EACCES` from a link or symlink is treated like `EPERM`, as the exchange step already did. sshfs reports a server without link extensions that way (lgse/strata#1941, lgse/strata#1945).
 - `EACCES` is ambiguous between a missing link extension and a real denial. Only a probe on Strata's own names settles it; a folder refusing the probe file refused the link too (lgse/strata#1945).
 - Capabilities are probed per mount and cached by mount ID until the mount table changes. The filesystem family decides naming, flushing, `O_TMPFILE`, and timestamp granularity (lgse/strata#1590, lgse/strata#1615).
@@ -170,7 +172,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-16 | lgse/strata#2327 | fix | Copied folders unstaged and placed folders by step 5 on FUSE daemons over remote storage, so rclone gets one rename instead of failing with `EIO`. |
+| 2026-11-16 | lgse/strata#2327 | fix | Made copied folders under their final name and placed folders by step 5 on FUSE daemons over remote storage, fixing rclone's `EIO` (lgse/strata#2203). |
 | 2026-10-31 | lgse/strata#1945 | fix | Treated `EACCES` from links like `EPERM`, so a copy onto a KDE Connect sshfs mount lands through the reserved-name step. |
 | 2026-10-20 | lgse/strata#1729 | fix | Released Strata's reads, identified items by one rule per mount, and recovered crash leftovers, finishing lgse/strata#1590. |
 | 2026-10-18 | lgse/strata#1751 | fix | Compared later hard-link names by the first name's digest, so a cross-volume move keeps a rewritten later name. |

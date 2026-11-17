@@ -47,8 +47,8 @@ Returning trashed items to their original locations, from the Restore menu item 
 - On filesystems without `RENAME_NOREPLACE`, such as NTFS via ntfs-3g, files and folders restore when the destination is free. lgse/strata#1527
 - There the item is placed without copying. lgse/strata#1615
 - A file is placed by hard link, or over a checked placeholder on sshfs, vboxsf, rclone, and s3fs. lgse/strata#1615
-- A folder is placed over an empty placeholder, or renamed to a name found free on vboxsf, rclone, s3fs, and other FUSE daemons over remote storage. lgse/strata#1615, lgse/strata#2327 (unverified)
 - An item that appears at the destination meanwhile is never replaced. lgse/strata#1615
+- On rclone, a folder that arrives in step 5's check window is merged into instead. lgse/strata#2327
 - Where nothing can place the item, it is copied with best-effort metadata, so ntfs3 `$LX*` attributes no longer fail it and named pipes are recreated. lgse/strata#1615
 - That copy is flushed, then the Trash copy is deleted entry by entry. lgse/strata#1615
 - An entry that changed or cannot be copied stays in Trash with its `.trashinfo`, reported as "“name” changed during the restore and was left in the Trash". lgse/strata#1615

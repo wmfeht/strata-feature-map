@@ -180,10 +180,11 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On an SMB share, look up a folder under a second spelling so the client drops `serverino`. Then move a folder off the share and Replace a file on it.
 - On a vfat stick, Replace a file after a remount between the prompt and the copy, so the kernel renumbers its entries.
 - On the throttled rclone mount, copy a folder with nested subfolders and 50 files of 150 kB, then rename it while uploads are pending. Read `rclone.log` for `Can't DirMove` or `Dir.Rename error`, and list `/tmp/lab/remote` after uploads finish.
-- On the rclone mount, Merge a local folder into a same-named folder holding a subfolder and a file, where the incoming side adds a new nested subfolder; cancel a second such merge midway.
-- On the rclone mount, move a filled folder between two of its folders, Replace a folder, and extract an archive; list hidden `.strata-copy-*` and `.strata-extraction-*` names after each.
+- On the rclone mount, Merge a local folder into a same-named folder holding a subfolder and a file. The incoming side adds a new nested subfolder.
+- On the rclone mount, cancel such a Merge midway.
+- On the rclone mount, move a filled folder between two of its folders, Replace a folder, and extract an archive. List hidden `.strata-*` names after each.
 - On the rclone mount, cancel a folder copy midway and list the destination with hidden files shown.
-- Copy a large folder onto a gocryptfs or mergerfs mount and onto the rclone mount; list hidden names in each destination while the copy runs.
+- Copy a large folder onto the mergerfs pool and onto the rclone mount; list hidden names in each destination while the copy runs.
 
 ### operations/filesystem-compatibility/open-files
 
@@ -242,7 +243,6 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Restore on the ntfs-3g and sshfs mounts, and from an exFAT stick's Trash into a folder on another disk, cancelling one copy midway.
 - On vfat and ext4, Delete `notes.txt`, then create and trash another `notes.txt` from a shell within the same second, and press Ctrl+Z.
 - With `GIO_USE_VFS=local`, undo a Replace on a USB stick whose `.Trash-$uid` is a symlink, then one owned by another user.
-- On the rclone mount, restore a trashed folder whose original name is free, then one whose name a shell loop keeps recreating.
 
 ### operations/trash/empty
 
