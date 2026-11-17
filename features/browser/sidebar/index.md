@@ -3,7 +3,7 @@ title: Sidebar
 status: shipped
 origin: {issue: lgse/strata#104, pr: lgse/strata#106}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/window/sidebar.rs, data/icons/scalable/actions/strata-chevron-down.svg, src/ui/window/sidebar_drop_feedback.rs, src/ui/window/keyboard/sidebar.rs, src/ui/preferences/sidebar_settings.rs, src/ui/window/places.rs, src/ui/window/sidebar_context_menu.rs, src/ui/window/sidebar_file_drop.rs, src/ui/window/sidebar_places.rs, src/ui/window/sidebar_popover.rs, src/ui/window/sidebar_reorder.rs, src/ui/window/sidebar_rows.rs, src/ui/window/sidebar_sections.rs, src/ui/window/sidebar_view.rs]
 tests: [src/ui/window/tests/bookmarks.rs, src/ui/window/tests/sidebar.rs, src/ui/window/sidebar_drop_feedback/tests.rs, src/ui/window/tests/keyboard_dispatch/sidebar_sections.rs, tests/qa/scenarios/sidebar_reordering/builtin-places-reorder-survive-restart.jsonl, tests/qa/scenarios/locations/sidebar-place-navigates.jsonl, tests/qa/scenarios/sidebar_pinning/empty-pinned-section-stays-hidden.jsonl]
@@ -166,6 +166,7 @@ The left panel of every browser window and the file chooser: built-in places, th
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-16 | lgse/strata#2449 | fix | Listed each volume-less mount once per location, so gvfs-daemon restarts no longer stack duplicate network-share rows in Devices. |
 | 2026-11-09 | lgse/strata#2100 | fix | Reserved the replaced icon's height and width for `g` place keycaps, so sidebar rows no longer shrink while hints show. |
 | 2026-11-07 | lgse/strata#2075 | feat | Grouped DEVICES rows by physical drive in the system's drive order, with a divider between drives, so partitions of different disks no longer mix. |
 | 2026-11-05 | lgse/strata#2064 | fix | Dropped redundant rail CSS that zeroed label fonts, so row labels return after moving the window off a monitor that railed the sidebar. |

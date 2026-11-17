@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, crates/strata-fs/src/app/browser.rs, crates/strata-fs/src/app/browser/tests.rs, crates/strata-fs/src/app/navigation.rs, crates/strata-fs/src/app/navigation/tests.rs, crates/strata-fs/src/app/browser/tests/events.rs, crates/strata-fs/src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -79,6 +79,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open a second tab on `100000` and switch back to the first while it loads; press arrows as the hidden load finishes. Then open Properties while the visible Columns folder reloads after an external change.
 - Press Down in each view under a light and a dark theme, then move the pointer without clicking and press Down again; note when each focus outline shows and hides.
 - Press Alt+Down in Icons on a folder, in List on a Ctrl+F result, and in grouped List; then switch to Columns and press Back.
+- With the location entry open, click a Columns row, a List heading, a sidebar row, and a header button; then click a tab while a completion is highlighted.
 
 ### browser/selection/marquee
 
@@ -167,18 +168,28 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - After Back from a sidebar place, press Left into an ancestor column still loading on a stalled sshfs mount; delete its open folder from a shell before it loads.
 - Rename a folder whose child column is open to a name that sorts first, one that sorts last, and a dot name; press Tab and Shift+Tab. Repeat with Mirror columns selection off.
 - Dismiss the Shift+Delete confirmation over a Ctrl+F result with a backdrop click, then press Down, Up, and Space.
+- Rest on a row's chevron, its size badge, and the 255-byte name, then on the same row while it is being renamed. Repeat on a recursive filter hit with its path line and in Trash.
 
 ### browser/view-modes/icons
 
 - Set the slider to 32 then 256 px in `100000`, scroll fast and stop; count tiles with missing details after two seconds.
 - Resize the sidebar and preview panel while details stream in; open the same folder in a second window and move one slider.
-- Rest on a truncated card and drift 4 px, then 5 px. Rest on the thumbnail frame's margin, the details text, and blank space beside a short details line.
-- Rest on a name at the two-line boundary at 32 px and 256 px thumbnails, then at text size 28. Then Tab to the card and wait.
+- Rest on the thumbnail frame's margin, the details text, and blank space beside a short details line, on a card whose name fits and one whose name is truncated.
+- Rest on a name at the two-line boundary at 32 px and 256 px thumbnails, then at text size 28, in a folder whose dates are still loading.
+- Rest on cards in Trash, Recent, an `sftp://` folder, and an `mtp://` phone folder. Change the date format in Settings with a tooltip open, then rest again.
 - Wheel-scroll the grid with the pointer resting on a card.
 - Move the slider in Trash, Recent, and an `sftp://` folder; leave and return, then switch to Columns and back.
 
+### browser/view-modes/entry-tooltips
+
+- In each view, rest on an entry and drift 4 px, then 5 px; press and release a mouse button while resting, then hold still.
+- With one tooltip showing, move to the next card or row and rest under 900 ms; then sweep across 20 entries and stop on the last.
+- Tab to a card or row and wait. In 10xer mode, rest the pointer on a row while `j` and `k` move the selection under it.
+- Rest on an entry while F5 reloads the folder, while an external `touch` changes its date, and while a wheel tick recycles its row.
+
 ### browser/view-modes/list
 
+- Rest on the 255-byte name, widen the Name column until it fits, and rest again; then rest on the Mode, Size, and Modified cells. Repeat in grouped List and in Recent.
 - Shrink Name to its minimum, then double-click each heading edge with the 255-byte name and a `drwxrwxrwx  777` row visible.
 - Group by file type with hidden files on, sort by Type descending, toggle Folders first; read the group order top to bottom.
 - Read the Size cell of a folder holding only dot-files, the unreadable folder, `100000`, and an `sftp://` folder; then sort by Size.
