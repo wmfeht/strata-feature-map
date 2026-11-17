@@ -140,6 +140,7 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ### settings/preferences/date-format
 
+- Change Modified date format from window B while a Columns entry tooltip is open in window A; hover the entry again and compare with a List row's Modified cell.
 - Show the Setup date fixtures in Columns, Icons, List, and a preview under each format; compare the 61 s, 24 h 1 min, 7 day, and 31 day boundaries.
 - Run `TZ=America/New_York` on both DST days and `TZ=Pacific/Kiritimati`; compare the weekday and week buckets with `date -d`.
 - Change the format in window A while window B is idle for two minutes; watch the 30 s refresh relabel the 59 s and 59 min files.
@@ -162,7 +163,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - On the setuid-only `bwrap` host, add an unprivileged `bwrap` in `/usr/bin` without restarting Strata, press Run again, and read Preview sandbox and the copied report.
 - On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, start Strata and press Run on Diagnostics before browsing any folder; then press Run again after an image folder's thumbnails load; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
 - With `gvfs-mtp` and `kio-extras` installed, press Run with `kiod6` running, after `pkill -x kiod6`, and with only the `org.kde.kmtpd5` service file present outside Plasma. Read Android devices (MTP) and the copied report.
-- On Plasma 5 with `kiod5`, run diagnostics and follow the MTP row's workaround with a phone plugged in; read the volume in Strata.
+- In a Plasma 5 session, press Run with only `kiod5` running, then with only the `org.kde.kmtpd5` service file present; compare the MTP row.
 - Read the KDE MTP warning under `language = "hu"` and `"ja"` in a 360 px wide Settings window; check the command name stays whole.
 
 ### settings/themes

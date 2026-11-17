@@ -42,7 +42,7 @@ The issue asked for a way to read truncated names without F2 or Properties. A co
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-16 | lgse/strata#2533 | feat | Shared the Icons rest-delay tooltip with Columns rows and List names, adding the modified date in Icons and Columns, so truncated names can be read. |
+| 2026-11-16 | lgse/strata#2533 | feat | Shared the Icons rest-delay tooltip with Columns rows and List names, with dates in Icons and Columns, so truncated names are readable. |
 
 ## Known gaps
 

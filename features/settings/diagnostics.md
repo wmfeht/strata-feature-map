@@ -58,10 +58,12 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - Launched with `GIO_USE_VFS=local`, GVfs is a problem saying the session uses local files only, with no install command. lgse/strata#1735
 - SFTP, Windows shares (SMB), FTP, WebDAV, Android devices (MTP), iPhone and iPad, and Cameras pass when GVfs lists their URI scheme. Otherwise each is a warning with its backend package. Android devices (MTP) has one exception, below. lgse/strata#1735, lgse/strata#2523
 - With the GVfs `mtp` backend listed and `org.kde.kmtpd5` owned or activatable on the session bus, Android devices (MTP) is a warning. It reads "KDE's MTP service is also installed, and whichever claims a phone first leaves the other with no storage. If a phone appears empty, unplug it, run pkill -x kiod6, then reconnect it unlocked." lgse/strata#2523
-- That KDE warning shows no "Install with:" line. lgse/strata#2523 (unverified)
-- With the `mtp` backend listed and `org.kde.kmtpd5` absent, or the session bus unreachable, Android devices (MTP) passes. lgse/strata#2523
-- With `org.kde.kmtpd5` present, a missing `mtp` backend or a missing GVfs still gives the usual MTP warning, with no KDE text. lgse/strata#2523 (unverified)
-- Found by code reading: on Plasma 5, where the daemon runs in `kiod5`, the KDE warning still says to run `pkill -x kiod6`. lgse/strata#2523 (unverified)
+- That KDE warning shows no install hint: neither "Install with:" nor "Install <package> or your distribution's equivalent." lgse/strata#2523 (unverified)
+- With the `mtp` backend listed and `org.kde.kmtpd5` absent, Android devices (MTP) passes. lgse/strata#2523
+- With the `mtp` backend listed and the session bus unreachable, Android devices (MTP) passes. lgse/strata#2523 (unverified)
+- With `org.kde.kmtpd5` present and the `mtp` backend missing, Android devices (MTP) reads "The GVfs backend isn't installed." with the gvfs-mtp package. lgse/strata#2523 (unverified)
+- With `org.kde.kmtpd5` present and GVfs missing or bypassed, Android devices (MTP) reads "Unavailable while GVfs isn't running." lgse/strata#2523 (unverified)
+- On Plasma 5, where the daemon runs in `kiod5`, the KDE warning still says to run `pkill -x kiod6`. Found by code reading. lgse/strata#2523 (unverified)
 - While GVfs is bypassed or missing, each of those backends is a warning reading "Unavailable while GVfs isn't running." lgse/strata#1735
 - With `org.freedesktop.UDisks2` absent from the system bus, Removable drives is a warning with the udisks2 package. lgse/strata#1735
 - With UDisks2 present but the GVfs UDisks2 volume monitor absent from the session bus, Removable drives is a warning with the GVfs daemons package. lgse/strata#1735
@@ -104,7 +106,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - Checks that need GTK objects run on the GTK thread. The rest run on workers that a timer polls through a weak page reference (lgse/strata#1735).
 - Restricted hosts get their own finding, not the Landlock warning: Landlock ABI 3 is present there, so that text would name the wrong fix (lgse/strata#1954).
 - The KDE MTP check keys on the `org.kde.kmtpd5` D-Bus service, not plugin paths, because kio-extras installs that service file on every distribution (lgse/strata#2523).
-- The issue proposed warning when `kiod6` runs or kio-extras MTP support is present. The check takes the second form: an owned or activatable name, not a running process (lgse/strata#2418, lgse/strata#2523).
+- The issue proposed warning when `kiod6` runs or kio-extras MTP support is present (lgse/strata#2418). The check reads the D-Bus name instead, owned (running) or activatable (installed), not a process name or plugin path (lgse/strata#2523).
 - A `--diagnose` command-line flag was rejected as less discoverable, and docs-only troubleshooting because it cannot see the environment or the sandbox (lgse/strata#1734).
 
 ## History

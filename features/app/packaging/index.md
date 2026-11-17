@@ -69,7 +69,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The tile is a gradient with a faint light edge because a flat `#1b1c27` tile blended into dark docks (lgse/strata#1838).
 - Linux desktops draw the hicolor SVG unmasked, so the icon rounds its own corners. Icon themes such as MacTahoe reshape only the apps they ship icons for (lgse/strata#1838).
 - The tile first spanned 228 of 284 units per side, with a 51-unit corner radius, as macOS and Adwaita icons do (lgse/strata#1838).
-- That 10% margin and a 0.6-scale mark left the mark about 44% of the canvas, so KDE Plasma panels drew Strata at about half its neighbors' size (lgse/strata#2492, lgse/strata#2522).
+- That 10% margin and a 0.6-scale mark left the mark about 44% of the canvas. KDE Plasma panels then drew Strata at about half its neighbors' size (lgse/strata#2492, lgse/strata#2522).
 - The viewBox is now cropped to the tile, so the tile fills the canvas; the 51-unit radius stays. The mark is scaled to 0.8 and centred (lgse/strata#2522).
 - lgse/strata#2492 suggested a 0.9 mark, but at that size its top and bottom points touch the tile edge (lgse/strata#2522).
 - The entry declares `x-scheme-handler/trash` because `Exec=strata %U` already opened `trash:///`, but choosers never offered Strata for it. The declaration makes Strata eligible; `mimeapps.list` still picks the default (lgse/strata#2052, lgse/strata#2065).

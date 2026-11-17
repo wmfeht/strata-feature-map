@@ -185,7 +185,7 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-16 | lgse/strata#2327 | fix | Synced 25 Hungarian installer strings into `data/locales/installer.json` to match `install.sh`, so the installer translation check passes. |
+| 2026-11-16 | lgse/strata#2327 | fix | Synced 25 Hungarian installer strings from `install.sh` into `data/locales/installer.json`, so the catalog matches the shipped installer. |
 | 2026-10-25 | lgse/strata#1876 | fix | Bounded the ReloadConfig and xdg-mime calls with a 5 s process deadline, so a session bus that never answers no longer hangs the installer. |
 | 2026-10-23 | lgse/strata#1825 | feat | Verified releases through the signed update manifest instead of `gh`, and installed every supported integration by default with `--without-*` flags. |
 | 2026-10-17 | lgse/strata#1728 | fix | Reloaded the session bus after installing the FileManager1 service, so "Open file location" uses Strata without a re-login. |

@@ -74,7 +74,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 
 - Saved non-default values govern behavior from the first interaction after launch, before Settings is opened. lgse/strata#518
 - A missing `settings.toml` starts with defaults and saves normally on the first change. lgse/strata#728
-- Found by code reading: with no `settings.toml`, the first save writes every setting, including the three `window_show_*` keys. A profile first saved under GNOME then keeps all three window buttons under Hyprland. lgse/strata#2448 (unverified)
+- With no `settings.toml`, the first save writes every setting, including the three `window_show_*` keys. A profile first saved under GNOME then keeps all three window buttons under Hyprland. Found by code reading. lgse/strata#2448 (unverified)
 - A value of the wrong type, such as `show_hidden = "yes"`, or a missing required key falls back to its default alone; every other entry loads. lgse/strata#671
 - Startup does not rewrite a file with invalid entries. The next save writes the repaired keys, such as `search_time_limit = 45` saved as 60, the next listed choice, and keeps every other key on disk. lgse/strata#671, lgse/strata#1877
 - A `theme` or `mode` normalized at startup is written as a repaired key on the next save. Other keys keep their on-disk values. lgse/strata#1877 (unverified)

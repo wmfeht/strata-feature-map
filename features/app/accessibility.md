@@ -46,7 +46,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 ### Tooltips
 
 - Hovering a labelled button, menu item, label, entry, breadcrumb, or status indicator shows no tooltip. lgse/strata#1359
-- File entries are the exception: an Icons card, a Columns row, and an ellipsized List name show the entry's name on hover (`browser/view-modes/entry-tooltips`). lgse/strata#1553, lgse/strata#2533
+- File entries are the exception: Icons cards, Columns rows, and List name cells show the name tooltips that `browser/view-modes/entry-tooltips` describes. lgse/strata#1553, lgse/strata#2533
 - Hovering an icon-only button shows its tooltip, such as "Search (Ctrl+K)" on the header Search button. lgse/strata#1359
 - In the collapsed sidebar rail, each row shows its name as a tooltip; expanding the sidebar removes those tooltips. lgse/strata#1359
 - Text that tooltips carried before, such as a sidebar place's or breadcrumb's full path, is now the control's accessible description. lgse/strata#1359

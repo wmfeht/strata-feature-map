@@ -48,7 +48,8 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - With no `window_show_*` setting saved and `XDG_CURRENT_DESKTOP` naming Hyprland, Sway, i3, or niri, Minimize, Maximize, and Close are hidden. lgse/strata#2448
 - With no such setting saved and any other `XDG_CURRENT_DESKTOP`, including GNOME, KDE, empty, or unknown, all three buttons show before Settings opens. lgse/strata#2448
 - On GNOME or KDE the unsaved buttons show even when GTK's decoration layout is close-only, such as `appmenu:close`. lgse/strata#2448
-- `XDG_CURRENT_DESKTOP` is split at `:`, and each entry is trimmed and compared case-insensitively; any whole tiler entry hides, so `KDE: hYpRlAnD ` hides the buttons. lgse/strata#2448
+- `XDG_CURRENT_DESKTOP` is split at `:`, and each entry is trimmed and compared case-insensitively. lgse/strata#2448
+- Any whole tiler entry hides the buttons, so `KDE: hYpRlAnD ` hides them. lgse/strata#2448
 - A partial name such as `sway-like` or `not-Hyprland` shows the buttons. lgse/strata#2448
 - A saved choice wins over the desktop: a saved visible button stays visible on niri, and a saved hidden one stays hidden on GNOME. lgse/strata#2448
 - With only some `window_show_*` keys saved, only the missing ones take the desktop default. lgse/strata#2448
@@ -70,9 +71,10 @@ The browser window's frame and skeleton: the header with its window buttons, the
 [docs/architecture.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/architecture.md) carries the design under "Window composition". Key routing is described on `app/window/key-dispatch`.
 
 - The header is a GTK `HeaderBar` with its title buttons hidden. Strata draws Minimize, Maximize, and Close as its own header actions, so their visibility is a preference (lgse/strata#1100).
-- Tiling window managers make in-app window buttons redundant; stacking desktops expect all three. Always restoring GTK title buttons and detecting the window manager were rejected: the first suits only stacking desktops, the second is brittle and still needs an override (lgse/strata#1100).
-- The first default kept the earlier close-only header (lgse/strata#1129). New KDE users then had no way to maximize or close from the header without finding Settings (lgse/strata#2419).
-- Desktop detection now picks only the default for unsaved buttons; the preference stays the override, so existing users keep their choices (lgse/strata#2419, lgse/strata#2448).
+- Tiling window managers make in-app window buttons redundant; stacking desktops expect all three (lgse/strata#1100).
+- lgse/strata#1100 first rejected always restoring GTK title buttons, which suits only stacking desktops. It also rejected detecting the window manager as brittle and still needing an override.
+- The first default kept the earlier close-only header (lgse/strata#1129). New KDE users then had no Minimize or Maximize button until they found Settings (lgse/strata#2419).
+- lgse/strata#2448 added desktop detection, but only for the default of unsaved buttons. The preference stays the override, so existing users keep their choices (lgse/strata#2419, lgse/strata#2448).
 - Detection reads `XDG_CURRENT_DESKTOP`, not GTK's decoration layout. Only four named tilers hide the buttons, and unknown desktops show them (lgse/strata#2448, docs/preferences.md).
 - Window buttons bind through the shared preference path, so they apply at construction and live across windows; Settings only edits the preference (lgse/strata#1100).
 - The outer window frame drawn by the desktop is a separate concern from the header buttons (lgse/strata#1100, lgse/strata#1098).
