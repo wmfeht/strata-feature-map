@@ -117,7 +117,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - With 1 to 64 items selected, the footer requests missing metadata. That covers each selected file of unknown size and each selected entry of unknown modified date. lgse/strata#1266, lgse/strata#2533 (unverified)
 - In Icons or Columns, a selected file with an unknown or unavailable modified date reads "{name} ({size}) — —". Found by code reading. lgse/strata#2533 (unverified)
 - When the only item in a folder is selected, the count reads "1 file selected" or "1 folder selected", not its name. Found by code reading. lgse/strata#2533 (unverified)
-- The footer's modified date does not follow a date-format change or the 30 s relative-date refresh until the selection, listing, or view mode changes. Found by code reading. lgse/strata#2533 (unverified)
+- The footer's modified date does not follow a date-format change made in another window, or the 30 s relative-date refresh. It updates only when the footer next refreshes on a browser event, a focus change, or a view-mode switch. Found by code reading. lgse/strata#2533 (unverified)
 - With 2 to 64 items selected, but not all, the count shows a folder and file breakdown with the selected files' total size. lgse/strata#1034, lgse/strata#2533
 - That breakdown reads, for example, "1 folder, 2 files selected (64 MB)"; folder contents are not counted. lgse/strata#1034
 - When some selected file sizes are unknown the size reads "(3 B known; size incomplete)", and when none are known "(size unavailable)". lgse/strata#1034
