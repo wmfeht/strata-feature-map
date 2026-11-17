@@ -25,7 +25,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A mounted USB drive appears once under Devices and opens normally. lgse/strata#493
 - A mount whose volume is already listed gets no second row. lgse/strata#536
 - After `systemctl --user restart gvfs-daemon.service` and a remount, repeated any number of times, a network share appears once under Devices. lgse/strata#2449
-- A share left listed by a gvfsd restart and then remounted gets one row; Disconnect on it unmounts the live mount. lgse/strata#2449
+- Disconnect on that row unmounts the live mount. lgse/strata#2449
 - Two mounts of one share under different user names, such as `smb://alice@host/share` and `smb://bob@host/share`, keep separate rows. lgse/strata#2449 (unverified)
 - Two mounts of one share by `DOMAIN;alice` and `DOMAIN;bob` show one row. Found by code reading. lgse/strata#2449 (unverified)
 - With no listed volumes, mounts, password drives, or pending releases, neither the DEVICES heading nor its separator renders. lgse/strata#536, lgse/strata#2105 (unverified)
