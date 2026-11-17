@@ -50,7 +50,6 @@ The "File already exists" dialog shown when a paste, Move to…, or Copy to… m
 - A merged move adds the source's contents to the target folder, overwrites same-named files, and then removes the source folder. lgse/strata#2078
 - A merged move deletes only the source items it read unchanged. lgse/strata#2078
 - Merge with Apply to All merges the remaining folder pairs and still asks about each file conflict. lgse/strata#1092, lgse/strata#2030
-- A name taken inside a merged folder meanwhile gets the next number and is reported; a stopped merge leaves nothing partial. lgse/strata#1615
 - A same-filesystem move answered with Replace renames the source into place without copying it. lgse/strata#1615
 
 ### Undo

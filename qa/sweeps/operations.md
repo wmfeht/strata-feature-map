@@ -179,12 +179,13 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Produce every report section in one transfer, in a narrow window, while a Send to notice is visible.
 - On an SMB share, look up a folder under a second spelling so the client drops `serverino`. Then move a folder off the share and Replace a file on it.
 - On a vfat stick, Replace a file after a remount between the prompt and the copy, so the kernel renumbers its entries.
-- On the throttled rclone mount, copy a folder with nested subfolders and 50 files of 150 kB, then rename it while uploads are pending. Read `rclone.log` for `Can't DirMove` or `Dir.Rename error`, and list `/tmp/lab/remote` after uploads finish.
+- On the throttled rclone mount, copy a folder with nested subfolders and 50 files of 150 kB, then rename it while uploads are pending.
 - On the rclone mount, Merge a local folder into a same-named folder holding a subfolder and a file. The incoming side adds a new nested subfolder.
 - On the rclone mount, cancel such a Merge midway.
 - On the rclone mount, move a filled folder between two of its folders, Replace a folder, and extract an archive. List hidden `.strata-*` names after each.
 - On the rclone mount, cancel a folder copy midway and list the destination with hidden files shown.
 - Copy a large folder onto the mergerfs pool and onto the rclone mount; list hidden names in each destination while the copy runs.
+- Copy a folder through the gvfsd-fuse path (`/run/user/<uid>/gvfs`) of an SFTP location; list hidden names while it runs.
 
 ### operations/filesystem-compatibility/open-files
 
