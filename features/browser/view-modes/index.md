@@ -3,7 +3,7 @@ title: View modes
 status: shipped
 origin: {issue: null, pr: lgse/strata#383}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/browser_modes.rs, src/ui/browser_modes/events.rs, src/ui/browser/presentation.rs, src/ui/loading_skeleton.rs, src/ui/loading_skeleton/**, crates/strata-fs/src/app/navigation/preferences.rs, src/ui/browser/view_modes.rs, src/ui/browser_modes/clicks.rs, src/ui/browser_modes/cursor.rs, src/ui/browser_modes/metadata.rs, src/ui/browser_modes/pane.rs, src/ui/browser_modes/pane_header.rs, src/ui/browser_modes/pane_shell.rs, src/ui/browser_modes/pane_state.rs, src/ui/browser_modes/rebuild.rs, src/ui/browser_modes/scroll_settle.rs, src/ui/browser_modes/source_index.rs, src/ui/preferences/layout_settings.rs, src/ui/window/appearance_menu.rs]
 tests: [tests/qa/scenarios/view_switching/appearance-menu-switches-view.jsonl, tests/qa/scenarios/view_switching/shortcut-round-trip-keeps-selection.jsonl, tests/qa/scenarios/view_switching/switching-keeps-directory-and-sort.jsonl, tests/qa/scenarios/view_switching/switching-keeps-pane-filter.jsonl, tests/qa/mutations/view-switching.patch, src/ui/loading_skeleton/delay/tests.rs, src/ui/browser_modes/tests.rs, src/ui/browser_modes/tests/counting_model.rs, src/ui/browser/presentation/tests.rs, src/ui/window/tests/preferences/column_prefs.rs, tests/qa/scenarios/locations/unreadable-folder-offers-retry.jsonl]
@@ -13,7 +13,7 @@ related: [browser/search, preview/preview-panel, browser/view-modes/density, app
 
 ## Summary
 
-The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/density` covers the Frame and Content density sliders. `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, and `browser/view-modes/position-restore` the Icons and List position on return and refresh.
+The three presentations of a folder, Columns, Icons, and List, and the Appearance menu and shortcuts that switch between them. Children: `browser/view-modes/columns` (Miller columns), `browser/view-modes/icons` (the thumbnail grid), `browser/view-modes/list` (the table, with its column layout), `browser/view-modes/sorting` (sort fields, order, and persistence), and `browser/view-modes/folder-views` (per-folder sort and thumbnail size). `browser/view-modes/density` covers the Frame and Content density sliders. `browser/view-modes/text-size` covers interface text size, `browser/view-modes/thumbnail-size` the Icons thumbnail size shortcuts, `browser/view-modes/position-restore` the Icons and List position on return and refresh, and `browser/view-modes/entry-tooltips` the rested name tooltips on cards and rows.
 
 ## Behavior
 

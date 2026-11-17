@@ -3,11 +3,11 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+review: draft
 code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs, src/ui/browser_modes/list_headings.rs, src/ui/browser_modes/list_pane.rs, crates/strata-fs/src/app/navigation/type_groups.rs, src/ui/browser_modes/type_groups.rs]
 tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl, src/ui/browser_modes/grouped_model/tests.rs, tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl, tests/qa/scenarios/search_filter_sort/grouped-list-first-visit-starts-at-first-row.jsonl]
-related: [browser/navigation]
+related: [browser/navigation, browser/view-modes/entry-tooltips]
 ---
 
 ## Summary
@@ -59,6 +59,10 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 - A click selects the row whose hover highlight is shown; no strip between rows highlights one row but selects another. lgse/strata#327
 - Hovered and selected rows use the same rounded highlight as Columns, dimmed when the list loses focus. lgse/strata#554
+- After the rest delay of `browser/view-modes/entry-tooltips`, resting on a middle-ellipsized name in the Name column shows the full name alone, with no date. lgse/strata#2533
+- A name that fits its Name cell shows no tooltip. lgse/strata#2533
+- The Mode, Size, Type, and Modified cells show no name tooltip. lgse/strata#2533 (unverified)
+- While a row is being renamed, its Name cell shows no tooltip. lgse/strata#2533
 - Rows bound while scrolling show their text, icon, and a static date at once; cut styling and live-updating dates apply once scrolling settles. lgse/strata#371, lgse/strata#1081, lgse/strata#1673 (unverified)
 
 ## Design

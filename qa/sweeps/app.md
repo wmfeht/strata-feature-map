@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, scripts/test_build_srpm.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -51,7 +51,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Dump the focused node in a `chmod 000` folder and in a folder still loading over a stalled remote mount. Repeat in an empty folder with the interface in ja.
 - Empty a folder from a shell while it is open, then add a file back; dump the pane after each step and read its name and description.
 - Dump entries for a `chmod 000` folder, a `chmod 311` folder, a link to each, and a root-owned `0755` folder with `setfacl -m u:$USER:---`; read each description, then `chmod 755` one and press F5.
-- Dump an Icons card with a truncated name while its name tooltip shows, and one whose name fits; compare their names and descriptions.
+- Dump an Icons card, a Columns row, and an ellipsized List name while each name tooltip shows, then the same entries with no tooltip; compare their names and descriptions.
 - Collapse the sidebar to the rail and hover each row: places, pins, a mounted drive, a drive being ejected, and a network location. Expand and collapse it again during the eject.
 - With the interface in de and ja, read the names of the pane header buttons, the filter field, and the media buttons against their tooltips.
 - Serve release notes with a paragraph holding two links, a link whose text carries `<b>` or `<code>` markup, and a link in a list-child heading; read each link's name. Repeat on the Omarchy and pacman "Update available" statuses.
@@ -88,6 +88,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Press F1 with Shift, Ctrl, Alt, and Super held, and `~` with type-to-search on and off, in the default and 10xer maps.
 - Resize across 1480 px with a query and category active; the footer note must wrap only at a "·".
 - Select 1, 64, 65, and all items in a folder holding files of unknown size, a symlink, and 10k entries; read the count and its accessible description, then copy, cut, paste, and clear the clipboard with `wl-copy -c` or `xsel -c`.
+- Select one file whose name holds RTL text, an emoji, or 255 bytes, in each mode at the narrowest window width; read the count.
+- Select one entry on the SFTP fixture before its metadata loads, then a dangling symlink; read the count in Icons and Columns as metadata arrives.
+- With one file selected in Icons, change the date format in Settings from a second window, and wait past a minute with a relative date shown; read the count.
 - In the default map, run Ctrl+F in each mode on a local folder, a 10k-entry folder, and the SFTP fixture in Columns; read the count while typing, after results land, and after Escape.
 - Filter with the default map and select results. Switch to 10xer mode and back with the filter open, then clear the query by Backspace.
 - Rebind Tab, Shift+Tab, and Menu in Settings → Keyboard, then search F1 for `in a rename` and `Back button` in Columns, Icons, and List, in both maps; count the rows each search returns.
@@ -115,6 +118,9 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 
 - Launch `strata <dir>` while a window is open, then with a different directory, then with no argument; count windows and read each title with `xprop`.
 - Turn each window-button preference on and off with two windows open, restart, and compare the header order in both.
+- With a fresh config directory, launch with `XDG_CURRENT_DESKTOP` set to `SWAY`, `Hyprland:GNOME`, a tab-padded `niri`, `GNOME-Classic:GNOME`, and unset; read which header buttons show.
+- With a fresh config on GNOME, change an unrelated setting such as the theme, quit, and relaunch with `XDG_CURRENT_DESKTOP=Hyprland`; read the header buttons and `settings.toml`.
+- Save only `window_show_close = false`, then launch under GNOME and under Sway; read all three buttons, then open Settings → General → Window buttons and read each switch.
 - Maximize, restore, and maximize again by button, by the window manager, and by double-clicking the header; the icon, tooltip, and accessible name must follow the state each time.
 - Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
 - With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
@@ -155,6 +161,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Read the launcher's generic name and comment in a desktop shell under `LANG=zh_TW.UTF-8`, `zh_HK.UTF-8`, `zh_MO.UTF-8`, and `hu_HU.UTF-8`.
 - View the installed icon at 16, 24, 32, and 48 px on white, mid-grey, and near-black dock backgrounds.
 - Compare its size and corners with neighboring icons under Adwaita and under an icon theme with no Strata icon, such as MacTahoe.
+- Pin Strata to a KDE Plasma panel and a GNOME dash at 24, 40, and 64 px; compare the tile and the "S" with neighbors before and after refreshing the icon cache.
 - Run `nix build`, then read `Exec=` in `result/share/applications/io.github.lgse.Strata.desktop` and in `result/share/strata/io.github.lgse.Strata.FileManager1.service`.
 - Run `nix build .#strata.fileChooserPortal .#strata.fileManagerService`; read every `Exec=` line and resolve each path after a flake update and `nix-collect-garbage`.
 - Build from a `path:` and a `git+file:` reference, with a clean and a dirty tree; compare the Diagnostics build commit of each.
