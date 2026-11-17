@@ -59,7 +59,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 
 - A click selects the row whose hover highlight is shown; no strip between rows highlights one row but selects another. lgse/strata#327
 - Hovered and selected rows use the same rounded highlight as Columns, dimmed when the list loses focus. lgse/strata#554
-- The Name cell's entry tooltip carries the name with no date, since the Modified column shows it. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#2533
+- The Name cell's entry tooltip never carries a date, even with the Modified column hidden. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#2533 (unverified)
 - The Mode, Size, Type, and Modified cells show no name tooltip. lgse/strata#2533 (unverified)
 - While a row is being renamed, its Name cell shows no tooltip. lgse/strata#2533
 - Rows bound while scrolling show their text, icon, and a static date at once; cut styling and live-updating dates apply once scrolling settles. lgse/strata#371, lgse/strata#1081, lgse/strata#1673 (unverified)

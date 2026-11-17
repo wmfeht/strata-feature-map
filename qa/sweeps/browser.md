@@ -79,7 +79,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open a second tab on `100000` and switch back to the first while it loads; press arrows as the hidden load finishes. Then open Properties while the visible Columns folder reloads after an external change.
 - Press Down in each view under a light and a dark theme, then move the pointer without clicking and press Down again; note when each focus outline shows and hides.
 - Press Alt+Down in Icons on a folder, in List on a Ctrl+F result, and in grouped List; then switch to Columns and press Back.
-- With the location entry open, click a Columns row, a List heading, a sidebar row, and a header button; then click a tab while a completion is highlighted.
+- With the location entry open, click a Columns row, a List heading, a sidebar row, and a header button.
+- Click a tab while a location completion is highlighted.
 
 ### browser/selection/marquee
 
@@ -168,7 +169,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - After Back from a sidebar place, press Left into an ancestor column still loading on a stalled sshfs mount; delete its open folder from a shell before it loads.
 - Rename a folder whose child column is open to a name that sorts first, one that sorts last, and a dot name; press Tab and Shift+Tab. Repeat with Mirror columns selection off.
 - Dismiss the Shift+Delete confirmation over a Ctrl+F result with a backdrop click, then press Down, Up, and Space.
-- Rest on a row's chevron, its size badge, and the 255-byte name. Repeat on a recursive filter hit with its path line and in Trash.
+- Rest on a recursive filter hit's path line and on a row in Trash.
 - Rest on a row at the moment its rename commits, and again when Escape cancels it.
 
 ### browser/view-modes/icons
@@ -185,12 +186,14 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - In each view, rest on an entry and drift 4 px, then 5 px, diagonally and along one axis.
 - With a tooltip showing, right-click the row and dismiss the menu; middle-press it; then hold still.
-- With one tooltip showing, move to the next card or row and rest under 900 ms; then sweep across 20 entries and stop on the last.
+- With one tooltip showing, move to the next card or row and rest under 900 ms.
+- Sweep across 20 entries and stop on the last.
 - With a tooltip showing, press Tab and arrow keys. In 10xer mode, rest the pointer on a row while `j` and `k` move the selection under it.
 - Rest on an entry while F5 reloads the folder, while an external `touch` changes its date, and while a wheel tick recycles its row.
 
 ### browser/view-modes/list
 
+- Hide the Modified column, then rest on a truncated name.
 - Rest on the 255-byte name, widen the Name column until it fits, and rest again; then rest on the Mode, Size, and Modified cells. Repeat in grouped List and in Recent.
 - Shrink Name to its minimum, then double-click each heading edge with the 255-byte name and a `drwxrwxrwx  777` row visible.
 - Group by file type with hidden files on, sort by Type descending, toggle Folders first; read the group order top to bottom.

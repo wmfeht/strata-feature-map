@@ -26,8 +26,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - On rclone, s3fs, gvfsd-fuse, and other FUSE daemons over remote storage, a folder is never renamed over a placeholder. lgse/strata#2327
 - There, once `RENAME_NOREPLACE` is known to be missing, a folder is renamed in one call to a name found free. lgse/strata#2327
 - A folder moved, renamed, extracted, or placed by Replace on an rclone mount reaches rclone as one rename. rclone sends it as one move where its storage can move folders. lgse/strata#2327
-- sshfs, `fuseblk` devices, and local overlays such as mergerfs, gocryptfs, and bindfs do not count as FUSE daemons over remote storage. lgse/strata#2327
-- A bare `fuse` mount counts as a FUSE daemon over remote storage. lgse/strata#2327 (unverified)
+- A folder copied onto sshfs, a `fuseblk` device, mergerfs, gocryptfs, or bindfs is still built in a `.strata-copy-*` stage. lgse/strata#2327
 - A file pasted onto a KDE Connect sshfs mount of an Android phone arrives. lgse/strata#1941, lgse/strata#1945
 - There `link()` returns `EACCES`, so the file goes over an exclusive reserved name, and later pastes on that mount skip the link. lgse/strata#1945
 - A symlink moved within such a mount, where `symlink()` returns `EACCES`, is renamed over an exclusive reserved name. lgse/strata#1945
@@ -60,15 +59,17 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 ### Copying
 
 - Pastes, Duplicate, Keep Both, cross-filesystem moves, Replace, Merge, and restore copies between native paths use Strata's copy engine. GVfs locations use GIO. lgse/strata#1615
-- A copied item appears under its final name only when complete, except a folder on a mount where no step can place one, or on a FUSE daemon over remote storage. A cancelled or failed copy leaves nothing partial at a real name. lgse/strata#1615, lgse/strata#2327
+- A copied item appears under its final name only when complete. The exceptions are folders where no step can place one, and folders on a FUSE daemon over remote storage. lgse/strata#1615, lgse/strata#2327
+- A cancelled or failed copy leaves nothing partial at a real name. lgse/strata#1615
 - On local POSIX filesystems a copied file is written unnamed (`O_TMPFILE`) and linked when done; elsewhere the copy is built in a hidden `.strata-copy-*` stage. lgse/strata#1615
-- A folder copied onto rclone, s3fs, or another FUSE daemon over remote storage is made under its final name and filled there, with no `.strata-copy-*` stage. lgse/strata#2327
+- A folder copied onto rclone, s3fs, or another FUSE daemon over remote storage is made under its final name, with no stage. lgse/strata#2327
+- A bare `fuse` mount gets the same treatment. lgse/strata#2327 (unverified)
 - A folder with nested subfolders copied into an rclone mount with `--vfs-cache-mode full` arrives with every file. No "The result could not be confirmed" error appears. lgse/strata#2203, lgse/strata#2327
-- A failed or cancelled folder copy there removes the entries it made. lgse/strata#2327 (unverified)
+- A failed folder copy there removes only the entries it created, and the folder once it is empty. lgse/strata#1615, lgse/strata#2327
 - A file copied on its own onto such a mount is still staged and placed over a checked placeholder. lgse/strata#2327
 - A Merge builds incoming items in a hidden `.strata-copy-*` stage and renames them in. lgse/strata#1615
-- On a FUSE daemon over remote storage, or a mount where no step can place a folder, folders new to the target are copied in place in the live folder. lgse/strata#1615, lgse/strata#2327
-- A name taken inside a merged folder meanwhile gets the next number and is reported; a stopped merge leaves nothing partial. lgse/strata#1615
+- A Merge copies folders new to the target in place in the live folder on a FUSE daemon over remote storage, or where no step can place a folder. lgse/strata#1615, lgse/strata#2327
+- A name taken inside a merged folder meanwhile gets the next number and is reported; a stopped merge leaves no partial file under a real name. lgse/strata#1615
 - Every native file copy reports byte progress. lgse/strata#1615
 - A sparse file of 1 MiB or more copied from ext4, XFS, btrfs, tmpfs, or f2fs keeps its holes. lgse/strata#1615
 - Holes are filled onto FAT, exFAT, and NTFS, including exfat-fuse and ntfs-3g. lgse/strata#1615
@@ -151,7 +152,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - The mount type also decides folder staging and placement on FUSE daemons over remote storage. Nothing tells Strata how such a daemon renames a filled folder (lgse/strata#2203, lgse/strata#2327).
 - rclone does not rename a folder over an existing one. It moves file by file, returns `EIO` while uploads are pending, and merges into a non-empty folder (lgse/strata#2327).
 - So step 3's placeholder gave no `ENOTEMPTY` protection there, and folders skip it for step 5's free-name check (lgse/strata#2327).
-- The scope is every FUSE mount except `fuseblk`, sshfs, whose server renames the folder, and local overlays. (lgse/strata#2327).
+- The scope is every FUSE mount except `fuseblk`, sshfs, whose server renames the folder, and local overlays (lgse/strata#2327).
 - The cost is a folder visible under its final name while it fills. No setting was added (lgse/strata#2327).
 - `RENAME_EXCHANGE` is used only on in-kernel local filesystems. exfat-fuse reports success for it but overwrites (lgse/strata#1615).
 - Every "is this still the same item?" decision goes through one rule per mount, replacing two rules that disagreed. It weighs device, type, file handle, birth time, inode, and recorded size and times, by what the mount keeps (lgse/strata#1729).
@@ -198,5 +199,5 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - GVfs destinations get no flush, no content check, and no retry of a refused name. lgse/strata#1615
 - Only names are checked, not paths, so Windows' `MAX_PATH` is not predicted. lgse/strata#1615
 - Link targets are never rewritten, so a link to a renamed entry dangles. lgse/strata#1615
-- Only rclone was tested as a FUSE daemon over remote storage; s3fs, gvfsd-fuse, and other `fuse.*` daemons get the same rules untested. lgse/strata#2327
+- s3fs, gvfsd-fuse, and other `fuse.*` daemons get rclone's folder rules, though nothing tells Strata how they rename a filled folder. lgse/strata#2327
 - On rclone, a folder that arrives at the name in step 5's check window is merged into, and its same-named files are replaced. lgse/strata#2327

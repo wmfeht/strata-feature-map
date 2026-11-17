@@ -12,7 +12,7 @@ related: [browser/view-modes/icons, browser/view-modes/columns, browser/view-mod
 
 ## Summary
 
-The shared hover tooltip that shows an entry's full name once the pointer rests on an Icons card, a Columns row, or a List name cell. In Icons and Columns it adds the modified date. It is for reading names the views truncate. Each view decides where on its card or row the tooltip applies.
+The shared hover tooltip that shows an entry's full name after a rest on an Icons card, Columns row, or List name cell. In Icons and Columns it adds the modified date. It is for reading names the views truncate. Each view decides where on its card or row the tooltip applies.
 
 ## Behavior
 
