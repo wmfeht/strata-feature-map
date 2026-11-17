@@ -31,7 +31,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - An sshfs mount whose daemon a script stops with `kill -STOP` and resumes with `kill -CONT`, for the Default directory and save cases.
 - Fonts for Interface font: a family with a quoted name, a family with no Latin glyphs, a bitmap-only family, and a family installed with `fc-cache` while Strata runs, then removed.
 - For Diagnostics: a container or bind mounts that mask `bwrap`, `prlimit`, `ffmpeg`, `ffmpegthumbnailer`, `ffprobe`, and `unsquashfs` one at a time, plus `os-release` files for Arch, Debian, Fedora, openSUSE, and an unknown `ID`.
-- For Diagnostics: a Plasma 6 session with `kio-extras` and `gvfs-mtp`, a Plasma 5 session with `kiod5`, and a non-Plasma host holding only the `org.kde.kmtpd5` D-Bus service file. Skip the KDE MTP probes on any that is unavailable and say so.
+- For Diagnostics: a Plasma 6 session with `kio-extras` and `gvfs-mtp`. A Plasma 5 session with `kiod5`. A non-Plasma host holding only the `org.kde.kmtpd5` D-Bus service file. Skip the KDE MTP probes on any that is unavailable and say so.
 - For Diagnostics: a host whose only `bwrap` is a setuid copy (`chmod 4755`), then a setgid copy (`chmod 2755`), in `/run/wrappers/bin`.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
 

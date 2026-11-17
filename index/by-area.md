@@ -646,7 +646,7 @@ Two spacing settings in the Appearance menu's DENSITY section. Frame is the vert
 
 shipped · draft · reviewed at [`7cc1543`](https://github.com/lgse/strata/tree/7cc1543e9c4bc00e68f1525b0b3d47f4624bc375) · 0 PRs since · origin issue [lgse/strata#2462](https://github.com/lgse/strata/issues/2462), pr [lgse/strata#2533](https://github.com/lgse/strata/issues/2533)
 
-The shared hover tooltip that shows an entry's full name once the pointer rests on an Icons card, a Columns row, or a List name cell. In Icons and Columns it adds the modified date. It is for reading names the views truncate. Each view decides where on its card or row the tooltip applies.
+The shared hover tooltip that shows an entry's full name after a rest on an Icons card, Columns row, or List name cell. In Icons and Columns it adds the modified date. It is for reading names the views truncate. Each view decides where on its card or row the tooltip applies.
 
 - Code: [`src/ui/entry_tooltip.rs`](https://github.com/lgse/strata/blob/7cc1543e9c4bc00e68f1525b0b3d47f4624bc375/src/ui/entry_tooltip.rs)
 - Tests: [`src/ui/entry_tooltip/tests.rs`](https://github.com/lgse/strata/blob/7cc1543e9c4bc00e68f1525b0b3d47f4624bc375/src/ui/entry_tooltip/tests.rs)

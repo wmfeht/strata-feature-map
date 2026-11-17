@@ -56,7 +56,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Run the live ISO guest's Strata as root and as the live user; compare the rows for the root loop and the boot medium.
 - Mount the CD-ROM's ISO from a shell, unmount it, and hold it with `sudo dd if=/dev/sr0 of=/dev/null` and with a `losetup` on it; watch the row after each step.
 - Plug in a stick while a held volume's first probe is pending, and mount the stick while another drive is being attached.
-- Mount the SFTP fixture, restart `gvfs-daemon.service` once and then three times, remounting after each; count its rows, then Disconnect the remaining row. Repeat without remounting, and with Strata started after the restarts.
+- Mount the SFTP fixture, restart `gvfs-daemon.service` once and then three times, remounting after each, then Disconnect the remaining row. Repeat without remounting, and with Strata started after the restarts.
 - Mount the Samba share as `alice` and `bob`, then as `DOMAIN;alice` and `DOMAIN;bob`. Disconnect each row in turn and read which mount `gio mount -l` drops.
 
 ### devices/volumes/release

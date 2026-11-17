@@ -56,7 +56,7 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 ### Location, device, and desktop checks
 
 - Launched with `GIO_USE_VFS=local`, GVfs is a problem saying the session uses local files only, with no install command. lgse/strata#1735
-- SFTP, Windows shares (SMB), FTP, WebDAV, Android devices (MTP), iPhone and iPad, and Cameras pass when GVfs lists their URI scheme. Otherwise each is a warning with its backend package. Android devices (MTP) has one exception, below, which applies only when the check would pass. lgse/strata#1735, lgse/strata#2523
+- SFTP, Windows shares (SMB), FTP, WebDAV, Android devices (MTP), iPhone and iPad, and Cameras pass when GVfs lists their URI scheme. Otherwise each is a warning with its backend package. Android devices (MTP) instead warns about KDE's MTP service in the case below. lgse/strata#1735, lgse/strata#2523
 - With the GVfs `mtp` backend listed and `org.kde.kmtpd5` owned or activatable on the session bus, Android devices (MTP) is a warning. It reads "KDE's MTP service is also installed, and whichever claims a phone first leaves the other with no storage. If a phone appears empty, unplug it, run pkill -x kiod6, then reconnect it unlocked." lgse/strata#2523
 - That KDE warning shows no install hint: neither "Install with:" nor "Install <package> or your distribution's equivalent." lgse/strata#2523 (unverified)
 - With the `mtp` backend listed and `org.kde.kmtpd5` absent, Android devices (MTP) passes. lgse/strata#2523

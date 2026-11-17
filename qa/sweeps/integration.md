@@ -88,7 +88,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `multiple` and `directory`, tap a folder once, hold the second tap, move past the drag threshold, and release over another folder. Read the location, the files on disk, and the response code.
 - Double-click a file, hold the second click 1 s without moving, then release; repeat with Files set to single-click and to double-click, and with a filter result.
 - Press Ctrl+L, type a path without Enter, then click a file row, the sidebar, the preview, the Name field under `save`, and the accept button. Read the location, the selection, and the response code after each. Repeat in Move to and Send to, and read the chosen destination instead of a response code.
-- With the path entry open, press inside it, on its buttons, and on a header button, and drag from inside the entry out into the file list; read whether the entry stays open.
+- With the path entry open, press inside it, on its buttons, and on a header button. Drag from inside the entry out into the file list; read whether the entry stays open.
 
 ### integration/portal-file-chooser/setup
 

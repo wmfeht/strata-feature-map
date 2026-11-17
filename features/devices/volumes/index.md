@@ -24,7 +24,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A mount the backend hides, such as a Pacman cache subvolume outside `$HOME`, `/media`, and `/run/media/$USER`, does not appear in Devices. lgse/strata#536
 - A mounted USB drive appears once under Devices and opens normally. lgse/strata#493
 - A mount whose volume is already listed gets no second row. lgse/strata#536
-- After `systemctl --user restart gvfs-daemon.service` and a remount, repeated any number of times, a network share appears once under Devices. lgse/strata#2449
+- After two or more `systemctl --user restart gvfs-daemon.service` runs, each followed by a remount, a network share appears once under Devices. lgse/strata#2449
 - Disconnect on that row unmounts the live mount. lgse/strata#2449
 - Two mounts of one share under different user names, such as `smb://alice@host/share` and `smb://bob@host/share`, keep separate rows. lgse/strata#2449 (unverified)
 - Two mounts of one share by `DOMAIN;alice` and `DOMAIN;bob` show one row. Found by code reading. lgse/strata#2449 (unverified)
