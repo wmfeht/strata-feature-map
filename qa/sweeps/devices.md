@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
@@ -55,6 +55,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Run the live ISO guest's Strata as root and as the live user; compare the rows for the root loop and the boot medium.
 - Mount the CD-ROM's ISO from a shell, unmount it, and hold it with `sudo dd if=/dev/sr0 of=/dev/null` and with a `losetup` on it; watch the row after each step.
 - Plug in a stick while a held volume's first probe is pending, and mount the stick while another drive is being attached.
+- Mount the SFTP fixture, restart `gvfs-daemon.service` once and then three times, remounting after each; count its rows, then Disconnect the remaining row. Repeat without remounting, and with Strata started after the restarts.
 
 ### devices/volumes/release
 
