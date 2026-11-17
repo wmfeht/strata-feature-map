@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs that touched a feature, or one of its children, after that node's own review; `?` means a review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `7cc1543` · 157 features, 79 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `7cc1543` · 157 features, 78 reviewed
 
 ## app
 
@@ -209,7 +209,7 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | --- | --- | --- | --- | --- | --- |
 | [Diagnostics](features/settings/diagnostics.md) | `settings/diagnostics` | shipped | draft | `7cc1543` | 0 |
 | [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `6eb4bf6` | 0 |
-| ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | reviewed | `5f17c9f` | 0 |
+| ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | draft | `7cc1543` | 0 |
 | ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `7cc1543` | 0 |
 | ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `7cc1543` | 0 |
 | [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `6eb4bf6` | 0 |
