@@ -28,6 +28,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The application icon draws the logo in blue and violet gradients on a rounded tile. The tile fades from `#414868` at the top to `#1b1c27` at the bottom. lgse/strata#1838 (unverified)
 - In a panel or dock, the icon's tile fills its slot as neighboring icons do. The "S" fills most of the tile and keeps a margin to its edge. lgse/strata#2522
 - In a 40 px slot the "S" draws at about 29×35 px. lgse/strata#2522
+- The SVG's viewBox is the tile itself, so the tile reaches every canvas edge. lgse/strata#2522
 - Release archives contain `io.github.lgse.Strata.desktop` and `io.github.lgse.Strata.svg` beside the `strata` binary. lgse/strata#182
 - By default, `mise run install-local` installs the binary to `~/.local/bin`, the icon under `~/.local/share/icons/hicolor`, and the entry under `~/.local/share/applications`. lgse/strata#182, lgse/strata#663
 - The entry ships with `Exec=strata %U`; `mise run install-local` rewrites it to the installed binary's absolute path. lgse/strata#182, lgse/strata#663
@@ -69,7 +70,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The tile is a gradient with a faint light edge because a flat `#1b1c27` tile blended into dark docks (lgse/strata#1838).
 - Linux desktops draw the hicolor SVG unmasked, so the icon rounds its own corners. Icon themes such as MacTahoe reshape only the apps they ship icons for (lgse/strata#1838).
 - The tile first spanned 228 of 284 units per side, with a 51-unit corner radius, as macOS and Adwaita icons do (lgse/strata#1838).
-- That 10% margin and a 0.6-scale mark left the mark about 44% of the canvas. KDE Plasma panels then drew Strata at about half its neighbors' size (lgse/strata#2492, lgse/strata#2522).
+- The tile's 28-unit (10%) margin and a 0.6-scale mark left the mark about 44% of the canvas. KDE Plasma panels then drew Strata at about half its neighbors' size (lgse/strata#2492, lgse/strata#2522).
 - The viewBox is now cropped to the tile, so the tile fills the canvas; the 51-unit radius stays. The mark is scaled to 0.8 and centred (lgse/strata#2522).
 - lgse/strata#2492 suggested a 0.9 mark, but at that size its top and bottom points touch the tile edge (lgse/strata#2522).
 - The entry declares `x-scheme-handler/trash` because `Exec=strata %U` already opened `trash:///`, but choosers never offered Strata for it. The declaration makes Strata eligible; `mimeapps.list` still picks the default (lgse/strata#2052, lgse/strata#2065).

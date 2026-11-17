@@ -114,7 +114,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In a narrow window, a long selected name is ellipsized in the middle. lgse/strata#2533
 - Switching view mode with one item selected re-renders the count at once: List drops the date, and Icons and Columns add it. lgse/strata#2533
 - In 10xer mode, moving the selection with j, k, or the arrow keys updates the name in the count at once. lgse/strata#2533
-- With 1 to 64 items selected, the footer requests metadata for each selected file of unknown size and each selected entry of unknown modified date. lgse/strata#1266, lgse/strata#2533 (unverified)
+- With 1 to 64 items selected, the footer requests missing metadata. That covers each selected file of unknown size and each selected entry of unknown modified date. lgse/strata#1266, lgse/strata#2533 (unverified)
 - In Icons or Columns, a selected file with an unknown or unavailable modified date reads "{name} ({size}) — —". Found by code reading. lgse/strata#2533 (unverified)
 - When the only item in a folder is selected, the count reads "1 file selected" or "1 folder selected", not its name. Found by code reading. lgse/strata#2533 (unverified)
 - The footer's modified date does not follow a date-format change or the 30 s relative-date refresh until the selection, listing, or view mode changes. Found by code reading. lgse/strata#2533 (unverified)

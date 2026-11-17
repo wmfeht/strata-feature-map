@@ -48,8 +48,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 - With no `window_show_*` setting saved and `XDG_CURRENT_DESKTOP` naming Hyprland, Sway, i3, or niri, Minimize, Maximize, and Close are hidden. lgse/strata#2448
 - With no such setting saved and any other `XDG_CURRENT_DESKTOP`, including GNOME, KDE, empty, or unknown, all three buttons show before Settings opens. lgse/strata#2448
 - On GNOME or KDE the unsaved buttons show even when GTK's decoration layout is close-only, such as `appmenu:close`. lgse/strata#2448
-- `XDG_CURRENT_DESKTOP` is split at `:`, and each entry is trimmed and compared case-insensitively. lgse/strata#2448
-- Any whole tiler entry hides the buttons, so `KDE: hYpRlAnD ` hides them. lgse/strata#2448
+- Any colon-separated entry naming a tiler, ignoring case and surrounding spaces, hides the buttons, so `KDE: hYpRlAnD ` hides them. lgse/strata#2448
 - A partial name such as `sway-like` or `not-Hyprland` shows the buttons. lgse/strata#2448
 - A saved choice wins over the desktop: a saved visible button stays visible on niri, and a saved hidden one stays hidden on GNOME. lgse/strata#2448
 - With only some `window_show_*` keys saved, only the missing ones take the desktop default. lgse/strata#2448

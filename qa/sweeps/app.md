@@ -90,8 +90,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Select 1, 64, 65, and all items in a folder holding files of unknown size, a symlink, and 10k entries; read the count and its accessible description, then copy, cut, paste, and clear the clipboard with `wl-copy -c` or `xsel -c`.
 - Select one file whose name holds RTL text, an emoji, or 255 bytes. Read the count in each mode at the narrowest window width.
 - Select one entry on the SFTP fixture before its metadata loads, then a dangling symlink. Read the count in Icons and Columns as metadata arrives.
-- With one file selected in Icons, change the date format in Settings from a second window; read the count.
-- With a relative date shown in the count, wait past a minute and read it again.
+- In 10xer mode in Icons, change the date format from a second window while j and k move the selection; read the count after each step.
 - In the default map, run Ctrl+F in each mode on a local folder, a 10k-entry folder, and the SFTP fixture in Columns; read the count while typing, after results land, and after Escape.
 - Filter with the default map and select results. Switch to 10xer mode and back with the filter open, then clear the query by Backspace.
 - Rebind Tab, Shift+Tab, and Menu in Settings → Keyboard, then search F1 for `in a rename` and `Back button` in Columns, Icons, and List, in both maps; count the rows each search returns.
@@ -121,7 +120,6 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Turn each window-button preference on and off with two windows open, restart, and compare the header order in both.
 - With a fresh config directory, launch with `XDG_CURRENT_DESKTOP` set to `SWAY`, `Hyprland:GNOME`, and a tab-padded `niri`. Repeat with `GNOME-Classic:GNOME` and unset; read which header buttons show.
 - Save only `window_show_close = false`, then launch under GNOME and under Sway; read all three buttons.
-- In that state, open Settings → General → Window buttons and read each switch.
 - Maximize, restore, and maximize again by button, by the window manager, and by double-clicking the header; the icon, tooltip, and accessible name must follow the state each time.
 - Toggle 10xer mode from a second window while hovering the sidebar toggle, and read its tooltip and accessible name in both windows.
 - With a rename open, click the header Search and New tab buttons, and read whether the typed name commits, stays, or is lost.
@@ -350,6 +348,8 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Context menu items, placement, and Open With → `browser`.
 - The sidebar as a navigation surface, the Trash row, and the update notice's text and layout → `browser`.
 - Sidebar toggle steps and tooltip text → `browser`.
+- Entry tooltip rest delay and text → `browser`.
+- Date format choices → `settings`.
 - Sidebar automatic rail → `preview`.
 - Settings layer mechanics and pages other than Updates, including Window buttons and text size controls → `settings`.
 - First save writing the `window_show_*` keys → `settings`.
