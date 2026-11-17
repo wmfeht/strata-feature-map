@@ -183,9 +183,10 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/view-modes/entry-tooltips
 
-- In each view, rest on an entry and drift 4 px, then 5 px; press and release a mouse button while resting, then hold still.
+- In each view, rest on an entry and drift 4 px, then 5 px, diagonally and along one axis.
+- With a tooltip showing, right-click the row and dismiss the menu; middle-press it; then hold still.
 - With one tooltip showing, move to the next card or row and rest under 900 ms; then sweep across 20 entries and stop on the last.
-- Tab to a card or row and wait. In 10xer mode, rest the pointer on a row while `j` and `k` move the selection under it.
+- With a tooltip showing, press Tab and arrow keys. In 10xer mode, rest the pointer on a row while `j` and `k` move the selection under it.
 - Rest on an entry while F5 reloads the folder, while an external `touch` changes its date, and while a wheel tick recycles its row.
 
 ### browser/view-modes/list

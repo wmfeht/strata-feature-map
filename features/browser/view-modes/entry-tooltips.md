@@ -19,7 +19,7 @@ The shared hover tooltip that shows an entry's full name once the pointer rests 
 ### Rest delay
 
 - An entry tooltip shows only after the pointer rests 900 ms on the card, row, or name cell. lgse/strata#1553, lgse/strata#2533
-- Moving more than 4 px or leaving the card, row, or cell restarts the wait. Sweeping across the grid or the rows shows no tooltips. lgse/strata#1553, lgse/strata#2533
+- Moving more than 4 px on either axis, or leaving the card, row, or cell, restarts the wait. Sweeping across the grid or the rows shows no tooltips. lgse/strata#1553, lgse/strata#2533
 - Pressing any mouse button cancels the wait until the pointer moves again, so a click then holding still shows no tooltip. lgse/strata#1553, lgse/strata#2533 (unverified)
 - Keyboard focus on a card or row shows no entry tooltip, including during 10xer `j`/`k` and arrow navigation. lgse/strata#1553, lgse/strata#2533
 
