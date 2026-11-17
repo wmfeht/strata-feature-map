@@ -3,11 +3,11 @@ title: Icons view
 status: shipped
 origin: {issue: lgse/strata#322, pr: lgse/strata#328}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+review: draft
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**, crates/strata-fs/src/adapters/local_files/icon_cache.rs, src/ui/browser_modes/icons_card.rs, src/ui/browser_modes/icons_controls.rs, src/ui/browser_modes/icons_pane.rs, src/ui/browser_modes/icons_view.rs]
 tests: [src/ui/icons_cell/tests.rs, crates/strata-fs/src/adapters/local_files/tests/icon_details.rs]
-related: [browser/thumbnails, operations/rename, browser/view-modes/folder-views]
+related: [browser/thumbnails, operations/rename, browser/view-modes/folder-views, browser/view-modes/entry-tooltips, settings/preferences/date-format]
 ---
 
 ## Summary
@@ -44,15 +44,12 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 
 ### Name tooltip
 
-- Resting the pointer about a second (900 ms) on a card whose name is middle-ellipsized shows the full name in a tooltip. lgse/strata#1553
-- A name that fits in its two caption lines shows no tooltip. lgse/strata#1553
+- A card's entry tooltip carries its name and, once known, its modified date. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#1553, lgse/strata#2533
+- A name counts as truncated when it is middle-ellipsized in its two caption lines. lgse/strata#1553
 - The tooltip appears only over the card's thumbnail or caption, not its padding. lgse/strata#1553
 - Over the caption, only the name's text box and the details text count, not blank space beside a short centered name. lgse/strata#1553 (unverified)
-- Moving more than 4 px or leaving the card restarts the wait. Sweeping across the grid shows no tooltips. lgse/strata#1553
-- Pressing a mouse button cancels the wait until the pointer moves again, so a click then holding still shows no tooltip. lgse/strata#1553 (unverified)
 - After a rename commits, the tooltip shows the new name; while the rename field is open, none appears. lgse/strata#1553
 - Ctrl+F results shown in Icons use the same cards and show the same tooltip. lgse/strata#1553
-- Keyboard focus on a card shows no name tooltip. lgse/strata#1553 (unverified)
 
 ### Scrolling
 
@@ -68,10 +65,10 @@ GTK's GridView estimates layout from cell sizes, so flexible image and label car
 - Visible requests displace queued offscreen work in the 1,024-entry metadata backlog instead of raising the limit (lgse/strata#1146).
 - The slider's long-press fine-tune is removed because it snapped the thumb to 64 and 256 (lgse/strata#328).
 - Tile proportions follow Finder and Windows Explorer: compact by default, Airy modestly roomier (lgse/strata#737).
-- Middle ellipsis hides the part of names like `2026-10-07-release-candidate-build-final-v3.tar.gz` that tells them apart. Wider cards, a smaller font, end ellipsis, and a status-bar name were rejected (lgse/strata#1522).
-- Cards run their own rest timer. GTK4's hover delay drops to 60 ms once any tooltip shows, which would flash names card by card while sweeping the grid (lgse/strata#1553).
-- Upstream AGENTS.md allows tooltips only on icon-only buttons. The owner approved this exception for Icons names on condition of a longer delay than GTK's default (lgse/strata#1553).
-- The tooltip reads the caption when GTK asks for it, so it follows a pending rename (lgse/strata#1553).
+- Middle ellipsis hides the part of names like `2026-10-07-release-candidate-build-final-v3.tar.gz` that tells them apart. Wider cards, a smaller font, end ellipsis, and a status-bar name were rejected (lgse/strata#1522). lgse/strata#2533 later put the selected name in the footer, for every view (lgse/strata#2462).
+- Cards first ran their own rest timer, because GTK4's hover delay drops to 60 ms once any tooltip shows (lgse/strata#1553). lgse/strata#2533 moved it to `browser/view-modes/entry-tooltips`, shared with Columns and List.
+- Upstream AGENTS.md allows tooltips only on icon-only buttons. The owner approved this exception for Icons names on condition of a longer delay than GTK's default (lgse/strata#1553). It later covered List and Columns rows too ([comment](https://github.com/lgse/strata/issues/2462#issuecomment-6908936616)).
+- The tooltip reads the caption when GTK asks for it, so it follows a pending rename (lgse/strata#1553). The date comes from a hidden label on the card, filled with the details (lgse/strata#2533, commit 916e2ab8).
 - A caption's measured extent is kept between measure and allocate. It is keyed by Pango context serial, insets, attributes, text, and width, so Text size changes and renames remeasure it. The reserved two-line height is cached the same way (lgse/strata#1675).
 
 ## History

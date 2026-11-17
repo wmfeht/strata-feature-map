@@ -3,8 +3,8 @@ title: Restore from Trash
 status: shipped
 origin: {issue: lgse/strata#478, pr: lgse/strata#502}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+review: draft
 code: [crates/strata-fs/src/adapters/trash_restore.rs, crates/strata-fs/src/adapters/local_operations/restore.rs, crates/strata-fs/src/adapters/local_operations/restore/lookup.rs, crates/strata-fs/src/adapters/local_operations/restore/moves.rs, crates/strata-fs/src/adapters/local_operations/restore/names.rs, crates/strata-fs/src/adapters/local_operations/restore_items.rs, src/ui/browser/trash/restore.rs]
 tests: [crates/strata-fs/src/adapters/trash_restore/**, crates/strata-fs/src/adapters/local_operations/tests/restore_safety.rs, crates/strata-fs/src/adapters/local_operations/tests/restore_safety/**]
 docs: [docs/trash-restore-testing.md]
@@ -46,9 +46,8 @@ Returning trashed items to their original locations, from the Restore menu item 
 - If something exists at the destination, the restore fails with "something already exists at the destination" and the item stays in Trash. lgse/strata#502, lgse/strata#1527
 - On filesystems without `RENAME_NOREPLACE`, such as NTFS via ntfs-3g, files and folders restore when the destination is free. lgse/strata#1527
 - There the item is placed without copying. lgse/strata#1615
-- A file is placed by hard link, or over a checked placeholder on sshfs, vboxsf, rclone, and s3fs. lgse/strata#1615
-- A folder is placed over an empty placeholder, or on vboxsf renamed to a name found free. lgse/strata#1615
-- An item that appears at the destination meanwhile is never replaced. lgse/strata#1615
+- An item that appears at the destination meanwhile is never replaced, except a folder arriving in step 5's check window. lgse/strata#1615
+- There rclone merges into the arriving folder, and ntfs-3g replaces an empty one at a name it would cut. lgse/strata#1615, lgse/strata#2327
 - Where nothing can place the item, it is copied with best-effort metadata, so ntfs3 `$LX*` attributes no longer fail it and named pipes are recreated. lgse/strata#1615
 - That copy is flushed, then the Trash copy is deleted entry by entry. lgse/strata#1615
 - An entry that changed or cannot be copied stays in Trash with its `.trashinfo`, reported as "“name” changed during the restore and was left in the Trash". lgse/strata#1615

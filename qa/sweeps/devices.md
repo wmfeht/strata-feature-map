@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
@@ -23,6 +23,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - A live ISO booted in a second guest with two extra virtio disks, for the held root loop and boot medium. An ISO attached as a CD-ROM to the installed guest holds the optical case.
 - A second build made with `STRATA_INTEGRATIONS=package`, copied into the guest beside the default build.
 - `scripts/sftp-fixture.sh --port 2222` with GVfs running, as in `qa/sweeps/remote.md`, for the SFTP share's network row and Disconnect. Mount `davs://` and `afp://` locations too where a server is at hand.
+- A Samba server in the guest with users `alice` and `bob` on one share, and a `workgroup = DOMAIN` setting for the domain logins. Without one, record the SMB user probes as not exercised.
 
 ## Probes
 
@@ -55,6 +56,8 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Run the live ISO guest's Strata as root and as the live user; compare the rows for the root loop and the boot medium.
 - Mount the CD-ROM's ISO from a shell, unmount it, and hold it with `sudo dd if=/dev/sr0 of=/dev/null` and with a `losetup` on it; watch the row after each step.
 - Plug in a stick while a held volume's first probe is pending, and mount the stick while another drive is being attached.
+- Mount the SFTP fixture, restart `gvfs-daemon.service` once and then three times, remounting after each, then Disconnect the remaining row. Repeat without remounting, and with Strata started after the restarts.
+- Mount the Samba share as `alice` and `bob`, then as `DOMAIN;alice` and `DOMAIN;bob`. Disconnect each row in turn and read which mount `gio mount -l` drops.
 
 ### devices/volumes/release
 

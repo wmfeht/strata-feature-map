@@ -3,7 +3,7 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/window/devices.rs, src/ui/window/devices/held.rs, src/ui/window/devices/probe_cache.rs, src/ui/window/sidebar_devices.rs, src/ui/window/device_menu.rs, src/ui/window/gio_devices.rs, src/ui/browser/location/devices.rs, src/ui/browser/location/volumes.rs]
 tests: [src/ui/window/devices/tests.rs]
@@ -24,6 +24,10 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A mount the backend hides, such as a Pacman cache subvolume outside `$HOME`, `/media`, and `/run/media/$USER`, does not appear in Devices. lgse/strata#536
 - A mounted USB drive appears once under Devices and opens normally. lgse/strata#493
 - A mount whose volume is already listed gets no second row. lgse/strata#536
+- After two or more `systemctl --user restart gvfs-daemon.service` runs, each followed by a remount, a network share appears once under Devices. lgse/strata#2449
+- Disconnect on that row unmounts the live mount. lgse/strata#2449
+- Two mounts of one share under different user names, such as `smb://alice@host/share` and `smb://bob@host/share`, keep separate rows. lgse/strata#2449 (unverified)
+- Two mounts of one share by `DOMAIN;alice` and `DOMAIN;bob` show one row. Found by code reading. lgse/strata#2449 (unverified)
 - With no listed volumes, mounts, password drives, or pending releases, neither the DEVICES heading nor its separator renders. lgse/strata#536, lgse/strata#2105 (unverified)
 - An unmounted volume of GVfs class `loop` that GVfs does not mark for automount, such as a live system's root image, gets no row. lgse/strata#2105
 - With no automounter running, a loop the current user attached with `udisksctl loop-setup -f disk.iso` stays listed and mounts when clicked. lgse/strata#2105
@@ -88,6 +92,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A loop is hidden by GVfs class `loop` without the automount mark, not by its `/dev/loopN` name. GVfs marks exactly the loops this user attached, so images attached under Hyprland or Sway stay listed. lgse/strata#2104 had hidden every unmounted loop ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097)).
 - The exclusive-open probe is mount(8)'s own "already mounted or mount point busy" test (lgse/strata#2104). It runs off the UI thread through the encryption-hint cache, now shared as `devices/probe_cache.rs`, because `open(2)` on an optical drive can block ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097)).
 - The busy message matches whole phrases on untyped failures only, because UDisks messages carry device labels and mount paths. A typed GIO error keeps its own reason ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097)).
+- After a gvfsd restart, GIO keeps the old mount objects. GVfs prepends the remount with a new D-Bus ID, so the first mount per location is the live one. Location alone is the key, because it derives from the mount root (lgse/strata#2449, [comment](https://github.com/lgse/strata/pull/2449#issuecomment-6908776612)).
 - Sidebar mounts run through the browser's mount flow, so volumes share the themed authentication prompt, quiet cancellation, and retries used by remote locations (lgse/strata#302, lgse/strata#493).
 - GVfs network mounts are shares to disconnect, not drives to eject. Before lgse/strata#2030, only SMB got the network row, and an SFTP share showed a drive icon with eject (lgse/strata#2016).
 - A volume row is described like a mount row, by its path. GIO sets no activation root for an fstab volume, and cdda and MTP volumes have a raw URI one, so the description skips it (lgse/strata#2012, lgse/strata#2030).
@@ -110,5 +115,6 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - The busy phrases are English. A UDisks daemon in another locale shows its own busy text in "Unable to mount volume". lgse/strata#2104 ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097))
 - NAS shares mounted by the system at native paths, such as NFS under `/mnt`, do not appear in Devices when GIO misses them. lgse/strata#1209
 - An unmounted fstab volume's row is described by its device path, not its fstab mount point. lgse/strata#2030
+- After a gvfs-daemon restart with no remount, or after Disconnect, one stale share row remains. Dropping it needs the GVfs mount tracker over D-Bus. lgse/strata#2449 ([comment](https://github.com/lgse/strata/pull/2449#issuecomment-6908776612))
 - Network share rows offer Disconnect even when the mount reports it cannot be unmounted. lgse/strata#62
 - An internal disk mounted through fstab at `/mnt/data` without `x-gvfs-show` is left out of Ctrl+K search. No warning shows and no setting adds it back. lgse/strata#2070 ([comment](https://github.com/lgse/strata/pull/2070#issuecomment-6677782710))

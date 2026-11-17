@@ -3,17 +3,17 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs, src/ui/shortcut_footer/build.rs, src/ui/shortcut_footer/catalog.rs, src/ui/shortcut_footer/reference.rs, src/ui/shortcut_footer/reference_keys.rs, src/ui/shortcut_footer/status.rs]
 tests: [src/ui/shortcut_footer/tests.rs, src/ui/shortcut_footer/tests/**, src/ui/shortcut_reference/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
 docs: [site/src/reference/keyboard-navigation.md]
-related: [settings/preferences, integration/10xer-mode, integration/10xer-mode/file-chooser, browser/context-menu, operations/clipboard, app/keyboard-shortcuts]
+related: [settings/preferences, integration/10xer-mode, integration/10xer-mode/file-chooser, browser/context-menu, operations/clipboard, app/keyboard-shortcuts, browser/view-modes/entry-tooltips]
 ---
 
 ## Summary
 
-The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and the window footer that hosts it. The reference shows the active key map for the current view, with search and categories. The footer carries the F1 Shortcuts button, the item and selection count, and the Files on clipboard badge. 10xer prompts, chords, and tags in the same footer belong to `integration/10xer-mode`.
+The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and the window footer that hosts it. The reference shows the active key map for the current view, with search and categories. The footer carries the F1 Shortcuts button, the item and selection count with the selected item's name, and the Files on clipboard badge. 10xer prompts, chords, and tags in the same footer belong to `integration/10xer-mode`.
 
 ## Behavior
 
@@ -108,7 +108,18 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - The hovered F1 Shortcuts button's highlight is inset equally from the footer's left, top, and bottom edges. lgse/strata#1680
 - With nothing selected, the count reads "N items", and its accessible description gives the file and folder breakdown. lgse/strata#1034
 - With 2 of 5 items selected, the count's accessible description reads "2 of 5 items selected. Size includes selected files only; folder contents are not counted." lgse/strata#1034, lgse/strata#1519 (unverified)
-- With a selection, the count shows a folder and file breakdown with the selected files' total size, such as "1 folder, 2 files selected (64 MB)"; folder contents are not counted. lgse/strata#1034
+- With one file selected in List, the count reads its name and size, such as "one.txt (3 B)". lgse/strata#2533
+- With one file selected in Icons or Columns, the count reads "{name} ({size}) — {modified date}". lgse/strata#2533
+- With one folder selected, the count reads its name without a size, followed by " — {modified date}" in Icons and Columns. lgse/strata#2533 (unverified)
+- In a narrow window, a long selected name is ellipsized in the middle. lgse/strata#2533
+- Switching view mode with one item selected re-renders the count at once: List drops the date, and Icons and Columns add it. lgse/strata#2533
+- In 10xer mode, moving the selection with j, k, or the arrow keys updates the name in the count at once. lgse/strata#2533
+- With 1 to 64 items selected, the footer requests missing metadata. That covers each selected file of unknown size and each selected entry of unknown modified date. lgse/strata#1266, lgse/strata#2533 (unverified)
+- In Icons or Columns, a selected file with an unknown or unavailable modified date reads "{name} ({size}) — —". Found by code reading. lgse/strata#2533 (unverified)
+- When the only item in a folder is selected, the count reads "1 file selected" or "1 folder selected", not its name. Found by code reading. lgse/strata#2533 (unverified)
+- The footer's modified date does not follow a date-format change made in another window, or the 30 s relative-date refresh. It updates only when the footer next refreshes on a browser event, a focus change, or a view-mode switch. Found by code reading. lgse/strata#2533 (unverified)
+- With 2 to 64 items selected, but not all, the count shows a folder and file breakdown with the selected files' total size. lgse/strata#1034, lgse/strata#2533
+- That breakdown reads, for example, "1 folder, 2 files selected (64 MB)"; folder contents are not counted. lgse/strata#1034
 - When some selected file sizes are unknown the size reads "(3 B known; size incomplete)", and when none are known "(size unavailable)". lgse/strata#1034
 - With a file symlink selected, the selection size counts its target's size, as the size column shows it. lgse/strata#1034, lgse/strata#1880 (unverified)
 - Selecting every item shows the folder and file breakdown without a size, such as "1 folder, 2 files selected". lgse/strata#1266 (unverified)
@@ -143,6 +154,8 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - The reference shows only the active map, and planned keys are never advertised, so help describes only commands that run (lgse/strata#1272).
 - Settings once had its own Keybindings page, and the two catalogs drifted. Generating both from one catalog was rejected; F1 already had mode- and view-aware sections (lgse/strata#1374).
 - The reference is drawn in the window's overlay, not a `GtkPopover`. Hyprland sends `xdg_popup.done` when the window deactivates, and no popover setting kept it open (lgse/strata#1375).
+- lgse/strata#2462 asked for a selected item's full name, which truncated views cut off; F2 or Properties were the only way to read it. The footer now shows it in every view (lgse/strata#2533).
+- The footer adds the modified date only in Icons and Columns, which have no Modified column (lgse/strata#2533).
 - Selection sizes use only selected files' known metadata; folders are not scanned (lgse/strata#1034). Above 64 selected items no per-entry details are read (lgse/strata#1266) (unverified).
 - The default map shows the result total alone. 10xer adds the `filter:` or `search:` mark because it hides the pane's filter field (lgse/strata#1442, lgse/strata#1554).
 - The clipboard badge reads the file list asynchronously, and a newer clipboard change discards an older pending read (unverified).

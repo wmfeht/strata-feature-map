@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -31,6 +31,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - An sshfs mount whose daemon a script stops with `kill -STOP` and resumes with `kill -CONT`, for the Default directory and save cases.
 - Fonts for Interface font: a family with a quoted name, a family with no Latin glyphs, a bitmap-only family, and a family installed with `fc-cache` while Strata runs, then removed.
 - For Diagnostics: a container or bind mounts that mask `bwrap`, `prlimit`, `ffmpeg`, `ffmpegthumbnailer`, `ffprobe`, and `unsquashfs` one at a time, plus `os-release` files for Arch, Debian, Fedora, openSUSE, and an unknown `ID`.
+- For Diagnostics: a Plasma 6 session with `kio-extras` and `gvfs-mtp`. A Plasma 5 session with `kiod5`. A non-Plasma host holding only the `org.kde.kmtpd5` D-Bus service file. Skip the KDE MTP probes on any that is unavailable and say so.
 - For Diagnostics: a host whose only `bwrap` is a setuid copy (`chmod 4755`), then a setgid copy (`chmod 2755`), in `/run/wrappers/bin`.
 - Date fixtures made with `touch -d` at 59 s, 61 s, 59 min, 23 h 59 min, 24 h 1 min, 6, 7, 30, and 31 days, 1 year, 1970, 2100, and 30 s and 2 min ahead. Runs use `TZ=UTC`, `TZ=America/New_York` on 2026-03-08 and 2026-11-01, and `TZ=Pacific/Kiritimati`.
 
@@ -93,6 +94,7 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ### settings/preferences/storage
 
+- Under `XDG_CURRENT_DESKTOP=GNOME`, start with no `settings.toml`, then with one holding only `theme` and `mode`. Change one unrelated preference, restart under `Hyprland`, and diff `settings.toml`.
 - Write `stl_thumbnails = "yes"` and `stl_thumbnails = 1` into `settings.toml` before launch; read the switch and whether other keys survive.
 - Hand-edit while running: `show_hidden = "yes"`, a deleted `theme` key, an unknown key, a trailing `[` on the last line. Restart after each, read the log, change one preference, and diff the file.
 - Replace `settings.toml` with a FIFO, and with a 0600 file in a `chmod 555` directory; change a preference and `ls -la` for leftover temporary files.
@@ -139,6 +141,7 @@ For every control this sweep proves the binding: the file changes, the other win
 
 ### settings/preferences/date-format
 
+- Change Modified date format from window B while a Columns entry tooltip is open in window A; hover the entry again and compare with a List row's Modified cell.
 - Show the Setup date fixtures in Columns, Icons, List, and a preview under each format; compare the 61 s, 24 h 1 min, 7 day, and 31 day boundaries.
 - Run `TZ=America/New_York` on both DST days and `TZ=Pacific/Kiritimati`; compare the weekday and week buckets with `date -d`.
 - Change the format in window A while window B is idle for two minutes; watch the 30 s refresh relabel the 59 s and 59 min files.
@@ -160,6 +163,9 @@ For every control this sweep proves the binding: the file changes, the other win
 - Run a `STRATA_UPDATER=disabled` build with and without network. Repeat with an install marker under its prefix, then on a pacman-owned prefix with no marker. Read Installation, Update server, and the copied report.
 - On the setuid-only `bwrap` host, add an unprivileged `bwrap` in `/usr/bin` without restarting Strata, press Run again, and read Preview sandbox and the copied report.
 - On Ubuntu 24.04 with `bwrap-userns-restrict` loaded, start Strata and press Run on Diagnostics before browsing any folder; then press Run again after an image folder's thumbnails load; repeat on a host lacking both Landlock ABI 3 and nested namespaces.
+- With `gvfs-mtp` and `kio-extras` installed, press Run with `kiod6` running, after `pkill -x kiod6`, and with only the `org.kde.kmtpd5` service file present outside Plasma. Read Android devices (MTP) and the copied report.
+- In a Plasma 5 session, press Run with only `kiod5` running, then with only the `org.kde.kmtpd5` service file present; compare the MTP row.
+- Read the KDE MTP warning under `language = "hu"` and `"ja"` in a 360 px wide Settings window; check the command name stays whole.
 
 ### settings/themes
 

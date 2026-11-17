@@ -3,7 +3,7 @@ title: Diagnostics
 status: shipped
 origin: {issue: lgse/strata#1734, pr: lgse/strata#1735}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/services/diagnostics.rs, src/ui/settings/diagnostics.rs, data/icons/scalable/actions/strata-stethoscope.svg]
 tests: [src/services/diagnostics/tests.rs, src/ui/settings/diagnostics/tests.rs]
@@ -56,7 +56,12 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 ### Location, device, and desktop checks
 
 - Launched with `GIO_USE_VFS=local`, GVfs is a problem saying the session uses local files only, with no install command. lgse/strata#1735
-- SFTP, Windows shares (SMB), FTP, WebDAV, Android devices (MTP), iPhone and iPad, and Cameras pass when GVfs lists their URI scheme. Otherwise each is a warning with its backend package. lgse/strata#1735
+- SFTP, Windows shares (SMB), FTP, WebDAV, Android devices (MTP), iPhone and iPad, and Cameras pass when GVfs lists their URI scheme. Otherwise each is a warning with its backend package. Android devices (MTP) instead warns about KDE's MTP service in the case below. lgse/strata#1735, lgse/strata#2523
+- With the GVfs `mtp` backend listed and `org.kde.kmtpd5` owned or activatable on the session bus, Android devices (MTP) is a warning. It reads "KDE's MTP service is also installed, and whichever claims a phone first leaves the other with no storage. If a phone appears empty, unplug it, run pkill -x kiod6, then reconnect it unlocked." lgse/strata#2523
+- That KDE warning shows no install hint: neither "Install with:" nor "Install <package> or your distribution's equivalent." lgse/strata#2523 (unverified)
+- With the `mtp` backend listed and `org.kde.kmtpd5` absent, Android devices (MTP) passes. lgse/strata#2523
+- With the `mtp` backend listed and the session bus unreachable, Android devices (MTP) passes. lgse/strata#2523 (unverified)
+- On Plasma 5, where the daemon runs in `kiod5`, the KDE warning still says to run `pkill -x kiod6`. Found by code reading. lgse/strata#2523 (unverified)
 - While GVfs is bypassed or missing, each of those backends is a warning reading "Unavailable while GVfs isn't running." lgse/strata#1735
 - With `org.freedesktop.UDisks2` absent from the system bus, Removable drives is a warning with the udisks2 package. lgse/strata#1735
 - With UDisks2 present but the GVfs UDisks2 volume monitor absent from the session bus, Removable drives is a warning with the GVfs daemons package. lgse/strata#1735
@@ -98,12 +103,14 @@ Settings → Diagnostics, an on-demand page that checks the runtime pieces previ
 - The package manager and the terminal are resolved on a blocking worker when Run starts, and the copied report reuses that package manager (lgse/strata#1729).
 - Checks that need GTK objects run on the GTK thread. The rest run on workers that a timer polls through a weak page reference (lgse/strata#1735).
 - Restricted hosts get their own finding, not the Landlock warning: Landlock ABI 3 is present there, so that text would name the wrong fix (lgse/strata#1954).
+- The issue proposed warning when `kiod6` runs or kio-extras MTP support is present (lgse/strata#2418). The check reads the `org.kde.kmtpd5` D-Bus name instead, owned (running) or activatable (installed), not a process name or plugin path. kio-extras installs that service file on every distribution (lgse/strata#2523).
 - A `--diagnose` command-line flag was rejected as less discoverable, and docs-only troubleshooting because it cannot see the environment or the sandbox (lgse/strata#1734).
 
 ## History
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-16 | lgse/strata#2523 | fix | Warned on Android devices (MTP) when KDE's `org.kde.kmtpd5` is on the session bus, because it and gvfs-mtp both claim phones. |
 | 2026-10-17 | lgse/strata#1735 | feat | Added a Diagnostics page that checks runtime dependencies and copies a report, so missing pieces have an in-app cause and fix. |
 
 ## Known gaps

@@ -3,7 +3,7 @@ title: Packaging and installation
 status: shipped
 origin: {issue: lgse/strata#49, pr: lgse/strata#182}
 branch: null
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [data/io.github.lgse.Strata.desktop, data/icons/scalable/apps/io.github.lgse.Strata.svg, flake.nix, flake.lock, package.nix, nix/install-source.toml]
 tests: []
@@ -26,6 +26,9 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The entry carries translated `GenericName`, `Comment`, and `Keywords` for fr, hu, de, es, ja, pt_BR, ko, vi, it, ru, zh_CN, and zh_TW. lgse/strata#1519, lgse/strata#1583, lgse/strata#1745, lgse/strata#1918 (unverified)
 - The application icon is bundled in the GResource and set as GTK's default window icon name. lgse/strata#182
 - The application icon draws the logo in blue and violet gradients on a rounded tile. The tile fades from `#414868` at the top to `#1b1c27` at the bottom. lgse/strata#1838 (unverified)
+- In a panel or dock, the icon's tile fills its slot as neighboring icons do. The "S" fills most of the tile and keeps a margin to its edge. lgse/strata#2522
+- In a 40 px slot the "S" draws at about 29×35 px. lgse/strata#2522
+- The SVG's viewBox is the tile itself, so the tile reaches every canvas edge. lgse/strata#2522
 - Release archives contain `io.github.lgse.Strata.desktop` and `io.github.lgse.Strata.svg` beside the `strata` binary. lgse/strata#182
 - By default, `mise run install-local` installs the binary to `~/.local/bin`, the icon under `~/.local/share/icons/hicolor`, and the entry under `~/.local/share/applications`. lgse/strata#182, lgse/strata#663
 - The entry ships with `Exec=strata %U`; `mise run install-local` rewrites it to the installed binary's absolute path. lgse/strata#182, lgse/strata#663
@@ -66,7 +69,10 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 - The earlier white logo nearly vanished on light docks (lgse/strata#1832). lgse/strata#1832 proposed light and dark variants, theme-aware selection, or one SVG that contrasts on both; lgse/strata#1838 shipped one SVG.
 - The tile is a gradient with a faint light edge because a flat `#1b1c27` tile blended into dark docks (lgse/strata#1838).
 - Linux desktops draw the hicolor SVG unmasked, so the icon rounds its own corners. Icon themes such as MacTahoe reshape only the apps they ship icons for (lgse/strata#1838).
-- The tile spans 228 of 284 units per side (about 80%), with a 51-unit corner radius (about 22% of the tile side). These are the usual macOS and Adwaita proportions, so the icon matches neighboring icons in size (lgse/strata#1838).
+- The tile first spanned 228 of 284 units per side, with a 51-unit corner radius, as macOS and Adwaita icons do (lgse/strata#1838).
+- The tile's 28-unit (10%) margin and a 0.6-scale mark left the mark about 44% of the canvas. KDE Plasma panels then drew Strata at about half its neighbors' size (lgse/strata#2492, lgse/strata#2522).
+- The viewBox is now cropped to the tile, so the tile fills the canvas; the 51-unit radius stays. The mark is scaled to 0.8 and centred (lgse/strata#2522).
+- lgse/strata#2492 suggested a 0.9 mark, but at that size its top and bottom points touch the tile edge (lgse/strata#2522).
 - The entry declares `x-scheme-handler/trash` because `Exec=strata %U` already opened `trash:///`, but choosers never offered Strata for it. The declaration makes Strata eligible; `mimeapps.list` still picks the default (lgse/strata#2052, lgse/strata#2065).
 - Desktop metadata ships inside the release archive, so the installer, packages, and updater always install the copy that matches the binary (lgse/strata#182, docs/packaging.md).
 - `--version` prints `build_info::displayed_version()`, built on `installed_version()` rather than `CARGO_PKG_VERSION`, which would drop the prerelease identity carried in `STRATA_RELEASE_TAG` (lgse/strata#917, lgse/strata#1676).
@@ -82,6 +88,7 @@ How Strata reaches a desktop: the desktop entry and application icon that let sh
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-16 | lgse/strata#2522 | fix | Cropped the icon's viewBox to its tile and scaled the mark to 0.8, so the launcher icon fills its panel slot like its neighbors. |
 | 2026-11-05 | lgse/strata#2065 | feat | Declared the `trash` URI scheme handler so `xdg-mime` tools and choosers offer Strata for `trash:///`. |
 | 2026-10-24 | lgse/strata#1838 | feat | Put the colored logo on a dark rounded gradient tile so the icon reads on light and dark docks. |
 | 2026-09-13 | lgse/strata#918 | feat | Added `--version` so scripts and packaging checks can read the installed version without the GUI. |

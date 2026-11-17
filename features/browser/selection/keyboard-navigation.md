@@ -3,12 +3,12 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs, src/ui/browser/view_navigation.rs, src/ui/browser_modes/focus.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl, tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl, tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl, tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl, tests/qa/scenarios/keyboard_navigation/keyboard-only-copy-paste.jsonl, tests/qa/scenarios/keyboard_navigation/return-restores-nested-scroll.jsonl, tests/qa/scenarios/keyboard_navigation/select-all-selects-every-entry.jsonl, tests/qa/scenarios/keyboard_navigation/shift-arrow-extends-selection.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl, tests/qa/mutations/keyboard-navigation.patch]
 docs: [docs/keyboard-navigation.md]
-related: [browser/sidebar, browser/navigation, integration/10xer-mode, operations/rename, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser, browser/navigation/first-column]
+related: [browser/sidebar, browser/navigation, integration/10xer-mode, operations/rename, app/dialogs, integration/custom-actions, browser/tabs, operations/progress/dock, integration/portal-file-chooser, browser/navigation/first-column, browser/navigation/location-bar]
 ---
 
 ## Summary
@@ -48,6 +48,10 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 - In the sidebar, Up and Down move between places, and Up from the first row (Home by default) focuses the top navigation bar. lgse/strata#358
 - In the top navigation bar, Left and Right move between enabled controls; Down returns to the sidebar row left, or to the files when the sidebar is hidden. lgse/strata#358
 - Outside 10xer mode, Right from the sidebar returns to the entry left, or to the active entry when the sidebar was entered from the header. lgse/strata#358, lgse/strata#1088
+
+### Location entry dismissal
+
+- While the location entry is open, a click outside the entry and its buttons cancels the edit and restores the breadcrumbs. The click still performs its normal action. lgse/strata#316
 
 ### Tab stops
 

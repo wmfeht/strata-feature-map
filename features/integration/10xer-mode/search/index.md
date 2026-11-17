@@ -3,7 +3,7 @@ title: 10xer find, filter, and search
 status: shipped
 origin: {issue: lgse/strata#1246, pr: lgse/strata#1297}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/browser/find.rs, src/ui/browser/listing_filter.rs, src/ui/browser/listing_search.rs, src/ui/browser/result_selection.rs, crates/strata-fs/src/services/path_match.rs]
 tests: [src/ui/window/tests/keyboard_dispatch/footer_prompt.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/filter.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/find.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search.rs, src/ui/window/tests/keyboard_dispatch/footer_prompt/search_hits.rs, src/ui/browser/find/tests.rs, crates/strata-fs/src/services/path_match/tests.rs, tests/qa/scenarios/search_filter_sort/tenxer-footer-filter-commits.jsonl]

@@ -3,11 +3,11 @@ title: Modified date format
 status: shipped
 origin: {issue: null, pr: lgse/strata#180}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+review: draft
 code: [crates/strata-core/src/util/mod.rs, src/ui/modified_date.rs, data/locales/dates.json]
 tests: [crates/strata-core/src/util/tests.rs]
-related: [browser/properties]
+related: [browser/properties, browser/view-modes/entry-tooltips]
 ---
 
 ## Summary
@@ -23,6 +23,7 @@ How file modification times read in lists and previews, and the Modified date fo
 - Each option is named after its format alone; its accessible description is its live example date. lgse/strata#1544 (unverified)
 - ISO 8601 renders `2026-09-17 14:30` and Long renders "September 17, 2026, 14:30". lgse/strata#1102
 - Changing the format re-renders open modified-time labels in every window without reloading. lgse/strata#1102
+- The modified date in an Icons or Columns entry tooltip follows the chosen format and re-renders when it changes. lgse/strata#2533
 - The choice is saved as `date_format`. lgse/strata#1102
 - Saved values are `relative`, `iso`, and `long`; loading ignores case and whitespace, also accepts `iso8601` and `iso-8601`, and reads unknown values as Relative. lgse/strata#1102 (unverified)
 

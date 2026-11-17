@@ -3,17 +3,17 @@ title: Accessibility
 status: shipped
 origin: {issue: lgse/strata#341, pr: lgse/strata#415}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+review: draft
 code: [src/ui/accessibility.rs]
 tests: [src/ui/accessibility/tests.rs, tests/qa/scenarios/accessibility, tests/qa/scenarios/dialogs_and_menus/entry-menu-named-actions.jsonl]
 docs: [docs/testing.md]
-related: [browser/navigation/location-bar, browser/sidebar, settings/preferences/language, browser/context-menu, app/dialogs, app/updates]
+related: [browser/navigation/location-bar, browser/sidebar, settings/preferences/language, browser/context-menu, app/dialogs, app/updates, browser/view-modes/entry-tooltips]
 ---
 
 ## Summary
 
-App-wide accessible semantics for screen readers and AT-SPI automation. It covers the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs. It also owns the rule that limits tooltips to icon-only buttons. Accessible labels specific to one feature stay with that feature.
+App-wide accessible semantics for screen readers and AT-SPI automation. It covers the names, descriptions, roles, and states of panes, entry lists, entries, menus, and dialogs. It also owns the rule that limits tooltips to icon-only buttons and file entry names. Accessible labels specific to one feature stay with that feature.
 
 ## Behavior
 
@@ -45,7 +45,8 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 
 ### Tooltips
 
-- Hovering a labelled button, menu item, label, entry, file row, breadcrumb, or status indicator shows no tooltip. The one exception is a truncated name on an Icons-view card (`browser/view-modes/icons`). lgse/strata#1359, lgse/strata#1553
+- Hovering a labelled button, menu item, label, entry, breadcrumb, or status indicator shows no tooltip. lgse/strata#1359
+- File entries are the exception: Icons cards, Columns rows, and List name cells show the name tooltips that `browser/view-modes/entry-tooltips` describes. lgse/strata#1553, lgse/strata#2533
 - Hovering an icon-only button shows its tooltip, such as "Search (Ctrl+K)" on the header Search button. lgse/strata#1359
 - In the collapsed sidebar rail, each row shows its name as a tooltip; expanding the sidebar removes those tooltips. lgse/strata#1359
 - Text that tooltips carried before, such as a sidebar place's or breadcrumb's full path, is now the control's accessible description. lgse/strata#1359
@@ -67,6 +68,7 @@ App-wide accessible semantics for screen readers and AT-SPI automation. It cover
 - Most fields under a visible label are linked to it, so the name follows the label. Others, such as the drive label and chooser Name fields, copy the text they show. No catalog strings were added (lgse/strata#1896).
 - A hover delay was requested for tooltips that covered folders (lgse/strata#1337). The owner instead removed tooltips from everything but icon-only buttons, since a delay does not remove redundant text (lgse/strata#1358).
 - The tooltip rule lives in the upstream `AGENTS.md`. Switchable controls show tooltips only in icon-only mode, help, errors, and status stay visible, and tooltip text is never data (lgse/strata#1359).
+- lgse/strata#1553 excepted truncated Icons card names. On lgse/strata#2462 the owner extended hover names to List and Columns ([comment](https://github.com/lgse/strata/issues/2462#issuecomment-6908936616)), and lgse/strata#2533 shipped them.
 - lgse/strata#1359 also moved names and descriptions that E2E checks read from tooltips into explicit accessible metadata (lgse/strata#1337).
 - GTK leaves the links in a label's markup unnamed, so a screen reader announced an empty link. A label set through `set_link_markup` names each `<a>` after its text (lgse/strata#2012, lgse/strata#2030).
 - Exclusive choices are radio menu items and on/off options are check menu items, because screen readers announce their checked state (lgse/strata#1467, lgse/strata#1544).

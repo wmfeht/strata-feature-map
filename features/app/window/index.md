@@ -3,12 +3,12 @@ title: Window chrome and structure
 status: shipped
 origin: {issue: null, pr: lgse/strata#580}
 branch: null
-reviewed_at: fb7eb0c4ee8bcb681651e56e91031ed95422e8ff
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
-code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/decoration.rs, src/ui/window/launch.rs]
-tests: [src/ui/decoration/tests.rs]
-docs: [docs/architecture.md, site/src/reference/keyboard-navigation.md]
-related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts, preview/preview-panel, integration/portal-file-chooser, browser/sidebar/rail]
+code: [src/ui/window/composition.rs, src/ui/window/composition/layout.rs, src/ui/decoration.rs, src/ui/window/launch.rs, crates/strata-desktop/src/window_controls.rs]
+tests: [src/ui/decoration/tests.rs, crates/strata-desktop/src/window_controls/tests.rs]
+docs: [docs/architecture.md, docs/preferences.md, site/src/reference/keyboard-navigation.md]
+related: [browser/tabs, browser/sidebar, settings/preferences, integration/10xer-mode, browser/selection/keyboard-navigation, app/packaging, app/dialogs, app/keyboard-shortcuts, preview/preview-panel, integration/portal-file-chooser, browser/sidebar/rail, settings/preferences/storage]
 ---
 
 ## Summary
@@ -45,7 +45,13 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 ### Window buttons
 
-- A fresh profile shows only the Close button; Minimize and Maximize are hidden. lgse/strata#1129
+- With no `window_show_*` setting saved and `XDG_CURRENT_DESKTOP` naming Hyprland, Sway, i3, or niri, Minimize, Maximize, and Close are hidden. lgse/strata#2448
+- With no such setting saved and any other `XDG_CURRENT_DESKTOP`, including GNOME, KDE, empty, or unknown, all three buttons show before Settings opens. lgse/strata#2448
+- On GNOME or KDE the unsaved buttons show even when GTK's decoration layout is close-only, such as `appmenu:close`. lgse/strata#2448
+- Any colon-separated entry naming a tiler, ignoring case and surrounding spaces, hides the buttons, so `KDE: hYpRlAnD ` hides them. lgse/strata#2448
+- A partial name such as `sway-like` or `not-Hyprland` shows the buttons. lgse/strata#2448
+- A saved choice wins over the desktop: a saved visible button stays visible on niri, and a saved hidden one stays hidden on GNOME. lgse/strata#2448
+- With only some `window_show_*` keys saved, only the missing ones take the desktop default. lgse/strata#2448
 - Show minimize button, Show maximize button, and Show close button under Settings → General → Window buttons show or hide those buttons in every open window immediately. lgse/strata#1129
 - Saved window-button choices apply when a window is built, before Settings is opened, and survive a restart. lgse/strata#1129
 - Maximize maximizes the window; on a maximized window it shows a restore icon and clicking it restores the window. lgse/strata#1129
@@ -63,9 +69,12 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 [docs/architecture.md](https://github.com/lgse/strata/blob/0562724ad97c8e83a4c81b85e556bf275be3b025/docs/architecture.md) carries the design under "Window composition". Key routing is described on `app/window/key-dispatch`.
 
-- The header is a GTK `HeaderBar` with its title buttons hidden. Strata draws Minimize, Maximize, and Close as its own header actions, so their visibility is a preference rather than a window-manager decision (lgse/strata#1100).
-- Tiling window managers make in-app window buttons redundant; stacking desktops expect all three. Always restoring GTK title buttons and detecting the window manager were rejected: the first suits only stacking desktops, the second is brittle and still needs an override (lgse/strata#1100).
-- The default keeps the earlier close-only header, so no layout changes until a user opts in (lgse/strata#1129).
+- The header is a GTK `HeaderBar` with its title buttons hidden. Strata draws Minimize, Maximize, and Close as its own header actions, so their visibility is a preference (lgse/strata#1100).
+- Tiling window managers make in-app window buttons redundant; stacking desktops expect all three (lgse/strata#1100).
+- lgse/strata#1100 first rejected always restoring GTK title buttons, which suits only stacking desktops. It also rejected detecting the window manager as brittle and still needing an override.
+- The first default kept the earlier close-only header (lgse/strata#1129). New KDE users then had no Minimize or Maximize button until they found Settings (lgse/strata#2419).
+- lgse/strata#2448 added desktop detection, but only for the default of unsaved buttons. The preference stays the override, so existing users keep their choices (lgse/strata#2419, lgse/strata#2448).
+- Detection reads `XDG_CURRENT_DESKTOP`, not GTK's decoration layout. Only four named tilers hide the buttons, and unknown desktops show them (lgse/strata#2448, docs/preferences.md).
 - Window buttons bind through the shared preference path, so they apply at construction and live across windows; Settings only edits the preference (lgse/strata#1100).
 - The outer window frame drawn by the desktop is a separate concern from the header buttons (lgse/strata#1100, lgse/strata#1098).
 - On a client-decorating compositor, GTK adds its default title bar to a window with no registered titlebar. Each Strata window registers a hidden placeholder, so GTK adds only invisible resize edges, and Strata draws a hairline (lgse/strata#1679, lgse/strata#1680).
@@ -80,6 +89,7 @@ The browser window's frame and skeleton: the header with its window buttons, the
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-16 | lgse/strata#2448 | feat | Chose unsaved window-button defaults from `XDG_CURRENT_DESKTOP`, hiding them on Hyprland, Sway, i3, and niri, so stacking desktops get all three. |
 | 2026-11-03 | lgse/strata#2041 | perf | Disposed closed tabs' widget trees as window destruction does and broke sidebar and device row cycles, so Strata no longer slows with uptime. |
 | 2026-10-23 | lgse/strata#1827 | feat | Titled each browser window after its active tab's folder, so taskbars and switchers can tell windows apart. |
 | 2026-10-17 | lgse/strata#1714 | fix | Stopped window actions such as F5 behind an open F1 reference, and limited Space on a selected filter hit to the filter. |

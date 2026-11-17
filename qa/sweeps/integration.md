@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -87,6 +87,8 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `single` and `save`, drag from blank space beside the divider; read the sidebar width and the selection.
 - Under `multiple` and `directory`, tap a folder once, hold the second tap, move past the drag threshold, and release over another folder. Read the location, the files on disk, and the response code.
 - Double-click a file, hold the second click 1 s without moving, then release; repeat with Files set to single-click and to double-click, and with a filter result.
+- Press Ctrl+L, type a path without Enter, then click a file row, the sidebar, the preview, the Name field under `save`, and the accept button. Read the location, the selection, and the response code after each. Repeat in Move to and Send to, and read the chosen destination instead of a response code.
+- With the path entry open, press inside it, on its buttons, and on a header button. Drag from inside the entry out into the file list; read whether the entry stays open.
 
 ### integration/portal-file-chooser/setup
 

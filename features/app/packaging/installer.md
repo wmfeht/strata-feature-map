@@ -3,7 +3,7 @@ title: Release installer
 status: shipped
 origin: {issue: lgse/strata#329, pr: lgse/strata#330}
 branch: null
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [install.sh, data/locales/installer.json, scripts/installer_messages.py]
 tests: [scripts/test_installer.py, scripts/testdata]
@@ -119,8 +119,8 @@ related: [integration/file-manager-interface, integration/portal-file-chooser/se
 - With `LANGUAGE=zz:fr` and `LC_ALL=C.UTF-8`, the plan reads "Installer dans <path>". lgse/strata#1730 (unverified)
 - With `LANGUAGE=fr` and `LC_ALL=C`, the plan reads "Install to <path>". lgse/strata#1730 (unverified)
 - `zh_TW`, `zh_HK`, `zh_MO`, and `zh-Hant…` show Traditional Chinese messages; every other `zh` locale shows Simplified Chinese. lgse/strata#1745
-- A `hu` locale, such as `LANG=hu_HU.UTF-8`, shows Hungarian messages: the banner reads "Interaktív telepítő" and the plan "Telepítés ide: <path>". lgse/strata#1918 (unverified)
-- `python3 scripts/installer_messages.py` exits 1 with "Installer translations are stale": `install.sh` holds 25 Hungarian messages that differ from `data/locales/installer.json`, such as "Böngéssze a könyvtárait akadálytalanul." Found by code reading. lgse/strata#2304 (unverified)
+- With `LANGUAGE=hu` and `LC_ALL=C.UTF-8`, the plan reads "Telepítés ide: <path>". lgse/strata#1918, lgse/strata#2448
+- A `hu` locale, such as `LANG=hu_HU.UTF-8`, shows Hungarian messages: the banner reads "Interaktív telepítő". lgse/strata#1918 (unverified)
 - Paths in messages show literally, even when they hold `&` or `%{version}`. lgse/strata#1730 (unverified)
 - The installer ignores the language saved in Strata's Settings. lgse/strata#1730
 
@@ -186,6 +186,7 @@ The manual archive steps were accurate but hard to follow safely: pick the archi
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-16 | lgse/strata#2327 | fix | Synced 25 Hungarian installer strings from `install.sh` into `data/locales/installer.json`, so the catalog matches the shipped installer. |
 | 2026-10-25 | lgse/strata#1876 | fix | Bounded the ReloadConfig and xdg-mime calls with a 5 s process deadline, so a session bus that never answers no longer hangs the installer. |
 | 2026-10-23 | lgse/strata#1825 | feat | Verified releases through the signed update manifest instead of `gh`, and installed every supported integration by default with `--without-*` flags. |
 | 2026-10-17 | lgse/strata#1728 | fix | Reloaded the session bus after installing the FileManager1 service, so "Open file location" uses Strata without a re-login. |

@@ -3,12 +3,12 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs, src/ui/browser/columns/append.rs, src/ui/browser/columns/append/header.rs, src/ui/browser/columns/append/models.rs, src/ui/browser/columns/append/shell.rs, src/ui/browser/columns/append/surface.rs, src/ui/browser/columns/cursor.rs, src/ui/browser/columns/double_click.rs, src/ui/browser/columns/lifecycle.rs, src/ui/browser/columns/resize.rs, src/ui/browser/columns/rows/bind.rs, src/ui/browser/columns/rows/click.rs, src/ui/browser/columns/rows/widgets.rs, src/ui/browser/columns/state.rs, src/ui/browser/columns/strip_scroll.rs, src/ui/browser/events/selection.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, crates/strata-fs/src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/after_back.rs]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
-related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter, browser/context-menu, browser/navigation]
+related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter, browser/context-menu, browser/navigation, browser/view-modes/entry-tooltips, settings/preferences/date-format]
 ---
 
 ## Summary
@@ -156,6 +156,12 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 - In Columns, the Appearance menu has a "Show sizes in Columns view" check item after Group by file type. It toggles the same setting and closes the menu. lgse/strata#1564
 - The Appearance item is hidden in Icons and List, and its check mark follows changes made in Settings. lgse/strata#1564
 
+### Name tooltip
+
+- A row's entry tooltip carries its name and, once known, its modified date. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#2533
+- The tooltip applies over the whole row, including its icon, size badge, and chevron. lgse/strata#2533 (unverified)
+- While a row is being renamed, it shows no tooltip, so the old name never appears. lgse/strata#2533
+
 ### Row drags
 
 - Pressing a row and moving less than GTK's drag threshold starts no file drag. lgse/strata#1564
@@ -170,7 +176,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 - Re-clicking an open folder focuses its column rather than closing it, so single clicks and double-clicks share one path. This replaces the close toggle of lgse/strata#171 (lgse/strata#1539).
 - A folder press reuses the tab-location hold, so the reserved preview slot lends no width until the new column takes focus. A trace showed the strip shifting at the press (lgse/strata#1539).
 - A closing column's width and opacity run from one tick callback on an accelerating curve, so they stay in lockstep (lgse/strata#1539).
-- Edge hints are captions, not tooltips, because the repository allows tooltips only on icon-only buttons (lgse/strata#1539).
+- Edge hints are captions, not tooltips, because the repository allows tooltips only on icon-only buttons (lgse/strata#1539). Row name tooltips are a later owner-approved exception, recorded on `browser/view-modes/entry-tooltips` (lgse/strata#2533).
 - Widths spread once on release, not every frame, to avoid relaying out every column per frame. Resizing the grabbed side was rejected: a column grows only at its right edge (lgse/strata#1539).
 - The 4 px reveal tolerance was removed because it broke the rule that the focused column is always fully visible (lgse/strata#1539).
 - The owner capped widths at the full visible area rather than the area less the preview minimum. Autofit keeps saving, List drags stay uncapped, and window shrinks do not re-clamp (lgse/strata#1448, lgse/strata#1570).

@@ -3,11 +3,11 @@ title: Location bar and breadcrumbs
 status: shipped
 origin: {issue: lgse/strata#149, pr: lgse/strata#242}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+review: draft
 code: [crates/strata-fs/src/app/browser/location_input.rs, src/ui/browser/location/breadcrumbs.rs]
 tests: [crates/strata-fs/src/app/browser/tests/location_input.rs, tests/qa/scenarios/locations/breadcrumb-returns-to-parent.jsonl, tests/qa/scenarios/locations/named-location-controls.jsonl, tests/qa/scenarios/locations/typed-path-navigates.jsonl, tests/qa/scenarios/keyboard_navigation/list-typed-file-path.jsonl, tests/qa/mutations/location-entry.patch, tests/qa/scenarios/view_switching/leaving-columns-names-the-shown-folder.jsonl]
-related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility, preview/quick-preview, browser/tabs, browser/view-modes/columns]
+related: [remote/file-providers, integration/portal-file-chooser, integration/10xer-mode, operations/drag-and-drop, app/accessibility, preview/quick-preview, browser/tabs, browser/view-modes/columns, browser/selection/keyboard-navigation]
 ---
 
 ## Summary
@@ -20,7 +20,6 @@ The header control that shows the active location as breadcrumbs and switches to
 
 - Ctrl+L replaces the breadcrumbs with an entry holding the current path, with the whole text selected. lgse/strata#316 (unverified)
 - Clicking the current crumb, a separator, or empty breadcrumb space opens the entry; crumb buttons and the copy-path button keep their own actions. lgse/strata#316
-- While editing, a click outside the entry and its buttons cancels the edit, restores the breadcrumbs, and still performs the click's normal action. lgse/strata#316
 - Enter or the Navigate button opens the typed location; Escape or the Cancel button restores the breadcrumbs without navigating. lgse/strata#1132
 - Escape in the entry restores the folder the breadcrumbs name. lgse/strata#2026
 - With an input method composing in the location field, Escape cancels only the composition and the editor stays open. lgse/strata#1583

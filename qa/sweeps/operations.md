@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 triggers: [crates/strata-fs/src/services/operations.rs, crates/strata-fs/src/services/operations/**, crates/strata-fs/src/services/file_source.rs, crates/strata-fs/src/services/file_source/tests.rs, crates/strata-fs/src/adapters/local_operations.rs, crates/strata-fs/src/adapters/local_operations/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
@@ -19,10 +19,11 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Run the ntfs-3g probes as a non-root user, so mode `0000` blocks reads. Skip them and say so when ntfs-3g is unavailable.
 - `scripts/fslab/fslab.sh up` starts a privileged container with NFS, SMB, sshfs, vfat, exFAT, ntfs3, ntfs-3g, exfat-fuse, and casefold mounts; `fslab.sh probe` reports what each supports. Skip lab probes and say so when Docker cannot run privileged.
 - A real USB stick formatted vfat, and one exFAT, for flush and unplug probes; the lab's loop devices live in RAM.
-- An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals. The lab has no rclone; skip those probes and say so when it is unavailable.
+- An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals and folder placement. The lab has no rclone; skip those probes and say so when `rclone` is not installed.
+- A local rclone mount needs no cloud account: `rclone serve webdav /tmp/lab/remote --addr 127.0.0.1:18203`, then `rclone mount ":webdav,url='http://127.0.0.1:18203',vendor=rclone:" /tmp/lab/mnt --vfs-cache-mode full --cache-dir /tmp/lab/cache --tpslimit 6 -v --log-file /tmp/lab/rclone.log`. The `--tpslimit` keeps uploads pending after a copy ends. Unmount with `fusermount3 -u`.
 - An Android phone paired with KDE Connect, whose filesystem `kdeconnectd` mounts with sshfs at `/run/user/<uid>/<device-id>`. The lab's sshfs allows links; skip those probes and say so without a phone.
 - For fcitx5 rename probes, a host run with `STRATA_QA_HOST=1`, optionally `STRATA_QA_DISPLAY=wayland`, as in `docs/testing.md` "Wayland and input methods (host runs)".
-- A 9p or virtiofs share and a mergerfs pool, for deletion wording. The lab has neither; skip those probes and say so when unavailable.
+- A 9p or virtiofs share and a mergerfs pool, for deletion wording and folder copies. The lab has neither; skip those probes and say so when unavailable.
 - A holder for open files on the NFS, SMB, and sshfs mounts: `less` or `tail -f` run from a terminal app, and the same run as a plain process outside any app unit.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/qa/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.
@@ -178,6 +179,13 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Produce every report section in one transfer, in a narrow window, while a Send to notice is visible.
 - On an SMB share, look up a folder under a second spelling so the client drops `serverino`. Then move a folder off the share and Replace a file on it.
 - On a vfat stick, Replace a file after a remount between the prompt and the copy, so the kernel renumbers its entries.
+- On the throttled rclone mount, copy a folder with nested subfolders and 50 files of 150 kB, then rename it while uploads are pending.
+- On the rclone mount, Merge a local folder into a same-named folder holding a subfolder and a file. The incoming side adds a new nested subfolder.
+- On the rclone mount, cancel such a Merge midway.
+- On the rclone mount, move a filled folder between two of its folders, Replace a folder, and extract an archive. List hidden `.strata-*` names after each.
+- On the rclone mount, cancel a folder copy midway and list the destination with hidden files shown.
+- Copy a large folder onto the mergerfs pool and onto the rclone mount; list hidden names in each destination while the copy runs.
+- Copy a folder through the gvfsd-fuse path (`/run/user/<uid>/gvfs`) of an SFTP location; list hidden names while it runs.
 
 ### operations/filesystem-compatibility/open-files
 
