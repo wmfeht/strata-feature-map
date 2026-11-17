@@ -8,7 +8,7 @@ review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs, src/ui/browser/columns/append.rs, src/ui/browser/columns/append/header.rs, src/ui/browser/columns/append/models.rs, src/ui/browser/columns/append/shell.rs, src/ui/browser/columns/append/surface.rs, src/ui/browser/columns/cursor.rs, src/ui/browser/columns/double_click.rs, src/ui/browser/columns/lifecycle.rs, src/ui/browser/columns/resize.rs, src/ui/browser/columns/rows/bind.rs, src/ui/browser/columns/rows/click.rs, src/ui/browser/columns/rows/widgets.rs, src/ui/browser/columns/state.rs, src/ui/browser/columns/strip_scroll.rs, src/ui/browser/events/selection.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, crates/strata-fs/src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/after_back.rs]
 docs: [docs/preview-panel-layout.md, docs/preferences.md]
-related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter, browser/context-menu, browser/navigation, browser/view-modes/entry-tooltips]
+related: [preview/preview-panel, preview/preview-panel/layout, browser/selection, browser/selection/click-modes, operations/rename, settings/preferences, browser/directory-monitoring, browser/search/filter, browser/context-menu, browser/navigation, browser/view-modes/entry-tooltips, settings/preferences/date-format]
 ---
 
 ## Summary
@@ -158,8 +158,8 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 ### Name tooltip
 
-- After the rest delay of `browser/view-modes/entry-tooltips`, resting anywhere on a row shows its name and modified date on two lines. lgse/strata#2533
-- A row with no known modified date shows a tooltip only when its name is middle-ellipsized, holding the name alone. lgse/strata#2533 (unverified)
+- A row's entry tooltip carries its name and, once known, its modified date. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#2533
+- The tooltip applies over the whole row, including its icon, size badge, and chevron. lgse/strata#2533 (unverified)
 - While a row is being renamed, it shows no tooltip, so the old name never appears. lgse/strata#2533
 
 ### Row drags

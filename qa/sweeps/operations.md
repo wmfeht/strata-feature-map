@@ -23,7 +23,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - A local rclone mount needs no cloud account: `rclone serve webdav /tmp/lab/remote --addr 127.0.0.1:18203`, then `rclone mount ":webdav,url='http://127.0.0.1:18203',vendor=rclone:" /tmp/lab/mnt --vfs-cache-mode full --cache-dir /tmp/lab/cache --tpslimit 6 -v --log-file /tmp/lab/rclone.log`. The `--tpslimit` keeps uploads pending after a copy ends. Unmount with `fusermount3 -u`.
 - An Android phone paired with KDE Connect, whose filesystem `kdeconnectd` mounts with sshfs at `/run/user/<uid>/<device-id>`. The lab's sshfs allows links; skip those probes and say so without a phone.
 - For fcitx5 rename probes, a host run with `STRATA_QA_HOST=1`, optionally `STRATA_QA_DISPLAY=wayland`, as in `docs/testing.md` "Wayland and input methods (host runs)".
-- A 9p or virtiofs share and a mergerfs pool, for deletion wording. The lab has neither; skip those probes and say so when unavailable.
+- A 9p or virtiofs share and a mergerfs pool, for deletion wording and folder copies. The lab has neither; skip those probes and say so when unavailable.
 - A holder for open files on the NFS, SMB, and sshfs mounts: `less` or `tail -f` run from a terminal app, and the same run as a plain process outside any app unit.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
 - Archives built with system tools in ZIP, 7Z, TAR, and TAR.GZ; `tests/qa/fixtures/content-encrypted.7z` for passwords; hostile archives under `/tmp` with a `../` member, an absolute-path member, a symlink member pointing outside, and a header that lies about its size. RAR needs `rar` on PATH or a sample from `tests/fixtures/rar/`.

@@ -25,8 +25,9 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A mounted USB drive appears once under Devices and opens normally. lgse/strata#493
 - A mount whose volume is already listed gets no second row. lgse/strata#536
 - After `systemctl --user restart gvfs-daemon.service` and a remount, repeated any number of times, a network share appears once under Devices. lgse/strata#2449
-- Volume-less mounts with one location get one row, the first in the volume monitor's list, which is the newest mount. Disconnect on it unmounts the live mount. lgse/strata#2449
+- A share left listed by a gvfsd restart and then remounted gets one row; Disconnect on it unmounts the live mount. lgse/strata#2449
 - Two mounts of one share under different user names, such as `smb://alice@host/share` and `smb://bob@host/share`, keep separate rows. lgse/strata#2449 (unverified)
+- Two mounts of one share by `DOMAIN;alice` and `DOMAIN;bob` show one row. Found by code reading. lgse/strata#2449 (unverified)
 - With no listed volumes, mounts, password drives, or pending releases, neither the DEVICES heading nor its separator renders. lgse/strata#536, lgse/strata#2105 (unverified)
 - An unmounted volume of GVfs class `loop` that GVfs does not mark for automount, such as a live system's root image, gets no row. lgse/strata#2105
 - With no automounter running, a loop the current user attached with `udisksctl loop-setup -f disk.iso` stays listed and mounts when clicked. lgse/strata#2105
@@ -91,7 +92,7 @@ Listing the drives, volumes, and mounts that the desktop volume monitor reports 
 - A loop is hidden by GVfs class `loop` without the automount mark, not by its `/dev/loopN` name. GVfs marks exactly the loops this user attached, so images attached under Hyprland or Sway stay listed. lgse/strata#2104 had hidden every unmounted loop ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097)).
 - The exclusive-open probe is mount(8)'s own "already mounted or mount point busy" test (lgse/strata#2104). It runs off the UI thread through the encryption-hint cache, now shared as `devices/probe_cache.rs`, because `open(2)` on an optical drive can block ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097)).
 - The busy message matches whole phrases on untyped failures only, because UDisks messages carry device labels and mount paths. A typed GIO error keeps its own reason ([comment](https://github.com/lgse/strata/pull/2104#issuecomment-6740546097)).
-- After a gvfsd restart, GIO keeps the old mount objects. GVfs prepends the remount with a new D-Bus ID, so the first mount per location is the live one. Location alone is the key, because it derives from the mount root ([comment](https://github.com/lgse/strata/pull/2449#issuecomment-6908776612)).
+- After a gvfsd restart, GIO keeps the old mount objects. GVfs prepends the remount with a new D-Bus ID, so the first mount per location is the live one. Location alone is the key, because it derives from the mount root (lgse/strata#2449, [comment](https://github.com/lgse/strata/pull/2449#issuecomment-6908776612)).
 - Sidebar mounts run through the browser's mount flow, so volumes share the themed authentication prompt, quiet cancellation, and retries used by remote locations (lgse/strata#302, lgse/strata#493).
 - GVfs network mounts are shares to disconnect, not drives to eject. Before lgse/strata#2030, only SMB got the network row, and an SFTP share showed a drive icon with eject (lgse/strata#2016).
 - A volume row is described like a mount row, by its path. GIO sets no activation root for an fstab volume, and cdda and MTP volumes have a raw URI one, so the description skips it (lgse/strata#2012, lgse/strata#2030).

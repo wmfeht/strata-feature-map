@@ -168,14 +168,15 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - After Back from a sidebar place, press Left into an ancestor column still loading on a stalled sshfs mount; delete its open folder from a shell before it loads.
 - Rename a folder whose child column is open to a name that sorts first, one that sorts last, and a dot name; press Tab and Shift+Tab. Repeat with Mirror columns selection off.
 - Dismiss the Shift+Delete confirmation over a Ctrl+F result with a backdrop click, then press Down, Up, and Space.
-- Rest on a row's chevron, its size badge, and the 255-byte name, then on the same row while it is being renamed. Repeat on a recursive filter hit with its path line and in Trash.
+- Rest on a row's chevron, its size badge, and the 255-byte name. Repeat on a recursive filter hit with its path line and in Trash.
+- Rest on a row at the moment its rename commits, and again when Escape cancels it.
 
 ### browser/view-modes/icons
 
 - Set the slider to 32 then 256 px in `100000`, scroll fast and stop; count tiles with missing details after two seconds.
 - Resize the sidebar and preview panel while details stream in; open the same folder in a second window and move one slider.
-- Rest on the thumbnail frame's margin, the details text, and blank space beside a short details line, on a card whose name fits and one whose name is truncated.
-- Rest on a name at the two-line boundary at 32 px and 256 px thumbnails, then at text size 28, in a folder whose dates are still loading.
+- Rest on the thumbnail frame's margin, the details text, and blank space beside a short details line. Use a card whose name fits and one truncated.
+- Rest on a name at the two-line boundary at 32 px and 256 px thumbnails, then at text size 28. Repeat while the folder's dates still load.
 - Rest on cards in Trash, Recent, an `sftp://` folder, and an `mtp://` phone folder. Change the date format in Settings with a tooltip open, then rest again.
 - Wheel-scroll the grid with the pointer resting on a card.
 - Move the slider in Trash, Recent, and an `sftp://` folder; leave and return, then switch to Columns and back.

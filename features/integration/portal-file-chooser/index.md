@@ -73,7 +73,8 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - With the file view focused and no text field active, F2 or Ctrl+R renames the one selected item. Alt+Enter opens Properties for the focused item. lgse/strata#175, lgse/strata#393 (unverified)
 - The Menu key or Shift+F10 opens the item menu for the focused item, except in a text field, a popover, or on a Back button with history. lgse/strata#666, lgse/strata#2026 (unverified)
 - Ctrl+F opens the filter, Ctrl+L edits the location, and Ctrl+Shift+N creates a folder. lgse/strata#175 (unverified)
-- With the path entry opened by Ctrl+L, a click outside it, such as on the file list or the accept button, closes it and restores the breadcrumbs. lgse/strata#2533
+- With the path entry opened by Ctrl+L, a click outside it, such as on the file list or window background, closes it and restores the breadcrumbs. lgse/strata#2533
+- The click still performs its own action, so a click on the accept button also accepts. lgse/strata#2533 (unverified)
 - With the file view focused, Back, Forward, Parent folder, or Home rebound to a Ctrl key runs that jump. An example is `parent_folder = ["<Control>e"]`. lgse/strata#1885
 - In 10xer mode, the chooser reads Parent folder and Home from the 10xer table, and Back and Forward from the default table. lgse/strata#1885 (unverified)
 - In the chooser's Icons view, Left on the first item focuses the sidebar while it is shown and Keep arrows in file list is off. lgse/strata#2044 (unverified)
@@ -171,7 +172,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-16 | lgse/strata#2533 | fix | Closed the chooser's path entry on a click outside it, as the main window does. |
+| 2026-11-16 | lgse/strata#2533 | feat | Closed the chooser's path entry on a click outside it, as the main window does. |
 | 2026-11-02 | lgse/strata#2030 | fix | Named only the files that already exist in the SaveFiles replace prompt, with title and warning worded by their count. |
 | 2026-11-02 | lgse/strata#2024 | fix | Re-exec'd `strata --portal` with `no-portals` in `GDK_DEBUG`, so a cold-activated chooser no longer waits 25 s on the portal. |
 | 2026-11-02 | lgse/strata#2027 | fix | Sent 10xer chooser Tab from the name field through the request's options and back to the files, never to Cancel. |

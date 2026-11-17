@@ -7,12 +7,12 @@ reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/entry_tooltip.rs]
 tests: [src/ui/entry_tooltip/tests.rs]
-related: [browser/view-modes/icons, browser/view-modes/columns, browser/view-modes/list, app/accessibility]
+related: [browser/view-modes/icons, browser/view-modes/columns, browser/view-modes/list, app/accessibility, settings/preferences/date-format]
 ---
 
 ## Summary
 
-The shared hover tooltip that shows an entry's full name, and in Icons and Columns its modified date, once the pointer rests on an Icons card, a Columns row, or a List name cell. It is for reading names the views truncate. Each view decides where on its card or row the tooltip applies.
+The shared hover tooltip that shows an entry's full name once the pointer rests on an Icons card, a Columns row, or a List name cell. In Icons and Columns it adds the modified date. It is for reading names the views truncate. Each view decides where on its card or row the tooltip applies.
 
 ## Behavior
 
@@ -21,11 +21,11 @@ The shared hover tooltip that shows an entry's full name, and in Icons and Colum
 - An entry tooltip shows only after the pointer rests 900 ms on the card, row, or name cell. lgse/strata#1553, lgse/strata#2533
 - Moving more than 4 px or leaving the card, row, or cell restarts the wait. Sweeping across the grid or the rows shows no tooltips. lgse/strata#1553, lgse/strata#2533
 - Pressing any mouse button cancels the wait until the pointer moves again, so a click then holding still shows no tooltip. lgse/strata#1553, lgse/strata#2533 (unverified)
-- Keyboard focus on a card or row shows no entry tooltip, including during 10xer `j`/`k` and arrow navigation. lgse/strata#1553, lgse/strata#2533 (unverified)
+- Keyboard focus on a card or row shows no entry tooltip, including during 10xer `j`/`k` and arrow navigation. lgse/strata#1553, lgse/strata#2533
 
 ### Text
 
-- With a modified date to show, the tooltip reads the name, a line break, then the date, such as "a.txt" over "12 Nov 2026". This holds whether or not the name is truncated. lgse/strata#2533
+- With a modified date to show, the tooltip reads the name over the date as the Date format preference renders it. This holds whether or not the name is truncated. lgse/strata#2533
 - With no date to show, a truncated name shows alone in the tooltip, and a name that fits shows none. lgse/strata#2533
 
 ## Design

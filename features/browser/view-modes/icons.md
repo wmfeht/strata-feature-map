@@ -7,7 +7,7 @@ reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
 review: draft
 code: [src/ui/icons_cell.rs, src/ui/icons_cell/**, crates/strata-fs/src/adapters/local_files/icon_cache.rs, src/ui/browser_modes/icons_card.rs, src/ui/browser_modes/icons_controls.rs, src/ui/browser_modes/icons_pane.rs, src/ui/browser_modes/icons_view.rs]
 tests: [src/ui/icons_cell/tests.rs, crates/strata-fs/src/adapters/local_files/tests/icon_details.rs]
-related: [browser/thumbnails, operations/rename, browser/view-modes/folder-views, browser/view-modes/entry-tooltips]
+related: [browser/thumbnails, operations/rename, browser/view-modes/folder-views, browser/view-modes/entry-tooltips, settings/preferences/date-format]
 ---
 
 ## Summary
@@ -44,9 +44,8 @@ A single-pane grid of thumbnail tiles for the current folder, with a per-tile de
 
 ### Name tooltip
 
-- After the rest delay of `browser/view-modes/entry-tooltips`, a card with a known modified date shows the name and date on two lines, such as "a.txt" over "12 Nov 2026". lgse/strata#2533
-- That holds even when the name fits in its two caption lines. lgse/strata#2533
-- A card with no known modified date shows the full name only when it is middle-ellipsized; a name that fits shows no tooltip. lgse/strata#1553, lgse/strata#2533
+- A card's entry tooltip carries its name and, once known, its modified date. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#1553, lgse/strata#2533
+- A name counts as truncated when it is middle-ellipsized in its two caption lines. lgse/strata#1553
 - The tooltip appears only over the card's thumbnail or caption, not its padding. lgse/strata#1553
 - Over the caption, only the name's text box and the details text count, not blank space beside a short centered name. lgse/strata#1553 (unverified)
 - After a rename commits, the tooltip shows the new name; while the rename field is open, none appears. lgse/strata#1553

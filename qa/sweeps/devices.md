@@ -56,6 +56,7 @@ Left to other sweeps: the Send to… submenu rows, Choose folder…, and copying
 - Mount the CD-ROM's ISO from a shell, unmount it, and hold it with `sudo dd if=/dev/sr0 of=/dev/null` and with a `losetup` on it; watch the row after each step.
 - Plug in a stick while a held volume's first probe is pending, and mount the stick while another drive is being attached.
 - Mount the SFTP fixture, restart `gvfs-daemon.service` once and then three times, remounting after each; count its rows, then Disconnect the remaining row. Repeat without remounting, and with Strata started after the restarts.
+- Mount one SMB share as two users, `alice` and `bob`, then as two domain users, `DOMAIN;alice` and `DOMAIN;bob`; count its rows and Disconnect each.
 
 ### devices/volumes/release
 
