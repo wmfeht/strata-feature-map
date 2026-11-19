@@ -31,7 +31,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - Cells of Duration, Dimensions, and Created show a value only where it applies and is known; the others stay blank. lgse/strata#2603
 - Duration shows an audio or video file's length as `m:ss` under an hour and `h:mm:ss` from an hour, such as `3:07` or `1:02:03`. Folders show nothing. lgse/strata#2603 (unverified)
 - Dimensions shows an image's or video's size as width×height, such as `1920×1080`. Folders and other files show nothing. lgse/strata#2603 (unverified)
-- Created shows a file's or folder's birth time in the date format Modified uses, and follows changes to that setting. lgse/strata#2603 (unverified)
+- Created shows a file's or folder's birth time. lgse/strata#2603
 - An entry without a known birth time leaves Created blank, where Modified shows `—`. lgse/strata#2603 (unverified)
 - With Duration or Dimensions shown, List rows request their entries' media details; with both hidden, they do not. lgse/strata#2603 (unverified)
 - Showing Duration or Dimensions fills the rows already in view without scrolling. lgse/strata#2603 (unverified)

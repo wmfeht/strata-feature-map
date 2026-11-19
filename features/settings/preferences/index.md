@@ -151,7 +151,8 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Default sort
 
 - Settings → General → Browsing has a Default sort row with a "Default sort" menu and a "Default sort direction" menu (Ascending, Descending). lgse/strata#1563, lgse/strata#1565
-- The "Default sort" menu lists Name, Size, Modified, Type, Extension, Created, Duration, Dimensions, and Unsorted. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029, lgse/strata#2603 (unverified)
+- The "Default sort" menu lists Name, Size, Modified, Type, Extension, Created, and Unsorted. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029
+- The "Default sort" menu also lists Duration and Dimensions, between Created and Unsorted. lgse/strata#2603 (unverified)
 - While the default sort is Unsorted, the "Default sort direction" menu is insensitive; choosing another field makes it sensitive again. lgse/strata#2029 (unverified)
 
 ### Remember sort and icon size per folder
