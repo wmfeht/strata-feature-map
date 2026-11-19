@@ -70,7 +70,7 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 
 - Duration, Dimensions, and Created open at 105, 130, and 150 px. lgse/strata#2603 (unverified)
 - A drag cannot shrink a column below its minimum. The minimums are Name 160, Mode 80, Size 70, Type 80, Modified 110, Duration 80, Dimensions 105, and Created 110 px. lgse/strata#191, lgse/strata#2603 (unverified)
-- A saved width below a column's minimum opens at the minimum. lgse/strata#2603 (unverified)
+- A saved Duration, Dimensions, or Created width below that column's minimum opens at the minimum. lgse/strata#2603 (unverified)
 
 ### Sorting
 
@@ -95,7 +95,7 @@ Choosing which List columns show and in what order, for narrow windows where Mod
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-19 | lgse/strata#2603 | feat | Added opt-in Duration, Dimensions, and Created columns, sortable by heading and menu. Media details load in background batches (lgse/strata#2574). |
+| 2026-11-19 | lgse/strata#2603 | feat | Added opt-in Duration, Dimensions, and Created columns to compare media and creation times while keeping the default layout compact (lgse/strata#2574). |
 | 2026-10-15 | lgse/strata#1651 | feat | Added List column reordering by heading drag and visibility toggles, shared across windows and the chooser, without touching the sort. |
 
 ## Known gaps

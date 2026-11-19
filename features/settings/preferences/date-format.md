@@ -12,7 +12,7 @@ related: [browser/properties, browser/view-modes/entry-tooltips, browser/view-mo
 
 ## Summary
 
-How file modification times, and the List view's Created column, read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats.
+How file modification times read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats. The same format applies to the List view's Created column.
 
 ## Behavior
 

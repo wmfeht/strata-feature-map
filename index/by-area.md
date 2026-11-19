@@ -1643,7 +1643,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 
 shipped · draft · reviewed at [`9ad4b82`](https://github.com/lgse/strata/tree/9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d) · 0 PRs since · origin pr [lgse/strata#180](https://github.com/lgse/strata/issues/180)
 
-How file modification times, and the List view's Created column, read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats.
+How file modification times read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats. The same format applies to the List view's Created column.
 
 - Code: [`crates/strata-core/src/util/mod.rs`](https://github.com/lgse/strata/blob/9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d/crates/strata-core/src/util/mod.rs), [`src/ui/modified_date.rs`](https://github.com/lgse/strata/blob/9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d/src/ui/modified_date.rs), [`data/locales/dates.json`](https://github.com/lgse/strata/blob/9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d/data/locales/dates.json)
 - Tests: [`crates/strata-core/src/util/tests.rs`](https://github.com/lgse/strata/blob/9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d/crates/strata-core/src/util/tests.rs)

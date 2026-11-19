@@ -261,6 +261,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Sort a column on the `sshfs` mount and in Trash, then delete a folder open in the next column, from Strata and from a shell.
 - With the switch off, sort two columns differently and delete a folder open in a third. Then press Alt+Down, Back, and Forward.
 - Sort a folder by Duration with the switch on, restart, and open it in the portal chooser; then make Dimensions the default.
+- During a Duration sort, `mv` an audio file in from another folder, then paste one with Strata.
 
 ### browser/view-modes/density
 
@@ -662,7 +663,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Sort a folder Unsorted with Folders first on, then create files and folders from a shell. Toggle Folders first and compare the order with `ls -U` and after F5.
 - Sort by Created on an NFS mount, an `sftp://` folder, and an sshfs mount; press F5 twice and change a file from a shell.
 - In grouped List, type the path of a 2,000-file mixed folder on an NFS mount and press Down, then Shift+Down, before the load completes.
-- During a Duration sort, overwrite a video with a longer one from a shell while it is being probed. Then `mv` an audio file in from another folder and paste one with Strata.
+- During a Duration sort, overwrite a video with a longer one from a shell while it is being probed.
 - Sort a folder by Dimensions while another program writes 500 images into it.
 - Sort by Dimensions a folder whose first 300 entries are broken symlinks with `.mp4` names, followed by real videos. Repeat on a stalled sshfs mount.
 

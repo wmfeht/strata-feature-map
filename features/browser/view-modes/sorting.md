@@ -70,7 +70,7 @@ Ordering a folder's entries ascending or descending, or leaving them Unsorted, i
 - Under Created, an entry whose birth time is unknown and one whose birth time is unavailable tie and follow in name order. lgse/strata#2603 (unverified)
 - Under Duration or Dimensions, in either direction, entries with a known value come first and the rest follow in the selected name order. With Folders first on, this holds within the folder group and the file group. lgse/strata#2603
 - Dimensions compares total pixels: ascending, a 2000×1000 image (2,000,000 px) sorts before a 1080×1920 video (2,073,600 px). lgse/strata#2603
-- Sorted by Duration or Dimensions, an `sftp://` folder lists its rows in name order, since remote files get no media details. lgse/strata#2603 (unverified)
+- Sorted by Duration or Dimensions, an `sftp://` folder lists its rows in name order within the Folders first groups, since remote files get no media details. lgse/strata#2603 (unverified)
 - Unsorted keeps the order the directory listed its entries and ignores direction. With Folders first on, folders lead, each group in listed order. lgse/strata#2029
 - Unsorted order stays the same while a large folder's rows stream in. lgse/strata#2029
 - Choosing Unsorted reloads the folder. lgse/strata#2029
