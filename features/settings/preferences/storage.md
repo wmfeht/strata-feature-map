@@ -3,7 +3,7 @@ title: Preference storage and synchronization
 status: shipped
 origin: {issue: lgse/strata#212, pr: lgse/strata#518}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [src/ui/preferences/bindings.rs, src/ui/preferences/save_notice.rs, src/ui/preferences/persistence.rs, crates/strata-core/src/storage.rs, crates/strata-core/src/storage/writer.rs]
 tests: [src/ui/preferences/tests.rs, src/ui/preferences/tests/preferences/loading.rs, src/ui/preferences/tests/preferences/recovery.rs, src/ui/preferences/tests/preferences/saved_fixture.rs, src/ui/preferences/tests/preferences/saving.rs, src/ui/preferences/tests/preferences/setters.rs, src/ui/preferences/bindings/tests.rs, src/ui/preferences/fixtures.rs, crates/strata-core/src/storage/tests.rs, crates/strata-core/src/storage/writer/tests.rs, tests/qa/scenarios/preferences]
@@ -30,7 +30,7 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A change whose save fails still applies in memory and is retried on the next save. lgse/strata#518
 - Setting a preference to its current value notifies no consumer, and writes nothing unless an earlier save failed. lgse/strata#518
 - Opening Settings writes nothing to `settings.toml`. lgse/strata#518
-- `settings.toml` stores the default sort as `sort_key` (`name`, `size`, `modified`, `type`, `extension`, `created`, or `unsorted`), `sort_direction`, `natural_sort`, and `case_sensitive_sort`. lgse/strata#2029 (unverified)
+- `settings.toml` stores the default sort as `sort_key` (`name`, `size`, `modified`, `type`, `extension`, `created`, `duration`, `dimensions`, or `unsorted`), `sort_direction`, `natural_sort`, and `case_sensitive_sort`. lgse/strata#2029, lgse/strata#2603 (unverified)
 - A `settings.toml` without `natural_sort` or `case_sensitive_sort` loads them as `true` and `false`, so names sort Natural and case-insensitive. lgse/strata#2029 (unverified)
 
 ### Saves from several processes
@@ -83,7 +83,8 @@ How application-wide preferences are loaded, saved to `settings.toml`, recovered
 - A nested list keeps its valid entries too: one bad path in a device's `send_to_recent_destinations` list drops only that path. lgse/strata#1869
 - A value of the wrong shape, such as a string where a table belongs, falls back to its default as a whole. lgse/strata#1869
 - A hand-edited `interface_font = ""` or whitespace-only value loads as no font, so the Interface font button reads "Default". `"  Fixture Sans "` loads trimmed. lgse/strata#2016, lgse/strata#2030
-- One invalid width in `browser_list_columns` or `chooser_list_columns` resets that whole record to its default. lgse/strata#1869
+- One width of the wrong type in `browser_list_columns` or `chooser_list_columns`, such as `mode = "wide"`, drops only that width; the record's other widths load. lgse/strata#2603 (unverified)
+- A width of 0 or less in `browser_list_columns` or `chooser_list_columns` resets that whole record to its default. lgse/strata#1869, lgse/strata#2603 (unverified)
 - After a partly invalid collection loads, the next save writes back its kept entries and omits only the invalid ones. lgse/strata#1869
 - A `settings.toml` that cannot be read or is not valid TOML logs a warning, and Strata starts with defaults. lgse/strata#728
 - After such a load failure, changes apply in memory but the file is never written until it is repaired and Strata restarts. lgse/strata#728

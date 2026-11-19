@@ -1,6 +1,6 @@
 ---
 title: Integration sweep
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
@@ -73,6 +73,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Dump the tree in the file chooser's Save and URL views.
 - During a List heading drag, press Escape with 10xer mode on, a Space preview open, the filter open, or focus in Name under `save`. Read the response code, the selection, and `list_column_order` after each.
 - In List, press Escape mid-drag with three files selected, then press Escape again.
+- Show Duration, Dimensions, and Created from a browser window, open a chooser in List, and resize each of them there. Compare `chooser_list_columns` with `browser_list_columns`.
 - In the file view, press F2 and Ctrl+R with two items selected. Press Alt+Enter on a filter result and Shift+F10 with focus in Name. Read what opens.
 - With a preview showing, press on its blank chrome and drag out into the file list. Repeat in a multiple-selection request. Read the selection and the marquee.
 - Rebind `parent_folder`, `home_folder`, `history_back`, and `history_forward` to Ctrl keys, then to Super keys, in each table. Press each in the file view, in Name under `save`, in the filter, and with 10xer mode on; read the location.

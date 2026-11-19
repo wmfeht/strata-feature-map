@@ -3,8 +3,8 @@ title: Sorting
 status: shipped
 origin: {issue: lgse/strata#40, pr: lgse/strata#44}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
+review: draft
 code: [crates/strata-fs/src/app/browser/sorting.rs, crates/strata-fs/src/services/mime_type.rs, crates/strata-fs/src/app/browser/sort_settings.rs, crates/strata-fs/src/app/navigation/ordering.rs, src/ui/browser/pane_header/sort_menu.rs]
 tests: [crates/strata-fs/src/app/browser/sorting/tests.rs, crates/strata-fs/src/services/mime_type/tests.rs, tests/qa/scenarios/search_filter_sort/sorting-by-size.jsonl, tests/qa/scenarios/search_filter_sort/reversing-sort-direction.jsonl, crates/strata-fs/src/app/navigation/tests/sorting.rs, tests/qa/scenarios/search_filter_sort/additional-sort-choices.jsonl]
 docs: [docs/preferences.md]
@@ -13,15 +13,16 @@ related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navi
 
 ## Summary
 
-Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created, ascending or descending, or leaving them Unsorted, in all three view modes. Names compare in Natural or Alphabetical order, optionally case-sensitive, and folders can come first. The default sort is shared and saved; per-folder sorts belong to `browser/view-modes/folder-views`.
+Ordering a folder's entries ascending or descending, or leaving them Unsorted, in all three view modes. The fields are Name, Size, Modified, Type, Extension, Created, Duration, and Dimensions. Names compare in Natural or Alphabetical order, optionally case-sensitive, and folders can come first. The default sort is shared and saved; per-folder sorts belong to `browser/view-modes/folder-views`.
 
 ## Behavior
 
 ### Controls
 
 - Columns, Icons, and List pane headers have a "Choose sort field" button that opens one flat sort menu. lgse/strata#168, lgse/strata#2029
-- The menu's SORT BY section lists Name, Size, Modified, Type, Extension, and Created as radio menu items. lgse/strata#1467, lgse/strata#2029
-- In Recent the menu adds Recency, which sorts in either direction, after Created. In Camera Photos it adds Device order there. Both are radio menu items too. lgse/strata#1029, lgse/strata#1083, lgse/strata#1467, lgse/strata#2029 (unverified)
+- The menu's SORT BY section lists Name, Size, Modified, Type, Extension, Created, Duration, and Dimensions as radio menu items. lgse/strata#1467, lgse/strata#2029, lgse/strata#2603
+- In Recent the menu adds Recency, which sorts in either direction, after Dimensions. In Camera Photos it adds Device order there. Both are radio menu items too. lgse/strata#1029, lgse/strata#1083, lgse/strata#1467, lgse/strata#2029, lgse/strata#2603 (unverified)
+- A Duration or Dimensions sort chosen in List stays checked in the sort menu after switching to Icons or Columns. lgse/strata#2603
 - Unsorted has no row. Choosing the checked field again, Name included, switches to Unsorted. lgse/strata#2029
 - A NAME ORDER section holds the radio items Natural and Alphabetical, then the check item "Case-sensitive names". lgse/strata#2029
 - Folders first is a check menu item in its own section after NAME ORDER. lgse/strata#1544, lgse/strata#2029
@@ -44,8 +45,8 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 ### List label
 
 - In List, the sort button is icon-only with the tooltip "Choose sort field" under Unsorted or Device order. lgse/strata#2029
-- It is also icon-only when the field's column (Name, Size, Type, or Modified) is shown and, for Name, the order is Natural and case-insensitive. lgse/strata#2029
-- Otherwise it reads "Sort: <field>" and an arrow, such as "Sort: Extension ↑" or "Sort: Created ↓". lgse/strata#2029
+- It is also icon-only when the field's column is shown and, for Name, the order is Natural and case-insensitive. lgse/strata#2029, lgse/strata#2603
+- Otherwise it reads "Sort: <field>" and an arrow, such as "Sort: Extension ↑", or "Sort: Created ↓" with the Created column hidden. lgse/strata#2029, lgse/strata#2603
 - Sorted by Name in Alphabetical order, it reads "Sort: Name · Alphabetical ↑". Case-sensitive adds " · case-sensitive", as in "Sort: Name · Natural · case-sensitive ↑". lgse/strata#2029
 - Hiding the sorted field's column shows the label at once; showing the column again returns the icon. lgse/strata#2029
 - In Recent, the List button reads "Sort: Recency ↑" or "Sort: Recency ↓", since Recency has no column. lgse/strata#2029 (unverified)
@@ -66,6 +67,10 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 - Extension sorts by the final suffix: `archive.tar.gz` sorts under `gz`. Dotfiles such as `.gitignore` and names without a suffix have no extension. lgse/strata#2029
 - Extension ascending puts names without an extension first: `.gitignore`, `readme`, `archive.tar.gz`, `file2.md`, `file10.md`, `z.rs`. Suffixes compare in the selected name order. lgse/strata#2029 (unverified)
 - Created sorts by birth time, with entries whose birth time is missing last in both directions. lgse/strata#2029
+- Under Created, an entry whose birth time is unknown and one whose birth time is unavailable tie and follow in name order. lgse/strata#2603 (unverified)
+- Under Duration or Dimensions, in either direction, entries with a known value come first and the rest follow in the selected name order. With Folders first on, this holds within the folder group and the file group. lgse/strata#2603
+- Dimensions compares total pixels: ascending, a 2000×1000 image (2,000,000 px) sorts before a 1080×1920 video (2,073,600 px). lgse/strata#2603
+- Sorted by Duration or Dimensions, an `sftp://` folder lists its rows in name order within the Folders first groups, since remote files get no media details. lgse/strata#2603 (unverified)
 - Unsorted keeps the order the directory listed its entries and ignores direction. With Folders first on, folders lead, each group in listed order. lgse/strata#2029
 - Unsorted order stays the same while a large folder's rows stream in. lgse/strata#2029
 - Choosing Unsorted reloads the folder. lgse/strata#2029
@@ -75,6 +80,8 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, or Created
 - That name tie-break stays ascending when the field is descending. With Folders first on and `folder` a directory, Extension descending gives `folder`, `a.rs`, `file2.md`, `file10.md`, `Z.md`, `z.csv`. lgse/strata#2029
 - Choosing Size, Modified, or Created loads any missing sizes, dates, or birth times for that folder before reordering. lgse/strata#274, lgse/strata#2029 (unverified)
 - A folder that finishes loading under Size, Modified, or Created with values missing shows rows by name, then fills and reorders them. lgse/strata#274, lgse/strata#2029 (unverified)
+- A folder that finishes loading under Duration or Dimensions shows its rows in that order, missing values last, then fills media details and reorders. lgse/strata#2603 (unverified)
+- Choosing another sort while Duration or Dimensions details are loading cancels that fill at once. lgse/strata#2603
 
 ### Defaults
 
@@ -122,3 +129,4 @@ One sort default is shared by Columns, Icons, and List, so a change in any mode 
 - Filenames sort by code point, not by pinyin. lgse/strata#1583
 - Random sort and transliterated name order are left out of the first version. lgse/strata#2029
 - In Recent under a sort other than Recency, the Folders first row stays enabled though choosing it does nothing. lgse/strata#2074
+- A sort started in another column replaces the single pending sort, so an in-flight Duration or Dimensions sort can be abandoned. lgse/strata#2603

@@ -1,6 +1,6 @@
 ---
 title: Settings sweep
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 triggers: [src/ui/preferences.rs, src/ui/browser/preferences.rs, data/locales/messages/**, data/locales/de.json, data/locales/en.json, data/locales/es.json, data/locales/fr.json, data/locales/hu.json, data/locales/it.json, data/locales/ja.json, data/locales/ko.json, data/locales/pt-BR.json, data/locales/ru.json, data/locales/vi.json, data/locales/zh-CN.json, data/locales/zh-TW.json]
 tools: [docs/preferences.md, docs/themes.md, docs/internationalization.md, docs/diagnostics.md, scripts/headless/environment.py, tests/fixtures/harness.json]
 ---
@@ -85,6 +85,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Close Settings on Appearance, then reopen it with Ctrl+, with icon-only navigation, with a query left that hides Appearance's entry, and from the gear; read the focused widget in the accessibility tree.
 - Open Settings in windows 1297, 1298, and 1299 px wide and 847 to 849 px high, then maximized at 1920×1080 and on a 4K screen at 2× scale. Repeat at text size 13, 14, 16, and 48, and with GNOME text scaling 1.25; read the panel size, where row controls sit, and the General, Updates, and About page gutters.
 - Seed `sort_key = "unsorted"` with `sort_direction = "descending"`, launch, and read both Default sort menus. Choose Created in window A while window B shows General, then Unsorted again from B.
+- Under Deutsch and Magyar, choose Duration and then Dimensions as the Default sort; read the menu label and the direction menu's sensitivity, then restart and read them again.
 - Press Escape twice, and click the backdrop twice, within one frame of opening Settings; read the focused widget, the blur, and the gear's state. Repeat under Cairo.
 - In the Video preview start stepper, type 99, 100, -5, 12.5, and an empty value; press + at 95 and − at 3. Read the shown value and `settings.toml` after each.
 - Change Video preview start in window A while window B shows General; read B's stepper. Then search "seek", "offset", and "percent" under English and `language = "ja"` with icon-only navigation.
@@ -107,6 +108,7 @@ For every control this sweep proves the binding: the file changes, the other win
 - Seed `sidebar_order`, `folder_colors`, and `custom_icons` each with one bad entry among valid ones, then with only bad entries. Launch, change one preference, and diff `settings.toml`.
 - Seed `send_to_recent_destinations` with one device whose value is a table and one whose list holds an integer; launch, open Send to, and diff after one change.
 - Seed `chooser_list_columns` with `size = "wide"` beside valid `browser_list_columns`; open the file chooser and a List pane and read both widths.
+- Seed `browser_list_columns` holding both `size = "wide"` and `type = 0`, then one holding only `duration = 120` and `bogus = 40`; open a List pane with Duration shown, resize one column, and diff `settings.toml`.
 - Seed a 5,000-entry `folder_colors` table with one bad value; time startup to the first painted window and read the colors.
 - Edit the file externally while running, then change a different preference in Strata; read which values the file holds.
 - Change the same preference in two processes sharing one HOME, quit both in each order, and relaunch.

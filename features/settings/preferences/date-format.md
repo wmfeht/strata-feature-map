@@ -3,16 +3,16 @@ title: Modified date format
 status: shipped
 origin: {issue: null, pr: lgse/strata#180}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [crates/strata-core/src/util/mod.rs, src/ui/modified_date.rs, data/locales/dates.json]
 tests: [crates/strata-core/src/util/tests.rs]
-related: [browser/properties, browser/view-modes/entry-tooltips]
+related: [browser/properties, browser/view-modes/entry-tooltips, browser/view-modes/list]
 ---
 
 ## Summary
 
-How file modification times read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats.
+How file modification times read in lists and previews, and the Modified date format preference that chooses between relative labels and two absolute formats. The same format applies to the List view's Created column.
 
 ## Behavior
 
@@ -24,6 +24,7 @@ How file modification times read in lists and previews, and the Modified date fo
 - ISO 8601 renders `2026-09-17 14:30` and Long renders "September 17, 2026, 14:30". lgse/strata#1102
 - Changing the format re-renders open modified-time labels in every window without reloading. lgse/strata#1102
 - The modified date in an Icons or Columns entry tooltip follows the chosen format and re-renders when it changes. lgse/strata#2533
+- The List view's Created column uses the chosen format and re-renders when it changes. lgse/strata#2603 (unverified)
 - The choice is saved as `date_format`. lgse/strata#1102
 - Saved values are `relative`, `iso`, and `long`; loading ignores case and whitespace, also accepts `iso8601` and `iso-8601`, and reads unknown values as Relative. lgse/strata#1102 (unverified)
 
