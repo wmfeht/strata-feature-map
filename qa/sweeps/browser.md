@@ -18,6 +18,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - An unreadable folder (`chmod 000`) inside the fixture, and a folder to remove while it is open (`rm -rf` or `mv` from a shell), in every view.
 - For administrator-access probes: a root-owned `0700` folder on a USB drive, GVfs with `gvfsd-admin`, and a polkit agent in the session. The QA container has no GVfs or polkit agent, so these probes run by hand.
 - A slow directory: 2,000 images across every thumbnail format, plus 50 PDFs and 50 videos, with `$XDG_CACHE_HOME/thumbnails` emptied first so decoding is visible.
+- A media folder for the optional columns and media sorts. It holds audio files, a header-only `.wav`, a zero-length `.mp4`, and a file over an hour long. Add about 1,000 videos and 1,000 images.
 - Two windows of the same build for sidebar, pins, text size, tabs, monitoring, and Recent checks; open the same folder in both where the probe says so.
 - Type to search on and off per probe: it changes what `h`, `j`, `k`, `l`, `p`, `/`, and plain letters do. `docs/keyboard-navigation.md` holds the key rules and `docs/preferences.md` the setting keys.
 - Hand-written preferences go in `$XDG_CONFIG_HOME/strata/settings.toml` before launch; read the file back after every probe that saves something.
@@ -205,7 +206,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In grouped List, first-visit a folder of only dot-files plus `b.csv` and `a.txt` with hidden files off, then one where every subfolder is hidden. Repeat sorted by Type descending with Folders first off.
 - Open a grouped `sftp://` folder of 2,000 mixed files by typed path and wheel-scroll down before it finishes loading.
 - Open a camera Photos library in grouped List by keyboard, sorted by Name, then by Device order.
-- Show Duration, Dimensions, and Created on folders, broken symlinks, a header-only `.wav`, a zero-length `.mp4`, and a file over an hour long; repeat in Trash, Recent, an `sftp://` folder, and an sshfs mount.
+- Show Duration, Dimensions, and Created on folders, broken symlinks, a header-only `.wav`, a zero-length `.mp4`, and a file over an hour long. Repeat in Trash, Recent, an `sftp://` folder, and an sshfs mount.
 - Show Duration while wheel-scrolling `100000`, then hide it mid-scroll. With Created shown, then hidden, change the date format in Settings.
 
 ### browser/view-modes/list/column-layout
@@ -220,8 +221,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Hide Mode in one window while a second shows Icons and the portal file chooser shows List; return the second window to List.
 - Hide every column but Name, shrink the window to 400 px, and reset; then repeat at text size 8 and 48 with 10xer mode on and off.
 - Open the Columns popover from the header, the heading row's right-click, and Appearance in Recent, Trash, and a Camera Photos library; navigate it by keyboard and read it with Orca.
-- Write a five-entry `list_column_order` and a `[browser_list_columns]` record with only `mode`, `size`, `type`, and `modified`, plus `duration = 10`; start, open List, and resize a column.
-- Turn Duration on and off in the portal file chooser while a browser window shows List and a second window shows Icons; then reset from the browser.
+- Write a five-entry `list_column_order` and a `[browser_list_columns]` record with only `mode`, `size`, `type`, and `modified`, plus `duration = 10`. Start, open List, and resize a column.
+- Turn Duration on and off in the portal file chooser while a browser window shows List and a second window shows Icons. Then reset from the browser.
 - Show all three optional columns at 400 px wide and at text size 48, drag Created before Name, then hide Created and reset.
 
 ### browser/view-modes/sorting
@@ -240,8 +241,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In Recent under Size, choose Folders first, then open an ordinary folder in the same pane. Read its order and the menu's checked state.
 - Choose a field, then press Make default or Reset to default sort within 16 ms, before the sort applies. Read the pane and `settings.toml`.
 - Open the sort menu and change every row by keyboard alone with Enter, Space, and the vim focus keys. Then toggle 10xer mode while it is open.
-- Sort a folder of 1,000 videos, 1,000 images, and 1,000 text files by Duration, then Dimensions, in both directions, with Folders first on and off. Choose Size or switch views mid-fill.
-- Sort by Dimensions a folder whose first 300 entries are broken symlinks with `.mp4` names, followed by real videos; then on a stalled sshfs mount.
+- Sort a folder of 1,000 videos, 1,000 images, and 1,000 text files by Duration, then Dimensions, in both directions. Repeat with Folders first on and off, and choose Size or switch views mid-fill.
 - Start a Duration sort in one Columns column, then sort another column before the first fill ends.
 
 ### browser/view-modes/folder-views
@@ -664,6 +664,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - In grouped List, type the path of a 2,000-file mixed folder on an NFS mount and press Down, then Shift+Down, before the load completes.
 - During a Duration sort, overwrite a video with a longer one from a shell while it is being probed. Then `mv` an audio file in from another folder and paste one with Strata.
 - Sort a folder by Dimensions while another program writes 500 images into it.
+- Sort by Dimensions a folder whose first 300 entries are broken symlinks with `.mp4` names, followed by real videos. Repeat on a stalled sshfs mount.
 
 ### browser/directory-monitoring/network-checks
 

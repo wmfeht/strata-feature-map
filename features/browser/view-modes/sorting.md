@@ -13,7 +13,7 @@ related: [browser/view-modes/folder-views, browser/view-modes/list, browser/navi
 
 ## Summary
 
-Ordering a folder's entries by Name, Size, Modified, Type, Extension, Created, Duration, or Dimensions, ascending or descending, or leaving them Unsorted, in all three view modes. Names compare in Natural or Alphabetical order, optionally case-sensitive, and folders can come first. The default sort is shared and saved; per-folder sorts belong to `browser/view-modes/folder-views`.
+Ordering a folder's entries ascending or descending, or leaving them Unsorted, in all three view modes. The fields are Name, Size, Modified, Type, Extension, Created, Duration, and Dimensions. Names compare in Natural or Alphabetical order, optionally case-sensitive, and folders can come first. The default sort is shared and saved; per-folder sorts belong to `browser/view-modes/folder-views`.
 
 ## Behavior
 
@@ -45,8 +45,7 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, Created, D
 ### List label
 
 - In List, the sort button is icon-only with the tooltip "Choose sort field" under Unsorted or Device order. lgse/strata#2029
-- It is also icon-only when the field's column is shown and, for Name, the order is Natural and case-insensitive. lgse/strata#2029
-- Sorted by Created, Duration, or Dimensions with that column shown, the button is icon-only. lgse/strata#2603 (unverified)
+- It is also icon-only when the field's column is shown and, for Name, the order is Natural and case-insensitive. lgse/strata#2029, lgse/strata#2603
 - Otherwise it reads "Sort: <field>" and an arrow, such as "Sort: Extension ↑", or "Sort: Created ↓" with the Created column hidden. lgse/strata#2029, lgse/strata#2603
 - Sorted by Name in Alphabetical order, it reads "Sort: Name · Alphabetical ↑". Case-sensitive adds " · case-sensitive", as in "Sort: Name · Natural · case-sensitive ↑". lgse/strata#2029
 - Hiding the sorted field's column shows the label at once; showing the column again returns the icon. lgse/strata#2029
@@ -82,7 +81,6 @@ Ordering a folder's entries by Name, Size, Modified, Type, Extension, Created, D
 - Choosing Size, Modified, or Created loads any missing sizes, dates, or birth times for that folder before reordering. lgse/strata#274, lgse/strata#2029 (unverified)
 - A folder that finishes loading under Size, Modified, or Created with values missing shows rows by name, then fills and reorders them. lgse/strata#274, lgse/strata#2029 (unverified)
 - A folder that finishes loading under Duration or Dimensions shows its rows in that order, missing values last, then fills media details and reorders. lgse/strata#2603 (unverified)
-- While a media batch's values arrive, the rows keep their order; they reorder when the batch finishes. lgse/strata#2603 (unverified)
 - Choosing another sort while Duration or Dimensions details are loading cancels that fill at once. lgse/strata#2603
 
 ### Defaults

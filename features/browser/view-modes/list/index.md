@@ -12,7 +12,7 @@ related: [browser/navigation, browser/view-modes/entry-tooltips]
 
 ## Summary
 
-A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, optional Duration, Dimensions, and Created columns, sortable headings, and optional file-type groups. Formerly called Explorer. Child: `browser/view-modes/list/column-layout` (column order and visibility). Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
+A single-pane table of the current folder with sortable headings and optional file-type groups. Its columns are Name, Mode, Size, Type, and Modified, plus optional Duration, Dimensions, and Created. Formerly called Explorer. Child: `browser/view-modes/list/column-layout` (column order and visibility). Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
 
 ## Behavior
 
@@ -33,9 +33,9 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - Dimensions shows an image's or video's size as width×height, such as `1920×1080`. Folders and other files show nothing. lgse/strata#2603 (unverified)
 - Created shows a file's or folder's birth time. lgse/strata#2603
 - An entry without a known birth time leaves Created blank, where Modified shows `—`. lgse/strata#2603 (unverified)
-- With Duration or Dimensions shown, List rows request their entries' media details; with both hidden, they do not. lgse/strata#2603 (unverified)
 - Showing Duration or Dimensions fills the rows already in view without scrolling. lgse/strata#2603 (unverified)
-- Media details load only for local files: in an `sftp://` folder, Duration and Dimensions stay blank. lgse/strata#2603 (unverified)
+- Media details load only for supported local files. lgse/strata#2603
+- In an `sftp://` folder, Duration and Dimensions stay blank. lgse/strata#2603 (unverified)
 
 ### Headings
 
@@ -73,7 +73,7 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - The Name cell's entry tooltip never carries a date, even with the Modified column hidden. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#2533 (unverified)
 - The Mode, Size, Type, Modified, Duration, Dimensions, and Created cells show no name tooltip. lgse/strata#2533, lgse/strata#2603 (unverified)
 - While a row is being renamed, its Name cell shows no tooltip. lgse/strata#2533
-- Rows bound while scrolling show their text, icon, and static Modified and Created dates at once; cut styling and live-updating dates apply once scrolling settles. lgse/strata#371, lgse/strata#1081, lgse/strata#1673, lgse/strata#2603 (unverified)
+- Rows bound while scrolling show their text, icon, and static Modified and Created dates at once. Cut styling and live-updating dates apply once scrolling settles. lgse/strata#371, lgse/strata#1081, lgse/strata#1673, lgse/strata#2603 (unverified)
 
 ## Design
 

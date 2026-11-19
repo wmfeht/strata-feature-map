@@ -35,6 +35,10 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - A folder's saved sort includes its name order and case sensitivity. lgse/strata#2029
 - Duration and Dimensions sorts are stored as `sort = "duration"` and `sort = "dimensions"`. lgse/strata#2603 (unverified)
 
+### Media sorts
+
+- During a Duration or Dimensions sort, a media file added or changed by another program or a Strata operation is probed. It then moves into place. lgse/strata#2603
+
 ### Settings
 
 - Saved values stay stored but unused while the switch is off. Turning it back on drops saved values equal to the current defaults. lgse/strata#1565
