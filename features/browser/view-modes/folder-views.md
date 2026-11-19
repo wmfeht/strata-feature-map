@@ -3,7 +3,7 @@ title: Per-folder sort and thumbnail size
 status: shipped
 origin: {issue: lgse/strata#1563, pr: lgse/strata#1565}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [src/ui/preferences/folder_view_settings.rs, src/ui/preferences/folder_views.rs, src/ui/preferences/folder_views/**, crates/strata-fs/src/app/browser/folder_sorts.rs]
 tests: [src/ui/preferences/folder_views/tests.rs, crates/strata-fs/src/app/browser/tests/folder_sorts.rs, src/ui/window/tests/preferences/folder_views.rs]
@@ -33,6 +33,7 @@ Each local folder remembers the sort chosen in it and its Icons thumbnail size, 
 - With Remember sort and icon size per folder off, every folder counts as unremembered. Each surviving column then keeps its own sort through those rebuilds. lgse/strata#2085 (unverified)
 - Device order and Recency are never stored. Unsorted is stored like any other field, as `sort = "unsorted"`. lgse/strata#1565, lgse/strata#2029 (unverified)
 - A folder's saved sort includes its name order and case sensitivity. lgse/strata#2029
+- Duration and Dimensions sorts are stored as `sort = "duration"` and `sort = "dimensions"`. lgse/strata#2603 (unverified)
 
 ### Settings
 

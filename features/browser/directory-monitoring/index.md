@@ -3,7 +3,7 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [crates/strata-fs/src/app/browser/loading.rs, crates/strata-fs/src/app/browser/loading/metadata.rs, crates/strata-fs/src/app/browser/directory_changes.rs, crates/strata-fs/src/app/browser/publication.rs, crates/strata-fs/src/app/browser/deferred.rs, crates/strata-fs/src/app/browser/operation_updates.rs, crates/strata-fs/src/adapters/local_files/monitors.rs, crates/strata-fs/src/adapters/local_files/monitor_changes.rs, crates/strata-fs/src/app/browser/listing.rs, crates/strata-fs/src/app/browser/metadata_fills.rs, crates/strata-fs/src/app/browser/operation_events/outcome.rs, crates/strata-fs/src/app/browser/refresh.rs, crates/strata-fs/src/app/navigation/listing.rs, crates/strata-fs/src/app/navigation/metadata.rs, crates/strata-fs/src/app/navigation/monitored.rs, src/ui/browser/events/listing.rs]
 tests: [crates/strata-fs/src/app/browser/loading/tests.rs, crates/strata-fs/src/app/browser/loading/metadata/tests.rs, crates/strata-fs/src/app/browser/directory_changes/tests.rs, crates/strata-fs/src/app/browser/publication/tests.rs, crates/strata-fs/src/app/browser/deferred/tests.rs, crates/strata-fs/src/app/browser/operation_updates/tests.rs, crates/strata-fs/src/app/browser/tests/monitor.rs, crates/strata-fs/src/app/browser/tests/staging.rs, crates/strata-fs/src/app/browser/tests/relocation.rs, crates/strata-fs/src/app/browser/tests/operations.rs, crates/strata-fs/src/app/browser/tests/metadata.rs, crates/strata-fs/src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl, crates/strata-fs/src/app/browser/tests/monitor/**, crates/strata-fs/src/adapters/local_files/tests/live_monitor.rs, crates/strata-fs/src/adapters/local_files/tests/monitor_queue.rs, crates/strata-fs/src/app/navigation/tests/metadata.rs, crates/strata-fs/src/app/navigation/tests/monitor.rs, crates/strata-fs/src/app/navigation/tests/reload.rs, tests/qa/scenarios/locations/open-folder-follows-renamed-ancestor.jsonl]
@@ -38,6 +38,14 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - A typed first visit to a local grouped folder of 600 mixed files selects nothing until loading finishes. lgse/strata#2070 (unverified)
 - When a return's came-from folder is gone, or hidden with hidden files off, the first row shown is selected once the listing completes. Hidden files stay off and no error shows. lgse/strata#1437, lgse/strata#1544
 - In grouped List, that row is the first item of the first group. lgse/strata#2070
+
+### Media sort fills
+
+- Sorted by Duration or Dimensions, a local folder probes the files whose value is still unknown in batches of 256, and reorders the rows after each batch. lgse/strata#2603
+- A Duration sort probes audio and video files; a Dimensions sort probes image and video files. Folders and other files, such as `.txt`, are never probed. lgse/strata#2603 (unverified)
+- A batch cut short by its time budget still reorders the rows. The next batch starts while unknown rows remain and the last batch resolved at least one. lgse/strata#2603
+- A media file that another program or a Strata operation adds or changes during a Duration or Dimensions sort is probed and moves into place. lgse/strata#2603
+- A file replaced while its media details are read is probed again, and the stale result is discarded. lgse/strata#2603
 
 ### Live external changes
 
@@ -136,6 +144,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - Background changes emit only row splices, so a busy folder such as `/tmp` does not reset scrolling (lgse/strata#767, lgse/strata#803). A focus update follows only when the focused entry was removed or nothing stays selected (lgse/strata#1043).
 - Changes are held during delete, restore, and transfer operations so the listing does not churn per item. Rescan requests run once, after progress closes, as a refresh that keeps existing rows (lgse/strata#1036, lgse/strata#1266).
 - After Strata's own operations, folders with a monitor rely on it and only folders without one reload, avoiding needless reloads (lgse/strata#1035). Until lgse/strata#1615 the test was native versus non-native, and the reload was skipped after a cancel or when another watched folder had rescanned.
+- Media sorts probe 256 entries per batch and publish each batch, even a truncated one, so a large folder makes progress instead of waiting for every probe (lgse/strata#2603, commit 8675d452, [review](https://github.com/lgse/strata/pull/2603#issuecomment-7000394397)). Each pass collects only the next batch's paths and counts the rest without allocating them (lgse/strata#2603, commit 402fcc3e).
 - A full listing marks a birth time the filesystem does not report as unavailable, not unknown. Unknown times made every Created sort on NFS or SFTP refill the folder on each load, one request per file for remote folders ([comment](https://github.com/lgse/strata/pull/2029#issuecomment-6612311272)).
 - A folder's own monitor reports deletion, rename, and move alike. Strata then looks in the parent, off the main thread, for the same device, inode, and birth time (lgse/strata#1554).
 - The birth time keeps a new folder that reuses the inode from passing as a rename (lgse/strata#1554). Since lgse/strata#1729 the comparison starts from the load's change stamp and uses the mount's identity rule. Where nothing proves the folder, as on sshfs, exfat-fuse, and vboxsf or for exFAT folders, the rename is not followed.
@@ -191,3 +200,7 @@ Loading and file monitoring predate the PR history; the original monitor already
 - An open folder on another mount than its renamed ancestor counts as departed. lgse/strata#2026
 - Metadata fills on visible `admin://` rows still go through GIO. After the polkit grant expires, they can raise a prompt the user did not ask for. lgse/strata#1837
 - Undoing a Replace move still retires the moved item's path from Recent, although the restored original is back at that path. lgse/strata#2080 ([comment](https://github.com/lgse/strata/pull/2080#issuecomment-6710375362))
+- Media sort batches take the first 256 unknown files in column order, and stop after a batch that resolves none. Files behind a front that stays unknown, such as broken symlinks or a mount where no probe finishes in time, go unprobed until the next change or reload. lgse/strata#2603
+- Each media sort batch rescans the column and re-sorts and republishes it, so folders with tens of thousands of media files do quadratic main-thread work. lgse/strata#2603
+- A media change during a batch discards the whole in-flight batch, not only the changed files. lgse/strata#2603
+- The media sort and the List row fill decide which files need media details differently: for Dimensions, the sort counts images and videos, the row fill only images. lgse/strata#2603

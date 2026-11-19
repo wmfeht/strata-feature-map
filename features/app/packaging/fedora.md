@@ -85,5 +85,4 @@ The Fedora RPM, built from source for stable and preview COPR projects so Fedora
 
 ## Known gaps
 
-- No source confirms that the preview project `@lgse/strata-preview` exists, so the README's preview install command may fail. It returned 404 on 2026-11-13. lgse/strata#2120, lgse/strata#2417
 - Sandboxed previews on aarch64 are untested on real hardware. lgse/strata#2120

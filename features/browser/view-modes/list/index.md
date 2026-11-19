@@ -3,7 +3,7 @@ title: List view
 status: shipped
 origin: {issue: lgse/strata#188, pr: lgse/strata#191}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [src/ui/browser_modes/list_factory.rs, src/ui/browser_modes/grouped_model.rs, src/ui/browser_modes/list_headings.rs, src/ui/browser_modes/list_pane.rs, crates/strata-fs/src/app/navigation/type_groups.rs, src/ui/browser_modes/type_groups.rs]
 tests: [tests/qa/scenarios/view_switching/list-column-resize-tracks-pointer.jsonl, src/ui/browser_modes/grouped_model/tests.rs, tests/qa/scenarios/search_filter_sort/grouped-list-keeps-file-targets.jsonl, tests/qa/scenarios/search_filter_sort/grouped-list-first-visit-starts-at-first-row.jsonl]
@@ -12,7 +12,7 @@ related: [browser/navigation, browser/view-modes/entry-tooltips]
 
 ## Summary
 
-A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, sortable headings, and optional file-type groups. Formerly called Explorer. Child: `browser/view-modes/list/column-layout` (column order and visibility). Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
+A single-pane table of the current folder with Name, Mode, Size, Type, and Modified columns, optional Duration, Dimensions, and Created columns, sortable headings, and optional file-type groups. Formerly called Explorer. Child: `browser/view-modes/list/column-layout` (column order and visibility). Restoring a folder's position on return or refresh is shared with Icons and belongs to `browser/view-modes/position-restore`.
 
 ## Behavior
 
@@ -26,15 +26,26 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - A folder that cannot be read, or one without a local path, leaves its Size cell blank. lgse/strata#1564 (unverified)
 - Type shows the description of the MIME type guessed from the filename, such as "JSON document"; folders show "Folder" and unrecognized files "Other". lgse/strata#946
 
+### Optional columns
+
+- Cells of Duration, Dimensions, and Created show a value only where it applies and is known; the others stay blank. lgse/strata#2603
+- Duration shows an audio or video file's length as `m:ss` under an hour and `h:mm:ss` from an hour, such as `3:07` or `1:02:03`. Folders show nothing. lgse/strata#2603 (unverified)
+- Dimensions shows an image's or video's size as width×height, such as `1920×1080`. Folders and other files show nothing. lgse/strata#2603 (unverified)
+- Created shows a file's or folder's birth time in the date format Modified uses, and follows changes to that setting. lgse/strata#2603 (unverified)
+- An entry without a known birth time leaves Created blank, where Modified shows `—`. lgse/strata#2603 (unverified)
+- With Duration or Dimensions shown, List rows request their entries' media details; with both hidden, they do not. lgse/strata#2603 (unverified)
+- Showing Duration or Dimensions fills the rows already in view without scrolling. lgse/strata#2603 (unverified)
+- Media details load only for local files: in an `sftp://` folder, Duration and Dimensions stay blank. lgse/strata#2603 (unverified)
+
 ### Headings
 
 - Clicking the Name, Size, Type, or Modified heading sorts by that field ascending; clicking the current sort heading reverses it, and an arrow marks it. lgse/strata#877
+- A shown Duration, Dimensions, or Created heading sorts and shows the arrow the same way. lgse/strata#2603 (unverified)
 - Clicking the Mode heading does not sort. lgse/strata#308
-- Sorted by Extension, Created, or Unsorted, no heading shows an arrow, since no column matches. lgse/strata#2029
+- Sorted by Extension or Unsorted, no heading shows an arrow, since no column matches. lgse/strata#2029
 - Outside 10xer mode, the List header always has the sort menu button, first among its actions and before Refresh, with a 12 px gap after it. lgse/strata#2029
 - In Recent, the List header adds the direction button after Refresh, before the Columns menu. lgse/strata#1083, lgse/strata#2029 (unverified)
 - Dragging a heading's right edge resizes that column and follows the pointer without an initial jump. lgse/strata#931
-- A drag cannot shrink a column below its minimum: Name 160, Mode 80, Size 70, Type 80, and Modified 110 px. lgse/strata#191 (unverified)
 - Double-clicking a heading's right edge fits the column to its widest content. lgse/strata#1116
 - Resized widths are saved as `[browser_list_columns]`, or `[chooser_list_columns]` in the file chooser, and new List panes open with them; Name is saved only after it is resized itself. lgse/strata#1339
 
@@ -60,9 +71,9 @@ A single-pane table of the current folder with Name, Mode, Size, Type, and Modif
 - A click selects the row whose hover highlight is shown; no strip between rows highlights one row but selects another. lgse/strata#327
 - Hovered and selected rows use the same rounded highlight as Columns, dimmed when the list loses focus. lgse/strata#554
 - The Name cell's entry tooltip never carries a date, even with the Modified column hidden. `browser/view-modes/entry-tooltips` sets the text and the rest delay. lgse/strata#2533 (unverified)
-- The Mode, Size, Type, and Modified cells show no name tooltip. lgse/strata#2533 (unverified)
+- The Mode, Size, Type, Modified, Duration, Dimensions, and Created cells show no name tooltip. lgse/strata#2533, lgse/strata#2603 (unverified)
 - While a row is being renamed, its Name cell shows no tooltip. lgse/strata#2533
-- Rows bound while scrolling show their text, icon, and a static date at once; cut styling and live-updating dates apply once scrolling settles. lgse/strata#371, lgse/strata#1081, lgse/strata#1673 (unverified)
+- Rows bound while scrolling show their text, icon, and static Modified and Created dates at once; cut styling and live-updating dates apply once scrolling settles. lgse/strata#371, lgse/strata#1081, lgse/strata#1673, lgse/strata#2603 (unverified)
 
 ## Design
 
@@ -78,6 +89,7 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 - List, Icons, and Columns format folder counts with one shared function, so the three views match (lgse/strata#1564).
 - Mode's default width is 160 px so the octal value fits at every text size (lgse/strata#435).
 - Saved widths are unscaled by text size, and browser and chooser widths are independent (lgse/strata#1338).
+- Hidden Duration, Dimensions, and Created labels stay bound and updated on every bind, to keep toggling instant ([review](https://github.com/lgse/strata/pull/2603#issuecomment-7000394397)).
 
 ## History
 
@@ -104,3 +116,4 @@ Explorer's Name column started at a fixed 600 px and pushed metadata out of narr
 - On a remote grouped first visit opened by keyboard, the first-row pick lands when the load finishes. It can scroll a user who scrolled during the load back to the top. From code reading, not reproduced. lgse/strata#2070
 - A camera folder picks its cursor while still ungrouped, so once grouping applies the cursor may not be on the first row shown. From code reading, not reproduced. lgse/strata#2070
 - In a folder-free listing not sorted by Type, the first-row pick reads every file's type on the main thread: about 140 ms per 100,000 names in a debug build. lgse/strata#2070
+- A hidden Created column still registers a live date binding per row, doubling per-row date work. lgse/strata#2603

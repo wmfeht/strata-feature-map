@@ -993,7 +993,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/preferences/input_settings.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/preferences/item_customizations.rs` | code | [Folder and file customization](../features/browser/folder-customization.md) | — |
 | `src/ui/preferences/keymap.rs` | code | [Remappable shortcuts per map](../features/app/keyboard-shortcuts/remapping.md) | [Shortcuts on any keyboard layout](../features/app/keyboard-shortcuts/index.md) |
-| `src/ui/preferences/layout_settings.rs` | code | [View modes](../features/browser/view-modes/index.md) | — |
+| `src/ui/preferences/layout_settings.rs` | code | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/list_columns.rs` | code | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | [List view](../features/browser/view-modes/list/index.md), [View modes](../features/browser/view-modes/index.md) |
 | `src/ui/preferences/persistence.rs` | code | [Preference storage and synchronization](../features/settings/preferences/storage.md) | [Settings window and general preferences](../features/settings/preferences/index.md) |
 | `src/ui/preferences/preview_settings.rs` | code | [Preview panel](../features/preview/preview-panel/index.md) | — |

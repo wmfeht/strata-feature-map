@@ -6,6 +6,7 @@ Every History row across the tree, newest first.
 
 | PR | Date | Type | Node | Change |
 | --- | --- | --- | --- | --- |
+| [lgse/strata#2603](https://github.com/lgse/strata/issues/2603) | 2026-11-19 | feat | [List column order and visibility](../features/browser/view-modes/list/column-layout.md) | Added opt-in Duration, Dimensions, and Created columns, sortable by heading and menu, with media details loaded in background batches (lgse/strata#2574). |
 | [lgse/strata#2544](https://github.com/lgse/strata/issues/2544) | 2026-11-17 | fix | [Interface language](../features/settings/preferences/language.md) | Revised three Hungarian strings to say "hordozható eszköz" instead of "telefon", including the KDE MTP conflict warning in Diagnostics; no keys or placeholders changed. |
 | [lgse/strata#2533](https://github.com/lgse/strata/issues/2533) | 2026-11-16 | feat | [System file chooser](../features/integration/portal-file-chooser/index.md) | Closed the chooser's path entry on a click outside it, as the main window does. |
 | [lgse/strata#2533](https://github.com/lgse/strata/issues/2533) | 2026-11-16 | feat | [Entry hover tooltips](../features/browser/view-modes/entry-tooltips.md) | Shared the Icons rest-delay tooltip with Columns rows and List names, with dates in Icons and Columns, so truncated names are readable. |
