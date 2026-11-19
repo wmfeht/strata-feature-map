@@ -3,7 +3,7 @@ title: Modified date format
 status: shipped
 origin: {issue: null, pr: lgse/strata#180}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [crates/strata-core/src/util/mod.rs, src/ui/modified_date.rs, data/locales/dates.json]
 tests: [crates/strata-core/src/util/tests.rs]

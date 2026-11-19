@@ -3,7 +3,7 @@ title: Fedora COPR package
 status: shipped
 origin: {issue: lgse/strata#2118, pr: lgse/strata#2120}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [packaging/rpm, scripts/build_srpm.py]
 tests: [scripts/test_build_srpm.py]
@@ -85,6 +85,5 @@ The Fedora RPM, built from source for stable and preview COPR projects so Fedora
 
 ## Known gaps
 
-- The COPR projects `@lgse/strata` and `@lgse/strata-preview` return 404, so the README's install commands fail. lgse/strata#2120
-- Publishing waits on Fedora creating the `lgse` FAS group. lgse/strata#2120
+- No source confirms that the preview project `@lgse/strata-preview` exists, so the README's preview install command may fail. It returned 404 on 2026-11-13. lgse/strata#2120, lgse/strata#2417
 - Sandboxed previews on aarch64 are untested on real hardware. lgse/strata#2120

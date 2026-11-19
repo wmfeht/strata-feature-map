@@ -3,7 +3,7 @@ title: Settings window and general preferences
 status: shipped
 origin: {issue: lgse/strata#845, pr: lgse/strata#849}
 branch: null
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [src/ui/settings/general.rs, src/ui/settings/about.rs, src/ui/settings/bindings.rs, src/ui/settings/wrap.rs, src/ui/settings/search.rs, src/ui/settings/search/filter.rs, src/ui/settings/search/matching.rs, src/ui/settings/search/targets.rs, src/ui/settings/navigation.rs, src/ui/settings/page.rs, src/ui/settings/responsive.rs, src/ui/window/composition/settings.rs, data/brand/strata-logo-white.svg]
 tests: [src/ui/settings/tests.rs, src/ui/settings/tests/general.rs, src/ui/settings/search/tests.rs, src/ui/settings/tests/restart.rs, src/ui/window/composition/settings/tests.rs, crates/strata-fs/src/app/browser/tests/preferences.rs, tests/qa/scenarios/hidden_files, tests/qa/scenarios/dialogs_and_menus/settings-closes-on-an-outside-click.jsonl, tests/qa/scenarios/search_filter_sort/hidden-files-toggle.jsonl]
@@ -151,7 +151,7 @@ The Settings panel: opening and closing it, page navigation, responsive layout, 
 ### Default sort
 
 - Settings → General → Browsing has a Default sort row with a "Default sort" menu and a "Default sort direction" menu (Ascending, Descending). lgse/strata#1563, lgse/strata#1565
-- The "Default sort" menu lists Name, Size, Modified, Type, Extension, Created, and Unsorted. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029
+- The "Default sort" menu lists Name, Size, Modified, Type, Extension, Created, Duration, Dimensions, and Unsorted. lgse/strata#1563, lgse/strata#1565, lgse/strata#2029, lgse/strata#2603 (unverified)
 - While the default sort is Unsorted, the "Default sort direction" menu is insensitive; choosing another field makes it sensitive again. lgse/strata#2029 (unverified)
 
 ### Remember sort and icon size per folder

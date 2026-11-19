@@ -3,7 +3,7 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/chooser/destination.rs, src/ui/chooser/geometry.rs, src/ui/chooser/layout.rs, src/ui/chooser/options.rs, src/ui/chooser/shortcuts.rs, src/ui/chooser/shortcuts/**, src/ui/chooser/source.rs, src/ui/chooser/state.rs, src/ui/browser/chooser_context.rs]
 tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/acceptance/**, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
