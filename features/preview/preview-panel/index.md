@@ -34,7 +34,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local file named `.odt` or `.ott` holding text also previews as text. lgse/strata#1834 (unverified)
 - An SVG previews as an image although its bytes are text. lgse/strata#1638
 - A local WebP whose VP8X header sets the animation flag opens in the media player when `ffmpeg -decoders` lists `webp_anim` (FFmpeg 9.0 or newer). lgse/strata#2734
-- Animated WebP bytes named `misnamed.png` also open in the media player. lgse/strata#2734
+- Where FFmpeg lists `webp_anim`, animated WebP bytes named `misnamed.png` also open in the media player. lgse/strata#2734
 - A still WebP, including a VP8X file without the animation flag, keeps the image preview. lgse/strata#2734
 - With an FFmpeg older than 9.0, an animated WebP shows its first frame as a still image. lgse/strata#2734
 - FFmpeg is asked once per process, so upgrading it to 9.0 takes effect after Strata restarts. lgse/strata#2734 (unverified)

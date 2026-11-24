@@ -31,6 +31,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - `bwrap` present for the main pass. For fail-closed probes, launch again with `bwrap` dropped from `PATH`, then inside `unshare -rm` with `/dev/null` bound over `/usr/bin/bwrap`.
 - Leak baseline before every helper-spawning probe: `pgrep -c bwrap`, `pgrep -fc 'ffmpeg|ffprobe'`, and `ls /proc/$(pgrep -x strata)/fd | wc -l`; repeat after and compare. `RUST_LOG=strata::sandbox::browser=debug` shows supervisor reuse.
 - Backend values in `settings.toml`: `video_preview_backend` takes `automatic`, `vaapi`, or `vulkan`; `hardware_accelerated_video_previews = false` forces software. Hardware probes need a VA-API or Vulkan GPU; skip and say so without one.
+- FFmpeg 8.x, 9.0, and 9.1 runtimes. Swap them by replacing the `ffmpeg` and `ffprobe` on the trusted runtime path, then restart Strata. Also an Intel Gen12 host with Mesa ANV for the Vulkan limit probes.
 - A NixOS host with a VA-API or Vulkan GPU and `nvtop` or `intel_gpu_top`. Install the flake's Nix package, and keep beside it a non-Nix build of upstream at or after 6eb4bf6. Skip the probes that name the NixOS GPU host without one.
 - Keyboard layouts for key probes, on the test display only, never the desktop: `setxkbmap -display :N ru` (no Latin layout), `setxkbmap -display :N -layout us,ru` with the group locked to Russian, and Caps Lock on. In a QA scenario, `{"layout":"ru-only"}`, `{"layout":"ru"}`, and `{"layout":"caps-lock"}` steps match those three setups through `tests/qa/keyboard.rs`. They read the layouts in `tests/fixtures/harness.json`, and `us` is restored afterwards. `docs/testing.md` "Keyboard layouts" has the rules.
 - An NFS or SMB mount holding a music folder, a video folder, a RAW folder, and a model folder with the FreeCAD file and the embedded-PNG 3MF, for probes that rename or delete what the preview reads.
@@ -199,7 +200,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With acceleration on, play an MP3 and load a waveform and a video storyboard; read each helper's `bwrap` arguments from `/proc/<pid>/cmdline`.
 - Play each animated WebP sample over the loop budget, over 32,767 frames, with zero durations, longer than 30 s, and on the 60 MP canvas. Pause, step away and back, and reopen in a second window.
 - With Video preview start at 50 and autoplay on, then off, preview the 500-frame WebP animation under `vaapi` and `vulkan`.
-- With FFmpeg 9.1, preview a video, an audio file, a 2-hour FLAC's waveform, a video storyboard, and an MP3 with embedded art.
+- With FFmpeg 9.1, seek a playing video and a playing song, and load the 2-hour FLAC's waveform.
 - On an Intel GPU with Mesa ANV, preview an MP4 under `vulkan`, `vaapi`, and acceleration off. Read `/proc/<ffmpeg pid>/limits` and `coredumpctl list ffmpeg` for each.
 
 ### preview/preview-panel/media/audio
@@ -276,7 +277,7 @@ Left to other sweeps: thumbnails in the listing and the thumbnail worker pool, a
 - With the other user's `strata-preview-<pid>-<n>` folder present and `TMPDIR` on a filesystem without `flock` support, preview a PNG.
 - Preview and thumbnail AVIFs made with `avifenc --irot 1`, `--irot 2`, and `--imir 0`, a `clap`-cropped AVIF, a tiled `grid` HEIC, and a CR3; read the Icons caption against `magick identify`.
 - Put the 4755 copy first in the trusted roots, with `/usr/bin/bwrap` unprivileged. Preview a PNG, a PDF, an MP4, and a RAR member. Repeat with the 2755 copy, then the symlink. Repeat in the `STRATA_TRUSTED_COMMAND_PATH` build with `/usr/bin/bwrap` masked, then with only the privileged copy left.
-- With the pixbuf WebP loader and ImageMagick hidden, preview and thumbnail each WebP sample on FFmpeg 8, and thumbnail them on FFmpeg 9, then a Markdown file embedding the alpha WebP. Read the Icons caption of the orientation-5 and orientation-8 files against the image.
+- With the pixbuf WebP loader and ImageMagick hidden, preview and thumbnail each WebP sample on FFmpeg 8. Thumbnail them on FFmpeg 9, then preview a Markdown file embedding the alpha WebP. Read the Icons caption of the orientation-5 and orientation-8 files against the image.
 - Step through a folder of 200 WebP files with the preview open, once with the pixbuf loader present and once hidden.
 - On the NixOS GPU host, run the non-Nix build with and without `STRATA_SANDBOX_ROOT=/nix/store`; play the 4K HEVC 10-bit file under Automatic and watch the decode engine.
 - With acceleration on, make `/run/opengl-driver` a dangling symlink, then a link to a tree outside `STRATA_SANDBOX_ROOT`; preview a video each time.

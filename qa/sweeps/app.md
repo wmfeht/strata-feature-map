@@ -87,6 +87,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Type a query, pick a category, scroll, focus another window, and come back; then switch mode with Ctrl+2 while open and reopen.
 - Press F1 with Shift, Ctrl, Alt, and Super held, and `~` with type-to-search on and off, in the default and 10xer maps.
 - Resize across 1480 px with a query and category active; the footer note must wrap only at a "·".
+- In 10xer mode, open F1 in a Files, a Folders, a Save, and a device-confined Send to chooser, with `search` at its default, rebound, and unbound.
 - Select 1, 64, 65, and all items in a folder holding files of unknown size, a symlink, and 10k entries; read the count and its accessible description, then copy, cut, paste, and clear the clipboard with `wl-copy -c` or `xsel -c`.
 - Select one file whose name holds RTL text, an emoji, or 255 bytes. Read the count in each mode at the narrowest window width.
 - Select one entry on the SFTP fixture before its metadata loads, then a dangling symlink. Read the count in Icons and Columns as metadata arrives.
@@ -243,6 +244,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Rebind a 10xer chord trigger, then press the old trigger, the new one, and each step and digit after it.
 - Capture keys on `fr` (AZERTY), `de`, `ch`, `ru`, and `us,ru` with Russian active. Use top-row digits with and without Shift, AltGr symbols, and Ctrl with a non-Latin letter; read the chip and saved accelerator.
 - Capture with an input-method composition pending, and with fcitx5 or IBus switch keys.
+- Bind `search` to Ctrl+Return in each table, open a folder chooser, and press it there and in a Files chooser.
 - Start a capture, then switch the table, close Settings, switch windows, or toggle 10xer mode from another window; press a key after each.
 - Arm captures in two windows and press keys in each in turn.
 - Drop Escape from `escape` and add `<Control>bracketleft`. Cancel a dialog, a rename, a footer prompt, F1, a popover menu, and the portal chooser with each key.

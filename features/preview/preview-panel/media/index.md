@@ -22,9 +22,10 @@ The player behind audio, video, animated GIF, and animated WebP previews. FFmpeg
 - Previews play the whole source with no 30-second cap; files without a reported duration play to their end with seeking disabled until it is known. lgse/strata#888
 - Animated GIFs play and loop instead of showing their first frame. lgse/strata#119
 - An animated WebP in the player plays and loops with only a Play/Pause control, no seek bar or volume. lgse/strata#2734
-- An animated WebP under 30 s whose frames × width × height × 4 fit 256 MiB loops without restarting the decoder. A larger one plays once. lgse/strata#2734
-- Pausing an animated WebP and playing it, or selecting another file and coming back, resumes in phase. lgse/strata#2734
-- An animated WebP with over 32,767 frames, zero-length frame durations, or a truncated frame header plays to its end, like a file without a reported duration. lgse/strata#2734 (unverified)
+- An animated WebP under 30 s whose frames × width × height × 4 fit 256 MiB loops without restarting the decoder. lgse/strata#2734
+- An animated WebP over the loop budget, 30 s or longer, or with unreadable timing plays through, then restarts from 0:00 in a new sandbox run. lgse/strata#2734 (unverified)
+- Unreadable timing covers over 32,767 frames, all-zero frame durations, and a truncated frame header. lgse/strata#2734 (unverified)
+- Pausing an animated WebP and playing it, or selecting another file and coming back, resumes at the frame shown when it stopped, not at frame 0. lgse/strata#2734
 - With FFmpeg 9.1, video and audio playback, waveforms, storyboards, and embedded cover art decode instead of showing "Preview unavailable: The file is truncated or damaged". lgse/strata#2696
 - Audio-only files with no video stream, such as a mono `.ogg`, play their audio instead of failing. lgse/strata#817
 - Raw H.264 and HEVC elementary streams that reach the player, such as a bare `.h264` file, play from the start and seek. lgse/strata#1346, lgse/strata#1861
@@ -109,7 +110,7 @@ The player behind audio, video, animated GIF, and animated WebP previews. FFmpeg
 - Audio-only playback, waveform peaks, and video storyboards decode in software and get no `/dev/dri` or `/dev/nvidia*` device, no `/sys`, and no `/run/opengl-driver`, whatever the acceleration setting. lgse/strata#1289, lgse/strata#1474 (unverified)
 - Animated WebP decodes in software whatever the acceleration setting. lgse/strata#2734
 - VA-API and Vulkan FFmpeg decoders run without the 512 MiB file-size and 2 GiB address-space limits; software decoders keep both. Every decoder disables core dumps. lgse/strata#2803, lgse/strata#2793
-- On an Intel GPU with Mesa ANV and the Vulkan backend, an MP4 preview decodes in hardware instead of FFmpeg dying with `SIGXFSZ` and falling back. lgse/strata#2803, lgse/strata#2793
+- On an Intel GPU with Mesa ANV and the Vulkan backend, an MP4 preview decodes in hardware. FFmpeg no longer dies with `SIGXFSZ` and falls back. lgse/strata#2803, lgse/strata#2793
 - Changing the acceleration setting applies to the next preview without interrupting the current one. lgse/strata#139
 
 ## Design
@@ -125,7 +126,7 @@ The player behind audio, video, animated GIF, and animated WebP previews. FFmpeg
 - Each FFmpeg process disables core dumps and caps single allocations at 512 MiB. Software decoders also cap files at 512 MiB and address space at 2 GiB (docs/preview-sandbox.md, "Isolation and hardware policy").
 - Hardware decoders are exempt from both because GPU drivers reserve sparse memfds and large virtual ranges. Mesa ANV's 1 GiB Vulkan state table hit `EFBIG`, and the kernel killed FFmpeg with `SIGXFSZ` (lgse/strata#2793, lgse/strata#2803).
 - lgse/strata#839 had reapplied the file limit to every backend after lgse/strata#119 exempted hardware. Decoded output goes to a pipe, which the file limit never bounded (lgse/strata#2793).
-- Hardware decoders stay bounded without it: no outer `prlimit` wraps the media helper, Landlock confines writes to the scratch mounts, and `/tmp` is a size-capped tmpfs ([comment](https://github.com/lgse/strata/pull/2803#issuecomment-7136005380)).
+- Hardware decoders stay bounded without it. No outer `prlimit` wraps the media helper. Landlock confines writes to the scratch mounts, and `/tmp` is a size-capped tmpfs ([comment](https://github.com/lgse/strata/pull/2803#issuecomment-7136005380)).
 - Audio-only playback, peaks, storyboards, and cover art always decode in software, so they keep both limits (lgse/strata#2803).
 - Decoders run the configured absolute limiter instead of `prlimit` by name, and background helpers lower their own priority with `setpriority`. Non-FHS runtimes such as Nix then need no util-linux or coreutils on the sandbox PATH (lgse/strata#2097, lgse/strata#2098).
 - Polaris defaults to software because explicit VA-API still hung after 16-pixel alignment; the hang is in VCE encode, not the file (lgse/strata#127).
@@ -181,4 +182,4 @@ The player behind audio, video, animated GIF, and animated WebP previews. FFmpeg
 - The start rule recognizes a raw H.264 or H.265 stream by its extension only. A raw stream named `.mp4` still opens at the configured start. lgse/strata#1924
 - Pausing a video with no audio track and pressing Play snaps back to where the decoder session started. With a start of 20, 0:14 jumps to 0:12. The clock base advances only for audio, so Play restarts the wall clock from the old base. lgse/strata#1924
 - A video closed before its decoder header arrives forgets its remembered resume position. lgse/strata#1924
-- Timing an animated WebP reads every chunk header with no chunk cap, so a multi-GB file of empty chunks is stopped only by the helper's 10 s CPU limit. lgse/strata#2734
+- Timing an animated WebP reads every chunk header with no chunk cap. Media helpers have no CPU limit. A multi-gigabyte WebP of empty chunks runs until the host's 22 s startup timeout kills the helper. lgse/strata#2734 (unverified)

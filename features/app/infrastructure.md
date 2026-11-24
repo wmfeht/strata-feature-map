@@ -139,7 +139,7 @@ The location model, URI display and diagnostic rules, and the directory-listing 
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-24 | lgse/strata#2798 | ci | Ran the RPM build on pull requests only for packaging changes, keeping the full path filter on pushes to `main`, since each build took 18–30 minutes. |
+| 2026-11-24 | lgse/strata#2798 | ci | Built the RPM on pull requests only for packaging changes, since a build takes 18–30 minutes; pushes to `main` keep the full filter. |
 | 2026-11-24 | lgse/strata#2661 | fix | Classified an in-app drop from the drag source's offered actions, so a Wayland drop narrowed to copy still moves within a volume (lgse/strata#2107). |
 | 2026-11-24 | lgse/strata#2692 | feat | Copied paths as plain text instead of shell-escaped, with a `file://` URI for a name that is not UTF-8 (lgse/strata#2669). |
 | 2026-11-24 | lgse/strata#2622 | build | Updated fitparser to 0.12 and refreshed the lockfile, adapting to gio's optional executable and html5gum's processing-instruction token. |

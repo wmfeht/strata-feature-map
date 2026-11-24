@@ -84,7 +84,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - In that state, Escape closes the reference and keeps the request open. lgse/strata#1714
 - In that state, text-size and thumbnail-size shortcuts still apply to the chooser. lgse/strata#1714, lgse/strata#1721 (unverified)
 - With a filter result selected, Space in the Name or location entry types a space and opens no preview. lgse/strata#1714
-- Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, search palette, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285, lgse/strata#2802
+- Escape first dismisses an open menu, dropdown, inline edit, filter, location edit, preview, or download, and only then cancels the request. lgse/strata#175, lgse/strata#1285
 - In List, Escape during a column heading drag cancels the drag, keeps the request open, and keeps the file selection. A later heading drag still works. lgse/strata#1900
 - The header close button is named "Cancel file selection (Escape)". lgse/strata#1895 (unverified)
 - Escape on a focused filter result dismisses the filter and keeps the request open. lgse/strata#1440, lgse/strata#1533
@@ -162,7 +162,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - The idle exit makes cold activation routine. GTK startup queries the portal while the portal waits on the backend's `OpenFile`, so `strata --portal` runs without GTK portals; `app/infrastructure` owns that re-exec (lgse/strata#2023, lgse/strata#2024).
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
 - The chooser's 10xer key map and command allowlist belong to `integration/10xer-mode`.
-- Window-wide stages never see chooser keys (lgse/strata#1311), so global search reuses the main palette through the chooser's own instance and key stage (lgse/strata#2799, lgse/strata#2802).
+- Global search in the chooser belongs to `integration/portal-file-chooser/global-search`.
 - The chooser keeps its sidebar steps for the dialog only and does not save them (lgse/strata#1606).
 - The chooser builds its sidebar split with the browser's `sidebar_split()` in `layout.rs`, replacing its native narrow handle; `browser/sidebar/rail` owns that split (lgse/strata#2095, lgse/strata#2096).
 - Chooser rows still get no outgoing drag source, so release-time activation cannot enable manager-only file operations in a chooser (lgse/strata#2095, lgse/strata#2096).

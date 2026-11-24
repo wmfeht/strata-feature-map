@@ -59,7 +59,7 @@ The portal file chooser follows the saved 10xer preference. Its keys run through
 - lgse/strata#1152 first kept the chooser's keys and chrome independent, while the later mode spec shared the mode with it. DEC-01 put the chooser in scope (lgse/strata#1261, lgse/strata#1311).
 - Reusing the browser dispatcher must not bypass single-selection, folder-only, Save, or local-only request policy. DEC-02 therefore set a per-request allowlist (lgse/strata#1152, lgse/strata#1311).
 - Disallowed keys are refused when pressed, with feedback, not only hidden from help (lgse/strata#1311).
-- Window-wide stages such as global search, clipboard, and undo never see chooser keys (lgse/strata#1311). The chooser runs its own global search stage instead (lgse/strata#2802).
+- Window-wide stages such as global search, clipboard, and undo never see chooser keys (lgse/strata#1311). The chooser has its own global search stage (lgse/strata#2802).
 - A Save always targets the current folder; neither the cursor nor Accept redirects it (lgse/strata#1311). In Recent, it targets the chosen file's folder, as [docs/portal-file-chooser.md](https://github.com/lgse/strata/blob/b8938864dc95d2e041a0a442b3b7a63755681f4e/docs/portal-file-chooser.md) describes.
 
 ## History
