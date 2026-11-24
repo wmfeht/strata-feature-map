@@ -3,17 +3,17 @@ title: System file chooser
 status: shipped
 origin: {issue: lgse/strata#120, pr: lgse/strata#175}
 branch: null
-reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [src/portal.rs, src/portal/dbus.rs, src/ui/chooser.rs, src/ui/chooser/destination.rs, src/ui/chooser/geometry.rs, src/ui/chooser/layout.rs, src/ui/chooser/options.rs, src/ui/chooser/shortcuts.rs, src/ui/chooser/shortcuts/**, src/ui/chooser/source.rs, src/ui/chooser/state.rs, src/ui/browser/chooser_context.rs]
-tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/acceptance/**, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/**, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
+tests: [src/portal/tests.rs, src/portal/dbus/tests.rs, src/ui/chooser/tests.rs, src/ui/chooser/tests/acceptance.rs, src/ui/chooser/tests/acceptance/**, src/ui/chooser/tests/column_widths.rs, src/ui/chooser/tests/confined.rs, src/ui/chooser/tests/filtered_preview.rs, src/ui/chooser/tests/sizing.rs, tests/qa/scenarios/chooser_selection/chooser-divider-keeps-marquee.jsonl, tests/qa/scenarios/chooser_selection/chooser-filtered-file-click-previews.jsonl, tests/qa/scenarios/chooser_selection/chooser-heading-escape-keeps-selection.jsonl, tests/qa/scenarios/chooser_selection/chooser-pdf-zoom-keeps-text-size.jsonl, tests/qa/scenarios/chooser_selection/chooser-selection-space-double-click-accepts.jsonl, tests/qa/scenarios/chooser_selection/chooser-sidebar-drops-survive-resize.jsonl, tests/qa/scenarios/chooser_selection/chooser-tap-drag-keeps-request-open.jsonl, tests/qa/scenarios/chooser_selection/chooser-tap-drag-selects-in-both-directions.jsonl, tests/qa/scenarios/chooser_selection/enter-returns-multiple-selection.jsonl, scripts/portal-test.py, scripts/portal-test.html, scripts/portal_test_environment.py, scripts/test_portal_test_environment.py, scripts/chooser-dev.sh]
 docs: [site/src/reference/portal-file-chooser.md, docs/portal-file-chooser.md]
 related: [integration/10xer-mode, browser/directory-monitoring, operations/clipboard, operations/archives, operations/trash, browser/sidebar, preview/preview-panel/layout, browser/search/filter, browser/view-modes, browser/view-modes/columns, browser/view-modes/list, browser/navigation/administrator-access, integration/10xer-mode/file-chooser, browser/navigation/back-history, browser/sidebar/rail, browser/selection/pointer-intent, browser/selection/marquee]
 ---
 
 ## Summary
 
-Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files dialogs for portal-aware applications, drawn with Strata's sidebar, views, filters, and previews. The same chooser window also serves Strata's own Move to, Copy to, Extract to, and Send to destinations. Children: `integration/portal-file-chooser/setup` (enabling and restoring the integration), `integration/portal-file-chooser/url-download` (Name field filenames and URLs), `integration/portal-file-chooser/image-conversion` (PNG conversion of downloads), and `integration/portal-file-chooser/window-placement` (initial size and centering).
+Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files dialogs for portal-aware applications, drawn with Strata's sidebar, views, filters, and previews. The same chooser window also serves Strata's own Move to, Copy to, Extract to, and Send to destinations. Children: `integration/portal-file-chooser/setup` (enabling and restoring the integration), `integration/portal-file-chooser/url-download` (Name field filenames and URLs), `integration/portal-file-chooser/image-conversion` (PNG conversion of downloads), `integration/portal-file-chooser/window-placement` (initial size and centering), and `integration/portal-file-chooser/global-search` (Ctrl+K search outside the current folder).
 
 ## Behavior
 
@@ -94,8 +94,8 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - With 10xer mode on, a request without Name, such as a folder request, tabs from the header to its first option, or to the files when it has none. lgse/strata#2027
 - With 10xer mode on, Shift+Tab steps back through the options to Name, and Shift+Tab from Name returns to the files. lgse/strata#2027
 - With 10xer mode on and no Name field, Shift+Tab from the first option returns to the files. lgse/strata#2027 (unverified)
-- With 10xer mode on, Name types every key except F1, Ctrl+Shift+M, Esc, Tab, and Shift+Tab. Esc returns to the files and keeps the edit. lgse/strata#1311, lgse/strata#2027
-- With 10xer mode on, the location field types every key except F1, Ctrl+Shift+M, and Esc. lgse/strata#1311 (unverified)
+- With 10xer mode on, Name types every key except F1, the search key (Ctrl+K), Ctrl+Shift+M, Esc, Tab, and Shift+Tab. Esc returns to the files and keeps the edit. lgse/strata#1311, lgse/strata#2027, lgse/strata#2802
+- With 10xer mode on, the location field types every key except F1, the search key (Ctrl+K), Ctrl+Shift+M, and Esc. lgse/strata#1311, lgse/strata#2802
 
 ### Saving
 
@@ -145,7 +145,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 ## Design
 
-[docs/portal-file-chooser.md](https://github.com/lgse/strata/blob/4b9a6ace71017888b3a2124d7d911c5c664cc767/docs/portal-file-chooser.md) carries the user-facing contract, installation, keyboard map, and local test tools.
+[docs/portal-file-chooser.md](https://github.com/lgse/strata/blob/ed544cf3bbb3968299ed8223148a65823739d48f/docs/portal-file-chooser.md) carries the user-facing contract, installation, keyboard map, and local test tools.
 
 - The chooser is local-only because the backend contract returns normalized `file://` URIs. Resolving GVfs locations to their FUSE paths is deferred (lgse/strata#176).
 - Requests come from other applications, so strings, globs, and choices are bounded. Filter-list size is not treated as abuse: count and rule budgets warn instead of refusing, since refusal left uploads silently broken (lgse/strata#465, lgse/strata#498).
@@ -162,6 +162,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 - The idle exit makes cold activation routine. GTK startup queries the portal while the portal waits on the backend's `OpenFile`, so `strata --portal` runs without GTK portals; `app/infrastructure` owns that re-exec (lgse/strata#2023, lgse/strata#2024).
 - Move to and Copy to reuse the floating chooser rather than a separate in-window picker. The in-window variant in lgse/strata#1377 was set aside for the floating build in lgse/strata#1383.
 - The chooser's 10xer key map and command allowlist belong to `integration/10xer-mode`.
+- Global search in the chooser belongs to `integration/portal-file-chooser/global-search`.
 - The chooser keeps its sidebar steps for the dialog only and does not save them (lgse/strata#1606).
 - The chooser builds its sidebar split with the browser's `sidebar_split()` in `layout.rs`, replacing its native narrow handle; `browser/sidebar/rail` owns that split (lgse/strata#2095, lgse/strata#2096).
 - Chooser rows still get no outgoing drag source, so release-time activation cannot enable manager-only file operations in a chooser (lgse/strata#2095, lgse/strata#2096).
@@ -171,6 +172,7 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-24 | lgse/strata#2802 | feat | Opened the main window's global search in the chooser with Ctrl+K; picks reveal or enter without submitting. |
 | 2026-11-16 | lgse/strata#2533 | feat | Closed the chooser's path entry on a click outside it, as the main window does. |
 | 2026-11-02 | lgse/strata#2030 | fix | Named only the files that already exist in the SaveFiles replace prompt, with title and warning worded by their count. |
 | 2026-11-02 | lgse/strata#2024 | fix | Re-exec'd `strata --portal` with `no-portals` in `GDK_DEBUG`, so a cold-activated chooser no longer waits 25 s on the portal. |
@@ -207,3 +209,4 @@ Strata as the XDG Desktop Portal FileChooser backend: Open, Save, and Save Files
 ## Known gaps
 
 - Remote locations such as `smb://` cannot be browsed or returned, even when GVfs exposes a local FUSE path. lgse/strata#176
+- Name in an Open request takes no full, quoted, or shell-escaped path and no `file://` URI; only the location bar reads them. lgse/strata#2692

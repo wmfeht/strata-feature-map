@@ -3,7 +3,7 @@ title: Keyboard shortcut reference and footer
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [src/ui/shortcut_reference.rs, src/ui/shortcut_footer.rs, src/ui/shortcut_footer/build.rs, src/ui/shortcut_footer/catalog.rs, src/ui/shortcut_footer/reference.rs, src/ui/shortcut_footer/reference_keys.rs, src/ui/shortcut_footer/status.rs]
 tests: [src/ui/shortcut_footer/tests.rs, src/ui/shortcut_footer/tests/**, src/ui/shortcut_reference/tests.rs, tests/qa/scenarios/dialogs_and_menus/shortcut-reference-search-keeps-editing-chords.jsonl]
@@ -80,6 +80,7 @@ The F1 "Keyboard shortcuts" reference, Strata's only in-app keybinding list, and
 - In 10xer mode outside the file chooser, "Files and selection" lists "; . 1–9 / ; . 0 — Run one of the first ten custom actions for the focused folder" after the `;` digit row. lgse/strata#2086, lgse/strata#1826
 - In 10xer mode outside the file chooser, Places lists "m a–z — Save current folder under a letter" and "' a–z — Jump to a bookmarked folder by letter". lgse/strata#2086, lgse/strata#1790
 - The 10xer file chooser reference lists neither letter bookmark row. lgse/strata#2086, lgse/strata#1790
+- The 10xer file chooser reference lists "Open global search" and "Open containing folder (global search)" under Search and tools; a device-confined chooser lists neither. lgse/strata#2802
 - In 10xer mode in Columns or List, outside the file chooser, the reference lists "`/` in the preview — Find in preview"; Icons omits it. lgse/strata#1559
 - In 10xer mode in Columns or List, the reference lists "Shift+← / Shift+→ / Page Down / Page Up" in media as "Seek −30 / +30 seconds". lgse/strata#1570, lgse/strata#1451, lgse/strata#1576 (unverified)
 - In 10xer mode in Columns or List, the reference lists "0 / Home / G / End" in media as "Seek to the start / end". lgse/strata#1570, lgse/strata#1451

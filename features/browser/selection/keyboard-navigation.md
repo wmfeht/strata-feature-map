@@ -3,7 +3,7 @@ title: Keyboard navigation in views
 status: shipped
 origin: {issue: lgse/strata#291, pr: lgse/strata#358}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [src/ui/focus_navigation.rs, src/ui/top_bar_navigation.rs, src/ui/window/keyboard/focus.rs, src/ui/browser/tab_stops.rs, src/ui/browser/view_navigation.rs, src/ui/browser_modes/focus.rs]
 tests: [src/ui/focus_navigation/tests.rs, src/ui/top_bar_navigation/tests.rs, src/ui/window/tests/keyboard_policy.rs, src/ui/window/tests/keyboard_dispatch/pane_focus.rs, tests/qa/scenarios/keyboard_navigation/alt-up-and-history.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus-remaining.jsonl, tests/qa/scenarios/keyboard_navigation/arrow-keys-move-focus.jsonl, tests/qa/scenarios/keyboard_navigation/columns-home-end-mirror.jsonl, tests/qa/scenarios/keyboard_navigation/columns-return-selects-source-folder.jsonl, tests/qa/scenarios/keyboard_navigation/focus-usable-after-view-change.jsonl, tests/qa/scenarios/keyboard_navigation/keyboard-only-copy-paste.jsonl, tests/qa/scenarios/keyboard_navigation/return-restores-nested-scroll.jsonl, tests/qa/scenarios/keyboard_navigation/select-all-selects-every-entry.jsonl, tests/qa/scenarios/keyboard_navigation/shift-arrow-extends-selection.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-icons-edges-search-peek.jsonl, tests/qa/scenarios/keyboard_navigation/tenxer-keeps-location-edit.jsonl, tests/qa/mutations/keyboard-navigation.patch]
@@ -52,6 +52,10 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 ### Location entry dismissal
 
 - While the location entry is open, a click outside the entry and its buttons cancels the edit and restores the breadcrumbs. The click still performs its normal action. lgse/strata#316
+
+### Typed locations outside the location bar
+
+- In a non-English locale, `go ›` shows English text for rejected input such as an unsupported scheme, but translates missing or inaccessible folder errors. lgse/strata#2692 (unverified)
 
 ### Tab stops
 
@@ -131,4 +135,4 @@ Strata is positioned as keyboard-first; a Yazi user reported needing the trackpa
 
 ## Known gaps
 
-None known.
+- `go ›` shows rejected-input errors, such as an unsupported scheme or the `file://` other-host message, untranslated. The location bar translates them. lgse/strata#2692 ([comment](https://github.com/lgse/strata/pull/2692#issuecomment-7122150882))

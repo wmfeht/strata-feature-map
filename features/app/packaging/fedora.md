@@ -3,7 +3,7 @@ title: Fedora COPR package
 status: shipped
 origin: {issue: lgse/strata#2118, pr: lgse/strata#2120}
 branch: null
-reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [packaging/rpm, scripts/build_srpm.py]
 tests: [scripts/test_build_srpm.py]
@@ -57,13 +57,14 @@ The Fedora RPM, built from source for stable and preview COPR projects so Fedora
 - Publishing runs only when the repository variable `COPR_PUBLISH_ENABLED` is exactly `true`. lgse/strata#2120
 - A stable version goes to both `COPR_PROJECT` and `COPR_PREVIEW_PROJECT`; an alpha, beta, or RC goes only to the preview project. lgse/strata#2120
 - A nightly goes to no project, and an empty `COPR_PREVIEW_PROJECT` publishes stable releases only. lgse/strata#2120
-- The Release workflow publishes after each non-nightly release; a manual run takes `version` and `release` to retry, rebuild, or backfill. lgse/strata#2120
+- The Release workflow publishes after each non-nightly release; a manual run takes `version` and `release` to retry, rebuild, or backfill. lgse/strata#2120, lgse/strata#2801
 - The publish job fails when COPR reports no created builds, and otherwise waits for every build. lgse/strata#2120 (unverified)
+- An empty `COPR_CONFIG` fails the publish job with "COPR_CONFIG is empty" before any build is submitted. lgse/strata#2801
 - The packaging tools come from the workflow's own revision; only the source archive comes from the tag. lgse/strata#2120
 
 ## Design
 
-[docs/packaging.md](https://github.com/lgse/strata/blob/5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd/docs/packaging.md) ("Fedora COPR") carries the package layout, build changes, channels, and publishing setup.
+[docs/packaging.md](https://github.com/lgse/strata/blob/ed544cf3bbb3968299ed8223148a65823739d48f/docs/packaging.md) ("Fedora COPR") carries the package layout, build changes, channels, and publishing setup.
 
 - Repackaging the release archive like `strata-bin` was rejected: its updater would try to replace the dnf-owned `/usr/bin/strata` (lgse/strata#2118).
 - Packit was rejected because it needs a GitHub App and moves release automation to an outside service (lgse/strata#2118).
@@ -75,7 +76,8 @@ The Fedora RPM, built from source for stable and preview COPR projects so Fedora
 - Unlike the AUR packages, nothing rendered is committed. The source RPM is built from the tagged commit, so only the template and script are reviewed (docs/packaging.md).
 - `~` versions make RPM sort a prerelease before its final release (lgse/strata#2118, docs/packaging.md).
 - A stable release also goes to the preview project, so that channel never lags behind the latest stable (docs/packaging.md).
-- `rpm.yml` builds the RPM on every dependency change, because an update can bring in a license COPR rejects (lgse/strata#2120).
+- Pushes to `main` build the RPM on every dependency or metadata change, because an update can bring in a license COPR rejects (lgse/strata#2120, lgse/strata#2798).
+- Pull requests build it only for packaging changes, since a build takes 18–30 minutes. A license break then fails one merge later, still before a release (lgse/strata#2797, lgse/strata#2798).
 - Helpers Strata executes, such as `bwrap`, are `Requires`: they are run rather than linked, so no automatic dependency covers them (lgse/strata#2120).
 
 ## History

@@ -3,7 +3,7 @@ title: Drop copy-or-move policy
 status: shipped
 origin: {issue: lgse/strata#248, pr: lgse/strata#502}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [crates/strata-fs/src/services/transfer_action.rs, crates/strata-fs/src/adapters/volume.rs]
 tests: [crates/strata-fs/src/services/transfer_action/tests.rs, crates/strata-fs/src/adapters/volume/tests.rs, crates/strata-fs/src/adapters/volume/tests/lookup_regressions.rs, tests/qa/scenarios/cross_volume_drop/cross-volume-plain-copy.jsonl]
@@ -25,13 +25,20 @@ How a drop chooses between copying and moving. Plain drops on the same filesyste
 - With Always move, a plain drop onto another device moves without a dialog. lgse/strata#502
 - The drag cursor shows copy or move for the hovered destination before release. lgse/strata#248, lgse/strata#502
 - When the dragging application does not offer move, the drop copies. lgse/strata#502 (unverified)
+- For a drag within Strata, the drag source's own offer decides whether move is available; for another application's drag, the negotiated actions decide. lgse/strata#2661
+- On Wayland, a plain drag within Strata onto a folder on the same filesystem moves the items, and no copy stays behind. lgse/strata#2107, lgse/strata#2661
+- That holds when the drop is released before the volume lookup finishes. lgse/strata#2107, lgse/strata#2661
+- On Wayland, a Ctrl drag within Strata onto a folder on the same filesystem copies the items. lgse/strata#2661
+- On Wayland with Always ask, a plain drop onto a folder on another drive opens the "Copy or move?" prompt. lgse/strata#2661
 - With Always ask, a plain drop onto another device transfers nothing until the "Copy or move?" prompt is answered. lgse/strata#502
 
 ### Volume detection
 
 - A folder reached through a symlink alias of a network mount counts as the same volume as the mount, so plain drops between them move. lgse/strata#761
 - Hovering a drag over a destination beneath an autofs mount does not block the UI; its volume is looked up asynchronously. lgse/strata#846
-- A drop released while the volume lookup is still pending follows the cross-device strategy. lgse/strata#502
+- Under Always copy or Always ask, a plain drop released while the volume lookup is pending waits for it. It moves once the lookup finds the same filesystem. lgse/strata#1729, lgse/strata#2661 (unverified)
+- Under Always move, such a drop moves at once. lgse/strata#1729 (unverified)
+- When the lookup finds another or no filesystem, that drop follows the cross-device strategy. lgse/strata#502, lgse/strata#1729 (unverified)
 - A volume lookup still unresolved after 2 seconds counts as unknown, so the drop follows the cross-device strategy. lgse/strata#502
 
 ## Design
@@ -44,6 +51,7 @@ Moving across devices silently removes the only copy from a USB stick or network
 - The timeout exists because cancelling cannot unblock a stat already stuck on a dead mount. Autofs scheduling alone never declares two filesystems different (lgse/strata#846).
 - The timeout task is aborted once the lookup finishes, or when it is cancelled with nothing waiting. A lookup a committed drop waits on keeps its timeout, since only that ends it on a dead mount (lgse/strata#2069, lgse/strata#2087).
 - One classification per hovered destination drives both the cursor and the committed transfer, so the dialog matches the feedback shown (lgse/strata#502).
+- GDK narrows a Wayland drop to the action last negotiated, which is copy while the lookup is pending. An in-app drag keeps its source's offer, so the classifier reads that (lgse/strata#2107, lgse/strata#2661).
 - Cut and Paste is unaffected by this policy (lgse/strata#502).
 - Classifying a drop in a 50,000-item folder stalled the UI (lgse/strata#1573). For native paths the no-op filter compares paths, not GIO files. A parent with no mount point directly inside is checked once for all its children (lgse/strata#1574).
 

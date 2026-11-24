@@ -3,7 +3,7 @@ title: Preview panel
 status: shipped
 origin: {issue: null, pr: lgse/strata#17}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [src/ui/preview.rs, crates/strata-preview/src/services/preview.rs, crates/strata-fs/src/adapters/local_preview.rs, crates/strata-fs/src/adapters/local_preview/remote.rs, src/ui/preview/components.rs, crates/strata-preview/src/sandbox_helper/archive_cover.rs, crates/strata-fs/src/adapters/local_preview/load.rs, src/ui/preferences/preview_settings.rs, src/ui/preview/drawer.rs, src/ui/preview/drawer/header.rs, src/ui/preview/feedback.rs, src/ui/preview/lifecycle.rs, src/ui/preview/loading.rs, src/ui/preview/render.rs, src/ui/preview/source_view.rs]
 tests: [crates/strata-preview/src/services/preview/tests.rs, crates/strata-fs/src/adapters/local_preview/tests.rs, crates/strata-fs/src/adapters/local_preview/tests/cover_preview.rs, crates/strata-fs/src/adapters/local_preview/tests/remote_preview.rs, crates/strata-fs/src/adapters/local_preview/remote/tests.rs, crates/strata-fs/src/adapters/local_preview/tests/cache.rs, crates/strata-fs/src/adapters/local_preview/tests/cancellation.rs, crates/strata-fs/src/adapters/local_preview/tests/heavy_queue.rs, crates/strata-fs/src/adapters/local_preview/tests/resolution.rs, src/ui/preview/tests/pdf.rs, src/ui/preview/tests/operations.rs, crates/strata-preview/src/sandbox_helper/archive_cover/tests.rs, tests/fixtures/documents/password-protected.pdf, tests/fixtures/documents/owner-restricted.pdf, tests/qa/scenarios/quick_preview/password-protected-pdf-reports-reason.jsonl, tests/qa/scenarios/quick_preview/preview-source-text-copies.jsonl, tests/qa/scenarios/preview_media_layout]
@@ -13,7 +13,7 @@ related: [preview/quick-preview, browser/thumbnails, browser/properties/raw-meta
 
 ## Summary
 
-The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header holding the Rendered/Source switch, Find, Open, Wrap, and Close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio and video), `preview/preview-panel/pdf` (PDF pages, zoom, and text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
+The drawer beside the file views that shows the selected file's contents. It shows text, images, PDFs, 3D models, G-code thumbnails, GPS routes, and comic or EPUB covers, with a header holding the Rendered/Source switch, Find, Open, Wrap, and Close. The browser and the file chooser share it. Children: `preview/preview-panel/layout` (sizing and placement), `preview/preview-panel/documents` (rendered documents), `preview/preview-panel/find` (find in the open preview), `preview/preview-panel/media` (audio, video, and animations), `preview/preview-panel/pdf` (PDF pages, zoom, and text selection), `preview/preview-panel/model-views` (STL, 3MF, and FreeCAD models with camera views), `preview/preview-panel/gcode` (embedded G-code thumbnails), `preview/preview-panel/routes` (GPX, FIT, and KML routes), and `preview/preview-panel/sandbox` (isolation of untrusted parsing).
 
 ## Behavior
 
@@ -33,6 +33,12 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A local file named `.zip` or `.docx` holding text previews as text, not as an archive tree or rendered document. lgse/strata#1638
 - A local file named `.odt` or `.ott` holding text also previews as text. lgse/strata#1834 (unverified)
 - An SVG previews as an image although its bytes are text. lgse/strata#1638
+- A local WebP whose VP8X header sets the animation flag opens in the media player when `ffmpeg -decoders` lists `webp_anim` (FFmpeg 9.0 or newer). lgse/strata#2734
+- Where FFmpeg lists `webp_anim`, animated WebP bytes named `misnamed.png` also open in the media player. lgse/strata#2734
+- A still WebP, including a VP8X file without the animation flag, keeps the image preview. lgse/strata#2734
+- With an FFmpeg older than 9.0, an animated WebP shows its first frame as a still image. lgse/strata#2734
+- FFmpeg is asked once per process, so upgrading it to 9.0 takes effect after Strata restarts. lgse/strata#2734 (unverified)
+- A remote (GVfs) animated WebP, with no native path, keeps the still preview. lgse/strata#2734 (unverified)
 - Local `app.ts`, `Component.tsx`, and `module.mts` files holding TypeScript preview as highlighted source, whatever the installed MIME database says. lgse/strata#1638, lgse/strata#1631
 - A local file with an unsupported binary type previews as text when its first 8 KiB look like text. Workbook, 3D model, route (GPX, FIT, KML), CBZ, CBR, and EPUB names still route by extension. lgse/strata#1638, lgse/strata#1842 (unverified)
 - Remote files are not sampled; an uncertain name takes the content type the location reports, otherwise the name decides. lgse/strata#1638 (unverified)
@@ -123,6 +129,7 @@ The drawer beside the file views that shows the selected file's contents. It sho
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-24 | lgse/strata#2734 | feat | Played local animated WebP files in the media player when FFmpeg has `webp_anim`, instead of showing their first frame. |
 | 2026-11-12 | lgse/strata#2189 | fix | Decoded WebP with the built-in decoder before system loaders, so WebP previews and thumbnails render without a pixbuf WebP loader or ImageMagick. |
 | 2026-11-09 | lgse/strata#2098 | fix | Ran media decoders through the absolute `STRATA_SANDBOX_PRLIMIT` and lowered helper priority in-process, so Nix runtimes need no `prlimit` or `nice`. |
 | 2026-11-02 | lgse/strata#2030 | fix | Classified `.264`, `.h265`, `.265`, and `.hevc` as raw video; Properties now matches the preview, and listings show the video icon. |
@@ -155,3 +162,4 @@ The drawer beside the file views that shows the selected file's contents. It sho
 - A growing log file does not update while previewed. lgse/strata#847
 - Remote PDFs, GIFs, audio, and other video formats must be copied locally to preview. lgse/strata#834
 - CBZ and EPUB covers decode only through GDK Pixbuf, so a WebP cover stays empty on a host without a pixbuf WebP loader. lgse/strata#2189
+- An animated WebP that FFmpeg cannot play, such as a canvas over 50 megapixels, shows a preview error instead of its first frame. GIF behaves the same. lgse/strata#2734

@@ -3,7 +3,7 @@ title: Navigation
 status: shipped
 origin: {issue: lgse/strata#70, pr: lgse/strata#118}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [src/ui/window/composition/input.rs, crates/strata-fs/src/app/browser/columns.rs, crates/strata-fs/src/app/browser/navigate.rs, crates/strata-fs/src/app/navigation/history.rs]
 tests: [crates/strata-fs/src/app/browser/tests/navigation.rs, tests/qa/scenarios/locations/unreadable-location-reports-error.jsonl, crates/strata-fs/src/app/navigation/tests/history.rs, crates/strata-fs/src/app/browser/tests/navigation/returning_columns.rs, tests/qa/scenarios/view_switching/returning-to-columns-follows-selection.jsonl]

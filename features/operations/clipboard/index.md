@@ -3,9 +3,9 @@ title: Copy, cut, and paste
 status: shipped
 origin: {issue: lgse/strata#287, pr: lgse/strata#289}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
-code: [src/ui/browser/transfer.rs, crates/strata-fs/src/adapters/local_operations/transfer_targets.rs, crates/strata-fs/src/adapters/local_operations/paste_plan/**, crates/strata-fs/src/adapters/local_operations/paste.rs, crates/strata-fs/src/adapters/local_operations/paste/item.rs, crates/strata-fs/src/adapters/local_operations/paste_plan.rs, src/ui/browser/transfer/destination_dialog.rs, src/ui/browser/transfer/drop.rs]
+code: [src/ui/browser/transfer.rs, crates/strata-fs/src/adapters/local_operations/transfer_targets.rs, crates/strata-fs/src/adapters/local_operations/paste_plan/**, crates/strata-fs/src/adapters/local_operations/paste.rs, crates/strata-fs/src/adapters/local_operations/paste/item.rs, crates/strata-fs/src/adapters/local_operations/paste_plan.rs, src/ui/browser/transfer/destination_dialog.rs, src/ui/browser/transfer/drop.rs, src/ui/browser/clipboard/matching.rs]
 tests: [src/ui/browser/transfer/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/copy.rs, crates/strata-fs/src/adapters/local_operations/tests/moves.rs, crates/strata-fs/src/adapters/local_operations/tests/naming.rs, crates/strata-fs/src/adapters/local_operations/tests/paste_results.rs, tests/qa/scenarios/clipboard, tests/qa/mutations/clipboard.patch, tests/qa/mutations/cut.patch, tests/qa/scenarios/dialogs_and_menus/floating-chooser-transfers-files.jsonl, tests/qa/scenarios/cross_volume_drop/cross-volume-enter-choice.jsonl, crates/strata-fs/src/adapters/local_operations/tests/copy/**, crates/strata-fs/src/adapters/local_operations/tests/moves/**, crates/strata-fs/src/adapters/local_operations/tests/naming/**, src/ui/browser/transfer/tests/choose_folder.rs, src/ui/browser/transfer/tests/chosen_destination.rs, src/ui/browser/transfer/tests/destination_reloads.rs, src/ui/browser/transfer/tests/drops.rs, src/ui/browser/transfer/tests/plain_transfers.rs]
 docs: [site/src/reference/keyboard-navigation.md]
 related: [operations/drag-and-drop, operations/progress, operations/trash, integration/10xer-mode, operations/filesystem-compatibility, browser/context-menu, operations/undo]
@@ -54,11 +54,13 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### Paths, names, and images
 
-- Outside 10xer mode, `y` or Copy path copies the shell-escaped native path; folders get a trailing `/`, and URIs are copied unescaped. lgse/strata#230, lgse/strata#1306
-- Copy path on a local name with non-UTF-8 bytes, such as `bad\xff.txt`, copies `/path/to/$'bad\xff.txt'`, which bash resolves to the file. lgse/strata#1626
-- In a path that is not valid UTF-8, only the `/`-separated components that are not valid UTF-8 or contain a newline are `$'...'`-quoted; others keep backslash escaping. lgse/strata#1626 (unverified)
-- Inside `$'...'`, valid UTF-8 characters stay literal, `'` and `\` get a backslash, and each byte of a control character becomes `\xHH`. lgse/strata#1626 (unverified)
-- With several items selected, Copy paths copies one path per line. lgse/strata#230 (unverified)
+- Copy path is in the item menu, on a button beside the current breadcrumb, and in Properties. lgse/strata#230, lgse/strata#1306
+- It is on `y` in the default map while Type to search is off, and on `c c` in 10xer mode. lgse/strata#230, lgse/strata#1306, lgse/strata#2692
+- Copy path on `~/My Documents/report (1).pdf` copies the literal native path, with no backslashes or quotes. lgse/strata#2669, lgse/strata#2692
+- A copied local folder path ends in `/` and a file path does not; `/` is copied as `/`. lgse/strata#2669, lgse/strata#2692
+- Copy path on a local name that is not valid UTF-8, such as `bad\xff.txt`, copies its `file://` URI. lgse/strata#2692
+- Copy path on a remote location copies its display URI: `smb://server/share/folder` as is, without any password, with UTF-8 escapes decoded. lgse/strata#230, lgse/strata#2692 (unverified)
+- With several items selected, Copy paths copies one unescaped path per line. lgse/strata#230, lgse/strata#2669, lgse/strata#2692
 - Copy name and Copy names copy the display names, one per line. lgse/strata#704
 - Pasting while the clipboard holds an image and no files writes `image.png`, then `image (1).png`, into a local destination. lgse/strata#882
 
@@ -102,7 +104,11 @@ The clipboard carries a cut marker for other applications (`operations/clipboard
 
 - Cut matching also accepts GIO equality, because a clipboard round trip can return an equivalent URI instead of the stored path (lgse/strata#287).
 - Row marks are read from an index rebuilt whenever the copy or cut lists change, not by comparing every entry on each row bind. `file://` URIs are keyed by native path so both spellings match (lgse/strata#1671, lgse/strata#1674).
-- Copied paths that are not valid UTF-8 use ANSI-C `$'...'` quoting with `\xHH`, the shell syntax that carries arbitrary bytes, instead of lossy U+FFFD (lgse/strata#1594, lgse/strata#1626).
+- Copy path first shell-escaped local paths for pasting into a terminal (lgse/strata#229), with ANSI-C `$'...'` quoting for bytes that are not UTF-8 (lgse/strata#1594, lgse/strata#1626).
+- It now copies the plain path, as Dolphin's and Nemo's Copy Location and Nautilus's location bar do. Escaping is the destination's job, and terminals quote dropped files (lgse/strata#2669, lgse/strata#2692).
+- Clipboard text is UTF-8, so a name that is not valid UTF-8 is copied as a `file://` URI, which keeps every byte (lgse/strata#2692).
+- Cut reconciliation looks up exact locations, then GIO files bucketed by URI and confirmed with GIO equality, so equivalence is unchanged (lgse/strata#2634).
+- The pairwise comparison it replaced took 464 s for 50,000 moved files on the main thread; the lookup takes 0.02 s (lgse/strata#2634).
 - Strata rewrites or clears the system clipboard only while it still owns the file list it set (lgse/strata#1265).
 - Pasting into a single selected folder deliberately diverges from Nautilus, Thunar, and Finder (lgse/strata#449). An auto-selection made on load counts as a cursor, not a choice (lgse/strata#483).
 - Same-folder copies use the language-neutral `(n)` suffix. A same-folder cut stays a no-op to prevent accidental renames (lgse/strata#270, lgse/strata#272).
@@ -118,6 +124,7 @@ The clipboard carries a cut marker for other applications (`operations/clipboard
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-24 | lgse/strata#2634 | perf | Reconciled cut lists through hashed lookups instead of a pairwise scan, ending a 464 s freeze after a 50,000-file move; batched monitor bursts. |
 | 2026-11-02 | lgse/strata#2040 | fix | Offered and read the GNOME and KDE file-manager clipboard formats, so Nemo, Thunar, and desktop icons paste Strata files and foreign cuts move. |
 | 2026-10-27 | lgse/strata#1900 | fix | Returned keyboard focus to the listing when the cross-device "Copy or move?" prompt closes. |
 | 2026-10-15 | lgse/strata#1626 | fix | Escaped non-UTF-8 path bytes with ANSI-C quoting so copied paths name the real file. |
@@ -148,4 +155,5 @@ The clipboard carries a cut marker for other applications (`operations/clipboard
 ## Known gaps
 
 - A failed image paste, such as into a read-only folder, shows no error; it is only logged. lgse/strata#1547, https://github.com/lgse/strata/pull/1547#issuecomment-6550108216
+- There is no Copy as shell-escaped action; a path pasted into a shell must be quoted by hand. lgse/strata#2692
 - Row marks treat a `file://` URI and its native path as equal, but not other equivalent spellings of a non-`file://` URI. lgse/strata#1674
