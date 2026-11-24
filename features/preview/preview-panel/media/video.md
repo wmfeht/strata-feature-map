@@ -3,7 +3,7 @@ title: Video previews
 status: shipped
 origin: {issue: lgse/strata#1417, pr: lgse/strata#1474}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: reviewed
 code: [src/ui/preview/video.rs, src/ui/preview/video, crates/strata-preview/src/media/storyboard.rs, crates/strata-preview/src/media/storyboard, src/ui/media/ambient.rs, src/ui/media/ambient]
 tests: [src/ui/preview/tests/video.rs, src/ui/preview/video/badges/tests.rs, src/ui/preview/video/details/tests.rs, src/ui/preview/video/storyboard/tests.rs, crates/strata-preview/src/media/storyboard/tests.rs, src/ui/media/ambient/tests.rs, src/ui/window/tests/keyboard_dispatch/video_clips.rs, tests/qa/scenarios/preview_video]

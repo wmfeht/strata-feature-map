@@ -123,7 +123,6 @@ The clipboard carries a cut marker for other applications (`operations/clipboard
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-24 | lgse/strata#2692 | feat | Copied plain, unescaped paths so they paste into file dialogs and editors, with a `file://` URI for names that are not UTF-8. |
 | 2026-11-24 | lgse/strata#2634 | perf | Reconciled cut lists after a move through hashed lookups instead of a pairwise scan, and batched monitor bursts. |
 | 2026-11-02 | lgse/strata#2040 | fix | Offered and read the GNOME and KDE file-manager clipboard formats, so Nemo, Thunar, and desktop icons paste Strata files and foreign cuts move. |
 | 2026-10-27 | lgse/strata#1900 | fix | Returned keyboard focus to the listing when the cross-device "Copy or move?" prompt closes. |

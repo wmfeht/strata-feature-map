@@ -3,7 +3,7 @@ title: Preview sandbox
 status: shipped
 origin: {issue: lgse/strata#6, pr: lgse/strata#17}
 branch: null
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [crates/strata-preview/src/sandbox.rs, crates/strata-preview/src/sandbox_helper.rs, crates/strata-preview/src/sandbox_helper/isobmff.rs, crates/strata-preview/src/sandbox/runtime.rs, crates/strata-preview/src/sandbox/command.rs, crates/strata-preview/src/sandbox/operation.rs, crates/strata-preview/src/sandbox/output.rs, crates/strata-preview/src/sandbox/process.rs, crates/strata-preview/src/sandbox_helper/operations.rs, crates/strata-preview/src/sandbox_helper/process.rs, crates/strata-preview/src/sandbox_helper/raster.rs]
 tests: [crates/strata-preview/src/sandbox/tests.rs, crates/strata-preview/src/sandbox_helper/tests.rs, crates/strata-preview/src/sandbox_helper/tests/isobmff.rs, crates/strata-preview/src/sandbox/runtime/tests.rs, crates/strata-preview/src/sandbox/tests/**]
@@ -89,7 +89,8 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - An AVIF with no EXIF thumbnail whose header claims 20000×20000 fails with "Image dimensions exceed the decoded frame budget" before any decode; its thumbnail stays empty. lgse/strata#1971
 - A WebP previews and thumbnails through the built-in decoder on a host with neither a GDK Pixbuf WebP loader nor ImageMagick. lgse/strata#2189, lgse/strata#1656
 - A WebP with EXIF orientation 6, stored at 1200×600, previews upright at 400×800, also where a GDK Pixbuf WebP loader is installed. lgse/strata#2189
-- Lossless and lossy WebP files decode, an alpha WebP keeps its alpha, and an animated WebP shows its first frame. lgse/strata#2189
+- Lossless and lossy WebP files decode, and an alpha WebP keeps its alpha. lgse/strata#2189
+- An animated WebP shows its first frame in thumbnails, on remote locations, and where FFmpeg predates 9.0. lgse/strata#2189, lgse/strata#2734 (unverified)
 - A WebP whose header claims 16383×16383 is refused before decoding, as an oversized PNG is; without an EXIF thumbnail its thumbnail stays empty. lgse/strata#2189
 - An 80×40 WebP previews at 80×40, and a 1200×600 WebP at 800×400. lgse/strata#2189
 - An 80×40 WebP thumbnails at 80×40, and a 1200×600 one at 256×128. lgse/strata#2189
@@ -128,7 +129,7 @@ The bubblewrap boundary that keeps native parsing of browsed files out of the St
 - bubblewrap up to 0.10 rejects `--size` in setuid mode, and 0.12.0 refuses setuid use. Every sandbox passes `--size` for its 512 MiB `/tmp`, so a setuid `bwrap` could never start one. The lookup skips setuid and setgid copies instead of dropping the limit; no working setup is lost (lgse/strata#2182, [comment](https://github.com/lgse/strata/pull/2182#issuecomment-6825042523)).
 - No `/nix/store/*-bubblewrap-*` glob is searched: the NixOS flake points `STRATA_TRUSTED_COMMAND_PATH` at the bubblewrap in its closure ([comment](https://github.com/lgse/strata/pull/2182#issuecomment-6825042523)).
 - `RLIMIT_FSIZE` is process-wide and also covers glycin's memfd for the full decoded frame. It was raised to 512 MiB; the address-space limit is the memory guard, and output size is checked host-side (lgse/strata#54, lgse/strata#55).
-- glibc creates up to 8 arenas per CPU, which can exhaust the 2 GiB address space on many-core hosts. One arena keeps the limit intact; media helpers are excluded because they have no address-space limit (lgse/strata#141, lgse/strata#143).
+- glibc creates up to 8 arenas per CPU, which can exhaust the 2 GiB address space on many-core hosts. One arena keeps the limit intact (lgse/strata#141, lgse/strata#143). Media helpers skip these outer limits; their FFmpeg sets one arena itself, and software FFmpeg keeps a 2 GiB address-space limit (lgse/strata#2803) (unverified).
 - ImageMagick sniffs TIFF magic and picks its TIFF coder for ARW unless the name keeps `.ARW`, so the extension is preserved, sanitized (lgse/strata#165).
 - Oversized images are refused from header dimensions before decoding, rather than ignoring `SIGXFSZ`, so no sandboxed process is killed (lgse/strata#1202, lgse/strata#1277).
 - The renderer can write its own output directory, so the parent opens outputs with `O_NOFOLLOW`, checks the descriptor is a regular file, and reads at most the limit plus one byte (lgse/strata#653).
