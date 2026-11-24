@@ -8,7 +8,7 @@ review: draft
 code: [crates/strata-fs/src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, crates/strata-fs/src/services/search/refresh.rs, crates/strata-fs/src/services/search/scoring.rs, crates/strata-fs/src/services/search/session.rs, crates/strata-fs/src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
 tests: [crates/strata-fs/src/services/search/tests.rs, crates/strata-fs/src/services/search/tests/multi_root.rs, crates/strata-fs/src/services/search/tests/performance.rs, crates/strata-fs/src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, crates/strata-fs/src/services/search/test_support.rs]
 docs: [docs/preferences.md]
-related: [browser/navigation/folder-jump, devices/volumes, integration/10xer-mode, settings/preferences, integration/portal-file-chooser]
+related: [browser/navigation/folder-jump, devices/volumes, integration/10xer-mode, settings/preferences, integration/portal-file-chooser/global-search]
 ---
 
 ## Summary
@@ -49,7 +49,7 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 - Paths excluded by a `.gitignore` or `.ignore` file are not indexed. lgse/strata#758 (unverified)
 - At most 100 results are shown, best first. lgse/strata#473
 - In a file chooser, results list only entries the request allows: its file-type filter applies, and a folder request lists folders only. lgse/strata#2802
-- When that filter leaves fewer than 100 results, the palette pulls more lower-ranked candidates instead of showing a short list. lgse/strata#2802
+- When that filter leaves fewer than 100 results, the palette shows them and pulls more lower-ranked candidates. lgse/strata#2802
 - Ctrl+K results and pane filter results with equal scores are ordered by name, then path, not by directory walk order, in every view. lgse/strata#2030
 - With more than 100 equal-score hits, the 100 kept are the first by name. lgse/strata#2030
 - Results appended while indexing is still running take their place in that name order within the limit. lgse/strata#2030

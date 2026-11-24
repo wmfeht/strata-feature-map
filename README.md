@@ -70,7 +70,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | ↳ [Pinned folders](features/browser/sidebar/pins/index.md) | `browser/sidebar/pins` | shipped | reviewed | `5f17c9f` | 0 |
 | &emsp;↳ [Drag folders to pin](features/browser/sidebar/pins/drag-to-pin.md) | `browser/sidebar/pins/drag-to-pin` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [Sidebar collapse and icon rail](features/browser/sidebar/rail.md) | `browser/sidebar/rail` | shipped | draft | `fb7eb0c` | 0 |
-| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `ed544cf` | ? |
+| [Browser tabs](features/browser/tabs/index.md) | `browser/tabs` | shipped | draft | `5f17c9f` | 0 |
 | ↳ [Tab session restore](features/browser/tabs/session-restore.md) | `browser/tabs/session-restore` | shipped | reviewed | `44bfeab` | 0 |
 | [Thumbnails](features/browser/thumbnails/index.md) | `browser/thumbnails` | shipped | draft | `5f17c9f` | 0 |
 | ↳ [Thumbnail disk cache](features/browser/thumbnails/cache.md) | `browser/thumbnails/cache` | shipped | reviewed | `5f17c9f` | 0 |

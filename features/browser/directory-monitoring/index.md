@@ -78,7 +78,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - During a burst, a listing scrolled away from the cursor stays put, keyboard focus does not move, and a multi-selection survives. lgse/strata#2634
 - A burst that removes the cursor's entry moves the cursor to its neighbor. lgse/strata#2634
 - A monitor rescan during a burst, such as for more than 4,096 pending changes, publishes the queued changes and reloads the column at once. lgse/strata#2634
-- A delete, restore, or transfer that starts during a burst first publishes the queued changes. lgse/strata#2634
+- Any file operation that starts during a burst, such as a rename or delete, first publishes the queued changes. lgse/strata#2634
 - A change Strata applies itself during a burst, such as the move after an in-app rename, waits up to 100 ms behind the queue. lgse/strata#2634
 - Changes to a column still loading during a burst are recorded as single live changes are. lgse/strata#2634
 
@@ -125,7 +125,6 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 ### Changes from Strata's own operations
 
 - While a delete, restore, copy, or move runs in the foreground, monitor changes for open folders are held back instead of applied one by one. lgse/strata#1036, lgse/strata#2634
-- Sending an operation to the background applies its held changes; later changes arrive as live changes. lgse/strata#2634 (unverified)
 - Once 512 changes are held, the next progress update applies them, so completed files appear during a bulk transfer without a reload. lgse/strata#1266 (unverified)
 - When the operation finishes, the held changes apply in one batch per folder, parent folders before their children. lgse/strata#1036
 - Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544 (unverified)

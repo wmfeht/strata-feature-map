@@ -55,7 +55,7 @@ Moving keyboard focus with plain arrows and `h`/`j`/`k`/`l` through the file lis
 
 ### Typed locations outside the location bar
 
-- A location typed outside the location bar, as in the 10xer `go ›` prompt, that cannot open shows "Unable to open location" with its English error text in every language. lgse/strata#2692 (unverified)
+- In a non-English locale, `go ›` shows English text for rejected input such as an unsupported scheme, but translates missing or inaccessible folder errors. lgse/strata#2692 (unverified)
 
 ### Tab stops
 
@@ -135,4 +135,4 @@ Strata is positioned as keyboard-first; a Yazi user reported needing the trackpa
 
 ## Known gaps
 
-- Errors for a location typed outside the location bar, such as the `go ›` prompt, are not translated, including the `file://` other-host message. The location bar translates them. lgse/strata#2692 ([comment](https://github.com/lgse/strata/pull/2692#issuecomment-7122150882))
+- `go ›` shows rejected-input errors, such as an unsupported scheme or the `file://` other-host message, untranslated. The location bar translates them. lgse/strata#2692 ([comment](https://github.com/lgse/strata/pull/2692#issuecomment-7122150882))

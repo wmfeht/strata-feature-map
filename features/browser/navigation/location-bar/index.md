@@ -13,7 +13,7 @@ related: [remote/file-providers, integration/portal-file-chooser, integration/10
 
 ## Summary
 
-The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, pasted shell paths and `file://` URIs, revealing a typed file, the breadcrumb hierarchy menu, and opening crumbs in a new tab or window. Child: `browser/navigation/location-bar/completion` (the folder suggestions under the entry).
+The header control that shows the active location as breadcrumbs and switches to a text entry for typing a path or URI. It covers path parsing, pasted shell paths and `file://` URIs, and revealing a typed file. It also covers the breadcrumb hierarchy menu and opening crumbs in a new tab or window. Child: `browser/navigation/location-bar/completion` (the folder suggestions under the entry).
 
 ## Behavior
 
@@ -35,7 +35,7 @@ The header control that shows the active location as breadcrumbs and switches to
 
 - `~` opens the home folder and `~/Documents` opens home's Documents, with leading and trailing spaces ignored. lgse/strata#242
 - `~other-user/Documents` is rejected with "Only ~ and ~/ paths are supported for the current user's home directory." lgse/strata#242
-- `/home/a@b:c`, an absolute path holding `@` and then `:`, is rejected as an SCP address. lgse/strata#2692 (unverified)
+- `/home/a@b:c` is rejected with the UNC and SCP message. lgse/strata#2692
 - A relative path such as `Documents` is rejected with "Enter an absolute path." lgse/strata#242 (unverified)
 - UNC paths (`\\host\share`, `//host/share`) and SCP addresses (`user@host:path`) are rejected with a message suggesting `smb://`, `sftp://`, `ftp://`, or `dav://` URIs. lgse/strata#20
 - Accepted URI schemes are file, smb, sftp, ftp, ftps, dav, davs, admin, trash, network, and recent. Any other is rejected with "The <scheme>:// scheme isn't supported." lgse/strata#20, lgse/strata#1837, lgse/strata#2692 (unverified)
@@ -73,7 +73,7 @@ The header control that shows the active location as breadcrumbs and switches to
 - `'~/My Documents'` opens the folder, and `"<home>/My Documents/report (1).pdf"` selects the file in it. lgse/strata#2692, lgse/strata#2670
 - `' /path/with spaces/file.txt '` opens `/path/with spaces` with `file.txt` selected; spaces inside the quotes are trimmed. lgse/strata#2670, lgse/strata#2692
 - `'/tmp/it'\''s here'` and `'/tmp/it'"'"'s here'` both open `/tmp/it's here`. lgse/strata#2692
-- Inside double quotes, `\$`, `\"`, and `\\` are unescaped; another backslash stays, so `"/tmp/\$d \"v2\" \final"` opens `/tmp/$d "v2" \final`. lgse/strata#2692 (unverified)
+- Inside double quotes, `\$`, `` \` ``, `\"`, `\\`, and `\` before a newline lose their backslash; another backslash stays, so `"/tmp/\$d \"v2\" \final"` opens `/tmp/$d "v2" \final`. lgse/strata#2692 (unverified)
 - A newline inside quotes is kept in the path. lgse/strata#2670, lgse/strata#2692
 - `$'…'` quoting decodes ANSI-C escapes, and `\xHH` gives a raw byte, so `/tmp/$'bad\xff.txt'` names a non-UTF-8 file. lgse/strata#2692
 - `file:///path/with%20spaces/file.txt` opens `/path/with spaces` with `file.txt` selected; `file://localhost/…` works the same. lgse/strata#2692, lgse/strata#2670
@@ -128,7 +128,7 @@ The breadcrumbs and the entry are two pages of one stack; the entry is transient
 - `~` expands only for the current user before absolute-path validation; other `~` forms stay errors (lgse/strata#149).
 - Typed paths resolve `.` and `..` as text, like GIO, `cd`, and the folder picker. The visible path stays, symlinks are not followed, and no I/O blocks (lgse/strata#1445, lgse/strata#1570).
 - UNC and SCP shorthand are refused rather than guessed, so a typed URI is never rewritten into another scheme (lgse/strata#20).
-- Pasted text is read as one shell word, as a terminal or the former Copy path wrote it, so it names the same path as the plain spelling. UNC and SCP shorthand stay refused (lgse/strata#2669, lgse/strata#2670, lgse/strata#2692).
+- Pasted text is read as one shell word, as a terminal or the former Copy path wrote it. It names the same path as the plain spelling. UNC and SCP shorthand stay refused (lgse/strata#2669, lgse/strata#2670, lgse/strata#2692).
 - A fixed rule, not a filesystem probe, decides whether a backslash or quote is shell syntax or part of the name. A probe would block the main thread (lgse/strata#2692).
 - Shells and terminals open a quote only at the start of a path component or next to other quoting. A quote inside a name is therefore literal, so a path Copy path produces opens again (lgse/strata#2692, commit 76cd64b8).
 - A `$'…'` escape that decodes to NUL leaves the text literal: no path holds one, and glib-rs panics converting one. The maintainer treats this as hardening ([comment](https://github.com/lgse/strata/pull/2692#issuecomment-7122150882)).

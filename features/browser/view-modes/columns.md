@@ -106,9 +106,10 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 ### Open-path marker
 
 - The row of the folder whose column is active gets a strong accent fill. lgse/strata#1265
-- An older folder on the open path gets a 24% accent fill across the row, up from 8%, and it stays visible after focus moves deeper. lgse/strata#2692, lgse/strata#2662
-- Hovering an older open-path folder row does not change its fill. lgse/strata#2692
-- An older open-path folder row selected in an unfocused column keeps a 17% accent fill over the dimmed selection. lgse/strata#2692 (unverified)
+- An older folder on the open path gets a 24% accent fill across the row. lgse/strata#2692, lgse/strata#2662
+- An unselected older open-path row keeps its fill under the pointer. lgse/strata#2692
+- An older open-path row selected in an unfocused column shows a 17% accent fill over the dimmed selection. lgse/strata#2692 (unverified)
+- That 17% fill is dropped under the pointer, except during keyboard navigation, and while a context menu is open on the column. lgse/strata#2692 (unverified)
 - Clicking empty space in a column after the first pulses its parent folder's row for 420 ms. lgse/strata#1265 (unverified)
 
 ### Background clicks and scrolling
