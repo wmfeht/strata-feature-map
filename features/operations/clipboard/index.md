@@ -54,12 +54,12 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### Paths, names, and images
 
-- Copy path is in the item menu, the breadcrumb menu, and Properties. lgse/strata#230, lgse/strata#1306
+- Copy path is in the item menu, on a button beside the current breadcrumb, and in Properties. lgse/strata#230, lgse/strata#1306
 - It is on `y` in the default map while Type to search is off, and on `c c` in 10xer mode. lgse/strata#230, lgse/strata#1306, lgse/strata#2692
 - Copy path on `~/My Documents/report (1).pdf` copies the literal native path, with no backslashes or quotes. lgse/strata#2669, lgse/strata#2692
 - A copied local folder path ends in `/` and a file path does not; `/` is copied as `/`. lgse/strata#2669, lgse/strata#2692
 - Copy path on a local name that is not valid UTF-8, such as `bad\xff.txt`, copies its `file://` URI. lgse/strata#2692
-- Copy path on a remote location, such as `smb://server/share/folder`, copies its URI unchanged. lgse/strata#230, lgse/strata#2692
+- Copy path on a remote location copies its display URI: `smb://server/share/folder` as is, without any password, with UTF-8 escapes decoded. lgse/strata#230, lgse/strata#2692 (unverified)
 - With several items selected, Copy paths copies one unescaped path per line. lgse/strata#230, lgse/strata#2669, lgse/strata#2692
 - Copy name and Copy names copy the display names, one per line. lgse/strata#704
 - Pasting while the clipboard holds an image and no files writes `image.png`, then `image (1).png`, into a local destination. lgse/strata#882
