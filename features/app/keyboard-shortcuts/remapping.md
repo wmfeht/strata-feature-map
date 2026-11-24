@@ -74,7 +74,7 @@ Lets users change, add, or remove the keys of any listed command, separately for
 - An alias on a key text fields bind themselves, such as Ctrl+Backspace for `down`, saves with a note that the field usually wins. lgse/strata#1885
 - A key another action takes first in some states, such as a preview command's key, saves with a note naming that action. lgse/strata#1885
 - Alt with a letter saves with a note that the file chooser may take it for its accept button. lgse/strata#1885
-- In both tables, a key `search` shares with `choose_folder` shows a conflict, since global search takes it first in the file chooser. lgse/strata#2802 (unverified)
+- In both tables, `search` on `choose_folder`'s key, such as Ctrl+Return, is refused, since global search takes it first in the file chooser. lgse/strata#2802 (unverified)
 - A hand-edited entry for a command its map cannot run, such as `yank` under `[keymap.default]`, never blocks another command's key. lgse/strata#1885
 - A lone Num Lock or Scroll Lock press during a capture records nothing, and the capture keeps waiting. lgse/strata#1885
 

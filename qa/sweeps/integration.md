@@ -97,10 +97,10 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Under `directory`, press Alt+Enter on a folder hit, then Accept; read the returned folder.
 - In Send to, press Ctrl+K, then the rebound 10xer search key with the mode on; read the footer and whether anything opens.
 - In Move to and Copy to, search a file name and a folder name; press Enter on each and read the location and the action button.
-- Press Ctrl+K with the Ctrl+F filter open, with the file-type dropdown open, during an inline rename, and with the location entry focused in the default map.
+- Press Ctrl+K with the Ctrl+F filter open and during an inline rename.
 - Toggle hidden files with Ctrl+H, then search a dotfile; repeat after closing and reopening the palette.
 - Change the file-type filter between two Ctrl+K opens and search a name that only the second filter accepts.
-- Mount a local drive while the chooser is open, then open the palette and search a file on it.
+- Open the palette, search a file on a mounted local drive, unmount the drive, then activate the hit; read the location and the response code.
 - Click outside the palette, then read the response code and the selection.
 
 ### integration/portal-file-chooser/setup

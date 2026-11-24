@@ -244,7 +244,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Rebind a 10xer chord trigger, then press the old trigger, the new one, and each step and digit after it.
 - Capture keys on `fr` (AZERTY), `de`, `ch`, `ru`, and `us,ru` with Russian active. Use top-row digits with and without Shift, AltGr symbols, and Ctrl with a non-Latin letter; read the chip and saved accelerator.
 - Capture with an input-method composition pending, and with fcitx5 or IBus switch keys.
-- Bind `search` to Ctrl+Return in each table, open a folder chooser, and press it there and in a Files chooser.
+- Hand-edit `[keymap.default]` and `[keymap.10xer]` to give `search` Ctrl+Return; launch, read the log, then press it in a folder chooser and a Files chooser.
 - Start a capture, then switch the table, close Settings, switch windows, or toggle 10xer mode from another window; press a key after each.
 - Arm captures in two windows and press keys in each in turn.
 - Drop Escape from `escape` and add `<Control>bracketleft`. Cancel a dialog, a rename, a footer prompt, F1, a popover menu, and the portal chooser with each key.

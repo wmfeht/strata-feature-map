@@ -25,9 +25,7 @@ The main window's global search palette, opened inside the portal file chooser a
 - Enter on a file result opens its folder with the file highlighted. It neither launches the file nor submits the request. lgse/strata#2802
 - After a file is revealed, Open returns that file. lgse/strata#2802
 - With "Open search results directly" on, Enter on a file result still only reveals it. lgse/strata#2802 (unverified)
-- Alt+Enter or the result menu's Open containing folder reveals the item in its parent folder and submits nothing. lgse/strata#2802
-- Activating a result the request does not allow, such as a file in a folder request, changes nothing. lgse/strata#2802 (unverified)
-- Alt+Enter on a folder result highlights that folder in its parent instead of entering it. lgse/strata#2802 (unverified)
+- Alt+Enter or the result menu's Open containing folder reveals the item, file or folder, highlighted in its parent folder, and submits nothing. lgse/strata#2802 (unverified)
 - In a Save request, entering a folder from the palette keeps the typed Name, and Save saves into that folder. lgse/strata#2802
 - Escape dismisses only the palette; the request stays open and the selection is unchanged. lgse/strata#2802
 - In a Send to chooser confined to a device, Ctrl+K opens nothing. lgse/strata#2802
@@ -38,6 +36,7 @@ The main window's global search palette, opened inside the portal file chooser a
 - The chooser had Ctrl+F for its folder but nothing for files elsewhere. Opening a browser window and copying a path interrupts the request (lgse/strata#2799).
 - A pick must navigate or reveal, never launch a file or submit the request, and Escape returns to the pending request (lgse/strata#2799).
 - Window-wide stages never see chooser keys (lgse/strata#1311). The chooser therefore gets its own palette instance and key stage (lgse/strata#2802).
+- Results pass the request's own entry check before display, and activation checks it again, so a result the request does not allow is never acted on (lgse/strata#2802).
 - Both palette actions, Enter and Open containing folder, go through the chooser's own callbacks, so nothing in the palette can launch a file (lgse/strata#2802).
 - A device-confined chooser does not index global roots, so search cannot lead outside the device (lgse/strata#2799).
 
