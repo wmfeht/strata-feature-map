@@ -3,7 +3,7 @@ title: Filesystem-safe placement and copying
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1615}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [crates/strata-fs/src/adapters/local_operations/placement.rs, crates/strata-fs/src/adapters/local_operations/copy_engine.rs, crates/strata-fs/src/adapters/local_operations/copy_engine/**, crates/strata-fs/src/adapters/local_operations/case_variants.rs, crates/strata-fs/src/adapters/local_operations/environment.rs, crates/strata-fs/src/adapters/local_operations/mount_profile.rs, crates/strata-fs/src/adapters/local_operations/names.rs, crates/strata-fs/src/adapters/local_operations/names/fix.rs, crates/strata-fs/src/adapters/local_operations/owed.rs, crates/strata-fs/src/adapters/local_operations/typed_names.rs, crates/strata-fs/src/adapters/volume/mount_capabilities.rs, crates/strata-fs/src/adapters/volume/names.rs, src/ui/browser/transfer_report.rs, crates/strata-fs/src/services/item_identity.rs, crates/strata-core/src/model/hidden_names.rs, crates/strata-fs/src/adapters/local_operations/moving/**, crates/strata-fs/src/adapters/local_operations/placement/**, crates/strata-fs/src/adapters/local_operations/copying.rs, crates/strata-fs/src/adapters/local_operations/copying/tree.rs, crates/strata-fs/src/adapters/local_operations/gio_names.rs, crates/strata-fs/src/adapters/local_operations/moving.rs]
 tests: [crates/strata-fs/src/adapters/local_operations/tests/placement.rs, crates/strata-fs/src/adapters/local_operations/fs_quirks.rs, crates/strata-fs/src/adapters/local_operations/tests/file_copy.rs, crates/strata-fs/src/adapters/local_operations/tests/folder_copy.rs, crates/strata-fs/src/adapters/local_operations/tests/aliases.rs, crates/strata-fs/src/adapters/local_operations/mount_profile/tests.rs, crates/strata-fs/src/adapters/volume/names/tests.rs, src/ui/browser/transfer_report/tests.rs, scripts/fslab/**, crates/strata-fs/src/services/item_identity/tests.rs, crates/strata-fs/src/adapters/local_operations/environment/tests.rs, crates/strata-core/src/model/hidden_names/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/aliases/**, crates/strata-fs/src/adapters/local_operations/fs_quirks/**, crates/strata-fs/src/adapters/local_operations/tests/placement/**]
@@ -21,10 +21,14 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 
 - A move, rename, undo, restore, or extraction within one NFS, ntfs-3g, 9p, or ceph mount, where `RENAME_NOREPLACE` returns `EINVAL`, finishes without copying any data. lgse/strata#1615
 - There a file is hard-linked and its old name unlinked once the link proves its identity; a folder is renamed over an exclusive empty placeholder. lgse/strata#1615
-- On sshfs, vboxsf, rclone, and s3fs, a file is renamed over an exclusive empty placeholder after a check. lgse/strata#1615
+- On sshfs, vboxsf, and `fuseblk` mounts such as ntfs-3g, a file is renamed over an exclusive empty placeholder after a check. lgse/strata#1615, lgse/strata#2761
 - On sshfs a folder is renamed over an exclusive empty placeholder. On vboxsf a folder is renamed to a name found free. lgse/strata#1615
 - On rclone, s3fs, gvfsd-fuse, and other FUSE daemons over remote storage, a folder is never renamed over a placeholder. lgse/strata#2327
 - There, once `RENAME_NOREPLACE` is known to be missing, a folder is renamed in one call to a name found free. lgse/strata#2327
+- There a file is never renamed over a placeholder either; it is renamed to a name found free. lgse/strata#2639, lgse/strata#2761
+- On an rclone mount with `--vfs-cache-mode writes`, files renamed one after another with F2 keep their contents after rclone's 5 s write-back. lgse/strata#2639, lgse/strata#2761
+- There a file already at the name at the check fails the placement as taken and stays untouched. lgse/strata#2761
+- A file created at the name between the check and the rename is replaced, even when created exclusively. lgse/strata#2761
 - A folder moved, renamed, extracted, or placed by Replace on an rclone mount reaches rclone as one rename. rclone sends it as one move where its storage can move folders. lgse/strata#2327
 - A folder copied onto sshfs, a `fuseblk` device, mergerfs, gocryptfs, or bindfs is still built in a `.strata-copy-*` stage. lgse/strata#2327
 - A file pasted onto a KDE Connect sshfs mount of an Android phone arrives. lgse/strata#1941, lgse/strata#1945
@@ -33,7 +37,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - A move within such a mount, into a folder that also refuses Strata's probe file, fails with "Permission denied" and is not retried as a copy. lgse/strata#1945
 - On sshfs whose server lacks `posix-rename@openssh.com`, the move copies instead. lgse/strata#1615
 - A move copies only across devices, or where no placement step can place the item. lgse/strata#1615
-- An item that appears at the destination meanwhile is never overwritten, except in the reserved-name step's window. lgse/strata#1615
+- An item that appears at the destination meanwhile is never overwritten, except in the reserved-name step's window. lgse/strata#1615, lgse/strata#2761
 - An `EINVAL` from a rename reports an invalid name as such and refuses a folder moved into itself, instead of copying. lgse/strata#1615
 - A lost reply (`EIO`, `ETIMEDOUT`) to the rename over a placeholder removes the placeholder and reports the error on mounts with stable inode numbers. lgse/strata#1615
 - On sshfs and vboxsf, such a lost reply keeps both names and reports the item as unconfirmed. lgse/strata#1615
@@ -66,7 +70,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - A bare `fuse` mount gets the same treatment. lgse/strata#2327 (unverified)
 - A folder with nested subfolders copied into an rclone mount with `--vfs-cache-mode full` arrives with every file. No "The result could not be confirmed" error appears. lgse/strata#2203, lgse/strata#2327
 - A failed folder copy there removes only the entries it created, and the folder once it is empty. lgse/strata#1615, lgse/strata#2327
-- A file copied on its own onto such a mount is still staged and placed over a checked placeholder. lgse/strata#2327
+- A file copied on its own onto such a mount is still staged, then renamed to a name found free. lgse/strata#2327, lgse/strata#2761
 - A Merge builds incoming items in a hidden `.strata-copy-*` stage and renames them in. lgse/strata#1615
 - A Merge copies folders new to the target in place in the live folder on a FUSE daemon over remote storage, or where no step can place a folder. lgse/strata#1615, lgse/strata#2327
 - A name taken inside a merged folder meanwhile gets the next number and is reported; a stopped merge leaves no partial file under a real name. lgse/strata#1615
@@ -145,13 +149,16 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - Invariants: never overwrite a destination that appeared concurrently, never delete what the copy does not hold, and run no disk operation on the GTK main thread (lgse/strata#1590, lgse/strata#1615).
 - Placement tries `renameat2(NOREPLACE)`, then a file hard link, then a folder rename over an exclusive placeholder, then the reserved-name step, then a copy. `EEXIST` stays authoritative (lgse/strata#1615).
 - The reserved-name step loses only a write that another program makes to that exact name between the check and the rename. GLib checks then renames with no placeholder, which is weaker (lgse/strata#1615).
-- Rejected: check-then-rename as in GLib, Nautilus, KIO, and coreutils; the copy fallbacks of lgse/strata#1515 and lgse/strata#1586, which doubled writes and lost metadata; and gating on filesystem type (lgse/strata#1590).
+- On FUSE daemons over remote storage, files take GLib's weaker check, because the placeholder would cost the placed file its contents (lgse/strata#2639, lgse/strata#2761).
+- Rejected, except on those daemons: check-then-rename as in GLib, Nautilus, KIO, and coreutils; the copy fallbacks of lgse/strata#1515 and lgse/strata#1586, which doubled writes and lost metadata; and gating on filesystem type (lgse/strata#1590).
 - `EACCES` from a link or symlink is treated like `EPERM`, as the exchange step already did. sshfs reports a server without link extensions that way (lgse/strata#1941, lgse/strata#1945).
 - `EACCES` is ambiguous between a missing link extension and a real denial. Only a probe on Strata's own names settles it; a folder refusing the probe file refused the link too (lgse/strata#1945).
 - Capabilities are probed per mount and cached by mount ID until the mount table changes. The filesystem family decides naming, flushing, `O_TMPFILE`, and timestamp granularity (lgse/strata#1590, lgse/strata#1615).
 - The mount type also decides folder staging and placement on FUSE daemons over remote storage. Nothing tells Strata how such a daemon renames a filled folder (lgse/strata#2203, lgse/strata#2327).
 - rclone does not rename a folder over an existing one. It moves file by file, returns `EIO` while uploads are pending, and merges into a non-empty folder (lgse/strata#2327).
 - So step 3's placeholder gave no `ENOTEMPTY` protection there, and folders skip it for step 5's free-name check (lgse/strata#2327).
+- Such a daemon may upload a new file some time after it closes. rclone uploaded step 5's empty placeholder over the renamed file, emptying it (lgse/strata#2639).
+- So on the same mounts files skip the placeholder too and take the free-name check. The cost is the folders' check window (lgse/strata#2761).
 - The scope is every FUSE mount except `fuseblk`, sshfs, whose server renames the folder, and local overlays (lgse/strata#2327).
 - The cost is a folder visible under its final name while it fills. No setting was added (lgse/strata#2327).
 - `RENAME_EXCHANGE` is used only on in-kernel local filesystems. exfat-fuse reports success for it but overwrites (lgse/strata#1615).
@@ -173,6 +180,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-24 | lgse/strata#2761 | fix | Placed files on rclone and other remote FUSE daemons after a check, since rclone uploaded the empty placeholder over them (lgse/strata#2639). |
 | 2026-11-16 | lgse/strata#2327 | fix | Made copied folders under their final name and placed folders by step 5 on FUSE daemons over remote storage, fixing rclone's `EIO` (lgse/strata#2203). |
 | 2026-10-31 | lgse/strata#1945 | fix | Treated `EACCES` from links like `EPERM`, so a copy onto a KDE Connect sshfs mount lands through the reserved-name step. |
 | 2026-10-20 | lgse/strata#1729 | fix | Released Strata's reads, identified items by one rule per mount, and recovered crash leftovers, finishing lgse/strata#1590. |
@@ -199,5 +207,6 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 - GVfs destinations get no flush, no content check, and no retry of a refused name. lgse/strata#1615
 - Only names are checked, not paths, so Windows' `MAX_PATH` is not predicted. lgse/strata#1615
 - Link targets are never rewritten, so a link to a renamed entry dangles. lgse/strata#1615
-- s3fs, gvfsd-fuse, and other `fuse.*` daemons get rclone's folder rules, though nothing tells Strata how they rename a filled folder. lgse/strata#2327
+- s3fs, gvfsd-fuse, and other `fuse.*` daemons get rclone's folder and file rules, though nothing tells Strata how they rename a filled folder. lgse/strata#2327
 - On rclone, a folder that arrives at the name in step 5's check window is merged into, and its same-named files are replaced. lgse/strata#2327
+- On FUSE daemons over remote storage, a file created at the name in step 5's check window is replaced. lgse/strata#2761

@@ -3,17 +3,17 @@ title: Media playback
 status: shipped
 origin: {issue: lgse/strata#824, pr: lgse/strata#839}
 branch: null
-reviewed_at: 6eb4bf60104d416171b72cefc8db7a8116b58d43
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
-code: [crates/strata-preview/src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, crates/strata-preview/src/sandbox/media.rs, crates/strata-preview/src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, src/ui/media/history.rs, src/ui/media/playback.rs, src/ui/media/positions.rs, src/ui/preview/media_content.rs, src/ui/preview/media_controls.rs, src/ui/preview/media_render.rs, src/ui/preview/media_session.rs, packaging/media-runtime]
-tests: [crates/strata-preview/src/media/tests.rs, src/ui/media/tests.rs, crates/strata-preview/src/sandbox/media/tests.rs, crates/strata-preview/src/sandbox/media/fixtures.rs, crates/strata-preview/src/sandbox_helper/media/**, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs]
+code: [crates/strata-preview/src/media.rs, src/ui/media.rs, src/ui/media/audio.rs, src/ui/media/diagnostics.rs, crates/strata-preview/src/sandbox/media.rs, crates/strata-preview/src/sandbox_helper/media.rs, src/ui/preview/ease_in.rs, src/ui/media/history.rs, src/ui/media/playback.rs, src/ui/media/positions.rs, src/ui/preview/media_content.rs, src/ui/preview/media_controls.rs, src/ui/preview/media_render.rs, src/ui/preview/media_session.rs, crates/strata-preview/src/services/webp_animation.rs, crates/strata-preview/src/sandbox/decoders.rs, packaging/media-runtime]
+tests: [crates/strata-preview/src/media/tests.rs, src/ui/media/tests.rs, crates/strata-preview/src/sandbox/media/tests.rs, crates/strata-preview/src/sandbox/media/fixtures.rs, crates/strata-preview/src/sandbox_helper/media/**, src/ui/preview/ease_in/tests.rs, src/ui/preview/tests/media_controls.rs, crates/strata-preview/src/services/webp_animation/tests.rs, crates/strata-preview/src/sandbox/decoders/tests.rs]
 docs: [site/src/reference/preview-sandbox.md, site/src/reference/keyboard-navigation.md]
 related: [preview/preview-panel/sandbox, preview/preview-panel/layout, preview/quick-preview, settings/preferences]
 ---
 
 ## Summary
 
-The player behind audio, video, and animated GIF previews. FFmpeg decodes the original inside bubblewrap and streams validated RGBA frames and PCM to Strata, which presents them with GTK and GStreamer. Children: `preview/preview-panel/media/audio` (now-playing audio view) and `preview/preview-panel/media/video` (now-playing video view).
+The player behind audio, video, animated GIF, and animated WebP previews. FFmpeg decodes the original inside bubblewrap and streams validated RGBA frames and PCM to Strata, which presents them with GTK and GStreamer. Children: `preview/preview-panel/media/audio` (now-playing audio view) and `preview/preview-panel/media/video` (now-playing video view).
 
 ## Behavior
 
@@ -21,6 +21,11 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 
 - Previews play the whole source with no 30-second cap; files without a reported duration play to their end with seeking disabled until it is known. lgse/strata#888
 - Animated GIFs play and loop instead of showing their first frame. lgse/strata#119
+- An animated WebP in the player plays and loops with only a Play/Pause control, no seek bar or volume. lgse/strata#2734
+- An animated WebP under 30 s whose frames × width × height × 4 fit 256 MiB loops without restarting the decoder. A larger one plays once. lgse/strata#2734
+- Pausing an animated WebP and playing it, or selecting another file and coming back, resumes in phase. lgse/strata#2734
+- An animated WebP with over 32,767 frames, zero-length frame durations, or a truncated frame header plays to its end, like a file without a reported duration. lgse/strata#2734 (unverified)
+- With FFmpeg 9.1, video and audio playback, waveforms, storyboards, and embedded cover art decode instead of showing "Preview unavailable: The file is truncated or damaged". lgse/strata#2696
 - Audio-only files with no video stream, such as a mono `.ogg`, play their audio instead of failing. lgse/strata#817
 - Raw H.264 and HEVC elementary streams that reach the player, such as a bare `.h264` file, play from the start and seek. lgse/strata#1346, lgse/strata#1861
 - The player detects a raw stream from its probed format, not its file name, so a renamed copy still seeks. lgse/strata#1346
@@ -72,7 +77,7 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - A saved `preview_video_start = 100` or `5000` loads as 99, and setting a value above 99 stores 99. lgse/strata#2086, lgse/strata#1924
 - A video with a position remembered this session resumes there, not at the configured start. lgse/strata#2086, lgse/strata#1924
 - With the start at 0, a video closed in its first second or at its end later opens at a start set afterwards. lgse/strata#2086, lgse/strata#1924
-- With a start set, audio files, animated GIFs, and streams of unknown length start at 0:00. lgse/strata#2086, lgse/strata#1924
+- With a start set, audio files, animated GIFs and WebPs, and streams of unknown length start at 0:00. lgse/strata#2086, lgse/strata#1924, lgse/strata#2734
 - With a start set, a raw stream named `.h264`, `.264`, `.h265`, `.265`, or `.hevc` starts at 0:00. lgse/strata#2086, lgse/strata#1924
 - Stepping with Ctrl+Alt+`<`/`>`, or `<`/`>` in 10xer mode, into a video not previewed this session opens it at the configured start. lgse/strata#2086, lgse/strata#1924
 - A start that rounds to the first frame, such as a low percent of a short clip, plays from 0:00 without restarting the decoder. lgse/strata#2086, lgse/strata#1924
@@ -102,6 +107,9 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - With **Hardware-accelerated video previews** on and **Decoding backend** set to Automatic, decoding tries VA-API, then Vulkan, then software; a hardware attempt that fails before its first frame falls back to software. lgse/strata#45, lgse/strata#139
 - With no saved choice, a system with an AMD Polaris 10, 11, or 12 GPU decodes in software; the user can still opt in. lgse/strata#139
 - Audio-only playback, waveform peaks, and video storyboards decode in software and get no `/dev/dri` or `/dev/nvidia*` device, no `/sys`, and no `/run/opengl-driver`, whatever the acceleration setting. lgse/strata#1289, lgse/strata#1474 (unverified)
+- Animated WebP decodes in software whatever the acceleration setting. lgse/strata#2734
+- VA-API and Vulkan FFmpeg decoders run without the 512 MiB file-size and 2 GiB address-space limits; software decoders keep both. Every decoder disables core dumps. lgse/strata#2803, lgse/strata#2793
+- On an Intel GPU with Mesa ANV and the Vulkan backend, an MP4 preview decodes in hardware instead of FFmpeg dying with `SIGXFSZ` and falling back. lgse/strata#2803, lgse/strata#2793
 - Changing the acceleration setting applies to the next preview without interrupting the current one. lgse/strata#139
 
 ## Design
@@ -114,7 +122,11 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - The `STRRAW01` wire is untrusted. The parent checks dimensions, strides, tick sequence, and payload lengths before allocating, and EOF without an end record is failure (lgse/strata#839).
 - Queues are bounded: three records, three presented frames, and 66 audio blocks. Audio runs 2 s ahead inside the records so slow sinks are primed without pinning frames (lgse/strata#1411).
 - Media helpers run outside the driver-wide CPU, address-space, and file-size limits; Intel Vulkan's 1 GiB object hit the inherited `RLIMIT_FSIZE` (lgse/strata#128). Per-record sizes, queue limits, and progress deadlines bound work instead.
-- Each FFmpeg process disables core dumps and caps files and single allocations at 512 MiB. Software decoders also get a 2 GiB address-space limit; hardware decoders are exempt because drivers reserve large virtual ranges (docs/preview-sandbox.md, "Isolation and hardware policy").
+- Each FFmpeg process disables core dumps and caps single allocations at 512 MiB. Software decoders also cap files at 512 MiB and address space at 2 GiB (docs/preview-sandbox.md, "Isolation and hardware policy").
+- Hardware decoders are exempt from both because GPU drivers reserve sparse memfds and large virtual ranges. Mesa ANV's 1 GiB Vulkan state table hit `EFBIG`, and the kernel killed FFmpeg with `SIGXFSZ` (lgse/strata#2793, lgse/strata#2803).
+- lgse/strata#839 had reapplied the file limit to every backend after lgse/strata#119 exempted hardware. Decoded output goes to a pipe, which the file limit never bounded (lgse/strata#2793).
+- Hardware decoders stay bounded without it: no outer `prlimit` wraps the media helper, Landlock confines writes to the scratch mounts, and `/tmp` is a size-capped tmpfs ([comment](https://github.com/lgse/strata/pull/2803#issuecomment-7136005380)).
+- Audio-only playback, peaks, storyboards, and cover art always decode in software, so they keep both limits (lgse/strata#2803).
 - Decoders run the configured absolute limiter instead of `prlimit` by name, and background helpers lower their own priority with `setpriority`. Non-FHS runtimes such as Nix then need no util-linux or coreutils on the sandbox PATH (lgse/strata#2097, lgse/strata#2098).
 - Polaris defaults to software because explicit VA-API still hung after 16-pixel alignment; the hang is in VCE encode, not the file (lgse/strata#127).
 - Raw elementary streams have no timestamps, so any input `-ss` drops every frame. Their positive seeks use output-side `-ss`, which decodes and discards the prefix (lgse/strata#1346). Detection uses the probed demuxer, never the extension (lgse/strata#1333).
@@ -125,6 +137,10 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - The preview reads leading bytes before choosing a player, so a sequence trusting names landed on files that preview as text. Sequences now join local files by content (lgse/strata#2003, lgse/strata#2026).
 - Content answers belong to one preview and are trimmed to its listing; there is no global cache (lgse/strata#2026).
 - Checks run as background work through request lanes, so a stalled mount parks no workers. One 10 s busy wait covers every folder of a run and is never reset within it (lgse/strata#2026).
+- FFmpeg's `webp_anim` demuxer reports no duration and cannot seek: `-stream_loop -1` stalls and `-ss` skips to the end. The period is the sum of the ANMF frame durations, read without decoding (lgse/strata#2734).
+- Short animated WebPs loop with the `loop` filter, placed before the 30 fps conversion so it holds source frames. Offsets are reached by decoding from the start and trimming (lgse/strata#2734).
+- The 256 MiB budget bounds the frames the `loop` filter holds. Its product saturates: 16,384 frames on a 16,777,216-pixel canvas had wrapped to 0 bytes and passed ([comment](https://github.com/lgse/strata/pull/2734#issuecomment-7123582479)).
+- Playback depends on FFmpeg 9.0's `webp_anim` decoder. Strata runs the trusted runtime `ffmpeg -hide_banner -decoders`, with no input, once per process and off the main loop. An older FFmpeg keeps the still preview, so nothing regresses (lgse/strata#2734).
 - Video preview start is a percentage, not a fixed offset, so one value suits clips of any length (lgse/strata#1910).
 - The start applies only with no remembered position, so it complements resume instead of replacing it. It is applied once, when the first header arrives, through the resume restart path; later seeks and resize restarts never reapply it. A first-time video with a start therefore runs two decoder sessions (lgse/strata#1910, lgse/strata#1924).
 - Raw streams start at 0:00 because the helper seeks them by decoding up to the target. A late start in a long stream could exceed the first-frame timeout (lgse/strata#1924).
@@ -135,6 +151,8 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-24 | lgse/strata#2803 | fix | Applied the 512 MiB file-size limit only to software FFmpeg, so Vulkan on Mesa ANV is no longer killed by `SIGXFSZ`. |
+| 2026-11-24 | lgse/strata#2696 | fix | Dropped the input-side `-thread_queue_size`, which FFmpeg 9.1 rejects, so media previews decode again. |
 | 2026-11-07 | lgse/strata#2086 | feat | Added a Video preview start percentage so a video previewed for the first time in a session opens part-way in. |
 | 2026-11-02 | lgse/strata#2026 | fix | Built previous/next media sequences from file content, not names, so text files named as videos are skipped. |
 | 2026-10-04 | lgse/strata#1411 | fix | Fed audio by sink capacity with a 2 s lead so slow-starting sinks no longer stall. |
@@ -163,3 +181,4 @@ The player behind audio, video, and animated GIF previews. FFmpeg decodes the or
 - The start rule recognizes a raw H.264 or H.265 stream by its extension only. A raw stream named `.mp4` still opens at the configured start. lgse/strata#1924
 - Pausing a video with no audio track and pressing Play snaps back to where the decoder session started. With a start of 20, 0:14 jumps to 0:12. The clock base advances only for audio, so Play restarts the wall clock from the old base. lgse/strata#1924
 - A video closed before its decoder header arrives forgets its remembered resume position. lgse/strata#1924
+- Timing an animated WebP reads every chunk header with no chunk cap, so a multi-GB file of empty chunks is stopped only by the helper's 10 s CPU limit. lgse/strata#2734
