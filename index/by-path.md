@@ -300,11 +300,14 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-fs/src/app/browser/freshness/tests/**` | tests | [Network folder change checks](../features/browser/directory-monitoring/network-checks.md) | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) |
 | `crates/strata-fs/src/app/browser/leftovers.rs` | code | [Leftovers after a crash or unplug](../features/operations/filesystem-compatibility/leftovers.md) | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) |
 | `crates/strata-fs/src/app/browser/listing.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/live_changes.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
+| `crates/strata-fs/src/app/browser/live_changes/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `crates/strata-fs/src/app/browser/loading.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `crates/strata-fs/src/app/browser/loading/metadata.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `crates/strata-fs/src/app/browser/loading/metadata/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `crates/strata-fs/src/app/browser/loading/tests.rs` | tests | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `crates/strata-fs/src/app/browser/location_input.rs` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
+| `crates/strata-fs/src/app/browser/location_input/**` | code | [Location bar and breadcrumbs](../features/browser/navigation/location-bar/index.md) | [Navigation](../features/browser/navigation/index.md) |
 | `crates/strata-fs/src/app/browser/metadata_fills.rs` | code | [Directory loading and monitoring](../features/browser/directory-monitoring/index.md) | — |
 | `crates/strata-fs/src/app/browser/navigate.rs` | code | [Navigation](../features/browser/navigation/index.md) | — |
 | `crates/strata-fs/src/app/browser/navigation_lifecycle.rs` | code | [Browser tabs](../features/browser/tabs/index.md) | — |
@@ -461,6 +464,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-preview/src/sandbox/browser/wire.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `crates/strata-preview/src/sandbox/browser/worker.rs` | code | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `crates/strata-preview/src/sandbox/command.rs` | code | [Preview sandbox](../features/preview/preview-panel/sandbox.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/decoders.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/sandbox/decoders/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/sandbox/media.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/sandbox/media/fixtures.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/sandbox/media/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
@@ -542,6 +547,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-preview/src/services/rtf/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/services/table.rs` | code | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-preview/src/services/table/tests.rs` | tests | [Rendered document previews](../features/preview/preview-panel/documents/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/webp_animation.rs` | code | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
+| `crates/strata-preview/src/services/webp_animation/tests.rs` | tests | [Media playback](../features/preview/preview-panel/media/index.md) | [Preview panel](../features/preview/preview-panel/index.md) |
 | `crates/strata-qa/src/**` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `crates/strata-test-support/src/**` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `data/actions` | code | [Custom actions](../features/integration/custom-actions.md) | — |
@@ -684,6 +691,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/clipboard.rs` | code | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/clipboard/formats.rs` | code | [Clipboard exchange with other file managers](../features/operations/clipboard/file-manager-formats.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
 | `src/ui/browser/clipboard/formats/tests.rs` | tests | [Clipboard exchange with other file managers](../features/operations/clipboard/file-manager-formats.md) | [Copy, cut, and paste](../features/operations/clipboard/index.md) |
+| `src/ui/browser/clipboard/matching.rs` | code | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `src/ui/browser/clipboard/tests.rs` | tests | [Shared location model and listing adapter](../features/app/infrastructure.md) | — |
 | `src/ui/browser/collection.rs` | code | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
 | `src/ui/browser/collection/tests.rs` | tests | [Pane filter](../features/browser/search/filter/index.md) | [Search](../features/browser/search/index.md) |
@@ -873,6 +881,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/chooser/image_conversion.rs` | code | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/layout.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/options.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `src/ui/chooser/search.rs` | code | [Global search in the file chooser](../features/integration/portal-file-chooser/global-search.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
 | `src/ui/chooser/shortcuts.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/shortcuts/**` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `src/ui/chooser/source.rs` | code | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
@@ -1440,7 +1449,16 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/background_selection` | tests | [Selection](../features/browser/selection/index.md) | — |
 | `tests/qa/scenarios/browser_workers` | tests | [Thumbnail workers](../features/browser/thumbnails/workers.md) | [Thumbnails](../features/browser/thumbnails/index.md) |
 | `tests/qa/scenarios/chooser_image_conversion/**` | tests | [Chooser PNG conversion](../features/integration/portal-file-chooser/image-conversion.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
-| `tests/qa/scenarios/chooser_selection/**` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-divider-keeps-marquee.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-filtered-file-click-previews.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-global-search-reveals-file.jsonl` | tests | [Global search in the file chooser](../features/integration/portal-file-chooser/global-search.md) | [System file chooser](../features/integration/portal-file-chooser/index.md) |
+| `tests/qa/scenarios/chooser_selection/chooser-heading-escape-keeps-selection.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-pdf-zoom-keeps-text-size.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-selection-space-double-click-accepts.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-sidebar-drops-survive-resize.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-tap-drag-keeps-request-open.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/chooser-tap-drag-selects-in-both-directions.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
+| `tests/qa/scenarios/chooser_selection/enter-returns-multiple-selection.jsonl` | tests | [System file chooser](../features/integration/portal-file-chooser/index.md) | — |
 | `tests/qa/scenarios/click_modes` | tests | [Click modes](../features/browser/selection/click-modes.md) | [Selection](../features/browser/selection/index.md) |
 | `tests/qa/scenarios/clipboard` | tests | [Copy, cut, and paste](../features/operations/clipboard/index.md) | — |
 | `tests/qa/scenarios/column_background` | tests | [Columns view](../features/browser/view-modes/columns.md) | [View modes](../features/browser/view-modes/index.md) |

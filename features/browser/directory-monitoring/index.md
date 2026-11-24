@@ -3,10 +3,10 @@ title: Directory loading and monitoring
 status: shipped
 origin: {issue: lgse/strata#137, pr: lgse/strata#154}
 branch: null
-reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
-code: [crates/strata-fs/src/app/browser/loading.rs, crates/strata-fs/src/app/browser/loading/metadata.rs, crates/strata-fs/src/app/browser/directory_changes.rs, crates/strata-fs/src/app/browser/publication.rs, crates/strata-fs/src/app/browser/deferred.rs, crates/strata-fs/src/app/browser/operation_updates.rs, crates/strata-fs/src/adapters/local_files/monitors.rs, crates/strata-fs/src/adapters/local_files/monitor_changes.rs, crates/strata-fs/src/app/browser/listing.rs, crates/strata-fs/src/app/browser/metadata_fills.rs, crates/strata-fs/src/app/browser/operation_events/outcome.rs, crates/strata-fs/src/app/browser/refresh.rs, crates/strata-fs/src/app/navigation/listing.rs, crates/strata-fs/src/app/navigation/metadata.rs, crates/strata-fs/src/app/navigation/monitored.rs, src/ui/browser/events/listing.rs]
-tests: [crates/strata-fs/src/app/browser/loading/tests.rs, crates/strata-fs/src/app/browser/loading/metadata/tests.rs, crates/strata-fs/src/app/browser/directory_changes/tests.rs, crates/strata-fs/src/app/browser/publication/tests.rs, crates/strata-fs/src/app/browser/deferred/tests.rs, crates/strata-fs/src/app/browser/operation_updates/tests.rs, crates/strata-fs/src/app/browser/tests/monitor.rs, crates/strata-fs/src/app/browser/tests/staging.rs, crates/strata-fs/src/app/browser/tests/relocation.rs, crates/strata-fs/src/app/browser/tests/operations.rs, crates/strata-fs/src/app/browser/tests/metadata.rs, crates/strata-fs/src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl, crates/strata-fs/src/app/browser/tests/monitor/**, crates/strata-fs/src/adapters/local_files/tests/live_monitor.rs, crates/strata-fs/src/adapters/local_files/tests/monitor_queue.rs, crates/strata-fs/src/app/navigation/tests/metadata.rs, crates/strata-fs/src/app/navigation/tests/monitor.rs, crates/strata-fs/src/app/navigation/tests/reload.rs, tests/qa/scenarios/locations/open-folder-follows-renamed-ancestor.jsonl]
+code: [crates/strata-fs/src/app/browser/loading.rs, crates/strata-fs/src/app/browser/loading/metadata.rs, crates/strata-fs/src/app/browser/directory_changes.rs, crates/strata-fs/src/app/browser/publication.rs, crates/strata-fs/src/app/browser/deferred.rs, crates/strata-fs/src/app/browser/operation_updates.rs, crates/strata-fs/src/app/browser/live_changes.rs, crates/strata-fs/src/adapters/local_files/monitors.rs, crates/strata-fs/src/adapters/local_files/monitor_changes.rs, crates/strata-fs/src/app/browser/listing.rs, crates/strata-fs/src/app/browser/metadata_fills.rs, crates/strata-fs/src/app/browser/operation_events/outcome.rs, crates/strata-fs/src/app/browser/refresh.rs, crates/strata-fs/src/app/navigation/listing.rs, crates/strata-fs/src/app/navigation/metadata.rs, crates/strata-fs/src/app/navigation/monitored.rs, src/ui/browser/events/listing.rs]
+tests: [crates/strata-fs/src/app/browser/loading/tests.rs, crates/strata-fs/src/app/browser/loading/metadata/tests.rs, crates/strata-fs/src/app/browser/directory_changes/tests.rs, crates/strata-fs/src/app/browser/publication/tests.rs, crates/strata-fs/src/app/browser/deferred/tests.rs, crates/strata-fs/src/app/browser/operation_updates/tests.rs, crates/strata-fs/src/app/browser/live_changes/tests.rs, crates/strata-fs/src/app/browser/tests/monitor.rs, crates/strata-fs/src/app/browser/tests/staging.rs, crates/strata-fs/src/app/browser/tests/relocation.rs, crates/strata-fs/src/app/browser/tests/operations.rs, crates/strata-fs/src/app/browser/tests/metadata.rs, crates/strata-fs/src/app/browser/tests/folder_counts.rs, tests/qa/scenarios/locations/deleting-open-root-closes-children.jsonl, tests/qa/scenarios/locations/refresh-reconciles-external-changes.jsonl, crates/strata-fs/src/app/browser/tests/monitor/**, crates/strata-fs/src/adapters/local_files/tests/live_monitor.rs, crates/strata-fs/src/adapters/local_files/tests/monitor_queue.rs, crates/strata-fs/src/app/navigation/tests/metadata.rs, crates/strata-fs/src/app/navigation/tests/monitor.rs, crates/strata-fs/src/app/navigation/tests/reload.rs, tests/qa/scenarios/locations/open-folder-follows-renamed-ancestor.jsonl]
 docs: [docs/architecture.md, docs/performance-baseline.md, docs/filesystem-compatibility.md]
 related: [browser/selection, browser/view-modes, browser/view-modes/position-restore, operations/progress, operations/trash, browser/navigation/recent, remote/file-providers/network-locations, operations/filesystem-compatibility]
 ---
@@ -54,7 +54,7 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Files created, deleted, renamed, or modified by another program appear, disappear, or update in the open folder within about 100 ms, without F5. lgse/strata#803 (unverified)
 - A file modified in place whose sort position is unchanged keeps its row; the row is updated without the appear animation. lgse/strata#803
 - Under Unsorted, a file another program creates appears after the existing entries, or after its group's entries with Folders first on. lgse/strata#2029
-- Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803
+- Another program keeps changing files in the open folder, such as `/tmp`. A wheel-scrolled listing stays where it was, and keyboard focus does not move. lgse/strata#803, lgse/strata#2634
 - A temporary file created and then renamed to its target within one 100 ms batch appears once, under the target name. lgse/strata#803
 - With hidden files off, dot-files that another program creates, renames, or removes stay hidden but are tracked. Showing hidden files then lists their current names without F5. lgse/strata#1909
 - With hidden files off, a dot-file renamed to a visible name appears in the listing. lgse/strata#1266, lgse/strata#1909 (unverified)
@@ -69,6 +69,18 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 - Moving a file out of an open folder and creating a file under its old name in the same moment shows the new file. lgse/strata#1615 (unverified)
 - Pasting Replace onto a same-named file in an open folder without Trash, such as `/dev/shm`, keeps the row listed with the new contents. lgse/strata#1858, lgse/strata#1890
 - A file exchanged into a watched folder and deleted before the monitor flushes its batch loses its row. lgse/strata#1890
+
+### Bursts of live changes
+
+- Thousands of files landing in an open folder, from a background copy or another program, appear in batches every 100 ms, not one row at a time. lgse/strata#2634
+- Changes apply one at a time until a burst's changes, under 100 ms apart, have cost 100,000 column entries; the rest then queue in order. lgse/strata#2634
+- The queue publishes every 100 ms until an interval passes with no change. lgse/strata#2634
+- During a burst, a listing scrolled away from the cursor stays put, keyboard focus does not move, and a multi-selection survives. lgse/strata#2634
+- A burst that removes the cursor's entry moves the cursor to its neighbor. lgse/strata#2634
+- A monitor rescan during a burst, such as for more than 4,096 pending changes, publishes the queued changes and reloads the column at once. lgse/strata#2634
+- A delete, restore, or transfer that starts during a burst first publishes the queued changes. lgse/strata#2634
+- A change Strata applies itself during a burst, such as the move after an in-app rename, waits up to 100 ms behind the queue. lgse/strata#2634
+- Changes to a column still loading during a burst are recorded as single live changes are. lgse/strata#2634
 
 ### Renaming to a hidden name
 
@@ -112,7 +124,8 @@ How an open folder's listing is loaded, published to the view, and kept in step 
 
 ### Changes from Strata's own operations
 
-- While a delete, restore, copy, or move runs, monitor changes for open folders are held back instead of applied one by one. lgse/strata#1036
+- While a delete, restore, copy, or move runs in the foreground, monitor changes for open folders are held back instead of applied one by one. lgse/strata#1036, lgse/strata#2634
+- Sending an operation to the background applies its held changes; later changes arrive as live changes. lgse/strata#2634 (unverified)
 - Once 512 changes are held, the next progress update applies them, so completed files appear during a bulk transfer without a reload. lgse/strata#1266 (unverified)
 - When the operation finishes, the held changes apply in one batch per folder, parent folders before their children. lgse/strata#1036
 - Held changes applied after an operation never move focus out of a focused Ctrl+F field or its results. lgse/strata#1439, lgse/strata#1544 (unverified)
@@ -141,6 +154,10 @@ Loading and file monitoring predate the PR history; the original monitor already
 - An unbounded load of 200,000 entries froze the UI for minutes (lgse/strata#137). The 100,000-entry and 10-second caps matched the published baseline, past which per-batch merging stopped feeling responsive (lgse/strata#154). The entry cap is now 250,000, because memory sets the ceiling: a listed entry costs about 0.8 KiB resident. A 250,000-entry List view with grouping on settles at about 490 MiB process RSS in release. The 10-second budget is unchanged (lgse/strata#1792).
 - Native folders are enumerated off the GTK thread, staged, and published after redraw in bounded slices; remote folders keep a first-batch-then-coalesced path (lgse/strata#274, lgse/strata#593).
 - Publication tails run at idle priority 130, after GDK redraw (120) and before default idle (200), within 8 ms slices. Chunks start at 512 rows and adapt between 128 and 2,048 against a 12 ms budget (lgse/strata#601).
+- A background copy stops holding monitor changes, so each copied file was applied alone: two column scans, a hidden-name pass, and a splice per file. Copying 10,000 files took 45 to 55 s, with the window frozen for up to 21 s (lgse/strata#2634).
+- Live changes therefore count each change's column size over a burst. Past 100,000 entries the rest queues with the operations' deferred changes and publishes through the same batch path ([docs/architecture.md](https://github.com/lgse/strata/blob/ed544cf3bbb3968299ed8223148a65823739d48f/docs/architecture.md), lgse/strata#2634).
+- A live batch reports the cursor only when it removes the cursor's entry or the column has none, as a single change does. Reporting it on every flush scrolled the listing back to the cursor each 100 ms ([comment](https://github.com/lgse/strata/pull/2634#issuecomment-7122135205)).
+- The operation batch path holds rescans until an operation ends, so a rescan during a burst was lost. It now publishes the burst and reloads the column ([comment](https://github.com/lgse/strata/pull/2634#issuecomment-7122135205)).
 - Before a live change or operation batch splices rows, any unpublished tail is drained, so positional updates always land on rows the view already has (lgse/strata#1037).
 - Monitor events are debounced for 100 ms and keyed by location. A burst past the cap collapses to one rescan rather than thousands of splices (lgse/strata#75); lgse/strata#1266 raised the cap from 256 to 4,096.
 - Background changes emit only row splices, so a busy folder such as `/tmp` does not reset scrolling (lgse/strata#767, lgse/strata#803). A focus update follows only when the focused entry was removed or nothing stays selected (lgse/strata#1043).

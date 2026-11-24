@@ -3,12 +3,12 @@ title: Search
 status: shipped
 origin: {issue: null, pr: lgse/strata#222}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
+review: draft
 code: [crates/strata-fs/src/services/search.rs, src/ui/search.rs, src/ui/window/composition/search.rs, crates/strata-fs/src/services/search/refresh.rs, crates/strata-fs/src/services/search/scoring.rs, crates/strata-fs/src/services/search/session.rs, crates/strata-fs/src/services/search/walk.rs, src/ui/browser_modes/search_options.rs, src/ui/search/panel.rs, src/ui/search/results.rs]
 tests: [crates/strata-fs/src/services/search/tests.rs, crates/strata-fs/src/services/search/tests/multi_root.rs, crates/strata-fs/src/services/search/tests/performance.rs, crates/strata-fs/src/services/search/tests/refresh.rs, src/ui/search/tests.rs, tests/qa/scenarios/search_filter_sort/global-search-*, crates/strata-fs/src/services/search/test_support.rs]
 docs: [docs/preferences.md]
-related: [browser/navigation/folder-jump, devices/volumes, integration/10xer-mode, settings/preferences]
+related: [browser/navigation/folder-jump, devices/volumes, integration/10xer-mode, settings/preferences, integration/portal-file-chooser]
 ---
 
 ## Summary
@@ -44,9 +44,12 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 - A contiguous match of accented or CJK characters ranks above the same characters separated by `_`. lgse/strata#739
 - An NFC query such as `résumé` matches an NFD filename, and an NFD query matches an NFC filename. lgse/strata#813
 - Dotfiles are indexed only while hidden files are shown. lgse/strata#376
+- Opened in a file chooser, the palette indexes dotfiles by the chooser's own hidden-files setting, not the main window's. lgse/strata#2802 (unverified)
 - Generated trees such as `node_modules/`, `target/`, `.venv/`, `.cache/`, `go/pkg/mod/`, and `__pycache__/` are skipped; with hidden files shown, `.cargo/config.toml` stays searchable. lgse/strata#473, lgse/strata#1287
 - Paths excluded by a `.gitignore` or `.ignore` file are not indexed. lgse/strata#758 (unverified)
 - At most 100 results are shown, best first. lgse/strata#473
+- In a file chooser, results list only entries the request allows: its file-type filter applies, and a folder request lists folders only. lgse/strata#2802
+- When that filter leaves fewer than 100 results, the palette pulls more lower-ranked candidates instead of showing a short list. lgse/strata#2802
 - Ctrl+K results and pane filter results with equal scores are ordered by name, then path, not by directory walk order, in every view. lgse/strata#2030
 - With more than 100 equal-score hits, the 100 kept are the first by name. lgse/strata#2030
 - Results appended while indexing is still running take their place in that name order within the limit. lgse/strata#2030
@@ -87,7 +90,7 @@ Ctrl+K global search finds files and folders across Home and mounted local drive
 - Enter or a single click on a result opens it and closes search. lgse/strata#177, lgse/strata#758
 - With an input method composing in the query field, Enter that the input method passes back after committing opens the highlighted result. lgse/strata#1583
 - Opening a folder result navigates into that folder. lgse/strata#177 (unverified)
-- Opening a file result reveals it selected in its folder and opens quick preview. lgse/strata#1499
+- In a browser window, opening a file result reveals it selected in its folder and opens quick preview. lgse/strata#1499, lgse/strata#2802
 - With **Open search results directly** on, opening a file result launches it instead of previewing it, and still reveals it in its folder. lgse/strata#144 (unverified)
 - Alt+Enter, or right-click → **Open containing folder**, closes search and opens the result's parent with the result selected and focused. lgse/strata#1066
 - Alt+Enter with Hyper or Meta held also opens the containing folder. lgse/strata#1576
@@ -156,5 +159,6 @@ Global search and the pane filter are separate tools: Ctrl+K finds anything anyw
 ## Known gaps
 
 - Remote shares such as SMB are not searched. lgse/strata#87
+- In a file chooser, the footer's Enter hint still reads "open", though Enter reveals a file or enters a folder there. lgse/strata#2802 ([comment](https://github.com/lgse/strata/pull/2802#issuecomment-7137565431))
 - During bursts of outside changes, a rescan request can block the window for up to one scoring pass. lgse/strata#1544
 - Index walks bypass the mount request lanes. A walk that reaches a dead mount waits until the server answers. lgse/strata#1729

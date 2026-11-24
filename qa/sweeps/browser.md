@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, crates/strata-fs/src/app/browser.rs, crates/strata-fs/src/app/browser/tests.rs, crates/strata-fs/src/app/navigation.rs, crates/strata-fs/src/app/navigation/tests.rs, crates/strata-fs/src/app/browser/tests/events.rs, crates/strata-fs/src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
@@ -158,6 +158,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - With one entry selected, create 4,200 files in the active column's folder from a shell, then press Down and the 10xer next-entry key.
 - With the badge on, hover a folder of only dot-files with hidden files off, the unreadable folder, `100000`, and an `sftp://` folder.
 - Hover and select the 255-byte name in a light and a dark theme, and on an open-path folder row.
+- Open `deep` four columns in, then focus each column in turn by click and by keyboard, with a right-click menu open on an open-path row; compare its fill in a light and a dark theme and in high contrast.
 - Scroll the strip so a parent column is clipped, then press 5 px and 1 px left of its edge and 4 px right of it and drag; repeat after arrow keys moved the strip.
 - With badges on, rest the pointer on an unselected row and hold Down through it; then move the pointer 1 px. Hover a row and leave it within 120 ms.
 - Wheel-scroll a column with the pointer over it and badges on; then kinetic-scroll the strip so a parent is clipped, stop, and compare its reveal button with its visible width.
@@ -355,7 +356,13 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 ### browser/navigation/location-bar
 
-- Type `~/`, `./`, `../`, `  ~/Documents  `, `~root`, `file:///etc`, `trash:///`, and `gopher://x` and record each result.
+- Type `~/`, `./`, `../`, `  ~/Documents  `, `~root`, `trash:///`, and `gopher://x` and record each result.
+- Paste `/srv/Mom's and Dad's`, `/music/"Heroes"`, `/tmp/report\ (1).txt`, and `/tmp/a\ b\c` with each name existing literally, then with only the unescaped name existing.
+- Paste `$'…'` names holding `\t`, `\x80`, `\u00e9`, `\U0001F600`, `\101`, and an unknown escape such as `\q`, then paste the path Copy path gives for each.
+- Type `file://otherhost/x`, `file://LOCALHOST/tmp`, `file:/tmp`, `file:///tmp/%2e%2e/etc`, and `"file:///tmp/My%20Documents"`; repeat each in the portal file chooser.
+- Paste a quoted path with a trailing newline, a path wrapped in mismatched quotes such as `'/tmp/x"`, and two paths on separate lines.
+- Paste `'sftp://host/my\ share'` and `$'smb://alice:pw@host/share'` while the share is unmounted; read the entry during the mount and the sign-in dialog.
+- Paste `/home/a@b:c` and `/tmp/x@y:z` for existing folders.
 - Click a crumb while the completion popover is open, and press Escape on a highlighted suggestion.
 - Type the path of a file in the open folder, of a dot-file, of a file inside the unreadable folder, and of the non-UTF-8 name.
 - Open a 200-level `deep` folder; scroll the overflowing crumbs with the wheel and open the hierarchy menu from the last crumb.
@@ -420,6 +427,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 - Open the Ctrl+Shift+K palette from the sidebar, the location entry, and a rename editor, then press Escape; note where focus lands each time.
 - Create 121 equal-score files in reverse name order on tmpfs; search them with Ctrl+K and with Ctrl+F in each view, and compare the first and last names.
 - Read the palette field with Orca after Ctrl+K, then Ctrl+Shift+K, then Ctrl+K again without closing.
+- In a file chooser with a `*.pdf` filter, Ctrl+K a query matching 300 images and 3 PDFs; repeat in a folder chooser and a save dialog.
+- In a file chooser with hidden files off while the main window shows them, Ctrl+K a dotfile; then toggle the chooser's hidden files and reopen.
 
 ### browser/search/exclusions
 
@@ -579,7 +588,7 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Open Properties on a file you cannot chmod, the broken symlink, and the 255-byte name. Toggle a bit, press Escape before it applies, and read AT-SPI states.
 - Press Alt+Enter with nothing selected, with the sidebar focused, and in Recent; set each date format and reread MODIFIED.
-- Copy path for a name holding `'` and a space, and for a file in `trash:///`; paste each in a shell.
+- Copy path for a name holding `'` and a space, a non-UTF-8 name, and a file in `trash:///`; paste each into Ctrl+L, a GTK file dialog's location field, and a text editor.
 - Copy path from the empty-space Properties of the current folder, from a symlink to a folder, from a symlink to a file, and from the broken symlink.
 - On the SMB share, open Properties on a `.md`, `.py`, `.json`, and `.txt` file, a dot-file, and an extensionless file. Read the subtitle, OPENS WITH, and HIDDEN.
 - Open Properties on raw `.264`, `.hevc`, and extensionless streams and on an empty `.h265` file; read the subtitle and OPENS WITH.
@@ -636,6 +645,11 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 ### browser/directory-monitoring
 
 - Run `touch f{1..5000}` then `rm f*` in the open folder; count the rows afterwards and look for duplicates and lost selection.
+- In a 3,000-entry folder scrolled away from the cursor, create 400 files from a shell; repeat in each view, with two entries selected, and with a filter open.
+- Delete the cursor's file from a shell during a 400-file burst, then rename a file inline and press Enter mid-burst.
+- Start a delete, then a paste, while a shell burst is still arriving in the open folder; count rows after both finish.
+- Create 5,000 files in one shell command in a column open in two windows, and in a column still loading `100000`.
+- Background a 10,000-file copy into an open folder at once, then again after half of it, in each view.
 - `mv` the open folder in Columns with three descendants open, then `rm -rf` it; repeat in Icons and List.
 - Stall an NFS mount, press F5 with an inline rename open in its folder, and resume the server before submitting the rename.
 - On a stalled mount, open a 2,000-entry folder, press F5 before all rows show, and resume the server.

@@ -3,8 +3,8 @@ title: Properties dialog
 status: shipped
 origin: {issue: lgse/strata#71, pr: lgse/strata#243}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
+review: draft
 code: [src/ui/browser/properties.rs]
 tests: [tests/qa/scenarios/dialogs_and_menus/properties-copy-path-slashes-only-folders.jsonl, tests/qa/scenarios/dialogs_and_menus/properties-pins-and-unpins-folder.jsonl]
 docs: []
@@ -61,7 +61,7 @@ The modal Properties dialog for one file, one folder, or the current folder: loc
 - Files, Trash locations, and standard places always in the sidebar show no Pin or Unpin action. lgse/strata#457
 - Rename is hidden for Trash locations. lgse/strata#499 (unverified)
 - Open opens the item and closes the dialog. lgse/strata#1012 (unverified)
-- Copy path copies a file's shell-escaped native path with no trailing `/`, such as `/tmp/report.txt`, and a folder's with one. lgse/strata#230, lgse/strata#1805
+- Copy path copies a file's literal native path, without shell quoting and with no trailing `/`, such as `/tmp/12-10-2026 (1).txt`. A folder's path ends in `/`. lgse/strata#230, lgse/strata#1805, lgse/strata#2692, lgse/strata#2669
 - After Copy path, the button reads "Copied". lgse/strata#230 (unverified)
 - A non-native location copies its display path without a trailing `/`. lgse/strata#230 (unverified)
 - In the portal file chooser, closing Properties leaves the chooser open with the selection kept. lgse/strata#175

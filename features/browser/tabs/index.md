@@ -3,7 +3,7 @@ title: Browser tabs
 status: shipped
 origin: {issue: lgse/strata#108, pr: lgse/strata#1484}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [src/ui/window/composition/tabs.rs, src/ui/window/composition/tabs/**, src/ui/browser/tab_location.rs, crates/strata-fs/src/app/browser/navigation_lifecycle.rs]
 tests: [src/ui/window/composition/tabs/tests.rs, src/ui/window/composition/tabs/tests/reopen.rs, src/ui/browser/tab_location/tests.rs, src/ui/window/tests/keyboard_dispatch/open_in_new.rs, tests/qa/scenarios/tabs, tests/qa/scenarios/drag_and_drop/escape-cancels-file-drag.jsonl]
@@ -226,4 +226,5 @@ Issue lgse/strata#108 asked for tabs that each own a multi-pane workspace, drive
 
 ## Known gaps
 
+- On headless sway Wayland, Escape does not cancel a file drag, as the `drop-folder-into-itself`, `hovered-tab-takes-drop`, and `filtered-result-to-sidebar-folder` scenarios show. lgse/strata#2661 ([comment](https://github.com/lgse/strata/pull/2661#issuecomment-7123221271))
 - With enough tabs to overflow the strip, unused space collapses and + scrolls out of view. A folder drag then has no visible new-tab target. lgse/strata#2092

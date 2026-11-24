@@ -3,7 +3,7 @@ title: Columns view
 status: shipped
 origin: {issue: lgse/strata#140, pr: lgse/strata#171}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 review: draft
 code: [src/ui/browser/columns.rs, src/ui/browser/columns/rows.rs, src/ui/browser/columns/reveal.rs, src/ui/browser/columns/append.rs, src/ui/browser/columns/append/header.rs, src/ui/browser/columns/append/models.rs, src/ui/browser/columns/append/shell.rs, src/ui/browser/columns/append/surface.rs, src/ui/browser/columns/cursor.rs, src/ui/browser/columns/double_click.rs, src/ui/browser/columns/lifecycle.rs, src/ui/browser/columns/resize.rs, src/ui/browser/columns/rows/bind.rs, src/ui/browser/columns/rows/click.rs, src/ui/browser/columns/rows/widgets.rs, src/ui/browser/columns/state.rs, src/ui/browser/columns/strip_scroll.rs, src/ui/browser/events/selection.rs]
 tests: [src/ui/browser/columns/tests.rs, tests/qa/scenarios/column_background, tests/qa/scenarios/view_switching/column-autofit-stays-inside.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-respects-disabled-previews.jsonl, tests/qa/scenarios/quick_preview/columns-keyboard-stays-without-mirror.jsonl, tests/qa/scenarios/entry_management/trashing-open-folder-opens-next.jsonl, crates/strata-fs/src/app/navigation/tests/columns.rs, tests/qa/scenarios/inline_renaming/tab-renames-past-open-folder.jsonl, tests/qa/scenarios/keyboard_navigation/back-then-file-keys-target-focused-folder.jsonl, src/ui/window/tests/keyboard_dispatch/file_commands/after_back.rs]
@@ -105,7 +105,10 @@ Miller columns, the default view: each opened folder appends a column to a horiz
 
 ### Open-path marker
 
-- The row of the folder whose column is active gets a strong accent fill; older folders on the open path get a faint one. lgse/strata#1265
+- The row of the folder whose column is active gets a strong accent fill. lgse/strata#1265
+- An older folder on the open path gets a 24% accent fill across the row, up from 8%, and it stays visible after focus moves deeper. lgse/strata#2692, lgse/strata#2662
+- Hovering an older open-path folder row does not change its fill. lgse/strata#2692
+- An older open-path folder row selected in an unfocused column keeps a 17% accent fill over the dimmed selection. lgse/strata#2692 (unverified)
 - Clicking empty space in a column after the first pulses its parent folder's row for 420 ms. lgse/strata#1265 (unverified)
 
 ### Background clicks and scrolling
@@ -203,6 +206,7 @@ Columns is browse-as-you-go: a single click opens a folder, as in Finder, ranger
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-24 | lgse/strata#2692 | feat | Raised the open-path folder fill from 8% to 24% so ancestor columns' open folders stay visible, without a hover change. |
 | 2026-11-08 | lgse/strata#2096 | fix | Made a held second tap wait for release, so it can start a file drag instead of activating on press. |
 | 2026-11-03 | lgse/strata#2041 | perf | Kept a pending child mirror when a suppressed focus echo arrives, so a keyboard move still opens the automatic preview. |
 | 2026-11-02 | lgse/strata#2026 | fix | Put the cursor on an ancestor column's open folder after Back, and kept Tab's next rename editor when a renamed folder's column moves. |

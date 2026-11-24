@@ -3,8 +3,8 @@ title: Network folder change checks
 status: shipped
 origin: {issue: lgse/strata#1590, pr: lgse/strata#1729}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
+review: draft
 code: [crates/strata-fs/src/app/browser/freshness.rs, src/ui/presence.rs, crates/strata-fs/src/adapters/local_files/stamps.rs, crates/strata-fs/src/app/browser/freshness/checks.rs, crates/strata-fs/src/app/browser/freshness/responsiveness.rs]
 tests: [crates/strata-fs/src/app/browser/freshness/tests.rs, src/ui/presence/tests.rs, crates/strata-fs/src/app/browser/freshness/tests/**, crates/strata-fs/src/adapters/local_files/tests/fences.rs, crates/strata-fs/src/adapters/local_files/tests/stamps.rs]
 related: [settings/preferences, browser/view-modes, integration/portal-file-chooser, remote/file-providers/network-locations]
@@ -68,6 +68,7 @@ Periodic checks of shown folders on mounts that other computers or programs chan
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-24 | lgse/strata#2703 | test | Held the main-context lock through the attribute-cache stamp test, so a parallel test moving the shared clock no longer fails it. |
 
 ## Known gaps
 

@@ -46,4 +46,4 @@ The main window's global search palette, opened inside the portal file chooser a
 
 ## Known gaps
 
-- The palette's Enter hint still reads "open" in the chooser, where Enter reveals a file or enters a folder. lgse/strata#2802
+None known.
