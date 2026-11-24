@@ -71,7 +71,7 @@ The header control that shows the active location as breadcrumbs and switches to
 
 - Ctrl+L with `~/My\ Documents/report\ \(1\).pdf` opens `My Documents` with `report (1).pdf` selected. lgse/strata#2692, lgse/strata#2670
 - `'~/My Documents'` opens the folder, and `"<home>/My Documents/report (1).pdf"` selects the file in it. lgse/strata#2692, lgse/strata#2670
-- `' /path/with spaces/file.txt '` opens `/path/with spaces` with `file.txt` selected; spaces inside the quotes are trimmed. lgse/strata#2670, lgse/strata#2692
+- `' /path/with spaces/file.txt '` opens `/path/with spaces` with `file.txt` selected; leading and trailing spaces inside the quotes are trimmed. lgse/strata#2670, lgse/strata#2692
 - `'/tmp/it'\''s here'` and `'/tmp/it'"'"'s here'` both open `/tmp/it's here`. lgse/strata#2692
 - Inside double quotes, `\$`, `` \` ``, `\"`, `\\`, and `\` before a newline lose their backslash; another backslash stays, so `"/tmp/\$d \"v2\" \final"` opens `/tmp/$d "v2" \final`. lgse/strata#2692 (unverified)
 - A newline inside quotes is kept in the path. lgse/strata#2670, lgse/strata#2692

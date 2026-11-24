@@ -645,8 +645,8 @@ Tab-strip drops that open or move tabs belong here. Left to other sweeps: file d
 
 - Run `touch f{1..5000}` then `rm f*` in the open folder; count the rows afterwards and look for duplicates and lost selection.
 - In a 3,000-entry folder scrolled away from the cursor, create 400 files from a shell; repeat in each view, with two entries selected, and with a filter open.
-- Rename a file inline and press Enter during a 400-file shell burst.
-- Start a delete, then a paste, while a shell burst is still arriving in the open folder; count rows after both finish.
+- In the 3,000-entry folder, rename a file inline and press Enter during a 400-file shell burst.
+- In the 3,000-entry folder, start a delete, then a paste, while a shell burst is still arriving; count rows after both finish.
 - Create 5,000 files in one shell command in a column open in two windows, and in a column still loading `100000`.
 - Background a 10,000-file copy into an open folder at once, then again after half of it, in each view.
 - `mv` the open folder in Columns with three descendants open, then `rm -rf` it; repeat in Icons and List.
