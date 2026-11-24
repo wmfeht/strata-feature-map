@@ -21,7 +21,7 @@ The no-clobber placement routine, the native copy engine, the identity rule, and
 
 - A move, rename, undo, restore, or extraction within one NFS, ntfs-3g, 9p, or ceph mount, where `RENAME_NOREPLACE` returns `EINVAL`, finishes without copying any data. lgse/strata#1615
 - There a file is hard-linked and its old name unlinked once the link proves its identity; a folder is renamed over an exclusive empty placeholder. lgse/strata#1615
-- On sshfs, vboxsf, and `fuseblk` mounts such as ntfs-3g, a file is renamed over an exclusive empty placeholder after a check. lgse/strata#1615, lgse/strata#2761
+- On sshfs, vboxsf, and exfat-fuse, or ntfs-3g when a file's own link is refused, a file is renamed over an exclusive empty placeholder after a check. lgse/strata#1615, lgse/strata#2761
 - On sshfs a folder is renamed over an exclusive empty placeholder. On vboxsf a folder is renamed to a name found free. lgse/strata#1615
 - On rclone, s3fs, gvfsd-fuse, and other FUSE daemons over remote storage, a folder is never renamed over a placeholder. lgse/strata#2327
 - There, once `RENAME_NOREPLACE` is known to be missing, a folder is renamed in one call to a name found free. lgse/strata#2327

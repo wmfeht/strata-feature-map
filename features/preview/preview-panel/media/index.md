@@ -24,7 +24,7 @@ The player behind audio, video, animated GIF, and animated WebP previews. FFmpeg
 - An animated WebP in the player plays and loops with only a Play/Pause control, no seek bar or volume. lgse/strata#2734
 - An animated WebP under 30 s whose frames × width × height × 4 fit 256 MiB loops without restarting the decoder. lgse/strata#2734
 - An animated WebP over the loop budget, 30 s or longer, or with unreadable timing plays through, then restarts from 0:00 in a new sandbox run. lgse/strata#2734 (unverified)
-- Unreadable timing covers over 32,767 frames, all-zero frame durations, and a truncated frame header. lgse/strata#2734 (unverified)
+- Unreadable timing covers over 32,767 frames, all-zero frame durations, a RIFF size past the end of the file, and a truncated chunk or frame header. lgse/strata#2734 (unverified)
 - Pausing an animated WebP and playing it, or selecting another file and coming back, resumes at the frame shown when it stopped, not at frame 0. lgse/strata#2734
 - With FFmpeg 9.1, video and audio playback, waveforms, storyboards, and embedded cover art decode instead of showing "Preview unavailable: The file is truncated or damaged". lgse/strata#2696
 - Audio-only files with no video stream, such as a mono `.ogg`, play their audio instead of failing. lgse/strata#817

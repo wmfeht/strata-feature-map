@@ -54,9 +54,10 @@ Copying and cutting files to the system clipboard, pasting them as copies or mov
 
 ### Paths, names, and images
 
-- Copy path is in the item menu, the breadcrumb menu, and Properties, on `y` in the default map while Type to search is off, and on `c c` in 10xer mode. lgse/strata#230, lgse/strata#1306, lgse/strata#2692
+- Copy path is in the item menu, the breadcrumb menu, and Properties. lgse/strata#230, lgse/strata#1306
+- It is on `y` in the default map while Type to search is off, and on `c c` in 10xer mode. lgse/strata#230, lgse/strata#1306, lgse/strata#2692
 - Copy path on `~/My Documents/report (1).pdf` copies the literal native path, with no backslashes or quotes. lgse/strata#2669, lgse/strata#2692
-- A copied folder path ends in `/` and a file path does not; `/` is copied as `/`. lgse/strata#2669, lgse/strata#2692
+- A copied local folder path ends in `/` and a file path does not; `/` is copied as `/`. lgse/strata#2669, lgse/strata#2692
 - Copy path on a local name that is not valid UTF-8, such as `bad\xff.txt`, copies its `file://` URI. lgse/strata#2692
 - Copy path on a remote location, such as `smb://server/share/folder`, copies its URI unchanged. lgse/strata#230, lgse/strata#2692
 - With several items selected, Copy paths copies one unescaped path per line. lgse/strata#230, lgse/strata#2669, lgse/strata#2692
@@ -123,7 +124,7 @@ The clipboard carries a cut marker for other applications (`operations/clipboard
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-24 | lgse/strata#2634 | perf | Reconciled cut lists after a move through hashed lookups instead of a pairwise scan, so finishing a 50,000-file move no longer froze the window for 464 s; also batched monitor bursts. |
+| 2026-11-24 | lgse/strata#2634 | perf | Reconciled cut lists through hashed lookups instead of a pairwise scan, ending a 464 s freeze after a 50,000-file move; batched monitor bursts. |
 | 2026-11-02 | lgse/strata#2040 | fix | Offered and read the GNOME and KDE file-manager clipboard formats, so Nemo, Thunar, and desktop icons paste Strata files and foreign cuts move. |
 | 2026-10-27 | lgse/strata#1900 | fix | Returned keyboard focus to the listing when the cross-device "Copy or move?" prompt closes. |
 | 2026-10-15 | lgse/strata#1626 | fix | Escaped non-UTF-8 path bytes with ANSI-C quoting so copied paths name the real file. |
