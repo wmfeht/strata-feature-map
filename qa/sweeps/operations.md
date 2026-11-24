@@ -22,7 +22,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals and folder and file placement. The lab has no rclone; skip those probes and say so when `rclone` is not installed.
 - A local rclone mount needs no cloud account: `rclone serve webdav /tmp/lab/remote --addr 127.0.0.1:18203`, then `rclone mount ":webdav,url='http://127.0.0.1:18203',vendor=rclone:" /tmp/lab/mnt --vfs-cache-mode full --cache-dir /tmp/lab/cache --tpslimit 6 -v --log-file /tmp/lab/rclone.log`. The `--tpslimit` keeps uploads pending after a copy ends. Unmount with `fusermount3 -u`.
 - An Android phone paired with KDE Connect, whose filesystem `kdeconnectd` mounts with sshfs at `/run/user/<uid>/<device-id>`. The lab's sshfs allows links; skip those probes and say so without a phone.
-- For fcitx5 rename probes, a host run with `STRATA_QA_HOST=1`, optionally `STRATA_QA_DISPLAY=wayland`, as in `docs/testing.md` "Wayland and input methods (host runs)".
+- For fcitx5 rename probes and Wayland drag probes, a host run with `STRATA_QA_HOST=1`, and `STRATA_QA_DISPLAY=wayland` for the drags, as in `docs/testing.md` "Wayland and input methods (host runs)". It needs the owner's consent, and `sway`, `swaymsg`, and `grim` for Wayland.
 - A 9p or virtiofs share and a mergerfs pool, for deletion wording and folder copies. The lab has neither; skip those probes and say so when unavailable.
 - A holder for open files on the NFS, SMB, and sshfs mounts: `less` or `tail -f` run from a terminal app, and the same run as a plain process outside any app unit.
 - A large tree from `scripts/generate-fixture.sh` for progress, cancellation, and Empty Trash measuring.
@@ -88,9 +88,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Cut, then navigate away, switch mode, restart Strata, and paste in a second window; cut styling must clear on completion and on cancel.
 - Paste with the pointer parked over a different column than the keyboard cursor; the destination footer names the folder that receives the files.
 - Copy a file, delete or hide the current folder from a shell, press Alt+Up in Icons and List, then Ctrl+V.
-- Copy name and Copy path for a multi-selection mixing a non-UTF-8 name, an apostrophe, a `$`, and a space; read the clipboard with `wl-paste` or `xclip -o | od -c`.
+- Copy name and Copy path for a multi-selection mixing a non-UTF-8 name, an apostrophe, a `$`, and a space; read the clipboard with `wl-paste | od -c` or `xclip -selection clipboard -o | od -c`.
 - Copy the path of a non-UTF-8 folder, and of a name holding a newline, from the location-bar crumb and from Properties. Paste each into a GTK file dialog and into Ctrl+L.
-- Copy the path of `/`, of a symlink to a folder, and of an `sftp://` folder.
+- Copy the path of a symlink to a folder and of an `sftp://` folder.
 - Cut 50,000 files and paste them into another folder, with the clipboard holding native paths and `file://` URIs mixed.
 - Cut one file in a large Columns folder, scroll it out of view and back, then copy 1,000 files and scroll again.
 - Start a foreground Move to…, cancel it, then fail one, and run Extract here after each.
@@ -164,7 +164,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device. Mount or unmount a device while hovering.
 - Drop onto another device from a Ctrl+F result and from the preview header under Always copy and Always move.
 - On a Wayland host run (`STRATA_QA_HOST=1 STRATA_QA_DISPLAY=wayland`), drag quickly onto a same-volume folder without a modifier, with Ctrl, and with Shift. Start from a row, a Ctrl+F result, and the preview header.
-- On that run, drop onto another device under Always ask, and drop a file dragged from Nautilus or Firefox.
+- On that run, drag a Ctrl+F result and the preview header onto another device under Always ask, and drop a file offered by `tests/qa/fixtures/file_drag_source.py`.
 - Start a drag with Ctrl held, release Ctrl over the target, then drop.
 
 ### operations/filesystem-compatibility
@@ -192,7 +192,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Copy a large folder onto the mergerfs pool and onto the rclone mount; list hidden names in each destination while the copy runs.
 - Copy a folder through the gvfsd-fuse path (`/run/user/<uid>/gvfs`) of an SFTP location; list hidden names while it runs.
 - On the rclone mount with `--vfs-cache-mode writes` and with `off`, rename several files one after another, then move and copy a file in. Check sizes in the backing folder after 10 s.
-- On the rclone mount, paste a file onto a name another program creates just before the paste.
+- On the rclone mount, paste a large file and create a file at its name from a shell while the copy fills its stage.
 
 ### operations/filesystem-compatibility/open-files
 
