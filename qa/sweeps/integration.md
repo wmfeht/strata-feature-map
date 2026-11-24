@@ -1,12 +1,12 @@
 ---
 title: Integration sweep
-reviewed_at: 9ad4b824d0e5ae7632f23e7a8e14cf6d95ceac0d
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 tools: [docs/portal-file-chooser.md, docs/10xer-mode.md, docs/custom-actions.md, scripts/chooser-dev.sh, scripts/portal-test.py, scripts/portal_test_environment.py, scripts/portal-test.html, docs/testing.md, scripts/qa.sh, .agents/skills/qa-scenarios/reference.md, tests/qa/peers.rs, tests/qa/peer_steps.rs, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json]
 ---
 
 ## Scope
 
-Every seam between Strata and the rest of the desktop. The portal file chooser: request handling, and browsing and accepting in each request kind. Its destination choosers for Move to, Copy to, Extract to, and Send to. Install and restore of the portal and file-manager roles. Name field filenames and URL downloads, PNG conversion of downloads, and initial size and placement. 10xer mode: the saved preference, keymap ownership, movement, selection, Escape, and preview key ownership. Its place chords, letter bookmarks, and folder picker. Its find, filter, and search, and `/` descent from the Ctrl+F field or the `f` prompt. Its file commands and their chords, and the mode inside the chooser. Open With: activation, the Run confirmation, the application chooser, Always use, Recently Used, and Open in Terminal. Custom actions: manifests, matching, invocation, the Settings editor, and the recipe library. The FileManager1 D-Bus interface.
+Every seam between Strata and the rest of the desktop. The portal file chooser: request handling, and browsing and accepting in each request kind. Its destination choosers for Move to, Copy to, Extract to, and Send to. Install and restore of the portal and file-manager roles. Name field filenames and URL downloads, PNG conversion of downloads, initial size and placement, and global search inside the chooser. 10xer mode: the saved preference, keymap ownership, movement, selection, Escape, and preview key ownership. Its place chords, letter bookmarks, and folder picker. Its find, filter, and search, and `/` descent from the Ctrl+F field or the `f` prompt. Its file commands and their chords, and the mode inside the chooser. Open With: activation, the Run confirmation, the application chooser, Always use, Recently Used, and Open in Terminal. Custom actions: manifests, matching, invocation, the Settings editor, and the recipe library. The FileManager1 D-Bus interface.
 
 Left to other sweeps: the installer, `.desktop` entries, and single-instance activation, the composition of the context menus, what Move to, Copy to, Extract to, Trash, delete, and Compress do on disk, the Jobs dashboard, views, selection, and tabs inside the chooser, preview rendering, and external file providers.
 
@@ -90,6 +90,18 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Double-click a file, hold the second click 1 s without moving, then release; repeat with Files set to single-click and to double-click, and with a filter result.
 - Press Ctrl+L, type a path without Enter, then click a file row, the sidebar, the preview, the Name field under `save`, and the accept button. Read the location, the selection, and the response code after each. Repeat in Move to and Send to, and read the chosen destination instead of a response code.
 - With the path entry open, press inside it, on its buttons, and on a header button. Drag from inside the entry out into the file list; read whether the entry stays open.
+
+### integration/portal-file-chooser/global-search
+
+- Under `save`, type a name, reveal a file with Ctrl+K and read Name; then reveal a folder hit with Alt+Enter, Save, and read the returned path.
+- Under `directory`, press Alt+Enter on a folder hit, then Accept; read the returned folder.
+- In Send to, press Ctrl+K, then the rebound 10xer search key with the mode on; read the footer and whether anything opens.
+- In Move to and Copy to, search a file name and a folder name; press Enter on each and read the location and the action button.
+- Press Ctrl+K with the Ctrl+F filter open, with the file-type dropdown open, during an inline rename, and with the location entry focused in the default map.
+- Toggle hidden files with Ctrl+H, then search a dotfile; repeat after closing and reopening the palette.
+- Change the file-type filter between two Ctrl+K opens and search a name that only the second filter accepts.
+- Mount a local drive while the chooser is open, then open the palette and search a file on it.
+- Click outside the palette, then read the response code and the selection.
 
 ### integration/portal-file-chooser/setup
 
@@ -329,6 +341,7 @@ Left to other sweeps: the installer, `.desktop` entries, and single-instance act
 - Typed `.` and `..` resolution in `go ›`, and where a keyboard sort is saved → `browser`.
 - The Settings pages hosting the System file manager, 10xer mode, and Actions rows → `settings`.
 - The Devices rows in the chooser sidebar and the Send to device list → `devices`.
+- Global search ranking, indexing, exclusions, and the palette's result list → `browser`.
 - The browser window's sidebar steps and the rail's row sizing → `browser`.
 - The saved `sidebar_compact` state of browser windows → `app`.
 - Network-folder change checks, including the pause while a chooser is hidden → `browser`.

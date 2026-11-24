@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
 triggers: [crates/strata-fs/src/services/operations.rs, crates/strata-fs/src/services/operations/**, crates/strata-fs/src/services/file_source.rs, crates/strata-fs/src/services/file_source/tests.rs, crates/strata-fs/src/adapters/local_operations.rs, crates/strata-fs/src/adapters/local_operations/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
@@ -19,7 +19,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Run the ntfs-3g probes as a non-root user, so mode `0000` blocks reads. Skip them and say so when ntfs-3g is unavailable.
 - `scripts/fslab/fslab.sh up` starts a privileged container with NFS, SMB, sshfs, vfat, exFAT, ntfs3, ntfs-3g, exfat-fuse, and casefold mounts; `fslab.sh probe` reports what each supports. Skip lab probes and say so when Docker cannot run privileged.
 - A real USB stick formatted vfat, and one exFAT, for flush and unplug probes; the lab's loop devices live in RAM.
-- An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals and folder placement. The lab has no rclone; skip those probes and say so when `rclone` is not installed.
+- An sshfs mount without `default_permissions` and an rclone mount, for FUSE Trash refusals and folder and file placement. The lab has no rclone; skip those probes and say so when `rclone` is not installed.
 - A local rclone mount needs no cloud account: `rclone serve webdav /tmp/lab/remote --addr 127.0.0.1:18203`, then `rclone mount ":webdav,url='http://127.0.0.1:18203',vendor=rclone:" /tmp/lab/mnt --vfs-cache-mode full --cache-dir /tmp/lab/cache --tpslimit 6 -v --log-file /tmp/lab/rclone.log`. The `--tpslimit` keeps uploads pending after a copy ends. Unmount with `fusermount3 -u`.
 - An Android phone paired with KDE Connect, whose filesystem `kdeconnectd` mounts with sshfs at `/run/user/<uid>/<device-id>`. The lab's sshfs allows links; skip those probes and say so without a phone.
 - For fcitx5 rename probes, a host run with `STRATA_QA_HOST=1`, optionally `STRATA_QA_DISPLAY=wayland`, as in `docs/testing.md` "Wayland and input methods (host runs)".
@@ -88,8 +88,10 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Cut, then navigate away, switch mode, restart Strata, and paste in a second window; cut styling must clear on completion and on cancel.
 - Paste with the pointer parked over a different column than the keyboard cursor; the destination footer names the folder that receives the files.
 - Copy a file, delete or hide the current folder from a shell, press Alt+Up in Icons and List, then Ctrl+V.
-- Copy name and Copy path for a multi-selection with non-UTF-8 and space-containing names; paste into a terminal and compare bytes.
-- Copy the path of a non-UTF-8 name, and of a folder whose name holds a newline, from the location-bar crumb and from Properties; paste into zsh, fish, and dash.
+- Copy name and Copy path for a multi-selection mixing a non-UTF-8 name, an apostrophe, a `$`, and a space; read the clipboard with `wl-paste` or `xclip -o | od -c`.
+- Copy the path of a non-UTF-8 folder, and of a name holding a newline, from the location-bar crumb and from Properties. Paste each into a GTK file dialog and into Ctrl+L.
+- Copy the path of `/`, of a symlink to a folder, and of an `sftp://` folder.
+- Cut 50,000 files and paste them into another folder, with the clipboard holding native paths and `file://` URIs mixed.
 - Cut one file in a large Columns folder, scroll it out of view and back, then copy 1,000 files and scroll again.
 - Start a foreground Move to…, cancel it, then fail one, and run Extract here after each.
 - Paste an image copied from a browser, and paste into a read-only folder.
@@ -161,6 +163,9 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Drop between two folders on a bind-mounted path to see which device the detection reports.
 - Drag a selection from a folder with a mount point directly inside, the mount-point folder included, onto another device. Mount or unmount a device while hovering.
 - Drop onto another device from a Ctrl+F result and from the preview header under Always copy and Always move.
+- On a Wayland host run (`STRATA_QA_HOST=1 STRATA_QA_DISPLAY=wayland`), drag quickly onto a same-volume folder without a modifier, with Ctrl, and with Shift. Start from a row, a Ctrl+F result, and the preview header.
+- On that run, drop onto another device under Always ask, and drop a file dragged from Nautilus or Firefox.
+- Start a drag with Ctrl held, release Ctrl over the target, then drop.
 
 ### operations/filesystem-compatibility
 
@@ -186,6 +191,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On the rclone mount, cancel a folder copy midway and list the destination with hidden files shown.
 - Copy a large folder onto the mergerfs pool and onto the rclone mount; list hidden names in each destination while the copy runs.
 - Copy a folder through the gvfsd-fuse path (`/run/user/<uid>/gvfs`) of an SFTP location; list hidden names while it runs.
+- On the rclone mount with `--vfs-cache-mode writes` and with `off`, rename several files one after another, then move and copy a file in. Check sizes in the backing folder after 10 s.
+- On the rclone mount, paste a file onto a name another program creates just before the paste.
 
 ### operations/filesystem-compatibility/open-files
 

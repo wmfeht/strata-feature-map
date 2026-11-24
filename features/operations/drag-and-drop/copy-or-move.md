@@ -36,7 +36,8 @@ How a drop chooses between copying and moving. Plain drops on the same filesyste
 
 - A folder reached through a symlink alias of a network mount counts as the same volume as the mount, so plain drops between them move. lgse/strata#761
 - Hovering a drag over a destination beneath an autofs mount does not block the UI; its volume is looked up asynchronously. lgse/strata#846
-- A drop released while the volume lookup is still pending waits for it: a same-filesystem result moves, and another or unknown result follows the cross-device strategy. lgse/strata#1729, lgse/strata#2661 (unverified)
+- A plain drop released while the volume lookup is still pending waits for the lookup, and moves once it finds the same filesystem. lgse/strata#1729, lgse/strata#2661 (unverified)
+- When the lookup finds another or no filesystem, that drop follows the cross-device strategy. lgse/strata#502, lgse/strata#1729 (unverified)
 - A volume lookup still unresolved after 2 seconds counts as unknown, so the drop follows the cross-device strategy. lgse/strata#502
 
 ## Design
