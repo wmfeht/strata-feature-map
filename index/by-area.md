@@ -1058,13 +1058,13 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 ### [Extraction safety](../features/operations/archives/extraction-safety.md) `operations/archives/extraction-safety`
 
-shipped · reviewed · reviewed at [`5f17c9f`](https://github.com/lgse/strata/tree/5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd) · 0 PRs since · origin issue [lgse/strata#109](https://github.com/lgse/strata/issues/109), pr [lgse/strata#116](https://github.com/lgse/strata/issues/116)
+shipped · draft · reviewed at [`53fbf40`](https://github.com/lgse/strata/tree/53fbf4034631a59da34fa904a63e5d319ac5734d) · 0 PRs since · origin issue [lgse/strata#109](https://github.com/lgse/strata/issues/109), pr [lgse/strata#116](https://github.com/lgse/strata/issues/116)
 
 How extraction writes untrusted archive members into the destination folder: member path sanitizing, confinement to the destination, link members, metadata, and names the destination cannot store. Member path rules apply to every decoder, RAR included. RAR link members extract as regular files (`operations/archives/rar`).
 
-- Code: [`crates/strata-fs/src/adapters/local_operations/archive/destination.rs`](https://github.com/lgse/strata/blob/5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd/crates/strata-fs/src/adapters/local_operations/archive/destination.rs)
-- Tests: [`crates/strata-fs/src/adapters/local_operations/archive/destination/tests.rs`](https://github.com/lgse/strata/blob/5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd/crates/strata-fs/src/adapters/local_operations/archive/destination/tests.rs)
-- Docs: [`site/src/reference/archives.md`](https://github.com/lgse/strata/blob/5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd/site/src/reference/archives.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd/site/src/reference/keyboard-navigation.md) (inherited), [`docs/archives.md`](https://github.com/lgse/strata/blob/5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd/docs/archives.md) (inherited)
+- Code: [`crates/strata-fs/src/adapters/local_operations/archive/destination.rs`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/crates/strata-fs/src/adapters/local_operations/archive/destination.rs)
+- Tests: [`crates/strata-fs/src/adapters/local_operations/archive/destination/tests.rs`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/crates/strata-fs/src/adapters/local_operations/archive/destination/tests.rs)
+- Docs: [`site/src/reference/archives.md`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/site/src/reference/archives.md) (inherited), [`site/src/reference/keyboard-navigation.md`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/site/src/reference/keyboard-navigation.md) (inherited), [`docs/archives.md`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/docs/archives.md) (inherited)
 - Related: [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md)
 
 ### [Archive preview](../features/operations/archives/preview.md) `operations/archives/preview`
@@ -1328,7 +1328,7 @@ File icons that fly between their rows and the sidebar Trash button, on Move to 
 
 shipped · draft · reviewed at [`53fbf40`](https://github.com/lgse/strata/tree/53fbf4034631a59da34fa904a63e5d319ac5734d) · 0 PRs since · origin issue [lgse/strata#2829](https://github.com/lgse/strata/issues/2829), pr [lgse/strata#2837](https://github.com/lgse/strata/issues/2837)
 
-When Move to Trash or a permanent delete fails on a nested entry, the error dialog names that entry and offers Show in Folder to reveal it. It is for users who must find the one file that keeps a folder in place. The error line's format is built by `operations/delete`; the dialog shell is `app/dialogs`'s.
+When Move to Trash or a permanent delete fails on a nested entry, the error dialog names it. Show in Folder then reveals it. It is for users who must find the one file that keeps a folder in place. The error line's format is built by `operations/delete`; the dialog shell is `app/dialogs`'s.
 
 - Code: [`crates/strata-fs/src/adapters/delete_blocker.rs`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/crates/strata-fs/src/adapters/delete_blocker.rs), [`src/ui/browser/trash/delete_error.rs`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/src/ui/browser/trash/delete_error.rs)
 - Tests: [`crates/strata-fs/src/adapters/delete_blocker/tests.rs`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/crates/strata-fs/src/adapters/delete_blocker/tests.rs), [`src/ui/browser/trash/delete_error/tests.rs`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/src/ui/browser/trash/delete_error/tests.rs), [`tests/qa/scenarios/entry_management/delete-failure-reveals-blocker.jsonl`](https://github.com/lgse/strata/blob/53fbf4034631a59da34fa904a63e5d319ac5734d/tests/qa/scenarios/entry_management/delete-failure-reveals-blocker.jsonl)

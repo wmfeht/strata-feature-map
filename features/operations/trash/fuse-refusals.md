@@ -18,14 +18,16 @@ Recognising a FUSE mount, such as sshfs, rclone, s3fs, or mergerfs, that reports
 
 ### Classifying a refusal
 
-- On a FUSE mount, including `fuseblk`, a trash move failing with permission denied, failed, or invalid argument counts as Trash unsupported, unless it names a blocker inside the item. lgse/strata#1614, lgse/strata#2837
+- On a FUSE mount, including `fuseblk`, a trash move failing with permission denied, failed, or invalid argument counts as Trash unsupported. lgse/strata#1614
+- A refusal that names a blocker inside the item is the exception, below. lgse/strata#2837
 - So does an error writing the `.trashinfo` file, other than a full disk, a missing path, a read-only mount, or a name too long. lgse/strata#1614
 - It counts only while the item is still present and the mount root answers `stat`. lgse/strata#1614
 - The parent must also be off the home device, and the user must be allowed to remove the item. lgse/strata#1614
 - On other local disks, only a not-supported error counts as Trash unsupported. lgse/strata#1614
 - A disconnected FUSE mount, whose root `stat` fails, keeps the raw error instead of "doesn't support Trash". lgse/strata#1614
-- A permission refusal naming a blocker inside the item (`operations/trash/delete-errors`) is an ordinary failure on every mount: the error dialog offers no Delete Permanently, and the mount is not remembered as lacking Trash. lgse/strata#2837
-- On FUSE, a refusal whose listed entry is removable and sits directly in the selected folder names no blocker, so it can still count as Trash unsupported. lgse/strata#2837 (unverified)
+- A permission refusal naming a blocker inside the item (`operations/trash/delete-errors`) is an ordinary failure on every mount. lgse/strata#2837
+- Its error dialog offers no Delete Permanently, and the mount is not remembered as lacking Trash. lgse/strata#2837
+- On FUSE, a refusal may list a removable entry directly in the selected folder. It names no blocker, so it can still count as Trash unsupported. lgse/strata#2837 (unverified)
 - Replacing an item on a FUSE mount whose original holds a refused child reports the refusal, instead of replacing it without Trash. lgse/strata#2837
 
 ### Remembering a refusal

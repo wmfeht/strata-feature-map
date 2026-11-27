@@ -292,6 +292,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
 - On SMB and NFS, Shift+Delete a tree of 200 siblings where one nested folder holds an open file. Meanwhile, `chmod 000` another sibling from a shell. Read which error the dialog names and list what remains.
 - Shift+Delete a selection inside Trash while a shell removes one of its items from `~/.local/share/Trash/files`.
+- Move a folder holding a file that cannot be unlinked to another device, and cancel a copy into such a folder; read each error.
+- Shift+Delete one large folder on an SFTP mount and read the count until it ends.
 
 ### operations/delete/dissolve
 
@@ -324,6 +326,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
 - Compress in Columns into the active child column, a parent column, and a column four levels deep.
 - Activate a folder named `helper.skill`, a symlink named `x.skill` pointing at a ZIP, and a text file renamed to `notes.Skill`.
+- Extract a `.skill` holding two top-level entries, by Enter and by Extract to… into another folder.
 
 ### operations/archives/extraction-safety
 

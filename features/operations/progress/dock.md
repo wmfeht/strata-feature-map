@@ -24,7 +24,7 @@ Non-blocking progress cards in the bottom-right corner of the window for copy, c
 - A card shows its percentage once, at the right of its footer. lgse/strata#1562
 - The footer's left label shows a copy's speed, a compression's count such as "1 / 2 files", or a status such as "Stopping…". lgse/strata#1562
 - During a deletion, the footer's left label is empty, except for the count on a one-item permanent delete outside `trash:///`. lgse/strata#1562, lgse/strata#1935, lgse/strata#2837 (unverified)
-- During such a delete, the left label shows the count, such as "270,325 items deleted". lgse/strata#1935, lgse/strata#2837
+- During such a delete, the left label shows the count, such as "270,325 items deleted". lgse/strata#1935, lgse/strata#2837 (unverified)
 - While that count pulses the bar, the footer's right label reads "…" instead of a percentage. lgse/strata#1935 (unverified)
 - A docked copy also shows files done of total; a compression card names the archive instead of the first item. lgse/strata#1393 (unverified)
 - The destination reads "→ <path>" for a folder, "→ Trash" for Move to Trash, and "Permanent deletion" for permanent deletion. lgse/strata#1393 (unverified)
