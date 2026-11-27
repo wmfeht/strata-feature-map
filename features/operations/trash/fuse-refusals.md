@@ -48,7 +48,7 @@ Recognising a FUSE mount, such as sshfs, rclone, s3fs, or mergerfs, that reports
 
 GIO reports `can-trash` on writable FUSE roots, so a refusal shows only mid-attempt (lgse/strata#1614).
 
-- A refusal to remove a child is not a refusal of the Trash protocol, so it is never classified as Trash unsupported (lgse/strata#2837).
+- A refusal that names a blocker inside the item is not a refusal of the Trash protocol, so it is never classified as Trash unsupported (lgse/strata#2837).
 - `access()` is not trusted, because sshfs answers success without `default_permissions`; mode and sticky bits are read (lgse/strata#1614).
 - The check creates nothing and runs off the main thread (lgse/strata#1614).
 - A refusal is remembered per mount instance so a remount retries, and Reload clears every record rather than probe a possibly hung folder (lgse/strata#1614).
