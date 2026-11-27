@@ -1,6 +1,6 @@
 ---
 title: App sweep
-reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 triggers: [src/ui/window.rs, src/ui/window/keyboard/items.rs, src/ui/frame.rs, src/ui/motion.rs, src/style.css, src/ui/input_ownership.rs, src/ui/window/tests.rs, src/ui/frame/tests.rs, src/ui/input_ownership/tests.rs, src/ui/motion/tests.rs]
 tools: [scripts/test_installer.py, scripts/test_build_srpm.py, install.sh, docs/packaging.md, docs/signed-updates.md, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, tests/qa/keyboard.rs, tests/fixtures/harness.json, scripts/qa-drive.sh]
 ---
@@ -62,6 +62,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Click the backdrop ten times during the close animation, then press Enter; nothing must reopen or activate.
 - In the Compress dialog, dirty the name, then clear it, and click the backdrop; repeat with a password typed and deleted.
 - Shrink the window below each dialog's minimum width plus 84 px, then below the dialog's height; scroll inside, press Enter, and resize back.
+- Fail a Move to Trash of two folders, one blocked by a nested file with a 60-character name and one on a mount without Trash. Narrow the window until the actions stack, then Tab through them and press Space on each.
 - With a dialog open, press Ctrl+K, Ctrl+V, F1, and Ctrl++ in turn and read what each reaches.
 - Open Compress or Properties on a row, delete that row from a shell, then close the dialog; repeat in an empty folder and in a second tab after switching back to it.
 - Open a dialog from a header button, a sidebar row, and the location field; close each by Escape, backdrop, and close button, then press Down and read where focus lands.
