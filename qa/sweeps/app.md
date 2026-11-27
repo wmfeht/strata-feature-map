@@ -62,7 +62,7 @@ Left to other sweeps: per-mode movement and selection keys, the context menu and
 - Click the backdrop ten times during the close animation, then press Enter; nothing must reopen or activate.
 - In the Compress dialog, dirty the name, then clear it, and click the backdrop; repeat with a password typed and deleted.
 - Shrink the window below each dialog's minimum width plus 84 px, then below the dialog's height; scroll inside, press Enter, and resize back.
-- Fail a Move to Trash of two folders, one blocked by a nested file with a 60-character name and one on a mount without Trash. Narrow the window until the actions stack, then Tab through them and press Space on each.
+- On one FUSE mount, fail a single Move to Trash of two folders: one blocked by a nested file with a 60-character name, one refused as a whole. Narrow the window until the actions stack and Tab through them. Repeat the failure and press Space on a different action each time.
 - With a dialog open, press Ctrl+K, Ctrl+V, F1, and Ctrl++ in turn and read what each reaches.
 - Open Compress or Properties on a row, delete that row from a shell, then close the dialog; repeat in an empty folder and in a second tab after switching back to it.
 - Open a dialog from a header button, a sidebar row, and the location field; close each by Escape, backdrop, and close button, then press Down and read where focus lands.

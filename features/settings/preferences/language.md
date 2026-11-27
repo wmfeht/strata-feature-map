@@ -80,7 +80,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
-| 2026-11-27 | lgse/strata#2854 | fix | Revised the Hungarian "Some entries were already deleted." message to say "bejegyzés" instead of "elem"; no keys or placeholders changed. |
+| 2026-11-27 | lgse/strata#2854 | fix | Revised the Hungarian main-catalog string "Some entries were already deleted." to say "bejegyzés" instead of "elem"; no keys or placeholders changed. |
 | 2026-11-17 | lgse/strata#2544 | fix | Revised three Hungarian strings to say "hordozható eszköz" instead of "telefon", including the KDE MTP conflict warning in Diagnostics; no keys or placeholders changed. |
 | 2026-11-16 | lgse/strata#2484 | fix | Revised 26 Hungarian strings, 9 in the main catalog and 17 messages; no keys or placeholders changed. Examples are "Lapozás felfelé" and "Lapozás lefelé" for Page Up and Page Down. |
 | 2026-11-13 | lgse/strata#2304 | fix | Revised 66 Hungarian catalog strings, 25 installer messages, and the desktop entry comment; no keys or placeholders changed. Examples are "megjelenítés" for rendering and item counts that no longer repeat the noun. |
