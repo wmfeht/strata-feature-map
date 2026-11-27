@@ -3,7 +3,7 @@ title: Catppuccin file-type icons
 status: shipped
 origin: {issue: lgse/strata#1587, pr: lgse/strata#1588}
 branch: null
-reviewed_at: 35ee677ab0a633d5d49055464f2946fcf4995ae7
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 review: draft
 code: [src/ui/browser/entry.rs, src/ui/browser/entry/catppuccin.rs, data/icons/catppuccin, scripts/catppuccin_icons.py]
 tests: [src/ui/browser/entry/tests.rs]
@@ -43,7 +43,7 @@ The bundled Catppuccin icon set and the mapping from a file's name to its file-t
 - Search results use the same file-type icons as Columns, List, and Icons views. lgse/strata#1529
 - `.mp4`, `.mkv`, `.webm`, `.mov`, `.avi`, `.m4v`, `.mpeg`, `.mpg`, `.ogv`, `.3gp`, `.3g2`, `.flv`, `.wmv`, `.asf`, `.m2ts`, and `.vob` files show the Lucide clapperboard icon. lgse/strata#1589
 - Raw video streams named `.h264`, `.264`, `.h265`, `.265`, or `.hevc` show the Lucide clapperboard icon. lgse/strata#2030
-- `.zip`, `.7z`, `.tar`, `.gz`, `.tgz`, `.tbz`, `.tbz2`, `.txz`, `.tzst`, `.bz2`, `.xz`, `.zst`, `.rar`, `.lz`, `.lzma`, `.lzo`, `.rz`, `.sz`, `.cab`, `.arj`, and `.cpio` files show the Lucide folder-archive icon, distinct from documents. lgse/strata#1416, lgse/strata#1589, lgse/strata#2030
+- `.zip`, `.skill`, `.7z`, `.tar`, `.gz`, `.tgz`, `.tbz`, `.tbz2`, `.txz`, `.tzst`, `.bz2`, `.xz`, `.zst`, `.rar`, `.lz`, `.lzma`, `.lzo`, `.rz`, `.sz`, `.cab`, `.arj`, and `.cpio` files show the Lucide folder-archive icon, distinct from documents. lgse/strata#1416, lgse/strata#1589, lgse/strata#2030, lgse/strata#2856
 - Spreadsheets, presentations, fonts, disk images, and keys each show their own Lucide icon. lgse/strata#1416
 - A file with an unrecognized extension shows the document icon. lgse/strata#1416
 

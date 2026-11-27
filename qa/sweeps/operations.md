@@ -312,6 +312,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.
 - Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
 - Compress in Columns into the active child column, a parent column, and a column four levels deep.
+- Activate a folder named `helper.skill`, a symlink named `x.skill` pointing at a ZIP, and a text file renamed to `notes.Skill`.
 
 ### operations/archives/extraction-safety
 

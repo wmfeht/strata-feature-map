@@ -1,6 +1,6 @@
 ---
 title: Devices sweep
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 tools: [docs/preview-sandbox.md, data/udiskie/unlock, scripts/sftp-fixture.sh]
 ---
 
