@@ -28,6 +28,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - An archive name the location would store as another, such as `a:b.zip` on vfat, is refused before anything is written. lgse/strata#1615
 - Protection (No password / Password protected) shows only for ZIP and 7Z; switching to TAR or TAR.GZ hides it and resets it to No password. lgse/strata#81, lgse/strata#745
 - A `.skill` file compressed to ZIP is stored, and to 7Z copied, without recompression, as a `.zip` is. lgse/strata#2856
+- A TAR.GZ whose payloads are all `.skill` or other known compressed files uses stored gzip blocks. lgse/strata#2856 (unverified)
 - The Compress fields are named "Archive name" and, with Password protected chosen, "Password" and "Confirm password". lgse/strata#1896
 - Password protected with an empty password shows "Password required"; differing fields show "Passwords do not match"; no archive is written. lgse/strata#81, lgse/strata#745
 - A password-protected 7Z of 4 MiB of zeros packs to hundreds of bytes, like the unprotected one, and lists no member names without the password. lgse/strata#745

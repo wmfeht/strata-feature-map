@@ -32,14 +32,15 @@ Deleting files and folders without Trash, from Shift+Delete or the item menu's "
 - Deleting a folder on NFS, SMB, or FUSE leaves another program's `.nfs…`, `.__smbfile_silly…`, or `.fuse_hidden…` file in place. lgse/strata#1729
 - Such a leftover selected by name is deleted like any file, and the mount's refusal is reported. lgse/strata#1729
 - On NFS or SMB, permanently deleting `tree` while a file in `tree/open/` is open elsewhere deletes everything except `tree/open` and `tree`. lgse/strata#1964, lgse/strata#1965
-- When no holding program is known, the error then reads `tree/open: A file in it is still open in another program. Close it and try again.` lgse/strata#1964, lgse/strata#1965, lgse/strata#2837 (unverified)
+- On NFS, when no holding program is known, the error then reads `tree/open: A file in it is still open in another program. Close it and try again.` lgse/strata#1964, lgse/strata#2837 (unverified)
+- On SMB, the error then reads `tree/open: A file in it is still open in a program on this or another computer.` lgse/strata#1965, lgse/strata#2837 (unverified)
 - When another error, such as `EIO`, stops that delete, the error reported is the one that stopped it, not the still-open folder. lgse/strata#1965
 - When some selected items cannot be deleted, the rest are still deleted and a dialog reads "N items could not be deleted. The remaining items were processed." lgse/strata#75 (unverified)
 - That dialog lists the first 8 errors and adds "… and N more items" for the rest. lgse/strata#75 (unverified)
 - An error that names a nested entry reads `<item>/<nested path>: <reason>`, for Move to Trash and permanent delete. lgse/strata#2837
 - Permanently deleting `to-delete` whose `nested/blocked.txt` cannot be unlinked reads `to-delete/nested/blocked.txt: Permission denied`. lgse/strata#2829, lgse/strata#2837
 - Show in Folder is offered only for a local blocker among the first 8 errors listed, and only if its path resolves (`operations/trash/delete-errors`). lgse/strata#2837 (unverified)
-- A selected top-level file that cannot be deleted reads `x.txt: Could not delete “x.txt”: Permission denied`. lgse/strata#2837 (unverified)
+- Permanently deleting a selected top-level file that cannot be unlinked reads `x.txt: Could not delete “x.txt”: Permission denied`. lgse/strata#2837 (unverified)
 - A failed permanent delete that removed any entry adds "Some entries were already deleted." to its error. lgse/strata#2837
 - That entry may be another selected item or one inside the failed tree. lgse/strata#2837
 - A failed Move to Trash never adds that sentence. lgse/strata#2837 (unverified)

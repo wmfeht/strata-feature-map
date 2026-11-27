@@ -277,13 +277,13 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - With root, make `to-delete/nested` mode `1777` and root-owned, holding a root-owned `blocked.txt`; as the user, Delete, then Shift+Delete, `to-delete`.
 - Delete a folder whose blocked entry is reached through a symlinked subfolder, then one opened through a symlinked parent alias.
 - Shift+Delete nine or more folders that each hold a blocked file, and read which Show in Folder label appears.
-- In an `admin://` folder, Shift+Delete a folder holding a nested entry root cannot remove, such as a file made immutable with `chattr +i`.
 - Click Show in Folder after the blocker's folder was renamed from a shell, and after navigating the tab away during the click.
 - Fail a deletion slow enough to dock, then use Show in Folder from its error dialog while another tab is active.
 - Fail a delete on a blocker below an NFS folder, then stop the NFS server before the dialog opens.
 
 ### operations/delete
 
+- In an `admin://` folder, Shift+Delete a folder holding a nested entry root cannot remove, such as a file made immutable with `chattr +i`.
 - Shift+Delete with no selection in each mode, inside a read-only folder, and on a selection mixing Trash and non-Trash items reached through search.
 - Delete a 10k-entry folder, cancel at about half, and count what remains.
 - Shift+Delete a deep tree on a rotational USB disk while a shell loop renames one of its subfolders.
@@ -326,10 +326,10 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
 - Compress in Columns into the active child column, a parent column, and a column four levels deep.
 - Activate a folder named `helper.skill`, a symlink named `x.skill` pointing at a ZIP, and a text file renamed to `notes.Skill`.
-- Extract a `.skill` holding two top-level entries, by Enter and by Extract to… into another folder.
 
 ### operations/archives/extraction-safety
 
+- Extract a `.skill` holding two top-level entries, by Enter and by Extract to… into another folder.
 - Feed the hostile archives as RAR, and as password-protected ZIP and 7Z through the password retry.
 - Extract a TAR whose first directory entry is `.\`, and a RAR whose first entry is `.\` or `./`. Build the `.\` TAR with a script, since `tar` writes only `./`.
 - Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.

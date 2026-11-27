@@ -20,7 +20,7 @@ How extraction writes untrusted archive members into the destination folder: mem
 
 - Extracting into a folder reached through a symlink writes into the resolved folder. lgse/strata#678
 - Extract to… accepts a write-only drop box, such as a mode `0733` folder owned by another user, then fails with "Could not open extraction destination: Permission denied". lgse/strata#1729
-- Extracting `helper.skill` with several top-level entries next to it creates `helper.skill (1)/`. The folder keeps `.skill`, and the archive itself holds `helper.skill`. lgse/strata#2856 (unverified)
+- Extracting `helper.skill` with several top-level entries next to it creates `helper.skill (1)/`. The folder name keeps `.skill`, and the archive already takes the name `helper.skill`. lgse/strata#2856 (unverified)
 
 ### Member paths
 

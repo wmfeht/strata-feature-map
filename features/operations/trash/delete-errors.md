@@ -19,7 +19,7 @@ When Move to Trash or a permanent delete fails on a nested entry, the error dial
 ### Naming the blocker
 
 - Move to Trash of `to-delete` fails with `to-delete/nested/blocked.txt: Permission denied` when GIO refuses `nested/blocked.txt` and that file is itself not removable. lgse/strata#2829, lgse/strata#2837
-- A listed entry is not removable when its folder lacks write or search permission, or the folder is sticky and the user owns neither. lgse/strata#2837 (unverified)
+- A listed entry is not removable when its folder lacks write or search permission, or the folder is sticky and a non-root user owns neither the folder nor the entry. lgse/strata#2837 (unverified)
 - When the entry GIO lists is removable, the error names its folder instead, such as `to-delete/nested: Permission denied`. lgse/strata#2837
 - When that folder is the selected item itself, the error reads `to-delete: Permission denied` and offers no Show in Folder. lgse/strata#2837
 - Move to Trash of `to-delete` holding a `chmod 000` folder `nested` fails with `to-delete/nested: Permission denied`. lgse/strata#2837

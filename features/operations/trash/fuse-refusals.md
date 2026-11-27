@@ -19,7 +19,6 @@ Recognising a FUSE mount, such as sshfs, rclone, s3fs, or mergerfs, that reports
 ### Classifying a refusal
 
 - On a FUSE mount, including `fuseblk`, a trash move failing with permission denied, failed, or invalid argument counts as Trash unsupported. lgse/strata#1614
-- A refusal that names a blocker inside the item is the exception, below. lgse/strata#2837
 - So does an error writing the `.trashinfo` file, other than a full disk, a missing path, a read-only mount, or a name too long. lgse/strata#1614
 - It counts only while the item is still present and the mount root answers `stat`. lgse/strata#1614
 - The parent must also be off the home device, and the user must be allowed to remove the item. lgse/strata#1614
