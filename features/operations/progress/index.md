@@ -3,8 +3,8 @@ title: Operation progress and cancellation
 status: shipped
 origin: {issue: lgse/strata#11, pr: lgse/strata#75}
 branch: null
-reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
-review: reviewed
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
+review: draft
 code: [src/ui/browser/progress.rs, src/ui/browser/progress/context.rs, src/ui/browser/progress/presentation.rs, crates/strata-fs/src/adapters/local_operations/progress.rs, crates/strata-fs/src/adapters/local_operations/flush.rs, crates/strata-fs/src/app/browser/operation_events/progress.rs, crates/strata-fs/src/app/browser/operation_start.rs, src/ui/browser/progress/dismiss.rs, src/ui/browser/progress/status.rs, src/ui/browser/progress/transfer_updates.rs, src/ui/browser/progress/view.rs]
 tests: [src/ui/browser/progress/tests.rs, crates/strata-fs/src/app/browser/operation_events/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/progress.rs, crates/strata-fs/src/adapters/local_operations/tests/sync.rs, crates/strata-fs/src/adapters/local_operations/tests/sync/**]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -40,7 +40,7 @@ The progress and cancellation UI shared by file operations: the blocking progres
 
 ### Deletion progress
 
-- While one local item is permanently deleted, the progress status reads "N items deleted" with the running count, and the bar pulses. lgse/strata#1935
+- While one item outside `trash:///` is permanently deleted, the progress status reads "N items deleted" with the running count, and the bar pulses. lgse/strata#1935, lgse/strata#2837 (unverified)
 - A permanent delete of two or more items keeps the item percentage and shows no removed-entry count. lgse/strata#1935
 - After Cancel, removed-entry counts no longer change the progress status or bar. lgse/strata#1935 (unverified)
 - When the deleted item finishes, the bar stops pulsing and shows 100%. lgse/strata#1935 (unverified)

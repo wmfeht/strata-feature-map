@@ -3,7 +3,7 @@ title: Trash
 status: shipped
 origin: {issue: lgse/strata#205, pr: lgse/strata#228}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 review: draft
 code: [src/ui/browser/trash.rs, crates/strata-fs/src/adapters/local_operations/trash.rs, src/ui/browser/trash/delete_dialog.rs, src/ui/window/sidebar_trash.rs]
 tests: [src/ui/browser/trash/tests.rs, crates/strata-fs/src/adapters/local_files/tests/trash.rs, crates/strata-fs/src/adapters/local_operations/tests/trash_capabilities.rs, tests/qa/mutations/trash.patch, tests/qa/scenarios/entry_management/delete-to-trash.jsonl, tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl, tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl]
@@ -13,7 +13,7 @@ related: [operations/delete, operations/delete/dissolve, integration/10xer-mode/
 
 ## Summary
 
-Moving files and folders to the freedesktop.org Trash and browsing `trash:///` in every view mode. Trash's UI module also builds the deletion confirmations and the no-Trash fallback. Children: `operations/trash/restore` (Restore from Trash), `operations/trash/empty` (Empty Trash), `operations/trash/animation` (flights between rows and the sidebar Trash button), and `operations/trash/fuse-refusals` (FUSE mounts that refuse Trash).
+Moving files and folders to the freedesktop.org Trash and browsing `trash:///` in every view mode. Trash's UI module also builds the deletion confirmations and the no-Trash fallback. Children: `operations/trash/restore` (Restore from Trash), `operations/trash/empty` (Empty Trash), `operations/trash/animation` (flights between rows and the sidebar Trash button), `operations/trash/fuse-refusals` (FUSE mounts that refuse Trash), and `operations/trash/delete-errors` (naming and revealing the entry that blocks a failed delete).
 
 ## Behavior
 
