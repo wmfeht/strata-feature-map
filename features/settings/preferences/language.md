@@ -3,7 +3,7 @@ title: Interface language
 status: shipped
 origin: {issue: lgse/strata#1517, pr: lgse/strata#1519}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 review: draft
 code: [crates/strata-core/src/i18n.rs, data/locales/counts.json]
 tests: [crates/strata-core/src/i18n/tests.rs, crates/strata-core/src/i18n/catalog_tests.rs]
@@ -80,6 +80,7 @@ The Language setting and the compiled-in translations behind it. Strata's own in
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-27 | lgse/strata#2854 | fix | Revised the Hungarian main-catalog string "Some entries were already deleted." to say "bejegyzés" instead of "elem"; no keys or placeholders changed. |
 | 2026-11-17 | lgse/strata#2544 | fix | Revised three Hungarian strings to say "hordozható eszköz" instead of "telefon", including the KDE MTP conflict warning in Diagnostics; no keys or placeholders changed. |
 | 2026-11-16 | lgse/strata#2484 | fix | Revised 26 Hungarian strings, 9 in the main catalog and 17 messages; no keys or placeholders changed. Examples are "Lapozás felfelé" and "Lapozás lefelé" for Page Up and Page Down. |
 | 2026-11-13 | lgse/strata#2304 | fix | Revised 66 Hungarian catalog strings, 25 installer messages, and the desktop entry comment; no keys or placeholders changed. Examples are "megjelenítés" for rendering and item counts that no longer repeat the noun. |

@@ -3,7 +3,7 @@ title: Undo and redo
 status: shipped
 origin: {issue: lgse/strata#298, pr: lgse/strata#301}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 review: draft
 code: [crates/strata-fs/src/app/browser/replay/**, crates/strata-fs/src/app/browser/undo/**, crates/strata-fs/src/adapters/local_operations/undo_move.rs, crates/strata-fs/src/app/browser/operation_events/replay.rs, crates/strata-fs/src/app/browser/replay.rs, crates/strata-fs/src/app/browser/undo.rs, src/ui/browser/transfer/replay.rs]
 tests: [crates/strata-fs/src/app/browser/tests/undo.rs, crates/strata-fs/src/app/browser/tests/undo_refresh.rs, crates/strata-fs/src/adapters/local_operations/tests/undo.rs, tests/qa/scenarios/entry_management/undo-restores-completed-move.jsonl, crates/strata-fs/src/adapters/local_operations/tests/undo/fixed_names.rs, crates/strata-fs/src/adapters/local_operations/tests/undo/moves.rs, crates/strata-fs/src/adapters/local_operations/tests/undo/renames.rs, crates/strata-fs/src/app/browser/tests/undo/**, src/ui/browser/transfer/tests/undo.rs, src/ui/browser/transfer/tests/replay_kinds.rs]

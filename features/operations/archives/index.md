@@ -3,8 +3,8 @@ title: Archives
 status: shipped
 origin: {issue: null, pr: lgse/strata#81}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
+review: draft
 code: [src/ui/browser/archive.rs, crates/strata-fs/src/adapters/local_operations/archive.rs, crates/strata-fs/src/adapters/local_operations/archive/compression.rs, crates/strata-fs/src/adapters/local_operations/archive/decoders.rs, crates/strata-fs/src/adapters/local_operations/archive/extraction.rs, crates/strata-core/src/model/archive.rs]
 tests: [src/ui/browser/archive/tests.rs, crates/strata-fs/src/adapters/local_operations/archive/tests.rs, crates/strata-fs/src/adapters/local_operations/archive/fixtures.rs, crates/strata-fs/src/adapters/local_operations/archive/compression/**, crates/strata-fs/src/adapters/local_operations/archive/decoders/tests.rs, crates/strata-fs/src/adapters/local_operations/archive/decoders/fixtures/**, crates/strata-fs/src/adapters/local_operations/archive/extraction/tests.rs, crates/strata-fs/src/app/browser/tests/archive_activation.rs, tests/qa/scenarios/archive_activation, tests/qa/scenarios/archive_conflicts, tests/qa/scenarios/archive_errors, tests/qa/scenarios/archive_reveal, tests/qa/fixtures/content-encrypted.7z, tests/qa/scenarios/dialogs_and_menus/compress-then-chooser-extracts.jsonl, tests/qa/scenarios/dialogs_and_menus/invalid-archive-name-keeps-dialog.jsonl, crates/strata-fs/src/adapters/local_operations/archive/extraction/**, crates/strata-fs/src/adapters/local_operations/archive/tests/**, crates/strata-fs/src/adapters/local_operations/archive/decoders/tests/**]
 docs: [site/src/reference/archives.md, site/src/reference/keyboard-navigation.md, docs/archives.md]
@@ -27,6 +27,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 - A name such as `../outside` is rejected in the dialog and nothing is written outside the shown folder. lgse/strata#147
 - An archive name the location would store as another, such as `a:b.zip` on vfat, is refused before anything is written. lgse/strata#1615
 - Protection (No password / Password protected) shows only for ZIP and 7Z; switching to TAR or TAR.GZ hides it and resets it to No password. lgse/strata#81, lgse/strata#745
+- A `.skill` file compressed to ZIP is stored, and to 7Z copied, without recompression, as a `.zip` is. lgse/strata#2856
+- A TAR.GZ whose payloads are all `.skill` or other known compressed files uses stored gzip blocks. lgse/strata#2856 (unverified)
 - The Compress fields are named "Archive name" and, with Password protected chosen, "Password" and "Confirm password". lgse/strata#1896
 - Password protected with an empty password shows "Password required"; differing fields show "Passwords do not match"; no archive is written. lgse/strata#81, lgse/strata#745
 - A password-protected 7Z of 4 MiB of zeros packs to hundreds of bytes, like the unprotected one, and lists no member names without the password. lgse/strata#745
@@ -62,7 +64,8 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 ### Extracting
 
-- Extract here and Extract to… appear only for a regular file, or a symlink to one, with a local path and a `.zip`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` extension. lgse/strata#81, lgse/strata#1478
+- Extract here and Extract to… appear only for a regular file, or a symlink to one, with a local path and a `.zip`, `.skill`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` extension. lgse/strata#81, lgse/strata#1478, lgse/strata#2856
+- A `.skill` file in any letter case, such as `helper.SKILL`, is read as a ZIP for Extract, Enter, and double-click. lgse/strata#2856
 - A folder named `photos.zip` shows no Extract actions and opens like any folder. lgse/strata#1478
 - Extract here extracts beside the archive and selects the result; only a folder without a monitor is reloaded for it. lgse/strata#81, lgse/strata#494, lgse/strata#1615
 - The extracted result that the browser selects keeps keyboard focus after the progress dialog closes, including in Columns. lgse/strata#1533
@@ -154,6 +157,7 @@ Creating ZIP, 7Z, TAR, and TAR.GZ archives from local items, and extracting loca
 
 | Date | PR | Type | Change |
 | --- | --- | --- | --- |
+| 2026-11-27 | lgse/strata#2856 | feat | Read `.skill` files as ZIP archives, so they preview and extract without renaming them to `.zip`. |
 | 2026-10-25 | lgse/strata#1872 | fix | Refused a drive prefix only at the start of a member path, so `names/c:notes` extracts instead of aborting. |
 | 2026-10-25 | lgse/strata#1870 | fix | Copied a TAR hard link from its target where the mount cannot hold hard links, so later members still extract. |
 | 2026-10-22 | lgse/strata#1814 | fix | Skipped root directory markers such as ZIP's `./` for every decoder, so those archives extract instead of failing. |

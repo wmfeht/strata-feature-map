@@ -1,6 +1,6 @@
 ---
 title: Operations sweep
-reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 triggers: [crates/strata-fs/src/services/operations.rs, crates/strata-fs/src/services/operations/**, crates/strata-fs/src/services/file_source.rs, crates/strata-fs/src/services/file_source/tests.rs, crates/strata-fs/src/adapters/local_operations.rs, crates/strata-fs/src/adapters/local_operations/tests.rs, crates/strata-fs/src/adapters/local_operations/tests/paths.rs]
 tools: [docs/testing.md, docs/trash-restore-testing.md, docs/archives.md, docs/filesystem-compatibility.md, scripts/fslab, scripts/generate-fixture.sh, scripts/qa-mutation.sh, tests/qa/fixtures/content-encrypted.7z, tests/qa/fixtures/file_drag_source.py, tests/qa/mutations]
 ---
@@ -270,9 +270,20 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - After a refusal, open the same folder in a second window and in the file chooser, then reload each way: F5, the pane refresh button, the folder menu, chooser F5.
 - Kill the sshfs process mid-delete, then Delete again; remount and Delete again.
 - Pre-create an empty `.Trash-$uid` on the sshfs root, then Delete there and list the root.
+- On sshfs and rclone, Delete a folder holding a subfolder the user cannot write to, then Delete a plain file in the same folder.
+
+### operations/trash/delete-errors
+
+- With root, make `to-delete/nested` mode `1777` and root-owned, holding a root-owned `blocked.txt`; as the user, Delete, then Shift+Delete, `to-delete`.
+- Delete a folder whose blocked entry is reached through a symlinked subfolder, then one opened through a symlinked parent alias.
+- Shift+Delete nine or more folders that each hold a blocked file, and read which Show in Folder label appears.
+- Click Show in Folder after the blocker's folder was renamed from a shell, and after navigating the tab away during the click.
+- Fail a deletion slow enough to dock, then use Show in Folder from its error dialog while another tab is active.
+- Fail a delete on a blocker below an NFS folder, then stop the NFS server before the dialog opens.
 
 ### operations/delete
 
+- In an `admin://` folder, Shift+Delete a folder holding a nested entry root cannot remove, such as a file made immutable with `chattr +i`.
 - Shift+Delete with no selection in each mode, inside a read-only folder, and on a selection mixing Trash and non-Trash items reached through search.
 - Delete a 10k-entry folder, cancel at about half, and count what remains.
 - Shift+Delete a deep tree on a rotational USB disk while a shell loop renames one of its subfolders.
@@ -281,6 +292,8 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Shift+Delete one NFS folder that already holds a `.nfs…` file another process keeps open. While the delete waits, compare the count shown with `find | wc -l` taken beforehand.
 - On SMB and NFS, Shift+Delete a tree of 200 siblings where one nested folder holds an open file. Meanwhile, `chmod 000` another sibling from a shell. Read which error the dialog names and list what remains.
 - Shift+Delete a selection inside Trash while a shell removes one of its items from `~/.local/share/Trash/files`.
+- Move a folder holding a file that cannot be unlinked to another device, and cancel a copy into such a folder; read each error.
+- Shift+Delete one large folder on an SFTP mount and read the count until it ends.
 
 ### operations/delete/dissolve
 
@@ -312,9 +325,11 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - On SMB without server inode numbers, cancel a Compress just as it publishes, then list `.strata-copy-*` names.
 - Extract into a folder open in a second window that has no monitor, such as an SFTP folder.
 - Compress in Columns into the active child column, a parent column, and a column four levels deep.
+- Activate a folder named `helper.skill`, a symlink named `x.skill` pointing at a ZIP, and a text file renamed to `notes.Skill`.
 
 ### operations/archives/extraction-safety
 
+- Extract a `.skill` holding two top-level entries, by Enter and by Extract to… into another folder.
 - Feed the hostile archives as RAR, and as password-protected ZIP and 7Z through the password retry.
 - Extract a TAR whose first directory entry is `.\`, and a RAR whose first entry is `.\` or `./`. Build the `.\` TAR with a script, since `tar` writes only `./`.
 - Extract a password-protected ZIP that holds a `./` directory marker, through the password prompt.
@@ -396,6 +411,7 @@ Left to other sweeps: pointer gestures and selection before a drag starts, the s
 - Pointer gestures before a drag starts, marquee, and click modes → `browser`.
 - The sidebar Trash row as a navigation target → `browser`.
 - Modal dialog shell: blur, Escape, backdrop, focus return → `app`.
+- Error dialog button order and stacking in a narrow window when Show in Folder and a retry both show → `app`.
 - Rendering of archive members and documents inside the preview panel → `preview`.
 - Preview playback stopping, the sandbox wait, and the preview following a renamed item during an operation → `preview`.
 - Thumbnails asked for again after an operation stopped them → `browser`.

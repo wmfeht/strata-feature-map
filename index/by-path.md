@@ -87,6 +87,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `crates/strata-desktop/src/window_controls/tests.rs` | tests | [Window chrome and structure](../features/app/window/index.md) | — |
 | `crates/strata-fs/src/adapters/bookmarks.rs` | code | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
 | `crates/strata-fs/src/adapters/bookmarks/tests.rs` | tests | [Pinned folders](../features/browser/sidebar/pins/index.md) | [Sidebar](../features/browser/sidebar/index.md) |
+| `crates/strata-fs/src/adapters/delete_blocker.rs` | code | [Delete error blockers and Show in Folder](../features/operations/trash/delete-errors.md) | [Trash](../features/operations/trash/index.md) |
+| `crates/strata-fs/src/adapters/delete_blocker/tests.rs` | tests | [Delete error blockers and Show in Folder](../features/operations/trash/delete-errors.md) | [Trash](../features/operations/trash/index.md) |
 | `crates/strata-fs/src/adapters/directory_summary.rs` | code | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `crates/strata-fs/src/adapters/directory_summary/**` | tests | [Folder and selection size](../features/browser/properties/size.md) | [Properties dialog](../features/browser/properties/index.md) |
 | `crates/strata-fs/src/adapters/directory_validation.rs` | code | [Drag folders to pin](../features/browser/sidebar/pins/drag-to-pin.md) | [Pinned folders](../features/browser/sidebar/pins/index.md), [Sidebar](../features/browser/sidebar/index.md) |
@@ -824,6 +826,8 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `src/ui/browser/transfer_report/tests.rs` | tests | [Filesystem-safe placement and copying](../features/operations/filesystem-compatibility/index.md) | — |
 | `src/ui/browser/trash.rs` | code | [Trash](../features/operations/trash/index.md) | — |
 | `src/ui/browser/trash/delete_dialog.rs` | code | [Trash](../features/operations/trash/index.md) | — |
+| `src/ui/browser/trash/delete_error.rs` | code | [Delete error blockers and Show in Folder](../features/operations/trash/delete-errors.md) | [Trash](../features/operations/trash/index.md) |
+| `src/ui/browser/trash/delete_error/tests.rs` | tests | [Delete error blockers and Show in Folder](../features/operations/trash/delete-errors.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/trash/empty.rs` | code | [Empty Trash](../features/operations/trash/empty.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/trash/restore.rs` | code | [Restore from Trash](../features/operations/trash/restore.md) | [Trash](../features/operations/trash/index.md) |
 | `src/ui/browser/trash/tests.rs` | tests | [Trash](../features/operations/trash/index.md) | — |
@@ -1505,6 +1509,7 @@ Each upstream path or glob with the node that owns it and that node's ancestors,
 | `tests/qa/scenarios/drag_and_drop/strip-edge-scrolls-columns-in.jsonl` | tests | [Columns drag autoscroll](../features/operations/drag-and-drop/column-autoscroll.md) | [Drag and drop](../features/operations/drag-and-drop/index.md) |
 | `tests/qa/scenarios/drag_animation/delete-animation-keeps-survivors.jsonl` | tests | [Permanent-delete dissolve animation](../features/operations/delete/dissolve.md) | [Permanent deletion](../features/operations/delete/index.md) |
 | `tests/qa/scenarios/entry_management/clicking-inside-keeps-new-entry.jsonl` | tests | [New Folder and New File](../features/operations/create.md) | — |
+| `tests/qa/scenarios/entry_management/delete-failure-reveals-blocker.jsonl` | tests | [Delete error blockers and Show in Folder](../features/operations/trash/delete-errors.md) | [Trash](../features/operations/trash/index.md) |
 | `tests/qa/scenarios/entry_management/delete-file-symlink-sizes-link.jsonl` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `tests/qa/scenarios/entry_management/delete-to-trash.jsonl` | tests | [Trash](../features/operations/trash/index.md) | — |
 | `tests/qa/scenarios/entry_management/delete-without-trash-focuses-cancel.jsonl` | tests | [Trash](../features/operations/trash/index.md) | — |

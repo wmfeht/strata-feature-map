@@ -3,8 +3,8 @@ title: Extraction safety
 status: shipped
 origin: {issue: lgse/strata#109, pr: lgse/strata#116}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
+review: draft
 code: [crates/strata-fs/src/adapters/local_operations/archive/destination.rs]
 tests: [crates/strata-fs/src/adapters/local_operations/archive/destination/tests.rs]
 related: [operations/filesystem-compatibility]
@@ -20,6 +20,7 @@ How extraction writes untrusted archive members into the destination folder: mem
 
 - Extracting into a folder reached through a symlink writes into the resolved folder. lgse/strata#678
 - Extract to… accepts a write-only drop box, such as a mode `0733` folder owned by another user, then fails with "Could not open extraction destination: Permission denied". lgse/strata#1729
+- Extracting `helper.skill` with several top-level entries next to it creates `helper.skill (1)/`. The folder name keeps `.skill`, and the archive already takes the name `helper.skill`. lgse/strata#2856 (unverified)
 
 ### Member paths
 

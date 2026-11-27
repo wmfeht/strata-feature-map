@@ -3,8 +3,8 @@ title: Archive preview
 status: shipped
 origin: {issue: lgse/strata#1151, pr: lgse/strata#1090}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
+review: draft
 code: [src/ui/preview/archive.rs, crates/strata-fs/src/adapters/local_operations/archive/listing.rs, src/ui/preview/archive_view.rs, crates/strata-preview/src/sandbox/archive_listing.rs]
 tests: [crates/strata-fs/src/adapters/local_operations/archive/listing/tests.rs, tests/qa/scenarios/archive_preview, crates/strata-fs/src/adapters/local_preview/tests/archive.rs, crates/strata-preview/src/sandbox/archive_listing/tests.rs, crates/strata-fs/src/adapters/local_operations/archive/helper_tests.rs]
 docs: [site/src/reference/keyboard-navigation.md]
@@ -19,7 +19,7 @@ Browsing a local ZIP, 7z, TAR, or TAR.GZ archive's member tree in the preview, l
 
 ### Listing
 
-- Previewing a `.zip`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` shows its members as a folder tree starting at "Contents", with folder names ending in `/`. lgse/strata#1090 (unverified)
+- Previewing a `.zip`, `.skill`, `.7z`, `.tar`, `.tar.gz`, or `.tgz` shows its members as a folder tree starting at "Contents", with folder names ending in `/`. lgse/strata#1090, lgse/strata#2856 (unverified)
 - Each folder lists its subfolders first, then its files, each in case-insensitive name order. lgse/strata#1090 (unverified)
 - File rows show their size; folder rows show a chevron. lgse/strata#1090 (unverified)
 - A breadcrumb row starts at "Contents"; clicking a crumb, or the back arrow "Go up one level", returns to that level. lgse/strata#1090 (unverified)

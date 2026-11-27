@@ -3,11 +3,11 @@ title: FUSE mounts that refuse Trash
 status: shipped
 origin: {issue: null, pr: lgse/strata#1614}
 branch: null
-reviewed_at: 5f17c9fdc8967e1b4ba8aaf8de113b46d824b0dd
-review: reviewed
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
+review: draft
 code: [crates/strata-fs/src/adapters/trash_support.rs]
 tests: [crates/strata-fs/src/adapters/trash_support/tests.rs]
-related: [operations/filesystem-compatibility]
+related: [operations/filesystem-compatibility, operations/trash/delete-errors]
 ---
 
 ## Summary
@@ -24,6 +24,10 @@ Recognising a FUSE mount, such as sshfs, rclone, s3fs, or mergerfs, that reports
 - The parent must also be off the home device, and the user must be allowed to remove the item. lgse/strata#1614
 - On other local disks, only a not-supported error counts as Trash unsupported. lgse/strata#1614
 - A disconnected FUSE mount, whose root `stat` fails, keeps the raw error instead of "doesn't support Trash". lgse/strata#1614
+- A permission refusal naming a blocker inside the item (`operations/trash/delete-errors`) is an ordinary failure on every mount. lgse/strata#2837
+- Its error dialog offers no Delete Permanently, and the mount is not remembered as lacking Trash. lgse/strata#2837
+- On FUSE, a refusal may list a removable entry directly in the selected folder. It names no blocker, so it can still count as Trash unsupported. lgse/strata#2837 (unverified)
+- Replacing an item on a FUSE mount whose original holds a refused child reports the refusal, instead of replacing it without Trash. lgse/strata#2837
 
 ### Remembering a refusal
 
@@ -37,12 +41,14 @@ Recognising a FUSE mount, such as sshfs, rclone, s3fs, or mergerfs, that reports
 
 - After a batch whose trash moves on a FUSE mount were refused as unsupported, new empty `.Trash-$uid` or `.Trash/$uid` folders are removed from its root. lgse/strata#1614
 - That cleanup is skipped on a mount where any item in the batch was trashed. lgse/strata#1614
+- After a blocker refusal on FUSE, the `.Trash-$uid` folder the attempt left on the mount root stays. lgse/strata#2837 (unverified)
 - Cleanup never recurses, and leaves a Trash folder that existed before the batch, holds anything, or is a symlink. lgse/strata#1614 (unverified)
 
 ## Design
 
 GIO reports `can-trash` on writable FUSE roots, so a refusal shows only mid-attempt (lgse/strata#1614).
 
+- A refusal that names a blocker inside the item is not a refusal of the Trash protocol, so it is never classified as Trash unsupported (lgse/strata#2837).
 - `access()` is not trusted, because sshfs answers success without `default_permissions`; mode and sticky bits are read (lgse/strata#1614).
 - The check creates nothing and runs off the main thread (lgse/strata#1614).
 - A refusal is remembered per mount instance so a remount retries, and Reload clears every record rather than probe a possibly hung folder (lgse/strata#1614).

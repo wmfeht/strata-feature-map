@@ -3,7 +3,7 @@ title: Devices and volumes
 status: shipped
 origin: {issue: lgse/strata#441, pr: lgse/strata#493}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 review: draft
 code: [src/ui/window/devices.rs, src/ui/window/devices/held.rs, src/ui/window/devices/probe_cache.rs, src/ui/window/sidebar_devices.rs, src/ui/window/device_menu.rs, src/ui/window/gio_devices.rs, src/ui/browser/location/devices.rs, src/ui/browser/location/volumes.rs]
 tests: [src/ui/window/devices/tests.rs]

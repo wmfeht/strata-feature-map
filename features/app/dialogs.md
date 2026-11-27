@@ -3,7 +3,7 @@ title: Modal dialogs
 status: shipped
 origin: {issue: lgse/strata#88, pr: lgse/strata#91}
 branch: null
-reviewed_at: 9fb7a36ad4352337f3ada0d43710dc6d4ae838b9
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 review: draft
 code: [src/ui/modal.rs, src/ui/modal/layout.rs, src/ui/modal/focus.rs, src/ui/modal/messages.rs, src/ui/window/modal_layers.rs, src/ui/controls.rs, src/ui/blur.rs]
 tests: [src/ui/modal/tests.rs, src/ui/controls/tests.rs, src/ui/window/tests/keyboard_dispatch/overlay_focus.rs, tests/qa/scenarios/dialogs_and_menus/dismissed-overlays-return-focus.jsonl]
@@ -27,6 +27,7 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - The Compress dialog ignores backdrop clicks once its name differs from the default or either password field has text. lgse/strata#105 (unverified)
 - The archive password dialog ignores backdrop clicks once its password field has text. lgse/strata#105 (unverified)
 - Clicking the backdrop repeatedly during the close animation dismisses the dialog once and leaves no overlay behind. lgse/strata#112
+- Clicking a "Completed with errors" dialog's reveal or retry action twice before it closes runs the action once. lgse/strata#2837 (unverified)
 
 ### Keyboard
 
@@ -71,6 +72,10 @@ The shared shell behind Strata's action dialogs: the blurred backdrop, open and 
 - A dialog larger than the window scrolls inside the window instead of enlarging it. lgse/strata#838
 - When the window is narrower than a dialog's minimum width plus 84 px, the dialog fills the width with 12 px margins. lgse/strata#1155 (unverified)
 - Message dialog text keeps Korean words of up to 12 characters whole when wrapping, instead of breaking between syllables, and never inserts hyphens. lgse/strata#1519 (unverified)
+- A "Completed with errors" dialog offering only a reveal action, such as Show in Folder, shows that action and Close. Close is focused and Done is hidden. lgse/strata#2837 (unverified)
+- A "Completed with errors" dialog with a reveal and a retry action shows the reveal action, Done, and the retry action in that order, with the retry focused. lgse/strata#2837 (unverified)
+- A "Completed with errors" dialog caps its reveal label at about 36 characters wide and ellipsizes it in the middle. lgse/strata#2837 (unverified)
+- When the window constrains a "Completed with errors" dialog to its 12 px margins, its actions stack vertically. lgse/strata#2837 (unverified)
 
 ## Design
 

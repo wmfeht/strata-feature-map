@@ -6,7 +6,7 @@ One Markdown file per Strata feature, tying shipped behavior and design to the u
 
 Look features up [by area](index/by-area.md), [by path](index/by-path.md), [by PR](index/by-pr.md), or [by QA sweep](index/qa.md). *PRs since* counts upstream PRs that touched a feature, or one of its children, after that node's own review; `?` means a review commit is not in `data/prs.jsonl` yet. [qa/README.md](qa/README.md) says how to QA a PR or sweep an area.
 
-Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `ed544cf` · 158 features, 73 reviewed
+Upstream [lgse/strata](https://github.com/lgse/strata) · watermark `53fbf40` · 159 features, 67 reviewed
 
 ## app
 
@@ -15,8 +15,8 @@ QA sweep: [`qa/sweeps/app.md`](qa/sweeps/app.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Accessibility](features/app/accessibility.md) | `app/accessibility` | shipped | draft | `7cc1543` | 0 |
-| [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `9fb7a36` | ? |
-| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `ed544cf` | ? |
+| [Modal dialogs](features/app/dialogs.md) | `app/dialogs` | shipped | draft | `53fbf40` | 0 |
+| [Shared location model and listing adapter](features/app/infrastructure.md) | `app/infrastructure` | shipped | draft | `53fbf40` | 0 |
 | [Shortcuts on any keyboard layout](features/app/keyboard-shortcuts/index.md) | `app/keyboard-shortcuts` | shipped | draft | `9fb7a36` | ? |
 | ↳ [Remappable shortcuts per map](features/app/keyboard-shortcuts/remapping.md) | `app/keyboard-shortcuts/remapping` | shipped | draft | `ed544cf` | ? |
 | [Packaging and installation](features/app/packaging/index.md) | `app/packaging` | shipped | draft | `7cc1543` | ? |
@@ -39,7 +39,7 @@ QA sweep: [`qa/sweeps/browser.md`](qa/sweeps/browser.md)
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
 | [Context menus](features/browser/context-menu.md) | `browser/context-menu` | shipped | draft | `5f17c9f` | 0 |
-| [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `ed544cf` | ? |
+| [Directory loading and monitoring](features/browser/directory-monitoring/index.md) | `browser/directory-monitoring` | shipped | draft | `53fbf40` | ? |
 | ↳ [Network folder change checks](features/browser/directory-monitoring/network-checks.md) | `browser/directory-monitoring/network-checks` | shipped | draft | `ed544cf` | ? |
 | [Folder and file customization](features/browser/folder-customization.md) | `browser/folder-customization` | shipped | draft | `5738aad` | 0 |
 | [Navigation](features/browser/navigation/index.md) | `browser/navigation` | shipped | draft | `ed544cf` | ? |
@@ -94,7 +94,7 @@ QA sweep: [`qa/sweeps/devices.md`](qa/sweeps/devices.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `7cc1543` | 1 |
+| [Devices and volumes](features/devices/volumes/index.md) | `devices/volumes` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Camera photos](features/devices/volumes/camera.md) | `devices/volumes/camera` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [Drive format, label, properties, and container lock](features/devices/volumes/drive-dialogs.md) | `devices/volumes/drive-dialogs` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Drive grouping in Devices](features/devices/volumes/drive-order.md) | `devices/volumes/drive-order` | shipped | draft | `5738aad` | 0 |
@@ -135,35 +135,36 @@ QA sweep: [`qa/sweeps/operations.md`](qa/sweeps/operations.md)
 
 | Feature | Id | Status | Review | Reviewed at | PRs since |
 | --- | --- | --- | --- | --- | --- |
-| [Archives](features/operations/archives/index.md) | `operations/archives` | shipped | reviewed | `5f17c9f` | 0 |
-| ↳ [Extraction safety](features/operations/archives/extraction-safety.md) | `operations/archives/extraction-safety` | shipped | reviewed | `5f17c9f` | 0 |
-| ↳ [Archive preview](features/operations/archives/preview.md) | `operations/archives/preview` | shipped | reviewed | `5f17c9f` | 0 |
+| [Archives](features/operations/archives/index.md) | `operations/archives` | shipped | draft | `53fbf40` | 0 |
+| ↳ [Extraction safety](features/operations/archives/extraction-safety.md) | `operations/archives/extraction-safety` | shipped | draft | `53fbf40` | 0 |
+| ↳ [Archive preview](features/operations/archives/preview.md) | `operations/archives/preview` | shipped | draft | `53fbf40` | 0 |
 | ↳ [RAR extraction](features/operations/archives/rar.md) | `operations/archives/rar` | shipped | reviewed | `5f17c9f` | 0 |
 | [Copy, cut, and paste](features/operations/clipboard/index.md) | `operations/clipboard` | shipped | draft | `ed544cf` | ? |
-| ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `7cc1543` | 0 |
+| ↳ [Paste name conflicts](features/operations/clipboard/conflicts.md) | `operations/clipboard/conflicts` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Clipboard exchange with other file managers](features/operations/clipboard/file-manager-formats.md) | `operations/clipboard/file-manager-formats` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Send to removable devices](features/operations/clipboard/send-to.md) | `operations/clipboard/send-to` | shipped | reviewed | `bae71c0` | 0 |
 | [New Folder and New File](features/operations/create.md) | `operations/create` | shipped | draft | `5f17c9f` | 0 |
-| [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | draft | `5f17c9f` | 0 |
+| [Permanent deletion](features/operations/delete/index.md) | `operations/delete` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Permanent-delete dissolve animation](features/operations/delete/dissolve.md) | `operations/delete/dissolve` | shipped | reviewed | `0f9bb00` | 0 |
 | [Drag and drop](features/operations/drag-and-drop/index.md) | `operations/drag-and-drop` | shipped | draft | `5f17c9f` | ? |
 | ↳ [Columns drag autoscroll](features/operations/drag-and-drop/column-autoscroll.md) | `operations/drag-and-drop/column-autoscroll` | shipped | reviewed | `bae71c0` | 0 |
 | ↳ [Content drops from other applications](features/operations/drag-and-drop/content-drops.md) | `operations/drag-and-drop/content-drops` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [Drop copy-or-move policy](features/operations/drag-and-drop/copy-or-move.md) | `operations/drag-and-drop/copy-or-move` | shipped | draft | `ed544cf` | ? |
-| [Filesystem-safe placement and copying](features/operations/filesystem-compatibility/index.md) | `operations/filesystem-compatibility` | shipped | draft | `ed544cf` | ? |
+| [Filesystem-safe placement and copying](features/operations/filesystem-compatibility/index.md) | `operations/filesystem-compatibility` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Leftovers after a crash or unplug](features/operations/filesystem-compatibility/leftovers.md) | `operations/filesystem-compatibility/leftovers` | shipped | reviewed | `5f17c9f` | 0 |
 | ↳ [Releasing open files before a change](features/operations/filesystem-compatibility/open-files.md) | `operations/filesystem-compatibility/open-files` | shipped | reviewed | `5f17c9f` | 0 |
-| [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | reviewed | `ed544cf` | ? |
-| ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | reviewed | `5f17c9f` | 0 |
+| [Operation progress and cancellation](features/operations/progress/index.md) | `operations/progress` | shipped | draft | `53fbf40` | 0 |
+| ↳ [Progress dock](features/operations/progress/dock.md) | `operations/progress/dock` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Job queue and Jobs dashboard](features/operations/progress/jobs.md) | `operations/progress/jobs` | shipped | draft | `5f17c9f` | 0 |
 | [Inline rename](features/operations/rename/index.md) | `operations/rename` | shipped | draft | `5f17c9f` | 0 |
 | ↳ [Typed path names](features/operations/rename/typed-paths.md) | `operations/rename/typed-paths` | shipped | reviewed | `5f17c9f` | 0 |
-| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `5f17c9f` | ? |
+| [Trash](features/operations/trash/index.md) | `operations/trash` | shipped | draft | `53fbf40` | ? |
 | ↳ [Trash flight animation](features/operations/trash/animation.md) | `operations/trash/animation` | shipped | reviewed | `44bfeab` | 0 |
+| ↳ [Delete error blockers and Show in Folder](features/operations/trash/delete-errors.md) | `operations/trash/delete-errors` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Empty Trash](features/operations/trash/empty.md) | `operations/trash/empty` | shipped | draft | `5f17c9f` | 0 |
-| ↳ [FUSE mounts that refuse Trash](features/operations/trash/fuse-refusals.md) | `operations/trash/fuse-refusals` | shipped | reviewed | `5f17c9f` | 0 |
+| ↳ [FUSE mounts that refuse Trash](features/operations/trash/fuse-refusals.md) | `operations/trash/fuse-refusals` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Restore from Trash](features/operations/trash/restore.md) | `operations/trash/restore` | shipped | draft | `ed544cf` | ? |
-| [Undo and redo](features/operations/undo/index.md) | `operations/undo` | shipped | draft | `5f17c9f` | 0 |
+| [Undo and redo](features/operations/undo/index.md) | `operations/undo` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Undoing a replacing move](features/operations/undo/replacing-moves.md) | `operations/undo/replacing-moves` | shipped | draft | `5f17c9f` | 0 |
 
 ## preview
@@ -211,13 +212,13 @@ QA sweep: [`qa/sweeps/settings.md`](qa/sweeps/settings.md)
 | [Diagnostics](features/settings/diagnostics.md) | `settings/diagnostics` | shipped | draft | `7cc1543` | 0 |
 | [Settings window and general preferences](features/settings/preferences/index.md) | `settings/preferences` | shipped | draft | `9ad4b82` | 0 |
 | ↳ [Modified date format](features/settings/preferences/date-format.md) | `settings/preferences/date-format` | shipped | draft | `9ad4b82` | 0 |
-| ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `7cc1543` | 0 |
+| ↳ [Interface language](features/settings/preferences/language.md) | `settings/preferences/language` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Preference storage and synchronization](features/settings/preferences/storage.md) | `settings/preferences/storage` | shipped | draft | `9ad4b82` | 0 |
 | [Themes and appearance](features/settings/themes/index.md) | `settings/themes` | shipped | draft | `6eb4bf6` | 0 |
 | ↳ [Corner roundness](features/settings/themes/corner-roundness.md) | `settings/themes/corner-roundness` | shipped | reviewed | `73b3258` | 0 |
 | ↳ [Follow system light/dark mode](features/settings/themes/follow-system.md) | `settings/themes/follow-system` | shipped | draft | `5f17c9f` | 0 |
 | ↳ [Themed icons](features/settings/themes/icons/index.md) | `settings/themes/icons` | shipped | reviewed | `bae71c0` | 0 |
-| &emsp;↳ [Catppuccin file-type icons](features/settings/themes/icons/catppuccin.md) | `settings/themes/icons/catppuccin` | shipped | draft | `35ee677` | 0 |
+| &emsp;↳ [Catppuccin file-type icons](features/settings/themes/icons/catppuccin.md) | `settings/themes/icons/catppuccin` | shipped | draft | `53fbf40` | 0 |
 | ↳ [Interface font](features/settings/themes/interface-font.md) | `settings/themes/interface-font` | shipped | reviewed | `86df474` | 0 |
 | ↳ [Omarchy theme following](features/settings/themes/omarchy.md) | `settings/themes/omarchy` | shipped | draft | `fb7eb0c` | 0 |
 | ↳ [Desktop text scaling without GTK portals](features/settings/themes/portal-text-scaling.md) | `settings/themes/portal-text-scaling` | shipped | draft | `1d2e244` | 0 |

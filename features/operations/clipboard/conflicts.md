@@ -3,7 +3,7 @@ title: Paste name conflicts
 status: shipped
 origin: {issue: lgse/strata#7, pr: lgse/strata#25}
 branch: null
-reviewed_at: 7cc1543e9c4bc00e68f1525b0b3d47f4624bc375
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 review: draft
 code: [crates/strata-fs/src/adapters/local_operations/replacement.rs, crates/strata-fs/src/adapters/local_operations/merge_aside.rs, crates/strata-fs/src/adapters/local_operations/replacement/**, crates/strata-fs/src/adapters/local_operations/restore/merge_undo.rs, src/ui/browser/transfer/collisions.rs, src/ui/browser/transfer/conflict_dialog.rs]
 tests: [tests/qa/scenarios/copy_conflicts, crates/strata-fs/src/adapters/local_operations/tests/conflicts.rs, crates/strata-fs/src/adapters/local_operations/tests/merge.rs, crates/strata-fs/src/adapters/local_operations/tests/replacement.rs, tests/qa/mutations/keep-both.patch, crates/strata-fs/src/adapters/local_operations/tests/conflicts/**, crates/strata-fs/src/adapters/local_operations/tests/merge/**, crates/strata-fs/src/adapters/local_operations/tests/replacement/**, src/ui/browser/transfer/tests/conflicts.rs, tests/qa/scenarios/drag_and_drop/drag-folder-merges-into-same-named-folder.jsonl, crates/strata-fs/test-resources.gresource.xml]

@@ -1,6 +1,6 @@
 ---
 title: Browser sweep
-reviewed_at: ed544cf3bbb3968299ed8223148a65823739d48f
+reviewed_at: 53fbf4034631a59da34fa904a63e5d319ac5734d
 triggers: [src/ui/browser.rs, src/ui/browser/events.rs, src/ui/browser/preferences.rs, src/ui/entry_list_model.rs, crates/strata-fs/src/app/browser.rs, crates/strata-fs/src/app/browser/tests.rs, crates/strata-fs/src/app/navigation.rs, crates/strata-fs/src/app/navigation/tests.rs, crates/strata-fs/src/app/browser/tests/events.rs, crates/strata-fs/src/app/browser/tests/reveal.rs, src/ui/entry_list_model/tests.rs]
 tools: [scripts/generate-fixture.sh, docs/keyboard-navigation.md, docs/keyboard-shortcuts.md, docs/keymap.md, docs/preferences.md, tests/qa/mutations, tests/qa/keyboard.rs, tests/fixtures/harness.json, tests/qa/fixtures/file_drag_source.py, docs/testing.md, scripts/qa-mutation.sh]
 ---
